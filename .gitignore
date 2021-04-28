@@ -11,3 +11,12 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
+
+
+/.idea/*
+.idea
+/packages/*
+/public/themes/intranet/app/js/app.js
+/public/themes/intranet/app/css/app.css
+/public/themes/web/app/
+public/.DS_Store
