@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@100;200;300;400;500;600;700;800;900&display=swap"
+          rel="stylesheet">
+    <title>Document</title>
+
+    <style>
+        body,
+        html,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        a {
+            color: #3C3C3E;
+            font-family: 'Epilogue', sans-serif;
+            font-weight: 300;
+        }
+
+        .text-primary {
+            color: #5B32B7 !important
+        }
+
+        a.text-primary:focus, a.text-primary:hover {
+            color: #1fa79c !important
+        }
+
+        .text-secondary {
+            color: #f7b589 !important
+        }
+
+        a.text-secondary:focus, a.text-secondary:hover {
+            color: #001626 !important
+        }
+
+        .bg-primary {
+            background-color: #ffffff !important
+        }
+
+        a.bg-primary:focus, a.bg-primary:hover, button.bg-primary:focus, button.bg-primary:hover {
+            background-color: #23bcb0 !important
+        }
+
+        .bg-secondary {
+            background-color: #014272 !important
+        }
+
+        a.bg-secondary:focus, a.bg-secondary:hover, button.bg-secondary:focus, button.bg-secondary:hover {
+            background-color: #01253f !important
+        }
+
+        body {
+            display: flex;
+            font-size: 12px;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mb-2 {
+            margin-bottom: .5rem !important;
+        }
+
+        .container {
+            width: 100% !important;
+            max-width: 500px;
+            margin: auto;
+        }
+
+        .card {
+            border-radius: 10px;
+            overflow: hidden;
+            background: #ffffff;
+        }
+
+        .card-header {
+            padding: 25px 15px;
+            text-align: center;
+        }
+
+        .card-body {
+
+        }
+
+        hr {
+            color: #f5f5f5;
+        }
+
+        .content {
+            padding: 15px 25px;
+        }
+
+        .card-footer {
+            background-color: #5B32B7;
+            padding: 25px 15px;
+        }
+
+        h1, h2, h3 {
+            font-size: 18px;
+        }
+
+        p {
+            font-size: 12px;
+        }
+
+        .title {
+            font-size: 19px;
+            color: #5B32B7;
+            font-weight: bold;
+            font-family: 'Epilogue', sans-serif;
+        }
+
+        .bold {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body style="width:100%;background:#f5f5f5;overflow-x: hidden;">
+<div class="container">
+    <div class="card">
+        <div class="card-header bg-primary">
+            <img style="" src="https://ikiru.innovaweb.cl/themes/web/assets/images/logo.png"/>
+        </div>
+        <div class="card-body">
+            @if(trim($__env->yieldContent('header')))
+                <h2 class="text-primary text-center">
+                    @yield('header')
+                </h2>
+                <div style="border-bottom:1px solid #f5f5f5"></div>
+            @endif
+            <div class="content">
+                @yield('content')
+            </div>
+            <div style="border-bottom:1px solid #f5f5f5"></div>
+            <div style="padding: 10px; text-align: center; font-size: 8px;">
+                Este mensaje ha sido enviado automáticamente y no necesita ser respondido.
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="mb-2 text-center" style="">
+                <div>
+                    <a href="#" target="_blank" style="text-decoration: none;">
+                        <img style="margin: 0 5px;" src="https://ikiru.innovaweb.cl/themes/web/assets/img/email/twitter.png"/>
+                    </a>
+                    <a href="#" target="_blank" style="text-decoration: none;">
+                        <img style="margin: 0 5px;" src="https://ikiru.innovaweb.cl/themes/web/assets/img/email/facebook.png"/>
+                    </a>
+                    <a href="#" target="_blank" style="text-decoration: none;">
+                        <img style="margin: 0 5px;" src="https://ikiru.innovaweb.cl/themes/web/assets/img/email/instagram.png"/>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

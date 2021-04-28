@@ -1,0 +1,80 @@
+.form-control {
+    font-family: 'Epilogue', sans-serif;
+}
+
+.form-control-w2 {
+    font-family: 'Epilogue', sans-serif;
+    border: 1px solid #E5E5E5;
+    border-radius: 12px;
+    height: 60px;
+    //padding: 1.5rem 1.75rem .5rem;
+    padding: 1.5rem 1.75rem .5rem;
+    color: #3C3C3E;
+    font-size: 14px;
+    font-weight: 300;
+    transition: .1s;
+}
+
+.form-control-w2.active,
+.form-control-w2:hover,
+.form-control-w2:focus,
+.form-control-w2:active,
+.form-control-custom.active,
+.form-control-custom:hover,
+.form-control-custom:focus,
+.form-control-custom:active {
+    box-shadow: 0 10px 10px rgba(91, 50, 183, 0.05);
+}
+
+
+.form-control-custom {
+    border: 1px solid #E5E5E5;
+    border-radius: 12px;
+    height: 60px;
+    font-size: 14px;
+    color: #3C3C3E;
+    //padding-left: 20px;
+    //box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    padding-left: 1.75rem;
+}
+
+.form-control-custom-45 {
+    height: 45px;
+}
+
+.form-control-w2::placeholder,
+.form-control-custom::placeholder {
+    color: #939292;
+    font-size: 14px;
+}
+
+.form-group-w2 {
+    //margin-top: -30px;
+}
+
+.form-group-w2 label {
+    font-size: 14px;
+    color: #3C3C3E;
+    transition: 0.3s;
+    font-weight: 300;
+    position: absolute;
+    top: 22px;
+    left: 44px;
+
+    //TEMPORAl
+    //top: 37px;
+    //font-size: 10px;
+}
+
+.form-control-w2.active + label,
+    //.form-control-w2:hover + label,
+.form-control-w2:focus + label,
+.form-control-w2:active + label,
+.form-control-w2.has-value + label {
+    font-size: 10px;
+    color: #939292;
+    top: 13px;
+    left: 44px;
+}
+
+

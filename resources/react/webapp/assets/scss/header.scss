@@ -1,0 +1,65 @@
+.bg-app{
+    background-image: url(/themes/web/assets/images/bg/bg-top-gray.svg);
+    background-position: top left;
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+}
+
+.bg-menu-company,
+.bg-menu-professional{
+    background-image: url(/themes/web/assets/images/bg/bg-top-gray-short.svg);
+    background-position: top left;
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+}
+
+.bg-top-login{
+    background-image: url(/themes/web/assets/images/bg/bg-top-purple.svg);
+    background-position: top right;
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+}
+
+.main-nav a{
+    color: #3C3C3E;
+}
+.main-nav a:active,
+.main-nav a:hover {
+    text-shadow: 0px -0.5px 0px #5B32B7;
+    color: #5B32B7;
+}
+
+.bg-top-login .nav a {
+    color: #ffffff;
+    //font-size: 12px;
+    //font-weight: 400;
+}
+
+.bg-top-login .nav a:active,
+.bg-top-login .nav a:hover {
+    //font-weight: 500;
+    text-shadow: 0px -0.5px 0px white;
+    color: white;
+}
+
+.nav-top-avatar{
+
+    width: 24px;
+    height: 24px;
+    margin-top: -2px;
+    background-color: white;
+    border-radius: 50%;
+
+}
+
+.dropdown-custom-nav a {
+    color: #5B32B7 !important;
+    line-height: 12px;
+}
+
+.dropdown-custom-nav a:hover{
+    text-shadow: none;
+    color: white !important;
+    background: #5b32b7;
+    padding: 0.5rem 1rem;
+}

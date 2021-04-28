@@ -2,17 +2,75 @@
     "private": true,
     "scripts": {
         "dev": "npm run development",
-        "development": "mix",
-        "watch": "mix watch",
-        "watch-poll": "mix watch -- --watch-options-poll=1000",
-        "hot": "mix watch --hot",
+        "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "watch": "npm run development -- --watch",
+        "watch-poll": "npm run watch -- --watch-poll",
+        "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
         "prod": "npm run production",
-        "production": "mix --production"
+        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "sapea": "npm run development -- --watch"
     },
     "devDependencies": {
-        "axios": "^0.21",
-        "laravel-mix": "^6.0.6",
-        "lodash": "^4.17.19",
-        "postcss": "^8.1.14"
+        "@babel/core": "^7.12.10",
+        "@babel/plugin-proposal-class-properties": "^7.12.1",
+        "@babel/preset-env": "^7.12.11",
+        "@babel/preset-react": "^7.10.4",
+        "axios": "^0.20.0",
+        "babel-loader": "^8.2.2",
+        "bootstrap": "^4.5.2",
+        "cross-env": "^5.2.1",
+        "file-loader": "^6.2.0",
+        "jquery": "^3.5.1",
+        "laravel-mix": "^4.0.7",
+        "lodash": "^4.17.20",
+        "popper.js": "^1.16.1",
+        "react": "^16.13.1",
+        "react-dom": "^16.13.1",
+        "resolve-url-loader": "^2.3.1",
+        "sass": "^1.27.0",
+        "sass-loader": "^7.1.0",
+        "webpack": "^4.44.2"
+    },
+    "dependencies": {
+        "@fullcalendar/core": "^5.5.0",
+        "@fullcalendar/daygrid": "^5.5.0",
+        "@fullcalendar/interaction": "^5.5.0",
+        "@fullcalendar/react": "^5.5.0",
+        "@fullcalendar/timegrid": "^5.5.0",
+        "mini-css-extract-plugin": "^0.11.3",
+        "moment": "^2.29.1",
+        "optimize-css-assets-webpack-plugin": "^5.0.4",
+        "postcss-loader": "^2.1.6",
+        "pusher-js": "^7.0.2",
+        "react-animated-css": "^1.2.1",
+        "react-bootstrap": "^1.3.0",
+        "react-bootstrap-table-next": "^4.0.3",
+        "react-bootstrap-table2-filter": "^1.3.3",
+        "react-bootstrap-table2-paginator": "^2.1.2",
+        "react-bootstrap-table2-toolkit": "^2.1.3",
+        "react-pin-input": "^1.0.1",
+        "react-rating-stars-component": "^2.2.0",
+        "react-router-dom": "^5.2.0",
+        "react-scroll": "^1.8.2",
+        "react-slick": "^0.28.0",
+        "react-switch": "^6.0.0",
+        "react-toggle-button": "^2.2.0",
+        "slick-carousel": "^1.8.1",
+        "style-loader": "^2.0.0",
+        "sweetalert2": "^10.15.5",
+        "toastr": "^2.1.4",
+        "w2-rut-validator": "^1.3.2",
+        "watchmon": "^0.1.5",
+        "webpack-dev-middleware": "^4.0.2",
+        "webpack-dev-server": "^3.11.0"
+    },
+    "babel": {
+        "presets": [
+            "@babel/preset-env",
+            "@babel/preset-react"
+        ],
+        "plugins": [
+            "@babel/plugin-proposal-class-properties"
+        ]
     }
 }

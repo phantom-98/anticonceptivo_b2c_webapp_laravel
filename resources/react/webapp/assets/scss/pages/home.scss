@@ -1,0 +1,111 @@
+
+.bg-how-its-work {
+    background-image: url('/themes/web/assets/images/home/bg-bubble.svg');
+    background-position: top center;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+.bg-for-company {
+    background-image: url('/themes/web/assets/images/home/bg-for-company.svg');
+    background-position: top center;
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
+.bubble-canvas {
+    min-height: 360px;
+    height: 100%;
+}
+
+.bubble {
+    border-radius: 100%;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+    display: flex;
+    background-color: white;
+}
+
+.bubble img {
+    width: 80%;
+    height: 80%;
+    margin: auto;
+    object-fit: contain;
+}
+
+.bubble-1 {
+    width: 132px;
+    height: 132px;
+    position: absolute;
+    top: 37px;
+    left: 82px;
+}
+
+.bubble-2 {
+    width: 132px;
+    height: 132px;
+    position: absolute;
+    top: 0px;
+    right: 48px;
+}
+
+.bubble-3 {
+    width: 132px;
+    height: 132px;
+    position: absolute;
+    top: 202px;
+    left: 33px;
+}
+
+.bubble-4 {
+    width: 198px;
+    height: 198px;
+    position: absolute;
+    top: 128px;
+    left: 38%;
+}
+
+.bubble-5 {
+    width: 107px;
+    height: 107px;
+    position: absolute;
+    top: 199px;
+    right: 0px;
+}
+
+.card-testimonials img {
+    width: 51px;
+    height: 51px;
+    object-fit: contain;
+    border-radius: 100%;
+}
+
+.card-testimonial-description {
+    min-height: 155px;
+}
+
+.card-what-can-do {
+    padding: 25px;
+    height: 295px;
+    display: flex;
+    background-color: #F6F3FB;
+    border-radius: 12px;
+    color: #5B32B7 !important;
+    transition: 0.3s;
+}
+
+.card-what-can-do:hover {
+    transform: scale(1.05);
+    background-color: #5B32B7;
+    color: #FFFFFF !important;
+}
+
+.card-what-can-do:hover .btn {
+    background-color: #F7B589;
+}
+
+.card-what-can-do .btn {
+    height: 35px;
+    line-height: 19px;
+}
+
+

@@ -1,0 +1,33 @@
+.footer {
+    height: 100%;
+    min-height: 226px;
+}
+
+.bg-footer {
+    background-image: url(/themes/web/assets/images/bg/bg-footer.svg);
+    height: 100%;
+    background-position: top right;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.footer .nav a {
+    color: #ffffff;
+    //font-size: 12px;
+    //font-weight: 400;
+}
+
+.footer .nav a:active,
+.footer .nav a:hover {
+    //font-weight: 500;
+    text-shadow: 0px -0.5px 0px white;
+    color: white;
+}
+
+
+.button-login-footer {
+    border: 2px solid white;
+    padding: 8px 28px;
+    border-radius: 60px;
+    margin-top: -6px;
+}

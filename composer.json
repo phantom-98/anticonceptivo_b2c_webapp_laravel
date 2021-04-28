@@ -6,11 +6,19 @@
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
+        "ext-json": "*",
+        "cviebrock/eloquent-sluggable": "^8.0",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.12",
-        "laravel/tinker": "^2.5"
+        "laravel/passport": "^10.1",
+        "laravel/tinker": "^2.5",
+        "maatwebsite/excel": "^3.1",
+        "pusher/pusher-php-server": "^4.1",
+        "sendgrid/sendgrid": "^7.9",
+        "spatie/laravel-permission": "^3.18",
+        "willywes/apiresponse": "^0.3.0"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
@@ -21,6 +29,9 @@
         "phpunit/phpunit": "^9.3.3"
     },
     "autoload": {
+        "files": [
+            "app/Http/Helper.php"
+        ],
         "psr-4": {
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",

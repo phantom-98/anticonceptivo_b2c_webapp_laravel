@@ -1,0 +1,5 @@
+export const LOCAL_STORAGE = {
+    AUTH : '_IKIRU_AT_f13b09b0d50f9b2f63cd3bed68e945eb',
+    AUTH_TOKEN:'_IKIRU_ATK_2c6c5a31cd9456b2d858fecbf031b3c5',
+    AUTH_TYPE:'_IKIRU_ATP_7a84bf060a0218ec2614d60c52d07a5a',
+}
