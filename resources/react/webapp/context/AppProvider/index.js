@@ -6,9 +6,6 @@ export const AppContext = createContext(null);
 
 const AppProvider = (props) => {
 
-    const [data, setData] = useState(null);
-    const [navbar, setNavbar] = useState('teal')
-
     const pusher = new Pusher(PUSHER.APP_KEY, {
         cluster: PUSHER.APP_CLUSTER
     });
@@ -16,9 +13,6 @@ const AppProvider = (props) => {
 
     return (
         <AppContext.Provider value={{
-            data,
-            navbar,
-            setNavbar,
             pusherNotifyChannel
         }}>
             {props.children}

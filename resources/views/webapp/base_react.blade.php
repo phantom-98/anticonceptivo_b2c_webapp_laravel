@@ -10,25 +10,9 @@
     <!-- Fonts -->
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Signika:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="/themes/web/assets/css/bootstrap.min.css">
-
-    {{--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.css">--}}
-    {{--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.3.1/css/swiper.min.css">--}}
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
-
-    <link rel="stylesheet" href="/themes/web/assets/css/helpers.css">
-{{--    <link rel="stylesheet" href="/themes/web/assets/css/custom.css">--}}
-    <link rel="stylesheet" href="/themes/web/assets/css/responsive.css">
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-          integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="/themes/web/assets/plugins/toastr/toastr.min.css">
-
     <link rel="stylesheet" href="/themes/web/app/css/app.css">
 
     @yield('styles')
@@ -54,28 +38,28 @@
     <meta name="msapplication-TileImage" content="/themes/web/favicon/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
 
-    <meta name="apple-mobile-web-app-title" content="Ikiru">
-    <meta name="application-name" content="Ikiru">
+    <meta name="apple-mobile-web-app-title" content="Anticonceptivos">
+    <meta name="application-name" content="Anticonceptivos">
 
-    <meta name="title" content="Ikiru | Valoriza tu tiempo">
-    <meta name="description" content="Encuentra a los mejores profesionales.">
-    <meta name="keywords" content="Ventas, profesionales, trabajos, empresas, cotizaciones, laboral, portal">
+    <meta name="title" content="Anticonceptivos | Valoriza tu tiempo">
+    <meta name="description" content="">
+    <meta name="keywords" content="Ventas">
     <meta name="robots" content="index, nofollow">
     <meta name="language" content="Spanish">
     <meta name="revisit-after" content="4000 days">
-    <meta name="author" content="Ikiru">
-    <meta name="rights" content="Ikiru"/>
+    <meta name="author" content="Anticonceptivos">
+    <meta name="rights" content="Anticonceptivos"/>
 
-    <meta property="og:site_name" content="Ikiru">
-    <meta property="og:title" content="Ikiru"/>
+    <meta property="og:site_name" content="Anticonceptivos">
+    <meta property="og:title" content="Anticonceptivos"/>
     <meta property="og:description"
           content="Tu doctor a un click."/>
-    <meta property="og:image" itemprop="image" content="https://www.ikiru.cl/themes/web/assets/images/fondo.png">
+    <meta property="og:image" itemprop="image" content="https://www.INSERT-URL.cl/themes/web/assets/images/fondo.png">
     <meta property="og:type" content="website"/>
     <meta property="og:updated_time" content="1440432930"/>
-    <meta property="og:url" content="https://www.ikiru.cl/"/>
+    <meta property="og:url" content="https://www.INSERT-URL.cl/"/>
 
-    <title>Ikiru | @yield('page-title')</title>
+    <title>Anticonceptivos | @yield('page-title')</title>
 
 </head>
 <body>

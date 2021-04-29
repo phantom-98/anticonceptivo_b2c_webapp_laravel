@@ -1,8 +1,6 @@
 import React, {useContext, useEffect, useState} from "react";
 import {Route, Redirect, withRouter} from "react-router-dom";
 import {AuthContext} from "../../context/AuthProvider";
-import {AuthType} from "../../Globals";
-import PUBLIC_ROUTES from "../publicRoutes";
 
 
 const PrivateMiddleware = ({path: path, component: Component, layout: Layout}) => {

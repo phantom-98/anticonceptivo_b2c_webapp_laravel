@@ -9,7 +9,7 @@ import {
 } from "./types";
 import * as Services from "../../Services";
 import {AuthType} from "../../Globals";
-import PANEL_PROFESSIONAL_ROUTES from "../../routes/professionalRoutes";
+import PUBLIC_ROUTES from "../../routes/publicRoutes";
 
 export const AuthContext = createContext({})
 
@@ -19,7 +19,7 @@ const AuthProvider = (props) => {
         auth: null,
         authType: '',
         authToken: '',
-        logged : false
+        logged: false
     };
 
     const [state, dispatch] = useReducer(AuthReducer, initialState);
@@ -64,7 +64,7 @@ const AuthProvider = (props) => {
                         payload: response.data
                     })
                     if (response.data.auth_type === AuthType.PROFESSIONAL) {
-                        window.location.href = PANEL_PROFESSIONAL_ROUTES.DASHBOARD.path;
+                        window.location.href = PUBLIC_ROUTES.HOME.path;
                     } else {
                         window.location.href = '/';
                     }
@@ -116,7 +116,7 @@ const AuthProvider = (props) => {
             auth: state.auth,
             authType: state.authType,
             authToken: state.authToken,
-            logged : state.logged,
+            logged: state.logged,
             login,
             logout,
             updateAuth,
