@@ -97985,10 +97985,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _assets_images_sections_subscribe_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../assets/images/sections/subscribe.png */ "./resources/react/webapp/assets/images/sections/subscribe.png");
-/* harmony import */ var _Icon__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Icon */ "./resources/react/webapp/components/Icon.js");
-/* harmony import */ var _assets_images_icons_header_search_white_svg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../assets/images/icons/header/search-white.svg */ "./resources/react/webapp/assets/images/icons/header/search-white.svg");
-
-
 
 
 

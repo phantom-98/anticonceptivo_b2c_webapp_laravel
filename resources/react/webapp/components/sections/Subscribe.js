@@ -1,7 +1,5 @@
 import React from 'react';
 import bgSubscribe from '../../assets/images/sections/subscribe.png'
-import Icon from "../Icon";
-import searchWhite from "../../assets/images/icons/header/search-white.svg";
 
 const Subscribe = () =>{
     return (
