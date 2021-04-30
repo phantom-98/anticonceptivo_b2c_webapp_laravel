@@ -1,12 +1,20 @@
 import React, {Fragment} from 'react';
 
+import slider from '../../../assets/images/dummy/slider.png'
+import {CONFIG} from "../../../Config";
+import OurBrands from "./OurBrands";
+import Subscribe from "../../../components/sections/Subscribe";
+
 const Home = () => {
     return (
         <Fragment>
-            <h1>Hello Anticonceptivo</h1>
-            <button className="btn btn-primary">
-                <i className="fa fa-calculator"></i> fdsfsd
-            </button>
+            <div className="">
+                <img src={slider} alt={CONFIG.APP_NAME} width="100%"/>
+            </div>
+
+            <OurBrands />
+
+            <Subscribe />
         </Fragment>
     );
 };

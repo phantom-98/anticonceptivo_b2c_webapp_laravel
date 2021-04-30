@@ -1,20 +1,26 @@
-.footer {
-    height: 100%;
-    min-height: 226px;
+.footer-bottom{
+    height: 36px;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+}
+.bottom-to-flex {
+    display: flex !important;
+    min-height: 36px;
 }
 
-.bg-footer {
-    background-image: url(/themes/web/assets/images/bg/bg-footer.svg);
+.footer {
     height: 100%;
-    background-position: top right;
-    background-repeat: no-repeat;
-    background-size: cover;
+    min-height: 263px;
+    background: #005A86;
 }
 
 .footer .nav a {
     color: #ffffff;
-    //font-size: 12px;
-    //font-weight: 400;
+    font-size: 12px;
+    font-weight: 400;
+    font-family: 'Poppins', sans-serif;
 }
 
 .footer .nav a:active,
@@ -22,12 +28,4 @@
     //font-weight: 500;
     text-shadow: 0px -0.5px 0px white;
     color: white;
-}
-
-
-.button-login-footer {
-    border: 2px solid white;
-    padding: 8px 28px;
-    border-radius: 60px;
-    margin-top: -6px;
 }

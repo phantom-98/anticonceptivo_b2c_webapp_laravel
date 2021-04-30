@@ -8,7 +8,7 @@ const TitleApp = ({children, location: {pathname}}) => {
     //     const routes = Object.values(Routes);
     //     const path = (pathname).toString();
     //     let current = routes.find(r => r.URL === path);
-    //     document.title = 'Ikiru | ' + (current ? current.TITLE : '');
+    //     document.title = 'Anticonceptivos | ' + (current ? current.TITLE : '');
     // }, [pathname]);
 
     return children;

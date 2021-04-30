@@ -7,9 +7,10 @@ import Footer from "./layouts/Footer";
 const BaseTemplate = (props) => {
 
     return (
-        <div className={`bg-app bg-menu-${props.menu}`}>
-            <Header menu={props.menu}/>
-            <div className="app-content">
+        <div className={`bg-app`}>
+            <Header />
+            {/*<div className="app-content">*/}
+            <div>
                 {
                     props.children
                 }

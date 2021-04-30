@@ -1,0 +1,14 @@
+<svg id="Grupo_840" data-name="Grupo 840" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="19.33" height="19.325" viewBox="0 0 19.33 19.325">
+  <defs>
+    <linearGradient id="linear-gradient" x1="-0.198" x2="1.318" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#00dbae"/>
+      <stop offset="1" stop-color="#009be8"/>
+    </linearGradient>
+  </defs>
+  <path id="Trazado_166" data-name="Trazado 166" d="M14.535,19.336a2.8,2.8,0,0,1-2-.826L.826,6.8a2.823,2.823,0,0,1,0-3.992L2.8.833a2.889,2.889,0,0,1,3.991,0L18.5,12.546a2.822,2.822,0,0,1,0,3.992L16.531,18.51a2.806,2.806,0,0,1-2,.826ZM4.795.813a2.012,2.012,0,0,0-1.426.59L1.4,3.375a2.018,2.018,0,0,0,0,2.852L13.109,17.94a2.018,2.018,0,0,0,2.852,0l1.972-1.972a2.018,2.018,0,0,0,0-2.852L6.221,1.4A2.012,2.012,0,0,0,4.795.813Z" transform="translate(0 -0.011)" fill="url(#linear-gradient)"/>
+  <path id="Trazado_167" data-name="Trazado 167" d="M17.3,10.069a.4.4,0,0,1-.285-.687l3.157-3.157a2.026,2.026,0,0,0,0-2.854L18.2,1.4a2.025,2.025,0,0,0-2.854,0L12.187,4.555a.4.4,0,1,1-.569-.569L14.775.828a2.835,2.835,0,0,1,3.992,0L20.74,2.8a2.835,2.835,0,0,1,0,3.992L17.583,9.951A.4.4,0,0,1,17.3,10.069Z" transform="translate(-2.238 -0.006)" fill="url(#linear-gradient)"/>
+  <path id="Trazado_168" data-name="Trazado 168" d="M4.794,21.564A2.813,2.813,0,0,1,2.8,20.741L.827,18.768a2.835,2.835,0,0,1,0-3.992l3.159-3.158a.4.4,0,0,1,.569.569L1.4,15.345a2.026,2.026,0,0,0,0,2.854L3.37,20.172a2.025,2.025,0,0,0,2.854,0l3.156-3.156a.4.4,0,1,1,.569.569L6.793,20.741a2.832,2.832,0,0,1-2,.822Z" transform="translate(-0.001 -2.243)" fill="url(#linear-gradient)"/>
+  <path id="Trazado_169" data-name="Trazado 169" d="M10.9,12.916a.4.4,0,0,1-.285-.687l1.611-1.611a.4.4,0,1,1,.569.569L11.187,12.8A.4.4,0,0,1,10.9,12.916Z" transform="translate(-2.043 -2.048)" fill="url(#linear-gradient)"/>
+  <path id="Trazado_170" data-name="Trazado 170" d="M7.9,9.916a.4.4,0,0,1-.285-.687L9.228,7.619a.4.4,0,1,1,.569.569L8.187,9.8a.4.4,0,0,1-.284.118Z" transform="translate(-1.459 -1.465)" fill="url(#linear-gradient)"/>
+  <path id="Trazado_171" data-name="Trazado 171" d="M13.9,15.916a.4.4,0,0,1-.285-.687l1.611-1.611a.4.4,0,0,1,.569.569L14.187,15.8A.4.4,0,0,1,13.9,15.916Z" transform="translate(-2.627 -2.632)" fill="url(#linear-gradient)"/>
+</svg>

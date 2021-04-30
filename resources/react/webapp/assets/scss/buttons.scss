@@ -1,0 +1,72 @@
+
+.search-filter-button .form-control-custom {
+    border-color: #F4F4F4 !important;
+}
+
+.search-filter-button input:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: #F4F4F4;
+    outline: 0;
+}
+
+.search-filter-button .btn {
+    border-radius: 0 12px 12px 0;
+    border: none !important;
+    outline: 0 !important;
+}
+
+.search-filter-button .btn:focus {
+    color: white;
+    outline: 0;
+}
+
+.btn-bicolor {
+    background: linear-gradient(90deg, rgba(0, 219, 174, 1), rgba(0, 155, 232, 1), rgba(0, 155, 232, 1), rgba(0, 219, 174, 1));
+    background-size: 400% 400%;
+    animation: gradient-in .3s linear;
+}
+
+.btn-bicolor:hover {
+    animation: gradient-out .3s linear;
+}
+@keyframes gradient-in {
+    0% {
+        background-position: 0 100%;
+    }
+    100% {
+        background-position: 100% 200%;
+    }
+}
+
+
+@keyframes gradient-out {
+    0% {
+        background-position: 0 100%;
+    }
+    100% {
+        background-position: 100% 0;
+    }
+}
+
+.btn-bicolor-1-hover:hover {
+    border: 1px solid transparent;
+    background: rgb(0, 155, 232);
+    background: -moz-linear-gradient(90deg, rgba(0, 155, 232, 1) 0%, rgba(0, 219, 174, 1) 100%);
+    background: -webkit-linear-gradient(90deg, rgba(0, 155, 232, 1) 0%, rgba(0, 219, 174, 1) 100%);
+    background: linear-gradient(90deg, rgba(0, 155, 232, 1) 0%, rgba(0, 219, 174, 1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#009be8", endColorstr="#00dbae", GradientType=1);
+    -moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+}
+
+.btn-bicolor-2-hover:hover {
+    border: 1px solid transparent;
+    background-position: 100% 0;
+    -moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+}

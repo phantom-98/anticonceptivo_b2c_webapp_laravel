@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="46.966" height="46.973" viewBox="0 0 46.966 46.973">
+  <defs>
+    <radialGradient id="radial-gradient" cx="-1.5" cy="-6.087" r="18.532" gradientTransform="translate(-0.121) scale(1.243 1)" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#05f29b"/>
+      <stop offset="0.967" stop-color="#0785f2"/>
+      <stop offset="1"/>
+    </radialGradient>
+    <radialGradient id="radial-gradient-2" cx="-1.5" cy="-4.589" r="18.533" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-3" cx="-2.653" cy="-6.087" r="18.532" gradientTransform="translate(-0.029) scale(1.057 1)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-4" cx="-4.01" cy="-9.086" r="18.532" gradientTransform="translate(0)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-5" cx="-6.206" cy="-12.26" r="28.615" gradientTransform="translate(-0.001)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-6" cx="-4.759" cy="-1.039" r="34.644" gradientTransform="translate(0.193) scale(0.615 1)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-7" cx="-2.76" cy="-3.701" r="21.305" gradientTransform="translate(-0.313) scale(1.626 1)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-8" cx="-2.653" cy="-4.589" r="18.532" gradientTransform="translate(-0.029) scale(1.057 1)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-9" cx="-2.51" cy="-3.089" r="18.532" gradientTransform="translate(0)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-10" cx="-2.51" cy="-7.587" r="18.532" gradientTransform="translate(0)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-11" cx="-2.76" cy="-8.723" r="21.305" gradientTransform="translate(-0.313) scale(1.626 1)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-12" cx="-6.206" cy="-4.77" r="28.615" gradientTransform="translate(-0.001)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-13" cx="-4.01" cy="-1.591" r="18.532" gradientTransform="translate(0)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-14" cx="-4.759" cy="-19.79" r="34.644" gradientTransform="translate(0.193) scale(0.615 1)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-15" cx="-2.572" cy="-1.637" r="18.861" gradientTransform="translate(0)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-16" cx="-2.572" cy="-9.247" r="18.861" gradientTransform="translate(0)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-17" cx="-5.507" cy="-9.679" r="19.622" gradientTransform="translate(0.028) scale(0.944 1)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-18" cx="-8.506" cy="-9.086" r="18.532" gradientTransform="translate(0)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-19" cx="-10.186" cy="-9.247" r="18.861" gradientTransform="translate(0)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-20" cx="-5.507" cy="-1.684" r="19.622" gradientTransform="translate(0.028) scale(0.944 1)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-21" cx="-5.507" cy="-0.355" r="23.028" gradientTransform="translate(0.098) scale(0.805 1)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-22" cx="-7.008" cy="-9.679" r="19.622" gradientTransform="translate(0.028) scale(0.944 1)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-23" cx="-8.506" cy="-1.591" r="18.532" gradientTransform="translate(0)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-24" cx="-13.715" cy="-4.77" r="28.615" gradientTransform="translate(-0.001)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-25" cx="-9.779" cy="-19.79" r="34.644" gradientTransform="translate(0.193) scale(0.615 1)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-26" cx="-9.779" cy="-1.039" r="34.644" gradientTransform="translate(0.193) scale(0.615 1)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-27" cx="-7.008" cy="-1.684" r="19.622" gradientTransform="translate(0.028) scale(0.944 1)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-28" cx="-14.326" cy="-4.589" r="18.532" gradientTransform="translate(-0.123) scale(1.245 1)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-29" cx="-21.575" cy="-3.71" r="21.344" gradientTransform="translate(-0.314) scale(1.628 1)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-30" cx="-7.008" cy="-0.355" r="23.028" gradientTransform="translate(0.098) scale(0.805 1)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-31" cx="-10.634" cy="-4.589" r="18.532" gradientTransform="translate(-0.029) scale(1.057 1)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-32" cx="-13.715" cy="-12.26" r="28.615" gradientTransform="translate(-0.001)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-33" cx="-5.507" cy="-13.154" r="23.028" gradientTransform="translate(0.098) scale(0.805 1)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-34" cx="-10.634" cy="-6.087" r="18.532" gradientTransform="translate(-0.029) scale(1.057 1)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-35" cx="-21.575" cy="-8.739" r="21.344" gradientTransform="translate(-0.314) scale(1.628 1)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-36" cx="-14.326" cy="-6.087" r="18.532" gradientTransform="translate(-0.123) scale(1.245 1)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-37" cx="-10.186" cy="-1.637" r="18.861" gradientTransform="translate(0)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-38" cx="-10.008" cy="-7.587" r="18.532" gradientTransform="translate(0)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-39" cx="-10.008" cy="-3.089" r="18.532" gradientTransform="translate(0)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-40" cx="-7.008" cy="-13.154" r="23.028" gradientTransform="translate(0.098) scale(0.805 1)" xlink:href="#radial-gradient"/>
+  </defs>
+  <g id="Grupo_147" data-name="Grupo 147" transform="translate(0)">
+    <path id="Trazado_3077" data-name="Trazado 3077" d="M450.251,222.5a2.1,2.1,0,0,0-1.289.436,22.573,22.573,0,0,0,.517,3.646,2.114,2.114,0,1,0,.772-4.082Z" transform="translate(-448.962 -197.959)" fill="url(#radial-gradient)"/>
+    <path id="Trazado_3078" data-name="Trazado 3078" d="M450.251,213.06a2.107,2.107,0,0,0-.772.148,22.573,22.573,0,0,0-.517,3.646,2.116,2.116,0,1,0,1.289-3.794Z" transform="translate(-448.962 -194.858)" fill="url(#radial-gradient-2)"/>
+    <path id="Trazado_3079" data-name="Trazado 3079" d="M459.288,226.73a2.106,2.106,0,0,0,1.886-1.162,14.06,14.06,0,0,1-.516-2.565,2.115,2.115,0,1,0-1.37,3.726Z" transform="translate(-451.66 -197.959)" fill="url(#radial-gradient-3)"/>
+    <path id="Trazado_3080" data-name="Trazado 3080" d="M468.737,241.39a2.115,2.115,0,1,0,2.115,2.115A2.115,2.115,0,0,0,468.737,241.39Z" transform="translate(-454.765 -204.166)" fill="url(#radial-gradient-4)"/>
+    <path id="Trazado_3081" data-name="Trazado 3081" d="M468.737,236.909a2.082,2.082,0,0,0,.618-.094,14.063,14.063,0,0,1-2.639-2.645,2.162,2.162,0,0,0-.094.624A2.115,2.115,0,0,0,468.737,236.909Z" transform="translate(-454.765 -201.794)" fill="url(#radial-gradient-5)"/>
+    <path id="Trazado_3082" data-name="Trazado 3082" d="M467.442,189.228a2.119,2.119,0,0,0,3.679-1.43,1.078,1.078,0,0,0-.007-.148A23.459,23.459,0,0,0,467.442,189.228Z" transform="translate(-455.034 -186.509)" fill="url(#radial-gradient-6)"/>
+    <path id="Trazado_3083" data-name="Trazado 3083" d="M450.662,208.1a1.082,1.082,0,0,0,.148.007,2.119,2.119,0,0,0,1.43-3.679A23.458,23.458,0,0,0,450.662,208.1Z" transform="translate(-449.521 -192.022)" fill="url(#radial-gradient-7)"/>
+    <path id="Trazado_3084" data-name="Trazado 3084" d="M459.288,217.29a2.1,2.1,0,0,0,1.37-.5,14.06,14.06,0,0,1,.516-2.565,2.115,2.115,0,1,0-1.886,3.068Z" transform="translate(-451.66 -194.858)" fill="url(#radial-gradient-8)"/>
+    <path id="Trazado_3085" data-name="Trazado 3085" d="M459.288,203.61a2.115,2.115,0,1,0,2.114,2.115A2.115,2.115,0,0,0,459.288,203.61Z" transform="translate(-451.66 -191.753)" fill="url(#radial-gradient-9)"/>
+    <path id="Trazado_3086" data-name="Trazado 3086" d="M459.288,231.95a2.115,2.115,0,1,0,2.114,2.115A2.115,2.115,0,0,0,459.288,231.95Z" transform="translate(-451.66 -201.064)" fill="url(#radial-gradient-10)"/>
+    <path id="Trazado_3087" data-name="Trazado 3087" d="M450.81,231.95a1.085,1.085,0,0,0-.148.007,23.457,23.457,0,0,0,1.578,3.673,2.119,2.119,0,0,0-1.43-3.679Z" transform="translate(-449.521 -201.064)" fill="url(#radial-gradient-11)"/>
+    <path id="Trazado_3088" data-name="Trazado 3088" d="M469.355,203.7a2.082,2.082,0,0,0-.618-.094,2.115,2.115,0,0,0-2.115,2.115,2.162,2.162,0,0,0,.094.624A14.064,14.064,0,0,1,469.355,203.7Z" transform="translate(-454.765 -191.753)" fill="url(#radial-gradient-12)"/>
+    <path id="Trazado_3089" data-name="Trazado 3089" d="M468.737,194.17a2.115,2.115,0,1,0,2.115,2.115A2.115,2.115,0,0,0,468.737,194.17Z" transform="translate(-454.765 -188.651)" fill="url(#radial-gradient-13)"/>
+    <path id="Trazado_3090" data-name="Trazado 3090" d="M469.007,250.84a2.119,2.119,0,0,0-1.564.685,23.454,23.454,0,0,0,3.673,1.578,1.078,1.078,0,0,0,.007-.148A2.115,2.115,0,0,0,469.007,250.84Z" transform="translate(-455.034 -207.271)" fill="url(#radial-gradient-14)"/>
+    <path id="Trazado_3091" data-name="Trazado 3091" d="M459.887,194.28a25.119,25.119,0,0,0-2.605,2.605,2.117,2.117,0,1,0,2.605-2.605Z" transform="translate(-451.696 -188.687)" fill="url(#radial-gradient-15)"/>
+    <path id="Trazado_3092" data-name="Trazado 3092" d="M459.324,241.39a2.122,2.122,0,0,0-2.042,1.551,25.12,25.12,0,0,0,2.605,2.605,2.117,2.117,0,0,0-.563-4.156Z" transform="translate(-451.696 -204.166)" fill="url(#radial-gradient-16)"/>
+    <path id="Trazado_3093" data-name="Trazado 3093" d="M477.217,241.74a2.112,2.112,0,1,0,2.578.517A14.273,14.273,0,0,1,477.217,241.74Z" transform="translate(-457.866 -204.281)" fill="url(#radial-gradient-17)"/>
+    <path id="Trazado_3094" data-name="Trazado 3094" d="M497.067,241.39a2.115,2.115,0,1,0,2.115,2.115A2.115,2.115,0,0,0,497.067,241.39Z" transform="translate(-464.073 -204.166)" fill="url(#radial-gradient-18)"/>
+    <path id="Trazado_3095" data-name="Trazado 3095" d="M506.518,241.39a2.117,2.117,0,0,0-.565,4.156,25.126,25.126,0,0,0,2.605-2.605A2.121,2.121,0,0,0,506.518,241.39Z" transform="translate(-467.179 -204.166)" fill="url(#radial-gradient-19)"/>
+    <path id="Trazado_3096" data-name="Trazado 3096" d="M478.177,194.17a2.112,2.112,0,0,0-.96,3.995,14.273,14.273,0,0,1,2.578-.517,2.086,2.086,0,0,0,.5-1.363A2.115,2.115,0,0,0,478.177,194.17Z" transform="translate(-457.866 -188.651)" fill="url(#radial-gradient-20)"/>
+    <path id="Trazado_3097" data-name="Trazado 3097" d="M476.21,186.467a2.114,2.114,0,1,0,3.646-.517A24.094,24.094,0,0,0,476.21,186.467Z" transform="translate(-457.866 -185.95)" fill="url(#radial-gradient-21)"/>
+    <path id="Trazado_3098" data-name="Trazado 3098" d="M488.587,241.74a14.249,14.249,0,0,1-2.578.517,2.086,2.086,0,0,0-.5,1.363,2.115,2.115,0,1,0,3.075-1.88Z" transform="translate(-460.971 -204.281)" fill="url(#radial-gradient-22)"/>
+    <path id="Trazado_3099" data-name="Trazado 3099" d="M497.067,194.17a2.115,2.115,0,1,0,2.115,2.115A2.115,2.115,0,0,0,497.067,194.17Z" transform="translate(-464.073 -188.651)" fill="url(#radial-gradient-23)"/>
+    <path id="Trazado_3100" data-name="Trazado 3100" d="M497.8,203.61a2.085,2.085,0,0,0-.618.094,14.089,14.089,0,0,1,2.639,2.645,2.187,2.187,0,0,0,.093-.624A2.115,2.115,0,0,0,497.8,203.61Z" transform="translate(-464.806 -191.753)" fill="url(#radial-gradient-24)"/>
+    <path id="Trazado_3101" data-name="Trazado 3101" d="M494.952,252.955a1.1,1.1,0,0,0,.007.148,23.425,23.425,0,0,0,3.673-1.578,2.119,2.119,0,0,0-3.679,1.43Z" transform="translate(-464.073 -207.271)" fill="url(#radial-gradient-25)"/>
+    <path id="Trazado_3102" data-name="Trazado 3102" d="M497.067,189.913a2.119,2.119,0,0,0,1.564-.685,23.431,23.431,0,0,0-3.673-1.578,1.1,1.1,0,0,0-.007.148A2.115,2.115,0,0,0,497.067,189.913Z" transform="translate(-464.073 -186.509)" fill="url(#radial-gradient-26)"/>
+    <path id="Trazado_3103" data-name="Trazado 3103" d="M487.627,194.17a2.115,2.115,0,0,0-2.115,2.115,2.086,2.086,0,0,0,.5,1.363,14.249,14.249,0,0,1,2.578.517,2.112,2.112,0,0,0-.96-3.995Z" transform="translate(-460.971 -188.651)" fill="url(#radial-gradient-27)"/>
+    <path id="Trazado_3104" data-name="Trazado 3104" d="M515.96,217.29a2.1,2.1,0,0,0,1.289-.436,22.434,22.434,0,0,0-.517-3.646,2.135,2.135,0,0,0-.772-.148,2.115,2.115,0,0,0,0,4.23Z" transform="translate(-470.283 -194.858)" fill="url(#radial-gradient-28)"/>
+    <path id="Trazado_3105" data-name="Trazado 3105" d="M515.96,208.113a1.086,1.086,0,0,0,.148-.007,23.3,23.3,0,0,0-1.571-3.666,2.115,2.115,0,0,0,1.423,3.673Z" transform="translate(-470.283 -192.025)" fill="url(#radial-gradient-29)"/>
+    <path id="Trazado_3106" data-name="Trazado 3106" d="M485.948,185.95a2.117,2.117,0,1,0,3.646.517A23.961,23.961,0,0,0,485.948,185.95Z" transform="translate(-460.971 -185.95)" fill="url(#radial-gradient-30)"/>
+    <path id="Trazado_3107" data-name="Trazado 3107" d="M506.629,213.06a2.109,2.109,0,0,0-1.887,1.162,14.055,14.055,0,0,1,.517,2.565,2.115,2.115,0,1,0,1.37-3.726Z" transform="translate(-467.29 -194.858)" fill="url(#radial-gradient-31)"/>
+    <path id="Trazado_3108" data-name="Trazado 3108" d="M497.182,236.815a2.085,2.085,0,0,0,.618.094,2.115,2.115,0,0,0,2.115-2.115,2.187,2.187,0,0,0-.093-.624A14.088,14.088,0,0,1,497.182,236.815Z" transform="translate(-464.806 -201.794)" fill="url(#radial-gradient-32)"/>
+    <path id="Trazado_3109" data-name="Trazado 3109" d="M478.177,250.84a2.111,2.111,0,0,0-1.967,2.887,24.1,24.1,0,0,0,3.646.517,2.116,2.116,0,0,0-1.679-3.4Z" transform="translate(-457.866 -207.271)" fill="url(#radial-gradient-33)"/>
+    <path id="Trazado_3110" data-name="Trazado 3110" d="M506.629,222.5a2.1,2.1,0,0,0-1.37.5,14.055,14.055,0,0,1-.517,2.565,2.115,2.115,0,1,0,1.887-3.068Z" transform="translate(-467.29 -197.959)" fill="url(#radial-gradient-34)"/>
+    <path id="Trazado_3111" data-name="Trazado 3111" d="M513.852,234.065a2.093,2.093,0,0,0,.685,1.558,23.3,23.3,0,0,0,1.571-3.666,1.086,1.086,0,0,0-.148-.007A2.113,2.113,0,0,0,513.852,234.065Z" transform="translate(-470.283 -201.064)" fill="url(#radial-gradient-35)"/>
+    <path id="Trazado_3112" data-name="Trazado 3112" d="M513.852,224.615a2.113,2.113,0,0,0,2.108,2.115,2.135,2.135,0,0,0,.772-.148,22.434,22.434,0,0,0,.517-3.646,2.112,2.112,0,0,0-3.4,1.679Z" transform="translate(-470.283 -197.959)" fill="url(#radial-gradient-36)"/>
+    <path id="Trazado_3113" data-name="Trazado 3113" d="M506.518,198.436a2.121,2.121,0,0,0,2.04-1.551,25.124,25.124,0,0,0-2.605-2.605,2.117,2.117,0,0,0,.565,4.156Z" transform="translate(-467.179 -188.687)" fill="url(#radial-gradient-37)"/>
+    <path id="Trazado_3114" data-name="Trazado 3114" d="M506.518,231.95a2.115,2.115,0,1,0,2.114,2.115A2.114,2.114,0,0,0,506.518,231.95Z" transform="translate(-467.179 -201.064)" fill="url(#radial-gradient-38)"/>
+    <path id="Trazado_3115" data-name="Trazado 3115" d="M506.518,203.61a2.115,2.115,0,1,0,2.114,2.115A2.114,2.114,0,0,0,506.518,203.61Z" transform="translate(-467.179 -191.753)" fill="url(#radial-gradient-39)"/>
+    <path id="Trazado_3116" data-name="Trazado 3116" d="M487.627,250.84a2.117,2.117,0,0,0-1.679,3.4,23.963,23.963,0,0,0,3.646-.517,2.111,2.111,0,0,0-1.967-2.887Z" transform="translate(-460.971 -207.271)" fill="url(#radial-gradient-40)"/>
+  </g>
+</svg>

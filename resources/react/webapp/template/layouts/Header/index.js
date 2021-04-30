@@ -1,6 +1,9 @@
 import React, {Fragment} from 'react';
 
 import {useLocation} from "react-router-dom";
+import HeaderTop from "./HeaderTop";
+import HeaderNavbar from "./HeaderNavbar";
+import HeaderBox from "./HeaderBox";
 
 const Header = () => {
 
@@ -9,7 +12,9 @@ const Header = () => {
     return (
         <Fragment>
             <section id="header" className="header">
-                header
+                <HeaderTop />
+                <HeaderBox />
+                <HeaderNavbar />
             </section>
         </Fragment>
     );
