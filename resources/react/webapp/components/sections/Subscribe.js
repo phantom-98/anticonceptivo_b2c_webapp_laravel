@@ -19,7 +19,7 @@ const Subscribe = () =>{
                         <div className="col-8">
                             <div className="input-group search-filter-button">
                                 <input type="text"
-                                       className="form-control form-control-custom"
+                                       className="form-control form-control-custom form-control-custom-60"
                                        placeholder="correo@hola.com"/>
                                 <div className="input-group-append">
                                     <button

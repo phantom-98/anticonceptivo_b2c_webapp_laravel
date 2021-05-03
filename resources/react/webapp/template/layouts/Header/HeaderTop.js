@@ -1,5 +1,5 @@
 import React from 'react';
-import Icon from "../../../components/Icon";
+import Icon from "../../../components/general/Icon";
 import boxWhite from "../../../assets/images/icons/header/box-white.svg"
 import phoneWhite from "../../../assets/images/icons/header/phone-white.svg"
 import emailWhite from "../../../assets/images/icons/header/email-white.svg"

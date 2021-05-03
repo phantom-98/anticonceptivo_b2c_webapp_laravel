@@ -94,7 +94,16 @@
   color: white;
 }
 
-.form-control {
+.form-group label {
+  font-size: 12px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  color: #8E8E8E;
+  height: 2px;
+  padding-top: 3px;
+}
+
+.form-group .form-control {
   font-family: "Poppins", sans-serif;
 }
 
@@ -124,10 +133,14 @@
 .form-control-custom {
   border: 1px solid #D6D6D6;
   border-radius: 12px;
-  height: 60px;
+  height: 50px;
   font-size: 14px;
   color: #3C3C3E;
   padding-left: 1.75rem;
+}
+
+.form-control-custom-60 {
+  height: 60px;
 }
 
 .form-control-custom-45 {
@@ -193,6 +206,16 @@
 .search-filter-button .btn:focus {
   color: white;
   outline: 0;
+}
+
+.btn-auth {
+  height: 50px;
+  border-radius: 31px;
+  color: white !important;
+  text-transform: uppercase;
+  font-size: 15px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
 }
 
 .btn-bicolor {
@@ -265,6 +288,44 @@
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+.modal-backdrop {
+  background-color: #033F5D !important;
+}
+
+.modal-header {
+  display: unset;
+  align-items: unset;
+  justify-content: space-between;
+  padding: 1rem 1rem 0 1rem;
+  border-bottom: 0px solid #dee2e6;
+  border-top-left-radius: calc(.3rem - 1px);
+  border-top-right-radius: calc(.3rem - 1px);
+}
+
+.modal-content {
+  border: 0 solid #DEDEDE;
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0.16);
+  border-radius: 12px;
+}
+
+.modal-body {
+  padding-top: 0;
+}
+
+.modal-auth {
+  width: 412px;
+}
+
+.modal-title {
+  font-family: "Poppins", sans-serif;
+  text-transform: uppercase;
+  color: #0869A6;
+  letter-spacing: 2px;
+  font-size: 30px;
+  font-weight: 700;
+  margin-bottom: 1rem;
 }
 
 .cart-badge-quantity {
@@ -1643,6 +1704,14 @@ h4 {
   background-color: #000000;
 }
 
+.color-6C6B6B {
+  color: #6C6B6B;
+}
+
+.bg-6C6B6B {
+  background-color: #6C6B6B;
+}
+
 @media (min-width: 1200px) {
   .container,
   .container-lg,
@@ -1651,5 +1720,16 @@ h4 {
   .container-xl {
     max-width: 1170px;
   }
+}
+
+.link {
+  border: 0;
+  background: none;
+  padding: 0;
+  margin: 0;
+  color: #009BE8;
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+  text-decoration: underline;
 }
 

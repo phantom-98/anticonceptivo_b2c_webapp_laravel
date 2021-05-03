@@ -1,5 +1,5 @@
 import React from 'react';
-import {CONFIG} from "../Config";
+import {CONFIG} from "../../Config";
 
 
 const Icon = ({path, style = {}, className = ''}) => {

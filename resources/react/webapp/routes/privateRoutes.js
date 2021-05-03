@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 const PRIVATE_ROUTES = {
 
     // VIDEO_CALL: {

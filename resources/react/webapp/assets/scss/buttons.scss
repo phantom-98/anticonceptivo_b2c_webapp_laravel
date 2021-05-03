@@ -21,6 +21,16 @@
     outline: 0;
 }
 
+.btn-auth{
+    height: 50px;
+    border-radius: 31px;
+    color : white !important;
+    text-transform: uppercase;
+    font-size: 15px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+}
+
 .btn-bicolor {
     background: linear-gradient(90deg, rgba(0, 219, 174, 1), rgba(0, 155, 232, 1), rgba(0, 155, 232, 1), rgba(0, 219, 174, 1));
     background-size: 400% 400%;

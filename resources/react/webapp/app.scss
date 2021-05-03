@@ -17,6 +17,7 @@
 @import 'assets/scss/form';
 @import 'assets/scss/buttons';
 @import 'assets/scss/sections';
+@import 'assets/scss/modal';
 @import 'assets/scss/cart';
 
 .app-content {
@@ -132,6 +133,7 @@ $customColor: (
     '009BE8': '#009BE8',
     '222222' : '#222222',
     '000000' : '#000000',
+    '6C6B6B' : '#6C6B6B'
 );
 
 @each $name, $color in $customColor {
@@ -150,3 +152,15 @@ $customColor: (
     }
 }
 
+.link {
+
+    border: 0;
+    background: none;
+    padding: 0;
+    margin: 0;
+
+    color: #009BE8;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    text-decoration: underline;
+}

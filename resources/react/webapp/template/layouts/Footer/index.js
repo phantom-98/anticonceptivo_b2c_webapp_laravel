@@ -1,7 +1,5 @@
 import React, {Fragment} from 'react';
 import FooterBottom from "./FooterBottom";
-
-import PUBLIC_ROUTES from "../../../routes/publicRoutes";
 import logoFooter from '../../../assets/images/icons/footer/logo-footer.svg'
 import eureka from '../../../assets/images/icons/footer/eureka.svg'
 import webpay from '../../../assets/images/icons/footer/webpay.svg'
@@ -11,7 +9,7 @@ import twitter from '../../../assets/images/icons/footer/twitter.svg'
 import facebook from '../../../assets/images/icons/footer/facebook.svg'
 import instagram from '../../../assets/images/icons/footer/instagram.svg'
 import {CONFIG} from "../../../Config";
-import Icon from "../../../components/Icon";
+import Icon from "../../../components/general/Icon";
 import {Link} from "react-router-dom";
 
 

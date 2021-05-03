@@ -1,5 +1,5 @@
 import React from 'react';
-import Icon from "../../components/Icon";
+import Icon from "../../components/general/Icon";
 
 const HeaderNavbarItem = ({icon, text, linkTo}) =>{
     return (
