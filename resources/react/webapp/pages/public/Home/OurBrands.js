@@ -17,8 +17,7 @@ const OurBrands = () => {
                     {
                         Object.keys(brands).map((key, index) => {
 
-                            console.log(key, brands[key]);
-                            return <div className="col d-flex">
+                            return <div key={index} className="col d-flex">
                                 <img src={brands[key].default}
                                      alt={CONFIG.APP_NAME}
                                      className="my-auto"

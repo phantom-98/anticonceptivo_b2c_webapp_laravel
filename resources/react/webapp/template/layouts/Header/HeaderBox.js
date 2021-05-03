@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import Icon from "../../../components/Icon";
 import logoFull from "../../../assets/images/logo-full.svg";
 import userBlue from "../../../assets/images/icons/header/user-blue.svg"
@@ -6,8 +6,13 @@ import cartBlue from "../../../assets/images/icons/header/cart-blue.svg"
 import searchWhite from "../../../assets/images/icons/header/search-white.svg"
 import PUBLIC_ROUTES from "../../../routes/publicRoutes";
 import {Link} from "react-router-dom";
+import {AppContext} from "../../../context/AppProvider";
+import {ModalAuthMode} from "../../../Globals";
 
 const HeaderBox = () => {
+
+    const {showModalAuth} = useContext(AppContext)
+
     return (
         <div>
             <div className="container py-4">
@@ -41,7 +46,7 @@ const HeaderBox = () => {
                                 <div className="col-auto my-auto pr-1">
                                     <Icon path={userBlue}/>
                                 </div>
-                                <div className="col-auto my-auto pl-1">
+                                <div className="col-auto my-auto pl-1" onClick={() => showModalAuth(ModalAuthMode.LOGIN)}>
                                     <div className="font-poppins font-13 lh-12 bold">Bienvenid@</div>
                                     <div className="font-poppins font-13 lh-12 regular">Inicia sesión</div>
                                 </div>

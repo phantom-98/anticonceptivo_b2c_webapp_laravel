@@ -1,5 +1,12 @@
 export const AuthType = {
-    CUSTOMER : 'customer',
+    CUSTOMER: 'customer',
+}
+
+export const ModalAuthMode = {
+    LOGIN: 'LOGIN',
+    REGISTER: 'REGISTER',
+    RECOVERY_PASSWORD: 'RECOVERY_PASSWORD',
+    SET_NEW_PASSWORD: 'SET_NEW_PASSWORD',
 }
 
 export const ConnectionStatus = {
