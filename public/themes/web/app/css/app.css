@@ -290,6 +290,41 @@
   background-size: cover;
 }
 
+.base-panel-one-title {
+  font-family: "Poppins", sans-serif;
+  text-transform: uppercase;
+  color: #0869A6;
+  letter-spacing: 2px;
+  font-size: 30px;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.menu-section {
+  background: #EDF8FE;
+  color: #033F5D;
+  font-size: 16px;
+  font-weight: 400;
+  text-align: center;
+  padding: 1rem;
+  width: 100%;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.menu-section.active {
+  background: #00DBAE;
+  color: white;
+  transition: 0.3s;
+}
+
+.menu-section:hover {
+  background: #02efbd;
+  color: white;
+  transition: 0.3s;
+}
+
 .modal-backdrop {
   background-color: #033F5D !important;
 }
@@ -326,6 +361,14 @@
   font-size: 30px;
   font-weight: 700;
   margin-bottom: 1rem;
+}
+
+.panel {
+  background: white;
+}
+
+.panel-body {
+  padding: 28px;
 }
 
 .cart-badge-quantity {

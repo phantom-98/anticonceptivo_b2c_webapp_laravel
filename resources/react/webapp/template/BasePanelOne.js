@@ -1,0 +1,34 @@
+import React, {Fragment} from 'react';
+import Breadcrumbs from "../components/Breadcrumbs";
+
+const BasePanelOne = (props) => {
+
+    return (
+        <div style={{background : '#FAFAFA'}}>
+            <div className="container py-4 mb-4">
+
+                <Breadcrumbs items={props.breadcrumbs}/>
+
+                <div className="panel">
+                    <div className="panel-body">
+                        <div className="row">
+                            <div className="col-md-12">
+                                {
+                                    props.title ? <h1 className="base-panel-one-title">{props.title}</h1> : null
+                                }
+                            </div>
+                            <div className="col-md-12">
+                                {
+                                    props.children
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    );
+};
+
+export default BasePanelOne;
