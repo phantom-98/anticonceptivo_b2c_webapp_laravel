@@ -11,6 +11,7 @@ import instagram from '../../../assets/images/icons/footer/instagram.svg'
 import {CONFIG} from "../../../Config";
 import Icon from "../../../components/general/Icon";
 import {Link} from "react-router-dom";
+import PUBLIC_ROUTES from "../../../routes/publicRoutes";
 
 
 const Footer = () => {
@@ -33,13 +34,13 @@ const Footer = () => {
                         <div className="col-md">
                             <ul className="nav flex-column">
                                 <li className="nav-item">
-                                    <a className="nav-link" href="#">Sobre nosotros</a>
+                                    <Link className="nav-link" to={PUBLIC_ROUTES.ABOUT_US.path}>Sobre nosotros</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link" href="#">Preguntas Frecuentes FAQ</a>
+                                    <Link className="nav-link" to={PUBLIC_ROUTES.FAQ.path}>Preguntas Frecuentes FAQ</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link" href="#">Términos y Condiciones</a>
+                                    <Link className="nav-link" to={PUBLIC_ROUTES.TERMS_AND_CONDITIONS.path}>Términos y Condiciones</Link>
                                 </li>
                                 <li className="nav-item">
                                     <a className="nav-link" href="#">Consumo responsable</a>
@@ -58,7 +59,7 @@ const Footer = () => {
                                     <a className="nav-link" href="#">Plazos y costos de entrega</a>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link" href="#">Blog</a>
+                                    <Link className="nav-link" to={PUBLIC_ROUTES.BLOG.path}>Blog</Link>
                                 </li>
                             </ul>
                         </div>
