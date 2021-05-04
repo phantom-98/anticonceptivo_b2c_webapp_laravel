@@ -53,7 +53,7 @@ const Form = ({addressSelected, goBack, formMode, setAddresses}) => {
                         className="form-control form-control-custom pl-2"
                         id="region_id"
                         name="region_id"
-                        value={address.region_id} >
+                        value={address.region_id}>
                         <option value="5">REGIÓN DE VALPARAÍSO</option>
                     </select>
                 </div>
@@ -66,7 +66,7 @@ const Form = ({addressSelected, goBack, formMode, setAddresses}) => {
                         className="form-control form-control-custom pl-2"
                         id="commune_id"
                         name="commune_id"
-                        value={address.commune_id} >
+                        value={address.commune_id}>
                         <option value="5">Viña del Mar</option>
                     </select>
                 </div>
@@ -95,6 +95,13 @@ const Form = ({addressSelected, goBack, formMode, setAddresses}) => {
                            value={address.address_number}
                     />
                 </div>
+            </div>
+
+            <div className="col-md-12 mt-4 text-right">
+                <button type="button" className="btn btn-bicolor px-5"
+                        onClick={() => alert('GUARDAR DIRECCIÓN')}>
+                    <span>GUARDAR DIRECCIÓN</span>
+                </button>
             </div>
 
         </div>
