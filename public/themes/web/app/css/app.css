@@ -44,13 +44,12 @@
   display: flex !important;
   min-height: 44px;
   cursor: pointer;
-  transition: all 0.4s ease-in-out;
+  transition: all 0.25s ease-in-out;
   background: transparent;
 }
 
 .header-navbar-col:hover {
-  background: #009be8;
-  background: linear-gradient(90deg, #009be8 0%, #00dbae 100%);
+  background: #009BE8;
 }
 
 .header-navbar-item {
