@@ -16,42 +16,40 @@ const Account = ({match}) => {
 
     const {auth} = useContext(AuthContext);
 
+    const [breadcrumbs, setBreadcrumbs] = useState([]);
     const [sectionSelected, setSectionSelected] = useState('');
 
     const [loaded, setLoaded] = useState(false);
 
-    let breadcrumbs = [
-        {
-            url: PRIVATE_ROUTES.ACCOUNT.path,
-            name: 'Mi Cuenta'
-        }
-    ];
+    // let breadcrumbs = [
+    //
+    // ];
 
     const sections = {
 
         PERSONAL_INFO: {
             url: 'informacion-personal',
-            title: 'Información Personal'
+            name: 'Información Personal'
         },
         ADDRESSES: {
             url: 'direcciones',
-            title: 'Direcciones'
+            name: 'Direcciones'
         },
         SHOPPING_HISTORY: {
             url: 'historial-compras',
-            title: 'Historial de Compra'
+            name: 'Historial de Compra'
         },
         SUBSCRIPTION: {
             url: 'suscripcion',
-            title: 'Suscripción'
+            name: 'Suscripción'
         },
         RECEIPTS: {
             url: 'mis-recetas',
-            title: 'Mis Recetas'
+            name: 'Mis Recetas'
         },
         CUSTOMER_SERVICE: {
             url: 'servicio-cliente',
-            title: 'Servicio al Cliente'
+            name: 'Servicio al Cliente'
         }
     }
 
@@ -61,10 +59,15 @@ const Account = ({match}) => {
             const section = match.params.section;
             Object.keys(sections).map((key, index) => {
                 if (section == sections[key].url) {
-                    breadcrumbs.push(sections[key]);
+                    setBreadcrumbs([
+                        {
+                            url: PRIVATE_ROUTES.ACCOUNT.path,
+                            name: 'Mi Cuenta'
+                        },
+                        sections[key]
+                    ])
                 }
             })
-
             setSectionSelected(section);
             setLoaded(true)
         }
@@ -73,9 +76,10 @@ const Account = ({match}) => {
 
     const processRoute = () => {
 
+
         switch (sectionSelected) {
             case sections.PERSONAL_INFO.url:
-                return <PersonalInfo />
+                return <PersonalInfo/>
 
             case sections.ADDRESSES.url:
                 return <Addresses/>;

@@ -12,7 +12,7 @@ const AccountMenu = ({sections, sectionSelected}) => {
             {
                 Object.keys(sections).map((key, index) => {
                     return <AccountMenuItem key={index}
-                                            name={sections[key].title}
+                                            name={sections[key].name}
                                             sectionSelected={sectionSelected}
                                             section={sections[key].url}/>
                 })
