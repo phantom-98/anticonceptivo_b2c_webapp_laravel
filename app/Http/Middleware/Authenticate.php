@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
+use Willywes\ApiResponse\ApiResponse;
 
 class Authenticate extends Middleware
 {
@@ -15,7 +16,7 @@ class Authenticate extends Middleware
     protected function redirectTo($request)
     {
         if (! $request->expectsJson()) {
-            return route('login');
+            return ApiResponse::Unauthorized(null, 'Acceso no autorizado.');
         }
     }
 }

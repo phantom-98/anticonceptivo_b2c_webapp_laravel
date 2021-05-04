@@ -64,156 +64,81 @@
                             </a>
                         </li>
 
-                        <li class="treeview {{ is_parent_menu_active(['intranet/idiomas', 'intranet/areas' , 'intranet/habilidades', 'intranet/paginas',
-                                                                    'intranet/categorias-paso-a-paso', 'intranet/paso-a-paso']) }}">
+                        <li class="treeview {{ is_parent_menu_active(['intranet/categorias', 'intranet/subcategorias', 'intranet/marcas']) }}">
+                            <a href="#">
+                                <i class="ti-shopping-cart"></i>
+                                <span class="menu-title">Pedidos</span>
+                                <i class="arrow"></i>
+                            </a>
+                            <!--Submenu-->
+                            <ul class="collapse">
+                                <li class="{{ is_menu_active('intranet/categorias') }}">
+                                    <a href="{{ route('intranet.categories.index') }}">
+                                        <span class="menu-title">Categorías</span>
+                                    </a>
+                                </li>
+                                <li class="{{ is_menu_active('intranet/subcategorias') }}">
+                                    <a href="{{ route('intranet.subcategories.index') }}">
+                                        <span class="menu-title">Sub Categorías</span>
+                                    </a>
+                                </li>
+                                <li class="{{ is_menu_active('intranet/marcas') }}">
+                                    <a href="{{ route('intranet.brands.index') }}">
+                                        <span class="menu-title">Marcas</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        
+                        <li class="treeview {{ is_parent_menu_active(['intranet/banners', 'intranet/tipos-post-blog', 'intranet/post-blog', 'intranet/faq', 'intranet/configuraciones']) }}">
                             <a href="#">
                                 <i class="ti-settings"></i>
-                                <span class="menu-title">Configuraciones</span>
+                                <span class="menu-title">Conf. Sitio web</span>
                                 <i class="arrow"></i>
                             </a>
                             <!--Submenu-->
                             <ul class="collapse">
-                                @can('intranet.languages.index')
-                                    <li class="{{ is_menu_active('intranet/idiomas') }}">
-                                        <a href="{{ route('intranet.languages.index') }}">
-                                            <span class="menu-title">Idiomas</span>
-                                        </a>
-                                    </li>
-                                @endcan
-                                @can('intranet.areas.index')
-                                    <li class="{{ is_menu_active('intranet/areas') }}">
-                                        <a href="{{ route('intranet.areas.index') }}">
-                                            <span class="menu-title">Areas</span>
-                                        </a>
-                                    </li>
-                                @endcan
-                                @can('intranet.skills.index')
-                                <li class="{{ is_menu_active('intranet/habilidades') }}">
-                                    <a href="{{ route('intranet.skills.index') }}">
-                                        <span class="menu-title">Habilidades</span>
+                                <li class="{{ is_menu_active('intranet/banners') }}">
+                                    <a href="{{ route('intranet.banners.index') }}">
+                                        <span class="menu-title">Banners</span>
                                     </a>
                                 </li>
-                                @endcan
-                                @can('intranet.pages.index')
-                                <li class="{{ is_menu_active('intranet/paginas') }}">
-                                    <a href="{{ route('intranet.pages.index') }}">
-                                        <span class="menu-title">Páginas</span>
+                                <li class="{{ is_menu_active('intranet/tipos-post-blog') }}">
+                                    <a href="{{ route('intranet.post_types.index') }}">
+                                        <span class="menu-title">Tipos de Post Blog</span>
                                     </a>
                                 </li>
-                                @endcan
-                                @can('intranet.frontcomponentcategories.index')
-                                <li class="{{ is_menu_active('intranet/categorias-paso-a-paso') }}">
-                                    <a href="{{ route('intranet.frontcomponentcategories.index') }}">
-                                        <span class="menu-title">Categorías Paso a Paso</span>
+                                <li class="{{ is_menu_active('intranet/post-blog') }}">
+                                    <a href="{{ route('intranet.posts.index') }}">
+                                        <span class="menu-title">Post Blog</span>
                                     </a>
                                 </li>
-                                @endcan
-                                @can('intranet.frontcomponents.index')
-                                <li class="{{ is_menu_active('intranet/paso-a-paso') }}">
-                                    <a href="{{ route('intranet.frontcomponents.index') }}">
-                                        <span class="menu-title">Paso a Paso</span>
+                                <li class="{{ is_menu_active('intranet/faq') }}">
+                                    <a href="{{ route('intranet.faqs.index') }}">
+                                        <span class="menu-title">FAQ</span>
                                     </a>
                                 </li>
-                                @endcan
-                                @can('intranet.companies.getTopFiveCompanies')
-                                <li class="{{ is_menu_active('intranet/companias/top-five-companies') }}">
-                                    <a href="{{ route('intranet.companies.getTopFiveCompanies') }}">
-                                        <span class="menu-title">Top 5 Compañías</span>
+                                <li class="{{ is_menu_active('intranet/configuraciones') }}">
+                                    <a href="{{ route('intranet.settings.index') }}">
+                                        <span class="menu-title">Configuraciones Generales</span>
                                     </a>
                                 </li>
-                                @endcan
                             </ul>
                         </li>
 
-                        <li class="treeview {{ is_parent_menu_active(['intranet/companias', 'intranet/profesionales', 'intranet/solicitudes-de-trabajo', 'intranet/solicitudes-de-pagos-pendientes', 'intranet/solicitudes-de-pagos', 'intranet/facturas', 'intranet/facturas-pendientes']) }}">
-                            <a href="#">
-                                <i class="ti-eye"></i>
-                                <span class="menu-title">Gestión</span>
-                                <i class="arrow"></i>
-                            </a>
-                            <!--Submenu-->
-                            <ul class="collapse">
-                                @can('intranet.companies.index')
-                                    <li class="{{ is_menu_active('intranet/companias') }}">
-                                        <a href="{{ route('intranet.companies.index') }}">
-                                            <span class="menu-title">Compañías</span>
-                                        </a>
-                                    </li>
-                                @endcan
-                                @can('intranet.professionals.index')
-                                    <li class="{{ is_menu_active('intranet/profesionales') }}">
-                                        <a href="{{ route('intranet.professionals.index') }}">
-                                            <span class="menu-title">Profesionales</span>
-                                        </a>
-                                    </li>
-                                @endcan
-                                @can('intranet.orders.index')
-                                    <li class="{{ is_menu_active('intranet/solicitudes-de-trabajo') }}">
-                                        <a href="{{ route('intranet.orders.index') }}">
-                                            <span class="menu-title">Solicitudes de trabajo</span>
-                                        </a>
-                                    </li>
-                                @endcan
-                                @can('intranet.liquidations_pending.index')
-                                    <li class="{{ is_menu_active('intranet/solicitudes-de-pagos-pendientes') }}">
-                                        <a href="{{ route('intranet.liquidations_pending.index') }}">
-                                            <span class="menu-title">Solicitudes de Pago Pendientes</span>
-                                        </a>
-                                    </li>
-                                @endcan
-                                @can('intranet.liquidations.index')
-                                    <li class="{{ is_menu_active('intranet/solicitudes-de-pagos') }}">
-                                        <a href="{{ route('intranet.liquidations.index') }}">
-                                            <span class="menu-title">Solicitudes de Pago Realizadas</span>
-                                        </a>
-                                    </li>
-                                @endcan
-                                @can('intranet.bills.index')
-                                    <li class="{{ is_menu_active('intranet/facturas-pendientes') }}">
-                                        <a href="{{ route('intranet.bills.index') }}">
-                                            <span class="menu-title">Facturas Pendientes</span>
-                                        </a>
-                                    </li>
-                                @endcan
-                                @can('intranet.bills.isBill')
-                                <li class="{{ is_menu_active('intranet/facturas') }}">
-                                    <a href="{{ route('intranet.bills.isBill') }}">
-                                        <span class="menu-title">Facturas Realizadas</span>
-                                    </a>
-                                </li>
-                            @endcan
-
-                            </ul>
-                        </li>
-
-                       
-                        @can('intranet.listado.companies')
                         <li class="{{ is_menu_active('intranet/email') }}">
                             <a href="{{ route('intranet.listado') }}" target="_blank">
                                 <i class="ti-email"></i>
-                                <span class="menu-title">Newsletter Compañías</span>
+                                <span class="menu-title">Newsletter Clientes</span>
                             </a>
                         </li>
-                        @endcan
 
-                        @can('intranet.listado.professional')
-                        <li class="{{ is_menu_active('intranet/email-professional') }}">
-                            <a href="{{ route('intranet.listado-professional') }}" target="_blank">
-                                <i class="ti-email"></i>
-                                <span class="menu-title">Newsletter Profesionales</span>
+                        <li class="{{ is_menu_active('intranet/clientes') }}">
+                            <a href="{{ route('intranet.listado') }}" target="_blank">
+                                <i class="ti-user"></i>
+                                <span class="menu-title">Listado Clientes</span>
                             </a>
                         </li>
-                        @endcan
-                       
-
-                        @can('intranet.settings.index')
-                        <li class="{{ is_menu_active('intranet/configuraciones') }}">
-                            <a href="{{ route('intranet.settings.index') }}">
-                                <i class="ti-settings"></i>
-                                <span class="menu-title">Configuraciones Generales</span>
-                            </a>
-                        </li>
-                        @endcan
 
                         @can('intranet.roles.index')
                         <li class="{{ is_menu_active('intranet/roles') }}">

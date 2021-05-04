@@ -25,7 +25,7 @@
         }
 
         .text-primary {
-            color: #5B32B7 !important
+            color: #0869A6 !important
         }
 
         a.text-primary:focus, a.text-primary:hover {
@@ -99,7 +99,7 @@
         }
 
         .card-footer {
-            background-color: #5B32B7;
+            background-color: #0869A6;
             padding: 25px 15px;
         }
 
@@ -113,7 +113,7 @@
 
         .title {
             font-size: 19px;
-            color: #5B32B7;
+            color: #0869A6;
             font-weight: bold;
             font-family: 'Epilogue', sans-serif;
         }
