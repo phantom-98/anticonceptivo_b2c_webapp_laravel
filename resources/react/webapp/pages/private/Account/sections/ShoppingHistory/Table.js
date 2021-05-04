@@ -10,7 +10,7 @@ const Table = ({showDetail}) => {
     const [objects, setObjects] = useState([]);
 
     useEffect(() => {
-        //emulacion
+        //emulación
         const q = 100;
         let _data = [];
         for (let i = 0; i < q; i++) {
