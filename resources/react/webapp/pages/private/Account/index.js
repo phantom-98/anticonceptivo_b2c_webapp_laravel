@@ -75,7 +75,7 @@ const Account = ({match}) => {
 
         switch (sectionSelected) {
             case sections.PERSONAL_INFO.url:
-                return <PersonalInfo/>
+                return <PersonalInfo />
 
             case sections.ADDRESSES.url:
                 return <Addresses/>;

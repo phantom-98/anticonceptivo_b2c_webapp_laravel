@@ -320,9 +320,15 @@
 }
 
 .menu-section:hover {
-  background: #02efbd;
+  background: #02EFBD;
   color: white;
   transition: 0.3s;
+}
+
+.menu-section-item {
+  font-size: 16px;
+  font-weight: 400;
+  font-family: "Inter", sans-serif;
 }
 
 .modal-backdrop {
@@ -369,6 +375,12 @@
 
 .panel-body {
   padding: 28px;
+}
+
+.panel-bordered {
+  border: 1px solid #DEDEDE;
+  border-radius: 12px;
+  padding: 40px;
 }
 
 .cart-badge-quantity {

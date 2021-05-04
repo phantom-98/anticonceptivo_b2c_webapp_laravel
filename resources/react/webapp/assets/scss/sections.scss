@@ -34,7 +34,13 @@
 }
 
 .menu-section:hover {
-    background: #02efbd;
+    background: #02EFBD;
     color: white;
     transition: 0.3s;
+}
+
+.menu-section-item{
+    font-size: 16px;
+    font-weight: 400;
+    font-family: 'Inter', sans-serif;
 }

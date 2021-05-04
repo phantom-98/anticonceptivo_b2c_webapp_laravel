@@ -113646,6 +113646,39 @@ var H2Title = function H2Title(_ref) {
 
 /***/ }),
 
+/***/ "./resources/react/webapp/components/general/H3Panel.js":
+/*!**************************************************************!*\
+  !*** ./resources/react/webapp/components/general/H3Panel.js ***!
+  \**************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+var H3Panel = function H3Panel(_ref) {
+  var title = _ref.title;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col-md-12 mb-3"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
+    className: "font-poppins font-20 bold color-033F5D"
+  }, title));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (H3Panel);
+
+if (document.getElementById('H3Panel')) {
+  react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(H3Panel, null), document.getElementById('H3Panel'));
+}
+
+/***/ }),
+
 /***/ "./resources/react/webapp/components/general/Icon.js":
 /*!***********************************************************!*\
   !*** ./resources/react/webapp/components/general/Icon.js ***!
@@ -114812,7 +114845,9 @@ var AccountMenuItem = function AccountMenuItem(_ref) {
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "menu-section ".concat(section === sectionSelected ? 'active' : '')
-  }, name)));
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    className: "menu-section-item"
+  }, name))));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (AccountMenuItem);
@@ -114834,7 +114869,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _routes_privateRoutes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../routes/privateRoutes */ "./resources/react/webapp/routes/privateRoutes.js");
 /* harmony import */ var _template_BasePanelOne__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../template/BasePanelOne */ "./resources/react/webapp/template/BasePanelOne.js");
 /* harmony import */ var _AccountMenu__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./AccountMenu */ "./resources/react/webapp/pages/private/Account/AccountMenu.js");
-/* harmony import */ var _sections_PersonalInfo__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./sections/PersonalInfo */ "./resources/react/webapp/pages/private/Account/sections/PersonalInfo.js");
+/* harmony import */ var _sections_PersonalInfo__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./sections/PersonalInfo */ "./resources/react/webapp/pages/private/Account/sections/PersonalInfo/index.js");
 /* harmony import */ var _sections_Addresses__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./sections/Addresses */ "./resources/react/webapp/pages/private/Account/sections/Addresses.js");
 /* harmony import */ var _sections_ShoppingHistory__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./sections/ShoppingHistory */ "./resources/react/webapp/pages/private/Account/sections/ShoppingHistory.js");
 /* harmony import */ var _sections_Subscription__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./sections/Subscription */ "./resources/react/webapp/pages/private/Account/sections/Subscription.js");
@@ -115021,10 +115056,10 @@ var CustomerService = function CustomerService() {
 
 /***/ }),
 
-/***/ "./resources/react/webapp/pages/private/Account/sections/PersonalInfo.js":
-/*!*******************************************************************************!*\
-  !*** ./resources/react/webapp/pages/private/Account/sections/PersonalInfo.js ***!
-  \*******************************************************************************/
+/***/ "./resources/react/webapp/pages/private/Account/sections/PersonalInfo/FormComercialInfo.js":
+/*!*************************************************************************************************!*\
+  !*** ./resources/react/webapp/pages/private/Account/sections/PersonalInfo/FormComercialInfo.js ***!
+  \*************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -115034,11 +115069,354 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/index.js");
+
+
+
+
+var FormComercialInfo = function FormComercialInfo() {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "row"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col-12"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
+    className: "font-poppins font-16 bold color-033F5D"
+  }, "Datos de Factura")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col-md-12"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "form-group"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    htmlFor: "company_name"
+  }, "Empresa"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    type: "text",
+    className: "form-control form-control-custom",
+    id: "company_name",
+    name: "company_name",
+    placeholder: "Empresa"
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col-md-12"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "form-group"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    htmlFor: "company_id_number"
+  }, "RUT de la empresa"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    type: "text",
+    className: "form-control form-control-custom",
+    id: "company_id_number",
+    name: "company_id_number",
+    placeholder: "RUT de la empresa"
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col-md-12"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "form-group"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    htmlFor: "company_business_name"
+  }, "Raz\xF3n social"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    type: "text",
+    className: "form-control form-control-custom",
+    id: "company_business_name",
+    name: "company_business_name",
+    placeholder: "Raz\xF3n social"
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col-md-12"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "form-group"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    htmlFor: "company_business_type"
+  }, "Giro"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    type: "text",
+    className: "form-control form-control-custom",
+    id: "company_business_type",
+    name: "company_business_type",
+    placeholder: "Giro"
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col-md-6"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "form-group"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    htmlFor: "region_id"
+  }, "Regi\xF3n"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+    className: "form-control form-control-custom pl-2",
+    id: "region_id",
+    name: "region_id"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+    value: "5"
+  }, "REGI\xD3N DE VALPARA\xCDSO")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col-md-6"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "form-group"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    htmlFor: "commune_id"
+  }, "Comuna"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+    className: "form-control form-control-custom pl-2",
+    id: "commune_id",
+    name: "commune_id"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+    value: "5"
+  }, "Vi\xF1a del Mar")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col-md-8"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "form-group"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    htmlFor: "address"
+  }, "Direcci\xF3n"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    type: "text",
+    className: "form-control form-control-custom",
+    id: "address",
+    name: "address",
+    placeholder: "Direcci\xF3n"
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col-md-4"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "form-group"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    htmlFor: "address_number"
+  }, "N\xFAmero casa / depto"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    type: "text",
+    className: "form-control form-control-custom",
+    id: "address_number",
+    name: "address_number",
+    placeholder: "N\xFAmero casa / depto"
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col-md-3"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "form-group"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    htmlFor: "phone_code"
+  }, "C\xF3digo"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+    className: "form-control form-control-custom pl-2",
+    id: "phone_code",
+    name: "phone_code"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+    value: "+56"
+  }, "+56")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col-md-9"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "form-group"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    htmlFor: "phone"
+  }, "Tel\xE9fono"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    type: "text",
+    className: "form-control form-control-custom",
+    id: "phone",
+    name: "phone",
+    placeholder: "987 654 321"
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col-md-12"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "form-group"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    htmlFor: "contact_name"
+  }, "Nombre Contacto"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    type: "text",
+    className: "form-control form-control-custom",
+    id: "contact_name",
+    name: "contact_name",
+    placeholder: "Nombre Contacto"
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col-md-12"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "form-group"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    htmlFor: "contact_email"
+  }, "E-Mail Contacto"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    type: "email",
+    className: "form-control form-control-custom",
+    id: "contact_email",
+    name: "contact_email",
+    placeholder: "E-Mail Contacto"
+  }))));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (FormComercialInfo);
+
+/***/ }),
+
+/***/ "./resources/react/webapp/pages/private/Account/sections/PersonalInfo/FormPersonalData.js":
+/*!************************************************************************************************!*\
+  !*** ./resources/react/webapp/pages/private/Account/sections/PersonalInfo/FormPersonalData.js ***!
+  \************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/index.js");
+
+
+
+
+var FormPersonalData = function FormPersonalData() {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "row"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col-md-12"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "form-group"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    htmlFor: "first_name"
+  }, "Nombres"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    type: "text",
+    className: "form-control form-control-custom",
+    id: "first_name",
+    name: "first_name",
+    placeholder: "Nombres"
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col-md-12"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "form-group"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    htmlFor: "last_name"
+  }, "Apellidos"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    type: "text",
+    className: "form-control form-control-custom",
+    id: "last_name",
+    name: "last_name",
+    placeholder: "Apellidos"
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col-md-12"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "form-group"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    htmlFor: "email"
+  }, "E-Mail"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    type: "email",
+    className: "form-control form-control-custom",
+    id: "email",
+    name: "email",
+    placeholder: "E-Mail"
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col-md-12"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "form-group"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: ""
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Form"].Check, {
+    custom: true,
+    inline: true,
+    label: "RUT",
+    type: "radio",
+    name: "id_number_type",
+    checked: true,
+    id: "custom-inline-radio-rut"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Form"].Check, {
+    custom: true,
+    inline: true,
+    label: "DNI",
+    type: "radio",
+    name: "id_number_type",
+    id: "custom-inline-radio-dni"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    type: "text",
+    className: "form-control form-control-custom",
+    id: "id_number",
+    name: "id_number",
+    placeholder: ""
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col-md-3"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "form-group"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    htmlFor: "phone_code"
+  }, "C\xF3digo"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+    className: "form-control form-control-custom pl-2",
+    id: "phone_code",
+    name: "phone_code"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+    value: "+56"
+  }, "+56")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col-md-9"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "form-group"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    htmlFor: "phone"
+  }, "Tel\xE9fono"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    type: "text",
+    className: "form-control form-control-custom",
+    id: "phone",
+    name: "phone",
+    placeholder: "987 654 321"
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col-md-6"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "form-group"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    htmlFor: "password"
+  }, "Contrase\xF1a"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    type: "password",
+    className: "form-control form-control-custom",
+    id: "password",
+    name: "password",
+    placeholder: "****"
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col-md-6"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "form-group"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    htmlFor: "password_confirmation"
+  }, "Nueva Contrase\xF1a"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    type: "password",
+    className: "form-control form-control-custom",
+    id: "password_confirmation",
+    name: "password_confirmation",
+    placeholder: "****"
+  }))));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (FormPersonalData);
+
+/***/ }),
+
+/***/ "./resources/react/webapp/pages/private/Account/sections/PersonalInfo/index.js":
+/*!*************************************************************************************!*\
+  !*** ./resources/react/webapp/pages/private/Account/sections/PersonalInfo/index.js ***!
+  \*************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _FormPersonalData__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./FormPersonalData */ "./resources/react/webapp/pages/private/Account/sections/PersonalInfo/FormPersonalData.js");
+/* harmony import */ var _components_general_H3Panel__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../components/general/H3Panel */ "./resources/react/webapp/components/general/H3Panel.js");
+/* harmony import */ var _Globals__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../../Globals */ "./resources/react/webapp/Globals.js");
+/* harmony import */ var _FormComercialInfo__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./FormComercialInfo */ "./resources/react/webapp/pages/private/Account/sections/PersonalInfo/FormComercialInfo.js");
+
+
+
+
 
 
 
 var PersonalInfo = function PersonalInfo() {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, "Hello PersonalInfo!");
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "row"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_general_H3Panel__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    title: "EDITAR PERFIL"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col-md-12 mb-5"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "panel-bordered"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_FormPersonalData__WEBPACK_IMPORTED_MODULE_2__["default"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col-md-12 mb-5"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "panel-bordered"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_FormComercialInfo__WEBPACK_IMPORTED_MODULE_5__["default"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col-md-12 mb-5 text-right"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    type: "button",
+    className: "btn btn-bicolor btn-auth px-5",
+    onClick: function onClick() {
+      return alert('UPDATE DATA');
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "GUARDAR CAMBIOS"))));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (PersonalInfo);
