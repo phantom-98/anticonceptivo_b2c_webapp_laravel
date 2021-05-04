@@ -136,7 +136,7 @@
   height: 50px;
   font-size: 14px;
   color: #3C3C3E;
-  padding-left: 1.75rem;
+  padding-left: 1.25rem !important;
 }
 
 .form-control-custom-60 {
@@ -1847,6 +1847,14 @@ h4 {
 
 .bg-707070 {
   background-color: #707070;
+}
+
+.color-8E8E8E {
+  color: #8E8E8E;
+}
+
+.bg-8E8E8E {
+  background-color: #8E8E8E;
 }
 
 @media (min-width: 1200px) {

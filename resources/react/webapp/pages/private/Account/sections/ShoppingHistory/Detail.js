@@ -4,7 +4,7 @@ import RowCol from "../../../../../components/general/RowCol";
 
 const Detail = ({order, goBack}) => {
     return (
-        <div className="panel-bordered  py-3">
+        <div className="panel-bordered py-3">
             <div className="row">
                 <div className="col-md-12 mb-3">
                     <button onClick={goBack} className="link" style={{textDecoration: 'none'}}>
