@@ -27,8 +27,6 @@ class CreateOrdersTable extends Migration
             $table->double('dispatch', 13, 2)->default(0);
             $table->double('total', 13, 2)->default(0);
 
-            $table->string('discount_type')->nullable();
-
             $table->string('payment_type')->nullable();
             $table->string('payment_token')->nullable();
             $table->dateTime('payment_date')->nullable();

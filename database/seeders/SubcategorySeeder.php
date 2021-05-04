@@ -12,31 +12,104 @@ class SubcategorySeeder extends Seeder
     public function run()
     {
         $c = new \App\Models\Subcategory();
-        $c->name = 'Pastillas';
+        $c->name = 'Laboratorio';
+        $c->category_id = 1;
         $c->save();
 
         $c = new \App\Models\Subcategory();
-        $c->name = 'Masculino';
+        $c->name = 'Suscripción';
+        $c->category_id = 1;
         $c->save();
 
         $c = new \App\Models\Subcategory();
-        $c->name = 'Test de Embarazo';
+        $c->name = 'Formato 21 / 28';
+        $c->category_id = 1;
         $c->save();
 
         $c = new \App\Models\Subcategory();
-        $c->name = 'Anticoncepción de Emergencia';
+        $c->name = 'Condones';
+        $c->category_id = 2;
         $c->save();
 
         $c = new \App\Models\Subcategory();
-        $c->name = 'Duración largo plazo';
+        $c->name = 'Dosis Unitaria';
+        $c->category_id = 4;
         $c->save();
 
         $c = new \App\Models\Subcategory();
-        $c->name = 'Métodos Alternativos';
+        $c->name = 'Dosis Múltiple';
+        $c->category_id = 4;
         $c->save();
 
         $c = new \App\Models\Subcategory();
-        $c->name = 'Salud Femenina';
+        $c->name = 'D.I.U';
+        $c->category_id = 5;
         $c->save();
+
+        $c = new \App\Models\Subcategory();
+        $c->name = 'Implantes / Injertos';
+        $c->category_id = 5;
+        $c->save();
+
+        $c = new \App\Models\Subcategory();
+        $c->name = 'Inyectable Prolongado';
+        $c->category_id = 5;
+        $c->save();
+
+        $c = new \App\Models\Subcategory();
+        $c->name = 'Parches';
+        $c->category_id = 6;
+        $c->save();
+
+        $c = new \App\Models\Subcategory();
+        $c->name = 'Anillos';
+        $c->category_id = 6;
+        $c->save();
+
+        $c = new \App\Models\Subcategory();
+        $c->name = 'Inyectable 1 Ciclo';
+        $c->category_id = 6;
+        $c->save();
+
+        $c = new \App\Models\Subcategory();
+        $c->name = 'Tratamiento';
+        $c->category_id = 7;
+        $c->save();
+
+        $c = new \App\Models\Subcategory();
+        $c->name = 'Gotas Orales';
+        $c->category_id = 7;
+        $c->save();
+
+        $c = new \App\Models\Subcategory();
+        $c->name = 'Cremas';
+        $c->category_id = 7;
+        $c->save();
+
+        $c = new \App\Models\Subcategory();
+        $c->name = 'Gel / Lociones / Lubricantes';
+        $c->category_id = 7;
+        $c->save();
+
+        $c = new \App\Models\Subcategory();
+        $c->name = 'Jabones Líquidos';
+        $c->category_id = 7;
+        $c->save();
+
+        $c = new \App\Models\Subcategory();
+        $c->name = 'Toallas';
+        $c->category_id = 7;
+        $c->save();
+
+        $c = new \App\Models\Subcategory();
+        $c->name = 'Probióticos para embarazo';
+        $c->category_id = 7;
+        $c->save();
+
+        $c = new \App\Models\Subcategory();
+        $c->name = 'Suplemento alimenticio embarazo (Vitaminas y Minerales)';
+        $c->category_id = 7;
+        $c->save();
+
     }
 }
