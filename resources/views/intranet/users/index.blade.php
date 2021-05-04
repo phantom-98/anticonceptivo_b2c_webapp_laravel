@@ -88,9 +88,9 @@
                                         <div>
                                             @push('prepend_actions_buttons' .  $object->id)
                                                 @if($config['action']['permissionsEdit'])
-                                                <a href="{{ route($config['route'] . 'permissionsEdit',$object->id) }}"
-                                                   class="btn btn-sm btn-default btn-hover-info add-tooltip"
-                                                   title="Permisos del usuario">
+                                                <a href="{{ route($config['route'] . 'permissionsEdit',['id' => $object->id] ) }}"
+                                                class="btn btn-sm btn-default btn-hover-info add-tooltip"
+                                                title="Permisos del usuario">
                                                     <i class="fa fa-lock"></i>
                                                 </a>
                                                 @endif
@@ -115,11 +115,11 @@
 
 @section('scripts')
 
-    @include('intranet.template.components._crud_script_change_status')
-    @include('intranet.template.components._crud_script_active')
-    @include('intranet.template.components._crud_script_delete')
+@include('intranet.template.components._crud_script_change_status')
+@include('intranet.template.components._crud_script_active')
+@include('intranet.template.components._crud_script_delete')
 
-    
+
 
 @endsection
 
