@@ -13,5 +13,9 @@ class VerifyCsrfToken extends Middleware
      */
     protected $except = [
         //
+        '/*',
+        '/webpay-response',
+        '/api/v1/app/payment/webpay/*',
+        'auth/social-media/*'
     ];
 }

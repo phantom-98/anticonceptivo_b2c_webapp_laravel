@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>{{  env('INTRANET_NAME', 'Ikiru Intranet') }} | @yield('title', 'Login')</title>
+    <title>{{  env('INTRANET_NAME', 'Anticonceptivo Intranet') }} | @yield('title', 'Ingreso')</title>
 
     <link rel="shortcut icon" href="/themes/web/favicon/favicon.ico" type="image/x-icon">
     <link rel="icon" href="/themes/web/favicon/favicon.ico" type="image/x-icon">
@@ -28,30 +28,28 @@
     <meta name="msapplication-TileImage" content="/themes/web/assets/img/favicon/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
 
-    {{--    Cyber Security es una empresa del Holding Rebrisa, dedicada a ofrecer soluciones integrales orientados al soporte y seguridad de la información, apoyados por una metodología de trabajo integral que abarca desde el análisis y diseño inicial de su negocio, hasta su implementación--}}
+    <meta name="apple-mobile-web-app-title" content="Anticonceptivo">
+    <meta name="application-name" content="Anticonceptivo">
 
-    <meta name="apple-mobile-web-app-title" content="Ikiru">
-    <meta name="application-name" content="Ikiru">
-
-    <meta name="title" content="Ikiru">
+    <meta name="title" content="Anticonceptivo | Encuentra lo mejor en anticonceptivos">
     <meta name="description"
-          content="Tu médico aun click">
+          content="Tienda online de diferentes anticonceptivos">
     <meta name="keywords"
-          content="Médico, psicologo, online, 1 click, webpay">
+          content="anticonceptivos, ecommerce, tienda, pastillas, nora, condones, durex">
     <meta name="robots" content="index, nofollow">
     <meta name="language" content="Spanish">
     <meta name="revisit-after" content="4000 days">
-    <meta name="author" content="Ikiru">
-    <meta name="rights" content="Ikiru"/>
+    <meta name="author" content="Anticonceptivo">
+    <meta name="rights" content="Anticonceptivo"/>
 
-    <meta property="og:site_name" content="Ikiru">
-    <meta property="og:title" content="Ikiru"/>
+    <meta property="og:site_name" content="Anticonceptivo">
+    <meta property="og:title" content="Anticonceptivo"/>
     <meta property="og:description"
-          content="Tu doctor a un click."/>
-    <meta property="og:image" itemprop="image" content="https://www.doctormeet.cl/themes/web/assets/img/rrss.jpg">
+          content="Tienda online de diferentes anticonceptivos."/>
+    <meta property="og:image" itemprop="image" content="https://www.anticonceptivo.cl/images/logo-full.svg?b3b8df2099e0585f16d824394e200f52">
     <meta property="og:type" content="website"/>
     <meta property="og:updated_time" content="1440432930"/>
-    <meta property="og:url" content="https://www.doctormeet.cl/"/>
+    <meta property="og:url" content="https://www.anticonceptivo.cl/"/>
 
     <!--Open Sans Font [ OPTIONAL ]-->
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
@@ -102,8 +100,7 @@
 
 </head>
 
-{{--<body style="background-image : linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.2)),url('../themes/intranet/img/bg.png')">--}}
-<body style="background: rgba(255, 255, 255, 0.87);">
+<body style="background: #c1fff2;">
 
 @include('intranet.template.components.loading')
 
@@ -111,7 +108,7 @@
     <div style="display: flex; align-items: center; justify-content: center; height: 100vh;">
         <div style="min-width: 300px;padding: 10px;max-width: 400px;width: 100%;">
             <div class="text-center pb-5">
-                <img src="/themes/web/assets/images/home/header.svg" style="width: 350px;">
+                <img src="/images/logo-full.svg?b3b8df2099e0585f16d824394e200f52" style="width: 350px;">
             </div>
             @yield('content')
         </div>

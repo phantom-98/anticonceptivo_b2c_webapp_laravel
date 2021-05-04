@@ -29,7 +29,7 @@
                 </div>
                 <div class="row">
                     <div class="col-xs-8" style="margin-top:10px; margin-bottom:10px">
-                        <a href="{{ route('intranet.auth.show-recovery-password') }}" style="color: #5b32b7">Ya tengo el código</a>
+                        <a href="{{ route('intranet.auth.show-recovery-password') }}" style="color: #0869A6">Ya tengo el código</a>
                     </div>
                     <div class="col-xs-4" style="margin-top:10px; margin-bottom:10px">
                         <button type="submit" class="btn btn-primary btn-block">Enviar</button>
