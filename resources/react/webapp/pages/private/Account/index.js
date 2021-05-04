@@ -11,6 +11,7 @@ import Subscription from "./sections/Subscription";
 import Receipts from "./sections/Receipts";
 import CustomerService from "./sections/CustomerService";
 import {Redirect} from "react-router-dom";
+import PUBLIC_ROUTES from "../../../routes/publicRoutes";
 
 const Account = ({match}) => {
 
@@ -60,6 +61,10 @@ const Account = ({match}) => {
             Object.keys(sections).map((key, index) => {
                 if (section == sections[key].url) {
                     setBreadcrumbs([
+                        {
+                            url: PUBLIC_ROUTES.HOME.path,
+                            name: 'Inicio'
+                        },
                         {
                             url: PRIVATE_ROUTES.ACCOUNT.path,
                             name: 'Mi Cuenta'

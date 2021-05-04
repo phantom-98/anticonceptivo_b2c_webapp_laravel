@@ -76,7 +76,7 @@ const Footer = () => {
                                 </li>
                                 <li className="nav-item">
                                     <a className="nav-link" href="#"><Icon path={email}/>
-                                        <span>{' '}HOLA@ANTICONCEPTIVOS.CL</span>
+                                        <span>{' '}hola@anticonceptivos.cl</span>
                                     </a>
                                 </li>
                             </ul>
