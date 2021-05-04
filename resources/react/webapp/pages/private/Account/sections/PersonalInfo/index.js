@@ -1,8 +1,6 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import FormPersonalData from "./FormPersonalData";
 import H3Panel from "../../../../../components/general/H3Panel";
-import {ModalAuthMode} from "../../../../../Globals";
 import FormComercialInfo from "./FormComercialInfo";
 
 const PersonalInfo = () => {

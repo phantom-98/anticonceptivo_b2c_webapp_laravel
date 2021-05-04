@@ -383,6 +383,47 @@
   padding: 40px;
 }
 
+.table {
+  width: 100%;
+  margin-bottom: 1rem;
+  color: #484848;
+  font-family: "Poppins", sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.table thead th {
+  vertical-align: bottom;
+  border-bottom: 0 solid #dee2e6;
+  color: #033F5D;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.table td,
+.table th {
+  padding: 0.75rem;
+  vertical-align: top;
+  border-top: 0 solid #dee2e6;
+}
+
+.table thead {
+  border: 1px solid #EBEBEB;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: white;
+}
+
+.table-striped tbody tr:nth-of-type(even) {
+  background-color: #EDF8FE;
+}
+
+.react-bootstrap-table-pagination-list {
+  justify-content: flex-end;
+  display: flex;
+}
+
 .cart-badge-quantity {
   background: #00DBAE;
   color: white;
@@ -1765,6 +1806,14 @@ h4 {
 
 .bg-6C6B6B {
   background-color: #6C6B6B;
+}
+
+.color-484848 {
+  color: #484848;
+}
+
+.bg-484848 {
+  background-color: #484848;
 }
 
 @media (min-width: 1200px) {

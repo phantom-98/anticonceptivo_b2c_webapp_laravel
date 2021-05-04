@@ -19,6 +19,7 @@
 @import 'assets/scss/sections';
 @import 'assets/scss/modal';
 @import 'assets/scss/panel';
+@import 'assets/scss/table';
 @import 'assets/scss/cart';
 
 .app-content {
@@ -134,7 +135,8 @@ $customColor: (
     '009BE8': '#009BE8',
     '222222' : '#222222',
     '000000' : '#000000',
-    '6C6B6B' : '#6C6B6B'
+    '6C6B6B' : '#6C6B6B',
+    '484848' : '#484848',
 );
 
 @each $name, $color in $customColor {
