@@ -5,7 +5,7 @@ const RowCol = ({name, value, firstColSize = 3}) => {
 
 
     return (
-        <div className="col-12">
+        <div className="col-12 pb-1">
             <div className="row">
                 <div className={`col-md-${firstColSize}`}>
                     <span className="font-poppins font-14 bold color-484848 text-uppercase">{name}</span>

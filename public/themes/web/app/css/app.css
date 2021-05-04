@@ -210,8 +210,6 @@
 
 .btn-auth {
   height: 50px;
-  border-radius: 31px;
-  color: white !important;
   text-transform: uppercase;
   font-size: 15px;
   font-family: "Poppins", sans-serif;
@@ -219,6 +217,10 @@
 }
 
 .btn-bicolor {
+  font-weight: 700;
+  height: 48px;
+  border-radius: 31px;
+  color: white !important;
   background: linear-gradient(90deg, #00dbae, #009be8, #009be8, #00dbae);
   background-size: 400% 400%;
   -webkit-animation: gradient-in 0.3s linear;
@@ -228,6 +230,29 @@
 .btn-bicolor:hover {
   -webkit-animation: gradient-out 0.3s linear;
           animation: gradient-out 0.3s linear;
+}
+
+.btn-outline-bicolor {
+  font-weight: 700;
+  height: 48px;
+  border-radius: 31px;
+  border: 1px solid #707070;
+  color: #033F5D !important;
+  background: white;
+  background-size: 400% 400%;
+  -webkit-animation: gradient-in 0.3s linear;
+          animation: gradient-in 0.3s linear;
+}
+
+.btn-outline-bicolor:hover {
+  height: 48px;
+  border-radius: 31px;
+  border: 1px solid #00c3c3;
+  color: white !important;
+  background: linear-gradient(90deg, #00dbae, #009be8, #009be8, #00dbae);
+  background-size: 400% 400%;
+  -webkit-animation: gradient-in 0.3s linear;
+          animation: gradient-in 0.3s linear;
 }
 
 @-webkit-keyframes gradient-in {

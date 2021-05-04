@@ -44,7 +44,7 @@ const Detail = ({order, goBack}) => {
 
             <div className="row py-4">
                 <div className="col-md-12 ">
-                    <button type="button" className="btn btn-bicolor btn-auth px-5"
+                    <button type="button" className="btn btn-bicolor  px-5"
                             onClick={() => alert('VOLVER A COMPRAR')}>
                         <span className="px-5">VOLVER A COMPRAR</span>
                     </button>
