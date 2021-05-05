@@ -18,7 +18,8 @@
         "pusher/pusher-php-server": "^4.1",
         "sendgrid/sendgrid": "^7.9",
         "spatie/laravel-permission": "^4.0",
-        "willywes/apiresponse": "^0.3.0"
+        "willywes/apiresponse": "^0.3.0",
+        "laravelcollective/html": "^6.2"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
