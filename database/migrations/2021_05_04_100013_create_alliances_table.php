@@ -17,6 +17,7 @@ class CreateAlliancesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name')->nullable();
             $table->text('description')->nullable();
+            $table->text('website')->nullable();
             $table->text('image')->nullable();
 
             $table->timestamps();

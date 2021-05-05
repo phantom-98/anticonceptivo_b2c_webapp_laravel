@@ -67,7 +67,7 @@
                         <li class="treeview {{ is_parent_menu_active(['intranet/categorias', 'intranet/subcategorias', 'intranet/marcas']) }}">
                             <a href="#">
                                 <i class="ti-shopping-cart"></i>
-                                <span class="menu-title">Pedidos</span>
+                                <span class="menu-title">Tienda</span>
                                 <i class="arrow"></i>
                             </a>
                             <!--Submenu-->
@@ -87,10 +87,21 @@
                                         <span class="menu-title">Marcas</span>
                                     </a>
                                 </li>
+                                <li class="{{ is_menu_active('intranet/productos') }}">
+                                    <a href="{{ route('intranet.products.index') }}">
+                                        <span class="menu-title">Productos</span>
+                                    </a>
+                                </li>
+                                <li class="{{ is_menu_active('intranet/pedidos') }}">
+                                    <a href="{{ route('intranet.orders.index') }}">
+                                        <span class="menu-title">Pedidos</span>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                         
-                        <li class="treeview {{ is_parent_menu_active(['intranet/banners', 'intranet/tipos-post-blog', 'intranet/post-blog', 'intranet/faq', 'intranet/configuraciones']) }}">
+                        <li class="treeview {{ is_parent_menu_active(['intranet/banners', 'intranet/tipos-post-blog', 'intranet/post-blog', 'intranet/faq', 'intranet/configuraciones', 'intranet/paginas', 'intranet/linea-tiempo', 
+                            'intranet/quienes-somos', 'intranet/valores', 'intranet/alianzas']) }}">
                             <a href="#">
                                 <i class="ti-settings"></i>
                                 <span class="menu-title">Conf. Sitio web</span>
@@ -118,6 +129,41 @@
                                         <span class="menu-title">FAQ</span>
                                     </a>
                                 </li>
+                                <li class="{{ is_menu_active('intranet/paginas') }}">
+                                    <a href="{{ route('intranet.pages.index') }}">
+                                        <span class="menu-title">Páginas</span>
+                                    </a>
+                                </li>
+                                <li class="{{ is_menu_active('intranet/linea-tiempo') }}">
+                                    <a href="{{ route('intranet.timelines.index') }}">
+                                        <span class="menu-title">Línea de Tiempo</span>
+                                    </a>
+                                </li>
+                                <li class="{{ is_menu_active('intranet/quienes-somos') }}">
+                                    <a href="{{ route('intranet.abouts.index') }}">
+                                        <span class="menu-title">Quienes Somos</span>
+                                    </a>
+                                </li>
+                                <li class="{{ is_menu_active('intranet/valores') }}">
+                                    <a href="{{ route('intranet.values.index') }}">
+                                        <span class="menu-title">Valores Empresa</span>
+                                    </a>
+                                </li>
+                                <li class="{{ is_menu_active('intranet/alianzas') }}">
+                                    <a href="{{ route('intranet.alliances.index') }}">
+                                        <span class="menu-title">Alianzas</span>
+                                    </a>
+                                </li>
+                                <li class="{{ is_menu_active('intranet/planes-suscripcion') }}">
+                                    <a href="{{ route('intranet.subscription_plans.index') }}">
+                                        <span class="menu-title">Planes suscripción producto</span>
+                                    </a>
+                                </li>
+                                <li class="{{ is_menu_active('intranet/valor-suscripcion') }}">
+                                    <a href="{{ route('intranet.subscription_values.index') }}">
+                                        <span class="menu-title">Valor suscripción</span>
+                                    </a>
+                                </li>
                                 <li class="{{ is_menu_active('intranet/configuraciones') }}">
                                     <a href="{{ route('intranet.settings.index') }}">
                                         <span class="menu-title">Configuraciones Generales</span>
@@ -137,6 +183,34 @@
                             <a href="{{ route('intranet.listado') }}" target="_blank">
                                 <i class="ti-user"></i>
                                 <span class="menu-title">Listado Clientes</span>
+                            </a>
+                        </li>
+
+                        <li class="treeview {{ is_parent_menu_active(['intranet/tipos-contacto', 'intranet/contactos']) }}">
+                            <a href="#">
+                                <i class="ti-help"></i>
+                                <span class="menu-title">Contacto</span>
+                                <i class="arrow"></i>
+                            </a>
+                            <!--Submenu-->
+                            <ul class="collapse">
+                                <li class="{{ is_menu_active('intranet/tipos-contacto') }}">
+                                    <a href="{{ route('intranet.contact_issues.index') }}">
+                                        <span class="menu-title">Tipos de Contacto</span>
+                                    </a>
+                                </li>
+                                <li class="{{ is_menu_active('intranet/contactos') }}">
+                                    <a href="{{ route('intranet.contacts.index') }}">
+                                        <span class="menu-title">Registro Contacto</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="{{ is_menu_active('intranet/codigo-descuento') }}">
+                            <a href="{{ route('intranet.discount_code.index') }}">
+                                <i class="fa fa-cart-plus"></i>
+                                <span class="menu-title">Códigos de descuento</span>
                             </a>
                         </li>
 
