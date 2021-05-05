@@ -33,25 +33,11 @@
                             <div class="col-md-6">
                                 <div class="form-group {{ $errors->has('name') ? 'has-error':'' }}">
                                     <label for="name">Nombre (*)</label>
-                                    @php
-                                        if ($object->key == "COMMISSION_PROFESSIONAL") {
-                                            $name = "Comisión Profesional";
-                                        }
-
-                                        if ($object->key == "COMMISSION_COMPANY") {
-                                            $name = "Comisión Compañía";
-                                        }
-
-                                        if ($object->key == "PAYMENT_RANGE") {
-                                            $name = "Rango de días para pago automático";
-                                        }
-                                    @endphp
-
                                     <input type="text"
                                         id="name" name="name"
                                         class="form-control"
                                         required
-                                        value="{{  $name }}">
+                                        value="{{ $object->key }}" disabled>
                                     {!! $errors->first('name', '<span class="help-block">:message</span>') !!}
                                 </div>
                             </div>

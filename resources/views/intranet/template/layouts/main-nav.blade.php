@@ -99,12 +99,12 @@
                             <!--Submenu-->
                             <ul class="collapse">
                                 <li class="{{ is_menu_active('intranet/banners') }}">
-                                    <a href="{{ route('intranet.banners.index') }}">
+                                    <a href="{{ route('intranet.banners.edit', 'slider-principal') }}">
                                         <span class="menu-title">Banners</span>
                                     </a>
                                 </li>
                                 <li class="{{ is_menu_active('intranet/tipos-post-blog') }}">
-                                    <a href="{{ route('intranet.post_types.index') }}">
+                                    <a href="{{ route('intranet.post-types.index') }}">
                                         <span class="menu-title">Tipos de Post Blog</span>
                                     </a>
                                 </li>

@@ -84,6 +84,7 @@ if (env('SHOW_INTRANET', 'TRUE') == 'TRUE') {
                 Route::resource('subcategorias', 'SubCategoryController', ['names' => getResourceRoutesForNameHelper('subcategories')]);
 
                 Route::post('marcas/active', 'BrandController@active')->name('brands.active');
+                Route::post('marcas/position', 'BrandController@position')->name('brands.position');
                 Route::resource('marcas', 'BrandController', ['names' => getResourceRoutesForNameHelper('brands')]);
 
                 Route::delete('banners/delete-item/{id}', 'BannerController@delete_item')->name('banners.delete_item');
@@ -91,13 +92,15 @@ if (env('SHOW_INTRANET', 'TRUE') == 'TRUE') {
                 Route::post('banners/position', 'BannerController@position')->name('banners.position');
                 Route::resource('banners', 'BannerController', ['names' => getResourceRoutesForNameHelper('banners')]);
 
-                Route::post('tipos-post-blog/active', 'PostTypeController@active')->name('post_types.active');
-                Route::resource('tipos-post-blog', 'PostTypeController', ['names' => getResourceRoutesForNameHelper('post_types')]);
+                Route::post('tipos-post-blog/active', 'PostTypeController@active')->name('post-types.active');
+                Route::resource('tipos-post-blog', 'PostTypeController', ['names' => getResourceRoutesForNameHelper('post-types')]);
 
                 Route::post('post-blog/active', 'PostController@active')->name('posts.active');
+                Route::post('post-blog/position', 'PostController@position')->name('posts.position');
                 Route::resource('post-blog', 'PostController', ['names' => getResourceRoutesForNameHelper('posts')]);
 
                 Route::post('faq/active', 'FaqController@active')->name('faqs.active');
+                Route::post('faq/position', 'FaqController@position')->name('faqs.position');
                 Route::resource('faq', 'FaqController', ['names' => getResourceRoutesForNameHelper('faqs')]);
 
                 Route::post('clientes/active', 'ClientController@active')->name('clients.active');

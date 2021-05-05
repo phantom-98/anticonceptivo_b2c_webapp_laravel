@@ -2,23 +2,19 @@
 
 namespace App\Http\Controllers\Intranet;
 
-use App\Models\Brand;
-
+use App\Models\Faq;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Storage;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\Log;
 
-class BrandController extends GlobalController
+class FaqController extends GlobalController
 {
     protected $options = [
-        'route' => 'intranet.brands.',
-        'folder' => 'intranet.brands.',
-        'pluralName' => 'Marcas',
-        'singularName' => 'Marca',
+        'route' => 'intranet.faqs.',
+        'folder' => 'intranet.faqs.',
+        'pluralName' => 'FAQ',
+        'singularName' => 'Pregunta',
         'disableActions' => ['show', 'changeStatus'],
         'enableActions' => ['position']
 
@@ -31,7 +27,7 @@ class BrandController extends GlobalController
 
     public function index()
     {
-        $objects = Brand::orderBy('position')->get();
+        $objects = Faq::orderBy('position')->get();
         return view($this->folder . 'index', compact('objects'));
     }
 
@@ -43,36 +39,26 @@ class BrandController extends GlobalController
     public function store(Request $request)
     {
         $rules = [
-            'name' => 'required|unique:brands,name',
-            'url' => 'required',
-            'image' => 'required'
+            'question' => 'required|unique:faqs,question',
+            'answer' => 'required'
         ];
 
         $messages = [
-            'image.required' => 'El campo imagen es obligatorio.',
-            'url.required' => 'El campo URL es obligatorio'
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
 
         if ($validator->passes()) {
 
-            $object = Brand::create($request->except(['image']));
-
-            if ($request->image) {
-                $image = $request->file('image');
-                $filename = 'brand-' . $object->id  .'.'. $image->getClientOriginalExtension();
-                $object->image = $image->storeAs('public/brands', $filename);
-                $object->save();
-            }  
+            $object = Faq::create($request->all());
 
             if ($object) {
-                session()->flash('success', 'Marca creada correctamente.');
+                session()->flash('success', 'Pregunta creada correctamente.');
                 return redirect()->route($this->route . 'index');
 
             }
 
-            return redirect()->back()->withErrors(['mensaje' => 'Error inesperado al crear la Marca.'])->withInput();
+            return redirect()->back()->withErrors(['mensaje' => 'Error inesperado al crear la Pregunta.'])->withInput();
         } else {
             return redirect()->back()->withErrors($validator)->withInput();
         }
@@ -84,10 +70,10 @@ class BrandController extends GlobalController
 
     public function edit($id)
     {
-        $object = Brand::find($id);
+        $object = Faq::find($id);
 
         if (!$object) {
-            session()->flash('warning', 'Marca no encontrada.');
+            session()->flash('warning', 'Pregunta no encontrada.');
             return redirect()->route($this->route . 'index');
         }
 
@@ -96,66 +82,68 @@ class BrandController extends GlobalController
 
     public function update(Request $request, $id)
     {
-        $object = Brand::find($id);
+        $object = Faq::find($id);
 
         if (!$object) {
-            session()->flash('warning', 'Marca no encontrada.');
+            session()->flash('warning', 'Pregunta no encontrada.');
             return redirect()->route($this->route . 'index');
         }
 
         $rules = [
-            'name' => 'required|unique:brands,name,' . $id,
-            'url.required' => 'El campo URL es obligatorio'
+            'question' => 'required|unique:faqs,question,' . $id,
+            'answer' => 'required'
         ];
 
         $messages = [
-            'url.required' => 'El campo URL es obligatorio'
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
 
         if ($validator->passes()) {
 
-            $object->update($request->except(['image']));
+            $object->update($request->all());
 
             $object->save();
 
-            if ($request->image) {
-                $name = "";
-                if($object->image){
-                    $name = $object->image;
-                    Storage::delete($object->image);
-                }
-                $image = $request->file('image');
-                $filename = 'brand-' . $object->id  .'.'. $image->getClientOriginalExtension();
-                $object->image = $image->storeAs('public/brands', $filename);
-                $object->save();
-
-                $object->refresh();
-
-                Log::info('Cambio de foto', [
-                    'date' => date('Y-m-d H:i:s'),
-                    'old_name' => $name,
-                    'new_name' => $filename,
-                    'user' => auth('intranet')->user()->full_name
-                ]);
-            }
-
             if ($object) {
-                session()->flash('success', 'Marca modificada correctamente.');
+                session()->flash('success', 'Pregunta modificada correctamente.');
                 return redirect()->route($this->route . 'index');
             }
 
-            return redirect()->back()->withErrors(['mensaje' => 'Error inesperado al modificar la Marca.'])->withInput();
+            return redirect()->back()->withErrors(['mensaje' => 'Error inesperado al modificar la Pregunta.'])->withInput();
         } else {
             return redirect()->back()->withErrors($validator)->withInput();
         }
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $object = Faq::find($id);
+
+        if (!$object) {
+            session()->flash('warning', 'Pregunta no encontrada.');
+            return redirect()->route($this->route . 'index');
+        }
+
+        if ($object->delete()) {
+            session()->flash('success', 'Pregunta eliminada correctamente.');
+            return redirect()->route($this->route . 'index');
+        }
+
+        session()->flash('error', 'No se ha podido eliminar la Pregunta.');
+        return redirect()->route($this->route . 'index');
     }
     public function position(Request $request){
 
         try{
             foreach($request->data as $data){
-                $object = Brand::find($data['id']);
+                $object = Faq::find($data['id']);
                 $object->update(['position' => $data['position']]);
             }
             return response()->json([
@@ -169,19 +157,12 @@ class BrandController extends GlobalController
 
         
     }
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-
     public function active(Request $request)
     {
 
         try {
 
-            $object = Brand::find($request->id);
+            $object = Faq::find($request->id);
 
             if ($object) {
 
@@ -190,7 +171,7 @@ class BrandController extends GlobalController
 
                 return response()->json([
                     'status' => 'success',
-                    'message' => $object->active == 1 ? 'Marca activada correctamente.' : 'Marca desactivada correctamente.',
+                    'message' => $object->active == 1 ? 'Pregunta activada correctamente.' : 'Pregunta desactivada correctamente.',
                     'object' => $object
                 ]);
 
@@ -198,7 +179,7 @@ class BrandController extends GlobalController
 
                 return response()->json([
                     'status' => 'error',
-                    'message' => 'Marca no encontrada.'
+                    'message' => 'Pregunta no encontrada.'
                 ]);
             }
 
@@ -216,5 +197,4 @@ class BrandController extends GlobalController
     {
 
     }
-
 }
