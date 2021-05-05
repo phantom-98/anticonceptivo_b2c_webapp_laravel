@@ -151,27 +151,5 @@
 <!--Bootstrap toggle [ OPTIONAL ] ALLWAYS BEFORE BS TABLE -->
 <script src="/themes/intranet/plugins/bootstrap-toggle/bootstrap-toggle.min.js"></script>
 
-
-
-<script src="https://www.google.com/recaptcha/api.js?render={{ $captcha_token ?? '' }}"></script>
-
-<script>
-    grecaptcha.ready(function () {
-        grecaptcha.execute('{{ $captcha_token ?? '' }}', {action: 'login'}).then(function (token) {
-            // Verify the token on the server.
-            let input = document.getElementById('token');
-            input.value = token;
-        });
-    });
-
-    function errorCaptcha() {
-        $('.set-errors').html(' <div class="alert alert-danger alert-dismissible">\n' +
-            '        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>\n' +
-            '        <h4><i class="icon fa fa-remove"></i> Oops</h4>\n' +
-            '        <p>Válida captcha</p>\n' +
-            '    </div>')
-    }
-</script>
-
 </body>
 </html>

@@ -9,6 +9,8 @@ class Product extends Model
     protected $fillable = [
         'sku',
         'name',
+        'consumption_typology',
+        'compound',
         'description',
         'price',
         'offer_price',
@@ -28,8 +30,8 @@ class Product extends Model
         return $this->belongsTo(Subcategory::class);
     }
 
-    public function brand(){
-        return $this->belongsTo(Brand::class);
+    public function laboratory(){
+        return $this->belongsTo(Laboratory::class);
     }
 
 }
