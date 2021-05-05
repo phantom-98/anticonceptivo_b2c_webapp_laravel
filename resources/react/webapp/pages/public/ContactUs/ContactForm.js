@@ -2,6 +2,7 @@ import React from 'react';
 import {Form} from 'react-bootstrap'
 
 const ContactForm = () => {
+
     return (
         <div className="row">
             <div className="col-md-6">
@@ -130,7 +131,6 @@ const ContactForm = () => {
                     </div>
                 </div>
             </div>
-
         </div>
     );
 };
