@@ -53,36 +53,11 @@ const AboutUs = () => {
                     </div>
 
                     <div className="row pb-5 mb-5">
-                        <div className="col-12 pb-5">
-                            <H2Title text="VALORES" className="font-30"/>
-                        </div>
-                        {
-                            [1, 2, 3].map((_, i) => {
-                                return <div key={i} className="col-md-4 d-flex">
-                                    <div className="row">
-                                        <div className="col-12 mb-5">
-                                            <div className="circle-about-us mx-auto">
-                                                <img className="m-auto" src={handsWhite} alt={CONFIG.APP_NAME}/>
-                                            </div>
-                                        </div>
-                                        <div className="col-12">
-                                            <div className="font-poppins font-14 regular">
-                                                Wireframes can be pencil drawings or sketches on a whiteboard, or they
-                                                can be produced by means of a broad array of free or commercial software
-                                                applications. Wireframes
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            })
-                        }
-                    </div>
-
-                    <div className="row pb-5 mb-5">
                         <div className="col">
                             <Tabs
                                 id="vision-mission"
                                 variant="pills"
+                                className="tabs-about-us"
                                 activeKey={key}
                                 onSelect={(k) => setKey(k)}
                             >
@@ -121,6 +96,34 @@ const AboutUs = () => {
                             </Tabs>
                         </div>
                     </div>
+
+                    <div className="row pb-5 mb-5">
+                        <div className="col-12 pb-5">
+                            <H2Title text="VALORES" className="font-30"/>
+                        </div>
+                        {
+                            [1, 2, 3].map((_, i) => {
+                                return <div key={i} className="col-md-4 d-flex">
+                                    <div className="row">
+                                        <div className="col-12 mb-5">
+                                            <div className="circle-about-us mx-auto">
+                                                <img className="m-auto" src={handsWhite} alt={CONFIG.APP_NAME}/>
+                                            </div>
+                                        </div>
+                                        <div className="col-12">
+                                            <div className="font-poppins font-14 regular">
+                                                Wireframes can be pencil drawings or sketches on a whiteboard, or they
+                                                can be produced by means of a broad array of free or commercial software
+                                                applications. Wireframes
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            })
+                        }
+                    </div>
+
+
 
 
                     <div className="row pb-5 mb-5">

@@ -39,13 +39,13 @@
     transition: 0.3s;
 }
 
-.menu-section-item{
+.menu-section-item {
     font-size: 16px;
     font-weight: 400;
     font-family: 'Inter', sans-serif;
 }
 
-.circle-about-us{
+.circle-about-us {
     width: 159px;
     height: 159px;
     display: flex;
@@ -54,5 +54,25 @@
     background: -moz-linear-gradient(90deg, rgba(0, 219, 174, 1) 0%, rgba(0, 155, 232, 1) 100%);
     background: -webkit-linear-gradient(90deg, rgba(0, 219, 174, 1) 0%, rgba(0, 155, 232, 1) 100%);
     background: linear-gradient(90deg, rgba(0, 219, 174, 1) 0%, rgba(0, 155, 232, 1) 100%);
+}
 
+.tabs-about-us {
+    padding-left: 3rem;
+    padding-right: 3rem;
+}
+
+.tabs-about-us .nav-item {
+    border-radius: 12px 12px 0 0;
+    font-size: 16px;
+    font-weight: 700;
+    font-family: "Inter", sans-serif;
+    background-color: #EDF8FE !important;
+    color: #033F5D !important;
+    padding: 1rem 5em;
+    margin-right: 10px;
+}
+
+.tabs-about-us .nav-item.active{
+    background-color: #00DBAE !important;
+    color: #ffffff !important;
 }

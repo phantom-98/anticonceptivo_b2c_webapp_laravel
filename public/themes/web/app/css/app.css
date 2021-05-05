@@ -365,6 +365,27 @@
   background: linear-gradient(90deg, #00dbae 0%, #009be8 100%);
 }
 
+.tabs-about-us {
+  padding-left: 3rem;
+  padding-right: 3rem;
+}
+
+.tabs-about-us .nav-item {
+  border-radius: 12px 12px 0 0;
+  font-size: 16px;
+  font-weight: 700;
+  font-family: "Inter", sans-serif;
+  background-color: #EDF8FE !important;
+  color: #033F5D !important;
+  padding: 1rem 5em;
+  margin-right: 10px;
+}
+
+.tabs-about-us .nav-item.active {
+  background-color: #00DBAE !important;
+  color: #ffffff !important;
+}
+
 .modal-backdrop {
   background-color: #033F5D !important;
 }
