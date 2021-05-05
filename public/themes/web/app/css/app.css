@@ -399,13 +399,13 @@
 }
 
 .panel-body {
-  padding: 28px;
+  padding: 40px;
 }
 
 .panel-bordered {
   border: 1px solid #DEDEDE;
   border-radius: 12px;
-  padding: 40px;
+  padding: 30px;
 }
 
 .table {

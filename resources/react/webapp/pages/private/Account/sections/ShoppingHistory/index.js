@@ -22,7 +22,7 @@ const Index = () => {
     return (
         <div className="row">
             <H3Panel title="MIS COMPRAS"/>
-            <div className="col-md-12 mb-5">
+            <div className="col-md-12">
                 {
                     view === 'table' ? <Table showDetail={showDetail}/> : null
                 }

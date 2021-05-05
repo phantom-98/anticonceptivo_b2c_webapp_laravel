@@ -47,7 +47,7 @@ const Index = () => {
     return (
         <div className="row">
             <H3Panel title="EDITAR DIRECCIONES"/>
-            <div className="col-md-12 mb-5">
+            <div className="col-md-12 ">
                 <div className="panel-bordered px-4 pt-4 pb-5">
                     <div className="row">
                         <div className="col-md-12 mb-3">

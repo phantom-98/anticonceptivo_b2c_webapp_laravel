@@ -8,7 +8,7 @@ const Receipts = () =>{
     return (
         <div className="row">
             <H3Panel title="Mis recetas"/>
-            <div className="col-md-12 mb-5">
+            <div className="col-md-12">
                 <Table />
             </div>
         </div>

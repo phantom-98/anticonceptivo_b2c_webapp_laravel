@@ -7,7 +7,7 @@ const CustomerService = () => {
     return (
         <div className="row">
             <H3Panel title="SERVICIO AL CLIENTE"/>
-            <div className="col-md-12 mb-5">
+            <div className="col-md-12">
                 <div className="row">
                     <div className="col-md-12">
                         <div className="form-group">

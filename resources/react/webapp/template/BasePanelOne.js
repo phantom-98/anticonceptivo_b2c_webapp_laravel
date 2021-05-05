@@ -5,11 +5,11 @@ const BasePanelOne = (props) => {
 
     return (
         <div style={{background : '#FAFAFA'}}>
-            <div className="container py-4 mb-4">
+            <div className="container py-4">
 
                 <Breadcrumbs items={props.breadcrumbs}/>
 
-                <div className="panel">
+                <div className="panel mb-4">
                     <div className="panel-body">
                         <div className="row">
                             <div className="col-md-12">

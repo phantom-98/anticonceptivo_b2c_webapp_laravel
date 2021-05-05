@@ -21,7 +21,7 @@ const PersonalInfo = () => {
                 </div>
             </div>
 
-            <div className="col-md-12 mb-5 text-right">
+            <div className="col-md-12 text-right">
                 <button type="button" className="btn btn-bicolor  px-5"
                         onClick={() => alert('UPDATE DATA')}>
                     <span>GUARDAR CAMBIOS</span>
