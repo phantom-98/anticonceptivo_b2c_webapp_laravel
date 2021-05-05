@@ -44,3 +44,15 @@
     font-weight: 400;
     font-family: 'Inter', sans-serif;
 }
+
+.circle-about-us{
+    width: 159px;
+    height: 159px;
+    display: flex;
+    border-radius: 50%;
+    background: rgb(0, 155, 174);
+    background: -moz-linear-gradient(90deg, rgba(0, 219, 174, 1) 0%, rgba(0, 155, 232, 1) 100%);
+    background: -webkit-linear-gradient(90deg, rgba(0, 219, 174, 1) 0%, rgba(0, 155, 232, 1) 100%);
+    background: linear-gradient(90deg, rgba(0, 219, 174, 1) 0%, rgba(0, 155, 232, 1) 100%);
+
+}

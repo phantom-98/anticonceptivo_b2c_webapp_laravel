@@ -297,9 +297,9 @@
 
 .btn-bicolor-1-hover:hover {
   border: 1px solid transparent;
-  background: #009be8;
-  background: linear-gradient(90deg, #009be8 0%, #00dbae 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#009be8", endColorstr="#00dbae", GradientType=1);
+  background: #009bae;
+  background: linear-gradient(90deg, #00dbae 0%, #009be8 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#00dbae", endColorstr="#009be8", GradientType=1);
   transition: all 0.4s ease-in-out;
 }
 
@@ -354,6 +354,15 @@
   font-size: 16px;
   font-weight: 400;
   font-family: "Inter", sans-serif;
+}
+
+.circle-about-us {
+  width: 159px;
+  height: 159px;
+  display: flex;
+  border-radius: 50%;
+  background: #009bae;
+  background: linear-gradient(90deg, #00dbae 0%, #009be8 100%);
 }
 
 .modal-backdrop {
