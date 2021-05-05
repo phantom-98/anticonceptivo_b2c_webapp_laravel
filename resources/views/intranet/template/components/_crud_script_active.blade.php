@@ -1,12 +1,15 @@
 @if($config['action']['active'])
+
+    <script>
+        function getActiveButton(id, active) {
+            return '<input type="checkbox" class="toggle-bs" id="chk_active_' + id + '"  ' + (active ? ' checked ' : '') + ' data-toggle="toggle"  data-size="small" data-on="Activado" data-off="Desactivado" data-onstyle="success" data-offstyle="danger"/>';
+        }
+    </script>
+
     <script>
         // toggle status
 
-        $(function () {
-            preparedChangeStatus();
-        });
-
-        function preparedChangeStatus() {
+        function preparedChangeStatus() {            
             $('*[id^="chk_active_"]').change(function () {
                 let id = $(this).prop('id').replace('chk_active_', '');
                 let status = $(this).prop('checked');
