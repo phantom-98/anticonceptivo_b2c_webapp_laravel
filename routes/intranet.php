@@ -75,9 +75,11 @@ if (env('SHOW_INTRANET', 'TRUE') == 'TRUE') {
 
                 Route::resource('configuraciones', 'SettingController', ['names' => getResourceRoutesForNameHelper('settings')]);
 
+                Route::post('categorias/position', 'CategoryController@position')->name('categories.position');
                 Route::post('categorias/active', 'CategoryController@active')->name('categories.active');
                 Route::resource('categorias', 'CategoryController', ['names' => getResourceRoutesForNameHelper('categories')]);
 
+                Route::post('subcategorias/position', 'SubCategoryController@position')->name('subcategories.position');
                 Route::post('subcategorias/active', 'SubCategoryController@active')->name('subcategories.active');
                 Route::resource('subcategorias', 'SubCategoryController', ['names' => getResourceRoutesForNameHelper('subcategories')]);
 
