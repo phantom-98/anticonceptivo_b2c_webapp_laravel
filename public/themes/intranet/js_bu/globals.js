@@ -44,10 +44,12 @@ $(document).ready(function () {
 $('#table-bs').on('page-change.bs.table', function (d)
 {
     runActiveControl();
+    runActiveControl2();
 });
 
 $('#table-bs').on('column-switch.bs.table', function (d) {
-    runActiveControl();
+    runActiveControl();    
+    runActiveControl2();    
 });
 
 
@@ -67,4 +69,13 @@ function showLoading(){
 }
 function hideLoading(){
     $('.loader').fadeOut();
+}
+
+function runActiveControl2(){
+    try{
+        preparedChangeStatus2();
+    }catch (e) {
+        console.log(e);
+    }
+    $('.toggle-bs').bootstrapToggle();
 }
