@@ -9,11 +9,9 @@ class Page extends Model
     protected $fillable = [
         'id',
         'name',
+        'description',
         'section',
-        'type',
-        'file',
-        'disclaimer',
-        'description'
+        'active'
     ];
 
 }

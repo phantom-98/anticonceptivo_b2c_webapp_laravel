@@ -4,15 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Alliance extends Model
+class DeliveryCost extends Model
 {
     protected $fillable = [
         'id',
         'name',
-        'website',
-        'description',
+        'image',
+        'deadline_delivery',
+        'costs',
         'active',
-        'image'
     ];
 
 }

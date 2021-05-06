@@ -16,7 +16,7 @@ class CreateContactIssuesTable extends Migration
         Schema::create('contact_issues', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name')->nullable();
-
+            $table->boolean('active')->default(1);
             $table->timestamps();
         });
 

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Intranet;
 
-use App\Models\Brand;
+use App\Models\Alliance;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -12,15 +12,14 @@ use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 
-class BrandController extends GlobalController
+class AllianceController extends GlobalController
 {
     protected $options = [
-        'route' => 'intranet.brands.',
-        'folder' => 'intranet.brands.',
-        'pluralName' => 'Marcas',
-        'singularName' => 'Marca',
-        'disableActions' => ['show', 'changeStatus'],
-        'enableActions' => ['position']
+        'route' => 'intranet.alliances.',
+        'folder' => 'intranet.alliances.',
+        'pluralName' => 'Alianzas',
+        'singularName' => 'Alianzas',
+        'disableActions' => ['show', 'changeStatus']
 
     ];
 
@@ -31,7 +30,7 @@ class BrandController extends GlobalController
 
     public function index()
     {
-        $objects = Brand::orderBy('position')->get();
+        $objects = Alliance::get();
         return view($this->folder . 'index', compact('objects'));
     }
 
@@ -43,36 +42,36 @@ class BrandController extends GlobalController
     public function store(Request $request)
     {
         $rules = [
-            'name' => 'required|unique:brands,name',
-            'url' => 'required',
+            'name' => 'required|unique:alliances,name',
+            'website' => 'required',
             'image' => 'required'
         ];
 
         $messages = [
             'image.required' => 'El campo imagen es obligatorio.',
-            'url.required' => 'El campo URL es obligatorio'
+            'website.required' => 'El campo página web es obligatorio'
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
 
         if ($validator->passes()) {
 
-            $object = Brand::create($request->except(['image']));
+            $object = Alliance::create($request->except(['image']));
 
             if ($request->image) {
                 $image = $request->file('image');
-                $filename = 'brand-' . $object->id  .'.'. $image->getClientOriginalExtension();
-                $object->image = $image->storeAs('public/brands', $filename);
+                $filename = 'alliance-' . $object->id  .'.'. $image->getClientOriginalExtension();
+                $object->image = $image->storeAs('public/alliances', $filename);
                 $object->save();
             }  
 
             if ($object) {
-                session()->flash('success', 'Marca creada correctamente.');
+                session()->flash('success', 'Alianza creada correctamente.');
                 return redirect()->route($this->route . 'index');
 
             }
 
-            return redirect()->back()->withErrors(['mensaje' => 'Error inesperado al crear la Marca.'])->withInput();
+            return redirect()->back()->withErrors(['mensaje' => 'Error inesperado al crear la Alianza.'])->withInput();
         } else {
             return redirect()->back()->withErrors($validator)->withInput();
         }
@@ -84,10 +83,10 @@ class BrandController extends GlobalController
 
     public function edit($id)
     {
-        $object = Brand::find($id);
+        $object = Alliance::find($id);
 
         if (!$object) {
-            session()->flash('warning', 'Marca no encontrada.');
+            session()->flash('warning', 'Alianza no encontrada.');
             return redirect()->route($this->route . 'index');
         }
 
@@ -96,20 +95,20 @@ class BrandController extends GlobalController
 
     public function update(Request $request, $id)
     {
-        $object = Brand::find($id);
+        $object = Alliance::find($id);
 
         if (!$object) {
-            session()->flash('warning', 'Marca no encontrada.');
+            session()->flash('warning', 'Alianza no encontrada.');
             return redirect()->route($this->route . 'index');
         }
 
         $rules = [
-            'name' => 'required|unique:brands,name,' . $id,
+            'name' => 'required|unique:alliances,name,' . $id,
             'url' => 'required'
         ];
 
         $messages = [
-            'url.required' => 'El campo URL es obligatorio'
+            'url.required' => 'El campo página web es obligatorio'
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
@@ -127,8 +126,8 @@ class BrandController extends GlobalController
                     Storage::delete($object->image);
                 }
                 $image = $request->file('image');
-                $filename = 'brand-' . $object->id  .'.'. $image->getClientOriginalExtension();
-                $object->image = $image->storeAs('public/brands', $filename);
+                $filename = 'alliance-' . $object->id  .'.'. $image->getClientOriginalExtension();
+                $object->image = $image->storeAs('public/alliances', $filename);
                 $object->save();
 
                 $object->refresh();
@@ -142,46 +141,22 @@ class BrandController extends GlobalController
             }
 
             if ($object) {
-                session()->flash('success', 'Marca modificada correctamente.');
+                session()->flash('success', 'Alianza modificada correctamente.');
                 return redirect()->route($this->route . 'index');
             }
 
-            return redirect()->back()->withErrors(['mensaje' => 'Error inesperado al modificar la Marca.'])->withInput();
+            return redirect()->back()->withErrors(['mensaje' => 'Error inesperado al modificar la Alianza.'])->withInput();
         } else {
             return redirect()->back()->withErrors($validator)->withInput();
         }
     }
-    public function position(Request $request){
-
-        try{
-            foreach($request->data as $data){
-                $object = Brand::find($data['id']);
-                $object->update(['position' => $data['position']]);
-            }
-            return response()->json([
-                'status' => 1
-            ]);
-        }catch(\Exception $e){
-            return response()->json([
-                'status' => 0
-            ]);
-        }
-
-        
-    }
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
 
     public function active(Request $request)
     {
 
         try {
 
-            $object = Brand::find($request->id);
+            $object = Alliance::find($request->id);
 
             if ($object) {
 
@@ -190,7 +165,7 @@ class BrandController extends GlobalController
 
                 return response()->json([
                     'status' => 'success',
-                    'message' => $object->active == 1 ? 'Marca activada correctamente.' : 'Marca desactivada correctamente.',
+                    'message' => $object->active == 1 ? 'Alianza activada correctamente.' : 'Alianza desactivada correctamente.',
                     'object' => $object
                 ]);
 
@@ -198,7 +173,7 @@ class BrandController extends GlobalController
 
                 return response()->json([
                     'status' => 'error',
-                    'message' => 'Marca no encontrada.'
+                    'message' => 'Alianza no encontrada.'
                 ]);
             }
 
@@ -210,6 +185,28 @@ class BrandController extends GlobalController
             ]);
         }
 
+    }
+
+    public function destroy($id)
+    {
+        $object = Alliance::find($id);
+
+        if (!$object) {
+            session()->flash('warning', 'Alianza no encontrada.');
+            return redirect()->route($this->route . 'index');
+        }
+
+        Storage::delete($object->image);
+
+        $object->delete();
+
+        if ($object->delete()) {
+            session()->flash('success', 'Alianza eliminada correctamente.');
+            return redirect()->route($this->route . 'index');
+        }
+
+        session()->flash('error', 'No se ha podido eliminar la Alianza.');
+        return redirect()->route($this->route . 'index');
     }
 
     public function changeStatus(Request $request)

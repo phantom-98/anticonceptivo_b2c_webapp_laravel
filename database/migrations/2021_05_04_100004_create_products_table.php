@@ -20,6 +20,8 @@ class CreateProductsTable extends Migration
             $table->text('description')->nullable();
             $table->text('compound')->nullable();
 
+            $table->boolean('active')->default(1);
+
             $table->enum('consumption_typology', [
                 'ABA - ORAL S.ORD.GRAGEAS',
                 'AAA - ORAL S.ORD. TABLETAS',

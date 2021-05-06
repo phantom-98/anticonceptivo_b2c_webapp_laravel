@@ -23,7 +23,8 @@ class Product extends Model
         'subcategory_id',
         'benefits',
         'data_sheet',
-        'legal_warning'
+        'legal_warning',
+        'active'
     ];
 
     public function subcategory(){

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Intranet;
 
-use App\Models\Brand;
+use App\Models\DeliveryCost;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -12,15 +12,14 @@ use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 
-class BrandController extends GlobalController
+class DeliveryCostController extends GlobalController
 {
     protected $options = [
-        'route' => 'intranet.brands.',
-        'folder' => 'intranet.brands.',
-        'pluralName' => 'Marcas',
-        'singularName' => 'Marca',
-        'disableActions' => ['show', 'changeStatus'],
-        'enableActions' => ['position']
+        'route' => 'intranet.delivery_costs.',
+        'folder' => 'intranet.delivery_costs.',
+        'pluralName' => 'Costos Delivery',
+        'singularName' => 'Costo',
+        'disableActions' => ['show', 'changeStatus']
 
     ];
 
@@ -31,7 +30,7 @@ class BrandController extends GlobalController
 
     public function index()
     {
-        $objects = Brand::orderBy('position')->get();
+        $objects = DeliveryCost::get();
         return view($this->folder . 'index', compact('objects'));
     }
 
@@ -43,36 +42,39 @@ class BrandController extends GlobalController
     public function store(Request $request)
     {
         $rules = [
-            'name' => 'required|unique:brands,name',
-            'url' => 'required',
-            'image' => 'required'
+            'name' => 'required|unique:delivery_costs,name',
+            'deadline_delivery' => 'required',
+            'image' => 'required',
+            'costs' => 'required'
         ];
 
         $messages = [
+            'name.required' => 'El campo nombre es obligatorio.',
+            'deadline_delivery.required' => 'El campo horas de plazo máximo obligatorio.',
             'image.required' => 'El campo imagen es obligatorio.',
-            'url.required' => 'El campo URL es obligatorio'
+            'costs.required' => 'Debe indicar costos de envíos.'
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
 
         if ($validator->passes()) {
 
-            $object = Brand::create($request->except(['image']));
+            $object = DeliveryCost::create($request->except(['image']));
 
             if ($request->image) {
                 $image = $request->file('image');
-                $filename = 'brand-' . $object->id  .'.'. $image->getClientOriginalExtension();
-                $object->image = $image->storeAs('public/brands', $filename);
+                $filename = 'delivery-cost-' . $object->id  .'.'. $image->getClientOriginalExtension();
+                $object->image = $image->storeAs('public/delivery-costs', $filename);
                 $object->save();
             }  
 
             if ($object) {
-                session()->flash('success', 'Marca creada correctamente.');
+                session()->flash('success', 'Costo Delivery creado correctamente.');
                 return redirect()->route($this->route . 'index');
 
             }
 
-            return redirect()->back()->withErrors(['mensaje' => 'Error inesperado al crear la Marca.'])->withInput();
+            return redirect()->back()->withErrors(['mensaje' => 'Error inesperado al crear la Costo Delivery.'])->withInput();
         } else {
             return redirect()->back()->withErrors($validator)->withInput();
         }
@@ -84,10 +86,10 @@ class BrandController extends GlobalController
 
     public function edit($id)
     {
-        $object = Brand::find($id);
+        $object = DeliveryCost::find($id);
 
         if (!$object) {
-            session()->flash('warning', 'Marca no encontrada.');
+            session()->flash('warning', 'Costo Delivery no encontrado.');
             return redirect()->route($this->route . 'index');
         }
 
@@ -96,29 +98,31 @@ class BrandController extends GlobalController
 
     public function update(Request $request, $id)
     {
-        $object = Brand::find($id);
+        $object = DeliveryCost::find($id);
 
         if (!$object) {
-            session()->flash('warning', 'Marca no encontrada.');
+            session()->flash('warning', 'Costo Delivery no encontrado.');
             return redirect()->route($this->route . 'index');
         }
 
         $rules = [
-            'name' => 'required|unique:brands,name,' . $id,
-            'url' => 'required'
+            'name' => 'required|unique:delivery_costs,name,' . $id,
+            'deadline_delivery' => 'required',
+            'costs' => 'required'
         ];
 
         $messages = [
-            'url.required' => 'El campo URL es obligatorio'
+            'name.required' => 'El campo nombre es obligatorio.',
+            'deadline_delivery.required' => 'El campo horas de plazo máximo obligatorio.',
+            'costs.required' => 'Debe indicar costos de envíos.'
         ];
+
 
         $validator = Validator::make($request->all(), $rules, $messages);
 
         if ($validator->passes()) {
 
             $object->update($request->except(['image']));
-
-            $object->save();
 
             if ($request->image) {
                 $name = "";
@@ -127,8 +131,8 @@ class BrandController extends GlobalController
                     Storage::delete($object->image);
                 }
                 $image = $request->file('image');
-                $filename = 'brand-' . $object->id  .'.'. $image->getClientOriginalExtension();
-                $object->image = $image->storeAs('public/brands', $filename);
+                $filename = 'delivery-cost-' . $object->id  .'.'. $image->getClientOriginalExtension();
+                $object->image = $image->storeAs('public/delivery-costs', $filename);
                 $object->save();
 
                 $object->refresh();
@@ -142,46 +146,22 @@ class BrandController extends GlobalController
             }
 
             if ($object) {
-                session()->flash('success', 'Marca modificada correctamente.');
+                session()->flash('success', 'Costo Delivery modificado correctamente.');
                 return redirect()->route($this->route . 'index');
             }
 
-            return redirect()->back()->withErrors(['mensaje' => 'Error inesperado al modificar la Marca.'])->withInput();
+            return redirect()->back()->withErrors(['mensaje' => 'Error inesperado al modificar el Costo Delivery.'])->withInput();
         } else {
             return redirect()->back()->withErrors($validator)->withInput();
         }
     }
-    public function position(Request $request){
-
-        try{
-            foreach($request->data as $data){
-                $object = Brand::find($data['id']);
-                $object->update(['position' => $data['position']]);
-            }
-            return response()->json([
-                'status' => 1
-            ]);
-        }catch(\Exception $e){
-            return response()->json([
-                'status' => 0
-            ]);
-        }
-
-        
-    }
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
 
     public function active(Request $request)
     {
 
         try {
 
-            $object = Brand::find($request->id);
+            $object = DeliveryCost::find($request->id);
 
             if ($object) {
 
@@ -190,7 +170,7 @@ class BrandController extends GlobalController
 
                 return response()->json([
                     'status' => 'success',
-                    'message' => $object->active == 1 ? 'Marca activada correctamente.' : 'Marca desactivada correctamente.',
+                    'message' => $object->active == 1 ? 'Costo Delivery activado correctamente.' : 'Costo Delivery desactivado correctamente.',
                     'object' => $object
                 ]);
 
@@ -198,7 +178,7 @@ class BrandController extends GlobalController
 
                 return response()->json([
                     'status' => 'error',
-                    'message' => 'Marca no encontrada.'
+                    'message' => 'Costo Delivery no encontrado.'
                 ]);
             }
 
@@ -210,6 +190,28 @@ class BrandController extends GlobalController
             ]);
         }
 
+    }
+
+    public function destroy($id)
+    {
+        $object = DeliveryCost::find($id);
+
+        if (!$object) {
+            session()->flash('warning', 'Costo Delivery no encontrado.');
+            return redirect()->route($this->route . 'index');
+        }
+
+        Storage::delete($object->image);
+
+        $object->delete();
+
+        if ($object->delete()) {
+            session()->flash('success', 'Costo Delivery eliminado correctamente.');
+            return redirect()->route($this->route . 'index');
+        }
+
+        session()->flash('error', 'No se ha podido eliminar el Costo Delivery.');
+        return redirect()->route($this->route . 'index');
     }
 
     public function changeStatus(Request $request)

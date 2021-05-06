@@ -142,6 +142,15 @@ if (env('SHOW_INTRANET', 'TRUE') == 'TRUE') {
                 Route::post('paginas/active', 'PageController@active')->name('pages.active');
                 Route::resource('paginas', 'PageController', ['names' => getResourceRoutesForNameHelper('pages')]);
 
+                Route::post('laboratorios/active', 'LaboratoryController@active')->name('laboratories.active');
+                Route::resource('laboratorios', 'LaboratoryController', ['names' => getResourceRoutesForNameHelper('laboratories')]);
+
+                Route::post('bases-legales/active', 'LegalBaseController@active')->name('legal_bases.active');
+                Route::resource('bases-legales', 'LegalBaseController', ['names' => getResourceRoutesForNameHelper('legal_bases')]);
+
+                Route::post('costos-despachos/active', 'DeliveryCost@active')->name('delivery_costs.active');
+                Route::resource('costos-despachos', 'DeliveryCost', ['names' => getResourceRoutesForNameHelper('delivery_costs')]);
+
                 Route::get('codigo-descuento/search-cliente', 'DiscountCodeController@search_customer')->name('discount_code.search_customer');
 
                 Route::post('codigo-descuento/active', 'DiscountCodeController@active')->name('discount_code.active');

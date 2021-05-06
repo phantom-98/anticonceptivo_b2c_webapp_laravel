@@ -9,9 +9,9 @@ class Timeline extends Model
     protected $fillable = [
         'id',
         'description',
-        'file',
         'icon',
         'year',
+        'active',
         'post_id'
     ];
 
