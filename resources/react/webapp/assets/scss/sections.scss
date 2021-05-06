@@ -102,6 +102,7 @@
     padding: 20px;
     border: 1px solid #DEDEDE !important;
     border-radius: 12px !important;
+    transition: .4s;
 }
 
 .card-faq .card-header h3 {
@@ -110,9 +111,26 @@
     font-family: 'Poppins', sans-serif !important;
     margin-bottom: 0;
 }
-.collapsing + .card-header,
+
+.card-header:hover,
+    .collapsing + .card-header,
 .collapse.show + .card-header {
     background: #009BE8 !important;
     color: white !important;
 }
 
+.card-header::after {
+    content: "+";
+    font-weight: 700 !important;
+    font-size: 16px !important;
+    font-family: 'Poppins', sans-serif !important;
+    color: #033F5D;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
+
+.collapse.show + .card-header::after {
+    content: "-";
+    color: white !important;
+}
