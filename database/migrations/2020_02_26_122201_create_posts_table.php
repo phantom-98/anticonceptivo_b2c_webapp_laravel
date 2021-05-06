@@ -28,8 +28,10 @@ class CreatePostsTable extends Migration
             $table->foreign('post_type_id')->references('id')->on('post_types')->onDelete('set null');
 
             $table->date('published_at')->nullable();
-
-            $table->integer('visits');
+            $table->integer('position')->default(0);
+            $table->string('link')->nullable();
+            $table->string('type')->default('Imagen')->nullable();
+            $table->integer('visits')->default(0);
 
             $table->unique(['slug']);
 

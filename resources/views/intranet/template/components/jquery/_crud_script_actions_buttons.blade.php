@@ -8,18 +8,18 @@
             let forms = '';
 
             @if($config['action']['show'])
-                    let urlShow = '{{ route($config['route'] . 'show',['id' => ':id'] ) }}';
+                    let urlShow = '{{ route($config['route'] . 'show',[':id'] ) }}';
                     urlShow = urlShow.replace(':id', row.id);
                     buttons += '<a href="' + urlShow +'" class="btn btn-sm btn-default btn-hover-info" title="Ver detalle"><i class="fa fa-eye"></i></a>';
             @endif
             @if($config['action']['edit'])
-                    let urlEdit = '{{ route($config['route'] . 'edit', ['id' => ':id'] ) }}';
+                    let urlEdit = '{{ route($config['route'] . 'edit', [':id'] ) }}';
                     urlEdit = urlEdit.replace(':id', row.id);
                     buttons += '<a href="' + urlEdit +'" class="btn btn-sm btn-default btn-hover-warning" title="Editar"><i class="fa fa-edit"></i></a>';
             @endif
             @if($config['action']['destroy'])
 
-                let urlDestroy = '{{ route($config['route'] . 'destroy', ['id' => ':id'] ) }}';
+                let urlDestroy = '{{ route($config['route'] . 'destroy', [':id'] ) }}';
                 urlDestroy = urlDestroy.replace(':id', row.id);
                 let csrf = '{!! csrf_field() !!}';
 

@@ -18,7 +18,7 @@ class CreateFaqsTable extends Migration
             $table->string('question');
             $table->longText('answer')->nullable();
             $table->boolean('active')->default(1);
-            $table->integer('position');
+            $table->integer('position')->default(0);
             $table->timestamps();
         });
     }

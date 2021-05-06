@@ -51,7 +51,7 @@ class Customer extends Authenticatable
 
     public function getTextAttribute()
     {
-        return $this->first_name . ' ' . $this->last_name . '|'. $this->rut;
+        return $this->first_name . ' ' . $this->last_name . '|'. $this->id_number;
     }
 
 

@@ -10,6 +10,8 @@ class Brand extends Model
         'name',
         'description',
         'url',
+        'position',
+        'active',
         'image'
     ];
 }

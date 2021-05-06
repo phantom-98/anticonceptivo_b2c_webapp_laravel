@@ -75,13 +75,16 @@ if (env('SHOW_INTRANET', 'TRUE') == 'TRUE') {
 
                 Route::resource('configuraciones', 'SettingController', ['names' => getResourceRoutesForNameHelper('settings')]);
 
+                Route::post('categorias/position', 'CategoryController@position')->name('categories.position');
                 Route::post('categorias/active', 'CategoryController@active')->name('categories.active');
                 Route::resource('categorias', 'CategoryController', ['names' => getResourceRoutesForNameHelper('categories')]);
 
+                Route::post('subcategorias/position', 'SubCategoryController@position')->name('subcategories.position');
                 Route::post('subcategorias/active', 'SubCategoryController@active')->name('subcategories.active');
                 Route::resource('subcategorias', 'SubCategoryController', ['names' => getResourceRoutesForNameHelper('subcategories')]);
 
                 Route::post('marcas/active', 'BrandController@active')->name('brands.active');
+                Route::post('marcas/position', 'BrandController@position')->name('brands.position');
                 Route::resource('marcas', 'BrandController', ['names' => getResourceRoutesForNameHelper('brands')]);
 
                 Route::delete('banners/delete-item/{id}', 'BannerController@delete_item')->name('banners.delete_item');
@@ -89,13 +92,15 @@ if (env('SHOW_INTRANET', 'TRUE') == 'TRUE') {
                 Route::post('banners/position', 'BannerController@position')->name('banners.position');
                 Route::resource('banners', 'BannerController', ['names' => getResourceRoutesForNameHelper('banners')]);
 
-                Route::post('tipos-post-blog/active', 'PostTypeController@active')->name('post_types.active');
-                Route::resource('tipos-post-blog', 'PostTypeController', ['names' => getResourceRoutesForNameHelper('post_types')]);
+                Route::post('tipos-post-blog/active', 'PostTypeController@active')->name('post-types.active');
+                Route::resource('tipos-post-blog', 'PostTypeController', ['names' => getResourceRoutesForNameHelper('post-types')]);
 
                 Route::post('post-blog/active', 'PostController@active')->name('posts.active');
+                Route::post('post-blog/position', 'PostController@position')->name('posts.position');
                 Route::resource('post-blog', 'PostController', ['names' => getResourceRoutesForNameHelper('posts')]);
 
                 Route::post('faq/active', 'FaqController@active')->name('faqs.active');
+                Route::post('faq/position', 'FaqController@position')->name('faqs.position');
                 Route::resource('faq', 'FaqController', ['names' => getResourceRoutesForNameHelper('faqs')]);
 
                 Route::post('clientes/active', 'ClientController@active')->name('clients.active');
@@ -106,6 +111,41 @@ if (env('SHOW_INTRANET', 'TRUE') == 'TRUE') {
                 Route::get('pedidos/export', 'OrderController@export')->name('orders.export');
                 Route::post('pedidos/pedidos/change-order-status', 'OrderController@changeOrderStatus')->name('orders.changeOrderStatus');
                 Route::resource('pedidos', 'OrderController', ['names' => getResourceRoutesForNameHelper('orders')]);
+
+                Route::resource('quienes-somos', 'AboutController', ['names' => getResourceRoutesForNameHelper('abouts')]);
+
+                Route::post('valores/active', 'ValueController@active')->name('values.active');
+                Route::resource('valores', 'ValueController', ['names' => getResourceRoutesForNameHelper('values')]);
+
+                Route::post('linea-tiempo/active', 'TimelineController@active')->name('timelines.active');
+                Route::resource('linea-tiempo', 'TimelineController', ['names' => getResourceRoutesForNameHelper('timelines')]);
+
+                Route::post('alianzas/active', 'AllianceController@active')->name('alliances.active');
+                Route::resource('alianzas', 'AllianceController', ['names' => getResourceRoutesForNameHelper('alliances')]);
+
+                Route::post('planes-suscripcion/active', 'SubscriptionPlanController@active')->name('subscription_plans.active');
+                Route::resource('planes-suscripcion', 'SubscriptionPlanController', ['names' => getResourceRoutesForNameHelper('subscription_plans')]);
+
+                Route::resource('valor-suscripcion', 'SubscriptionValueController', ['names' => getResourceRoutesForNameHelper('subscription_values')]);
+
+                Route::post('tipos-contacto/active', 'ContactIssueController@active')->name('contact_issues.active');
+                Route::resource('tipos-contacto', 'ContactIssueController', ['names' => getResourceRoutesForNameHelper('contact_issues')]);
+
+                Route::resource('contactos', 'ContactController', ['names' => getResourceRoutesForNameHelper('contacts')]);
+
+                Route::post('alianzas/active', 'AllianceController@active')->name('alliances.active');
+                Route::resource('alianzas', 'AllianceController', ['names' => getResourceRoutesForNameHelper('alliances')]);
+
+                Route::post('productos/active', 'ProductController@active')->name('products.active');
+                Route::resource('productos', 'ProductController', ['names' => getResourceRoutesForNameHelper('products')]);
+
+                Route::post('paginas/active', 'PageController@active')->name('pages.active');
+                Route::resource('paginas', 'PageController', ['names' => getResourceRoutesForNameHelper('pages')]);
+
+                Route::get('codigo-descuento/search-cliente', 'DiscountCodeController@search_customer')->name('discount_code.search_customer');
+
+                Route::post('codigo-descuento/active', 'DiscountCodeController@active')->name('discount_code.active');
+                Route::resource('codigo-descuento', 'DiscountCodeController', ['names' => getResourceRoutesForNameHelper('discount_code')])->except(['show']);
 
             });
 

@@ -67,17 +67,7 @@
                     sortable: true,
                     cellStyle: midAling,
                     formatter : function (value, row, index){
-                        if (row.key == "COMMISSION_PROFESSIONAL") {
-                            return "Comisión Profesional";
-                        }
-
-                        if (row.key == "COMMISSION_COMPANY") {
-                            return "Comisión Compañía";
-                        }
-
-                        if (row.key == "PAYMENT_RANGE") {
-                            return "Rango de días para pago automático";
-                        }
+                        return row.key;
                     }
                 },
                 {
@@ -142,10 +132,10 @@
         });
     </script>
 
-    @include('intranet.template.components._crud_script_actions_buttons')
+    @include('intranet.template.components.jquery._crud_script_actions_buttons')
     @include('intranet.template.components.jquery._crud_script_active')
-    @include('intranet.template.components._crud_script_change_status')
-    @include('intranet.template.components._crud_script_delete')
+    @include('intranet.template.components.jquery._crud_script_change_status')
+    @include('intranet.template.components.jquery._crud_script_delete')
 
     <script>
         $(document).ready(function () {

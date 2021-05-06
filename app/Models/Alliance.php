@@ -9,6 +9,7 @@ class Alliance extends Model
     protected $fillable = [
         'id',
         'name',
+        'website',
         'description',
         'image'
     ];

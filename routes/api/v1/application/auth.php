@@ -13,7 +13,7 @@ Route::prefix('auth')
     ->middleware(['web'])
     ->group(function () {
 
-        Route::post('login', [LoginController::class, 'login'])->name('login');
+        /*Route::post('login', [LoginController::class, 'login'])->name('login');
         Route::post('login-by-token', [LoginController::class, 'loginByToken'])->name('loginByToken');
         Route::post('register', [RegisterController::class, 'register'])->name('register');
         Route::post('verify', [ControlController::class, 'verify'])->name('verify');
@@ -24,6 +24,6 @@ Route::prefix('auth')
         Route::post('recovery-password', [AuthController::class, 'recoveryPassword'])->name('recoveryPassword');
         Route::post('set-new-password', [AuthController::class, 'setNewPassword'])->name('setNewPassword');
 
-        Route::post('social-media/redirect', [SocialMediaController::class, 'redirect']);
+        Route::post('social-media/redirect', [SocialMediaController::class, 'redirect']);*/
 
     });

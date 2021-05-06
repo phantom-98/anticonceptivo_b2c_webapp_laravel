@@ -20,6 +20,10 @@ class CreateDiscountCodesTable extends Migration
             $table->boolean('active')->default(1);
             $table->dateTime('expiration_date')->nullable();
             $table->boolean('is_forever')->default(0);
+            $table->boolean('is_percentage')->default(0);
+            $table->integer('amount_of_use')->nullable();
+            $table->bigInteger('customer_id')->unsigned()->nullable();
+            $table->foreign('customer_id')->references('id')->on('customers')->onDelete('set null');
             $table->timestamps();
         });
     }
