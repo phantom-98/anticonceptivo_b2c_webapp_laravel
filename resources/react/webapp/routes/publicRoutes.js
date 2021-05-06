@@ -10,6 +10,7 @@ import Blog from "../pages/public/Blog";
 import TermsAndConditions from "../pages/public/TermsAndConditions";
 import CorporateResponsibility from "../pages/public/CorporateResponsibility";
 import Shop from "../pages/public/Shop";
+import ProductDetail from "../pages/public/ProductDetails";
 
 const PUBLIC_ROUTES = {
     HOME: {
@@ -74,6 +75,15 @@ const PUBLIC_ROUTES = {
         path: "/tienda/:category?",
         title: "Tienda",
         component: Shop,
+        exact: true,
+        layout: props => <BaseTemplate {...props} />,
+        middleware: props => <PublicMiddleware {...props} />
+    },
+
+    PRODUCT_DETAIL: {
+        path: "/producto/:slug?",
+        title: "Producto",
+        component: ProductDetail,
         exact: true,
         layout: props => <BaseTemplate {...props} />,
         middleware: props => <PublicMiddleware {...props} />
