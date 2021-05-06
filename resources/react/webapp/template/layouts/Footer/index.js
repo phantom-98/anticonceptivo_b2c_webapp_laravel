@@ -9,9 +9,9 @@ import twitter from '../../../assets/images/icons/footer/twitter.svg'
 import facebook from '../../../assets/images/icons/footer/facebook.svg'
 import instagram from '../../../assets/images/icons/footer/instagram.svg'
 import {CONFIG} from "../../../Config";
+import PUBLIC_ROUTES from "../../../routes/publicRoutes";
 import Icon from "../../../components/general/Icon";
 import {Link} from "react-router-dom";
-import PUBLIC_ROUTES from "../../../routes/publicRoutes";
 
 
 const Footer = () => {
@@ -50,13 +50,13 @@ const Footer = () => {
                         <div className="col-md">
                             <ul className="nav flex-column">
                                 <li className="nav-item">
-                                    <Link className="nav-link" to={PUBLIC_ROUTES.CORPORATE_RESPONSIBILITY.path} params={{ section : 'politicas-de-privacidad'}}>Políticas de Privacidad</Link>
+                                    <Link className="nav-link" to={(PUBLIC_ROUTES.CORPORATE_RESPONSIBILITY.path).replace(':section', 'politicas-de-privacidad')}>Políticas de Privacidad</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link className="nav-link" to={PUBLIC_ROUTES.CORPORATE_RESPONSIBILITY.path} params={{ section : 'bases-legales'}}>Bases Legales</Link>
+                                    <Link className="nav-link" to={(PUBLIC_ROUTES.CORPORATE_RESPONSIBILITY.path).replace(':section', 'bases-legales')}>Bases Legales</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link className="nav-link" to={PUBLIC_ROUTES.CORPORATE_RESPONSIBILITY.path} params={{ section : 'plazos-y-costos-entrega'}}>Plazos y costos de entrega</Link>
+                                    <Link className="nav-link" to={(PUBLIC_ROUTES.CORPORATE_RESPONSIBILITY.path).replace(':section', 'plazos-y-costos-entrega')}>Plazos y costos de entrega</Link>
                                 </li>
                                 <li className="nav-item">
                                     <Link className="nav-link" to={PUBLIC_ROUTES.BLOG.path}>Blog</Link>
