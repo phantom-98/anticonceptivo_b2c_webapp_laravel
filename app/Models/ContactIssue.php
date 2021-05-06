@@ -8,7 +8,8 @@ class ContactIssue extends Model
 {
     protected $fillable = [
         'id',
-        'name'
+        'name',
+        'active'
     ];
 
 }

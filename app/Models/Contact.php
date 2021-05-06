@@ -16,7 +16,9 @@ class Contact extends Model
         'contact_issue_id',
         'order_id',
         'name',
-        'message'
+        'message',
+        'is_reply',
+        'reply'
     ];
     
     public function order()

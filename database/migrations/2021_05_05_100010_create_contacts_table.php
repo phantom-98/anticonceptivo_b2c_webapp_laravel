@@ -29,6 +29,10 @@ class CreateContactsTable extends Migration
 
             $table->string('name')->nullable();
             $table->text('message')->nullable();
+
+            $table->boolean('is_reply')->default(0);
+            $table->text('reply')->nullable();
+
             $table->timestamps();
         });
 

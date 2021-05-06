@@ -9,6 +9,7 @@ class Value extends Model
     protected $fillable = [
         'id',
         'description',
+        'active',
         'image'
     ];
 

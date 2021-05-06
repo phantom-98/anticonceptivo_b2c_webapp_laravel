@@ -4,11 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class SubscriptionPlan extends Model
+class LegalBase extends Model
 {
     protected $fillable = [
-        'months',
-        'active'
+        'name',
+        'file',
+        'icon',
+        'active',
     ];
 
 }

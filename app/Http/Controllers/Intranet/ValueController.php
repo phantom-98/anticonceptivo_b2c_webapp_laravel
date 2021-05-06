@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Intranet;
 
-use App\Models\Brand;
+use App\Models\Value;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -12,15 +12,14 @@ use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 
-class BrandController extends GlobalController
+class ValueController extends GlobalController
 {
     protected $options = [
-        'route' => 'intranet.brands.',
-        'folder' => 'intranet.brands.',
-        'pluralName' => 'Marcas',
-        'singularName' => 'Marca',
-        'disableActions' => ['show', 'changeStatus'],
-        'enableActions' => ['position']
+        'route' => 'intranet.values.',
+        'folder' => 'intranet.values.',
+        'pluralName' => 'Valores',
+        'singularName' => 'Valor',
+        'disableActions' => ['show', 'changeStatus']
 
     ];
 
@@ -31,7 +30,7 @@ class BrandController extends GlobalController
 
     public function index()
     {
-        $objects = Brand::orderBy('position')->get();
+        $objects = Value::get();
         return view($this->folder . 'index', compact('objects'));
     }
 
@@ -43,36 +42,33 @@ class BrandController extends GlobalController
     public function store(Request $request)
     {
         $rules = [
-            'name' => 'required|unique:brands,name',
-            'url' => 'required',
             'image' => 'required'
         ];
 
         $messages = [
-            'image.required' => 'El campo imagen es obligatorio.',
-            'url.required' => 'El campo URL es obligatorio'
+            'image.required' => 'El campo imagen es obligatorio.'
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
 
         if ($validator->passes()) {
 
-            $object = Brand::create($request->except(['image']));
+            $object = Value::create($request->except(['image']));
 
             if ($request->image) {
                 $image = $request->file('image');
-                $filename = 'brand-' . $object->id  .'.'. $image->getClientOriginalExtension();
-                $object->image = $image->storeAs('public/brands', $filename);
+                $filename = 'value-' . $object->id  .'.'. $image->getClientOriginalExtension();
+                $object->image = $image->storeAs('public/values', $filename);
                 $object->save();
             }  
 
             if ($object) {
-                session()->flash('success', 'Marca creada correctamente.');
+                session()->flash('success', 'Valor creado correctamente.');
                 return redirect()->route($this->route . 'index');
 
             }
 
-            return redirect()->back()->withErrors(['mensaje' => 'Error inesperado al crear la Marca.'])->withInput();
+            return redirect()->back()->withErrors(['mensaje' => 'Error inesperado al crear el Valor.'])->withInput();
         } else {
             return redirect()->back()->withErrors($validator)->withInput();
         }
@@ -84,10 +80,10 @@ class BrandController extends GlobalController
 
     public function edit($id)
     {
-        $object = Brand::find($id);
+        $object = Value::find($id);
 
         if (!$object) {
-            session()->flash('warning', 'Marca no encontrada.');
+            session()->flash('warning', 'Valor no encontrado.');
             return redirect()->route($this->route . 'index');
         }
 
@@ -96,20 +92,19 @@ class BrandController extends GlobalController
 
     public function update(Request $request, $id)
     {
-        $object = Brand::find($id);
+        $object = Value::find($id);
 
         if (!$object) {
-            session()->flash('warning', 'Marca no encontrada.');
+            session()->flash('warning', 'Valor no encontrado.');
             return redirect()->route($this->route . 'index');
         }
 
         $rules = [
-            'name' => 'required|unique:brands,name,' . $id,
-            'url' => 'required'
+
         ];
 
         $messages = [
-            'url.required' => 'El campo URL es obligatorio'
+       
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
@@ -127,8 +122,8 @@ class BrandController extends GlobalController
                     Storage::delete($object->image);
                 }
                 $image = $request->file('image');
-                $filename = 'brand-' . $object->id  .'.'. $image->getClientOriginalExtension();
-                $object->image = $image->storeAs('public/brands', $filename);
+                $filename = 'value-' . $object->id  .'.'. $image->getClientOriginalExtension();
+                $object->image = $image->storeAs('public/values', $filename);
                 $object->save();
 
                 $object->refresh();
@@ -142,46 +137,22 @@ class BrandController extends GlobalController
             }
 
             if ($object) {
-                session()->flash('success', 'Marca modificada correctamente.');
+                session()->flash('success', 'Valor modificado correctamente.');
                 return redirect()->route($this->route . 'index');
             }
 
-            return redirect()->back()->withErrors(['mensaje' => 'Error inesperado al modificar la Marca.'])->withInput();
+            return redirect()->back()->withErrors(['mensaje' => 'Error inesperado al modificar el Valor.'])->withInput();
         } else {
             return redirect()->back()->withErrors($validator)->withInput();
         }
     }
-    public function position(Request $request){
-
-        try{
-            foreach($request->data as $data){
-                $object = Brand::find($data['id']);
-                $object->update(['position' => $data['position']]);
-            }
-            return response()->json([
-                'status' => 1
-            ]);
-        }catch(\Exception $e){
-            return response()->json([
-                'status' => 0
-            ]);
-        }
-
-        
-    }
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
 
     public function active(Request $request)
     {
 
         try {
 
-            $object = Brand::find($request->id);
+            $object = Value::find($request->id);
 
             if ($object) {
 
@@ -190,7 +161,7 @@ class BrandController extends GlobalController
 
                 return response()->json([
                     'status' => 'success',
-                    'message' => $object->active == 1 ? 'Marca activada correctamente.' : 'Marca desactivada correctamente.',
+                    'message' => $object->active == 1 ? 'Valor activado correctamente.' : 'Valor desactivado correctamente.',
                     'object' => $object
                 ]);
 
@@ -198,7 +169,7 @@ class BrandController extends GlobalController
 
                 return response()->json([
                     'status' => 'error',
-                    'message' => 'Marca no encontrada.'
+                    'message' => 'Valor no encontrado.'
                 ]);
             }
 
@@ -210,6 +181,28 @@ class BrandController extends GlobalController
             ]);
         }
 
+    }
+
+    public function destroy($id)
+    {
+        $object = Value::find($id);
+
+        if (!$object) {
+            session()->flash('warning', 'Valor no encontrado.');
+            return redirect()->route($this->route . 'index');
+        }
+
+        Storage::delete($object->image);
+
+        $object->delete();
+
+        if ($object->delete()) {
+            session()->flash('success', 'Valor eliminado correctamente.');
+            return redirect()->route($this->route . 'index');
+        }
+
+        session()->flash('error', 'No se ha podido eliminar el Valor.');
+        return redirect()->route($this->route . 'index');
     }
 
     public function changeStatus(Request $request)

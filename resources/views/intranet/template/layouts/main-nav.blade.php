@@ -64,7 +64,8 @@
                             </a>
                         </li>
 
-                        <li class="treeview {{ is_parent_menu_active(['intranet/categorias', 'intranet/subcategorias', 'intranet/marcas']) }}">
+                        <li class="treeview {{ is_parent_menu_active(['intranet/categorias', 'intranet/subcategorias', 'intranet/marcas', 'intranet/productos',
+                            'intranet/pedidos', 'intranet/laboratorios']) }}">
                             <a href="#">
                                 <i class="ti-shopping-cart"></i>
                                 <span class="menu-title">Tienda</span>
@@ -87,6 +88,11 @@
                                         <span class="menu-title">Marcas</span>
                                     </a>
                                 </li>
+                                <li class="{{ is_menu_active('intranet/laboratorios') }}">
+                                    <a href="{{ route('intranet.laboratories.index') }}">
+                                        <span class="menu-title">Laboratorios</span>
+                                    </a>
+                                </li>
                                 <li class="{{ is_menu_active('intranet/productos') }}">
                                     <a href="{{ route('intranet.products.index') }}">
                                         <span class="menu-title">Productos</span>
@@ -101,7 +107,7 @@
                         </li>
                         
                         <li class="treeview {{ is_parent_menu_active(['intranet/banners', 'intranet/tipos-post-blog', 'intranet/post-blog', 'intranet/faq', 'intranet/configuraciones', 'intranet/paginas', 'intranet/linea-tiempo', 
-                            'intranet/quienes-somos', 'intranet/valores', 'intranet/alianzas']) }}">
+                            'intranet/quienes-somos', 'intranet/valores', 'intranet/alianzas', 'intranet/valor-suscripcion', 'intranet/planes-suscripcion', 'intranet/bases-legales', 'intranet/costos-despachos']) }}">
                             <a href="#">
                                 <i class="ti-settings"></i>
                                 <span class="menu-title">Conf. Sitio web</span>
@@ -162,6 +168,16 @@
                                 <li class="{{ is_menu_active('intranet/valor-suscripcion') }}">
                                     <a href="{{ route('intranet.subscription_values.index') }}">
                                         <span class="menu-title">Valor suscripción</span>
+                                    </a>
+                                </li>
+                                <li class="{{ is_menu_active('intranet/bases-legales') }}">
+                                    <a href="{{ route('intranet.legal_bases.index') }}">
+                                        <span class="menu-title">Bases Legales</span>
+                                    </a>
+                                </li>
+                                <li class="{{ is_menu_active('intranet/costos-despachos') }}">
+                                    <a href="{{ route('intranet.delivery_costs.index') }}">
+                                        <span class="menu-title">Costos Delivery</span>
                                     </a>
                                 </li>
                                 <li class="{{ is_menu_active('intranet/configuraciones') }}">

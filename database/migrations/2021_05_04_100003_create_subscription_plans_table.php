@@ -16,6 +16,7 @@ class CreateSubscriptionPlansTable extends Migration
         Schema::create('subscription_plans', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('months')->nullable();
+            $table->boolean('active')->default(1);
             $table->timestamps();
         });
 

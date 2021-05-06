@@ -16,7 +16,6 @@ class CreateTimelinesTable extends Migration
         Schema::create('timelines', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->text('description')->nullable();
-            $table->text('file')->nullable();
             $table->text('icon')->nullable();
             $table->string('year')->nullable();
 

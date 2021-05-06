@@ -17,7 +17,7 @@ class CreateValuesTable extends Migration
             $table->bigIncrements('id');
             $table->text('description')->nullable();
             $table->text('image')->nullable();
-
+            $table->boolean('active')->default(1);
             $table->timestamps();
         });
 

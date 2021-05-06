@@ -16,12 +16,12 @@ class CreatePagesTable extends Migration
         Schema::create('pages', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name')->nullable();
-            $table->string('section')->nullable();
-            $table->string('type')->nullable();
-            $table->string('file')->nullable();
-            $table->string('disclaimer')->nullable();
+            $table->enum('section', [
+                'Responsabilidad Empresarial',
+                'Términos y Condiciones',
+            ]);
             $table->longText('description')->nullable();
-
+            $table->boolean('active')->default(1);
             $table->timestamps();
         });
 
