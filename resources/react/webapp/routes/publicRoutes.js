@@ -8,6 +8,7 @@ import ContactUs from "../pages/public/ContactUs";
 import Faq from "../pages/public/Faq";
 import Blog from "../pages/public/Blog";
 import TermsAndConditions from "../pages/public/TermsAndConditions";
+import CorporateResponsibility from "../pages/public/CorporateResponsibility";
 
 const PUBLIC_ROUTES = {
     HOME: {
@@ -54,6 +55,14 @@ const PUBLIC_ROUTES = {
         path: "/terminos-y-condiciones",
         title: "Términos y Condiciones",
         component: TermsAndConditions,
+        exact: true,
+        layout: props => <BaseTemplate {...props} />,
+        middleware: props => <PublicMiddleware {...props} />
+    },
+    CORPORATE_RESPONSIBILITY: {
+        path: "/responsabilidad-empresarial/:section?",
+        title: "Responsabilidad empresarial",
+        component: CorporateResponsibility,
         exact: true,
         layout: props => <BaseTemplate {...props} />,
         middleware: props => <PublicMiddleware {...props} />

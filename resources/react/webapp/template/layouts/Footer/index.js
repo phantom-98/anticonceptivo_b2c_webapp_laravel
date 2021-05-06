@@ -50,13 +50,13 @@ const Footer = () => {
                         <div className="col-md">
                             <ul className="nav flex-column">
                                 <li className="nav-item">
-                                    <a className="nav-link" href="#">Políticas de Privacidad</a>
+                                    <Link className="nav-link" to={PUBLIC_ROUTES.CORPORATE_RESPONSIBILITY.path} params={{ section : 'politicas-de-privacidad'}}>Políticas de Privacidad</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link" href="#">Bases Legales</a>
+                                    <Link className="nav-link" to={PUBLIC_ROUTES.CORPORATE_RESPONSIBILITY.path} params={{ section : 'bases-legales'}}>Bases Legales</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link" href="#">Plazos y costos de entrega</a>
+                                    <Link className="nav-link" to={PUBLIC_ROUTES.CORPORATE_RESPONSIBILITY.path} params={{ section : 'plazos-y-costos-entrega'}}>Plazos y costos de entrega</Link>
                                 </li>
                                 <li className="nav-item">
                                     <Link className="nav-link" to={PUBLIC_ROUTES.BLOG.path}>Blog</Link>

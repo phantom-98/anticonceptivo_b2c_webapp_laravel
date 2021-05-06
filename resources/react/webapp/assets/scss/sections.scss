@@ -113,7 +113,7 @@
 }
 
 .card-header:hover,
-    .collapsing + .card-header,
+.collapsing + .card-header,
 .collapse.show + .card-header {
     background: #009BE8 !important;
     color: white !important;
@@ -133,4 +133,26 @@
 .collapse.show + .card-header::after {
     content: "-";
     color: white !important;
+}
+
+.panel-legal-bases {
+    border: 1px solid #E8E8E8;
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 2rem;
+    cursor: pointer;
+    transition: .1s;
+}
+
+.panel-legal-bases:hover {
+    box-shadow: 0 10px 10px rgba(91, 50, 183, 0.05);
+}
+
+.header-alert{
+    padding: 20px;
+    border: 1px solid #DEDEDE !important;
+    border-radius: 12px !important;
+    background: #009BE8 !important;
+    color: white !important;
+    font-weight: 700 !important;
 }
