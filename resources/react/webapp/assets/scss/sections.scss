@@ -156,3 +156,22 @@
     color: white !important;
     font-weight: 700 !important;
 }
+
+.alert-simple-blue {
+    border-radius: 8px;
+    padding: 10px 24px;
+    background: rgba(0, 155, 232, 0.07);
+}
+
+.slick-dots li.slick-active button:before {
+    opacity: 1 !important;
+    color: #009BE8 !important;
+}
+
+.slick-dots li button:before {
+    font-size: 32px !important;
+}
+
+.slick-dots li {
+    margin: 0 !important;
+}

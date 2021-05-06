@@ -146,7 +146,7 @@
     color: #000000;
     padding: 12px 1.25rem;
     border: 0 solid #E6E6E6 !important;
-    border-radius: 0px !important;
+    border-radius: 0 !important;
     transition: 0.4s;
 }
 
@@ -198,4 +198,25 @@
     margin-bottom: 2px;
     margin-top: 2px;
 }
+.img-box-product-mini,
+.img-box-product{
+    background: white;
+    padding: 5px;
+    border: 1px solid #E8E8E8;
+    width: 100%;
+    max-width: 457px;
+    height: 460px;
+    object-fit: contain;
+}
+
+.img-box-product-mini{
+    max-width: 103px;
+    height: 103px;
+}
+
+.img-box-product-mini img,
+.img-box-product img{
+    width: 100%;
+}
+
 

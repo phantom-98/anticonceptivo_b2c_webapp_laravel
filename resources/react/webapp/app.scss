@@ -172,3 +172,10 @@ $customColor: (
     font-weight: 400;
     text-decoration: underline;
 }
+
+a:-webkit-any-link:focus-visible {
+    outline-offset: 0px !important;
+}
+:focus-visible {
+    outline: -webkit-focus-ring-color auto 0px !important;
+}

@@ -4,6 +4,7 @@ import {formatMoney} from "../../helpers/GlobalUtils";
 import QuantityInput from "./QuantityInput";
 import PUBLIC_ROUTES from "../../routes/publicRoutes";
 import {Link} from "react-router-dom";
+import AddCartCard from "./AddCartCard";
 
 const ProductCard = ({product, className = ''}) => {
 
@@ -12,7 +13,8 @@ const ProductCard = ({product, className = ''}) => {
     return (
         <div className={`product-card ${className}`}>
             <div className="product-card-image">
-                <Link to={(PUBLIC_ROUTES.PRODUCT_DETAIL.path).replace(':slug', product.slug)}>
+                <Link to={(PUBLIC_ROUTES.PRODUCT_DETAIL.path).replace(':slug', product.slug)}
+                      style={{textDecoration: 'none', color: '#000000'}}>
                     <img src={product.image} alt={`${CONFIG.APP_NAME} - ${product.name}`}/>
                 </Link>
             </div>
@@ -27,16 +29,7 @@ const ProductCard = ({product, className = ''}) => {
                 <div className="product-card-price">{formatMoney(product.price)}</div>
             </div>
             <div className="product-card-cart">
-                <div className="row">
-                    <div className="col-auto pr-1">
-                        <QuantityInput quantity={quantity} setQuantity={setQuantity}/>
-                    </div>
-                    <div className="col pl-1">
-                        <button className="btn btn-outline-bicolor btn-add-cart btn-block px-1">
-                            <span>AGREGAR AL CARRO</span>
-                        </button>
-                    </div>
-                </div>
+                <AddCartCard quantity={quantity} setQuantity={setQuantity}/>
             </div>
         </div>
     );
