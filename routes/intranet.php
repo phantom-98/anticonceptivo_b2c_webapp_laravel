@@ -33,14 +33,14 @@ if (env('SHOW_INTRANET', 'TRUE') == 'TRUE') {
                 'change-status' => 'cambiar-estado',
             ]);
 
-            Route::get('/login', 'AuthController@show')->name('auth.show');
-            Route::post('/login', 'AuthController@login')->name('auth.login');
+            Route::get('/acceder', 'AuthController@show')->name('auth.show');
+            Route::post('/acceder', 'AuthController@login')->name('auth.login');
             Route::any('/logout', 'AuthController@logout')->name('auth.logout');
 //            Route::post('/logout', 'AuthController@logout')->name('auth.logout');
-            Route::get('/login/send-password', 'AuthController@showSendPassword')->name('auth.show-send-password');
-            Route::post('/login/send-password', 'AuthController@sendPassword')->name('auth.send-password');
-            Route::get('/login/recovery-password', 'AuthController@showRecoveryPassword')->name('auth.show-recovery-password');
-            Route::post('/login/recovery-password', 'AuthController@recoveryPassword')->name('auth.recovery-password');
+            Route::get('/acceder/enviar-contrasena', 'AuthController@showSendPassword')->name('auth.show-send-password');
+            Route::post('/acceder/enviar-contrasena', 'AuthController@sendPassword')->name('auth.send-password');
+            Route::get('/acceder/recuperar-contrasena', 'AuthController@showRecoveryPassword')->name('auth.show-recovery-password');
+            Route::post('/acceder/recuperar-contrasena', 'AuthController@recoveryPassword')->name('auth.recovery-password');
 
             Route::group(['middleware' => ['auth:intranet']], function () {
 

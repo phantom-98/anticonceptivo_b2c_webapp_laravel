@@ -131,12 +131,6 @@
 <script src="/themes/intranet/plugins/bootstrap-toggle/bootstrap-toggle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
 
-<script src="/themes/intranet/js/includes/bootstrapTable.js"></script>
-<script src="/themes/intranet/js/includes/forms.js"></script>
-<script src="/themes/intranet/js/includes/loading.js"></script>
-<script src="/themes/intranet/js/includes/toastConfig.js"></script>
-<script src="/themes/intranet/js/includes/utils.js"></script>
-
 <script src="/themes/intranet/js/custom.js"></script>
 
 @yield('scripts')
