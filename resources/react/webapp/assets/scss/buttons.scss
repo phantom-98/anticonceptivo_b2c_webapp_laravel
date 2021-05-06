@@ -67,8 +67,9 @@
     animation: gradient-in .3s linear;
 }
 
-.btn-add-cart{
-    height: 31px;
+.btn-add-cart,
+.btn-add-cart:hover{
+    height: 31px !important;
     font-size: 10px;
 }
 

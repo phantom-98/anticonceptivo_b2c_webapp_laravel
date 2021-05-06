@@ -686,8 +686,9 @@
           animation: gradient-in 0.3s linear;
 }
 
-.btn-add-cart {
-  height: 31px;
+.btn-add-cart,
+.btn-add-cart:hover {
+  height: 31px !important;
   font-size: 10px;
 }
 
@@ -1007,7 +1008,7 @@
 .product-card {
   background-color: #FFFFFF;
   border-radius: 12px;
-  padding: 10px 20px;
+  padding: 20px 10px;
   transition: 0.1s;
 }
 
@@ -1049,6 +1050,52 @@
   font-weight: 700;
   color: #009BE8;
   margin-bottom: 0.5rem;
+}
+
+.quantity-input {
+  border-radius: 11px;
+  border: 1px solid #707070;
+  color: #033F5D !important;
+  background: white;
+  width: 60px;
+  height: 31px;
+  overflow: hidden;
+  display: flex;
+}
+
+.quantity-input div {
+  float: left;
+  padding-top: 3px;
+}
+
+.quantity-input-button {
+  width: 15px;
+  text-align: center;
+  transition: 0.1s;
+  cursor: pointer;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.quantity-input-button:hover {
+  background-color: #009BE8;
+  color: white;
+}
+
+.quantity-input-field {
+  width: 30px;
+}
+
+.quantity-input-field input {
+  width: 30px;
+  border: none;
+  text-align: center;
+  font-size: 13px;
+  outline: none;
+  box-shadow: none;
+  margin: 0;
 }
 
 .app-content {
