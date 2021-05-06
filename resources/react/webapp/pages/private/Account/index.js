@@ -3,7 +3,6 @@ import React, {Fragment, useContext, useEffect, useState} from 'react';
 import {AuthContext} from "../../../context/AuthProvider";
 import PRIVATE_ROUTES from "../../../routes/privateRoutes";
 import BasePanelOne from "../../../template/BasePanelOne";
-import AccountMenu from "./AccountMenu";
 import PersonalInfo from "./sections/PersonalInfo";
 import Addresses from "./sections/Addresses";
 import ShoppingHistory from "./sections/ShoppingHistory";
@@ -12,6 +11,7 @@ import Receipts from "./sections/Receipts";
 import CustomerService from "./sections/CustomerService";
 import {Redirect} from "react-router-dom";
 import PUBLIC_ROUTES from "../../../routes/publicRoutes";
+import LateralMenu from "../../../components/general/LateralMenu";
 
 const Account = ({match}) => {
 
@@ -22,9 +22,6 @@ const Account = ({match}) => {
 
     const [loaded, setLoaded] = useState(false);
 
-    // let breadcrumbs = [
-    //
-    // ];
 
     const sections = {
 
@@ -109,6 +106,11 @@ const Account = ({match}) => {
         }
     }
 
+    const handleSection = (section) => {
+        let url = PRIVATE_ROUTES.ACCOUNT.path;
+        return url.replace(':section', section);
+    }
+
     return (
         <BasePanelOne
             breadcrumbs={breadcrumbs}
@@ -119,7 +121,7 @@ const Account = ({match}) => {
                     loaded ?
                         <Fragment>
                             <div className="col-md-3">
-                                <AccountMenu sections={sections} sectionSelected={sectionSelected}/>
+                                <LateralMenu sections={sections} sectionSelected={sectionSelected} handleSection={handleSection}/>
                             </div>
                             <div className="col-md-9">
 

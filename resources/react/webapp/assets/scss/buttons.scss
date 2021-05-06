@@ -89,11 +89,11 @@
 
 .btn-bicolor-1-hover:hover {
     border: 1px solid transparent;
-    background: rgb(0, 155, 232);
-    background: -moz-linear-gradient(90deg, rgba(0, 155, 232, 1) 0%, rgba(0, 219, 174, 1) 100%);
-    background: -webkit-linear-gradient(90deg, rgba(0, 155, 232, 1) 0%, rgba(0, 219, 174, 1) 100%);
-    background: linear-gradient(90deg, rgba(0, 155, 232, 1) 0%, rgba(0, 219, 174, 1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#009be8", endColorstr="#00dbae", GradientType=1);
+    background: rgb(0, 155, 174);
+    background: -moz-linear-gradient(90deg, rgba(0, 219, 174, 1) 0%, rgba(0, 155, 232, 1) 100%);
+    background: -webkit-linear-gradient(90deg, rgba(0, 219, 174, 1) 0%, rgba(0, 155, 232, 1) 100%);
+    background: linear-gradient(90deg, rgba(0, 219, 174, 1) 0%, rgba(0, 155, 232, 1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#00dbae", endColorstr="#009be8", GradientType=1);
     -moz-transition: all .4s ease-in-out;
     -o-transition: all .4s ease-in-out;
     -webkit-transition: all .4s ease-in-out;

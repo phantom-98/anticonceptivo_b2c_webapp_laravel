@@ -20,7 +20,7 @@ const HeaderTop = () => {
                     <div className="col-md">
                         <div className="row justify-content-end">
                             <HeaderTopLink icon={phoneWhite} text={`+56 9 2344 8723`}/>
-                            <HeaderTopLink icon={emailWhite} text={`Hola@anticonceptivos.cl`}/>
+                            <HeaderTopLink icon={emailWhite} text={`hola@anticonceptivos.cl`}/>
                             <HeaderTopLink text={`Blog`} linkTo={PUBLIC_ROUTES.BLOG.path}/>
                             <HeaderTopLink text={`Sobre nosotros`} linkTo={PUBLIC_ROUTES.ABOUT_US.path}/>
                             <HeaderTopLink text={`Contacto`} linkTo={PUBLIC_ROUTES.CONTACT_US.path}/>

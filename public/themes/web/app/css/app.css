@@ -297,9 +297,9 @@
 
 .btn-bicolor-1-hover:hover {
   border: 1px solid transparent;
-  background: #009be8;
-  background: linear-gradient(90deg, #009be8 0%, #00dbae 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#009be8", endColorstr="#00dbae", GradientType=1);
+  background: #009bae;
+  background: linear-gradient(90deg, #00dbae 0%, #009be8 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#00dbae", endColorstr="#009be8", GradientType=1);
   transition: all 0.4s ease-in-out;
 }
 
@@ -354,6 +354,110 @@
   font-size: 16px;
   font-weight: 400;
   font-family: "Inter", sans-serif;
+}
+
+.circle-about-us {
+  width: 159px;
+  height: 159px;
+  display: flex;
+  border-radius: 50%;
+  background: #009bae;
+  background: linear-gradient(90deg, #00dbae 0%, #009be8 100%);
+}
+
+.tabs-about-us {
+  padding-left: 3rem;
+  padding-right: 3rem;
+}
+
+.tabs-about-us .nav-item {
+  border-radius: 12px 12px 0 0;
+  font-size: 16px;
+  font-weight: 700;
+  font-family: "Inter", sans-serif;
+  background-color: #EDF8FE !important;
+  color: #033F5D !important;
+  padding: 1rem 5em;
+  margin-right: 10px;
+}
+
+.tabs-about-us .nav-item.active {
+  background-color: #00DBAE !important;
+  color: #ffffff !important;
+}
+
+.accordion > .card > .card-header {
+  margin-bottom: 0 !important;
+}
+
+.card-faq {
+  margin-bottom: 15px;
+  border: 0 solid #DEDEDE !important;
+  border-radius: 12px !important;
+  flex-direction: column-reverse;
+  justify-content: flex-end;
+}
+
+.card-faq .card-header {
+  cursor: pointer;
+  background: white;
+  color: #033F5D;
+  padding: 20px;
+  border: 1px solid #DEDEDE !important;
+  border-radius: 12px !important;
+  transition: 0.4s;
+}
+
+.card-faq .card-header h3 {
+  font-weight: 700 !important;
+  font-size: 16px !important;
+  font-family: "Poppins", sans-serif !important;
+  margin-bottom: 0;
+}
+
+.card-header:hover,
+.collapsing + .card-header,
+.collapse.show + .card-header {
+  background: #009BE8 !important;
+  color: white !important;
+}
+
+.card-header::after {
+  content: "+";
+  font-weight: 700 !important;
+  font-size: 16px !important;
+  font-family: "Poppins", sans-serif !important;
+  color: #033F5D;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+}
+
+.collapse.show + .card-header::after {
+  content: "-";
+  color: white !important;
+}
+
+.panel-legal-bases {
+  border: 1px solid #E8E8E8;
+  border-radius: 12px;
+  padding: 1rem;
+  margin-bottom: 2rem;
+  cursor: pointer;
+  transition: 0.1s;
+}
+
+.panel-legal-bases:hover {
+  box-shadow: 0 10px 10px rgba(91, 50, 183, 0.05);
+}
+
+.header-alert {
+  padding: 20px;
+  border: 1px solid #DEDEDE !important;
+  border-radius: 12px !important;
+  background: #009BE8 !important;
+  color: white !important;
+  font-weight: 700 !important;
 }
 
 .modal-backdrop {

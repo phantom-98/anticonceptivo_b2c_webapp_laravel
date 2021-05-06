@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import BasePanelOne from "../../../template/BasePanelOne";
 import PUBLIC_ROUTES from "../../../routes/publicRoutes";
 
