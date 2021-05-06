@@ -67,14 +67,20 @@
     animation: gradient-in .3s linear;
 }
 
+.btn-add-cart{
+    height: 31px;
+    font-size: 10px;
+}
 
 @keyframes gradient-in {
+
     0% {
         background-position: 0 100%;
     }
     100% {
         background-position: 100% 200%;
     }
+
 }
 
 

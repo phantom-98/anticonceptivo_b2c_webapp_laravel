@@ -12,3 +12,54 @@
     top: 4px;
     right: 4px;
 }
+
+
+////////////////////////////////
+// PRODUCTS
+///////////////////////////////
+
+.product-card {
+    background-color: #FFFFFF;
+    border-radius: 12px;
+    padding: 10px 20px;
+    transition: .1s;
+}
+
+.product-card:hover {
+    box-shadow: 0 10px 10px rgba(91, 50, 183, 0.05);
+}
+
+.product-card-image{
+    min-height: 164px;
+    margin-bottom: 2rem;
+}
+
+.product-card-image img{
+    width: 100%;
+    object-fit: contain;
+}
+
+.product-card-brand{
+    font-family: 'Poppins', sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    color : #707070;
+    font-style: italic;
+}
+
+.product-card-name{
+    height: 65px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color : #000;
+    margin-bottom: .5rem;
+}
+
+.product-card-price{
+    font-family: 'Poppins', sans-serif;
+    font-size: 25px;
+    font-weight: 700;
+    color : #009BE8;
+    margin-bottom: .5rem;
+}

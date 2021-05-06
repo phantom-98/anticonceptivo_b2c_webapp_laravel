@@ -12,6 +12,7 @@
 //  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 //}
 
+@import 'assets/scss/helper';
 @import 'assets/scss/header';
 @import 'assets/scss/footer';
 @import 'assets/scss/form';
@@ -139,6 +140,7 @@ $customColor: (
     '484848' : '#484848',
     '707070' : '#707070',
     '8E8E8E' : '#8E8E8E',
+    'FAFAFA' : '#FAFAFA'
 );
 
 @each $name, $color in $customColor {
