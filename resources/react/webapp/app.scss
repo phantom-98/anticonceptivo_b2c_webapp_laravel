@@ -140,7 +140,8 @@ $customColor: (
     '484848' : '#484848',
     '707070' : '#707070',
     '8E8E8E' : '#8E8E8E',
-    'FAFAFA' : '#FAFAFA'
+    'FAFAFA' : '#FAFAFA',
+    'D8D8D8' : '#D8D8D8'
 );
 
 @each $name, $color in $customColor {

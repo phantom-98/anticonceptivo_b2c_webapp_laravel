@@ -1,7 +1,7 @@
 import React from 'react';
 
 import H2Title from "../general/H2Title";
-import {products} from "../../helpers/productsData";
+import {dummy_products} from "../../helpers/productsData";
 import ProductCard from "../shopping/ProductCard";
 
 const BestSeller = () => {
@@ -16,9 +16,9 @@ const BestSeller = () => {
 
                 <div className="row py-3">
                     {
-                        products.map((product, index) => {
+                        dummy_products.map((product, index) => {
                             return <div className="col-md-5th-1 mb-3" style={{marginLeft : '-10px', marginRight : '-10px'}}>
-                                <ProductCard product={product}/>
+                                <ProductCard product={product} className="product-card-small"/>
                             </div>
                         })
                     }

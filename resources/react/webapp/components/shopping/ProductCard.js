@@ -3,12 +3,12 @@ import {CONFIG} from "../../Config";
 import {formatMoney} from "../../helpers/GlobalUtils";
 import QuantityInput from "./QuantityInput";
 
-const ProductCard = ({product}) => {
+const ProductCard = ({product, className = ''}) => {
 
     const [quantity, setQuantity] = useState(1);
 
     return (
-        <div className="product-card">
+        <div className={`product-card ${className}`}>
             <div className="product-card-image">
                 <img src={product.image} alt={`${CONFIG.APP_NAME} - ${product.name}`}/>
             </div>

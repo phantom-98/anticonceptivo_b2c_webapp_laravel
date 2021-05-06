@@ -1,4 +1,4 @@
-export const products = [
+export const dummy_products = [
     {
         id : 1,
         image : '/themes/web/products/product-1.png',
@@ -141,6 +141,6 @@ export const products = [
     },
 ];
 
-export const categories = [
+export const dummy_categories = [
 
 ];

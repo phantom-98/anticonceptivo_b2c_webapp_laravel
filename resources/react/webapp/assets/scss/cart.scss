@@ -21,50 +21,56 @@
 .product-card {
     background-color: #FFFFFF;
     border-radius: 12px;
+    padding: 28px 14px;
+    border: 1px solid #E8E8E8;
+    transition: .2s;
+}
+
+.product-card-small {
     padding: 20px 10px;
-    transition: .1s;
+    border: 0 solid #E8E8E8;
 }
 
 .product-card:hover {
-    box-shadow: 0 10px 10px rgba(91, 50, 183, 0.05);
+    box-shadow: 0 10px 16px rgba(0, 0, 0, 0.08);
 }
 
-.product-card-image{
+.product-card-image {
     min-height: 164px;
-    margin-bottom: 2rem;
+    margin-bottom: 5px;
 }
 
-.product-card-image img{
+.product-card-image img {
     width: 100%;
     object-fit: contain;
 }
 
-.product-card-brand{
+.product-card-brand {
     font-family: 'Poppins', sans-serif;
     font-size: 11px;
     font-weight: 400;
-    color : #707070;
+    color: #707070;
     font-style: italic;
 }
 
-.product-card-name{
+.product-card-name {
     height: 65px;
     font-family: 'Poppins', sans-serif;
     font-size: 16px;
     font-weight: 700;
-    color : #000;
+    color: #000;
     margin-bottom: .5rem;
 }
 
-.product-card-price{
+.product-card-price {
     font-family: 'Poppins', sans-serif;
     font-size: 25px;
     font-weight: 700;
-    color : #009BE8;
+    color: #009BE8;
     margin-bottom: .5rem;
 }
 
-.quantity-input{
+.quantity-input {
     border-radius: 11px;
     border: 1px solid #707070;
     color: #033F5D !important;
@@ -74,12 +80,13 @@
     overflow: hidden;
     display: flex;
 }
-.quantity-input div{
+
+.quantity-input div {
     float: left;
     padding-top: 3px;
 }
 
-.quantity-input-button{
+.quantity-input-button {
     width: 15px;
     text-align: center;
     transition: .1s;
@@ -91,17 +98,17 @@
     user-select: none;
 }
 
-.quantity-input-button:hover{
+.quantity-input-button:hover {
     background-color: #009BE8;
     color: white;
 }
 
 
-.quantity-input-field{
+.quantity-input-field {
     width: 30px;
 }
 
-.quantity-input-field input{
+.quantity-input-field input {
     width: 30px;
     border: none;
     text-align: center;
@@ -111,4 +118,9 @@
     margin: 0;
 }
 
-
+.select-product-list {
+    height: 29px;
+    font-size: 10px;
+    background: transparent;
+    border-radius: 31px;
+}
