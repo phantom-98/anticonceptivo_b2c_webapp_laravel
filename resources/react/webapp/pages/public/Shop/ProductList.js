@@ -22,7 +22,8 @@ const ProductList = ({products}) => {
                                 </div>
                             </div>
                             <div className="col-auto px-2">
-                                <select className="form-control form-control-custom w-auto select-product-list" name="" id="">
+                                <select className="form-control form-control-custom w-auto select-product-list" name=""
+                                        id="">
                                     <option value="9">9</option>
                                     <option value="12">12</option>
                                     <option value="21">21</option>
@@ -35,7 +36,8 @@ const ProductList = ({products}) => {
                                 </div>
                             </div>
                             <div className="col-auto pl-2">
-                                <select className="form-control form-control-custom w-auto select-product-list" name="" id="">
+                                <select className="form-control form-control-custom w-auto select-product-list" name=""
+                                        id="">
                                     <option value="9">Popular</option>
                                     <option value="12">Menor a Mayor</option>
                                     <option value="21">Mayor a Menor</option>
@@ -50,9 +52,9 @@ const ProductList = ({products}) => {
                 <div className="row">
                     {
                         products.map((product, index) => {
-                            return <div className="col-md-4 mb-3">
+                            return index < 9 ? <div className="col-md-4 mb-3">
                                 <ProductCard product={product}/>
-                            </div>
+                            </div> : null
                         })
                     }
                 </div>

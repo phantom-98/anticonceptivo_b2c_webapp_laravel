@@ -852,14 +852,14 @@
   margin-bottom: 0;
 }
 
-.card-header:hover,
-.collapsing + .card-header,
-.collapse.show + .card-header {
+.card-faq .card-header:hover,
+.card-faq .collapsing + .card-header,
+.card-faq .collapse.show + .card-header {
   background: #009BE8 !important;
   color: white !important;
 }
 
-.card-header::after {
+.card-faq .card-header::after {
   content: "+";
   font-weight: 700 !important;
   font-size: 16px !important;
@@ -870,7 +870,7 @@
   top: 20px;
 }
 
-.collapse.show + .card-header::after {
+.card-faq .collapse.show + .card-header::after {
   content: "-";
   color: white !important;
 }
@@ -1109,6 +1109,79 @@
   font-size: 10px;
   background: transparent;
   border-radius: 31px;
+}
+
+.accordion > .card > .card-header {
+  margin-bottom: 0 !important;
+}
+
+.card-filter {
+  margin-bottom: 15px;
+  border: 1px solid #E6E6E6 !important;
+  border-radius: 0 !important;
+  flex-direction: column-reverse;
+  justify-content: flex-end;
+  background: transparent;
+}
+
+.card-filter .card-header {
+  cursor: pointer;
+  background: transparent !important;
+  color: #000000;
+  padding: 12px 1.25rem;
+  border: 0 solid #E6E6E6 !important;
+  border-radius: 0px !important;
+  transition: 0.4s;
+}
+
+.card-filter .card-header h3 {
+  font-size: 14px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  letter-spacing: 2px;
+  margin-bottom: 0;
+}
+
+.card-filter .card-header:hover,
+.card-filter .collapsing + .card-header,
+.card-filter .collapse.show + .card-header {
+  background: transparent !important;
+  color: #000000 !important;
+}
+
+.card-filter .card-header::after {
+  content: url("/themes/web/assets/images/down.svg");
+  font-weight: 700 !important;
+  font-size: 16px !important;
+  font-family: "Poppins", sans-serif !important;
+  color: #000000;
+  position: absolute;
+  right: 20px;
+  top: 6px;
+}
+
+.card-filter .collapse.show + .card-header::after {
+  content: url("/themes/web/assets/images/up.svg");
+}
+
+.card-filter .custom-checkbox .custom-control-label::before {
+  border-radius: 0;
+  background: transparent;
+}
+
+.card-filter .custom-control-input:checked ~ .custom-control-label::before {
+  color: #fff;
+  border-color: #009BE8;
+  background-color: #009BE8;
+}
+
+.card-filter .custom-checkbox {
+  position: relative;
+  display: block;
+  min-height: 1.5rem;
+  padding-left: 1.5rem;
+  margin-bottom: 2px;
+  margin-top: 2px;
 }
 
 .app-content {
