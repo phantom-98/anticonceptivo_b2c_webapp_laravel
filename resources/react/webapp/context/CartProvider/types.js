@@ -1,0 +1,2 @@
+export const MINI_CART_OPEN = 'MINI_CART_OPEN';
+export const MINI_CART_CLOSE = 'MINI_CART_CLOSE';

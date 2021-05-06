@@ -924,6 +924,67 @@
   margin: 0 !important;
 }
 
+.offcanvas-block {
+  position: fixed;
+  width: 100%;
+  height: calc(100vh - 0px);
+  top: 0;
+  right: 0;
+  background: #FFFFFF;
+  padding: 15px;
+  -webkit-animation: appear-right-out 0.3s;
+  animation: appear-right-out 0.3s;
+  transform: translateX(-1000%);
+  z-index: 1041;
+}
+
+.offcanvas-block.show {
+  right: 0;
+  -webkit-animation: appear-right-in 0.3s;
+          animation: appear-right-in 0.3s;
+  transform: translateX(0%);
+}
+
+@-webkit-keyframes appear-right-in {
+  0% {
+    transform: translateX(100%);
+  }
+
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes appear-right-in {
+  0% {
+    transform: translateX(100%);
+  }
+
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+@-webkit-keyframes appear-right-out {
+  0% {
+    transform: translateX(0%);
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes appear-right-out {
+  0% {
+    transform: translateX(0%);
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
+}
+
 .modal-backdrop {
   background-color: #033F5D !important;
 }

@@ -15,6 +15,7 @@ import {Template} from "./Globals";
 import TitleApp from "./TitleApp";
 import PUBLIC_ROUTES from "./routes/publicRoutes";
 import PRIVATE_ROUTES from "./routes/privateRoutes";
+import CartProvider from "./context/CartProvider";
 
 const ProcessTemplate = (template) => {
 
@@ -48,30 +49,32 @@ const RunApp = () => {
     return (
         <AppProvider>
             <AuthProvider>
-                <Router>
-                    <TitleApp>
-                        <ScrollToTop>
-                            {/*<React.Suspense fallback={<LazyLoading />}>*/}
-                            <Switch>
+                <CartProvider>
+                    <Router>
+                        <TitleApp>
+                            <ScrollToTop>
+                                {/*<React.Suspense fallback={<LazyLoading />}>*/}
+                                <Switch>
 
-                                {
+                                    {
 
-                                    Object.keys(PRIVATE_ROUTES).map((key, index) => (renderRoute(PRIVATE_ROUTES[key], index)))
+                                        Object.keys(PRIVATE_ROUTES).map((key, index) => (renderRoute(PRIVATE_ROUTES[key], index)))
 
-                                }
+                                    }
 
-                                {
+                                    {
 
-                                    Object.keys(PUBLIC_ROUTES).map((key, index) => (renderRoute(PUBLIC_ROUTES[key], index)))
+                                        Object.keys(PUBLIC_ROUTES).map((key, index) => (renderRoute(PUBLIC_ROUTES[key], index)))
 
-                                }
-                                <Route component={Page404}/>
+                                    }
+                                    <Route component={Page404}/>
 
-                            </Switch>
-                            {/*</React.Suspense>*/}
-                        </ScrollToTop>
-                    </TitleApp>
-                </Router>
+                                </Switch>
+                                {/*</React.Suspense>*/}
+                            </ScrollToTop>
+                        </TitleApp>
+                    </Router>
+                </CartProvider>
             </AuthProvider>
         </AppProvider>
     );
