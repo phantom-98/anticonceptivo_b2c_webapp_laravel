@@ -37,24 +37,79 @@
                                            value="{{ old('name') ?? $object->name }}">
                                 </div>
                             </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="deadline_delivery">Plazo máximo de entrega (*)</label>
+                                    <input type="text" id="deadline_delivery" name="deadline_delivery" class="form-control"
+                                    oninput="checkKey('deadline_delivery')" value="{{ old('deadline_delivery') ?? $object->deadline_delivery }}">
+                                </div>
+                            </div> 
                             <div class="form-group col-sm-4">
-                                {!! Form::label('icon', 'Imagen (*)') !!}
-                                <input id="file-image" type='file' name='icon' class='form-control' accept=".jpg, .png, .jpeg">
+                                {!! Form::label('image', 'Imagen (*)') !!}
+                                <input id="file-image" type='file' name='image' class='form-control' accept=".jpg, .png, .jpeg">
                                 <br/>
-                                @if ($object->icon)
-                                <img id="image-edit" src="{{ Storage::url($object->icon) }}" style="max-width: 100px;"/>
+                                @if ($object->image)
+                                <img id="image-edit" src="{{ Storage::url($object->image) }}" style="max-width: 100px;"/>
                                 @endif
                             </div>     
-                            <div class="form-group col-md-4">
-                                <label for="file">Archivo (*)</label>
-                                <input type="file" id="file" name="file" class="form-control" accept=".pdf">
-                                <br/>
-                                @if ($object->file)
-                                <a href="{{ Storage::url($object->file) }}" target="_blank" class='btn btn-sm btn-default btn-hover-success add-tooltip' title="Descargar archivo"><i class="ti-file"></i></a>
-                                @endif
-                            </div>  
 
                         </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Detalle de despacho
+                            </div>
+                        </div>
+                        <br/>
+                        @forelse($object->formated_costs as $cost)
+                        <div class="row clone">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="price">Precio(*)</label>
+                                    <input type="text" name="price[1][]" class="form-control price" value="{{ $cost->price[0] }}"
+                                    oninput="checkKeyByClass('price')" >
+                                </div>
+                            </div>    
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="communes">Comunas (*)</label>
+                                    <select name="communes[1][]" class="form-control select2 communes" data-width="100%" multiple>
+                                        @foreach($communes as $c)
+                                            <option value="{{ $c->id }}" {{ in_array($c->id, $cost->communes) ? 'selected' : ''}}>{{ $c->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>   
+                            <div class="col-md-2">
+                                <button class="btn btn-success" type="button" style="margin-top:22px" onclick="addNewRow()"><i
+                                    class="fa fa-plus"></i> Añadir otro rango</button>
+                            </div> 
+                        </div>
+                        @empty
+                        <div class="row clone">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="price">Precio(*)</label>
+                                    <input type="text" name="price[1][]" class="form-control price" required
+                                    oninput="checkKeyByClass('price')" >
+                                </div>
+                            </div>    
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="communes">Comunas (*)</label>
+                                    <select name="communes[1][]" class="form-control select2 communes" data-width="100%" multiple required>
+                                        @foreach($communes as $c)
+                                            <option value="{{ $c->id }}">{{ $c->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>   
+                            <div class="col-md-2">
+                                <button class="btn btn-success" type="button" style="margin-top:22px" onclick="addNewRow()"><i
+                                    class="fa fa-plus"></i> Añadir otro rango</button>
+                            </div> 
+                        </div>
+                        @endforelse
                     </div>
                     <div class="panel-footer">
                         <div class="row">
@@ -96,6 +151,14 @@
     </script>
 
     <script>
+        function checkKey(name) {
+            var clean = $('#' + name).val().replace(/[^0-9]/g, "");
+            // don't move cursor to end if no change
+            if (clean !== $('#' + name).val()) $('#' + name).val(clean);
+        }
+    </script>
+
+    <script>
 
 
         /* password generator */
@@ -106,6 +169,30 @@
 
     </script>
 
+    <script>
+        function addNewRow(){
+            $(".clone").last().clone().insertAfter("div.clone:last");
+            let count = $('.clone').length;
+            $(".price").last().val("");
+            $(".price").last().attr('name', 'price[' + count + '][]');
+            $(".price").last().removeAttr("required");
+            let element = $(".communes").last();
+            $(".communes").last().attr('name', 'communes[' + count + '][]');
+            $(".communes").last().val([]).change();
+            $(".communes").last().removeAttr("required");
+            $(".select2-container").last().remove();
+            $(element).select2({
+                language: {
+                    noResults: function() {
+                        return "No hay resultado";        
+                    },
+                    searching: function() {
+                        return "Buscando..";
+                    }
+                }
+            });
+        }
+    </script>
 
     <script>
 

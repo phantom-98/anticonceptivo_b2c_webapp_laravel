@@ -37,6 +37,7 @@ class CreateOrdersTable extends Migration
             $table->dateTime('billing_date')->nullable();
             $table->text('billing_receipt')->nullable();
 
+            $table->dateTime('delivery_date')->nullable();
 
             $table->text('comments')->nullable();
 

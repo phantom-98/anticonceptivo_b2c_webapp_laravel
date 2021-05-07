@@ -15,4 +15,12 @@ class DeliveryCost extends Model
         'active',
     ];
 
+    protected $appends = [
+        'formated_costs',
+    ];
+
+    public function getFormatedCostsAttribute(){
+        return json_decode($this->costs);
+    }
+
 }
