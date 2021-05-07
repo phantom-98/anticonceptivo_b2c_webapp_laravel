@@ -2,144 +2,125 @@
 
 namespace App\Http\Controllers\Intranet;
 
-use App\Models\Pages;
+use App\Models\Page;
+
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
-use App\Http\Helpers\CoreHelper;
-use App\Http\Helpers\Response;
-use App\Http\Helpers\ICode;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 
 class PageController extends GlobalController
 {
-    protected $mainClass = null;
-
     protected $options = [
         'route' => 'intranet.pages.',
         'folder' => 'intranet.pages.',
         'pluralName' => 'Páginas',
         'singularName' => 'Página',
         'disableActions' => ['show', 'changeStatus']
+
     ];
 
     public function __construct()
     {
-        $this->mainClass = Pages::class;
         parent::__construct($this->options);
     }
 
     public function index()
     {
-        $objects = $this->mainClass::get();
+        $objects = Page::get();
         return view($this->folder . 'index', compact('objects'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         return view($this->folder . 'create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        // dd($request->all());
         $rules = [
-            'title' => 'required'
+            'name' => 'required|unique:pages,name',
+            'description' => 'required',
+            'section' => 'required',
         ];
 
         $messages = [
-            'title.required' => 'El campo titulo es requerido'
+            'name.required' => 'El campo nombre es obligatorio.',
+            'description.required' => 'El campo descripción es obligatorio',
+            'section.required' => 'El campo sección es obligatorio'
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
 
         if ($validator->passes()) {
 
-            $object = new Pages();
-
-            $object->title = $request->title;
-            $object->shortcut = $request->shortcut;
-            $object->slug = \Str::slug($request->title); 
-            $object->content = $request->content;  
-            $object->save();           
+            $object = Page::create($request->all());
 
             if ($object) {
-                session()->flash('success', 'Pagina creada correctamente.');
+                session()->flash('success', 'Página creada correctamente.');
                 return redirect()->route($this->route . 'index');
+
             }
-            return redirect()->back()->withErrors(['mensaje' => 'Error inesperado al crear Pagina.'])->withInput();
+
+            return redirect()->back()->withErrors(['mensaje' => 'Error inesperado al crear la Página.'])->withInput();
         } else {
             return redirect()->back()->withErrors($validator)->withInput();
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show()
+    public function show($id)
     {
-        // $object = CoreHelper::SearchObjectWith($this->mainClass::find($id), $this->route. 'index', 'Idioma no encontrado');
-        // return view($this->folder . 'show', compact('object'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
-        $object = CoreHelper::SearchObjectWith($this->mainClass::find($id), $this->route. 'index', 'Pagina no encontrada');
+        $object = Page::find($id);
+
+        if (!$object) {
+            session()->flash('warning', 'Página no encontrada.');
+            return redirect()->route($this->route . 'index');
+        }
+
         return view($this->folder . 'edit', compact('object'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
+        $object = Page::find($id);
 
-        $object = CoreHelper::SearchObjectWith($this->mainClass::find($id), $this->route. 'index', 'Pagina no encontrada');
+        if (!$object) {
+            session()->flash('warning', 'Página no encontrada.');
+            return redirect()->route($this->route . 'index');
+        }
 
         $rules = [
-            'title' => 'required'
+            'name' => 'required|unique:pages,name,' . $id,
+            'description' => 'required',
+            'section' => 'required',
         ];
 
         $messages = [
-            'title.required' => 'El campo titulo es requerido'
+            'name.required' => 'El campo nombre es obligatorio.',
+            'description.required' => 'El campo descripción es obligatorio',
+            'section.required' => 'El campo sección es obligatorio'
         ];
+
 
         $validator = Validator::make($request->all(), $rules, $messages);
 
         if ($validator->passes()) {
 
-            $object->update($request->all());
-                $object->slug = \Str::slug($request->name);
-                $object->save();
+            $object->update($request-all());
 
             if ($object) {
-                session()->flash('success', 'Pagina actualizada correctamente.');
+                session()->flash('success', 'Página modificada correctamente.');
                 return redirect()->route($this->route . 'index');
             }
-            return redirect()->back()->withErrors(['mensaje' => 'Error inesperado al modificar Pagina.'])->withInput();
+
+            return redirect()->back()->withErrors(['mensaje' => 'Error inesperado al modificar la Página.'])->withInput();
         } else {
             return redirect()->back()->withErrors($validator)->withInput();
         }
@@ -147,9 +128,10 @@ class PageController extends GlobalController
 
     public function active(Request $request)
     {
+
         try {
 
-            $object = $this->mainClass::find($request->id);
+            $object = Page::find($request->id);
 
             if ($object) {
 
@@ -158,7 +140,7 @@ class PageController extends GlobalController
 
                 return response()->json([
                     'status' => 'success',
-                    'message' => $object->active == 1 ? 'Pagina activada correctamente.' : 'Pagina desactivada correctamente.',
+                    'message' => $object->active == 1 ? 'Página activada correctamente.' : 'Página desactivada correctamente.',
                     'object' => $object
                 ]);
 
@@ -166,7 +148,7 @@ class PageController extends GlobalController
 
                 return response()->json([
                     'status' => 'error',
-                    'message' => 'Pagina no encontrada.'
+                    'message' => 'Página no encontrada.'
                 ]);
             }
 
@@ -177,32 +159,32 @@ class PageController extends GlobalController
                 'message' => 'Ha ocurrido un error inesperado, inténtelo denuevo más tarde.' . $e->getMessage()
             ]);
         }
+
     }
 
     public function destroy($id)
     {
-        $object = CoreHelper::SearchObjectWith($this->mainClass::find($id), $this->route. 'index', 'Pagina no encontrada');
+        $object = Page::find($id);
 
-        try {
-
-            if ($object->removable == 0) {
-                session()->flash('warning', 'Esta pagina no puede ser eliminada.');
-                    return redirect()->route($this->route . 'index');
-            }else {
-                
-                if ($object->delete()) {
-                    session()->flash('success', 'Pagina eliminada correctamente.');
-                    return redirect()->route($this->route . 'index');
-                }
-            }
-
-
-        } catch (\Exception $e) {
-
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Ha ocurrido un error inesperado, inténtelo denuevo más tarde.' . $e->getMessage()
-            ]);
+        if (!$object) {
+            session()->flash('warning', 'Página no encontrada.');
+            return redirect()->route($this->route . 'index');
         }
+
+        $object->delete();
+
+        if ($object->delete()) {
+            session()->flash('success', 'Página eliminada correctamente.');
+            return redirect()->route($this->route . 'index');
+        }
+
+        session()->flash('error', 'No se ha podido eliminar la Página.');
+        return redirect()->route($this->route . 'index');
     }
+
+    public function changeStatus(Request $request)
+    {
+
+    }
+
 }

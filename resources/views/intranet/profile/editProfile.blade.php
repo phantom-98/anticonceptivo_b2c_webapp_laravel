@@ -107,8 +107,8 @@
 
         a.cke_dialog_ui_button_ok {
             color: #fff;
-            background: #5b32b7 !important;
-            border: 1px solid #5b32b7 !important;
+            background: #0869A6 !important;
+            border: 1px solid #0869A6 !important;
         }
 
         .image-product img {
@@ -135,7 +135,7 @@
             font-weight: 700;
             color: white !important;
             width: 100%;
-            background-color: #5b32b7;
+            background-color: #0869A6;
             border-color: #126002;
             display: inline-block;
             padding: 6px 12px;
@@ -159,8 +159,8 @@
 
         .inputfile:focus + label,
         .inputfile + label:hover {
-            background-color: #5b32b7;
-            border-color: #5b32b7;
+            background-color: #0869A6;
+            border-color: #0869A6;
         }
         .link-del {
             text-align: center;

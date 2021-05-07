@@ -44,18 +44,18 @@
     display: flex !important;
     min-height: 44px;
     cursor: pointer;
-    -moz-transition: all .4s ease-in-out;
-    -o-transition: all .4s ease-in-out;
-    -webkit-transition: all .4s ease-in-out;
-    transition: all .4s ease-in-out;
+    -moz-transition: all .25s ease-in-out;
+    -o-transition: all .25s ease-in-out;
+    -webkit-transition: all .25s ease-in-out;
+    transition: all .25s ease-in-out;
     background: transparent;
 }
 
 .header-navbar-col:hover{
-    background: rgb(0,155,232);
-    background: -moz-linear-gradient(90deg, rgba(0,155,232,1) 0%, rgba(0,219,174,1) 100%);
-    background: -webkit-linear-gradient(90deg, rgba(0,155,232,1) 0%, rgba(0,219,174,1) 100%);
-    background: linear-gradient(90deg, rgba(0,155,232,1) 0%, rgba(0,219,174,1) 100%);
+    background: #009BE8;
+    //background: -moz-linear-gradient(90deg, rgba(0,155,232,1) 0%, rgba(0,219,174,1) 100%);
+    //background: -webkit-linear-gradient(90deg, rgba(0,155,232,1) 0%, rgba(0,219,174,1) 100%);
+    //background: linear-gradient(90deg, rgba(0,155,232,1) 0%, rgba(0,219,174,1) 100%);
 }
 
 .header-navbar-item {

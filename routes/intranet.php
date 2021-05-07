@@ -1,7 +1,6 @@
 <?php
 
 use App\Exports\EmailsExport;
-use App\Exports\EmailsProfessionalExport;
 
 if(!function_exists('getResourceRoutesForNameHelper')){
 
@@ -34,14 +33,14 @@ if (env('SHOW_INTRANET', 'TRUE') == 'TRUE') {
                 'change-status' => 'cambiar-estado',
             ]);
 
-            Route::get('/login', 'AuthController@show')->name('auth.show');
-            Route::post('/login', 'AuthController@login')->name('auth.login');
+            Route::get('/acceder', 'AuthController@show')->name('auth.show');
+            Route::post('/acceder', 'AuthController@login')->name('auth.login');
             Route::any('/logout', 'AuthController@logout')->name('auth.logout');
 //            Route::post('/logout', 'AuthController@logout')->name('auth.logout');
-            Route::get('/login/send-password', 'AuthController@showSendPassword')->name('auth.show-send-password');
-            Route::post('/login/send-password', 'AuthController@sendPassword')->name('auth.send-password');
-            Route::get('/login/recovery-password', 'AuthController@showRecoveryPassword')->name('auth.show-recovery-password');
-            Route::post('/login/recovery-password', 'AuthController@recoveryPassword')->name('auth.recovery-password');
+            Route::get('/acceder/enviar-contrasena', 'AuthController@showSendPassword')->name('auth.show-send-password');
+            Route::post('/acceder/enviar-contrasena', 'AuthController@sendPassword')->name('auth.send-password');
+            Route::get('/acceder/recuperar-contrasena', 'AuthController@showRecoveryPassword')->name('auth.show-recovery-password');
+            Route::post('/acceder/recuperar-contrasena', 'AuthController@recoveryPassword')->name('auth.recovery-password');
 
             Route::group(['middleware' => ['auth:intranet']], function () {
 
@@ -52,12 +51,8 @@ if (env('SHOW_INTRANET', 'TRUE') == 'TRUE') {
                 Route::get('/inicio', 'DashboardController@index')->name('dashboard');
 
                 Route::get('listado', function () {
-                    return Excel::download(new EmailsExport, 'newsletter-companias.xlsx');
+                    return Excel::download(new EmailsExport, 'newsletter-clientes.xlsx');
                 })->name('listado');
-
-                Route::get('listado-professional', function () {
-                    return Excel::download(new EmailsProfessionalExport, 'newsletter-profesionales.xlsx');
-                })->name('listado-professional');
 
                 Route::post('roles/active', 'RoleController@active')->name('roles.active');
                 Route::post('roles/change-status', 'RoleController@changeStatus')->name('roles.changeStatus');
@@ -70,30 +65,6 @@ if (env('SHOW_INTRANET', 'TRUE') == 'TRUE') {
                 Route::post('usuarios/all-change', 'UserController@all_change')->name('users.all_change');
                 Route::resource('usuarios', 'UserController', ['names' => getResourceRoutesForNameHelper('users')]);
 
-                Route::get('solicitudes-de-trabajo/search-company', 'OrderController@search_company')->name('orders.search_company');
-                Route::get('solicitudes-de-trabajo/search-professional', 'OrderController@search_professional')->name('orders.search_professional');
-                Route::get('solicitudes-de-trabajo/detalle', 'OrderController@detail')->name('orders.detail');
-                Route::get('solicitudes-de-trabajo/export', 'OrderController@export')->name('orders.export');
-                Route::resource('solicitudes-de-trabajo', 'OrderController', ['names' => getResourceRoutesForNameHelper('orders')]);
-
-                Route::post('facturas/active', 'BillingController@active')->name('bills.active');
-                Route::get('facturas/wsbill/{id}', 'BillingController@wsBill')->name('bills.wsBill');
-                Route::get('facturas/', 'BillingController@isBill')->name('bills.isBill');
-                Route::get('facturas/search-company', 'BillingController@search_company')->name('bills.search_company');
-
-
-                Route::resource('facturas-pendientes', 'BillingController', ['names' => getResourceRoutesForNameHelper('bills')]);
-                Route::get('solicitudes-de-pagos/search-professional', 'LiquidationController@searchProfessional')->name('liquidations.searchProfessional');
-                Route::post('solicitudes-de-pagos-pendientes/pagar', 'LiquidationPendingController@pay')->name('liquidations_pending.pay');
-                Route::resource('solicitudes-de-pagos-pendientes', 'LiquidationPendingController', ['names' => getResourceRoutesForNameHelper('liquidations_pending')]);
-                Route::resource('solicitudes-de-pagos', 'LiquidationController', ['names' => getResourceRoutesForNameHelper('liquidations')]);
-
-                Route::get('exportaciones', 'ExportController@index')->name('exports.index');
-                Route::get('exportaciones/export-companias', 'ExportController@export_companies')->name('exports.export_companies');
-                Route::get('exportaciones/export-profesionales', 'ExportController@export_professionals')->name('exports.export_professionals');
-                Route::get('exportaciones/export-profesionales-eval', 'ExportController@export_professionals_eval')->name('exports.export_professionals_eval');
-                Route::get('exportaciones/export-profesionales-nivel', 'ExportController@export_professionals_nivel')->name('exports.export_professionals_nivel');
-
                 Route::get('editar-perfil', [
                     'as' => 'profile.editProfile', 'uses' => 'ProfileController@editProfile'
                 ]);
@@ -102,49 +73,88 @@ if (env('SHOW_INTRANET', 'TRUE') == 'TRUE') {
                     'as' => 'profile.updateProfile', 'uses' => 'ProfileController@updateProfile'
                 ]);
 
-                //NEW ROUTES CONFIGURATIONS
-                Route::post('idiomas/active', 'LanguageController@active')->name('languages.active');
-                Route::resource('idiomas', 'LanguageController', ['names' => getResourceRoutesForNameHelper('languages')]);
+                Route::resource('configuraciones', 'SettingController', ['names' => getResourceRoutesForNameHelper('settings')]);
 
-                Route::post('areas/active', 'AreaController@active')->name('areas.active');
-                Route::resource('areas', 'AreaController', ['names' => getResourceRoutesForNameHelper('areas')]);
+                Route::post('categorias/position', 'CategoryController@position')->name('categories.position');
+                Route::post('categorias/active', 'CategoryController@active')->name('categories.active');
+                Route::resource('categorias', 'CategoryController', ['names' => getResourceRoutesForNameHelper('categories')]);
 
-                Route::post('habilidades/active', 'SkillController@active')->name('skills.active');
-                Route::resource('habilidades', 'SkillController', ['names' => getResourceRoutesForNameHelper('skills')]);
+                Route::post('subcategorias/position', 'SubCategoryController@position')->name('subcategories.position');
+                Route::post('subcategorias/active', 'SubCategoryController@active')->name('subcategories.active');
+                Route::resource('subcategorias', 'SubCategoryController', ['names' => getResourceRoutesForNameHelper('subcategories')]);
+
+                Route::post('marcas/active', 'BrandController@active')->name('brands.active');
+                Route::post('marcas/position', 'BrandController@position')->name('brands.position');
+                Route::resource('marcas', 'BrandController', ['names' => getResourceRoutesForNameHelper('brands')]);
+
+                Route::delete('banners/delete-item/{id}', 'BannerController@delete_item')->name('banners.delete_item');
+                Route::put('banners/edit-item/{id}', 'BannerController@edit_item')->name('banners.edit_item');
+                Route::post('banners/position', 'BannerController@position')->name('banners.position');
+                Route::resource('banners', 'BannerController', ['names' => getResourceRoutesForNameHelper('banners')]);
+
+                Route::post('tipos-post-blog/active', 'PostTypeController@active')->name('post-types.active');
+                Route::resource('tipos-post-blog', 'PostTypeController', ['names' => getResourceRoutesForNameHelper('post-types')]);
+
+                Route::post('post-blog/active', 'PostController@active')->name('posts.active');
+                Route::post('post-blog/position', 'PostController@position')->name('posts.position');
+                Route::resource('post-blog', 'PostController', ['names' => getResourceRoutesForNameHelper('posts')]);
+
+                Route::post('faq/active', 'FaqController@active')->name('faqs.active');
+                Route::post('faq/position', 'FaqController@position')->name('faqs.position');
+                Route::resource('faq', 'FaqController', ['names' => getResourceRoutesForNameHelper('faqs')]);
+
+                Route::resource('clientes', 'CustomerController', ['names' => getResourceRoutesForNameHelper('customers')]);
+
+                Route::get('pedidos/search-client', 'OrderController@search_client')->name('orders.search_client');
+                Route::get('pedidos/detalle', 'OrderController@detail')->name('orders.detail');
+                Route::get('pedidos/export', 'OrderController@export')->name('orders.export');
+                Route::post('pedidos/pedidos/change-order-status', 'OrderController@changeOrderStatus')->name('orders.changeOrderStatus');
+                Route::resource('pedidos', 'OrderController', ['names' => getResourceRoutesForNameHelper('orders')]);
+
+                Route::resource('quienes-somos', 'AboutController', ['names' => getResourceRoutesForNameHelper('abouts')]);
+
+                Route::post('valores/active', 'ValueController@active')->name('values.active');
+                Route::resource('valores', 'ValueController', ['names' => getResourceRoutesForNameHelper('values')]);
+
+                Route::post('linea-tiempo/active', 'TimelineController@active')->name('timelines.active');
+                Route::resource('linea-tiempo', 'TimelineController', ['names' => getResourceRoutesForNameHelper('timelines')]);
+
+                Route::post('alianzas/active', 'AllianceController@active')->name('alliances.active');
+                Route::resource('alianzas', 'AllianceController', ['names' => getResourceRoutesForNameHelper('alliances')]);
+
+                Route::post('planes-suscripcion/active', 'SubscriptionPlanController@active')->name('subscription_plans.active');
+                Route::resource('planes-suscripcion', 'SubscriptionPlanController', ['names' => getResourceRoutesForNameHelper('subscription_plans')]);
+
+                Route::resource('valor-suscripcion', 'SubscriptionValueController', ['names' => getResourceRoutesForNameHelper('subscription_values')]);
+
+                Route::post('tipos-contacto/active', 'ContactIssueController@active')->name('contact_issues.active');
+                Route::resource('tipos-contacto', 'ContactIssueController', ['names' => getResourceRoutesForNameHelper('contact_issues')]);
+
+                Route::post('contactos/reply', 'ContactController@reply')->name('contacts.reply');
+                Route::resource('contactos', 'ContactController', ['names' => getResourceRoutesForNameHelper('contacts')]);
+
+                Route::post('alianzas/active', 'AllianceController@active')->name('alliances.active');
+                Route::resource('alianzas', 'AllianceController', ['names' => getResourceRoutesForNameHelper('alliances')]);
+
+                Route::post('productos/active', 'ProductController@active')->name('products.active');
+                Route::resource('productos', 'ProductController', ['names' => getResourceRoutesForNameHelper('products')]);
 
                 Route::post('paginas/active', 'PageController@active')->name('pages.active');
                 Route::resource('paginas', 'PageController', ['names' => getResourceRoutesForNameHelper('pages')]);
 
-                Route::resource('configuraciones', 'SettingController', ['names' => getResourceRoutesForNameHelper('settings')]);
+                Route::post('laboratorios/active', 'LaboratoryController@active')->name('laboratories.active');
+                Route::resource('laboratorios', 'LaboratoryController', ['names' => getResourceRoutesForNameHelper('laboratories')]);
 
-                Route::post('categorias-paso-a-paso/active', 'FrontComponentCategoryController@active')->name('frontcomponentcategories.active');
-                Route::resource('categorias-paso-a-paso', 'FrontComponentCategoryController', ['names' => getResourceRoutesForNameHelper('frontcomponentcategories')]);
+                Route::post('bases-legales/active', 'LegalBaseController@active')->name('legal_bases.active');
+                Route::resource('bases-legales', 'LegalBaseController', ['names' => getResourceRoutesForNameHelper('legal_bases')]);
 
-                Route::post('paso-a-paso/active', 'FrontComponentController@active')->name('frontcomponents.active');
-                Route::resource('paso-a-paso', 'FrontComponentController', ['names' => getResourceRoutesForNameHelper('frontcomponents')]);
+                Route::post('costos-despachos/active', 'DeliveryCostController@active')->name('delivery_costs.active');
+                Route::resource('costos-despachos', 'DeliveryCostController', ['names' => getResourceRoutesForNameHelper('delivery_costs')]);
 
-                Route::post('companias/active', 'CompanyController@active')->name('companies.active');
-                Route::post('companias/banned', 'CompanyController@banned')->name('companies.banned');
-                Route::get('companias/export', 'CompanyController@export')->name('companies.export');
-                Route::get('companias/search_area', 'CompanyController@search_area')->name('companies.search_area');
-                Route::get('companias/top-five-companies', 'CompanyController@getTopFiveCompanies')->name('companies.getTopFiveCompanies');
-                Route::post('companias/register-top-companies', 'CompanyController@registerTopCompanies')->name('companies.registerTopCompanies');
-                Route::resource('companias', 'CompanyController', ['names' => getResourceRoutesForNameHelper('companies'), 'except' => ['store', 'edit', 'update', 'destroy']]);
+                Route::get('codigo-descuento/search-cliente', 'DiscountCodeController@search_customer')->name('discount_code.search_customer');
 
-                Route::post('profesionales/active', 'ProfessionalController@active')->name('professionals.active');
-                Route::post('profesionales/banned', 'ProfessionalController@banned')->name('professionals.banned');
-                Route::get('profesionales/export', 'ProfessionalController@export')->name('professionals.export');
-                Route::get('profesionales/search_area', 'ProfessionalController@search_area')->name('professionals.search_area');
-                Route::resource('profesionales', 'ProfessionalController', ['names' => getResourceRoutesForNameHelper('professionals'), 'except' => ['store', 'edit', 'update', 'destroy']]);
-
-
-                Route::get('test', function () {
-
-                    $start_date = \App\Models\Setting::where('key', 'LAST_PAYMENT_DATE')->first()->value;
-                    $pay_date = \Carbon\Carbon::parse($start_date)->addDays(\App\Models\Setting::where('key', 'PAYMENT_RANGE')->first()->value);
-                    $liquidations = \App\Models\Liquidation::where('is_paid', 0)->where('period_end', '<', $pay_date)->get();
-                    return $liquidations;
-                });
+                Route::post('codigo-descuento/active', 'DiscountCodeController@active')->name('discount_code.active');
+                Route::resource('codigo-descuento', 'DiscountCodeController', ['names' => getResourceRoutesForNameHelper('discount_code')])->except(['show']);
 
             });
 

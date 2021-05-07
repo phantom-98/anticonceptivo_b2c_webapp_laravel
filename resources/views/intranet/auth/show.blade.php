@@ -9,7 +9,7 @@
         </div>
     </div>
 
-    <div class="panel panel-primary" style="border-radius: 15px;border: 4px solid #5b32b7;box-shadow: 7px 7px 15px #592A08; ">
+    <div class="panel panel-primary" style="border-radius: 15px;border: 4px solid #0869A6;box-shadow: 7px 7px 15px #0869A6; ">
         <div class="panel-heading">
             <h3 class="panel-title text-center text-uppercase">Acceso Usuarios</h3>
         </div>
@@ -45,7 +45,7 @@
                 </div>
                 <div class="row">
                     <div class="col-xs-6">
-                        <a href="{{ route('intranet.auth.show-send-password') }}" style="color: #5b32b7">Recuperar
+                        <a href="{{ route('intranet.auth.show-send-password') }}" style="color: #0869A6">Recuperar
                             contraseña</a>
                     </div>
                     <div class="col-xs-6" >

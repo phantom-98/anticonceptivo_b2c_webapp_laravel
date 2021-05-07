@@ -1,7 +1,5 @@
 import React, {Fragment} from 'react';
 import FooterBottom from "./FooterBottom";
-
-import PUBLIC_ROUTES from "../../../routes/publicRoutes";
 import logoFooter from '../../../assets/images/icons/footer/logo-footer.svg'
 import eureka from '../../../assets/images/icons/footer/eureka.svg'
 import webpay from '../../../assets/images/icons/footer/webpay.svg'
@@ -11,7 +9,8 @@ import twitter from '../../../assets/images/icons/footer/twitter.svg'
 import facebook from '../../../assets/images/icons/footer/facebook.svg'
 import instagram from '../../../assets/images/icons/footer/instagram.svg'
 import {CONFIG} from "../../../Config";
-import Icon from "../../../components/Icon";
+import PUBLIC_ROUTES from "../../../routes/publicRoutes";
+import Icon from "../../../components/general/Icon";
 import {Link} from "react-router-dom";
 
 
@@ -35,13 +34,13 @@ const Footer = () => {
                         <div className="col-md">
                             <ul className="nav flex-column">
                                 <li className="nav-item">
-                                    <a className="nav-link" href="#">Sobre nosotros</a>
+                                    <Link className="nav-link" to={PUBLIC_ROUTES.ABOUT_US.path}>Sobre nosotros</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link" href="#">Preguntas Frecuentes FAQ</a>
+                                    <Link className="nav-link" to={PUBLIC_ROUTES.FAQ.path}>Preguntas Frecuentes FAQ</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link" href="#">Términos y Condiciones</a>
+                                    <Link className="nav-link" to={PUBLIC_ROUTES.TERMS_AND_CONDITIONS.path}>Términos y Condiciones</Link>
                                 </li>
                                 <li className="nav-item">
                                     <a className="nav-link" href="#">Consumo responsable</a>
@@ -51,16 +50,16 @@ const Footer = () => {
                         <div className="col-md">
                             <ul className="nav flex-column">
                                 <li className="nav-item">
-                                    <a className="nav-link" href="#">Políticas de Privacidad</a>
+                                    <Link className="nav-link" to={(PUBLIC_ROUTES.CORPORATE_RESPONSIBILITY.path).replace(':section', 'politicas-de-privacidad')}>Políticas de Privacidad</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link" href="#">Bases Legales</a>
+                                    <Link className="nav-link" to={(PUBLIC_ROUTES.CORPORATE_RESPONSIBILITY.path).replace(':section', 'bases-legales')}>Bases Legales</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link" href="#">Plazos y costos de entrega</a>
+                                    <Link className="nav-link" to={(PUBLIC_ROUTES.CORPORATE_RESPONSIBILITY.path).replace(':section', 'plazos-y-costos-entrega')}>Plazos y costos de entrega</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link" href="#">Blog</a>
+                                    <Link className="nav-link" to={PUBLIC_ROUTES.BLOG.path}>Blog</Link>
                                 </li>
                             </ul>
                         </div>
@@ -78,7 +77,7 @@ const Footer = () => {
                                 </li>
                                 <li className="nav-item">
                                     <a className="nav-link" href="#"><Icon path={email}/>
-                                        <span>{' '}HOLA@ANTICONCEPTIVOS.CL</span>
+                                        <span>{' '}hola@anticonceptivos.cl</span>
                                     </a>
                                 </li>
                             </ul>

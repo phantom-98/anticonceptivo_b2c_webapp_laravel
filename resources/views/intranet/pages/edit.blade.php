@@ -2,81 +2,75 @@
 @section('title', $config['blade']['viewTitle'])
 
 @if ($config['blade']['showBreadcrumb'])
-@section('breadcrumb')
-    @foreach($config['breadcrumb'] as $key => $data)
-        <li><a href="{{ $data['link'] }}"
-               class="{{ count($config['breadcrumb']) == $key + 1 ? 'active' : '' }}">{{ $data['name'] }}</a></li>
-    @endforeach
-@endsection
+    @section('breadcrumb')
+        @php(array_push($config['breadcrumb'], ['link'=>'', 'name' =>  $config['blade']['viewEdit']]))
+        @foreach($config['breadcrumb'] as $key => $data)
+            <li><a href="{{ $data['link'] }}"
+                   class="{{ count($config['breadcrumb']) == $key + 1 ? 'active' : '' }}">{{ $data['name'] }}</a></li>
+        @endforeach
+    @endsection
 @endif
 
 @section('toolbar-buttons')
     <a href="{{route($config['route'] . 'index')}}" class="btn btn-default"><i
-            class="fa fa-chevron-left"></i> {{ $config['blade']['btnBack']}}</a>
+                class="fa fa-chevron-left"></i> {{ $config['blade']['btnBack']}}</a>
     <button class="btn btn-primary" type="button" onclick="doSubmit('form-edit')"><i
-            class="fa fa-save"></i> {{ $config['blade']['btnUpdate']}}</button>
+                class="fa fa-save"></i> {{ $config['blade']['btnUpdate']}}</button>
 @endsection
 
 @section('content')
-    <form id="form-edit" action="{{ route($config['route'] . 'update', $object->id) }}" enctype="multipart/form-data" method="POST">
+    <form id="form-edit" action="{{ route($config['route'] . 'update', [$object->id]) }}"
+          enctype="multipart/form-data" method="POST">
 
         <button type="submit" class="hide"></button>
         <input type="hidden" name="_method" value="PUT">
         @csrf()
 
+
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel">
                     <div class="panel-body">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group {{ $errors->has('title') ? 'has-error':'' }}">
-                                    <label for="title">Titulo (*)</label>
-                                    <input type="text"
-                                        id="title" name="title"
-                                        class="form-control"
-                                        required
-                                        value="{{ $object->title ?? ''}}">
-                                    {!! $errors->first('title', '<span class="help-block">:message</span>') !!}
-                                </div>
-                            </div>                                
-                            <div class="col-md-6">
-                                <div class="form-group {{ $errors->has('shortcut') ? 'has-error':'' }}">
-                                    <label for="shortcut">Tipo (*)</label>
-                                    <select id="shortcut" name="shortcut" class="form-control">
-                                        <option value="" selected disabled>Seleccione un tipo</option>
-                                        <option value="Terms"{{$object->shortcut=="Terms" ? 'selected':''}}>Terminos</option>
-                                        <option value="Politics" {{$object->shortcut=="Politics" ? 'selected':''}}>Politicas</option>
-                                    </select>
-                                    {!! $errors->first('title', '<span class="help-block">:message</span>') !!}
-                                </div>
-                            </div>                                
-                            <div class="col-md-12">
-                                <div class="form-group {{ $errors->has('content') ? 'has-error':'' }}">
-                                    <label for="content">Contenido (*)</label>
-                                    <textarea name="content" id="content" rows="3" style="resize: none">{{ $object->content ?? "" }}</textarea>
-                                    {!! $errors->first('content', '<span class="help-block">:message</span>') !!}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12" style="font-style: italic; margin-bottom:10px">
-                                Los campos con (*) son obligatorios.
-                            </div>
-                        </div>
-                    </div>
 
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="name">Nombre (*)</label>
+                                    <input type="text" id="name" name="name" class="form-control"
+                                            value="{{ old('name') ?? $object->name }}">
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="section">Sección (*)</label>
+                                    <select id="section" name="section" class="form-control">
+                                        <option val="Responsabilidad Empresarial" {{ $object->section == "Responsabilidad Empresarial" ? "selected" : ""}}>Responsabilidad Empresarial</option>
+                                        <option val="Términos y Condiciones" {{ $object->section == "Términos y Condiciones" ? "selected" : ""}}>Términos y Condiciones</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="description">Descripción (*)</label>
+                                    <textarea name="description" id="description" rows="3" style="resize: none">{{ old('description') ?? $object->description }}</textarea>
+                                </div>  
+                            </div>
+
+                        </div>
+
+                    </div>
                     <div class="panel-footer">
                         <div class="row">
                             <div class="col-xs-6">
-                                <a href="{{route($config['route'] . 'index')}}" class="btn btn-default">
-                                    <i class="fa fa-chevron-left"></i> {{ $config['blade']['btnBack']}}
-                                </a>
+                                <a href="{{route($config['route'] . 'index')}}" class="btn btn-default"><i
+                                            class="fa fa-chevron-left"></i> {{ $config['blade']['btnBack']}}</a>
                             </div>
                             <div class="col-xs-6 text-right">
-                                <button class="btn btn-primary" type="submit">
-                                    <i class="fa fa-save"></i> {{ $config['blade']['btnUpdate']}}
-                                </button>
+                                <button class="btn btn-primary" type="submit"><i
+                                            class="fa fa-save"></i> {{ $config['blade']['btnUpdate']}}</button>
                             </div>
                         </div>
                     </div>
@@ -89,89 +83,15 @@
 @section('styles')
     <!--Bootstrap Select [ OPTIONAL ]-->
     <link href="/themes/intranet/plugins/select2/css/select2.min.css" rel="stylesheet">
-    <style>
-        .image-product {
-            width: 100%;
-            height: 235px;
-            border: 1px solid #c5c5c5;
-            padding: 5px;
-            margin-bottom: 10px;
-            display: flex;
-            background: #f5f5f5;
-        }
-
-        a.cke_dialog_ui_button_ok {
-            color: #fff;
-            background-color: #000000;
-            border-color: rgb(25, 118, 210);
-        }
-
-        .image-product img {
-            width: 100%;
-            object-fit: cover;
-        }
-
-        .image-product:after {
-            content: "";
-            display: block;
-            padding-bottom: 100%;
-        }
-
-        .inputfile {
-            width: 0.1px;
-            height: 0.1px;
-            opacity: 0;
-            overflow: hidden;
-            position: absolute;
-            z-index: -1;
-        }
-
-        .inputfile + label {
-            font-size: 1.25em;
-            font-weight: 700;
-            color: white !important;
-            width: 100%;
-            background-color: #000000;
-            border-color: #126002;
-            display: inline-block;
-            padding: 6px 12px;
-            margin-bottom: 0;
-            font-size: 14px;
-            font-weight: 400;
-            line-height: 1.42857143;
-            text-align: center;
-            white-space: nowrap;
-            vertical-align: middle;
-            -ms-touch-action: manipulation;
-            touch-action: manipulation;
-            cursor: pointer;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-            background-image: none;
-            border: 1px solid transparent;
-        }
-
-        .inputfile:focus + label,
-        .inputfile + label:hover {
-            background-color: #000000;
-            border-color: #000000;
-        }
-
-        .link-del {
-            text-align: center;
-            color: #000000;
-            margin-top: 5px;
-            cursor: pointer;
-        }
-    </style>
 @endsection
 
-@section('scripts')   
+@section('scripts')
+    <!--Bootstrap Select [ OPTIONAL ]-->
+    <script src="/themes/intranet/plugins/select2/js/select2.min.js"></script>
+
     <script src="https://cdn.ckeditor.com/4.11.4/standard/ckeditor.js"></script>
     <script>
-        var editor = CKEDITOR.replace('content', {
+        var editor = CKEDITOR.replace('description', {
             language: 'es',
             entities_latin: false,
             enterMode : CKEDITOR.ENTER_BR,
@@ -187,7 +107,7 @@
     </script>
     <script>
         $(document).ready(function() {
-            if(CKEDITOR.instances['content'].getData()){
+            if(CKEDITOR.instances['description'].getData()){
                 contentcheck = true;
             } else {
                 contentcheck = false;
@@ -195,12 +115,30 @@
         });
 
         function checkContent(){
-            if(CKEDITOR.instances['content'].getData()){
+            if(CKEDITOR.instances['description'].getData()){
                 contentcheck = true;
             } else {
                 contentcheck = false;
             }
         }
     </script>
-
+    <script>
+        $("#form-edit").submit(function(e){
+            if(contentcheck == false){
+                e.preventDefault();
+                swal({
+                    title: 'Debe llenar campo "Descripción"',
+                    html: 'El campo descripción es obligatorio para finalizar el proceso',
+                    type: 'error',
+                    showCancelButton: false,
+                    confirmButtonColor: '#43a047',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Aceptar',
+                    cancelButtonText: 'No, cancelar!'
+                }).then(function (result) {
+                    
+                });
+            } 
+        });
+    </script>
 @endsection

@@ -1,6 +1,17 @@
-.form-control {
+.form-group label{
+    font-size: 12px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    color : #8E8E8E;
+    height: 2px;
+    padding-top: 3px;
+}
+
+
+.form-group .form-control {
     font-family: 'Poppins', sans-serif;
 }
+
 
 .form-control-w2 {
     font-family: 'Poppins', sans-serif;
@@ -30,12 +41,16 @@
 .form-control-custom {
     border: 1px solid #D6D6D6;
     border-radius: 12px;
-    height: 60px;
+    height: 50px;
     font-size: 14px;
     color: #3C3C3E;
     //padding-left: 20px;
     //box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
-    padding-left: 1.75rem;
+    padding-left: 1.25rem !important;
+}
+
+.form-control-custom-60 {
+    height: 60px;
 }
 
 .form-control-custom-45 {
@@ -78,4 +93,8 @@
     left: 44px;
 }
 
-
+input.my-auto.file-input {
+    font-size: 12px;
+    font-family: 'Poppins', sans-serif;
+    color: #595959;
+}

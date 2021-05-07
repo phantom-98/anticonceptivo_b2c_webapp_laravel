@@ -1,4 +1,4 @@
-import React, {createContext, useReducer, useState} from 'react';
+import React, {createContext, useReducer} from 'react';
 import {PUSHER} from "../../Globals";
 import Pusher from 'pusher-js';
 import ModalAuth from "../../components/modals/ModalAuth";

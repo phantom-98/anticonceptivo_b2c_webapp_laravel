@@ -3,16 +3,9 @@
 namespace App\Http\Controllers\Intranet;
 
 use App\Http\Controllers\Intranet\GlobalController;
-use App\Models\Company;
-use App\Models\Professional;
-use App\Models\Evaluation;
+use App\Models\Customer;
 use App\Models\Order;
-use App\Models\OrderStatus;
-use App\Models\WalletClient;
 use App\Models\OrderItem;
-use App\Models\PaymentInformation;
-use App\Models\LogOrderChangeStatus;
-use App\Models\Task;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -20,17 +13,17 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\OrderExportIndex;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
-use App\Http\Helpers\CoreHelper;
+use App\Models\Retention;
 
 class OrderController extends GlobalController
 {
     protected $options = [
         'route' => 'intranet.orders.',
         'folder' => 'intranet.orders.',
-        'pluralName' => 'Solicitudes de trabajo',
-        'singularName' => 'Solicitud de trabajo',
+        'pluralName' => 'Pedidos',
+        'singularName' => 'Pedido',
         'disableActions' => ['create', 'edit', 'active', 'destroy', 'changeStatus'],
-        'enableActions' => ['search_company', 'search_professional', 'show', 'changeOrderStatus']
+        'enableActions' => ['search_client', 'show', 'changeOrderStatus']
     ];
 
     public function __construct()
@@ -40,28 +33,22 @@ class OrderController extends GlobalController
 
     public function index(Request $request)
     {
-        $objects = Order::with(['company', 'professional']);
-        $status = Order::getStatusOptions();
-        
-        $date = $request->date;
-        $order_status_id = $request->order_status_id;
-        $professional_id = $request->professional_id;
+        $objects = Order::with(['customer']);
+        $clients = Customer::get();
 
-        $company_id = $request->company_id;
+        $date = $request->date;
+        $status = $request->status;
+        $client_id = $request->client_id;
         $id = $request->id;
 
-        if($professional_id == 999999999999999){
-            $professional_id = null;
-        }
-
-        if($company_id == 999999999999999){
-            $company_id = null;
+        if($client_id == 999999999999999){
+            $client_id = null;
         }
 
         $appends = [];
 
-        $start = Carbon::now()->subDays(5)->format('Y-m-d');
-        $end = Carbon::now()->format('Y-m-d');
+        $start = Carbon::now()->startOfMonth()->format('Y-m-d');
+        $end = Carbon::now()->endOfMonth()->format('Y-m-d');
 
         if ($date) {
             if (strpos($date, "-")) {
@@ -81,83 +68,30 @@ class OrderController extends GlobalController
             }
         }
 
-        if ($order_status_id) {
-            $stateSearched = "";
-            foreach ($status as $key => $state) {
-                if($state['value'] == $order_status_id)
-                {
-                    switch ($state['name']) {
-                        case 'CREADA':
-                            $stateSearched = "CREATED";
-                            break;
-                        
-                        case 'CANCELADA':
-                            $stateSearched = "CANCELED";
-                            break;
-                        
-                        case 'PROCESADA':
-                            $stateSearched = "PROCESSING";
-                            break;
-                        
-                        case 'RECHAZADA':
-                            $stateSearched = "REJECTED";
-                            break;
-                        
-                        case 'ESPERANDO':
-                            $stateSearched = "WAITING";
-                            break;
-                        
-                        case 'PAGADA':
-                            $stateSearched = "PAID";
-                            break;
-
-                        default:
-                            $stateSearched = "CREATED";
-                            break;
-                    }
-                }
-            }
-
-            $objects = $objects->where('status', $stateSearched);
-            $appends['order_status_id'] = $order_status_id;
-            $start = Carbon::now()->startOfYear()->format('Y-m-d');
-            $end = Carbon::now()->endOfYear()->format('Y-m-d');
-        }
-
         if ($id) {
             $objects = $objects->where('id', $id);
-            $start = Carbon::now()->startOfYear()->format('Y-m-d');
-            $end = Carbon::now()->endOfYear()->format('Y-m-d');
         }
 
-        if ($professional_id) {
-            $professional = Professional::find($professional_id);
-            $nameProfessional = $professional->first_name . ' ' . ($professional->last_name ?? '');
-            $objects = $objects->where('professional_id', $professional_id);
-            $appends['professional_id'] = $professional_id;
-            $start = Carbon::now()->startOfYear()->format('Y-m-d');
-            $end = Carbon::now()->endOfYear()->format('Y-m-d');
+        if ($status) {
+            $objects = $objects->where('status', $status);
+        }
+
+
+        if ($client_id) {
+            $client = Customer::find($client_id);
+            $nameClient = $client->id_number.' - '.$client->full_name;
+            $objects = $objects->where('customer_id', $client_id);
+            $appends['client_id'] = $client_id;
         } else {
-            $nameProfessional = null;
+            $nameClient = null;
         }
 
-        if ($company_id) {
-            $company = Company::find($company_id);
-            $nameCompany = $company->business_name;
-            $objects = $objects->where('company_id', $company_id);
-            $appends['company_id'] = $company_id;
-            $start = Carbon::now()->startOfYear()->format('Y-m-d');
-            $end = Carbon::now()->endOfYear()->format('Y-m-d');
-        } else {
-            $nameCompany = null;
-        }
-
-        $objects = $objects->whereBetween('date', [$start.' 00:00:00', $end.' 23:59:59']);
+        $objects = $objects->whereBetween('created_at', [$start.' 00:00:00', $end.' 23:59:59']);
         $appends['date'] = $date;
 
-        $objects = $objects->orderBy('date', 'desc')->get();
+        $objects = $objects->orderBy('created_at', 'desc')->get();
 
-        return view($this->folder . 'index', compact('objects', 'date', 'order_status_id', 'status', 'start', 'end', 'professional_id', 'company_id', 'nameCompany', 'nameProfessional', 'id'));
+        return view($this->folder . 'index', compact('objects', 'date', 'start', 'end', 'clients', 'client_id', 'nameClient', 'id', 'status'));
     }
 
     public function create()
@@ -167,28 +101,24 @@ class OrderController extends GlobalController
 
     public function show($id)
     {
-        // $object = Order::with(['order_status', 'tasks'])->find($id);
-        // $object = CoreHelper::SearchObjectWith(Order::with('order_status', 'tasks')->find($id),
-        //                                         $this->route. 'index', 'Orden no encontrada');
-        $object = CoreHelper::SearchObjectWith(Order::with('project', 'project.project_chats', 'project.project_tasks')->find($id),
-                                                $this->route. 'index', 'Orden no encontrada');
-        if($object)
-        {
-            return view($this->folder . 'show', compact('object'));
-        } 
+        $object = Order::with(['customer', 'order_items'])->find($id);
+
+        if (!$object) {
+            session()->flash('warning', 'Pedido no encontrado.');
+            return redirect()->route($this->route . 'index');
+        }
+
+        return view($this->folder . 'show', compact('object'));
     }
 
     public function export(Request $request)
     {
         $end = null;
-        $status = Order::getStatusOptions();
-        $order_status_id = $request->order_status_id;
         $date = $request->date;
-        
         if (!$date) {
-            $start = Carbon::now()->format('dmY');
-            $startFilter = Carbon::now()->format('Y-m-d');
-            $endFilter = Carbon::now()->format('Y-m-d');
+            $start = Carbon::now()->startOfYear()->format('dmY');
+            $startFilter = Carbon::now()->startOfYear()->format('Y-m-d');
+            $endFilter = Carbon::now()->endOfYear()->format('Y-m-d');
         } else {
             if (strpos($date, "-")) {
                 $start = substr($date, 0, strpos($date, "-"));
@@ -210,93 +140,38 @@ class OrderController extends GlobalController
                 $endFilter = Carbon::now()->format('Y-m-d');
             }
         }
-        $professional_id = $request->professional_id;
-        if ($professional_id) {
-            $professional = Professional::find($professional_id);
-        } else {
-            $professional = null;
-        }
 
-        $company_id = $request->company_id;
-        if ($company_id) {
-            $company = Company::find($company_id);
+        $client_id = $request->client_id;
+        if ($client_id) {
+            $client = Customer::find($client_id);
         } else {
-            $company = null;
+            $client = null;
         }
 
         $id = $request->id;
 
-        return Excel::download(new OrderExportIndex($order_status_id, $startFilter, $endFilter, $professional_id, $company_id, $id), 'solicitudes-de-trabajo-' . $start . '-' . ($end ? $end : '') . ($professional ? '-' . $professional->full_name : '') . ($company ? '-' . $company->business_name : '') . ($id ? '-' . 'pedido'.$id : '') . '.xlsx');
+        $status = $request->status;
+
+        return Excel::download(new OrderExportIndex($startFilter, $endFilter, $client_id, $id, $status), 'pedidos-' . $start . '-' . ($end ? $end : '') . ($client ? '-' . $client->full_name : '') . ($id ? '-' . 'pedido'.$id : '') . '.xlsx');
     }
 
-    public function search_company(Request $request){
+    public function search_client(Request $request){
         $search = $request->search;
-        $companies = [];
+        $clients = [];
         if(strlen(trim($search)) >= 1){
-            $companies_array = Company::where(function ($query) use ($search) {
-                $query->where('id_number', 'LIKE', '%' . $search . '%')
-                    ->orWhere('name', 'LIKE', '%' . $search . '%')
-                    ->orWhere('agent_name', 'LIKE', '%' . $search . '%')
-                    ->orWhere('business_name', 'LIKE', '%'. $search . '%')
-                    ->orWhere('email', 'LIKE', '%'. $search . '%');
-            })->get();
-
-            $companies = $companies_array->each->append('text')->toArray();
-        }
-        
-        array_push($companies, ['id' => '999999999999999', 'text' => 'Todas']);
-        
-        return response()->json($companies, 200);
-    }
-
-    public function search_professional(Request $request){
-        $search = $request->search;
-        $professionals = [];
-        if(strlen(trim($search)) >= 1){
-            $professionals_array = Professional::where(function ($query) use ($search) {
+            $clients_array = Customer::where(function ($query) use ($search) {
                 $query->where('id_number', 'LIKE', '%' . $search . '%')
                     ->orWhere('first_name', 'LIKE', '%' . $search . '%')
-                    ->orWhere('last_name', 'LIKE', '%' . $search . '%');
+                    ->orWhere('last_name', 'LIKE', '%' . $search . '%')
+                    ->orWhere('second_last_name', 'LIKE', '%' . $search . '%');
             })->get();
 
-            $professionals = $professionals_array->each->append('text')->toArray();
+            $clients = $clients_array->each->append('text')->toArray();
         }
 
-        array_push($professionals, ['id' => '999999999999999', 'text' => 'Todos']);
+        array_push($clients, ['id' => '999999999999999', 'text' => 'Todos']);
         
-        return response()->json($professionals, 200);
+        return response()->json($clients, 200);
     }
 
-    public function changeOrderStatus(Request $request)
-    {
-        // $object = Order::with(['order_status'])->find($request->id);
-
-        // if (!$object) {
-        //     session()->flash('warning', 'Pedido no encontrado.');
-        //     return redirect()->back();
-        // }
-
-        // $oldStatus = $object->order_status->name;
-
-        // $object->order_status_id = $request->order_status_id;
-        // $object->save();
-
-        // $object->refresh();
-
-        // $newStatus = $object->order_status->name;
-
-        // $user = auth('intranet')->user();
-
-        // LogOrderChangeStatus::create([
-        //     'order_id' => $object->id,
-        //     'old_status' => $oldStatus,
-        //     'new_status' => $newStatus,
-        //     'user_name' => $user->full_name,
-        //     'user_email' => $user->email,
-        //     'description' => 'El usuario ' . $user->full_name . ' ha cambiado el estado de la order de ' . $oldStatus  .' a ' . $newStatus,
-        // ]);
-
-        // session()->flash('success', 'Pedido actualizado correctamente.');
-        // return redirect()->back();
-    }
 }

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>{{  'Ikiru' }} | @yield('title', 'Dashboard')</title>
+    <title>{{  'Anticonceptivo' }} | @yield('title', 'Dashboard')</title>
 
     <link rel="shortcut icon" href="/themes/web/favicon/favicon.ico" type="image/x-icon">
     <link rel="icon" href="/themes/web/favicon/favicon.ico" type="image/x-icon">
@@ -28,30 +28,28 @@
     <meta name="msapplication-TileImage" content="/themes/web/assets/img/favicon/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
 
-    {{--    Cyber Security es una empresa del Holding Rebrisa, dedicada a ofrecer soluciones integrales orientados al soporte y seguridad de la información, apoyados por una metodología de trabajo integral que abarca desde el análisis y diseño inicial de su negocio, hasta su implementación--}}
+    <meta name="apple-mobile-web-app-title" content="Anticonceptivo">
+    <meta name="application-name" content="Anticonceptivo">
 
-    <meta name="apple-mobile-web-app-title" content="DoctorMeet">
-    <meta name="application-name" content="DoctorMeet">
-
-    <meta name="title" content="DoctorMeet">
+    <meta name="title" content="Anticonceptivo | Encuentra lo mejor en anticonceptivos">
     <meta name="description"
-          content="Tu médico aun click">
+          content="Tienda online de diferentes anticonceptivos">
     <meta name="keywords"
-          content="Médico, psicologo, online, 1 click, webpay">
+          content="anticonceptivos, ecommerce, tienda, pastillas, nora, condones, durex">
     <meta name="robots" content="index, nofollow">
     <meta name="language" content="Spanish">
     <meta name="revisit-after" content="4000 days">
-    <meta name="author" content="DoctorMeet">
-    <meta name="rights" content="DoctorMeet"/>
+    <meta name="author" content="Anticonceptivo">
+    <meta name="rights" content="Anticonceptivo"/>
 
-    <meta property="og:site_name" content="DoctorMeet">
-    <meta property="og:title" content="DoctorMeet"/>
+    <meta property="og:site_name" content="Anticonceptivo">
+    <meta property="og:title" content="Anticonceptivo"/>
     <meta property="og:description"
-          content="Tu doctor a un click."/>
-    <meta property="og:image" itemprop="image" content="https://www.doctormeet.cl/themes/web/assets/img/rrss.jpg">
+          content="Tienda online de diferentes anticonceptivos."/>
+    <meta property="og:image" itemprop="image" content="https://www.anticonceptivo.cl/images/logo-full.svg?b3b8df2099e0585f16d824394e200f52">
     <meta property="og:type" content="website"/>
     <meta property="og:updated_time" content="1440432930"/>
-    <meta property="og:url" content="https://www.doctormeet.cl/"/>
+    <meta property="og:url" content="https://www.anticonceptivo.cl/"/>
 
     <link
         href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap"
@@ -133,15 +131,23 @@
 <script src="/themes/intranet/plugins/bootstrap-toggle/bootstrap-toggle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
 
-<script src="/themes/intranet/js/includes/bootstrapTable.js"></script>
-<script src="/themes/intranet/js/includes/forms.js"></script>
-<script src="/themes/intranet/js/includes/loading.js"></script>
-<script src="/themes/intranet/js/includes/toastConfig.js"></script>
-<script src="/themes/intranet/js/includes/utils.js"></script>
-
 <script src="/themes/intranet/js/custom.js"></script>
 
 @yield('scripts')
+
+<script>
+    $(".select2").select2({
+        language: {
+            noResults: function() {
+                return "No hay resultado";        
+            },
+            searching: function() {
+                return "Buscando..";
+            }
+        }
+    });
+</script>
+
 
 </body>
 </html>

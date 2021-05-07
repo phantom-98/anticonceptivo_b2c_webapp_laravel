@@ -41,52 +41,40 @@
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group">
-                                            <label for="company_id">Compañía</label>
-                                            <select id="company_id" name="company_id" class="form-control select2" data-width="100%">
+                                            <label for="client_id">Cliente</label>
+                                            <select id="client_id" name="client_id" class="form-control select2" data-width="100%">
                                                 <option value="">Todos</option>
-                                                @if($company_id)
-                                                <option value="{!! $company_id !!}" selected>{!! $nameCompany !!}</option>
+                                                @if($client_id)
+                                                <option value="{!! $client_id !!}" selected>{!! $nameClient !!}</option>
                                                 @endif
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group">
-                                            <label for="professional_id">Profesional</label>
-                                            <select id="professional_id" name="professional_id" class="form-control select2" data-width="100%">
+                                            <label for="status">Estado</label>
+                                            <select id="status" name="status" class="form-control select2" data-width="100%">
                                                 <option value="">Todos</option>
-                                                @if($professional_id)
-                                                <option value="{!! $professional_id !!}" selected>{!! $nameProfessional !!}</option>
-                                                @endif
+                                                <option value="PAID" {{ $status == "PAID" ? "selected" : "" }}>Pagada</option>
+                                                <option value="CREATED" {{ $status == "CREATED" ? "selected" : "" }}>Creada</option>
+                                                <option value="CANCELED" {{ $status == "CANCELED" ? "selected" : "" }}>Rechazada</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group">
-                                            <label for="id">N° de Orden</label>
+                                            <label for="id"># Pedido</label>
                                             <input type="text" id="id" name="id" class="form-control" value="{{ $id }}"/>
                                         </div>
-                                    </div>                           
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label for="order_status_id">Estado</label>
-                                            <select id="order_status_id" name="order_status_id" class="form-control">
-                                                <option value="" selected disabled>Seleccione estado</option>
-                                                @foreach($status as $state)
-                                                    <option
-                                                        value="{!! $state['value'] !!}" {!! ($state['value'] == $order_status_id ? 'selected' : '' ) !!}>{!! ucfirst(strtolower($state['name'])) !!}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
                                     </div>
-                                    <div class="col-md-1">
+                                    <div class="col-md-1" style="margin-bottom: 10px">
                                         <div class="form-group">
                                             <button type="submit" class="btn btn-success left "
                                                     style="margin-top: 23px"><i class="fa fa-filter"></i> Filtrar
                                             </button>
                                         </div>
                                     </div>
-                                    <div class="col-md-1">
+                                    <div class="col-md-1" style="margin-bottom: 10px">
                                         <div class="form-group">
                                             <button type="submit" class="btn btn-success left " onclick="export_excel()"
                                                     style="margin-top: 23px"><i class="fa fa-file-excel-o"></i> Exportar
@@ -103,6 +91,8 @@
                             </div>
                         </div>
                     </div>
+
+
                 </div>
             </div>
         </div>
@@ -131,26 +121,25 @@
                            data-show-toggle="true"
                            data-show-columns="true"
                            data-sort-name="id"
-                           data-page-list="[5, 10, 20]"
-                           data-page-size="10"
+                           data-page-list="[10, 50, 200]"
+                           data-page-size="50"
                            data-pagination="true"
                            data-show-pagination-switch="true">
                         <thead>
                         <tr>
-                            <th data-cell-style="cellStyle" data-field="id" data-sorter="idSorter" data-sortable="true" data-valign="middle">Nº Orden</th>
+                            <th data-cell-style="cellStyle" data-field="id" data-sorter="idSorter" data-sortable="true" data-valign="middle">Nº Ped.</th>
                             <th data-cell-style="cellStyle" data-field="date" data-sorter="datesSorter" data-sortable="true" data-valign="middle">Fecha</th>
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Hora</th>
-                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">RUT Compañía</th>
-                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Nombre Compañía</th>
-                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">RUT Profesional</th>
-                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Nombre Profesional</th>
-                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Método de Pago</th>
-                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Total de Horas</th>
-                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Total</th>
-                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Total Pagado Compañia</th>
-                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Total a Pagar Profesional</th>
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Estado</th>
-                            {{-- <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Rut de Pago</th> --}}
+                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">RUT Cliente</th>
+                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Nombre Cliente</th>
+                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Dirección Entrega</th>
+                            <th data-cell-style="cellStyle" data-field="dateEntrega" data-sorter="datesSorter" data-sortable="true" data-valign="middle">Fecha de Entrega</th>
+                            <th data-cell-style="cellStyle" data-sorter="priceSorter" data-sortable="true" data-valign="middle">Subtotal</th>
+                            <th data-cell-style="cellStyle" data-sorter="priceSorter" data-sortable="true" data-valign="middle">Despacho</th>
+                            <th data-cell-style="cellStyle" data-sorter="priceSorter" data-sortable="true" data-valign="middle">Descuento</th>
+                            <th data-cell-style="cellStyle" data-sorter="priceSorter" data-sortable="true" data-valign="middle">Total</th>
+                            <th data-cell-style="cellStyle" data-field="dateBilling" data-sorter="datesSorter" data-sortable="true" data-valign="middle">Fecha Facturación</th>
                             @if($config['blade']['showActions'])
                                 <th data-cell-style="cellStyle" data-valign="middle">Acciones</th>
                             @endif
@@ -158,87 +147,28 @@
                         </thead>
                         <tbody>
                         @foreach($objects as $object)
-
                             <tr>
                                 <td>#{{ $object->id}}</td>
-                                <td>{{ date('d-m-Y', strtotime($object->date)) }}</td>
-                                <td>{{ date('H:i:s', strtotime($object->date)) }}</td>
-                                <td>{{ $object->company->id_number ?? '-' }}</td>
-                                <td>{{ mb_strtoupper($object->company->business_name ?? '-' , 'UTF-8') }}</td>
-                                <td>{{ $object->professional->id_number ?? '-' }}</td>
-                                <td>{{ mb_strtoupper($object->professional->first_name.' '.$object->professional->last_name, 'UTF-8') ?? '-' }}</td>       
+                                <td>{{ date('d-m-Y', strtotime($object->created_at)) }}</td>
+                                <td>{{ date('H:i:s', strtotime($object->created_at)) }}</td>
                                 <td>
-                                    @switch($object->type)
-                                        @case("WEBPAY_PLUS")
-                                            WebPay Plus
-                                            @break
-                                        @case("WEBPAY_ONE_CLICK")
-                                            WebPay OneClick
-                                            @break
-                                        @case("KHIPU")
-                                            Khipu
-                                            @break
-                                        @case("TRANSFER")
-                                            Transferencia
-                                            @break
-                                        @default
-                                            -
-                                    @endswitch    
+                                    <div class="label label-table" style="background: {{$object->formated_background}}; color: {{$object->formated_color}}; cursor:default">
+                                        {{ $object->formated_status }}
+                                    </div>
                                 </td>
-                                <td>{{ $object->total_minutes/60 . " (".$object->total_minutes." minutos)" ?? '-' }}</td>
-                                <td>${{ number_format($object->total_price_gross, 0, ',','.')}}</td>
-                                <td>${{ number_format($object->total_price, 0, ',','.')}}</td>
-                                <td>${{ number_format($object->total_price_gross - $object->commission_professional_total, 0, ',','.')}}</td>
-                                <td>
-                                    <center>
-                                        @switch($object->status)
-                                            @case("CREATED")
-                                                <span style="background-color: green; color: white;
-                                                 padding-top: 5px; padding-left: 10px; padding-bottom: 5px;
-                                                  padding-right: 10px;"
-                                                  >CREADA</span>
-                                                @break
-                                            @case("CANCELED")
-                                                <span style="background-color: red; color: white;
-                                                 padding-top: 5px; padding-left: 10px; padding-bottom: 5px;
-                                                  padding-right: 10px;"
-                                                  >CANCELADA</span>
-                                                @break
-                                            @case("PROCESSING")
-                                                <span style="background-color: yellow; color: white;
-                                                 padding-top: 5px; padding-left: 10px; padding-bottom: 5px;
-                                                  padding-right: 10px;"
-                                                  >PROCESANDO</span>
-                                                @break
-                                            @case("REJECTED")
-                                                <span style="background-color: red; color: white;
-                                                 padding-top: 5px; padding-left: 10px; padding-bottom: 5px;
-                                                  padding-right: 10px;"
-                                                  >RECHAZADA</span>
-                                                @break
-                                            @case("WAITING")
-                                                <span style="background-color: yellow; color: white;
-                                                 padding-top: 5px; padding-left: 10px; padding-bottom: 5px;
-                                                  padding-right: 10px;"
-                                                  >ESPERANDO</span>
-                                                @break
-                                            @case("PAID")
-                                                <span style="background-color: green; color: white;
-                                                 padding-top: 5px; padding-left: 10px; padding-bottom: 5px;
-                                                  padding-right: 10px;"
-                                                  >PAGADA</span>
-                                                @break
-                                            @default
-                                                -
-                                        @endswitch
-                                    </center>
-                                    
-                                </td>
-                                {{-- <td>{{ $object->professional->payment_information->account_number ?? '-' }}</td> --}}
+                                <td>{{ $object->customer->id_number }}</td>
+                                <td>{{ mb_strtoupper($object->customer->full_name, 'UTF-8') }}</td>
+                                <td>{{ strtoupper($object->delivery_address ?? '-') }}</td>
+                                <td>{{ date('d-m-Y', strtotime($object->delivery_date)) }}</td>
+                                <td>${{ number_format($object->subtotal, 0, ',','.')}}</td>
+                                <td>${{ number_format($object->dispatch, 0, ',','.')}}</td>
+                                <td>${{ number_format($object->discount, 0, ',','.')}}</td>
+                                <td>${{ number_format($object->total, 0, ',','.')}}</td>
+                                <td>{{ $object->billing_date ? date('d-m-Y', strtotime($object->billing_date)) : '-' }}</td>
 
-                                {{-- @if($config['action']['changeStatus'])
+                                @if($config['action']['changeStatus'])
                                    @include('intranet.template.components._crud_html_change_status')
-                                @endif --}}
+                                @endif
 
                                 @if($config['action']['active'])
                                     @include('intranet.template.components._crud_html_active')
@@ -260,6 +190,7 @@
         </div>
     </div>
 
+
 @endsection
 
 @section('styles')
@@ -272,9 +203,9 @@
             width: 100%;
             padding: 5px 12px;
         }
-        .swal-wide{
+        .swal-wide-2{
             width:700px !important;
-            height: 450px !important;
+            height: 550px !important;
         }
         .swal2-popup {
             font-size: 1.6rem !important;
@@ -291,7 +222,7 @@
     <script src="/themes/intranet/plugins/air_datepicker/datepicker.min.js"></script>
     <script src="/themes/intranet/plugins/air_datepicker/i18n/datepicker.es.js"></script>
 
-    {{-- @include('intranet.template.components._crud_script_change_status') --}}
+    @include('intranet.template.components._crud_script_change_status')
     @include('intranet.template.components._crud_script_active')
     @include('intranet.template.components._crud_script_delete')
 
@@ -340,11 +271,13 @@
             multipleDates: true
         });
         $("#date").keydown(false);
-        var fecha_start = new Date(start);
-        fecha_start.setDate(fecha_start.getDate() + 1);
-        var fecha_end = new Date(end);
-        fecha_end.setDate(fecha_end.getDate() + 1);
-        $('#date').datepicker().data('datepicker').selectDate([new Date(fecha_start), new Date(fecha_end)]);
+        if(start){
+            var fecha_start = new Date(start);
+            fecha_start.setDate(fecha_start.getDate() + 1);
+            var fecha_end = new Date(end);
+            fecha_end.setDate(fecha_end.getDate() + 1);
+            $('#date').datepicker().data('datepicker').selectDate([new Date(fecha_start), new Date(fecha_end)]);
+        }
     </script>
 
 
@@ -353,23 +286,18 @@
         function export_excel() {
             $('<input>').attr({
                 type: 'hidden',
+                name: 'status',
+                value: $("#status").val()
+            }).appendTo('#form-export');
+            $('<input>').attr({
+                type: 'hidden',
                 name: 'date',
                 value: $("#date").val()
             }).appendTo('#form-export');
             $('<input>').attr({
                 type: 'hidden',
-                name: 'order_status_id',
-                value: $("#order_status_id").val()
-            }).appendTo('#form-export');
-            $('<input>').attr({
-                type: 'hidden',
-                name: 'professional_id',
-                value: $("#professional_id").val()
-            }).appendTo('#form-export');
-            $('<input>').attr({
-                type: 'hidden',
-                name: 'company_id',
-                value: $("#company_id").val()
+                name: 'client_id',
+                value: $("#client_id").val()
             }).appendTo('#form-export');
             $('<input>').attr({
                 type: 'hidden',
@@ -382,10 +310,10 @@
 
     <script>
         $(document).ready(function(){
-            $('#company_id').select2({
+            $('#client_id').select2({
                 placeholder: 'Buscar por nombre o RUT',
                 ajax: {
-                    url: '{{route('intranet.orders.search_company')}}',
+                    url: '{{route('intranet.orders.search_client')}}',
                     dataType: 'json',
                     data: function(params){
                         var query = {
@@ -413,77 +341,6 @@
             });
         });
     </script>
-
-    <script>
-        $(document).ready(function(){
-            $('#professional_id').select2({
-                placeholder: 'Buscar por nombre o RUT',
-                ajax: {
-                    url: '{{route('intranet.orders.search_professional')}}',
-                    dataType: 'json',
-                    data: function(params){
-                        var query = {
-                            search: params.term
-                        }
-                        return query;
-                    },
-                    processResults: function (data) {
-                        return {
-                            results: data
-                        };
-                    }
-                },
-                language: {
-                    noResults: function (params) {
-                        return "No se han encontrado resultados.";
-                    },
-                    searching: function () {
-                        return 'Buscando...';
-                    },
-                    errorLoading: function () {
-                        return 'Buscando...';
-                    },
-                }
-            });
-        });
-    </script>
-
-<script>
-    function change_status(id, status_id){
-        var estados = @json($status);
-        var html = '<span>Seleccione un estado</span><br/><br/><div class="form-inline"><center>';
-        html += '<select id="select_order_status_id" name="order_status_id" class="form-control" style="width:45%; font-size: 14px">';
-        estados.forEach(function(elem){
-            html += '<option value="'+elem.id+'"'+(elem.id == status_id ? 'selected' : '' )+'>'+elem.name+'</option>';
-        })
-        html += '</select></center></div><br/><br/>';
-        swal({
-            title: 'Cambiar estado del pedido',
-            html: html,
-            customClass: "swal-wide-2",
-            type: 'info',
-            showCancelButton: true,
-            confirmButtonColor: '#43a047',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Confirmar',
-            cancelButtonText: 'Cancelar'
-        }).then(function (result) {
-            if (result.value) {
-                $('<input>').attr({
-                    type: 'hidden',
-                    name: 'id',
-                    value: id
-                }).appendTo('#form-change-order-status');
-                $('<input>').attr({
-                    type: 'hidden',
-                    name: 'order_status_id',
-                    value: $("#select_order_status_id").val()
-                }).appendTo('#form-change-order-status');
-                $('#form-change-order-status').submit();
-            }
-        });
-    }
-</script>
 
 @endsection
 

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>{{  env('INTRANET_NAME', 'Ikiru Intranet') }} | @yield('title', 'Login')</title>
+    <title>{{  'Anticonceptivo' }} | @yield('title', 'Ingreso')</title>
 
     <link rel="shortcut icon" href="/themes/web/favicon/favicon.ico" type="image/x-icon">
     <link rel="icon" href="/themes/web/favicon/favicon.ico" type="image/x-icon">
@@ -23,67 +23,51 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/themes/web/assets/img/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="96x96" href="/themes/web/assets/img/favicon/favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/themes/web/assets/img/favicon/favicon-16x16.png">
-    <link rel="manifest" href="/themes/web/assets/img/favicon/manifest.json">
+    <link rel="manifest" href="/themes/intranet/img/logos/site.webmanifest">
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/themes/web/assets/img/favicon/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
 
-    {{--    Cyber Security es una empresa del Holding Rebrisa, dedicada a ofrecer soluciones integrales orientados al soporte y seguridad de la información, apoyados por una metodología de trabajo integral que abarca desde el análisis y diseño inicial de su negocio, hasta su implementación--}}
+    <meta name="apple-mobile-web-app-title" content="Anticonceptivo">
+    <meta name="application-name" content="Anticonceptivo">
 
-    <meta name="apple-mobile-web-app-title" content="Ikiru">
-    <meta name="application-name" content="Ikiru">
-
-    <meta name="title" content="Ikiru">
+    <meta name="title" content="Anticonceptivo | Encuentra lo mejor en anticonceptivos">
     <meta name="description"
-          content="Tu médico aun click">
+          content="Tienda online de diferentes anticonceptivos">
     <meta name="keywords"
-          content="Médico, psicologo, online, 1 click, webpay">
+          content="anticonceptivos, ecommerce, tienda, pastillas, nora, condones, durex">
     <meta name="robots" content="index, nofollow">
     <meta name="language" content="Spanish">
     <meta name="revisit-after" content="4000 days">
-    <meta name="author" content="Ikiru">
-    <meta name="rights" content="Ikiru"/>
+    <meta name="author" content="Anticonceptivo">
+    <meta name="rights" content="Anticonceptivo"/>
 
-    <meta property="og:site_name" content="Ikiru">
-    <meta property="og:title" content="Ikiru"/>
+    <meta property="og:site_name" content="Anticonceptivo">
+    <meta property="og:title" content="Anticonceptivo"/>
     <meta property="og:description"
-          content="Tu doctor a un click."/>
-    <meta property="og:image" itemprop="image" content="https://www.doctormeet.cl/themes/web/assets/img/rrss.jpg">
+          content="Tienda online de diferentes anticonceptivos."/>
+    <meta property="og:image" itemprop="image" content="https://www.anticonceptivo.cl/images/logo-full.svg?b3b8df2099e0585f16d824394e200f52">
     <meta property="og:type" content="website"/>
     <meta property="og:updated_time" content="1440432930"/>
-    <meta property="og:url" content="https://www.doctormeet.cl/"/>
+    <meta property="og:url" content="https://www.anticonceptivo.cl/"/>
 
-    <!--Open Sans Font [ OPTIONAL ]-->
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
-
-    <!--Bootstrap Stylesheet [ REQUIRED ]-->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap"
+        rel="stylesheet">
     <link href="/themes/intranet/css/bootstrap.min.css" rel="stylesheet">
-
-    <!--Font Awesome [ OPTIONAL ]-->
     <link href="/themes/intranet/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-
-    <!--Themify Icons [ OPTIONAL ]-->
     <link href="/themes/intranet/plugins/themify-icons/themify-icons.min.css" rel="stylesheet">
-
-    <!--Nifty Stylesheet [ REQUIRED ]-->
     <link href="/themes/intranet/css/nifty.min.css" rel="stylesheet">
-
-    <!--SweetAlert [ OPTIONAL ]-->
     <link href="/themes/intranet/plugins/sweet-alert/sweetalert2.min.css" rel="stylesheet">
-
-    <!--Toast [ OPTIONAL ]-->
     <link href="/themes/intranet/plugins/toastr/toastr.min.css" rel="stylesheet">
-
-    <!--Toast [ OPTIONAL ]-->
     <link href="/themes/intranet/plugins/select2/css/select2.min.css" rel="stylesheet">
-
-    <!--Bootstrap toggle [ OPTIONAL ]-->
     <link href="/themes/intranet/plugins/bootstrap-toggle/bootstrap-toggle.min.css" rel="stylesheet">
-
-    <!--Nifty Premium Icon [ DEMONSTRATION ]-->
-    @include('intranet.template.components.theme')
-
+    <link href="/themes/intranet/css/demo/nifty-demo-icons.min.css" rel="stylesheet">
+    <link href="/themes/intranet/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
     <link href="/themes/intranet/css/custom.css" rel="stylesheet">
+    <link rel="stylesheet" href="/themes/intranet/plugins/air_datepicker/datepicker.min.css">
+
+    @include('intranet.template.components.theme')
 
 
     <style>
@@ -102,8 +86,7 @@
 
 </head>
 
-{{--<body style="background-image : linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.2)),url('../themes/intranet/img/bg.png')">--}}
-<body style="background: rgba(255, 255, 255, 0.87);">
+<body style="background: #c1fff2;">
 
 @include('intranet.template.components.loading')
 
@@ -111,7 +94,7 @@
     <div style="display: flex; align-items: center; justify-content: center; height: 100vh;">
         <div style="min-width: 300px;padding: 10px;max-width: 400px;width: 100%;">
             <div class="text-center pb-5">
-                <img src="/themes/web/assets/images/home/header.svg" style="width: 350px;">
+                <img src="/images/logo-full.svg?b3b8df2099e0585f16d824394e200f52" style="width: 350px;">
             </div>
             @yield('content')
         </div>
@@ -126,55 +109,22 @@
 
 <!--jQuery [ REQUIRED ]-->
 <script src="/themes/intranet/js/jquery.min.js"></script>
-
-<!--BootstrapJS [ RECOMMENDED ]-->
 <script src="/themes/intranet/js/bootstrap.min.js"></script>
-
-<!--NiftyJS [ RECOMMENDED ]-->
 <script src="/themes/intranet/js/nifty.min.js"></script>
-
-<!--Bootbox Modals [ OPTIONAL ]-->
 <script src="/themes/intranet/plugins/bootbox/bootbox.min.js"></script>
-
-<!--SweetAlert [ OPTIONAL ]-->
 <script src="/themes/intranet/plugins/sweet-alert/sweetalert2.min.js"></script>
-
-<!--Toast [ OPTIONAL ]-->
 <script src="/themes/intranet/plugins/toastr/toastr.min.js"></script>
-
-<!--Select 2 [ OPTIONAL ]-->
 <script src="/themes/intranet/plugins/select2/js/select2.min.js"></script>
+<script src="/themes/intranet/plugins/bootstrap-table/bootstrap-table.min.js"></script>
+<script src="/themes/intranet/js/globals.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.12.1/locale/bootstrap-table-es-CL.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.12.1/extensions/cookie/bootstrap-table-cookie.min.js"></script>
+<script src="/themes/intranet/plugins/bootstrap-table/extensions/export/bootstrap-table-export.js"></script>
+<script src="/themes/intranet/plugins/bootstrap-toggle/bootstrap-toggle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
 
 <script src="/themes/intranet/js/custom.js"></script>
 
-<script src="/themes/intranet/plugins/rut/jquery.rut.js"></script>
-
-@yield('scripts')
-
-<!--Bootstrap toggle [ OPTIONAL ] ALLWAYS BEFORE BS TABLE -->
-<script src="/themes/intranet/plugins/bootstrap-toggle/bootstrap-toggle.min.js"></script>
-
-
-
-<script src="https://www.google.com/recaptcha/api.js?render={{ $captcha_token ?? '' }}"></script>
-
-<script>
-    grecaptcha.ready(function () {
-        grecaptcha.execute('{{ $captcha_token ?? '' }}', {action: 'login'}).then(function (token) {
-            // Verify the token on the server.
-            let input = document.getElementById('token');
-            input.value = token;
-        });
-    });
-
-    function errorCaptcha() {
-        $('.set-errors').html(' <div class="alert alert-danger alert-dismissible">\n' +
-            '        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>\n' +
-            '        <h4><i class="icon fa fa-remove"></i> Oops</h4>\n' +
-            '        <p>Válida captcha</p>\n' +
-            '    </div>')
-    }
-</script>
-
 </body>
 </html>
+

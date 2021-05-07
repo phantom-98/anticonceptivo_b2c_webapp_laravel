@@ -5,7 +5,7 @@
         <!--================================-->
         <div class="navbar-header">
             <a href="{{ route('intranet.dashboard') }}" class="navbar-brand" style="background-color:white; display:flex">
-                <img src="/themes/web/assets/images/header/logo.svg" alt="Ikiru" class="brand-icon" style="margin:auto; padding-top: 3px;">
+                <img src="/images/logo-full.svg?b3b8df2099e0585f16d824394e200f52" alt="Anticonceptivo" class="brand-icon" style="margin:auto; padding-top: 3px; max-width: 75%">
             </a>
         </div>
         <!--================================-->

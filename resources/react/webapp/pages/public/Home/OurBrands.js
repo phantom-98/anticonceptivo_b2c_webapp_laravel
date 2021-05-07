@@ -1,5 +1,5 @@
 import React from 'react';
-import H2Title from "../../../components/H2Title";
+import H2Title from "../../../components/general/H2Title";
 import {brands} from "../../../helpers/Images";
 import {CONFIG} from "../../../Config";
 

@@ -66,7 +66,7 @@
                 </div>
                 <div class="row">
                     <div class="col-xs-6" style="margin-top:10px; margin-bottom:10px">
-                        <a href="{{ route('intranet.auth.show') }}"  style="color: #5b32b7">Iniciar sesión</a>
+                        <a href="{{ route('intranet.auth.show') }}"  style="color: #0869A6">Iniciar sesión</a>
                     </div>
                     <div class="col-xs-6" style="margin-top:10px; margin-bottom:10px">
                         <button type="submit" class="btn btn-primary btn-block">Cambiar contraseña</button>
