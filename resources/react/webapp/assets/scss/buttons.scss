@@ -67,14 +67,29 @@
     animation: gradient-in .3s linear;
 }
 
+.btn-add-cart,
+.btn-add-cart:hover{
+    height: 31px !important;
+    font-size: 10px;
+}
+
+.btn-months {
+    height: 31px !important;
+    font-size: 12px;
+    background: transparent;
+    border-radius: 11px;
+    border: 1px solid #707070 !important;
+}
 
 @keyframes gradient-in {
+
     0% {
         background-position: 0 100%;
     }
     100% {
         background-position: 100% 200%;
     }
+
 }
 
 

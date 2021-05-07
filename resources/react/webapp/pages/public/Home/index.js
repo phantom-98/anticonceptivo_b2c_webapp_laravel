@@ -4,17 +4,25 @@ import slider from '../../../assets/images/dummy/slider.png'
 import {CONFIG} from "../../../Config";
 import OurBrands from "./OurBrands";
 import Subscribe from "../../../components/sections/Subscribe";
+import BestSeller from "../../../components/sections/BestSellers";
+import ProductsCarousel from "../../../components/sections/ProductsCarousel";
 
 const Home = () => {
     return (
         <Fragment>
-            <div className="">
-                <img src={slider} alt={CONFIG.APP_NAME} width="100%"/>
-            </div>
+           <div className="bg-FAFAFA">
+               <div className="">
+                   <img src={slider} alt={CONFIG.APP_NAME} width="100%"/>
+               </div>
 
-            <OurBrands />
+               <ProductsCarousel title="Destacados" />
 
-            <Subscribe />
+               <BestSeller/>
+
+               <OurBrands/>
+
+               <Subscribe/>
+           </div>
         </Fragment>
     );
 };
