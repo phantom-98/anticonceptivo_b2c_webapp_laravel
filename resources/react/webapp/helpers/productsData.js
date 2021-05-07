@@ -61,9 +61,9 @@ export const dummy_products = [
         price: '9999'
     },
     {
-        id: 1,
+        id: 5,
         image: '/themes/web/products/product-1.png',
-        name: 'Tinelle Dienogest 2 mg Etinilestradiol',
+        name: 'Tinelle Dienogest 2 mg Etinilestradiol 5',
         slug: 'tinelle-dienogest-2mg-etinilestradiol-1',
         brand: {
             id: 1,
@@ -76,9 +76,9 @@ export const dummy_products = [
         price: '9999'
     },
     {
-        id: 2,
+        id: 6,
         image: '/themes/web/products/product-2.png',
-        name: 'ZOELY ESTRADIOL / NOMEGESTROL ACETATO',
+        name: 'ZOELY ESTRADIOL / NOMEGESTROL ACETATO 6',
         slug: 'zoely-estradiol-nomegestrol-acetato-1',
         brand: {
             id: 2,
@@ -91,9 +91,9 @@ export const dummy_products = [
         price: '19999'
     },
     {
-        id: 3,
+        id: 7,
         image: '/themes/web/products/product-3.png',
-        name: 'GYNERA 75/20 ETINILESTRADIOL / GESTODENO',
+        name: 'GYNERA 75/20 ETINILESTRADIOL / GESTODENO 7',
         slug: 'gynera-75-20-etinilestradiol-gestodeno-1',
         brand: {
             id: 3,
@@ -106,9 +106,9 @@ export const dummy_products = [
         price: '9999'
     },
     {
-        id: 4,
+        id: 8,
         image: '/themes/web/products/product-4.png',
-        name: 'Ginemaxim Cimicifuga Racemosa 40 Mg',
+        name: 'Ginemaxim Cimicifuga Racemosa 40 Mg 8',
         slug: 'ginemaxim-cimicifuga-racemosa-40-mg-1',
         brand: {
             id: 4,
@@ -121,9 +121,9 @@ export const dummy_products = [
         price: '9999'
     },
     {
-        id: 1,
+        id: 9,
         image: '/themes/web/products/product-1.png',
-        name: 'Tinelle Dienogest 2 mg Etinilestradiol',
+        name: 'Tinelle Dienogest 2 mg Etinilestradiol 9',
         slug: 'tinelle-dienogest-2mg-etinilestradiol-2',
         brand: {
             id: 1,
@@ -136,9 +136,9 @@ export const dummy_products = [
         price: '9999'
     },
     {
-        id: 2,
+        id: 10,
         image: '/themes/web/products/product-2.png',
-        name: 'ZOELY ESTRADIOL / NOMEGESTROL ACETATO',
+        name: 'ZOELY ESTRADIOL / NOMEGESTROL ACETATO 10',
         slug: 'zoely-estradiol-nomegestrol-acetato-2',
         brand: {
             id: 2,

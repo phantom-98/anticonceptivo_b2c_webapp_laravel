@@ -21,7 +21,7 @@ const MiniCart = () => {
                             className="font-poppins font-16 regular color-6C6B6B">(<TotalCartItems />)</span></h3>
                     </div>
                 </div>
-                <div className="row">
+                <div className="row mini-cart-list">
 
                     {
                         cartItems.map((item, index) => {
