@@ -2,12 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Form} from "react-bootstrap";
 
-const FormComercialInfo = () => {
+const FormComercialInfo = ({title = 'Datos de Factura'}) => {
     return (
         <div className="row">
-            <div className="col-12">
-                <h4 className="font-poppins font-16 bold color-033F5D">Datos de Factura</h4>
-            </div>
+
+            {
+                title ? <div className="col-12">
+                    <h4 className="font-poppins font-16 bold color-033F5D">{title}</h4>
+                </div> : null
+            }
 
             <div className="col-md-12">
                 <div className="form-group">

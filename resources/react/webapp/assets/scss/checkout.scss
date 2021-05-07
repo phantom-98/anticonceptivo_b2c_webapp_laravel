@@ -16,5 +16,12 @@
 
 .step-disable{
     filter: grayscale(100%) !important;
-    opacity: 0.75;
+    opacity: 0.5;
+}
+
+.circle-step-ready{
+    background: white;
+}
+.circle-step-ready img{
+    margin: auto;
 }

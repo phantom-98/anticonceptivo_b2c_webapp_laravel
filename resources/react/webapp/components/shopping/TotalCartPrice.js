@@ -13,7 +13,6 @@ const TotalCartPrice = () =>{
             _total = _total + (item.quantity * item.product.price)
         })
         setTotalCart(_total);
-        console.log(cartItems);
     },[cartItems])
 
     return (

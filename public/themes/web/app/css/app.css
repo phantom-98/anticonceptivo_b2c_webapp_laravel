@@ -616,6 +616,12 @@
   left: 44px;
 }
 
+input.my-auto.file-input {
+  font-size: 12px;
+  font-family: "Poppins", sans-serif;
+  color: #595959;
+}
+
 .search-filter-button .form-control-custom {
   border-color: #F4F4F4 !important;
 }
@@ -1355,7 +1361,15 @@
 
 .step-disable {
   filter: grayscale(100%) !important;
-  opacity: 0.75;
+  opacity: 0.5;
+}
+
+.circle-step-ready {
+  background: white;
+}
+
+.circle-step-ready img {
+  margin: auto;
 }
 
 .app-content {
@@ -2781,6 +2795,14 @@ h4 {
 
 .bg-1F1F1F {
   background-color: #1F1F1F;
+}
+
+.color-2A317F {
+  color: #2A317F;
+}
+
+.bg-2A317F {
+  background-color: #2A317F;
 }
 
 @media (min-width: 1200px) {

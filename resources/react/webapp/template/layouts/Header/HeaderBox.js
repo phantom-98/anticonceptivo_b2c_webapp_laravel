@@ -28,7 +28,6 @@ const HeaderBox = () => {
                                 <Icon path={logoFull}/>
                             </Link>
                         </div>
-
                     </div>
                     <div className="col top-do-flex">
                         <div className="input-group search-filter-button">

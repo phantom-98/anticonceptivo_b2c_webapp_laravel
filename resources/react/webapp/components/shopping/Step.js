@@ -1,17 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import stepCheck from "../../assets/images/icons/step-check.svg"
+import Icon from "../general/Icon";
 
-const Step = ({title, number, disabled = false}) =>{
+const Step = ({title, number, disabled = false, isHeader = false, isReady = false}) => {
     return (
-        <div className={`row ${disabled ? 'step-disable': ''}`}>
+        <div className={`row ${disabled ? 'step-disable' : ''}`}>
             <div className="col-auto pr-0">
-                <div className="circle-step">
-                    <span>1</span>
+                <div className={`circle-step ${isReady ? 'circle-step-ready' : ''}`}>
+                    {
+                        isReady ? <Icon path={stepCheck} /> :  <span>{number}</span>
+                    }
                 </div>
             </div>
             <div className="col d-flex">
-                <h3 className="my-auto font-poppins font-18 bold color-033F5D mb-0">
-                    DATOS PERSONALES
+                <h3 className={`my-auto font-poppins bold color-033F5D mb-0 ${isHeader ? ' font-14' : 'font-18'}`}>
+                    {title}
                 </h3>
             </div>
         </div>
