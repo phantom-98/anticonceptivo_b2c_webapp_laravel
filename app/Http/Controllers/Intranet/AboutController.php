@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Intranet;
 
-use App\Models\Alliance;
+use App\Models\About;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;

@@ -146,6 +146,8 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'post_type_id' => 'tipo post blog',
+    ],
 
 ];

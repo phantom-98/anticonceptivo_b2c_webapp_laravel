@@ -52,6 +52,7 @@
                         <thead>
                         <tr>
                             <th data-sortable="false" data-valign="middle">Título</th>
+                            <th data-sortable="false" data-valign="middle">Tipo de Blog</th>
                             <th data-field="certificado" data-sortable="false" data-valign="middle">Imagen / Video</th>
                             @if($config['action']['active'])
                                 <th data-field="activo" data-cell-style="cellStyle" data-valign="middle">Activo</th>
@@ -66,6 +67,7 @@
                         @foreach($objects as $object)
                             <tr data-position="{{$object->position}}" data-id="{{$object->id}}">
                                 <td>{{ $object->title }}</td>
+                                <td>{{ $object->post_type->name }}</td>
                                 @if($object->link)
                                 <td><iframe src="{{ $object->link }}" width="300" height="240" frameborder="0"
                                     allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"

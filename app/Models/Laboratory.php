@@ -9,6 +9,7 @@ class Laboratory extends Model
     protected $fillable = [
         'id',
         'name',
-        'corporate_name'
+        'corporate_name',
+        'active'
     ];
 }

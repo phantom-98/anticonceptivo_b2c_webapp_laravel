@@ -17,6 +17,7 @@ class CreateLaboratoriesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name')->nullable();
             $table->string('corporate_name')->nullable();
+            $table->boolean('active')->default(1);
             $table->timestamps();
         });
 

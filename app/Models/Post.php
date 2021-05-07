@@ -21,17 +21,18 @@ class Post extends Model
         'created_at',
         'updated_at',
         'type',
-        'link'
+        'link',
+        'post_type_id'
     ];
-
-    public function types()
-    {
-        return $this->belongsToMany(PostType::class, 'post_has_types', 'post_id', 'post_type_id');
-    }
 
     public function author()
     {
         return $this->belongsTo(User::class, 'author_id');
+    }
+
+    public function post_type()
+    {
+        return $this->belongsTo(PostType::class, 'post_type_id');
     }
 
     protected $appends = [

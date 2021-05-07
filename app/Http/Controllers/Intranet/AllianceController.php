@@ -104,11 +104,11 @@ class AllianceController extends GlobalController
 
         $rules = [
             'name' => 'required|unique:alliances,name,' . $id,
-            'url' => 'required'
+            'website' => 'required'
         ];
 
         $messages = [
-            'url.required' => 'El campo página web es obligatorio'
+            'website.required' => 'El campo página web es obligatorio'
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);

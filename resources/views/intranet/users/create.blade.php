@@ -135,10 +135,6 @@
 
     <script>
 
-        $(".select2").select2({
-            tags: false
-        });
-
         /* password generator */
         function generatePassword() {
             var pass = Math.random().toString(36).substring(2);
