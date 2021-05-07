@@ -1,6 +1,9 @@
 import React, {Fragment, useEffect, useState} from 'react';
 import List from "../../private/Account/sections/Addresses/List";
 import Form from "../../private/Account/sections/Addresses/Form";
+import Icon from "../../../components/general/Icon";
+import calendarBlue from '../../../assets/images/icons/calendar-blue.svg'
+import clockBlue from '../../../assets/images/icons/clock-blue.svg'
 
 const Addresses = ({setView}) => {
 
@@ -59,6 +62,29 @@ const Addresses = ({setView}) => {
                     {
                         view === 'form' ? <Form formMode={formMode} addressSelected={addressSelected} goBack={goBack} setAddresses={setAddresses}/> : null
                     }
+                </div>
+            </div>
+
+            <div className="panel panel-cart mb-3">
+                <div className="panel-body">
+
+                    <h3 className="font-poppins font-16 bold color-033F5D">
+                        Fecha estimada de entrega
+                    </h3>
+
+                    <div className="row">
+                        <div className="col">
+                            <Icon path={calendarBlue} />
+                            {' '} <span className="font-poppins font-12 regular color-8E8E8E">Fecha de entrega</span>
+                            {'    '}<span className="font-poppins font-16 regular color-484848">04 de septiembre</span>
+                        </div>
+                        <div className="col-auto">
+                            <Icon path={clockBlue} />
+                            {' '} <span className="font-poppins font-12 regular color-8E8E8E">Fecha de entrega</span>
+                            {'    '}<span className="font-poppins font-16 regular color-484848">09:00 a 21:00</span>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
