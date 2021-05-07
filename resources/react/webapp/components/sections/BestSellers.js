@@ -17,7 +17,7 @@ const BestSeller = () => {
                 <div className="row py-3">
                     {
                         dummy_products.map((product, index) => {
-                            return <div className="col-md-5th-1 mb-3" style={{marginLeft : '-10px', marginRight : '-10px'}}>
+                            return <div className="col-md-5th-1 mb-3" >
                                 <ProductCard product={product} className="product-card-small"/>
                             </div>
                         })

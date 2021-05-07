@@ -13,6 +13,8 @@ import Shop from "../pages/public/Shop";
 import ProductDetail from "../pages/public/ProductDetails";
 import Cart from "../pages/public/Cart";
 import CheckOut from "../pages/public/CheckOut";
+import BlogExample from "../pages/public/BlogExample.js";
+import BlogList from "../pages/public/BlogList";
 
 const PUBLIC_ROUTES = {
     HOME: {
@@ -47,14 +49,7 @@ const PUBLIC_ROUTES = {
         layout: props => <BaseTemplate {...props} />,
         middleware: props => <PublicMiddleware {...props} />
     },
-    BLOG: {
-        path: "/blog",
-        title: "Blog",
-        component: Blog,
-        exact: true,
-        layout: props => <BaseTemplate {...props} />,
-        middleware: props => <PublicMiddleware {...props} />
-    },
+
     TERMS_AND_CONDITIONS: {
         path: "/terminos-y-condiciones",
         title: "Términos y Condiciones",
@@ -104,6 +99,34 @@ const PUBLIC_ROUTES = {
         path: "/checkout/",
         title: "Checkout",
         component: CheckOut,
+        exact: true,
+        layout: props => <BaseTemplate {...props} />,
+        middleware: props => <PublicMiddleware {...props} />
+    },
+
+
+    BLOG: {
+        path: "/blog",
+        title: "Blog",
+        component: Blog,
+        exact: true,
+        layout: props => <BaseTemplate {...props} />,
+        middleware: props => <PublicMiddleware {...props} />
+    },
+
+    BLOG_LIST: {
+        path: "/blog/lista",
+        title: "Blog Lista",
+        component: BlogList,
+        exact: true,
+        layout: props => <BaseTemplate {...props} />,
+        middleware: props => <PublicMiddleware {...props} />
+    },
+
+    BLOG_EXAMPLE: {
+        path: "/blog/blog-de-ejemplo",
+        title: "Blog de Ejemplo",
+        component: BlogExample,
         exact: true,
         layout: props => <BaseTemplate {...props} />,
         middleware: props => <PublicMiddleware {...props} />

@@ -1372,6 +1372,100 @@ input.my-auto.file-input {
   margin: auto;
 }
 
+.blog-card {
+  height: 379px;
+  width: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.blog-card-context {
+  padding: 20px;
+  padding-top: 220px;
+  position: absolute;
+  top: 0;
+}
+
+.blog-card-veil {
+  background: #033f5d;
+  background: linear-gradient(0deg, #033f5d 0%, rgba(0, 0, 0, 0) 100%);
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.circle-timeline {
+  width: 74px;
+  height: 74px;
+  background: linear-gradient(90deg, #00dbae, #009be8, #009be8, #00dbae);
+  background-size: 400% 400%;
+  border-radius: 50%;
+  display: flex;
+}
+
+.circle-timeline img {
+  margin: auto;
+}
+
+.timeline-line-vertical {
+  height: 64px;
+  width: 1px;
+  border-left: 1px solid #707070;
+}
+
+.timeline-year {
+  background: #EDF8FE;
+  width: 100%;
+  height: 46px;
+  display: flex;
+}
+
+.timeline-year span {
+  margin: auto;
+  font-family: "Poppins", sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+  color: #033F5D;
+}
+
+.timeline-resume {
+  padding: 0 15px;
+  margin: auto;
+}
+
+.timeline-box {
+  height: 139px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.timeline > .timeline-item:first-child .timeline-year {
+  border-radius: 10px 0 0 10px;
+}
+
+.timeline > .timeline-item:last-child .timeline-year {
+  border-radius: 0 10px 10px 0;
+}
+
+.blog-list-img {
+  width: 212px;
+  height: 157px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.blog-list-img img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
 .app-content {
   margin-top: 30px;
   min-height: calc(100vh - 482px);
