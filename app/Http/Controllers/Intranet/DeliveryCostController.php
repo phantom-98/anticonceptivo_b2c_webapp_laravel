@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Intranet;
 
 use App\Models\DeliveryCost;
+use App\Models\Commune;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -36,7 +37,8 @@ class DeliveryCostController extends GlobalController
 
     public function create()
     {
-        return view($this->folder . 'create');
+        $communes = Commune::get();
+        return view($this->folder . 'create', compact('communes'));
     }
 
     public function store(Request $request)
@@ -50,7 +52,7 @@ class DeliveryCostController extends GlobalController
 
         $messages = [
             'name.required' => 'El campo nombre es obligatorio.',
-            'deadline_delivery.required' => 'El campo horas de plazo máximo obligatorio.',
+            'deadline_delivery.required' => 'El campo plazo máximo de entrega obligatorio.',
             'image.required' => 'El campo imagen es obligatorio.',
             'costs.required' => 'Debe indicar costos de envíos.'
         ];
@@ -93,7 +95,8 @@ class DeliveryCostController extends GlobalController
             return redirect()->route($this->route . 'index');
         }
 
-        return view($this->folder . 'edit', compact('object'));
+        $communes = Commune::get();
+        return view($this->folder . 'edit', compact('object', 'communes'));
     }
 
     public function update(Request $request, $id)

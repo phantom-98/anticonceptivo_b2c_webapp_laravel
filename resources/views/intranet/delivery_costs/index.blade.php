@@ -21,7 +21,7 @@
 
                     <div id="toolbar">
                         <a href="{{ route($config['route'] . 'create') }}" class="btn btn-success"><i
-                                    class="ti-plus"></i> Nueva Base Legal</a>
+                                    class="ti-plus"></i> Nuevo Costo Delivery</a>
                         {{--<button id="delete-row" class="btn btn-danger" disabled><i class="demo-pli-cross"></i> Delete</button>--}}
                     </div>
 
@@ -42,8 +42,8 @@
                         <thead>
                         <tr>
                             <th data-sortable="true" data-cell-style="cellStyle"  data-valign="middle">Nombre</th>
+                            <th data-sortable="true" data-cell-style="cellStyle"  data-valign="middle">Plazo máximo de entrega</th>
                             <th data-sortable="true" data-cell-style="cellStyle"  data-valign="middle">Imagen</th>
-                            <th data-sortable="true" data-cell-style="cellStyle"  data-valign="middle">Archivo</th>
                             @if($config['action']['changeStatus'])
                             <th data-cell-style="cellStyle" data-sortable="true">Estado</th>
                             @endif
@@ -62,10 +62,8 @@
                             @foreach($objects as $object)
                                 <tr>
                                     <td>{{ $object->name }}</td>
+                                    <td>{{ $object->deadline_delivery }} horas</td>
                                     <td><img src="{{ Storage::url($object->icon) }}" style="max-width: 100px;"/></td>
-                                    <td>
-                                        <a href="{{ Storage::url($object->file) }}" target="_blank" class='btn btn-sm btn-default btn-hover-success add-tooltip' title="Ver PDF"><i class="ti-file"></i></a>
-                                    </td>
                                     @if($config['action']['changeStatus'])
                                     @include('intranet.template.components._crud_html_change_status')
                                     @endif

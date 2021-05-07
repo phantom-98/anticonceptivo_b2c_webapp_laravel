@@ -30,13 +30,29 @@
                 <div class="panel">
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="price">Precio (*)</label>
-                                    <input type="text" id="price" name="price" class="form-control"
-                                    oninput="checkKey('price')" value="{{ old('price') ?? $object->price }}">
+                                    <label for="name">Nombre (*)</label>
+                                    <input type="text" id="name" name="name" class="form-control"
+                                           value="{{ old('name') ?? $object->name }}">
                                 </div>
-                            </div>                           
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="deadline_delivery">Plazo máximo de entrega (*)</label>
+                                    <input type="text" id="deadline_delivery" name="deadline_delivery" class="form-control"
+                                    oninput="checkKey('deadline_delivery')" value="{{ old('deadline_delivery') ?? $object->deadline_delivery }}">
+                                </div>
+                            </div> 
+                            <div class="form-group col-sm-4">
+                                {!! Form::label('image', 'Imagen (*)') !!}
+                                <input id="file-image" type='file' name='image' class='form-control' accept=".jpg, .png, .jpeg">
+                                <br/>
+                                @if ($object->image)
+                                <img id="image-edit" src="{{ Storage::url($object->image) }}" style="max-width: 100px;"/>
+                                @endif
+                            </div>     
+
                         </div>
                     </div>
                     <div class="panel-footer">
@@ -87,6 +103,7 @@
     </script>
 
     <script>
+
 
         /* password generator */
         function generatePassword() {
@@ -170,6 +187,18 @@
 
         $("#file-image-menu").change(function () {
             readURL2(this);
+        });
+    </script>
+
+    <script src="https://cdn.ckeditor.com/4.11.4/standard/ckeditor.js"></script>
+    <script>
+        var editor = CKEDITOR.replace('description', {
+            language: 'es',
+            entities_latin: false,
+            enterMode : CKEDITOR.ENTER_BR,
+            autoParagraph: false,
+            resize_enabled: false,
+            height: '280px'
         });
     </script>
 @endsection

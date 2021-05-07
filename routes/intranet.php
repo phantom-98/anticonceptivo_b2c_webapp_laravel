@@ -149,8 +149,8 @@ if (env('SHOW_INTRANET', 'TRUE') == 'TRUE') {
                 Route::post('bases-legales/active', 'LegalBaseController@active')->name('legal_bases.active');
                 Route::resource('bases-legales', 'LegalBaseController', ['names' => getResourceRoutesForNameHelper('legal_bases')]);
 
-                Route::post('costos-despachos/active', 'DeliveryCost@active')->name('delivery_costs.active');
-                Route::resource('costos-despachos', 'DeliveryCost', ['names' => getResourceRoutesForNameHelper('delivery_costs')]);
+                Route::post('costos-despachos/active', 'DeliveryCostController@active')->name('delivery_costs.active');
+                Route::resource('costos-despachos', 'DeliveryCostController', ['names' => getResourceRoutesForNameHelper('delivery_costs')]);
 
                 Route::get('codigo-descuento/search-cliente', 'DiscountCodeController@search_customer')->name('discount_code.search_customer');
 

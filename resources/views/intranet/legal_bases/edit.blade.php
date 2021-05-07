@@ -37,28 +37,22 @@
                                            value="{{ old('name') ?? $object->name }}">
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="website">Website (*)</label>
-                                    <input type="text" id="website" name="website" class="form-control"
-                                            value="{{ old('website') ?? $object->website }}">
-                                </div>
-                            </div>
                             <div class="form-group col-sm-4">
-                                {!! Form::label('image', 'Imagen (*)') !!}
-                                <input id="file-image" type='file' name='image' class='form-control' accept=".jpg, .png, .jpeg">
+                                {!! Form::label('icon', 'Imagen (*)') !!}
+                                <input id="file-image" type='file' name='icon' class='form-control' accept=".jpg, .png, .jpeg">
                                 <br/>
-                                @if ($object->image)
-                                <img id="image-edit" src="{{ Storage::url($object->image) }}" style="max-width: 100px;"/>
+                                @if ($object->icon)
+                                <img id="image-edit" src="{{ Storage::url($object->icon) }}" style="max-width: 100px;"/>
                                 @endif
                             </div>     
-                            <div class="clearfix"></div>
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <label for="description">Descripción (*)</label>
-                                    <textarea name="description" id="description" rows="3" style="resize: none">{{ old('description') ?? $object->description }}</textarea>
-                                </div>  
-                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="file">Archivo (*)</label>
+                                <input type="file" id="file" name="file" class="form-control" accept=".pdf">
+                                <br/>
+                                @if ($object->file)
+                                <a href="{{ Storage::url($object->file) }}" target="_blank" class='btn btn-sm btn-default btn-hover-success add-tooltip' title="Descargar archivo"><i class="ti-file"></i></a>
+                                @endif
+                            </div>  
 
                         </div>
                     </div>

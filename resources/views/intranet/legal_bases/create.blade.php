@@ -34,23 +34,14 @@
                                             value="{{ old('name') }}">
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="website">Página web (*)</label>
-                                    <input type="text" id="website" name="website" class="form-control"
-                                            value="{{ old('website') }}">
-                                </div>
-                            </div>
-                            <div class="form-group col-sm-4">
-                                {!! Form::label('image', 'Imagen (*)') !!}
-                                <input type='file' name='image' class='form-control' accept=".jpg, .png, .jpeg">
-                            </div> 
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <label for="description">Descripción (*)</label>
-                                    <textarea name="description" id="description" rows="3" style="resize: none">{{ old('description') }}</textarea>
-                                </div>  
-                            </div>                          
+                            <div class="form-group col-md-4">
+                                {!! Form::label('icon', 'Imagen (*)') !!}
+                                <input type='file' name='icon' class='form-control' accept=".jpg, .png, .jpeg">
+                            </div>     
+                            <div class="form-group col-md-4">
+                                <label for="file">Archivo (*)</label>
+                                <input type="file" id="file" name="file" class="form-control" accept=".pdf">
+                            </div>                         
                         </div>
                     </div>
                     <div class="panel-footer">

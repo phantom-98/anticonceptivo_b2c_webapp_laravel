@@ -29,7 +29,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="months">Precio (*)</label>
+                                    <label for="price">Precio (*)</label>
                                     <input type="text" id="price" name="price" class="form-control"
                                     oninput="checkKey('price')" value="{{ old('price') }}">
                                 </div>
