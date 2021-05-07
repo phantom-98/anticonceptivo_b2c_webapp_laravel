@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Intranet;
 
 use App\Models\Timeline;
+use App\Models\Post;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -36,21 +37,20 @@ class TimelineController extends GlobalController
 
     public function create()
     {
-        return view($this->folder . 'create');
+        $posts = Post::get();
+        return view($this->folder . 'create', compact('posts'));
     }
 
     public function store(Request $request)
     {
         $rules = [
             'description' => 'required',
-            'post_id' => 'required',
             'icon' => 'required',
             'year' => 'required',
         ];
 
         $messages = [
             'description.required' => 'El campo descripción es obligatorio.',
-            'post_id.required' => 'El campo blog obligatorio.',
             'icon.required' => 'El campo ícono es obligatorio.',
             'year.required' => 'El campo año es obligatorio.',
         ];
@@ -59,7 +59,7 @@ class TimelineController extends GlobalController
 
         if ($validator->passes()) {
 
-            $object = Value::create($request->except(['icon']));
+            $object = Timeline::create($request->except(['icon']));
 
             if ($request->icon) {
                 $icon = $request->file('icon');
@@ -93,7 +93,9 @@ class TimelineController extends GlobalController
             return redirect()->route($this->route . 'index');
         }
 
-        return view($this->folder . 'edit', compact('object'));
+        $posts = Post::get();
+
+        return view($this->folder . 'edit', compact('object', 'posts'));
     }
 
     public function update(Request $request, $id)
@@ -107,15 +109,11 @@ class TimelineController extends GlobalController
 
         $rules = [
             'description' => 'required',
-            'post_id' => 'required',
-            'icon' => 'required',
             'year' => 'required',
         ];
 
         $messages = [
             'description.required' => 'El campo descripción es obligatorio.',
-            'post_id.required' => 'El campo blog obligatorio.',
-            'icon.required' => 'El campo ícono es obligatorio.',
             'year.required' => 'El campo año es obligatorio.',
         ];
 

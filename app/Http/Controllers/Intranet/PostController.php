@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Intranet;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\PostType;
 use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
@@ -27,13 +28,14 @@ class PostController extends GlobalController
 
     public function index(Request $request){
 
-        $objects = Post::orderBy('position')->get();
+        $objects = Post::with('post_type')->orderBy('position')->get();
 
         return view($this->folder . 'index', compact('objects'));
     }
 
     public function create(){
-        return view($this->folder.'create');
+        $types = PostType::get();
+        return view($this->folder.'create', compact('types'));
     }
 
     public function store(Request $request){
@@ -41,6 +43,7 @@ class PostController extends GlobalController
             'title' => 'required',
             'content' => 'required',
             'type' => 'required',
+            'post_type_id' => 'required'
         ]);
 
         $object = new Post();
@@ -51,6 +54,9 @@ class PostController extends GlobalController
             $object->content = $request->content;
             $object->link = null;
             $object->type = $request->type;
+            $object->author_id = auth()->user()->id;
+            $object->published_at = Carbon::now()->format('Y-m-d');
+            $object->post_type_id = $request->post_type_id;
             $object->save();
             
             $image = $request->file('image');
@@ -73,6 +79,9 @@ class PostController extends GlobalController
             $object->principal_image = null;
             $object->link = $request->link;
             $object->type = $request->type;
+            $object->author_id = auth()->user()->id;
+            $object->published_at = Carbon::now()->format('Y-m-d');
+            $object->post_type_id = $request->post_type_id;
             $object->save();
         }
 
@@ -88,7 +97,9 @@ class PostController extends GlobalController
             return redirect()->route($this->route . 'index');
         }
 
-        return view($this->folder.'edit', compact('object'));
+        $types = PostType::get();
+
+        return view($this->folder.'edit', compact('object', 'types'));
     }
 
     public function update(Request $request, $id){
@@ -102,6 +113,7 @@ class PostController extends GlobalController
             'title' => 'required',
             'content' => 'required',
             'type' => 'required',
+            'post_type_id' => 'required'
         ]);
         
         if($request->type == "Imagen"){
@@ -110,6 +122,9 @@ class PostController extends GlobalController
             $object->content = $request->content;
             $object->link = null;
             $object->type = $request->type;
+            $object->author_id = auth()->user()->id;
+            $object->published_at = Carbon::now()->format('Y-m-d');
+            $object->post_type_id = $request->post_type_id;
             $object->save();
             
             if ($request->image) {
@@ -137,6 +152,9 @@ class PostController extends GlobalController
             $object->principal_image = null;
             $object->link = $request->link;
             $object->type = $request->type;
+            $object->author_id = auth()->user()->id;
+            $object->published_at = Carbon::now()->format('Y-m-d');
+            $object->post_type_id = $request->post_type_id;
             $object->save();
         }
 

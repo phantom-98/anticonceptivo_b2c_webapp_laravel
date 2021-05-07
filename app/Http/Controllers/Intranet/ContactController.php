@@ -30,10 +30,25 @@ class ContactController extends GlobalController
         parent::__construct($this->options);
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $objects = Contact::get();
-        return view($this->folder . 'index', compact('objects'));
+        $objects = Contact::with('contact_issue');
+
+        $status = $request->status_filter;
+        $appends = [];
+
+        if ($status) {
+            if($status == "Todos"){
+
+            } else {
+                $objects = $objects->where('is_reply', $status);
+                $appends['status'] = $status;
+            }
+        } 
+     
+        $objects = $objects->get();
+
+        return view($this->folder . 'index', compact('objects', 'status'));
     }
 
     public function reply(Request $request, $id)

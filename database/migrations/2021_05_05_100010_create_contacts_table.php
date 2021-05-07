@@ -27,7 +27,6 @@ class CreateContactsTable extends Migration
             $table->bigInteger('order_id')->unsigned()->nullable();
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
 
-            $table->string('name')->nullable();
             $table->text('message')->nullable();
 
             $table->boolean('is_reply')->default(0);

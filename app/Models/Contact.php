@@ -15,7 +15,6 @@ class Contact extends Model
         'phone',
         'contact_issue_id',
         'order_id',
-        'name',
         'message',
         'is_reply',
         'reply'
@@ -29,6 +28,14 @@ class Contact extends Model
     public function contact_issue()
     {
         return $this->belongsTo(ContactIssue::class);
+    }
+
+    protected $appends = [
+        'formated_date'
+    ];
+
+    public function getFormatedDateAttribute(){
+        return Carbon::parse($this->created_at)->format('d-m-Y H:i');
     }
 
 }

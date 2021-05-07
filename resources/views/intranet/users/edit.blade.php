@@ -140,10 +140,6 @@
     <script src="/themes/intranet/plugins/select2/js/select2.min.js"></script>
 
     <script>
-        $(".select2").select2({
-            tags: true
-        });
-
         /* password generator */
         function generatePassword() {
             var pass = Math.random().toString(36).substring(2);

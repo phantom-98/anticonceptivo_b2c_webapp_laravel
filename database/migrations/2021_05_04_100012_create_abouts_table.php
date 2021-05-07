@@ -19,7 +19,6 @@ class CreateAboutsTable extends Migration
             $table->longText('review')->nullable();
             $table->longText('view')->nullable();
             $table->longText('mission')->nullable();
-            $table->boolean('active')->default(1);
             $table->timestamps();
         });
 

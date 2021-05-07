@@ -42,20 +42,18 @@ class SubscriptionValueController extends GlobalController
     public function store(Request $request)
     {
         $rules = [
-            'price' => 'required',
-            'start_date' => 'required',
+            'price' => 'required'
         ];
 
         $messages = [
-            'price.required' => 'El campo precio es obligatorio.',
-            'start_date.required' => 'El campo fecha de inicio es obligatorio.',
+            'price.required' => 'El campo precio es obligatorio.'
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
 
         if ($validator->passes()) {
 
-            $object = SubscriptionValue::create($request->all());
+            $object = SubscriptionValue::create(array_merge($request->all(), ['start_date' => Carbon::now()->format('Y-m-d')]));
 
             $last_value = SubscriptionValue::where('id', '<', $object->id)->latest()->first();
             if($last_value){

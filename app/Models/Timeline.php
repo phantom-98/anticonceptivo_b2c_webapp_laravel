@@ -12,7 +12,8 @@ class Timeline extends Model
         'icon',
         'year',
         'active',
-        'post_id'
+        'post_id',
+        'active'
     ];
 
     public function post(){
