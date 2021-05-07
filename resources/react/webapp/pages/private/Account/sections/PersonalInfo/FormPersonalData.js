@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import ReactDOM from 'react-dom';
 import {Form} from "react-bootstrap";
 
-const FormPersonalData = () =>{
+const FormPersonalData = ({password = true}) =>{
     return (
         <div className="row">
             <div className="col-md-12">
@@ -93,28 +93,34 @@ const FormPersonalData = () =>{
                 </div>
             </div>
 
-            <div className="col-md-6">
-                <div className="form-group">
-                    <label htmlFor="password">Contraseña</label>
-                    <input type="password"
-                           className="form-control form-control-custom"
-                           id="password"
-                           name="password"
-                           placeholder="****"
-                    />
-                </div>
-            </div>
-            <div className="col-md-6">
-                <div className="form-group">
-                    <label htmlFor="password_confirmation">Nueva Contraseña</label>
-                    <input type="password"
-                           className="form-control form-control-custom"
-                           id="password_confirmation"
-                           name="password_confirmation"
-                           placeholder="****"
-                    />
-                </div>
-            </div>
+
+            {
+                password ?
+                    <Fragment>
+                        <div className="col-md-6">
+                            <div className="form-group">
+                                <label htmlFor="password">Contraseña</label>
+                                <input type="password"
+                                       className="form-control form-control-custom"
+                                       id="password"
+                                       name="password"
+                                       placeholder="****"
+                                />
+                            </div>
+                        </div>
+                        <div className="col-md-6">
+                            <div className="form-group">
+                                <label htmlFor="password_confirmation">Nueva Contraseña</label>
+                                <input type="password"
+                                       className="form-control form-control-custom"
+                                       id="password_confirmation"
+                                       name="password_confirmation"
+                                       placeholder="****"
+                                />
+                            </div>
+                        </div>
+                    </Fragment> : null
+            }
         </div>
     );
 };

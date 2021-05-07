@@ -20,7 +20,7 @@ const ProductInfo = ({product}) => {
             </div>
             <div className="col-md-12">
                 <h1 className="font-poppins font-27 bold text-black">
-                    Femelle Drospirenona 3 Mg Etinilestradiol 0,03 Mg 28
+                    {product.name}
                 </h1>
             </div>
             <div className="col-md-12">
@@ -58,7 +58,7 @@ const ProductInfo = ({product}) => {
             </div>
 
             <div className="col-md-6 mb-3">
-                <AddCartCard quantity={quantity} setQuantity={setQuantity}/>
+                <AddCartCard quantity={quantity} setQuantity={setQuantity} product={product}/>
             </div>
 
             <div className="col-md-12">

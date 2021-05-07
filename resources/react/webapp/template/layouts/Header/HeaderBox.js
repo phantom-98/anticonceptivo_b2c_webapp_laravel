@@ -8,10 +8,14 @@ import PUBLIC_ROUTES from "../../../routes/publicRoutes";
 import {Link} from "react-router-dom";
 import {AppContext} from "../../../context/AppProvider";
 import {ModalAuthMode} from "../../../Globals";
+import {CartContext} from "../../../context/CartProvider";
+import TotalCartItems from "../../../components/shopping/TotalCartItems";
+
 
 const HeaderBox = () => {
 
     const {showModalAuth} = useContext(AppContext)
+    const {showMiniCart} = useContext(CartContext);
 
     return (
         <div>
@@ -24,7 +28,6 @@ const HeaderBox = () => {
                                 <Icon path={logoFull}/>
                             </Link>
                         </div>
-
                     </div>
                     <div className="col top-do-flex">
                         <div className="input-group search-filter-button">
@@ -55,9 +58,9 @@ const HeaderBox = () => {
                         </div>
                     </div>
 
-                    <div className="col-md-auto top-do-flex pointer">
+                    <div className="col-md-auto top-do-flex pointer" onClick={showMiniCart}>
                         <div className="my-auto">
-                            <div className="cart-badge-quantity">99</div>
+                            <div className="cart-badge-quantity"><TotalCartItems/></div>
                             <Icon path={cartBlue}/>
                         </div>
                     </div>

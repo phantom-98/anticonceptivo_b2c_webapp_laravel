@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import {CONFIG} from "../../Config";
 import {formatMoney} from "../../helpers/GlobalUtils";
-import QuantityInput from "./QuantityInput";
 import PUBLIC_ROUTES from "../../routes/publicRoutes";
 import {Link} from "react-router-dom";
 import AddCartCard from "./AddCartCard";
@@ -29,7 +28,7 @@ const ProductCard = ({product, className = ''}) => {
                 <div className="product-card-price">{formatMoney(product.price)}</div>
             </div>
             <div className="product-card-cart">
-                <AddCartCard quantity={quantity} setQuantity={setQuantity}/>
+                <AddCartCard quantity={quantity} setQuantity={setQuantity} product={product}/>
             </div>
         </div>
     );

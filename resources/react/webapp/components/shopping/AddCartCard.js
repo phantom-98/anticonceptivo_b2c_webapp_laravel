@@ -1,7 +1,39 @@
-import React from 'react';
+import React, {Fragment, useContext} from 'react';
 import QuantityInput from "./QuantityInput";
+import {CartContext} from "../../context/CartProvider";
+import toastr from 'toastr';
 
-const AddCartCard = ({quantity, setQuantity}) =>{
+const AddCartCard = ({quantity, setQuantity, product}) =>{
+
+    const {addToCart} = useContext(CartContext);
+
+
+
+    const handleAddToCart = () =>{
+        addToCart(quantity, product)
+        setQuantity(1)
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": true,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "1000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+
+        toastr.info(`<div>
+            <div>Producto <b>${product.name}</b> añadido al carrito</div>
+        </div>`)
+    }
 
     return (
         <div className="row">
@@ -9,7 +41,7 @@ const AddCartCard = ({quantity, setQuantity}) =>{
                 <QuantityInput quantity={quantity} setQuantity={setQuantity}/>
             </div>
             <div className="col pl-1">
-                <button className="btn btn-outline-bicolor btn-add-cart btn-block px-1">
+                <button className="btn btn-outline-bicolor btn-add-cart btn-block px-1" onClick={() => handleAddToCart()}>
                     <span>AGREGAR AL CARRO</span>
                 </button>
             </div>

@@ -29,7 +29,7 @@ const QuantityInput = ({quantity, setQuantity}) => {
                 -
             </div>
             <div className="quantity-input-field">
-                <input type="text" min="0" max="0" value={quantity} onChange={handleQuantity}/>
+                <input type="text" min="0" max="100" value={quantity} onChange={handleQuantity}/>
             </div>
             <div className="quantity-input-button" onClick={addQuantity}>
                 +
