@@ -75,7 +75,7 @@
         .titulo {
             font-size: 20px;
             font-weight: 700;
-            color: #5b32b7;
+            color: #0869A6;
             padding-bottom: 10px;
         }
          

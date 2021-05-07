@@ -51,9 +51,9 @@ class ContactController extends GlobalController
         return view($this->folder . 'index', compact('objects', 'status'));
     }
 
-    public function reply(Request $request, $id)
+    public function reply(Request $request)
     {
-        $object = Contact::find($id);
+        $object = Contact::find($request->id);
 
         if (!$object) {
             session()->flash('warning', 'Contacto no encontrado.');
