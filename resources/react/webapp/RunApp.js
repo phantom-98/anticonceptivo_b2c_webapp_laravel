@@ -49,8 +49,9 @@ const RunApp = () => {
     return (
         <AppProvider>
             <AuthProvider>
-                <CartProvider>
-                    <Router>
+                <Router>
+                    <CartProvider>
+
                         <TitleApp>
                             <ScrollToTop>
                                 {/*<React.Suspense fallback={<LazyLoading />}>*/}
@@ -73,8 +74,9 @@ const RunApp = () => {
                                 {/*</React.Suspense>*/}
                             </ScrollToTop>
                         </TitleApp>
-                    </Router>
-                </CartProvider>
+
+                    </CartProvider>
+                </Router>
             </AuthProvider>
         </AppProvider>
     );

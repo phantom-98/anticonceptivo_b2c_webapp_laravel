@@ -11,6 +11,7 @@ import TermsAndConditions from "../pages/public/TermsAndConditions";
 import CorporateResponsibility from "../pages/public/CorporateResponsibility";
 import Shop from "../pages/public/Shop";
 import ProductDetail from "../pages/public/ProductDetails";
+import Cart from "../pages/public/Cart";
 
 const PUBLIC_ROUTES = {
     HOME: {
@@ -84,6 +85,15 @@ const PUBLIC_ROUTES = {
         path: "/producto/:slug?",
         title: "Producto",
         component: ProductDetail,
+        exact: true,
+        layout: props => <BaseTemplate {...props} />,
+        middleware: props => <PublicMiddleware {...props} />
+    },
+
+    CART: {
+        path: "/carrito/",
+        title: "Carrito",
+        component: Cart,
         exact: true,
         layout: props => <BaseTemplate {...props} />,
         middleware: props => <PublicMiddleware {...props} />

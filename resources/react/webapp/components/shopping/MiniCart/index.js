@@ -2,7 +2,11 @@ import React, {Fragment, useContext} from 'react';
 import OffCanvas from "../../general/OffCanvas";
 import {CartContext} from "../../../context/CartProvider";
 import ProductItem from "./ProductItem";
-import TotalCartItems from "../../../pages/public/ProductDetails/TotalCartItems";
+import TotalCartItems from "../TotalCartItems";
+import PUBLIC_ROUTES from "../../../routes/publicRoutes";
+import TotalMiniCart from "./TotalMiniCart";
+import {Link} from "react-router-dom";
+
 
 const MiniCart = () => {
 
@@ -29,6 +33,24 @@ const MiniCart = () => {
                         })
                     }
 
+                </div>
+
+                <TotalMiniCart />
+
+                <div className="row">
+                    <div className="col-12">
+                        <hr/>
+                    </div>
+                    <div className="col-12">
+                        <button className="btn btn-bicolor btn-block" onClick={hideMiniCart}>
+                            <span>CONTINUAR COMPRANDO</span>
+                        </button>
+                    </div>
+                    <div className="col-md-12 py-2 text-center">
+                        <Link to={PUBLIC_ROUTES.CART.path} className="link" onClick={hideMiniCart}>
+                            Ir al carro
+                        </Link>
+                    </div>
                 </div>
             </OffCanvas>
         </Fragment>

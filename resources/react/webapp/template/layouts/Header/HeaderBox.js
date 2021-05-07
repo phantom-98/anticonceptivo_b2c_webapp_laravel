@@ -9,7 +9,8 @@ import {Link} from "react-router-dom";
 import {AppContext} from "../../../context/AppProvider";
 import {ModalAuthMode} from "../../../Globals";
 import {CartContext} from "../../../context/CartProvider";
-import TotalCartItems from "../../../pages/public/ProductDetails/TotalCartItems";
+import TotalCartItems from "../../../components/shopping/TotalCartItems";
+
 
 const HeaderBox = () => {
 
@@ -60,7 +61,7 @@ const HeaderBox = () => {
 
                     <div className="col-md-auto top-do-flex pointer" onClick={showMiniCart}>
                         <div className="my-auto">
-                            <div className="cart-badge-quantity"><TotalCartItems /></div>
+                            <div className="cart-badge-quantity"><TotalCartItems/></div>
                             <Icon path={cartBlue}/>
                         </div>
                     </div>
