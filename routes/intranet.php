@@ -103,8 +103,7 @@ if (env('SHOW_INTRANET', 'TRUE') == 'TRUE') {
                 Route::post('faq/position', 'FaqController@position')->name('faqs.position');
                 Route::resource('faq', 'FaqController', ['names' => getResourceRoutesForNameHelper('faqs')]);
 
-                Route::post('clientes/active', 'ClientController@active')->name('clients.active');
-                Route::resource('clientes', 'ClientController', ['names' => getResourceRoutesForNameHelper('clients')]);
+                Route::resource('clientes', 'CustomerController', ['names' => getResourceRoutesForNameHelper('customers')]);
 
                 Route::get('pedidos/search-client', 'OrderController@search_client')->name('orders.search_client');
                 Route::get('pedidos/detalle', 'OrderController@detail')->name('orders.detail');

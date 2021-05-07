@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use Carbon\Carbon;
 
 class Customer extends Authenticatable
 {
@@ -59,12 +60,18 @@ class Customer extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    protected $appends = ['full_name'];
+    protected $appends = ['full_name', 'nice_date'];
 
     public function getFullNameAttribute()
     {
         return ucfirst($this->first_name) . ' ' . ucfirst($this->last_name) . ($this->second_last_name ? ' '.ucfirst($this->second_last_name) : '');
     }
+
+    public function getNiceDateAttribute()
+    {
+        return Carbon::parse($this->created_at)->format('d-m-Y') ?? 'No especificada';
+    }
+
 
     public function customer_addresses(){
         return $this->hasMany(CustomerAddress::class);
@@ -72,6 +79,14 @@ class Customer extends Authenticatable
 
     public function orders(){
         return $this->hasMany(Order::class);
+    }
+
+    public function commercial_region(){
+        return $this->belongsTo(Region::class);
+    }
+
+    public function commercial_commune(){
+        return $this->belongsTo(Commune::class);
     }
 
 }

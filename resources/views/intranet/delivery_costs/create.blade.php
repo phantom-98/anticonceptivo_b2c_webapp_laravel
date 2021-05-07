@@ -130,8 +130,22 @@
         let count = $('.clone').length;
         $(".price").last().val("");
         $(".price").last().attr('name', 'price[' + count + '][]');
+        $(".price").last().removeAttr("required");
+        let element = $(".communes").last();
         $(".communes").last().attr('name', 'communes[' + count + '][]');
-        $(".communes").last().html("")
+        $(".communes").last().val([]).change();
+        $(".communes").last().removeAttr("required");
+        $(".select2-container").last().remove();
+        $(element).select2({
+            language: {
+                noResults: function() {
+                    return "No hay resultado";        
+                },
+                searching: function() {
+                    return "Buscando..";
+                }
+            }
+        });
     }
 </script>
 @endsection

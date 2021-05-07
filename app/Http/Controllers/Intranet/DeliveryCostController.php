@@ -43,25 +43,34 @@ class DeliveryCostController extends GlobalController
 
     public function store(Request $request)
     {
+        //return $request->all();
+
         $rules = [
             'name' => 'required|unique:delivery_costs,name',
             'deadline_delivery' => 'required',
             'image' => 'required',
-            'costs' => 'required'
         ];
 
         $messages = [
             'name.required' => 'El campo nombre es obligatorio.',
             'deadline_delivery.required' => 'El campo plazo máximo de entrega obligatorio.',
             'image.required' => 'El campo imagen es obligatorio.',
-            'costs.required' => 'Debe indicar costos de envíos.'
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
 
         if ($validator->passes()) {
 
-            $object = DeliveryCost::create($request->except(['image']));
+            $json_save = [];
+            foreach($request->price as $key => $price){
+                $price = array_filter($price, function($value) { return !is_null($value) && $value !== ''; });
+                if($price){
+                    array_push($json_save, ['price' => $price, 'communes' => $request->communes[$key]]);
+                }
+            }
+            $json_save = json_encode($json_save);    
+
+            $object = DeliveryCost::create(array_merge($request->except(['image']), ['costs' => $json_save]));
 
             if ($request->image) {
                 $image = $request->file('image');
@@ -96,6 +105,7 @@ class DeliveryCostController extends GlobalController
         }
 
         $communes = Commune::get();
+        
         return view($this->folder . 'edit', compact('object', 'communes'));
     }
 
@@ -110,14 +120,12 @@ class DeliveryCostController extends GlobalController
 
         $rules = [
             'name' => 'required|unique:delivery_costs,name,' . $id,
-            'deadline_delivery' => 'required',
-            'costs' => 'required'
+            'deadline_delivery' => 'required'
         ];
 
         $messages = [
             'name.required' => 'El campo nombre es obligatorio.',
-            'deadline_delivery.required' => 'El campo horas de plazo máximo obligatorio.',
-            'costs.required' => 'Debe indicar costos de envíos.'
+            'deadline_delivery.required' => 'El campo horas de plazo máximo obligatorio.'
         ];
 
 
@@ -125,7 +133,16 @@ class DeliveryCostController extends GlobalController
 
         if ($validator->passes()) {
 
-            $object->update($request->except(['image']));
+            $json_save = [];
+            foreach($request->price as $key => $price){
+                $price = array_filter($price, function($value) { return !is_null($value) && $value !== ''; });
+                if($price){
+                    array_push($json_save, ['price' => $price, 'communes' => $request->communes[$key]]);
+                }
+            }
+            $json_save = json_encode($json_save);    
+
+            $object->update(array_merge($request->except(['image']), ['costs' => $json_save]));
 
             if ($request->image) {
                 $name = "";

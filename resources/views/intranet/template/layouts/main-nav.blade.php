@@ -196,7 +196,7 @@
                         </li>
 
                         <li class="{{ is_menu_active('intranet/clientes') }}">
-                            <a href="{{ route('intranet.listado') }}" target="_blank">
+                            <a href="{{ route('intranet.customers.index') }}" target="_blank">
                                 <i class="ti-user"></i>
                                 <span class="menu-title">Listado Clientes</span>
                             </a>

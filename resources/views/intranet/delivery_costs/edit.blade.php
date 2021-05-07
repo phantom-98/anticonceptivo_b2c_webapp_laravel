@@ -54,6 +54,62 @@
                             </div>     
 
                         </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Detalle de despacho
+                            </div>
+                        </div>
+                        <br/>
+                        @forelse($object->formated_costs as $cost)
+                        <div class="row clone">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="price">Precio(*)</label>
+                                    <input type="text" name="price[1][]" class="form-control price" value="{{ $cost->price[0] }}"
+                                    oninput="checkKeyByClass('price')" >
+                                </div>
+                            </div>    
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="communes">Comunas (*)</label>
+                                    <select name="communes[1][]" class="form-control select2 communes" data-width="100%" multiple>
+                                        @foreach($communes as $c)
+                                            <option value="{{ $c->id }}" {{ in_array($c->id, $cost->communes) ? 'selected' : ''}}>{{ $c->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>   
+                            <div class="col-md-2">
+                                <button class="btn btn-success" type="button" style="margin-top:22px" onclick="addNewRow()"><i
+                                    class="fa fa-plus"></i> Añadir otro rango</button>
+                            </div> 
+                        </div>
+                        @empty
+                        <div class="row clone">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="price">Precio(*)</label>
+                                    <input type="text" name="price[1][]" class="form-control price" required
+                                    oninput="checkKeyByClass('price')" >
+                                </div>
+                            </div>    
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="communes">Comunas (*)</label>
+                                    <select name="communes[1][]" class="form-control select2 communes" data-width="100%" multiple required>
+                                        @foreach($communes as $c)
+                                            <option value="{{ $c->id }}">{{ $c->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>   
+                            <div class="col-md-2">
+                                <button class="btn btn-success" type="button" style="margin-top:22px" onclick="addNewRow()"><i
+                                    class="fa fa-plus"></i> Añadir otro rango</button>
+                            </div> 
+                        </div>
+                        @endforelse
                     </div>
                     <div class="panel-footer">
                         <div class="row">
@@ -113,6 +169,30 @@
 
     </script>
 
+    <script>
+        function addNewRow(){
+            $(".clone").last().clone().insertAfter("div.clone:last");
+            let count = $('.clone').length;
+            $(".price").last().val("");
+            $(".price").last().attr('name', 'price[' + count + '][]');
+            $(".price").last().removeAttr("required");
+            let element = $(".communes").last();
+            $(".communes").last().attr('name', 'communes[' + count + '][]');
+            $(".communes").last().val([]).change();
+            $(".communes").last().removeAttr("required");
+            $(".select2-container").last().remove();
+            $(element).select2({
+                language: {
+                    noResults: function() {
+                        return "No hay resultado";        
+                    },
+                    searching: function() {
+                        return "Buscando..";
+                    }
+                }
+            });
+        }
+    </script>
 
     <script>
 
