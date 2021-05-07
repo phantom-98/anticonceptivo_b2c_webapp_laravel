@@ -17,7 +17,7 @@ const ProductItem = ({item}) => {
     }, [quantity])
 
     return (
-        <div className="col-12">
+        <div className="col-12 product-item">
             <div className="row">
                 <div className="col-auto">
                     <img src={item.product.image} alt={CONFIG.APP_NAME} style={{width: '77px'}}/>
@@ -40,11 +40,8 @@ const ProductItem = ({item}) => {
                         </div>
                     </div>
                 </div>
-                <div className="col-12">
-                    <hr/>
-                </div>
             </div>
-
+            <div className="line" />
         </div>
     );
 };

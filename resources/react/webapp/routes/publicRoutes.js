@@ -12,6 +12,7 @@ import CorporateResponsibility from "../pages/public/CorporateResponsibility";
 import Shop from "../pages/public/Shop";
 import ProductDetail from "../pages/public/ProductDetails";
 import Cart from "../pages/public/Cart";
+import CheckOut from "../pages/public/CheckOut";
 
 const PUBLIC_ROUTES = {
     HOME: {
@@ -94,6 +95,15 @@ const PUBLIC_ROUTES = {
         path: "/carrito/",
         title: "Carrito",
         component: Cart,
+        exact: true,
+        layout: props => <BaseTemplate {...props} />,
+        middleware: props => <PublicMiddleware {...props} />
+    },
+
+    CHECKOUT: {
+        path: "/checkout/",
+        title: "Checkout",
+        component: CheckOut,
         exact: true,
         layout: props => <BaseTemplate {...props} />,
         middleware: props => <PublicMiddleware {...props} />

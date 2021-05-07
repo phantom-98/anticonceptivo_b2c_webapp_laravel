@@ -4,7 +4,7 @@ import {CartContext} from "../../../context/CartProvider";
 import ProductItem from "./ProductItem";
 import TotalCartItems from "../TotalCartItems";
 import PUBLIC_ROUTES from "../../../routes/publicRoutes";
-import TotalMiniCart from "./TotalMiniCart";
+import TotalCartPrice from "../TotalCartPrice";
 import {Link} from "react-router-dom";
 
 
@@ -21,21 +21,23 @@ const MiniCart = () => {
             <OffCanvas showCanvas={showingMiniCart} closeCanvas={hideMiniCart}>
                 <div className="row">
                     <div className="col">
-                        <h3 className="font-poppins font-21 bold color-0869A6">TU CARRO <span
+                        <h3 className="font-poppins font-21 bold color-0869A6" style={{ letterSpacing : '2px'}}>TU CARRO <span
                             className="font-poppins font-16 regular color-6C6B6B">(<TotalCartItems />)</span></h3>
                     </div>
                 </div>
-                <div className="row mini-cart-list">
+               <div className="row">
+                   <div className="mini-cart-list">
 
-                    {
-                        cartItems.map((item, index) => {
-                            return <ProductItem item={item} key={index}/>
-                        })
-                    }
+                       {
+                           cartItems.map((item, index) => {
+                               return <ProductItem item={item} key={index}/>
+                           })
+                       }
 
-                </div>
+                   </div>
+               </div>
 
-                <TotalMiniCart />
+                <TotalCartPrice />
 
                 <div className="row">
                     <div className="col-12">

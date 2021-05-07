@@ -8,6 +8,7 @@ import jeringa from '../../../assets/images/icons/navbar/jeringa.svg'
 import anticonceptivo from '../../../assets/images/icons/navbar/anticonceptivo.svg'
 import femenino from '../../../assets/images/icons/navbar/femenino.svg'
 import HeaderNavbarItem from "../../components/HeaderNavbarItem";
+import PUBLIC_ROUTES from "../../../routes/publicRoutes";
 
 const HeaderNavbar = () =>{
     return (
@@ -15,13 +16,13 @@ const HeaderNavbar = () =>{
             <div className="container">
                 <div className="row">
 
-                    <HeaderNavbarItem icon={pastillas} text={`Pastillas`} />
-                    <HeaderNavbarItem icon={masculino} text={`Masculino`} />
-                    <HeaderNavbarItem icon={testEmbarazo} text={`Test de Embarazo`} />
-                    <HeaderNavbarItem icon={emergencia} text={`Anticoncepción De Emergencia`} />
-                    <HeaderNavbarItem icon={jeringa} text={`Duración largo Plazo`} />
-                    <HeaderNavbarItem icon={anticonceptivo} text={`Métodos Alternativos`} />
-                    <HeaderNavbarItem icon={femenino} text={`Salud Femenina`} />
+                    <HeaderNavbarItem linkTo={PUBLIC_ROUTES.SHOP.path} icon={pastillas} text={`Pastillas`} />
+                    <HeaderNavbarItem linkTo={PUBLIC_ROUTES.SHOP.path} icon={masculino} text={`Masculino`} />
+                    <HeaderNavbarItem linkTo={PUBLIC_ROUTES.SHOP.path} icon={testEmbarazo} text={`Test de Embarazo`} />
+                    <HeaderNavbarItem linkTo={PUBLIC_ROUTES.SHOP.path} icon={emergencia} text={`Anticoncepción De Emergencia`} />
+                    <HeaderNavbarItem linkTo={PUBLIC_ROUTES.SHOP.path} icon={jeringa} text={`Duración largo Plazo`} />
+                    <HeaderNavbarItem linkTo={PUBLIC_ROUTES.SHOP.path} icon={anticonceptivo} text={`Métodos Alternativos`} />
+                    <HeaderNavbarItem linkTo={PUBLIC_ROUTES.SHOP.path} icon={femenino} text={`Salud Femenina`} />
 
                 </div>
             </div>
