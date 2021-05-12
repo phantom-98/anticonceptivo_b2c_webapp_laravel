@@ -27,24 +27,35 @@
                 <div class="panel">
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="name">Nombre (*)</label>
                                     <input type="text" id="name" name="name" class="form-control" required
                                             value="{{ old('name') }}">
                                 </div>
                             </div>    
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="type">Tipo (*)</label>
                                     <select id="type" name="type" class="form-control" required>
                                         <option value="" selected disabled>Seleccione un tipo</option>
+                                        <option value="Reclamos">Reclamos</option>
+                                        <option value="Sugerencias">Sugerencias</option>
+                                        <option value="Otros">Otros</option>
+                                    </select>
+                                </div>
+                            </div>   
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="section">Sección (*)</label>
+                                    <select id="section" name="section" class="form-control" required>
+                                        <option value="" selected disabled>Seleccione una sección</option>
                                         <option value="Servicio al Cliente">Servicio al Cliente</option>
                                         <option value="Contáctanos">Contáctanos</option>
                                     </select>
                                 </div>
                             </div>                
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="campaign_id">Campaña</label>
                                     <select id="campaign_id" name="campaign_id" class="form-control select2" data-width="100%" onchange="changeCampain(this.value)">
@@ -67,13 +78,13 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="name_dynamic">Nombre(*)</label>
-                                        <input type="text" name="name_dynamic[1][]" class="form-control name_dynamic" required>
+                                        <input type="text" name="name_dynamic[1][]" class="form-control name_dynamic">
                                     </div>
                                 </div>   
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="type_dynamic">Tipo (*)</label>
-                                        <select name="type_dynamic[1][]" class="form-control type_dynamic" data-width="100%" required onchange="changeType(this)">
+                                        <select name="type_dynamic[1][]" class="form-control type_dynamic" data-width="100%" onchange="changeType(this)">
                                             <option value="input">Cuadro de texto</option>
                                             <option value="textarea">Texto largo</option>
                                             <option value="select">Listado</option>
@@ -85,7 +96,7 @@
                                 <div class="col-md-3 divValues">
                                     <div class="form-group">
                                         <label for="values">Valores (*)</label>
-                                        <select name="values[1][]" class="form-control select2tag values" data-width="100%" multiple required disabled>
+                                        <select name="values[1][]" class="form-control select2tag values" data-width="100%" multiple disabled>
 
                                         </select>
                                     </div>

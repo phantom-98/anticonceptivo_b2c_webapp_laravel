@@ -18,6 +18,12 @@ class CreateContactIssuesTable extends Migration
             $table->string('name')->nullable();
 
             $table->enum('type', [
+                'Reclamos',
+                'Sugerencias',
+                'Otros'
+            ])->default('Otros');
+
+            $table->enum('section', [
                 'Servicio al Cliente',
                 'Contáctanos',
             ])->default('Contáctanos');

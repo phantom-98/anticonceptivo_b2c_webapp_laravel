@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 use SendGrid\Mail\Mail;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\ContactExport;
 
 class ContactController extends GlobalController
 {
@@ -21,7 +23,7 @@ class ContactController extends GlobalController
         'pluralName' => 'Registro Contacto',
         'singularName' => 'Registro Contacto',
         'disableActions' => ['show', 'changeStatus'],
-        'enableActions' => ['reply']
+        'enableActions' => ['reply', 'export']
 
     ];
 
@@ -35,20 +37,102 @@ class ContactController extends GlobalController
         $objects = Contact::with('contact_issue');
 
         $status = $request->status_filter;
+        $date = $request->date;
+        $section = $request->section;
+        $type = $request->type;
         $appends = [];
 
-        if ($status) {
-            if($status == "Todos"){
+        $start = Carbon::now()->startOfMonth()->format('Y-m-d');
+        $end = Carbon::now()->endOfMonth()->format('Y-m-d');
+
+        if ($date) {
+            if (strpos($date, "-")) {
+                $start = substr($date, 0, strpos($date, "-"));
+                $start = str_replace(" ", "", $start);
+                $start = str_replace("/", "-", $start);
+                $start = Carbon::parse($start)->format('Y-m-d');
+                $end = substr($date, strpos($date, "-"), strlen($date));
+                $end = str_replace("- ", "", $end);
+                $end = str_replace("/", "-", $end);
+                $end = Carbon::parse($end)->format('Y-m-d');
+            } else {
+                $start = str_replace(" ", "", $date);
+                $start = str_replace("/", "-", $start);
+                $start = Carbon::parse($start)->format('Y-m-d');
+                $end = Carbon::parse($start)->format('Y-m-d');
+            }
+        }
+        
+        if ($status != "Todos") {
+            $objects = $objects->where('is_reply', $status);
+            $appends['status'] = $status;
+        } 
+
+        if($section){
+            if($section == "Todas"){
 
             } else {
-                $objects = $objects->where('is_reply', $status);
-                $appends['status'] = $status;
+                $objects = $objects->whereHas('contact_issue', function($q) use($section){
+                    $q->where('section', $section);
+                });
+                $appends['section'] = $section;
             }
-        } 
-     
-        $objects = $objects->get();
+        }   
+        
+        if($type){
+            if($type == "Todos"){
 
-        return view($this->folder . 'index', compact('objects', 'status'));
+            } else {
+                $objects = $objects->whereHas('contact_issue', function($q) use($type){
+                    $q->where('type', $type);
+                });
+                $appends['type'] = $type;
+            }
+        }
+
+        $objects = $objects->whereBetween('created_at', [$start.' 00:00:00', $end.' 23:59:59']);
+        $appends['date'] = $date;
+
+        $objects = $objects->orderBy('created_at', 'desc')->get();
+
+        return view($this->folder . 'index', compact('objects', 'status', 'section', 'type', 'date', 'start', 'end'));
+    }
+
+    public function export(Request $request)
+    {
+        $end = null;
+        $date = $request->date;
+        if (!$date) {
+            $start = Carbon::now()->startOfYear()->format('dmY');
+            $startFilter = Carbon::now()->startOfYear()->format('Y-m-d');
+            $endFilter = Carbon::now()->endOfYear()->format('Y-m-d');
+        } else {
+            if (strpos($date, "-")) {
+                $start = substr($date, 0, strpos($date, "-"));
+                $start = str_replace(" ", "", $start);
+                $start = str_replace("/", "-", $start);
+                $dateFormat = $start;
+                $start = Carbon::parse($start)->format('dmY');
+                $startFilter = Carbon::parse($dateFormat)->format('Y-m-d');
+                $end = substr($date, strpos($date, "-"), strlen($date));
+                $end = str_replace("- ", "", $end);
+                $end = str_replace("/", "-", $end);
+                $date_end = $end;
+                $end = Carbon::parse($end)->format('dmY');
+                $endFilter = Carbon::parse($date_end)->format('Y-m-d');
+            } else {
+                $startAlone = str_replace("/", "-", $date);
+                $start = Carbon::parse($startAlone)->format('dmY');
+                $startFilter = Carbon::parse($startAlone)->format('Y-m-d');
+                $endFilter = Carbon::now()->format('Y-m-d');
+            }
+        }
+
+        $section = $request->section;
+        $status = $request->status;
+        $type = $request->type;
+        
+        return Excel::download(new ContactExport($startFilter, $endFilter, $section, $status, $type), 'listado-contacto-' . $start . '-' . ($end ? $end : '') . ($section ? '-' . $section : '') . ($status ? '-' . $status : '') . ($type ? '-' . $type : '') . '.xlsx');
     }
 
     public function reply(Request $request)
@@ -83,7 +167,7 @@ class ContactController extends GlobalController
         $response = $sendgrid->send($email);
 
         session()->flash('success', 'Respuesta enviada correctamente.');
-        return redirect()->route($this->route . 'index');
+        return redirect()->back();
 
     }
    

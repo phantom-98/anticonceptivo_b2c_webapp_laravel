@@ -42,6 +42,9 @@
                         <thead>
                         <tr>
                             <th data-sortable="true" data-cell-style="cellStyle" data-valign="middle">Nombre</th>
+                            <th data-sortable="true" data-cell-style="cellStyle" data-valign="middle">Tipo</th>
+                            <th data-sortable="true" data-cell-style="cellStyle" data-valign="middle">Sección</th>
+                            <th data-sortable="true" data-cell-style="cellStyle" data-valign="middle">Campaña</th>
                             @if($config['action']['changeStatus'])
                             <th data-cell-style="cellStyle" data-sortable="true">Estado</th>
                             @endif
@@ -60,6 +63,9 @@
                             @foreach($objects as $object)
                                 <tr>
                                     <td>{{ $object->name }}</td>
+                                    <td>{{ $object->type }}</td>
+                                    <td>{{ $object->section }}</td>
+                                    <td>{{ $object->campaign->name ?? '-' }}</td>
                                     @if($config['action']['changeStatus'])
                                     @include('intranet.template.components._crud_html_change_status')
                                     @endif

@@ -45,11 +45,14 @@ class ContactIssueController extends GlobalController
     {
         //return $request->all();
         $rules = [
-            'name' => 'required|unique:contact_issues,name'
+            'name' => 'required|unique:contact_issues,name',
+            'section' => 'required',
+            'type' => 'required'
         ];
 
         $messages = [
-
+            'section.required' => 'El campo sección es obligatorio.',
+            'type.required' => 'El campo tipo es obligatorio.'
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
@@ -112,11 +115,14 @@ class ContactIssueController extends GlobalController
         }
 
         $rules = [
-            'name' => 'required|unique:contact_issues,name,' . $id
+            'name' => 'required|unique:contact_issues,name,' . $id,
+            'section' => 'required',
+            'type' => 'required'
         ];
 
         $messages = [
-   
+            'section.required' => 'El campo sección es obligatorio.',
+            'type.required' => 'El campo tipo es obligatorio.'
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);

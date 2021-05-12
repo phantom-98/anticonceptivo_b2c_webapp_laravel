@@ -142,6 +142,7 @@ if (env('SHOW_INTRANET', 'TRUE') == 'TRUE') {
                 Route::resource('tipos-contacto', 'ContactIssueController', ['names' => getResourceRoutesForNameHelper('contact_issues')]);
 
                 Route::post('contactos/reply', 'ContactController@reply')->name('contacts.reply');
+                Route::get('contactos/export', 'ContactController@export')->name('contacts.export');
                 Route::resource('contactos', 'ContactController', ['names' => getResourceRoutesForNameHelper('contacts')]);
 
                 Route::post('alianzas/active', 'AllianceController@active')->name('alliances.active');

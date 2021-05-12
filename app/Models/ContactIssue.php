@@ -11,6 +11,7 @@ class ContactIssue extends Model
         'name',
         'active',
         'type',
+        'section',
         'campaign_id'
     ];
 
