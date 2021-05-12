@@ -43,6 +43,7 @@
                         <tr>
                             <th data-sortable="true" data-cell-style="cellStyle" data-valign="middle">Pregunta</th>
                             <th data-sortable="true" data-cell-style="cellStyle" data-valign="middle">Respuesta</th>
+                            <th data-sortable="true" data-cell-style="cellStyle" data-valign="middle">Categoría</th>
                             @if($config['action']['changeStatus'])
                             <th data-cell-style="cellStyle" data-sortable="true">Estado</th>
                             @endif
@@ -61,6 +62,7 @@
                             <tr data-position="{{$object->position}}" data-id="{{$object->id}}">
                                 <td>{{ $object->question }}</td>
                                 <td>{!! $object->answer !!}</td>
+                                <td>{{ $object->category_faq->name }}</td>
                                 @if($config['action']['changeStatus'])
                                    @include('intranet.template.components._crud_html_change_status')
                                 @endif

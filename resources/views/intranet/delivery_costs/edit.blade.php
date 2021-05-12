@@ -33,14 +33,14 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="name">Nombre (*)</label>
-                                    <input type="text" id="name" name="name" class="form-control"
+                                    <input type="text" id="name" name="name" class="form-control" required
                                            value="{{ old('name') ?? $object->name }}">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="deadline_delivery">Plazo máximo de entrega (*)</label>
-                                    <input type="text" id="deadline_delivery" name="deadline_delivery" class="form-control"
+                                    <input type="text" id="deadline_delivery" name="deadline_delivery" class="form-control" required
                                     oninput="checkKey('deadline_delivery')" value="{{ old('deadline_delivery') ?? $object->deadline_delivery }}">
                                 </div>
                             </div> 
@@ -66,14 +66,14 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="price">Precio(*)</label>
-                                    <input type="text" name="price[1][]" class="form-control price" value="{{ $cost->price[0] }}"
+                                    <input type="text" name="price[{{$loop->iteration}}][]" class="form-control price" value="{{ $cost->price[0] }}"
                                     oninput="checkKeyByClass('price')" >
                                 </div>
                             </div>    
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="communes">Comunas (*)</label>
-                                    <select name="communes[1][]" class="form-control select2 communes" data-width="100%" multiple>
+                                    <select name="communes[{{$loop->iteration}}][]" class="form-control select2 communes" data-width="100%" multiple>
                                         @foreach($communes as $c)
                                             <option value="{{ $c->id }}" {{ in_array($c->id, $cost->communes) ? 'selected' : ''}}>{{ $c->name }}</option>
                                         @endforeach

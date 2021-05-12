@@ -30,13 +30,115 @@
                 <div class="panel">
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="name">Nombre (*)</label>
-                                    <input type="text" id="name" name="name" class="form-control"
+                                    <input type="text" id="name" name="name" class="form-control" required
                                            value="{{ old('name') ?? $object->name }}">
                                 </div>
                             </div>      
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="type">Tipo (*)</label>
+                                    <select id="type" name="type" class="form-control" required>
+                                        <option value="" selected disabled>Seleccione un tipo</option>
+                                        <option value="Servicio al Cliente" {{ $object->type == "Servicio al Cliente" ? "selected" : "" }}>Servicio al Cliente</option>
+                                        <option value="Contáctanos" {{ $object->type == "Contáctanos" ? "selected" : "" }}>Contáctanos</option>
+                                    </select>
+                                </div>
+                            </div>                
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="campaign_id">Campaña</label>
+                                    <select id="campaign_id" name="campaign_id" class="form-control select2" data-width="100%" onchange="changeCampain(this.value)">
+                                        <option value="" selected>Ninguna</option>
+                                        @foreach($campaigns as $c)
+                                            <option value="{{ $c->id }}" {{ $object->campaign_id == $c->id ? 'selected' : ''}}>{{ $c->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div> 
+                        </div>
+                        <div class="row" id="dynamicRow" style="{{ $object->campaign_id == null ? 'display: none' : '' }}">
+                            <br/>
+                            <div class="col-md-6">
+                                Campos dinámicos a rellenar
+                            </div>
+                            <div class="clearfix"></div>
+                            <br/>
+                            @forelse($object->fields as $field)
+                            <div class="clone">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="name_dynamic">Nombre(*)</label>
+                                        <input type="text" name="name_dynamic[{{$loop->iteration}}][]" class="form-control name_dynamic" value="{{$field->name}}">
+                                    </div>
+                                </div>   
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="type_dynamic">Tipo (*)</label>
+                                        <select name="type_dynamic[{{$loop->iteration}}][]" class="form-control type_dynamic" data-width="100%" onchange="changeType(this)">
+                                            <option value="input" {{$field->type == "input" ? "selected" : ""}}>Cuadro de texto</option>
+                                            <option value="textarea" {{$field->type == "textarea" ? "selected" : ""}}>Texto largo</option>
+                                            <option value="select" {{$field->type == "select" ? "selected" : ""}}>Listado</option>
+                                            <option value="radio" {{$field->type == "radio" ? "selected" : ""}}>Radio</option>
+                                            <option value="checkbox" {{$field->type == "checkbox" ? "selected" : ""}}>Casilla</option>
+                                        </select>
+                                    </div>
+                                </div>    
+                                <div class="col-md-3 divValues">
+                                    <div class="form-group">
+                                        <label for="values">Valores (*)</label>
+                                        <select name="values[{{$loop->iteration}}][]" class="form-control select2tag values" data-width="100%" multiple {{ ($field->type == "input" || $field->type == "textarea") ? 'disabled' : '' }}>
+                                            @if($field->values)
+                                                @foreach(explode(',', $field->values) as $opt)
+                                                    <option value="{{$opt}}" selected>{{$opt}}</option>
+                                                @endforeach
+                                            @endif
+                                        </select>
+                                    </div>
+                                </div>   
+                                <div class="col-md-2">
+                                    <button class="btn btn-success" type="button" style="margin-top:22px" onclick="addNewRow()"><i
+                                        class="fa fa-plus"></i> Añadir otro campo</button>
+                                </div> 
+                                <div class="clearfix"></div>
+                            </div>
+                            @empty
+                            <div class="clone">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="name_dynamic">Nombre(*)</label>
+                                        <input type="text" name="name_dynamic[1][]" class="form-control name_dynamic" required>
+                                    </div>
+                                </div>   
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="type_dynamic">Tipo (*)</label>
+                                        <select name="type_dynamic[1][]" class="form-control type_dynamic" data-width="100%" required onchange="changeType(this)">
+                                            <option value="input">Cuadro de texto</option>
+                                            <option value="textarea">Texto largo</option>
+                                            <option value="select">Listado</option>
+                                            <option value="radio">Radio</option>
+                                            <option value="checkbox">Casilla</option>
+                                        </select>
+                                    </div>
+                                </div>    
+                                <div class="col-md-3 divValues">
+                                    <div class="form-group">
+                                        <label for="values">Valores (*)</label>
+                                        <select name="values[1][]" class="form-control select2tag values" data-width="100%" multiple required disabled>
+
+                                        </select>
+                                    </div>
+                                </div>   
+                                <div class="col-md-2">
+                                    <button class="btn btn-success" type="button" style="margin-top:22px" onclick="addNewRow()"><i
+                                        class="fa fa-plus"></i> Añadir otro campo</button>
+                                </div> 
+                                <div class="clearfix"></div>
+                            </div>
+                            @endforelse
                         </div>
                     </div>
                     <div class="panel-footer">
@@ -63,105 +165,72 @@
 @endsection
 
 @section('scripts')
-    <!--Bootstrap Select [ OPTIONAL ]-->
-    <script src="/themes/intranet/plugins/select2/js/select2.min.js"></script>
-    <script src="/themes/intranet/js/jquery.Rut.js"></script>
+<script>
+    $(document).ready(function () {
+        var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
 
-    <script src="/themes/intranet/plugins/switchery/switchery.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
-
-            elems.forEach(function (html) {
-                let switchery = new Switchery(html);
-            });
-        });
-    </script>
-
-    <script>
-
-        /* password generator */
-        function generatePassword() {
-            var pass = Math.random().toString(36).substring(2);
-            $('#password').val(pass);
-        }
-
-    </script>
-
-
-    <script>
-
-        function validandoRut(componente) {
-            componente.Rut({
-                on_error: function () {
-                    showToastError('El rut ingresado no es correcto, por favor vuelva a intentarlo.');
-                    componente.val('');
-                    componente.focus();
-                }
-            })
-        }
-
-        function formateaRut(rut) {
-            var actual = rut.replace(/^0+/, "");
-            if (actual != '' && actual.length > 0) {
-                var sinPuntos = actual.replace(/\./g, "");
-                var actualLimpio;
-                if (actual != '' && actual.length >= 1) {
-                    actualLimpio = sinPuntos.replace(/-/g, "");
-                }
-                try {
-                    var inicio = (actualLimpio != 'undefined') ? actualLimpio.substring(0, actualLimpio.length - 1) : '';
-                    var rutPuntos = "";
-                    var i = 0;
-                    var j = 1;
-                    for (i = inicio.length - 1; i >= 0; i--) {
-                        var letra = inicio.charAt(i);
-                        rutPuntos = letra + rutPuntos;
-                        if (j % 3 == 0 && j <= inicio.length - 1) {
-                            rutPuntos = "." + rutPuntos;
-                        }
-                        j++;
-                    }
-                    var dv = actualLimpio.substring(actualLimpio.length - 1);
-                    rutPuntos = rutPuntos + (rutPuntos.length > 2 ? "-" : "") + dv;
-                } catch (err) {
-                    // console.log(err)
-                }
-            }
-
-            return rutPuntos;
-        }
-
-        function formarteandoRut(componente) {
-            componente.val(formateaRut(componente.val().toUpperCase()));
-        }
-
-        function readURL(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    $('#image-edit').attr('src', e.target.result);
-                };
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-
-        $("#file-image").change(function () {
-            readURL(this);
+        elems.forEach(function (html) {
+            let switchery = new Switchery(html);
         });
 
-        function readURL2(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    $('#image-edit-menu').attr('src', e.target.result);
-                };
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-
-        $("#file-image-menu").change(function () {
-            readURL2(this);
+        $(".select2tag").select2({
+            language: {
+                noResults: function() {
+                    return "Escriba una palabra y aprete enter para agregarla";        
+                },
+                searching: function() {
+                    return "Buscando..";
+                }
+            },
+            tags: true
         });
-    </script>
+    });
+
+    function changeCampain(value){
+        if(value != ""){
+            $("#dynamicRow").show();
+        } else {
+            $("#dynamicRow").hide();
+        }
+    }
+
+    function changeType(element){
+        if($(element).val() == "checkbox" || $(element).val() == "select" || $(element).val() == "radio"){
+            $(element).parent().parent().parent().find(".divValues").find(".values").attr('disabled', false);
+        } else {
+            $(element).parent().parent().parent().find(".divValues").find(".values").attr('disabled', true);
+            $(element).parent().parent().parent().find(".divValues").find(".values").val([]).change();
+        }
+    }
+    
+</script>
+<script>
+    function addNewRow(){
+        $(".clone").last().clone().insertAfter("div.clone:last");
+        let count = $('.clone').length;
+        $(".name_dynamic").last().val("");
+        $(".name_dynamic").last().attr('name', 'name_dynamic[' + count + '][]');
+        $(".name_dynamic").last().removeAttr("required");
+        $(".type_dynamic").last().val("");
+        $(".type_dynamic").last().attr('name', 'type_dynamic[' + count + '][]');
+        $(".type_dynamic").last().removeAttr("required");
+        let element = $(".values").last();
+        $(".values").last().attr('name', 'values[' + count + '][]');
+        $(".values").last().val([]).change();
+        $(".values").last().attr('disabled', true);
+        $(".values").last().removeAttr("required");
+        $(".select2-container").last().remove();
+        $(element).select2({
+            language: {
+                noResults: function() {
+                    return "Escriba una palabra y aprete enter para agregarla";        
+                },
+                searching: function() {
+                    return "Buscando..";
+                }
+            },
+            tags: true
+        });
+    }
+</script>
 @endsection

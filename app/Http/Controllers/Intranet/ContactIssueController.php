@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Intranet;
 
 use App\Models\ContactIssue;
-
+use App\Models\Campaign;
+use App\Models\DynamicField;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -36,11 +37,13 @@ class ContactIssueController extends GlobalController
 
     public function create()
     {
-        return view($this->folder . 'create');
+        $campaigns = Campaign::get();
+        return view($this->folder . 'create', compact('campaigns'));
     }
 
     public function store(Request $request)
     {
+        //return $request->all();
         $rules = [
             'name' => 'required|unique:contact_issues,name'
         ];
@@ -53,7 +56,23 @@ class ContactIssueController extends GlobalController
 
         if ($validator->passes()) {
 
-            $object = ContactIssue::create($request->all());
+            $object = ContactIssue::create($request->except('name_dynamic', 'type_dynamic', 'value'));
+
+            if($request->campaign_id != "" && $request->campaign_id != null){
+                foreach($request->name_dynamic as $key => $name){
+                    $name = array_filter($name, function($value) { return !is_null($value) && $value !== ''; });
+                    if($name){
+                        $dynamic = new DynamicField();
+                        $dynamic->name = $name[0];
+                        $dynamic->type = $request->type_dynamic[$key][0];
+                        if(isset($request->values[$key])){
+                            $dynamic->values = implode(',',$request->values[$key]);
+                        }
+                        $dynamic->contact_issue_id = $object->id;
+                        $dynamic->save();
+                    }
+                }
+            }
 
             if ($object) {
                 session()->flash('success', 'Tipo de Contacto creado correctamente.');
@@ -73,14 +92,14 @@ class ContactIssueController extends GlobalController
 
     public function edit($id)
     {
-        $object = ContactIssue::find($id);
+        $object = ContactIssue::with('fields')->find($id);
 
         if (!$object) {
             session()->flash('warning', 'Tipo de Contacto no encontrado.');
             return redirect()->route($this->route . 'index');
         }
-
-        return view($this->folder . 'edit', compact('object'));
+        $campaigns = Campaign::get();
+        return view($this->folder . 'edit', compact('object', 'campaigns'));
     }
 
     public function update(Request $request, $id)
@@ -104,7 +123,24 @@ class ContactIssueController extends GlobalController
 
         if ($validator->passes()) {
 
-            $object->update($request->all());
+            $object->update($request->except('name_dynamic', 'type_dynamic', 'value'));
+
+            DynamicField::where('contact_issue_id', $object->id)->delete();
+            if($request->campaign_id != "" && $request->campaign_id != null){
+                foreach($request->name_dynamic as $key => $name){
+                    $name = array_filter($name, function($value) { return !is_null($value) && $value !== ''; });
+                    if($name){
+                        $dynamic = new DynamicField();
+                        $dynamic->name = $name[0];
+                        $dynamic->type = $request->type_dynamic[$key][0];
+                        if(isset($request->values[$key])){
+                            $dynamic->values = implode(',',$request->values[$key]);
+                        }
+                        $dynamic->contact_issue_id = $object->id;
+                        $dynamic->save();
+                    }
+                }
+            }
 
             if ($object) {
                 session()->flash('success', 'Tipo de Contacto modificado correctamente.');

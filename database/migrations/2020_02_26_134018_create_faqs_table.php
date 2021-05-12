@@ -19,6 +19,10 @@ class CreateFaqsTable extends Migration
             $table->longText('answer')->nullable();
             $table->boolean('active')->default(1);
             $table->integer('position')->default(0);
+
+            $table->bigInteger('category_faq_id')->unsigned()->nullable();
+            $table->foreign('category_faq_id')->references('id')->on('category_faqs')->onDelete('set null');
+
             $table->timestamps();
         });
     }

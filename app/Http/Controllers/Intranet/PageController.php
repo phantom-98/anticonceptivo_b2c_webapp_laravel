@@ -43,13 +43,13 @@ class PageController extends GlobalController
     {
         $rules = [
             'name' => 'required|unique:pages,name',
-            'description' => 'required',
             'section' => 'required',
+            'type' => 'required',
         ];
 
         $messages = [
             'name.required' => 'El campo nombre es obligatorio.',
-            'description.required' => 'El campo descripción es obligatorio',
+            'type.required' => 'El campo tipo es obligatorio',
             'section.required' => 'El campo sección es obligatorio'
         ];
 
@@ -98,13 +98,13 @@ class PageController extends GlobalController
 
         $rules = [
             'name' => 'required|unique:pages,name,' . $id,
-            'description' => 'required',
+            'type' => 'required',
             'section' => 'required',
         ];
 
         $messages = [
             'name.required' => 'El campo nombre es obligatorio.',
-            'description.required' => 'El campo descripción es obligatorio',
+            'type.required' => 'El campo tipo es obligatorio',
             'section.required' => 'El campo sección es obligatorio'
         ];
 
@@ -113,7 +113,7 @@ class PageController extends GlobalController
 
         if ($validator->passes()) {
 
-            $object->update($request-all());
+            $object->update($request->all());
 
             if ($object) {
                 session()->flash('success', 'Página modificada correctamente.');

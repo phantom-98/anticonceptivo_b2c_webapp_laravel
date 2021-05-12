@@ -46,6 +46,7 @@
                         <thead>
                         <tr>
                             <th data-sortable="true" data-cell-style="cellStyle"  data-valign="middle">Nombre</th>
+                            <th data-sortable="true" data-cell-style="cellStyle"  data-valign="middle">Tipo</th>
                             <th data-sortable="true" data-cell-style="cellStyle"  data-valign="middle">Sección</th>
                             @if($config['action']['active'])
                                 <th data-cell-style="cellStyle" data-valign="middle">Activo</th>
@@ -60,6 +61,7 @@
                         @foreach($objects as $object)
                             <tr>
                                 <td>{{ $object->name }}</td>
+                                <td>{{ $object->type }}</td>
                                 <td>{{ $object->section }}</td>
                                 @if($config['action']['active'])
                                     @include('intranet.template.components._crud_html_active')

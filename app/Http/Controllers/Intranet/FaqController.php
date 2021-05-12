@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Intranet;
 
 use App\Models\Faq;
+use App\Models\CategoryFaq;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -27,23 +28,26 @@ class FaqController extends GlobalController
 
     public function index()
     {
-        $objects = Faq::orderBy('position')->get();
+        $objects = Faq::with('category_faq')->orderBy('position')->get();
         return view($this->folder . 'index', compact('objects'));
     }
 
     public function create()
     {
-        return view($this->folder . 'create');
+        $categories = CategoryFaq::get();
+        return view($this->folder . 'create', compact('categories'));
     }
 
     public function store(Request $request)
     {
         $rules = [
             'question' => 'required|unique:faqs,question',
+            'category_faq_id' => 'required',
             'answer' => 'required'
         ];
 
         $messages = [
+            'category_faq_id.required' => 'La categoría de faq es requerida',
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
@@ -76,8 +80,8 @@ class FaqController extends GlobalController
             session()->flash('warning', 'Pregunta no encontrada.');
             return redirect()->route($this->route . 'index');
         }
-
-        return view($this->folder . 'edit', compact('object'));
+        $categories = CategoryFaq::get();
+        return view($this->folder . 'edit', compact('object', 'categories'));
     }
 
     public function update(Request $request, $id)
@@ -91,11 +95,14 @@ class FaqController extends GlobalController
 
         $rules = [
             'question' => 'required|unique:faqs,question,' . $id,
-            'answer' => 'required'
+            'answer' => 'required',
+            'category_faq_id' => 'required'
         ];
 
         $messages = [
+            'category_faq_id.required' => 'La categoría de faq es requerida',
         ];
+
 
         $validator = Validator::make($request->all(), $rules, $messages);
 

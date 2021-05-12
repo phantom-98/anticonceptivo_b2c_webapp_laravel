@@ -10,7 +10,13 @@ class Faq extends Model
         'question',
         'answer',
         'position',
-        'active'
+        'active',
+        'category_faq_id'
     ];
+
+    public function category_faq()
+    {
+        return $this->belongsTo(CategoryFaq::class);
+    }
 }
 

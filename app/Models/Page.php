@@ -11,7 +11,9 @@ class Page extends Model
         'name',
         'description',
         'section',
-        'active'
+        'active',
+        'type',
+        'link'
     ];
 
 }

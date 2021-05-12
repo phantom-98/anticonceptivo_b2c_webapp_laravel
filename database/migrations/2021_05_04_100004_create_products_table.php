@@ -68,7 +68,6 @@ class CreateProductsTable extends Migration
 
             $table->longText('benefits')->nullable();
             $table->longText('data_sheet')->nullable();
-            $table->longText('legal_warning')->nullable();
 
             $table->timestamps();
         });

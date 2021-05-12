@@ -79,7 +79,7 @@
                                                 id="subcategory_id">
                                             <option value="">Seleccione una subcategoría</option>
                                             @foreach( $subcategories as $sub)
-                                                <option value="{{ $sub->id }}">{{ $sub->name }}</option>
+                                                <option value="{{ $sub->id }}" {{ old('subcategory_id') == $sub->id ? "selected" : ""}}>{{ $sub->name }}</option>
                                             @endforeach
                                         </select>
                                         {!! $errors->first('subcategory_id', '<span class="help-block">:message</span>') !!}
@@ -112,15 +112,17 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="form-group {{ $errors->has('stock') ? 'has-error':'' }}">
-                                        <label for="stock">Stock</label>
-                                        <input type="number"
-                                            class="form-control "
-                                            id="stock"
-                                            name="stock"
-                                            placeholder="Ingrese el stock"
-                                            value="{{ old('stock') }}">
-                                        {!! $errors->first('stock', '<span class="help-block">:message</span>') !!}
+                                    <div class="form-group {{ $errors->has('laboratory_id') ? 'has-error':'' }}">
+                                        <label for="laboratory_id">Laboratorio (*)</label>
+                                        <select class="form-control"
+                                                name="laboratory_id"
+                                                id="laboratory_id">
+                                            <option value="">Seleccione un laboratorio</option>
+                                            @foreach( $laboratories as $lab)
+                                                <option value="{{ $lab->id }}" {{ old('laboratory_id') == $lab->id ? "selected" : ""}}>{{ $lab->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        {!! $errors->first('laboratory_id', '<span class="help-block">:message</span>') !!}
                                     </div>
                                 </div>
                                 <div class="col-md-3">
@@ -171,23 +173,20 @@
                                         {!! $errors->first('weigth', '<span class="help-block">:message</span>') !!}
                                     </div>
                                 </div>
-                                <div class="clearfix"></div>
-
                                 <div class="col-md-6">
-                                    <div class="form-group {{ $errors->has('laboratory_id') ? 'has-error':'' }}">
-                                        <label for="laboratory_id">Laboratorio (*)</label>
+                                    <div class="form-group {{ $errors->has('consumption_typology') ? 'has-error':'' }}">
+                                        <label for="consumption_typology">Tipología consumo (*)</label>
                                         <select class="form-control"
-                                                name="laboratory_id"
-                                                id="laboratory_id">
-                                            <option value="">Seleccione un laboratorio</option>
-                                            @foreach( $laboratories as $lab)
-                                                <option value="{{ $lab->id }}">{{ $lab->name }}</option>
+                                                name="consumption_typology"
+                                                id="consumption_typology">
+                                            <option value="">Seleccione una tipología</option>
+                                            @foreach( $consumptions as $con)
+                                                <option value="{{ $con }}" {{ old('consumption_typology') == $con ? "selected" : ""}}>{{ $con }}</option>
                                             @endforeach
                                         </select>
-                                        {!! $errors->first('laboratory_id', '<span class="help-block">:message</span>') !!}
+                                        {!! $errors->first('consumption_typology', '<span class="help-block">:message</span>') !!}
                                     </div>
                                 </div>
-
                                 <div class="clearfix"></div>
 
                             </div>
@@ -199,21 +198,6 @@
                                         <label for="description">Descripción</label>
                                         <textarea id="description" name="description" class="form-control summernote"
                                         >{{ old('description') }}</textarea>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="form-group {{ $errors->has('consumption_typology') ? 'has-error':'' }}">
-                                        <label for="consumption_typology">Tipología consumo (*)</label>
-                                        <select class="form-control"
-                                                name="consumption_typology"
-                                                id="consumption_typology">
-                                            <option value="">Seleccione una tipología</option>
-                                            @foreach( $consumptions as $con)
-                                                <option value="{{ $con }}">{{ $con }}</option>
-                                            @endforeach
-                                        </select>
-                                        {!! $errors->first('consumption_typology', '<span class="help-block">:message</span>') !!}
                                     </div>
                                 </div>
 
@@ -240,14 +224,6 @@
                                         >{{ old('data_sheet') }}</textarea>
                                     </div>
                                 </div>
-
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="legal_warning">Aviso Legal</label>
-                                        <textarea id="legal_warning" name="legal_warning" class="form-control summernote"
-                                        >{{ old('legal_warning') }}</textarea>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                         <br/>
@@ -271,7 +247,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="warnings">Disclaimer</label>
-                                    <input type="text" name="warnings[1][]" class="form-control warnings">
+                                    <textarea name="warnings[1][]" class="form-control warnings summernote"></textarea>
                                 </div>
                             </div>   
                             <div class="col-md-2">
@@ -502,9 +478,24 @@
             $(".plan_id").last().val("");
             $(".plan_id").last().attr('name', 'plan_id[' + count + '][]');
             $(".plan_id").last().removeAttr("required");
-            $(".warnings").last().val("");
+            $(".warnings").last().html('');
+            $(".note-editor").last().remove();
             $(".warnings").last().attr('name', 'warnings[' + count + '][]');
             $(".warnings").last().removeAttr("required");
+            let object = $(".warnings").last();
+            $(object).summernote({
+                disableResizeEditor: true,
+                height: 100,
+                callbacks: {
+                    onFocus: function (contents) {
+                        if($(object).summernote('isEmpty')){
+                            $(".summernote").html(''); 
+                        }
+                    }
+                }
+            })
+            $(object).summernote('reset');
+            $('.note-statusbar').remove();
         }
     </script>
 

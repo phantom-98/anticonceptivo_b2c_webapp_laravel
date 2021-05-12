@@ -54,9 +54,9 @@
                                 <div class="form-group">
                                     <label for="question_text">Elemento principal (*)</label>
                                     <select id="type" name="type" class="form-control" onchange="divRender(this.value)">
-                                        <option val="" selected disabled>Seleccione un tipo</option>
-                                        <option val="Imagen">Imagen</option>
-                                        <option val="Video">Video</option>
+                                        <option value="" selected disabled>Seleccione un tipo</option>
+                                        <option value="Imagen">Imagen</option>
+                                        <option value="Video">Video</option>
                                     </select>
                                 </div>
                             </div>

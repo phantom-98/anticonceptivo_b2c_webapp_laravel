@@ -16,6 +16,15 @@ class CreateContactIssuesTable extends Migration
         Schema::create('contact_issues', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name')->nullable();
+
+            $table->enum('type', [
+                'Servicio al Cliente',
+                'Contáctanos',
+            ])->default('Contáctanos');
+
+            $table->bigInteger('campaign_id')->unsigned()->nullable();
+            $table->foreign('campaign_id')->references('id')->on('campaigns')->onDelete('cascade');
+
             $table->boolean('active')->default(1);
             $table->timestamps();
         });

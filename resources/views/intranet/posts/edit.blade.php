@@ -58,8 +58,8 @@
                                 <div class="form-group">
                                     <label for="question_text">Elemento principal (*)</label>
                                     <select id="type" name="type" class="form-control" onchange="divRender(this.value)">
-                                        <option val="Imagen" {{ $object->type == "Imagen" ? "selected" : ""}}>Imagen</option>
-                                        <option val="Video" {{ $object->type == "Video" ? "selected" : ""}}>Video</option>
+                                        <option value="Imagen" {{ $object->type == "Imagen" ? "selected" : ""}}>Imagen</option>
+                                        <option value="Video" {{ $object->type == "Video" ? "selected" : ""}}>Video</option>
                                     </select>
                                 </div>
                             </div>
