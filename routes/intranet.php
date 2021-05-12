@@ -103,6 +103,12 @@ if (env('SHOW_INTRANET', 'TRUE') == 'TRUE') {
                 Route::post('faq/position', 'FaqController@position')->name('faqs.position');
                 Route::resource('faq', 'FaqController', ['names' => getResourceRoutesForNameHelper('faqs')]);
 
+                Route::post('categorias-faq/active', 'CategoryFaqController@active')->name('category_faqs.active');
+                Route::resource('categorias-faq', 'CategoryFaqController', ['names' => getResourceRoutesForNameHelper('category_faqs')]);
+
+                Route::post('consumo-responsable/active', 'ResponsibleConsumptionController@active')->name('responsible_consumptions.active');
+                Route::resource('consumo-responsable', 'ResponsibleConsumptionController', ['names' => getResourceRoutesForNameHelper('responsible_consumptions')]);
+
                 Route::resource('clientes', 'CustomerController', ['names' => getResourceRoutesForNameHelper('customers')]);
 
                 Route::get('pedidos/search-client', 'OrderController@search_client')->name('orders.search_client');
@@ -113,8 +119,13 @@ if (env('SHOW_INTRANET', 'TRUE') == 'TRUE') {
 
                 Route::resource('quienes-somos', 'AboutController', ['names' => getResourceRoutesForNameHelper('abouts')]);
 
+                Route::resource('aviso-legal-productos', 'LegalWarningController', ['names' => getResourceRoutesForNameHelper('legal_warnings')]);
+
                 Route::post('valores/active', 'ValueController@active')->name('values.active');
                 Route::resource('valores', 'ValueController', ['names' => getResourceRoutesForNameHelper('values')]);
+
+                Route::post('campanas/active', 'CampaignController@active')->name('campaigns.active');
+                Route::resource('campanas', 'CampaignController', ['names' => getResourceRoutesForNameHelper('campaigns')]);
 
                 Route::post('linea-tiempo/active', 'TimelineController@active')->name('timelines.active');
                 Route::resource('linea-tiempo', 'TimelineController', ['names' => getResourceRoutesForNameHelper('timelines')]);
@@ -131,6 +142,7 @@ if (env('SHOW_INTRANET', 'TRUE') == 'TRUE') {
                 Route::resource('tipos-contacto', 'ContactIssueController', ['names' => getResourceRoutesForNameHelper('contact_issues')]);
 
                 Route::post('contactos/reply', 'ContactController@reply')->name('contacts.reply');
+                Route::get('contactos/export', 'ContactController@export')->name('contacts.export');
                 Route::resource('contactos', 'ContactController', ['names' => getResourceRoutesForNameHelper('contacts')]);
 
                 Route::post('alianzas/active', 'AllianceController@active')->name('alliances.active');

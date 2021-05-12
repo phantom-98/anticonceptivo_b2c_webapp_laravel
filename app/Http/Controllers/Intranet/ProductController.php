@@ -85,7 +85,6 @@ class ProductController extends GlobalController
             $product->slug = \Str::slug($request->name);
             $product->price = $request->price;
             $product->sku = $request->sku;
-            $product->stock = $request->stock;
             $product->offer_price = $request->offer_price;
             $product->is_offer = $request->offer_price > 0 ? 1 : 0;
             $product->subcategory_id = $request->subcategory_id;
@@ -97,7 +96,6 @@ class ProductController extends GlobalController
             $product->compound = $request->compound;
             $product->benefits = $request->benefits;
             $product->data_sheet = $request->data_sheet;
-            $product->legal_warning = $request->legal_warning;
             $product->description = $request->description;
             $product->laboratory_id = $request->laboratory_id;
             $product->save();
@@ -201,7 +199,6 @@ class ProductController extends GlobalController
             $product->slug = \Str::slug($request->name);
             $product->price = $request->price;
             $product->sku = $request->sku;
-            $product->stock = $request->stock;
             $product->offer_price = $request->offer_price;
             $product->is_offer = $request->offer_price > 0 ? 1 : 0;
             $product->subcategory_id = $request->subcategory_id;
@@ -213,7 +210,6 @@ class ProductController extends GlobalController
             $product->compound = $request->compound;
             $product->benefits = $request->benefits;
             $product->data_sheet = $request->data_sheet;
-            $product->legal_warning = $request->legal_warning;
             $product->description = $request->description;
             $product->laboratory_id = $request->laboratory_id;
             $product->save();

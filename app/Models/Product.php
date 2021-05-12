@@ -27,7 +27,6 @@ class Product extends Model
         'subcategory_id',
         'benefits',
         'data_sheet',
-        'legal_warning',
         'active'
     ];
 

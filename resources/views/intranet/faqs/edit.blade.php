@@ -37,6 +37,17 @@
                                             value="{{ old('question') ?? $object->question }}">
                                 </div>
                             </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="category_faq_id">Categoría (*)</label>
+                                    <select id="category_faq_id" name="category_faq_id" class="form-control select2" data-width="100%">
+                                        <option value="" selected disabled>Seleccione una categoría</option>
+                                        @foreach($categories as $c)
+                                            <option value="{{ $c->id }}" {{ $object->category_faq_id == $c->id ? 'selected' : ''}}>{{ $c->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label for="answer">Respuesta (*)</label>

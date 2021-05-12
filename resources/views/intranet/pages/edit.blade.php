@@ -42,21 +42,40 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-6">
+                            <div class="col-md-3">
                                 <div class="form-group">
-                                    <label for="section">Sección (*)</label>
-                                    <select id="section" name="section" class="form-control">
-                                        <option val="Responsabilidad Empresarial" {{ $object->section == "Responsabilidad Empresarial" ? "selected" : ""}}>Responsabilidad Empresarial</option>
-                                        <option val="Términos y Condiciones" {{ $object->section == "Términos y Condiciones" ? "selected" : ""}}>Términos y Condiciones</option>
+                                    <label for="type">Tipo de Página (*)</label>
+                                    <select id="type" name="type" class="form-control" onchange="changeType(this.value)">
+                                        <option value="" selected disabled>Seleccione un tipo</option>
+                                        <option value="Página Externa" {{ $object->type == "Página Externa" ? "selected" : ""}}>Página Externa</option>
+                                        <option value="Página Propia" {{ $object->type == "Página Propia" ? "selected" : ""}}>Página Propia</option>
                                     </select>
                                 </div>
                             </div>
 
-                            <div class="col-sm-12">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="section">Sección (*)</label>
+                                    <select id="section" name="section" class="form-control">
+                                        <option value="Responsabilidad Empresarial" {{ $object->section == "Responsabilidad Empresarial" ? "selected" : ""}}>Responsabilidad Empresarial</option>
+                                        <option value="Términos y Condiciones" {{ $object->section == "Términos y Condiciones" ? "selected" : ""}}>Términos y Condiciones</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12" id="propia" style="{{ $object->type == "Página Externa" ? "display:none" : ""}}">
                                 <div class="form-group">
                                     <label for="description">Descripción (*)</label>
                                     <textarea name="description" id="description" rows="3" style="resize: none">{{ old('description') ?? $object->description }}</textarea>
                                 </div>  
+                            </div>
+
+                            <div class="col-md-6" id="externa" style="{{ $object->type == "Página Propia" ? "display:none" : ""}}">
+                                <div class="form-group">
+                                    <label for="link">Link (*)</label>
+                                    <input type="text" id="link" name="link" class="form-control"
+                                            value="{{ old('link') ?? $object->link }}">
+                                </div>
                             </div>
 
                         </div>
@@ -90,6 +109,23 @@
     <script src="/themes/intranet/plugins/select2/js/select2.min.js"></script>
 
     <script src="https://cdn.ckeditor.com/4.11.4/standard/ckeditor.js"></script>
+
+    <script>
+        function changeType(value){
+            if(value == "Página Externa"){
+                $("#externa").show();
+                $("#propia").hide();
+                $("#description").val("");
+                contentcheck = true;
+            } else {
+                $("#externa").hide();
+                $("#propia").show();
+                $("#link").val("");
+                contentcheck = false;
+            }
+        }
+    </script>
+
     <script>
         var editor = CKEDITOR.replace('description', {
             language: 'es',
@@ -111,6 +147,10 @@
                 contentcheck = true;
             } else {
                 contentcheck = false;
+            }
+            let object = @json($object);
+            if(object.type == "Página Externa"){
+                contentcheck = true;
             }
         });
 

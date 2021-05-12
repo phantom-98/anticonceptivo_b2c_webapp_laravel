@@ -30,20 +30,20 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="name">Nombre (*)</label>
-                                    <input type="text" id="name" name="name" class="form-control"
+                                    <input type="text" id="name" name="name" class="form-control" required
                                             value="{{ old('name') }}">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="deadline_delivery">Plazo máximo de entrega (*)</label>
-                                    <input type="text" id="deadline_delivery" name="deadline_delivery" class="form-control"
+                                    <input type="text" id="deadline_delivery" name="deadline_delivery" class="form-control" required
                                     oninput="checkKey('deadline_delivery')" value="{{ old('deadline_delivery') }}">
                                 </div>
                             </div>      
                             <div class="form-group col-md-4">
                                 {!! Form::label('image', 'Imagen (*)') !!}
-                                <input type='file' name='image' class='form-control' accept=".jpg, .png, .jpeg">
+                                <input type='file' name='image' class='form-control' accept=".jpg, .png, .jpeg" required>
                             </div>                     
                         </div>
                         <br/>

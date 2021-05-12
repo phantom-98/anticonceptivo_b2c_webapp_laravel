@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Contact;
+
 if (! function_exists('is_menu_active')) {
     function is_menu_active($menu)
     {
@@ -23,3 +25,11 @@ if (! function_exists('is_parent_menu_active')) {
     }
 }
 
+if (! function_exists('get_reclamos')) {
+    function get_reclamos()
+    {
+        return Contact::whereHas('contact_issue', function($q) {
+            $q->where('type', 'Reclamos');
+        })->where('is_reply', 0)->count();
+    }
+}

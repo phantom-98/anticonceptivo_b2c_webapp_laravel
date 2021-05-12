@@ -19,8 +19,13 @@ class CreatePagesTable extends Migration
             $table->enum('section', [
                 'Responsabilidad Empresarial',
                 'Términos y Condiciones',
-            ]);
+            ])->default('Términos y Condiciones');
+            $table->enum('type', [
+                'Página Externa',
+                'Página Propia',
+            ])->default('Página Propia');
             $table->longText('description')->nullable();
+            $table->string('link')->nullable();
             $table->boolean('active')->default(1);
             $table->timestamps();
         });

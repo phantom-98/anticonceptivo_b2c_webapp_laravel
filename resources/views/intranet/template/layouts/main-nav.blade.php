@@ -65,7 +65,7 @@
                         </li>
 
                         <li class="treeview {{ is_parent_menu_active(['intranet/categorias', 'intranet/subcategorias', 'intranet/marcas', 'intranet/productos',
-                            'intranet/pedidos', 'intranet/laboratorios']) }}">
+                            'intranet/pedidos', 'intranet/laboratorios', 'intranet/aviso-legal-productos']) }}">
                             <a href="#">
                                 <i class="ti-shopping-cart"></i>
                                 <span class="menu-title">Tienda</span>
@@ -93,6 +93,11 @@
                                         <span class="menu-title">Laboratorios</span>
                                     </a>
                                 </li>
+                                <li class="{{ is_menu_active('intranet/aviso-legal-productos') }}">
+                                    <a href="{{ route('intranet.legal_warnings.index') }}">
+                                        <span class="menu-title">Aviso Legal Productos</span>
+                                    </a>
+                                </li>
                                 <li class="{{ is_menu_active('intranet/productos') }}">
                                     <a href="{{ route('intranet.products.index') }}">
                                         <span class="menu-title">Productos</span>
@@ -106,8 +111,8 @@
                             </ul>
                         </li>
                         
-                        <li class="treeview {{ is_parent_menu_active(['intranet/banners', 'intranet/tipos-post-blog', 'intranet/post-blog', 'intranet/faq', 'intranet/configuraciones', 'intranet/paginas', 'intranet/linea-tiempo', 
-                            'intranet/quienes-somos', 'intranet/valores', 'intranet/alianzas', 'intranet/valor-suscripcion', 'intranet/planes-suscripcion', 'intranet/bases-legales', 'intranet/costos-despachos']) }}">
+                        <li class="treeview {{ is_parent_menu_active(['intranet/banners', 'intranet/tipos-post-blog', 'intranet/post-blog', 'intranet/faq', 'intranet/configuraciones', 'intranet/paginas', 'intranet/linea-tiempo', 'intranet/categorias-faq',
+                            'intranet/quienes-somos', 'intranet/valores', 'intranet/alianzas', 'intranet/valor-suscripcion', 'intranet/planes-suscripcion', 'intranet/bases-legales', 'intranet/costos-despachos', 'intranet/consumo-responsable']) }}">
                             <a href="#">
                                 <i class="ti-settings"></i>
                                 <span class="menu-title">Conf. Sitio web</span>
@@ -128,6 +133,11 @@
                                 <li class="{{ is_menu_active('intranet/post-blog') }}">
                                     <a href="{{ route('intranet.posts.index') }}">
                                         <span class="menu-title">Post Blog</span>
+                                    </a>
+                                </li>
+                                <li class="{{ is_menu_active('intranet/categorias-faq') }}">
+                                    <a href="{{ route('intranet.category_faqs.index') }}">
+                                        <span class="menu-title">Categoría FAQ</span>
                                     </a>
                                 </li>
                                 <li class="{{ is_menu_active('intranet/faq') }}">
@@ -180,11 +190,16 @@
                                         <span class="menu-title">Costos Delivery</span>
                                     </a>
                                 </li>
-                                <li class="{{ is_menu_active('intranet/configuraciones') }}">
+                                <li class="{{ is_menu_active('intranet/consumo-responsable') }}">
+                                    <a href="{{ route('intranet.responsible_consumptions.index') }}">
+                                        <span class="menu-title">Consumo Responsable</span>
+                                    </a>
+                                </li>
+                                <!--<li class="{{ is_menu_active('intranet/configuraciones') }}">
                                     <a href="{{ route('intranet.settings.index') }}">
                                         <span class="menu-title">Configuraciones Generales</span>
                                     </a>
-                                </li>
+                                </li>-->
                             </ul>
                         </li>
 
@@ -202,7 +217,7 @@
                             </a>
                         </li>
 
-                        <li class="treeview {{ is_parent_menu_active(['intranet/tipos-contacto', 'intranet/contactos']) }}">
+                        <li class="treeview {{ is_parent_menu_active(['intranet/tipos-contacto', 'intranet/contactos', 'intranet/campanas']) }}">
                             <a href="#">
                                 <i class="ti-help"></i>
                                 <span class="menu-title">Contacto</span>
@@ -210,6 +225,11 @@
                             </a>
                             <!--Submenu-->
                             <ul class="collapse">
+                                <li class="{{ is_menu_active('intranet/campanas') }}">
+                                    <a href="{{ route('intranet.campaigns.index') }}">
+                                        <span class="menu-title">Campañas</span>
+                                    </a>
+                                </li>
                                 <li class="{{ is_menu_active('intranet/tipos-contacto') }}">
                                     <a href="{{ route('intranet.contact_issues.index') }}">
                                         <span class="menu-title">Tipos de Contacto</span>

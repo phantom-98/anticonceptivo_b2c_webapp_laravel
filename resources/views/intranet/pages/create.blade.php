@@ -38,22 +38,41 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-6">
+                            <div class="col-md-3">
                                 <div class="form-group">
-                                    <label for="section">Sección (*)</label>
-                                    <select id="section" name="section" class="form-control">
-                                        <option val="" selected disabled>Seleccione una sección</option>
-                                        <option val="Responsabilidad Empresarial">Responsabilidad Empresarial</option>
-                                        <option val="Términos y Condiciones">Términos y Condiciones</option>
+                                    <label for="type">Tipo de Página (*)</label>
+                                    <select id="type" name="type" class="form-control" onchange="changeType(this.value)">
+                                        <option value="" selected disabled>Seleccione un tipo</option>
+                                        <option value="Página Externa">Página Externa</option>
+                                        <option value="Página Propia">Página Propia</option>
                                     </select>
                                 </div>
                             </div>
 
-                            <div class="col-sm-12">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="section">Sección (*)</label>
+                                    <select id="section" name="section" class="form-control">
+                                        <option value="" selected disabled>Seleccione una sección</option>
+                                        <option value="Responsabilidad Empresarial">Responsabilidad Empresarial</option>
+                                        <option value="Términos y Condiciones">Términos y Condiciones</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12" id="propia" style="display:none">
                                 <div class="form-group">
                                     <label for="description">Descripción (*)</label>
                                     <textarea name="description" id="description" rows="3" style="resize: none">{{ old('description') }}</textarea>
                                 </div>  
+                            </div>
+
+                            <div class="col-md-6" id="externa" style="display:none">
+                                <div class="form-group">
+                                    <label for="link">Link (*)</label>
+                                    <input type="text" id="link" name="link" class="form-control"
+                                            value="{{ old('link') }}">
+                                </div>
                             </div>
 
                         </div>
@@ -85,6 +104,22 @@
 @section('scripts')
     <!--Bootstrap Select [ OPTIONAL ]-->
     <script src="/themes/intranet/plugins/select2/js/select2.min.js"></script>
+
+    <script>
+        function changeType(value){
+            if(value == "Página Externa"){
+                $("#externa").show();
+                $("#propia").hide();
+                $("#description").val("");
+                contentcheck = true;
+            } else {
+                $("#externa").hide();
+                $("#propia").show();
+                $("#link").val("");
+                contentcheck = false;
+            }
+        }
+    </script>
 
     <script src="https://cdn.ckeditor.com/4.11.4/standard/ckeditor.js"></script>
     <script>

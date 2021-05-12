@@ -23,13 +23,50 @@
                                 <form id="form" action="{{ route($config['route'] . 'index') }}"
                                       enctype="multipart/form-data"
                                       method="GET">
-                                    <div class="col-md-3">
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="date">Fecha</label>
+                                            <input type="text"
+                                                   id="date"
+                                                   name="date"
+                                                   class="form-control"
+                                                   data-language="es"
+                                                   data-date-format="dd/mm/yyyy"
+                                                   data-range="true"
+                                                   data-multiple-dates-separator=" - "
+                                                   autocomplete="off"
+                                                   value="{{ $date }}"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
                                         <div class="form-group">
                                             <label for="date">Estado</label>
                                             <select id="status_filter" name="status_filter" class="form-control">
                                                 <option value="Todos"  {{ $status == "Todos" ? "selected" : ""}}>Todos</option>
                                                 <option value="0"  {{ $status == "0" ? "selected" : ""}}>Pendiente</option>
                                                 <option value="1" {{ $status == "1" ? "selected" : ""}}>Resuelto</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="type">Tipo</label>
+                                            <select id="type" name="type" class="form-control">
+                                                <option value="Todos"  {{ $type == "Todos" ? "selected" : ""}}>Todos</option>
+                                                <option value="Reclamos"  {{ $type == "Reclamos" ? "selected" : ""}}>Reclamos</option>
+                                                <option value="Sugerencias"  {{ $type == "Sugerencias" ? "selected" : ""}}>Sugerencias</option>
+                                                <option value="Otros"  {{ $type == "Otros" ? "selected" : ""}}>Otros</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="section">Sección</label>
+                                            <select id="section" name="section" class="form-control">
+                                                <option value="Todas"  {{ $section == "Todas" ? "selected" : ""}}>Todas</option>
+                                                <option value="Servicio al Cliente"  {{ $section == "Servicio al Cliente" ? "selected" : ""}}>Servicio al Cliente</option>
+                                                <option value="Contáctanos"  {{ $section == "Contáctanos" ? "selected" : ""}}>Contáctanos</option>
                                             </select>
                                         </div>
                                     </div>
@@ -40,6 +77,18 @@
                                             </button>
                                         </div>
                                     </div>
+                                    <div class="col-md-1" style="margin-bottom: 10px">
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-success left " onclick="export_excel()"
+                                                    style="margin-top: 23px"><i class="fa fa-file-excel-o"></i> Exportar
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+
+                                <form id="form-export" target="_BLANK"
+                                        action="{{ route($config['route'] . 'export') }}"
+                                        enctype="multipart/form-data" method="GET">
                                 </form>
 
                             </div>
@@ -125,9 +174,35 @@
         height: 600px !important;
     }
 </style>
+<link rel="stylesheet" href="/themes/intranet/plugins/air_datepicker/datepicker.min.css">
 @endsection
 
 @section('scripts')
+
+    <script src="/themes/intranet/plugins/air_datepicker/datepicker.min.js"></script>
+    <script src="/themes/intranet/plugins/air_datepicker/i18n/datepicker.es.js"></script>
+
+    <script>
+        var start = {!! json_encode($start) !!};
+        var end = {!! json_encode($end) !!};
+
+        $('#date').datepicker({
+            position: "bottom left",
+            autoClose: true,
+            range: true,
+            clearButton: true,
+            toggleSelected: false,
+            multipleDates: true
+        });
+        $("#date").keydown(false);
+        if(start){
+            var fecha_start = new Date(start);
+            fecha_start.setDate(fecha_start.getDate() + 1);
+            var fecha_end = new Date(end);
+            fecha_end.setDate(fecha_end.getDate() + 1);
+            $('#date').datepicker().data('datepicker').selectDate([new Date(fecha_start), new Date(fecha_end)]);
+        }
+    </script>
 
     <script>
         const capitalize = (s) => {
@@ -182,13 +257,19 @@
                 },
                 {
                     title: 'Tipo de Contacto',
-                    field: 'contact_issue.name',
+                    field: 'contact_issue.type',
+                    sortable: true,
+                    cellStyle: cellStyle,
+                },
+                {
+                    title: 'Sección',
+                    field: 'contact_issue.section',
                     sortable: true,
                     cellStyle: cellStyle,
                 },
                 {
                     title: 'N° Pedido',
-                    field: 'contact_issue.name',
+                    field: 'order_id',
                     sortable: true,
                     cellStyle: cellStyle,
                     formatter: function (value, row, index) {
@@ -281,6 +362,32 @@
         function answerOption(element){
             $("#reply").val($(element).find(':selected').data('description'));
             $(".swal2-confirm").attr('disabled', false);
+        }
+    </script>
+
+    <script>
+        function export_excel() {
+            $('<input>').attr({
+                type: 'hidden',
+                name: 'date',
+                value: $("#date").val()
+            }).appendTo('#form-export');
+            $('<input>').attr({
+                type: 'hidden',
+                name: 'status',
+                value: $("#status_filter").val()
+            }).appendTo('#form-export');
+            $('<input>').attr({
+                type: 'hidden',
+                name: 'section',
+                value: $("#section").val()
+            }).appendTo('#form-export');
+            $('<input>').attr({
+                type: 'hidden',
+                name: 'type',
+                value: $("#type").val()
+            }).appendTo('#form-export');
+            $('#form-export').submit();
         }
     </script>
 
