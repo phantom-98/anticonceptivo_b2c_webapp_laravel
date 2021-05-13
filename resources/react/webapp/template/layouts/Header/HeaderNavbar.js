@@ -11,17 +11,20 @@ import {Dropdown} from 'react-bootstrap'
 import PUBLIC_ROUTES from "../../../routes/publicRoutes";
 import * as Services from "../../../Services";
 import { v4 as uuidv4 } from 'uuid';
+import {Link} from "react-router-dom";
 
 const HeaderNavbar = () => {
 
     const [categories, setCategories] = useState([]);
-    const [show, setShow] = useState(false);
+    const [show, setShow] = useState({});
 
-    const showDropdown = (e)=>{
-        setShow(!show);
+    const showDropdown = (categoryId) => {
+        let listShow = {}
+        Object.keys(show).map((key, index) => (listShow = {...listShow, [key] : key == categoryId ? true : false}))
+        setShow(listShow);
     }
-    const hideDropdown = e => {
-        setShow(false);
+    const hideDropdown = (categoryId) => {
+        setShow({...show, [categoryId] : false});
     }
 
     useEffect(() => {
@@ -34,7 +37,15 @@ const HeaderNavbar = () => {
             Services.Response({
                 response: response,
                 success: () => {
-                    setCategories(response.data.categories);
+                    let list = [];
+                    let listShow = {};
+                    response.data.categories.map((category) => {
+                        let categoryId = uuidv4();
+                        list = [...list, {...category, ["categoryId"] : categoryId}]
+                        listShow = {...listShow, [categoryId] : false}
+                    })
+                    setCategories(list);
+                    setShow(listShow);
                 },
             });
         }).catch(error => {
@@ -43,7 +54,16 @@ const HeaderNavbar = () => {
     }
 
     const CustomToggle = React.forwardRef(({children, onClick}, ref) => (
-        <div className="pointer" ref={ref} onClick={(e)=> { e.preventDefault(); onClick(e); }}>
+        <div className="pointer" ref={ref}  
+            // onMouseEnter={(e)=> { 
+            //     e.preventDefault(); 
+            //     onClick(e);
+            // }}
+            // onMouseLeave={(e)=> { 
+            //     e.preventDefault(); 
+            //     onClick(e);
+            // }}
+            >
             {children}
         </div>
     ));
@@ -57,10 +77,11 @@ const HeaderNavbar = () => {
                             let url = PUBLIC_ROUTES.SHOP.path;
                             url = url.replace(":category", category.slug);
                             return(
-                                <Dropdown key={uuidv4()}
-                                    show={show}
-                                    onMouseEnter={showDropdown} 
-                                    onMouseLeave={hideDropdown}
+                                <Dropdown key={category.categoryId}
+                                    show={show[category.categoryId]}
+                                    onMouseEnter={() => showDropdown(category.categoryId)} 
+                                    onMouseLeave={() => hideDropdown(category.categoryId)}
+                                    drop={'down'}
                                 >
                                     <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
                                         <HeaderNavbarItem linkTo={url} icon={category.image} text={category.name}/>
@@ -71,10 +92,12 @@ const HeaderNavbar = () => {
                                                 {
                                                     category.subcategories.map((subCategory) => {
                                                         let childUrl = PUBLIC_ROUTES.SHOP.path;
-                                                        url = url.replace(":category", subCategory.slug);
+                                                        childUrl = childUrl.replace(":category", subCategory.slug);
                                                         return(
                                                             <Dropdown.Item key={uuidv4()}>
-                                                                <HeaderNavbarItem linkTo={childUrl} icon={subCategory.image} text={subCategory.name}/>
+                                                                <Link to={childUrl} style={{textDecoration: 'none'}}>
+                                                                    <span className="header-navbar-subitem">{subCategory.name}</span>
+                                                                </Link>
                                                             </Dropdown.Item>
                                                         )
                                                     })
@@ -86,6 +109,13 @@ const HeaderNavbar = () => {
                             )
                         })
                     }
+                    {/* <HeaderNavbarItem linkTo={PUBLIC_ROUTES.SHOP.path} icon={pastillas} text={`Pastillas`} />
+                        <HeaderNavbarItem linkTo={PUBLIC_ROUTES.SHOP.path} icon={masculino} text={`Masculino`} />
+                        <HeaderNavbarItem linkTo={PUBLIC_ROUTES.SHOP.path} icon={testEmbarazo} text={`Test de Embarazo`} />
+                        <HeaderNavbarItem linkTo={PUBLIC_ROUTES.SHOP.path} icon={emergencia} text={`Anticoncepción De Emergencia`} />
+                        <HeaderNavbarItem linkTo={PUBLIC_ROUTES.SHOP.path} icon={jeringa} text={`Duración largo Plazo`} />
+                        <HeaderNavbarItem linkTo={PUBLIC_ROUTES.SHOP.path} icon={anticonceptivo} text={`Métodos Alternativos`} />
+                        <HeaderNavbarItem linkTo={PUBLIC_ROUTES.SHOP.path} icon={femenino} text={`Salud Femenina`} /> */}
                 </div>
             </div>
         </div>

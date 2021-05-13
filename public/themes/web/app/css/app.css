@@ -488,8 +488,23 @@
   color: white;
   font-family: "Poppins", sans-serif;
   font-size: 12px;
-  font-weight: bold;
+  font-weight: 700;
   text-transform: capitalize;
+}
+
+.header-navbar-subitem {
+  cursor: pointer;
+  color: black;
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  text-transform: capitalize;
+  transition: all 0.3s;
+}
+
+.header-navbar-subitem:hover {
+  color: #029BE8;
+  font-weight: 700;
 }
 
 .dropdown-menu-custom {
@@ -497,10 +512,24 @@
   border: 1px solid #F4F4F4;
   box-shadow: 0 0 14px rgba(0, 0, 0, 0.05);
   min-width: 290px;
-  overflow: hidden;
   padding: 10px 0;
   z-index: 99;
   border-radius: 10px;
+  transform: unset !important;
+  margin-top: 40px;
+}
+
+.dropdown-menu-custom::before {
+  content: "";
+  position: absolute;
+  left: 40px;
+  top: -10px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 10px 10px 10px;
+  border-color: transparent transparent white transparent;
+  z-index: 999;
 }
 
 .footer-bottom {
