@@ -492,6 +492,17 @@
   text-transform: capitalize;
 }
 
+.dropdown-menu-custom {
+  background: white;
+  border: 1px solid #F4F4F4;
+  box-shadow: 0 0 14px rgba(0, 0, 0, 0.05);
+  min-width: 290px;
+  overflow: hidden;
+  padding: 10px 0;
+  z-index: 99;
+  border-radius: 10px;
+}
+
 .footer-bottom {
   height: 36px;
   color: white;
