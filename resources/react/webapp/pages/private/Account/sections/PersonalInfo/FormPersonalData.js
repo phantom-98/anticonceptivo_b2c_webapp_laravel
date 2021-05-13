@@ -47,7 +47,7 @@ const FormPersonalData = ({password = true}) =>{
                             inline
                             label="RUT"
                             type="radio"
-                            name="id_number_type"
+                            name="id_type"
                             checked
                             id={`custom-inline-radio-rut`}
                         />
@@ -56,7 +56,7 @@ const FormPersonalData = ({password = true}) =>{
                             inline
                             label="DNI"
                             type="radio"
-                            name="id_number_type"
+                            name="id_type"
                             id={`custom-inline-radio-dni`}
                         />
                     </div>

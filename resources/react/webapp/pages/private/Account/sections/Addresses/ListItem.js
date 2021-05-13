@@ -12,7 +12,7 @@ const ListItem = ({address, showEdit}) => {
                         inline
                         label=""
                         type="radio"
-                        name="id_number_type"
+                        name="id_type"
                         className="mr-1"
                         id={`custom-inline-radio-rut`}
                     />
