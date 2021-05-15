@@ -3,6 +3,7 @@ import {AppContext} from "../../../context/AppProvider";
 import {ModalAuthMode} from "../../../Globals";
 import {Form} from 'react-bootstrap';
 import * as Services from "../../../Services";
+import {setCleanInputError} from "../../../helpers/GlobalUtils";
 
 const Register = () => {
 
@@ -77,6 +78,7 @@ const Register = () => {
                                    onChange={(e) => handleData(e)}
                                    value={data.first_name}
                                    placeholder="Nombres"
+                                   onFocus={setCleanInputError}
                             />
                             <div className="invalid-feedback" />
                         </div>
@@ -91,6 +93,7 @@ const Register = () => {
                                    onChange={(e) => handleData(e)}
                                    value={data.last_name}
                                    placeholder="Apellidos"
+                                   onFocus={setCleanInputError}
                             />
                             <div className="invalid-feedback" />
                         </div>
@@ -105,6 +108,7 @@ const Register = () => {
                                    onChange={(e) => handleData(e)}
                                    value={data.email}
                                    placeholder="E-Mail"
+                                   onFocus={setCleanInputError}
                             />
                             <div className="invalid-feedback" />
                         </div>
@@ -141,6 +145,7 @@ const Register = () => {
                                    onChange={(e) => handleData(e)}
                                    value={data.id_number}
                                    placeholder=""
+                                   onFocus={setCleanInputError}
                             />
                             <div className="invalid-feedback" />
                         </div>
@@ -154,6 +159,7 @@ const Register = () => {
                                 name="phone_code"
                                 onChange={(e) => handleData(e)}
                                 value={data.phone_code}
+                                onFocus={setCleanInputError}
                             >
                                 <option defaultValue value="+56">+56</option>
                             </select>
@@ -170,6 +176,7 @@ const Register = () => {
                                    onChange={(e) => handleData(e)}
                                    value={data.phone}
                                    placeholder="9 5643 2653"
+                                   onFocus={setCleanInputError}
                             />
                             <div className="invalid-feedback" />
                         </div>
@@ -185,6 +192,7 @@ const Register = () => {
                                    onChange={(e) => handleData(e)}
                                    value={data.password}
                                    placeholder="****"
+                                   onFocus={setCleanInputError}
                             />
                             <div className="invalid-feedback" />
                         </div>

@@ -70,6 +70,7 @@ export const ENDPOINT = {
     AUTH: {
         LOGIN: GetBaseURL() + 'auth/login',
         LOGIN_BY_TOKEN: GetBaseURL() + 'auth/login-by-token',
+        RECOVERY_PASSWORD: GetBaseURL() + 'auth/recovery-password',
         REGISTER: GetBaseURL() + 'auth/register',
         VERIFY: GetBaseURL() + 'auth/verify',
         GET_AUTH: GetBaseURL() + 'auth/get-auth',

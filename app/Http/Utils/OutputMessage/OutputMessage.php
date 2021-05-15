@@ -19,5 +19,11 @@ class OutputMessage implements iValidationField, iException, iAuth
 
     const CUSTOMER_REGISTER = 'Cliente registrado correctamente.';
     const CUSTOMER_REGISTER_ERROR = 'No se ha podido registrar el cliente.';
+    const CUSTOMER_NOT_FOUND = 'No se ha podido encontrar al cliente.';
+    const CUSTOMER_NEW_PASSWORD = 'Se ha cambiado la contraseña exitosamente.';
+    const CUSTOMER_NEW_PASSWORD_ERROR = 'No se ha podido cambiar la contrasea, por favor intélo de nuevo más tarde.';
+
+    const RECOVERY_PASSWORD_ERROR = 'No hemos podido generar un link de recuperación de contraseña, por favor re intentalo más tarde.';
+    const RECOVERY_PASSWORD = 'Se ha envíado un correo para recuperar la contraseña.';
 
 }

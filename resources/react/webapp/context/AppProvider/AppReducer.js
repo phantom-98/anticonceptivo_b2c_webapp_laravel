@@ -1,6 +1,8 @@
 import {
     MODAL_AUTH_SHOW,
-    MODAL_AUTH_HIDE
+    MODAL_AUTH_HIDE,
+    MODAL_AUTH_SHOW_SUCCESS_SHOW,
+    MODAL_AUTH_SHOW_SUCCESS_HIDE,
 } from "./types";
 
 export default (state, action) => {
@@ -18,6 +20,20 @@ export default (state, action) => {
                 ...state,
                 showingModalAuth: false,
                 modalAuthType: '',
+            };
+
+        case MODAL_AUTH_SHOW_SUCCESS_SHOW:
+            return {
+                ...state,
+                showingModalAuthSuccess: true,
+                modalAuthSuccessType: action.payload,
+            };
+
+        case MODAL_AUTH_SHOW_SUCCESS_HIDE:
+            return {
+                ...state,
+                showingModalAuthSuccess: false,
+                modalAuthSuccessType: '',
             };
 
         default:
