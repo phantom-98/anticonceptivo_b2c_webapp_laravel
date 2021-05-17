@@ -1,10 +1,49 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import {ModalAuthMode} from "../../../Globals";
 import {AppContext} from "../../../context/AppProvider";
+import {LOCAL_STORAGE} from "../../../context/LocalStorage";
+// import {AuthContext} from "../../../context/AuthProvider"
+import * as Services from "../../../Services";
+import PUBLIC_ROUTES from "../../../routes/publicRoutes";
 
 const Login = () => {
 
     const {showModalAuth} = useContext(AppContext)
+
+    const [data, setData] = useState({
+        email: '',
+        password: '',
+    })
+
+    const handleData = (e) => {
+        setData({...data,
+            [e.target.name]: e.target.value
+        })
+    }
+
+    const login = () => {
+        let url = Services.ENDPOINT.AUTH.LOGIN;
+        let dataForm = data;
+
+        Services.DoPost(url, dataForm).then(response => {
+            Services.Response({
+                response: response,
+                success: () => {
+
+                    localStorage.setItem(LOCAL_STORAGE.AUTH, JSON.stringify(response.data.auth));
+                    localStorage.setItem(LOCAL_STORAGE.AUTH_TOKEN, response.data.auth_token);
+
+                    window.location.href = PUBLIC_ROUTES.HOME.path;
+                },
+                error: () => {
+                    toastr.error(response.message);
+                }
+            });
+        }).catch(error => {
+            Services.ErrorCatch(error)
+        });
+    }
+
 
     return (
         <div className="row">
@@ -21,6 +60,7 @@ const Login = () => {
                                    id="email"
                                    name="email"
                                    placeholder="hola@email.com"
+                                   onChange={(e) => handleData(e)}
                             />
                         </div>
                     </div>
@@ -32,6 +72,7 @@ const Login = () => {
                                    id="password"
                                    name="password"
                                    placeholder="*********"
+                                   onChange={(e) => handleData(e)}
                             />
                         </div>
                     </div>
@@ -45,7 +86,7 @@ const Login = () => {
             </div>
             <div className="col-md-12 py-2 text-center">
                 <button type="button" className="btn btn-bicolor btn-block btn-auth"
-                        onClick={() => alert('Iniciar Sesión')}>
+                        onClick={() => login()}>
                     <span>INICIAR SESIÓN</span>
                 </button>
             </div>

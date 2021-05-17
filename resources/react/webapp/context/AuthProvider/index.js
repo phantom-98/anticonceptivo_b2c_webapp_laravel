@@ -1,15 +1,15 @@
-import React, {useState, createContext, useReducer, useEffect} from 'react';
+import React, {createContext, useReducer, useEffect} from 'react';
 import {LOCAL_STORAGE} from "../LocalStorage";
 import AuthReducer from "./AuthReducer";
+import * as Services from "../../Services";
+import PUBLIC_ROUTES from "../../routes/publicRoutes";
+import Login from "../../components/modals/ModalAuth/Login";
 import {
     LOGIN,
     LOGOUT,
     UPDATE_AUTH,
     UPDATE_AUTH_TOKEN,
 } from "./types";
-import * as Services from "../../Services";
-import {AuthType} from "../../Globals";
-import PUBLIC_ROUTES from "../../routes/publicRoutes";
 
 export const AuthContext = createContext({})
 
@@ -17,7 +17,6 @@ const AuthProvider = (props) => {
 
     const initialState = {
         auth: null,
-        authType: '',
         authToken: '',
         logged: false
     };
@@ -28,17 +27,14 @@ const AuthProvider = (props) => {
 
         const auth = JSON.parse(localStorage.getItem(LOCAL_STORAGE.AUTH))
         const authToken = localStorage.getItem(LOCAL_STORAGE.AUTH_TOKEN)
-        const authType = localStorage.getItem(LOCAL_STORAGE.AUTH_TYPE)
 
-
-        if (auth && authToken && authType) {
+        if (auth && authToken) {
 
             dispatch({
                 type: LOGIN,
                 payload: {
                     auth: auth,
                     auth_token: authToken,
-                    auth_type: authType,
                 }
             })
         }
@@ -46,14 +42,8 @@ const AuthProvider = (props) => {
     }, [])
 
 
-    const login = (authType, credentials) => {
-        let url = '';
-
-        if (authType === AuthType.PROFESSIONAL) {
-            // url = Services.ENDPOINT.AUTH.LOGIN.PROFESSIONAL;
-        } else if (authType === AuthType.COMPANY) {
-            url = Services.ENDPOINT.AUTH.LOGIN.DOCTOR;
-        }
+    const doLogin = (credentials) => {        
+        let url = Services.ENDPOINT.AUTH.LOGIN;
 
         Services.DoPost(url, credentials).then(response => {
             Services.Response({
@@ -63,14 +53,9 @@ const AuthProvider = (props) => {
                         type: LOGIN,
                         payload: response.data
                     })
-                    if (response.data.auth_type === AuthType.PROFESSIONAL) {
-                        window.location.href = PUBLIC_ROUTES.HOME.path;
-                    } else {
-                        window.location.href = '/';
-                    }
-
-                    // history.push('profesionales-online');
-                    // window.location.href = '/profesionales-online';
+                    
+                    window.location.href = PUBLIC_ROUTES.HOME.path;
+                    
                 },
                 error: () => {
                     dispatch({
@@ -85,16 +70,16 @@ const AuthProvider = (props) => {
 
     }
 
-    const recoveryPassword = (authType, credentials) => {
-    }
-
     const logout = () => {
         dispatch({
             type: LOGOUT
         })
-        window.location.href = '/';
+        window.location.href = PUBLIC_ROUTES.HOME.path;
     }
 
+    const recoveryPassword = (credentials) => {
+        console.log('entro al recovery')
+    }
 
     const updateAuth = (auth) => {
         dispatch({
@@ -110,22 +95,21 @@ const AuthProvider = (props) => {
         })
     }
 
-
     return (
         <AuthContext.Provider value={{
             auth: state.auth,
             authType: state.authType,
             authToken: state.authToken,
             logged: state.logged,
-            login,
+            doLogin,
             logout,
+            recoveryPassword,
             updateAuth,
             updateAuthToken,
-            recoveryPassword,
-
         }}>
             {props.children}
 
+            <Login/>
 
         </AuthContext.Provider>
     )

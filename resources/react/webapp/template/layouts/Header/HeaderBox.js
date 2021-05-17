@@ -49,8 +49,7 @@ const HeaderBox = () => {
                                 <div className="col-auto my-auto pr-1">
                                     <Icon path={userBlue}/>
                                 </div>
-                                <div className="col-auto my-auto pl-1"
-                                     onClick={() => showModalAuth(ModalAuthMode.LOGIN)}>
+                                <div className="col-auto my-auto pl-1" onClick={() => showModalAuth(ModalAuthMode.LOGIN)}>
                                     <div className="font-poppins font-13 lh-12 bold">Bienvenid@</div>
                                     <div className="font-poppins font-13 lh-12 regular">Inicia sesión</div>
                                 </div>

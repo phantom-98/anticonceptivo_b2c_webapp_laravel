@@ -1,7 +1,3 @@
-export const AuthType = {
-    CUSTOMER: 'customer',
-}
-
 export const ModalAuthMode = {
     LOGIN: 'LOGIN',
     REGISTER: 'REGISTER',

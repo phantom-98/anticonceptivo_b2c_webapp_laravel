@@ -8,11 +8,12 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Utils\OutputMessage\OutputMessage;
 use App\Http\Utils\AuthGenerator;
-use App\Http\Utils\Enum\IdNumberTypes;
+use App\Http\Utils\Helper;
 use Spatie\Permission\Models\Permission;
 use Willywes\ApiResponse\ApiResponse;
 use App\Models\Customer;
 use App\Http\Utils\Email;
+use Carbon\Carbon;
 
 class AuthController extends Controller
 {
@@ -77,71 +78,49 @@ class AuthController extends Controller
     {
 
         try {
-
+            
             $rules = [
-                'auth_rut' => 'required',
-                'auth_password' => 'required',
+                'email' => 'required',
+                'password' => 'required',
             ];
 
             $messages = [
-                'auth_rut.required' => OutputMessage::FIELD_RUT_REQUIRED,
-                'auth_password.required' => OutputMessage::FIELD_PASSWORD_REQUIRED,
+                'email.required' => OutputMessage::FIELD_EMAIL_REQUIRED,
+                'password.required' => OutputMessage::FIELD_PASSWORD_REQUIRED,
             ];
 
             $validator = Validator::make($request->all(), $rules, $messages);
 
             if ($validator->passes()) {
 
-                $handle = $this->handleUser($request);
+                $customer = Customer::where('email',$request->email)->first();
 
-                $user = $handle['user'];
-                $type = $handle['type'];
-
-                if (!$user) {
-                    return ApiResponse::JsonError(null, OutputMessage::USER_OR_PASSWORD_INCORRECT);
-                }
-                if (!$user->allow_login) {
-                    return ApiResponse::JsonError(null, 'Su Registro está en Proceso de Validación.');
+                if (!$customer) {
+                    return ApiResponse::JsonError(null, OutputMessage::EMAIL_OR_PASSWORD_INCORRECT);
                 }
 
-                if (!$user->active) {
-                    return ApiResponse::JsonError(null, 'Su Registro ha sido Rechazado. Póngase en contacto con contacto@doctormeet.cl.');
+                if (!$customer->active) {
+                    return ApiResponse::JsonError(null, 'Su cuenta no se encuentra activa, si tiene consultas por favor contáctese con nosotros.');
                 }
 
-        //                if (Hash::check($request->auth_password, $user->password)) {
+                if (auth()->guard('customer')->attempt(['email' => $customer->email, 'password' => $request->password])) {
+                    auth()->shouldUse('customer');
 
-                if (auth()->guard($type)->attempt(['email' => $user->email, 'password' => $request->auth_password])) {
-                    auth()->shouldUse($type);
+                    $customer->last_access = Carbon::now();
+                    $customer->save();
 
-                    if ($type === UserTypes::DOCTOR) {
-                        $user->connection_status = ConnectionStatus::ONLINE;
-                        $user->is_visible = false;
-                    }
+                    config(['auth.guards.api.provider' => 'customer']);
 
-                    $user->last_access = now();
-                    $user->save();
-
-        //                if (Auth::guard('intranet')->attempt(['email' => $request->auth_email, 'password' => $request->auth_password])) {
-
-                    config(['auth.guards.api.provider' => $type]);
-                    $token = $user->createToken($user->email . '-' . now(), [$type])->accessToken;
-        //                    $token = Auth::guard('intranet')->user()->createToken($user->email . '-' . now())->accessToken;
-                    $auth = AuthGenerator::GenerateAuth($user, $token, $type);
+                    $token = Helper::GenerateAuthToken();
+                    $auth = AuthGenerator::GenerateAuth($customer, $token, 'customer');
 
                     return ApiResponse::JsonSuccess([
-        //                        'test' => [
-        //                            'intranet' => auth()->guard('intranet')->user(),
-        //                            'doctor' => auth()->guard('doctor')->user(),
-        //                            'patient' => auth()->guard('patient')->user(),
-        //                        ],
                         'auth' => $auth,
                         'auth_token' => $token,
-                        'auth_type' => $auth->auth_type,
-        //                        'access' => Permission::all()->pluck('name')->toArray(),
                     ], OutputMessage::AUTH_GRANTED);
 
                 } else {
-                    return ApiResponse::JsonError(null, OutputMessage::USER_OR_PASSWORD_INCORRECT);
+                    return ApiResponse::JsonError(null, OutputMessage::EMAIL_OR_PASSWORD_INCORRECT);
                 }
 
             } else {

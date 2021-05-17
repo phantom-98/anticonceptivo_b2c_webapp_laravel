@@ -9,7 +9,5 @@ abstract class UserTypes
     // RELACIONADO CON LOS GUARD GENERADOS
 
     const INTRANET = 'intranet';
-//    const CUSTOMER = 'customer';
-    const PATIENT = 'patient';
-    const DOCTOR = 'doctor';
+    const CUSTOMER = 'customer';
 }
