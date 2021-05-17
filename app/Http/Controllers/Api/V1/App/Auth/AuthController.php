@@ -181,10 +181,8 @@ class AuthController extends Controller
 
                     $link = env('APP_URL') . '/recuperar-contrasena/' . encrypt($customer->recovery_pin);
                     $subject = 'Recuperar Contraseña';
-                    $message = 'Para restablecer la contraseña ingrese al siguiente ';
 
                     $body = view('emails.recovery-password', ['data' => [
-                        'message' => $message,
                         'customer' => $customer->full_name,
                         'link' => $link
                     ]])->render();

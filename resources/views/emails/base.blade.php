@@ -29,15 +29,15 @@
         }
 
         a.text-primary:focus, a.text-primary:hover {
-            color: #1fa79c !important
+            color: #009BE8 !important
         }
 
         .text-secondary {
-            color: #f7b589 !important
+            color: #0869A6 !important
         }
 
         a.text-secondary:focus, a.text-secondary:hover {
-            color: #001626 !important
+            color: #009BE8 !important
         }
 
         .bg-primary {
@@ -127,7 +127,7 @@
 <div class="container">
     <div class="card">
         <div class="card-header bg-primary">
-            <img style="" src="https://ikiru.innovaweb.cl/themes/web/assets/images/logo.png"/>
+            <img style="" src="resources/react/webapp/assets/images/logo-full.png"/>
         </div>
         <div class="card-body">
             @if(trim($__env->yieldContent('header')))
