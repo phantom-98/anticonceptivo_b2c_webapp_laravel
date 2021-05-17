@@ -43,7 +43,7 @@ const ModalSuccess = () => {
                             </div>
 
                             <div className="col-md-12 py-2 text-center">
-                                <button type="button" className="btn btn-bicolor btn-block btn-auth" onClick={() => hideModal}>
+                                <button type="button" className="btn btn-bicolor btn-block btn-auth" onClick={() => hideModalAuthSuccess()}>
                                     <span>VOLVER AL INCIO</span>
                                 </button>
                             </div>
