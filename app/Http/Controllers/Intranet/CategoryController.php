@@ -44,18 +44,20 @@ class CategoryController extends GlobalController
     {
         $rules = [
             'name' => 'required|unique:categories,name',
-            'image' => 'required'
+            'image' => 'required',
+            'banner_image' => 'required',
         ];
 
         $messages = [
-            'image.required' => 'El campo imagen es obligatorio.'
+            'image.required' => 'El campo imagen es obligatorio.',
+            'banner_image.required' => 'El campo imagen banner es obligatorio.'
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
 
         if ($validator->passes()) {
 
-            $object = Category::create($request->except(['image']));
+            $object = Category::create(array_merge($request->except('image', 'banner_image'), ['slug' => \Str::slug($request->name)]));
 
             if ($request->image) {
                 $image = $request->file('image');
@@ -63,6 +65,14 @@ class CategoryController extends GlobalController
                 $object->image = $image->storeAs('public/categories', $filename);
                 $object->save();
             }  
+
+            if ($request->banner_image) {
+                $banner_image = $request->file('banner_image');
+                $filename = 'banner-category-' . $object->id  .'.'. $banner_image->getClientOriginalExtension();
+                $object->banner_image = $banner_image->storeAs('public/categories', $filename);
+                $object->save();
+            }  
+
 
             if ($object) {
                 session()->flash('success', 'Categoría creada correctamente.');
@@ -131,6 +141,27 @@ class CategoryController extends GlobalController
                 $object->refresh();
 
                 Log::info('Cambio de foto', [
+                    'date' => date('Y-m-d H:i:s'),
+                    'old_name' => $name,
+                    'new_name' => $filename,
+                    'user' => auth('intranet')->user()->full_name
+                ]);
+            }
+
+            if ($request->banner_image) {
+                $name = "";
+                if($object->banner_image){
+                    $name = $object->banner_image;
+                    Storage::delete($object->banner_image);
+                }
+                $banner_image = $request->file('banner_image');
+                $filename = 'banner-category-' . $object->id  .'.'. $banner_image->getClientOriginalExtension();
+                $object->banner_image = $banner_image->storeAs('public/categories', $filename);
+                $object->save();
+
+                $object->refresh();
+
+                Log::info('Cambio de foto banner', [
                     'date' => date('Y-m-d H:i:s'),
                     'old_name' => $name,
                     'new_name' => $filename,

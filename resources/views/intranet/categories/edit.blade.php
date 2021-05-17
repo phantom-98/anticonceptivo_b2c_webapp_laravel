@@ -30,14 +30,14 @@
                 <div class="panel">
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="name">Nombre (*)</label>
                                     <input type="text" id="name" name="name" class="form-control"
                                            value="{{ old('name') ?? $object->name }}">
                                 </div>
                             </div>
-                            <div class="form-group col-sm-6">
+                            <div class="form-group col-sm-4">
                                 {!! Form::label('image', 'Imagen (20 x 20 px)(*)') !!}
                                 <input id="file-image" type='file' name='image' class='form-control' accept=".jpg, .png, .jpeg">
                                 <br/>
@@ -45,6 +45,14 @@
                                 <img id="image-edit" src="{{ Storage::url($object->image) }}" style="max-width: 100px;"/>
                                 @endif
                             </div>         
+                            <div class="form-group col-sm-4">
+                                {!! Form::label('banner_image', 'Imagen Banner (850 x 200 px)(*)') !!}
+                                <input id="file-image-2" type='file' name='banner_image' class='form-control' accept=".jpg, .png, .jpeg">
+                                <br/>
+                                @if ($object->banner_image)
+                                <img id="image-edit-2" src="{{ Storage::url($object->banner_image) }}" style="max-width: 100px;"/>
+                                @endif
+                            </div>               
                         </div>
                     </div>
                     <div class="panel-footer">
@@ -162,14 +170,16 @@
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
                 reader.onload = function (e) {
-                    $('#image-edit-menu').attr('src', e.target.result);
+                    $('#image-edit-2').attr('src', e.target.result);
                 };
                 reader.readAsDataURL(input.files[0]);
             }
         }
 
-        $("#file-image-menu").change(function () {
+        $("#file-image-2").change(function () {
             readURL2(this);
         });
+
+
     </script>
 @endsection

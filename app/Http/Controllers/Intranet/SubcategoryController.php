@@ -55,7 +55,7 @@ class SubCategoryController extends GlobalController
 
         if ($validator->passes()) {
 
-            $object = Subcategory::create($request->all());
+            $object = Subcategory::create(array_merge($request->all(), ['slug' => \Str::slug($request->name)]));
 
             if ($object) {
                 session()->flash('success', 'Subcategoría creada correctamente.');

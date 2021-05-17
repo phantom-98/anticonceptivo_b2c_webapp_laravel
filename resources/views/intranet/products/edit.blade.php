@@ -203,6 +203,14 @@
                                     </div>
                                 </div>
 
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="is_bioequivalent">¿Es bioequivalente?</label>
+                                        <br/>
+                                        <input class="js-switch" name="is_bioequivalent" id="is_bioequivalent" type="checkbox" value="1" {{ $object->is_bioequivalent == 1 ? 'checked' : '' }}>
+                                    </div>
+                                </div>
+
                                 <div class="clearfix"></div>
 
 
@@ -407,12 +415,25 @@
         }
     </style>
     <link href="/themes/intranet/plugins/summernote/summernote.min.css" rel="stylesheet">
+    <link href="/themes/intranet/plugins/switchery/switchery.min.css" rel="stylesheet">
 @endsection
 
 @section('scripts')
     <script src="/themes/intranet/plugins/select2/js/select2.min.js"></script>
     <script src="/themes/intranet/plugins/rut/jquery.rut.js"></script>
     <script src="/themes/intranet/plugins/summernote/summernote.min.js"></script>
+
+    <script src="/themes/intranet/plugins/switchery/switchery.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
+
+            elems.forEach(function (html) {
+                let switchery = new Switchery(html);
+            });
+        });
+    </script>
 
     <script>
 

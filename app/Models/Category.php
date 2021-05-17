@@ -12,6 +12,7 @@ class Category extends Model
         'slug',
         'image',
         'active',
+        'banner_image',
         'position'
     ];
 

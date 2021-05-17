@@ -153,6 +153,19 @@
 
                         return category;
                     }
+                },
+                {
+                    title: '¿Es bioequivalente?',
+                    field: 'is_bioequivalent',
+                    sortable: true,
+                    cellStyle: midAling,
+                    formatter: function (value, row, index) {
+                        if (row.is_bioequivalent == 0) {
+                            return '<div class="label label-table label-danger">NO</div>';
+                        } else {
+                            return '<div class="label label-table label-success">SI</div>';
+                        }
+                    }
                 }
             ];
 

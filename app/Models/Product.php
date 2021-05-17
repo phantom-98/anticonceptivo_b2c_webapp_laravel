@@ -23,6 +23,7 @@ class Product extends Model
         'width',
         'weigth',
         'stock',
+        'is_bioequivalent',
         'brand_id',
         'subcategory_id',
         'benefits',

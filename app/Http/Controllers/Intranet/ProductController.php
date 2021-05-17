@@ -98,6 +98,7 @@ class ProductController extends GlobalController
             $product->data_sheet = $request->data_sheet;
             $product->description = $request->description;
             $product->laboratory_id = $request->laboratory_id;
+            $product->is_bioequivalent = $request->is_bioequivalent ?? 0;
             $product->save();
 
             
@@ -211,6 +212,7 @@ class ProductController extends GlobalController
             $product->benefits = $request->benefits;
             $product->data_sheet = $request->data_sheet;
             $product->description = $request->description;
+            $product->is_bioequivalent = $request->is_bioequivalent ?? 0;
             $product->laboratory_id = $request->laboratory_id;
             $product->save();
 

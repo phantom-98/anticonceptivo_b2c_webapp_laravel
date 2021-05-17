@@ -23,6 +23,7 @@ class CreateProductsTable extends Migration
 
             $table->boolean('active')->default(1);
             $table->boolean('is_offer')->default(0);
+            $table->boolean('is_bioequivalent')->default(0);
 
             $table->enum('consumption_typology', [
                 'ABA - ORAL S.ORD.GRAGEAS',
