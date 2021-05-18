@@ -47,9 +47,9 @@ class AuthController extends Controller
                 'password.required' => OutputMessage::FIELD_PASSWORD_REQUIRED,
                 'phone_code.required' => OutputMessage::FIELD_PHONE_CODE_REQUIRED,
                 'phone.required' => OutputMessage::FIELD_PHONE_REQUIRED,
-                'id_number.unique' => OutputMessage::FIELD_PHONE_REQUIRED,
-                'email.unique' => OutputMessage::FIELD_PHONE_REQUIRED,
-                'phone.unique' => OutputMessage::FIELD_PHONE_REQUIRED,
+                'id_number.unique' => OutputMessage::FIELD_ID_NUMBER_UNIQUE,
+                'email.unique' => OutputMessage::FIELD_EMAIL_UNIQUE,
+                'phone.unique' => OutputMessage::FIELD_PHONE_UNIQUE,
             ];
 
             $validator = Validator::make($request->all(), $rules, $messages);

@@ -3,7 +3,8 @@ import {AppContext} from "../../../context/AppProvider";
 import {ModalAuthMode} from "../../../Globals";
 import {Form} from 'react-bootstrap';
 import * as Services from "../../../Services";
-import {setCleanInputError} from "../../../helpers/GlobalUtils";
+import {setCleanInputError, setInputError, setCleanInputErrorById} from "../../../helpers/GlobalUtils";
+import RutValidator from "w2-rut-validator";
 
 const Register = () => {
 
@@ -21,9 +22,18 @@ const Register = () => {
     }
 
     const [data, setData] = useState(defaultData);
+    const [rutFlag, setRutFlag] = useState(false);
 
     const handleCheckBox = (e) => {
         if (e.target.id == 'custom-inline-radio-rut') {
+            if ((data.id_number).length > 0) {
+                if (!RutValidator.validate(data.id_number)) {
+                    setRutFlag(true);
+                    setInputError('id_number', 'El formato del RUT no es correcto.')
+                }else{
+                    setRutFlag(false);
+                }
+            }
             setData({
                 ...data,
                 [e.target.name]: 'RUT'
@@ -31,6 +41,12 @@ const Register = () => {
         }
 
         if (e.target.id == 'custom-inline-radio-dni') {
+            if ((data.id_number).length > 0) {
+                if (!RutValidator.validate(data.id_number)) {
+                    setCleanInputErrorById('id_number')
+                }
+            }
+            setRutFlag(false);
             setData({
                 ...data,
                 [e.target.name]: 'DNI'
@@ -46,20 +62,54 @@ const Register = () => {
     }
 
     const save = () => {
-        let url = Services.ENDPOINT.AUTH.REGISTER;
-        let formData = data;
-        
-        Services.DoPost(url, formData).then(response => {
-            Services.Response({
-            response: response,
-                success: () => {
-                    
-                },
+        if (rutFlag) {
+        toastr.warning('El formato del rut es invalido.','Perfil no actualizado.');
+        } else {
+            let url = Services.ENDPOINT.AUTH.REGISTER;
+            let formData = data;
+            
+            Services.DoPost(url, formData).then(response => {
+                Services.Response({
+                response: response,
+                    success: () => {
+                        
+                    },
+                });
+            }).catch(error => {
+                Services.ErrorCatch(error)
             });
-        }).catch(error => {
-            Services.ErrorCatch(error)
-        });
+        }
     }
+
+    const RutFormat = e => {
+        let clean = (e.target.value).replace(/[^0-9Kk]/g, '');
+        clean = clean.toString().toUpperCase();
+
+        if (clean.length < 14) {
+            setData({
+                ...data,
+                [e.target.name]: RutValidator.format(clean)
+            });
+        }
+    }
+
+    const RutValidate = e => {
+        if ((e.target.value).length > 0) {
+            if (!RutValidator.validate(e.target.value)) {
+                setRutFlag(true);
+                setInputError(e.target.id, 'El formato del RUT no es correcto.')
+            }else{
+                setRutFlag(false);
+            }
+        }
+    }
+
+    var inputProps =  {};
+
+    if (data.id_type === 'RUT') {
+        inputProps.onKeyUp = RutFormat;
+        inputProps.onBlur = RutValidate;
+    };
 
     return (
         <div className="row">
@@ -139,13 +189,14 @@ const Register = () => {
                                 />
                             </div>
                             <input type="text"
-                                   className="form-control form-control-custom"
-                                   id="id_number"
-                                   name="id_number"
-                                   onChange={(e) => handleData(e)}
-                                   value={data.id_number}
-                                   placeholder=""
-                                   onFocus={setCleanInputError}
+                                className="form-control form-control-custom"
+                                id="id_number"
+                                name="id_number"
+                                placeholder=""
+                                onChange={(e) => handleData(e)}
+                                value={data.id_number}
+                                onFocus={setCleanInputError}
+                                {...inputProps}
                             />
                             <div className="invalid-feedback" />
                         </div>

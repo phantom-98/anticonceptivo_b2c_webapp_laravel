@@ -109,8 +109,6 @@ const AuthProvider = (props) => {
         }}>
             {props.children}
 
-            <Login/>
-
         </AuthContext.Provider>
     )
 }
