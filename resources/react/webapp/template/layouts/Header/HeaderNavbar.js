@@ -84,7 +84,7 @@ const HeaderNavbar = () => {
                                     drop={'down'}
                                 >
                                     <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
-                                        <HeaderNavbarItem linkTo={url} icon={category.image} text={category.name}/>
+                                        <HeaderNavbarItem linkTo={url} icon={category.public_image} text={category.name}/>
                                     </Dropdown.Toggle>
                                     {
                                         category.subcategories.length ? 
