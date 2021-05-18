@@ -30,7 +30,7 @@ class AuthController extends Controller
             $rules = [
                 'first_name' => 'required',
                 'last_name' => 'required',
-                'email' => 'required|unique:customers,email',
+                'email' => 'required|email|unique:customers,email',
                 'id_number' => 'required|unique:customers,id_number',
                 'id_type' => 'required',
                 'password' => 'required',
@@ -47,7 +47,6 @@ class AuthController extends Controller
                 'password.required' => OutputMessage::FIELD_PASSWORD_REQUIRED,
                 'phone_code.required' => OutputMessage::FIELD_PHONE_CODE_REQUIRED,
                 'phone.required' => OutputMessage::FIELD_PHONE_REQUIRED,
-
                 'id_number.unique' => OutputMessage::FIELD_PHONE_REQUIRED,
                 'email.unique' => OutputMessage::FIELD_PHONE_REQUIRED,
                 'phone.unique' => OutputMessage::FIELD_PHONE_REQUIRED,
@@ -76,11 +75,10 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-
         try {
             
             $rules = [
-                'email' => 'required',
+                'email' => 'required|email',
                 'password' => 'required',
             ];
 
@@ -137,7 +135,7 @@ class AuthController extends Controller
         try {
 
             $rules = [
-                'email' => 'required',
+                'email' => 'required|email',
             ];
 
             $messages = [

@@ -86,6 +86,12 @@ export const ENDPOINT = {
             GET_CATEGORY: GetBaseURL() + 'public-area/get-categories',
         }
     },
+    CUSTOMER:{
+        PROFILE:{
+            GET: GetBaseURL() + 'customer/get-profile',
+            UPDATE: GetBaseURL() + 'customer/update-profile',
+        }
+    },
     PAYMENTS: {
         CREATE_ORDER: GetBaseURL() + 'payment/create-order',
         GET_ORDER_TO_PAY: GetBaseURL() + 'payment/get-order-to-pay',

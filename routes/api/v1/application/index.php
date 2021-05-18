@@ -8,4 +8,5 @@ Route::prefix('app')
     ->group(function () {
         include 'auth.php';
         include 'publicArea.php';
+        include 'customer.php';
     });

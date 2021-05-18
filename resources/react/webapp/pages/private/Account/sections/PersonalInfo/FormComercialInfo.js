@@ -1,8 +1,15 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import {Form} from "react-bootstrap";
+import {setCleanInputError} from "../../../../../helpers/GlobalUtils";
 
-const FormComercialInfo = ({title = 'Datos de Factura'}) => {
+const FormComercialInfo = ({handleData, 
+    rutFormat, 
+    rutValidate, 
+    regions,
+    communes,
+    selectRegion,
+    data, 
+    title = 'Datos de Factura'}) => {
+
     return (
         <div className="row">
 
@@ -14,142 +21,167 @@ const FormComercialInfo = ({title = 'Datos de Factura'}) => {
 
             <div className="col-md-12">
                 <div className="form-group">
-                    <label htmlFor="company_name">Empresa</label>
+                    <label htmlFor="business_id_number">RUT de la empresa</label>
                     <input type="text"
                            className="form-control form-control-custom"
-                           id="company_name"
-                           name="company_name"
-                           placeholder="Empresa"
-                    />
-                </div>
-            </div>
-            <div className="col-md-12">
-                <div className="form-group">
-                    <label htmlFor="company_id_number">RUT de la empresa</label>
-                    <input type="text"
-                           className="form-control form-control-custom"
-                           id="company_id_number"
-                           name="company_id_number"
+                           id="business_id_number"
+                           name="business_id_number"
                            placeholder="RUT de la empresa"
+                           onChange={(e) => handleData(e)}
+                           value={data.business_id_number}
+                           onFocus={setCleanInputError}
+                           onKeyUp={rutFormat}
+                           onBlur={rutValidate}
                     />
+                    <div className="invalid-feedback" />
                 </div>
             </div>
             <div className="col-md-12">
                 <div className="form-group">
-                    <label htmlFor="company_business_name">Razón social</label>
+                    <label htmlFor="business_name">Razón social</label>
                     <input type="text"
                            className="form-control form-control-custom"
-                           id="company_business_name"
-                           name="company_business_name"
+                           id="business_name"
+                           name="business_name"
                            placeholder="Razón social"
+                           onChange={(e) => handleData(e)}
+                           value={data.business_name}
+                           onFocus={setCleanInputError}
                     />
+                    <div className="invalid-feedback" />
                 </div>
             </div>
             <div className="col-md-12">
                 <div className="form-group">
-                    <label htmlFor="company_business_type">Giro</label>
+                    <label htmlFor="commercial_business">Giro</label>
                     <input type="text"
                            className="form-control form-control-custom"
-                           id="company_business_type"
-                           name="company_business_type"
+                           id="commercial_business"
+                           name="commercial_business"
                            placeholder="Giro"
+                           onChange={(e) => handleData(e)}
+                           value={data.commercial_business}
+                           onFocus={setCleanInputError}
                     />
+                    <div className="invalid-feedback" />
                 </div>
             </div>
 
             <div className="col-md-6">
                 <div className="form-group">
-                    <label htmlFor="region_id">Región</label>
+                    <label htmlFor="commercial_region_id">Región</label>
                     <select
                         className="form-control form-control-custom pl-2"
-                        id="region_id"
-                        name="region_id">
-                        <option value="5">REGIÓN DE VALPARAÍSO</option>
+                        id="commercial_region_id"
+                        name="commercial_region_id"
+                        onChange={(e) => selectRegion(e)}
+                        value={data.commercial_region_id}
+                        >
+                            <option value={null}></option>
+                        {
+                            regions.map(region => {
+                                return(
+                                    <option value={region.id} key={region.id}>{region.name}</option>
+                                )
+                            })
+                        }
                     </select>
                 </div>
             </div>
-
             <div className="col-md-6">
                 <div className="form-group">
-                    <label htmlFor="commune_id">Comuna</label>
+                    <label htmlFor="commercial_commune_id">Comuna</label>
                     <select
                         className="form-control form-control-custom pl-2"
-                        id="commune_id"
-                        name="commune_id">
-                        <option value="5">Viña del Mar</option>
+                        id="commercial_commune_id"
+                        name="commercial_commune_id"
+                        onChange={(e) => handleData(e)}
+                        value={data.commercial_commune_id}
+                        >
+                            <option value={null}></option>
+                        {
+                            communes.map(commune => {
+                                return(
+                                    <option value={commune.id} key={commune.id}>{commune.name}</option>
+                                )
+                            })
+                        }
                     </select>
                 </div>
             </div>
 
             <div className="col-md-8">
                 <div className="form-group">
-                    <label htmlFor="address">Dirección</label>
+                    <label htmlFor="commercial_address">Dirección</label>
                     <input type="text"
                            className="form-control form-control-custom"
-                           id="address"
-                           name="address"
+                           id="commercial_address"
+                           name="commercial_address"
                            placeholder="Dirección"
+                           onChange={(e) => handleData(e)}
+                           value={data.commercial_address}
+                           onFocus={setCleanInputError}
                     />
+                    <div className="invalid-feedback" />
                 </div>
             </div>
             <div className="col-md-4">
                 <div className="form-group">
-                    <label htmlFor="address_number">Número casa / depto</label>
+                    <label htmlFor="commercial_additional_address">Número casa / depto</label>
                     <input type="text"
                            className="form-control form-control-custom"
-                           id="address_number"
-                           name="address_number"
+                           id="commercial_additional_address"
+                           name="commercial_additional_address"
                            placeholder="Número casa / depto"
+                           onChange={(e) => handleData(e)}
+                           value={data.commercial_additional_address}
+                           onFocus={setCleanInputError}
                     />
+                    <div className="invalid-feedback" />
                 </div>
             </div>
 
             <div className="col-md-3">
                 <div className="form-group">
-                    <label htmlFor="phone_code">Código</label>
+                    <label htmlFor="commercial_phone_code">Código</label>
                     <select
                         className="form-control form-control-custom pl-2"
-                        id="phone_code"
-                        name="phone_code"
+                        id="commercial_phone_code"
+                        name="commercial_phone_code"
                     >
                         <option value="+56">+56</option>
                     </select>
                 </div>
             </div>
-
             <div className="col-md-9">
                 <div className="form-group">
-                    <label htmlFor="phone">Teléfono</label>
+                    <label htmlFor="commercial_phone">Teléfono</label>
                     <input type="text"
                            className="form-control form-control-custom"
-                           id="phone"
-                           name="phone"
+                           id="commercial_phone"
+                           name="commercial_phone"
                            placeholder="987 654 321"
+                           onChange={(e) => handleData(e)}
+                           value={data.commercial_phone}
+                           onFocus={setCleanInputError}
                     />
+                    <div className="invalid-feedback" />
                 </div>
             </div>
 
             <div className="col-md-12">
                 <div className="form-group">
-                    <label htmlFor="contact_name">Nombre Contacto</label>
-                    <input type="text"
-                           className="form-control form-control-custom"
-                           id="contact_name"
-                           name="contact_name"
-                           placeholder="Nombre Contacto"
-                    />
-                </div>
-            </div>
-
-            <div className="col-md-12">
-                <div className="form-group">
-                    <label htmlFor="contact_email">E-Mail Contacto</label>
+                    <label htmlFor="commercial_email">E-Mail Contacto</label>
                     <input type="email"
                            className="form-control form-control-custom"
-                           id="contact_email"
-                           name="contact_email"
+                           id="commercial_email"
+                           name="commercial_email"
                            placeholder="E-Mail Contacto"
+                           onChange={(e) => handleData(e)}
+                           value={data.commercial_email}
+                           onFocus={setCleanInputError}
                     />
+                    <div className="invalid-feedback" />
                 </div>
             </div>
 

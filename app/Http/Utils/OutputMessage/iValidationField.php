@@ -5,6 +5,7 @@ namespace App\Http\Utils\OutputMessage;
 interface iValidationField
 {
     const FIELD_PASSWORD_REQUIRED = 'La contraseña es obligatoria.';
+    const FIELD_NEW_PASSWORD_REQUIRED = 'La nueva contraseña es obligatoria.';
     const FIELD_PASSWORD_CONFIRMATION_REQUIRED = 'El campo repetir contraseña es obligatorio.';
     const FIELD_RUT_REQUIRED = 'El rut es obligatorio.';
     const FIELD_FIRST_NAME_REQUIRED = 'Los nombres son obligatorios.';
@@ -20,6 +21,7 @@ interface iValidationField
     const FIELD_PHONE_UNIQUE = 'El teléfono ya ha sido registrado.';
 
     const FIELD_PASSWORD_MIN = 'La contraseña debe tener un largo de 8 caracteres.';
+    const FIELD_PASSWORD_INVALID = 'Su contraseña actual no es correcta.';
     const FIELD_PASSWORD_CONFIRMATION_MIN = 'La confirmación de la contraseña debe tener un largo de 8 caracteres.';
 
     const FIELD_PASSWORD_CONFIRMATION = 'Las contraseñas ingresadas no coinciden.';

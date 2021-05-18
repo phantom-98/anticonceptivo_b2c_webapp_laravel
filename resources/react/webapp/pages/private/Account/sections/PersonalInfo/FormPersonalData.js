@@ -1,8 +1,21 @@
 import React, {Fragment} from 'react';
-import ReactDOM from 'react-dom';
 import {Form} from "react-bootstrap";
+import {setCleanInputError} from "../../../../../helpers/GlobalUtils";
 
-const FormPersonalData = ({password = true}) =>{
+const FormPersonalData = ({handleData, 
+    handleCheckBox, 
+    rutFormat, 
+    rutValidate, 
+    data, 
+    password = true}) => {
+
+    var inputProps =  {};
+
+    if (data.id_type === 'RUT') {
+        inputProps.onKeyUp = rutFormat;
+        inputProps.onBlur = rutValidate;
+    };
+
     return (
         <div className="row">
             <div className="col-md-12">
@@ -10,10 +23,14 @@ const FormPersonalData = ({password = true}) =>{
                     <label htmlFor="first_name">Nombres</label>
                     <input type="text"
                            className="form-control form-control-custom"
-                           id="first_name"
-                           name="first_name"
-                           placeholder="Nombres"
+                            id="first_name"
+                            name="first_name"
+                            onChange={(e) => handleData(e)}
+                            value={data.first_name}
+                            placeholder="Nombres"
+                            onFocus={setCleanInputError}
                     />
+                    <div className="invalid-feedback" />
                 </div>
             </div>
             <div className="col-md-12">
@@ -24,7 +41,11 @@ const FormPersonalData = ({password = true}) =>{
                            id="last_name"
                            name="last_name"
                            placeholder="Apellidos"
+                           onChange={(e) => handleData(e)}
+                           value={data.last_name}
+                           onFocus={setCleanInputError}
                     />
+                    <div className="invalid-feedback" />
                 </div>
             </div>
             <div className="col-md-12">
@@ -35,7 +56,11 @@ const FormPersonalData = ({password = true}) =>{
                            id="email"
                            name="email"
                            placeholder="E-Mail"
+                           onChange={(e) => handleData(e)}
+                           value={data.email}
+                           onFocus={setCleanInputError}
                     />
+                    <div className="invalid-feedback" />
                 </div>
             </div>
             <div className="col-md-12">
@@ -50,6 +75,8 @@ const FormPersonalData = ({password = true}) =>{
                             name="id_type"
                             checked
                             id={`custom-inline-radio-rut`}
+                            onClick={(e) => handleCheckBox(e)}
+                            checked={data.id_type === 'RUT' ? true : false}
                         />
                         <Form.Check
                             custom
@@ -58,6 +85,8 @@ const FormPersonalData = ({password = true}) =>{
                             type="radio"
                             name="id_type"
                             id={`custom-inline-radio-dni`}
+                            onClick={(e) => handleCheckBox(e)}
+                            checked={data.id_type === 'DNI' ? true : false}
                         />
                     </div>
                     <input type="text"
@@ -65,9 +94,15 @@ const FormPersonalData = ({password = true}) =>{
                            id="id_number"
                            name="id_number"
                            placeholder=""
+                           onChange={(e) => handleData(e)}
+                           value={data.id_number}
+                           onFocus={setCleanInputError}
+                           {...inputProps}
                     />
+                    <div className="invalid-feedback" />
                 </div>
             </div>
+            
             <div className="col-md-3">
                 <div className="form-group">
                     <label htmlFor="phone_code">Código</label>
@@ -75,12 +110,14 @@ const FormPersonalData = ({password = true}) =>{
                         className="form-control form-control-custom pl-2"
                         id="phone_code"
                         name="phone_code"
+                        onChange={(e) => handleData(e)}
+                        onFocus={setCleanInputError}
                     >
                         <option value="+56">+56</option>
                     </select>
+                    <div className="invalid-feedback" />
                 </div>
             </div>
-
             <div className="col-md-9">
                 <div className="form-group">
                     <label htmlFor="phone">Teléfono</label>
@@ -89,11 +126,13 @@ const FormPersonalData = ({password = true}) =>{
                            id="phone"
                            name="phone"
                            placeholder="987 654 321"
+                           onChange={(e) => handleData(e)}
+                           value={data.phone}
+                           onFocus={setCleanInputError}
                     />
+                    <div className="invalid-feedback" />
                 </div>
             </div>
-
-
             {
                 password ?
                     <Fragment>
@@ -105,18 +144,24 @@ const FormPersonalData = ({password = true}) =>{
                                        id="password"
                                        name="password"
                                        placeholder="****"
+                                       onChange={(e) => handleData(e)}
+                                       onFocus={setCleanInputError}
                                 />
+                                <div className="invalid-feedback" />
                             </div>
                         </div>
                         <div className="col-md-6">
                             <div className="form-group">
-                                <label htmlFor="password_confirmation">Nueva Contraseña</label>
+                                <label htmlFor="new_password">Nueva Contraseña</label>
                                 <input type="password"
                                        className="form-control form-control-custom"
-                                       id="password_confirmation"
-                                       name="password_confirmation"
+                                       id="new_password"
+                                       name="new_password"
                                        placeholder="****"
+                                       onChange={(e) => handleData(e)}
+                                       onFocus={setCleanInputError}
                                 />
+                                <div className="invalid-feedback" />
                             </div>
                         </div>
                     </Fragment> : null
