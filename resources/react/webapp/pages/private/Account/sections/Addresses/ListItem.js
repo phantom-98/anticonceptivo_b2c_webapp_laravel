@@ -1,8 +1,8 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import {Form} from "react-bootstrap";
 
-const ListItem = ({address, showEdit}) => {
+const ListItem = ({address, showEdit, saveDefaultAddress}) => {
+
     return (
         <div className="row">
             <div className="col-auto d-flex pr-0">
@@ -12,9 +12,10 @@ const ListItem = ({address, showEdit}) => {
                         inline
                         label=""
                         type="radio"
-                        name="id_type"
+                        name="default_address"
                         className="mr-1"
-                        id={`custom-inline-radio-rut`}
+                        onClick={() => saveDefaultAddress(address.id, address.customer_id)}
+                        id={`custom-inline-radio-address-${address.id}`}
                     />
                 </div>
             </div>
@@ -26,9 +27,9 @@ const ListItem = ({address, showEdit}) => {
                         </span>
                     </div>
                     <div className="col-12">
-                                <span className="font-poppins font-16 regular color-484848">
-                                 {address.address}, {address.address_number} , Viña del mar, REGIÓN DE VALPARAÍSO
-                                </span>
+                        <span className="font-poppins font-16 regular color-484848">
+                            {address.address}, {address.extra_info} , Viña del mar, REGIÓN DE VALPARAÍSO
+                        </span>
                     </div>
                 </div>
             </div>

@@ -11,4 +11,9 @@ Route::prefix('customer')
         Route::post('get-profile', [ProfileController::class, 'getProfile'])->name('getProfile');
         Route::post('update-profile', [ProfileController::class, 'updateProfile'])->name('updateProfile');
 
+        Route::post('get-addresses', [ProfileController::class, 'getAddresses'])->name('getAddresses');
+        Route::post('update-addresses', [ProfileController::class, 'updateAddresses'])->name('updateAddresses');
+
+        Route::post('update-default-address', [ProfileController::class, 'updateDefaultAddress'])->name('updateDefaultAddress');
+
     });

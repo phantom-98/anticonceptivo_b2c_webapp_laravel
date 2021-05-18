@@ -10,6 +10,7 @@ use Willywes\ApiResponse\ApiResponse;
 use App\Http\Utils\OutputMessage\OutputMessage;
 use App\Models\Customer;
 use App\Models\Region;
+use App\Models\CustomerAddress;
 
 class ProfileController extends Controller
 {
@@ -54,9 +55,9 @@ class ProfileController extends Controller
         }
     }
 
-    public function updateProfile(Request $request){
+    public function updateProfile(Request $request)
+    {
         try{
-
             $customer = Customer::find($request->id);
 
             if (!$customer) {
@@ -110,7 +111,7 @@ class ProfileController extends Controller
             }
 
             if ($validator->passes()) {
-                if ($customer->update(array_merge($request->except(['password'])))) {
+                if ($customer->update($request->except(['password']))) {
                     return ApiResponse::JsonSuccess($customer->only([
                         'first_name', 
                         'last_name',
@@ -126,6 +127,88 @@ class ProfileController extends Controller
             }else{
                 return ApiResponse::JsonFieldValidation($validator->errors());
             }
+        } catch (\Exception $exception) {
+            return ApiResponse::JsonError(null, $exception->getMessage());
+        }
+    }
+
+    public function getAddresses(Request $request)
+    {
+        try {
+            $customer = Customer::find($request->customer_id);
+
+            if (!$customer) {
+                return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_NOT_FOUND);
+            }
+
+            $addresses = CustomerAddress::where('customer_id', $customer->id)->get();
+
+            $regions = Region::with('provinces.communes')->get();
+
+            return ApiResponse::JsonSuccess([
+                'addresses' => $addresses,
+                'regions' => $regions
+            ], OutputMessage::SUCCESS);
+            
+        } catch (\Exception $exception) {
+            return ApiResponse::JsonError(null, $exception->getMessage());
+        }
+    }
+
+    public function updateAddresses(Request $request)
+    {
+        try {
+            $customer = Customer::find($request->customer_id);
+
+            if (!$customer) {
+                return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_NOT_FOUND);
+            }
+
+            $address = CustomerAddress::find($request->address_id);
+
+            if (!$address) {
+                $address = CustomerAddress::create($request->except(['address_id']));
+                return ApiResponse::JsonSuccess($address, OutputMessage::CUSTOMER_ADDRESSES_CREATE);
+            } else {
+                if ($address->update($request->except(['address_id']))) {
+                    return ApiResponse::JsonSuccess($address->only(['name']), OutputMessage::CUSTOMER_ADDRESSES_UPDATE);
+                }else{
+                    return ApiResponse::JsonError(null, OutputMessage::CUSTOMER_ADDRESSES_UPDATE_ERROR);
+                }
+            }
+        } catch (\Exception $exception) {
+            return ApiResponse::JsonError(null, $exception->getMessage());
+        }
+    }
+
+    public function updateDefaultAddress(Request $request)
+    {
+        try {
+
+            $customer = Customer::find($request->customer_id);
+
+            if (!$customer) {
+                return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_NOT_FOUND);
+            }
+
+            $address = CustomerAddress::find($request->address_id);
+
+            if (!$address) {
+                return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_ADDRESS_NOT_FOUND);
+            }
+
+            $oldAddress = CustomerAddress::where('customer_id',$customer->id)->where('default_address',true)->first();
+
+            if ($oldAddress) {
+                $oldAddress->update(['default_address' => false]);
+            }
+
+            if ($address->update(['default_address' => true])) {
+                return ApiResponse::JsonSuccess($address, OutputMessage::SUCCESS);
+            }
+
+            return ApiResponse::JsonError(null, OutputMessage::CUSTOMER_ADDRESS_UPDATE_DEFAULT_ERROR);
+
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, $exception->getMessage());
         }

@@ -90,6 +90,11 @@ export const ENDPOINT = {
         PROFILE:{
             GET: GetBaseURL() + 'customer/get-profile',
             UPDATE: GetBaseURL() + 'customer/update-profile',
+        },
+        ADDRESSES: {
+            GET: GetBaseURL() + 'customer/get-addresses',
+            UPDATE: GetBaseURL() + 'customer/update-addresses',
+            SET_DEFAULT_ADDRESS: GetBaseURL() + 'customer/update-default-address'
         }
     },
     PAYMENTS: {
