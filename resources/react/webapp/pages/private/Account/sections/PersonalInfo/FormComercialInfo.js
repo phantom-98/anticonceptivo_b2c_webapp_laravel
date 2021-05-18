@@ -77,7 +77,7 @@ const FormComercialInfo = ({handleData,
                         onChange={(e) => selectRegion(e)}
                         value={data.commercial_region_id}
                         >
-                            <option value={null}></option>
+                            <option value={null} disabled selected>Seleccionar</option>
                         {
                             regions.map(region => {
                                 return(
@@ -98,7 +98,7 @@ const FormComercialInfo = ({handleData,
                         onChange={(e) => handleData(e)}
                         value={data.commercial_commune_id}
                         >
-                            <option value={null}></option>
+                            <option value={null} disabled selected>Seleccionar</option>
                         {
                             communes.map(commune => {
                                 return(
