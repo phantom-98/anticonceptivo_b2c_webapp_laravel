@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Api\V1\App\Customer;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
+use SendGrid\Mail\Mail;
 use Willywes\ApiResponse\ApiResponse;
 use App\Http\Utils\OutputMessage\OutputMessage;
 use App\Models\Customer;
@@ -321,5 +323,62 @@ class ProfileController extends Controller
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, $exception->getMessage());
         }
+    }
+
+    public function send(Request $request)
+    {
+       try {
+
+            $rules = [
+                'message' => 'required|string|min:10|max:255',
+                'accept_terms' => 'required|boolean',
+            ];
+
+            $messages = [
+                'message.required' => 'El campo mensaje es requerido.',
+                'message.min' => 'El campo mensaje debe contener al menos 10 caracteres.',
+                'message.max' => 'El campo mensaje debe contener menos de 255 caracteres.',
+                'accept_terms.required' => 'No se puede envíar si no acepta los términos y condiciones.',
+            ];
+
+            $validator = Validator::make($request->all(), $rules, $messages);
+
+            if ($validator->passes()) {
+                $emailSubject = $request->subject_one;
+                $emailBody = view('emails.contact-form', ['data' => [
+                    'title' => $emailSubject,
+                    'title_2' => $request->subject_two,
+                    'name' => $request->name,
+                    'message' => $request->message
+                ]])->render();
+
+                $email = new Mail();
+                    
+                $email->setFrom(env('SENDGRID_EMAIL_FROM'), env('SENDGRID_EMAIL_NAME'));
+                $email->setSubject($emailSubject);
+                $email->addTo($request->email, env('SENDGRID_EMAIL_NAME'));
+                $email->addContent(
+                    "text/html", $emailBody
+                );
+
+                $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
+                $response = $sendgrid->send($email);
+
+                if ($response->statusCode() == 202) {
+                    Log::info('SENDGRID CONTACT FORM ENVIADO');
+                    return ApiResponse::JsonSuccess(null, 'Hemos enviado el mensaje correctamente.');
+                } else {
+                    Log::info('SENDGRID CONTACT FORM FALLIDO');
+                    Log::info($response->statusCode());
+                    return ApiResponse::JsonError(null, 'Ha ocurrido un error al enviar el mensaje por favor inténtelo de nuevo más tarde.');
+                }
+            } else {
+                return ApiResponse::JsonFieldValidation($validator->errors());
+            }
+        } catch (\Exception $exception) {
+            Log::error('SENDGRID CONTACT FORM EXCEPTION ' . $exception->getMessage());
+            return ApiResponse::JsonError(null, 'Error inesperado, por favor comuníquese con un administrador.');
+        }
+
     }
 }

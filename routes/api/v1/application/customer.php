@@ -21,4 +21,6 @@ Route::prefix('customer')
         Route::post('get-prescriptions', [ProfileController::class, 'getPrescriptions'])->name('getPrescriptions');
         Route::post('remove-prescriptions', [ProfileController::class, 'removePrescriptions'])->name('removePrescriptions');
 
+        Route::post('send', [ProfileController::class, 'send'])->name('send');
+
     });
