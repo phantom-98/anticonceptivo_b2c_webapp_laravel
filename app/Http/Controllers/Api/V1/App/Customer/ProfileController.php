@@ -12,6 +12,7 @@ use App\Models\Customer;
 use App\Models\Region;
 use App\Models\CustomerAddress;
 use App\Models\Order;
+use App\Models\Prescription;
 
 class ProfileController extends Controller
 {
@@ -230,6 +231,54 @@ class ProfileController extends Controller
             return ApiResponse::JsonSuccess([
                 'orders' => $orders
             ], OutputMessage::SUCCESS);
+
+        } catch (\Exception $exception) {
+            return ApiResponse::JsonError(null, $exception->getMessage());
+        }
+    }
+
+    public function getPrescriptions(Request $request)
+    {
+        try {
+
+            $customer = Customer::find($request->customer_id);
+
+            if (!$customer) {
+                return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_NOT_FOUND);
+            }
+
+            $prescriptions = Prescription::where('customer_id',$customer->id)->get();
+
+            return ApiResponse::JsonSuccess([
+                'prescriptions' => $prescriptions
+            ], OutputMessage::SUCCESS);
+
+        } catch (\Exception $exception) {
+            return ApiResponse::JsonError(null, $exception->getMessage());
+        }
+    }
+
+    public function removePrescriptions(Request $request)
+    {
+        try {
+
+            $customer = Customer::find($request->customer_id);
+
+            if (!$customer) {
+                return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_NOT_FOUND);
+            }
+
+            $prescription = Prescription::where('customer_id',$customer->id)->where('id',$request->prescription_id)->first();
+
+            if (!$prescription) {
+                return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_PRESCRIPTION_NOT_FOUND);
+            }
+
+            if ($prescription->delete()) {
+                return ApiResponse::JsonSuccess(null, OutputMessage::CUSTOMER_PRESCRIPTION_DELETED);
+            }
+
+            return ApiResponse::JsonError(null, OutputMessage::CUSTOMER_PRESCRIPTION_DELETED_ERROR);
 
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, $exception->getMessage());

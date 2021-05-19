@@ -98,6 +98,10 @@ export const ENDPOINT = {
         },
         ORDERS:{
             GET: GetBaseURL() + 'customer/get-orders',
+        },
+        PRESCRIPTIONS:{
+            GET: GetBaseURL() + 'customer/get-prescriptions',
+            REMOVE: GetBaseURL() + 'customer/remove-prescriptions',
         }
     },
     PAYMENTS: {

@@ -29,6 +29,9 @@ class OutputMessage implements iValidationField, iException, iAuth
     const CUSTOMER_ADDRESSES_UPDATE_ERROR = 'No se ha podido actualizar la dirección.';
     const CUSTOMER_ADDRESS_NOT_FOUND = 'No se ha podido encontrar la dirección.';
     const CUSTOMER_ADDRESS_UPDATE_DEFAULT_ERROR = 'No se ha podido actualizar la dirección.';
+    const CUSTOMER_PRESCRIPTION_DELETED = 'Se ha eliminado la receta exitosamente.';
+    const CUSTOMER_PRESCRIPTION_DELETED_ERROR = 'No se ha podido eliminar la receta.';
+    const CUSTOMER_PRESCRIPTION_NOT_FOUND = 'No se ha podido encontrar la receta.';
 
     const RECOVERY_PASSWORD_ERROR = 'No hemos podido generar un link de recuperación de contraseña, por favor re intentalo más tarde.';
     const RECOVERY_PASSWORD = 'Se ha envíado un correo para recuperar la contraseña.';
