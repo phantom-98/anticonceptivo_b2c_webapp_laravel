@@ -25,7 +25,9 @@ class ProductSeeder extends Seeder
             Product::create([
                 'name' => 'Producto ' . ($i+1),
                 'subcategory_id' => rand(1,7),
-                'laboratory_id' => rand(1,5)
+                'laboratory_id' => rand(1,5),
+                'slug' => 'producto-' . ($i+1),
+                'price' => rand(1000,50000),
             ]);
         }
 

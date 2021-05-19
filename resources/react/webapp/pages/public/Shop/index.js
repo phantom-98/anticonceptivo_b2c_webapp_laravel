@@ -16,12 +16,10 @@ const Shop = () => {
 
     useEffect(() => {
         getData();
-        // setProducts(dummy_products);
-        // setCategories(dummy_categories);
     }, [])
 
     const getData = () => {
-        let url = Services. ENDPOINT.NO_AUTH.PRODUCTS.GET;
+        let url = Services.ENDPOINT.NO_AUTH.PRODUCTS.GET;
         Services.DoGet(url).then(response => {
             Services.Response({
                 response: response,
