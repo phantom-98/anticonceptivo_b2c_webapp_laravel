@@ -14,18 +14,18 @@ class ProductSeeder extends Seeder
      */
     public function run()
     {
-        $faker = Faker\Factory::create();
 
         for ($i=0; $i < 5; $i++) { 
             Laboratory::create([
-                'name' => $faker->name
+                'name' => 'Laboratorio ' . ($i+1)
             ]);
         }
 
         for ($i=0; $i < 20; $i++) { 
             Product::create([
                 'name' => 'Producto ' . ($i+1),
-                'subcategory_id' => rand(1,7)
+                'subcategory_id' => rand(1,7),
+                'laboratory_id' => rand(1,5)
             ]);
         }
 
