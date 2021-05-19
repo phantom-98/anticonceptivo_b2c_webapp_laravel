@@ -3,7 +3,6 @@ import {LOCAL_STORAGE} from "../LocalStorage";
 import AuthReducer from "./AuthReducer";
 import * as Services from "../../Services";
 import PUBLIC_ROUTES from "../../routes/publicRoutes";
-import Login from "../../components/modals/ModalAuth/Login";
 import {
     LOGIN,
     LOGOUT,
@@ -42,31 +41,32 @@ const AuthProvider = (props) => {
     }, [])
 
 
-    const doLogin = (credentials) => {        
+    const login = (credentials) => {        
+        console.log('dentro del do login');
         let url = Services.ENDPOINT.AUTH.LOGIN;
 
-        Services.DoPost(url, credentials).then(response => {
-            Services.Response({
-                response: response,
-                success: () => {
-                    dispatch({
-                        type: LOGIN,
-                        payload: response.data
-                    })
+        // Services.DoPost(url, credentials).then(response => {
+        //     Services.Response({
+        //         response: response,
+        //         success: () => {
+        //             dispatch({
+        //                 type: LOGIN,
+        //                 payload: response.data
+        //             })
                     
-                    window.location.href = PUBLIC_ROUTES.HOME.path;
+        //             window.location.href = PUBLIC_ROUTES.HOME.path;
                     
-                },
-                error: () => {
-                    dispatch({
-                        type: LOGIN_FAILED,
-                        payload: response.message
-                    })
-                }
-            });
-        }).catch(error => {
-            Services.ErrorCatch(error)
-        });
+        //         },
+        //         error: () => {
+        //             dispatch({
+        //                 type: LOGIN_FAILED,
+        //                 payload: response.message
+        //             })
+        //         }
+        //     });
+        // }).catch(error => {
+        //     Services.ErrorCatch(error)
+        // });
 
     }
 
@@ -101,7 +101,7 @@ const AuthProvider = (props) => {
             authType: state.authType,
             authToken: state.authToken,
             logged: state.logged,
-            doLogin,
+            login,
             logout,
             recoveryPassword,
             updateAuth,

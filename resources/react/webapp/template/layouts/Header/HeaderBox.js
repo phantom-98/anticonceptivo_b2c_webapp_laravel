@@ -13,11 +13,10 @@ import {ModalAuthMode} from "../../../Globals";
 import {CartContext} from "../../../context/CartProvider";
 import TotalCartItems from "../../../components/shopping/TotalCartItems";
 
-
 const HeaderBox = () => {
 
     const {showModalAuth} = useContext(AppContext)
-    const {auth} = useContext(AuthContext)
+    const {auth, logout} = useContext(AuthContext)
     const {showMiniCart} = useContext(CartContext);
 
     var url = PRIVATE_ROUTES.ACCOUNT.path;
@@ -63,7 +62,7 @@ const HeaderBox = () => {
                                                 <Link to={url} className="font-poppins font-13 lh-12 regular pointer">
                                                     <div className="col-auto pr-1">Mi Cuenta</div>
                                                 </Link>
-                                                <div className="col-auto pl-1 font-poppins font-13 lh-12 regular pointer" onClick={() => console.log('doLogout')}>Cerrar</div>
+                                                <div className="col-auto pl-1 font-poppins font-13 lh-12 regular pointer" onClick={() => logout()}>Cerrar</div>
                                             </div>
                                         </div>
                                     : 
