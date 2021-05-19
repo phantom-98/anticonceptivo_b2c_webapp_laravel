@@ -160,25 +160,44 @@ class ProfileController extends Controller
     public function updateAddresses(Request $request)
     {
         try {
+
             $customer = Customer::find($request->customer_id);
 
             if (!$customer) {
                 return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_NOT_FOUND);
             }
 
+            $rules = [
+                'address' => 'required',
+                'name' => 'required',
+                'extra_info' => 'required',
+                'commune_id' => 'required',
+                'region_id' => 'required',
+            ];
+
+            $messages = [
+                'address.required' => OutputMessage::FIELD_ADDRESS_REQUIRED,
+                'name.required' => OutputMessage::FIELD_ADDRESS_NAME_REQUIRED,
+                'extra_info.required' => OutputMessage::FIELD_EXTRA_INFO_REQUIRED,
+                'commune_id.required' => OutputMessage::FIELD_COMMUNE_ID_REQUIRED,
+                'region_id.required' => OutputMessage::FIELD_REGION_ID_REQUIRED,
+            ];
+
+            $validator = Validator::make($request->all(), $rules, $messages);
             $address = CustomerAddress::find($request->address_id);
 
-            if (!$address) {
-                $address = CustomerAddress::create($request->except(['address_id']));
-                
-                $addresses = CustomerAddress::where('customer_id', $customer->id)->get();
+            if ($validator->passes()) {
+                if (!$address) {
+                    $address = CustomerAddress::create($request->except(['address_id']));
+                    
+                    $addresses = CustomerAddress::where('customer_id', $customer->id)->get();
 
-                return ApiResponse::JsonSuccess([
-                    'addresses' => $addresses
-                ], OutputMessage::CUSTOMER_ADDRESSES_CREATE);
-            } else {
+                    return ApiResponse::JsonSuccess([
+                        'addresses' => $addresses
+                    ], OutputMessage::CUSTOMER_ADDRESSES_CREATE);
+                }
+
                 if ($address->update($request->except(['address_id']))) {
-
                     $addresses = CustomerAddress::where('customer_id', $customer->id)->get();
 
                     return ApiResponse::JsonSuccess([
@@ -187,6 +206,8 @@ class ProfileController extends Controller
                 }else{
                     return ApiResponse::JsonError(null, OutputMessage::CUSTOMER_ADDRESSES_UPDATE_ERROR);
                 }
+            }else{
+                return ApiResponse::JsonFieldValidation($validator->errors());
             }
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, $exception->getMessage());

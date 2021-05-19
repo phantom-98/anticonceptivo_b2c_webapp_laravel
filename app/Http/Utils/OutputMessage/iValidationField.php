@@ -13,10 +13,16 @@ interface iValidationField
     const FIELD_PHONE_REQUIRED = 'El teléfono es obligatorio.';
     const FIELD_PHONE_CODE_REQUIRED = 'El código teléfonico es obligatorio.';
     const FIELD_EMAIL_REQUIRED = 'El email es obligatorio.';
-    const FIELD_ID_NUMBER_REQUIRED = 'El id number es obligatorio.';
-    const FIELD_ID_TYPE_REQUIRED ='El tipo de id number es obligatorio.';
+    const FIELD_ID_NUMBER_REQUIRED = 'El identificador es obligatorio.';
+    const FIELD_ID_TYPE_REQUIRED ='El tipo de identificador es obligatorio.';
+    
+    const FIELD_ADDRESS_NAME_REQUIRED = 'El nombre de la dirección es obligatorio.';
+    const FIELD_ADDRESS_REQUIRED = 'La dirección es obligatoria.';
+    const FIELD_COMMUNE_ID_REQUIRED = 'La comuna es obligatoria.';
+    const FIELD_REGION_ID_REQUIRED = 'La región es obligatoria.';
+    const FIELD_EXTRA_INFO_REQUIRED = 'El número de casa / depto es obligatorio.';
 
-    const FIELD_ID_NUMBER_UNIQUE = 'El id number ya ha sido registrado.';
+    const FIELD_ID_NUMBER_UNIQUE = 'El identificador ya ha sido registrado.';
     const FIELD_EMAIL_UNIQUE = 'El correo ya ha sido registrado.';
     const FIELD_PHONE_UNIQUE = 'El teléfono ya ha sido registrado.';
 
