@@ -170,10 +170,20 @@ class ProfileController extends Controller
 
             if (!$address) {
                 $address = CustomerAddress::create($request->except(['address_id']));
-                return ApiResponse::JsonSuccess($address, OutputMessage::CUSTOMER_ADDRESSES_CREATE);
+                
+                $addresses = CustomerAddress::where('customer_id', $customer->id)->get();
+
+                return ApiResponse::JsonSuccess([
+                    'addresses' => $addresses
+                ], OutputMessage::CUSTOMER_ADDRESSES_CREATE);
             } else {
                 if ($address->update($request->except(['address_id']))) {
-                    return ApiResponse::JsonSuccess($address->only(['name']), OutputMessage::CUSTOMER_ADDRESSES_UPDATE);
+
+                    $addresses = CustomerAddress::where('customer_id', $customer->id)->get();
+
+                    return ApiResponse::JsonSuccess([
+                        'addresses' => $addresses
+                    ], OutputMessage::CUSTOMER_ADDRESSES_UPDATE);
                 }else{
                     return ApiResponse::JsonError(null, OutputMessage::CUSTOMER_ADDRESSES_UPDATE_ERROR);
                 }
@@ -275,7 +285,14 @@ class ProfileController extends Controller
             }
 
             if ($prescription->delete()) {
-                return ApiResponse::JsonSuccess(null, OutputMessage::CUSTOMER_PRESCRIPTION_DELETED);
+
+                $prescriptions = Prescription::where('customer_id',$customer->id)->get();
+
+                return ApiResponse::JsonSuccess([
+                    'prescriptions' => $prescriptions
+                ], OutputMessage::CUSTOMER_PRESCRIPTION_DELETED);
+
+                // return ApiResponse::JsonSuccess(null, OutputMessage::CUSTOMER_PRESCRIPTION_DELETED);
             }
 
             return ApiResponse::JsonError(null, OutputMessage::CUSTOMER_PRESCRIPTION_DELETED_ERROR);

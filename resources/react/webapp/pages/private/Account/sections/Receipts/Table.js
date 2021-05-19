@@ -67,7 +67,7 @@ const Table = () => {
             Services.Response({
                 response: response,
                 success: () => {
-                    getData();
+                    setObjects(response.data.prescriptions);
                     toastr.success(response.message);
                 },
             });

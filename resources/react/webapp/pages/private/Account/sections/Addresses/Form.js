@@ -3,7 +3,7 @@ import toastr from "toastr";
 import {setCleanInputError} from "../../../../../helpers/GlobalUtils";
 import * as Services from "../../../../../Services";
 
-const Form = ({addressSelected, goBack, formMode, getData, customerId, regions}) => {
+const Form = ({addressSelected, goBack, formMode, getData, customerId, regions, setAddresses}) => {
 
     const [address, setAddress] = useState({
         id: '',
@@ -80,7 +80,7 @@ const Form = ({addressSelected, goBack, formMode, getData, customerId, regions})
             Services.Response({
             response: response,
                 success: () => {
-                    getData();
+                    setAddresses(response.data.addresses)
                     toastr.success(response.message);
                     goBack();
             },

@@ -85,6 +85,7 @@ const Index = () => {
                                 getData={getData}
                                 customerId={auth.id}
                                 regions={regions}
+                                setAddresses={setAddresses}
                             /> 
                         : null
                     }
