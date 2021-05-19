@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\V1\App\PublicArea\HomeController;
+use App\Http\Controllers\Api\V1\App\PublicArea\ProductController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('public-area')
@@ -9,5 +10,6 @@ Route::prefix('public-area')
     ->group(function () {
 
         Route::get('get-categories', [HomeController::class, 'getCategories'])->name('getCategories');
-
+        
+        Route::get('get-products', [ProductController::class, 'getProducts'])->name('getProducts');
     });

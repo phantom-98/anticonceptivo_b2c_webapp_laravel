@@ -52,14 +52,14 @@ export const Response = (params) => {
 
 export const ErrorCatch = (error) => {
     console.log('Service.ErrorCatch', error);
-    // const httpErrors = [
-    //     200, 400, 401, 402, 403, 404, 500, 503
-    // ];
-    // if (httpErrors.includes(error.response.status)) {
-    //     console.log(error.response.data.message)
-    // } else {
-    //     console.log('Ha ocurrido un error inesperado, por favor comuníquese con el administrador. ' + error)
-    // }
+    const httpErrors = [
+        200, 400, 401, 402, 403, 404, 500, 503
+    ];
+    if (httpErrors.includes(error.response.status)) {
+        console.log(error.response.data.message)
+    } else {
+        console.log('Ha ocurrido un error inesperado, por favor comuníquese con el administrador. ' + error)
+    }
 }
 
 const GetBaseURL = () => {
@@ -80,10 +80,13 @@ export const ENDPOINT = {
     },
     NO_AUTH: {
         CONTACT: {
-            SEND: GetBaseURL() + 'contact/send'
+            SEND: GetBaseURL() + 'contact/send',
         },
         HOME: {
             GET_CATEGORY: GetBaseURL() + 'public-area/get-categories',
+        },
+        PRODUCTS:{
+            GET: GetBaseURL() + 'public-area/get-products',
         }
     },
     CUSTOMER:{
