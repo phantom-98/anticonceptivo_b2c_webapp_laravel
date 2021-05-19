@@ -2,7 +2,6 @@ import React, {useContext, useEffect, useState} from "react";
 import {Route, Redirect, withRouter} from "react-router-dom";
 import {AuthContext} from "../../context/AuthProvider";
 
-
 const PrivateMiddleware = ({path: path, component: Component, layout: Layout}) => {
 
     const {auth, authType} = useContext(AuthContext);

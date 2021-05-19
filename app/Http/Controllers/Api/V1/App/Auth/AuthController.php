@@ -61,7 +61,21 @@ class AuthController extends Controller
                 ]));
                 
                 if ($customer) {
-                    return ApiResponse::JsonSuccess(null, OutputMessage::CUSTOMER_REGISTER);
+
+                    $customer->last_access = Carbon::now();
+                    $customer->save();
+
+                    config(['auth.guards.api.provider' => 'customer']);
+
+                    $token = Helper::GenerateAuthToken();
+                    $auth = AuthGenerator::GenerateAuth($customer, $token, 'customer');
+
+                    return ApiResponse::JsonSuccess([
+                        'auth' => $auth,
+                        'auth_token' => $token,
+                    ], OutputMessage::AUTH_GRANTED);
+
+                    // return ApiResponse::JsonSuccess(null, OutputMessage::CUSTOMER_REGISTER);
                 } else {
                     return ApiResponse::JsonError(null, OutputMessage::CUSTOMER_REGISTER_ERROR);
                 }

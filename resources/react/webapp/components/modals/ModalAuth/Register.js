@@ -5,6 +5,8 @@ import {Form} from 'react-bootstrap';
 import * as Services from "../../../Services";
 import {setCleanInputError, setInputError, setCleanInputErrorById} from "../../../helpers/GlobalUtils";
 import RutValidator from "w2-rut-validator";
+import {LOCAL_STORAGE} from "../../../context/LocalStorage";
+import PUBLIC_ROUTES from "../../../routes/publicRoutes";
 
 const Register = () => {
 
@@ -72,7 +74,10 @@ const Register = () => {
                 Services.Response({
                 response: response,
                     success: () => {
-                        
+                        localStorage.setItem(LOCAL_STORAGE.AUTH, JSON.stringify(response.data.auth));
+                        localStorage.setItem(LOCAL_STORAGE.AUTH_TOKEN, response.data.auth_token);
+
+                        window.location.href = PUBLIC_ROUTES.HOME.path;
                     },
                 });
             }).catch(error => {
