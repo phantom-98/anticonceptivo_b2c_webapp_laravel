@@ -55,12 +55,15 @@ class Customer extends Authenticatable
         return $this->first_name . ' ' . $this->last_name . '|'. $this->id_number;
     }
 
-
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
 
-    protected $appends = ['full_name', 'nice_date'];
+    protected $appends = [
+        'full_name', 
+        'nice_date',
+        'full_phone'
+    ];
 
     public function getFullNameAttribute()
     {
@@ -72,6 +75,10 @@ class Customer extends Authenticatable
         return Carbon::parse($this->created_at)->format('d-m-Y') ?? 'No especificada';
     }
 
+    public function getFullPhoneAttribute()
+    {
+        return $this->phone_code . ' ' . $this->phone;
+    }
 
     public function customer_addresses(){
         return $this->hasMany(CustomerAddress::class);

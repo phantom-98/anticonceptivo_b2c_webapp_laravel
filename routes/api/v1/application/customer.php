@@ -16,4 +16,6 @@ Route::prefix('customer')
 
         Route::post('update-default-address', [ProfileController::class, 'updateDefaultAddress'])->name('updateDefaultAddress');
 
+        Route::post('get-orders', [ProfileController::class, 'getOrders'])->name('getOrders');
+
     });

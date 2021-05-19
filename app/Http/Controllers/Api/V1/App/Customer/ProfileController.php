@@ -11,6 +11,7 @@ use App\Http\Utils\OutputMessage\OutputMessage;
 use App\Models\Customer;
 use App\Models\Region;
 use App\Models\CustomerAddress;
+use App\Models\Order;
 
 class ProfileController extends Controller
 {
@@ -208,6 +209,27 @@ class ProfileController extends Controller
             }
 
             return ApiResponse::JsonError(null, OutputMessage::CUSTOMER_ADDRESS_UPDATE_DEFAULT_ERROR);
+
+        } catch (\Exception $exception) {
+            return ApiResponse::JsonError(null, $exception->getMessage());
+        }
+    }
+
+    public function getOrders(Request $request)
+    {
+        try {
+
+            $customer = Customer::find($request->customer_id);
+
+            if (!$customer) {
+                return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_NOT_FOUND);
+            }
+
+            $orders = Order::where('customer_id',$customer->id)->with(['customer','order_items'])->get();
+
+            return ApiResponse::JsonSuccess([
+                'orders' => $orders
+            ], OutputMessage::SUCCESS);
 
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, $exception->getMessage());
