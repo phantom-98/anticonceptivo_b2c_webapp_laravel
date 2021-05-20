@@ -32,7 +32,7 @@ class ProductController extends Controller
             }
 
             $product = Product::where('active',true)->where('slug',$request->product_slug)
-                ->with(['subcategory.category','images','laboratory'])->first();
+                ->with(['subcategory.category','images','laboratory','plans.subscription_plan'])->first();
 
             if (!$product) {
                 return ApiResponse::JsonError(null, OutputMessage::PRODUCT_NOT_FOUND);

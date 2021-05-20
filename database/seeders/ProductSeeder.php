@@ -5,6 +5,8 @@ use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\Laboratory;
 use App\Models\LegalWarning;
+use App\Models\SubscriptionPlan;
+use App\Models\ProductSubscriptionPlan;
 
 class ProductSeeder extends Seeder
 {
@@ -38,6 +40,21 @@ class ProductSeeder extends Seeder
             ProductImage::create([
                 'file' => '/themes/web/products/product-'. rand(1,4) .'.png',
                 'product_id' => ($i+1)
+            ]);
+        }
+
+        for ($i=0; $i < 4; $i++) { 
+            SubscriptionPlan::create([
+                'months' => ($i*$i+1),
+                'active' => 1
+            ]);
+        }
+
+        for ($i=0; $i < 10; $i++) { 
+            ProductSubscriptionPlan::create([
+                'warnings' => '????',
+                'product_id' => rand(1,20),
+                'subscription_plan_id' => rand(1,4),
             ]);
         }
 

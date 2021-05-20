@@ -18,7 +18,7 @@ const ProductTabs = ({product, legalWarning}) =>{
                     activeKey={key}
                     onSelect={(k) => setKey(k)}
                 >
-                    <Tab eventKey="benefits" title="Beneficios">
+                    <Tab eventKey="benefits" title="Beneficios y usos">
                         <div className="panel-bordered bg-white p-5">
                             <p className="font-poppins font-14 regular">
                                 {product.benefits}

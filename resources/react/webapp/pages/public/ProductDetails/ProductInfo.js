@@ -15,7 +15,7 @@ const ProductInfo = ({product}) => {
             </div>
             <div className="col-md-6 text-right">
                 <span className="font-poppins font-14 color-009BE8">
-                   SKU: 190081
+                   SKU: {product.sku}
                 </span>
             </div>
             <div className="col-md-12">
@@ -25,8 +25,7 @@ const ProductInfo = ({product}) => {
             </div>
             <div className="col-md-12">
                 <p className="font-poppins font-14 regular color-6C6B6B">
-                    A plataforma web está sujeta a la reposición de los mismos en nuestros locales, en particular
-                    aquella farmacia física vinculada con la compra
+                    {product.description}
                 </p>
             </div>
             <div className="col-md-12">
@@ -39,6 +38,17 @@ const ProductInfo = ({product}) => {
                     Suscríbete a nuestros planes
                 </p>
                 <div className="row">
+                    {/* {
+                        product.plans.map(plan => {
+                            return(
+                                <div className="col-auto ">
+                                    <button className="btn btn-outline-primary btn-months">
+                                       { plan.subscription_plan.months } Meses
+                                    </button>
+                                </div>
+                            )
+                        })
+                    } */}
                     <div className="col-auto ">
                         <button className="btn btn-outline-primary btn-months">
                             4 Meses
