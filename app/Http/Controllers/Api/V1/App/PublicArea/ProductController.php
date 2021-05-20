@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Willywes\ApiResponse\ApiResponse;
 use App\Http\Utils\OutputMessage\OutputMessage;
 use App\Models\Product;
+use App\Models\Category;
 use App\Models\LegalWarning;
 
 class ProductController extends Controller
@@ -14,14 +15,32 @@ class ProductController extends Controller
     public function getProducts()
     {
         try {
-            $products = Product::where('active',true)->with(['subcategory.category','images','laboratory'])->get();
+            $products = Product::where('active',true)->with(['subcategory.category','images','laboratory'])->take(10)->get();
 
-            return ApiResponse::JsonSuccess(['products' => $products]);
+            return ApiResponse::JsonSuccess([
+                'products' => $products
+            ]);
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, $exception->getMessage());
         }
     }
 
+    public function getResources()
+    {
+        try {
+            $products = Product::where('active',true)->with(['subcategory.category','images','laboratory'])->get();
+            $category = Category::where('active',true)->with(['subcategories'])->get();
+            $laboratory = Laboratory::where('active',true)->get();
+
+            return ApiResponse::JsonSuccess([
+                'products' => $products,
+                'category' => $category,
+                'laboratory' => $laboratory
+            ]);
+        } catch (\Exception $exception) {
+            return ApiResponse::JsonError(null, $exception->getMessage());
+        }
+    }
 
     public function getProductBySlug(Request $request)
     {

@@ -2,7 +2,7 @@ import React, {Fragment, useEffect, useState} from 'react';
 
 import PUBLIC_ROUTES from "../../../routes/publicRoutes";
 import BasePanelTwo from "../../../template/BasePanelTwo";
-import {dummy_categories, dummy_products} from "../../../helpers/productsData";
+// import {dummy_categories, dummy_products} from "../../../helpers/productsData";
 import Filter from "./Filter";
 import ProductList from "./ProductList";
 import Subscribe from "../../../components/sections/Subscribe";
@@ -13,18 +13,22 @@ const Shop = () => {
 
     const [products, setProducts] = useState([]);
     const [categories, setCategories] = useState([]);
+    const [laboratories, setLaboratories] = useState([]);
 
     useEffect(() => {
         getData();
     }, [])
 
     const getData = () => {
-        let url = Services.ENDPOINT.NO_AUTH.PRODUCTS.GET;
+        let url = Services.ENDPOINT.NO_AUTH.SHOP.RESOURCES
+        
         Services.DoGet(url).then(response => {
             Services.Response({
                 response: response,
                 success: () => {
                     setProducts(response.data.products);
+                    setCategories(response.data.categories);
+                    setLaboratories(response.data.laboratories);
                 },
             });
         }).catch(error => {

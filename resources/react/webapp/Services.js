@@ -85,7 +85,10 @@ export const ENDPOINT = {
         HOME: {
             GET_CATEGORY: GetBaseURL() + 'public-area/get-categories',
         },
-        PRODUCTS:{
+        SHOP:{
+            RESOURCES: GetBaseURL() + 'public-area/get-resources',
+        },
+        PRODUCT:{
             GET: GetBaseURL() + 'public-area/get-products',
         },
         PRODUCT_BY_SLUG:{
