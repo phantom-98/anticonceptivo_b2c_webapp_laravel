@@ -92,7 +92,7 @@ const ProductDetail = ({match}) => {
 
                 </BasePanelTwo>
 
-                {/* <ProductsCarousel title="Te podría interesar"/> */}
+                <ProductsCarousel title="Te podría interesar"/>
 
                 <Subscribe/>
             </Fragment>
