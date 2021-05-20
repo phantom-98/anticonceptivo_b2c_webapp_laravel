@@ -9,6 +9,7 @@ use App\Http\Utils\OutputMessage\OutputMessage;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\LegalWarning;
+use App\Models\Laboratory;
 
 class ProductController extends Controller
 {
