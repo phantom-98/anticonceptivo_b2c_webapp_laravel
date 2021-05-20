@@ -24,6 +24,7 @@ class Product extends Model
         'weigth',
         'stock',
         'is_bioequivalent',
+        'format',
         'brand_id',
         'subcategory_id',
         'benefits',

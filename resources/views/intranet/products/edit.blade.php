@@ -188,7 +188,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="form-group {{ $errors->has('consumption_typology') ? 'has-error':'' }}">
                                         <label for="consumption_typology">Tipología consumo (*)</label>
                                         <select class="form-control"
@@ -210,6 +210,17 @@
                                         <input class="js-switch" name="is_bioequivalent" id="is_bioequivalent" type="checkbox" value="1" {{ $object->is_bioequivalent == 1 ? 'checked' : '' }}>
                                     </div>
                                 </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="format">Formato</label>
+                                        <select id="format" name="format" class="form-control" required>
+                                            <option value="" {{$object->format == null ? "selected" : ""}}>Sin formato</option>
+                                            <option value="21" {{$object->format == "21" ? "selected" : ""}}>21</option>
+                                            <option value="28" {{$object->format == "28" ? "selected" : ""}}>28</option>
+                                        </select>
+                                    </div>
+                                </div> 
 
                                 <div class="clearfix"></div>
 

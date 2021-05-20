@@ -173,7 +173,7 @@
                                         {!! $errors->first('weigth', '<span class="help-block">:message</span>') !!}
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="form-group {{ $errors->has('consumption_typology') ? 'has-error':'' }}">
                                         <label for="consumption_typology">Tipología consumo (*)</label>
                                         <select class="form-control"
@@ -187,13 +187,23 @@
                                         {!! $errors->first('consumption_typology', '<span class="help-block">:message</span>') !!}
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="is_bioequivalent">¿Es bioequivalente?</label>
                                         <br/>
                                         <input class="js-switch" name="is_bioequivalent" id="is_bioequivalent" type="checkbox" value="1">
                                     </div>
                                 </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="format">Formato (*)</label>
+                                        <select id="format" name="format" class="form-control" required>
+                                            <option value="" selected>Sin formato</option>
+                                            <option value="21">21</option>
+                                            <option value="28">28</option>
+                                        </select>
+                                    </div>
+                                </div> 
                                 <div class="clearfix"></div>
 
                             </div>
