@@ -4,6 +4,7 @@ import {formatMoney} from "../../helpers/GlobalUtils";
 import PUBLIC_ROUTES from "../../routes/publicRoutes";
 import {Link} from "react-router-dom";
 import AddCartCard from "./AddCartCard";
+import noImage from "./../../assets/images/dummy/no-image.png";
 
 const ProductCard = ({product, className = ''}) => {
 
@@ -14,7 +15,7 @@ const ProductCard = ({product, className = ''}) => {
             <div className="product-card-image">
                 <Link to={(PUBLIC_ROUTES.PRODUCT_DETAIL.path).replace(':slug?', product.slug)}
                       style={{textDecoration: 'none', color: '#000000'}}>
-                    <img src={product.images[0].file} alt={`${CONFIG.APP_NAME} - ${product.name}`}/>
+                    <img src={product.images.length ? product.images[0].file : noImage} alt={`${CONFIG.APP_NAME} - ${product.name}`}/>
                 </Link>
             </div>
             <div className="product-card-body">
