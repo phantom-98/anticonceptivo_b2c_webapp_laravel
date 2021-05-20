@@ -58,11 +58,17 @@ class ProductController extends Controller
                 return ApiResponse::JsonError(null, OutputMessage::PRODUCT_NOT_FOUND);
             }
 
+            $prods = Product::where('active',true)->with('subcategory.category','laboratory','images')
+            ->whereHas('subcategory',function($q) use ($product){
+                $q->where('category_id',$product->subcategory->category_id);
+            })->get();
+
             $legalWarnings = LegalWarning::first();
 
             return ApiResponse::JsonSuccess([
                 'product' => $product,
-                'legal_warnings' => $legalWarnings
+                'legal_warnings' => $legalWarnings,
+                'prods' => $prods
             ], OutputMessage::SUCCESS);
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, $exception->getMessage());

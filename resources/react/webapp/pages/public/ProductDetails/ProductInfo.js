@@ -38,7 +38,7 @@ const ProductInfo = ({product}) => {
                     Suscríbete a nuestros planes
                 </p>
                 <div className="row">
-                    {/* {
+                    {
                         product.plans.map(plan => {
                             return(
                                 <div className="col-auto ">
@@ -48,8 +48,8 @@ const ProductInfo = ({product}) => {
                                 </div>
                             )
                         })
-                    } */}
-                    <div className="col-auto ">
+                    }
+                    {/* <div className="col-auto ">
                         <button className="btn btn-outline-primary btn-months">
                             4 Meses
                         </button>
@@ -63,7 +63,7 @@ const ProductInfo = ({product}) => {
                         <button className="btn btn-outline-primary btn-months">
                             12 Meses
                         </button>
-                    </div>
+                    </div> */}
                 </div>
             </div>
 

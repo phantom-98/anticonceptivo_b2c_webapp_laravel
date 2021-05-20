@@ -73,7 +73,7 @@ const Index = () => {
                     </div>
 
                     {
-                        view === 'list' ? <List addresses={addresses} showEdit={showEdit} showCreate={showCreate}/> : null
+                        view === 'list' ? <List addresses={addresses} getData={getData} showEdit={showEdit} showCreate={showCreate}/> : null
                     }
 
                     {

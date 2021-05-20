@@ -13,6 +13,7 @@ const ListItem = ({address, showEdit, saveDefaultAddress}) => {
                         label=""
                         type="radio"
                         name="default_address"
+                        checked={address.default_address ? true : false}
                         className="mr-1"
                         onClick={() => saveDefaultAddress(address.id, address.customer_id)}
                         id={`custom-inline-radio-address-${address.id}`}

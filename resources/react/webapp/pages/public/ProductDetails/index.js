@@ -5,7 +5,7 @@ import Subscribe from "../../../components/sections/Subscribe";
 import {dummy_products} from "../../../helpers/productsData";
 import {CONFIG} from "../../../Config";
 import ProductTabs from "./ProductTabs";
-import ProductsCarousel from "../../../components/sections/ProductsCarousel";
+import ProductsCarousel from "../../../components/sections/ProductsCarouselV2";
 import ProductInfo from "./ProductInfo";
 import ProductGallery from "./ProductGalery";
 import * as Services from "../../../Services";
@@ -14,12 +14,9 @@ import LazyLoading from "../../../components/LazyLoading";
 const ProductDetail = ({match}) => {
 
     const [product, setProduct] = useState(null);
+    const [prods, setProds] = useState([]);
     const [legalWarning, setLegalWarning] = useState({});
     const [breadcrumbs, setBreadcrumbs] = useState([]);
-
-    useEffect(() => {
-        getData();
-    },[])
 
     useEffect(() => {
         if (product) {
@@ -40,6 +37,12 @@ const ProductDetail = ({match}) => {
         }
     },[product])
 
+    useEffect(() => {
+        if (match) {
+            getData();
+        }
+    },[match])
+
     const getData = () => {
         let url = Services.ENDPOINT.NO_AUTH.PRODUCT_BY_SLUG.GET;
         let data = {
@@ -50,6 +53,7 @@ const ProductDetail = ({match}) => {
             response: response,
                 success: () => {
                     setProduct(response.data.product);
+                    setProds(response.data.prods);
                     setLegalWarning(response.data.legal_warnings);
                 },
                 error: () => {
@@ -92,7 +96,10 @@ const ProductDetail = ({match}) => {
 
                 </BasePanelTwo>
 
-                <ProductsCarousel title="Te podría interesar"/>
+                <ProductsCarousel
+                    prods={prods}
+                    title="Te podría interesar"
+                />
 
                 <Subscribe/>
             </Fragment>
