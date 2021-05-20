@@ -1,5 +1,6 @@
 import React from 'react';
 import {Accordion, Card, Form} from "react-bootstrap";
+import { v4 as uuidv4 } from 'uuid';
 
 const Filter = () => {
 
@@ -9,37 +10,37 @@ const Filter = () => {
             name: 'Categorías',
             items: [
                 {
-                    id: 1,
+                    id: 10,
                     name: 'Pastillas',
                     total: 411
                 },
                 {
-                    id: 2,
+                    id: 11,
                     name: 'Masculino',
                     total: 131
                 },
                 {
-                    id: 3,
+                    id: 12,
                     name: 'Test de Embarazo',
                     total: 56
                 },
                 {
-                    id: 4,
+                    id: 13,
                     name: 'Anticonceptivos Emergencia',
                     total: 8
                 },
                 {
-                    id: 5,
+                    id: 14,
                     name: 'Duración largo plazo',
                     total: 131
                 },
                 {
-                    id: 6,
+                    id: 15,
                     name: 'Métodos Alternativos',
                     total: 56
                 },
                 {
-                    id: 7,
+                    id: 16,
                     name: 'Salud Femenina',
                     total: 8
                 }
@@ -66,7 +67,7 @@ const Filter = () => {
             items: []
         },
         {
-            id: 5,
+            id: 6,
             name: 'Formato',
             items: []
         },
@@ -84,7 +85,7 @@ const Filter = () => {
                                     <Card.Body bsPrefix="card-body pt-0">
                                         {
                                             filter.items.map((item) => {
-
+                                                let uuid = uuidv4();
                                                 return <Form.Check
                                                     custom
                                                     label={<span
@@ -93,6 +94,7 @@ const Filter = () => {
                                                             className="color-D8D8D8">({item.total})</span></span>}
                                                     type="checkbox"
                                                     id={`custom-inline-checkbox-${item.id}`}
+                                                    key={uuid}
                                                 />
                                             })
                                         }
