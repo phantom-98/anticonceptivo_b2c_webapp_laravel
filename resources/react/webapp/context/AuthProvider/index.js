@@ -78,7 +78,7 @@ const AuthProvider = (props) => {
     }
 
     const recoveryPassword = (credentials) => {
-        console.log('entro al recovery')
+        console.log('dentro al recovery')
     }
 
     const updateAuth = (auth) => {
