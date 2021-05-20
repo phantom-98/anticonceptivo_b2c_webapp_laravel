@@ -10,7 +10,7 @@ const ProductInfo = ({product}) => {
         <div className="row">
             <div className="col-md-6">
                 <span className="font-poppins font-14 font-italic color-707070">
-                    {product.brand.name}
+                    {product.laboratory.name}
                 </span>
             </div>
             <div className="col-md-6 text-right">

@@ -32,6 +32,8 @@ class OutputMessage implements iValidationField, iException, iAuth
     const CUSTOMER_PRESCRIPTION_DELETED = 'Se ha eliminado la receta exitosamente.';
     const CUSTOMER_PRESCRIPTION_DELETED_ERROR = 'No se ha podido eliminar la receta.';
     const CUSTOMER_PRESCRIPTION_NOT_FOUND = 'No se ha podido encontrar la receta.';
+    const PRODUCT_SLUG_NOT_FOUND = 'No se ha podido encontrar el producto.';
+    const PRODUCT_NOT_FOUND = 'No se ha podido encontrar el producto.';
 
     const RECOVERY_PASSWORD_ERROR = 'No hemos podido generar un link de recuperación de contraseña, por favor re intentalo más tarde.';
     const RECOVERY_PASSWORD = 'Se ha envíado un correo para recuperar la contraseña.';

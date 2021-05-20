@@ -4,6 +4,7 @@ use Illuminate\Database\Seeder;
 use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\Laboratory;
+use App\Models\LegalWarning;
 
 class ProductSeeder extends Seeder
 {
@@ -28,6 +29,8 @@ class ProductSeeder extends Seeder
                 'laboratory_id' => rand(1,5),
                 'slug' => 'producto-' . ($i+1),
                 'price' => rand(1000,50000),
+                'benefits' => 'Nulla porttitor accumsan tincidunt. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a.',
+                'data_sheet' => 'Nulla porttitor accumsan tincidunt. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a.',
             ]);
         }
 
@@ -37,6 +40,8 @@ class ProductSeeder extends Seeder
                 'product_id' => ($i+1)
             ]);
         }
+
+        LegalWarning::create(['description' => 'Sed porttitor lectus nibh. Nulla quis lorem ut libero malesuada feugiat. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus.']);
 
     }
 }

@@ -87,6 +87,9 @@ export const ENDPOINT = {
         },
         PRODUCTS:{
             GET: GetBaseURL() + 'public-area/get-products',
+        },
+        PRODUCT_BY_SLUG:{
+            GET: GetBaseURL() + 'public-area/get-product-by-slug',
         }
     },
     CUSTOMER:{

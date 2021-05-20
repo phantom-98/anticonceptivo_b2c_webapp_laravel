@@ -12,4 +12,5 @@ Route::prefix('public-area')
         Route::get('get-categories', [HomeController::class, 'getCategories'])->name('getCategories');
         
         Route::get('get-products', [ProductController::class, 'getProducts'])->name('getProducts');
+        Route::post('get-product-by-slug', [ProductController::class, 'getProductBySlug'])->name('getProductBySlug');
     });

@@ -8,23 +8,11 @@ import AddCartCard from "./AddCartCard";
 const ProductCard = ({product, className = ''}) => {
 
     const [quantity, setQuantity] = useState(1);
-    const [image, setImage] = useState({});
-
-    useEffect(() => {
-        setImage(product.images.filter((img) => img.position === 1));
-    },[])
-
-
-    useEffect(() => {
-        if (image) {
-            console.log('Da: ',image);
-        }
-    },[image])
 
     return (
         <div className={`product-card ${className}`}>
             <div className="product-card-image">
-                <Link to={(PUBLIC_ROUTES.PRODUCT_DETAIL.path).replace(':slug', product.slug)}
+                <Link to={(PUBLIC_ROUTES.PRODUCT_DETAIL.path).replace(':slug?', product.slug)}
                       style={{textDecoration: 'none', color: '#000000'}}>
                     <img src={product.images[0].file} alt={`${CONFIG.APP_NAME} - ${product.name}`}/>
                 </Link>
@@ -32,7 +20,7 @@ const ProductCard = ({product, className = ''}) => {
             <div className="product-card-body">
                 <div className="product-card-brand">{product.laboratory.name}</div>
                 <div className="product-card-name">
-                    <Link to={(PUBLIC_ROUTES.PRODUCT_DETAIL.path).replace(':slug', product.slug)}
+                    <Link to={(PUBLIC_ROUTES.PRODUCT_DETAIL.path).replace(':slug?', product.slug)}
                           style={{textDecoration: 'none', color: '#000000'}}>
                         {product.name}
                     </Link>

@@ -25,6 +25,7 @@ const PUBLIC_ROUTES = {
         layout: props => <BaseTemplate {...props} />,
         middleware: props => <PublicMiddleware {...props} />
     },
+    
     ABOUT_US: {
         path: "/sobre-nosotros",
         title: "Sobre Nosotros",
@@ -33,6 +34,7 @@ const PUBLIC_ROUTES = {
         layout: props => <BaseTemplate {...props} />,
         middleware: props => <PublicMiddleware {...props} />
     },
+
     CONTACT_US: {
         path: "/contactanos",
         title: "Contáctanos",
@@ -41,6 +43,7 @@ const PUBLIC_ROUTES = {
         layout: props => <BaseTemplate {...props} />,
         middleware: props => <PublicMiddleware {...props} />
     },
+
     FAQ: {
         path: "/preguntas-frecuentes",
         title: "Preguntas Frecuentes",
@@ -58,6 +61,7 @@ const PUBLIC_ROUTES = {
         layout: props => <BaseTemplate {...props} />,
         middleware: props => <PublicMiddleware {...props} />
     },
+
     CORPORATE_RESPONSIBILITY: {
         path: "/responsabilidad-empresarial/:section?",
         title: "Responsabilidad empresarial",
@@ -66,7 +70,6 @@ const PUBLIC_ROUTES = {
         layout: props => <BaseTemplate {...props} />,
         middleware: props => <PublicMiddleware {...props} />
     },
-
 
     SHOP: {
         path: "/tienda/:category?",
