@@ -30,13 +30,13 @@ class ProductController extends Controller
     {
         try {
             $products = Product::where('active',true)->with(['subcategory.category','images','laboratory'])->get();
-            $category = Category::where('active',true)->with(['subcategories'])->get();
-            $laboratory = Laboratory::where('active',true)->get();
+            $categories = Category::where('active',true)->with(['subcategories'])->get();
+            $laboratories = Laboratory::where('active',true)->get();
 
             return ApiResponse::JsonSuccess([
                 'products' => $products,
-                'category' => $category,
-                'laboratory' => $laboratory
+                'categories' => $categories,
+                'laboratories' => $laboratories
             ]);
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, $exception->getMessage());

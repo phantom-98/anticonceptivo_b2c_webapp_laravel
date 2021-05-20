@@ -14,6 +14,7 @@ const Shop = () => {
     const [products, setProducts] = useState([]);
     const [categories, setCategories] = useState([]);
     const [laboratories, setLaboratories] = useState([]);
+    const [productsFilter, setProductsFilter] = useState([]);
 
     useEffect(() => {
         getData();
@@ -27,6 +28,7 @@ const Shop = () => {
                 response: response,
                 success: () => {
                     setProducts(response.data.products);
+                    setProductsFilter(response.data.products);
                     setCategories(response.data.categories);
                     setLaboratories(response.data.laboratories);
                 },
@@ -56,10 +58,16 @@ const Shop = () => {
                     products ? 
                         <div className="row pb-5 mb-5">
                             <div className="col-3">
-                                <Filter/>
+                                <Filter
+                                    products={products}
+                                    productsFilter={productsFilter}
+                                    setProductsFilter={setProductsFilter}
+                                    categories={categories}
+                                    laboratories={laboratories}
+                                />
                             </div>
                             <div className="col-md-9">
-                                <ProductList products={products}/>
+                                <ProductList products={productsFilter}/>
                             </div>
                         </div>
                     : <LazyLoading/>

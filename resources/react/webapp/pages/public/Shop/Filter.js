@@ -2,76 +2,168 @@ import React from 'react';
 import {Accordion, Card, Form} from "react-bootstrap";
 import { v4 as uuidv4 } from 'uuid';
 
-const Filter = () => {
+const Filter = ({products, productsFilter, setProductsFilter, categories, laboratories}) => {
 
     const filters = [
         {
-            id: 1,
+            id: 1, 
             name: 'Categorías',
-            items: [
-                {
-                    id: 10,
-                    name: 'Pastillas',
-                    total: 411
-                },
-                {
-                    id: 11,
-                    name: 'Masculino',
-                    total: 131
-                },
-                {
-                    id: 12,
-                    name: 'Test de Embarazo',
-                    total: 56
-                },
-                {
-                    id: 13,
-                    name: 'Anticonceptivos Emergencia',
-                    total: 8
-                },
-                {
-                    id: 14,
-                    name: 'Duración largo plazo',
-                    total: 131
-                },
-                {
-                    id: 15,
-                    name: 'Métodos Alternativos',
-                    total: 56
-                },
-                {
-                    id: 16,
-                    name: 'Salud Femenina',
-                    total: 8
-                }
-            ]
+            mode: 'checkbox',
+            bodies: categories
         },
         {
-            id: 2,
+            id: 2, 
             name: 'Laboratorio',
-            items: []
+            mode: 'checkbox',
+            bodies: laboratories
         },
         {
-            id: 3,
+            id: 3, 
             name: 'Precio',
-            items: []
+            mode: 'range',
+            bodies: []
         },
         {
-            id: 4,
+            id: 4, 
             name: 'Bioequivalencia',
-            items: []
+            mode: 'checkbox',
+            bodies: []
         },
         {
-            id: 5,
+            id: 5, 
             name: 'Suscripción',
-            items: []
+            mode: 'checkbox',
+            bodies: []
         },
         {
             id: 6,
             name: 'Formato',
-            items: []
-        },
+            mode: 'checkbox',
+            bodies: []
+        }
     ]
+
+    // const filters = [
+    //     {
+    //         id: 1,
+    //         name: 'Categorías',
+    //         items: [
+    //             {
+    //                 id: 10,
+    //                 name: 'Pastillas',
+    //                 total: 411
+    //             },
+    //             {
+    //                 id: 11,
+    //                 name: 'Masculino',
+    //                 total: 131
+    //             },
+    //             {
+    //                 id: 12,
+    //                 name: 'Test de Embarazo',
+    //                 total: 56
+    //             },
+    //             {
+    //                 id: 13,
+    //                 name: 'Anticonceptivos Emergencia',
+    //                 total: 8
+    //             },
+    //             {
+    //                 id: 14,
+    //                 name: 'Duración largo plazo',
+    //                 total: 131
+    //             },
+    //             {
+    //                 id: 15,
+    //                 name: 'Métodos Alternativos',
+    //                 total: 56
+    //             },
+    //             {
+    //                 id: 16,
+    //                 name: 'Salud Femenina',
+    //                 total: 8
+    //             }
+    //         ]
+    //     },
+    //     {
+    //         id: 2,
+    //         name: 'Laboratorio',
+    //         items: []
+    //     },
+    //     {
+    //         id: 3,
+    //         name: 'Precio',
+    //         items: []
+    //     },
+    //     {
+    //         id: 4,
+    //         name: 'Bioequivalencia',
+    //         items: []
+    //     },
+    //     {
+    //         id: 5,
+    //         name: 'Suscripción',
+    //         items: []
+    //     },
+    //     {
+    //         id: 6,
+    //         name: 'Formato',
+    //         items: []
+    //     },
+    // ]
+
+    const handleFilter = (e) => {
+        console.log('checkbox id: ',e.target.id);
+        console.log('checkbox name: ',e.target.name);
+        console.log('checkbox target: ',e.target.checked);
+
+        var prods = productsFilter;
+
+        const filter = cleanString(e.target.id);
+
+        console.log('productos antes: ', prods);
+
+        console.log(filter.first_param);
+
+        switch (filter.first_param) {
+            case 1:
+                console.log('Filtro de categorias');
+                prods = prods.filter((prod) => prod.subcategory.category_id === filter.second_param);
+                break;
+            case 2:
+                console.log('Filtro de laboratorios');
+                prods = prods.filter((prod) => prod.laboratory_id === filter.second_param);
+                break;
+            case 3:
+                console.log('Filtro de precio');
+                break;
+            case 4:
+                console.log('Filtro de bioequivalencia');
+                break;
+            case 5:
+                console.log('Filtro de suscripción');
+                break;
+            case 6:
+                console.log('Filtro de formato');
+                break;
+            default:
+                break;
+            }
+
+        console.log('productos después: ', prods);
+
+        setProductsFilter(prods);
+    }
+
+    function cleanString(string){
+        let temp = string.replace('custom-inline-checkbox-', "");
+        temp = temp.split('-');
+        temp = {
+            first_param: parseInt(temp[0]),
+            second_param: parseInt(temp[1])
+        }
+        return temp;
+    }
 
     return (
         <div className="row">
@@ -84,16 +176,19 @@ const Filter = () => {
                                 <Accordion.Collapse eventKey={filter.id}>
                                     <Card.Body bsPrefix="card-body pt-0">
                                         {
-                                            filter.items.map((item) => {
+                                            filter.bodies.map((body) => {
                                                 let uuid = uuidv4();
                                                 return <Form.Check
                                                     custom
                                                     label={<span
-                                                        className="font-poppins font-12 text-black my-auto">{item.name}
-                                                        <span
-                                                            className="color-D8D8D8">({item.total})</span></span>}
+                                                        className="font-poppins font-12 text-black my-auto">{body.name}
+                                                        {/* <span className="color-D8D8D8">({body.total})</span> */}</span>}
                                                     type="checkbox"
-                                                    id={`custom-inline-checkbox-${item.id}`}
+                                                    name={body.name}
+                                                    checked={false}
+                                                    id={`custom-inline-checkbox-${filter.id}-${body.id}`}
+                                                    // onClick={handleFilter}
+                                                    onChange={handleFilter}
                                                     key={uuid}
                                                 />
                                             })
