@@ -7,7 +7,8 @@ import {dummy_products} from "../../helpers/productsData";
 import LazyLoading from "../LazyLoading";
 import ProductCard from "../shopping/ProductCard";
 import H2Title from "../general/H2Title";
-
+import * as Services from "../../Services";
+import { v4 as uuidv4 } from 'uuid';
 
 const ProductsCarousel = ({title}) => {
 
@@ -22,14 +23,24 @@ const ProductsCarousel = ({title}) => {
     const [products, setProducts] = useState([]);
     const [loaded, setLoaded] = useState(false);
 
-
     useEffect(() => {
         getProducts();
     }, [])
 
     const getProducts = () => {
-        setProducts(dummy_products);
-        setLoaded(true)
+        let url = Services.ENDPOINT.NO_AUTH.PRODUCT.GET;
+        let data = {}
+        Services.DoGet(url,data).then(response => {
+            Services.Response({
+            response: response,
+                success: () => {
+                    setProducts(response.data.products);
+                    setLoaded(true);
+                },
+            });
+        }).catch(error => {
+            Services.ErrorCatch(error)
+        });
     }
 
     return (
@@ -46,11 +57,13 @@ const ProductsCarousel = ({title}) => {
                             {
                                 loaded ?
                                     products.map((product, index) => {
-                                        return <div key={index} className="px-3 mb-3">
-                                            <ProductCard product={product}/>
-                                        </div>
+                                        let uuid = uuidv4();
+                                        return (
+                                            <div key={uuid} className="px-3 mb-3">
+                                                <ProductCard product={product}/>
+                                            </div>
+                                        )
                                     })
-
                                     : <LazyLoading/>
                             }
                         </Slider>

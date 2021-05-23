@@ -17,6 +17,15 @@ class Category extends Model
         'description'
     ];
 
+    protected $appends = [
+        'public_image'
+    ];
+
+    public function getPublicImageAttribute()
+    {
+        return $this->image ? \Storage::url($this->image) : $this->image;
+    }
+
     public function subcategories(){
         return $this->hasMany(Subcategory::class)->orderBy('position');
     }

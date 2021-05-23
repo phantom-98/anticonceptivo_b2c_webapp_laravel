@@ -13,7 +13,7 @@ const TotalCartItems = () =>{
             _total = _total + item.quantity
         })
         setTotalCart(_total);
-        console.log(cartItems);
+        // console.log(cartItems);
     },[cartItems])
 
     return (

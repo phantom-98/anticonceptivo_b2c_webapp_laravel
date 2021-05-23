@@ -1,5 +1,4 @@
 export const dummy_products = [
-
     {
         id: 1,
         image: '/themes/web/products/product-1.png',

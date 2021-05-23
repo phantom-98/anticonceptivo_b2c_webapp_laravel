@@ -21,25 +21,30 @@ const Detail = ({order, goBack}) => {
 
             <div className="row py-3">
                 <H3Panel title="DATOS DEL CLIENTE" className="mb-0"/>
-                <RowCol name="RUT" value="10.346.819-8"/>
-                <RowCol name="NOMBRE" value="ENRIQUE SILVA"/>
-                <RowCol name="EMAIL" value="e.silva@gmail.com"/>
-                <RowCol name="TELÉFONO" value="+56 9 3864 2831"/>
-                <RowCol name="DIRECCIÓN" value="10 norte 365, Viña del mar, REGIÓN DE VALPARAÍSO"/>
+                <RowCol name="RUT" value={order.customer.id_number}/>
+                <RowCol name="NOMBRE" value={order.customer.full_name}/>
+                <RowCol name="EMAIL" value={order.customer.email}/>
+                <RowCol name="TELÉFONO" value={order.customer.full_phone}/>
+                <RowCol name="DIRECCIÓN" value={order.delivery_address}/>
             </div>
 
             <div className="row py-3">
                 <H3Panel title="DETALLE DEL PEDIDO" className="mb-0"/>
-                <RowCol name="GYNERA 75/20 ETINILESTRADIOL / GESTODENO" value="Cantidad 01" firstColSize="8"/>
-                <RowCol name="GYNERA 75/20 ETINILESTRADIOL / GESTODENO" value="Cantidad 01" firstColSize="8"/>
+                {
+                    order.order_items.map((item) => {
+                        return(
+                            <RowCol name={item.name} value={'Cantidad ' + item.quantity} firstColSize="8"/>
+                        )
+                    })
+                }
             </div>
 
             <div className="row py-3">
                 <H3Panel title="DATOS DEL PEDIDO" className="mb-0"/>
-                <RowCol name="FECHA" value="23-12-2020"/>
-                <RowCol name="TIPO DOCUMENTO" value="BOLETA"/>
-                <RowCol name="MÉTODO DE PAGO" value="Webpay"/>
-                <RowCol name="MÉTODO DE ENVÍO" value="Bluexpress"/>
+                <RowCol name="FECHA DE ENVÍO" value={order.delivery_date}/>
+                <RowCol name="TIPO DOCUMENTO" value={order.document_type}/>
+                <RowCol name="MÉTODO DE PAGO" value={order.payment_type}/>
+                <RowCol name="MÉTODO DE ENVÍO" value={order.shipping_type}/>
             </div>
 
             <div className="row py-4">

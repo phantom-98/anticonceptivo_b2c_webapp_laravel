@@ -18,7 +18,6 @@ const Index = () => {
         setOrderSelected(order)
     }
 
-
     return (
         <div className="row">
             <H3Panel title="MIS COMPRAS"/>

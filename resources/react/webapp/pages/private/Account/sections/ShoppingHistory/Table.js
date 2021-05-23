@@ -1,37 +1,60 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import TablePanel from "../../../../../components/TablePanel";
 import moment from "moment";
 import {formatMoney} from "../../../../../helpers/GlobalUtils";
+import * as Services from "../../../../../Services";
+import {AuthContext} from "../../../../../context/AuthProvider";
 
 const Table = ({showDetail}) => {
 
-    const [tableLoaded, setTableLoaded] = useState(false);
+    const {auth} = useContext(AuthContext);
 
+    const [tableLoaded, setTableLoaded] = useState(false);
     const [objects, setObjects] = useState([]);
 
     useEffect(() => {
-        //emulación
-        const q = 100;
-        let _data = [];
-        for (let i = 0; i < q; i++) {
-            _data = [
-                ..._data,
-                {
-                    created_at: '2021-05-04 12:13:14',
-                    id: 1202202345 + i,
-                    total: Math.floor(Math.random() * 999999) + 10000,
-                }
-            ]
+        getOrders();
+
+        // //emulación
+        // const q = 100;
+        // let _data = [];
+        // for (let i = 0; i < q; i++) {
+        //     _data = [
+        //         ..._data,
+        //         {
+        //             created_at: '2021-05-04 12:13:14',
+        //             id: 1202202345 + i,
+        //             total: Math.floor(Math.random() * 999999) + 10000,
+        //         }
+        //     ]
+        // }
+
+        // setObjects(_data)
+        // setTableLoaded(true)
+    }, [])
+
+    const getOrders = () => {
+        let url = Services.ENDPOINT.CUSTOMER.ORDERS.GET;
+        let data = {
+            customer_id: auth.id
         }
 
-        setObjects(_data)
-        setTableLoaded(true)
-
-    }, [])
+        Services.DoPost(url,data).then(response => {
+            Services.Response({
+                response: response,
+                success: () => {
+                    setObjects(response.data.orders);
+                    setTableLoaded(true);
+                },
+            });
+        }).catch(error => {
+            Services.ErrorCatch(error)
+        });
+    }
 
     const columns = [
         {
-            text: 'FECHA',
+            text: 'FECHA DE COMPRA',
             dataField: 'created_at',
             sort: true,
             classes: '',
@@ -53,7 +76,7 @@ const Table = ({showDetail}) => {
         },
         {
             text: 'TOTAL',
-            dataField: 'total',
+            dataField: 'subtotal',
             sort: true,
             classes: '',
             headerClasses: '',

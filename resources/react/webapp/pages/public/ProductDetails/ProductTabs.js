@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Tabs, Tab} from 'react-bootstrap';
 
-const ProductTabs = () =>{
+const ProductTabs = ({product, legalWarning}) =>{
 
     const [key, setKey] = useState('benefits');
 
@@ -18,34 +18,25 @@ const ProductTabs = () =>{
                     activeKey={key}
                     onSelect={(k) => setKey(k)}
                 >
-                    <Tab eventKey="benefits" title="Beneficios">
+                    <Tab eventKey="benefits" title="Beneficios y usos">
                         <div className="panel-bordered bg-white p-5">
                             <p className="font-poppins font-14 regular">
-                                Dispensación sujeta a normativa sanitaria. Precio exclusivo para compras realizadas a través de nuestro sitio web. Precio no incluye costos de despacho. No se automedique.
-                            </p>
-                            <p className="font-poppins font-14 regular">
-                                Despacho de productos y/o medicamentos sujetos a stock y disponibilidad técnica de medios de transporte y/o despacho. Para mayor información, llamar al número 000 00 0000, teléfonos celulares al *0000 o al XXXXX,
+                                {product.benefits}
                             </p>
                         </div>
                     </Tab>
                     <Tab eventKey="technical" title="Ficha Técnica">
                         <div className="panel-bordered bg-white p-5">
                             <p className="font-poppins font-14 regular">
-                                Dispensación sujeta a normativa sanitaria. Precio exclusivo para compras realizadas a través de nuestro sitio web. Precio no incluye costos de despacho. No se automedique.
-                            </p>
-                            <p className="font-poppins font-14 regular">
-                                Despacho de productos y/o medicamentos sujetos a stock y disponibilidad técnica de medios de transporte y/o despacho. Para mayor información, llamar al número 000 00 0000, teléfonos celulares al *0000 o al XXXXX,
+                                {product.data_sheet}
                             </p>
                         </div>
                     </Tab>
 
-                    <Tab eventKey="legal" title="Avisa Legal">
+                    <Tab eventKey="legal" title="Aviso Legal">
                         <div className="panel-bordered bg-white p-5">
                             <p className="font-poppins font-14 regular">
-                                Dispensación sujeta a normativa sanitaria. Precio exclusivo para compras realizadas a través de nuestro sitio web. Precio no incluye costos de despacho. No se automedique.
-                            </p>
-                            <p className="font-poppins font-14 regular">
-                                Despacho de productos y/o medicamentos sujetos a stock y disponibilidad técnica de medios de transporte y/o despacho. Para mayor información, llamar al número 000 00 0000, teléfonos celulares al *0000 o al XXXXX,
+                                {legalWarning.description}
                             </p>
                         </div>
                     </Tab>

@@ -1,37 +1,80 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import TablePanel from "../../../../../components/TablePanel";
 import moment from "moment";
-import {formatMoney} from "../../../../../helpers/GlobalUtils";
+// import {formatMoney} from "../../../../../helpers/GlobalUtils";
 import iconReceipt from '../../../../../assets/images/icons/receipt.svg';
 import iconTrash from '../../../../../assets/images/icons/trash.svg';
 import Icon from "../../../../../components/general/Icon";
+import * as Services from "../../../../../Services";
+import {AuthContext} from "../../../../../context/AuthProvider";
+import toastr from "toastr";
 
 const Table = () => {
+
+    const {auth} = useContext(AuthContext);
 
     const [tableLoaded, setTableLoaded] = useState(false);
 
     const [objects, setObjects] = useState([]);
 
     useEffect(() => {
-        //emulación
-        const q = 7;
-        let _data = [];
-        for (let i = 0; i < q; i++) {
-            _data = [
-                ..._data,
-                {
-                    created_at: '2021-05-04 12:13:14',
-                    id: 1202202345 + i,
-                    name : 'receta remedio pastillas anticonceptivas',
-                    total: Math.floor(Math.random() * 999999) + 10000,
-                }
-            ]
-        }
+        getData();
+        // //emulación
+        // const q = 7;
+        // let _data = [];
+        // for (let i = 0; i < q; i++) {
+        //     _data = [
+        //         ..._data,
+        //         {
+        //             created_at: '2021-05-04 12:13:14',
+        //             id: 1202202345 + i,
+        //             name : 'receta remedio pastillas anticonceptivas',
+        //             total: Math.floor(Math.random() * 999999) + 10000,
+        //         }
+        //     ]
+        // }
 
-        setObjects(_data)
-        setTableLoaded(true)
+        // setObjects(_data)
+        // setTableLoaded(true)
 
     }, [])
+
+    const getData = () => {
+        let url = Services.ENDPOINT.CUSTOMER.PRESCRIPTIONS.GET;
+        let data = {
+            customer_id: auth.id
+        }
+        Services.DoPost(url,data).then(response => {
+            Services.Response({
+                response: response,
+                success: () => {
+                    setObjects(response.data.prescriptions);
+                    setTableLoaded(true)
+                },
+            });
+        }).catch(error => {
+            Services.ErrorCatch(error)
+        });
+    }
+
+    const removeData = (rowId) => {
+        let url = Services.ENDPOINT.CUSTOMER.PRESCRIPTIONS.REMOVE;
+        let data = {
+            customer_id: auth.id,
+            prescription_id: rowId
+        }
+        Services.DoPost(url,data).then(response => {
+            Services.Response({
+                response: response,
+                success: () => {
+                    setObjects(response.data.prescriptions);
+                    toastr.success(response.message);
+                },
+            });
+        }).catch(error => {
+            Services.ErrorCatch(error)
+        });
+    }
 
     const columns = [
         {
@@ -61,7 +104,7 @@ const Table = () => {
             classes: 'text-left',
             headerClasses: '',
             formatter: (cell, row) => {
-                return <span onClick={() => alert(row)} className="link pointer">Ver Receta</span>
+                return <a href={row.file_public} target="_blank" className="link pointer">Ver Receta</a>
             }
         },
         {
@@ -71,7 +114,7 @@ const Table = () => {
             classes: 'text-left',
             headerClasses: '',
             formatter: (cell, row) => {
-                return <span onClick={() => alert(`REMOVE ${row.id}`)} className="link pointer">
+                return <span onClick={() => removeData(row.id)} className="link pointer">
                     <Icon path={iconTrash} />
                 </span>
             }

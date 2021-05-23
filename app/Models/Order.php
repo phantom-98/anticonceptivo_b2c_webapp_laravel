@@ -14,6 +14,8 @@ class Order extends Model
         'discount',
         'dispatch',
         'total',
+        'document_type',
+        'shipping_type',
         'payment_type',
         'payment_token',
         'payment_date',

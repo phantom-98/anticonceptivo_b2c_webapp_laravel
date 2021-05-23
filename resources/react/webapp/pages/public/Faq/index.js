@@ -37,8 +37,7 @@ const Faq = () => {
                             <Accordion defaultActiveKey={faqItems[0].id} className="accordion-faq">
                                 {
                                     faqItems.map((item) => {
-
-                                        return <Card key={item.id} className="card-faq">
+                                        return <Card key={item.id} className="card-faq" key={item.id}>
                                             <Accordion.Collapse eventKey={item.id}>
                                                 <Card.Body>
                                                     <p className="font-14 regular color-3B3B3 mb-0">{item.answer}</p>

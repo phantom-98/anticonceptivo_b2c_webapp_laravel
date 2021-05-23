@@ -8,11 +8,16 @@ class CustomerAddress extends Model
 {
     protected $fillable = [
         'id',
+        
         'name',
         'address',
         'default_address',
         'extra_info',
+
         'customer_id',
+        'region_id',
+        'commune_id',
+
         'created_at',
         'updated_at'
     ];
@@ -21,4 +26,11 @@ class CustomerAddress extends Model
         return $this->belongsTo(Customer::class);
     }
 
+    public function region(){
+        return $this->belongsTo(Region::class);
+    }
+
+    public function commune(){
+        return $this->belongsTo(Commune::class);
+    }
 }

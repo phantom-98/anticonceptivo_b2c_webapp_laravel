@@ -20,6 +20,16 @@ export const setCleanInputError = e => {
     }
 }
 
+export const setCleanInputErrorById = (idName) => {
+    try {
+        const element = document.getElementById(idName);
+        const formGroup = element.parentElement;
+        element.classList.remove('is-invalid');
+        formGroup.querySelector('.invalid-feedback').innerHTML = '';
+    } catch (e) {
+    }
+}
+
 export const formatAmount = (number) => {
     return new Intl.NumberFormat("de-DE").format(number)
 }

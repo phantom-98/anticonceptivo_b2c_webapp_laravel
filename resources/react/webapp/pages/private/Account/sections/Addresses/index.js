@@ -1,31 +1,46 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import H3Panel from "../../../../../components/general/H3Panel";
 import List from "./List";
 import Form from "./Form";
+import {AuthContext} from "../../../../../context/AuthProvider";
+import * as Services from "../../../../../Services";
 
 const Index = () => {
+    const {auth} = useContext(AuthContext)
 
     const [addresses, setAddresses] = useState([]);
-    const [view, setView] = useState('list');
-    const [formMode, setFormMode] = useState('create');
+    
+    const [regions, setRegions] = useState([]);
+
     const [addressSelected, setAddressSelected] = useState(null);
 
-    useEffect(() => {
-        //emulations
-        setAddresses([
-            ...addresses,
-            {
-                'id': 1,
-                'contact_first_name': 'Eduardo',
-                'contact_last_name': 'Gajardo',
-                'region_id': 5,
-                'commune_id': 5,
-                'address': '10 norte 653',
-                'address_number': 'depto 43'
-            }
-        ])
+    const [view, setView] = useState('list');
+    const [formMode, setFormMode] = useState('create');
 
-    }, [])
+    useEffect(() => {
+        if (auth) {
+            getData();
+        }
+    }, [auth])
+
+    const getData = () => {
+        let url = Services.ENDPOINT.CUSTOMER.ADDRESSES.GET;
+        let data = {
+            customer_id: auth.id
+        }
+
+        Services.DoPost(url,data).then(response => {
+            Services.Response({
+            response: response,
+                success: () => {
+                    setAddresses(response.data.addresses);
+                    setRegions(response.data.regions);
+                }
+            });
+        }).catch(error => {
+            Services.ErrorCatch(error)
+        });
+    }
 
     const goBack = () => {
         setView('list')
@@ -58,11 +73,21 @@ const Index = () => {
                     </div>
 
                     {
-                        view === 'list' ? <List addresses={addresses} showEdit={showEdit} showCreate={showCreate}/> : null
+                        view === 'list' ? <List addresses={addresses} getData={getData} showEdit={showEdit} showCreate={showCreate}/> : null
                     }
 
                     {
-                        view === 'form' ? <Form formMode={formMode} addressSelected={addressSelected} goBack={goBack} setAddresses={setAddresses}/> : null
+                        view === 'form' ? 
+                            <Form 
+                                formMode={formMode} 
+                                addressSelected={addressSelected} 
+                                goBack={goBack} 
+                                getData={getData}
+                                customerId={auth.id}
+                                regions={regions}
+                                setAddresses={setAddresses}
+                            /> 
+                        : null
                     }
                 </div>
             </div>

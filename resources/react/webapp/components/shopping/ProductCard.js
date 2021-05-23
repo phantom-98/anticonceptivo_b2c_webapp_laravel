@@ -1,9 +1,10 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {CONFIG} from "../../Config";
 import {formatMoney} from "../../helpers/GlobalUtils";
 import PUBLIC_ROUTES from "../../routes/publicRoutes";
 import {Link} from "react-router-dom";
 import AddCartCard from "./AddCartCard";
+import noImage from "./../../assets/images/dummy/no-image.png";
 
 const ProductCard = ({product, className = ''}) => {
 
@@ -12,15 +13,15 @@ const ProductCard = ({product, className = ''}) => {
     return (
         <div className={`product-card ${className}`}>
             <div className="product-card-image">
-                <Link to={(PUBLIC_ROUTES.PRODUCT_DETAIL.path).replace(':slug', product.slug)}
+                <Link to={(PUBLIC_ROUTES.PRODUCT_DETAIL.path).replace(':slug?', product.slug)}
                       style={{textDecoration: 'none', color: '#000000'}}>
-                    <img src={product.image} alt={`${CONFIG.APP_NAME} - ${product.name}`}/>
+                    <img src={product.images.length ? product.images[0].file : noImage} alt={`${CONFIG.APP_NAME} - ${product.name}`}/>
                 </Link>
             </div>
             <div className="product-card-body">
-                <div className="product-card-brand">{product.brand.name}</div>
+                <div className="product-card-brand">{product.laboratory.name}</div>
                 <div className="product-card-name">
-                    <Link to={(PUBLIC_ROUTES.PRODUCT_DETAIL.path).replace(':slug', product.slug)}
+                    <Link to={(PUBLIC_ROUTES.PRODUCT_DETAIL.path).replace(':slug?', product.slug)}
                           style={{textDecoration: 'none', color: '#000000'}}>
                         {product.name}
                     </Link>

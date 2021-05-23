@@ -52,7 +52,7 @@ const ProductList = ({products}) => {
                 <div className="row">
                     {
                         products.map((product, index) => {
-                            return index < 9 ? <div className="col-md-4 mb-3">
+                            return index < 9 ? <div className="col-md-4 mb-3" key={index}>
                                 <ProductCard product={product}/>
                             </div> : null
                         })

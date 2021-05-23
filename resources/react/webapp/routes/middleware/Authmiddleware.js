@@ -2,13 +2,9 @@ import React, {useContext, useEffect, useState} from "react";
 import {Route, Redirect, withRouter} from "react-router-dom";
 import {AuthContext} from "../../context/AuthProvider";
 
-
-
 const Authmiddleware = ({component: Component, layout: Layout}) => {
 
-
     const {auth} = useContext(AuthContext);
-
 
     return <Route render={(props) => {
 

@@ -1,0 +1,384 @@
+<?php
+
+namespace App\Http\Controllers\Api\V1\App\Customer;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Http\Request;
+use SendGrid\Mail\Mail;
+use Willywes\ApiResponse\ApiResponse;
+use App\Http\Utils\OutputMessage\OutputMessage;
+use App\Models\Customer;
+use App\Models\Region;
+use App\Models\CustomerAddress;
+use App\Models\Order;
+use App\Models\Prescription;
+
+class ProfileController extends Controller
+{
+    public function getProfile(Request $request)
+    {
+        try {
+            
+            $customer = Customer::select([
+                'id',
+                'first_name',
+                'last_name',
+                'email',
+                'id_number',
+                'id_type',
+                'phone_code',
+                'phone',
+                'business_name',
+                'business_id_number',
+                'commercial_business',
+                'commercial_email',
+                'commercial_address',
+                'commercial_additional_address',
+                'commercial_phone',
+                'commercial_phone_code',
+                'commercial_region_id',
+                'commercial_commune_id',
+            ])->find($request->customer_id);
+
+            if (!$customer) {
+                return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_NOT_FOUND);
+            }
+
+            $regions = Region::with('provinces.communes')->get();
+
+            return ApiResponse::JsonSuccess([
+                'customer' => $customer,
+                'regions' => $regions,
+            ], OutputMessage::SUCCESS);
+            
+        } catch (\Exception $exception) {
+            return ApiResponse::JsonError(null, $exception->getMessage());
+        }
+    }
+
+    public function updateProfile(Request $request)
+    {
+        try{
+            $customer = Customer::find($request->id);
+
+            if (!$customer) {
+                return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_NOT_FOUND);
+            }
+
+            $rules = [
+                'first_name' => 'required',
+                'last_name' => 'required',
+                'email' => 'required|email|unique:customers,email,'. $customer->id,
+                'id_number' => 'required|unique:customers,id_number,'. $customer->id,
+                'id_type' => 'required',
+                'phone_code' => 'required',
+                'phone' => 'required|unique:customers,phone,'. $customer->id,
+            ];
+
+            $messages = [
+                'first_name.required' => OutputMessage::FIELD_FIRST_NAME_REQUIRED,
+                'last_name.required' => OutputMessage::FIELD_LAST_NAME_REQUIRED,
+                'email.required' => OutputMessage::FIELD_EMAIL_REQUIRED,
+                'id_number.required' => OutputMessage::FIELD_ID_NUMBER_REQUIRED,
+                'id_type.required' => OutputMessage::FIELD_ID_TYPE_REQUIRED,
+                'phone_code.required' => OutputMessage::FIELD_PHONE_CODE_REQUIRED,
+                'phone.required' => OutputMessage::FIELD_PHONE_REQUIRED,
+                'id_number.unique' => OutputMessage::FIELD_PHONE_REQUIRED,
+                'email.unique' => OutputMessage::FIELD_PHONE_REQUIRED,
+                'phone.unique' => OutputMessage::FIELD_PHONE_REQUIRED,
+            ];
+
+            if (strlen($request->password) > 0 || strlen($request->new_password) > 0) {
+                $rules += [
+                    'password' => 'required',
+                    'new_password' => 'required'
+                ];
+
+                $messages += [
+                    'password.required' => OutputMessage::FIELD_PASSWORD_REQUIRED,
+                    'new_password.required' => OutputMessage::FIELD_NEW_PASSWORD_REQUIRED,
+                ];
+            }
+
+            $validator = Validator::make($request->all(), $rules, $messages);
+
+            if (strlen($request->password) > 0 || strlen($request->new_password) > 0) {
+                if (!Hash::check($request->password, $customer->password)) {
+                    return ApiResponse::JsonFieldValidation($validator->errors()
+                        ->add('password', OutputMessage::FIELD_PASSWORD_INVALID));
+                }
+                    
+                $customer->password = bcrypt($request->new_password);
+            }
+
+            if ($validator->passes()) {
+                if ($customer->update($request->except(['password']))) {
+                    return ApiResponse::JsonSuccess($customer->only([
+                        'first_name', 
+                        'last_name',
+                        'email',
+                        'id_number',
+                        'id_type',
+                        'phone_code',
+                        'phone',
+                    ]), OutputMessage::CUSTOMER_PROFILE_UPDATE);
+                }else{
+                    return ApiResponse::JsonError(null, OutputMessage::CUSTOMER_PROFILE_UPDATE_ERROR);
+                }
+            }else{
+                return ApiResponse::JsonFieldValidation($validator->errors());
+            }
+        } catch (\Exception $exception) {
+            return ApiResponse::JsonError(null, $exception->getMessage());
+        }
+    }
+
+    public function getAddresses(Request $request)
+    {
+        try {
+            $customer = Customer::find($request->customer_id);
+
+            if (!$customer) {
+                return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_NOT_FOUND);
+            }
+
+            $addresses = CustomerAddress::where('customer_id', $customer->id)->get();
+
+            $regions = Region::with('provinces.communes')->get();
+
+            return ApiResponse::JsonSuccess([
+                'addresses' => $addresses,
+                'regions' => $regions
+            ], OutputMessage::SUCCESS);
+            
+        } catch (\Exception $exception) {
+            return ApiResponse::JsonError(null, $exception->getMessage());
+        }
+    }
+
+    public function updateAddresses(Request $request)
+    {
+        try {
+
+            $customer = Customer::find($request->customer_id);
+
+            if (!$customer) {
+                return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_NOT_FOUND);
+            }
+
+            $rules = [
+                'address' => 'required',
+                'name' => 'required',
+                'extra_info' => 'required',
+                'commune_id' => 'required',
+                'region_id' => 'required',
+            ];
+
+            $messages = [
+                'address.required' => OutputMessage::FIELD_ADDRESS_REQUIRED,
+                'name.required' => OutputMessage::FIELD_ADDRESS_NAME_REQUIRED,
+                'extra_info.required' => OutputMessage::FIELD_EXTRA_INFO_REQUIRED,
+                'commune_id.required' => OutputMessage::FIELD_COMMUNE_ID_REQUIRED,
+                'region_id.required' => OutputMessage::FIELD_REGION_ID_REQUIRED,
+            ];
+
+            $validator = Validator::make($request->all(), $rules, $messages);
+            $address = CustomerAddress::find($request->address_id);
+
+            if ($validator->passes()) {
+                if (!$address) {
+                    $address = CustomerAddress::create($request->except(['address_id']));
+                    
+                    $addresses = CustomerAddress::where('customer_id', $customer->id)->get();
+
+                    return ApiResponse::JsonSuccess([
+                        'addresses' => $addresses
+                    ], OutputMessage::CUSTOMER_ADDRESSES_CREATE);
+                }
+
+                if ($address->update($request->except(['address_id']))) {
+                    $addresses = CustomerAddress::where('customer_id', $customer->id)->get();
+
+                    return ApiResponse::JsonSuccess([
+                        'addresses' => $addresses
+                    ], OutputMessage::CUSTOMER_ADDRESSES_UPDATE);
+                }else{
+                    return ApiResponse::JsonError(null, OutputMessage::CUSTOMER_ADDRESSES_UPDATE_ERROR);
+                }
+            }else{
+                return ApiResponse::JsonFieldValidation($validator->errors());
+            }
+        } catch (\Exception $exception) {
+            return ApiResponse::JsonError(null, $exception->getMessage());
+        }
+    }
+
+    public function updateDefaultAddress(Request $request)
+    {
+        try {
+
+            $customer = Customer::find($request->customer_id);
+
+            if (!$customer) {
+                return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_NOT_FOUND);
+            }
+
+            $address = CustomerAddress::find($request->address_id);
+
+            if (!$address) {
+                return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_ADDRESS_NOT_FOUND);
+            }
+
+            $oldAddress = CustomerAddress::where('customer_id',$customer->id)->where('default_address',true)->first();
+
+            if ($oldAddress) {
+                $oldAddress->update(['default_address' => false]);
+            }
+
+            if ($address->update(['default_address' => true])) {
+                return ApiResponse::JsonSuccess($address, OutputMessage::SUCCESS);
+            }
+
+            return ApiResponse::JsonError(null, OutputMessage::CUSTOMER_ADDRESS_UPDATE_DEFAULT_ERROR);
+
+        } catch (\Exception $exception) {
+            return ApiResponse::JsonError(null, $exception->getMessage());
+        }
+    }
+
+    public function getOrders(Request $request)
+    {
+        try {
+
+            $customer = Customer::find($request->customer_id);
+
+            if (!$customer) {
+                return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_NOT_FOUND);
+            }
+
+            $orders = Order::where('customer_id',$customer->id)->with(['customer','order_items'])->get();
+
+            return ApiResponse::JsonSuccess([
+                'orders' => $orders
+            ], OutputMessage::SUCCESS);
+
+        } catch (\Exception $exception) {
+            return ApiResponse::JsonError(null, $exception->getMessage());
+        }
+    }
+
+    public function getPrescriptions(Request $request)
+    {
+        try {
+
+            $customer = Customer::find($request->customer_id);
+
+            if (!$customer) {
+                return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_NOT_FOUND);
+            }
+
+            $prescriptions = Prescription::where('customer_id',$customer->id)->get();
+
+            return ApiResponse::JsonSuccess([
+                'prescriptions' => $prescriptions
+            ], OutputMessage::SUCCESS);
+
+        } catch (\Exception $exception) {
+            return ApiResponse::JsonError(null, $exception->getMessage());
+        }
+    }
+
+    public function removePrescriptions(Request $request)
+    {
+        try {
+
+            $customer = Customer::find($request->customer_id);
+
+            if (!$customer) {
+                return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_NOT_FOUND);
+            }
+
+            $prescription = Prescription::where('customer_id',$customer->id)->where('id',$request->prescription_id)->first();
+
+            if (!$prescription) {
+                return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_PRESCRIPTION_NOT_FOUND);
+            }
+
+            if ($prescription->delete()) {
+
+                $prescriptions = Prescription::where('customer_id',$customer->id)->get();
+
+                return ApiResponse::JsonSuccess([
+                    'prescriptions' => $prescriptions
+                ], OutputMessage::CUSTOMER_PRESCRIPTION_DELETED);
+
+                // return ApiResponse::JsonSuccess(null, OutputMessage::CUSTOMER_PRESCRIPTION_DELETED);
+            }
+
+            return ApiResponse::JsonError(null, OutputMessage::CUSTOMER_PRESCRIPTION_DELETED_ERROR);
+
+        } catch (\Exception $exception) {
+            return ApiResponse::JsonError(null, $exception->getMessage());
+        }
+    }
+
+    public function send(Request $request)
+    {
+       try {
+
+            $rules = [
+                'message' => 'required|string|min:10|max:255',
+                'accept_terms' => 'required|boolean',
+            ];
+
+            $messages = [
+                'message.required' => 'El campo mensaje es requerido.',
+                'message.min' => 'El campo mensaje debe contener al menos 10 caracteres.',
+                'message.max' => 'El campo mensaje debe contener menos de 255 caracteres.',
+                'accept_terms.required' => 'No se puede envíar si no acepta los términos y condiciones.',
+            ];
+
+            $validator = Validator::make($request->all(), $rules, $messages);
+
+            if ($validator->passes()) {
+                $emailSubject = $request->subject_one;
+                $emailBody = view('emails.contact-form', ['data' => [
+                    'title' => $emailSubject,
+                    'title_2' => $request->subject_two,
+                    'name' => $request->name,
+                    'message' => $request->message
+                ]])->render();
+
+                $email = new Mail();
+                    
+                $email->setFrom(env('SENDGRID_EMAIL_FROM'), env('SENDGRID_EMAIL_NAME'));
+                $email->setSubject($emailSubject);
+                $email->addTo($request->email, env('SENDGRID_EMAIL_NAME'));
+                $email->addContent(
+                    "text/html", $emailBody
+                );
+
+                $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
+                $response = $sendgrid->send($email);
+
+                if ($response->statusCode() == 202) {
+                    Log::info('SENDGRID CONTACT FORM ENVIADO');
+                    return ApiResponse::JsonSuccess(null, 'Hemos enviado el mensaje correctamente.');
+                } else {
+                    Log::info('SENDGRID CONTACT FORM FALLIDO');
+                    Log::info($response->statusCode());
+                    return ApiResponse::JsonError(null, 'Ha ocurrido un error al enviar el mensaje por favor inténtelo de nuevo más tarde.');
+                }
+            } else {
+                return ApiResponse::JsonFieldValidation($validator->errors());
+            }
+        } catch (\Exception $exception) {
+            Log::error('SENDGRID CONTACT FORM EXCEPTION ' . $exception->getMessage());
+            return ApiResponse::JsonError(null, 'Error inesperado, por favor comuníquese con un administrador.');
+        }
+
+    }
+}

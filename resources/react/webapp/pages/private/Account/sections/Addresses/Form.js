@@ -1,48 +1,120 @@
 import React, {useEffect, useState} from 'react';
+import toastr from "toastr";
+import {setCleanInputError} from "../../../../../helpers/GlobalUtils";
+import * as Services from "../../../../../Services";
 
-const Form = ({addressSelected, goBack, formMode, setAddresses}) => {
+const Form = ({addressSelected, goBack, formMode, getData, customerId, regions, setAddresses}) => {
 
     const [address, setAddress] = useState({
-        'id': '',
-        'contact_first_name': '',
-        'contact_last_name': '',
-        'region_id': '',
-        'commune_id': '',
-        'address': '',
-        'address_number': ''
+        id: '',
+        name: '',
+        region_id: '',
+        commune_id: '',
+        address: '',
+        extra_info: ''
     });
+
+    const [selectedRegion, setSelectedRegion] = useState(0);
+    const [communes, setCommunes] = useState([]);
 
     useEffect(() => {
         if (formMode === 'edit') {
             setAddress(addressSelected)
         }
-    }, [])
+    }, []);
+
+    useEffect(() => {
+        if (regions.length > 0) {
+            setSelectedRegion(address.region_id)
+        }
+    },[regions, address.region_id]);
+
+    useEffect(() => {
+        if (selectedRegion) {
+            const region = regions.find(r => r.id == selectedRegion)
+            let tempCommunes = [];
+            region.provinces.map((province) =>{
+                province.communes.map((commune) =>{
+                    tempCommunes.push(commune);
+                })
+            })
+            let orderCommunes =  tempCommunes.sort((a, b)  => {
+                const commA = a.name.toLowerCase();
+                const commB = b.name.toLowerCase();
+
+                let comparison = 0;
+                if (commA > commB) {
+                    comparison = 1;
+                } else if (commA < commB) {
+                    comparison = -1;
+                }
+                return comparison;
+            })
+
+            setCommunes(orderCommunes);
+        }
+    }, [selectedRegion]);
+
+    const handleAddress = (e) => {
+        setAddress({
+            ...address,
+            [e.target.name]: e.target.value
+        })
+    }
+
+    const updateData = () => {
+        let url = Services.ENDPOINT.CUSTOMER.ADDRESSES.UPDATE;
+
+        let data = {
+            customer_id: customerId,
+            address_id: address.id,
+            name: address.name,
+            last_name: address.last_name,
+            region_id: address.region_id,
+            commune_id: parseInt(address.commune_id),
+            address: address.address,
+            extra_info: address.extra_info,
+        }
+
+        Services.DoPost(url,data).then(response => {
+            Services.Response({
+            response: response,
+                success: () => {
+                    setAddresses(response.data.addresses)
+                    toastr.success(response.message);
+                    goBack();
+            },
+            });
+        }).catch(error => {
+            Services.ErrorCatch(error)
+        });
+    }
+
+    const selectRegion = (e) => {
+        const region = regions.find(r => r.id == e.target.value)
+        setAddress({
+            ...address,
+            region_id : region.id,
+            commune_id: null
+        })
+        setSelectedRegion(e.target.value)
+    }
 
     return (
         <div className="row">
             <div className="col-md-12">
                 <div className="form-group">
-                    <label htmlFor="contact_first_name">Nombre</label>
+                    <label htmlFor="name">Nombre</label>
                     <input type="text"
                            className="form-control form-control-custom"
-                           id="contact_first_name"
-                           name="contact_first_name"
-                           placeholder="Nombre Contacto"
-                           value={address.contact_first_name}
+                           id="name"
+                           name="name"
+                           placeholder="Nombre Dirección"
+                           value={address.name}
+                           onChange={handleAddress}
+                           onFocus={setCleanInputError}
                     />
-                </div>
-            </div>
-
-            <div className="col-md-12">
-                <div className="form-group">
-                    <label htmlFor="contact_last_name">Apellido</label>
-                    <input type="text"
-                           className="form-control form-control-custom"
-                           id="contact_last_name"
-                           name="contact_last_name"
-                           placeholder="Nombre Contacto"
-                           value={address.contact_last_name}
-                    />
+                    <div className="invalid-feedback" />
                 </div>
             </div>
 
@@ -53,9 +125,20 @@ const Form = ({addressSelected, goBack, formMode, setAddresses}) => {
                         className="form-control form-control-custom pl-2"
                         id="region_id"
                         name="region_id"
-                        value={address.region_id}>
-                        <option value="5">REGIÓN DE VALPARAÍSO</option>
+                        value={address.region_id}
+                        onChange={(e) => selectRegion(e)}
+                        onFocus={setCleanInputError}
+                    >
+                        <option value='' disabled selected>Seleccionar</option>
+                        {
+                            regions.map((region) => {
+                                return(
+                                    <option value={region.id} key={region.id}>{region.name}</option>
+                                )
+                            })
+                        }
                     </select>
+                    <div className="invalid-feedback" />
                 </div>
             </div>
 
@@ -66,9 +149,20 @@ const Form = ({addressSelected, goBack, formMode, setAddresses}) => {
                         className="form-control form-control-custom pl-2"
                         id="commune_id"
                         name="commune_id"
-                        value={address.commune_id}>
-                        <option value="5">Viña del Mar</option>
+                        onChange={handleAddress}
+                        onFocus={setCleanInputError}
+                        value={address.commune_id}
+                    >
+                        <option value='' disabled selected>Seleccionar</option>
+                        {
+                            communes.map((commune) => {
+                                return(
+                                    <option value={commune.id} key={commune.id}>{commune.name}</option>
+                                )
+                            })
+                        }
                     </select>
+                    <div className="invalid-feedback" />
                 </div>
             </div>
 
@@ -81,25 +175,37 @@ const Form = ({addressSelected, goBack, formMode, setAddresses}) => {
                            name="address"
                            placeholder="Dirección"
                            value={address.address}
+                           onChange={handleAddress}
+                           onFocus={setCleanInputError}
                     />
+                    <div className="invalid-feedback" />
                 </div>
             </div>
             <div className="col-md-4">
                 <div className="form-group">
-                    <label htmlFor="address_number">Número casa / depto</label>
+                    <label htmlFor="extra_info">Número casa / depto</label>
                     <input type="text"
                            className="form-control form-control-custom"
-                           id="address_number"
-                           name="address_number"
+                           id="extra_info"
+                           name="extra_info"
                            placeholder="Número casa / depto"
-                           value={address.address_number}
+                           value={address.extra_info}
+                           onChange={handleAddress}
+                           onFocus={setCleanInputError}
                     />
+                    <div className="invalid-feedback" />
                 </div>
             </div>
 
-            <div className="col-md-12 mt-4 text-right">
+            <div className="col-md-6 mt-4 text-left">
                 <button type="button" className="btn btn-bicolor px-5"
-                        onClick={() => alert('GUARDAR DIRECCIÓN')}>
+                        onClick={() => goBack()}>
+                    <span>VOLVER</span>
+                </button>
+            </div>
+            <div className="col-md-6 mt-4 text-right">
+                <button type="button" className="btn btn-bicolor px-5"
+                        onClick={() => updateData()}>
                     <span>GUARDAR DIRECCIÓN</span>
                 </button>
             </div>
