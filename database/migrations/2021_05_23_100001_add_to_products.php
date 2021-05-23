@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddToProductTable extends Migration
+class AddToProducts extends Migration
 {
     /**
      * Run the migrations.
@@ -15,13 +15,7 @@ class AddToProductTable extends Migration
     {
         Schema::table('products', function (Blueprint $table) {
             //
-            $table->enum('format', [
-                '21',
-                '28',
-                '1',
-                '3',
-                '91'
-            ])->nullable();
+            $table->text('barcode')->nullable();
 
         });
     }

@@ -145,9 +145,13 @@ if (env('SHOW_INTRANET', 'TRUE') == 'TRUE') {
                 Route::get('contactos/export', 'ContactController@export')->name('contacts.export');
                 Route::resource('contactos', 'ContactController', ['names' => getResourceRoutesForNameHelper('contacts')]);
 
+                Route::get('precios-productos/export', 'PriceController@export')->name('prices.export');
+                Route::resource('precios-productos', 'PriceController', ['names' => getResourceRoutesForNameHelper('prices')]);
+
                 Route::post('alianzas/active', 'AllianceController@active')->name('alliances.active');
                 Route::resource('alianzas', 'AllianceController', ['names' => getResourceRoutesForNameHelper('alliances')]);
 
+                Route::get('productos/export', 'ProductController@export')->name('products.export');
                 Route::post('productos/active', 'ProductController@active')->name('products.active');
                 Route::resource('productos', 'ProductController', ['names' => getResourceRoutesForNameHelper('products')]);
 

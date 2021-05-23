@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddToProductTable extends Migration
+class AddToPrices extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,10 @@ class AddToProductTable extends Migration
      */
     public function up()
     {
-        Schema::table('products', function (Blueprint $table) {
+        Schema::table('prices', function (Blueprint $table) {
             //
-            $table->enum('format', [
-                '21',
-                '28',
-                '1',
-                '3',
-                '91'
-            ])->nullable();
+            $table->unsignedBigInteger('subscription_plan_id')->comment('Id de la tabla subscription_plans');
+            $table->foreign('subscription_plan_id')->references('id')->on('subscription_plans');
 
         });
     }
@@ -33,7 +28,7 @@ class AddToProductTable extends Migration
      */
     public function down()
     {
-        Schema::table('products', function (Blueprint $table) {
+        Schema::table('prices', function (Blueprint $table) {
             //
         });
     }

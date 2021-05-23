@@ -13,7 +13,8 @@ class Category extends Model
         'image',
         'active',
         'banner_image',
-        'position'
+        'position',
+        'description'
     ];
 
     public function subcategories(){

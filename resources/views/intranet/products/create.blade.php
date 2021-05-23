@@ -65,7 +65,7 @@
                                             class="form-control"
                                             id="sku"
                                             name="sku"
-                                            placeholder="Nombre"
+                                            placeholder="SKU"
                                             value="{{ old('sku') }}">
                                         {!! $errors->first('sku', '<span class="help-block">:message</span>') !!}
                                     </div>
@@ -187,23 +187,38 @@
                                         {!! $errors->first('consumption_typology', '<span class="help-block">:message</span>') !!}
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-2">
                                     <div class="form-group">
                                         <label for="is_bioequivalent">¿Es bioequivalente?</label>
                                         <br/>
                                         <input class="js-switch" name="is_bioequivalent" id="is_bioequivalent" type="checkbox" value="1">
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="format">Formato (*)</label>
-                                        <select id="format" name="format" class="form-control" required>
+                                        <select id="format" name="format" class="form-control">
                                             <option value="" selected>Sin formato</option>
+                                            <option value="1">1</option>
+                                            <option value="3">3</option>
                                             <option value="21">21</option>
                                             <option value="28">28</option>
+                                            <option value="91">91</option>
                                         </select>
                                     </div>
                                 </div> 
+                                <div class="col-md-3">
+                                    <div class="form-group {{ $errors->has('barcode') ? 'has-error':'' }}">
+                                        <label for="barcode">Código de Barras </label>
+                                        <input type="number"
+                                            class="form-control "
+                                            id="barcode"
+                                            name="barcode"
+                                            placeholder="Código de Barras"
+                                            value="{{ old('barcode') }}">
+                                        {!! $errors->first('barcode', '<span class="help-block">:message</span>') !!}
+                                    </div>
+                                </div>
                                 <div class="clearfix"></div>
 
                             </div>
@@ -250,7 +265,7 @@
                         <div class="clearfix"></div>
                         <br/>
                         <div class="clone">
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="price">Plan</label>
                                     <select name="plan_id[1][]" class="form-control plan_id" data-width="100%">
@@ -261,10 +276,17 @@
                                     </select>
                                 </div>
                             </div>    
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="warnings">Disclaimer</label>
                                     <textarea name="warnings[1][]" class="form-control warnings summernote"></textarea>
+                                </div>
+                            </div>   
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="price">Precio</label>
+                                    <input type="text" name="price_plan[1][]" class="form-control price"
+                                    oninput="checkKeyByClass('price')" >
                                 </div>
                             </div>   
                             <div class="col-md-2">
@@ -508,6 +530,8 @@
             $(".plan_id").last().val("");
             $(".plan_id").last().attr('name', 'plan_id[' + count + '][]');
             $(".plan_id").last().removeAttr("required");
+            $(".price").last().val("");
+            $(".price").last().attr('name', 'price_plan[' + count + '][]');
             $(".warnings").last().html('');
             $(".note-editor").last().remove();
             $(".warnings").last().attr('name', 'warnings[' + count + '][]');

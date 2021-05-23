@@ -12,6 +12,7 @@ class ProductSubscriptionPlan extends Model
     protected $fillable = [
         'warnings',
         'subscription_plan_id',
+        'price',
         'product_id'
     ];
 
