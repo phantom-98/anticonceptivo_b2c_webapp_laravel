@@ -2,15 +2,13 @@ import React, {useContext, useState} from 'react';
 import {ModalAuthMode} from "../../../Globals";
 import {AppContext} from "../../../context/AppProvider";
 import {LOCAL_STORAGE} from "../../../context/LocalStorage";
-import {AuthContext} from "../../../context/AuthProvider"
 import * as Services from "../../../Services";
 import PUBLIC_ROUTES from "../../../routes/publicRoutes";
+import toastr from "toastr";
 
 const Login = () => {
 
     const {showModalAuth} = useContext(AppContext);
-
-    const {auth, doLogin} = useContext(AuthContext);
 
     const [data, setData] = useState({
         email: '',

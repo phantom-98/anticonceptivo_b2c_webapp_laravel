@@ -18,7 +18,7 @@ import BlogList from "../pages/public/BlogList";
 
 const PUBLIC_ROUTES = {
     HOME: {
-        path: "/",
+        path: "/:recovery?/:token?",
         title: "Inicio",
         component: Home,
         exact: true,

@@ -171,7 +171,7 @@ class AuthController extends Controller
 
                 if ($customer->save()) {
 
-                    $link = env('APP_URL') . '/recuperar-contrasena/' . encrypt($customer->recovery_pin);
+                    $link = env('APP_URL') . '/recuperar-contrasena/' . $customer->recovery_pin;
                     $subject = 'Recuperar Contraseña';
 
                     $body = view('emails.recovery-password', ['data' => [
@@ -203,13 +203,14 @@ class AuthController extends Controller
         try {
 
             $rules = [
-                'password' => 'required|confirmed|min:8',
+                'password' => 'required|min:8|confirmed',
                 'password_confirmation' => 'required|min:8'
             ];
 
             $messages = [
                 'password.required' => OutputMessage::FIELD_PASSWORD_REQUIRED,
                 'password.min' => OutputMessage::FIELD_PASSWORD_MIN,
+                'password.confirmed' => OutputMessage::FIELD_PASSWORD_CONFIRMATION,
                 'password_confirmation.required' => OutputMessage::FIELD_PASSWORD_CONFIRMATION_REQUIRED,
                 'password_confirmation.min' => OutputMessage::FIELD_PASSWORD_CONFIRMATION_MIN
             ];
@@ -218,17 +219,30 @@ class AuthController extends Controller
 
             if ($validator->passes()) {
 
-                $customer = Customer::where('recovery_pin',$request->token)->first();
+                $customer = Customer::where('recovery_pin', $request->token)->first();
 
                 if (!$customer) {
                     return ApiResponse::JsonError(null, OutputMessage::TOKEN_EXPIRED);
                 }
 
+                if (!$customer->active) {
+                    return ApiResponse::JsonError(null, 'Su cuenta no se encuentra activa, si tiene consultas por favor contáctese con nosotros.');
+                }
+
                 $customer->password = bcrypt($request->password);
                 $customer->recovery_pin = null;
+                $customer->last_access = Carbon::now();
 
                 if ($customer->save()) {
-                    return ApiResponse::JsonSuccess($customer->full_name, OutputMessage::CUSTOMER_NEW_PASSWORD);
+                    config(['auth.guards.api.provider' => 'customer']);
+
+                    $token = Helper::GenerateAuthToken();
+                    $auth = AuthGenerator::GenerateAuth($customer, $token, 'customer');
+
+                    return ApiResponse::JsonSuccess([
+                        'auth' => $auth,
+                        'auth_token' => $token,
+                    ], OutputMessage::AUTH_GRANTED);
                 } else {
                     return ApiResponse::JsonError(null, OutputMessage::CUSTOMER_NEW_PASSWORD_ERROR);
                 }

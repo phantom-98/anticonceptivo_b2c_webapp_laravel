@@ -3,6 +3,7 @@ import {
     MODAL_AUTH_HIDE,
     MODAL_AUTH_SHOW_SUCCESS_SHOW,
     MODAL_AUTH_SHOW_SUCCESS_HIDE,
+    SET_TOKEN_MODAL_AUTH,
 } from "./types";
 
 export default (state, action) => {
@@ -36,6 +37,11 @@ export default (state, action) => {
                 modalAuthSuccessType: '',
             };
 
+        case SET_TOKEN_MODAL_AUTH:
+            return {
+                ...state,
+                token: action.payload
+            }
         default:
             return state;
     }

@@ -23,7 +23,7 @@ const RecoveryPassword = () =>{
             Services.Response({
             response: response,
                 success: () => {
-                    hideModalAuth(ModalAuthMode.SET_NEW_PASSWORD);
+                    hideModalAuth(ModalAuthMode.RECOVERY_PASSWORD);
                     showModalAuthSuccess();
                 },
             });
@@ -62,12 +62,6 @@ const RecoveryPassword = () =>{
                                 <div className="invalid-feedback"/>
                             </div>
                         </div>
-                        {/* <div className="col-md-12 text-right">
-                            <button type="button" className="link font-12"
-                                    onClick={() => showModalAuth(ModalAuthMode.SET_NEW_PASSWORD)}>
-                                <span>Ya tengo el código</span>
-                            </button>
-                        </div> */}
                     </div>
                 </div>
                 <div className="col-md-12 py-2 text-center">

@@ -71,6 +71,7 @@ export const ENDPOINT = {
         LOGIN: GetBaseURL() + 'auth/login',
         LOGIN_BY_TOKEN: GetBaseURL() + 'auth/login-by-token',
         RECOVERY_PASSWORD: GetBaseURL() + 'auth/recovery-password',
+        SET_NEW_PASSWORD: GetBaseURL() + 'auth/set-new-password',
         REGISTER: GetBaseURL() + 'auth/register',
         VERIFY: GetBaseURL() + 'auth/verify',
         GET_AUTH: GetBaseURL() + 'auth/get-auth',
@@ -113,7 +114,8 @@ export const ENDPOINT = {
             REMOVE: GetBaseURL() + 'customer/remove-prescriptions',
         },
         CUSTOMER_SERVICE: {
-            SEND: GetBaseURL() + 'customer/send'
+            SEND: GetBaseURL() + 'customer/send',
+            GET: GetBaseURL() + 'customer/get-action'
         }
     },
     PAYMENTS: {
