@@ -9,6 +9,7 @@ import {
     MODAL_AUTH_SHOW,
     MODAL_AUTH_SHOW_SUCCESS_SHOW,
     MODAL_AUTH_SHOW_SUCCESS_HIDE,
+    SET_TOKEN_MODAL_AUTH,
 } from "./types";
 
 export const AppContext = createContext(null);
@@ -27,6 +28,8 @@ const AppProvider = (props) => {
 
         showingModalAuthSuccess: false,
         modalAuthSuccessType: '',
+
+        token: '',
     };
 
     const [state, dispatch] = useReducer(AppReducer, initialState);
@@ -57,6 +60,17 @@ const AppProvider = (props) => {
         })
     }
 
+    const setTokenModalAuth = (token) => {
+        dispatch({
+            type: SET_TOKEN_MODAL_AUTH,
+            payload: token
+        });
+    }
+
+    const getTokenModalAuth = () => {
+        return state.token;
+    }
+
     return (
         <AppContext.Provider value={{
             pusherNotifyChannel,
@@ -68,8 +82,12 @@ const AppProvider = (props) => {
 
             showModalAuth : showModalAuth,
             hideModalAuth : hideModalAuth,
+
             showModalAuthSuccess : showModalAuthSuccess,
             hideModalAuthSuccess : hideModalAuthSuccess,
+
+            setTokenModalAuth : setTokenModalAuth,
+            getTokenModalAuth: getTokenModalAuth
 
         }}>
             {props.children}
