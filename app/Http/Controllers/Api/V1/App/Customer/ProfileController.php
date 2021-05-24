@@ -191,7 +191,12 @@ class ProfileController extends Controller
             if ($validator->passes()) {
                 if (!$address) {
                     $address = CustomerAddress::create($request->except(['address_id']));
-                    
+
+                    if (CustomerAddress::where('customer_id',$request->customer_id)->count() === 1) {
+                        $address->default_address = 1;
+                        $address->save();
+                    }
+
                     $addresses = CustomerAddress::where('customer_id', $customer->id)->get();
 
                     return ApiResponse::JsonSuccess([
