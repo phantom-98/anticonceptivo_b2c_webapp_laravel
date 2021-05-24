@@ -36,6 +36,7 @@ class AuthController extends Controller
                 'password' => 'required',
                 'phone_code' => 'required',
                 'phone' => 'required|unique:customers,phone',
+                'accept_terms' => 'required|boolean|ends_with:'.true,
             ];
 
             $messages = [

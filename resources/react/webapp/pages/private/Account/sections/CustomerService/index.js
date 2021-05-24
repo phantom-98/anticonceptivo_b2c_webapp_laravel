@@ -17,21 +17,14 @@ const CustomerService = () => {
         subject_one: 'claim',
         subject_two: 'claimV2',
         message: '',
-        accept_terms: '',
     }
 
     const [data, setData] = useState(defaultData);
 
     const handleData = (e) => {
-        if (e.target.name === 'accept_terms') {
-            setData({...data,
-                [e.target.name]: data.accept_terms === false || data.accept_terms === '' ? true : false
-            })
-        }else{
-            setData({...data,
-                [e.target.name]: e.target.value
-            })
-        }
+        setData({...data,
+            [e.target.name]: e.target.value
+        })
     }
 
     const sendToCustomerService = () => {
@@ -99,19 +92,7 @@ const CustomerService = () => {
                     </div>
                     <div className="col-md-12 mt-3">
                         <div className="row">
-                            <div className="col">
-                                <Form.Check
-                                    custom
-                                    type="checkbox"
-                                    id="accept_terms"
-                                    name="accept_terms"
-                                    onClick={handleData}
-                                    checked={data.accept_terms === true ? true : false}
-                                    onFocus={setCleanInputError}
-                                    label={<span className="font-inter font-12 regular color-707070">Aceptar <span className="link pointer" onClick={() => alert('Términos y condiciones')}>Términos y condiciones</span> y <span className="link pointer" onClick={() => alert('Políticas de privacidad')}>Políticas de privacidad</span> </span>}
-                                />
-                            </div>
-                            <div className="col-auto">
+                            <div className="col-12 text-right">
                                 <button type="button" className="btn btn-bicolor px-5"
                                         onClick={() => sendToCustomerService()}>
                                     <span>ENVIAR</span>
