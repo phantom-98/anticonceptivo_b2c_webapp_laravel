@@ -46,9 +46,16 @@ const CustomerService = () => {
             let temp = {};
 
             dynamicFields.map(dynamic => {
-               temp = {
-                   ...temp,
-                   [dynamic.type+'-'+dynamic.id]: ''
+               if (dynamic.type === 'checkbox') {
+                   temp = {
+                        ...temp,
+                        [dynamic.type+'-'+dynamic.id]: []
+                    }
+               }else{
+                   temp = {
+                        ...temp,
+                        [dynamic.type+'-'+dynamic.id]: ''
+                    }
                }
             })
 
@@ -75,8 +82,13 @@ const CustomerService = () => {
 
     const sendToCustomerService = () => {
         let url = Services.ENDPOINT.CUSTOMER.CUSTOMER_SERVICE.SEND;
+
+        let dataForm = {
+            ...data,
+            dynamicData
+        }
         
-        Services.DoPost(url,data).then(response => {
+        Services.DoPost(url, dataForm).then(response => {
             Services.Response({
                 response: response,
                 success: () => {
@@ -92,6 +104,40 @@ const CustomerService = () => {
     const handleData = (e) => {
         setData({...data,
             [e.target.name]: e.target.value
+        })
+    }
+
+    const handleDynamicData = (e) => {
+        setDynamicData({
+            ...dynamicData,
+            [e.target.name]: e.target.value
+        })
+    }
+
+    const handleDynamicRadio = (e) => {
+        setDynamicData({
+            ...dynamicData,
+            [e.target.name]: e.target.id
+        })
+    }
+
+    const handleDynamicCheckbox = (e) => {
+        let list = [];
+
+        if(dynamicData[e.target.name].includes(e.target.id)){
+
+            list = dynamicData[e.target.name].filter(x => x !== e.target.id)
+
+        }else{
+            list = [
+                ...dynamicData[e.target.name],
+                e.target.id
+            ]
+        }
+        
+        setDynamicData({
+            ...dynamicData,
+            [e.target.name]: list
         })
     }
 
@@ -125,7 +171,6 @@ const CustomerService = () => {
                     {
                         dynamicFields.length ? 
                             dynamicFields.map((dynamicField, index) => {
-                                let uuid = uuidv4();
                                 return (
                                     <DynamicField
                                         id={dynamicField.id}
@@ -134,7 +179,10 @@ const CustomerService = () => {
                                         type={dynamicField.type}
                                         index={index}
                                         dynamicData={dynamicData}
-                                        key={uuid}
+                                        handleDynamicData={handleDynamicData}
+                                        handleDynamicRadio={handleDynamicRadio}
+                                        handleDynamicCheckbox={handleDynamicCheckbox}
+                                        key={index}
                                     />  
                                 )
                             })

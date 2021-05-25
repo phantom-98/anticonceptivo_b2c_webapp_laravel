@@ -1,23 +1,24 @@
 import React, {Fragment} from 'react'
 import {Form} from "react-bootstrap";
 
-const DynamicField = ({id, name, values, type, index, dynamicData}) => {
+const DynamicField = ({id, name, values, type, index, dynamicData, handleDynamicData, handleDynamicRadio, handleDynamicCheckbox}) => {
 
     const fieldType = () => {
+
         switch (type) {
             case 'input':
                 return (
                     <div className="col-md-12" key={index}>                        
                         <div className="form-group">
-                            <label htmlFor={`dynamic_field_${index}`}>{name}</label>
+                            <label htmlFor={`${type}-${id}`}>{name}</label>
                                 <input type="text"
                                     className="form-control form-control-custom"
                                     id={`${type}-${id}`}
                                     name={`${type}-${id}`}
-                                    //    placeholder="Apellidos"
-                                    //    onChange={(e) => handleData(e)}
-                                    //    value={data.last_name}
-                                    //    onFocus={setCleanInputError}
+                                    placeholder="Ingresar Texto..."
+                                    onChange={handleDynamicData}
+                                    value={dynamicData[type+'-'+id]}
+                                    // onFocus={setCleanInputError}
                                 />
                             <div className="invalid-feedback" />
                         </div>
@@ -27,14 +28,15 @@ const DynamicField = ({id, name, values, type, index, dynamicData}) => {
                 return (
                     <div className="col-md-12" key={index}>                        
                         <div className="form-group">
-                            <label htmlFor={`dynamic_field_${index}`}>{name}</label>
+                            <label htmlFor={`${type}-${id}`}>{name}</label>
                                 <textarea
                                     rows="7"
                                     className="form-control form-control-custom"
                                     id={`${type}-${id}`}
                                     name={`${type}-${id}`}
-                                    // placeholder="Mensaje"
-                                    // onChange={handleData}
+                                    placeholder="Ingresar Párrafo..."
+                                    onChange={handleDynamicData}
+                                    value={dynamicData[type+'-'+id]}
                                     // onFocus={setCleanInputError}
                                 />
                                 <div className="invalid-feedback" />
@@ -48,17 +50,17 @@ const DynamicField = ({id, name, values, type, index, dynamicData}) => {
                 return(
                     <div className="col-md-12" key={index}>                        
                         <div className="form-group">
-                            <label htmlFor={`dynamic_field_${index}`}>{name}</label>
+                            <label htmlFor={`${type}-${id}`}>{name}</label>
                                 <select
                                     className="form-control form-control-custom pl-2"
                                     id={`${type}-${id}`}
                                     name={`${type}-${id}`}
-                                    // onChange={(e) => handleData(e)}
-                                    // value={data.commercial_commune_id}
+                                    onChange={handleDynamicData}
+                                    value={dynamicData[type+'-'+id]}
                                     >
                                         <option value={null} disabled selected>Seleccionar</option>
                                     {
-                                        items.map(item => {
+                                        items.map((item, itemIndex) => {
                                             return(
                                                 <option value={item} key={item}>{item}</option>
                                             )
@@ -72,15 +74,15 @@ const DynamicField = ({id, name, values, type, index, dynamicData}) => {
             case 'radio':
                 let radios = values;
                 radios = radios.split(',');
-            
+
                 return(
                     <div className="col-md-12">
                         <div className="form-group">
-                        <label htmlFor={`dynamic_field_${index}`}>{name}</label>
+                        <label htmlFor={`${type}-${id}`}>{name}</label>
                         {
-                            radios.map((radio) => {
+                            radios.map((radio, radioIndex) => {
                                 return(
-                                    <Fragment>
+                                    <Fragment key={radioIndex+100}>
                                         <div className="col-auto d-flex pr-0">
                                             <div className="my-auto">
                                                     <Form.Check
@@ -91,10 +93,10 @@ const DynamicField = ({id, name, values, type, index, dynamicData}) => {
                                                     }
                                                     type="radio"
                                                     name={`${type}-${id}`}
-                                                    checked={false}
+                                                    // checked={dynamicData[type+'-'+id]}
                                                     className="mr-1"
-                                                    onClick={() => alert('clicked')}
-                                                    id={`custom-inline-radio-${type}-${id}`}
+                                                    onChange={handleDynamicRadio}
+                                                    id={radio}
                                                 />
                                             </div>
                                         </div>
@@ -114,11 +116,11 @@ const DynamicField = ({id, name, values, type, index, dynamicData}) => {
                 return(
                     <div className="col-md-12">
                         <div className="form-group">
-                        <label htmlFor={`dynamic_field_${index}`}>{name}</label>
+                        <label htmlFor={`${type}-${id}`}>{name}</label>
                         {
                             checkboxes.map((checkbox, checkboxIndex) => {
                                 return(
-                                    <Fragment>
+                                    <Fragment key={checkboxIndex+200}>
                                         <div className="col-auto d-flex pr-0">
                                             <div className="my-auto">
                                                     <Form.Check
@@ -128,11 +130,11 @@ const DynamicField = ({id, name, values, type, index, dynamicData}) => {
                                                         <span className="font-poppins font-10 regular color-8E8E8E">{checkbox}</span>
                                                     }
                                                     type="checkbox"
-                                                    name={`${type}-${id}-${checkboxIndex}`}
-                                                    checked={false}
+                                                    name={`${type}-${id}`}
                                                     className="mr-1"
-                                                    onClick={() => alert('clicked')}
-                                                    id={`custom-inline-checkbox-${type}-${id}`}
+                                                    // checked={dynamicData[type+'-'+id].includes(checkbox)}
+                                                    onChange={handleDynamicCheckbox}
+                                                    id={checkbox}
                                                 />
                                             </div>
                                         </div>

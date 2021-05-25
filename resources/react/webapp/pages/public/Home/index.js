@@ -9,20 +9,20 @@ import ProductsCarousel from "../../../components/sections/ProductsCarousel";
 import BlogCarousel from "../../../components/sections/BlogCarousel";
 import {ModalAuthMode} from "../../../Globals";
 import {AppContext} from "../../../context/AppProvider";
+import{AuthContext} from "../../../context/AuthProvider";
 
 const Home = ({match}) => {
 
     const {token} = match.params;
 
-    const {showModalAuth, setTokenModalAuth} = useContext(AppContext)
+    const {showModalAuth, setTokenModalAuth} = useContext(AppContext);
     
     useEffect(() => {
-        if (token) {
+        if (token  && token.length > 15) {
             setTokenModalAuth(token);
             showModalAuth(ModalAuthMode.SET_NEW_PASSWORD); 
         }
     }, [])
-
 
     return (
         <Fragment>
