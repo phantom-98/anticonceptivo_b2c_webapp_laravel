@@ -4,11 +4,12 @@ import {AppContext} from "../../../context/AppProvider";
 import {setCleanInputError} from "../../../helpers/GlobalUtils";
 import {LOCAL_STORAGE} from "../../../context/LocalStorage";
 import PUBLIC_ROUTES from "../../../routes/publicRoutes";
+import toastr from 'toastr';
 
 const SetNewPassword = () => {
 
     const {getTokenModalAuth} = useContext(AppContext);
-    
+
     useEffect(() => {
         setData({
             ...data,
