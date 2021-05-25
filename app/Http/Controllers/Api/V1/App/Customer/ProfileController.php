@@ -353,6 +353,8 @@ class ProfileController extends Controller
     {
        try {
 
+            return $request->all();
+
             $rules = [
                 'message' => 'required|string|min:10|max:255',
                 'accept_terms' => 'required|boolean',
