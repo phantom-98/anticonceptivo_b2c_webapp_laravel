@@ -10,11 +10,13 @@ use Illuminate\Http\Request;
 use SendGrid\Mail\Mail;
 use Willywes\ApiResponse\ApiResponse;
 use App\Http\Utils\OutputMessage\OutputMessage;
+use App\Http\Utils\Enum\ContactIssueTypes;
 use App\Models\Customer;
 use App\Models\Region;
 use App\Models\CustomerAddress;
 use App\Models\Order;
 use App\Models\Prescription;
+use App\Models\ContactIssue;
 
 class ProfileController extends Controller
 {
@@ -328,6 +330,23 @@ class ProfileController extends Controller
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, $exception->getMessage());
         }
+    }
+
+    public function getAction(Request $request){
+        switch ($request->action) {
+            case 'CUSTOMER_SERVICE_DATA':
+                $data = self::getCustomerService();
+                return ApiResponse::JsonSuccess([
+                    'contact_issues' => $data
+                ],OutputMessage::SUCCESS);
+        }
+    }
+
+    private static function getCustomerService(){
+        $contactIssue = ContactIssue::where('active',true)->where('section',ContactIssueTypes::CUSTOMER_SERVICE)
+            ->with(['fields'])->get();
+
+        return $contactIssue;
     }
 
     public function send(Request $request)

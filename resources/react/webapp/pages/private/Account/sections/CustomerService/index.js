@@ -1,10 +1,11 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import H3Panel from "../../../../../components/general/H3Panel";
-import {Form} from 'react-bootstrap';
 import {AuthContext} from '../../../../../context/AuthProvider';
 import * as Services from "../../../../../Services";
 import {setCleanInputError} from "../../../../../helpers/GlobalUtils";
 import toastr from "toastr";
+import { v4 as uuidv4 } from "uuid";
+import DynamicField from "./DynamicField"
 
 const CustomerService = () => {
 
@@ -14,17 +15,62 @@ const CustomerService = () => {
         customer_id: auth.id,
         email: auth.email,
         name: auth.full_name,
-        subject_one: 'claim',
-        subject_two: 'claimV2',
+        contact_issue: "1",
         message: '',
     }
 
     const [data, setData] = useState(defaultData);
+    const [dynamicData, setDynamicData] = useState({});
+    const [contactIssues, setContactIssues] = useState([]);
+    const [dynamicFields, setDynamicFields] = useState([]);
 
-    const handleData = (e) => {
-        setData({...data,
-            [e.target.name]: e.target.value
-        })
+    useEffect(() => {
+        getData();
+    },[])
+
+    useEffect(() => {
+        if (contactIssues.length) {
+            var temp = contactIssues.find((contact) => contact.id == data.contact_issue)
+            if (temp.fields.length) {
+                setDynamicFields(temp.fields);
+            }else{
+                setDynamicFields([]);
+                setDynamicData({});
+            }
+        }
+        
+    },[data.contact_issue])
+
+    useEffect(() => {
+        if (dynamicFields.length) {
+            let temp = {};
+
+            dynamicFields.map(dynamic => {
+               temp = {
+                   ...temp,
+                   [dynamic.type+'-'+dynamic.id]: ''
+               }
+            })
+
+            setDynamicData(temp);
+        }
+    },[dynamicFields])
+
+    const getData = () => {
+        let url = Services.ENDPOINT.CUSTOMER.CUSTOMER_SERVICE.GET;
+        let data = {
+            action: 'CUSTOMER_SERVICE_DATA'
+        }
+        Services.DoPost(url,data).then(response => {
+            Services.Response({
+                response: response,
+                success: () => {
+                    setContactIssues(response.data.contact_issues);
+                },
+            });
+        }).catch(error => {
+            Services.ErrorCatch(error)
+        });
     }
 
     const sendToCustomerService = () => {
@@ -43,6 +89,12 @@ const CustomerService = () => {
         });
     }
 
+    const handleData = (e) => {
+        setData({...data,
+            [e.target.name]: e.target.value
+        })
+    }
+
     return (
         <div className="row">
             <H3Panel title="SERVICIO AL CLIENTE"/>
@@ -50,31 +102,44 @@ const CustomerService = () => {
                 <div className="row">
                     <div className="col-md-12">
                         <div className="form-group">
-                            <label htmlFor="subject_one">Asunto</label>
+                            <label htmlFor="contact_issue">Asunto</label>
                             <select
                                 className="form-control form-control-custom pl-2"
-                                id="subject_one"
-                                name="subject_one"
+                                id="contact_issue"
+                                name="contact_issue"
                                 onChange={handleData}
                                 onFocus={setCleanInputError}
+                                value={data.contact_issue}
                                 >
-                                <option value="claim">Reclamo</option>
+                                    {
+                                        contactIssues.map((issue) => {
+                                            let uuid = uuidv4();
+                                            return(
+                                                <option value={issue.id} key={uuid}>{issue.name}</option>
+                                            )
+                                        })
+                                    }
                             </select>
                         </div>
                     </div>
-                    <div className="col-md-12">
-                        <div className="form-group">
-                            <select
-                                className="form-control form-control-custom pl-2"
-                                id="subject_two"
-                                name="subject_two"
-                                onChange={handleData}
-                                onFocus={setCleanInputError}
-                                >
-                                <option value="claim">No me llegaron todos los productos</option>
-                            </select>
-                        </div>
-                    </div>
+                    {
+                        dynamicFields.length ? 
+                            dynamicFields.map((dynamicField, index) => {
+                                let uuid = uuidv4();
+                                return (
+                                    <DynamicField
+                                        id={dynamicField.id}
+                                        name={dynamicField.name}
+                                        values={dynamicField.values}
+                                        type={dynamicField.type}
+                                        index={index}
+                                        dynamicData={dynamicData}
+                                        key={uuid}
+                                    />  
+                                )
+                            })
+                        : null
+                    }
                     <div className="col-md-12">
                         <div className="form-group">
                             <label htmlFor="message">Mensaje</label>
