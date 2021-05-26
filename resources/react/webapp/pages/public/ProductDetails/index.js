@@ -76,7 +76,7 @@ const ProductDetail = ({match}) => {
                 <div style={{background: '#FAFAFA'}}>
                     <div className="container">
                         <div className="w-100 pt-4">
-                            <img width="100%" src="/themes/web/products/banner.png" alt={CONFIG.APP_NAME}/>
+                            <img width="100%" src={product.subcategory.category.public_banner_image} alt={CONFIG.APP_NAME}/>
                         </div>
                     </div>
                 </div>
