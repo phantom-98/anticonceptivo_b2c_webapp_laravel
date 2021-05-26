@@ -72,7 +72,7 @@
                                             class="form-control"
                                             id="sku"
                                             name="sku"
-                                            placeholder="Nombre"
+                                            placeholder="SKU"
                                             value="{{ old('sku') ?? $object->sku }}">
                                         {!! $errors->first('sku', '<span class="help-block">:message</span>') !!}
                                     </div>
@@ -188,7 +188,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="form-group {{ $errors->has('consumption_typology') ? 'has-error':'' }}">
                                         <label for="consumption_typology">Tipología consumo (*)</label>
                                         <select class="form-control"
@@ -200,6 +200,41 @@
                                             @endforeach
                                         </select>
                                         {!! $errors->first('consumption_typology', '<span class="help-block">:message</span>') !!}
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="is_bioequivalent">¿Es bioequivalente?</label>
+                                        <br/>
+                                        <input class="js-switch" name="is_bioequivalent" id="is_bioequivalent" type="checkbox" value="1" {{ $object->is_bioequivalent == 1 ? 'checked' : '' }}>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="format">Formato</label>
+                                        <select id="format" name="format" class="form-control">
+                                            <option value="" {{$object->format == null ? "selected" : ""}}>Sin formato</option>
+                                            <option value="1" {{$object->format == "1" ? "selected" : ""}}>1</option>
+                                            <option value="3" {{$object->format == "3" ? "selected" : ""}}>3</option>
+                                            <option value="21" {{$object->format == "21" ? "selected" : ""}}>21</option>
+                                            <option value="28" {{$object->format == "28" ? "selected" : ""}}>28</option>
+                                            <option value="91" {{$object->format == "91" ? "selected" : ""}}>91</option>
+                                        </select>
+                                    </div>
+                                </div> 
+
+                                <div class="col-md-3">
+                                    <div class="form-group {{ $errors->has('barcode') ? 'has-error':'' }}">
+                                        <label for="barcode">Código de Barras </label>
+                                        <input type="number"
+                                            class="form-control "
+                                            id="barcode"
+                                            name="barcode"
+                                            placeholder="Código de Barras"
+                                            value="{{ old('barcode') ?? $object->barcode }}">
+                                        {!! $errors->first('barcode', '<span class="help-block">:message</span>') !!}
                                     </div>
                                 </div>
 
@@ -251,7 +286,7 @@
                         <br/>
                         @forelse($object->plans as $plan)
                         <div class="clone">
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="price">Plan</label>
                                     <select name="plan_id[{{$loop->iteration}}][]" class="form-control plan_id" data-width="100%">
@@ -262,10 +297,17 @@
                                     </select>
                                 </div>
                             </div>    
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="warnings">Disclaimer</label>
                                     <textarea name="warnings[{{$loop->iteration}}][]" class="form-control warnings summernote">{!! $plan->warnings !!}</textarea>
+                                </div>
+                            </div>   
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="price">Precio(*)</label>
+                                    <input type="text" name="price_plan[{{$loop->iteration}}][]" class="form-control price" value="{{ $plan->price }}"
+                                    oninput="checkKeyByClass('price')" >
                                 </div>
                             </div>   
                             <div class="col-md-2">
@@ -276,7 +318,7 @@
                         </div>
                         @empty
                         <div class="clone">
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="price">Plan</label>
                                     <select name="plan_id[1][]" class="form-control plan_id" data-width="100%">
@@ -287,10 +329,17 @@
                                     </select>
                                 </div>
                             </div>    
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="warnings">Disclaimer</label>
                                     <textarea type="text" name="warnings[1][]" class="form-control warnings summernote"></textarea>
+                                </div>
+                            </div>   
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="price">Precio(*)</label>
+                                    <input type="text" name="price_plan[1][]" class="form-control price"
+                                    oninput="checkKeyByClass('price')" >
                                 </div>
                             </div>   
                             <div class="col-md-2">
@@ -407,12 +456,25 @@
         }
     </style>
     <link href="/themes/intranet/plugins/summernote/summernote.min.css" rel="stylesheet">
+    <link href="/themes/intranet/plugins/switchery/switchery.min.css" rel="stylesheet">
 @endsection
 
 @section('scripts')
     <script src="/themes/intranet/plugins/select2/js/select2.min.js"></script>
     <script src="/themes/intranet/plugins/rut/jquery.rut.js"></script>
     <script src="/themes/intranet/plugins/summernote/summernote.min.js"></script>
+
+    <script src="/themes/intranet/plugins/switchery/switchery.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
+
+            elems.forEach(function (html) {
+                let switchery = new Switchery(html);
+            });
+        });
+    </script>
 
     <script>
 
@@ -438,6 +500,8 @@
             $(".plan_id").last().val("");
             $(".plan_id").last().attr('name', 'plan_id[' + count + '][]');
             $(".plan_id").last().removeAttr("required");
+            $(".price").last().val("");
+            $(".price").last().attr('name', 'price_plan[' + count + '][]');
             $(".warnings").last().html('');
             $(".note-editor").last().remove();
             $(".warnings").last().attr('name', 'warnings[' + count + '][]');

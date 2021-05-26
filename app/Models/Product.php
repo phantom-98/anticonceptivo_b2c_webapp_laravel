@@ -23,11 +23,14 @@ class Product extends Model
         'width',
         'weigth',
         'stock',
+        'is_bioequivalent',
+        'format',
         'brand_id',
         'subcategory_id',
         'benefits',
         'data_sheet',
-        'active'
+        'active',
+        'barcode'
     ];
 
     public function subcategory(){

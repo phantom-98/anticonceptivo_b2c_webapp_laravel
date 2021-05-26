@@ -65,7 +65,7 @@
                         </li>
 
                         <li class="treeview {{ is_parent_menu_active(['intranet/categorias', 'intranet/subcategorias', 'intranet/marcas', 'intranet/productos',
-                            'intranet/pedidos', 'intranet/laboratorios', 'intranet/aviso-legal-productos']) }}">
+                            'intranet/pedidos', 'intranet/laboratorios', 'intranet/aviso-legal-productos','intranet/precios-productos', 'intranet/planes-suscripcion']) }}">
                             <a href="#">
                                 <i class="ti-shopping-cart"></i>
                                 <span class="menu-title">Tienda</span>
@@ -98,9 +98,19 @@
                                         <span class="menu-title">Aviso Legal Productos</span>
                                     </a>
                                 </li>
+                                <li class="{{ is_menu_active('intranet/planes-suscripcion') }}">
+                                    <a href="{{ route('intranet.subscription_plans.index') }}">
+                                        <span class="menu-title">Planes suscripción producto</span>
+                                    </a>
+                                </li>
                                 <li class="{{ is_menu_active('intranet/productos') }}">
                                     <a href="{{ route('intranet.products.index') }}">
                                         <span class="menu-title">Productos</span>
+                                    </a>
+                                </li>
+                                <li class="{{ is_menu_active('intranet/precios-productos') }}">
+                                    <a href="{{ route('intranet.prices.index') }}">
+                                        <span class="menu-title">Precios Planes Productos</span>
                                     </a>
                                 </li>
                                 <li class="{{ is_menu_active('intranet/pedidos') }}">
@@ -112,7 +122,7 @@
                         </li>
                         
                         <li class="treeview {{ is_parent_menu_active(['intranet/banners', 'intranet/tipos-post-blog', 'intranet/post-blog', 'intranet/faq', 'intranet/configuraciones', 'intranet/paginas', 'intranet/linea-tiempo', 'intranet/categorias-faq',
-                            'intranet/quienes-somos', 'intranet/valores', 'intranet/alianzas', 'intranet/valor-suscripcion', 'intranet/planes-suscripcion', 'intranet/bases-legales', 'intranet/costos-despachos', 'intranet/consumo-responsable']) }}">
+                            'intranet/quienes-somos', 'intranet/valores', 'intranet/alianzas', 'intranet/bases-legales', 'intranet/costos-despachos', 'intranet/consumo-responsable']) }}">
                             <a href="#">
                                 <i class="ti-settings"></i>
                                 <span class="menu-title">Conf. Sitio web</span>
@@ -168,16 +178,6 @@
                                 <li class="{{ is_menu_active('intranet/alianzas') }}">
                                     <a href="{{ route('intranet.alliances.index') }}">
                                         <span class="menu-title">Alianzas</span>
-                                    </a>
-                                </li>
-                                <li class="{{ is_menu_active('intranet/planes-suscripcion') }}">
-                                    <a href="{{ route('intranet.subscription_plans.index') }}">
-                                        <span class="menu-title">Planes suscripción producto</span>
-                                    </a>
-                                </li>
-                                <li class="{{ is_menu_active('intranet/valor-suscripcion') }}">
-                                    <a href="{{ route('intranet.subscription_values.index') }}">
-                                        <span class="menu-title">Valor suscripción</span>
                                     </a>
                                 </li>
                                 <li class="{{ is_menu_active('intranet/bases-legales') }}">

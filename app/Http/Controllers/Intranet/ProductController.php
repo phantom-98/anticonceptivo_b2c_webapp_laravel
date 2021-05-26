@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\Subcategory;
 use App\Models\SubscriptionPlan;
 use App\Models\Laboratory;
+use App\Models\Price;
 use App\Models\ProductImage;
 use App\Models\ProductSubscriptionPlan;
 use Illuminate\Http\Request;
@@ -14,6 +15,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\ProductExport;
 
 class ProductController extends GlobalController
 {
@@ -22,7 +25,8 @@ class ProductController extends GlobalController
         'folder' => 'intranet.products.',
         'pluralName' => 'Productos',
         'singularName' => 'Producto',
-        'disableActions' => ['changeStatus']
+        'disableActions' => ['changeStatus'],
+        'enableActions' => ['export']
     ];
 
     public function __construct()
@@ -98,6 +102,9 @@ class ProductController extends GlobalController
             $product->data_sheet = $request->data_sheet;
             $product->description = $request->description;
             $product->laboratory_id = $request->laboratory_id;
+            $product->is_bioequivalent = $request->is_bioequivalent ?? 0;
+            $product->format = $request->format;
+            $product->barcode = $request->barcode;
             $product->save();
 
             
@@ -120,8 +127,16 @@ class ProductController extends GlobalController
                     $new_plan = new ProductSubscriptionPlan();
                     $new_plan->subscription_plan_id = $plan[0];
                     $new_plan->warnings = $request->warnings[$key][0];
+                    $new_plan->price = $request->price_plan[$key][0];
                     $new_plan->product_id = $product->id;
                     $new_plan->save();
+
+                    $price = new Price();
+                    $price->product_id = $product->id;
+                    $price->price = $request->price_plan[$key][0];
+                    $price->subscription_plan_id = $plan[0];
+                    $price->save();
+
                 }
             }
 
@@ -211,7 +226,10 @@ class ProductController extends GlobalController
             $product->benefits = $request->benefits;
             $product->data_sheet = $request->data_sheet;
             $product->description = $request->description;
+            $product->is_bioequivalent = $request->is_bioequivalent ?? 0;
             $product->laboratory_id = $request->laboratory_id;
+            $product->format = $request->format;
+            $product->barcode = $request->barcode;
             $product->save();
 
             if ($request->hasFile('image')) {
@@ -237,11 +255,23 @@ class ProductController extends GlobalController
                     $new_plan = new ProductSubscriptionPlan();
                     $new_plan->subscription_plan_id = $plan[0];
                     $new_plan->warnings = $request->warnings[$key][0];
+                    $new_plan->price = $request->price_plan[$key][0];
                     $new_plan->product_id = $product->id;
                     $new_plan->save();
+
+                    $lastPrice = Price::where('product_id', $product->id)->where('subscription_plan_id',$plan[0])->latest()->first();
+                    if($lastPrice){
+                        $lastPrice->until = Carbon::now()->format('Y-m-d');
+                        $lastPrice->save();
+                    }
+
+                    $price = new Price();
+                    $price->product_id = $product->id;
+                    $price->price = $request->price_plan[$key][0];
+                    $price->subscription_plan_id = $plan[0];
+                    $price->save();
                 }
             }
-
 
             if ($product) {
                 session()->flash('success', 'Producto actualizado correctamente.');
@@ -286,6 +316,11 @@ class ProductController extends GlobalController
             ]);
         }
 
+    }
+
+    public function export(Request $request)
+    {
+        return Excel::download(new ProductExport(), 'listado-productos.xlsx');
     }
 
 

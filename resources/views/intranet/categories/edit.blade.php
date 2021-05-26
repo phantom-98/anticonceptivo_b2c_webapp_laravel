@@ -30,14 +30,14 @@
                 <div class="panel">
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="name">Nombre (*)</label>
                                     <input type="text" id="name" name="name" class="form-control"
                                            value="{{ old('name') ?? $object->name }}">
                                 </div>
                             </div>
-                            <div class="form-group col-sm-6">
+                            <div class="form-group col-sm-4">
                                 {!! Form::label('image', 'Imagen (20 x 20 px)(*)') !!}
                                 <input id="file-image" type='file' name='image' class='form-control' accept=".jpg, .png, .jpeg">
                                 <br/>
@@ -45,6 +45,21 @@
                                 <img id="image-edit" src="{{ Storage::url($object->image) }}" style="max-width: 100px;"/>
                                 @endif
                             </div>         
+                            <div class="form-group col-sm-4">
+                                {!! Form::label('banner_image', 'Imagen Banner (850 x 200 px)(*)') !!}
+                                <input id="file-image-2" type='file' name='banner_image' class='form-control' accept=".jpg, .png, .jpeg">
+                                <br/>
+                                @if ($object->banner_image)
+                                <img id="image-edit-2" src="{{ Storage::url($object->banner_image) }}" style="max-width: 200px;"/>
+                                @endif
+                            </div>  
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="description">Descripción</label>
+                                    <textarea id="description" name="description" class="form-control summernote"
+                                    >{{ old('description') ?? $object->description }}</textarea>
+                                </div>
+                            </div>             
                         </div>
                     </div>
                     <div class="panel-footer">
@@ -68,12 +83,14 @@
 @section('styles')
     <link href="/themes/intranet/plugins/switchery/switchery.min.css" rel="stylesheet">
     <link href="/themes/intranet/plugins/select2/css/select2.min.css" rel="stylesheet">
+    <link href="/themes/intranet/plugins/summernote/summernote.min.css" rel="stylesheet">
 @endsection
 
 @section('scripts')
     <!--Bootstrap Select [ OPTIONAL ]-->
     <script src="/themes/intranet/plugins/select2/js/select2.min.js"></script>
     <script src="/themes/intranet/js/jquery.Rut.js"></script>
+    <script src="/themes/intranet/plugins/summernote/summernote.min.js"></script>
 
     <script src="/themes/intranet/plugins/switchery/switchery.min.js"></script>
     <script>
@@ -83,6 +100,23 @@
             elems.forEach(function (html) {
                 let switchery = new Switchery(html);
             });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('.summernote').summernote({
+                disableResizeEditor: true,
+                height: 100,
+                callbacks: {
+                    onFocus: function (contents) {
+                        if($('.summernote').summernote('isEmpty')){
+                            $(".summernote").html(''); 
+                        }
+                    }
+                }
+            });
+            $('.note-statusbar').remove();
         });
     </script>
 
@@ -162,14 +196,16 @@
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
                 reader.onload = function (e) {
-                    $('#image-edit-menu').attr('src', e.target.result);
+                    $('#image-edit-2').attr('src', e.target.result);
                 };
                 reader.readAsDataURL(input.files[0]);
             }
         }
 
-        $("#file-image-menu").change(function () {
+        $("#file-image-2").change(function () {
             readURL2(this);
         });
+
+
     </script>
 @endsection

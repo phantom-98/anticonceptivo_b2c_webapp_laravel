@@ -19,6 +19,7 @@ class CreateCategoriesTable extends Migration
             $table->string('slug');
             $table->integer('position')->default(0);
             $table->text('image')->nullable();
+            $table->text('banner_image')->nullable();
             $table->boolean('active')->default(1);
 
             $table->timestamps();

@@ -21,9 +21,19 @@
 
                     <div id="toolbar">
                         @if($config['action']['create'])
+
                             <a href="{{ route($config['route'] . 'create') }}" class="btn btn-success"><i
                                     class="ti-plus"></i> Nuevo producto</a>
                         @endif
+
+                        <button type="submit" class="btn btn-success " onclick="export_excel()"
+                                style="margin-left: 20px"><i class="fa fa-file-excel-o"></i> Exportar
+                        </button>
+
+                        <form id="form-export" target="_BLANK"
+                                action="{{ route($config['route'] . 'export') }}"
+                                enctype="multipart/form-data" method="GET">
+                        </form>
 
                         {{--<button id="delete-row" class="btn btn-danger" disabled><i class="demo-pli-cross"></i> Delete</button>--}}
                     </div>
@@ -41,7 +51,7 @@
                            data-show-columns="true"
                            data-sort-name="id"
                            data-page-list="[10, 50, 200]"
-                           data-page-size="5"
+                           data-page-size="50"
                            data-pagination="true"
                            data-show-pagination-switch="true">
                     </table>
@@ -87,6 +97,12 @@
                 {
                     title: 'SKU',
                     field: 'sku',
+                    sortable: true,
+                    cellStyle: midAling,
+                },
+                {
+                    title: 'Cod. Barras',
+                    field: 'barcode',
                     sortable: true,
                     cellStyle: midAling,
                 },
@@ -152,6 +168,19 @@
                         }
 
                         return category;
+                    }
+                },
+                {
+                    title: '¿Es bioequivalente?',
+                    field: 'is_bioequivalent',
+                    sortable: true,
+                    cellStyle: midAling,
+                    formatter: function (value, row, index) {
+                        if (row.is_bioequivalent == 0) {
+                            return '<div class="label label-table label-danger">NO</div>';
+                        } else {
+                            return '<div class="label label-table label-success">SI</div>';
+                        }
                     }
                 }
             ];
@@ -219,6 +248,11 @@
     @include('intranet.template.components.jquery._crud_script_change_status')
     @include('intranet.template.components.jquery._crud_script_delete')
 
+    <script>
+        function export_excel() {
+            $('#form-export').submit();
+        }
+    </script>
 
     <script>
 

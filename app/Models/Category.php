@@ -12,7 +12,9 @@ class Category extends Model
         'slug',
         'image',
         'active',
-        'position'
+        'banner_image',
+        'position',
+        'description'
     ];
 
     protected $appends = [
