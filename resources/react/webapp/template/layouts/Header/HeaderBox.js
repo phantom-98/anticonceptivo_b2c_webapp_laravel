@@ -55,17 +55,21 @@ const HeaderBox = () => {
                                     <Icon path={userBlue}/>
                                 </div>
                                 {
-                                    auth ? 
+                                    auth ?
                                         <div className="col-auto my-auto pl-1">
                                             <div className="font-poppins font-13 lh-12 bold">Bienvenid@</div>
                                             <div className="row">
                                                 <Link to={url} className="font-poppins font-13 lh-12 regular pointer">
                                                     <div className="col-auto pr-1">Mi Cuenta</div>
                                                 </Link>
-                                                <div className="col-auto pl-1 font-poppins font-13 lh-12 regular pointer" onClick={() => logout()}>Cerrar</div>
+
+                                                <Link to="#" onClick={() => logout()} className="font-poppins font-13 lh-12 regular pointer text-danger">
+                                                    <div className="col-auto pl-1">Cerrar</div>
+                                                </Link>
+                                                {/*<span className="col-auto pl-1 font-poppins font-13 lh-12 regular pointer" >Cerrar</span>*/}
                                             </div>
                                         </div>
-                                    : 
+                                    :
 
                                     <div className="col-auto my-auto pl-1" onClick={() => showModalAuth(ModalAuthMode.LOGIN)}>
                                         <div className="font-poppins font-13 lh-12 bold">Bienvenid@</div>

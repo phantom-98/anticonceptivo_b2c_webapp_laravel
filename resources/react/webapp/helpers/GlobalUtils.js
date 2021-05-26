@@ -53,7 +53,8 @@ export const formatPhone = (number) => {
         }
 
         return false;
-    } catch (e) {}
+    } catch (e) {
+    }
 }
 
 export const phoneLength = (number) => {
@@ -64,7 +65,8 @@ export const phoneLength = (number) => {
             return true;
         }
         return false;
-    } catch (e) {}
+    } catch (e) {
+    }
 }
 
 // const capitalizeChar = e => {
@@ -99,7 +101,8 @@ export const capitalizeFirstLetterOfEachWord = (value) => {
 
         return string;
 
-    } catch (e) {}
+    } catch (e) {
+    }
 };
 
 export const getShortSpanishDayName = day => {
@@ -120,3 +123,16 @@ export const getShortSpanishDayName = day => {
             return "SAB";
     }
 };
+
+export const reactSelectAdapter = (array) => {
+    let data = [];
+    array.map(item => {
+        data = [
+            ...data, {
+                value: item.id,
+                label: item.name ? item.name : item.label,
+            }
+        ]
+    });
+    return data;
+}

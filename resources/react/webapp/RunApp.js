@@ -47,8 +47,9 @@ const renderRoute = (route, index) => {
 
 const RunApp = () => {
     return (
-        <AppProvider>
-            <AuthProvider>
+        <AuthProvider>
+            <AppProvider>
+
                 <Router>
                     <CartProvider>
 
@@ -77,8 +78,9 @@ const RunApp = () => {
 
                     </CartProvider>
                 </Router>
-            </AuthProvider>
-        </AppProvider>
+
+            </AppProvider>
+        </AuthProvider>
     );
 };
 

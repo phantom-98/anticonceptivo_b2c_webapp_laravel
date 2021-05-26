@@ -126,8 +126,17 @@ const PUBLIC_ROUTES = {
         middleware: props => <PublicMiddleware {...props} />
     },
 
+    RECOVERY: {
+        path: "/recuperar-contrasena/:token?",
+        title: "Recuperar contraseña",
+        component: Home,
+        exact: true,
+        layout: props => <BaseTemplate {...props} />,
+        middleware: props => <PublicMiddleware {...props} />
+    },
+
     HOME: {
-        path: "/:recovery?/:token?",
+        path: "/",
         title: "Inicio",
         component: Home,
         exact: true,
