@@ -21,14 +21,14 @@ const ProductTabs = ({product, legalWarning}) =>{
                     <Tab eventKey="benefits" title="Beneficios y usos">
                         <div className="panel-bordered bg-white p-5">
                             <p className="font-poppins font-14 regular">
-                                {product.benefits}
+                                <div dangerouslySetInnerHTML={{ __html: product.benefits }} />
                             </p>
                         </div>
                     </Tab>
                     <Tab eventKey="technical" title="Ficha Técnica">
                         <div className="panel-bordered bg-white p-5">
                             <p className="font-poppins font-14 regular">
-                                {product.data_sheet}
+                                <div dangerouslySetInnerHTML={{ __html: product.data_sheet }} />
                             </p>
                         </div>
                     </Tab>
@@ -36,7 +36,7 @@ const ProductTabs = ({product, legalWarning}) =>{
                     <Tab eventKey="legal" title="Aviso Legal">
                         <div className="panel-bordered bg-white p-5">
                             <p className="font-poppins font-14 regular">
-                                {legalWarning.description}
+                                <div dangerouslySetInnerHTML={{ __html: legalWarning.description }} />
                             </p>
                         </div>
                     </Tab>

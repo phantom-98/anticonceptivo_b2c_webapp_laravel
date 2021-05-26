@@ -25,7 +25,7 @@ const ProductInfo = ({product}) => {
             </div>
             <div className="col-md-12">
                 <p className="font-poppins font-14 regular color-6C6B6B">
-                    {product.description}
+                    <div dangerouslySetInnerHTML={{ __html: product.description }} />
                 </p>
             </div>
             <div className="col-md-12">
