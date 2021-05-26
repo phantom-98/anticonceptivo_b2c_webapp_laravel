@@ -10,11 +10,13 @@ use Illuminate\Http\Request;
 use SendGrid\Mail\Mail;
 use Willywes\ApiResponse\ApiResponse;
 use App\Http\Utils\OutputMessage\OutputMessage;
+use App\Http\Utils\Enum\ContactIssueTypes;
 use App\Models\Customer;
 use App\Models\Region;
 use App\Models\CustomerAddress;
 use App\Models\Order;
 use App\Models\Prescription;
+use App\Models\ContactIssue;
 
 class ProfileController extends Controller
 {
@@ -191,7 +193,12 @@ class ProfileController extends Controller
             if ($validator->passes()) {
                 if (!$address) {
                     $address = CustomerAddress::create($request->except(['address_id']));
-                    
+
+                    if (CustomerAddress::where('customer_id',$request->customer_id)->count() === 1) {
+                        $address->default_address = 1;
+                        $address->save();
+                    }
+
                     $addresses = CustomerAddress::where('customer_id', $customer->id)->get();
 
                     return ApiResponse::JsonSuccess([
@@ -325,9 +332,28 @@ class ProfileController extends Controller
         }
     }
 
+    public function getAction(Request $request){
+        switch ($request->action) {
+            case 'CUSTOMER_SERVICE_DATA':
+                $data = self::getCustomerService();
+                return ApiResponse::JsonSuccess([
+                    'contact_issues' => $data
+                ],OutputMessage::SUCCESS);
+        }
+    }
+
+    private static function getCustomerService(){
+        $contactIssue = ContactIssue::where('active',true)->where('section',ContactIssueTypes::CUSTOMER_SERVICE)
+            ->with(['fields'])->get();
+
+        return $contactIssue;
+    }
+
     public function send(Request $request)
     {
        try {
+
+            return $request->all();
 
             $rules = [
                 'message' => 'required|string|min:10|max:255',

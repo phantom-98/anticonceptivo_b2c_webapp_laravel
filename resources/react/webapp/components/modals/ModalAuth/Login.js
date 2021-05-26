@@ -2,15 +2,15 @@ import React, {useContext, useState} from 'react';
 import {ModalAuthMode} from "../../../Globals";
 import {AppContext} from "../../../context/AppProvider";
 import {LOCAL_STORAGE} from "../../../context/LocalStorage";
-import {AuthContext} from "../../../context/AuthProvider"
 import * as Services from "../../../Services";
 import PUBLIC_ROUTES from "../../../routes/publicRoutes";
+import toastr from "toastr";
+import {AuthContext} from "../../../context/AuthProvider";
 
 const Login = () => {
 
     const {showModalAuth} = useContext(AppContext);
-
-    const {auth, doLogin} = useContext(AuthContext);
+    const {login} = useContext(AuthContext);
 
     const [data, setData] = useState({
         email: '',
@@ -23,27 +23,33 @@ const Login = () => {
         })
     }
 
-    const login = () => {
-        let url = Services.ENDPOINT.AUTH.LOGIN;
-        let dataForm = data;
+    const doLogin = () => {
 
-        Services.DoPost(url, dataForm).then(response => {
-            Services.Response({
-                response: response,
-                success: () => {
+        if(data.password == ''){
 
-                    localStorage.setItem(LOCAL_STORAGE.AUTH, JSON.stringify(response.data.auth));
-                    localStorage.setItem(LOCAL_STORAGE.AUTH_TOKEN, response.data.auth_token);
+        }
 
-                    window.location.href = PUBLIC_ROUTES.HOME.path;
-                },
-                error: () => {
-                    toastr.error(response.message);
-                }
-            });
-        }).catch(error => {
-            Services.ErrorCatch(error)
-        });
+        login(data)
+
+        // let url = Services.ENDPOINT.AUTH.LOGIN;
+        //
+        // Services.DoPost(url, data).then(response => {
+        //     Services.Response({
+        //         response: response,
+        //         success: () => {
+        //
+        //             localStorage.setItem(LOCAL_STORAGE.AUTH, JSON.stringify(response.data.auth));
+        //             localStorage.setItem(LOCAL_STORAGE.AUTH_TOKEN, response.data.auth_token);
+        //
+        //             window.location.href = PUBLIC_ROUTES.HOME.path;
+        //         },
+        //         error: () => {
+        //             toastr.error(response.message);
+        //         }
+        //     });
+        // }).catch(error => {
+        //     Services.ErrorCatch(error)
+        // });
     }
 
 
@@ -64,6 +70,7 @@ const Login = () => {
                                    placeholder="hola@email.com"
                                    onChange={(e) => handleData(e)}
                             />
+                            <div className="invalid-feedback" />
                         </div>
                     </div>
                     <div className="col-md-12">
@@ -76,6 +83,7 @@ const Login = () => {
                                    placeholder="*********"
                                    onChange={(e) => handleData(e)}
                             />
+                            <div className="invalid-feedback" />
                         </div>
                     </div>
                     <div className="col-md-12 text-right">
@@ -88,7 +96,7 @@ const Login = () => {
             </div>
             <div className="col-md-12 py-2 text-center">
                 <button type="button" className="btn btn-bicolor btn-block btn-auth"
-                        onClick={() => login()}>
+                        onClick={() => doLogin()}>
                     <span>INICIAR SESIÓN</span>
                 </button>
             </div>

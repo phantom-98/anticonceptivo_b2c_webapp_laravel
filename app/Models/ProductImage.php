@@ -12,8 +12,16 @@ class ProductImage extends Model
         'product_id'
     ];
 
+    protected $appends = [
+        'public_file'
+    ];
+
     public function product(){
         return $this->belongsTo(Product::class);
+    }
+
+    public function getPublicFileAttribute(){
+        return $this->file == null ? null : \Storage::url($this->file);
     }
 
 }

@@ -3,6 +3,7 @@ import {LOCAL_STORAGE} from "../LocalStorage";
 import AuthReducer from "./AuthReducer";
 import * as Services from "../../Services";
 import PUBLIC_ROUTES from "../../routes/publicRoutes";
+import toastr from 'toastr';
 import {
     LOGIN,
     LOGOUT,
@@ -41,32 +42,28 @@ const AuthProvider = (props) => {
     }, [])
 
 
-    const login = (credentials) => {        
-        console.log('dentro del do login');
-        let url = Services.ENDPOINT.AUTH.LOGIN;
+    const login = (credentials) => {
 
-        // Services.DoPost(url, credentials).then(response => {
-        //     Services.Response({
-        //         response: response,
-        //         success: () => {
-        //             dispatch({
-        //                 type: LOGIN,
-        //                 payload: response.data
-        //             })
-                    
-        //             window.location.href = PUBLIC_ROUTES.HOME.path;
-                    
-        //         },
-        //         error: () => {
-        //             dispatch({
-        //                 type: LOGIN_FAILED,
-        //                 payload: response.message
-        //             })
-        //         }
-        //     });
-        // }).catch(error => {
-        //     Services.ErrorCatch(error)
-        // });
+        let url = Services.ENDPOINT.AUTH.LOGIN;
+        Services.DoPost(url, credentials).then(response => {
+            Services.Response({
+                response: response,
+                success: () => {
+                    dispatch({
+                        type: LOGIN,
+                        payload: response.data
+                    })
+
+                    window.location.href = PUBLIC_ROUTES.HOME.path;
+
+                },
+                error: () => {
+                    toastr.error(response.message);
+                }
+            });
+        }).catch(error => {
+            Services.ErrorCatch(error)
+        });
 
     }
 

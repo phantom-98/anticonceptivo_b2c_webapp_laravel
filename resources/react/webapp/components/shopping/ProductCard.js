@@ -15,7 +15,7 @@ const ProductCard = ({product, className = ''}) => {
             <div className="product-card-image">
                 <Link to={(PUBLIC_ROUTES.PRODUCT_DETAIL.path).replace(':slug?', product.slug)}
                       style={{textDecoration: 'none', color: '#000000'}}>
-                    <img src={product.images.length ? product.images[0].file : noImage} alt={`${CONFIG.APP_NAME} - ${product.name}`}/>
+                    <img src={product.images.length ? product.images[0].public_file : noImage} alt={`${CONFIG.APP_NAME} - ${product.name}`}/>
                 </Link>
             </div>
             <div className="product-card-body">

@@ -7,7 +7,7 @@ import CloseModal from "../../general/CloseModal";
 
 const ModalSuccess = () => {
 
-    const {showingModalAuthSuccess, modalAuthSuccessType, hideModalAuthSuccess} = useContext(AppContext)
+    const {showingModalAuthSuccess, hideModalAuthSuccess} = useContext(AppContext)
 
     return (
         <Modal show={showingModalAuthSuccess}
@@ -15,7 +15,7 @@ const ModalSuccess = () => {
                backdrop="static"
                keyboard={false}
                onHide={hideModalAuthSuccess}
-               dialogClassName="modal-auth">
+               dialogClassName="modal-success">
             <Modal.Header>
                 <CloseModal hideModal={hideModalAuthSuccess} />
             </Modal.Header>

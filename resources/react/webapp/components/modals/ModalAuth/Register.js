@@ -21,6 +21,7 @@ const Register = () => {
         phone_code: '+56',
         phone: '',
         password: '',
+        accept_terms: false
     }
 
     const [data, setData] = useState(defaultData);
@@ -60,6 +61,12 @@ const Register = () => {
         setData({
             ...data,
             [e.target.name]: e.target.value
+        })
+    }
+
+    const handleTerms = (e) => {
+        setData({...data,
+            [e.target.name]: data.accept_terms ? false : true
         })
     }
 
@@ -249,6 +256,22 @@ const Register = () => {
                                    value={data.password}
                                    placeholder="****"
                                    onFocus={setCleanInputError}
+                            />
+                            <div className="invalid-feedback" />
+                        </div>
+                    </div>
+
+                    <div className="col-md-12">
+                        <div className="">
+                            <Form.Check
+                                custom
+                                type="checkbox"
+                                id="accept_terms"
+                                name="accept_terms"
+                                onClick={handleTerms}
+                                checked={data.accept_terms}
+                                onFocus={setCleanInputError}
+                                label={<span className="font-inter font-12 regular color-707070">Aceptar <span className="link pointer" onClick={() => alert('Términos y condiciones')}>Términos y condiciones</span> y <span className="link pointer" onClick={() => alert('Políticas de privacidad')}>Políticas de privacidad</span> </span>}
                             />
                             <div className="invalid-feedback" />
                         </div>

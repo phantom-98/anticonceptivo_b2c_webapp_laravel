@@ -17,15 +17,6 @@ import BlogExample from "../pages/public/BlogExample.js";
 import BlogList from "../pages/public/BlogList";
 
 const PUBLIC_ROUTES = {
-    HOME: {
-        path: "/",
-        title: "Inicio",
-        component: Home,
-        exact: true,
-        layout: props => <BaseTemplate {...props} />,
-        middleware: props => <PublicMiddleware {...props} />
-    },
-    
     ABOUT_US: {
         path: "/sobre-nosotros",
         title: "Sobre Nosotros",
@@ -130,6 +121,24 @@ const PUBLIC_ROUTES = {
         path: "/blog/blog-de-ejemplo",
         title: "Blog de Ejemplo",
         component: BlogExample,
+        exact: true,
+        layout: props => <BaseTemplate {...props} />,
+        middleware: props => <PublicMiddleware {...props} />
+    },
+
+    RECOVERY: {
+        path: "/recuperar-contrasena/:token?",
+        title: "Recuperar contraseña",
+        component: Home,
+        exact: true,
+        layout: props => <BaseTemplate {...props} />,
+        middleware: props => <PublicMiddleware {...props} />
+    },
+
+    HOME: {
+        path: "/",
+        title: "Inicio",
+        component: Home,
         exact: true,
         layout: props => <BaseTemplate {...props} />,
         middleware: props => <PublicMiddleware {...props} />
