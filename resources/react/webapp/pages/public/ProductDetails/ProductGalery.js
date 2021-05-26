@@ -3,7 +3,7 @@ import {CONFIG} from "../../../Config";
 
 const ProductGallery = ({product}) => {
 
-    const [imageSelected, setImageSelected] = useState(product.images[0].file)
+    const [imageSelected, setImageSelected] = useState(product.images[0].public_file)
 
     return (
         <div className="row">
@@ -11,8 +11,8 @@ const ProductGallery = ({product}) => {
                 {
                     product.images.map((img, index) => {
                         return <div key={index} className="img-box-product-mini mb-3 pointer">
-                            <img src={img.file} 
-                                onClick={() => setImageSelected(img.file)}
+                            <img src={img.public_file} 
+                                onClick={() => setImageSelected(img.public_file)}
                                 alt={`${CONFIG.APP_NAME} - ${product.name}`}/>
                         </div>
                     })
