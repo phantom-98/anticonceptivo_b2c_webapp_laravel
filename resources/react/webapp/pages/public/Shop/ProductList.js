@@ -2,12 +2,16 @@ import React from 'react';
 import {CONFIG} from "../../../Config";
 import ProductCard from "../../../components/shopping/ProductCard";
 
-const ProductList = ({products}) => {
+const ProductList = ({products, categoryBanner}) => {
     return (
         <div className="row">
-            <div className="col-12 pb-3">
-                <img width="100%" src="/themes/web/products/category.png" alt={CONFIG.APP_NAME}/>
-            </div>
+            {
+                categoryBanner.public_banner_image ? 
+                <div className="col-12 pb-3">
+                    <img width="100%" src={categoryBanner.public_banner_image} alt={CONFIG.APP_NAME}/>
+                </div>
+                : null
+            }
             <div className="col-12 pb-3">
                 <div className="row">
                     <div className="col-auto d-flex" style={{height: '29px'}}>
