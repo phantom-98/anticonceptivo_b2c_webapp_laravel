@@ -2,14 +2,15 @@ import React,{useEffect, useState} from 'react';
 import {Accordion, Card, Form} from "react-bootstrap";
 import { v4 as uuidv4 } from 'uuid';
 
-const Filter = ({subCategories, laboratories}) => {
+const Filter = ({subCategories, laboratories, filtersCat}) => {
+
 
     const filters = [
         {
             id: 1, 
-            name: 'Categorías',
+            name: 'Subcategorías',
             mode: 'checkbox',
-            bodies: subCategories
+            bodies: filtersCat
         },
         {
             id: 2, 
@@ -56,6 +57,7 @@ const Filter = ({subCategories, laboratories}) => {
                                         {
                                             filter.bodies.map((body) => {
                                                 let uuid = uuidv4();
+                                                
                                                 return <Form.Check
                                                     custom
                                                     label={<span className="font-poppins font-12 text-black my-auto">{body.name}{/* <span className="color-D8D8D8">({body.total})</span> */}</span>}

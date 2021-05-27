@@ -10,6 +10,7 @@ import ProductInfo from "./ProductInfo";
 import ProductGallery from "./ProductGalery";
 import * as Services from "../../../Services";
 import LazyLoading from "../../../components/LazyLoading";
+import Bioequivalent from "../../../assets/images/icons/bioequivalence.png"
 
 const ProductDetail = ({match}) => {
 
@@ -76,7 +77,7 @@ const ProductDetail = ({match}) => {
                 <div style={{background: '#FAFAFA'}}>
                     <div className="container">
                         <div className="w-100 pt-4">
-                            <img width="100%" src={product.subcategory.category.public_banner_image} alt={CONFIG.APP_NAME}/>
+                            <img width="100%" style={{objectFit:'cover', height:'110px'}} src={product.subcategory.category.public_banner_image} alt={CONFIG.APP_NAME}/>
                         </div>
                     </div>
                 </div>
@@ -96,7 +97,8 @@ const ProductDetail = ({match}) => {
                         product.is_bioequivalent ?
                         <div className="row pb-5">
                             <div className="col-auto mr-0 pr-0" style={{width: '118px'}}></div>
-                            <div className="col mx-3" style={{backgroundColor: '#FFEA17', borderRadius: '10px', height:'42px', lineHeight:'42px'}}>
+                            <div className="col mx-3" style={{backgroundColor: '#FFEA17', borderRadius: '10px', height:'50px', lineHeight:'50px'}}>
+                                <img src={Bioequivalent} className="mr-2"/>
                                 <span className="font-14 font-poppins regular">Este medicamento es bioequivalente</span>
                             </div>
                         </div>

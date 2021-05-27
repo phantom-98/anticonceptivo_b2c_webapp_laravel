@@ -15,6 +15,7 @@ const Shop = ({match}) => {
     const [productsFiltered, setProductsFiltered] = useState([]);
     const [categories, setCategories] = useState([]);
     const [subCategories, setSubCategories] = useState([]);
+    const [filtersCat, setFiltersCat] = useState([]);
     const [laboratories, setLaboratories] = useState([]);
     const [categoryBanner, setCategoryBanner] = useState({});
     const [name, setName] = useState(null);
@@ -31,6 +32,7 @@ const Shop = ({match}) => {
             setProductsFiltered(products.filter(product => product.subcategory_id === banner.id))
             banner = categories.find(category => category.id === banner.category_id);
             setCategoryBanner(banner);
+            setFiltersCat(subCategories.filter(subcat => subcat.category_id == banner.id))
         }
     }, [subCategories, match])
 
@@ -75,6 +77,7 @@ const Shop = ({match}) => {
                                 <Filter
                                     subCategories={subCategories}
                                     laboratories={laboratories}
+                                    filtersCat={filtersCat}
                                 />
                             </div>
                             <div className="col-md-9">
