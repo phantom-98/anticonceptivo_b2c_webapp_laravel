@@ -99,7 +99,7 @@
                 }
             }
         });
-        $('.note-statusbar').remove();
+        
     });
 </script>
 @endsection

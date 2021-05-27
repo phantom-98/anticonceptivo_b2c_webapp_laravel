@@ -116,7 +116,7 @@
                     }
                 }
             });
-            $('.note-statusbar').remove();
+            
         });
     </script>
 

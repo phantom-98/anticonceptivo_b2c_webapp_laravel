@@ -519,7 +519,7 @@
                 }
             })
             $(object).summernote('reset');
-            $('.note-statusbar').remove();
+            
         }
     </script>
 
@@ -536,7 +536,7 @@
                     }
                 }
             });
-            $('.note-statusbar').remove();
+            
         });
     </script>
 
