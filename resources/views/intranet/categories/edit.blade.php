@@ -106,7 +106,7 @@
     <script>
         $(document).ready(function() {
             $('.summernote').summernote({
-                disableResizeEditor: true,
+                
                 height: 100,
                 callbacks: {
                     onFocus: function (contents) {

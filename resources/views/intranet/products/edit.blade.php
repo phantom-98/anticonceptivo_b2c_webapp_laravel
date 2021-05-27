@@ -508,7 +508,7 @@
             $(".warnings").last().removeAttr("required");
             let object = $(".warnings").last();
             $(object).summernote({
-                disableResizeEditor: true,
+                
                 height: 100,
                 callbacks: {
                     onFocus: function (contents) {
@@ -526,7 +526,7 @@
     <script>
         $(document).ready(function() {
             $('.summernote').summernote({
-                disableResizeEditor: true,
+                
                 height: 100,
                 callbacks: {
                     onFocus: function (contents) {
