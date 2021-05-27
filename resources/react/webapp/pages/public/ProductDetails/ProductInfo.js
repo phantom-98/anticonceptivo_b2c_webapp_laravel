@@ -33,7 +33,7 @@ const ProductInfo = ({product}) => {
                     {formatMoney(product.price)}
                 </span>
             </div>
-            <div className="col-md-12 mb-3">
+            {/* <div className="col-md-12 mb-3">
                 <p className="font-inter font-16 bold color-033F5D">
                     Suscríbete a nuestros planes
                 </p>
@@ -48,7 +48,7 @@ const ProductInfo = ({product}) => {
                                 </div>
                             )
                         })
-                    }
+                    } */}
                     {/* <div className="col-auto ">
                         <button className="btn btn-outline-primary btn-months">
                             4 Meses
@@ -64,20 +64,20 @@ const ProductInfo = ({product}) => {
                             12 Meses
                         </button>
                     </div> */}
-                </div>
-            </div>
+                {/* </div>
+            </div> */}
 
             <div className="col-md-6 mb-3">
                 <AddCartCard quantity={quantity} setQuantity={setQuantity} product={product}/>
             </div>
 
-            <div className="col-md-12">
+            {/* <div className="col-md-12">
                 <div className="alert-simple-blue">
                     <div className="font-poppins font-12 regular color-033F5D">· Considera 13 productos</div>
                     <div className="font-poppins font-12 regular color-033F5D">· Se despachara 2 unidades a su domicilio</div>
                     <div className="font-poppins font-12 regular color-033F5D">· Se cobra acorde a cada despacho</div>
                 </div>
-            </div>
+            </div> */}
 
         </div>
     );

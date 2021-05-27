@@ -8,6 +8,7 @@ import QuantityInput from "../QuantityInput";
 
 const ProductItem = ({item}) => {
 
+    console.log(item);
     const {removeFromCart, updateQuantity} = useContext(CartContext);
 
     const [quantity, setQuantity] = useState(item.quantity);
@@ -20,11 +21,11 @@ const ProductItem = ({item}) => {
         <div className="col-12 product-item">
             <div className="row">
                 <div className="col-auto">
-                    <img src={item.product.image} alt={CONFIG.APP_NAME} style={{width: '77px'}}/>
+                    <img className="mt-3 pt-1" src={item.product.images ? item.product.images[0].public_file : null} alt={CONFIG.APP_NAME} style={{width: '77px'}}/>
                 </div>
                 <div className="col">
 
-                    <div className="font-poppins font-12 color-009BE8"> SKU: 190081</div>
+                    <div className="font-poppins font-12 color-009BE8">{item.product.sku}</div>
                     <div className="font-poppins font-14 bold text-black"> {item.product.name} </div>
                     <div className="font-poppins font-16 bold color-009BE8">
                         {formatMoney(item.product.price * item.quantity)}

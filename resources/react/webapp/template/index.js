@@ -10,7 +10,7 @@ const BaseTemplate = (props) => {
         <div className={`bg-app`}>
             <Header />
             {/*<div className="app-content">*/}
-            <div>
+            <div style={{marginTop: '185px'}}>
                 {
                     props.children
                 }

@@ -1,5 +1,6 @@
 import React, {Fragment, useState} from 'react';
 import FormPersonalData from "../../private/Account/sections/PersonalInfo/FormPersonalData";
+import FormPersonalDataDELETE from "../../private/Account/sections/PersonalInfo/FormPersonalDataDELETE";
 import FormComercialInfo from "../../private/Account/sections/PersonalInfo/FormComercialInfo";
 import {CONFIG} from "../../../Config";
 
@@ -9,7 +10,7 @@ const UserForm = ({setView}) => {
         <Fragment>
             <div className="panel panel-cart mb-3">
                 <div className="panel-body">
-                    <FormPersonalData/>
+                    <FormPersonalDataDELETE/>
                 </div>
             </div>
             <div className="panel panel-cart mb-3">

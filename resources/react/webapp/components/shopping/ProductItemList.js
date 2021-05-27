@@ -20,11 +20,11 @@ const ProductItemList = ({item}) => {
         <div className="col-12 product-item">
             <div className="row">
                 <div className="col-auto">
-                    <img src={item.product.image} alt={CONFIG.APP_NAME} style={{width: '77px'}}/>
+                    <img className="mt-1 pt-1" src={item.product.images ? item.product.images[0].public_file : null} alt={CONFIG.APP_NAME} style={{width: '77px'}}/>
                 </div>
                 <div className="col d-flex">
                     <div className="my-auto">
-                        <div className="font-poppins font-12 color-009BE8 mb-1"> SKU: 190081</div>
+                        <div className="font-poppins font-12 color-009BE8 mb-1"> {item.product.sku}</div>
                         <div className="font-poppins font-14 bold text-black"> {item.product.name} </div>
                     </div>
                 </div>
