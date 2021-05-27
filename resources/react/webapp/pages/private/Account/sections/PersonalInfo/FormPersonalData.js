@@ -6,7 +6,7 @@ const FormPersonalData = ({handleData,
     handleCheckBox, 
     rutFormat, 
     rutValidate, 
-    data, 
+    data,  
     password = true}) => {
 
     var inputProps =  {};
