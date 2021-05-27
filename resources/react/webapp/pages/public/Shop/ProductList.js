@@ -1,8 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {CONFIG} from "../../../Config";
 import ProductCard from "../../../components/shopping/ProductCard";
 
-const ProductList = ({products, categoryBanner}) => {
+const ProductList = ({products, categoryBanner, productsFiltered, name}) => {
+
+    const [viewCount, setViewCount] = useState(9);
+
     return (
         <div className="row">
             {
@@ -15,8 +18,8 @@ const ProductList = ({products, categoryBanner}) => {
             <div className="col-12 pb-3">
                 <div className="row">
                     <div className="col-auto d-flex" style={{height: '29px'}}>
-                        <div className="font-poppins font-15 light text-black my-auto">Pastillas <span
-                            className="color-D8D8D8">(133)</span></div>
+                        <div className="font-poppins font-15 light text-black my-auto">{name} <span
+                            className="color-D8D8D8">({productsFiltered.length ? productsFiltered.length : products.length })</span></div>
                     </div>
                     <div className="col">
                         <div className="row justify-content-end">
@@ -26,8 +29,12 @@ const ProductList = ({products, categoryBanner}) => {
                                 </div>
                             </div>
                             <div className="col-auto px-2">
-                                <select className="form-control form-control-custom w-auto select-product-list" name=""
-                                        id="">
+                                <select className="form-control form-control-custom w-auto select-product-list" 
+                                    name=""
+                                    id=""
+                                    onChange={(e) => setViewCount(e.target.value)}
+                                    value={viewCount}    
+                                >
                                     <option value="9">9</option>
                                     <option value="12">12</option>
                                     <option value="21">21</option>
@@ -55,8 +62,15 @@ const ProductList = ({products, categoryBanner}) => {
             <div className="col-12 pb-3">
                 <div className="row">
                     {
+                        productsFiltered.length ?
+                            productsFiltered.map((product, index) => {
+                                return index < parseInt(viewCount) ? <div className="col-md-4 mb-3" key={index}>
+                                    <ProductCard product={product}/>
+                                </div> : null
+                            })
+                        :
                         products.map((product, index) => {
-                            return index < 9 ? <div className="col-md-4 mb-3" key={index}>
+                            return index < parseInt(viewCount) ? <div className="col-md-4 mb-3" key={index}>
                                 <ProductCard product={product}/>
                             </div> : null
                         })
