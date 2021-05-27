@@ -9,16 +9,25 @@ import Subscribe from "../../../components/sections/Subscribe";
 import * as Services from "../../../Services";
 import LazyLoading from "../../../components/LazyLoading";
 
-const Shop = () => {
+const Shop = ({match}) => {
 
     const [products, setProducts] = useState([]);
     const [categories, setCategories] = useState([]);
     const [laboratories, setLaboratories] = useState([]);
     const [productsFilter, setProductsFilter] = useState([]);
+    const [categoryBanner, setCategoryBanner] = useState({});
 
     useEffect(() => {
         getData();
     }, [])
+
+    useEffect(() => {
+        let path = (match.params.category).replace(/-/g,' ').toLowerCase();
+        let banner = categories.find(category => category.name.toLowerCase() == path);
+        if (banner) {
+            setCategoryBanner(banner);
+        }
+    }, [categories, match])
 
     const getData = () => {
         let url = Services.ENDPOINT.NO_AUTH.SHOP.RESOURCES
@@ -67,7 +76,10 @@ const Shop = () => {
                                 />
                             </div>
                             <div className="col-md-9">
-                                <ProductList products={productsFilter}/>
+                                <ProductList 
+                                    products={productsFilter}
+                                    categoryBanner={categoryBanner}
+                                />
                             </div>
                         </div>
                     : <LazyLoading/>
