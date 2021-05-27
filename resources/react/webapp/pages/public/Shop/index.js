@@ -12,10 +12,12 @@ import LazyLoading from "../../../components/LazyLoading";
 const Shop = ({match}) => {
 
     const [products, setProducts] = useState([]);
+    const [productsFiltered, setProductsFiltered] = useState([]);
     const [categories, setCategories] = useState([]);
+    const [subCategories, setSubCategories] = useState([]);
     const [laboratories, setLaboratories] = useState([]);
-    const [productsFilter, setProductsFilter] = useState([]);
     const [categoryBanner, setCategoryBanner] = useState({});
+    const [name, setName] = useState(null);
 
     useEffect(() => {
         getData();
@@ -23,11 +25,14 @@ const Shop = ({match}) => {
 
     useEffect(() => {
         let path = (match.params.category).replace(/-/g,' ').toLowerCase();
-        let banner = categories.find(category => category.name.toLowerCase() == path);
+        setName(path);
+        let banner = subCategories.find(subcat => subcat.name.toLowerCase() == path);
         if (banner) {
+            setProductsFiltered(products.filter(product => product.subcategory_id === banner.id))
+            banner = categories.find(category => category.id === banner.category_id);
             setCategoryBanner(banner);
         }
-    }, [categories, match])
+    }, [subCategories, match])
 
     const getData = () => {
         let url = Services.ENDPOINT.NO_AUTH.SHOP.RESOURCES
@@ -37,8 +42,8 @@ const Shop = ({match}) => {
                 response: response,
                 success: () => {
                     setProducts(response.data.products);
-                    setProductsFilter(response.data.products);
                     setCategories(response.data.categories);
+                    setSubCategories(response.data.sub_categories);
                     setLaboratories(response.data.laboratories);
                 },
             });
@@ -68,16 +73,15 @@ const Shop = ({match}) => {
                         <div className="row pb-5 mb-5">
                             <div className="col-3">
                                 <Filter
-                                    products={products}
-                                    productsFilter={productsFilter}
-                                    setProductsFilter={setProductsFilter}
-                                    categories={categories}
+                                    subCategories={subCategories}
                                     laboratories={laboratories}
                                 />
                             </div>
                             <div className="col-md-9">
                                 <ProductList 
-                                    products={productsFilter}
+                                    products={products}
+                                    name={name}
+                                    productsFiltered={productsFiltered}
                                     categoryBanner={categoryBanner}
                                 />
                             </div>

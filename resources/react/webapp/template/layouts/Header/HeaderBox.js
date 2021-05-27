@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState, useEffect} from 'react';
 import Icon from "../../../components/general/Icon";
 import logoFull from "../../../assets/images/logo-full.svg";
 import userBlue from "../../../assets/images/icons/header/user-blue.svg"
@@ -12,12 +12,59 @@ import {AuthContext} from "../../../context/AuthProvider";
 import {ModalAuthMode} from "../../../Globals";
 import {CartContext} from "../../../context/CartProvider";
 import TotalCartItems from "../../../components/shopping/TotalCartItems";
+import * as Services from "../../../Services";
+import {CONFIG} from "../../../Config";
+import {formatMoney} from "../../../helpers/GlobalUtils";
 
 const HeaderBox = () => {
 
     const {showModalAuth} = useContext(AppContext)
     const {auth, logout} = useContext(AuthContext)
     const {showMiniCart} = useContext(CartContext);
+
+    const [search, setSearch] = useState('');
+    const [products, setProducts] = useState([]);
+    const [productsWithFilter, setProductsWithFilter] = useState(null);
+
+    const sendSearch = (e) => {
+        setSearch((e.target.value).toLowerCase());
+    }
+
+    useEffect(() => {
+        getProducts();
+    },[])
+
+    useEffect(() =>{
+        if (search.length > 0) {
+            let productList = products;
+            productList = productList.filter(product => {
+                const name = (product.name).toLowerCase();
+                const description = product.description ? (product.description).toLowerCase() : '';
+
+                if(name.includes(search) || description.includes(search)){
+                    return product;
+                }
+            })
+            setProductsWithFilter(productList);
+        }else{
+            setProductsWithFilter(products);
+        }
+    }, [search])
+
+    const getProducts = () => {
+        let url = Services.ENDPOINT.NO_AUTH.SHOP.RESOURCES;
+        let data = {}
+        Services.DoGet(url,data).then(response => {
+            Services.Response({
+            response: response,
+            success: () => {
+                setProducts(response.data.products);
+            },
+            });
+        }).catch(error => {
+            Services.ErrorCatch(error)
+        });
+    }
 
     var url = PRIVATE_ROUTES.ACCOUNT.path;
     url = url.replace(':section', 'informacion-personal')
@@ -37,8 +84,11 @@ const HeaderBox = () => {
                     <div className="col top-do-flex">
                         <div className="input-group search-filter-button">
                             <input type="text"
-                                   className="form-control form-control-custom form-control-custom-60"
-                                   placeholder="Buscar medicamentos, marcas"/>
+                                className="form-control form-control-custom form-control-custom-60"
+                                placeholder="Buscar medicamentos, marcas"
+                                value={search}
+                                onChange={e => sendSearch(e)}
+                            />
                             <div className="input-group-append">
                                 <button
                                     type="button"
@@ -48,6 +98,32 @@ const HeaderBox = () => {
                             </div>
                         </div>
                     </div>
+                    {
+                        search.length ? 
+                            productsWithFilter.map((product) => {
+                                return (
+                                    <div className="col-12">
+                                        <Link to={(PUBLIC_ROUTES.PRODUCT_DETAIL.path).replace(':slug?', product.slug)} style={{textDecoration: 'none', color: '#000000'}}>
+                                            <div className="row mt-2 px-0">
+                                                <div className="col-auto">
+                                                    <img style={{width:'58px', height:'54px'}} src={product.images.length ? product.images[0].public_file : null} alt={`${CONFIG.APP_NAME} - ${product.name}`}/>
+                                                </div>
+                                                <div className="col-auto mr-auto">
+                                                    {product.name}
+                                                </div>
+                                                <div className="col-auto mr-4">
+                                                    <span className="font-14 font-poppins bold" style={{color: '#009BE8'}}>
+                                                        {formatMoney(product.price)}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </Link>
+                                        <hr/>
+                                    </div>
+                                );
+                            })
+                        : null
+                    }
                     <div className="col-md-auto top-do-flex">
                         <div className="my-auto">
                             <div className={`row top-do-flex ${auth ? null : 'pointer'}`}>

@@ -39,7 +39,7 @@ const CustomerService = () => {
             }
         }
         
-    },[data.contact_issue])
+    },[data.contact_issue, contactIssues])
 
     useEffect(() => {
         if (dynamicFields.length) {

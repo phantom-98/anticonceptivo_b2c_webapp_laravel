@@ -17,6 +17,7 @@ use App\Models\CustomerAddress;
 use App\Models\Order;
 use App\Models\Prescription;
 use App\Models\ContactIssue;
+use App\Models\ContactMessage;
 
 class ProfileController extends Controller
 {
@@ -352,30 +353,32 @@ class ProfileController extends Controller
     public function send(Request $request)
     {
        try {
-
-            return $request->all();
+            // validar campos dinamicos?
 
             $rules = [
                 'message' => 'required|string|min:10|max:255',
-                'accept_terms' => 'required|boolean',
             ];
 
             $messages = [
                 'message.required' => 'El campo mensaje es requerido.',
                 'message.min' => 'El campo mensaje debe contener al menos 10 caracteres.',
                 'message.max' => 'El campo mensaje debe contener menos de 255 caracteres.',
-                'accept_terms.required' => 'No se puede envíar si no acepta los términos y condiciones.',
             ];
 
             $validator = Validator::make($request->all(), $rules, $messages);
 
             if ($validator->passes()) {
-                $emailSubject = $request->subject_one;
+
+                $contact = ContactIssue::find($request->contact_issue);
+
+                $emailSubject = $contact->section;
+                $subEmailSubject = $contact->name;
+
                 $emailBody = view('emails.contact-form', ['data' => [
                     'title' => $emailSubject,
-                    'title_2' => $request->subject_two,
+                    'title_2' => $subEmailSubject,
                     'name' => $request->name,
-                    'message' => $request->message
+                    // 'message' => $request->message
                 ]])->render();
 
                 $email = new Mail();
@@ -392,7 +395,19 @@ class ProfileController extends Controller
 
                 if ($response->statusCode() == 202) {
                     Log::info('SENDGRID CONTACT FORM ENVIADO');
-                    return ApiResponse::JsonSuccess(null, 'Hemos enviado el mensaje correctamente.');
+
+                    $contactMessage = New ContactMessage();
+                    $contactMessage->values = json_encode($request->dynamicData);
+                    $contactMessage->message = $request->message;
+                    $contactMessage->contact_issue_id = $contact->id;
+                    $contactMessage->customer_id = $request->customer_id;
+
+                    if ($contactMessage->save()) {
+                        return ApiResponse::JsonSuccess(null, 'Hemos enviado el mensaje correctamente.');
+                    }else {
+                        Log::info('SENDGRID CONTACT FORM NO SE HA PODIDO GUARDAR EN BD');
+                        return ApiResponse::JsonError(null, 'Ha ocurrido un error al enviar el mensaje por favor inténtelo de nuevo más tarde.');
+                    }
                 } else {
                     Log::info('SENDGRID CONTACT FORM FALLIDO');
                     Log::info($response->statusCode());

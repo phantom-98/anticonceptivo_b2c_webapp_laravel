@@ -92,6 +92,17 @@ const ProductDetail = ({match}) => {
                         </div>
                     </div>
 
+                    {
+                        product.is_bioequivalent ?
+                        <div className="row pb-5">
+                            <div className="col-auto mr-0 pr-0" style={{width: '118px'}}></div>
+                            <div className="col mx-3" style={{backgroundColor: '#FFEA17', borderRadius: '10px', height:'42px', lineHeight:'42px'}}>
+                                <span className="font-14 font-poppins regular">Este medicamento es bioequivalente</span>
+                            </div>
+                        </div>
+                        : null
+                    }
+
                     <ProductTabs product={product} legalWarning={legalWarning}/>
 
                 </BasePanelTwo>

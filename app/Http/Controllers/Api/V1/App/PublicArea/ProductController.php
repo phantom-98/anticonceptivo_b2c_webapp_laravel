@@ -8,6 +8,7 @@ use Willywes\ApiResponse\ApiResponse;
 use App\Http\Utils\OutputMessage\OutputMessage;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\SubCategory;
 use App\Models\LegalWarning;
 use App\Models\Laboratory;
 
@@ -31,11 +32,13 @@ class ProductController extends Controller
         try {
             $products = Product::where('active',true)->with(['subcategory.category','images','laboratory'])->get();
             $categories = Category::where('active',true)->with(['subcategories'])->get();
+            $subCategories = SubCategory::where('active',true)->orderBy('position')->get();
             $laboratories = Laboratory::where('active',true)->get();
 
             return ApiResponse::JsonSuccess([
                 'products' => $products,
                 'categories' => $categories,
+                'sub_categories' => $subCategories,
                 'laboratories' => $laboratories
             ]);
         } catch (\Exception $exception) {

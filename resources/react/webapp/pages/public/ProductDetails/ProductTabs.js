@@ -6,10 +6,11 @@ const ProductTabs = ({product, legalWarning}) =>{
     const [key, setKey] = useState('benefits');
 
     return (
-        <div className="row pb-5">
+        <div className="row pb-5">            
             <div className="col-auto mr-0 pr-0" style={{width: '118px'}}>
 
             </div>
+
             <div className="col">
                 <Tabs
                     id="tabs"
