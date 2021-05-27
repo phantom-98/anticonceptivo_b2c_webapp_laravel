@@ -305,7 +305,7 @@
                             </div>   
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label for="price">Precio(*)</label>
+                                    <label for="price">Precio</label>
                                     <input type="text" name="price_plan[{{$loop->iteration}}][]" class="form-control price" value="{{ $plan->price }}"
                                     oninput="checkKeyByClass('price')" >
                                 </div>
@@ -337,7 +337,7 @@
                             </div>   
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label for="price">Precio(*)</label>
+                                    <label for="price">Precio</label>
                                     <input type="text" name="price_plan[1][]" class="form-control price"
                                     oninput="checkKeyByClass('price')" >
                                 </div>
