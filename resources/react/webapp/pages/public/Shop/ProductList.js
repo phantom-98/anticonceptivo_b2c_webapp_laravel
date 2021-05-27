@@ -15,6 +15,11 @@ const ProductList = ({products, categoryBanner, productsFiltered, name}) => {
                 </div>
                 : null
             }
+            <div className="col-12 my-3 pb-3 text-primary">
+                {
+                    <div dangerouslySetInnerHTML={{ __html: categoryBanner.description }} />
+                }
+            </div>
             <div className="col-12 pb-3">
                 <div className="row">
                     <div className="col-auto d-flex" style={{height: '29px'}}>

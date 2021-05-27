@@ -12,6 +12,7 @@ const ProductGallery = ({product}) => {
                     product.images.map((img, index) => {
                         return <div key={index} className="img-box-product-mini mb-3 pointer">
                             <img src={img.public_file} 
+                                className="mt-2 pt-1"
                                 onClick={() => setImageSelected(img.public_file)}
                                 alt={`${CONFIG.APP_NAME} - ${product.name}`}/>
                         </div>
@@ -20,7 +21,7 @@ const ProductGallery = ({product}) => {
             </div>
             <div className="col">
                 <div className="img-box-product">
-                    <img src={imageSelected} alt={`${CONFIG.APP_NAME} - ${product.name}`}/>
+                    <img src={imageSelected} className="mt-5 pt-4" alt={`${CONFIG.APP_NAME} - ${product.name}`}/>
                 </div>
             </div>
         </div>

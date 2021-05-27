@@ -49,6 +49,7 @@ const Filter = ({subCategories, laboratories, filtersCat}) => {
             <div className="col-md-12 mb-3">
                 <Accordion defaultActiveKey={filters[0].id} className="accordion-filter">
                     {
+                        filters[0].bodies.length ? 
                         filters.map((filter) => {
 
                             return <Card key={filter.id} className="card-filter">
@@ -81,6 +82,8 @@ const Filter = ({subCategories, laboratories, filtersCat}) => {
                             </Card>
 
                         })
+
+                        : null
                     }
 
                 </Accordion>
