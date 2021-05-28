@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
 import {CONFIG} from "../../../Config";
 import ProductCard from "../../../components/shopping/ProductCard";
+import LazyLoading from "../../../components/LazyLoading";
 
-const ProductList = ({products, categorySelected, productsFiltered, name}) => {
+const ProductList = ({products, categorySelected, productsFiltered, name, loading}) => {
 
     const [viewCount, setViewCount] = useState(9);
 
@@ -22,7 +23,7 @@ const ProductList = ({products, categorySelected, productsFiltered, name}) => {
             </div>
             <div className="col-12 pb-3">
                 <div className="row">
-                    <div className="col-auto d-flex" style={{height: '29px'}}>
+                    <div className="col-6 d-flex" style={{height: '29px'}}>
                         <div className="font-poppins font-15 light text-black my-auto">{name} <span
                             className="color-D8D8D8">({productsFiltered.length ? productsFiltered.length : 0 })</span></div>
                     </div>
@@ -67,18 +68,20 @@ const ProductList = ({products, categorySelected, productsFiltered, name}) => {
             <div className="col-12 pb-3">
                 <div className="row">
                     {
-                        productsFiltered.length ?
-                            productsFiltered.map((product, index) => {
-                                return index < parseInt(viewCount) ? 
-                                <div className="col-md-4 mb-3" key={index}>
-                                    <ProductCard product={product}/>
-                                </div> : null
-                            })
-                        :   <div className="col-md-12 mt-5">
-                                <div className="product-no-stock-alert font-12 font-poppins">
-                                    Actualmente no tenemos productos que cumplan los requisitos de búsqueda.
+                        loading ? 
+                            productsFiltered.length ?
+                                productsFiltered.map((product, index) => {
+                                    return index < parseInt(viewCount) ? 
+                                    <div className="col-md-4 mb-3" key={index}>
+                                        <ProductCard product={product}/>
+                                    </div> : null
+                                })
+                            :   <div className="col-md-12 mt-5">
+                                    <div className="product-no-stock-alert font-12 font-poppins">
+                                        Actualmente no tenemos productos que cumplan los requisitos de búsqueda.
+                                    </div>
                                 </div>
-                            </div>
+                        : <LazyLoading/>
                     }
                     {/* {
                         products.map((product, index) => {

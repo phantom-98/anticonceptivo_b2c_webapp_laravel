@@ -2,7 +2,6 @@ import React, {Fragment, useEffect, useState} from 'react';
 import PUBLIC_ROUTES from "../../../routes/publicRoutes";
 import BasePanelTwo from "../../../template/BasePanelTwo";
 import Subscribe from "../../../components/sections/Subscribe";
-import {dummy_products} from "../../../helpers/productsData";
 import {CONFIG} from "../../../Config";
 import ProductTabs from "./ProductTabs";
 import ProductsCarousel from "../../../components/sections/ProductsCarouselV2";
@@ -66,10 +65,6 @@ const ProductDetail = ({match}) => {
         });
     }
 
-    // if (!product) {
-    //     return null;
-    // }
-
     return (
         
         product ? 
@@ -109,10 +104,14 @@ const ProductDetail = ({match}) => {
 
                 </BasePanelTwo>
 
-                <ProductsCarousel
-                    prods={prods}
-                    title="Te podría interesar"
-                />
+                {
+                    prods.length ?
+                        <ProductsCarousel
+                            prods={prods}
+                            title="Te podría interesar"
+                        />
+                    : null
+                }
 
                 <Subscribe/>
             </Fragment>

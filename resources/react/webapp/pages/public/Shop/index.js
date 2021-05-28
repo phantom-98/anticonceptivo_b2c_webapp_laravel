@@ -16,6 +16,8 @@ const Shop = ({match}) => {
     const [subCategories, setSubCategories] = useState([]);
     const [laboratories, setLaboratories] = useState([]);
 
+    const [loading, setLoading] = useState(false);
+
     const [categorySelected, setCategorySelected] = useState({});
     const [filtersCat, setFiltersCat] = useState([]);
     const [name, setName] = useState(null);
@@ -63,6 +65,7 @@ const Shop = ({match}) => {
                     setCategories(response.data.categories);
                     setSubCategories(response.data.sub_categories);
                     setLaboratories(response.data.laboratories);
+                    setLoading(true);
                 },
             });
         }).catch(error => {
@@ -102,6 +105,7 @@ const Shop = ({match}) => {
                                     name={name}
                                     productsFiltered={productsFiltered}
                                     categorySelected={categorySelected}
+                                    loading={loading}
                                 />
                             </div>
                         </div>

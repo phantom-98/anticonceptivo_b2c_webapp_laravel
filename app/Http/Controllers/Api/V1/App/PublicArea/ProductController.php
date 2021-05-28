@@ -61,7 +61,7 @@ class ProductController extends Controller
                 return ApiResponse::JsonError(null, OutputMessage::PRODUCT_NOT_FOUND);
             }
 
-            $prods = Product::where('active',true)->with('subcategory.category','laboratory','images')
+            $prods = Product::where('active',true)->where('id','!=',$product->id)->with('subcategory.category','laboratory','images')
             ->whereHas('subcategory',function($q) use ($product){
                 $q->where('category_id',$product->subcategory->category_id);
             })->get();
