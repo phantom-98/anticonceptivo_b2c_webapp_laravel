@@ -45,11 +45,7 @@ const Shop = ({match}) => {
                 subcat = categories.find(category => category.id === subcat.category_id);
                 console.log('subcat después del find: ',subcat);
                 setCategorySelected(subcat);
-                if (subcat.id === 1) {
-                    setFiltersCat([])
-                }else{
-                    setFiltersCat(subCategories.filter(x => x.category_id == subcat.id))
-                }
+                setFiltersCat(subcat.id === 1 ? [] : subCategories.filter(x => x.category_id == subcat.id))
             }
         }
     }, [subCategories, match])
@@ -94,14 +90,12 @@ const Shop = ({match}) => {
                         <div className="row pb-5 mb-5">
                             <div className="col-3">
                                 <Filter
-                                    subCategories={subCategories}
                                     laboratories={laboratories}
                                     filtersCat={filtersCat}
                                 />
                             </div>
                             <div className="col-md-9">
                                 <ProductList 
-                                    products={products}
                                     name={name}
                                     productsFiltered={productsFiltered}
                                     categorySelected={categorySelected}

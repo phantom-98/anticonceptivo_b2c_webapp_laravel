@@ -3,7 +3,7 @@ import {CONFIG} from "../../../Config";
 import ProductCard from "../../../components/shopping/ProductCard";
 import LazyLoading from "../../../components/LazyLoading";
 
-const ProductList = ({products, categorySelected, productsFiltered, name, loading}) => {
+const ProductList = ({categorySelected, productsFiltered, name, loading}) => {
 
     const [viewCount, setViewCount] = useState(9);
 
