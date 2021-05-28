@@ -2,7 +2,6 @@ import React, {Fragment, useEffect, useState} from 'react';
 
 import PUBLIC_ROUTES from "../../../routes/publicRoutes";
 import BasePanelTwo from "../../../template/BasePanelTwo";
-// import {dummy_categories, dummy_products} from "../../../helpers/productsData";
 import Filter from "./Filter";
 import ProductList from "./ProductList";
 import Subscribe from "../../../components/sections/Subscribe";
@@ -15,9 +14,10 @@ const Shop = ({match}) => {
     const [productsFiltered, setProductsFiltered] = useState([]);
     const [categories, setCategories] = useState([]);
     const [subCategories, setSubCategories] = useState([]);
-    const [filtersCat, setFiltersCat] = useState([]);
     const [laboratories, setLaboratories] = useState([]);
-    const [categoryBanner, setCategoryBanner] = useState({});
+
+    const [categorySelected, setCategorySelected] = useState({});
+    const [filtersCat, setFiltersCat] = useState([]);
     const [name, setName] = useState(null);
 
     useEffect(() => {
@@ -25,22 +25,30 @@ const Shop = ({match}) => {
     }, [])
 
     useEffect(() => {
-        let path = (match.params.category).toLowerCase();
-        let banner = subCategories.find(subcat => subcat.slug.toLowerCase() == path);
-        
-        if (banner) {
-            setName(banner.name);
-            setProductsFiltered(products.filter(product => product.subcategory_id === banner.id))
-            banner = categories.find(category => category.id === banner.category_id);
-            setCategoryBanner(banner);
-            if (banner.id === 1) {
-                setFiltersCat([])
-            }else{
-                setFiltersCat(subCategories.filter(subcat => subcat.category_id == banner.id))
-            }
+        if (subCategories.length) {
+            console.log('Match params category: ',match.params.category);
+            console.log('Sub categories: ',subCategories);
 
+            let path = match.params.category;
+            let subcat = subCategories.find(x => x.slug == path);
+
+            setProductsFiltered([]);
+
+            console.log('path: ',path);
             
-            
+            if (subcat) {
+                console.log('subcat antes del find: ',subcat);
+                setName(subcat.name);
+                setProductsFiltered(products.filter(product => product.subcategory_id === subcat.id))
+                subcat = categories.find(category => category.id === subcat.category_id);
+                console.log('subcat después del find: ',subcat);
+                setCategorySelected(subcat);
+                if (subcat.id === 1) {
+                    setFiltersCat([])
+                }else{
+                    setFiltersCat(subCategories.filter(x => x.category_id == subcat.id))
+                }
+            }
         }
     }, [subCategories, match])
 
@@ -93,7 +101,7 @@ const Shop = ({match}) => {
                                     products={products}
                                     name={name}
                                     productsFiltered={productsFiltered}
-                                    categoryBanner={categoryBanner}
+                                    categorySelected={categorySelected}
                                 />
                             </div>
                         </div>
