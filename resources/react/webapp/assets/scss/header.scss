@@ -119,5 +119,7 @@
     width: 537px;
     top: 60px;
     border-radius: 25px;
-    // margin-top: 360px;
+    max-height: 248px;
+    overflow:scroll;
+    overflow-x:hidden;
 }
