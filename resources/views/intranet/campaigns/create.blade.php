@@ -33,7 +33,14 @@
                                     <input type="text" id="name" name="name" class="form-control"
                                             value="{{ old('name') }}">
                                 </div>
-                            </div>                     
+                            </div>        
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="description">Descripción</label>
+                                    <textarea id="description" name="description" class="form-control summernote"
+                                    >{{ old('description') }}</textarea>
+                                </div>
+                            </div>              
                         </div>
                     </div>
                     <div class="panel-footer">
@@ -56,10 +63,12 @@
 
 @section('styles')
 <link href="/themes/intranet/plugins/switchery/switchery.min.css" rel="stylesheet">
+<link href="/themes/intranet/plugins/summernote/summernote.min.css" rel="stylesheet">
 @endsection
 
 @section('scripts')
 <script src="/themes/intranet/plugins/switchery/switchery.min.js"></script>
+<script src="/themes/intranet/plugins/summernote/summernote.min.js"></script>
 <script>
     $(document).ready(function () {
         var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
@@ -67,6 +76,22 @@
         elems.forEach(function (html) {
             let switchery = new Switchery(html);
         });
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        $('.summernote').summernote({
+            
+            height: 100,
+            callbacks: {
+                onFocus: function (contents) {
+                    if($('.summernote').summernote('isEmpty')){
+                        $(".summernote").html(''); 
+                    }
+                }
+            }
+        });
+        
     });
 </script>
 @endsection

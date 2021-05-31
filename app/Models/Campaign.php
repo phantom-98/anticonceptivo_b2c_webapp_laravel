@@ -9,7 +9,8 @@ class Campaign extends Model
     protected $fillable = [
         'id',
         'name',
-        'active'
+        'active',
+        'description'
     ];
 
 }

@@ -36,7 +36,14 @@
                                     <input type="text" id="name" name="name" class="form-control"
                                            value="{{ old('name') ?? $object->name }}">
                                 </div>
-                            </div>      
+                            </div>    
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="description">Descripción</label>
+                                    <textarea id="description" name="description" class="form-control summernote"
+                                    >{{ old('description') ?? $object->description }}</textarea>
+                                </div>
+                            </div>       
                         </div>
                     </div>
                     <div class="panel-footer">
@@ -60,13 +67,14 @@
 @section('styles')
     <link href="/themes/intranet/plugins/switchery/switchery.min.css" rel="stylesheet">
     <link href="/themes/intranet/plugins/select2/css/select2.min.css" rel="stylesheet">
+    <link href="/themes/intranet/plugins/summernote/summernote.min.css" rel="stylesheet">
 @endsection
 
 @section('scripts')
     <!--Bootstrap Select [ OPTIONAL ]-->
     <script src="/themes/intranet/plugins/select2/js/select2.min.js"></script>
     <script src="/themes/intranet/js/jquery.Rut.js"></script>
-
+    <script src="/themes/intranet/plugins/summernote/summernote.min.js"></script>
     <script src="/themes/intranet/plugins/switchery/switchery.min.js"></script>
     <script>
         $(document).ready(function () {
@@ -75,6 +83,23 @@
             elems.forEach(function (html) {
                 let switchery = new Switchery(html);
             });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('.summernote').summernote({
+                
+                height: 100,
+                callbacks: {
+                    onFocus: function (contents) {
+                        if($('.summernote').summernote('isEmpty')){
+                            $(".summernote").html(''); 
+                        }
+                    }
+                }
+            });
+            
         });
     </script>
 

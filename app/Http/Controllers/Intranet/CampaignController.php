@@ -42,7 +42,8 @@ class CampaignController extends GlobalController
     public function store(Request $request)
     {
         $rules = [
-            'name' => 'required|unique:campaigns,name'
+            'name' => 'required|unique:campaigns,name',
+            'description' => 'required'
         ];
 
         $messages = [
@@ -93,7 +94,8 @@ class CampaignController extends GlobalController
         }
 
         $rules = [
-            'name' => 'required|unique:campaigns,name,' . $id
+            'name' => 'required|unique:campaigns,name,' . $id,
+            'description' => 'required'
         ];
 
         $messages = [
