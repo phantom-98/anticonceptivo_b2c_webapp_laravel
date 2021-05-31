@@ -1,4 +1,4 @@
-import React, {useContext, useState, useEffect} from 'react';
+import React, {useContext, useState, useEffect, Fragment} from 'react';
 import Icon from "../../../components/general/Icon";
 import logoFull from "../../../assets/images/logo-full.svg";
 import userBlue from "../../../assets/images/icons/header/user-blue.svg"
@@ -97,33 +97,37 @@ const HeaderBox = () => {
                                 </button>
                             </div>
                         </div>
+                        <div className="dropdown-content">
+                        {
+                            search.length ? 
+                                productsWithFilter.map((product) => {
+                                    return (
+                                        <Fragment>
+                                            
+                                                <Link to={(PUBLIC_ROUTES.PRODUCT_DETAIL.path).replace(':slug?', product.slug)} style={{textDecoration: 'none', color: '#000000'}}>
+                                                    <div className="row mt-2 px-0">
+                                                        <div className="col-auto">
+                                                            <img style={{width:50, height:50}} src={product.images.length ? product.images[0].public_file : null} alt={`${CONFIG.APP_NAME} - ${product.name}`}/>
+                                                        </div>
+                                                        <div className="col-auto mr-auto" style={{alignSelf: 'center'}}>
+                                                            <span className="d-block font-poppins italic font-11 color-707070">{product.laboratory.name}</span>
+                                                            <span className="font-poppins bold font-14">{product.name}</span>
+                                                        </div>
+                                                        <div className="col-auto mr-4" style={{alignSelf: 'center'}}>
+                                                            <span className="font-14 font-poppins bold" style={{color: '#009BE8'}}>
+                                                                {formatMoney(product.price)}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </Link>
+                                                <hr/>
+                                        </Fragment>
+                                    );
+                                })
+                            : null
+                        }
+                        </div>
                     </div>
-                    {
-                        search.length ? 
-                            productsWithFilter.map((product) => {
-                                return (
-                                    <div className="col-12">
-                                        <Link to={(PUBLIC_ROUTES.PRODUCT_DETAIL.path).replace(':slug?', product.slug)} style={{textDecoration: 'none', color: '#000000'}}>
-                                            <div className="row mt-2 px-0">
-                                                <div className="col-auto">
-                                                    <img style={{width:'58px', height:'54px'}} src={product.images.length ? product.images[0].public_file : null} alt={`${CONFIG.APP_NAME} - ${product.name}`}/>
-                                                </div>
-                                                <div className="col-auto mr-auto">
-                                                    {product.name}
-                                                </div>
-                                                <div className="col-auto mr-4">
-                                                    <span className="font-14 font-poppins bold" style={{color: '#009BE8'}}>
-                                                        {formatMoney(product.price)}
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </Link>
-                                        <hr/>
-                                    </div>
-                                );
-                            })
-                        : null
-                    }
                     <div className="col-md-auto top-do-flex">
                         <div className="my-auto">
                             <div className={`row top-do-flex ${auth ? null : 'pointer'}`}>
