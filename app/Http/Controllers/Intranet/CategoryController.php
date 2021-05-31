@@ -73,6 +73,13 @@ class CategoryController extends GlobalController
                 $object->save();
             }  
 
+            if ($request->banner_subimage) {
+                $banner_subimage = $request->file('banner_subimage');
+                $filename = 'subbanner-category-' . $object->id  .'.'. $banner_subimage->getClientOriginalExtension();
+                $object->subbanner_image = $banner_subimage->storeAs('public/categories', $filename);
+                $object->save();
+            }  
+
 
             if ($object) {
                 session()->flash('success', 'Categoría creada correctamente.');
@@ -162,6 +169,27 @@ class CategoryController extends GlobalController
                 $object->refresh();
 
                 Log::info('Cambio de foto banner', [
+                    'date' => date('Y-m-d H:i:s'),
+                    'old_name' => $name,
+                    'new_name' => $filename,
+                    'user' => auth('intranet')->user()->full_name
+                ]);
+            }
+
+            if ($request->banner_subimage) {
+                $name = "";
+                if($object->subbanner_image){
+                    $name = $object->subbanner_image;
+                    Storage::delete($object->subbanner_image);
+                }
+                $banner_subimage = $request->file('banner_subimage');
+                $filename = 'subbanner-category-' . $object->id  .'.'. $banner_subimage->getClientOriginalExtension();
+                $object->subbanner_image = $banner_subimage->storeAs('public/categories', $filename);
+                $object->save();
+
+                $object->refresh();
+
+                Log::info('Cambio de foto subbanner', [
                     'date' => date('Y-m-d H:i:s'),
                     'old_name' => $name,
                     'new_name' => $filename,
