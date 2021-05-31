@@ -1,9 +1,8 @@
-import React,{useEffect, useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Accordion, Card, Form} from "react-bootstrap";
 import { v4 as uuidv4 } from 'uuid';
 
-const Filter = ({subCategories, laboratories, filtersCat}) => {
-
+const Filter = ({laboratories, filtersCat}) => {
 
     const filters = [
         {
@@ -49,10 +48,8 @@ const Filter = ({subCategories, laboratories, filtersCat}) => {
             <div className="col-md-12 mb-3">
                 <Accordion defaultActiveKey={filters[0].id} className="accordion-filter">
                     {
-                        filters[0].bodies.length ? 
                         filters.map((filter) => {
-
-                            return <Card key={filter.id} className="card-filter">
+                            return filter.bodies.length ? <Card key={filter.id} className="card-filter">
                                 <Accordion.Collapse eventKey={filter.id}>
                                     <Card.Body bsPrefix="card-body pt-0">
                                         {
@@ -71,7 +68,6 @@ const Filter = ({subCategories, laboratories, filtersCat}) => {
                                                 />
                                             })
                                         }
-
                                     </Card.Body>
                                 </Accordion.Collapse>
                                 <Accordion.Toggle as={Card.Header}
@@ -79,11 +75,8 @@ const Filter = ({subCategories, laboratories, filtersCat}) => {
                                     <h3>{filter.name}</h3>
                                 </Accordion.Toggle>
 
-                            </Card>
-
+                            </Card> : null
                         })
-
-                        : null
                     }
 
                 </Accordion>

@@ -529,7 +529,22 @@
   border-style: solid;
   border-width: 0 10px 10px 10px;
   border-color: transparent transparent white transparent;
-  z-index: 999;
+  z-index: 10;
+}
+
+.dropdown-content {
+  display: block;
+  position: absolute;
+  background-color: white;
+  min-width: 180px;
+  padding: 12px 16px;
+  z-index: 11;
+  width: 537px;
+  top: 60px;
+  border-radius: 25px;
+  max-height: 248px;
+  overflow: scroll;
+  overflow-x: hidden;
 }
 
 .footer-bottom {
@@ -947,6 +962,15 @@ input.my-auto.file-input {
   border: 1px solid #DEDEDE !important;
   border-radius: 12px !important;
   background: #009BE8 !important;
+  color: white !important;
+  font-weight: 700 !important;
+}
+
+.product-no-stock-alert {
+  padding: 20px;
+  border: 1px solid #DEDEDE !important;
+  border-radius: 12px !important;
+  background: #0869A6 !important;
   color: white !important;
   font-weight: 700 !important;
 }

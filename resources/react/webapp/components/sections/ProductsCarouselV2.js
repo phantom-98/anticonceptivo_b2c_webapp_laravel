@@ -12,11 +12,13 @@ import { v4 as uuidv4 } from 'uuid';
 const ProductsCarouselV2 = ({title, prods}) => {
 
     const settings = {
+        className: "slider variable-width",
         dots: true,
-        infinite: true,
+        infinite: false,
         speed: 500,
-        slidesToShow: 4,
-        slidesToScroll: 4
+        slidesToShow: prods.length > 4 ? 4 : prods.length,
+        slidesToScroll: 4,
+        variableWidth: true
     };
 
     const [products, setProducts] = useState([]);
@@ -42,10 +44,10 @@ const ProductsCarouselV2 = ({title, prods}) => {
                         <Slider {...settings}>
                             {
                                 loaded ?
-                                    products.map((product, index) => {
+                                    products.map((product) => {
                                         let uuid = uuidv4();
                                         return (
-                                            <div key={uuid} className="px-3 mb-3">
+                                            <div key={uuid} className="px-3 mb-3" style={{ width: 285 }}>
                                                 <ProductCard product={product}/>
                                             </div>
                                         )

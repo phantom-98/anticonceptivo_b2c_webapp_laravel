@@ -4,7 +4,7 @@ import {formatMoney} from "../../helpers/GlobalUtils";
 import PUBLIC_ROUTES from "../../routes/publicRoutes";
 import {Link} from "react-router-dom";
 import AddCartCard from "./AddCartCard";
-import noImage from "./../../assets/images/dummy/no-image.png";
+import noImage from "./../../assets/images/no-image.png";
 
 const ProductCard = ({product, className = ''}) => {
 
