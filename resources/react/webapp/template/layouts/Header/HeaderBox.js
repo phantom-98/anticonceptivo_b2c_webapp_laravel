@@ -100,7 +100,7 @@ const HeaderBox = () => {
                         <div className="dropdown-content">
                         {
                             search.length ? 
-                                productsWithFilter.map((product) => {
+                                productsWithFilter.map((product, index) => {
                                     return (
                                         <Fragment>
                                             
@@ -120,7 +120,11 @@ const HeaderBox = () => {
                                                         </div>
                                                     </div>
                                                 </Link>
-                                                <hr/>
+                                                {
+                                                    productsWithFilter.length !== index+1 ? 
+                                                    <hr/>
+                                                    : null 
+                                                }
                                         </Fragment>
                                     );
                                 })
