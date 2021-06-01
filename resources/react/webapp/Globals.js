@@ -27,3 +27,11 @@ export const PUSHER = {
     APP_SECRET: '33cd1a85552b9a1fdbeb',
     APP_CLUSTER: 'us2',
 }
+
+export const FORMATS = {
+    ONE: 1,
+    THREE: 3,
+    TWENTY_ONE: 21,
+    TWENTY_EIGHT: 28,
+    NINETY_ONE: 91
+}

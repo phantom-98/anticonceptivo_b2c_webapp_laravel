@@ -3,7 +3,7 @@ import {CONFIG} from "../../../Config";
 import ProductCard from "../../../components/shopping/ProductCard";
 import LazyLoading from "../../../components/LazyLoading";
 
-const ProductList = ({categorySelected, productsFiltered, name, loading}) => {
+const ProductList = ({categorySelected, productsFiltered, subCatName, loading}) => {
 
     const [viewCount, setViewCount] = useState(9);
 
@@ -24,7 +24,7 @@ const ProductList = ({categorySelected, productsFiltered, name, loading}) => {
             <div className="col-12 pb-3">
                 <div className="row">
                     <div className="col-6 d-flex" style={{height: '29px'}}>
-                        <div className="font-poppins font-15 light text-black my-auto">{name} <span
+                        <div className="font-poppins font-15 light text-black my-auto">{subCatName} <span
                             className="color-D8D8D8">({productsFiltered.length ? productsFiltered.length : 0 })</span></div>
                     </div>
                     <div className="col">

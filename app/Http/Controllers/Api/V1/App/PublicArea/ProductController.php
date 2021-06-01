@@ -11,6 +11,7 @@ use App\Models\Category;
 use App\Models\SubCategory;
 use App\Models\LegalWarning;
 use App\Models\Laboratory;
+use App\Models\SubscriptionPlan;
 
 class ProductController extends Controller
 {
@@ -34,12 +35,14 @@ class ProductController extends Controller
             $categories = Category::where('active',true)->with(['subcategories'])->get();
             $subCategories = SubCategory::where('active',true)->orderBy('position')->get();
             $laboratories = Laboratory::where('active',true)->get();
+            $subscriptions = SubscriptionPlan::where('active',true)->get();
 
             return ApiResponse::JsonSuccess([
                 'products' => $products,
                 'categories' => $categories,
                 'sub_categories' => $subCategories,
-                'laboratories' => $laboratories
+                'laboratories' => $laboratories,
+                'subscriptions' => $subscriptions
             ]);
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, $exception->getMessage());
@@ -72,6 +75,22 @@ class ProductController extends Controller
                 'product' => $product,
                 'legal_warnings' => $legalWarnings,
                 'prods' => $prods
+            ], OutputMessage::SUCCESS);
+        } catch (\Exception $exception) {
+            return ApiResponse::JsonError(null, $exception->getMessage());
+        }
+    }
+
+    public function getProductsFiltered(Request $request)
+    {
+        try {
+            
+            $products = Product::where('active',true)->with(['subcategory.category','images','laboratory']);
+
+            $products = $products->whereIn('subcategory_id',$request->sub)->get();
+
+            return ApiResponse::JsonSuccess([
+                'products' => $products,
             ], OutputMessage::SUCCESS);
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, $exception->getMessage());
