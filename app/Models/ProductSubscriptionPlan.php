@@ -13,6 +13,7 @@ class ProductSubscriptionPlan extends Model
         'warnings',
         'subscription_plan_id',
         'price',
+        'quantity',
         'product_id'
     ];
 

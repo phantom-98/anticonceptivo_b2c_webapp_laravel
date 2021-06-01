@@ -265,7 +265,7 @@
                         <div class="clearfix"></div>
                         <br/>
                         <div class="clone">
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <div class="form-group">
                                     <label for="price">Plan</label>
                                     <select name="plan_id[1][]" class="form-control plan_id" data-width="100%">
@@ -282,11 +282,18 @@
                                     <textarea name="warnings[1][]" class="form-control warnings summernote"></textarea>
                                 </div>
                             </div>   
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <div class="form-group">
                                     <label for="price">Precio por mes</label>
                                     <input type="text" name="price_plan[1][]" class="form-control price"
                                     oninput="checkKeyByClass('price')" >
+                                </div>
+                            </div>   
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="cantidad">Cantidad c/ mes</label>
+                                    <input type="text" name="cantidad_plan[1][]" class="form-control cantidad"
+                                    oninput="checkKeyByClass('cantidad')" >
                                 </div>
                             </div>   
                             <div class="col-md-2">
@@ -532,6 +539,8 @@
             $(".plan_id").last().removeAttr("required");
             $(".price").last().val("");
             $(".price").last().attr('name', 'price_plan[' + count + '][]');
+            $(".cantidad").last().val("");
+            $(".cantidad").last().attr('name', 'cantidad_plan[' + count + '][]');
             $(".warnings").last().html('');
             $(".note-editor").last().remove();
             $(".warnings").last().attr('name', 'warnings[' + count + '][]');
