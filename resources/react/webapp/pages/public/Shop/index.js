@@ -55,6 +55,27 @@ const Shop = ({match}) => {
         }
     }, [subCategories, match])
 
+    useEffect(() => {
+        let subcat = '';
+        let iterator;
+        
+        if (subCategoriesSelected.length > 1) {
+            subCategoriesSelected.map(subCatId => {
+                iterator = subCategories.find(x => x.id === subCatId);
+                subcat += iterator.name + ', ';
+            })
+
+            setSubCatName(subcat.slice(0,-2));
+        }else{
+            subCategoriesSelected.map(subCatId => {
+                iterator = subCategories.find(x => x.id === subCatId);
+                subcat += iterator.name;
+            })
+
+            setSubCatName(subcat)
+        }
+    },[subCategoriesSelected])
+
     const getData = () => {
         let url = Services.ENDPOINT.NO_AUTH.SHOP.RESOURCES
         

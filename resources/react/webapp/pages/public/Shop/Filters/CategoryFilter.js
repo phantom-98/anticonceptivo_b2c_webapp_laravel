@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 const CategoryFilter = ({categories, subCategoriesSelected, setSubcategoriesSelected}) => {
 
     const handleSubCategory = (e) => {
+
         let list = [...subCategoriesSelected];
 
         if (list.includes(parseInt(e.target.id))) {
@@ -13,7 +14,11 @@ const CategoryFilter = ({categories, subCategoriesSelected, setSubcategoriesSele
             list = [...list, parseInt(e.target.id)];
         }
 
-        setSubcategoriesSelected(list);
+        if (!list.length) {
+            setSubcategoriesSelected(subCategoriesSelected);   
+        }else{
+            setSubcategoriesSelected(list);   
+        }
     }
 
     return(
