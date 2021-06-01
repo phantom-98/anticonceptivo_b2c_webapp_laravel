@@ -85,13 +85,42 @@ class ProductController extends Controller
     {
         try {
             
-            $products = Product::where('active',true)->with(['subcategory.category','images','laboratory']);
+            $products = Product::where('active',true)->with(['subcategory.category','images','laboratory','plans']);
 
-            $products = $products->whereIn('subcategory_id',$request->sub)->get();
+            $products = $products->whereIn('subcategory_id',$request->subcats);
+
+            if (!empty($request->labs)) {
+                $products = $products->whereIn('laboratory_id',$request->labs);
+            }
+
+            if ($request->price > 0) {
+                $products = $products->where('price','<',$request->price);
+            }
+
+            if (!is_null($request->bioequivalent)) {
+                if ($request->bioequivalent == true) {
+                    $products = $products->where('is_bioequivalent',true);
+                }else if($request->bioequivalent == false) {
+                    $products = $products->where('is_bioequivalent',false);
+                }
+            }
+
+            if (!empty($request->subscription)) {
+                $subscription = $request->subscription;
+
+                $products->whereHas('plans', function ($query) use($subscription) {
+                    $query->whereIn('subscription_plan_id', $subscription);
+                });
+            }
+
+            if (!empty($request->format)) {
+                $products = $products->where('format',$request->format);
+            }
 
             return ApiResponse::JsonSuccess([
-                'products' => $products,
+                'products' => $products->get(),
             ], OutputMessage::SUCCESS);
+
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, $exception->getMessage());
         }

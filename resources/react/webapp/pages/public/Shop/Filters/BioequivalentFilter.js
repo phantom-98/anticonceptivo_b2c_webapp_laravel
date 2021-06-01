@@ -4,7 +4,13 @@ import {Form} from "react-bootstrap";
 const BioequivalentFilter = ({bioequivalentSelected, setBioequivalentSelected}) => {
 
     const handleBioequivalentSelected = (e) => {
-        setBioequivalentSelected(parseInt(e.target.id.charAt(e.target.id.length - 1)));
+        let targetId = parseInt(e.target.id.charAt(e.target.id.length - 1));
+
+        if (targetId == bioequivalentSelected) {
+            setBioequivalentSelected(null);
+        }else{
+            setBioequivalentSelected(targetId);
+        }
     }
 
     return(

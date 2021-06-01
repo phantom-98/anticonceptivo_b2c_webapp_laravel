@@ -46,9 +46,8 @@ setLoading, match, subCategoriesSelected, setSubcategoriesSelected}) => {
     const [subscriptionSelected, setSubscriptionSelected] = useState([]);
 
     const [max, setMax] = useState(200000);
-    const [rangePrice, setRangePrice] = useState(0);
-
     const [priceSelected, setPriceSelected] = useState(200000);
+    const [localPrice, setLocalPrice] = useState(200000);
     
 
     // useEffect(() => {
@@ -74,13 +73,18 @@ setLoading, match, subCategoriesSelected, setSubcategoriesSelected}) => {
         if (subCategoriesSelected.length > 0) {
             getProductsFiltered();
         }
-    },[subCategoriesSelected, laboratoriesSelected])
+    },[subCategoriesSelected, laboratoriesSelected, bioequivalentSelected, 
+    formatSelected, subscriptionSelected, priceSelected])
 
     const getProductsFiltered = () => {
         let url = Services.ENDPOINT.NO_AUTH.SHOP.PRODUCTS_FILTERED;
         let data = {
-            sub: subCategoriesSelected,
+            subcats: subCategoriesSelected,
             labs: laboratoriesSelected,
+            bioequivalent :bioequivalentSelected,
+            format :formatSelected,
+            subscription :subscriptionSelected,
+            price :priceSelected,
         }
         Services.DoPost(url,data).then(response => {
             Services.Response({
@@ -94,8 +98,6 @@ setLoading, match, subCategoriesSelected, setSubcategoriesSelected}) => {
             Services.ErrorCatch(error)
         });
     }
-
-    setLoading(true);
 
     return (
         <div className="row">
@@ -137,21 +139,20 @@ setLoading, match, subCategoriesSelected, setSubcategoriesSelected}) => {
                                 <div className="row">
                                     <div className="col-6">
                                         <span className="font-12 regular color-3B3B3B">
-                                            $500
+                                            $100
                                         </span>
                                     </div>
                                     <div className="col-6 text-right">
                                         <span className="font-12 regular color-3B3B3B">
-                                            {formatMoney(priceSelected)}
+                                            {formatMoney(localPrice)}
                                         </span>
                                     </div>
                                     <PriceFilter
                                         priceSelected={priceSelected}
                                         setPriceSelected={setPriceSelected}
+                                        localPrice={localPrice}
+                                        setLocalPrice={setLocalPrice}
                                         max={max}
-                                        setMax={setMax}
-                                        rangePrice={rangePrice}
-                                        setRangePrice={setRangePrice}
                                     />
                                 </div>
                             </Card.Body>

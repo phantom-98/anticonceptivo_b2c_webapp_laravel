@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Form} from "react-bootstrap";
 
-const PriceFilter = ({priceSelected, setPriceSelected, max, setMax, rangePrice, setRangePrice}) => {
+const PriceFilter = ({priceSelected, setPriceSelected, max, localPrice, setLocalPrice}) => {
 
     // const handleFilterList = e => {
     //     setFilterList({
@@ -9,6 +9,10 @@ const PriceFilter = ({priceSelected, setPriceSelected, max, setMax, rangePrice, 
     //         [e.target.name]: e.target.value
     //     });
     // };
+
+    const handlePriceSelected = () => {
+        setPriceSelected(localPrice);
+    }
 
     return(
         <Form.Control
@@ -18,9 +22,9 @@ const PriceFilter = ({priceSelected, setPriceSelected, max, setMax, rangePrice, 
             min="100"
             max={max}
             step="100"
-            value={priceSelected}
-            onChange={e => setPriceSelected(e.target.value)}
-            // onMouseUp={handleFilterList}
+            value={localPrice}
+            onChange={e => setLocalPrice(e.target.value)}
+            onMouseUp={handlePriceSelected}
         />
     );
 }

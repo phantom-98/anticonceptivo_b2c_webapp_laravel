@@ -4,14 +4,14 @@ import { v4 as uuidv4 } from 'uuid';
 
 const FormatFilter = ({formatSelected, setFormatSelected}) => {
 
-    const [formats, setFormats] = useState([1,3,21,28,91]);
+    const [formats, setFormats] = useState(['1','3','21','28','91']);
 
     const handleFormatSelected = (e) => {
         let list = [...formatSelected];
-        let targetId = parseInt(e.target.id.replace('format-',''));
+        let targetId = e.target.id.replace('format-','');
 
         if (list.includes(targetId)) {
-            list = list.filter(x => x !== targetId);   
+            list = list.filter(x => x !== targetId);
         }else{
             list = [...list, targetId];
         }
