@@ -26,7 +26,7 @@ class ProductController extends GlobalController
         'pluralName' => 'Productos',
         'singularName' => 'Producto',
         'disableActions' => ['changeStatus'],
-        'enableActions' => ['export']
+        'enableActions' => ['export','position']
     ];
 
     public function __construct()
@@ -38,6 +38,31 @@ class ProductController extends GlobalController
     {
         $objects = Product::with('images', 'subcategory', 'laboratory')->get();
         return view($this->folder . 'index', compact('objects'));
+    }
+
+    public function position(Request $request){
+
+        try{
+            foreach($request->data as $data){
+                $object = ProductImage::find($data['id']);
+                $object->update(['position' => $data['position']]);
+            }
+            return response()->json([
+                'status' => 1
+            ]);
+        }catch(\Exception $e){
+            return response()->json([
+                'status' => 0
+            ]);
+        }
+
+
+    }
+
+    public function show_images($id)
+    {
+        $objects = Product::with('images')->find($id)->images;
+        return view($this->folder . 'product_images', compact('objects'));
     }
 
      /**
