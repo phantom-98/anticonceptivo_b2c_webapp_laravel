@@ -10,8 +10,8 @@ import LaboratoryFilter from "./Filters/LaboratoryFilter";
 import PriceFilter from "./Filters/PriceFilter";
 import SubscriptionFilter from "./Filters/SubscriptionFilter";
 
-const Filter = ({laboratories, subscriptions, filtersCat, setProductsFiltered, subCatSelectedId, 
-setLoading, match, subCategoriesSelected, setSubcategoriesSelected}) => {
+const Filter = ({laboratories, subscriptions, filtersCat, setProductsFiltered, 
+setLoading, subCategoriesSelected, setSubcategoriesSelected}) => {
 
     const filters = [
         {

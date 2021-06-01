@@ -100,7 +100,6 @@ const Shop = ({match}) => {
                                     filtersCat={filtersCat}
                                     setProductsFiltered={setProductsFiltered}
                                     setLoading={setLoading}
-                                    match={match}
                                     subCategoriesSelected={subCategoriesSelected}
                                     setSubcategoriesSelected={setSubcategoriesSelected}
                                 />
