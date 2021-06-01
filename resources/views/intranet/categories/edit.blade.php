@@ -57,8 +57,8 @@
                                 {!! Form::label('banner_subimage', 'Imagen Sub Banner (850 x 200 px)(*)') !!}
                                 <input id="file-image-3" type='file' name='banner_subimage' class='form-control' accept=".jpg, .png, .jpeg">
                                 <br/>
-                                @if ($object->banner_subimage)
-                                <img id="image-edit-3" src="{{ Storage::url($object->banner_subimage) }}" style="max-width: 200px;"/>
+                                @if ($object->subbanner_image)
+                                <img id="image-edit-3" src="{{ Storage::url($object->subbanner_image) }}" style="max-width: 200px;"/>
                                 @endif
                             </div>  
                             <div class="col-md-12">

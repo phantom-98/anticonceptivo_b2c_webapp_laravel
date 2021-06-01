@@ -61,6 +61,7 @@
                             @foreach($objects as $object)
                                 <tr>
                                     <td>{{ $object->name }}</td>
+                                    <td>{!! $object->description !!}</td>
                                     @if($config['action']['changeStatus'])
                                     @include('intranet.template.components._crud_html_change_status')
                                     @endif
