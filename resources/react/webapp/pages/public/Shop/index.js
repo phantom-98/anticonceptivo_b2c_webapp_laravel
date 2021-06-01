@@ -12,15 +12,19 @@ const Shop = ({match}) => {
 
     const [products, setProducts] = useState([]);
     const [productsFiltered, setProductsFiltered] = useState([]);
+
     const [categories, setCategories] = useState([]);
     const [subCategories, setSubCategories] = useState([]);
     const [laboratories, setLaboratories] = useState([]);
+    const [subscriptions, setSubscriptions] = useState([]);
 
     const [loading, setLoading] = useState(false);
+    const [subCatName, setSubCatName] = useState(null);
 
     const [categorySelected, setCategorySelected] = useState({});
     const [filtersCat, setFiltersCat] = useState([]);
-    const [name, setName] = useState(null);
+
+    const [subCategoriesSelected, setSubcategoriesSelected] = useState([]);
 
     useEffect(() => {
         getData();
@@ -28,27 +32,49 @@ const Shop = ({match}) => {
 
     useEffect(() => {
         if (subCategories.length) {
-            console.log('Match params category: ',match.params.category);
-            console.log('Sub categories: ',subCategories);
+            // console.log('Match params category: ',match.params.category);
+            // console.log('Sub categories: ',subCategories);
 
             let path = match.params.category;
             let subcat = subCategories.find(x => x.slug == path);
 
             setProductsFiltered([]);
 
-            console.log('path: ',path);
+            // console.log('path: ',path);
             
             if (subcat) {
-                console.log('subcat antes del find: ',subcat);
-                setName(subcat.name);
+                setSubCatName(subcat.name);
+                setSubcategoriesSelected([subcat.id]);
+                // console.log('subcat antes del find: ',subcat);
                 setProductsFiltered(products.filter(product => product.subcategory_id === subcat.id))
                 subcat = categories.find(category => category.id === subcat.category_id);
-                console.log('subcat después del find: ',subcat);
+                // console.log('subcat después del find: ',subcat);
                 setCategorySelected(subcat);
                 setFiltersCat(subcat.id === 1 ? [] : subCategories.filter(x => x.category_id == subcat.id))
             }
         }
     }, [subCategories, match])
+
+    useEffect(() => {
+        let subcat = '';
+        let iterator;
+        
+        if (subCategoriesSelected.length > 1) {
+            subCategoriesSelected.map(subCatId => {
+                iterator = subCategories.find(x => x.id === subCatId);
+                subcat += iterator.name + ', ';
+            })
+
+            setSubCatName(subcat.slice(0,-2));
+        }else{
+            subCategoriesSelected.map(subCatId => {
+                iterator = subCategories.find(x => x.id === subCatId);
+                subcat += iterator.name;
+            })
+
+            setSubCatName(subcat)
+        }
+    },[subCategoriesSelected])
 
     const getData = () => {
         let url = Services.ENDPOINT.NO_AUTH.SHOP.RESOURCES
@@ -61,7 +87,7 @@ const Shop = ({match}) => {
                     setCategories(response.data.categories);
                     setSubCategories(response.data.sub_categories);
                     setLaboratories(response.data.laboratories);
-                    setLoading(true);
+                    setSubscriptions(response.data.subscriptions);
                 },
             });
         }).catch(error => {
@@ -91,14 +117,19 @@ const Shop = ({match}) => {
                             <div className="col-3">
                                 <Filter
                                     laboratories={laboratories}
+                                    subscriptions={subscriptions}
                                     filtersCat={filtersCat}
+                                    setProductsFiltered={setProductsFiltered}
+                                    setLoading={setLoading}
+                                    subCategoriesSelected={subCategoriesSelected}
+                                    setSubcategoriesSelected={setSubcategoriesSelected}
                                 />
                             </div>
                             <div className="col-md-9">
                                 <ProductList 
-                                    name={name}
                                     productsFiltered={productsFiltered}
                                     categorySelected={categorySelected}
+                                    subCatName={subCatName}
                                     loading={loading}
                                 />
                             </div>

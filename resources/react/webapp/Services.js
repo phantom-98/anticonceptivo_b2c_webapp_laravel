@@ -88,6 +88,7 @@ export const ENDPOINT = {
         },
         SHOP:{
             RESOURCES: GetBaseURL() + 'public-area/get-resources',
+            PRODUCTS_FILTERED: GetBaseURL() + 'public-area/get-products-filtered',
         },
         PRODUCT:{
             GET: GetBaseURL() + 'public-area/get-products',

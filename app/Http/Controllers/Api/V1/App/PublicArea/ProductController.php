@@ -11,6 +11,7 @@ use App\Models\Category;
 use App\Models\SubCategory;
 use App\Models\LegalWarning;
 use App\Models\Laboratory;
+use App\Models\SubscriptionPlan;
 
 class ProductController extends Controller
 {
@@ -34,12 +35,14 @@ class ProductController extends Controller
             $categories = Category::where('active',true)->with(['subcategories'])->get();
             $subCategories = SubCategory::where('active',true)->orderBy('position')->get();
             $laboratories = Laboratory::where('active',true)->get();
+            $subscriptions = SubscriptionPlan::where('active',true)->get();
 
             return ApiResponse::JsonSuccess([
                 'products' => $products,
                 'categories' => $categories,
                 'sub_categories' => $subCategories,
-                'laboratories' => $laboratories
+                'laboratories' => $laboratories,
+                'subscriptions' => $subscriptions
             ]);
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, $exception->getMessage());
@@ -73,6 +76,51 @@ class ProductController extends Controller
                 'legal_warnings' => $legalWarnings,
                 'prods' => $prods
             ], OutputMessage::SUCCESS);
+        } catch (\Exception $exception) {
+            return ApiResponse::JsonError(null, $exception->getMessage());
+        }
+    }
+
+    public function getProductsFiltered(Request $request)
+    {
+        try {
+            
+            $products = Product::where('active',true)->with(['subcategory.category','images','laboratory','plans']);
+
+            $products = $products->whereIn('subcategory_id',$request->subcats);
+
+            if (!empty($request->labs)) {
+                $products = $products->whereIn('laboratory_id',$request->labs);
+            }
+
+            if ($request->price > 0) {
+                $products = $products->where('price','<',$request->price);
+            }
+
+            if (!is_null($request->bioequivalent)) {
+                if ($request->bioequivalent == true) {
+                    $products = $products->where('is_bioequivalent',true);
+                }else if($request->bioequivalent == false) {
+                    $products = $products->where('is_bioequivalent',false);
+                }
+            }
+
+            if (!empty($request->subscription)) {
+                $subscription = $request->subscription;
+
+                $products->whereHas('plans', function ($query) use($subscription) {
+                    $query->whereIn('subscription_plan_id', $subscription);
+                });
+            }
+
+            if (!empty($request->format)) {
+                $products = $products->where('format',$request->format);
+            }
+
+            return ApiResponse::JsonSuccess([
+                'products' => $products->get(),
+            ], OutputMessage::SUCCESS);
+
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, $exception->getMessage());
         }

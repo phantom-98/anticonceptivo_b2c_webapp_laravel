@@ -21,7 +21,7 @@ const ProductItem = ({item}) => {
         <div className="col-12 product-item">
             <div className="row">
                 <div className="col-auto">
-                    <img className="mt-3 pt-1" src={item.product.images ? item.product.images[0].public_file : null} alt={CONFIG.APP_NAME} style={{width: '77px'}}/>
+                    <img src={item.product.images ? item.product.images[0].public_file : null} alt={CONFIG.APP_NAME} style={{width: '77px'}}/>
                 </div>
                 <div className="col">
 
