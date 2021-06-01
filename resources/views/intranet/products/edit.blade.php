@@ -313,7 +313,7 @@
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label for="cantidad">Cantidad c/ mes</label>
-                                    <input type="text" name="cantidad_plan[{{$loop->iteration}}][]" class="form-control cantidad" value="{{ $plan->cantidad }}"
+                                    <input type="text" name="cantidad_plan[{{$loop->iteration}}][]" class="form-control cantidad" value="{{ $plan->quantity }}"
                                     oninput="checkKeyByClass('cantidad')" >
                                 </div>
                             </div>
