@@ -14,10 +14,10 @@ class AddToCustomer extends Migration
     public function up()
     {
         Schema::table('customers', function (Blueprint $table) {
-            $table->string('id_type')->nullable();
-            $table->string('phone_code', 15)->nullable();
-            $table->string('phone', 15)->nullable();
-            $table->string('email')->nullable();
+            $table->string('id_type')->nullable()->change();
+            $table->string('phone_code', 15)->nullable()->change();
+            $table->string('phone', 15)->nullable()->change();
+            $table->string('email')->nullable()->change();
         });
     }
 
