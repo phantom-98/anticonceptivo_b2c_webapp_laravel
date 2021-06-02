@@ -20,3 +20,4 @@ yarn-error.log
 /public/themes/intranet/app/css/app.css
 /public/themes/web/app/
 public/.DS_Store
+public/themes/web/app/js/app.js
