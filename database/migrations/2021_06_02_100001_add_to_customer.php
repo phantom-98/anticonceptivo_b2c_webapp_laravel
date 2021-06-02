@@ -18,6 +18,11 @@ class AddToCustomer extends Migration
             $table->string('phone_code', 15)->nullable()->change();
             $table->string('phone', 15)->nullable()->change();
             $table->string('email')->nullable()->change();
+
+            $table->dropUnique('customers_id_type_unique');
+            $table->dropUnique('customers_phone_code_unique');
+            $table->dropUnique('customers_phone_unique');
+            $table->dropUnique('customers_email_unique');
         });
     }
 
