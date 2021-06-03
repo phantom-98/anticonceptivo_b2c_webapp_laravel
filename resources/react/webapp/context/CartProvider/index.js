@@ -1,10 +1,11 @@
-import React, {createContext, useReducer} from 'react';
+import React, {createContext, useReducer, useEffect} from 'react';
 import CartReducer from "./CartReducer";
 import {
     MINI_CART_OPEN,
     MINI_CART_CLOSE,
     ADD_TO_CART, REMOVE_FROM_CART, UPDATE_QUANTITY
 } from "./types";
+import {LOCAL_STORAGE} from "../LocalStorage";
 
 import MiniCart from "../../components/shopping/MiniCart";
 
@@ -18,6 +19,12 @@ const CartProvider = (props) => {
     };
 
     const [state, dispatch] = useReducer(CartReducer, initialState);
+
+    useEffect(() => {
+        const cart = JSON.parse(localStorage.getItem(LOCAL_STORAGE.CART_ITEMS))
+
+        state.cartItems = cart;
+    },[])
 
     const showMiniCart = () => {
         dispatch({
@@ -60,11 +67,11 @@ const CartProvider = (props) => {
         })
     }
 
-
     return (
         <CartContext.Provider value={{
             showingMiniCart: state.showingMiniCart,
             cartItems: state.cartItems,
+            
             showMiniCart: showMiniCart,
             hideMiniCart: hideMiniCart,
 

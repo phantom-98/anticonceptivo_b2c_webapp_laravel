@@ -75,7 +75,7 @@ const FormComercialInfo = ({handleData,
                         id="commercial_region_id"
                         name="commercial_region_id"
                         onChange={(e) => selectRegion(e)}
-                        value={data.commercial_region_id}
+                        value={data.commercial_region_id ? data.commercial_region_id : null}
                         >
                             <option value={null} disabled selected>Seleccionar</option>
                         {

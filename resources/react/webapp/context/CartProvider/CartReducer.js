@@ -4,6 +4,7 @@ import {
     ADD_TO_CART,
     REMOVE_FROM_CART, UPDATE_QUANTITY
 } from "./types";
+import {LOCAL_STORAGE} from "../LocalStorage";
 
 export default (state, action) => {
 
@@ -37,6 +38,8 @@ export default (state, action) => {
                 ]
             }
 
+            localStorage.setItem(LOCAL_STORAGE.CART_ITEMS, JSON.stringify([...cartItems]));
+
             return {
                 ...state,
                 // showingMiniCart: false,
@@ -46,6 +49,8 @@ export default (state, action) => {
         case REMOVE_FROM_CART:
             const list = state.cartItems;
             const filtered = list.filter(c => c.product_id != action.payload)
+
+            localStorage.setItem(LOCAL_STORAGE.CART_ITEMS, JSON.stringify(filtered));
 
             return {
                 ...state,
@@ -64,6 +69,8 @@ export default (state, action) => {
             }else{
                 items[foundUpdate].quantity = itemUpdate.quantity
             }
+
+            localStorage.setItem(LOCAL_STORAGE.CART_ITEMS, JSON.stringify([...items]));
 
             return {
                 ...state,
