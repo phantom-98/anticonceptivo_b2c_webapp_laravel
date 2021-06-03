@@ -10,7 +10,7 @@ import toastr from "toastr";
 
 const PersonalInfo = () => {
 
-    const {auth} = useContext(AuthContext);
+    const {auth, updateAuth} = useContext(AuthContext);
 
     const defaultData = {
         first_name: '',
@@ -44,6 +44,7 @@ const PersonalInfo = () => {
 
     useEffect(() => {
         if (auth) {
+            setData(auth);
             getData();
         }
     },[auth])
@@ -137,7 +138,7 @@ const PersonalInfo = () => {
             Services.Response({
             response: response,
             success: () => {
-                setData(response.data.customer);
+                // setData(response.data.customer);
                 setRegions(response.data.regions);
             },
             });
@@ -156,6 +157,7 @@ const PersonalInfo = () => {
                 Services.Response({
                 response: response,
                 success: () => {
+                    updateAuth(response.data.customer);
                     toastr.success(response.message);
                 },
                 });

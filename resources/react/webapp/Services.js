@@ -95,7 +95,11 @@ export const ENDPOINT = {
         },
         PRODUCT_BY_SLUG:{
             GET: GetBaseURL() + 'public-area/get-product-by-slug',
-        }
+        },
+        CHECKOUT:{
+            GET_RESOURCES: GetBaseURL() + 'public-area/get-checkout-resources',
+            VALIDATE_STEPS: GetBaseURL() + 'public-area/validate-steps',
+        },
     },
     CUSTOMER:{
         PROFILE:{

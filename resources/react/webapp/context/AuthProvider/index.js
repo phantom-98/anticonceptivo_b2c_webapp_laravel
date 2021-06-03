@@ -38,11 +38,9 @@ const AuthProvider = (props) => {
                 }
             })
         }
-
     }, [])
 
-
-    const login = (credentials) => {
+    const login = (credentials, isCheckout = false) => {
 
         let url = Services.ENDPOINT.AUTH.LOGIN;
         Services.DoPost(url, credentials).then(response => {
@@ -54,8 +52,11 @@ const AuthProvider = (props) => {
                         payload: response.data
                     })
 
-                    window.location.href = PUBLIC_ROUTES.HOME.path;
-
+                    if (!isCheckout) {
+                        window.location.href = PUBLIC_ROUTES.HOME.path;   
+                    }else{
+                        toastr.success('Ingreso Exitoso.')
+                    }
                 },
                 error: () => {
                     toastr.error(response.message);

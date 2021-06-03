@@ -1,11 +1,31 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import Step from "../../../components/shopping/Step";
-import {Link} from "react-router-dom";
-import PUBLIC_ROUTES from "../../../routes/publicRoutes";
-import {ModalAuthMode} from "../../../Globals";
+import React, {useState, useContext} from 'react';
+// import ReactDOM from 'react-dom';
+// import Step from "../../../components/shopping/Step";
+// import {Link} from "react-router-dom";
+// import PUBLIC_ROUTES from "../../../routes/publicRoutes";
+// import {ModalAuthMode} from "../../../Globals";
+import {AuthContext} from "../../../context/AuthProvider";
+import {setCleanInputError} from "../../../helpers/GlobalUtils";
 
 const GrantUser = ({setView}) =>{
+
+    const {login} = useContext(AuthContext);
+
+    const [data, setData] = useState({
+        email: '',
+        password: '',
+    })
+
+    const handleData = (e) => {
+        setData({...data,
+            [e.target.name]: e.target.value
+        })
+    }
+
+    const doLogin = () => {
+        login(data, true);
+    }
+
     return (
         <div className="panel panel-cart mb-3">
             <div className="panel-body">
@@ -22,7 +42,10 @@ const GrantUser = ({setView}) =>{
                                            id="email"
                                            name="email"
                                            placeholder="hola@email.com"
+                                           onChange={handleData}
+                                           onFocus={setCleanInputError}
                                     />
+                                    <div className="invalid-feedback"/>
                                 </div>
                             </div>
                             <div className="col-md-12">
@@ -33,12 +56,15 @@ const GrantUser = ({setView}) =>{
                                            id="password"
                                            name="password"
                                            placeholder="*********"
+                                           onChange={handleData}
+                                           onFocus={setCleanInputError}
                                     />
+                                    <div className="invalid-feedback"/>
                                 </div>
                             </div>
                         </div>
                         <div className="py-3">
-                            <button className="btn btn-bicolor btn-block" onClick={() => setView('user-form')}>
+                            <button className="btn btn-bicolor btn-block" onClick={() => doLogin()}>
                                 <span>INICIAR SESIÓN</span>
                             </button>
                         </div>
