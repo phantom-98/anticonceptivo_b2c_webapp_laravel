@@ -22,13 +22,14 @@ const FormPersonalData = ({handleData,
                 <div className="form-group">
                     <label htmlFor="first_name">Nombres</label>
                     <input type="text"
-                           className="form-control form-control-custom"
+                            className="form-control form-control-custom"
                             id="first_name"
                             name="first_name"
                             onChange={(e) => handleData(e)}
                             value={data.first_name}
                             placeholder="Nombres"
                             onFocus={setCleanInputError}
+                            disabled={!password ? true : false}
                     />
                     <div className="invalid-feedback" />
                 </div>
@@ -44,6 +45,7 @@ const FormPersonalData = ({handleData,
                            onChange={(e) => handleData(e)}
                            value={data.last_name}
                            onFocus={setCleanInputError}
+                           disabled={!password ? true : false}
                     />
                     <div className="invalid-feedback" />
                 </div>
@@ -59,6 +61,7 @@ const FormPersonalData = ({handleData,
                            onChange={(e) => handleData(e)}
                            value={data.email}
                            onFocus={setCleanInputError}
+                           disabled={!password ? true : false}
                     />
                     <div className="invalid-feedback" />
                 </div>
@@ -77,6 +80,7 @@ const FormPersonalData = ({handleData,
                             id={`custom-inline-radio-rut`}
                             onClick={(e) => handleCheckBox(e)}
                             checked={data.id_type === 'RUT' ? true : false}
+                            disabled={!password ? true : false}
                         />
                         <Form.Check
                             custom
@@ -87,6 +91,7 @@ const FormPersonalData = ({handleData,
                             id={`custom-inline-radio-dni`}
                             onClick={(e) => handleCheckBox(e)}
                             checked={data.id_type === 'DNI' ? true : false}
+                            disabled={!password ? true : false}
                         />
                     </div>
                     <input type="text"
@@ -98,6 +103,7 @@ const FormPersonalData = ({handleData,
                            value={data.id_number}
                            onFocus={setCleanInputError}
                            {...inputProps}
+                           disabled={!password ? true : false}
                     />
                     <div className="invalid-feedback" />
                 </div>
@@ -112,6 +118,7 @@ const FormPersonalData = ({handleData,
                         name="phone_code"
                         onChange={(e) => handleData(e)}
                         onFocus={setCleanInputError}
+                        disabled={!password ? true : false}
                     >
                         <option value="+56">+56</option>
                     </select>
@@ -129,6 +136,7 @@ const FormPersonalData = ({handleData,
                            onChange={(e) => handleData(e)}
                            value={data.phone}
                            onFocus={setCleanInputError}
+                           disabled={!password ? true : false}
                     />
                     <div className="invalid-feedback" />
                 </div>

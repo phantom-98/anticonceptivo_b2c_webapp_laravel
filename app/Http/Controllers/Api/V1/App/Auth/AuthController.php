@@ -125,6 +125,7 @@ class AuthController extends Controller
                     config(['auth.guards.api.provider' => 'customer']);
 
                     $token = Helper::GenerateAuthToken();
+                    
                     $auth = AuthGenerator::GenerateAuth($customer, $token, 'customer');
 
                     return ApiResponse::JsonSuccess([

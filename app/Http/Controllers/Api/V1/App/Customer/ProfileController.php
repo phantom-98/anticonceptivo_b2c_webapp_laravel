@@ -65,7 +65,8 @@ class ProfileController extends Controller
     public function updateProfile(Request $request)
     {
         try{
-            $customer = Customer::find($request->id);
+
+            $customer = Customer::where('id',$request->id)->first();
 
             if (!$customer) {
                 return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_NOT_FOUND);
@@ -119,15 +120,19 @@ class ProfileController extends Controller
 
             if ($validator->passes()) {
                 if ($customer->update($request->except(['password']))) {
-                    return ApiResponse::JsonSuccess($customer->only([
-                        'first_name', 
-                        'last_name',
-                        'email',
-                        'id_number',
-                        'id_type',
-                        'phone_code',
-                        'phone',
-                    ]), OutputMessage::CUSTOMER_PROFILE_UPDATE);
+                    return ApiResponse::JsonSuccess([
+                        'customer' => $customer->makeHidden([
+                            'password',
+                            'email_verified_at',
+                            'recovery_pin',
+                            'last_access',
+                            'photo',
+                            'remember_token',
+                            'active',
+                            'created_at',
+                            'updated_at',
+                            'deleted_at'])
+                    ], OutputMessage::CUSTOMER_PROFILE_UPDATE);
                 }else{
                     return ApiResponse::JsonError(null, OutputMessage::CUSTOMER_PROFILE_UPDATE_ERROR);
                 }
