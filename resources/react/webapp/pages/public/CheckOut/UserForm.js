@@ -7,7 +7,7 @@ import RutValidator from "w2-rut-validator";
 import * as Services from "../../../Services";
 import {AuthContext} from "../../../context/AuthProvider";
 
-const UserForm = ({setView, data, setData, file, setFile}) => {
+const UserForm = ({setView, data, setData, setFile, editable}) => {
 
     const {auth} = useContext(AuthContext);
 
@@ -158,7 +158,6 @@ const UserForm = ({setView, data, setData, file, setFile}) => {
             let dataForm = {
                 ...data,
                 step: 1,
-                auth: auth ? true : false
             }
 
             Services.DoPost(url, dataForm).then(response => {
@@ -185,6 +184,7 @@ const UserForm = ({setView, data, setData, file, setFile}) => {
                         rutFormat={RutFormat}
                         rutValidate={RutValidate}
                         password={false}
+                        editable={editable}
                     />
                 </div>
             </div>
@@ -250,7 +250,7 @@ const UserForm = ({setView, data, setData, file, setFile}) => {
                     {/*</button>*/}
                 </div>
                 <div className="col-md-6">
-                    <button className="btn btn-bicolor btn-block" onClick={() => validateData()}>
+                    <button className="btn btn-bicolor btn-block" onClick={ auth ? () =>  setView('addresses') : () => validateData()}>
                         <span className="font-14 px-5">CONTINUAR</span>
                     </button>
                 </div>

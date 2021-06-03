@@ -43,10 +43,12 @@ const CheckOut = () => {
 
     const [data, setData] = useState(defaultData);
     const [file, setFile] = useState(null);
+    const [editable, setEditable] = useState(false);
 
     useEffect(() => {
         if (auth) {
             setData(auth);
+            setEditable(true);
             setView("user-form");
         }
     },[auth])
@@ -121,8 +123,8 @@ const CheckOut = () => {
                                         setView={setView}
                                         data={data}
                                         setData={setData}
-                                        file={file}
                                         setFile={setFile}
+                                        editable={editable}
                                     /> : null
                             }
                             {

@@ -7,7 +7,9 @@ const FormPersonalData = ({handleData,
     rutFormat, 
     rutValidate, 
     data,  
-    password = true}) => {
+    password = true,
+    editable = false
+    }) => {
 
     var inputProps =  {};
 
@@ -29,7 +31,7 @@ const FormPersonalData = ({handleData,
                             value={data.first_name}
                             placeholder="Nombres"
                             onFocus={setCleanInputError}
-                            disabled={!password ? true : false}
+                            disabled={editable}
                     />
                     <div className="invalid-feedback" />
                 </div>
@@ -45,7 +47,7 @@ const FormPersonalData = ({handleData,
                            onChange={(e) => handleData(e)}
                            value={data.last_name}
                            onFocus={setCleanInputError}
-                           disabled={!password ? true : false}
+                           disabled={editable}
                     />
                     <div className="invalid-feedback" />
                 </div>
@@ -61,7 +63,7 @@ const FormPersonalData = ({handleData,
                            onChange={(e) => handleData(e)}
                            value={data.email}
                            onFocus={setCleanInputError}
-                           disabled={!password ? true : false}
+                           disabled={editable}
                     />
                     <div className="invalid-feedback" />
                 </div>
@@ -80,7 +82,7 @@ const FormPersonalData = ({handleData,
                             id={`custom-inline-radio-rut`}
                             onClick={(e) => handleCheckBox(e)}
                             checked={data.id_type === 'RUT' ? true : false}
-                            disabled={!password ? true : false}
+                            disabled={editable}
                         />
                         <Form.Check
                             custom
@@ -91,7 +93,7 @@ const FormPersonalData = ({handleData,
                             id={`custom-inline-radio-dni`}
                             onClick={(e) => handleCheckBox(e)}
                             checked={data.id_type === 'DNI' ? true : false}
-                            disabled={!password ? true : false}
+                            disabled={editable}
                         />
                     </div>
                     <input type="text"
@@ -103,7 +105,7 @@ const FormPersonalData = ({handleData,
                            value={data.id_number}
                            onFocus={setCleanInputError}
                            {...inputProps}
-                           disabled={!password ? true : false}
+                           disabled={editable}
                     />
                     <div className="invalid-feedback" />
                 </div>
@@ -118,7 +120,7 @@ const FormPersonalData = ({handleData,
                         name="phone_code"
                         onChange={(e) => handleData(e)}
                         onFocus={setCleanInputError}
-                        disabled={!password ? true : false}
+                        disabled={editable}
                     >
                         <option value="+56">+56</option>
                     </select>
@@ -136,7 +138,7 @@ const FormPersonalData = ({handleData,
                            onChange={(e) => handleData(e)}
                            value={data.phone}
                            onFocus={setCleanInputError}
-                           disabled={!password ? true : false}
+                           disabled={editable}
                     />
                     <div className="invalid-feedback" />
                 </div>

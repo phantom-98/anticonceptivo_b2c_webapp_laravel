@@ -24,7 +24,7 @@ const CartProvider = (props) => {
         const cart = JSON.parse(localStorage.getItem(LOCAL_STORAGE.CART_ITEMS))
 
         if (cart) {
-            state.cartItems = cart;   
+            state.cartItems = cart; 
         }
     },[])
 

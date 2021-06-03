@@ -1,34 +1,47 @@
-import React, {Fragment, useEffect, useState} from 'react';
+import React, {Fragment, useEffect, useState, useContext} from 'react';
 import List from "../../private/Account/sections/Addresses/List";
 import Form from "../../private/Account/sections/Addresses/Form";
 import Icon from "../../../components/general/Icon";
 import calendarBlue from '../../../assets/images/icons/calendar-blue.svg'
 import clockBlue from '../../../assets/images/icons/clock-blue.svg'
+import {AuthContext} from "../../../context/AuthProvider";
+import * as Services from "../../../Services";
 
 const Addresses = ({setView}) => {
 
+    const {auth} = useContext(AuthContext);
+
     const [addresses, setAddresses] = useState([]);
+    const [regions, setRegions] = useState([]);
 
     const [view, setViewAd] = useState('list');
     const [formMode, setFormMode] = useState('create');
     const [addressSelected, setAddressSelected] = useState(null);
 
     useEffect(() => {
-        //emulations
-        setAddresses([
-            ...addresses,
-            {
-                'id': 1,
-                'contact_first_name': 'Eduardo',
-                'contact_last_name': 'Gajardo',
-                'region_id': 5,
-                'commune_id': 5,
-                'address': '10 norte 653',
-                'address_number': 'depto 43'
-            }
-        ])
+        if (auth) {
+            getData();
+        }
+    }, [auth])
 
-    }, [])
+    const getData = () => {
+        let url = Services.ENDPOINT.CUSTOMER.ADDRESSES.GET;
+        let data = {
+            customer_id: auth.id
+        }
+
+        Services.DoPost(url,data).then(response => {
+            Services.Response({
+            response: response,
+                success: () => {
+                    setAddresses(response.data.addresses);
+                    setRegions(response.data.regions);
+                }
+            });
+        }).catch(error => {
+            Services.ErrorCatch(error)
+        });
+    }
 
     const goBack = () => {
         setViewAd('list')

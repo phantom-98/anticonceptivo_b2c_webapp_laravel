@@ -1,7 +1,7 @@
-import React, {Fragment, useState} from 'react';
-import FormPersonalData from "../../private/Account/sections/PersonalInfo/FormPersonalData";
-import FormComercialInfo from "../../private/Account/sections/PersonalInfo/FormComercialInfo";
-import {CONFIG} from "../../../Config";
+import React, {Fragment, useState, useEffect, useContext} from 'react';
+// import FormPersonalData from "../../private/Account/sections/PersonalInfo/FormPersonalData";
+// import FormComercialInfo from "../../private/Account/sections/PersonalInfo/FormComercialInfo";
+// import {CONFIG} from "../../../Config";
 
 const AddAddress = ({setView}) => {
 
