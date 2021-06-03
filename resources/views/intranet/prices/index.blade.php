@@ -162,6 +162,12 @@
                     cellStyle: midAling,
                 },
                 {
+                    title: 'Cantidad por mes',
+                    field: 'quantity',
+                    sortable: true,
+                    cellStyle: midAling,
+                },
+                {
                     title: 'Fecha inicio precio',
                     field: 'formated_date',
                     sortable: true,

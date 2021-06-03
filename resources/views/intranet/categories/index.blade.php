@@ -66,7 +66,7 @@
                                         <td>{{ $object->name }}</td>
                                         <td><img src="{{ Storage::url($object->image) }}" style="max-width: 100px;"/></td>
                                         <td><img src="{{ Storage::url($object->banner_image) }}" style="max-width: 200px;"/></td>
-                                        <td><img src="{{ Storage::url($object->banner_subimage) }}" style="max-width: 200px;"/></td>
+                                        <td><img src="{{ Storage::url($object->subbanner_image) }}" style="max-width: 200px;"/></td>
                                         <td>{!! $object->description !!}</td>
                                         @if($config['action']['changeStatus'])
                                         @include('intranet.template.components._crud_html_change_status')

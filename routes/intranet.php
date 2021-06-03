@@ -151,6 +151,8 @@ if (env('SHOW_INTRANET', 'TRUE') == 'TRUE') {
                 Route::post('alianzas/active', 'AllianceController@active')->name('alliances.active');
                 Route::resource('alianzas', 'AllianceController', ['names' => getResourceRoutesForNameHelper('alliances')]);
 
+                Route::get('productos/{id}/imagenes', 'ProductController@show_images')->name('products.show_images');
+                Route::post('productos/position', 'ProductController@position')->name('products.position');
                 Route::get('productos/export', 'ProductController@export')->name('products.export');
                 Route::post('productos/active', 'ProductController@active')->name('products.active');
                 Route::resource('productos', 'ProductController', ['names' => getResourceRoutesForNameHelper('products')]);

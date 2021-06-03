@@ -26,7 +26,7 @@ class ProductController extends GlobalController
         'pluralName' => 'Productos',
         'singularName' => 'Producto',
         'disableActions' => ['changeStatus'],
-        'enableActions' => ['export']
+        'enableActions' => ['export','position']
     ];
 
     public function __construct()
@@ -38,6 +38,31 @@ class ProductController extends GlobalController
     {
         $objects = Product::with('images', 'subcategory', 'laboratory')->get();
         return view($this->folder . 'index', compact('objects'));
+    }
+
+    public function position(Request $request){
+
+        try{
+            foreach($request->data as $data){
+                $object = ProductImage::find($data['id']);
+                $object->update(['position' => $data['position']]);
+            }
+            return response()->json([
+                'status' => 1
+            ]);
+        }catch(\Exception $e){
+            return response()->json([
+                'status' => 0
+            ]);
+        }
+
+
+    }
+
+    public function show_images($id)
+    {
+        $objects = Product::with('images')->find($id)->images;
+        return view($this->folder . 'product_images', compact('objects'));
     }
 
      /**
@@ -128,6 +153,7 @@ class ProductController extends GlobalController
                     $new_plan->subscription_plan_id = $plan[0];
                     $new_plan->warnings = $request->warnings[$key][0];
                     $new_plan->price = $request->price_plan[$key][0];
+                    $new_plan->quantity = $request->cantidad_plan[$key][0];
                     $new_plan->product_id = $product->id;
                     $new_plan->save();
 
@@ -135,6 +161,7 @@ class ProductController extends GlobalController
                     $price->product_id = $product->id;
                     $price->price = $request->price_plan[$key][0];
                     $price->subscription_plan_id = $plan[0];
+                    $price->quantity = $request->cantidad_plan[$key][0];
                     $price->save();
 
                 }
@@ -256,8 +283,10 @@ class ProductController extends GlobalController
                     $new_plan->subscription_plan_id = $plan[0];
                     $new_plan->warnings = $request->warnings[$key][0];
                     $new_plan->price = $request->price_plan[$key][0];
+                    $new_plan->quantity = $request->cantidad_plan[$key][0];
                     $new_plan->product_id = $product->id;
                     $new_plan->save();
+
 
                     $lastPrice = Price::where('product_id', $product->id)->where('subscription_plan_id',$plan[0])->latest()->first();
                     if($lastPrice){
@@ -269,6 +298,7 @@ class ProductController extends GlobalController
                     $price->product_id = $product->id;
                     $price->price = $request->price_plan[$key][0];
                     $price->subscription_plan_id = $plan[0];
+                    $price->quantity = $request->cantidad_plan[$key][0];
                     $price->save();
                 }
             }

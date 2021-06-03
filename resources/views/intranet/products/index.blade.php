@@ -222,13 +222,20 @@
                 formatter: function (value, row, index) {
                     let append = '';
                     let prepend = '';
-             
-                    return getShowActionButtons(row, prepend, append);
+
+                    let urlEdit = '{{ route('intranet.products.show_images', [':id'] ) }}';
+                    urlEdit = urlEdit.replace(':id', row.id);
+                    buttons = '<a href="' + urlEdit +'" class="btn btn-sm btn-default btn-hover-info" title="Editar"><i class="fa fa-eye"></i></a>';
+                    buttons += getShowActionButtons(row, prepend, append)
+                    return buttons;
 
                 }
             });
 
+
+
             @endif
+
 
             $('#table-bs').bootstrapTable({
                 data: @json($objects),

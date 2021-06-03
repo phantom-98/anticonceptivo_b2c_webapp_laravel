@@ -12,6 +12,7 @@ class Price extends Model
         'price',
         'until',
         'product_id',
+        'quantity',
         'subscription_plan_id'
     ];
 
