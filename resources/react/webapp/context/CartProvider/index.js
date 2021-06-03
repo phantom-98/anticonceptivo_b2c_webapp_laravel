@@ -23,9 +23,7 @@ const CartProvider = (props) => {
     useEffect(() => {
         const cart = JSON.parse(localStorage.getItem(LOCAL_STORAGE.CART_ITEMS))
 
-        if (cart) {
-            state.cartItems = cart;   
-        }
+        state.cartItems = cart;
     },[])
 
     const showMiniCart = () => {
