@@ -2,6 +2,7 @@ import {
     MINI_CART_OPEN,
     MINI_CART_CLOSE,
     ADD_TO_CART,
+    UPDATE_CART,
     REMOVE_FROM_CART, UPDATE_QUANTITY
 } from "./types";
 import {LOCAL_STORAGE} from "../LocalStorage";
@@ -44,6 +45,17 @@ export default (state, action) => {
                 ...state,
                 // showingMiniCart: false,
                 cartItems: [...cartItems]
+            };
+        case UPDATE_CART:
+            let cart= JSON.parse(localStorage.getItem(LOCAL_STORAGE.CART_ITEMS))
+            console.log(cart,324234324)
+            if (cart == null) {
+                cart = []
+            }
+            return {
+                ...state,
+                // showingMiniCart: false,
+                cartItems: [...cart]
             };
 
         case REMOVE_FROM_CART:
