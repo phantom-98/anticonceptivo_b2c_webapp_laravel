@@ -76,7 +76,25 @@ const AuthProvider = (props) => {
     }
 
     const recoveryPassword = (credentials) => {
-        // console.log('dentro al recovery')
+        let url = Services.ENDPOINT.AUTH.SET_NEW_PASSWORD;
+
+        Services.DoPost(url,credentials).then(response => {
+            Services.Response({
+                response: response,
+                success: () => {
+                    dispatch({
+                        type: LOGIN,
+                        payload: response.data
+                    })
+                    window.location.href = PUBLIC_ROUTES.HOME.path;
+                },
+                error: () => {
+                    toastr.error(response.message);
+                }
+            });
+        }).catch(error => {
+            Services.ErrorCatch(error)
+        });
     }
 
     const updateAuth = (auth) => {

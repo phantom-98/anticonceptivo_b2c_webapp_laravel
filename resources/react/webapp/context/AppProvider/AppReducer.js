@@ -34,7 +34,6 @@ export default (state, action) => {
             return {
                 ...state,
                 showingModalAuthSuccess: false,
-                modalAuthSuccessType: '',
             };
 
         case SET_TOKEN_MODAL_AUTH:

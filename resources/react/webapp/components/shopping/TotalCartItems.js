@@ -9,7 +9,7 @@ const TotalCartItems = () =>{
 
     useEffect(()=>{
         let _total = 0;
-        console.log(cartItems)
+        // console.log(cartItems)
         cartItems.map((item) =>{
             _total = _total + item.quantity
         })

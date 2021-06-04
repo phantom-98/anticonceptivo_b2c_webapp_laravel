@@ -1,14 +1,16 @@
 import React, {useContext, useState, useEffect} from 'react';
-import * as Services from "../../../Services";
+// import * as Services from "../../../Services";
 import {AppContext} from "../../../context/AppProvider";
 import {setCleanInputError} from "../../../helpers/GlobalUtils";
-import {LOCAL_STORAGE} from "../../../context/LocalStorage";
-import PUBLIC_ROUTES from "../../../routes/publicRoutes";
-import toastr from 'toastr';
+// import {LOCAL_STORAGE} from "../../../context/LocalStorage";
+// import PUBLIC_ROUTES from "../../../routes/publicRoutes";
+// import toastr from 'toastr';
+import {AuthContext} from '../../../context/AuthProvider';
 
 const SetNewPassword = () => {
 
     const {getTokenModalAuth} = useContext(AppContext);
+    const {recoveryPassword} = useContext(AuthContext);
 
     useEffect(() => {
         setData({
@@ -24,27 +26,6 @@ const SetNewPassword = () => {
     };
 
     const [data, setData] = useState(defaultModel)
-
-    const loginWithPasswordUpdate = () => {
-        let url = Services.ENDPOINT.AUTH.SET_NEW_PASSWORD;
-
-        Services.DoPost(url,data).then(response => {
-            Services.Response({
-                response: response,
-                success: () => {
-                    localStorage.setItem(LOCAL_STORAGE.AUTH, JSON.stringify(response.data.auth));
-                    localStorage.setItem(LOCAL_STORAGE.AUTH_TOKEN, response.data.auth_token);
-
-                    window.location.href = PUBLIC_ROUTES.HOME.path;
-                },
-                error: () => {
-                    toastr.error(response.message);
-                }
-            });
-        }).catch(error => {
-            Services.ErrorCatch(error)
-        });
-    }
 
     const handleData = (e) => {
         setData({
@@ -95,7 +76,7 @@ const SetNewPassword = () => {
             </div>
             <div className="col-md-12 py-2 text-center mb-3">
                 <button type="button" className="btn btn-bicolor btn-block btn-auth"
-                        onClick={() => loginWithPasswordUpdate()}>
+                        onClick={() => recoveryPassword(data)}>
                     <span>INICIAR SESIÓN</span>
                 </button>
             </div>
