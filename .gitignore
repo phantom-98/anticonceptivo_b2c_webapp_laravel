@@ -22,3 +22,4 @@ yarn-error.log
 public/.DS_Store
 public/themes/web/app/js/*
 public/themes/web/app/js/app.js
+.DS_Store

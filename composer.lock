@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "973d062b977eee338c0e101d9d853708",
+    "content-hash": "6ee1f0991df17fca1f7b499f96039440",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1104,6 +1104,54 @@
             "time": "2021-02-12T00:02:00+00:00"
         },
         {
+            "name": "freshwork/transbank",
+            "version": "1.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/freshworkstudio/transbank-web-services.git",
+                "reference": "690e15bd6cdeb6897f49ab12b18c3d48362e8d50"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/freshworkstudio/transbank-web-services/zipball/690e15bd6cdeb6897f49ab12b18c3d48362e8d50",
+                "reference": "690e15bd6cdeb6897f49ab12b18c3d48362e8d50",
+                "shasum": ""
+            },
+            "require": {
+                "ext-dom": "*",
+                "ext-openssl": "*",
+                "ext-soap": "*"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Freshwork\\Transbank\\Laravel\\WebpayServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Freshwork\\Transbank\\": "src/"
+                },
+                "classmap": [
+                    "src/wss"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Gonzalo De Spirito",
+                    "email": "gonzalo@freshworkstudio.com"
+                }
+            ],
+            "description": "SDK para webservices de transbank (Webpay Plus, Webpay OneClick, Webpay PatPass)",
+            "time": "2019-12-17T13:16:26+00:00"
+        },
+        {
             "name": "fruitcake/laravel-cors",
             "version": "v2.0.4",
             "source": {
@@ -1480,10 +1528,6 @@
                 "laravel",
                 "transbank"
             ],
-            "support": {
-                "issues": "https://github.com/innovawebcl/Transbank/issues",
-                "source": "https://github.com/innovawebcl/Transbank/tree/v1.1.1"
-            },
             "time": "2021-04-21T18:11:28+00:00"
         },
         {
@@ -6164,23 +6208,26 @@
         },
         {
             "name": "transbank/transbank-sdk",
-            "version": "1.5.3",
+            "version": "1.10.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/TransbankDevelopers/transbank-sdk-php.git",
-                "reference": "c8f05c5e9ddef6c26d3d6bf88ceeae934f15423b"
+                "reference": "0d5407629ebb7b74ebda7c1841eae2ea694820d6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/TransbankDevelopers/transbank-sdk-php/zipball/c8f05c5e9ddef6c26d3d6bf88ceeae934f15423b",
-                "reference": "c8f05c5e9ddef6c26d3d6bf88ceeae934f15423b",
+                "url": "https://api.github.com/repos/TransbankDevelopers/transbank-sdk-php/zipball/0d5407629ebb7b74ebda7c1841eae2ea694820d6",
+                "reference": "0d5407629ebb7b74ebda7c1841eae2ea694820d6",
                 "shasum": ""
             },
             "require": {
                 "ext-curl": "*",
                 "ext-json": "*",
                 "ext-mbstring": "*",
-                "php": ">=5.5.0"
+                "ext-openssl": "*",
+                "ext-soap": "*",
+                "guzzlehttp/guzzle": "^5|^6|^7",
+                "php": ">=5.6.0"
             },
             "require-dev": {
                 "phpunit/phpunit": "~4.0",
@@ -6190,16 +6237,8 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "Transbank\\Onepay\\": [
-                        "lib/onepay",
-                        "lib/onepay/utils"
-                    ],
-                    "Transbank\\Onepay\\Exceptions\\": [
-                        "lib/onepay/exceptions"
-                    ],
-                    "Transbank\\Webpay\\": [
-                        "lib/webpay",
-                        "lib/webpay/soap"
+                    "Transbank\\": [
+                        "src/"
                     ]
                 }
             },
@@ -6214,11 +6253,7 @@
                 "sdk",
                 "transbank"
             ],
-            "support": {
-                "issues": "https://github.com/TransbankDevelopers/transbank-sdk-php/issues",
-                "source": "https://github.com/TransbankDevelopers/transbank-sdk-php/tree/master"
-            },
-            "time": "2019-10-17T21:59:22+00:00"
+            "time": "2020-12-21T21:57:26+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -8549,6 +8584,5 @@
         "php": "^7.3|^8.0",
         "ext-json": "*"
     },
-    "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "platform-dev": []
 }

@@ -16,8 +16,8 @@ class WebpayPlusController
 
     public function __construct()
     {
-        if (env('APP_ENV') == 'integration') {
-            $this->webpay_plus = new WebpayPlus(env('TBK_CC'), env('TBK_API_KEY'), WebpayPlus::INTEGRATION);
+        if (env('APP_ENV') == 'production') {
+            $this->webpay_plus = new WebpayPlus(env('TBK_CC'), env('TBK_API_KEY'), WebpayPlus::PRODUCTION);
         } else {
             $this->webpay_plus = new WebpayPlus();
         }
