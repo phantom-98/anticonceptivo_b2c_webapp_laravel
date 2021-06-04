@@ -7,14 +7,14 @@ import AddAddress from "./AddAddress";
 import Addresses from "./Addresses";
 import Header from "./Header";
 import {AuthContext} from "../../../context/AuthProvider";
-// import * as Services from "../../../Services";
+import * as Services from "../../../Services";
 
 const CheckOut = () => {
 
-    const {auth} = useContext(AuthContext)
+    const {auth} = useContext(AuthContext);
 
-    const [showFinal, setShowFinal] = useState(1)
-    const [view, setView] = useState('grant-user')
+    const [showFinal, setShowFinal] = useState(1);
+    const [view, setView] = useState('grant-user');
     const [step, setStep] = useState({
         number: 1,
         title: 'DATOS PERSONALES',
@@ -44,6 +44,17 @@ const CheckOut = () => {
     const [data, setData] = useState(defaultData);
     const [file, setFile] = useState(null);
     const [editable, setEditable] = useState(false);
+    const [regions, setRegions] = useState([]);
+    const [communes, setCommunes] = useState([]);
+
+    const [address, setAddress] = useState({
+        name: '',
+        // contact_last_name: '',
+        region_id: '',
+        commune_id: '',
+        address: '',
+        extra_info: ''
+    });
 
     useEffect(() => {
         if (auth) {
@@ -81,24 +92,28 @@ const CheckOut = () => {
 
     }, [view])
 
-    // const getData = () => {
-    //     let url = Services.ENDPOINT.CUSTOMER.PROFILE.GET;
-    //     let dataForm = {
-    //         customer_id: auth.id
-    //     }
+    useEffect(() => {
+        getRegions();
+    },[])
 
-    //     Services.DoPost(url, dataForm).then(response => {
-    //         Services.Response({
-    //         response: response,
-    //         success: () => {
-    //             setData(response.data.customer);
-    //         },
-    //         });
-    //     }).catch(error => {
-    //         Services.ErrorCatch(error)
-    //     });
-    // }
+    const getRegions = () => {
+        let url = Services.ENDPOINT.NO_AUTH.CHECKOUT.GET_RESOURCES;
+        let dataForm = {
+            // customer_id: auth.id
+        }
 
+        Services.DoPost(url, dataForm).then(response => {
+            Services.Response({
+            response: response,
+            success: () => {
+                setCommunes(response.data.communes);
+                setRegions(response.data.regions);
+            },
+            });
+        }).catch(error => {
+            Services.ErrorCatch(error)
+        });
+    }
     return (
         <Fragment>
             <div className="pb-5" style={{background: '#FAFAFA'}}>
@@ -125,13 +140,27 @@ const CheckOut = () => {
                                         setData={setData}
                                         setFile={setFile}
                                         editable={editable}
+                                        regions={regions}
                                     /> : null
                             }
                             {
-                                view == 'add-address' ? <AddAddress setView={setView}/> : null
+                                view == 'add-address' ? 
+                                    <AddAddress
+                                        setView={setView}
+                                        regions={regions}
+                                        address={address}
+                                        setAddress={setAddress}
+                                    /> : null
                             }
                             {
-                                view == 'addresses' ? <Addresses setView={setView}/> : null
+                                view == 'addresses' ? 
+                                    <Addresses 
+                                        setView={setView}
+                                        regions={regions}
+                                        communes={communes}
+                                        address={address}
+                                        setAddress={setAddress}
+                                    /> : null
                             }
 
 

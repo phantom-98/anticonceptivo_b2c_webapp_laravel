@@ -13,6 +13,7 @@ use App\Http\Utils\OutputMessage\OutputMessage;
 use App\Http\Utils\Enum\ContactIssueTypes;
 use App\Models\Customer;
 use App\Models\Region;
+use App\Models\Commune;
 use App\Models\CustomerAddress;
 use App\Models\Order;
 use App\Models\Prescription;
@@ -156,10 +157,12 @@ class ProfileController extends Controller
             $addresses = CustomerAddress::where('customer_id', $customer->id)->get();
 
             $regions = Region::with('provinces.communes')->get();
+            $communes = Commune::select('id','name')->get();
 
             return ApiResponse::JsonSuccess([
                 'addresses' => $addresses,
-                'regions' => $regions
+                'regions' => $regions,
+                'communes' => $communes
             ], OutputMessage::SUCCESS);
             
         } catch (\Exception $exception) {

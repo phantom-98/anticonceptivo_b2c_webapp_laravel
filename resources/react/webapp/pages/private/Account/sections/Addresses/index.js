@@ -11,6 +11,7 @@ const Index = () => {
     const [addresses, setAddresses] = useState([]);
     
     const [regions, setRegions] = useState([]);
+    const [communes, setCommunes] = useState([]);
 
     const [addressSelected, setAddressSelected] = useState(null);
 
@@ -35,6 +36,7 @@ const Index = () => {
                 success: () => {
                     setAddresses(response.data.addresses);
                     setRegions(response.data.regions);
+                    setCommunes(response.data.communes);
                 }
             });
         }).catch(error => {
@@ -73,7 +75,15 @@ const Index = () => {
                     </div>
 
                     {
-                        view === 'list' ? <List addresses={addresses} getData={getData} showEdit={showEdit} showCreate={showCreate}/> : null
+                        view === 'list' ? 
+                            <List 
+                                addresses={addresses} 
+                                getData={getData} 
+                                showEdit={showEdit} 
+                                showCreate={showCreate}
+                                regions={regions}
+                                communes={communes}
+                            /> : null
                     }
 
                     {

@@ -3,7 +3,7 @@ import toastr from "toastr";
 import {setCleanInputError} from "../../../../../helpers/GlobalUtils";
 import * as Services from "../../../../../Services";
 
-const Form = ({addressSelected, goBack, formMode, getData, customerId, regions, setAddresses}) => {
+const Form = ({addressSelected, goBack, formMode, customerId = null, regions, setAddresses}) => {
 
     const [address, setAddress] = useState({
         id: '',
@@ -98,6 +98,11 @@ const Form = ({addressSelected, goBack, formMode, getData, customerId, regions, 
             commune_id: null
         })
         setSelectedRegion(e.target.value)
+    }
+
+    const setAddressNoAuth = () => {
+        setAddresses(address);
+        goBack();
     }
 
     return (
@@ -205,7 +210,7 @@ const Form = ({addressSelected, goBack, formMode, getData, customerId, regions, 
             </div>
             <div className="col-md-6 mt-4 text-right">
                 <button type="button" className="btn btn-bicolor px-5"
-                        onClick={() => updateData()}>
+                        onClick={customerId ? () => updateData() : () => setAddressNoAuth()}>
                     <span>GUARDAR DIRECCIÓN</span>
                 </button>
             </div>

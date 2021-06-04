@@ -1,8 +1,11 @@
 import React from 'react';
 import {Form} from "react-bootstrap";
 
-const ListItem = ({address, showEdit, saveDefaultAddress}) => {
+const ListItem = ({address, showEdit, saveDefaultAddress, regions, communes}) => {
 
+    let region = regions.find(x => x.id === address.region_id)
+    let commune = communes.find(x => x.id === address.commune_id)
+    
     return (
         <div className="row">
             <div className="col-auto d-flex pr-0">
@@ -13,7 +16,7 @@ const ListItem = ({address, showEdit, saveDefaultAddress}) => {
                         label=""
                         type="radio"
                         name="default_address"
-                        // checked={address.default_address ? true : false}
+                        checked={address.default_address == 1 ? true : false}
                         className="mr-1"
                         onClick={() => saveDefaultAddress(address.id, address.customer_id)}
                         id={`custom-inline-radio-address-${address.id}`}
@@ -29,7 +32,7 @@ const ListItem = ({address, showEdit, saveDefaultAddress}) => {
                     </div>
                     <div className="col-12">
                         <span className="font-poppins font-16 regular color-484848">
-                            {address.address}, {address.extra_info} , Viña del mar, REGIÓN DE VALPARAÍSO
+                            {address.address}, {address.extra_info} , {commune ? commune.name : null} , {region ? region.name : null}
                         </span>
                     </div>
                 </div>

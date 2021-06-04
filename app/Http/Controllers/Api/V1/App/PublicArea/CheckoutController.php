@@ -9,6 +9,7 @@ use Willywes\ApiResponse\ApiResponse;
 use App\Http\Utils\OutputMessage\OutputMessage;
 use App\Models\Customer;
 use App\Models\Region;
+use App\Models\Commune;
 
 class CheckoutController extends Controller
 {
@@ -17,9 +18,10 @@ class CheckoutController extends Controller
         try {
 
             $regions = Region::with('provinces.communes')->get();
+            $communes = Commune::get();
 
             return ApiResponse::JsonSuccess([
-                // 'customer' => $customer,
+                'communes' => $communes,
                 'regions' => $regions,
             ], OutputMessage::SUCCESS);
             

@@ -1,5 +1,5 @@
 import React, {Fragment, useEffect, useState, useContext} from 'react';
-import List from "../../private/Account/sections/Addresses/List";
+import List from "./Components/List";
 import Form from "../../private/Account/sections/Addresses/Form";
 import Icon from "../../../components/general/Icon";
 import calendarBlue from '../../../assets/images/icons/calendar-blue.svg'
@@ -7,12 +7,11 @@ import clockBlue from '../../../assets/images/icons/clock-blue.svg'
 import {AuthContext} from "../../../context/AuthProvider";
 import * as Services from "../../../Services";
 
-const Addresses = ({setView}) => {
+const Addresses = ({setView, regions, communes, address, setAddress}) => {
 
     const {auth} = useContext(AuthContext);
 
     const [addresses, setAddresses] = useState([]);
-    const [regions, setRegions] = useState([]);
 
     const [view, setViewAd] = useState('list');
     const [formMode, setFormMode] = useState('create');
@@ -35,7 +34,6 @@ const Addresses = ({setView}) => {
             response: response,
                 success: () => {
                     setAddresses(response.data.addresses);
-                    setRegions(response.data.regions);
                 }
             });
         }).catch(error => {
@@ -69,11 +67,29 @@ const Addresses = ({setView}) => {
                     </h3>
 
                     {
-                        view === 'list' ? <List addresses={addresses} showEdit={showEdit} showCreate={showCreate}/> : null
+                        view === 'list' ? 
+                            <List 
+                                addresses={auth ? addresses : address} 
+                                showEdit={showEdit} 
+                                showCreate={showCreate}
+                                regions={regions}
+                                communes={communes}
+                                getData={getData}
+                            /> 
+                        : null
                     }
 
                     {
-                        view === 'form' ? <Form formMode={formMode} addressSelected={addressSelected} goBack={goBack} setAddresses={setAddresses}/> : null
+                        view === 'form' ? 
+                            <Form 
+                                formMode={formMode} 
+                                addressSelected={addressSelected} 
+                                regions={regions} 
+                                customerId={auth ? auth.id : null} 
+                                goBack={goBack}
+                                setAddresses={auth ? setAddresses : setAddress}
+                            /> 
+                        : null
                     }
                 </div>
             </div>
