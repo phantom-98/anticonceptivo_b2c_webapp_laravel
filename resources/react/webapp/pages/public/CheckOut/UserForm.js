@@ -173,6 +173,28 @@ const UserForm = ({setView, data, setData, setFile, editable}) => {
         }
     }
 
+    const hasAddress = () => {
+        let url = Services.ENDPOINT.CUSTOMER.ADDRESSES.GET;
+        let data = {
+            customer_id: auth.id
+        }
+
+        Services.DoPost(url,data).then(response => {
+            Services.Response({
+            response: response,
+                success: () => {
+                    if (response.data.addresses.length) {
+                        setView('addresses');
+                    }else{
+                        setView('add-address');
+                    }
+                }
+            });
+        }).catch(error => {
+            Services.ErrorCatch(error)
+        });
+    }
+
     return (
         <Fragment>
             <div className="panel panel-cart mb-3">
@@ -250,7 +272,7 @@ const UserForm = ({setView, data, setData, setFile, editable}) => {
                     {/*</button>*/}
                 </div>
                 <div className="col-md-6">
-                    <button className="btn btn-bicolor btn-block" onClick={ auth ? () =>  setView('addresses') : () => validateData()}>
+                    <button className="btn btn-bicolor btn-block" onClick={ auth ? () =>  hasAddress() : () => validateData()}>
                         <span className="font-14 px-5">CONTINUAR</span>
                     </button>
                 </div>

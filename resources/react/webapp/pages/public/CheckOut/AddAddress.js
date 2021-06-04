@@ -1,13 +1,16 @@
-import React, {Fragment, useState, useEffect} from 'react';
+import React, {Fragment, useState, useEffect, useContext} from 'react';
 // import FormPersonalData from "../../private/Account/sections/PersonalInfo/FormPersonalData";
 // import FormComercialInfo from "../../private/Account/sections/PersonalInfo/FormComercialInfo";
 // import {CONFIG} from "../../../Config";
 import {setCleanInputError} from "../../../helpers/GlobalUtils";
 import * as Services from "../../../Services";
+import {AuthContext} from "../../../context/AuthProvider";
 
 const AddAddress = ({setView, regions, address, setAddress}) => {
 
     // const [showBilling, setShowBilling] = useState(false);
+
+    const {auth} = useContext(AuthContext);
 
     const [selectedRegion, setSelectedRegion] = useState(0);
     const [communes, setCommunes] = useState([]);
@@ -73,6 +76,32 @@ const AddAddress = ({setView, regions, address, setAddress}) => {
             success: () => {
                 setView('addresses')
             },
+            });
+        }).catch(error => {
+            Services.ErrorCatch(error)
+        });
+    }
+
+    const updateData = () => {
+        let url = Services.ENDPOINT.CUSTOMER.ADDRESSES.UPDATE;
+
+        let data = {
+            customer_id: auth.id,
+            address_id: address.id,
+            name: address.name,
+            last_name: address.last_name,
+            region_id: address.region_id,
+            commune_id: parseInt(address.commune_id),
+            address: address.address,
+            extra_info: address.extra_info,
+        }
+
+        Services.DoPost(url,data).then(response => {
+            Services.Response({
+            response: response,
+                success: () => {
+                    setView('addresses')
+                },
             });
         }).catch(error => {
             Services.ErrorCatch(error)
@@ -206,7 +235,7 @@ const AddAddress = ({setView, regions, address, setAddress}) => {
                     </button>
                 </div>
                 <div className="col-md-6">
-                    <button className="btn btn-bicolor btn-block" onClick={() => validateData()}>
+                    <button className="btn btn-bicolor btn-block" onClick={auth ? () =>  updateData() : () => validateData()}>
                         <span className="font-14 px-5">CONTINUAR</span>
                     </button>
                 </div>

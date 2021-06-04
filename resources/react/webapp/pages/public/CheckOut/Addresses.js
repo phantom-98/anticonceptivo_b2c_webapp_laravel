@@ -119,7 +119,7 @@ const Addresses = ({setView, regions, communes, address, setAddress}) => {
 
             <div className="row">
                 <div className="col-md-6">
-                    <button onClick={() => setView('add-address')} className="link" style={{textDecoration: 'none'}}>
+                    <button onClick={() => setView('user-form')} className="link" style={{textDecoration: 'none'}}>
                         <span className="font-12">{"< Volver a paso anterior"}</span>
                     </button>
                 </div>
