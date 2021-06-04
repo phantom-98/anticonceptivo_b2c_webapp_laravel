@@ -3,6 +3,7 @@ import CartReducer from "./CartReducer";
 import {
     MINI_CART_OPEN,
     MINI_CART_CLOSE,
+    UPDATE_CART,
     ADD_TO_CART, REMOVE_FROM_CART, UPDATE_QUANTITY
 } from "./types";
 import {LOCAL_STORAGE} from "../LocalStorage";
@@ -21,11 +22,7 @@ const CartProvider = (props) => {
     const [state, dispatch] = useReducer(CartReducer, initialState);
 
     useEffect(() => {
-        const cart = JSON.parse(localStorage.getItem(LOCAL_STORAGE.CART_ITEMS))
-
-        if (cart) {
-            state.cartItems = cart; 
-        }
+        updateCart()
     },[])
 
     const showMiniCart = () => {
@@ -37,6 +34,12 @@ const CartProvider = (props) => {
     const hideMiniCart = () => {
         dispatch({
             type: MINI_CART_CLOSE,
+        })
+    }
+
+    const updateCart = () => {
+        dispatch({
+            type: UPDATE_CART
         })
     }
 
@@ -76,6 +79,7 @@ const CartProvider = (props) => {
             
             showMiniCart: showMiniCart,
             hideMiniCart: hideMiniCart,
+            updateCart: updateCart,
 
             addToCart: addToCart,
             removeFromCart: removeFromCart,
