@@ -2,6 +2,7 @@ import React, {useContext, useState, Fragment} from 'react';
 import {AppContext} from "../../../context/AppProvider";
 import {ModalAuthMode} from "../../../Globals";
 import * as Services from "../../../Services";
+import toastr from "toastr";
 
 const RecoveryPassword = () =>{
 
@@ -26,6 +27,9 @@ const RecoveryPassword = () =>{
                     hideModalAuth(ModalAuthMode.RECOVERY_PASSWORD);
                     showModalAuthSuccess();
                 },
+                error: () => {
+                    toastr.error(response.message);
+                }
             });
         }).catch(error => {
             Services.ErrorCatch(error)

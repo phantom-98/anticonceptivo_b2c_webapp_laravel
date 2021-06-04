@@ -165,7 +165,7 @@ class AuthController extends Controller
                 $customer = Customer::where('email', $request->email)->first();
 
                 if (!$customer) {
-                    return ApiResponse::JsonError(null,OutputMessage::CUSTOMER_NOT_FOUND);
+                    return ApiResponse::JsonError(null,OutputMessage::RECOVERY_PASSWORD_EMAIL_NOT_FOUND);
                 }
 
                 $customer->recovery_pin = date('Ymd') . \Str::random(20) . date('his');

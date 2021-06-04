@@ -8,7 +8,7 @@ import QuantityInput from "../QuantityInput";
 
 const ProductItem = ({item}) => {
 
-    console.log(item);
+    // console.log(item);
     const {removeFromCart, updateQuantity} = useContext(CartContext);
 
     const [quantity, setQuantity] = useState(item.quantity);

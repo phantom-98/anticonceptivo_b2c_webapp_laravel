@@ -43,15 +43,15 @@ const MiniCart = () => {
                     <div className="col-12">
                         <hr/>
                     </div>
-                    <div className="col-12">
-                        <button className="btn btn-bicolor btn-block" onClick={hideMiniCart}>
-                            <span>CONTINUAR COMPRANDO</span>
-                        </button>
-                    </div>
-                    <div className="col-md-12 py-2 text-center">
-                        <Link to={PUBLIC_ROUTES.CART.path} className="link" onClick={hideMiniCart}>
-                            Ir al carro
+                    <div className="col-md-12">
+                        <Link to={PUBLIC_ROUTES.CART.path} className="btn btn-bicolor btn-block" onClick={hideMiniCart}>
+                            <span style={{lineHeight:'35px'}}>Ir al carro</span>
                         </Link>
+                    </div>
+                    <div className="col-md-12 py-2 mt-2 text-center">
+                        <button className="link" onClick={hideMiniCart}>
+                            CONTINUAR COMPRANDO
+                        </button>
                     </div>
                 </div>
             </OffCanvas>
