@@ -4,7 +4,7 @@
 namespace App\Http\Utils\Enum;
 
 
-abstract class UserTypes
+abstract class IdNumberTypes
 {
     const RUT = 'RUT';
     const DNI = 'DNI';
