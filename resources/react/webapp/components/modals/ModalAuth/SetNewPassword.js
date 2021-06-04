@@ -9,7 +9,7 @@ import {AuthContext} from '../../../context/AuthProvider';
 
 const SetNewPassword = () => {
 
-    const {getTokenModalAuth} = useContext(AppContext);
+    const {getTokenModalAuth, hideModalAuth, showModalPasswordSuccess} = useContext(AppContext);
     const {recoveryPassword} = useContext(AuthContext);
 
     useEffect(() => {
@@ -76,7 +76,7 @@ const SetNewPassword = () => {
             </div>
             <div className="col-md-12 py-2 text-center mb-3">
                 <button type="button" className="btn btn-bicolor btn-block btn-auth"
-                        onClick={() => recoveryPassword(data)}>
+                        onClick={() => recoveryPassword(data, hideModalAuth, showModalPasswordSuccess)}>
                     <span>INICIAR SESIÓN</span>
                 </button>
             </div>

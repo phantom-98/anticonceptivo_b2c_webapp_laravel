@@ -3,12 +3,15 @@ import {PUSHER} from "../../Globals";
 import Pusher from 'pusher-js';
 import ModalAuth from "../../components/modals/ModalAuth";
 import ModalSuccess from "../../components/modals/ModalAuth/ModalSuccess";
+import ModalPasswordSuccess from "../../components/modals/ModalAuth/PasswordSuccess";
 import AppReducer from "./AppReducer";
 import {
     MODAL_AUTH_HIDE,
     MODAL_AUTH_SHOW,
     MODAL_AUTH_SHOW_SUCCESS_SHOW,
     MODAL_AUTH_SHOW_SUCCESS_HIDE,
+    MODAL_PASSWORD_UPDATE_SUCCESS_SHOW,
+    MODAL_PASSWORD_UPDATE_SUCCESS_HIDE,
     SET_TOKEN_MODAL_AUTH,
 } from "./types";
 
@@ -28,6 +31,8 @@ const AppProvider = (props) => {
 
         showingModalAuthSuccess: false,
         modalAuthSuccessType: '',
+
+        showingModalPasswordUpdate: false,
 
         token: '',
     };
@@ -60,6 +65,21 @@ const AppProvider = (props) => {
         })
     }
 
+    const showModalPasswordSuccess = (mode) => {
+        console.log('dentro de la función showModalPasswordSuccess');
+        dispatch({
+            type: MODAL_PASSWORD_UPDATE_SUCCESS_SHOW,
+            payload: mode
+        })
+    }
+
+    const hideModalPasswordSuccess = () => {
+        console.log('dentro de la función hideModalPasswordSuccess');
+        dispatch({
+            type: MODAL_PASSWORD_UPDATE_SUCCESS_HIDE,
+        })
+    }
+
     const setTokenModalAuth = (token) => {
         dispatch({
             type: SET_TOKEN_MODAL_AUTH,
@@ -79,12 +99,16 @@ const AppProvider = (props) => {
             modalAuthType : state.modalAuthType,
             showingModalAuthSuccess : state.showingModalAuthSuccess,
             modalAuthSuccessType : state.modalAuthSuccessType,
+            showingModalPasswordUpdate : state.showingModalPasswordUpdate,
 
             showModalAuth : showModalAuth,
             hideModalAuth : hideModalAuth,
 
             showModalAuthSuccess : showModalAuthSuccess,
             hideModalAuthSuccess : hideModalAuthSuccess,
+
+            showModalPasswordSuccess : showModalPasswordSuccess,
+            hideModalPasswordSuccess : hideModalPasswordSuccess,
 
             setTokenModalAuth : setTokenModalAuth,
             getTokenModalAuth: getTokenModalAuth
@@ -94,6 +118,7 @@ const AppProvider = (props) => {
 
             <ModalAuth/>
             <ModalSuccess/>
+            <ModalPasswordSuccess/>
 
         </AppContext.Provider>
     );

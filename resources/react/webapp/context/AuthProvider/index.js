@@ -75,7 +75,7 @@ const AuthProvider = (props) => {
         window.location.href = PUBLIC_ROUTES.HOME.path;
     }
 
-    const recoveryPassword = (credentials) => {
+    const recoveryPassword = (credentials, hideModal, showModal) => {
         let url = Services.ENDPOINT.AUTH.SET_NEW_PASSWORD;
 
         Services.DoPost(url,credentials).then(response => {
@@ -86,7 +86,11 @@ const AuthProvider = (props) => {
                         type: LOGIN,
                         payload: response.data
                     })
-                    window.location.href = PUBLIC_ROUTES.HOME.path;
+
+                    hideModal();
+                    showModal();
+
+                    // window.location.href = PUBLIC_ROUTES.HOME.path;
                 },
                 error: () => {
                     toastr.error(response.message);

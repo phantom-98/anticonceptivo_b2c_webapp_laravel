@@ -3,6 +3,8 @@ import {
     MODAL_AUTH_HIDE,
     MODAL_AUTH_SHOW_SUCCESS_SHOW,
     MODAL_AUTH_SHOW_SUCCESS_HIDE,
+    MODAL_PASSWORD_UPDATE_SUCCESS_SHOW,
+    MODAL_PASSWORD_UPDATE_SUCCESS_HIDE,
     SET_TOKEN_MODAL_AUTH,
 } from "./types";
 
@@ -35,6 +37,18 @@ export default (state, action) => {
                 ...state,
                 showingModalAuthSuccess: false,
             };
+
+        case MODAL_PASSWORD_UPDATE_SUCCESS_SHOW:
+            return {
+                ...state,
+                showingModalPasswordUpdate: true
+            }
+
+        case MODAL_PASSWORD_UPDATE_SUCCESS_HIDE:
+            return {
+                ...state,
+                showingModalPasswordUpdate: false
+            }
 
         case SET_TOKEN_MODAL_AUTH:
             return {
