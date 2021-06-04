@@ -3,6 +3,7 @@ import React, {Fragment, useState, useEffect} from 'react';
 // import FormComercialInfo from "../../private/Account/sections/PersonalInfo/FormComercialInfo";
 // import {CONFIG} from "../../../Config";
 import {setCleanInputError} from "../../../helpers/GlobalUtils";
+import * as Services from "../../../Services";
 
 const AddAddress = ({setView, regions, address, setAddress}) => {
 
@@ -58,6 +59,24 @@ const AddAddress = ({setView, regions, address, setAddress}) => {
             ...address,
             [e.target.name]: e.target.value
         })
+    }
+
+    const validateData = () => {
+        let url = Services.ENDPOINT.NO_AUTH.CHECKOUT.VALIDATE_STEPS;
+        let dataForm = {
+            ...address,
+            step: 2,
+        }
+        Services.DoPost(url, dataForm).then(response => {
+            Services.Response({
+            response: response,
+            success: () => {
+                setView('addresses')
+            },
+            });
+        }).catch(error => {
+            Services.ErrorCatch(error)
+        });
     }
 
     return (
@@ -187,7 +206,7 @@ const AddAddress = ({setView, regions, address, setAddress}) => {
                     </button>
                 </div>
                 <div className="col-md-6">
-                    <button className="btn btn-bicolor btn-block" onClick={() => setView('addresses')}>
+                    <button className="btn btn-bicolor btn-block" onClick={() => validateData()}>
                         <span className="font-14 px-5">CONTINUAR</span>
                     </button>
                 </div>

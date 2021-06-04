@@ -34,7 +34,11 @@ class CheckoutController extends Controller
     {
         try {
 
-            if ($request->step == 1) {
+            if (!$request->step) {
+                return ApiResponse::JsonError(null, 'No se ha podido validar el paso.');
+            }
+
+            if ($request->step === 1) {
                 if (is_object(self::ValidateStepOne($request))){
                     return ApiResponse::JsonFieldValidation(self::ValidateStepOne($request));
                 }else{
@@ -42,7 +46,13 @@ class CheckoutController extends Controller
                 }
             }
 
-            return 'a';
+            if ($request->step === 2) {
+                if (is_object(self::ValidateStepTwo($request))){
+                    return ApiResponse::JsonFieldValidation(self::ValidateStepTwo($request));
+                }else{
+                    return ApiResponse::JsonSuccess(null, OutputMessage::STEP_SUCCESS);
+                }
+            }
 
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, OutputMessage::REQUEST_EXCEPTION . ' ' . $exception->getMessage());
@@ -72,6 +82,33 @@ class CheckoutController extends Controller
             'id_number.unique' => OutputMessage::FIELD_ID_NUMBER_UNIQUE,
             'email.unique' => OutputMessage::FIELD_EMAIL_UNIQUE,
             'phone.unique' => OutputMessage::FIELD_PHONE_UNIQUE,
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $messages);
+
+        if ($validator->passes()) {
+            return true;
+        } else {
+            return $validator->errors();
+        }
+    }
+
+    private static function ValidateStepTwo($request){
+
+        $rules = [
+            'address' => 'required',
+            'name' => 'required',
+            'extra_info' => 'required',
+            'commune_id' => 'required',
+            'region_id' => 'required',
+        ];
+
+        $messages = [
+            'address.required' => OutputMessage::FIELD_ADDRESS_REQUIRED,
+            'name.required' => OutputMessage::FIELD_ADDRESS_NAME_REQUIRED,
+            'extra_info.required' => OutputMessage::FIELD_EXTRA_INFO_REQUIRED,
+            'commune_id.required' => OutputMessage::FIELD_COMMUNE_ID_REQUIRED,
+            'region_id.required' => OutputMessage::FIELD_REGION_ID_REQUIRED,
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
