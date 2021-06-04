@@ -48,7 +48,7 @@ export default (state, action) => {
             };
         case UPDATE_CART:
             let cart= JSON.parse(localStorage.getItem(LOCAL_STORAGE.CART_ITEMS))
-            console.log(cart,324234324)
+            // console.log(cart,324234324)
             if (cart == null) {
                 cart = []
             }

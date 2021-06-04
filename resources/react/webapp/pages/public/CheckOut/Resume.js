@@ -7,6 +7,7 @@ import TotalCartPrice from "../../../components/shopping/TotalCartPrice";
 import logoWebpay from "../../../assets/images/webpayColor.svg";
 import {CartContext} from "../../../context/CartProvider";
 import TotalCartPriceFinal from "../../../components/shopping/TotalCartPriceFinal";
+import WebPay from "./Payment/WebPay";
 
 const Resume = ({showFinal}) => {
 
@@ -118,11 +119,11 @@ const Resume = ({showFinal}) => {
 
                         {
                             showFinal === 3 ?
-                                <div className="col-md-12 pt-2">
-                                    <button className="btn btn-bicolor btn-block" onClick={() => alert('PAGAR')}>
-                                        <span className="font-14 px-5">PAGAR</span>
-                                    </button>
-                                </div>: null
+                                <WebPay
+                                
+                                />
+
+                            : null
                         }
 
                     </div>

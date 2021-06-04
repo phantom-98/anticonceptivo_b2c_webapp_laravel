@@ -9,5 +9,6 @@ Route::prefix('app')
         include 'auth.php';
         include 'publicArea.php';
         include 'customer.php';
+        include 'payment.php';
         include 'test.php';
     });
