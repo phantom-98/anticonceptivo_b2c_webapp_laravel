@@ -20,9 +20,11 @@
                 <div class="panel-body">
 
                     <div id="toolbar">
+                        @if(count($objects) == 0)
                         <a href="{{ route($config['route'] . 'create') }}" class="btn btn-success"><i
                                     class="ti-plus"></i> Nuevo Consumo Responsable</a>
                         {{--<button id="delete-row" class="btn btn-danger" disabled><i class="demo-pli-cross"></i> Delete</button>--}}
+                        @endif
                     </div>
 
                     <table id="table-bs"
