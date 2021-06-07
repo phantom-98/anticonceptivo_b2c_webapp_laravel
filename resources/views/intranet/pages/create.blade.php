@@ -52,7 +52,7 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="section">Sección (*)</label>
-                                    <select id="section" name="section" class="form-control">
+                                    <select id="section" name="section" class="form-control" onchange="changeType(this.value)">
                                         <option value="" selected disabled>Seleccione una sección</option>
                                         <option value="Responsabilidad Empresarial">Responsabilidad Empresarial</option>
                                         <option value="Términos y Condiciones">Términos y Condiciones</option>
