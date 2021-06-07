@@ -34,10 +34,10 @@
                                             value="{{ old('name') }}">
                                 </div>
                             </div>
-                            <div class="form-group col-md-4">
+                            <!--<div class="form-group col-md-4">
                                 {!! Form::label('image', 'Imagen (*)') !!}
                                 <input type='file' name='image' class='form-control' accept=".jpg, .png, .jpeg">
-                            </div>     
+                            </div> -->    
                             <div class="form-group col-md-4">
                                 <label for="file">Archivo (*)</label>
                                 <input type="file" id="file" name="file" class="form-control" accept=".pdf">

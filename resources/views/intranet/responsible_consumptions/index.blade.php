@@ -44,7 +44,7 @@
                         <thead>
                         <tr>
                             <th data-sortable="true" data-cell-style="cellStyle"  data-valign="middle">Nombre</th>
-                            <th data-sortable="true" data-cell-style="cellStyle"  data-valign="middle">Imagen</th>
+                            <!--<th data-sortable="true" data-cell-style="cellStyle"  data-valign="middle">Imagen</th>-->
                             <th data-sortable="true" data-cell-style="cellStyle"  data-valign="middle">Archivo</th>
                             @if($config['action']['changeStatus'])
                             <th data-cell-style="cellStyle" data-sortable="true">Estado</th>
@@ -64,7 +64,7 @@
                             @foreach($objects as $object)
                                 <tr>
                                     <td>{{ $object->name }}</td>
-                                    <td><img src="{{ Storage::url($object->image) }}" style="max-width: 100px;"/></td>
+                                    <!--<td><img src="{{ Storage::url($object->image) }}" style="max-width: 100px;"/></td>-->
                                     <td>
                                         <a href="{{ Storage::url($object->file) }}" target="_blank" class='btn btn-sm btn-default btn-hover-success add-tooltip' title="Ver PDF"><i class="ti-file"></i></a>
                                     </td>
