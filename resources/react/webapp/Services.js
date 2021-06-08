@@ -100,6 +100,9 @@ export const ENDPOINT = {
             GET_RESOURCES: GetBaseURL() + 'public-area/get-checkout-resources',
             VALIDATE_STEPS: GetBaseURL() + 'public-area/validate-steps',
         },
+        TERMS_AND_CONDITIONS:{
+            GET_DATA: GetBaseURL() + 'public-area/get-terms-and-conditions'
+        }
     },
     CUSTOMER:{
         PROFILE:{
