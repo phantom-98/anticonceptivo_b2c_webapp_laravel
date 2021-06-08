@@ -7,7 +7,7 @@ import TotalCartPrice from "../../../components/shopping/TotalCartPrice";
 import logoWebpay from "../../../assets/images/webpayColor.svg";
 import {CartContext} from "../../../context/CartProvider";
 import TotalCartPriceFinal from "../../../components/shopping/TotalCartPriceFinal";
-import WebPayProccess from "./Payment/WebpayProccess";
+import WebPayProccess from "./Payment/WebPayProccess";
 
 const Resume = ({showFinal, data, file, address}) => {
 
