@@ -7,17 +7,17 @@ import TotalCartPrice from "../../../components/shopping/TotalCartPrice";
 import logoWebpay from "../../../assets/images/webpayColor.svg";
 import {CartContext} from "../../../context/CartProvider";
 import TotalCartPriceFinal from "../../../components/shopping/TotalCartPriceFinal";
-import WebPay from "./Payment/WebPay";
+import WebPayProccess from "./Payment/WebpayProccess";
 
-const Resume = ({showFinal}) => {
+const Resume = ({showFinal, data, file, address}) => {
 
     const [showResumenCart, setShowResumenCart] = useState(false)
-    const [dispatch, setDispatch] = useState(6990)
-    const [discount, setDiscount] = useState(-4990)
+    const [dispatch, setDispatch] = useState(0)
+    const [discount, setDiscount] = useState(0)
     const {cartItems} = useContext(CartContext);
 
     const addDiscount = () => {
-        setDiscount(-4990)
+        setDiscount(0)
     }
 
     return (
@@ -119,10 +119,11 @@ const Resume = ({showFinal}) => {
 
                         {
                             showFinal === 3 ?
-                                <WebPay
-                                
+                                <WebPayProccess
+                                    data={data}
+                                    file={file}
+                                    address={address}
                                 />
-
                             : null
                         }
 
