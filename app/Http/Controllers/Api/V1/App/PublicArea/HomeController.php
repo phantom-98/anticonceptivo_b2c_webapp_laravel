@@ -8,6 +8,7 @@ use Willywes\ApiResponse\ApiResponse;
 use App\Models\Category;
 use App\Models\Page;
 use App\Models\CategoryFaq;
+use App\Models\ResponsibleConsumption;
 use App\Http\Utils\Enum\SectionTypes;
 
 class HomeController extends Controller
@@ -45,6 +46,17 @@ class HomeController extends Controller
             ->get();
 
             return ApiResponse::JsonSuccess(['category_faqs' => $category_faqs]);
+        } catch (\Exception $exception) {
+            return ApiResponse::JsonError(null, $exception->getMessage());
+        }
+    }
+
+    public function getResponsibleConsumption()
+    {
+        try {
+            $responsible_consumption = ResponsibleConsumption::first();
+
+            return ApiResponse::JsonSuccess(['responsible_consumption' => $responsible_consumption]);
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, $exception->getMessage());
         }

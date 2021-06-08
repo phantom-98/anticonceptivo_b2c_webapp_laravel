@@ -13,4 +13,11 @@ class ResponsibleConsumption extends Model
         'active',
     ];
 
+    protected $appends = [
+        'public_file'
+    ];
+
+    public function getPublicFileAttribute(){
+        return $this->file == null ? null : \Storage::url($this->file);
+    }
 }

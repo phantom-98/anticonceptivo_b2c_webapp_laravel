@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
 import FooterBottom from "./FooterBottom";
 import logoFooter from '../../../assets/images/icons/footer/logo-footer.svg'
 import eureka from '../../../assets/images/icons/footer/eureka.svg'
@@ -12,9 +12,33 @@ import {CONFIG} from "../../../Config";
 import PUBLIC_ROUTES from "../../../routes/publicRoutes";
 import Icon from "../../../components/general/Icon";
 import {Link} from "react-router-dom";
-
+import * as Services from "../../../Services";
 
 const Footer = () => {
+
+    const [responsibleConsumption, setResponsibleConsumption] = useState({
+        file: ''
+    });
+
+    useEffect(() => {
+        getData();
+    },[])
+
+    const getData = () => {
+        let url = Services.ENDPOINT.NO_AUTH.RESPONSIBLE_CONSUMPTION.GET_DATA;
+        let data = {}
+        Services.DoGet(url,data).then(response => {
+            Services.Response({
+              response: response,
+              success: () => {
+                  setResponsibleConsumption(response.data.responsible_consumption);
+              },
+            });
+        }).catch(error => {
+            Services.ErrorCatch(error)
+        });
+    }
+
     return (
         <Fragment>
             <div className="footer d-flex">
@@ -43,7 +67,7 @@ const Footer = () => {
                                     <Link className="nav-link" to={PUBLIC_ROUTES.TERMS_AND_CONDITIONS.path}>Términos y Condiciones</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link" href="#">Consumo responsable</a>
+                                    <a className="nav-link" href={responsibleConsumption.public_file} target="_blank">Consumo responsable</a>
                                 </li>
                             </ul>
                         </div>

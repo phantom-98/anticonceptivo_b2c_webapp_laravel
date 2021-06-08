@@ -105,6 +105,9 @@ export const ENDPOINT = {
         },
         FAQS:{
             GET_DATA: GetBaseURL() + 'public-area/get-faqs'
+        },
+        RESPONSIBLE_CONSUMPTION:{
+            GET_DATA: GetBaseURL() + 'public-area/get-responsible-consumption'
         }
     },
     CUSTOMER:{
