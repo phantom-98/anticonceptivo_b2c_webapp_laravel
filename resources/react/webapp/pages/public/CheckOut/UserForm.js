@@ -256,11 +256,11 @@ const UserForm = ({setView, data, setData, setFile, editable}) => {
                             onChange={handleFile}
                         />
                        </div>
-                       <div className="col-auto d-flex">
+                       {/* <div className="col-auto d-flex">
                            <button className="btn btn-bicolor btn-block" onClick={() => alert('SUBIR')}>
                                <span className="font-14 px-5">SUBIR</span>
                            </button>
-                       </div>
+                       </div> */}
                    </div>
                 </div>
             </div>
