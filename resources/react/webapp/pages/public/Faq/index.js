@@ -72,7 +72,8 @@ const Faq = () => {
                                                     <Card key={item.id} className="card-faq" key={item.id}>
                                                         <Accordion.Collapse eventKey={item.id}>
                                                             <Card.Body>
-                                                                <p className="font-14 regular color-3B3B3 mb-0">{item.answer}</p>
+                                                                {/* <p className="font-14 regular color-3B3B3 mb-0">{item.answer}</p> */}
+                                                                <div dangerouslySetInnerHTML={{ __html: item.answer }} />
                                                             </Card.Body>
                                                         </Accordion.Collapse>
                                                         <Accordion.Toggle as={Card.Header}
