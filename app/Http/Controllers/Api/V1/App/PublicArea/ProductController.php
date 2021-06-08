@@ -32,7 +32,9 @@ class ProductController extends Controller
     {
         try {
             $products = Product::where('active',true)->with(['subcategory.category','images','laboratory'])->get();
-            $categories = Category::where('active',true)->with(['subcategories'])->get();
+            $categories = Category::where('active',true)->with(['subcategories'])
+            ->whereHas('subcategories', function($q){$q->where('active',true)->orderBy('position');})
+            ->orderBy('position')->get();
             $subCategories = SubCategory::where('active',true)->orderBy('position')->get();
             $laboratories = Laboratory::where('active',true)->get();
             $subscriptions = SubscriptionPlan::where('active',true)->get();

@@ -102,6 +102,9 @@ export const ENDPOINT = {
         },
         TERMS_AND_CONDITIONS:{
             GET_DATA: GetBaseURL() + 'public-area/get-terms-and-conditions'
+        },
+        FAQS:{
+            GET_DATA: GetBaseURL() + 'public-area/get-faqs'
         }
     },
     CUSTOMER:{
