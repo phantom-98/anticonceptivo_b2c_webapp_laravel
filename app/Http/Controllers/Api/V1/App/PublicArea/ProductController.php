@@ -119,8 +119,11 @@ class ProductController extends Controller
                 $products = $products->where('format',$request->format);
             }
 
+            $laboratories = Laboratory::whereIn('id',$products->pluck('laboratory_id')->unique())->get(); 
+
             return ApiResponse::JsonSuccess([
                 'products' => $products->get(),
+                'laboratories' => $laboratories
             ], OutputMessage::SUCCESS);
 
         } catch (\Exception $exception) {

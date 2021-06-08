@@ -10,7 +10,7 @@ import LaboratoryFilter from "./Filters/LaboratoryFilter";
 import PriceFilter from "./Filters/PriceFilter";
 import SubscriptionFilter from "./Filters/SubscriptionFilter";
 
-const Filter = ({laboratories, subscriptions, filtersCat, setProductsFiltered, 
+const Filter = ({laboratories, setLaboratories, subscriptions, filtersCat, setProductsFiltered, 
 setLoading, subCategoriesSelected, setSubcategoriesSelected}) => {
 
     const filters = [
@@ -91,6 +91,7 @@ setLoading, subCategoriesSelected, setSubcategoriesSelected}) => {
             response: response,
                 success: () => {
                     setProductsFiltered(response.data.products);
+                    setLaboratories(response.data.laboratories)
                     setLoading(true);
                 },
             });
