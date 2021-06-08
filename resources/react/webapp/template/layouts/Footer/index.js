@@ -101,7 +101,7 @@ const Footer = () => {
                                 </li>
                                 <li className="nav-item">
                                     <a className="nav-link" href="#"><Icon path={email}/>
-                                        <span>{' '}contacto@anticonceptivos.cl</span>
+                                        <span>{' '}contacto@anticonceptivo.cl</span>
                                     </a>
                                 </li>
                             </ul>
