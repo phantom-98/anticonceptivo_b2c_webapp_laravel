@@ -11,4 +11,8 @@ class CategoryFaq extends Model
         'active'
     ];
 
+    public function faqs(){
+        return $this->hasMany(Faq::class)->orderBy('position');
+    }
+
 }

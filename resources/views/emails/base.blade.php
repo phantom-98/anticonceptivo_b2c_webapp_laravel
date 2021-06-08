@@ -127,7 +127,7 @@
 <div class="container">
     <div class="card">
         <div class="card-header bg-primary">
-            <img style="" src="resources/react/webapp/assets/images/logo-full.png"/>
+            <img style="" src="https://anticonceptivo.innovaweb.cl/themes/web/assets/images/logo.png"/>
         </div>
         <div class="card-body">
             @if(trim($__env->yieldContent('header')))

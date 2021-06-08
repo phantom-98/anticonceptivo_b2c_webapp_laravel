@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
 import FooterBottom from "./FooterBottom";
 import logoFooter from '../../../assets/images/icons/footer/logo-footer.svg'
 import eureka from '../../../assets/images/icons/footer/eureka.svg'
@@ -12,14 +12,38 @@ import {CONFIG} from "../../../Config";
 import PUBLIC_ROUTES from "../../../routes/publicRoutes";
 import Icon from "../../../components/general/Icon";
 import {Link} from "react-router-dom";
-
+import * as Services from "../../../Services";
 
 const Footer = () => {
+
+    const [responsibleConsumption, setResponsibleConsumption] = useState({
+        file: ''
+    });
+
+    useEffect(() => {
+        getData();
+    },[])
+
+    const getData = () => {
+        let url = Services.ENDPOINT.NO_AUTH.RESPONSIBLE_CONSUMPTION.GET_DATA;
+        let data = {}
+        Services.DoGet(url,data).then(response => {
+            Services.Response({
+              response: response,
+              success: () => {
+                  setResponsibleConsumption(response.data.responsible_consumption);
+              },
+            });
+        }).catch(error => {
+            Services.ErrorCatch(error)
+        });
+    }
+
     return (
         <Fragment>
             <div className="footer d-flex">
                 <div className="container my-auto">
-                    <div className="row">
+                    <div className="row" style={{marginLeft:'-25px !important'}}>
                         <div className="col-md-auto text-center">
                             <div className="mb-3">
                                 <img src={logoFooter} alt={CONFIG.APP_NAME}/>
@@ -43,7 +67,7 @@ const Footer = () => {
                                     <Link className="nav-link" to={PUBLIC_ROUTES.TERMS_AND_CONDITIONS.path}>Términos y Condiciones</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link" href="#">Consumo responsable</a>
+                                    <a className="nav-link" href={responsibleConsumption.public_file} target="_blank">Consumo responsable</a>
                                 </li>
                             </ul>
                         </div>
@@ -63,7 +87,7 @@ const Footer = () => {
                                 </li>
                             </ul>
                         </div>
-                        <div className="col-md">
+                        <div className="col-md-auto">
                             <ul className="nav flex-column">
                                 <li className="nav-item d-flex" style={{height: '34px'}}>
                                     <div className="px-3 my-auto font-15 bold font-poppins text-white">
@@ -72,12 +96,12 @@ const Footer = () => {
                                 </li>
                                 <li className="nav-item">
                                     <a className="nav-link" href="#"><Icon path={phone}/>
-                                        <span>{' '}+56 9 2344 8723</span>
+                                        <span>{' '}(2) 3245 1883</span>
                                     </a>
                                 </li>
                                 <li className="nav-item">
                                     <a className="nav-link" href="#"><Icon path={email}/>
-                                        <span>{' '}hola@anticonceptivos.cl</span>
+                                        <span>{' '}contacto@anticonceptivos.cl</span>
                                     </a>
                                 </li>
                             </ul>

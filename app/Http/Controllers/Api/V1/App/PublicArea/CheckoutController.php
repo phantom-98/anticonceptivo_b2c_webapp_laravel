@@ -17,7 +17,7 @@ class CheckoutController extends Controller
     {
         try {
 
-            $regions = Region::with('provinces.communes')->get();
+            $regions = Region::where('id',7)->with('provinces.communes')->get();
             $communes = Commune::get();
 
             return ApiResponse::JsonSuccess([
