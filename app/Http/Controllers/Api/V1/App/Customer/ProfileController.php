@@ -307,6 +307,26 @@ class ProfileController extends Controller
         }
     }
 
+    public function getAddress(Request $request){
+        try {
+
+            $customer = Customer::find($request->customer_id);
+
+            if (!$customer) {
+                return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_NOT_FOUND);
+            }
+
+            $address = CustomerAddress::where('default_address',true)->first();
+
+            return ApiResponse::JsonSuccess([
+                'address' => $address
+            ], OutputMessage::SUCCESS);
+
+        } catch (\Exception $exception) {
+            return ApiResponse::JsonError(null, $exception->getMessage());
+        }
+    }
+
     public function removePrescriptions(Request $request)
     {
         try {

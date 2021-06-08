@@ -7,7 +7,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Innovaweb\Transbank\WebpayPlus;
 use Willywes\ApiResponse\ApiResponse;
+use App\Http\Utils\Enum\PaymentStatus;
+use App\Http\Utils\Enum\PaymentType;
 use Carbon\Carbon;
+use App\Models\Order;
+use App\Models\Region;
+use App\Models\Commune;
+use App\Models\WebpayLog;
 
 class WebpayPlusController
 {
@@ -29,11 +35,27 @@ class WebpayPlusController
         //CREO LA ORDEN
         try {
 
+            $order = new Order();
+
+            $order->customer_id = $request->customer_id;
+
+            $region = Region::find($request->region_id);
+            $commune = Commune::find($request->commune_id);
+
+            $order->delivery_address = $request->address .', '. $commune->name . ', ' . $region->name;
+            // $order->delivery_date = null;
+            // $order->shipping_type = null;
+            $order->subtotal = $request->totalCart;
+            $order->discount = 0;
+            $order->dispatch = 0;
+
+            $order->save();
+
             // name('webpay-response') usar esta si se bloquea por verifyToken
             $response = $this->webpay_plus->createTransaction(
-                123,
-                'session-' . 123,
-                100,
+                $order->id,
+                'session-' . $order->id,
+                $request->totalCart,
                 route('api.v1.app.payment.webpay.response')
             );
 
@@ -42,7 +64,7 @@ class WebpayPlusController
                 return ApiResponse::JsonSuccess([
                     'webpay' => $this->webpay_plus->redirectHTML(),
                     'token' => $response['response']->token,
-                    // 'order' => $order
+                    'order' => $order
                 ], 'Iniciado Webpay');
             }
             return ApiResponse::JsonError([], 'No ha podido conectar con webpay');
@@ -62,60 +84,26 @@ class WebpayPlusController
 
             Log::info('WebpayPlusController', [$commit]);
 
-            // $order = Order::find($response->buyOrder);
+            $order = Order::find($response->buyOrder);
 
             if ($response->responseCode == 0) {
 
                 $order->status = PaymentStatus::PAID;
-                $order->payment_date = $response->transactionDate;
-                $order->date = Carbon::now(); //
+                $order->payment_date = Carbon::now();
+                // $response->transactionDate;
+                // $order->date = Carbon::now(); //
+                $order->payment_type = 'webpay';
+                // $order->payment_date = Carbon::now();
                 $order->is_paid = true;
+
                 $order->save();
 
-                $quotation = Quotation::find($order->quotation_id);
-                $quotation->status = QuotationStatus::PAID;
-                $quotation->save();
-
-                Quotation::where('project_id', $quotation->project_id)
-                    ->where('id', '<>', $quotation->id)
-                    ->update([
-                        'status' => QuotationStatus::EXPIRED
-                    ]);
-
-                $project = Project::find($quotation->project_id);
-                $project->status = ProjectStatus::ACCEPTED;
-                $project->professional_id = $quotation->professional_id;
-                $project->save();
-
-                foreach ($quotation->tasks_prices as $key => $task){
-                    $project_task = ProjectTask::find($task['task_id']);
-                    if($project_task){
-                        $project_task->total_minutes = $task['total_minutes'];
-                        $project_task->total_price = $task['price_hour'];
-                        $project_task->deadline = array_key_exists('deadline',$task) ? ($task['deadline'] != '' ? $task['deadline'] : null) : null;
-                        $project_task->save();
-                    }
-                }
-
-                foreach ($quotation->slots as $key => $slot){
-                    $pe = new ProfessionalEvent;
-                    $pe->start_at = $slot['start'];
-                    $pe->end_at = Carbon::parse($slot['start'])->addHour();
-                    $pe->title = 'No Disponible';
-                    $pe->total_minutes = 60;
-                    $pe->project_id = $project->id;
-                    $pe->professional_id = $quotation->professional_id;
-                    $pe->order_id = $order->id;
-                    $pe->save();
-                };
-
             } else {
-
-                // $order->status = PaymentStatus::REJECTED;
-//                $order->date = $response->transactionDate;
+                $order->status = PaymentStatus::REJECTED;
+                // $order->date = $response->transactionDate;
                 // $order->date = Carbon::now();
-                // $order->is_paid = false;
-                // $order->save();
+                $order->is_paid = false;
+                $order->save();
             }
 
             try {

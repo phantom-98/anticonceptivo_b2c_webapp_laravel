@@ -77,8 +77,10 @@ export const ENDPOINT = {
         GET_AUTH: GetBaseURL() + 'auth/get-auth',
         SOCIAL_MEDIA : {
             REDIRECT : GetBaseURL() + 'auth/social-media/redirect',
-        }
+        },
+        GET_ADDRESS: GetBaseURL() + 'auth/get-address',
     },
+
     NO_AUTH: {
         CONTACT: {
             SEND: GetBaseURL() + 'contact/send',
