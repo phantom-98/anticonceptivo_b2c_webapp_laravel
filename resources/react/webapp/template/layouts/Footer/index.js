@@ -19,7 +19,7 @@ const Footer = () => {
         <Fragment>
             <div className="footer d-flex">
                 <div className="container my-auto">
-                    <div className="row">
+                    <div className="row" style={{marginLeft:'-25px !important'}}>
                         <div className="col-md-auto text-center">
                             <div className="mb-3">
                                 <img src={logoFooter} alt={CONFIG.APP_NAME}/>
@@ -63,7 +63,7 @@ const Footer = () => {
                                 </li>
                             </ul>
                         </div>
-                        <div className="col-md">
+                        <div className="col-md-auto">
                             <ul className="nav flex-column">
                                 <li className="nav-item d-flex" style={{height: '34px'}}>
                                     <div className="px-3 my-auto font-15 bold font-poppins text-white">
@@ -72,12 +72,12 @@ const Footer = () => {
                                 </li>
                                 <li className="nav-item">
                                     <a className="nav-link" href="#"><Icon path={phone}/>
-                                        <span>{' '}+56 9 2344 8723</span>
+                                        <span>{' '}(2) 3245 1883</span>
                                     </a>
                                 </li>
                                 <li className="nav-item">
                                     <a className="nav-link" href="#"><Icon path={email}/>
-                                        <span>{' '}hola@anticonceptivos.cl</span>
+                                        <span>{' '}contacto@anticonceptivos.cl</span>
                                     </a>
                                 </li>
                             </ul>
