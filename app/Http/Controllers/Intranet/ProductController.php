@@ -130,6 +130,8 @@ class ProductController extends GlobalController
             $product->is_bioequivalent = $request->is_bioequivalent ?? 0;
             $product->format = $request->format;
             $product->barcode = $request->barcode;
+            $product->unit_price = $request->unit_price;
+            $product->unit_format = $request->unit_format;
             $product->save();
 
             
@@ -257,6 +259,8 @@ class ProductController extends GlobalController
             $product->laboratory_id = $request->laboratory_id;
             $product->format = $request->format;
             $product->barcode = $request->barcode;
+            $product->unit_price = $request->unit_price;
+            $product->unit_format = $request->unit_format;
             $product->save();
 
             if ($request->hasFile('image')) {
