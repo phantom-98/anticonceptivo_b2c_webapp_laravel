@@ -145,6 +145,10 @@ if (env('SHOW_INTRANET', 'TRUE') == 'TRUE') {
                 Route::get('contactos/export', 'ContactController@export')->name('contacts.export');
                 Route::resource('contactos', 'ContactController', ['names' => getResourceRoutesForNameHelper('contacts')]);
 
+                Route::post('reclamos/reply', 'ClaimController@reply')->name('claims.reply');
+                Route::get('reclamos/export', 'ClaimController@export')->name('claims.export');
+                Route::resource('reclamos', 'ClaimController', ['names' => getResourceRoutesForNameHelper('claims')]);
+
                 Route::get('precios-productos/export', 'PriceController@export')->name('prices.export');
                 Route::resource('precios-productos', 'PriceController', ['names' => getResourceRoutesForNameHelper('prices')]);
 
