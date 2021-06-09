@@ -132,6 +132,7 @@ class ProductController extends GlobalController
             $product->barcode = $request->barcode;
             $product->unit_price = $request->unit_price;
             $product->unit_format = $request->unit_format;
+            $product->recipe_type = $request->recipe_type;
             $product->save();
 
             
@@ -261,6 +262,7 @@ class ProductController extends GlobalController
             $product->barcode = $request->barcode;
             $product->unit_price = $request->unit_price;
             $product->unit_format = $request->unit_format;
+            $product->recipe_type = $request->recipe_type;
             $product->save();
 
             if ($request->hasFile('image')) {

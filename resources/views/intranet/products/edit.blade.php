@@ -262,7 +262,17 @@
                                         {!! $errors->first('unit_format', '<span class="help-block">:message</span>') !!}
                                     </div>
                                 </div>
-
+                                <div class="col-md-3">
+                                    <div class="form-group {{ $errors->has('recipe_type') ? 'has-error':'' }}">
+                                        <label for="recipe_type">Tipo de Receta </label>
+                                        <select id="recipe_type" name="recipe_type" class="form-control">
+                                            <option value="Venta Directa" {{$object->recipe_type == "Venta Directa" ? "selected" : ""}}>Venta Directa</option>
+                                            <option value="Receta Simple (R)" {{$object->recipe_type == "Receta Simple (R)" ? "selected" : ""}}>Receta Simple (R)</option>
+                                            <option value="Receta Retenida (RR)" {{$object->recipe_type == "Receta Retenida (RR)" ? "selected" : ""}}>Receta Retenida (RR)</option>
+                                            <option value="Receta Cheque (RCH)" {{$object->recipe_type == "Receta Cheque (RCH)" ? "selected" : ""}}>Receta Cheque (RCH)</option>
+                                        </select>
+                                    </div>
+                                </div>
                                 <div class="clearfix"></div>
 
 

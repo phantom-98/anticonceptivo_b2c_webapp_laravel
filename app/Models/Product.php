@@ -32,7 +32,8 @@ class Product extends Model
         'benefits',
         'data_sheet',
         'active',
-        'barcode'
+        'barcode',
+        'recipe_type'
     ];
 
     public function subcategory(){
