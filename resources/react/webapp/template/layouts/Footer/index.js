@@ -95,13 +95,13 @@ const Footer = () => {
                                     </div>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link" href="#"><Icon path={phone}/>
+                                    <a className="nav-link" href="tel:232451883"><Icon path={phone}/>
                                         <span>{' '}(2) 3245 1883</span>
                                     </a>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link" href="#"><Icon path={email}/>
-                                        <span>{' '}contacto@anticonceptivos.cl</span>
+                                    <a className="nav-link" href="mailto:contacto@anticonceptivo.cl"><Icon path={email}/>
+                                        <span>{' '}contacto@anticonceptivo.cl</span>
                                     </a>
                                 </li>
                             </ul>
