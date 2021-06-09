@@ -4,6 +4,7 @@ import Terms from "./Terms";
 import Decree3 from "./Decree3";
 import Decree466 from "./Decree466";
 import PUBLIC_ROUTES from "../../../routes/publicRoutes";
+import * as Services from "../../../Services";
 
 const TermsAndConditions = () => {
 
@@ -13,53 +14,84 @@ const TermsAndConditions = () => {
 
     const [loaded, setLoaded] = useState(false);
 
-    const sections = {
-        TERMS: {
-            url: 'terminos-y-condiciones',
-            name: 'Términos y condiciones'
-        },
-        DECREE_3: {
-            url: 'decreto-3',
-            name: 'Decreto 3'
-        },
-        DECREE_466: {
-            url: 'decreto-466',
-            name: 'Decreto 466'
-        },
+    const [sections, setSections] = useState([]);
+
+    useEffect(() => {
+        getData();
+    },[])
+
+    const getData = () => {
+        let url = Services.ENDPOINT.NO_AUTH.TERMS_AND_CONDITIONS.GET_DATA;
+        let data = {}
+        Services.DoGet(url,data).then(response => {
+            Services.Response({
+                response: response,
+                success: () => {
+                    setSections(response.data.sections);
+                    setSectionSelected(response.data.sections[0]);
+                    setLoaded(true);
+                },
+            });
+        }).catch(error => {
+            Services.ErrorCatch(error)
+        });
     }
 
-    useEffect(() => {
-        setSectionSelected(sections.TERMS)
-    }, [])
+    // const sections = {
+    //     TERMS: {
+    //         url: 'terminos-y-condiciones',
+    //         name: 'Términos y condiciones'
+    //     },
+    //     DECREE_3: {
+    //         url: 'decreto-3',
+    //         name: 'Decreto 3'
+    //     },
+    //     DECREE_466: {
+    //         url: 'decreto-466',
+    //         name: 'Decreto 466'
+    //     },
+    // }
 
-    useEffect(() => {
-        if (sectionSelected) {
-            Object.keys(sections).map((key, index) => {
-                if (sectionSelected.url ===  sections[key].url) {
-                    setBreadcrumbs([
-                        {
-                            url: PUBLIC_ROUTES.HOME.path,
-                            name: 'Inicio'
-                        },
-                        sections[key]
-                    ])
-                }
-            })
-            setLoaded(true)
-        }
-    }, [sectionSelected])
+    // useEffect(() => {
+    //     setSectionSelected(sections.TERMS)
+    // }, [])
 
-    const processRoute = () => {
+    // useEffect(() => {
+    //     if (sectionSelected) {
+    //         Object.keys(sections).map((key, index) => {
+    //             if (sectionSelected.url ===  sections[key].url) {
+    //                 setBreadcrumbs([
+    //                     {
+    //                         url: PUBLIC_ROUTES.HOME.path,
+    //                         name: 'Inicio'
+    //                     },
+    //                     sections[key]
+    //                 ])
+    //             }
+    //         })
+    //         setLoaded(true)
+    //     }
+    // }, [sectionSelected])
 
-        switch (sectionSelected.url) {
-            case sections.TERMS.url:
-                return <Terms/>;
-            case sections.DECREE_3.url:
-                return <Decree3/>;
-            case sections.DECREE_466.url:
-                return <Decree466/>;
-            default:
-                return <Terms/>;
+    // const processRoute = () => {
+
+    //     switch (sectionSelected.url) {
+    //         case sections.TERMS.url:
+    //             return <Terms/>;
+    //         case sections.DECREE_3.url:
+    //             return <Decree3/>;
+    //         case sections.DECREE_466.url:
+    //             return <Decree466/>;
+    //         default:
+    //             return <Terms/>;
+    //     }
+    // }
+
+    const onClickSection = (sections, key) => {
+        if (sections[key].link && sections[key].type === 'Página Externa') {
+            window.open(sections[key].link);
+        }else{
+            setSectionSelected(sections[key]);
         }
     }
 
@@ -74,29 +106,27 @@ const TermsAndConditions = () => {
                         <Fragment>
                             <div className="col-md-3">
                                 {
-
                                     Object.keys(sections).map((key, index) => {
-                                        return <div key={index} className="col-12 mb-2">
-                                            <div onClick={() => setSectionSelected(sections[key])}
-                                                 style={{textDecoration: 'none'}}>
-                                                <div
-                                                    className={`menu-section ${sections[key].url === sectionSelected.url ? 'active' : ''}`}>
-                                                        <span className="menu-section-item">
-                                                            {sections[key].name}
-                                                        </span>
+                                        return(
+                                            <div key={index} className="col-12 mb-2">
+                                                <div onClick={() => onClickSection(sections, key)} style={{textDecoration: 'none'}}>
+                                                    <div
+                                                        className={`menu-section ${sections[key].name === sectionSelected.name ? 'active' : ''}`}>
+                                                            <span className="menu-section-item">
+                                                                {sections[key].name}
+                                                            </span>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        )
                                     })
-
                                 }
                             </div>
                             <div className="col-md-9">
-                                {
-                                    processRoute()
-                                }
+                                <div dangerouslySetInnerHTML={{ __html: sectionSelected.description }}/>
                             </div>
-                        </Fragment> : null
+                        </Fragment> 
+                    : null
                 }
             </div>
         </BasePanelOne>

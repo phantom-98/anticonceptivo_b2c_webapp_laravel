@@ -14,6 +14,10 @@ Route::prefix('public-area')
         Route::get('get-resources', [ProductController::class, 'getResources'])->name('getResources');
         Route::get('get-products', [ProductController::class, 'getProducts'])->name('getProducts');
 
+        Route::get('get-terms-and-conditions', [HomeController::class, 'getTermsAndConditions'])->name('getTermsAndConditions');
+        Route::get('get-faqs', [HomeController::class, 'getFaqs'])->name('getFaqs');
+        Route::get('get-responsible-consumption', [HomeController::class, 'getResponsibleConsumption'])->name('getResponsibleConsumption');
+
         Route::post('get-product-by-slug', [ProductController::class, 'getProductBySlug'])->name('getProductBySlug');
         Route::post('get-products-filtered', [ProductController::class, 'getProductsFiltered'])->name('getProductsFiltered');
 

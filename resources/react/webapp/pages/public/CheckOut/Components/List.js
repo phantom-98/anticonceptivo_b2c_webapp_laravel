@@ -7,7 +7,7 @@ import * as Services from "../../../../Services";
 import {AuthContext} from "../../../../context/AuthProvider";
 import { v4 as uuidv4 } from 'uuid';
 
-const List = ({addresses, showEdit, showCreate, getData, regions, communes}) => {
+const List = ({addresses, showEdit, showCreate, getData, regions, communes, setAddress}) => {
 
     const {auth} = useContext(AuthContext);
 
@@ -22,6 +22,7 @@ const List = ({addresses, showEdit, showCreate, getData, regions, communes}) => 
             Services.Response({
             response: response,
                 success: () => {
+                    setAddress(addresses.find(x => x.id === addressId))
                     getData();
                 },
             });

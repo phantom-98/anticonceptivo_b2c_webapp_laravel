@@ -77,8 +77,10 @@ export const ENDPOINT = {
         GET_AUTH: GetBaseURL() + 'auth/get-auth',
         SOCIAL_MEDIA : {
             REDIRECT : GetBaseURL() + 'auth/social-media/redirect',
-        }
+        },
+        GET_ADDRESS: GetBaseURL() + 'auth/get-address',
     },
+
     NO_AUTH: {
         CONTACT: {
             SEND: GetBaseURL() + 'contact/send',
@@ -100,6 +102,15 @@ export const ENDPOINT = {
             GET_RESOURCES: GetBaseURL() + 'public-area/get-checkout-resources',
             VALIDATE_STEPS: GetBaseURL() + 'public-area/validate-steps',
         },
+        TERMS_AND_CONDITIONS:{
+            GET_DATA: GetBaseURL() + 'public-area/get-terms-and-conditions'
+        },
+        FAQS:{
+            GET_DATA: GetBaseURL() + 'public-area/get-faqs'
+        },
+        RESPONSIBLE_CONSUMPTION:{
+            GET_DATA: GetBaseURL() + 'public-area/get-responsible-consumption'
+        }
     },
     CUSTOMER:{
         PROFILE:{

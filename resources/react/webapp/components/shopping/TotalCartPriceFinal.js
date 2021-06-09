@@ -7,8 +7,8 @@ const TotalCartPriceFinal = () => {
     const {cartItems} = useContext(CartContext);
     const [totalCart, setTotalCart] = useState(0);
 
-    const [dispatch, setDispatch] = useState(6990)
-    const [discount, setDiscount] = useState(-4990)
+    const [dispatch, setDispatch] = useState(0)
+    const [discount, setDiscount] = useState(0)
 
     useEffect(() => {
         let _total = 0;

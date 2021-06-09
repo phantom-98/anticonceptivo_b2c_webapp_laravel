@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\V1\App\Auth\AuthController;
+use App\Http\Controllers\Api\V1\App\Customer\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('auth')
@@ -13,5 +14,7 @@ Route::prefix('auth')
         Route::post('logout', [AuthController::class, 'logout'])->name('logout');
         Route::post('recovery-password', [AuthController::class, 'recoveryPassword'])->name('recoveryPassword');
         Route::post('set-new-password', [AuthController::class, 'setNewPassword'])->name('setNewPassword');
+
+        Route::post('get-address', [ProfileController::class, 'getAddress'])->name('getAddress');
 
     });

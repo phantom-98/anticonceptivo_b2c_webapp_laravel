@@ -86,7 +86,7 @@ const Shop = ({match}) => {
                     setProducts(response.data.products);
                     setCategories(response.data.categories);
                     setSubCategories(response.data.sub_categories);
-                    setLaboratories(response.data.laboratories);
+                    // setLaboratories(response.data.laboratories);
                     setSubscriptions(response.data.subscriptions);
                 },
             });
@@ -117,6 +117,7 @@ const Shop = ({match}) => {
                             <div className="col-3">
                                 <Filter
                                     laboratories={laboratories}
+                                    setLaboratories={setLaboratories}
                                     subscriptions={subscriptions}
                                     filtersCat={filtersCat}
                                     setProductsFiltered={setProductsFiltered}

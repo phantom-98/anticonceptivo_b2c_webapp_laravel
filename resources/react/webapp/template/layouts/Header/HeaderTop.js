@@ -14,13 +14,13 @@ const HeaderTop = () => {
                 <div className="row">
                     <div className="col-md-auto top-do-flex">
                         <div className="my-auto">
-                            <Icon path={boxWhite}/> Máximo 12 días hábiles en despachos
+                            <Icon path={boxWhite}/> Contamos con reparto solo en la Región Metropolitana
                         </div>
                     </div>
                     <div className="col-md">
                         <div className="row justify-content-end">
-                            <HeaderTopLink icon={phoneWhite} text={`+56 9 2344 8723`}/>
-                            <HeaderTopLink icon={emailWhite} text={`hola@anticonceptivos.cl`}/>
+                            <HeaderTopLink icon={phoneWhite} flag={true} email={false} linkTo={"tel:232451883"} text={`(2) 3245 1883`}/>
+                            <HeaderTopLink icon={emailWhite} flag={true} email={true} linkTo={"mailto:contacto@anticonceptivo.cl"} text={`contacto@anticonceptivo.cl`}/>
                             <HeaderTopLink text={`Blog`} linkTo={PUBLIC_ROUTES.BLOG.path}/>
                             <HeaderTopLink text={`Sobre nosotros`} linkTo={PUBLIC_ROUTES.ABOUT_US.path}/>
                             <HeaderTopLink text={`Contacto`} linkTo={PUBLIC_ROUTES.CONTACT_US.path}/>

@@ -51,7 +51,7 @@ class ProfileController extends Controller
                 return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_NOT_FOUND);
             }
 
-            $regions = Region::with('provinces.communes')->get();
+            $regions = Region::where('id',7)->with('provinces.communes')->get();
 
             return ApiResponse::JsonSuccess([
                 'customer' => $customer,
@@ -156,7 +156,7 @@ class ProfileController extends Controller
 
             $addresses = CustomerAddress::where('customer_id', $customer->id)->get();
 
-            $regions = Region::with('provinces.communes')->get();
+            $regions = Region::where('id',7)->with('provinces.communes')->get();
             $communes = Commune::select('id','name')->get();
 
             return ApiResponse::JsonSuccess([
@@ -300,6 +300,26 @@ class ProfileController extends Controller
 
             return ApiResponse::JsonSuccess([
                 'prescriptions' => $prescriptions
+            ], OutputMessage::SUCCESS);
+
+        } catch (\Exception $exception) {
+            return ApiResponse::JsonError(null, $exception->getMessage());
+        }
+    }
+
+    public function getAddress(Request $request){
+        try {
+
+            $customer = Customer::find($request->customer_id);
+
+            if (!$customer) {
+                return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_NOT_FOUND);
+            }
+
+            $address = CustomerAddress::where('default_address',true)->first();
+
+            return ApiResponse::JsonSuccess([
+                'address' => $address
             ], OutputMessage::SUCCESS);
 
         } catch (\Exception $exception) {
