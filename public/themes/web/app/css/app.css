@@ -1097,12 +1097,17 @@ input.my-auto.file-input {
   margin-bottom: 1rem;
 }
 
-.testxd {
+.product-format-style {
   background: #fafac8;
   border-radius: 10px;
   border: solid 1px;
   border-color: #f0f08c;
   margin-left: 0.8rem !important;
+}
+
+.icon-document {
+  height: 15px;
+  padding-right: 10px;
 }
 
 .panel {
