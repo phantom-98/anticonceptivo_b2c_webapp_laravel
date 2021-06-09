@@ -13,7 +13,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach($contacts as $object)
+        @foreach($claims as $object)
             <tr>
                 <td>#{{ $object->id}}</td>
                 <td>{{ $object->formated_date }}</td>
