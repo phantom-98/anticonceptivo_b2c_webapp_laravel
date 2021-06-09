@@ -238,6 +238,31 @@
                                     </div>
                                 </div>
 
+                                <div class="col-md-3">
+                                    <div class="form-group {{ $errors->has('unit_price') ? 'has-error':'' }}">
+                                        <label for="unit_price">Precio por unidad </label>
+                                        <input type="number"
+                                            class="form-control "
+                                            id="unit_price"
+                                            name="unit_price"
+                                            placeholder="Precio por unidad"
+                                            value="{{ old('unit_price') ?? $object->unit_price  }}">
+                                        {!! $errors->first('unit_price', '<span class="help-block">:message</span>') !!}
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group {{ $errors->has('unit_format') ? 'has-error':'' }}">
+                                        <label for="unit_format">Formato unidad </label>
+                                        <input type="number"
+                                            class="form-control "
+                                            id="unit_format"
+                                            name="unit_format"
+                                            placeholder="Formato unidad"
+                                            value="{{ old('unit_format')  ?? $object->unit_format }}">
+                                        {!! $errors->first('unit_format', '<span class="help-block">:message</span>') !!}
+                                    </div>
+                                </div>
+
                                 <div class="clearfix"></div>
 
 
