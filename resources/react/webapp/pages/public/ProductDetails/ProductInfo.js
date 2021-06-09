@@ -86,7 +86,7 @@ const ProductInfo = ({product}) => {
             <div className="offset-md-1 mb-3"/>
             {
                 product.unit_format ? 
-                <div className="col-md-6 py-2 product-format-style">
+                <div className="col-md-12 py-2 product-format-style">
                     <span className="font-poppins font-14 regular color-6C6B6B">
                         Precio por unidad: ${Math.round(product.price/parseInt(product.format)) +' '+product.unit_format}
                     </span>
