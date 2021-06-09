@@ -210,7 +210,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group {{ $errors->has('barcode') ? 'has-error':'' }}">
                                         <label for="barcode">Código de Barras </label>
-                                        <input type="number"
+                                        <input type="text"
                                             class="form-control "
                                             id="barcode"
                                             name="barcode"
@@ -234,7 +234,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group {{ $errors->has('unit_format') ? 'has-error':'' }}">
                                         <label for="unit_format">Formato unidad </label>
-                                        <input type="number"
+                                        <input type="text"
                                             class="form-control "
                                             id="unit_format"
                                             name="unit_format"
