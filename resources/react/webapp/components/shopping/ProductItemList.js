@@ -13,7 +13,7 @@ const ProductItemList = ({item}) => {
     const [quantity, setQuantity] = useState(item.quantity);
 
     useEffect(() => {
-        updateQuantity(quantity, item.product)
+        updateQuantity(quantity, item.product, item.subscription)
     }, [quantity])
 
     return (
@@ -30,7 +30,11 @@ const ProductItemList = ({item}) => {
                 </div>
                 <div className="col-auto d-flex">
                     <div className="my-auto font-poppins font-16 bold color-009BE8">
-                        {formatMoney(item.product.price * item.quantity)}
+
+                    {
+                        item.subscription == null ? formatMoney(item.product.price * item.quantity) : formatMoney(item.subscription.price * item.quantity)
+                    }
+
                     </div>
                 </div>
                 <div className="col-auto d-flex">

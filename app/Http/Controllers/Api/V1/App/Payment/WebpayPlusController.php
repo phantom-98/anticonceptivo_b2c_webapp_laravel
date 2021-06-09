@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Api\V1\App\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Innovaweb\Transbank\WebpayPlus;
+use Innovaweb\Transbank\OneClickMall;
 use Willywes\ApiResponse\ApiResponse;
 use App\Http\Utils\Enum\PaymentStatus;
 use App\Http\Utils\Enum\PaymentType;
@@ -24,14 +25,17 @@ class WebpayPlusController
     {
         if (env('APP_ENV') == 'production') {
             $this->webpay_plus = new WebpayPlus(env('TBK_CC'), env('TBK_API_KEY'), WebpayPlus::PRODUCTION);
+            $this->oneclick = new OneClickMall(env('TBK_CC'), env('TBK_API_KEY'), WebpayPlus::PRODUCTION);
+
         } else {
             $this->webpay_plus = new WebpayPlus();
+            $this->oneclick = new OneClickMall();
+
         }
     }
 
     public function createTransaction(Request $request)
     {
-
         //CREO LA ORDEN
         try {
 
@@ -45,28 +49,61 @@ class WebpayPlusController
             $order->delivery_address = $request->address .', '. $commune->name . ', ' . $region->name;
             // $order->delivery_date = null;
             // $order->shipping_type = null;
-            $order->subtotal = $request->totalCart;
+            $subtotal = 0;
+            $isSubscription = 0;
+            foreach ($request->cart as $key => $item) {
+                if($item['subscription'] != null){
+                    $isSubscription = 1;
+
+                    $subtotal = $subtotal + ($item['quantity'] * $item['subscription']['price']);
+                    
+                }else{
+                    $subtotal = $subtotal + ($item['quantity'] * $item['product']['price']);
+    
+                }
+            }
+
+            $order->subtotal = $subtotal;
             $order->discount = 0;
             $order->dispatch = 0;
 
+            $order->total = $order->subtotal + $order->dispatch - $order->discount;
+
             $order->save();
+            if($isSubscription){
+                $response = $this->oneclick->createInscription(
+                    $request->customer_id,
+                    $request->email,
+                    route('api.v1.app.payment.webpay.response')
+                );
 
-            // name('webpay-response') usar esta si se bloquea por verifyToken
-            $response = $this->webpay_plus->createTransaction(
-                $order->id,
-                'session-' . $order->id,
-                $request->totalCart,
-                route('api.v1.app.payment.webpay.response')
-            );
+                if ($response['response']->token) {
 
-            if ($response['response']->token) {
+                    return ApiResponse::JsonSuccess([
+                        'webpay' => $this->oneclick->redirectHTML(),
+                        'token' => $response['response']->token,
+                        'order' => $order
+                    ], 'Iniciado OneClick');
+                }
+            }else{
+                // name('webpay-response') usar esta si se bloquea por verifyToken
+                $response = $this->webpay_plus->createTransaction(
+                    $order->id,
+                    'session-' . $order->id,
+                    $order->total,
+                    route('api.v1.app.payment.webpay.response')
+                );
 
-                return ApiResponse::JsonSuccess([
-                    'webpay' => $this->webpay_plus->redirectHTML(),
-                    'token' => $response['response']->token,
-                    'order' => $order
-                ], 'Iniciado Webpay');
+                if ($response['response']->token) {
+
+                    return ApiResponse::JsonSuccess([
+                        'webpay' => $this->webpay_plus->redirectHTML(),
+                        'token' => $response['response']->token,
+                        'order' => $order
+                    ], 'Iniciado Webpay');
+                }
             }
+
             return ApiResponse::JsonError([], 'No ha podido conectar con webpay');
 
         } catch (\Exception $exception) {
@@ -111,7 +148,12 @@ class WebpayPlusController
             } catch (\Exception $exception) {
 
             }
+        } else if($request->TBK_TOKEN){
+            //terminar de aca adaptar lo hecho en oneclick
+            dd($request->TBK_TOKEN);
+
         } else {
+
             //transacción anulada
             // $order = Order::find($request->TBK_ORDEN_COMPRA);
             // $order->status = PaymentStatus::CANCELED;

@@ -13,7 +13,13 @@ const TotalCartPriceFinal = () => {
     useEffect(() => {
         let _total = 0;
         cartItems.map((item) => {
-            _total = _total + (item.quantity * item.product.price)
+            if(item.subscription != null){
+                _total = _total + (item.quantity * item.subscription.price)
+                
+            }else{
+                _total = _total + (item.quantity * item.product.price)
+
+            }
         })
         _total = _total + dispatch + discount;
         setTotalCart(_total);

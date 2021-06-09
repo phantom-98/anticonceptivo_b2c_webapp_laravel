@@ -43,31 +43,33 @@ const CartProvider = (props) => {
         })
     }
 
-    const addToCart = (quantity, product) => {
+    const addToCart = (quantity, product,subscription) => {
         dispatch({
             type: ADD_TO_CART,
             payload: {
                 quantity : quantity,
                 product : product,
-                product_id : product.id
+                product_id : product.id,
+                subscription: subscription
             }
         })
     }
 
-    const removeFromCart = (product_id) => {
+    const removeFromCart = (item) => {
         dispatch({
             type: REMOVE_FROM_CART,
-            payload: product_id
+            payload: item
         })
     }
 
-    const updateQuantity = (quantity, product) => {
+    const updateQuantity = (quantity, product, subscription) => {
         dispatch({
             type: UPDATE_QUANTITY,
             payload: {
                 quantity : quantity,
                 product : product,
-                product_id : product.id
+                product_id : product.id,
+                subscription: subscription
             }
         })
     }

@@ -15,13 +15,19 @@ const WebPayProccess = ({
     const {cartItems} = useContext(CartContext);
     const [totalCart, setTotalCart] = useState(0);
 
-    useEffect(()=>{
-        let _total = 0;
-        cartItems.map((item) =>{
-            _total = _total + (item.quantity * item.product.price)
-        })
-        setTotalCart(_total);
-    },[cartItems])
+    // useEffect(()=>{
+    //     let _total = 0;
+    //     cartItems.map((item) =>{
+    //         if(item.subscription != null){
+    //             _total = _total + (item.quantity * item.subscription.price)
+                
+    //         }else{
+    //             _total = _total + (item.quantity * item.product.price)
+
+    //         }
+    //     })
+    //     setTotalCart(_total);
+    // },[cartItems])
     
     const [token, setToken] = useState('');
 
@@ -36,7 +42,7 @@ const WebPayProccess = ({
             ...data,
             customer_id: auth ? auth.id : null,
             ...address,
-            totalCart: totalCart
+            cart: cartItems
         }
         Services.DoPost(url, dataForm)
             .then(response => {
