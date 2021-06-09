@@ -17,7 +17,7 @@ const ProductInfo = ({product}) => {
                 <span className="font-poppins font-14 color-009BE8">
                    SKU: {product.sku}
                 </span>
-            </div>
+            </div>            
             <div className="col-md-12">
                 <h1 className="font-poppins font-27 bold text-black">
                     {product.name}
@@ -29,9 +29,20 @@ const ProductInfo = ({product}) => {
                 </p>
             </div>
             <div className="col-md-12">
+                <h1 className="font-poppins font-12 regular color-6C6B6B">
+                    <div dangerouslySetInnerHTML={{ __html: product.compound }} />
+                </h1>
+            </div>
+            <div className="col-md-12">
                 <span className="font-poppins font-36 bold color-009BE8">
                     {formatMoney(product.price)}
                 </span>
+            </div>
+
+            <div className="col-md-12">
+                <h1 className="font-poppins font-12 regular color-6C6B6B">
+                    {product.consumption_typology}
+                </h1>
             </div>
             {/* <div className="col-md-12 mb-3">
                 <p className="font-inter font-16 bold color-033F5D">
@@ -70,6 +81,16 @@ const ProductInfo = ({product}) => {
             <div className="col-md-6 mb-3">
                 <AddCartCard quantity={quantity} setQuantity={setQuantity} product={product}/>
             </div>
+            <div className="offset-md-1"/>
+            {
+                product.unit_format ? 
+                <div className="col-md-6 py-2 testxd">
+                    <span className="font-poppins font-14 regular color-6C6B6B">
+                        Precio por unidad: $ {Math.round(product.price/parseInt(product.format)) +' '+product.unit_format}
+                    </span>
+                </div>
+                : null
+            }
 
             {/* <div className="col-md-12">
                 <div className="alert-simple-blue">

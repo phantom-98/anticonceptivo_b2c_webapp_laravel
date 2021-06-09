@@ -1097,6 +1097,14 @@ input.my-auto.file-input {
   margin-bottom: 1rem;
 }
 
+.testxd {
+  background: #fafac8;
+  border-radius: 10px;
+  border: solid 1px;
+  border-color: #f0f08c;
+  margin-left: 0.8rem !important;
+}
+
 .panel {
   background: white;
 }
@@ -1204,7 +1212,7 @@ input.my-auto.file-input {
 }
 
 .product-card-name {
-  height: 65px;
+  height: 165px;
   font-family: "Poppins", sans-serif;
   font-size: 16px;
   font-weight: 700;
