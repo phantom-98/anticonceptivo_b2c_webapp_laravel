@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Innovaweb\Transbank\WebpayPlus;
 use Willywes\ApiResponse\ApiResponse;
+use App\Http\Utils\OutputMessage\OutputMessage;
 use App\Http\Utils\Enum\PaymentStatus;
 use App\Http\Utils\Enum\PaymentType;
 use Carbon\Carbon;
@@ -60,11 +61,10 @@ class WebpayPlusController
             );
 
             if ($response['response']->token) {
-
                 return ApiResponse::JsonSuccess([
                     'webpay' => $this->webpay_plus->redirectHTML(),
                     'token' => $response['response']->token,
-                    'order' => $order
+                    'order' => Order::with(['customer'])->find($order->id)
                 ], 'Iniciado Webpay');
             }
             return ApiResponse::JsonError([], 'No ha podido conectar con webpay');
@@ -121,4 +121,18 @@ class WebpayPlusController
         return view('webapp.payment.webpay-finish');
     }
 
+    public function verify(Request $request)
+    {
+        try {
+
+            $order = Order::find($request->order_id);
+
+            return ApiResponse::JsonSuccess([
+                'order' => $order,
+            ]);
+
+        } catch (\Exception $exception) {
+            return ApiResponse::JsonError(null, OutputMessage::EXCEPTION . ' ' . $exception->getMessage());
+        }
+    }
 }

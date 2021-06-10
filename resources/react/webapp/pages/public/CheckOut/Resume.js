@@ -9,7 +9,7 @@ import {CartContext} from "../../../context/CartProvider";
 import TotalCartPriceFinal from "../../../components/shopping/TotalCartPriceFinal";
 import WebPayProccess from "./Payment/WebPayProccess";
 
-const Resume = ({showFinal, data, file, address}) => {
+const Resume = ({showFinal, data, file, address, setFinishWebpayProccess, setWebpayProccessSuccess, setOrder}) => {
 
     const [showResumenCart, setShowResumenCart] = useState(false)
     const [dispatch, setDispatch] = useState(0)
@@ -123,6 +123,9 @@ const Resume = ({showFinal, data, file, address}) => {
                                     data={data}
                                     file={file}
                                     address={address}
+                                    setFinishWebpayProccess={setFinishWebpayProccess}
+                                    setWebpayProccessSuccess={setWebpayProccessSuccess}
+                                    setOrder={setOrder}
                                 />
                             : null
                         }

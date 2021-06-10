@@ -6,16 +6,17 @@ import UserForm from "./UserForm";
 import AddAddress from "./AddAddress";
 import Addresses from "./Addresses";
 import Header from "./Header";
-// import Success from "./Payment/Success";
-// import Error from "./Payment/Error";
 import {AuthContext} from "../../../context/AuthProvider";
 import * as Services from "../../../Services";
+import HandleResponse from "./HandleResponse";
 
 const CheckOut = () => {
 
     const {auth} = useContext(AuthContext);
 
     const [showFinal, setShowFinal] = useState(1);
+    const [finishWebpayProccess, setFinishWebpayProccess] = useState(0);
+    const [webpayProccessSuccess, setWebpayProccessSuccess] = useState();
     const [view, setView] = useState('grant-user');
     const [step, setStep] = useState({
         number: 1,
@@ -48,6 +49,7 @@ const CheckOut = () => {
     const [editable, setEditable] = useState(false);
     const [regions, setRegions] = useState([]);
     const [communes, setCommunes] = useState([]);
+    const [order, setOrder] = useState({});
 
     const [address, setAddress] = useState({
         name: '',
@@ -136,87 +138,77 @@ const CheckOut = () => {
         });
     }
 
-    const Dummy = {
-        id:1,
-        customer:{
-            id_number:1,
-            full_name:'Felipe Fernández',
-            email:'ffernandez@innovaweb.cl',
-            full_phone:'920099718',
-            delivery_address:'Una dirección ficticia',
-        },
-        order_items:[
-            {
-                name: 'item 1',
-                quantity: 5
-            }
-        ],
-        delivery_date:'2017',
-        document_type:'BOLETA',
-        payment_type:'WEBPAY',
-        shipping_type:'ENCOMIENDA?',
-    }
-
     return (
         <Fragment>
             <div className="pb-5" style={{background: '#FAFAFA'}}>
                 <div className="container pt-4">
-                    <Header showFinal={showFinal} />
+                    {
+                        !finishWebpayProccess ? 
+                            <Fragment>
+                                <Header showFinal={showFinal} />
+                                    <div className="row pb-5">
+                                        <div className="col-md pr-2">
+                                            <div className="panel panel-cart mb-3">
+                                                <div className="panel-body" style={{paddingTop: '11px', paddingBottom: '10px'}}>
+                                                    <Step title={step.title} number={step.number} disabled={false}/>
+                                                </div>
+                                            </div>
 
-                    <div className="row pb-5">
-                        <div className="col-md pr-2">
-                            <div className="panel panel-cart mb-3">
-                                <div className="panel-body" style={{paddingTop: '11px', paddingBottom: '10px'}}>
-                                    <Step title={step.title} number={step.number} disabled={false}/>
-                                </div>
-                            </div>
-
-                            {
-                                view == 'grant-user' ? <GrantUser setView={setView}/> : null
-                            }
-                            {
-                                view == 'user-form' ? 
-                                    <UserForm 
-                                        setView={setView}
-                                        data={data}
-                                        setData={setData}
-                                        setFile={setFile}
-                                        editable={editable}
-                                        regions={regions}
-                                    /> : null
-                            }
-                            {
-                                view == 'add-address' ? 
-                                    <AddAddress
-                                        setView={setView}
-                                        regions={regions}
-                                        address={address}
-                                        setAddress={setAddress}
-                                    /> : null
-                            }
-                            {
-                                view == 'addresses' ? 
-                                    <Addresses 
-                                        setView={setView}
-                                        regions={regions}
-                                        communes={communes}
-                                        address={address}
-                                        setAddress={setAddress}
-                                    /> : null
-                            }
+                                            {
+                                                view == 'grant-user' ? <GrantUser setView={setView}/> : null
+                                            }
+                                            {
+                                                view == 'user-form' ? 
+                                                    <UserForm 
+                                                        setView={setView}
+                                                        data={data}
+                                                        setData={setData}
+                                                        setFile={setFile}
+                                                        editable={editable}
+                                                        regions={regions}
+                                                    /> : null
+                                            }
+                                            {
+                                                view == 'add-address' ? 
+                                                    <AddAddress
+                                                        setView={setView}
+                                                        regions={regions}
+                                                        address={address}
+                                                        setAddress={setAddress}
+                                                    /> : null
+                                            }
+                                            {
+                                                view == 'addresses' ? 
+                                                    <Addresses 
+                                                        setView={setView}
+                                                        regions={regions}
+                                                        communes={communes}
+                                                        address={address}
+                                                        setAddress={setAddress}
+                                                    /> : null
+                                            }
 
 
-                        </div>
-                        <div className="col-md-auto pl-2" style={{width: '408px'}}>
-                            <Resume 
-                                showFinal={showFinal}
-                                data={data}
-                                file={file}
-                                address={address}
-                            />
-                        </div>
-                    </div>
-                
+                                        </div>
+                                        <div className="col-md-auto pl-2" style={{width: '408px'}}>
+                                            <Resume 
+                                                showFinal={showFinal}
+                                                data={data}
+                                                file={file}
+                                                address={address}
+                                                setFinishWebpayProccess={setFinishWebpayProccess}
+                                                setWebpayProccessSuccess={setWebpayProccessSuccess}
+                                                setOrder={setOrder}
+                                            />
+                                        </div>
+                                    </div>
+                            </Fragment>
+                        : 
+                        <HandleResponse
+                            webpayProccessSuccess={webpayProccessSuccess}
+                            order={order}
+                        />
+                    }
                 </div>
             </div>
         </Fragment>

@@ -4,7 +4,10 @@ import {
     MINI_CART_OPEN,
     MINI_CART_CLOSE,
     UPDATE_CART,
-    ADD_TO_CART, REMOVE_FROM_CART, UPDATE_QUANTITY
+    ADD_TO_CART, 
+    REMOVE_FROM_CART, 
+    UPDATE_QUANTITY,
+    CLEAR_CART
 } from "./types";
 import {LOCAL_STORAGE} from "../LocalStorage";
 
@@ -72,6 +75,12 @@ const CartProvider = (props) => {
         })
     }
 
+    const clearCart = () => {
+        dispatch({
+            type: CLEAR_CART,
+        })
+    }
+
     return (
         <CartContext.Provider value={{
             showingMiniCart: state.showingMiniCart,
@@ -79,7 +88,9 @@ const CartProvider = (props) => {
             
             showMiniCart: showMiniCart,
             hideMiniCart: hideMiniCart,
-            updateCart: updateCart,
+            updateCart: updateCart, 
+            clearCart: clearCart,
+            
 
             addToCart: addToCart,
             removeFromCart: removeFromCart,

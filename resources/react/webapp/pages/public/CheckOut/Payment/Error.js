@@ -9,7 +9,7 @@ const Error = () => {
                 <div className="panel">
                     <div className="panel-body text-center">
                         <span className="bold font-poppins font-26 d-block">Lo sentimos</span>
-                        <span className="light font-poppins font-22">La transacción no puede realizarse.</span>
+                        <span className="light font-poppins font-22">La transacción no pudo realizarse.</span>
                         <div className="row">
                             <div className="col-md-4 offset-md-4 mt-5">
                                 <Link to={PUBLIC_ROUTES.CART.path} className="btn btn-bicolor btn-block d-flex">

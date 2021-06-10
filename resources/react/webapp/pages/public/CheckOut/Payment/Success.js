@@ -5,6 +5,7 @@ import H3Panel from "../../../../components/general/H3Panel";
 import RowCol from "../../../../components/general/RowCol";
 
 const Success = ({order}) => {
+    console.log('order: ',order);
     return (
         <div className="row pb-5">
             <div className="col-md-8 offset-md-2">
@@ -30,7 +31,7 @@ const Success = ({order}) => {
                             <RowCol name="DIRECCIÓN" value={order.delivery_address}/>
                         </div>
 
-                        <div className="row py-3">
+                        {/* <div className="row py-3">
                             <H3Panel title="DETALLE DEL PEDIDO" className="mb-0"/>
                             {
                                 order.order_items.map((item) => {
@@ -39,7 +40,7 @@ const Success = ({order}) => {
                                     )
                                 })
                             }
-                        </div>
+                        </div> */}
 
                         <div className="row py-3">
                             <H3Panel title="DATOS DEL PEDIDO" className="mb-0"/>
