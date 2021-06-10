@@ -93,8 +93,7 @@ class ProductController extends GlobalController
             'sku' => 'required|unique:products,sku',
             'price' => 'required|numeric',
             'subcategory_id' => 'required',
-            'laboratory_id' => 'required',
-            'image' => 'required'
+            'laboratory_id' => 'required'
         ];
 
         $messages = [
