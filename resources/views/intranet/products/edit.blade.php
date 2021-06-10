@@ -217,10 +217,38 @@
                                         <select id="format" name="format" class="form-control">
                                             <option value="" {{$object->format == null ? "selected" : ""}}>Sin formato</option>
                                             <option value="1" {{$object->format == "1" ? "selected" : ""}}>1</option>
+                                            <option value="2" {{$object->format == "2" ? "selected" : ""}}>2</option>
                                             <option value="3" {{$object->format == "3" ? "selected" : ""}}>3</option>
-                                            <option value="21" {{$object->format == "21" ? "selected" : ""}}>21</option>
+                                            <option value="3.5" {{$object->format == "3.5" ? "selected" : ""}}>3.5</option>
+                                            <option value="4" {{$object->format == "4" ? "selected" : ""}}>4</option>
+                                            <option value="5" {{$object->format == "5" ? "selected" : ""}}>5</option>
+                                            <option value="6" {{$object->format == "6" ? "selected" : ""}}>6</option>
+                                            <option value="7" {{$object->format == "7" ? "selected" : ""}}>7</option>
+                                            <option value="8" {{$object->format == "8" ? "selected" : ""}}>8</option>
+                                            <option value="10" {{$object->format == "10" ? "selected" : ""}}>10</option>         
+                                            <option value="12" {{$object->format == "12" ? "selected" : ""}}>12</option>
+                                            <option value="14" {{$object->format == "14" ? "selected" : ""}}>14</option>
+                                            <option value="15" {{$object->format == "15" ? "selected" : ""}}>15</option>         
+                                            <option value="16" {{$object->format == "16" ? "selected" : ""}}>16</option>
+                                            <option value="20" {{$object->format == "20" ? "selected" : ""}}>20</option>
+                                            <option value="21" {{$object->format == "21" ? "selected" : ""}}>21</option>         
+                                            <option value="24" {{$object->format == "24" ? "selected" : ""}}>24</option>
+                                            <option value="25" {{$object->format == "25" ? "selected" : ""}}>25</option>
                                             <option value="28" {{$object->format == "28" ? "selected" : ""}}>28</option>
+                                            <option value="30" {{$object->format == "30" ? "selected" : ""}}>30</option>
+                                            <option value="35" {{$object->format == "35" ? "selected" : ""}}>35</option>         
+                                            <option value="40" {{$object->format == "40" ? "selected" : ""}}>40</option>
+                                            <option value="45" {{$object->format == "45" ? "selected" : ""}}>45</option>
+                                            <option value="50" {{$object->format == "50" ? "selected" : ""}}>50</option>
+                                            <option value="56" {{$object->format == "56" ? "selected" : ""}}>56</option>
+                                            <option value="60" {{$object->format == "60" ? "selected" : ""}}>60</option>
+                                            <option value="80" {{$object->format == "80" ? "selected" : ""}}>3</option>         
+                                            <option value="90" {{$object->format == "90" ? "selected" : ""}}>90</option>
                                             <option value="91" {{$object->format == "91" ? "selected" : ""}}>91</option>
+                                            <option value="100" {{$object->format == "100" ? "selected" : ""}}>100</option>         
+                                            <option value="180" {{$object->format == "180" ? "selected" : ""}}>180</option>
+                                            <option value="200" {{$object->format == "200" ? "selected" : ""}}>200</option>
+                                            <option value="250" {{$object->format == "250" ? "selected" : ""}}>250</option>   
                                         </select>
                                     </div>
                                 </div> 

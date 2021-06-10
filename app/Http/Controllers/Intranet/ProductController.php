@@ -120,7 +120,7 @@ class ProductController extends GlobalController
             $product->height = $request->height;
             $product->width = $request->width;
             $product->weigth = $request->weigth;
-            $product->consumption_typology = $request->consumption_typology;
+            $product->consumption_typology = $request->consumption_typology ?? 'ABA - ORAL S.ORD.GRAGEAS';
             $product->compound = $request->compound;
             $product->benefits = $request->benefits;
             $product->data_sheet = $request->data_sheet;
@@ -250,7 +250,7 @@ class ProductController extends GlobalController
             $product->height = $request->height;
             $product->width = $request->width;
             $product->weigth = $request->weigth;
-            $product->consumption_typology = $request->consumption_typology;
+            $product->consumption_typology = $request->consumption_typology ?? 'ABA - ORAL S.ORD.GRAGEAS';
             $product->compound = $request->compound;
             $product->benefits = $request->benefits;
             $product->data_sheet = $request->data_sheet;
