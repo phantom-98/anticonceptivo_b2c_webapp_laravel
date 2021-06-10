@@ -3,6 +3,8 @@ import PUBLIC_ROUTES from "../../../../routes/publicRoutes";
 import {Link} from "react-router-dom";
 import H3Panel from "../../../../components/general/H3Panel";
 import RowCol from "../../../../components/general/RowCol";
+import Icon from "../../../../components/general/Icon";
+import checkCircle from "../../../../assets/images/icons/checkmark-circle-outline.svg";
 
 const Success = ({order}) => {
     console.log('order: ',order);
@@ -11,6 +13,9 @@ const Success = ({order}) => {
             <div className="col-md-8 offset-md-2">
                 <div className="panel">
                     <div className="panel-body">
+                        <div className="text-center mb-3">
+                            <Icon path={checkCircle} />
+                        </div>
                         <div className="text-center mb-5">
                             <span className="bold font-poppins font-26 d-block">Pago Aprobado</span>
                         </div>
