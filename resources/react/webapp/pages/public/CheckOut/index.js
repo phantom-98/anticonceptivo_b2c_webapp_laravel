@@ -6,8 +6,8 @@ import UserForm from "./UserForm";
 import AddAddress from "./AddAddress";
 import Addresses from "./Addresses";
 import Header from "./Header";
-import Success from "./Payment/Success";
-import Error from "./Payment/Error";
+// import Success from "./Payment/Success";
+// import Error from "./Payment/Error";
 import {AuthContext} from "../../../context/AuthProvider";
 import * as Services from "../../../Services";
 
@@ -126,13 +126,9 @@ const CheckOut = () => {
             Services.Response({
               response: response,
               success: () => {
-                  setAddress(response.data.address);
-              },
-              error: () => {
-                // toastr.error(response.message);
-              },
-              warning: () => {
-                // toastr.warning(response.message);
+                  if(response.data.address != null){
+                    setAddress(response.data.address);
+                  }
               },
             });
         }).catch(error => {
