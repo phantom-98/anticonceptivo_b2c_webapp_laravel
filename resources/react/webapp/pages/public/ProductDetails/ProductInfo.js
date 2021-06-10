@@ -96,7 +96,7 @@ const ProductInfo = ({product}) => {
 
             <div className="col-md-12 mt-3">
                 <h1 className="font-poppins font-12 regular color-6C6B6B">
-                    <Icon className="icon-document" path={fileSvg}/> {product.recipe_type}
+                    <Icon className="icon-document" path={fileSvg}/> {product.recipe_type ? product.recipe_type : 'Venta Directa'}
                 </h1>
             </div>
 
