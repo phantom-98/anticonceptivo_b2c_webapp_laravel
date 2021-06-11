@@ -35,7 +35,7 @@ class ProductImport implements ToCollection, WithHeadingRow
                 $product->benefits = $row['beneficios'];
                 $product->data_sheet = $row['ficha_tecnica'];
                 $product->description = $row['descripcion'];
-                $product->is_bioequivalent = $row['bioequivalente'] ?? 0;
+                $product->is_bioequivalent = $row['bioequivalente'] == "Si" ? 1 : 0;
                 $product->laboratory_id = $laboratory->id;
                 $product->format = $row['formato'];
                 $product->barcode = $row['codigo_de_barras'];
@@ -60,7 +60,7 @@ class ProductImport implements ToCollection, WithHeadingRow
                 $product->benefits = $row['beneficios'];
                 $product->data_sheet = $row['ficha_tecnica'];
                 $product->description = $row['descripcion'];
-                $product->is_bioequivalent = $row['bioequivalente'] ?? 0;
+                $product->is_bioequivalent = $row['bioequivalente'] == "Si" ? 1 : 0;
                 $product->laboratory_id = $laboratory->id;
                 $product->format = $row['formato'];
                 $product->barcode = $row['codigo_de_barras'];
