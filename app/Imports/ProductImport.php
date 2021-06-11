@@ -17,7 +17,7 @@ class ProductImport implements ToCollection, WithHeadingRow
     {
         foreach ($rows as $row) 
         {            
-            $product = Product::where('rut', $row['sku'])->first();
+            $product = Product::where('sku', $row['sku'])->first();
             
             if($product){
                 $laboratory = Laboratory::where('name', $row['laboratorio'])->first();
