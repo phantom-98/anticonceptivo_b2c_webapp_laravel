@@ -30,7 +30,7 @@
                                 style="margin-left: 20px"><i class="fa fa-file-excel-o"></i> Exportar
                         </button>
 
-                        <a class="btn btn-success" data-toggle="modal" data-target="#modal-create"><i
+                        <a class="btn btn-success" data-toggle="modal" data-target="#modal-create" style="margin-left: 20px"><i
                             class="ti-export"></i>&nbsp;&nbsp;&nbsp;Carga masiva de productos</a>
 
                         <form id="form-export" target="_BLANK"
