@@ -53,9 +53,20 @@ class WebpayPlusController
 
             $order->save();
 
-            // foreach ($request->cartItems as $key => $value) {
-            //     # code...
-            // }
+            foreach ($request->cartItems as $key => $item) {
+                $orderItem = new OrderItem;
+                $orderItem->order_id = $order->id;
+                $orderItem->product_id = $item['product_id'];
+                $orderItem->name = $item['product']['name'];
+                $orderItem->quantity = $item['quantity'];
+                $orderItem->price = $item['product']['price'];
+                $orderItem->subscription_plan_id = null;
+                $orderItem->product_attributes = null;
+                $orderItem->extra_price = null;
+                $orderItem->extra_description = null;
+                $orderItem->subtotal = $item['product']['price']*$item['quantity'];
+                $orderItem->save();
+            }
 
             // name('webpay-response') usar esta si se bloquea por verifyToken
             $response = $this->webpay_plus->createTransaction(
