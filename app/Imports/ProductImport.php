@@ -20,8 +20,8 @@ class ProductImport implements ToCollection, WithHeadingRow
             $product = Product::where('sku', $row['sku'])->first();
             
             if($product){
-                $laboratory = Laboratory::where('name', $row['laboratorio'])->first();
-                $subcategory = Subcategory::where('name', $row['subcategoria'])->first();
+                $laboratory = Laboratory::whereRaw("UPPER('name') LIKE '%'". strtoupper($row['laboratorio'])."'%'"); 
+                $subcategory = Subcategory::whereRaw("UPPER('name') LIKE '%'". strtoupper($row['subcategoria'])."'%'"); 
 
                 $product->name = $row['nombre'];
                 $product->slug = \Str::slug($row['nombre']);
@@ -45,8 +45,8 @@ class ProductImport implements ToCollection, WithHeadingRow
                 $product->save();
             } else {
                 $product = new Product();
-                $laboratory = Laboratory::where('name', $row['laboratorio'])->first();
-                $subcategory = Subcategory::where('name', $row['subcategoria'])->first();
+                $laboratory = Laboratory::whereRaw("UPPER('name') LIKE '%'". strtoupper($row['laboratorio'])."'%'"); 
+                $subcategory = Subcategory::whereRaw("UPPER('name') LIKE '%'". strtoupper($row['subcategoria'])."'%'"); 
 
                 $product->name = $row['nombre'];
                 $product->slug = \Str::slug($row['nombre']);
