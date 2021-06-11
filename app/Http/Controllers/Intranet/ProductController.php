@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\ProductExport;
+use App\Imports\ProductImport;
 
 class ProductController extends GlobalController
 {
@@ -26,7 +27,7 @@ class ProductController extends GlobalController
         'pluralName' => 'Productos',
         'singularName' => 'Producto',
         'disableActions' => ['changeStatus'],
-        'enableActions' => ['export','position']
+        'enableActions' => ['export','position', 'import']
     ];
 
     public function __construct()
@@ -360,5 +361,21 @@ class ProductController extends GlobalController
         return Excel::download(new ProductExport(), 'listado-productos.xlsx');
     }
 
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required'
+        ]);
+ 
+        try{
+            Excel::import(new ProductImport,request()->file('file'));
+        } catch(\Exception $ex){
+            session()->flash('danger', 'No se ha podido importar el archivo seleccionado, recuerde que el archivo solo debe tener una hoja y no debe tener filas vacías. De estar todo bien checkee datos o que todas las columnas tengan un título, el cual debe estar en la primera fila.');
+           return redirect(route($this->route . 'index'));
+        }
+
+        session()->flash('success', 'Producto(s) importado(s) con éxito.');
+        return redirect(route($this->route . 'index'));
+    }
 
 }
