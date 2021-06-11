@@ -815,6 +815,49 @@ input.my-auto.file-input {
   transition: all 0.4s ease-in-out;
 }
 
+.paginator-buttons {
+  color: black;
+  padding: 8px 13px;
+  border: solid thin #E6E6E6;
+  border-radius: 7px;
+  font-weight: 450;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.paginator-buttons.active {
+  color: white;
+  border: solid thin #009BE8;
+  background-color: #009BE8;
+}
+
+.paginator-buttons > a {
+  color: black;
+}
+
+.paginator-buttons.active > a {
+  color: white;
+}
+
+.paginator-buttons > a:hover {
+  text-decoration: none;
+}
+
+.paginator-ul {
+  float: right;
+  display: flex;
+  padding-left: 0;
+  list-style: none;
+  border-radius: 0.25rem;
+}
+
+.paginator-label {
+  float: right;
+  display: flex;
+  padding-right: 25px;
+  line-height: 34px;
+}
+
 .suscribe {
   background-position: center center;
   background-repeat: no-repeat;
