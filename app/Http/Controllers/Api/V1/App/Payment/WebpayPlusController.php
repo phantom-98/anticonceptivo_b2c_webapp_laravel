@@ -12,6 +12,7 @@ use App\Http\Utils\Enum\PaymentStatus;
 use App\Http\Utils\Enum\PaymentType;
 use Carbon\Carbon;
 use App\Models\Order;
+use App\Models\OrderItem;
 use App\Models\Region;
 use App\Models\Commune;
 use App\Models\WebpayLog;
@@ -51,6 +52,10 @@ class WebpayPlusController
             $order->dispatch = 0;
 
             $order->save();
+
+            // foreach ($request->cartItems as $key => $value) {
+            //     # code...
+            // }
 
             // name('webpay-response') usar esta si se bloquea por verifyToken
             $response = $this->webpay_plus->createTransaction(

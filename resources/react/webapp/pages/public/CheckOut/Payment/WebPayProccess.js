@@ -11,7 +11,7 @@ const WebPayProccess = ({
         // runPayment, 
         setFinishWebpayProccess,
         setWebpayProccessSuccess,
-        setOrder
+        setOrderId
     }) => {
 
     const {auth} = useContext(AuthContext);
@@ -39,7 +39,9 @@ const WebPayProccess = ({
             ...data,
             ...address,
             customer_id: auth ? auth.id : null,
-            totalCart: totalCart
+            totalCart: totalCart,
+            cartItems: cartItems
+
         }
 
         Services.DoPost(url, dataForm)
@@ -48,7 +50,7 @@ const WebPayProccess = ({
                     response: response,
                     success: () => {
                         runVerify(response.data.order.id)
-                        setOrder(response.data.order)
+                        setOrderId(response.data.order.id)
                         setToken(response.data.token)
                         var win = window.open();
                         win.document.open();

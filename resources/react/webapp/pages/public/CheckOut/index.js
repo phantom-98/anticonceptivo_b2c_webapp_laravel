@@ -49,7 +49,7 @@ const CheckOut = () => {
     const [editable, setEditable] = useState(false);
     const [regions, setRegions] = useState([]);
     const [communes, setCommunes] = useState([]);
-    const [order, setOrder] = useState({});
+    const [orderId, setOrderId] = useState(null);
 
     const [address, setAddress] = useState({
         name: '',
@@ -198,7 +198,7 @@ const CheckOut = () => {
                                                 address={address}
                                                 setFinishWebpayProccess={setFinishWebpayProccess}
                                                 setWebpayProccessSuccess={setWebpayProccessSuccess}
-                                                setOrder={setOrder}
+                                                setOrderId={setOrderId}
                                             />
                                         </div>
                                     </div>
@@ -206,7 +206,7 @@ const CheckOut = () => {
                         : 
                         <HandleResponse
                             webpayProccessSuccess={webpayProccessSuccess}
-                            order={order}
+                            orderId={orderId}
                         />
                     }
                 </div>
