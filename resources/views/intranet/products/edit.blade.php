@@ -288,6 +288,15 @@
                                         </select>
                                     </div>
                                 </div>
+                                <div class="col-md-3">
+                                    <div class="form-group {{ $errors->has('state_of_matter') ? 'has-error':'' }}">
+                                        <label for="state_of_matter">Estado </label>
+                                        <select id="state_of_matter" name="state_of_matter" class="form-control">
+                                            <option value="Sólido" {{$object->state_of_matter == "Sólido" ? "selected" : ""}}>Sólido</option>
+                                            <option value="Líquido" {{$object->state_of_matter == "Líquido" ? "selected" : ""}}>Líquido</option>
+                                        </select>
+                                    </div>
+                                </div>
                                 <div class="clearfix"></div>
 
 

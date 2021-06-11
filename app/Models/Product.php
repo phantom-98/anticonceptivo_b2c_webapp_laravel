@@ -33,7 +33,8 @@ class Product extends Model
         'data_sheet',
         'active',
         'barcode',
-        'recipe_type'
+        'recipe_type',
+        'state_of_matter'
     ];
 
     public function subcategory(){
