@@ -29,7 +29,8 @@ class HomeController extends Controller
     public function getTermsAndConditions()
     {
         try {
-            $sections = Page::where('active', true)->where('section', SectionTypes::TERMS_AND_CONDITIONS)->get();
+            $sections = Page::where('active', true)->where('section', SectionTypes::TERMS_AND_CONDITIONS)
+            ->orderBy('position')->get();
 
             return ApiResponse::JsonSuccess(['sections' => $sections]);
         } catch (\Exception $exception) {
