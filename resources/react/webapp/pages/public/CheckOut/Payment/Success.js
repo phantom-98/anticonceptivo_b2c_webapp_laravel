@@ -17,7 +17,7 @@ const Success = ({orderId}) => {
     },[])
 
     const getData = () => {
-        let url = Services.ENDPOINT.NO_AUTH.TEST;
+        let url = Services.ENDPOINT.NO_AUTH.CHECKOUT.GET_ORDER;
         let data = {
             order_id: orderId
         }

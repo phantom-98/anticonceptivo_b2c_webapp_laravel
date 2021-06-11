@@ -101,6 +101,7 @@ export const ENDPOINT = {
         CHECKOUT:{
             GET_RESOURCES: GetBaseURL() + 'public-area/get-checkout-resources',
             VALIDATE_STEPS: GetBaseURL() + 'public-area/validate-steps',
+            GET_ORDER: GetBaseURL() + 'public-area/get-order'
         },
         TERMS_AND_CONDITIONS:{
             GET_DATA: GetBaseURL() + 'public-area/get-terms-and-conditions'
@@ -110,8 +111,7 @@ export const ENDPOINT = {
         },
         RESPONSIBLE_CONSUMPTION:{
             GET_DATA: GetBaseURL() + 'public-area/get-responsible-consumption'
-        },
-        TEST: GetBaseURL() + 'public-area/get-order'
+        }
     },
     CUSTOMER:{
         PROFILE:{
