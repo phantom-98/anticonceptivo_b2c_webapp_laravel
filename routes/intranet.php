@@ -163,6 +163,7 @@ if (env('SHOW_INTRANET', 'TRUE') == 'TRUE') {
 
                 Route::post('paginas/active', 'PageController@active')->name('pages.active');
                 Route::resource('paginas', 'PageController', ['names' => getResourceRoutesForNameHelper('pages')]);
+                Route::post('paginas/position', 'PageController@position')->name('pages.position');
 
                 Route::post('laboratorios/active', 'LaboratoryController@active')->name('laboratories.active');
                 Route::resource('laboratorios', 'LaboratoryController', ['names' => getResourceRoutesForNameHelper('laboratories')]);

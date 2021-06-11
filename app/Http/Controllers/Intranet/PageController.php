@@ -187,4 +187,24 @@ class PageController extends GlobalController
 
     }
 
+    
+    public function position(Request $request){
+
+        try{
+            foreach($request->data as $data){
+                $object = Page::find($data['id']);
+                $object->update(['position' => $data['position']]);
+            }
+            return response()->json([
+                'status' => 1
+            ]);
+        }catch(\Exception $e){
+            return response()->json([
+                'status' => 0
+            ]);
+        }
+
+        
+    }
+
 }
