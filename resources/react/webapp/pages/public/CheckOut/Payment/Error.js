@@ -9,7 +9,7 @@ const Error = () => {
         <div className="row pb-5">
             <div className="col-md-8 offset-md-2">
                 <div className="panel">
-                    <div className="panel-body text-center">
+                    <div className="panel-body text-center" style={{border: 'solid thin #DEDEDE'}}>
                         <div className="text-center mb-3">
                             <Icon path={errorCircle} />
                         </div>

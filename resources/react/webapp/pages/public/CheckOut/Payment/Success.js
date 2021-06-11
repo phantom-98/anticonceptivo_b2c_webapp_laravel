@@ -38,7 +38,7 @@ const Success = ({orderId}) => {
         <div className="row pb-5">
             <div className="col-md-8 offset-md-2">
                 <div className="panel">
-                    <div className="panel-body">
+                    <div className="panel-body" style={{border: 'solid thin #DEDEDE'}}>
                         <div className="text-center mb-3">
                             <Icon path={checkCircle} />
                         </div>
