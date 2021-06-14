@@ -8,8 +8,6 @@ const WebPayProccess = ({
         data,
         file,
         address,
-        // finishPayment, 
-        // runPayment, 
         setFinishWebpayProccess,
         setWebpayProccessSuccess,
         setOrderId
@@ -28,7 +26,7 @@ const WebPayProccess = ({
         setShowingWaitingPayment(true);
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         let _total = 0;
         cartItems.map((item) =>{
             _total = _total + (item.quantity * item.product.price)
@@ -58,7 +56,7 @@ const WebPayProccess = ({
                 Services.Response({
                     response: response,
                     success: () => {
-                        runVerify(response.data.order.id)
+                        runVerify(response.data.order.id, response.data.order.customer_id)
                         setOrderId(response.data.order.id)
                         setToken(response.data.token)
                         showWaitingPayment();
@@ -74,17 +72,36 @@ const WebPayProccess = ({
             });
     };
 
+    const submitPrescription = (orderId, customerId) => {
+        let url = Services.ENDPOINT.NO_AUTH.CHECKOUT.SUBMIT_PRESCRIPTION;
+
+        const formData = new FormData();
+
+        formData.append('file', file)
+        formData.append('order_id', orderId)
+        formData.append('customer_id', customerId)
+
+        Services.DoPost(url, formData).then(response => {
+            Services.Response({
+                response: response,
+                success: () => {}
+            });
+        }).catch(error => {
+            Services.ErrorCatch(error)
+        });
+    }
+
     let interval;
 
-    const runVerify = (orderId) => {
+    const runVerify = (orderId, customerId) => {
         verifyPayment(orderId);
 
         interval = setInterval(() => {
-            verifyPayment(orderId);
+            verifyPayment(orderId, customerId);
         }, 5000);
     }
 
-    const verifyPayment = (orderId) => {
+    const verifyPayment = (orderId, customerId) => {
 
         const data = {order_id: orderId}
 
@@ -96,6 +113,7 @@ const WebPayProccess = ({
                 success: () => {
                     if (response.data.order && response.data.order.status == 'PAID') {
                         clearCart();
+                        submitPrescription(orderId, customerId);
                         hideWaitingPayment();
                         setWebpayProccessSuccess(true);
                         setFinishWebpayProccess(1);

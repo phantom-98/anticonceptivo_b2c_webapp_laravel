@@ -11,6 +11,7 @@ use App\Models\Customer;
 use App\Models\Region;
 use App\Models\Commune;
 use App\Models\Order;
+use App\Models\Prescription;
 
 class CheckoutController extends Controller
 {
@@ -133,6 +134,24 @@ class CheckoutController extends Controller
             return true;
         } else {
             return $validator->errors();
+        }
+    }
+
+    public function submitPrescription(Request $request){
+        try {
+            $prescription = new Prescription();
+
+            $prescription->name = $request->file->getClientOriginalName();
+            // $prescription->date = $request->date;
+            $prescription->file = $request->file->storeAs('public/customer/prescriptions/prescription-'.rand(500,1000).'-'.rand(0,500).'-'.$request->order_id, $request->file->getClientOriginalName());
+            $prescription->order_id = $request->order_id;
+            $prescription->customer_id = $request->customer_id;
+
+            $prescription->save();
+
+            return ApiResponse::JsonSuccess(null, OutputMessage::SUCCESS);
+        } catch (\Exception $exception) {
+            return ApiResponse::JsonError(null, OutputMessage::REQUEST_EXCEPTION . ' ' . $exception->getMessage());
         }
     }
 

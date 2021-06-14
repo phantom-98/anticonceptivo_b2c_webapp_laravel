@@ -101,7 +101,8 @@ export const ENDPOINT = {
         CHECKOUT:{
             GET_RESOURCES: GetBaseURL() + 'public-area/get-checkout-resources',
             VALIDATE_STEPS: GetBaseURL() + 'public-area/validate-steps',
-            GET_ORDER: GetBaseURL() + 'public-area/get-order'
+            GET_ORDER: GetBaseURL() + 'public-area/get-order',
+            SUBMIT_PRESCRIPTION: GetBaseURL() + 'public-area/submit-prescription'
         },
         TERMS_AND_CONDITIONS:{
             GET_DATA: GetBaseURL() + 'public-area/get-terms-and-conditions'

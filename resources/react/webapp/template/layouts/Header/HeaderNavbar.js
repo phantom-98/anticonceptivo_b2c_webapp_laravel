@@ -70,7 +70,7 @@ const HeaderNavbar = () => {
 
     return (
         <div className="header-navbar bg-0869A6">
-            <div className="container">
+            <div className="container" style={{maxWidth:'1500px'}}>
                 <div className="row">
                     {
                         categories.map(category => {
