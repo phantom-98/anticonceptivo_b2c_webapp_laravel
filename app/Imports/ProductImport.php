@@ -21,8 +21,8 @@ class ProductImport implements ToCollection, WithHeadingRow
                 $product = Product::where('sku', $row['sku'])->first();
                 
                 if($product){
-                    $laboratory = Laboratory::whereRaw("UPPER(name) LIKE '%". strtoupper($row['laboratorio'])."%'")->first(); 
-                    $subcategory = Subcategory::whereRaw("UPPER(name) LIKE '%". strtoupper($row['subcategoria'])."%'")->first(); 
+                    $laboratory = Laboratory::whereRaw("UPPER(name) LIKE '%". trim(strtoupper($row['laboratorio'])."%'"))->first(); 
+                    $subcategory = Subcategory::whereRaw("UPPER(name) LIKE '%". trim(strtoupper($row['subcategoria'])."%'"))->first(); 
 
                     $product->name = $row['nombre'];
                     $product->slug = \Str::slug($row['nombre']);
@@ -46,8 +46,8 @@ class ProductImport implements ToCollection, WithHeadingRow
                     $product->save();
                 } else {
                     $product = new Product();
-                    $laboratory = Laboratory::whereRaw("UPPER(name) LIKE '%". strtoupper($row['laboratorio'])."%'")->first(); 
-                    $subcategory = Subcategory::whereRaw("UPPER(name) LIKE '%". strtoupper($row['subcategoria'])."%'")->first(); 
+                    $laboratory = Laboratory::whereRaw("UPPER(name) LIKE '%". trim(strtoupper($row['laboratorio'])."%'"))->first(); 
+                    $subcategory = Subcategory::whereRaw("UPPER(name) LIKE '%". trim(strtoupper($row['subcategoria'])."%'"))->first(); 
 
                     $product->laboratory_id = $laboratory->id;
                     $product->name = $row['nombre'];
