@@ -874,6 +874,16 @@ input.my-auto.file-input {
   margin-bottom: 1rem;
 }
 
+.base-panel-two-title {
+  font-family: "Poppins", sans-serif;
+  text-transform: uppercase;
+  color: #0869A6;
+  letter-spacing: 2px;
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
 .menu-section {
   background: #EDF8FE;
   color: #033F5D;

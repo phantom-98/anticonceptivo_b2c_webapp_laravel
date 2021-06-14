@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, Fragment} from 'react';
 import PUBLIC_ROUTES from "../../../routes/publicRoutes";
 import BasePanelOne from "../../../template/BasePanelOne";
 import {Accordion, Card} from "react-bootstrap";
@@ -67,23 +67,30 @@ const Faq = () => {
                                 {
                                     categoryFaqs.map((categories) => {
                                         return (
-                                            categories.faqs.map((item) => {
-                                                return(
-                                                    <Card key={item.id} className="card-faq" key={item.id}>
-                                                        <Accordion.Collapse eventKey={item.id}>
-                                                            <Card.Body>
-                                                                {/* <p className="font-14 regular color-3B3B3 mb-0">{item.answer}</p> */}
-                                                                <div dangerouslySetInnerHTML={{ __html: item.answer }} />
-                                                            </Card.Body>
-                                                        </Accordion.Collapse>
-                                                        <Accordion.Toggle as={Card.Header}
-                                                                        eventKey={item.id}
-                                                                        >
-                                                            <h3>{item.question}</h3>
-                                                        </Accordion.Toggle>
-                                                    </Card>
-                                                )
-                                            })
+                                            <Fragment>
+                                                <div className="base-panel-two-title">
+                                                    {categories.name}
+                                                </div>
+                                                {
+                                                    categories.faqs.map((item) => {
+                                                        return(
+                                                            <Card key={item.id} className="card-faq" key={item.id}>
+                                                                <Accordion.Collapse eventKey={item.id}>
+                                                                    <Card.Body>
+                                                                        {/* <p className="font-14 regular color-3B3B3 mb-0">{item.answer}</p> */}
+                                                                        <div dangerouslySetInnerHTML={{ __html: item.answer }} />
+                                                                    </Card.Body>
+                                                                </Accordion.Collapse>
+                                                                <Accordion.Toggle as={Card.Header}
+                                                                                eventKey={item.id}
+                                                                                >
+                                                                    <h3>{item.question}</h3>
+                                                                </Accordion.Toggle>
+                                                            </Card>
+                                                        )
+                                                    })
+                                                }
+                                            </Fragment>
                                         )
                                     })
                                 }

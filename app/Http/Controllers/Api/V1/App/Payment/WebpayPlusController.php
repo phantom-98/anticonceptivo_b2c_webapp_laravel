@@ -37,6 +37,9 @@ class WebpayPlusController
         //CREO LA ORDEN
         try {
 
+            // if $request->customer_id; existe en la base de datos? si es si, no hacer nada si no
+            // crear un nuevo customer
+
             $order = new Order();
 
             $order->customer_id = $request->customer_id;
