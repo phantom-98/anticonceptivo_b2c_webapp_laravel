@@ -49,6 +49,7 @@ class ProductImport implements ToCollection, WithHeadingRow
                     $laboratory = Laboratory::whereRaw("UPPER(name) LIKE '%". strtoupper($row['laboratorio'])."%'")->first(); 
                     $subcategory = Subcategory::whereRaw("UPPER(name) LIKE '%". strtoupper($row['subcategoria'])."%'")->first(); 
 
+                    $product->laboratory_id = $laboratory->id;
                     $product->name = $row['nombre'];
                     $product->slug = \Str::slug($row['nombre']);
                     $product->price = $row['precio'];
@@ -62,7 +63,6 @@ class ProductImport implements ToCollection, WithHeadingRow
                     $product->data_sheet = $row['ficha_tecnica'] ?? '';
                     $product->description = $row['descripcion'] ?? '';
                     $product->is_bioequivalent = $row['bioequivalente'] == "Si" ? 1 : 0;
-                    $product->laboratory_id = $laboratory->id;
                     $product->format = $row['formato'];
                     $product->barcode = $row['codigo_de_barras'];
                     $product->unit_format = $row['formato_unidad'];
