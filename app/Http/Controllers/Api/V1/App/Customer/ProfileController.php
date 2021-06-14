@@ -19,6 +19,7 @@ use App\Models\Order;
 use App\Models\Prescription;
 use App\Models\ContactIssue;
 use App\Models\ContactMessage;
+use App\Models\Subscription;
 
 class ProfileController extends Controller
 {
@@ -163,6 +164,29 @@ class ProfileController extends Controller
                 'addresses' => $addresses,
                 'regions' => $regions,
                 'communes' => $communes
+            ], OutputMessage::SUCCESS);
+            
+        } catch (\Exception $exception) {
+            return ApiResponse::JsonError(null, $exception->getMessage());
+        }
+    }
+
+    public function getSubscriptions(Request $request)
+    {
+        try {
+            $customer = Customer::find($request->customer_id);
+
+            if (!$customer) {
+                return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_NOT_FOUND);
+            }
+
+            $addresses = CustomerAddress::where('customer_id', $customer->id)->get();
+
+            $regions = Region::where('id',7)->with('provinces.communes')->get();
+            $communes = Commune::select('id','name')->get();
+
+            return ApiResponse::JsonSuccess([
+                'addresses' => $addresses,
             ], OutputMessage::SUCCESS);
             
         } catch (\Exception $exception) {

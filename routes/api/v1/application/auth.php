@@ -16,5 +16,6 @@ Route::prefix('auth')
         Route::post('set-new-password', [AuthController::class, 'setNewPassword'])->name('setNewPassword');
 
         Route::post('get-address', [ProfileController::class, 'getAddress'])->name('getAddress');
+        Route::post('get-subscriptions', [ProfileController::class, 'getSubscriptions'])->name('getSubscriptions');
 
     });

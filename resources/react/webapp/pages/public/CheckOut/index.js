@@ -31,7 +31,6 @@ const CheckOut = () => {
         id_type: 'RUT',
         phone_code: '+56',
         phone: '',
-
         business_name: '',
         business_id_number: '',
         commercial_business: '',
@@ -59,11 +58,15 @@ const CheckOut = () => {
         extra_info: ''
     });
 
+    const [subscription, setSubscription] = useState(null);
+
+
     useEffect(() => {
         if (auth) {
             setData(auth);
             setEditable(true);
             getAddress();
+            getSubscriptions();
             setView("user-form");
         }
     },[auth])
@@ -138,6 +141,27 @@ const CheckOut = () => {
         });
     }
 
+    const getSubscriptions = () => {
+        let url = Services.ENDPOINT.AUTH.GET_SUBSCRIPTIONS;
+        let data = {
+            customer_id: auth.id
+        }
+        Services.DoPost(url,data).then(response => {
+            Services.Response({
+              response: response,
+              success: () => {
+                  if(response.data.subscriptions != null){
+                    setSubscription(response.data.subscriptions);
+                  }else{
+                    setSubscription(null);
+                  }
+              },
+            });
+        }).catch(error => {
+            Services.ErrorCatch(error)
+        });
+    }
+
     return (
         <Fragment>
             <div className="pb-5" style={{background: '#FAFAFA'}}>
@@ -188,7 +212,16 @@ const CheckOut = () => {
                                                     /> : null
                                             }
 
-
+                                            {
+                                                view == 'addresses' ? 
+                                                    <Addresses 
+                                                        setView={setView}
+                                                        regions={regions}
+                                                        communes={communes}
+                                                        address={address}
+                                                        setAddress={setAddress}
+                                                    /> : null
+                                            }
                                         </div>
                                         <div className="col-md-auto pl-2" style={{width: '408px'}}>
                                             <Resume 

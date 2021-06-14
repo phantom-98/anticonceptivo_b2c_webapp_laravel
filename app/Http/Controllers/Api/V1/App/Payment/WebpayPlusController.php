@@ -101,18 +101,28 @@ class WebpayPlusController
 
             $order->save();
 
-            foreach ($request->cartItems as $key => $item) {
+            foreach ($request->cart as $key => $item) {
                 $orderItem = new OrderItem;
                 $orderItem->order_id = $order->id;
                 $orderItem->product_id = $item['product_id'];
                 $orderItem->name = $item['product']['name'];
                 $orderItem->quantity = $item['quantity'];
                 $orderItem->price = $item['product']['price'];
-                $orderItem->subscription_plan_id = null;
+
+                if($item['subscription'] != null){
+                    $orderItem->subtotal = ($item['quantity'] * $item['subscription']['price']);
+                    $orderItem->subscription_plan_id = $item['subscription']['id'];
+
+                }else{
+                    $orderItem->subtotal = ($item['quantity'] * $item['product']['price']);
+                    $orderItem->subscription_plan_id = null;
+
+                }
+
                 $orderItem->product_attributes = null;
                 $orderItem->extra_price = null;
                 $orderItem->extra_description = null;
-                $orderItem->subtotal = $item['product']['price']*$item['quantity'];
+                
                 $orderItem->save();
             }
 
