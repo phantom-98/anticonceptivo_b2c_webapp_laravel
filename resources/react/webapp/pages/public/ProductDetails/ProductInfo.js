@@ -147,7 +147,7 @@ const ProductInfo = ({ product }) => {
                             as={Card.Header}
                             eventKey={product.id}
                         >
-                            <h3>Suscribité a nuestros planes</h3>
+                            <h3>Suscríbete a nuestros planes</h3>
                         </Accordion.Toggle>
                     </Card>
                 </Accordion>
