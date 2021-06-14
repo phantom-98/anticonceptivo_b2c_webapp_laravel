@@ -232,6 +232,7 @@ const CheckOut = () => {
                                                 setFinishWebpayProccess={setFinishWebpayProccess}
                                                 setWebpayProccessSuccess={setWebpayProccessSuccess}
                                                 setOrderId={setOrderId}
+                                                orderId={orderId}
                                             />
                                         </div>
                                     </div>
