@@ -8,8 +8,6 @@ import {AuthContext} from "../../../context/AuthProvider";
 
 const AddAddress = ({setView, regions, address, setAddress}) => {
 
-    console.log(address)
-
     // const [showBilling, setShowBilling] = useState(false);
 
     const {auth} = useContext(AuthContext);

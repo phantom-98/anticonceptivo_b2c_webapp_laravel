@@ -76,6 +76,7 @@ const Addresses = ({setView, regions, communes, address, setAddress}) => {
                                 communes={communes}
                                 getData={getData}
                                 setAddress={setAddress}
+                                // setAddresses={setAddresses}
                             /> 
                         : null
                     }

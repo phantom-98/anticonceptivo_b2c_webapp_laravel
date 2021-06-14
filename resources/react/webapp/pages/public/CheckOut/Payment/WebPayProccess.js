@@ -42,6 +42,10 @@ const WebPayProccess = ({
     }
 
     const create = () => {
+        // if (!address) {
+        //     toastr.warning('Debes agregar una dirección para proceder al pago.')
+        // }
+
         let url = Services.ENDPOINT.PAYMENTS.WEBPAY.CREATE_TRANSACTION;
         let dataForm = {
             ...data,

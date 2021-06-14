@@ -83,6 +83,7 @@ const Index = () => {
                                 showCreate={showCreate}
                                 regions={regions}
                                 communes={communes}
+                                // setAddresses={setAddresses}
                             /> : null
                     }
 

@@ -122,7 +122,8 @@ export const ENDPOINT = {
         ADDRESSES: {
             GET: GetBaseURL() + 'customer/get-addresses',
             UPDATE: GetBaseURL() + 'customer/update-addresses',
-            SET_DEFAULT_ADDRESS: GetBaseURL() + 'customer/update-default-address'
+            SET_DEFAULT_ADDRESS: GetBaseURL() + 'customer/update-default-address',
+            // REMOVE: GetBaseURL() + 'customer/remove-address'
         },
         ORDERS:{
             GET: GetBaseURL() + 'customer/get-orders',
