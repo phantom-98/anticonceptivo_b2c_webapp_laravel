@@ -367,12 +367,8 @@ class ProductController extends GlobalController
             'file' => 'required'
         ]);
  
-        try{
             Excel::import(new ProductImport,request()->file('file'));
-        } catch(\Exception $ex){
-            session()->flash('danger', 'No se ha podido importar el archivo seleccionado, recuerde que el archivo solo debe tener una hoja y no debe tener filas vacías. De estar todo bien checkee datos o que todas las columnas tengan un título, el cual debe estar en la primera fila.');
-           return redirect(route($this->route . 'index'));
-        }
+    
 
         session()->flash('success', 'Producto(s) importado(s) con éxito.');
         return redirect(route($this->route . 'index'));
