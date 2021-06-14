@@ -20,7 +20,7 @@ class AlterFieldsPrescriptionsTable extends Migration
             $table->dropForeign('prescriptions_customer_id_foreign');
             $table->dropColumn('customer_id');
             
-            $table->bigInteger('order_id')->unsigned()->nullable();
+            $table->bigInteger('order_id')->unsigned()->nullable()->after('file');
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
         });
     }
