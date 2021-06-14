@@ -68,13 +68,13 @@ const Faq = () => {
                                     categoryFaqs.map((categories) => {
                                         return (
                                             <Fragment>
-                                                <div className="base-panel-two-title">
+                                                <div className="base-panel-two-title my-4">
                                                     {categories.name}
                                                 </div>
                                                 {
                                                     categories.faqs.map((item) => {
                                                         return(
-                                                            <Card key={item.id} className="card-faq" key={item.id}>
+                                                            <Card key={item.id} className="card-faq my-4" key={item.id}>
                                                                 <Accordion.Collapse eventKey={item.id}>
                                                                     <Card.Body>
                                                                         {/* <p className="font-14 regular color-3B3B3 mb-0">{item.answer}</p> */}

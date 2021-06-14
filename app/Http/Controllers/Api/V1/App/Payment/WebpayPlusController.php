@@ -17,6 +17,9 @@ use App\Models\Region;
 use App\Models\Commune;
 use App\Models\WebpayLog;
 
+use App\Models\Customer;
+use App\Models\CustomerAddress;
+
 class WebpayPlusController
 {
 
@@ -34,15 +37,38 @@ class WebpayPlusController
     public function createTransaction(Request $request)
     {
 
-        //CREO LA ORDEN
         try {
-
-            // if $request->customer_id; existe en la base de datos? si es si, no hacer nada si no
-            // crear un nuevo customer
 
             $order = new Order();
 
-            $order->customer_id = $request->customer_id;
+            if (!Customer::find($request->customer_id)) {
+                $customer = new Customer();
+
+                $customer->id_number = $request->id_number;
+                $customer->password = str_replace(".","", substr($request->id_number,-7,5));
+                $customer->email = $request->email;
+                $customer->id_type = $request->id_type;
+                $customer->first_name = $request->first_name;
+                $customer->last_name = $request->last_name;
+                $customer->phone = $request->phone;
+                $customer->phone_code = $request->phone_code;
+
+                $customer->save();
+
+                $customerAddress = new CustomerAddress();
+
+                $customerAddress->address = $request->address;
+                $customerAddress->name = $request->name;
+                $customerAddress->region_id = $request->region_id;
+                $customerAddress->commune_id = intVal($request->commune_id);
+                $customerAddress->extra_info = $request->extra_info;
+                $customerAddress->customer_id = $customer->id;
+                $customerAddress->default_address = 1;
+
+                $customerAddress->save();
+            }
+
+            $order->customer_id = $request->customer_id ?? $customer->id;
 
             $region = Region::find($request->region_id);
             $commune = Commune::find($request->commune_id);
