@@ -37,14 +37,14 @@
                                            value="{{ old('name') ?? $object->name }}">
                                 </div>
                             </div>
-                            <div class="form-group col-sm-4">
+                             <!--<div class="form-group col-sm-4">
                                 {!! Form::label('image', 'Imagen (*)') !!}
                                 <input id="file-image" type='file' name='image' class='form-control' accept=".jpg, .png, .jpeg">
                                 <br/>
                                 @if ($object->image)
                                 <img id="image-edit" src="{{ Storage::url($object->image) }}" style="max-width: 100px;"/>
                                 @endif
-                            </div>     
+                            </div>     -->
                             <div class="form-group col-md-4">
                                 <label for="file">Archivo (*)</label>
                                 <input type="file" id="file" name="file" class="form-control" accept=".pdf">

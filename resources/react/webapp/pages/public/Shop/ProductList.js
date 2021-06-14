@@ -1,11 +1,18 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {CONFIG} from "../../../Config";
 import ProductCard from "../../../components/shopping/ProductCard";
 import LazyLoading from "../../../components/LazyLoading";
+import Pagination from "react-js-pagination";
 
 const ProductList = ({categorySelected, productsFiltered, subCatName, loading}) => {
 
     const [viewCount, setViewCount] = useState(9);
+    const [activePage, setActivePage] = useState(1);
+    const [pageCount, setPageCount] = useState(Math.round(productsFiltered.length/viewCount));
+
+    useEffect(() => {
+        setActivePage(1);
+    },[viewCount])
 
     return (
         <div className="row">
@@ -83,18 +90,23 @@ const ProductList = ({categorySelected, productsFiltered, subCatName, loading}) 
                                 </div>
                         : <LazyLoading/>
                     }
-                    {/* {
-                        products.map((product, index) => {
-                            return index < parseInt(viewCount) ? <div className="col-md-4 mb-3" key={index}>
-                                <ProductCard product={product}/>
-                            </div> 
-                        })
-                    } */}
                 </div>
             </div>
 
             <div className="col-12 pb-3">
-                {/*PAGINATOR*/}
+                <Pagination
+                    activePage={activePage}
+                    itemsCountPerPage={viewCount}
+                    totalItemsCount={productsFiltered.length}
+                    pageRangeDisplayed={pageCount}
+                    onChange={e => setActivePage(e)}
+                    itemClass={'paginator-buttons'}
+                    innerClass={'paginator-ul'}
+                    // hideNavigation={true}
+                    hideDisabled={true}
+                    hideFirstLastPages={true}
+                />
+                <label className="font-poppins font-12 regular paginator-label">Páginas</label>
             </div>
         </div>
     );

@@ -815,6 +815,49 @@ input.my-auto.file-input {
   transition: all 0.4s ease-in-out;
 }
 
+.paginator-buttons {
+  color: black;
+  padding: 8px 13px;
+  border: solid thin #E6E6E6;
+  border-radius: 7px;
+  font-weight: 450;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.paginator-buttons.active {
+  color: white;
+  border: solid thin #009BE8;
+  background-color: #009BE8;
+}
+
+.paginator-buttons > a {
+  color: black;
+}
+
+.paginator-buttons.active > a {
+  color: white;
+}
+
+.paginator-buttons > a:hover {
+  text-decoration: none;
+}
+
+.paginator-ul {
+  float: right;
+  display: flex;
+  padding-left: 0;
+  list-style: none;
+  border-radius: 0.25rem;
+}
+
+.paginator-label {
+  float: right;
+  display: flex;
+  padding-right: 25px;
+  line-height: 34px;
+}
+
 .suscribe {
   background-position: center center;
   background-repeat: no-repeat;
@@ -827,6 +870,16 @@ input.my-auto.file-input {
   color: #0869A6;
   letter-spacing: 2px;
   font-size: 30px;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.base-panel-two-title {
+  font-family: "Poppins", sans-serif;
+  text-transform: uppercase;
+  color: #0869A6;
+  letter-spacing: 2px;
+  font-size: 22px;
   font-weight: 700;
   margin-bottom: 1rem;
 }
@@ -1087,6 +1140,10 @@ input.my-auto.file-input {
   width: 486px;
 }
 
+.modal-waiting-payment {
+  width: 920px !important;
+}
+
 .modal-title {
   font-family: "Poppins", sans-serif;
   text-transform: uppercase;
@@ -1095,6 +1152,19 @@ input.my-auto.file-input {
   font-size: 30px;
   font-weight: 700;
   margin-bottom: 1rem;
+}
+
+.product-format-style {
+  background: #fafac8;
+  border-radius: 10px;
+  border: solid 1px;
+  border-color: #f0f08c;
+  margin-left: 0.8rem !important;
+}
+
+.icon-document {
+  height: 15px;
+  padding-right: 10px;
 }
 
 .panel {
@@ -1204,7 +1274,7 @@ input.my-auto.file-input {
 }
 
 .product-card-name {
-  height: 65px;
+  height: 165px;
   font-family: "Poppins", sans-serif;
   font-size: 16px;
   font-weight: 700;

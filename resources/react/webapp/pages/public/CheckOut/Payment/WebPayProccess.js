@@ -1,19 +1,32 @@
-import React, { useState, useContext, useEffect} from 'react';
+import React, { useState, useContext, useEffect, Fragment} from 'react';
 import * as Services from "../../../../Services";
 import { AuthContext } from "../../../../context/AuthProvider";
 import { CartContext } from "../../../../context/CartProvider";
+import WaitingPayment from "./WaitingPayment";
 
 const WebPayProccess = ({
         data,
         file,
-        address
+        address,
         // finishPayment, 
-        // runPayment 
+        // runPayment, 
+        setFinishWebpayProccess,
+        setWebpayProccessSuccess,
+        setOrderId
     }) => {
 
     const {auth} = useContext(AuthContext);
-    const {cartItems} = useContext(CartContext);
+    const {cartItems, clearCart} = useContext(CartContext);
     const [totalCart, setTotalCart] = useState(0);
+    const [showingWaitingPayment, setShowingWaitingPayment] = useState(false);
+
+    const showWaitingPayment = () => {
+        setShowingWaitingPayment(true);
+    }
+
+    const hideWaitingPayment = () => {
+        setShowingWaitingPayment(true);
+    }
 
     // useEffect(()=>{
     //     let _total = 0;
@@ -40,17 +53,20 @@ const WebPayProccess = ({
         let url = Services.ENDPOINT.PAYMENTS.WEBPAY.CREATE_TRANSACTION;
         let dataForm = {
             ...data,
-            customer_id: auth ? auth.id : null,
             ...address,
-            cart: cartItems
+            cart: cartItems,
+            customer_id: auth ? auth.id : null,
         }
+
         Services.DoPost(url, dataForm)
             .then(response => {
                 Services.Response({
                     response: response,
                     success: () => {
-                        runVerify()
+                        runVerify(response.data.order.id)
+                        setOrderId(response.data.order.id)
                         setToken(response.data.token)
+                        showWaitingPayment();
                         var win = window.open();
                         win.document.open();
                         win.document.write(response.data.webpay);
@@ -66,83 +82,64 @@ const WebPayProccess = ({
     let interval;
 
     const runVerify = (orderId) => {
-        // verifyPayment(orderId);
+        verifyPayment(orderId);
 
-        // interval = setInterval(() => {
-        //     verifyPayment(orderId);
-        // }, 5000);
-
+        interval = setInterval(() => {
+            verifyPayment(orderId);
+        }, 5000);
     }
 
-    // const verifyPayment = (orderId) => {
+    const verifyPayment = (orderId) => {
 
-    //     const data = {order_id: orderId}
+        const data = {order_id: orderId}
 
-    //     const url = Services.ENDPOINT.PANEL.PAYMENTS.VERIFY;
+        const url = Services.ENDPOINT.PAYMENTS.VERIFY;
 
-    //     Services.DoPost(url, data).then(response => {
-    //         Services.Response({
-    //             response: response,
-    //             success: () => {
-
-    //                 if (response.data.order && response.data.order.status == 'PAID') {
-    //                     const status = {
-    //                         title: 'Orden Pagada',
-    //                         message: ' La orden nº ' + order.id + ' ha sido pagada mediante webpay.',
-    //                         status: 'PAID',
-    //                         order: response.data.order,
-    //                     }
-    //                     finishPayment(response.data.order, status)
-    //                     clearInterval(interval)
-
-    //                 } else if (response.data.order && response.data.order.status == 'REJECTED') {
-    //                     const status = {
-    //                         title: 'Order Rechazada',
-    //                         message: ' La orden nº ' + order.id + ' ha sido rechazada por webpay.',
-    //                         status: 'REJECTED',
-    //                         order: response.data.order,
-    //                     }
-    //                     finishPayment(response.data.order, status)
-    //                     clearInterval(interval)
-
-    //                 } else if (response.data.order && response.data.order.status == 'CANCELED') {
-    //                     const status = {
-    //                         title: 'Order Anulada',
-    //                         message: ' La orden nº ' + order.id + ' ha sido anulada por el usuario.',
-    //                         status: 'CANCELED',
-    //                         order: response.data.order,
-    //                     }
-
-    //                     finishPayment(response.data.order, status)
-    //                     clearInterval(interval)
-
-    //                 } else if (response.data.order && response.data.order.status == 'WAITING') {
-    //                     const status = {
-    //                         title: 'Order en Espera',
-    //                         message: ' La orden nº ' + order.id + ' ha quedado en espera, será notificado del resultado de la transacción.',
-    //                         status: 'WAITING',
-    //                         order: response.data.order,
-    //                     }
-
-    //                     finishPayment(response.data.order, status)
-    //                     clearInterval(interval)
-    //                 }
-    //             },
-    //             error: () => {
-    //                 console.log(response.message)
-    //             }
-    //         });
-    //     }).catch(error => {
-    //         Services.ErrorCatch(error)
-    //     });
-    // }
+        Services.DoPost(url, data).then(response => {
+            Services.Response({
+                response: response,
+                success: () => {
+                    if (response.data.order && response.data.order.status == 'PAID') {
+                        clearCart();
+                        hideWaitingPayment();
+                        setWebpayProccessSuccess(true);
+                        setFinishWebpayProccess(1);
+                        clearInterval(interval)
+                    } else if (response.data.order && response.data.order.status == 'REJECTED') {
+                        setWebpayProccessSuccess(false);
+                        hideWaitingPayment();
+                        setFinishWebpayProccess(1);
+                        clearInterval(interval)
+                    } else if (response.data.order && response.data.order.status == 'CANCELED') {
+                        setWebpayProccessSuccess(false);
+                        hideWaitingPayment();
+                        setFinishWebpayProccess(1);
+                        clearInterval(interval)
+                    } else if (response.data.order && response.data.order.status == 'WAITING') {
+                        setWebpayProccessSuccess(false);
+                        hideWaitingPayment();
+                        setFinishWebpayProccess(1);
+                        clearInterval(interval)
+                    }
+                },
+                error: () => {
+                    console.log(response.message)
+                }
+            });
+        }).catch(error => {
+            Services.ErrorCatch(error)
+        });
+    }
 
     return (
-        <div className="col-md-12 pt-2">
-            <button className="btn btn-bicolor btn-block" onClick={initPayment}>
-                <span className="font-14 px-5">PAGAR</span>
-            </button>
-        </div>
+        <Fragment>
+            <WaitingPayment  showingWaitingPayment={showingWaitingPayment}/>
+            <div className="col-md-12 pt-2">
+                <button className="btn btn-bicolor btn-block" onClick={initPayment}>
+                    <span className="font-14 px-5">PAGAR</span>
+                </button>
+            </div>
+        </Fragment>
     );
 };
 

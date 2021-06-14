@@ -30,6 +30,9 @@
                                 style="margin-left: 20px"><i class="fa fa-file-excel-o"></i> Exportar
                         </button>
 
+                        <a class="btn btn-success" data-toggle="modal" data-target="#modal-create" style="margin-left: 20px"><i
+                            class="ti-export"></i>&nbsp;&nbsp;&nbsp;Carga masiva de productos</a>
+
                         <form id="form-export" target="_BLANK"
                                 action="{{ route($config['route'] . 'export') }}"
                                 enctype="multipart/form-data" method="GET">
@@ -58,11 +61,46 @@
                 </div>
             </div>
         </div>
+
+        <div class="modal fade" id="modal-create" style="display: none;">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span></button>
+                        <h4 class="modal-title">Importar productos</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <br/>
+                                {!! Form::open(['route' => 'intranet.products.import', 'class' => 'fileUpload', 'enctype' => 'multipart/form-data', 'files' => 'true']) !!}
+                                    <center><input type="file" class="form-control" style="width: 40%" name="file" accept=".xlsx,.xls,.csv"></center>
+                                    <br/><br/>
+                                    <center><button type="submit" id="button" class="btn btn-success">Importar</button></center>
+                                {!! Form::close() !!}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 @endsection
 
 @section('styles')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css">
+    <style>
+        .fileUpload {
+            border: 2px dashed #0869A6;
+            background: white;
+            border-radius: 5px;
+            min-height: 300px;
+            padding: 90px 0;
+            vertical-align: baseline;
+        }
+    </style>
 @endsection
 
 @section('scripts')

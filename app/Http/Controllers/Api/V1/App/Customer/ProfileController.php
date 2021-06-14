@@ -275,7 +275,8 @@ class ProfileController extends Controller
                 return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_NOT_FOUND);
             }
 
-            $orders = Order::where('customer_id',$customer->id)->with(['customer','order_items'])->get();
+            $orders = Order::where('customer_id',$customer->id)->with(['customer','order_items'])
+            ->orderBy('payment_date','desc')->get();
 
             return ApiResponse::JsonSuccess([
                 'orders' => $orders

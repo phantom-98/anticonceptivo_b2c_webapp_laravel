@@ -3,8 +3,9 @@ import {
     MINI_CART_CLOSE,
     ADD_TO_CART,
     UPDATE_CART,
-    REMOVE_FROM_CART,
-    UPDATE_QUANTITY
+    REMOVE_FROM_CART, 
+    UPDATE_QUANTITY,
+    CLEAR_CART
 } from "./types";
 import { LOCAL_STORAGE } from "../LocalStorage";
 
@@ -114,6 +115,12 @@ export default (state, action) => {
                 // showingMiniCart: false,
                 cartItems: [...items]
             };
+
+        case CLEAR_CART:
+            return {
+                ...state,
+                cartItems: []
+            }
 
         default:
             return state;

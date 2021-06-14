@@ -217,10 +217,10 @@
                             </a>
                         </li>
 
-                        <li class="treeview {{ is_parent_menu_active(['intranet/tipos-contacto', 'intranet/contactos', 'intranet/campanas']) }}">
+                        <li class="treeview {{ is_parent_menu_active(['intranet/tipos-contacto', 'intranet/contactos', 'intranet/campanas', 'intranet/reclamos']) }}">
                             <a href="#">
                                 <i class="ti-help"></i>
-                                <span class="menu-title">Contacto</span>
+                                <span class="menu-title">Contacto / Reclamo</span>
                                 <i class="arrow"></i>
                             </a>
                             <!--Submenu-->
@@ -237,7 +237,12 @@
                                 </li>
                                 <li class="{{ is_menu_active('intranet/contactos') }}">
                                     <a href="{{ route('intranet.contacts.index') }}">
-                                        <span class="menu-title">Registro Contacto</span>
+                                        <span class="menu-title">Registro Contactos</span>
+                                    </a>
+                                </li>
+                                <li class="{{ is_menu_active('intranet/reclamos') }}">
+                                    <a href="{{ route('intranet.claims.index') }}">
+                                        <span class="menu-title">Registro Reclamos</span>
                                     </a>
                                 </li>
                             </ul>

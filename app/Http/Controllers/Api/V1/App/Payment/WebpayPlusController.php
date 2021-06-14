@@ -8,13 +8,18 @@ use Illuminate\Support\Facades\Log;
 use Innovaweb\Transbank\WebpayPlus;
 use Innovaweb\Transbank\OneClickMall;
 use Willywes\ApiResponse\ApiResponse;
+use App\Http\Utils\OutputMessage\OutputMessage;
 use App\Http\Utils\Enum\PaymentStatus;
 use App\Http\Utils\Enum\PaymentType;
 use Carbon\Carbon;
 use App\Models\Order;
+use App\Models\OrderItem;
 use App\Models\Region;
 use App\Models\Commune;
 use App\Models\WebpayLog;
+
+use App\Models\Customer;
+use App\Models\CustomerAddress;
 
 class WebpayPlusController
 {
@@ -36,19 +41,44 @@ class WebpayPlusController
 
     public function createTransaction(Request $request)
     {
-        //CREO LA ORDEN
         try {
 
             $order = new Order();
 
-            $order->customer_id = $request->customer_id;
+            if (!Customer::find($request->customer_id)) {
+                $customer = new Customer();
+
+                $customer->id_number = $request->id_number;
+                $customer->password = str_replace(".","", substr($request->id_number,-7,5));
+                $customer->email = $request->email;
+                $customer->id_type = $request->id_type;
+                $customer->first_name = $request->first_name;
+                $customer->last_name = $request->last_name;
+                $customer->phone = $request->phone;
+                $customer->phone_code = $request->phone_code;
+
+                $customer->save();
+
+                $customerAddress = new CustomerAddress();
+
+                $customerAddress->address = $request->address;
+                $customerAddress->name = $request->name;
+                $customerAddress->region_id = $request->region_id;
+                $customerAddress->commune_id = intVal($request->commune_id);
+                $customerAddress->extra_info = $request->extra_info;
+                $customerAddress->customer_id = $customer->id;
+                $customerAddress->default_address = 1;
+
+                $customerAddress->save();
+            }
+
+            $order->customer_id = $request->customer_id ?? $customer->id;
 
             $region = Region::find($request->region_id);
             $commune = Commune::find($request->commune_id);
 
             $order->delivery_address = $request->address .', '. $commune->name . ', ' . $region->name;
-            // $order->delivery_date = null;
-            // $order->shipping_type = null;
+
             $subtotal = 0;
             $isSubscription = 0;
             foreach ($request->cart as $key => $item) {
@@ -70,6 +100,22 @@ class WebpayPlusController
             $order->total = $order->subtotal + $order->dispatch - $order->discount;
 
             $order->save();
+
+            foreach ($request->cartItems as $key => $item) {
+                $orderItem = new OrderItem;
+                $orderItem->order_id = $order->id;
+                $orderItem->product_id = $item['product_id'];
+                $orderItem->name = $item['product']['name'];
+                $orderItem->quantity = $item['quantity'];
+                $orderItem->price = $item['product']['price'];
+                $orderItem->subscription_plan_id = null;
+                $orderItem->product_attributes = null;
+                $orderItem->extra_price = null;
+                $orderItem->extra_description = null;
+                $orderItem->subtotal = $item['product']['price']*$item['quantity'];
+                $orderItem->save();
+            }
+
             if($isSubscription){
                 $response = $this->oneclick->createInscription(
                     $request->customer_id,
@@ -94,12 +140,12 @@ class WebpayPlusController
                     route('api.v1.app.payment.webpay.response')
                 );
 
-                if ($response['response']->token) {
 
+                if ($response['response']->token) {
                     return ApiResponse::JsonSuccess([
                         'webpay' => $this->webpay_plus->redirectHTML(),
                         'token' => $response['response']->token,
-                        'order' => $order
+                        'order' => Order::with(['customer'])->find($order->id)
                     ], 'Iniciado Webpay');
                 }
             }
@@ -163,4 +209,18 @@ class WebpayPlusController
         return view('webapp.payment.webpay-finish');
     }
 
+    public function verify(Request $request)
+    {
+        try {
+
+            $order = Order::find($request->order_id);
+
+            return ApiResponse::JsonSuccess([
+                'order' => $order,
+            ]);
+
+        } catch (\Exception $exception) {
+            return ApiResponse::JsonError(null, OutputMessage::EXCEPTION . ' ' . $exception->getMessage());
+        }
+    }
 }

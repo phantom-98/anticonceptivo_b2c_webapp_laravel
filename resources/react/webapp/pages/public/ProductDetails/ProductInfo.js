@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { formatMoney } from "../../../helpers/GlobalUtils";
 import AddCartCard from "../../../components/shopping/AddCartCard";
 import { Accordion, Card } from "react-bootstrap";
+import Icon from "../../../components/general/Icon";
+import fileSvg from '../../../assets/images/icons/file-alt-regular.svg';
 
 const ProductInfo = ({ product }) => {
     const [quantity, setQuantity] = useState(1);
@@ -30,7 +32,7 @@ const ProductInfo = ({ product }) => {
                 <span className="font-poppins font-14 color-009BE8">
                     SKU: {product.sku}
                 </span>
-            </div>
+            </div>            
             <div className="col-md-12">
                 <h1 className="font-poppins font-27 bold text-black">
                     {product.name}
@@ -44,6 +46,11 @@ const ProductInfo = ({ product }) => {
                         }}
                     />
                 </p>
+            </div>
+            <div className="col-md-12">
+                <h1 className="font-poppins font-12 regular color-6C6B6B">
+                    <div dangerouslySetInnerHTML={{ __html: product.compound }} />
+                </h1>
             </div>
             <div className="col-md-12">
                 <span className="font-poppins font-36 bold color-009BE8">
@@ -151,6 +158,22 @@ const ProductInfo = ({ product }) => {
                         </Accordion.Toggle>
                     </Card>
                 </Accordion>
+            </div>
+            <div className="offset-md-1 mb-3"/>
+            {
+                product.unit_format ? 
+                <div className="col-md-12 py-2 product-format-style">
+                    <span className="font-poppins font-14 regular color-6C6B6B">
+                        Precio por unidad: ${Math.round(product.price/parseInt(product.format)) +' '+product.unit_format}
+                    </span>
+                </div>
+                : null
+            }
+
+            <div className="col-md-12 mt-3">
+                <h1 className="font-poppins font-12 regular color-6C6B6B">
+                    <Icon className="icon-document" path={fileSvg}/> {product.recipe_type ? product.recipe_type : 'Venta Directa'}
+                </h1>
             </div>
 
             {/* <div className="col-md-12">

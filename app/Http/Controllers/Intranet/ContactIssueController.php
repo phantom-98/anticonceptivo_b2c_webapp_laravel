@@ -18,8 +18,8 @@ class ContactIssueController extends GlobalController
     protected $options = [
         'route' => 'intranet.contact_issues.',
         'folder' => 'intranet.contact_issues.',
-        'pluralName' => 'Tipos de Contacto',
-        'singularName' => 'Tipo de Contacto',
+        'pluralName' => 'Tipos de Contacto / Reclamos',
+        'singularName' => 'Tipo de Contacto / Reclamo / Reclamo',
         'disableActions' => ['show', 'changeStatus']
 
     ];
@@ -78,12 +78,12 @@ class ContactIssueController extends GlobalController
             }
 
             if ($object) {
-                session()->flash('success', 'Tipo de Contacto creado correctamente.');
+                session()->flash('success', 'Tipo de Contacto / Reclamo creado correctamente.');
                 return redirect()->route($this->route . 'index');
 
             }
 
-            return redirect()->back()->withErrors(['mensaje' => 'Error inesperado al crear el Tipo de Contacto.'])->withInput();
+            return redirect()->back()->withErrors(['mensaje' => 'Error inesperado al crear el Tipo de Contacto / Reclamo.'])->withInput();
         } else {
             return redirect()->back()->withErrors($validator)->withInput();
         }
@@ -98,7 +98,7 @@ class ContactIssueController extends GlobalController
         $object = ContactIssue::with('fields')->find($id);
 
         if (!$object) {
-            session()->flash('warning', 'Tipo de Contacto no encontrado.');
+            session()->flash('warning', 'Tipo de Contacto / Reclamo no encontrado.');
             return redirect()->route($this->route . 'index');
         }
         $campaigns = Campaign::get();
@@ -110,7 +110,7 @@ class ContactIssueController extends GlobalController
         $object = ContactIssue::find($id);
 
         if (!$object) {
-            session()->flash('warning', 'Tipo de Contacto no encontrado.');
+            session()->flash('warning', 'Tipo de Contacto / Reclamo no encontrado.');
             return redirect()->route($this->route . 'index');
         }
 
@@ -149,11 +149,11 @@ class ContactIssueController extends GlobalController
             }
 
             if ($object) {
-                session()->flash('success', 'Tipo de Contacto modificado correctamente.');
+                session()->flash('success', 'Tipo de Contacto / Reclamo modificado correctamente.');
                 return redirect()->route($this->route . 'index');
             }
 
-            return redirect()->back()->withErrors(['mensaje' => 'Error inesperado al modificar el Tipo de Contacto.'])->withInput();
+            return redirect()->back()->withErrors(['mensaje' => 'Error inesperado al modificar el Tipo de Contacto / Reclamo.'])->withInput();
         } else {
             return redirect()->back()->withErrors($validator)->withInput();
         }
@@ -173,7 +173,7 @@ class ContactIssueController extends GlobalController
 
                 return response()->json([
                     'status' => 'success',
-                    'message' => $object->active == 1 ? 'Tipo de Contacto activado correctamente.' : 'Tipo de Contacto desactivado correctamente.',
+                    'message' => $object->active == 1 ? 'Tipo de Contacto / Reclamo activado correctamente.' : 'Tipo de Contacto / Reclamo desactivado correctamente.',
                     'object' => $object
                 ]);
 
@@ -181,7 +181,7 @@ class ContactIssueController extends GlobalController
 
                 return response()->json([
                     'status' => 'error',
-                    'message' => 'Tipo de Contacto no encontrado.'
+                    'message' => 'Tipo de Contacto / Reclamo no encontrado.'
                 ]);
             }
 

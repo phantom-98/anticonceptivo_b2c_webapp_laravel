@@ -23,6 +23,8 @@ class Product extends Model
         'width',
         'weigth',
         'stock',
+        'unit_price',
+        'unit_format',
         'is_bioequivalent',
         'format',
         'brand_id',
@@ -30,7 +32,9 @@ class Product extends Model
         'benefits',
         'data_sheet',
         'active',
-        'barcode'
+        'barcode',
+        'recipe_type',
+        'state_of_matter'
     ];
 
     public function subcategory(){

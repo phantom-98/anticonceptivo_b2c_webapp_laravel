@@ -198,6 +198,27 @@ const UserForm = ({setView, data, setData, setFile, editable}) => {
     return (
         <Fragment>
             <div className="panel panel-cart mb-3">
+                <div className="panel-body" style={{ paddingTop : '11px', paddingBottom : '10px'}}>
+                   <div className="row">
+                       <div className="col-auto d-flex">
+                           <h3 className="my-auto font-poppins font-16 bold color-033F5D mb-0">Subir receta</h3>
+                       </div>
+                       <div className="col d-flex">
+                        <input 
+                            type="file"  
+                            className="my-auto file-input"
+                            onChange={handleFile}
+                        />
+                       </div>
+                       {/* <div className="col-auto d-flex">
+                           <button className="btn btn-bicolor btn-block" onClick={() => alert('SUBIR')}>
+                               <span className="font-14 px-5">SUBIR</span>
+                           </button>
+                       </div> */}
+                   </div>
+                </div>
+            </div>
+            <div className="panel panel-cart mb-3">
                 <div className="panel-body">
                     <FormPersonalData
                         data={data}
@@ -242,29 +263,6 @@ const UserForm = ({setView, data, setData, setFile, editable}) => {
                     }
                 </div>
             </div>
-
-            <div className="panel panel-cart mb-3">
-                <div className="panel-body" style={{ paddingTop : '11px', paddingBottom : '10px'}}>
-                   <div className="row">
-                       <div className="col-auto d-flex">
-                           <h3 className="my-auto font-poppins font-16 bold color-033F5D mb-0">Subir receta</h3>
-                       </div>
-                       <div className="col d-flex">
-                        <input 
-                            type="file"  
-                            className="my-auto file-input"
-                            onChange={handleFile}
-                        />
-                       </div>
-                       {/* <div className="col-auto d-flex">
-                           <button className="btn btn-bicolor btn-block" onClick={() => alert('SUBIR')}>
-                               <span className="font-14 px-5">SUBIR</span>
-                           </button>
-                       </div> */}
-                   </div>
-                </div>
-            </div>
-
             <div className="row">
                 <div className="col-md-6">
                     {/*<button onClick={() => setView('user-form')} className="link" style={{textDecoration: 'none'}}>*/}

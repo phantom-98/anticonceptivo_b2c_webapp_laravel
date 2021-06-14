@@ -10,6 +10,7 @@ use App\Http\Utils\OutputMessage\OutputMessage;
 use App\Models\Customer;
 use App\Models\Region;
 use App\Models\Commune;
+use App\Models\Order;
 
 class CheckoutController extends Controller
 {
@@ -30,7 +31,22 @@ class CheckoutController extends Controller
         }
     }
 
-     public function validateSteps(Request $request)
+    public function getOrder(Request $request)
+    {
+        try {
+
+            $order = Order::with(['customer','order_items'])->find($request->order_id);
+
+            return ApiResponse::JsonSuccess([
+                'order' => $order,
+            ], OutputMessage::SUCCESS);
+            
+        } catch (\Exception $exception) {
+            return ApiResponse::JsonError(null, $exception->getMessage());
+        }
+    }
+
+    public function validateSteps(Request $request)
     {
         try {
 
@@ -119,4 +135,5 @@ class CheckoutController extends Controller
             return $validator->errors();
         }
     }
+
 }

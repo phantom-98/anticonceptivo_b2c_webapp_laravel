@@ -43,14 +43,12 @@ class ResponsibleConsumptionController extends GlobalController
     {
         $rules = [
             'name' => 'required|unique:responsible_consumptions,name',
-            'file' => 'required',
-            'image' => 'required'
+            'file' => 'required'
         ];
 
         $messages = [
             'name.required' => 'El campo nombre es obligatorio.',
-            'file.required' => 'El campo blog obligatorio.',
-            'image.required' => 'El campo ícono es obligatorio.'
+            'file.required' => 'El campo blog obligatorio.'
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);

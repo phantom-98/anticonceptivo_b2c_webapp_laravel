@@ -12,7 +12,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon; 
 
-class SubCategoryController extends GlobalController
+class SubcategoryController extends GlobalController
 {
     protected $options = [
         'route' => 'intranet.subcategories.',

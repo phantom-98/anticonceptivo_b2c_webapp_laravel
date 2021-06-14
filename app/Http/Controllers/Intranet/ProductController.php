@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\ProductExport;
+use App\Imports\ProductImport;
 
 class ProductController extends GlobalController
 {
@@ -26,7 +27,7 @@ class ProductController extends GlobalController
         'pluralName' => 'Productos',
         'singularName' => 'Producto',
         'disableActions' => ['changeStatus'],
-        'enableActions' => ['export','position']
+        'enableActions' => ['export','position', 'import']
     ];
 
     public function __construct()
@@ -93,8 +94,7 @@ class ProductController extends GlobalController
             'sku' => 'required|unique:products,sku',
             'price' => 'required|numeric',
             'subcategory_id' => 'required',
-            'laboratory_id' => 'required',
-            'image' => 'required'
+            'laboratory_id' => 'required'
         ];
 
         $messages = [
@@ -121,7 +121,7 @@ class ProductController extends GlobalController
             $product->height = $request->height;
             $product->width = $request->width;
             $product->weigth = $request->weigth;
-            $product->consumption_typology = $request->consumption_typology;
+            $product->consumption_typology = $request->consumption_typology ?? 'ABA - ORAL S.ORD.GRAGEAS';
             $product->compound = $request->compound;
             $product->benefits = $request->benefits;
             $product->data_sheet = $request->data_sheet;
@@ -130,6 +130,10 @@ class ProductController extends GlobalController
             $product->is_bioequivalent = $request->is_bioequivalent ?? 0;
             $product->format = $request->format;
             $product->barcode = $request->barcode;
+            $product->unit_price = $request->unit_price;
+            $product->unit_format = $request->unit_format;
+            $product->recipe_type = $request->recipe_type;
+            $product->state_of_matter = $request->state_of_matter;
             $product->save();
 
             
@@ -248,7 +252,7 @@ class ProductController extends GlobalController
             $product->height = $request->height;
             $product->width = $request->width;
             $product->weigth = $request->weigth;
-            $product->consumption_typology = $request->consumption_typology;
+            $product->consumption_typology = $request->consumption_typology ?? 'ABA - ORAL S.ORD.GRAGEAS';
             $product->compound = $request->compound;
             $product->benefits = $request->benefits;
             $product->data_sheet = $request->data_sheet;
@@ -257,6 +261,10 @@ class ProductController extends GlobalController
             $product->laboratory_id = $request->laboratory_id;
             $product->format = $request->format;
             $product->barcode = $request->barcode;
+            $product->unit_price = $request->unit_price;
+            $product->unit_format = $request->unit_format;
+            $product->recipe_type = $request->recipe_type;
+            $product->state_of_matter = $request->state_of_matter;
             $product->save();
 
             if ($request->hasFile('image')) {
@@ -353,5 +361,21 @@ class ProductController extends GlobalController
         return Excel::download(new ProductExport(), 'listado-productos.xlsx');
     }
 
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required'
+        ]);
+ 
+        try{
+            Excel::import(new ProductImport,request()->file('file'));
+        } catch(\Exception $ex){
+            session()->flash('danger', 'No se ha podido importar el archivo seleccionado, recuerde que el archivo solo debe tener una hoja y no debe tener filas vacías. De estar todo bien checkee datos o que todas las columnas tengan un título, el cual debe estar en la primera fila.');
+           return redirect(route($this->route . 'index'));
+        }
+
+        session()->flash('success', 'Producto(s) importado(s) con éxito.');
+        return redirect(route($this->route . 'index'));
+    }
 
 }
