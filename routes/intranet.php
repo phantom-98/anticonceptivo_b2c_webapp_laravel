@@ -79,9 +79,9 @@ if (env('SHOW_INTRANET', 'TRUE') == 'TRUE') {
                 Route::post('categorias/active', 'CategoryController@active')->name('categories.active');
                 Route::resource('categorias', 'CategoryController', ['names' => getResourceRoutesForNameHelper('categories')]);
 
-                Route::post('subcategorias/position', 'SubCategoryController@position')->name('subcategories.position');
-                Route::post('subcategorias/active', 'SubCategoryController@active')->name('subcategories.active');
-                Route::resource('subcategorias', 'SubCategoryController', ['names' => getResourceRoutesForNameHelper('subcategories')]);
+                Route::post('subcategorias/position', 'SubcategoryController@position')->name('subcategories.position');
+                Route::post('subcategorias/active', 'SubcategoryController@active')->name('subcategories.active');
+                Route::resource('subcategorias', 'SubcategoryController', ['names' => getResourceRoutesForNameHelper('subcategories')]);
 
                 Route::post('marcas/active', 'BrandController@active')->name('brands.active');
                 Route::post('marcas/position', 'BrandController@position')->name('brands.position');
@@ -159,10 +159,12 @@ if (env('SHOW_INTRANET', 'TRUE') == 'TRUE') {
                 Route::post('productos/position', 'ProductController@position')->name('products.position');
                 Route::get('productos/export', 'ProductController@export')->name('products.export');
                 Route::post('productos/active', 'ProductController@active')->name('products.active');
+                Route::post('productos/import', 'ProductController@import')->name('products.import');
                 Route::resource('productos', 'ProductController', ['names' => getResourceRoutesForNameHelper('products')]);
 
                 Route::post('paginas/active', 'PageController@active')->name('pages.active');
                 Route::resource('paginas', 'PageController', ['names' => getResourceRoutesForNameHelper('pages')]);
+                Route::post('paginas/position', 'PageController@position')->name('pages.position');
 
                 Route::post('laboratorios/active', 'LaboratoryController@active')->name('laboratories.active');
                 Route::resource('laboratorios', 'LaboratoryController', ['names' => getResourceRoutesForNameHelper('laboratories')]);

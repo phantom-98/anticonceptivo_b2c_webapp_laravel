@@ -200,10 +200,38 @@
                                         <select id="format" name="format" class="form-control">
                                             <option value="" selected>Sin formato</option>
                                             <option value="1">1</option>
+                                            <option value="2">2</option>
                                             <option value="3">3</option>
-                                            <option value="21">21</option>
+                                            <option value="3.5">3.5</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="10">10</option>         
+                                            <option value="12">12</option>
+                                            <option value="14">14</option>
+                                            <option value="15">15</option>         
+                                            <option value="16">16</option>
+                                            <option value="20">20</option>
+                                            <option value="21">21</option>         
+                                            <option value="24">24</option>
+                                            <option value="25">25</option>
                                             <option value="28">28</option>
+                                            <option value="30">30</option>
+                                            <option value="35">35</option>         
+                                            <option value="40">40</option>
+                                            <option value="45">45</option>
+                                            <option value="50">50</option>
+                                            <option value="56">56</option>
+                                            <option value="60">60</option>
+                                            <option value="80">3</option>         
+                                            <option value="90">90</option>
                                             <option value="91">91</option>
+                                            <option value="100">100</option>         
+                                            <option value="180">180</option>
+                                            <option value="200">200</option>
+                                            <option value="250">250</option>      
                                         </select>
                                     </div>
                                 </div> 
@@ -239,6 +267,15 @@
                                             <option value="Receta Simple (R)">Receta Simple (R)</option>
                                             <option value="Receta Retenida (RR)">Receta Retenida (RR)</option>
                                             <option value="Receta Cheque (RCH)">Receta Cheque (RCH)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group {{ $errors->has('state_of_matter') ? 'has-error':'' }}">
+                                        <label for="state_of_matter">Estado </label>
+                                        <select id="state_of_matter" name="state_of_matter" class="form-control">
+                                            <option value="Sólido" selected>Sólido</option>
+                                            <option value="Líquido">Líquido</option>
                                         </select>
                                     </div>
                                 </div>
