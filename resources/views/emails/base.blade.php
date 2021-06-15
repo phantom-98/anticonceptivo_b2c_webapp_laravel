@@ -148,13 +148,13 @@
             <div class="mb-2 text-center" style="">
                 <div>
                     <a href="#" target="_blank" style="text-decoration: none;">
-                        <img style="margin: 0 5px;" src="https://ikiru.innovaweb.cl/themes/web/assets/img/email/twitter.png"/>
+                        <img style="margin: 0 5px;" src="https://anticonceptivo.innovaweb.cl/themes/web/assets/img/email/twitter.png"/>
                     </a>
                     <a href="#" target="_blank" style="text-decoration: none;">
-                        <img style="margin: 0 5px;" src="https://ikiru.innovaweb.cl/themes/web/assets/img/email/facebook.png"/>
+                        <img style="margin: 0 5px;" src="https://anticonceptivo.innovaweb.cl/themes/web/assets/img/email/facebook.png"/>
                     </a>
                     <a href="#" target="_blank" style="text-decoration: none;">
-                        <img style="margin: 0 5px;" src="https://ikiru.innovaweb.cl/themes/web/assets/img/email/instagram.png"/>
+                        <img style="margin: 0 5px;" src="https://anticonceptivo.innovaweb.cl/themes/web/assets/img/email/instagram.png"/>
                     </a>
                 </div>
             </div>
