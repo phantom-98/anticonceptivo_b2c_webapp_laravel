@@ -1,5 +1,4 @@
 import React, {Fragment, useContext, useState} from 'react';
-
 import TotalCartItems from "../../../components/shopping/TotalCartItems";
 import {CONFIG} from "../../../Config";
 import ProductItem from "../../../components/shopping/MiniCart/ProductItem";
@@ -8,16 +7,41 @@ import logoWebpay from "../../../assets/images/webpayColor.svg";
 import {CartContext} from "../../../context/CartProvider";
 import TotalCartPriceFinal from "../../../components/shopping/TotalCartPriceFinal";
 import WebPayProccess from "./Payment/WebPayProccess";
+import * as Services from "../../../Services";
 
 const Resume = ({showFinal, data, file, address, setFinishWebpayProccess, setWebpayProccessSuccess, setOrderId, orderId}) => {
 
     const [showResumenCart, setShowResumenCart] = useState(false)
-    const [dispatch, setDispatch] = useState(0)
-    const [discount, setDiscount] = useState(0)
+    const [dispatch, setDispatch] = useState(0);
+    const [discount, setDiscount] = useState(0);
+    const [typeDiscount, setTypeDiscount] = useState(0);
+    const [discountCode, setDiscountCode] = useState("");
     const {cartItems} = useContext(CartContext);
 
+    const handleDiscount = (e) => {
+        setDiscountCode(e.target.value);
+    }
+
     const addDiscount = () => {
-        setDiscount(0)
+        let url = Services.ENDPOINT.PAYMENTS.DISCOUNT_CODE;
+
+        let data = {discount_code: discountCode}
+        
+        Services.DoPost(url, data).then(response => {
+            Services.Response({
+              response: response,
+              success: () => {
+                setDiscount(response.data.discount)
+                setDiscountType(response.data.discount_type)
+                // toastr.success(response.message);
+              },
+              error: () => {
+                // toastr.error(response.message);
+              },
+            });
+        }).catch(error => {
+            Services.ErrorCatch(error)
+        });
     }
 
     return (
@@ -56,8 +80,13 @@ const Resume = ({showFinal, data, file, address, setFinishWebpayProccess, setWeb
                  showFinal === 1 ?
                     <div className="row mb-3">
                         <div className="col">
-                            <input type="text" className="form-control form-control-custom"
-                                   placeholder="Ingresar código de descuento"/>
+                            <input 
+                                type="text" 
+                                className="form-control form-control-custom"
+                                placeholder="Ingresar código de descuento"
+                                onChange={handleDiscount}
+                                value={discountCode}
+                            />
                         </div>
                         <div className="col-auto">
                             <button className="btn btn-bicolor btn-block" onClick={addDiscount}>
@@ -126,7 +155,8 @@ const Resume = ({showFinal, data, file, address, setFinishWebpayProccess, setWeb
                                     setFinishWebpayProccess={setFinishWebpayProccess}
                                     setWebpayProccessSuccess={setWebpayProccessSuccess}
                                     setOrderId={setOrderId}
-                                    orderId={orderId}
+                                    dispatch={dispatch}
+                                    discount={discount}
                                 />
                             : null
                         }
