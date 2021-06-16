@@ -83,7 +83,6 @@ const ProductList = ({categorySelected, productsFiltered, subCatName, loading}) 
                                     const finish = init+parseInt(viewCount);
                                     return position > init && position <= finish ?
                                         <div className="col-md-4 mb-3" key={index}>
-                                            {position}
                                             <ProductCard product={product}/>
                                         </div> 
                                     : null
