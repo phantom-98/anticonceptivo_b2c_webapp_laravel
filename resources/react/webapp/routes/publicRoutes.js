@@ -15,6 +15,7 @@ import Cart from "../pages/public/Cart";
 import CheckOut from "../pages/public/CheckOut";
 import BlogExample from "../pages/public/BlogExample.js";
 import BlogList from "../pages/public/BlogList";
+import Claim from "../pages/public/Claim";
 
 const PUBLIC_ROUTES = {
     ABOUT_US: {
@@ -98,7 +99,15 @@ const PUBLIC_ROUTES = {
         middleware: props => <PublicMiddleware {...props} />
     },
 
-
+    CLAIM: {
+        path: "/libro-de-reclamos",
+        title: "Libro de Reclamos",
+        component: Claim,
+        exact: true,
+        layout: props => <BaseTemplate {...props} />,
+        middleware: props => <PublicMiddleware {...props} />
+    },
+    
     BLOG: {
         path: "/blog",
         title: "Blog",

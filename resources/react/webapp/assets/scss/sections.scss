@@ -145,6 +145,13 @@
     color: white !important;
 }
 
+.card-claim{
+    border: 1px solid #DEDEDE !important;
+    border-radius: 12px !important;
+    flex-direction: column-reverse;
+    justify-content: flex-end;
+}
+
 .panel-legal-bases {
     border: 1px solid #E8E8E8;
     border-radius: 12px;

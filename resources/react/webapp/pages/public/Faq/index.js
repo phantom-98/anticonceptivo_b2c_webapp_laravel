@@ -74,7 +74,7 @@ const Faq = () => {
                                                 {
                                                     categories.faqs.map((item) => {
                                                         return(
-                                                            <Card key={item.id} className="card-faq my-4" key={item.id}>
+                                                            <Card key={item.id} className="card-faq my-4">
                                                                 <Accordion.Collapse eventKey={item.id}>
                                                                     <Card.Body>
                                                                         {/* <p className="font-14 regular color-3B3B3 mb-0">{item.answer}</p> */}
