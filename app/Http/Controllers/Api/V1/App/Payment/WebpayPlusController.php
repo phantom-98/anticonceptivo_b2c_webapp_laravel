@@ -18,6 +18,7 @@ use App\Models\Commune;
 use App\Models\WebpayLog;
 use App\Models\Customer;
 use App\Models\CustomerAddress;
+use App\Models\DiscountCode;
 
 class WebpayPlusController
 {
@@ -73,10 +74,9 @@ class WebpayPlusController
             $commune = Commune::find($request->commune_id);
 
             $order->delivery_address = $request->address .', '. $commune->name . ', ' . $region->name;
-            // $order->delivery_date = null;
-            // $order->shipping_type = null;
-            $order->subtotal = $request->totalCart;
-            $order->discount = 0;
+            $order->subtotal = $request->subtotal;
+            $order->total = $request->total;
+            $order->discount = $request->discount;
             $order->dispatch = 0;
 
             $order->save();
@@ -100,7 +100,7 @@ class WebpayPlusController
             $response = $this->webpay_plus->createTransaction(
                 $order->id,
                 'session-' . $order->id,
-                $request->totalCart,
+                $request->total,
                 route('api.v1.app.payment.webpay.response')
             );
 
@@ -141,7 +141,7 @@ class WebpayPlusController
                 $order->is_paid = true;
 
                 $order->save();
-
+                
             } else {
                 $order->status = PaymentStatus::REJECTED;
                 // $order->date = $response->transactionDate;

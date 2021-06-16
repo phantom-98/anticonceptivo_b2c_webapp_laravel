@@ -50,6 +50,8 @@ const CheckOut = () => {
     const [regions, setRegions] = useState([]);
     const [communes, setCommunes] = useState([]);
     const [orderId, setOrderId] = useState(null);
+    const [total, setTotal] = useState(0);
+    const [subtotal, setSubtotal] = useState(0);
 
     const [address, setAddress] = useState({
         name: '',
@@ -200,6 +202,10 @@ const CheckOut = () => {
                                                 setWebpayProccessSuccess={setWebpayProccessSuccess}
                                                 setOrderId={setOrderId}
                                                 orderId={orderId}
+                                                total={total}
+                                                setTotal={setTotal}
+                                                subtotal={subtotal}
+                                                setSubtotal={setSubtotal}
                                             />
                                         </div>
                                     </div>

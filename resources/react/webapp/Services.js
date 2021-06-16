@@ -103,6 +103,7 @@ export const ENDPOINT = {
             VALIDATE_STEPS: GetBaseURL() + 'public-area/validate-steps',
             GET_ORDER: GetBaseURL() + 'public-area/get-order',
             SUBMIT_PRESCRIPTION: GetBaseURL() + 'public-area/submit-prescription',
+            UPDATE_DISCOUNTS: GetBaseURL() + 'public-area/update-discounts'
         },
         TERMS_AND_CONDITIONS:{
             GET_DATA: GetBaseURL() + 'public-area/get-terms-and-conditions'

@@ -8,13 +8,26 @@ import {CartContext} from "../../../context/CartProvider";
 import TotalCartPriceFinal from "../../../components/shopping/TotalCartPriceFinal";
 import WebPayProccess from "./Payment/WebPayProccess";
 import * as Services from "../../../Services";
+import toastr from "toastr";
 
-const Resume = ({showFinal, data, file, address, setFinishWebpayProccess, setWebpayProccessSuccess, setOrderId, orderId}) => {
+const Resume = ({
+    showFinal, 
+    data, 
+    file, 
+    address, 
+    setFinishWebpayProccess, 
+    setWebpayProccessSuccess, 
+    setOrderId, 
+    total,
+    subtotal,
+    setSubtotal,
+    setTotal
+    }) => {
 
     const [showResumenCart, setShowResumenCart] = useState(false)
     const [dispatch, setDispatch] = useState(0);
     const [discount, setDiscount] = useState(0);
-    const [typeDiscount, setTypeDiscount] = useState(0);
+    const [discountType, setDiscountType] = useState(0);
     const [discountCode, setDiscountCode] = useState("");
     const {cartItems} = useContext(CartContext);
 
@@ -25,18 +38,25 @@ const Resume = ({showFinal, data, file, address, setFinishWebpayProccess, setWeb
     const addDiscount = () => {
         let url = Services.ENDPOINT.PAYMENTS.DISCOUNT_CODE;
 
-        let data = {discount_code: discountCode}
+        let data = {
+            discount_code: discountCode
+        }
         
         Services.DoPost(url, data).then(response => {
             Services.Response({
               response: response,
               success: () => {
-                setDiscount(response.data.discount)
+                if (response.data.discount_type === 1) {
+                    setDiscount(parseFloat('0.'+response.data.discount),5)
+                }else{
+                    setDiscount(response.data.discount)
+                }
+
                 setDiscountType(response.data.discount_type)
-                // toastr.success(response.message);
+                toastr.success(response.message);
               },
-              error: () => {
-                // toastr.error(response.message);
+              warning: () => {
+                toastr.warning(response.message);
               },
             });
         }).catch(error => {
@@ -77,7 +97,7 @@ const Resume = ({showFinal, data, file, address, setFinishWebpayProccess, setWeb
             </div>
 
             {
-                 showFinal === 1 ?
+                 showFinal === 3 ?
                     <div className="row mb-3">
                         <div className="col">
                             <input 
@@ -116,7 +136,14 @@ const Resume = ({showFinal, data, file, address, setFinishWebpayProccess, setWeb
                                 </div>
                                 :
                                 <div className="col-md-12">
-                                    <TotalCartPriceFinal/>
+                                    <TotalCartPriceFinal
+                                        discount={discount}
+                                        discountType={discountType}
+                                        total={total}
+                                        setTotal={setTotal}
+                                        subtotal={subtotal}
+                                        setSubtotal={setSubtotal}
+                                    />
                                 </div>
                         }
                         {
@@ -157,6 +184,9 @@ const Resume = ({showFinal, data, file, address, setFinishWebpayProccess, setWeb
                                     setOrderId={setOrderId}
                                     dispatch={dispatch}
                                     discount={discount}
+                                    total={total}
+                                    subtotal={subtotal}
+                                    discountCode={discountCode}
                                 />
                             : null
                         }

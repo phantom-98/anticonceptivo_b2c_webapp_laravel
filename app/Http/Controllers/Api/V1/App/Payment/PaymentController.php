@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Willywes\ApiResponse\ApiResponse;
 use App\Http\Utils\OutputMessage\OutputMessage;
 use Carbon\Carbon;
+use \Datetime;
 use App\Models\Order;
 use App\Models\DiscountCode;
 
@@ -30,15 +31,15 @@ class PaymentController
 
     public function checkDiscount(Request $request)
     {
-        
+
         $discountCode = DiscountCode::where('active',1)->where('name',$request->discount_code)->first();
 
-        if($discountCode{
+        if(!$discountCode){
             // $data = (array) session()->get('checkout_data');  
             // unset($data['id_code_discount']);
             // session()->put('checkout_data',$data);
 
-            return ApiResponse::JsonWarning(OutputMessage::DISCOUNT_CODE_NOT_FOUND);
+            return ApiResponse::JsonWarning(null, OutputMessage::DISCOUNT_CODE_NOT_FOUND);
             // return ['is_valid' => 0,'object' => $discountCode , 'message' => 'Código no valido'];
         }
 
@@ -47,11 +48,11 @@ class PaymentController
             // unset($data['id_code_discount']);
             // session()->put('checkout_data',$data);
 
-            return ApiResponse::JsonWarning(OutputMessage::DISCOUNT_CODE_NOT_VALID);
+            return ApiResponse::JsonWarning(null, OutputMessage::DISCOUNT_CODE_NOT_VALID);
             // return ['is_valid' => 0,'object' => $discountCode , 'message' => 'Ya no se puede ocupar este código'];
         }
 
-        $discount_code_user = DiscountCode::where('active',1)->where('customer_id',auth('customer')->user()->id)->first();
+        // $discount_code_user = DiscountCode::where('active',1)->where('customer_id',auth('customer')->user()->id)->first();
 
         $dateNow = new DateTime();
 
@@ -65,7 +66,10 @@ class PaymentController
 
                 // session()->put('checkout_data',$data);
 
-                return ApiResponse::JsonSuccess(OutputMessage::DISCOUNT_CODE_VALID);
+                return ApiResponse::JsonSuccess([
+                    'discount' => $discountCode->discount,
+                    'discount_type' => $discountCode->is_percentage,
+                ],OutputMessage::DISCOUNT_CODE_VALID);
 
                 // return ['is_valid' => 1,'object' => $discountCode, 'message' => 'Código correcto'];
             }else{
@@ -73,10 +77,9 @@ class PaymentController
                 // unset($data['id_code_discount']);
                 // session()->put('checkout_data',$data);
 
-                return ApiResponse::JsonWarning(OutputMessage::DISCOUNT_CODE_NOT_VALID);
+                return ApiResponse::JsonWarning(null, OutputMessage::DISCOUNT_CODE_NOT_VALID);
                 // return ['is_valid' => 0,'object' => $discountCode, 'message' => 'El código ha expirado'];
             }
-
         }
 
         return ApiResponse::JsonSuccess(OutputMessage::DISCOUNT_CODE_VALID);

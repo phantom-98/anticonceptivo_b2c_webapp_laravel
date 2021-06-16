@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, Fragment} from 'react';
+import React, { useState, useContext, Fragment} from 'react';
 import * as Services from "../../../../Services";
 import { AuthContext } from "../../../../context/AuthProvider";
 import { CartContext } from "../../../../context/CartProvider";
@@ -10,12 +10,16 @@ const WebPayProccess = ({
         address,
         setFinishWebpayProccess,
         setWebpayProccessSuccess,
-        setOrderId
+        setOrderId,
+        total,
+        subtotal,
+        discount,
+        discountCode
     }) => {
 
     const {auth} = useContext(AuthContext);
     const {cartItems, clearCart} = useContext(CartContext);
-    const [totalCart, setTotalCart] = useState(0);
+    // const [totalCart, setTotalCart] = useState(0);
     const [showingWaitingPayment, setShowingWaitingPayment] = useState(false);
 
     const showWaitingPayment = () => {
@@ -26,13 +30,13 @@ const WebPayProccess = ({
         setShowingWaitingPayment(true);
     }
 
-    useEffect(() => {
-        let _total = 0;
-        cartItems.map((item) =>{
-            _total = _total + (item.quantity * item.product.price)
-        })
-        setTotalCart(_total);
-    },[cartItems])
+    // useEffect(() => {
+    //     let _total = 0;
+    //     cartItems.map((item) =>{
+    //         _total = _total + (item.quantity * item.product.price)
+    //     })
+    //     setTotalCart(_total);
+    // },[cartItems])
     
     const [token, setToken] = useState('');
 
@@ -51,7 +55,9 @@ const WebPayProccess = ({
             ...data,
             ...address,
             customer_id: auth ? auth.id : null,
-            totalCart: totalCart,
+            total: total,
+            subtotal: subtotal,
+            discount: discount,
             cartItems: cartItems
         }
 
@@ -95,6 +101,23 @@ const WebPayProccess = ({
         });
     }
 
+    const updateDiscountCode = (discountCode) => {
+        let url = Services.ENDPOINT.NO_AUTH.CHECKOUT.UPDATE_DISCOUNTS;
+
+        const data = {
+            discount_code: discountCode
+        }
+
+        Services.DoPost(url, data).then(response => {
+            Services.Response({
+                response: response,
+                success: () => {}
+            });
+        }).catch(error => {
+            Services.ErrorCatch(error)
+        });
+    }
+
     let interval;
 
     const runVerify = (orderId, customerId) => {
@@ -107,7 +130,9 @@ const WebPayProccess = ({
 
     const verifyPayment = (orderId, customerId) => {
 
-        const data = {order_id: orderId}
+        const data = {
+            order_id: orderId,
+        }
 
         const url = Services.ENDPOINT.PAYMENTS.VERIFY;
 
@@ -118,6 +143,7 @@ const WebPayProccess = ({
                     if (response.data.order && response.data.order.status == 'PAID') {
                         clearCart();
                         submitPrescription(orderId, customerId);
+                        updateDiscountCode(discountCode)
                         hideWaitingPayment();
                         setWebpayProccessSuccess(true);
                         setFinishWebpayProccess(1);
