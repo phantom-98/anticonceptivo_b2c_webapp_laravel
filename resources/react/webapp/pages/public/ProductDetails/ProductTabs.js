@@ -3,7 +3,7 @@ import {Tabs, Tab} from 'react-bootstrap';
 
 const ProductTabs = ({product, legalWarning}) =>{
 
-    const [key, setKey] = useState('benefits');
+    const [key, setKey] = useState(product.subcategory.category_id !== 8 ? 'benefits' : 'legal');
 
     return (
         <div className="row pb-5">            
