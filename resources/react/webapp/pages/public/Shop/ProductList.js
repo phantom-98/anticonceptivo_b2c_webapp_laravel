@@ -8,7 +8,7 @@ const ProductList = ({categorySelected, productsFiltered, subCatName, loading}) 
 
     const [viewCount, setViewCount] = useState(9);
     const [activePage, setActivePage] = useState(1);
-    const [pageCount, setPageCount] = useState(Math.round(productsFiltered.length/viewCount));
+    const [pageCount, setPageCount] = useState(Math.ceil(productsFiltered.length/viewCount));
 
     useEffect(() => {
         setActivePage(1);
@@ -78,10 +78,15 @@ const ProductList = ({categorySelected, productsFiltered, subCatName, loading}) 
                         loading ? 
                             productsFiltered.length ?
                                 productsFiltered.map((product, index) => {
-                                    return index < parseInt(viewCount) ? 
-                                    <div className="col-md-4 mb-3" key={index}>
-                                        <ProductCard product={product}/>
-                                    </div> : null
+                                    const position = index+1;
+                                    const init = activePage === 1 ? 0 : (activePage - 1) * parseInt(viewCount);
+                                    const finish = init+parseInt(viewCount);
+                                    return position > init && position <= finish ?
+                                        <div className="col-md-4 mb-3" key={index}>
+                                            {position}
+                                            <ProductCard product={product}/>
+                                        </div> 
+                                    : null
                                 })
                             :   <div className="col-md-12 mt-5">
                                     <div className="product-no-stock-alert font-12 font-poppins">
