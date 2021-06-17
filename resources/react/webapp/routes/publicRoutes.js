@@ -107,7 +107,7 @@ const PUBLIC_ROUTES = {
         layout: props => <BaseTemplate {...props} />,
         middleware: props => <PublicMiddleware {...props} />
     },
-    
+
     BLOG: {
         path: "/blog",
         title: "Blog",

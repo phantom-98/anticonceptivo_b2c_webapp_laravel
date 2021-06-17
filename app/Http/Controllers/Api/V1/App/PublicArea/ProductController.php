@@ -119,7 +119,7 @@ class ProductController extends Controller
                 $products = $products->where('format',$request->format);
             }
 
-            $laboratories = Laboratory::whereIn('id',$products->pluck('laboratory_id')->unique())->get(); 
+            $laboratories = Laboratory::where('active',true)->whereIn('id',$products->pluck('laboratory_id')->unique())->get(); 
 
             return ApiResponse::JsonSuccess([
                 'products' => $products->get(),

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { useState, useEffect } from 'react';
 // import pastillas from '../../../assets/images/icons/navbar/pastillas.svg'
 // import masculino from '../../../assets/images/icons/navbar/masculino.svg'
 // import testEmbarazo from '../../../assets/images/icons/navbar/test-embarazo.svg'
@@ -28,11 +28,12 @@ const HeaderNavbar = () => {
     }
 
     useEffect(() => {
-        getCategories();
+        getResources();
     },[])
 
-    const getCategories = () => {
-        let url = Services. ENDPOINT.NO_AUTH.HOME.GET_CATEGORY;
+    const getResources = () => {
+        let url = Services.ENDPOINT.PUBLIC_AREA.HEADER_MENU;
+
         Services.DoGet(url).then(response => {
             Services.Response({
                 response: response,
@@ -85,12 +86,24 @@ const HeaderNavbar = () => {
                                 >
                                     <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
                                         <HeaderNavbarItem 
-                                        // linkTo={url}
-                                        icon={category.public_image} 
-                                        text={category.name}/>
+                                            // linkTo={url}
+                                            icon={category.public_image} 
+                                            text={category.name}
+                                        />
                                     </Dropdown.Toggle>
+                                    
                                     {
                                         category.subcategories.length ? 
+                                            category.id === 1 ? 
+                                            <Dropdown.Menu align="right" bsPrefix="dropdown-menu-custom">
+                                                <Dropdown.Item key={uuidv4()}>
+                                                    <Link to={'#'} style={{textDecoration: 'none'}}>
+                                                        <span className="header-navbar-subitem">asdf</span>
+                                                    </Link>
+                                                </Dropdown.Item>
+                                            </Dropdown.Menu>
+                                            : 
+
                                             <Dropdown.Menu align="right" bsPrefix="dropdown-menu-custom">
                                                 {
                                                     category.subcategories.map((subCategory) => {
@@ -112,13 +125,6 @@ const HeaderNavbar = () => {
                             )
                         })
                     }
-                    {/* <HeaderNavbarItem linkTo={PUBLIC_ROUTES.SHOP.path} icon={pastillas} text={`Pastillas`} />
-                        <HeaderNavbarItem linkTo={PUBLIC_ROUTES.SHOP.path} icon={masculino} text={`Masculino`} />
-                        <HeaderNavbarItem linkTo={PUBLIC_ROUTES.SHOP.path} icon={testEmbarazo} text={`Test de Embarazo`} />
-                        <HeaderNavbarItem linkTo={PUBLIC_ROUTES.SHOP.path} icon={emergencia} text={`Anticoncepción De Emergencia`} />
-                        <HeaderNavbarItem linkTo={PUBLIC_ROUTES.SHOP.path} icon={jeringa} text={`Duración largo Plazo`} />
-                        <HeaderNavbarItem linkTo={PUBLIC_ROUTES.SHOP.path} icon={anticonceptivo} text={`Métodos Alternativos`} />
-                        <HeaderNavbarItem linkTo={PUBLIC_ROUTES.SHOP.path} icon={femenino} text={`Salud Femenina`} /> */}
                 </div>
             </div>
         </div>

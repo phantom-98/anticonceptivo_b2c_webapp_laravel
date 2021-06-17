@@ -11,7 +11,7 @@ Route::prefix('public-area')
     // ->middleware(['web'])
     ->group(function () {
 
-        Route::get('get-categories', [HomeController::class, 'getCategories'])->name('getCategories');
+        Route::get('get-header-navbar-resources', [HomeController::class, 'getHeaderNavbarResources'])->name('getHeaderNavbarResources');
         Route::get('get-resources', [ProductController::class, 'getResources'])->name('getResources');
         Route::get('get-products', [ProductController::class, 'getProducts'])->name('getProducts');
 

@@ -69,16 +69,14 @@ const GetBaseURL = () => {
 export const ENDPOINT = {
     AUTH: {
         LOGIN: GetBaseURL() + 'auth/login',
-        LOGIN_BY_TOKEN: GetBaseURL() + 'auth/login-by-token',
         RECOVERY_PASSWORD: GetBaseURL() + 'auth/recovery-password',
         SET_NEW_PASSWORD: GetBaseURL() + 'auth/set-new-password',
         REGISTER: GetBaseURL() + 'auth/register',
-        VERIFY: GetBaseURL() + 'auth/verify',
-        GET_AUTH: GetBaseURL() + 'auth/get-auth',
-        SOCIAL_MEDIA : {
-            REDIRECT : GetBaseURL() + 'auth/social-media/redirect',
-        },
-        GET_ADDRESS: GetBaseURL() + 'auth/get-address',
+        GET_ADDRESS: GetBaseURL() + 'auth/get-address', // mover a checkout
+    },
+
+    PUBLIC_AREA: {
+        HEADER_MENU: GetBaseURL() + 'public-area/get-header-navbar-resources',
     },
 
     NO_AUTH: {
