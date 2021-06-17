@@ -113,6 +113,10 @@ export const ENDPOINT = {
         },
         RESPONSIBLE_CONSUMPTION:{
             GET_DATA: GetBaseURL() + 'public-area/get-responsible-consumption'
+        },
+        CLAIM:{
+            SUBMIT: GetBaseURL() + 'public-area/submit-claim',
+            GET_DATA: GetBaseURL() + 'public-area/get-claims'
         }
     },
     CUSTOMER:{

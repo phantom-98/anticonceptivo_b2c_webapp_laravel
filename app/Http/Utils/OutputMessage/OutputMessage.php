@@ -45,6 +45,8 @@ class OutputMessage implements iValidationField, iException, iAuth
     const RECOVERY_PASSWORD_ERROR = 'No hemos podido generar un link de recuperación de contraseña, por favor re intentalo más tarde.';
     const RECOVERY_PASSWORD = 'Se ha envíado un correo para recuperar la contraseña.';
 
+    const CLAIM_SUBMIT_SUCCESS = 'Su reclamo se ha envíado de manera exitosa.';
+
     const DISCOUNT_CODE_NOT_FOUND = 'Código no valido.';
     const DISCOUNT_CODE_NOT_VALID = 'Este código no esta activo o ya ha expirado.';
     const DISCOUNT_CODE_VALID = 'Código valido.';

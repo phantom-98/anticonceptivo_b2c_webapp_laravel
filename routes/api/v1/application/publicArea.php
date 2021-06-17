@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\V1\App\PublicArea\HomeController;
 use App\Http\Controllers\Api\V1\App\PublicArea\ProductController;
 use App\Http\Controllers\Api\V1\App\PublicArea\CheckoutController;
+use App\Http\Controllers\Api\V1\App\PublicArea\ClaimController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('public-area')
@@ -28,4 +29,7 @@ Route::prefix('public-area')
 
         Route::post('submit-prescription', [CheckoutController::class, 'submitPrescription'])->name('submitPrescription');
         Route::post('update-discounts', [CheckoutController::class, 'updateDiscounts'])->name('updateDiscounts');
+
+        Route::post('submit-claim', [ClaimController::class, 'submitClaim'])->name('submitClaim');
+        Route::get('get-claims', [ClaimController::class, 'getClaims'])->name('getClaims');
     });
