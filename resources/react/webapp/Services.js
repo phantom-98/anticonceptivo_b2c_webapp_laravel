@@ -126,6 +126,11 @@ export const ENDPOINT = {
             UPDATE: GetBaseURL() + 'customer/update-addresses',
             SET_DEFAULT_ADDRESS: GetBaseURL() + 'customer/update-default-address'
         },
+        SUBSCRIPTIONS: {
+            GET: GetBaseURL() + 'customer/get-subscriptions',
+            UPDATE: GetBaseURL() + 'customer/update-subscriptions',
+            SET_DEFAULT_SUBSCRIPTION: GetBaseURL() + 'customer/update-default-subscription'
+        },
         ORDERS:{
             GET: GetBaseURL() + 'customer/get-orders',
         },

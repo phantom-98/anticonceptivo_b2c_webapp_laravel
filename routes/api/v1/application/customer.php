@@ -13,8 +13,11 @@ Route::prefix('customer')
 
         Route::post('get-addresses', [ProfileController::class, 'getAddresses'])->name('getAddresses');
         Route::post('update-addresses', [ProfileController::class, 'updateAddresses'])->name('updateAddresses');
-
         Route::post('update-default-address', [ProfileController::class, 'updateDefaultAddress'])->name('updateDefaultAddress');
+
+        Route::post('get-subscriptions', [ProfileController::class, 'getSubscriptions'])->name('getSubscriptions');
+        Route::post('create-subscriptions', [ProfileController::class, 'createSubscriptions'])->name('createSubscriptions');
+        Route::post('update-default-subscription', [ProfileController::class, 'updateDefaultSubscription'])->name('updateDefaultSubscription');
 
         Route::post('get-orders', [ProfileController::class, 'getOrders'])->name('getOrders');
 

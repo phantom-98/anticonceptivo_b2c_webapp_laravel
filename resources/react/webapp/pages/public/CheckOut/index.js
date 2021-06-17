@@ -5,6 +5,8 @@ import Resume from "./Resume";
 import UserForm from "./UserForm";
 import AddAddress from "./AddAddress";
 import Addresses from "./Addresses";
+import Subscriptions from "./Subscriptions";
+
 import Header from "./Header";
 import {AuthContext} from "../../../context/AuthProvider";
 import * as Services from "../../../Services";
@@ -213,14 +215,13 @@ const CheckOut = () => {
                                             }
 
                                             {
-                                                view == 'addresses' ? 
-                                                    <Addresses 
-                                                        setView={setView}
-                                                        regions={regions}
-                                                        communes={communes}
-                                                        address={address}
-                                                        setAddress={setAddress}
-                                                    /> : null
+                                                (subscription != null && (view == 'addresses' || view == 'add-address')) ? 
+
+                                                <Subscriptions 
+                                                setView={setView}
+                                                subscription={subscription}
+                                                setSubscription={setSubscription}
+                                                /> : null
                                             }
                                         </div>
                                         <div className="col-md-auto pl-2" style={{width: '408px'}}>
