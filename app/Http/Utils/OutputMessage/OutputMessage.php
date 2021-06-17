@@ -50,6 +50,8 @@ class OutputMessage implements iValidationField, iException, iAuth
     const CUSTOMER_SUBSCRIPTION_NOT_FOUND = 'No se ha podido encontrar la suscripción.';
     const CUSTOMER_SUBSCRIPTION_CREATE_DEFAULT_ERROR = 'No se ha podido crear la suscripción.';
     const CUSTOMER_SUBSCRIPTION_UPDATE_DEFAULT_ERROR = 'No se ha podido actualizar la suscripción.';
+    const CLAIM_SUBMIT_SUCCESS = 'Su reclamo se ha envíado de manera exitosa.';
+
     const DISCOUNT_CODE_NOT_FOUND = 'Código no valido.';
     const DISCOUNT_CODE_NOT_VALID = 'Este código no esta activo o ya ha expirado.';
     const DISCOUNT_CODE_VALID = 'Código valido.';

@@ -13,7 +13,8 @@ class Page extends Model
         'section',
         'active',
         'type',
-        'link'
+        'link',
+        'position'
     ];
 
 }

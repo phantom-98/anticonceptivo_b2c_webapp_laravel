@@ -15,6 +15,7 @@ interface iValidationField
     const FIELD_EMAIL_REQUIRED = 'El email es obligatorio.';
     const FIELD_ID_NUMBER_REQUIRED = 'El identificador es obligatorio.';
     const FIELD_ID_TYPE_REQUIRED ='El tipo de identificador es obligatorio.';
+    const FIELD_MESSAGE_REQUIRED = 'El mensaje es obligatorio.';
     
     const FIELD_ADDRESS_NAME_REQUIRED = 'El nombre de la dirección es obligatorio.';
     const FIELD_ADDRESS_REQUIRED = 'La dirección es obligatoria.';

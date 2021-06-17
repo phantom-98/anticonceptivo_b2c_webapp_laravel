@@ -4,6 +4,11 @@ import PUBLIC_ROUTES from "../../../routes/publicRoutes";
 import {Card} from "react-bootstrap";
 import ClaimItem from "./ClaimItem";
 import Pagination from "react-js-pagination";
+import { v4 as uuidv4 } from 'uuid';
+import ModalClaim from "./ModalClaim";
+import * as Services from "../../../Services";
+import toastr from "toastr";
+import moment from "moment";
 
 const Claim = () => {
 
@@ -18,85 +23,172 @@ const Claim = () => {
         }
     ];
 
-    const [claims, setClaims] = useState([
-        {
-            name: 'Teresa',
-            date: '28-03-2021',
-            description: 'Vivamus suscipit tortor eget felis porttitor volutpat. Nulla porttitor accumsan tincidunt. Proin eget tortor risus.',
-        },
-        {
-            name: 'Pedro',
-            date: '28-03-2021',
-            description: 'Vivamus suscipit tortor eget felis porttitor volutpat. Nulla porttitor accumsan tincidunt. Proin eget tortor risus.',
-        },
-        {
-            name: 'Manuel',
-            date: '28-03-2021',
-            description: 'Vivamus suscipit tortor eget felis porttitor volutpat. Nulla porttitor accumsan tincidunt. Proin eget tortor risus.',
-        }
-    ])
+    const defaultData = {
+        first_name: '',
+        email: '',
+        phone: '',
+        phone_code: '+56',
+        message:''
+    }
+
+    const [data, setData] = useState(defaultData);
+    const [claims, setClaims] = useState([]);
 
     const [activePage, setActivePage] = useState(1);
     const [pageRangeDisplayed, setPageRangeDisplayed] = useState(1);
     const [itemsCountPerPage, setItemsCountPerPage] = useState(10);
-    const [totalItemsCount, setTotalItemsCount] = useState(3);
+    const [totalItemsCount, setTotalItemsCount] = useState(0);
+
+    const colors = [
+        '#033F5D',
+        '#0869A6',
+        '#005A86',
+        '#00DBAE',
+        '#009BE8',
+    ]
+
+    const [show, setShow] = useState(false);
+
+    const showClaim = () => setShow(true)
+    const hideClaim = () => setShow(false)
+
+    const [pickedColor, setPickedColor] = useState([]);
+
+    // useEffect(() => {
+    //     setActivePage(1);
+    // },[itemsCountPerPage])
 
     useEffect(() => {
-        setActivePage(1);
-    },[itemsCountPerPage])
+        getData();
+    },[])
+
+    useEffect(() => {
+        if (claims.length) {
+            let total = claims.length;
+            let count = 0;
+            let list = [];
+
+            while (count <= total / 5) {
+                list.push.apply(list, colors);
+                count++;
+            }
+
+            setTotalItemsCount(total);
+            setPageRangeDisplayed(Math.ceil(total/itemsCountPerPage));
+            setPickedColor(list);
+        }
+    }, [claims])
+
+    const getData = () => {
+        let url = Services.ENDPOINT.NO_AUTH.CLAIM.GET_DATA;
+        Services.DoGet(url,data).then(response => {
+            Services.Response({
+                response: response,
+                success: () => {
+                    setClaims(response.data.claims);
+                },
+            });
+        }).catch(error => {
+            Services.ErrorCatch(error)
+        });
+    }
+
+    const saveClaim = () => {
+        let url = Services.ENDPOINT.NO_AUTH.CLAIM.SUBMIT;
+        let dataForm = {
+            ...data
+        }
+        Services.DoPost(url,dataForm).then(response => {
+            Services.Response({
+            response: response,
+            success: () => {
+                getData();
+                hideClaim();
+                setData(defaultData);
+                toastr.success(response.message);
+            },
+            });
+        }).catch(error => {
+            Services.ErrorCatch(error)
+        });
+    }
+
+    const handleData = (e) => {
+        setData({
+            ...data,
+            [e.target.name]: e.target.value
+        })
+    }
 
     return (
         <Fragment>
             <BasePanelTwo
                 breadcrumbs={breadcrumbs}
             >
-                <div className="row">
-                    <div className="col">
-                        <h3 className="base-panel-one-title" style={{letterSpacing: '2px'}}>LIBRO DE RECLAMOS</h3>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col font-poppins font-20 color-033F5D">
-                        Para ingresar un reclamo presiona <a className="font-poppins font-20 bold color-033F5D" style={{cursor:'pointer'}} onClick={() => alert('modal?')}>aquí</a>
-                    </div>
-                </div>
-                <div className="row">
-                    {
-                        claims.map((claim) => {
-                            return(
-                                <div className="col-10 offset-1 mt-3">
-                                    <Card className="card-claim">
-                                        <Card.Body>
-                                            <ClaimItem
-                                                name={claim.name}
-                                                date={claim.date}
-                                                description={claim.description}
-                                            />
-                                        </Card.Body>
-                                    </Card>
-                                </div>
-                            )
-                        })
-                    }
-                </div>
-                <div className="row">
-                    <div className="col-12 mt-5">
-                        <Pagination
-                            activePage={activePage}
-                            itemsCountPerPage={itemsCountPerPage}
-                            totalItemsCount={totalItemsCount}
-                            pageRangeDisplayed={pageRangeDisplayed}
-                            onChange={e => setActivePage(e)}
-                            itemClass={'paginator-buttons'}
-                            innerClass={'paginator-ul'}
-                            // hideNavigation={true}
-                            hideDisabled={true}
-                            hideFirstLastPages={true}
-                        />
-                        <label className="font-poppins font-12 regular paginator-label">Páginas</label>
+                <div className="panel mb-4">
+                    <div className="panel-body">
+                        <div className="row">
+                            <div className="col">
+                                <h3 className="base-panel-one-title text-center" style={{letterSpacing: '2px'}}>LIBRO DE RECLAMOS</h3>
+                            </div>
+                        </div>
+                        <div className="row mb-4">
+                            <div className="col font-poppins font-20 color-033F5D text-center">
+                                Para ingresar un reclamo presiona <a className="font-poppins font-20 bold color-033F5D" style={{cursor:'pointer'}} onClick={showClaim}>aquí</a>
+                            </div>
+                        </div>
+                        <div className="row">
+                            {
+                                claims.map((claim, index) => {
+                                    const uuid = uuidv4();
+                                    const position = index+1;
+                                    const init = activePage === 1 ? 0 : (activePage - 1) * parseInt(itemsCountPerPage);
+                                    const finish = init+parseInt(itemsCountPerPage);
+
+                                    return position > init && position <= finish ?
+                                        <div className="col-10 offset-1 mt-3" key={uuid}>
+                                            <Card className="card-claim">
+                                                <Card.Body>
+                                                    <ClaimItem
+                                                        name={claim.first_name}
+                                                        date={moment(claim.created_at).format('DD/MM/YYYY')}
+                                                        description={claim.message}
+                                                        color={pickedColor[index]}
+                                                    />
+                                                </Card.Body>
+                                            </Card>
+                                        </div>
+                                    : null;
+                                })
+                            }
+                        </div>
+                        <div className="row">
+                            <div className="col-12 mt-5">
+                                <Pagination
+                                    activePage={activePage}
+                                    itemsCountPerPage={itemsCountPerPage}
+                                    totalItemsCount={totalItemsCount}
+                                    pageRangeDisplayed={pageRangeDisplayed}
+                                    onChange={e => setActivePage(e)}
+                                    itemClass={'paginator-buttons'}
+                                    innerClass={'paginator-ul'}
+                                    // hideNavigation={true}
+                                    hideDisabled={true}
+                                    hideFirstLastPages={true}
+                                />
+                                <label className="font-poppins font-12 regular paginator-label">Páginas</label>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </BasePanelTwo>
+            <ModalClaim
+                show={show}
+                hide={hideClaim}
+                data={data}
+                handleData={handleData}
+                saveClaim={saveClaim}
+            />
         </Fragment>
     );
 };

@@ -1,9 +1,9 @@
 import React, {Fragment, useEffect, useState} from 'react';
 import BasePanelOne from "../../../template/BasePanelOne";
-import Terms from "./Terms";
-import Decree3 from "./Decree3";
-import Decree466 from "./Decree466";
-import PUBLIC_ROUTES from "../../../routes/publicRoutes";
+// import Terms from "./Terms";
+// import Decree3 from "./Decree3";
+// import Decree466 from "./Decree466";
+// import PUBLIC_ROUTES from "../../../routes/publicRoutes";
 import * as Services from "../../../Services";
 
 const TermsAndConditions = () => {

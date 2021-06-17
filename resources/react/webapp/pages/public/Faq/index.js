@@ -5,7 +5,6 @@ import {Accordion, Card} from "react-bootstrap";
 // import {categoryFaqsDummy} from "./data";
 import * as Services from "../../../Services";
 
-
 const Faq = () => {
 
     const [categoryFaqs, setCategoryFaqs] = useState([]);
