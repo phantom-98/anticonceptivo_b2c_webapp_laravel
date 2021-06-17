@@ -142,7 +142,7 @@ class CheckoutController extends Controller
         try {
             $prescription = new Prescription();
 
-            if ($request->file) {
+            if ($request->file != "null") {
                 $prescription->name = $request->file->getClientOriginalName();
                 // $prescription->date = $request->date;
                 $prescription->file = $request->file->storeAs('public/customer/prescriptions/prescription-'.rand(500,1000).'-'.rand(0,500).'-'.$request->order_id, $request->file->getClientOriginalName());
