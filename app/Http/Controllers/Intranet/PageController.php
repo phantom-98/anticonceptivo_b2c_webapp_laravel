@@ -30,7 +30,7 @@ class PageController extends GlobalController
 
     public function index()
     {
-        $objects = Page::get();
+        $objects = Page::orderBy('position')->get();
         return view($this->folder . 'index', compact('objects'));
     }
 
