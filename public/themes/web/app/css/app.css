@@ -543,8 +543,6 @@
   top: 60px;
   border-radius: 25px;
   max-height: 248px;
-  overflow: scroll;
-  overflow-x: hidden;
 }
 
 .footer-bottom {
