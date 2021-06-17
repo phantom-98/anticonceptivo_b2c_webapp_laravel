@@ -58,7 +58,7 @@ class AuthController extends Controller
             $user->recovery_pin = rand(100000, 999999);
             $user->save();
 
-            $emailBody = view('intranet.emails.send-password', ['nombre' => $user->full_name, 'texto' => 'Su código de recuperación de contraseña es: <b>' . $user->recovery_pin . '</b>.<br/><br/>Atentamente,<br/><br/>Equipo Ikiru.'])->render();
+            $emailBody = view('intranet.emails.send-password', ['nombre' => $user->full_name, 'texto' => 'Su código de recuperación de contraseña es: <b>' . $user->recovery_pin . '</b>.<br/><br/>Atentamente,<br/><br/>Equipo anticonceptivo.'])->render();
 
             $email = new Mail();
                 

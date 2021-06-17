@@ -414,6 +414,40 @@ class ProfileController extends Controller
         }
     }
 
+    public function removeAddress(Request $request)
+    {
+        try {
+
+            $customer = Customer::find($request->customer_id);
+
+            if (!$customer) {
+                return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_NOT_FOUND);
+            }
+
+            $address = CustomerAddress::where('customer_id',$customer->id)->where('id',$request->address_id)->first();
+
+            if (!$address) {
+                return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_ADDRESS_NOT_FOUND);
+            }
+
+            if ($address->delete()) {
+
+                $addresses = CustomerAddress::where('customer_id',$customer->id)->get();
+
+                return ApiResponse::JsonSuccess([
+                    'addresses' => $addresses
+                ], OutputMessage::CUSTOMER_ADDRESS_DELETED);
+
+                // return ApiResponse::JsonSuccess(null, OutputMessage::CUSTOMER_PRESCRIPTION_DELETED);
+            }
+
+            return ApiResponse::JsonError(null, OutputMessage::CUSTOMER_PRESCRIPTION_DELETED_ERROR);
+
+        } catch (\Exception $exception) {
+            return ApiResponse::JsonError(null, $exception->getMessage());
+        }
+    }
+
     public function removePrescriptions(Request $request)
     {
         try {

@@ -104,7 +104,8 @@ export const ENDPOINT = {
             GET_RESOURCES: GetBaseURL() + 'public-area/get-checkout-resources',
             VALIDATE_STEPS: GetBaseURL() + 'public-area/validate-steps',
             GET_ORDER: GetBaseURL() + 'public-area/get-order',
-            SUBMIT_PRESCRIPTION: GetBaseURL() + 'public-area/submit-prescription'
+            SUBMIT_PRESCRIPTION: GetBaseURL() + 'public-area/submit-prescription',
+            UPDATE_DISCOUNTS: GetBaseURL() + 'public-area/update-discounts'
         },
         TERMS_AND_CONDITIONS:{
             GET_DATA: GetBaseURL() + 'public-area/get-terms-and-conditions'
@@ -124,7 +125,8 @@ export const ENDPOINT = {
         ADDRESSES: {
             GET: GetBaseURL() + 'customer/get-addresses',
             UPDATE: GetBaseURL() + 'customer/update-addresses',
-            SET_DEFAULT_ADDRESS: GetBaseURL() + 'customer/update-default-address'
+            SET_DEFAULT_ADDRESS: GetBaseURL() + 'customer/update-default-address',
+            // REMOVE: GetBaseURL() + 'customer/remove-address'
         },
         SUBSCRIPTIONS: {
             GET: GetBaseURL() + 'customer/get-subscriptions',
@@ -146,6 +148,7 @@ export const ENDPOINT = {
     PAYMENTS: {
         CREATE_ORDER: GetBaseURL() + 'payment/create-order',
         GET_ORDER_TO_PAY: GetBaseURL() + 'payment/get-order-to-pay',
+        DISCOUNT_CODE: GetBaseURL() + 'payment/discount-code',
         VERIFY: GetBaseURL() + 'payment/verify',
         WEBPAY: {
             CREATE_TRANSACTION: GetBaseURL() + 'payment/webpay/create-transaction',

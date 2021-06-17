@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
+import React, {useState, Fragment} from 'react';
 import {Tabs, Tab} from 'react-bootstrap';
 
 const ProductTabs = ({product, legalWarning}) =>{
 
-    const [key, setKey] = useState('benefits');
+    const [key, setKey] = useState(product.subcategory.category_id !== 8 ? 'benefits' : 'legal');
 
     return (
         <div className="row pb-5">            
@@ -19,20 +19,29 @@ const ProductTabs = ({product, legalWarning}) =>{
                     activeKey={key}
                     onSelect={(k) => setKey(k)}
                 >
-                    <Tab eventKey="benefits" title="Beneficios y usos">
-                        <div className="panel-bordered bg-white p-5">
-                            <p className="font-poppins font-14 regular">
-                                <div dangerouslySetInnerHTML={{ __html: product.benefits }} />
-                            </p>
-                        </div>
-                    </Tab>
-                    <Tab eventKey="technical" title="Ficha Técnica">
-                        <div className="panel-bordered bg-white p-5">
-                            <p className="font-poppins font-14 regular">
-                                <div dangerouslySetInnerHTML={{ __html: product.data_sheet }} />
-                            </p>
-                        </div>
-                    </Tab>
+                    {
+                        product.subcategory.category_id !== 8 ? 
+                            <Tab eventKey="benefits" title="Beneficios y usos">
+                                <div className="panel-bordered bg-white p-5">
+                                    <p className="font-poppins font-14 regular">
+                                        <div dangerouslySetInnerHTML={{ __html: product.benefits }} />
+                                    </p>
+                                </div>
+                            </Tab>                        
+                        : null
+                    }
+
+                    {
+                        product.subcategory.category_id !== 8 ? 
+                            <Tab eventKey="technical" title="Ficha Técnica">
+                                <div className="panel-bordered bg-white p-5">
+                                    <p className="font-poppins font-14 regular">
+                                        <div dangerouslySetInnerHTML={{ __html: product.data_sheet }} />
+                                    </p>
+                                </div>
+                            </Tab>
+                        : null
+                    }
 
                     <Tab eventKey="legal" title="Aviso Legal">
                         <div className="panel-bordered bg-white p-5">

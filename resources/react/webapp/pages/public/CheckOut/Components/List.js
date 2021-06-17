@@ -7,7 +7,9 @@ import * as Services from "../../../../Services";
 import {AuthContext} from "../../../../context/AuthProvider";
 import { v4 as uuidv4 } from 'uuid';
 
-const List = ({addresses, showEdit, showCreate, getData, regions, communes, setAddress}) => {
+const List = ({addresses, showEdit, showCreate, getData, regions, communes, setAddress, 
+    // setAddresses
+}) => {
 
     const {auth} = useContext(AuthContext);
 
@@ -46,6 +48,7 @@ const List = ({addresses, showEdit, showCreate, getData, regions, communes, setA
                             saveDefaultAddress={saveDefaultAddress}
                             regions={regions}
                             communes={communes}
+                            // setAddresses={setAddresses}
                         />
                         ))
                     :

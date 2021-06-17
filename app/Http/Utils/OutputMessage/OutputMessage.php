@@ -20,18 +20,25 @@ class OutputMessage implements iValidationField, iException, iAuth
     const CUSTOMER_REGISTER = 'Cliente registrado correctamente.';
     const CUSTOMER_REGISTER_ERROR = 'No se ha podido registrar el cliente.';
     const CUSTOMER_NOT_FOUND = 'No se ha podido encontrar al cliente.';
+
     const CUSTOMER_NEW_PASSWORD = 'Se ha cambiado la contraseña exitosamente.';
     const CUSTOMER_NEW_PASSWORD_ERROR = 'No se ha podido cambiar la contrasea, por favor intélo de nuevo más tarde.';
+
     const CUSTOMER_PROFILE_UPDATE = 'Se ha actualizado el perfil exitosamente.';
     const CUSTOMER_PROFILE_UPDATE_ERROR = 'No se ha podido actualizar el perfil.';
+
     const CUSTOMER_ADDRESSES_CREATE = 'Se ha creado la dirección exitosamente.';
     const CUSTOMER_ADDRESSES_UPDATE = 'Se ha actualizado la dirección exitosamente.';
     const CUSTOMER_ADDRESSES_UPDATE_ERROR = 'No se ha podido actualizar la dirección.';
+
     const CUSTOMER_ADDRESS_NOT_FOUND = 'No se ha podido encontrar la dirección.';
     const CUSTOMER_ADDRESS_UPDATE_DEFAULT_ERROR = 'No se ha podido actualizar la dirección.';
+    const CUSTOMER_ADDRESS_DELETED = "Se ha eliminado la dirección exitosamente.";
+
     const CUSTOMER_PRESCRIPTION_DELETED = 'Se ha eliminado la receta exitosamente.';
     const CUSTOMER_PRESCRIPTION_DELETED_ERROR = 'No se ha podido eliminar la receta.';
     const CUSTOMER_PRESCRIPTION_NOT_FOUND = 'No se ha podido encontrar la receta.';
+
     const PRODUCT_SLUG_NOT_FOUND = 'No se ha podido encontrar el producto.';
     const PRODUCT_NOT_FOUND = 'No se ha podido encontrar el producto.';
 
@@ -43,5 +50,8 @@ class OutputMessage implements iValidationField, iException, iAuth
     const CUSTOMER_SUBSCRIPTION_NOT_FOUND = 'No se ha podido encontrar la suscripción.';
     const CUSTOMER_SUBSCRIPTION_CREATE_DEFAULT_ERROR = 'No se ha podido crear la suscripción.';
     const CUSTOMER_SUBSCRIPTION_UPDATE_DEFAULT_ERROR = 'No se ha podido actualizar la suscripción.';
+    const DISCOUNT_CODE_NOT_FOUND = 'Código no valido.';
+    const DISCOUNT_CODE_NOT_VALID = 'Este código no esta activo o ya ha expirado.';
+    const DISCOUNT_CODE_VALID = 'Código valido.';
 
 }

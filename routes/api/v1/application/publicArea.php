@@ -27,4 +27,5 @@ Route::prefix('public-area')
         Route::post('get-order', [CheckoutController::class, 'getOrder'])->name('getOrder');
 
         Route::post('submit-prescription', [CheckoutController::class, 'submitPrescription'])->name('submitPrescription');
+        Route::post('update-discounts', [CheckoutController::class, 'updateDiscounts'])->name('updateDiscounts');
     });

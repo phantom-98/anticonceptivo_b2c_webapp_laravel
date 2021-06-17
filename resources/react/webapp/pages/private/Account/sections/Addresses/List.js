@@ -4,7 +4,9 @@ import Icon from "../../../../../components/general/Icon";
 import plusIcon from '../../../../../assets/images/icons/plus-green.svg'
 import * as Services from "../../../../../Services";
 
-const List = ({addresses, showEdit, showCreate, getData, regions, communes}) => {
+const List = ({addresses, showEdit, showCreate, getData, regions, communes, 
+    // setAddresses
+}) => {
 
     const saveDefaultAddress = (addressId, customerId) => {
         let url = Services.ENDPOINT.CUSTOMER.ADDRESSES.SET_DEFAULT_ADDRESS;
@@ -37,6 +39,7 @@ const List = ({addresses, showEdit, showCreate, getData, regions, communes}) => 
                             saveDefaultAddress={saveDefaultAddress}
                             regions={regions}
                             communes={communes}
+                            // setAddresses={setAddresses}
                         />))
                 }
             </div>

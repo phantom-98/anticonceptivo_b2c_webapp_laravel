@@ -17,9 +17,9 @@ use App\Models\OrderItem;
 use App\Models\Region;
 use App\Models\Commune;
 use App\Models\WebpayLog;
-
 use App\Models\Customer;
 use App\Models\CustomerAddress;
+use App\Models\DiscountCode;
 
 class WebpayPlusController
 {
@@ -94,14 +94,14 @@ class WebpayPlusController
             }
 
             $order->subtotal = $subtotal;
-            $order->discount = 0;
+            $order->discount = $request->discount;
             $order->dispatch = 0;
 
             $order->total = $order->subtotal + $order->dispatch - $order->discount;
 
             $order->save();
 
-            foreach ($request->cart as $key => $item) {
+            foreach ($request->cartItems as $key => $item) {
                 $orderItem = new OrderItem;
                 $orderItem->order_id = $order->id;
                 $orderItem->product_id = $item['product_id'];
@@ -190,7 +190,7 @@ class WebpayPlusController
                 $order->is_paid = true;
 
                 $order->save();
-
+                
             } else {
                 $order->status = PaymentStatus::REJECTED;
                 // $order->date = $response->transactionDate;

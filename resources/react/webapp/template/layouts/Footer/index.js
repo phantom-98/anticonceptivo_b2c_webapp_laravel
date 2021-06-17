@@ -85,6 +85,9 @@ const Footer = () => {
                                 <li className="nav-item">
                                     <Link className="nav-link" to={PUBLIC_ROUTES.BLOG.path}>Blog</Link>
                                 </li>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to={PUBLIC_ROUTES.CLAIM.path}>Libro de Reclamos</Link>
+                                </li>
                             </ul>
                         </div>
                         <div className="col-md-auto">
