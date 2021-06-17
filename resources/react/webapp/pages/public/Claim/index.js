@@ -162,23 +162,29 @@ const Claim = () => {
                                 })
                             }
                         </div>
-                        <div className="row">
-                            <div className="col-12 mt-5">
-                                <Pagination
-                                    activePage={activePage}
-                                    itemsCountPerPage={itemsCountPerPage}
-                                    totalItemsCount={totalItemsCount}
-                                    pageRangeDisplayed={pageRangeDisplayed}
-                                    onChange={e => setActivePage(e)}
-                                    itemClass={'paginator-buttons'}
-                                    innerClass={'paginator-ul'}
-                                    // hideNavigation={true}
-                                    hideDisabled={true}
-                                    hideFirstLastPages={true}
-                                />
-                                <label className="font-poppins font-12 regular paginator-label">Páginas</label>
+                        {
+                            claims.length ? 
+                            
+                            <div className="row">
+                                <div className="col-12 mt-5">
+                                    <Pagination
+                                        activePage={activePage}
+                                        itemsCountPerPage={itemsCountPerPage}
+                                        totalItemsCount={totalItemsCount}
+                                        pageRangeDisplayed={pageRangeDisplayed}
+                                        onChange={e => setActivePage(e)}
+                                        itemClass={'paginator-buttons'}
+                                        innerClass={'paginator-ul'}
+                                        // hideNavigation={true}
+                                        hideDisabled={true}
+                                        hideFirstLastPages={true}
+                                    />
+                                    <label className="font-poppins font-12 regular paginator-label">Páginas</label>
+                                </div>
                             </div>
-                        </div>
+
+                            : null
+                        }
                     </div>
                 </div>
             </BasePanelTwo>
