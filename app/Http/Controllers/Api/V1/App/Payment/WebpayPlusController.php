@@ -162,6 +162,7 @@ class WebpayPlusController
             if($isSubscription){
                 $response = $this->oneclick->authorize($request->customer_id , $request->subscription['transbank_token'], $order->id, $order->total
                 );
+                
                 if($response['status'] == "success"){
                     $order->status = PaymentStatus::PAID;
                     $order->save();  

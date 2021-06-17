@@ -86,6 +86,7 @@ const WebPayProccess = ({
                                 clearCart();
                                 submitPrescription(response.data.order.id, response.data.order.customer_id);
                                 updateDiscountCode(discountCode)
+                                setOrderId(response.data.order.id)
                                 hideWaitingPayment();
                                 setWebpayProccessSuccess(true);
                                 setFinishWebpayProccess(1);
