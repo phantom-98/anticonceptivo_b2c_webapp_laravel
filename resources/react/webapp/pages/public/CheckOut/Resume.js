@@ -15,6 +15,7 @@ const Resume = ({
     data, 
     file, 
     address, 
+    subscription,
     setFinishWebpayProccess, 
     setWebpayProccessSuccess, 
     setOrderId, 
@@ -179,6 +180,7 @@ const Resume = ({
                                     data={data}
                                     file={file}
                                     address={address}
+                                    subscription={subscription}
                                     setFinishWebpayProccess={setFinishWebpayProccess}
                                     setWebpayProccessSuccess={setWebpayProccessSuccess}
                                     setOrderId={setOrderId}

@@ -60,9 +60,9 @@ export default (state, action) => {
             if (cart == null) {
                 cart = [];
             }
+
             return {
                 ...state,
-                // showingMiniCart: false,
                 cartItems: [...cart]
             };
 

@@ -154,8 +154,13 @@ export const ENDPOINT = {
         GET_ORDER_TO_PAY: GetBaseURL() + 'payment/get-order-to-pay',
         DISCOUNT_CODE: GetBaseURL() + 'payment/discount-code',
         VERIFY: GetBaseURL() + 'payment/verify',
+        VERIFY: GetBaseURL() + 'payment/verify',
+        VERIFY_SUBSCRIPTION: GetBaseURL() + 'payment/verify-subscription',
+
         WEBPAY: {
+            CREATE_SUBSCRIPTION: GetBaseURL() + 'payment/webpay/create-subscription',
             CREATE_TRANSACTION: GetBaseURL() + 'payment/webpay/create-transaction',
+
         }
     },
 }

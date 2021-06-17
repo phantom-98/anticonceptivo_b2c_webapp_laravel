@@ -1,8 +1,7 @@
 import React from 'react';
 import {Form} from "react-bootstrap";
 
-const ListItem = ({subscription, showEdit, saveDefaultSubscription}) => {
-
+const ListItem = ({subscription, saveDefaultSubscription}) => {
     return (
         <div className="row">
             <div className="col-auto d-flex pr-0">
@@ -29,16 +28,12 @@ const ListItem = ({subscription, showEdit, saveDefaultSubscription}) => {
                     </div> */}
                     <div className="col-12">
                         <span className="font-poppins font-16 regular color-484848">
-                            {subscription.card_brand} {subscription.last_numbers} 
+                            {subscription.card_type} {subscription.card_number} 
                         </span>
                     </div>
                 </div>
             </div>
-            <div className="col-auto d-flex">
-                <div className="my-auto">
-                    <span onClick={() => showEdit(subscription)} className="link pointer font-12 regular">editar</span>
-                </div>
-            </div>
+
             <div className="col-md-12">
                 <hr/>
             </div>

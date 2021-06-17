@@ -8,6 +8,7 @@ const WebPayProccess = ({
         data,
         file,
         address,
+        subscription,
         setFinishWebpayProccess,
         setWebpayProccessSuccess,
         setOrderId,
@@ -55,11 +56,19 @@ const WebPayProccess = ({
         // if (!address) {
         //     toastr.warning('Debes agregar una dirección para proceder al pago.')
         // }
+        let selectedSubscription  = null;
+
+        subscription.forEach(element => {
+            if(element.default_subscription){
+                selectedSubscription  = element;
+            }
+        });
 
         let url = Services.ENDPOINT.PAYMENTS.WEBPAY.CREATE_TRANSACTION;
         let dataForm = {
             ...data,
             ...address,
+            subscription: selectedSubscription,
             customer_id: auth ? auth.id : null,
             total: total,
             subtotal: subtotal,
@@ -72,14 +81,27 @@ const WebPayProccess = ({
                 Services.Response({
                     response: response,
                     success: () => {
-                        runVerify(response.data.order.id, response.data.order.customer_id)
-                        setOrderId(response.data.order.id)
-                        setToken(response.data.token)
-                        showWaitingPayment();
-                        var win = window.open();
-                        win.document.open();
-                        win.document.write(response.data.webpay);
-                        win.document.close();
+                        if(response.status == 'success'){
+                            if(response.message == "Compra OneClick"){
+                                clearCart();
+                                submitPrescription(response.data.order.id, response.data.order.customer_id);
+                                updateDiscountCode(discountCode)
+                                hideWaitingPayment();
+                                setWebpayProccessSuccess(true);
+                                setFinishWebpayProccess(1);
+                                clearInterval(interval)
+                            }else{
+                                runVerify(response.data.order.id, response.data.order.customer_id)
+                                setOrderId(response.data.order.id)
+                                setToken(response.data.token)
+                                showWaitingPayment();
+                                var win = window.open();
+                                win.document.open();
+                                win.document.write(response.data.webpay);
+                                win.document.close();
+                            }
+                        }
+
                     },
                 });
             })

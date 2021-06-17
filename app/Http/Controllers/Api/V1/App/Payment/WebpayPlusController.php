@@ -13,6 +13,7 @@ use App\Http\Utils\Enum\PaymentStatus;
 use App\Http\Utils\Enum\PaymentType;
 use Carbon\Carbon;
 use App\Models\Order;
+use App\Models\Subscription;
 use App\Models\OrderItem;
 use App\Models\Region;
 use App\Models\Commune;
@@ -20,6 +21,7 @@ use App\Models\WebpayLog;
 use App\Models\Customer;
 use App\Models\CustomerAddress;
 use App\Models\DiscountCode;
+use App\Http\Utils\Enum\PaymentMethodStatus;
 
 class WebpayPlusController
 {
@@ -38,6 +40,40 @@ class WebpayPlusController
 
         }
     }
+
+
+    public function createSubscription(Request $request)
+    {
+        try {
+
+            $response = $this->oneclick->createInscription(
+                $request->customer_id,
+                $request->email,
+                route('api.v1.app.payment.webpay.responsePaymentMethod')
+            );
+
+            if ($response['response']->token) {
+
+                $subscription = new Subscription();
+                $subscription->customer_id = $request->customer_id;
+                $subscription->token_inscription = $response['response']->token;
+                $subscription->save();
+
+                return ApiResponse::JsonSuccess([
+                    'webpay' => $this->oneclick->redirectHTML(),
+                    'id' => $subscription->id,
+                    'token' => $response['response']->token,
+                ], 'Iniciado OneClick');
+            }
+
+            return ApiResponse::JsonError([], 'No ha podido conectar con webpay');
+
+        } catch (\Exception $exception) {
+            return ApiResponse::JsonError([], $exception->getMessage());
+        }
+    }
+
+
 
     public function createTransaction(Request $request)
     {
@@ -81,7 +117,7 @@ class WebpayPlusController
 
             $subtotal = 0;
             $isSubscription = 0;
-            foreach ($request->cart as $key => $item) {
+            foreach ($request->cartItems as $key => $item) {
                 if($item['subscription'] != null){
                     $isSubscription = 1;
 
@@ -108,39 +144,36 @@ class WebpayPlusController
                 $orderItem->name = $item['product']['name'];
                 $orderItem->quantity = $item['quantity'];
                 $orderItem->price = $item['product']['price'];
-
                 if($item['subscription'] != null){
                     $orderItem->subtotal = ($item['quantity'] * $item['subscription']['price']);
-                    $orderItem->subscription_plan_id = $item['subscription']['id'];
+                    $orderItem->subscription_plan_id = $item['subscription']['subscription_plan_id'];
 
                 }else{
                     $orderItem->subtotal = ($item['quantity'] * $item['product']['price']);
                     $orderItem->subscription_plan_id = null;
 
                 }
-
                 $orderItem->product_attributes = null;
                 $orderItem->extra_price = null;
                 $orderItem->extra_description = null;
                 
                 $orderItem->save();
             }
-
             if($isSubscription){
-                $response = $this->oneclick->createInscription(
-                    $request->customer_id,
-                    $request->email,
-                    route('api.v1.app.payment.webpay.response')
+                $response = $this->oneclick->authorize($request->customer_id , $request->subscription['transbank_token'], $order->id, $order->total
                 );
-
-                if ($response['response']->token) {
-
+                if($response['status'] == "success"){
+                    $order->status = PaymentStatus::PAID;
+                    $order->save();  
                     return ApiResponse::JsonSuccess([
-                        'webpay' => $this->oneclick->redirectHTML(),
-                        'token' => $response['response']->token,
                         'order' => $order
-                    ], 'Iniciado OneClick');
+                    ], 'Compra OneClick');
+    
+                }else{
+                    return ApiResponse::JsonError([], 'Error con la tarjeta');
                 }
+
+
             }else{
                 // name('webpay-response') usar esta si se bloquea por verifyToken
                 $response = $this->webpay_plus->createTransaction(
@@ -206,7 +239,7 @@ class WebpayPlusController
             }
         } else if($request->TBK_TOKEN){
             //terminar de aca adaptar lo hecho en oneclick
-            dd($request->TBK_TOKEN);
+            // dd($request->TBK_TOKEN);
 
         } else {
 
@@ -219,6 +252,30 @@ class WebpayPlusController
         return view('webapp.payment.webpay-finish');
     }
 
+    public function responsePaymentMethod(Request $request)
+    {   
+        if($request['TBK_TOKEN']){
+            $response = $this->oneclick->finishInscription(
+                $request['TBK_TOKEN']
+            );
+            $subscription = Subscription::where('token_inscription',$request['TBK_TOKEN'])->get()->first();
+            $response = $response['response'];
+            if ($response->getResponseCode() == 0) {
+                $subscription->card_number = $response->getCardNumber();
+                $subscription->card_type = $response->getCardType();
+                $subscription->oneclick_auth_code = $response->getAuthorizationCode();
+                $subscription->transbank_token = $response->getTbkUser();
+                $subscription->status = PaymentMethodStatus::CREATED;
+                $subscription->default_subscription = 1;
+                $subscription->save();
+            }else{
+                $subscription->status = PaymentMethodStatus::REJECTED;
+                $subscription->save();
+            }
+        } 
+
+        return view('webapp.payment.webpay-finish');
+    }
     public function verify(Request $request)
     {
         try {

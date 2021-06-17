@@ -11,10 +11,12 @@ import Header from "./Header";
 import {AuthContext} from "../../../context/AuthProvider";
 import * as Services from "../../../Services";
 import HandleResponse from "./HandleResponse";
+import {CartContext} from "../../../context/CartProvider";
 
 const CheckOut = () => {
 
     const {auth} = useContext(AuthContext);
+    const {cartItems} = useContext(CartContext);
 
     const [showFinal, setShowFinal] = useState(1);
     const [finishWebpayProccess, setFinishWebpayProccess] = useState(0);
@@ -53,6 +55,7 @@ const CheckOut = () => {
     const [orderId, setOrderId] = useState(null);
     const [total, setTotal] = useState(0);
     const [subtotal, setSubtotal] = useState(0);
+    const [containsSubscriptions, setContainsSubscriptions] = useState(false);
 
     const [address, setAddress] = useState({
         name: '',
@@ -102,6 +105,14 @@ const CheckOut = () => {
         }
 
     }, [view])
+
+    useEffect(()=>{
+        cartItems.map((item, index) => {
+            if(item.subscription != null){
+                setContainsSubscriptions(true);
+            }
+        })
+    },[cartItems])
 
     useEffect(() => {
         getRegions();
@@ -197,6 +208,16 @@ const CheckOut = () => {
                                                     /> : null
                                             }
                                             {
+                                                (containsSubscriptions && (view == 'addresses' || view == 'add-address')) ? 
+
+                                                <Subscriptions 
+                                                setView={setView}
+                                                subscription={subscription}
+                                                setSubscription={setSubscription}
+                                                /> : null
+                                            }
+
+                                            {
                                                 view == 'add-address' ? 
                                                     <AddAddress
                                                         setView={setView}
@@ -216,15 +237,7 @@ const CheckOut = () => {
                                                     /> : null
                                             }
 
-                                            {
-                                                (subscription != null && (view == 'addresses' || view == 'add-address')) ? 
 
-                                                <Subscriptions 
-                                                setView={setView}
-                                                subscription={subscription}
-                                                setSubscription={setSubscription}
-                                                /> : null
-                                            }
                                         </div>
                                         <div className="col-md-auto pl-2" style={{width: '408px'}}>
                                             <Resume 
@@ -232,6 +245,7 @@ const CheckOut = () => {
                                                 data={data}
                                                 file={file}
                                                 address={address}
+                                                subscription={subscription}
                                                 setFinishWebpayProccess={setFinishWebpayProccess}
                                                 setWebpayProccessSuccess={setWebpayProccessSuccess}
                                                 setOrderId={setOrderId}

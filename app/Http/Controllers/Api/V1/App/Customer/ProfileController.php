@@ -175,13 +175,11 @@ class ProfileController extends Controller
     {
         try {
             $customer = Customer::find($request->customer_id);
-
             if (!$customer) {
                 return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_NOT_FOUND);
             }
 
-            $subscription = Subscription::where('customer_id', $customer->id)->get();
-
+            $subscription = Subscription::where('customer_id', $customer->id)->where('status','CREATED')->get();
             return ApiResponse::JsonSuccess([
                 'subscriptions' => $subscription,
             ], OutputMessage::SUCCESS);
@@ -332,13 +330,12 @@ class ProfileController extends Controller
                 return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_SUBSCRIPTION_NOT_FOUND);
             }
 
-            $oldSubscription = Subscription::where('customer_id',$customer->id)->where('default_subscription',true)->first();
-
-            if ($oldSubscription) {
-                $oldSubscription->update(['default_subscription' => false]);
+            $oldSubscriptions = Subscription::where('customer_id',$customer->id)->where('default_subscription',true)->get();
+            foreach ($oldSubscriptions as $key => $oldSubscription) {
+                if ($oldSubscription) {
+                    $oldSubscription->update(['default_subscription' => false]);
+                }
             }
-            
-
             if ($subscription->update(['default_subscription' => true])) {
                 return ApiResponse::JsonSuccess($subscription, OutputMessage::SUCCESS);
             }

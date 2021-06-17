@@ -4,7 +4,7 @@ import Icon from "../../../../../components/general/Icon";
 import plusIcon from '../../../../../assets/images/icons/plus-green.svg'
 import * as Services from "../../../../../Services";
 
-const List = ({subscriptions, showEdit, showCreate, getData, regions, communes}) => {
+const List = ({subscriptions, showCreate, getData}) => {
 
     const saveDefaultSubscription = (subscriptionId, customerId) => {
         let url = Services.ENDPOINT.CUSTOMER.SUBSCRIPTIONS.SET_DEFAULT_SUBSCRIPTION;
@@ -34,7 +34,6 @@ const List = ({subscriptions, showEdit, showCreate, getData, regions, communes})
                         <ListItem 
                             key={index} 
                             subscription={subscription} 
-                            showEdit={showEdit} 
                             saveDefaultSubscription={saveDefaultSubscription}
                         />))
                 }
