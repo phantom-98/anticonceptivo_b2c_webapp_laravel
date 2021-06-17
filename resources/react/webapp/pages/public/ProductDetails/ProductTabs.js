@@ -3,7 +3,7 @@ import {Tabs, Tab} from 'react-bootstrap';
 
 const ProductTabs = ({product, legalWarning}) =>{
 
-    const [key, setKey] = useState(product.subcategory.category_id !== 8 ? 'benefits' : 'legal');
+    const [key, setKey] = useState(product.subcategory.category_id !== 8 ? 'benefits' : 'technical');
 
     return (
         <div className="row pb-5">            
@@ -31,17 +31,13 @@ const ProductTabs = ({product, legalWarning}) =>{
                         : null
                     }
 
-                    {
-                        product.subcategory.category_id !== 8 ? 
-                            <Tab eventKey="technical" title="Ficha Técnica">
-                                <div className="panel-bordered bg-white p-5">
-                                    <p className="font-poppins font-14 regular">
-                                        <div dangerouslySetInnerHTML={{ __html: product.data_sheet }} />
-                                    </p>
-                                </div>
-                            </Tab>
-                        : null
-                    }
+                    <Tab eventKey="technical" title="Ficha Técnica">
+                        <div className="panel-bordered bg-white p-5">
+                            <p className="font-poppins font-14 regular">
+                                <div dangerouslySetInnerHTML={{ __html: product.data_sheet }} />
+                            </p>
+                        </div>
+                    </Tab>
 
                     <Tab eventKey="legal" title="Aviso Legal">
                         <div className="panel-bordered bg-white p-5">
