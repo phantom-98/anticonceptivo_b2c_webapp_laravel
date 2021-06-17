@@ -24,7 +24,7 @@ const HeaderBox = () => {
 
     const [search, setSearch] = useState('');
     const [products, setProducts] = useState([]);
-    const [productsWithFilter, setProductsWithFilter] = useState(null);
+    const [productsWithFilter, setProductsWithFilter] = useState([]);
 
     const sendSearch = (e) => {
         setSearch((e.target.value).toLowerCase());
@@ -69,6 +69,10 @@ const HeaderBox = () => {
     var url = PRIVATE_ROUTES.ACCOUNT.path;
     url = url.replace(':section', 'informacion-personal')
 
+    const dropdownStyle = {
+        overflowY: 'scroll'
+    }
+
     return (
         <div>
             <div className="container py-4">
@@ -97,7 +101,7 @@ const HeaderBox = () => {
                                 </button>
                             </div>
                         </div>
-                        <div className="dropdown-content">
+                        <div className="dropdown-content" style={ productsWithFilter.length && search.length > 0 ? dropdownStyle : null}>
                         {
                             search.length ? 
                                 productsWithFilter.map((product, index) => {
