@@ -58,7 +58,6 @@ const WebPayProccess = ({
         //     toastr.warning('Debes agregar una dirección para proceder al pago.')
         // }
 
-
         let selectedSubscription  = null;
 
         subscription.forEach(element => {
@@ -126,8 +125,6 @@ const WebPayProccess = ({
                 });
             })
             .catch(error => {
-                console.log(32423434324234324342)
-
                 Services.ErrorCatch(error);
             });
     };

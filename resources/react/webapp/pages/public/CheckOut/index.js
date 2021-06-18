@@ -72,7 +72,7 @@ const CheckOut = () => {
         if (auth) {
             setData(auth);
             setEditable(true);
-            getAddress();
+            // getAddress();
             getSubscriptions();
             setView("user-form");
         }
@@ -137,24 +137,30 @@ const CheckOut = () => {
         });
     }
 
-    const getAddress = () => {
-        let url = Services.ENDPOINT.AUTH.GET_ADDRESS;
-        let data = {
-            customer_id: auth.id
-        }
-        Services.DoPost(url,data).then(response => {
-            Services.Response({
-              response: response,
-              success: () => {
-                  if(response.data.address != null){
-                    setAddress(response.data.address);
-                  }
-              },
-            });
-        }).catch(error => {
-            Services.ErrorCatch(error)
-        });
-    }
+    // const getAddress = () => {
+    //     let url = Services.ENDPOINT.AUTH.GET_ADDRESS;
+    //     let data = {
+    //         customer_id: auth.id
+    //     }
+    //     Services.DoPost(url,data).then(response => {
+    //         console.log(234324234324324432);
+
+    //         Services.Response({
+    //           response: response,
+    //           success: () => {
+    //                 if(response.data.addresses != null){
+    //                     response.data.addresses.forEach(elementAddress => {
+    //                         if(elementAddress.default_address){
+    //                             setAddress(elementAddress);
+    //                         }
+    //                     });
+    //                 }
+    //           },
+    //         });
+    //     }).catch(error => {
+    //         Services.ErrorCatch(error)
+    //     });
+    // }
 
     const getSubscriptions = () => {
         let url = Services.ENDPOINT.AUTH.GET_SUBSCRIPTIONS;
