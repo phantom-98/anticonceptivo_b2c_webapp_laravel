@@ -3,14 +3,14 @@ import QuantityInput from "./QuantityInput";
 import {CartContext} from "../../context/CartProvider";
 import toastr from 'toastr';
 
-const AddCartCard = ({quantity, setQuantity, product}) =>{
+const AddCartCard = ({quantity, setQuantity, product,subscription}) =>{
 
     const {addToCart} = useContext(CartContext);
 
 
 
     const handleAddToCart = () =>{
-        addToCart(quantity, product)
+        addToCart(quantity, product, subscription)
         setQuantity(1)
         toastr.options = {
             "closeButton": false,

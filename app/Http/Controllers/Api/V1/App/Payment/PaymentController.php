@@ -9,6 +9,8 @@ use App\Http\Utils\OutputMessage\OutputMessage;
 use Carbon\Carbon;
 use \Datetime;
 use App\Models\Order;
+use App\Models\Subscription;
+
 use App\Models\DiscountCode;
 
 class PaymentController
@@ -28,6 +30,21 @@ class PaymentController
             return ApiResponse::JsonError(null, OutputMessage::EXCEPTION . ' ' . $exception->getMessage());
         }
     }
+    public function verifySubscription(Request $request)
+    {
+        try {
+
+            $subscription = Subscription::find($request->id);
+
+            return ApiResponse::JsonSuccess([
+                'subscription' => $subscription ?? null,
+            ]);
+
+        } catch (\Exception $exception) {
+            return ApiResponse::JsonError(null, OutputMessage::EXCEPTION . ' ' . $exception->getMessage());
+        }
+    }
+
 
     public function checkDiscount(Request $request)
     {

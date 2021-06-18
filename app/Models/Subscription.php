@@ -8,14 +8,15 @@ class Subscription extends Model
 {
     protected $fillable = [
         'card',
-        'last_numbers',
-        'price',
-        'duration',
+        'card_number',
         'customer_id',
-        'start_date',
-        'due_date'
+        'transbank_token',
+        'card_type',
+        'oneclick_auth_code',
+        'token_inscription',
+        'default_subscription',
+        'status'
     ];
-
     public function customer(){
         return $this->belongsTo(Customer::class);
     }

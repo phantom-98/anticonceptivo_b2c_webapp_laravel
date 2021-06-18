@@ -5,14 +5,18 @@ import Resume from "./Resume";
 import UserForm from "./UserForm";
 import AddAddress from "./AddAddress";
 import Addresses from "./Addresses";
+import Subscriptions from "./Subscriptions";
+
 import Header from "./Header";
 import {AuthContext} from "../../../context/AuthProvider";
 import * as Services from "../../../Services";
 import HandleResponse from "./HandleResponse";
+import {CartContext} from "../../../context/CartProvider";
 
 const CheckOut = () => {
 
     const {auth} = useContext(AuthContext);
+    const {cartItems} = useContext(CartContext);
 
     const [showFinal, setShowFinal] = useState(1);
     const [finishWebpayProccess, setFinishWebpayProccess] = useState(0);
@@ -31,7 +35,6 @@ const CheckOut = () => {
         id_type: 'RUT',
         phone_code: '+56',
         phone: '',
-
         business_name: '',
         business_id_number: '',
         commercial_business: '',
@@ -52,6 +55,7 @@ const CheckOut = () => {
     const [orderId, setOrderId] = useState(null);
     const [total, setTotal] = useState(0);
     const [subtotal, setSubtotal] = useState(0);
+    const [containsSubscriptions, setContainsSubscriptions] = useState(false);
 
     const [address, setAddress] = useState({
         name: '',
@@ -61,11 +65,15 @@ const CheckOut = () => {
         extra_info: ''
     });
 
+    const [subscription, setSubscription] = useState(null);
+
+
     useEffect(() => {
         if (auth) {
             setData(auth);
             setEditable(true);
             getAddress();
+            getSubscriptions();
             setView("user-form");
         }
     },[auth])
@@ -97,6 +105,14 @@ const CheckOut = () => {
         }
 
     }, [view])
+
+    useEffect(()=>{
+        cartItems.map((item, index) => {
+            if(item.subscription != null){
+                setContainsSubscriptions(true);
+            }
+        })
+    },[cartItems])
 
     useEffect(() => {
         getRegions();
@@ -140,6 +156,27 @@ const CheckOut = () => {
         });
     }
 
+    const getSubscriptions = () => {
+        let url = Services.ENDPOINT.AUTH.GET_SUBSCRIPTIONS;
+        let data = {
+            customer_id: auth.id
+        }
+        Services.DoPost(url,data).then(response => {
+            Services.Response({
+              response: response,
+              success: () => {
+                  if(response.data.subscriptions != null){
+                    setSubscription(response.data.subscriptions);
+                  }else{
+                    setSubscription(null);
+                  }
+              },
+            });
+        }).catch(error => {
+            Services.ErrorCatch(error)
+        });
+    }
+
     return (
         <Fragment>
             <div className="pb-5" style={{background: '#FAFAFA'}}>
@@ -171,6 +208,16 @@ const CheckOut = () => {
                                                     /> : null
                                             }
                                             {
+                                                (containsSubscriptions && (view == 'addresses' || view == 'add-address')) ? 
+
+                                                <Subscriptions 
+                                                setView={setView}
+                                                subscription={subscription}
+                                                setSubscription={setSubscription}
+                                                /> : null
+                                            }
+
+                                            {
                                                 view == 'add-address' ? 
                                                     <AddAddress
                                                         setView={setView}
@@ -198,6 +245,7 @@ const CheckOut = () => {
                                                 data={data}
                                                 file={file}
                                                 address={address}
+                                                subscription={subscription}
                                                 setFinishWebpayProccess={setFinishWebpayProccess}
                                                 setWebpayProccessSuccess={setWebpayProccessSuccess}
                                                 setOrderId={setOrderId}

@@ -14,7 +14,7 @@ const ProductItem = ({item}) => {
     const [quantity, setQuantity] = useState(item.quantity);
 
     useEffect(() => {
-        updateQuantity(quantity, item.product)
+        updateQuantity(quantity, item.product, item.subscription)
     }, [quantity])
 
     return (
@@ -28,14 +28,19 @@ const ProductItem = ({item}) => {
                     <div className="font-poppins font-12 color-009BE8">{item.product.sku}</div>
                     <div className="font-poppins font-14 bold text-black"> {item.product.name} </div>
                     <div className="font-poppins font-16 bold color-009BE8">
-                        {formatMoney(item.product.price * item.quantity)}
+
+                        {
+                            item.subscription == null ? formatMoney(item.product.price * item.quantity) : formatMoney(item.subscription.price * item.quantity)
+                        }
                     </div>
+
+                        
 
                     <div className="row">
                         <div className="col pt-2">
                             <QuantityInput quantity={item.quantity} setQuantity={setQuantity}/>
                         </div>
-                        <div className="col-auto pt-1 text-center pointer" onClick={() => removeFromCart(item.product_id)}>
+                        <div className="col-auto pt-1 text-center pointer" onClick={() => removeFromCart(item)}>
                             <div><Icon path={iconRemove}/></div>
                             <div className="font-poppins font-12 color-A3A3A3">BORRAR</div>
                         </div>

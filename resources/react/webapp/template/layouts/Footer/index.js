@@ -67,7 +67,7 @@ const Footer = () => {
                                     <Link className="nav-link" to={PUBLIC_ROUTES.TERMS_AND_CONDITIONS.path}>Términos y Condiciones</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link" href={responsibleConsumption.public_file} target="_blank">Consumo responsable</a>
+                                    {/* <a className="nav-link" href={responsibleConsumption.public_file} target="_blank">Consumo responsable</a> */}
                                 </li>
                             </ul>
                         </div>

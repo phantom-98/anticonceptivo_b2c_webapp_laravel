@@ -72,7 +72,7 @@ export const ENDPOINT = {
         RECOVERY_PASSWORD: GetBaseURL() + 'auth/recovery-password',
         SET_NEW_PASSWORD: GetBaseURL() + 'auth/set-new-password',
         REGISTER: GetBaseURL() + 'auth/register',
-        GET_ADDRESS: GetBaseURL() + 'auth/get-address', // mover a checkout
+        GET_SUBSCRIPTIONS: GetBaseURL() + 'auth/get-subscriptions',
     },
 
     PUBLIC_AREA: {
@@ -128,6 +128,11 @@ export const ENDPOINT = {
             SET_DEFAULT_ADDRESS: GetBaseURL() + 'customer/update-default-address',
             // REMOVE: GetBaseURL() + 'customer/remove-address'
         },
+        SUBSCRIPTIONS: {
+            GET: GetBaseURL() + 'customer/get-subscriptions',
+            UPDATE: GetBaseURL() + 'customer/update-subscriptions',
+            SET_DEFAULT_SUBSCRIPTION: GetBaseURL() + 'customer/update-default-subscription'
+        },
         ORDERS:{
             GET: GetBaseURL() + 'customer/get-orders',
         },
@@ -145,8 +150,13 @@ export const ENDPOINT = {
         GET_ORDER_TO_PAY: GetBaseURL() + 'payment/get-order-to-pay',
         DISCOUNT_CODE: GetBaseURL() + 'payment/discount-code',
         VERIFY: GetBaseURL() + 'payment/verify',
+        VERIFY: GetBaseURL() + 'payment/verify',
+        VERIFY_SUBSCRIPTION: GetBaseURL() + 'payment/verify-subscription',
+
         WEBPAY: {
+            CREATE_SUBSCRIPTION: GetBaseURL() + 'payment/webpay/create-subscription',
             CREATE_TRANSACTION: GetBaseURL() + 'payment/webpay/create-transaction',
+
         }
     },
 }

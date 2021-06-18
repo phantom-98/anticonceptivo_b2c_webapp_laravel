@@ -19,6 +19,7 @@ use App\Models\Order;
 use App\Models\Prescription;
 use App\Models\ContactIssue;
 use App\Models\ContactMessage;
+use App\Models\Subscription;
 
 class ProfileController extends Controller
 {
@@ -170,6 +171,24 @@ class ProfileController extends Controller
         }
     }
 
+    public function getSubscriptions(Request $request)
+    {
+        try {
+            $customer = Customer::find($request->customer_id);
+            if (!$customer) {
+                return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_NOT_FOUND);
+            }
+
+            $subscription = Subscription::where('customer_id', $customer->id)->where('status','CREATED')->get();
+            return ApiResponse::JsonSuccess([
+                'subscriptions' => $subscription,
+            ], OutputMessage::SUCCESS);
+            
+        } catch (\Exception $exception) {
+            return ApiResponse::JsonError(null, $exception->getMessage());
+        }
+    }
+
     public function updateAddresses(Request $request)
     {
         try {
@@ -264,6 +283,70 @@ class ProfileController extends Controller
             return ApiResponse::JsonError(null, $exception->getMessage());
         }
     }
+
+
+    public function createSubscriptions(Request $request)
+    {
+        try {
+
+            $customer = Customer::find($request->customer_id);
+
+            if (!$customer) {
+                return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_NOT_FOUND);
+            }
+
+            $subscription = Subscription::create($request->all());
+
+            if (Subscription::where('customer_id',$request->customer_id)->count() === 1) {
+                $subscription->default_address = 1;
+                $subscription->save();
+            }
+
+            $subscriptions = Subscription::where('customer_id', $customer->id)->get();
+
+            return ApiResponse::JsonSuccess([
+                'subscriptions' => $subscriptions
+            ], OutputMessage::CUSTOMER_SUBSCRIPTIONS_CREATE);
+            
+
+        } catch (\Exception $exception) {
+            return ApiResponse::JsonError(null, $exception->getMessage());
+        }
+    }
+
+    public function updateDefaultSubscription(Request $request)
+    {
+        try {
+
+            $customer = Customer::find($request->customer_id);
+
+            if (!$customer) {
+                return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_NOT_FOUND);
+            }
+
+            $subscription = Subscription::find($request->subscription_id);
+
+            if (!$subscription) {
+                return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_SUBSCRIPTION_NOT_FOUND);
+            }
+
+            $oldSubscriptions = Subscription::where('customer_id',$customer->id)->where('default_subscription',true)->get();
+            foreach ($oldSubscriptions as $key => $oldSubscription) {
+                if ($oldSubscription) {
+                    $oldSubscription->update(['default_subscription' => false]);
+                }
+            }
+            if ($subscription->update(['default_subscription' => true])) {
+                return ApiResponse::JsonSuccess($subscription, OutputMessage::SUCCESS);
+            }
+
+            return ApiResponse::JsonError(null, OutputMessage::CUSTOMER_SUBSCRIPTION_UPDATE_DEFAULT_ERROR);
+
+        } catch (\Exception $exception) {
+            return ApiResponse::JsonError(null, $exception->getMessage());
+        }
+    }
+
 
     public function getOrders(Request $request)
     {
