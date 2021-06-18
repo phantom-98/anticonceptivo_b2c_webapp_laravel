@@ -8,6 +8,7 @@ const ProductInfo = ({product}) => {
 
     const [quantity, setQuantity] = useState(1);
 
+
     return (
         <div className="row">
             <div className="col-md-6">
@@ -88,7 +89,11 @@ const ProductInfo = ({product}) => {
                 product.unit_format ? 
                 <div className="col-md-12 py-2 product-format-style">
                     <span className="font-poppins font-14 regular color-6C6B6B">
-                        Precio por unidad: ${Math.round(product.price/parseInt(product.format)) +' '+product.unit_format}
+                        Precio por unidad: ${
+                            product.state_of_matter === 'Líquido' ? 
+                                Math.round(product.price/(parseInt(product.format)*100)*100)/100 +' '+product.unit_format  
+                            : 
+                                Math.round(product.price/parseInt(product.format)) +' '+product.unit_format}
                     </span>
                 </div>
                 : null
