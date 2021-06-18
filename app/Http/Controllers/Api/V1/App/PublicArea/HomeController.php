@@ -88,10 +88,14 @@ class HomeController extends Controller
 
     public function getHomeTopBanners(){
         try {
-            $banners = Banner::where('location','Home (Superior)')->where('active',true)->get();
+            $topBanners = Banner::where('location','Home (Superior)')->where('active',true)->get();
+            $middleBanners = Banner::where('location','Home (Centro)')->where('active',true)->get();
+            $bottomBanners = Banner::where('location','Home (Inferior)')->where('active',true)->get();
 
             return ApiResponse::JsonSuccess([
-                'banners' => $banners
+                'top_banners' => $topBanners,
+                'middle_banners' => $middleBanners,
+                'bottom_banners' => $bottomBanners,
             ]);
 
         } catch (\Exception $exception) {

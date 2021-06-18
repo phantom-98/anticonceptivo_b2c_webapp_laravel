@@ -8,6 +8,7 @@ import BlogCarousel from "../../../components/sections/BlogCarousel";
 import {ModalAuthMode} from "../../../Globals";
 import {AppContext} from "../../../context/AppProvider";
 import BannerCarousel from "../../../components/sections/BannerCarousel";
+import BannerStatic from "../../../components/sections/BannerStatic";
 import * as Services from "../../../Services";
 
 const Home = ({match}) => {
@@ -15,7 +16,10 @@ const Home = ({match}) => {
     const {token} = match.params;
 
     const {showModalAuth, setTokenModalAuth} = useContext(AppContext);
-    const [banners, setBanners] = useState([]);
+
+    const [topBanners, setTopBanners] = useState([]);
+    const [middleBanners, setMiddleBanners] = useState([]);
+    const [bottomBanners, setBottomBanners] = useState([]);
     
     useEffect(() => {
         if (token  && token.length > 15) {
@@ -35,7 +39,9 @@ const Home = ({match}) => {
             Services.Response({
               response: response,
               success: () => {
-                  setBanners(response.data.banners);
+                  setTopBanners(response.data.top_banners);
+                  setMiddleBanners(response.data.middle_banners);
+                  setBottomBanners(response.data.bottom_banners);
               },
             });
         }).catch(error => {
@@ -47,15 +53,15 @@ const Home = ({match}) => {
         <Fragment>
            <div className="bg-FAFAFA">
 
-               <BannerCarousel banners={banners}/>
+               <BannerCarousel topBanners={topBanners}/>
 
                <ProductsCarousel title="Destacados" />
 
                <div className="container">
                    <div className="row">
-                       <div className="col-md-12">
-                           <img src="/themes/web/blog/banner-1.png" alt={CONFIG.APP_NAME} style={{ width : '100%'}}/>
-                       </div>
+                       <BannerStatic 
+                            banners={middleBanners}
+                       />
                    </div>
                </div>
 
@@ -65,9 +71,9 @@ const Home = ({match}) => {
 
                <div className="container">
                    <div className="row">
-                       <div className="col-md-12">
-                           <img src="/themes/web/blog/banner-2.png" alt={CONFIG.APP_NAME} style={{ width : '100%'}}/>
-                       </div>
+                       <BannerStatic 
+                            banners={bottomBanners}
+                       />
                    </div>
                </div>
 
