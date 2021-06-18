@@ -77,6 +77,13 @@ export const ENDPOINT = {
 
     PUBLIC_AREA: {
         HEADER_MENU: GetBaseURL() + 'public-area/get-header-navbar-resources',
+        BANNERS:{
+            HOME:{
+                TOP: GetBaseURL() + 'public-area/get-home-top-banners',
+                MIDDLE: GetBaseURL() + 'public-area/get-home-middle-banners',
+                BOTTOM: GetBaseURL() + 'public-area/get-home-bottom-banners',
+            }
+        }
     },
 
     NO_AUTH: {

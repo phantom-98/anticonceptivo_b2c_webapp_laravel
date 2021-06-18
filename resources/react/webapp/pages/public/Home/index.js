@@ -1,6 +1,4 @@
 import React, {Fragment, useEffect, useState, useContext} from 'react';
-
-import slider from '../../../assets/images/dummy/slider.png'
 import {CONFIG} from "../../../Config";
 import OurBrands from "./OurBrands";
 import Subscribe from "../../../components/sections/Subscribe";
@@ -9,13 +7,15 @@ import ProductsCarousel from "../../../components/sections/ProductsCarousel";
 import BlogCarousel from "../../../components/sections/BlogCarousel";
 import {ModalAuthMode} from "../../../Globals";
 import {AppContext} from "../../../context/AppProvider";
-import{AuthContext} from "../../../context/AuthProvider";
+import BannerCarousel from "../../../components/sections/BannerCarousel";
+import * as Services from "../../../Services";
 
 const Home = ({match}) => {
 
     const {token} = match.params;
 
     const {showModalAuth, setTokenModalAuth} = useContext(AppContext);
+    const [banners, setBanners] = useState([]);
     
     useEffect(() => {
         if (token  && token.length > 15) {
@@ -24,12 +24,30 @@ const Home = ({match}) => {
         }
     }, [])
 
+    useEffect(() => {
+        getData();
+    },[])
+
+    const getData = () => {
+        let url = Services.ENDPOINT.PUBLIC_AREA.BANNERS.HOME.TOP;
+        let data = {}
+        Services.DoGet(url,data).then(response => {
+            Services.Response({
+              response: response,
+              success: () => {
+                  setBanners(response.data.banners);
+              },
+            });
+        }).catch(error => {
+            Services.ErrorCatch(error)
+        });
+    }
+
     return (
         <Fragment>
            <div className="bg-FAFAFA">
-               <div className="">
-                   <img src={slider} alt={CONFIG.APP_NAME} width="100%"/>
-               </div>
+
+               <BannerCarousel banners={banners}/>
 
                <ProductsCarousel title="Destacados" />
 

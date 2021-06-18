@@ -12,6 +12,9 @@ Route::prefix('public-area')
     ->group(function () {
 
         Route::get('get-header-navbar-resources', [HomeController::class, 'getHeaderNavbarResources'])->name('getHeaderNavbarResources');
+        
+        Route::get('get-home-top-banners', [HomeController::class, 'getHomeTopBanners'])->name('getHomeTopBanners');
+
         Route::get('get-resources', [ProductController::class, 'getResources'])->name('getResources');
         Route::get('get-products', [ProductController::class, 'getProducts'])->name('getProducts');
 

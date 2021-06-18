@@ -13,6 +13,7 @@ use App\Models\Laboratory;
 use App\Models\Page;
 use App\Models\CategoryFaq;
 use App\Models\ResponsibleConsumption;
+use App\Models\Banner;
 use App\Http\Utils\Enum\SectionTypes;
 
 class HomeController extends Controller
@@ -80,6 +81,19 @@ class HomeController extends Controller
             $responsible_consumption = ResponsibleConsumption::first();
 
             return ApiResponse::JsonSuccess(['responsible_consumption' => $responsible_consumption]);
+        } catch (\Exception $exception) {
+            return ApiResponse::JsonError(null, $exception->getMessage());
+        }
+    }
+
+    public function getHomeTopBanners(){
+        try {
+            $banners = Banner::where('active',true)->get();
+
+            return ApiResponse::JsonSuccess([
+                'banners' => $banners
+            ]);
+
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, $exception->getMessage());
         }

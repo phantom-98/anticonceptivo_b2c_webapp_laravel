@@ -23,9 +23,17 @@ class Banner extends Model
         'location'
     ];
 
+    protected $appends = [
+        'public_file'
+    ];
+
     public function cms_slider()
     {
         return $this->belongsTo(CmsSlider::class);
+    }
+
+    public function getPublicFileAttribute(){
+        return $this->file == null ? null : \Storage::url($this->file);
     }
 }
 
