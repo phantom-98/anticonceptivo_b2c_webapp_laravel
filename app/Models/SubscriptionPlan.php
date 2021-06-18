@@ -11,4 +11,9 @@ class SubscriptionPlan extends Model
         'active'
     ];
 
+    public function product_subscription_plan()
+    {
+        return $this->belongsTo(ProductSubscriptionPlan::class);
+    }
+
 }

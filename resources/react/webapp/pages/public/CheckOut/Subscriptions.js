@@ -10,7 +10,6 @@ const Subscriptions = ({setView, subscription, setSubscription}) => {
 
     const {auth} = useContext(AuthContext);
 
-    const [subscriptions, setSubscriptions] = useState([]);
 
     const [view, setViewAd] = useState('list');
     const [subscriptionSelected, setSubscriptionSelected] = useState(null);
@@ -40,7 +39,7 @@ const Subscriptions = ({setView, subscription, setSubscription}) => {
             Services.Response({
             response: response,
                 success: () => {
-                    setSubscriptions(response.data.subscriptions);
+                    setSubscription(response.data.subscriptions);
                 }
             });
         }).catch(error => {
@@ -139,7 +138,7 @@ const Subscriptions = ({setView, subscription, setSubscription}) => {
                     {
                         view === 'list' ? 
                             <List 
-                                subscriptions={auth ? subscriptions : subscription} 
+                                subscriptions={auth ? subscription : subscription} 
                                 showCreate={showCreate}
                                 getData={getData}
                                 setSubscription={setSubscription}

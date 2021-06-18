@@ -59,7 +59,6 @@ const WebPayProccess = ({
         // }
 
         let selectedSubscription  = null;
-
         subscription.forEach(element => {
             if(element.default_subscription){
                 selectedSubscription  = element;
@@ -80,8 +79,6 @@ const WebPayProccess = ({
 
         Services.DoPost(url, dataForm)
             .then(response => {
-                console.log(32423434324234324342)
-
                 Services.Response({
                     response: response,
                     success: () => {
