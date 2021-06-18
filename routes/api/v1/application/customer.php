@@ -20,6 +20,7 @@ Route::prefix('customer')
         Route::post('get-subscriptions', [ProfileController::class, 'getSubscriptions'])->name('getSubscriptions');
         Route::post('create-subscriptions', [ProfileController::class, 'createSubscriptions'])->name('createSubscriptions');
         Route::post('update-default-subscription', [ProfileController::class, 'updateDefaultSubscription'])->name('updateDefaultSubscription');
+        Route::post('delete-subscription', [ProfileController::class, 'deleteSubscription'])->name('deleteSubscription');
 
         Route::post('get-orders', [ProfileController::class, 'getOrders'])->name('getOrders');
 

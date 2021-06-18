@@ -160,20 +160,22 @@ class WebpayPlusController
                 $orderItem->save();
             }
             if($isSubscription){
-                $response = $this->oneclick->authorize($request->customer_id , $request->subscription['transbank_token'], $order->id, $order->total
-                );
-                
-                if($response['status'] == "success"){
-                    $order->status = PaymentStatus::PAID;
-                    $order->save();  
-                    return ApiResponse::JsonSuccess([
-                        'order' => $order
-                    ], 'Compra OneClick');
-    
+                if($request->subscription){
+                    $response = $this->oneclick->authorize($request->customer_id , $request->subscription['transbank_token'], $order->id, $order->total);
+                    
+                    if($response['status'] == "success"){
+                        $order->status = PaymentStatus::PAID;
+                        $order->save();  
+                        return ApiResponse::JsonSuccess([
+                            'order' => $order
+                        ], 'Compra OneClick');
+        
+                    }else{
+                        return ApiResponse::JsonError([], 'Error con la tarjeta');
+                    }
                 }else{
-                    return ApiResponse::JsonError([], 'Error con la tarjeta');
+                    return ApiResponse::JsonError([], 'Seleccione un método de pago');
                 }
-
 
             }else{
                 // name('webpay-response') usar esta si se bloquea por verifyToken
@@ -262,6 +264,15 @@ class WebpayPlusController
             $subscription = Subscription::where('token_inscription',$request['TBK_TOKEN'])->get()->first();
             $response = $response['response'];
             if ($response->getResponseCode() == 0) {
+
+
+                $subscriptions = Subscription::where('customer_id', $subscription->customer_id)->get();
+                foreach ($subscriptions as $key => $item_subscriptions) {
+                    if ($item_subscriptions) {
+                        $item_subscriptions->update(['default_subscription' => false]);
+                    }
+                }
+
                 $subscription->card_number = $response->getCardNumber();
                 $subscription->card_type = $response->getCardType();
                 $subscription->oneclick_auth_code = $response->getAuthorizationCode();
@@ -269,6 +280,7 @@ class WebpayPlusController
                 $subscription->status = PaymentMethodStatus::CREATED;
                 $subscription->default_subscription = 1;
                 $subscription->save();
+                
             }else{
                 $subscription->status = PaymentMethodStatus::REJECTED;
                 $subscription->save();

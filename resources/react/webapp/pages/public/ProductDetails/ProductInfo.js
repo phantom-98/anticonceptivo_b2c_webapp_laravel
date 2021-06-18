@@ -19,9 +19,6 @@ const ProductInfo = ({ product }) => {
         }
     }
 
-
-
-
     return (
         <div className="row">
             <div className="col-md-6">
@@ -63,10 +60,13 @@ const ProductInfo = ({ product }) => {
                               </span>
                           ]
                         : [
-                              formatMoney(subscription.price) ,
+                              formatMoney((subscription.price/subscription.quantity)) ,
                               <span className="font-poppins font-16 bold color-009BE8 ml-2">
-                                   al mes
-                              </span>
+                                   Al mes cada C/U
+                              </span>,
+                             <span className="font-poppins font-16 bold color-78d2ff ml-2">
+                                (Ahorras un %{((product.price-(subscription.price/subscription.quantity))/product.price)*100})
+                            </span>
                           ]}
                 </span>
             </div>
