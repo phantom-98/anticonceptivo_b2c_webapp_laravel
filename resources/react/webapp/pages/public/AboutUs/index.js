@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-
 import PUBLIC_ROUTES from "../../../routes/publicRoutes";
 import BasePanelOne from "../../../template/BasePanelOne";
 import Subscribe from "../../../components/sections/Subscribe";
@@ -8,11 +7,13 @@ import eurekaLogo from '../../../assets/images/pages/about-us/eureka-logo.png'
 import H2Title from "../../../components/general/H2Title";
 import handsWhite from '../../../assets/images/icons/hands-white.svg'
 import {Tabs, Tab} from 'react-bootstrap';
-
+import BannerCarousel from "../../../components/sections/BannerCarousel";
+import * as Services from "../../../Services";
 
 const AboutUs = () => {
 
     const [key, setKey] = useState('vision');
+    const [banners, setBanners] = useState([]);
 
     let breadcrumbs = [
         {
@@ -25,8 +26,29 @@ const AboutUs = () => {
         },
     ];
 
+    useEffect(() => {
+        getData();
+    },[])
+
+    const getData = () => {
+        let url = Services.ENDPOINT.PUBLIC_AREA.BANNERS.ABOUT_US;
+        let data = {}
+        Services.DoGet(url,data).then(response => {
+            Services.Response({
+              response: response,
+              success: () => {
+                  setBanners(response.data.banners);
+              },
+            });
+        }).catch(error => {
+            Services.ErrorCatch(error)
+        });
+    }
+
     return (
         <div>
+            <BannerCarousel banners={banners}/>
+
             <BasePanelOne
                 breadcrumbs={breadcrumbs}
             >

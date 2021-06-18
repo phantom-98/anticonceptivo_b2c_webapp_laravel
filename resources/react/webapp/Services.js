@@ -82,7 +82,8 @@ export const ENDPOINT = {
                 TOP: GetBaseURL() + 'public-area/get-home-top-banners',
                 MIDDLE: GetBaseURL() + 'public-area/get-home-middle-banners',
                 BOTTOM: GetBaseURL() + 'public-area/get-home-bottom-banners',
-            }
+            },
+            ABOUT_US: GetBaseURL() + 'public-area/get-about-us-banners',
         }
     },
 
