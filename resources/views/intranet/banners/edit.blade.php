@@ -92,8 +92,6 @@
                                                         <option value="Home (Superior)" {{ $slider->location == "Home (Superior)" ? 'selected': ''}}>Home (Superior)</option>
                                                         <option value="Home (Centro)" {{ $slider->location == "Home (Centro)" ? 'selected': ''}}>Home (Centro)</option>
                                                         <option value="Home (Inferior)" {{ $slider->location == "Home (Inferior)" ? 'selected': ''}}>Home (Inferior)</option>
-                                                        <option value="Productos Generales" {{ $slider->location == "Productos Generales" ? 'selected': ''}}>Productos Generales</option>
-                                                        <option value="Producto Específico" {{ $slider->location == "Producto Específico" ? 'selected': ''}}>Producto Específico</option>
                                                         <option value="Quienes Somos" {{ $slider->location == "Quienes Somos" ? 'selected': ''}}>Quienes Somos</option>
                                                     </select>
                                                 </div>
@@ -200,8 +198,6 @@
                                     <option value="Home (Superior)">Home (Superior)</option>
                                     <option value="Home (Centro)">Home (Centro)</option>
                                     <option value="Home (Inferior)">Home (Inferior)</option>
-                                    <option value="Productos Generales">Productos Generales</option>
-                                    <option value="Producto Específico">Producto Específico</option>
                                     <option value="Quienes Somos">Quienes Somos</option>
                                 </select>
                             </div>
