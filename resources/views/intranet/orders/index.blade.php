@@ -140,6 +140,7 @@
                             <th data-cell-style="cellStyle" data-sorter="priceSorter" data-sortable="true" data-valign="middle">Descuento</th>
                             <th data-cell-style="cellStyle" data-sorter="priceSorter" data-sortable="true" data-valign="middle">Total</th>
                             <th data-cell-style="cellStyle" data-field="dateBilling" data-sorter="datesSorter" data-sortable="true" data-valign="middle">Fecha Facturación</th>
+                            <th data-cell-style="cellStyle" data-sorter="priceSorter" data-sortable="true" data-valign="middle">Receta</th>
                             @if($config['blade']['showActions'])
                                 <th data-cell-style="cellStyle" data-valign="middle">Acciones</th>
                             @endif
@@ -147,7 +148,11 @@
                         </thead>
                         <tbody>
                         @foreach($objects as $object)
+                            @if($object->prescription && $object->prescription_validation == 0)
+                            <tr class="warning-order">
+                            @else 
                             <tr>
+                            @endif
                                 <td>#{{ $object->id}}</td>
                                 <td>{{ date('d-m-Y', strtotime($object->created_at)) }}</td>
                                 <td>{{ date('H:i:s', strtotime($object->created_at)) }}</td>
@@ -156,8 +161,8 @@
                                         {{ $object->formated_status }}
                                     </div>
                                 </td>
-                                <td>{{ $object->customer->id_number }}</td>
-                                <td>{{ mb_strtoupper($object->customer->full_name, 'UTF-8') }}</td>
+                                <td>{{ $object->customer->id_number ?? '-'}}</td>
+                                <td>{{ mb_strtoupper($object->customer->full_name ?? '-', 'UTF-8') }}</td>
                                 <td>{{ strtoupper($object->delivery_address ?? '-') }}</td>
                                 <td>{{ date('d-m-Y', strtotime($object->delivery_date)) }}</td>
                                 <td>${{ number_format($object->subtotal, 0, ',','.')}}</td>
@@ -165,7 +170,11 @@
                                 <td>${{ number_format($object->discount, 0, ',','.')}}</td>
                                 <td>${{ number_format($object->total, 0, ',','.')}}</td>
                                 <td>{{ $object->billing_date ? date('d-m-Y', strtotime($object->billing_date)) : '-' }}</td>
-
+                                @if($object->prescription)
+                                <td><a href="{{ Storage::url($object->prescription->file) }}" target="_blank" class='btn btn-sm btn-default btn-hover-success add-tooltip' title="Ver Receta"><i class="ti-file"></i></a></td>
+                                @else
+                                <td>Venta Directa</td>
+                                @endif
                                 @if($config['action']['changeStatus'])
                                    @include('intranet.template.components._crud_html_change_status')
                                 @endif
@@ -177,6 +186,15 @@
                                 @if($config['blade']['showActions'])
                                     <td>
                                         <div >
+                                            @if($object->prescription && $object->prescription_validation == 0)
+                                            @push('prepend_actions_buttons' .  $object->id)
+                                                <a onclick="prescription({{$object->id}})"
+                                                class="btn btn-sm btn-default btn-hover-info add-tooltip"
+                                                title="Validar Receta">
+                                                    <i class="fa fa-check"></i>
+                                                </a>
+                                            @endpush
+                                            @endif
                                             @include('intranet.template.components._crud_html_actions_buttons')
                                         </div>
                                     </td>
@@ -185,6 +203,12 @@
                         @endforeach
                         </tbody>
                     </table>
+
+                    <form id="prescription-validate-form" action="{{ route($config['route'] . 'prescription_validate') }}"
+                        enctype="multipart/form-data" method="POST">
+                        @csrf()
+                    </form>
+
                 </div>
             </div>
         </div>
@@ -210,6 +234,11 @@
         .swal2-popup {
             font-size: 1.6rem !important;
         }
+
+        .warning-order{
+            background-color: #ffb80f !important;
+            color:black;
+        }
     </style>
 
 @endsection
@@ -225,6 +254,17 @@
     @include('intranet.template.components._crud_script_change_status')
     @include('intranet.template.components._crud_script_active')
     @include('intranet.template.components._crud_script_delete')
+
+    <script>
+        function prescription(id){
+            $('<input>').attr({
+                type: 'hidden',
+                name: 'id',
+                value: id
+            }).appendTo('#prescription-validate-form');
+            $('#prescription-validate-form').submit();
+        }
+    </script>
 
 
     <script>

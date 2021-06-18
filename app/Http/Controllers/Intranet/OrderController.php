@@ -23,7 +23,7 @@ class OrderController extends GlobalController
         'pluralName' => 'Pedidos',
         'singularName' => 'Pedido',
         'disableActions' => ['create', 'edit', 'active', 'destroy', 'changeStatus'],
-        'enableActions' => ['search_client', 'show', 'changeOrderStatus']
+        'enableActions' => ['search_client', 'show', 'changeOrderStatus', 'prescription_validate']
     ];
 
     public function __construct()
@@ -33,7 +33,7 @@ class OrderController extends GlobalController
 
     public function index(Request $request)
     {
-        $objects = Order::with(['customer']);
+        $objects = Order::with(['customer', 'prescription']);
         $clients = Customer::get();
 
         $date = $request->date;
@@ -172,6 +172,23 @@ class OrderController extends GlobalController
         array_push($clients, ['id' => '999999999999999', 'text' => 'Todos']);
         
         return response()->json($clients, 200);
+    }
+
+    function prescription_validate(Request $request){
+        $object = Order::find($request->id);
+
+        if (!$object) {
+            session()->flash('warning', 'Pedido no encontrado.');
+            return redirect()->route($this->route . 'index');
+        }
+
+        $object->prescription_validation = 1;
+        $object->save();
+
+        if ($object) {
+            session()->flash('success', 'Receta validada correctamente.');
+            return redirect()->route($this->route . 'index');
+        }
     }
 
 }

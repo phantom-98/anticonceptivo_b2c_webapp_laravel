@@ -23,8 +23,8 @@
                 <td>{{ date('d-m-Y', strtotime($object->created_at)) }}</td>
                 <td>{{ date('H:i:s', strtotime($object->created_at)) }}</td>
                 <td>{{ $object->formated_status }}</td>
-                <td>{{ $object->customer->id_number }}</td>
-                <td>{{ mb_strtoupper($object->customer->full_name, 'UTF-8') }}</td>
+                <td>{{ $object->customer->id_number ?? '-' }}</td>
+                <td>{{ mb_strtoupper($object->customer->full_name ?? '-', 'UTF-8') }}</td>
                 <td>{{ strtoupper($object->delivery_address ?? '-') }}</td>
                 <td>{{ date('d-m-Y', strtotime($object->delivery_date)) }}</td>
                 <td>{{ $object->subtotal }}</td>

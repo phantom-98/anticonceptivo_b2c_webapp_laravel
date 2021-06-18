@@ -588,7 +588,7 @@
                 callbacks: {
                     onFocus: function (contents) {
                         if($(object).summernote('isEmpty')){
-                            $(".summernote").html(''); 
+                            $(object).html(''); 
                         }
                     }
                 }
