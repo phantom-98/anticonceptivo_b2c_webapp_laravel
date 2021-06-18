@@ -3,7 +3,6 @@
         <tr>
             <th>SKU</th>
             <th>Nombre</th>
-            <th>Descripción</th>
             <th>Tipología Consumo</th>
             <th>Laboratorio</th>
             <th>Precio</th>
@@ -19,9 +18,6 @@
             <th>Formato Unidad</th>
             <th>Tipo de Receta</th>
             <th>Estado</th>
-            <th>Composición</th>
-            <th>Beneficios</th>
-            <th>Ficha Técnica</th>
         </tr>
     </thead>
     <tbody>
@@ -29,7 +25,6 @@
             <tr>
                 <td>{{ $object->sku }}</td>
                 <td>{{ $object->name }}</td>
-                <td>{!! strip_tags($object->description) !!}</td>
                 <td>{{ $object->consumption_typology }}</td>
                 <td>{{ $object->laboratory->name }}</td>
                 <td>{{ $object->price }}</td>
@@ -45,9 +40,6 @@
                 <td>{{ $object->unit_format ?? '' }}</td>
                 <td>{{ $object->recipe_type ?? 'Venta Directa' }}</td>
                 <td>{{ $object->state_of_matter ?? 'Sólido' }}</td>
-                <td>{!! strip_tags($object->compound) !!}</td>
-                <td>{!! strip_tags($object->benefits) !!}</td>
-                <td>{!! strip_tags($object->data_sheet) !!}</td>
             </tr>
         @endforeach
     </tbody>
