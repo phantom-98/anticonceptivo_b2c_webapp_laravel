@@ -95,6 +95,10 @@
     margin-top: 40px;
 }
 
+.dropdown-menu-custom.with-pills{
+    min-width: 400px !important;
+}
+
 .dropdown-menu-custom::before{
     content: "";
     position: absolute;
@@ -120,4 +124,11 @@
     top: 60px;
     border-radius: 25px;
     max-height: 248px;
+}
+
+.pills-sub-header-title{
+    font-size: 14px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    letter-spacing: 2px;
 }

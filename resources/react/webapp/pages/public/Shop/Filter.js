@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react';
 import {Accordion, Card} from "react-bootstrap";
 import * as Services from "../../../Services";
 import {formatMoney} from "../../../helpers/GlobalUtils";
-
 import BioequivalentFilter from "./Filters/BioequivalentFilter";
 import CategoryFilter from "./Filters/CategoryFilter";
 import FormatFilter from "./Filters/FormatFilter";

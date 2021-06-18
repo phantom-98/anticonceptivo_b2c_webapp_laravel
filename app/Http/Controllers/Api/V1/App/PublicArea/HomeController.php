@@ -41,7 +41,7 @@ class HomeController extends Controller
                 'categories' => $categories,
                 'laboratories' => $laboratories,
                 'subscriptions' => $subscriptions,
-                'formtas' => $formats
+                'formats' => $formats
             ]);
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, $exception->getMessage());

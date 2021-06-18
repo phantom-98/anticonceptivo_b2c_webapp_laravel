@@ -63,6 +63,15 @@ const PUBLIC_ROUTES = {
         middleware: props => <PublicMiddleware {...props} />
     },
 
+    SHOP_PILLS: {
+        path: "/tienda/pastillas/:type/:filter",
+        title: "Tienda",
+        component: Shop,
+        exact: true,
+        layout: props => <BaseTemplate {...props} />,
+        middleware: props => <PublicMiddleware {...props} />
+    },
+
     SHOP: {
         path: "/tienda/:category?",
         title: "Tienda",

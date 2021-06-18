@@ -12,11 +12,15 @@ import PUBLIC_ROUTES from "../../../routes/publicRoutes";
 import * as Services from "../../../Services";
 import { v4 as uuidv4 } from 'uuid';
 import {Link} from "react-router-dom";
+import PillsDropDown from "../../components/PillsDropDown";
 
 const HeaderNavbar = () => {
 
     const [categories, setCategories] = useState([]);
     const [show, setShow] = useState({});
+    const [laboratories, setLaboratories] = useState([]);
+    const [formats, setFormats] = useState([]);
+    const [subscriptions, setSubscriptions] = useState([]);
 
     const showDropdown = (categoryId) => {
         let listShow = {}
@@ -45,6 +49,9 @@ const HeaderNavbar = () => {
                         list = [...list, {...category, ["categoryId"] : categoryId}]
                         listShow = {...listShow, [categoryId] : false}
                     })
+                    setLaboratories(response.data.laboratories);
+                    setFormats(Object.values(response.data.formats));
+                    setSubscriptions(response.data.subscriptions);
                     setCategories(list);
                     setShow(listShow);
                 },
@@ -87,7 +94,7 @@ const HeaderNavbar = () => {
                                     <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
                                         <HeaderNavbarItem 
                                             // linkTo={url}
-                                            icon={category.public_image} 
+                                            // icon={category.public_image} 
                                             text={category.name}
                                         />
                                     </Dropdown.Toggle>
@@ -95,11 +102,15 @@ const HeaderNavbar = () => {
                                     {
                                         category.subcategories.length ? 
                                             category.id === 1 ? 
-                                            <Dropdown.Menu align="right" bsPrefix="dropdown-menu-custom">
-                                                <Dropdown.Item key={uuidv4()}>
-                                                    <Link to={'#'} style={{textDecoration: 'none'}}>
-                                                        <span className="header-navbar-subitem">asdf</span>
-                                                    </Link>
+                                            <Dropdown.Menu align="right" bsPrefix="dropdown-menu-custom with-pills">
+                                                <Dropdown.Item key={uuidv4()} style={{cursor:'default'}}>
+                                                    {/* <Link to={'#'} style={{textDecoration: 'none'}}> */}
+                                                        <PillsDropDown
+                                                            laboratories={laboratories}
+                                                            formats={formats}
+                                                            subscriptions={subscriptions}
+                                                        />
+                                                    {/* </Link> */}
                                                 </Dropdown.Item>
                                             </Dropdown.Menu>
                                             : 
