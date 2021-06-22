@@ -114,6 +114,7 @@ if (env('SHOW_INTRANET', 'TRUE') == 'TRUE') {
                 Route::get('pedidos/search-client', 'OrderController@search_client')->name('orders.search_client');
                 Route::get('pedidos/detalle', 'OrderController@detail')->name('orders.detail');
                 Route::get('pedidos/export', 'OrderController@export')->name('orders.export');
+                Route::post('pedidos/prescription-validate', 'OrderController@prescription_validate')->name('orders.prescription_validate');
                 Route::post('pedidos/pedidos/change-order-status', 'OrderController@changeOrderStatus')->name('orders.changeOrderStatus');
                 Route::resource('pedidos', 'OrderController', ['names' => getResourceRoutesForNameHelper('orders')]);
 

@@ -28,7 +28,8 @@ class Order extends Model
         'extra_data',
         'delivery_date',
         'status',
-        'discount_code_id'
+        'discount_code_id',
+        'prescription_validation'
     ];
 
     protected $appends = ['formated_status', 'formated_background', 'formated_color'];
@@ -97,5 +98,10 @@ class Order extends Model
     public function order_items(){
         return $this->hasMany(OrderItem::class);
     }
+
+    public function prescription(){
+        return $this->hasOne(Prescription::class);
+    }
+
 
 }
