@@ -20,7 +20,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="row">
-                                <form id="form" action="{{ route($config['route'] . 'index') }}"
+                                <form action="{{ route($config['route'] . 'index') }}"
                                       enctype="multipart/form-data"
                                       method="GET">
                                     <div class="col-md-2">
@@ -216,7 +216,7 @@
                     sortable: true,
                     cellStyle: cellStyle,
                     formatter: function (value, row, index) {
-                        return row.first_name+''+row.last_name;
+                        return row.first_name;
                     }
                 },
                 {
