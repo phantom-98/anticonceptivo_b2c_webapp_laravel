@@ -115,7 +115,7 @@ const Claim = () => {
                 hideClaim();
                 setData(defaultData);
                 swalWithBootstrapButtons.fire({
-                    title: '<span style="color: #0869A6;">Su reclamo ha sido ingresado exitosamente.</span>',
+                    title: '<span style="color: #0869A6;">Su reclamo #'+response.data.claim_id+' ha sido ingresado exitosamente.</span>',
                     confirmButtonText: 'Confirmar',
                     reverseButtons: true
                 })
