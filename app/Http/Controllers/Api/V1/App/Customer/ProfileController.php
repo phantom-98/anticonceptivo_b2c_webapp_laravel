@@ -314,6 +314,36 @@ class ProfileController extends Controller
         }
     }
 
+    public function deleteSubscription(Request $request)
+    {
+        try {
+            $is_default = false;
+            $subscription = Subscription::find($request->subscription_id);
+
+            if($subscription->default_subscription){
+                $is_default = true;
+            }
+            $customer_id = $subscription->customer_id;
+            $subscription->delete();
+
+            if($is_default){
+                $subscription = Subscription::where('customer_id', $customer_id)->get()->first();
+                if($subscription){
+                    $subscription->default_subscription = true;
+                    $subscription->save();
+                }
+
+            }
+            return ApiResponse::JsonSuccess([
+                'subscription' => $subscription
+            ], OutputMessage::CUSTOMER_SUBSCRIPTIONS_CREATE);
+            
+
+        } catch (\Exception $exception) {
+            return ApiResponse::JsonError(null, $exception->getMessage());
+        }
+    }
+
     public function updateDefaultSubscription(Request $request)
     {
         try {

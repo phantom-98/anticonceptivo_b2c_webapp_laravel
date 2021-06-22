@@ -3,6 +3,7 @@ import * as Services from "../../../../Services";
 import { AuthContext } from "../../../../context/AuthProvider";
 import { CartContext } from "../../../../context/CartProvider";
 import WaitingPayment from "./WaitingPayment";
+import Swal from 'sweetalert2'
 
 const WebPayProccess = ({
         data,
@@ -56,8 +57,8 @@ const WebPayProccess = ({
         // if (!address) {
         //     toastr.warning('Debes agregar una dirección para proceder al pago.')
         // }
-        let selectedSubscription  = null;
 
+        let selectedSubscription  = null;
         subscription.forEach(element => {
             if(element.default_subscription){
                 selectedSubscription  = element;
@@ -81,7 +82,6 @@ const WebPayProccess = ({
                 Services.Response({
                     response: response,
                     success: () => {
-                        if(response.status == 'success'){
                             if(response.message == "Compra OneClick"){
                                 clearCart();
                                 submitPrescription(response.data.order.id, response.data.order.customer_id);
@@ -101,9 +101,24 @@ const WebPayProccess = ({
                                 win.document.write(response.data.webpay);
                                 win.document.close();
                             }
-                        }
+
 
                     },
+                    error: () => {
+                        const swalWithBootstrapButtons = Swal.mixin({
+                            customClass: {
+                                confirmButton: 'col-6 btn btn-bicolor btn-block',
+                                title: 'mt-4'
+                            },
+                            buttonsStyling: false
+                          })
+
+                        swalWithBootstrapButtons.fire({
+                            // icon: 'error',
+                            title: '<span style="color: #0869A6;">'+response.message+'</span>',
+                        })
+                    }
+
                 });
             })
             .catch(error => {

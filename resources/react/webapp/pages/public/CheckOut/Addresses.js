@@ -34,6 +34,13 @@ const Addresses = ({setView, regions, communes, address, setAddress}) => {
             response: response,
                 success: () => {
                     setAddresses(response.data.addresses);
+                    if(response.data.addresses != null){
+                        response.data.addresses.forEach(elementAddress => {
+                            if(elementAddress.default_address){
+                                setAddress(elementAddress);
+                            }
+                        });
+                    }
                 }
             });
         }).catch(error => {

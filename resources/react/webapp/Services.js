@@ -139,7 +139,9 @@ export const ENDPOINT = {
         SUBSCRIPTIONS: {
             GET: GetBaseURL() + 'customer/get-subscriptions',
             UPDATE: GetBaseURL() + 'customer/update-subscriptions',
-            SET_DEFAULT_SUBSCRIPTION: GetBaseURL() + 'customer/update-default-subscription'
+            SET_DEFAULT_SUBSCRIPTION: GetBaseURL() + 'customer/update-default-subscription',
+            DELETE: GetBaseURL() + 'customer/delete-subscription',
+
         },
         ORDERS:{
             GET: GetBaseURL() + 'customer/get-orders',
