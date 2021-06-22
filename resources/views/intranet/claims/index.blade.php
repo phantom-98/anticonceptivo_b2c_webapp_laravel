@@ -216,7 +216,7 @@
                     sortable: true,
                     cellStyle: cellStyle,
                     formatter: function (value, row, index) {
-                        return row.first_name+''+row.last_name;
+                        return row.first_name;
                     }
                 },
                 {
