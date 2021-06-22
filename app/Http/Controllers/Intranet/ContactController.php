@@ -36,7 +36,7 @@ class ContactController extends GlobalController
     {
         $objects = Contact::with('contact_issue');
 
-        $status = $request->status_filter;
+        $status = $request->status_filter ?? "Todos";
         $date = $request->date;
         $section = $request->section;
         $type = $request->type;

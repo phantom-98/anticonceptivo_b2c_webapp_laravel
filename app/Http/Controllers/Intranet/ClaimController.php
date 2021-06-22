@@ -36,7 +36,7 @@ class ClaimController extends GlobalController
     {
         $objects = Claim::with('contact_issue');
 
-        $status = $request->status_filter;
+        $status = $request->status_filter ?? "Todos";
         $date = $request->date;
         $appends = [];
 
