@@ -263,3 +263,12 @@
     height: 0%;
     z-index: 10;
 }
+
+.slick-active > div {
+    z-index: 10;
+    display: block !important;
+}
+
+.slick-slide > div {
+    display: none;
+}

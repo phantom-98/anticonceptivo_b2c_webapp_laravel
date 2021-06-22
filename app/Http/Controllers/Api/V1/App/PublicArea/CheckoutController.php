@@ -37,7 +37,7 @@ class CheckoutController extends Controller
     {
         try {
 
-            $order = Order::with(['customer','order_items'])->find($request->order_id);
+            $order = Order::with(['customer','order_items.subscription_plan.product_subscription_plan'])->find($request->order_id);
 
             return ApiResponse::JsonSuccess([
                 'order' => $order,

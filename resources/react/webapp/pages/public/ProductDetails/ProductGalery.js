@@ -17,7 +17,6 @@ const ProductGallery = ({product}) => {
                 {
                     product.images.length ?
                         product.images.map((img, index) => {
-                            console.log('a: ',img);
                             return (
                                 <div key={index} 
                                     className="img-box-product-mini mb-3 pointer" 
@@ -37,9 +36,11 @@ const ProductGallery = ({product}) => {
                     {/* <img src={imageSelected} alt={`${CONFIG.APP_NAME} - ${product.name}`}/> */}
                     <SideBySideMagnifier 
                         imageSrc={imageSelected}
+                        // largeImageSrc={imageSelected}
                         imageAlt={`${CONFIG.APP_NAME}`}
                         fillAlignTop={true}
                         fillAvailableSpace={false}
+                        // alwaysInPlace={true}
                     />
                 </div>
             </div>

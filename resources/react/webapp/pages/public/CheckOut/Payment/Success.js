@@ -74,6 +74,7 @@ const Success = ({orderId}) => {
                                             )
                                         })
                                     }
+                                    <RowCol name="TOTAL" value={order.total} firstColSize="8"/>
                                 </div>
 
                                 <div className="row py-3">
