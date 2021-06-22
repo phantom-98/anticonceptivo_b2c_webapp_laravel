@@ -2,7 +2,6 @@ import React from 'react';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
-import LazyLoading from "../LazyLoading";
 import { v4 as uuidv4 } from 'uuid';
 import {CONFIG} from "../../Config";
 import {Link} from "react-router-dom";
@@ -17,7 +16,7 @@ const BannerCarousel = ({topBanners}) => {
         slidesToScroll: 1,
         autoplay: true,
         speed: 1500,
-        autoplaySpeed: 150000, // 4500
+        autoplaySpeed: 4500, // 4500
         cssEase: "linear"
     };
 
@@ -36,15 +35,15 @@ const BannerCarousel = ({topBanners}) => {
                                 {
                                     banner.button_title ? 
                                     <div className="testing-2 font-poppins font-35 bold color-033F5D">
-                                        <Link to={'#'} className="btn btn-bicolor btn-block">
+                                        <a href={banner.button_link} target={banner.button_target} className="btn btn-bicolor btn-block">
                                             <span style={{lineHeight:'35px'}}>{banner.button_title}</span>
-                                        </Link>
+                                        </a>
                                     </div> : null
                                 }
                             </div>
                         )
                     })
-                : <LazyLoading/>
+                : null
             }
         </Slider>
     );
