@@ -167,7 +167,7 @@ const ProductInfo = ({ product }) => {
                     <span className="font-poppins font-14 regular color-6C6B6B">
                         Precio por unidad: ${
                             product.state_of_matter === 'Líquido' ? 
-                                Math.round(product.price/(parseInt(product.format)*100)*100)/100 +' '+product.unit_format  
+                                Math.round(product.price/parseInt(product.format)*100) +' '+product.unit_format  
                             : 
                                 Math.round(product.price/parseInt(product.format)) +' '+product.unit_format}
                     </span>

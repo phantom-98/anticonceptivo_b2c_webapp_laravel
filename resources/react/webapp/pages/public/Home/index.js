@@ -1,5 +1,4 @@
 import React, {Fragment, useEffect, useState, useContext} from 'react';
-import {CONFIG} from "../../../Config";
 import OurBrands from "./OurBrands";
 import Subscribe from "../../../components/sections/Subscribe";
 import BestSeller from "../../../components/sections/BestSellers";
@@ -51,36 +50,23 @@ const Home = ({match}) => {
 
     return (
         <Fragment>
-           <div className="bg-FAFAFA">
+            <div className="bg-FAFAFA">
+                <BannerCarousel topBanners={topBanners}/>
 
-               <BannerCarousel topBanners={topBanners}/>
+                <ProductsCarousel title="Destacados" />
 
-               <ProductsCarousel title="Destacados" />
+                <BannerStatic banners={middleBanners}/>
 
-               <div className="container">
-                   <div className="row">
-                       <BannerStatic 
-                            banners={middleBanners}
-                       />
-                   </div>
-               </div>
+                <BestSeller/>
 
-               <BestSeller/>
+                <BlogCarousel title="BLOG" showButton={true} buttonTitle="VER MÁS NOTICIAS" />
 
-               <BlogCarousel title="BLOG" showButton={true} buttonTitle="VER MÁS NOTICIAS" />
+                <BannerStatic banners={bottomBanners}/>
 
-               <div className="container">
-                   <div className="row">
-                       <BannerStatic 
-                            banners={bottomBanners}
-                       />
-                   </div>
-               </div>
+                <OurBrands/>
 
-               <OurBrands/>
-
-               <Subscribe/>
-           </div>
+                <Subscribe/>
+            </div>
         </Fragment>
     );
 };

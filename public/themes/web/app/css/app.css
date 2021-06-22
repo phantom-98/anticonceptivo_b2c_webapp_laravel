@@ -1140,6 +1140,7 @@ input.my-auto.file-input {
   transform: translate(-50%, -50%);
   width: 20%;
   height: 0%;
+  z-index: 10;
 }
 
 .modal-backdrop {
