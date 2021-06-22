@@ -15,7 +15,7 @@ const BannerStatic = ({banners}) => {
                     </div>
                 )
             })
-        : <LazyLoading/>
+        : null
     );
 };
 

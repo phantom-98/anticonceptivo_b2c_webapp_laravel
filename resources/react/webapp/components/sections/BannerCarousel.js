@@ -17,7 +17,7 @@ const BannerCarousel = ({topBanners}) => {
         slidesToScroll: 1,
         autoplay: true,
         speed: 1500,
-        autoplaySpeed: 150000, // 4500
+        autoplaySpeed: 4500, // 4500
         cssEase: "linear"
     };
 
@@ -44,7 +44,7 @@ const BannerCarousel = ({topBanners}) => {
                             </div>
                         )
                     })
-                : <LazyLoading/>
+                : null
             }
         </Slider>
     );
