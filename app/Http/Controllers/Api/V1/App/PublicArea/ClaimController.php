@@ -60,18 +60,35 @@ class ClaimController extends Controller
 
                 if ($claim->save()) {
 
-                    $subject = 'Reclamo Ingresado';
+                    // correo al cliente
+
+                    $subject = 'Reclamo #'. $claim->id .' Ingresado';
 
                     $body = view('emails.claim-joined', ['data' => [
                         'first_name' => $claim->first_name,
-                        'message' => $claim->message
+                        'message' => $claim->message,
+                        'claim_id' => $claim->id
                     ]])->render();
 
                     $email = new Email();
-
                     $email->send($claim->email, $subject, $body);
 
-                    return ApiResponse::JsonSuccess([], OutputMessage::CLAIM_SUBMIT_SUCCESS);
+                    // correo a la companía
+
+                    $companyBody = view('emails.claim-received', ['data' => [
+                        'first_name' => $claim->first_name,
+                        'message' => $claim->message,
+                        'email' => $claim->email,
+                        'claim_id' => $claim->id
+                    ]])->render();
+
+                    $emailToCompany = new Email();
+                    // $emailToCompany->send('ffernandez@innovaweb.cl', 'Reclamo #'. $claim->id .' Recibido', $companyBody);
+                    $emailToCompany->send('contacto@anticonceptivo.cl', 'Reclamo Recibido', $companyBody);
+
+                    return ApiResponse::JsonSuccess([
+                        'claim_id' => $claim->id
+                    ], OutputMessage::CLAIM_SUBMIT_SUCCESS);
                 }
             }else {
                 return ApiResponse::JsonFieldValidation($validator->errors());
