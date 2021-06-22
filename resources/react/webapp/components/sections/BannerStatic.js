@@ -9,10 +9,10 @@ const BannerStatic = ({banners}) => {
             <div className="row">
                 {
                     banners.length ? 
-                        banners.map(banner => {
+                        banners.map((banner) => {
                             let bannerStaticKey = uuidv4();
                             return(
-                                <div key={bannerStaticKey} className={banner.size}>
+                                <div key={bannerStaticKey} className={`pb-4 ${banner.size}`}>
                                     <img src={banner.public_file} alt={CONFIG.APP_NAME} style={{ width : '100%'}}/>
                                 </div>
                             )
