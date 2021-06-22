@@ -79,7 +79,7 @@ const HeaderNavbar = () => {
     return (
         <div className="header-navbar bg-0869A6">
             <div className="container" style={{maxWidth:'1500px'}}>
-                <div className="row">
+                <div className="row justify-content-center">
                     {
                         categories.map(category => {
                             let url = PUBLIC_ROUTES.SHOP.path;
@@ -94,7 +94,7 @@ const HeaderNavbar = () => {
                                     <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
                                         <HeaderNavbarItem 
                                             // linkTo={url}
-                                            // icon={category.public_image} 
+                                            icon={category.public_image}
                                             text={category.name}
                                         />
                                     </Dropdown.Toggle>

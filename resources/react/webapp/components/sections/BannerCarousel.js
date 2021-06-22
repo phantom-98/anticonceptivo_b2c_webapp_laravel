@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
@@ -16,7 +16,7 @@ const BannerCarousel = ({topBanners}) => {
         autoplay: true,
         speed: 1500,
         autoplaySpeed: 4500, // 4500
-        cssEase: "linear"
+        // cssEase: "linear"
     };
 
     return (
