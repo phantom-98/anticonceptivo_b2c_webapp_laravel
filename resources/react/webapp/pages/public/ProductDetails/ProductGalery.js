@@ -36,7 +36,7 @@ const ProductGallery = ({product}) => {
                     {/* <img src={imageSelected} alt={`${CONFIG.APP_NAME} - ${product.name}`}/> */}
                     <SideBySideMagnifier 
                         imageSrc={imageSelected}
-                        largeImageSrc={imageSelected}
+                        // largeImageSrc={imageSelected}
                         imageAlt={`${CONFIG.APP_NAME}`}
                         fillAlignTop={true}
                         fillAvailableSpace={false}
