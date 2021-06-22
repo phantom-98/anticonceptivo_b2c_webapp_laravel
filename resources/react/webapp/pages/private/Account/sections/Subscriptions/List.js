@@ -3,7 +3,7 @@ import ListItem from "./ListItem";
 import Icon from "../../../../../components/general/Icon";
 import plusIcon from '../../../../../assets/images/icons/plus-green.svg'
 import * as Services from "../../../../../Services";
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 
 const List = ({subscriptions, showCreate, getData}) => {
 

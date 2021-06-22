@@ -13,7 +13,9 @@ const BannerStatic = ({banners}) => {
                             let bannerStaticKey = uuidv4();
                             return(
                                 <div key={bannerStaticKey} className={`pb-4 ${banner.size}`}>
-                                    <img src={banner.public_file} alt={CONFIG.APP_NAME} style={{ width : '100%'}}/>
+                                    <a href={banner.button_link} target={banner.button_target}>
+                                        <img src={banner.public_file} alt={CONFIG.APP_NAME} style={{ width : '100%'}}/>
+                                    </a>
                                 </div>
                             )
                         })

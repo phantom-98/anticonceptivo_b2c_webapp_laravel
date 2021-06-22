@@ -127,7 +127,8 @@
 <div class="container">
     <div class="card">
         <div class="card-header bg-primary">
-            <img style="" src="https://anticonceptivo.innovaweb.cl/themes/web/assets/images/logo.png"/>
+            <img style="" src="https://anticonceptivo.innovaweb.cl/themes/web/assets/images/logo-full.png"/>
+            
         </div>
         <div class="card-body">
             @if(trim($__env->yieldContent('header')))
@@ -148,13 +149,13 @@
             <div class="mb-2 text-center" style="">
                 <div>
                     <a href="#" target="_blank" style="text-decoration: none;">
-                        <img style="margin: 0 5px;" src="https://anticonceptivo.innovaweb.cl/themes/web/assets/img/email/twitter.png"/>
+                        <img style="margin: 0 5px;" src="https://anticonceptivo.innovaweb.cl/themes/web/assets/images/email/twitter.png"/>
                     </a>
                     <a href="#" target="_blank" style="text-decoration: none;">
-                        <img style="margin: 0 5px;" src="https://anticonceptivo.innovaweb.cl/themes/web/assets/img/email/facebook.png"/>
+                        <img style="margin: 0 5px;" src="https://anticonceptivo.innovaweb.cl/themes/web/assets/images/email/facebook.png"/>
                     </a>
                     <a href="#" target="_blank" style="text-decoration: none;">
-                        <img style="margin: 0 5px;" src="https://anticonceptivo.innovaweb.cl/themes/web/assets/img/email/instagram.png"/>
+                        <img style="margin: 0 5px;" src="https://anticonceptivo.innovaweb.cl/themes/web/assets/images/email/instagram.png"/>
                     </a>
                 </div>
             </div>

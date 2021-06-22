@@ -9,6 +9,7 @@ import ModalClaim from "./ModalClaim";
 import * as Services from "../../../Services";
 import toastr from "toastr";
 import moment from "moment";
+import Swal from 'sweetalert2'
 
 const Claim = () => {
 
@@ -38,6 +39,14 @@ const Claim = () => {
     const [pageRangeDisplayed, setPageRangeDisplayed] = useState(1);
     const [itemsCountPerPage, setItemsCountPerPage] = useState(10);
     const [totalItemsCount, setTotalItemsCount] = useState(0);
+
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'col-6 btn btn-bicolor btn-block',
+            title: 'mt-4'
+        },
+        buttonsStyling: false
+    })
 
     const colors = [
         '#033F5D',
@@ -105,7 +114,11 @@ const Claim = () => {
                 getData();
                 hideClaim();
                 setData(defaultData);
-                toastr.success(response.message);
+                swalWithBootstrapButtons.fire({
+                    title: '<span style="color: #0869A6;">Su reclamo ha sido ingresado exitosamente.</span>',
+                    confirmButtonText: 'Confirmar',
+                    reverseButtons: true
+                })
             },
             });
         }).catch(error => {
