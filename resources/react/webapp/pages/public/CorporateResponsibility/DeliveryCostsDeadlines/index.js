@@ -10,20 +10,20 @@ const DeliveryCostsDeadlines = ({deliveryCosts}) => {
 
             <H3Panel title="PLAZOS Y COSTOS DE ENTREGA"/>
 
-            <Accordion defaultActiveKey={deliveryCosts.length ? deliveryCosts[0].id : null} className="col-md-12">
+            <Accordion defaultActiveKey={'0'} className="col-md-12">
             {
                 deliveryCosts.map((data, index) => {
                     let deliveryCostyKey = uuidv4();
                     return(
                         <Card key={deliveryCostyKey} className="card-faq my-4">
-                            <Accordion.Collapse eventKey={data.id}>
+                            <Accordion.Collapse eventKey={index.toString()}>
                                 <Card.Body>
                                     <AccordionBody 
                                         data={data}
                                     />
                                 </Card.Body>
                             </Accordion.Collapse>
-                            <Accordion.Toggle as={Card.Header} eventKey={data.id}>
+                            <Accordion.Toggle as={Card.Header} eventKey={index.toString()}>
                                 <span className="font-16 font-poppins bold">{data.name}</span>
                             </Accordion.Toggle>
                         </Card>
