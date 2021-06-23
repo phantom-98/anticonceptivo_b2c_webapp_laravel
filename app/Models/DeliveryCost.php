@@ -17,10 +17,15 @@ class DeliveryCost extends Model
 
     protected $appends = [
         'formated_costs',
+        'public_image'
     ];
 
     public function getFormatedCostsAttribute(){
         return json_decode($this->costs);
     }
 
+    public function getPublicImageAttribute()
+    {
+        return $this->image ? \Storage::url($this->image) : $this->image;
+    }
 }
