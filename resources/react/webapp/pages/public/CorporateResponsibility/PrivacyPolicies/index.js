@@ -9,7 +9,7 @@ const PrivacyPolicies = ({privacyPolicy}) => {
             <H3Panel title="POLÍTICAS DE PRIVACIDAD"/>
 
             <div className="col-md-12">
-                <div dangerouslySetInnerHTML={{ __html:privacyPolicy}}/>
+                <div dangerouslySetInnerHTML={{ __html: privacyPolicy.description }} />
             </div>
         </div>
     );
