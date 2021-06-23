@@ -9,6 +9,7 @@ class Timeline extends Model
     protected $fillable = [
         'id',
         'description',
+        'slug',
         'icon',
         'year',
         'active',
