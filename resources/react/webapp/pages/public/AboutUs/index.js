@@ -129,22 +129,11 @@ const AboutUs = () => {
                                     </div>
                                     <div className="col-9">
                                         <div className="mb-5">
-                                            <img src={alliance.public_image} alt={CONFIG.APP_NAME}/>
+                                            <a href={alliance.website} target="_blank">
+                                                <img src={alliance.public_image} alt={CONFIG.APP_NAME}/>
+                                            </a>
                                         </div>
                                         <div dangerouslySetInnerHTML={{ __html:alliance.description}}/>
-                                        {/* <h3 className="font-poppins font-22 bold color-033F5D mb-3">
-                                            Una alianza
-                                        </h3>
-                                        <div className="font-poppins font-18 regular color-6C6B6B lh-30">
-                                            Wireframes can be pencil drawings or sketches on a whiteboard, or they can be produced
-                                            by
-                                            means of a broad array of free or commercial software applications. Wireframes are
-                                            generally
-                                            created by business analysts, user experience designers, developers, visual designers,
-                                            and
-                                            by those with expertise in interaction design, information architecture and user
-                                            research.
-                                        </div> */}
                                     </div>
                                 </div>
                             )
