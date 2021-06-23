@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\V1\App\PublicArea\CheckoutController;
 use App\Http\Controllers\Api\V1\App\PublicArea\ClaimController;
 use App\Http\Controllers\Api\V1\App\PublicArea\CorporateResponsibilityController;
 use App\Http\Controllers\Api\V1\App\PublicArea\BlogController;
+use App\Http\Controllers\Api\V1\App\PublicArea\AboutUsController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('public-area')
@@ -13,10 +14,9 @@ Route::prefix('public-area')
     // ->middleware(['web'])
     ->group(function () {
 
-        Route::get('get-header-navbar-resources', [HomeController::class, 'getHeaderNavbarResources'])->name('getHeaderNavbarResources');
-        
+        Route::get('get-header-navbar-resources', [HomeController::class, 'getHeaderNavbarResources'])->name('getHeaderNavbarResources');        
         Route::get('get-home-top-banners', [HomeController::class, 'getHomeTopBanners'])->name('getHomeTopBanners');
-        Route::get('get-about-us-banners', [HomeController::class, 'getAboutUsBanners'])->name('getAboutUsBanners');
+
 
         Route::get('get-resources', [ProductController::class, 'getResources'])->name('getResources');
         Route::get('get-products', [ProductController::class, 'getProducts'])->name('getProducts');
@@ -41,4 +41,5 @@ Route::prefix('public-area')
 
         Route::get('get-corporate-responsabilities', [CorporateResponsibilityController::class, 'index'])->name('index');
         Route::get('get-blog-resources', [BlogController::class, 'index'])->name('index');
+        Route::get('get-about-us-resources', [AboutUsController::class, 'index'])->name('index');
     });

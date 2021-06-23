@@ -102,17 +102,4 @@ class HomeController extends Controller
             return ApiResponse::JsonError(null, $exception->getMessage());
         }
     }
-
-    public function getAboutUsBanners(){
-        try {
-            $banners = Banner::where('location','Quienes Somos')->where('active',true)->get();
-
-            return ApiResponse::JsonSuccess([
-                'banners' => $banners
-            ]);
-
-        } catch (\Exception $exception) {
-            return ApiResponse::JsonError(null, $exception->getMessage());
-        }
-    }
 }

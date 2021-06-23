@@ -83,10 +83,10 @@ export const ENDPOINT = {
                 MIDDLE: GetBaseURL() + 'public-area/get-home-middle-banners',
                 BOTTOM: GetBaseURL() + 'public-area/get-home-bottom-banners',
             },
-            ABOUT_US: GetBaseURL() + 'public-area/get-about-us-banners',
         },
         CORPORATE_RESPONSIBILITY: GetBaseURL() + 'public-area/get-corporate-responsabilities',
         BLOG: GetBaseURL() + 'public-area/get-blog-resources',
+        ABOUT_US: GetBaseURL() + 'public-area/get-about-us-resources',
     },
 
     NO_AUTH: {
