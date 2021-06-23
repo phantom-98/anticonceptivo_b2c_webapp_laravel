@@ -83,7 +83,7 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="color">Color(*)</label>
-                                    <input type="color" name="color[1][]" class="form-control color"  value="{{ $cost->color[0] }}">
+                                    <input type="color" name="color[{{$loop->iteration}}][]" class="form-control color"  value="{{ $cost->color[0] }}">
                                 </div>
                             </div>
                             <div class="col-md-2">

@@ -111,7 +111,6 @@ class DeliveryCostController extends GlobalController
 
     public function update(Request $request, $id)
     {
-        return $request->all();
         $object = DeliveryCost::find($id);
 
         if (!$object) {
