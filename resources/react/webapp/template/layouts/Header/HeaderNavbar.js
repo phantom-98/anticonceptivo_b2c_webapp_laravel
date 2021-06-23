@@ -93,7 +93,7 @@ const HeaderNavbar = () => {
                                 >
                                     <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
                                         <HeaderNavbarItem 
-                                            // linkTo={url}
+                                            linkTo={category.id === 1 ? '#' : url}
                                             icon={category.public_image}
                                             text={category.name}
                                         />
