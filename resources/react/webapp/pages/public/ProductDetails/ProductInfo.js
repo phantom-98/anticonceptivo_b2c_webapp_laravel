@@ -115,7 +115,7 @@ const ProductInfo = ({ product }) => {
             </div>
 
             <div className="col-md-12">
-                <Accordion className="accordion-faq">
+                <Accordion>
                     <Card
                         key={product.id}
                         className="card-faq"

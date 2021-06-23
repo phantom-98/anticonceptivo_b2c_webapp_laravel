@@ -62,7 +62,7 @@ const Faq = () => {
                         <div className="col-md-9">
                             <h1 className="base-panel-one-title">{PUBLIC_ROUTES.FAQ.title}</h1>
 
-                            <Accordion defaultActiveKey={categoryFaqs.length ? categoryFaqs[0].faqs[0].id : null} className="accordion-faq">
+                            <Accordion defaultActiveKey={categoryFaqs.length ? categoryFaqs[0].faqs[0].id : null}>
                                 {
                                     categoryFaqs.map((categories) => {
                                         return (
