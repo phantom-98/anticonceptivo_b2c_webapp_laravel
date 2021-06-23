@@ -65,6 +65,9 @@ const AboutUs = () => {
 
                         </div>
                         <div className="col-9">
+                            <h3 className="font-poppins font-22 bold color-033F5D mb-3">
+                                {aboutUs.title_review}
+                            </h3>
                             <div dangerouslySetInnerHTML={{ __html: aboutUs.review}}/>
                         </div>
                     </div>
