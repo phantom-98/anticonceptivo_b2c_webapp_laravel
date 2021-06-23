@@ -63,14 +63,14 @@
                         <br/>
                         @forelse($object->formated_costs as $cost)
                         <div class="row clone">
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="price">Precio(*)</label>
                                     <input type="text" name="price[{{$loop->iteration}}][]" class="form-control price" value="{{ $cost->price[0] }}"
                                     oninput="checkKeyByClass('price')" >
                                 </div>
                             </div>    
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="communes">Comunas (*)</label>
                                     <select name="communes[{{$loop->iteration}}][]" class="form-control select2 communes" data-width="100%" multiple>
@@ -80,6 +80,12 @@
                                     </select>
                                 </div>
                             </div>   
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="color">Color(*)</label>
+                                    <input type="color" name="color[1][]" class="form-control color"  value="{{ $cost->color[0] }}">
+                                </div>
+                            </div>
                             <div class="col-md-2">
                                 <button class="btn btn-success" type="button" style="margin-top:22px" onclick="addNewRow()"><i
                                     class="fa fa-plus"></i> Añadir otro rango</button>
@@ -87,14 +93,14 @@
                         </div>
                         @empty
                         <div class="row clone">
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="price">Precio(*)</label>
                                     <input type="text" name="price[1][]" class="form-control price" required
                                     oninput="checkKeyByClass('price')" >
                                 </div>
                             </div>    
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="communes">Comunas (*)</label>
                                     <select name="communes[1][]" class="form-control select2 communes" data-width="100%" multiple required>
@@ -104,6 +110,12 @@
                                     </select>
                                 </div>
                             </div>   
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="color">Color(*)</label>
+                                    <input type="color" name="color[1][]" class="form-control color" required>
+                                </div>
+                            </div>
                             <div class="col-md-2">
                                 <button class="btn btn-success" type="button" style="margin-top:22px" onclick="addNewRow()"><i
                                     class="fa fa-plus"></i> Añadir otro rango</button>
