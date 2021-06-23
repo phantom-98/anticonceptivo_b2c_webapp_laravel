@@ -7,6 +7,7 @@ import LegalBases from "./LegalBases";
 import DeliveryCostsDeadlines from "./DeliveryCostsDeadlines";
 import BasePanelOne from "../../../template/BasePanelOne";
 import LateralMenu from "../../../components/general/LateralMenu";
+import * as Services from "../../../Services";
 
 const CorporateResponsibility = ({match}) => {
 
@@ -14,6 +15,9 @@ const CorporateResponsibility = ({match}) => {
     const [sectionSelected, setSectionSelected] = useState('');
 
     const [loaded, setLoaded] = useState(false);
+
+    const [legalBases, setLegalBases] = useState([]);
+    const [privacyPolicy, setPrivacyPolicy] = useState('');
 
     const sections = {
         PRIVACY_POLICIES: {
@@ -31,6 +35,7 @@ const CorporateResponsibility = ({match}) => {
     }
 
     useEffect(() => {
+        getData();
         if (match && match.params && 'section' in match.params) {
             const section = match.params.section;
             Object.keys(sections).map((key, index) => {
@@ -57,9 +62,9 @@ const CorporateResponsibility = ({match}) => {
 
         switch (sectionSelected) {
             case sections.PRIVACY_POLICIES.url:
-                return <PrivacyPolicies/>;
+                return <PrivacyPolicies privacyPolicy={privacyPolicy}/>;
             case sections.LEGAL_BASE.url:
-                return <LegalBases/>;
+                return <LegalBases legalBases={legalBases}/>;
             case sections.DELIVERY_COSTS_DEADLINES.url:
                 return <DeliveryCostsDeadlines/>;
             default:
@@ -73,6 +78,23 @@ const CorporateResponsibility = ({match}) => {
     const handleSection = (section) => {
         let url = PUBLIC_ROUTES.CORPORATE_RESPONSIBILITY.path;
         return url.replace(':section', section);
+    }
+
+    const getData = () => {
+        let url = Services.ENDPOINT.PUBLIC_AREA.CORPORATE_RESPONSIBILITY;
+        let data = {};
+
+        Services.DoGet(url,data).then(response => {
+            Services.Response({
+                response: response,
+                success: () => {
+                    setLegalBases(response.data.legal_bases);
+                    setPrivacyPolicy(response.data.privacy_policy);
+                },
+            });
+        }).catch(error => {
+            Services.ErrorCatch(error)
+        });
     }
 
     return (

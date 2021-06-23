@@ -13,4 +13,16 @@ class LegalBase extends Model
         'active',
     ];
 
+    protected $appends = [
+        'public_file',
+        'public_icon'
+    ];
+
+    public function getPublicFileAttribute(){
+        return $this->file == null ? null : \Storage::url($this->file);
+    }
+
+    public function getPublicIconAttribute(){
+        return $this->icon == null ? null : \Storage::url($this->icon);
+    }
 }

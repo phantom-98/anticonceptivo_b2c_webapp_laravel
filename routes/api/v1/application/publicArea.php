@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\V1\App\PublicArea\HomeController;
 use App\Http\Controllers\Api\V1\App\PublicArea\ProductController;
 use App\Http\Controllers\Api\V1\App\PublicArea\CheckoutController;
 use App\Http\Controllers\Api\V1\App\PublicArea\ClaimController;
+use App\Http\Controllers\Api\V1\App\PublicArea\CorporateResponsibilityController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('public-area')
@@ -36,4 +37,6 @@ Route::prefix('public-area')
 
         Route::post('submit-claim', [ClaimController::class, 'submitClaim'])->name('submitClaim');
         Route::get('get-claims', [ClaimController::class, 'getClaims'])->name('getClaims');
+
+        Route::get('get-corporate-responsabilities', [CorporateResponsibilityController::class, 'index'])->name('index');
     });
