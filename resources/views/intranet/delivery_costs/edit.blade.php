@@ -75,7 +75,7 @@
                                     <label for="communes">Comunas (*)</label>
                                     <select name="communes[{{$loop->iteration}}][]" class="form-control select2 communes" data-width="100%" multiple>
                                         @foreach($communes as $c)
-                                            <option value="{{ $c->id }}" {{ in_array($c->id, $cost->communes) ? 'selected' : ''}}>{{ $c->name }}</option>
+                                            <option value="{{ $c->name }}" {{ in_array($c->name, $cost->communes) ? 'selected' : ''}}>{{ $c->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>

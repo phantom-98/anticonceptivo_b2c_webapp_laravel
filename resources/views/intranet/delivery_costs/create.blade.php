@@ -66,7 +66,7 @@
                                     <label for="communes">Comunas (*)</label>
                                     <select name="communes[1][]" class="form-control select2 communes" data-width="100%" multiple required>
                                         @foreach($communes as $c)
-                                            <option value="{{ $c->id }}">{{ $c->name }}</option>
+                                            <option value="{{ $c->name }}">{{ $c->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
