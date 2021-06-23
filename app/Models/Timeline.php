@@ -16,6 +16,14 @@ class Timeline extends Model
         'active'
     ];
 
+    protected $appends = [
+        'public_icon'
+    ];
+
+    public function getPublicIconAttribute(){
+        return $this->icon == null ? null : \Storage::url($this->icon);
+    }
+
     public function post(){
         return $this->belongsTo(Post::class);
     }
