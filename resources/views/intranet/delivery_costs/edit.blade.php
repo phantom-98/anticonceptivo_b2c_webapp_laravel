@@ -188,6 +188,9 @@
             $(".price").last().val("");
             $(".price").last().attr('name', 'price[' + count + '][]');
             $(".price").last().removeAttr("required");
+            $(".color").last().val("");
+            $(".color").last().attr('name', 'color[' + count + '][]');
+            $(".color").last().removeAttr("required");
             let element = $(".communes").last();
             $(".communes").last().attr('name', 'communes[' + count + '][]');
             $(".communes").last().val([]).change();
