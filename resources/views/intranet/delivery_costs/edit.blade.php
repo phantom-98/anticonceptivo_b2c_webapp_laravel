@@ -83,7 +83,7 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="color">Color(*)</label>
-                                    <input type="color" name="color[1][]" class="form-control color"  value="{{ $cost->color[0] }}">
+                                    <input type="color" name="color[{{$loop->iteration}}][]" class="form-control color"  value="{{ $cost->color[0] }}">
                                 </div>
                             </div>
                             <div class="col-md-2">
@@ -188,6 +188,9 @@
             $(".price").last().val("");
             $(".price").last().attr('name', 'price[' + count + '][]');
             $(".price").last().removeAttr("required");
+            $(".color").last().val("");
+            $(".color").last().attr('name', 'color[' + count + '][]');
+            $(".color").last().removeAttr("required");
             let element = $(".communes").last();
             $(".communes").last().attr('name', 'communes[' + count + '][]');
             $(".communes").last().val([]).change();
