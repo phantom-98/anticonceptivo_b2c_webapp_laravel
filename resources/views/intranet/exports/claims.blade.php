@@ -17,7 +17,7 @@
             <tr>
                 <td>#{{ $object->id}}</td>
                 <td>{{ $object->formated_date }}</td>
-                <td>{{ $object->first_name.' '.$object->last_name }}</td>
+                <td>{{ $object->first_name }}</td>
                 <td>{{ $object->email }}</td>
                 <td>{{ $object->phone_code.' '.$object->phone }}</td>
                 <td>{{ $object->order_id ?? '-' }}</td>
