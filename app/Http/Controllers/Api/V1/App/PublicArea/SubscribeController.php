@@ -35,7 +35,7 @@ class SubscribeController extends Controller
 
                     // correo al cliente
 
-                    $subject = 'Subscripción Anticonceptivo';
+                    $subject = 'Suscripción Anticonceptivo';
 
                     $body = view('emails.subscribe-to-newsletter', ['data' => [
 

@@ -56,7 +56,10 @@ const Footer = () => {
                                 alliances.map((alliance) => {
                                     return(
                                         <div className="mb-3">
-                                            <img src={alliance.public_image} alt={CONFIG.APP_NAME}/>
+                                            <img src={
+                                                // alliance.public_image
+                                                eureka
+                                            } alt={CONFIG.APP_NAME}/>
                                         </div>
                                     )
                                 })

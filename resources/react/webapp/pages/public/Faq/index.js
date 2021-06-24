@@ -60,7 +60,7 @@ const Faq = () => {
                                 } */}
                             {/* </div>
                         </div> */}
-                        <div className="col-md-12">
+                        <div className="col-md-9 offset-3">
                             <h1 className="base-panel-one-title">{PUBLIC_ROUTES.FAQ.title}</h1>
 
                             <Accordion defaultActiveKey={'#'}>

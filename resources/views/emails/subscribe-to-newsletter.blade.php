@@ -1,8 +1,8 @@
 @extends('emails.base')
-@section('header', 'Subscripción al newsletter')
+@section('header', 'Suscripción al newsletter')
 @section('content')
 
-    <div class="title">Subscripción Exitosa</div>
+    <div class="title">Suscripción Exitosa</div>
     <div class="message">
         <p>
             Se ha subscrito exitosamente a nuestro newsletter.

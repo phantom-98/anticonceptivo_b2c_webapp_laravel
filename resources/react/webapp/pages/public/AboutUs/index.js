@@ -13,7 +13,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 const AboutUs = () => {
 
-    const [key, setKey] = useState('vision');
+    const [key, setKey] = useState('mission');
     const [banners, setBanners] = useState([]);
     const [aboutUs, setAboutUs] = useState({});
     const [values, setValues] = useState([]);
@@ -81,14 +81,14 @@ const AboutUs = () => {
                                 activeKey={key}
                                 onSelect={(k) => setKey(k)}
                             >
-                                <Tab eventKey="vision" title="Visión">
-                                    <div className="panel-bordered p-5">
-                                        <div dangerouslySetInnerHTML={{ __html: aboutUs.view}}/>
-                                    </div>
-                                </Tab>
                                 <Tab eventKey="mission" title="Misión">
                                     <div className="panel-bordered p-5">
                                         <div dangerouslySetInnerHTML={{ __html: aboutUs.mission}}/>
+                                    </div>
+                                </Tab>
+                                <Tab eventKey="vision" title="Visión">
+                                    <div className="panel-bordered p-5">
+                                        <div dangerouslySetInnerHTML={{ __html: aboutUs.view}}/>
                                     </div>
                                 </Tab>
                             </Tabs>
