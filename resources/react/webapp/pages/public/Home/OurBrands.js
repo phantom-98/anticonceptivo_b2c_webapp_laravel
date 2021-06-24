@@ -1,9 +1,10 @@
 import React from 'react';
 import H2Title from "../../../components/general/H2Title";
-import {brands} from "../../../helpers/Images";
+// import {brands} from "../../../helpers/Images";
 import {CONFIG} from "../../../Config";
+import { v4 as uuidv4 } from 'uuid';
 
-const OurBrands = () => {
+const OurBrands = ({brands}) => {
     return (
         <div className="py-5">
             <div className="container">
@@ -15,13 +16,15 @@ const OurBrands = () => {
 
                 <div className="row py-3">
                     {
-                        Object.keys(brands).map((key, index) => {
-
-                            return <div key={index} className="col d-flex">
-                                <img src={brands[key].default}
+                        brands.map((brand, index) => {
+                            let brandKey = uuidv4();
+                            return <div key={brandKey} className="col d-flex">
+                                <a href={brand.url} target="_blank">
+                                <img src={brand.public_image}
                                      alt={CONFIG.APP_NAME}
                                      className="my-auto"
                                      style={{width: '100%', maxHeight: '50px', objectFit: 'contain'}}/>
+                                </a>
                             </div>
                         })
                     }

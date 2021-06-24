@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Api\V1\App\PublicArea;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Willywes\ApiResponse\ApiResponse;
+use App\Http\Utils\Enum\SectionTypes;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductSubscriptionPlan;
@@ -14,7 +16,10 @@ use App\Models\Page;
 use App\Models\CategoryFaq;
 use App\Models\ResponsibleConsumption;
 use App\Models\Banner;
-use App\Http\Utils\Enum\SectionTypes;
+use App\Models\OrderItem;
+use App\Models\Brand;
+use App\Models\Alliance;
+
 
 class HomeController extends Controller
 {
@@ -75,12 +80,17 @@ class HomeController extends Controller
         }
     }
 
-    public function getResponsibleConsumption()
+    public function getFooterResources()
     {
         try {
-            $responsible_consumption = ResponsibleConsumption::first();
 
-            return ApiResponse::JsonSuccess(['responsible_consumption' => $responsible_consumption]);
+            $responsible_consumption = ResponsibleConsumption::first();
+            $alliances = Alliance::where('active',true)->get();
+
+            return ApiResponse::JsonSuccess([
+                'responsible_consumption' => $responsible_consumption,
+                'alliances' => $alliances
+            ]);
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, $exception->getMessage());
         }
@@ -92,10 +102,27 @@ class HomeController extends Controller
             $middleBanners = Banner::where('location','Home (Centro)')->where('active',true)->orderBy('position')->get();
             $bottomBanners = Banner::where('location','Home (Inferior)')->where('active',true)->orderBy('position')->get();
 
+            $outstandings = Product::where('outstanding', true)->where('active',true)->with(['subcategory.category','images','laboratory'])->get();
+
+            if (!$outstandings->count()) {
+                $outstandings = Product::where('active',true)->with(['subcategory.category','images','laboratory'])->take(10)->get();
+            }
+
+            $productsId = OrderItem::with(['order','product'])->whereHas('order', function($q){
+                $q->where('status','PAID');
+            })->select('product_id', DB::raw('sum(quantity) as total'))->groupBy('product_id')->orderBy('total', 'desc')->get();
+
+            $bestSellers = Product::with(['subcategory.category','images','laboratory'])->whereIn('id',$productsId->pluck('product_id'))->get();
+
+            $brands = Brand::where('active',true)->orderBy('position')->get();
+
             return ApiResponse::JsonSuccess([
                 'top_banners' => $topBanners,
                 'middle_banners' => $middleBanners,
                 'bottom_banners' => $bottomBanners,
+                'outstandings' => $outstandings,
+                'best_sellers' => $bestSellers,
+                'brands' => $brands
             ]);
 
         } catch (\Exception $exception) {

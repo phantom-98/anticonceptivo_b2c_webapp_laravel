@@ -14,4 +14,12 @@ class Brand extends Model
         'active',
         'image'
     ];
+
+    protected $appends = [
+        'public_image'
+    ];
+
+    public function getPublicImageAttribute(){
+        return $this->image == null ? null : \Storage::url($this->image);
+    }
 }

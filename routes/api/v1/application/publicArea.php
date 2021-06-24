@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\V1\App\PublicArea\ClaimController;
 use App\Http\Controllers\Api\V1\App\PublicArea\CorporateResponsibilityController;
 use App\Http\Controllers\Api\V1\App\PublicArea\BlogController;
 use App\Http\Controllers\Api\V1\App\PublicArea\AboutUsController;
+use App\Http\Controllers\Api\V1\App\PublicArea\SubscribeController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('public-area')
@@ -23,7 +24,8 @@ Route::prefix('public-area')
 
         Route::get('get-terms-and-conditions', [HomeController::class, 'getTermsAndConditions'])->name('getTermsAndConditions');
         Route::get('get-faqs', [HomeController::class, 'getFaqs'])->name('getFaqs');
-        Route::get('get-responsible-consumption', [HomeController::class, 'getResponsibleConsumption'])->name('getResponsibleConsumption');
+
+        Route::get('get-footer-resources', [HomeController::class, 'getFooterResources'])->name('getFooterResources');
 
         Route::post('get-product-by-slug', [ProductController::class, 'getProductBySlug'])->name('getProductBySlug');
         Route::post('get-products-filtered', [ProductController::class, 'getProductsFiltered'])->name('getProductsFiltered');
@@ -42,4 +44,6 @@ Route::prefix('public-area')
         Route::get('get-corporate-responsabilities', [CorporateResponsibilityController::class, 'index'])->name('index');
         Route::get('get-blog-resources', [BlogController::class, 'index'])->name('index');
         Route::get('get-about-us-resources', [AboutUsController::class, 'index'])->name('index');
+
+        Route::post('subscribe', [SubscribeController::class, 'subscribe'])->name('subscribe');
     });

@@ -77,7 +77,7 @@ const BlogList = () => {
                 <div className="row  mb-5">
                     {
                         blogs.map((blog, index) => {
-                            return <BlogItem key={index} blog={blog} image={`/themes/web/blog/list/${blog}.png`}/>
+                            return <BlogItem key={index*300} blog={blog} image={`/themes/web/blog/list/${blog}.png`}/>
                         })
                     }
 

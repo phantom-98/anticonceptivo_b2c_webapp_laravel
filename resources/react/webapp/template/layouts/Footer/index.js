@@ -20,19 +20,22 @@ const Footer = () => {
         file: ''
     });
 
+    const [alliances, setAlliances] = useState([]);
+
     useEffect(() => {
         getData();
     },[])
 
     const getData = () => {
-        let url = Services.ENDPOINT.NO_AUTH.RESPONSIBLE_CONSUMPTION.GET_DATA;
+        let url = Services.ENDPOINT.PUBLIC_AREA.FOOTER;
         let data = {}
         Services.DoGet(url,data).then(response => {
             Services.Response({
-              response: response,
-              success: () => {
-                  setResponsibleConsumption(response.data.responsible_consumption);
-              },
+            response: response,
+            success: () => {
+                setResponsibleConsumption(response.data.responsible_consumption);
+                setAlliances(response.data.alliances);
+            },
             });
         }).catch(error => {
             Services.ErrorCatch(error)
@@ -48,10 +51,16 @@ const Footer = () => {
                             <div className="mb-3">
                                 <img src={logoFooter} alt={CONFIG.APP_NAME}/>
                             </div>
-                            <div className="mb-3">
-                                <div className="font-10 regular text-white">Una alianza con</div>
-                                <img src={eureka} alt={CONFIG.APP_NAME}/>
-                            </div>
+                            <div className="font-10 regular text-white">Una alianza con</div>
+                            {
+                                alliances.map((alliance) => {
+                                    return(
+                                        <div className="mb-3">
+                                            <img src={alliance.public_image} alt={CONFIG.APP_NAME}/>
+                                        </div>
+                                    )
+                                })
+                            }
 
                         </div>
 
