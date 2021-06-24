@@ -17,6 +17,7 @@ const ProductDetail = ({match}) => {
     const [prods, setProds] = useState([]);
     const [legalWarning, setLegalWarning] = useState({});
     const [breadcrumbs, setBreadcrumbs] = useState([]);
+    const [imageSubscription, setImageSubscription] = useState(null);
 
     useEffect(() => {
         if (product) {
@@ -81,10 +82,10 @@ const ProductDetail = ({match}) => {
 
                     <div className="row pb-5 mb-5">
                         <div className="col-md-6">
-                            <ProductGallery product={product}/>
+                            <ProductGallery product={product} imageSubscription={imageSubscription}/>
                         </div>
                         <div className="col-md-6">
-                            <ProductInfo product={product}/>
+                            <ProductInfo product={product} setImageSubscription={setImageSubscription}/>
                         </div>
                     </div>
 
