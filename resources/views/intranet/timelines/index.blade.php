@@ -61,7 +61,7 @@
                         <tbody id="psP">
 
                             @foreach($objects as $object)
-                                <tr>
+                                <tr data-position="{{$object->position}}" data-id="{{$object->id}}">
                                     <td>{{ $object->description ?? '-' }}</td>
                                     <td>{{ $object->year }}</td>
                                     <td>{{ $object->post->title ?? '-' }}</td>
@@ -105,6 +105,44 @@
     @include('intranet.template.components._crud_script_change_status')
     @include('intranet.template.components._crud_script_active')
     @include('intranet.template.components._crud_script_delete')
+
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+
+    <script>
+    $(function(){
+        $('#psP').sortable({
+            placeholder: "ui-state-highlight",
+            helper:'clone',
+            stop: function(event, ui) {
+                items = $('#psP').sortable().children();
+                orden = [];
+                items.each(function(index, element){
+
+                    orden.push({"id":element.dataset.id, "position":index+1});
+                });
+                $.ajax({
+                    type: "post",
+                    dataType: 'json',
+                    url: "{{ route('intranet.timelines.position') }}",
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        data: orden
+                    },
+                    success: function (msg) {
+                        if(msg.status){
+                            toastr.success('Se ha reordenado correctamente la lista de línea de tiempo');
+                        } else {
+                            toastr.error('No se ha podido reordenar la lista de línea de tiempo');
+                        }
+                    },
+                    error: function (msg) {
+                        toastr.error('No se ha podido reordenar la línea de tiempo');
+                    }
+                })
+            }
+        });
+    })
+    </script>
 
 @endsection
 

@@ -14,6 +14,7 @@ class Timeline extends Model
         'year',
         'active',
         'post_id',
+        'position',
         'active'
     ];
 
