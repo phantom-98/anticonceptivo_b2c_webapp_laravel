@@ -14,7 +14,7 @@ class BlogController extends Controller
     public function index()
     {
         try {
-            $timeLines = Timeline::where('active',true)->orderBy('year')->get();
+            $timeLines = Timeline::where('active',true)->orderBy('position')->get();
 
             return ApiResponse::JsonSuccess([
                 'time_lines' => $timeLines,

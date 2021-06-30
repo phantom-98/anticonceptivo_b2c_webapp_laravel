@@ -2,7 +2,6 @@ import React, {useState, useEffect, Fragment} from 'react';
 import PUBLIC_ROUTES from "../../../routes/publicRoutes";
 import BasePanelOne from "../../../template/BasePanelOne";
 import {Accordion, Card} from "react-bootstrap";
-// import {categoryFaqsDummy} from "./data";
 import * as Services from "../../../Services";
 import { v4 as uuidv4 } from 'uuid';
 
@@ -47,20 +46,26 @@ const Faq = () => {
             >
                 <div className="px-3">
                     <div className="row pb-5 mb-5">
-                        {/* <div className="col-3">
-                            <div class="row"> */}
-                                {/* {
-                                    categoryFaqs.map((category) => {
-                                        return (
-                                            <div className="col-md-12">
-                                                {category.name}
+                        <div className="col-md-3">
+                            <div className="row">
+                                {
+                                    categoryFaqs.map((category, index) => {
+                                        return(
+                                            <div className="col-12 mb-2">
+                                                <a href={'#'} style={{textDecoration: 'none'}}>
+                                                    <div className={`menu-section active`}>
+                                                        <span className="menu-section-item">
+                                                            {category.name}
+                                                        </span>
+                                                    </div>
+                                                </a>
                                             </div>
-                                        )
+                                        );
                                     })
-                                } */}
-                            {/* </div>
-                        </div> */}
-                        <div className="col-md-9 offset-3">
+                                }
+                            </div>
+                        </div>
+                        <div className="col-md-9">
                             <h1 className="base-panel-one-title">{PUBLIC_ROUTES.FAQ.title}</h1>
 
                             <Accordion defaultActiveKey={'#'}>
@@ -79,7 +84,6 @@ const Faq = () => {
                                                             <Card key={questionKey} className="card-faq my-4">
                                                                 <Accordion.Collapse eventKey={index.toString()}>
                                                                     <Card.Body>
-                                                                        {/* <p className="font-14 regular color-3B3B3 mb-0">{item.answer}</p> */}
                                                                         <div dangerouslySetInnerHTML={{ __html: item.answer }} />
                                                                     </Card.Body>
                                                                 </Accordion.Collapse>
