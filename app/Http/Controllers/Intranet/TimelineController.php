@@ -45,13 +45,11 @@ class TimelineController extends GlobalController
     {
         $rules = [
             'description' => 'required',
-            'icon' => 'required',
             'year' => 'required',
         ];
 
         $messages = [
             'description.required' => 'El campo descripción es obligatorio.',
-            'icon.required' => 'El campo ícono es obligatorio.',
             'year.required' => 'El campo año es obligatorio.',
         ];
 
