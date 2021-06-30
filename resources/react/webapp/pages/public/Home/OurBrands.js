@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 const OurBrands = ({brands}) => {
     return (
-        <div className="py-5">
+        <div className="py-5" style={{backgroundColor:'white'}}>
             <div className="container">
                 <div className="row py-3">
                     <div className="col-12">
