@@ -20,7 +20,7 @@ class TimelineController extends GlobalController
         'folder' => 'intranet.timelines.',
         'pluralName' => 'Línea de Tiempo',
         'singularName' => 'Línea de Tiempo',
-        'disableActions' => ['show', 'changeStatus']
+        'disableActions' => ['show', 'changeStatus', 'position']
 
     ];
 
@@ -31,7 +31,7 @@ class TimelineController extends GlobalController
 
     public function index()
     {
-        $objects = Timeline::get();
+        $objects = Timeline::orderBy('position')->get();
         return view($this->folder . 'index', compact('objects'));
     }
 
@@ -191,6 +191,25 @@ class TimelineController extends GlobalController
             ]);
         }
 
+    }
+
+    public function position(Request $request){
+
+        try{
+            foreach($request->data as $data){
+                $object = Timeline::find($data['id']);
+                $object->update(['position' => $data['position']]);
+            }
+            return response()->json([
+                'status' => 1
+            ]);
+        }catch(\Exception $e){
+            return response()->json([
+                'status' => 0
+            ]);
+        }
+
+        
     }
 
     public function destroy($id)

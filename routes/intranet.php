@@ -129,6 +129,7 @@ if (env('SHOW_INTRANET', 'TRUE') == 'TRUE') {
                 Route::resource('campanas', 'CampaignController', ['names' => getResourceRoutesForNameHelper('campaigns')]);
 
                 Route::post('linea-tiempo/active', 'TimelineController@active')->name('timelines.active');
+                Route::post('linea-tiempo/position', 'TimelineController@position')->name('timelines.position');
                 Route::resource('linea-tiempo', 'TimelineController', ['names' => getResourceRoutesForNameHelper('timelines')]);
 
                 Route::post('alianzas/active', 'AllianceController@active')->name('alliances.active');
