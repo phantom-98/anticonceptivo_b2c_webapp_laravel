@@ -20,7 +20,8 @@ class TimelineController extends GlobalController
         'folder' => 'intranet.timelines.',
         'pluralName' => 'Línea de Tiempo',
         'singularName' => 'Línea de Tiempo',
-        'disableActions' => ['show', 'changeStatus', 'position']
+        'disableActions' => ['show', 'changeStatus'],
+        'enableActions' => ['position']
 
     ];
 
