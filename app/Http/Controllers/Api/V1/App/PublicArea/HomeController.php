@@ -71,7 +71,6 @@ class HomeController extends Controller
         try {
             $category_faqs = CategoryFaq::where('active', true)->with(['faqs'])
             ->whereHas('faqs', function($q){$q->where('active',true);})
-            // ->orderBy('position')
             ->get();
 
             return ApiResponse::JsonSuccess(['category_faqs' => $category_faqs]);

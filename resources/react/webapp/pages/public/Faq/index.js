@@ -8,6 +8,7 @@ import { v4 as uuidv4 } from 'uuid';
 const Faq = () => {
 
     const [categoryFaqs, setCategoryFaqs] = useState([]);
+    const [categorySelected, setCategorySelected] = useState(0);
 
     useEffect(() => {
         getData();
@@ -18,10 +19,11 @@ const Faq = () => {
         let data = {}
         Services.DoGet(url,data).then(response => {
             Services.Response({
-              response: response,
-              success: () => {
-                  setCategoryFaqs(response.data.category_faqs);
-              },
+                response: response,
+                success: () => {
+                    setCategoryFaqs(response.data.category_faqs);
+                    setCategorySelected(response.data.category_faqs[0].id);
+                },
             });
         }).catch(error => {
             Services.ErrorCatch(error)
@@ -52,13 +54,15 @@ const Faq = () => {
                                     categoryFaqs.map((category, index) => {
                                         return(
                                             <div className="col-12 mb-2">
-                                                <a href={'#'} style={{textDecoration: 'none'}}>
-                                                    <div className={`menu-section active`}>
+                                                {/* <a href={'#'} style={{textDecoration: 'none'}}> */}
+                                                    <div className={`menu-section ${categorySelected === category.id ? 'active' : ''}`}
+                                                        onClick={() => setCategorySelected(category.id)}
+                                                    >
                                                         <span className="menu-section-item">
                                                             {category.name}
                                                         </span>
                                                     </div>
-                                                </a>
+                                                {/* </a> */}
                                             </div>
                                         );
                                     })
@@ -72,11 +76,11 @@ const Faq = () => {
                                 {
                                     categoryFaqs.map((categories) => {
                                         let categoryKey = uuidv4();
-                                        return (
+                                        return categorySelected === categories.id ?
                                             <Fragment key={categoryKey}>
-                                                <div className="base-panel-two-title my-4">
+                                                {/* <div className="base-panel-two-title my-4">
                                                     {categories.name}
-                                                </div>
+                                                </div> */}
                                                 {
                                                     categories.faqs.map((item, index) => {
                                                         let questionKey = uuidv4();
@@ -95,7 +99,7 @@ const Faq = () => {
                                                     })
                                                 }
                                             </Fragment>
-                                        )
+                                        : null
                                     })
                                 }
                             </Accordion>
