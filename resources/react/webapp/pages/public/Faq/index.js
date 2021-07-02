@@ -74,7 +74,7 @@ const Faq = () => {
 
                             <Accordion defaultActiveKey={'#'}>
                                 {
-                                    categoryFaqs.map((categories) => {
+                                    categoryFaqs.map((categories, categoryIndex) => {
                                         let categoryKey = uuidv4();
                                         return categorySelected === categories.id ?
                                             <Fragment key={categoryKey}>
@@ -86,12 +86,12 @@ const Faq = () => {
                                                         let questionKey = uuidv4();
                                                         return(
                                                             <Card key={questionKey} className="card-faq my-4">
-                                                                <Accordion.Collapse eventKey={index.toString()}>
+                                                                <Accordion.Collapse eventKey={categoryIndex.toString()+index.toString()}>
                                                                     <Card.Body>
                                                                         <div dangerouslySetInnerHTML={{ __html: item.answer }} />
                                                                     </Card.Body>
                                                                 </Accordion.Collapse>
-                                                                <Accordion.Toggle as={Card.Header} eventKey={index.toString()}>
+                                                                <Accordion.Toggle as={Card.Header} eventKey={categoryIndex.toString()+index.toString()}>
                                                                     <h3>{item.question}</h3>
                                                                 </Accordion.Toggle>
                                                             </Card>
