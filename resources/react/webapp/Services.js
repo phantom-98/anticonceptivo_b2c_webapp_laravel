@@ -89,12 +89,12 @@ export const ENDPOINT = {
         BLOG: GetBaseURL() + 'public-area/get-blog-resources',
         ABOUT_US: GetBaseURL() + 'public-area/get-about-us-resources',
         SUBSCRIBE: GetBaseURL() + 'public-area/subscribe',
-    },
-
-    NO_AUTH: {
         CONTACT: {
-            SEND: GetBaseURL() + 'contact/send',
+            GET_RESOURCES: GetBaseURL() + 'public-area/contact/get-resources',
+            SEND: GetBaseURL() + 'public-area/contact/send'
         },
+    },
+    NO_AUTH: {
         HOME: {
             GET_CATEGORY: GetBaseURL() + 'public-area/get-categories',
         },
@@ -165,7 +165,6 @@ export const ENDPOINT = {
         CREATE_ORDER: GetBaseURL() + 'payment/create-order',
         GET_ORDER_TO_PAY: GetBaseURL() + 'payment/get-order-to-pay',
         DISCOUNT_CODE: GetBaseURL() + 'payment/discount-code',
-        VERIFY: GetBaseURL() + 'payment/verify',
         VERIFY: GetBaseURL() + 'payment/verify',
         VERIFY_SUBSCRIPTION: GetBaseURL() + 'payment/verify-subscription',
 
