@@ -72,7 +72,7 @@ export const ENDPOINT = {
         RECOVERY_PASSWORD: GetBaseURL() + 'auth/recovery-password',
         SET_NEW_PASSWORD: GetBaseURL() + 'auth/set-new-password',
         REGISTER: GetBaseURL() + 'auth/register',
-        GET_SUBSCRIPTIONS: GetBaseURL() + 'auth/get-subscriptions',
+
     },
 
     PUBLIC_AREA: {
@@ -142,6 +142,10 @@ export const ENDPOINT = {
             UPDATE: GetBaseURL() + 'customer/update-subscriptions',
             SET_DEFAULT_SUBSCRIPTION: GetBaseURL() + 'customer/update-default-subscription',
             DELETE: GetBaseURL() + 'customer/delete-subscription',
+            GET_SUBSCRIPTIONS: GetBaseURL() + 'customer/get-subscriptions',
+            GET_SUBSCRIPTIONS_ORDERS_ITEMS: GetBaseURL() + 'customer/get-subscriptions-orders_items',
+            SET_ADDRESS_SUBSCRIPTION: GetBaseURL() + 'customer/set-address-subscription',
+            SET_DISPATCH_DATE_SUBSCRIPTION: GetBaseURL() + 'customer/set-dispatch-date-subscription'
 
         },
         ORDERS:{
@@ -154,7 +158,8 @@ export const ENDPOINT = {
         CUSTOMER_SERVICE: {
             SEND: GetBaseURL() + 'customer/send',
             GET: GetBaseURL() + 'customer/get-action'
-        }
+        },
+
     },
     PAYMENTS: {
         CREATE_ORDER: GetBaseURL() + 'payment/create-order',

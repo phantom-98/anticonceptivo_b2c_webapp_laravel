@@ -26,19 +26,29 @@ const ProductItem = ({item}) => {
                 <div className="col">
 
                     <div className="font-poppins font-12 color-009BE8">{item.product.sku}</div>
-                    <div className="font-poppins font-14 bold text-black"> {item.product.name} </div>
+                    <div className="font-poppins font-14 bold text-black"> 
+                    
+                    {
+                        item.subscription == null ? item.product.name : item.product.name + ' ('+ 'suscripción' +')'
+                    }
+                    
+                    </div>
                     <div className="font-poppins font-16 bold color-009BE8">
 
                         {
-                            item.subscription == null ? formatMoney(item.product.price * item.quantity) : formatMoney(item.subscription.price * item.quantity)
+                            item.subscription == null ? formatMoney(item.product.price * item.quantity) : formatMoney(item.subscription.price*item.subscription.quantity * item.quantity) + ' ('+ formatMoney(item.subscription.price)+' c/u)'
                         }
+                        
                     </div>
 
                         
 
                     <div className="row">
                         <div className="col pt-2">
-                            <QuantityInput quantity={item.quantity} setQuantity={setQuantity}/>
+                            {item.subscription != null
+                            ? null
+                            : <QuantityInput quantity={item.quantity} setQuantity={setQuantity}/>
+                            }
                         </div>
                         <div className="col-auto pt-1 text-center pointer" onClick={() => removeFromCart(item)}>
                             <div><Icon path={iconRemove}/></div>
