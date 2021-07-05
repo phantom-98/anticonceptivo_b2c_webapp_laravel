@@ -11,6 +11,11 @@ const ProductGallery = ({product, imageSubscription}) => {
         product.images.length ? product.images[0].public_file : NoImage
     )
     
+    useEffect(() => {
+        if (imageSubscription == null) {
+            setImageSelected (product.images.length ? product.images[0].public_file : NoImage)
+        }
+    },[imageSubscription])
 
     return (
         <div className="row" style={{zIndex: 1000}}>
@@ -26,6 +31,7 @@ const ProductGallery = ({product, imageSubscription}) => {
                                         setImageSelected(img.public_file)
                                     }
                                 }
+
                                 return (
                                     <div key={index} 
                                         className="img-box-product-mini mb-3 pointer" 
