@@ -2,9 +2,7 @@ import React, {useState} from 'react';
 import {Form} from "react-bootstrap";
 import { v4 as uuidv4 } from 'uuid';
 
-const FormatFilter = ({formatSelected, setFormatSelected}) => {
-
-    const [formats, setFormats] = useState(['1','3','21','28','91']);
+const FormatFilter = ({formats, formatSelected, setFormatSelected}) => {
 
     const handleFormatSelected = (e) => {
         let list = [...formatSelected];

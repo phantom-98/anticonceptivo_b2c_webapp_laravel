@@ -94,14 +94,14 @@ const HeaderNavbar = () => {
                                 >
                                     <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
                                         <HeaderNavbarItem 
-                                            linkTo={category.id === 1 ? '#' : url}
+                                            linkTo={url}
                                             icon={category.public_image}
                                             text={category.name}
                                         />
                                     </Dropdown.Toggle>
                                     
                                     {
-                                        category.subcategories.length ? 
+                                        // category.subcategories.length ? 
                                             category.id === 1 ? 
                                             <Dropdown.Menu align="right" bsPrefix="dropdown-menu-custom with-pills">
                                                 <Dropdown.Item key={uuidv4()} style={{cursor:'default'}}>
@@ -133,7 +133,7 @@ const HeaderNavbar = () => {
                                                     })
                                                 }
                                             </Dropdown.Menu>
-                                        : null
+                                        // : null
                                     }
                                 </Dropdown>                                    
                             )

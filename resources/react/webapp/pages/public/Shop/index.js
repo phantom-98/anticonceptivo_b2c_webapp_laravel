@@ -1,25 +1,42 @@
 import React, {Fragment, useEffect, useState} from 'react';
+import { Switch, Route, withRouter } from 'react-router-dom';
 import PUBLIC_ROUTES from "../../../routes/publicRoutes";
 import BasePanelTwo from "../../../template/BasePanelTwo";
-import * as Services from "../../../Services";
 import Subscribe from "../../../components/sections/Subscribe";
 import LazyLoading from "../../../components/LazyLoading";
 import Filter from "./Filter";
 import ProductList from "./ProductList";
+import * as Services from "../../../Services";
+import {propsLength} from "../../../helpers/ShopHelper";
 
 const Shop = ({match}) => {
 
-    useEffect(() => {
-        console.log(match);
-    },[match])
+    const [products, setProducts] = useState([]);
+    const [category, setCategory] = useState({});
+    const [laboratories, setLaboratories] = useState([]);
+    const [subscriptions, setSubscriptions] = useState([]);
+    const [formats, setFormats] = useState([]);
 
-    // const [products, setProducts] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [isPills, setIsPills] = useState(false);
+
+      useEffect(() => {
+          switch (propsLength(match.params)) {
+            case 1:
+                getProducts(match.params.category);
+                break;
+            case 2:
+                getProducts(match.params.category, match.params.subcategory);
+                break;
+            case 3:
+                getProducts(match.params.category, null, match.params.type, match.params.filter);
+                break;
+            default:
+                break;
+        }
+      },[match.params]);
+
     // const [productsFiltered, setProductsFiltered] = useState([]);
-
-    // const [categories, setCategories] = useState([]);
-    // const [subCategories, setSubCategories] = useState([]);
-    // const [laboratories, setLaboratories] = useState([]);
-    // const [subscriptions, setSubscriptions] = useState([]);
 
     // const [loading, setLoading] = useState(false);
     // const [subCatName, setSubCatName] = useState(null);
@@ -79,24 +96,33 @@ const Shop = ({match}) => {
     //     }
     // },[subCategoriesSelected])
 
-    // const getData = () => {
-    //     let url = Services.ENDPOINT.NO_AUTH.SHOP.RESOURCES
+    const getProducts = (_category, _subcategory = null, _type = null, _filter = null) => {
+        let url = Services.ENDPOINT.PUBLIC_AREA.SHOP.PRODUCTS.CATEGORY;
         
-    //     Services.DoGet(url).then(response => {
-    //         Services.Response({
-    //             response: response,
-    //             success: () => {
-    //                 setProducts(response.data.products);
-    //                 setCategories(response.data.categories);
-    //                 setSubCategories(response.data.sub_categories);
-    //                 // setLaboratories(response.data.laboratories);
-    //                 setSubscriptions(response.data.subscriptions);
-    //             },
-    //         });
-    //     }).catch(error => {
-    //         Services.ErrorCatch(error)
-    //     });
-    // }
+        let data = {
+            category_slug: _category,
+            subcategory_slug: _subcategory,
+            type: _type,
+            filter: _filter
+        };
+        
+        Services.DoPost(url, data).then(response => {
+            Services.Response({
+                response: response,
+                success: () => {
+                    setProducts(response.data.products);
+                    setCategory(response.data.category);
+                    setLaboratories(response.data.laboratories);
+                    setSubscriptions(response.data.subscriptions);
+                    setFormats(Object.values(response.data.formats));
+                    setIsPills(response.data.is_pills);
+                    setLoading(true);
+                },
+            });
+        }).catch(error => {
+            Services.ErrorCatch(error)
+        });
+    }
 
     let breadcrumbs = [
         {
@@ -115,30 +141,32 @@ const Shop = ({match}) => {
                 breadcrumbs={breadcrumbs}
             >
                 {
-                    // products ? 
+                    loading ? 
                         <div className="row pb-5 mb-5">
                             <div className="col-3">
-                                {/* <Filter
+                                <Filter
+                                    isPills={isPills}
                                     laboratories={laboratories}
-                                    setLaboratories={setLaboratories}
+                                    subcategories={category.subcategories}
                                     subscriptions={subscriptions}
-                                    filtersCat={filtersCat}
-                                    setProductsFiltered={setProductsFiltered}
-                                    setLoading={setLoading}
-                                    subCategoriesSelected={subCategoriesSelected}
-                                    setSubcategoriesSelected={setSubcategoriesSelected}
-                                /> */}
+                                    formats={formats}
+                                    // setLaboratories={setLaboratories}
+                                    // subscriptions={subscriptions}
+                                    // filtersCat={filtersCat}
+                                    // setProductsFiltered={setProductsFiltered}
+                                    // setLoading={setLoading}
+                                    // subCategoriesSelected={subCategoriesSelected}
+                                    // setSubcategoriesSelected={setSubcategoriesSelected}
+                                />
                             </div>
                             <div className="col-md-9">
-                                {/* <ProductList 
-                                    productsFiltered={productsFiltered}
-                                    categorySelected={categorySelected}
-                                    subCatName={subCatName}
-                                    loading={loading}
-                                /> */}
+                                <ProductList 
+                                    category={category}
+                                    products={products}
+                                />
                             </div>
                         </div>
-                    // : <LazyLoading/>
+                    : <LazyLoading/>
                 }
                 
             </BasePanelTwo>

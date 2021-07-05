@@ -12,6 +12,7 @@ use App\Models\SubCategory;
 use App\Models\LegalWarning;
 use App\Models\Laboratory;
 use App\Models\SubscriptionPlan;
+use App\Models\ProductSubscriptionPlan;
 
 class ProductController extends Controller
 {
@@ -28,23 +29,65 @@ class ProductController extends Controller
         }
     }
 
-    public function getResources()
+    public function getProductByCategories(Request $request)
     {
         try {
-            $products = Product::where('active',true)->with(['subcategory.category','images','laboratory'])->get();
-            $categories = Category::where('active',true)->with(['subcategories'])
-            ->whereHas('subcategories', function($q){$q->where('active',true)->orderBy('position');})
-            ->orderBy('position')->get();
-            $subCategories = SubCategory::where('active',true)->orderBy('position')->get();
-            $laboratories = Laboratory::where('active',true)->get();
-            $subscriptions = SubscriptionPlan::where('active',true)->get();
+
+            if (!$request->category_slug) {
+                return ApiResponse::NotFound(null, 'No se ha encontrado la macro categoría.');
+            }
+
+            $category = Category::where('slug', $request->category_slug)->where('active',true)->with([
+                'subcategories' => function ($q){
+                    $q->where('active',true);
+                },
+                'subcategories.products' => function ($r){
+                    $r->where('active',true)->select(['id','active','subcategory_id','laboratory_id']);
+                }
+            ]);
+
+            if ($request->subcategory_slug) {
+                $category = $category->whereHas('subcategories', function($q) use($request){
+                    $q->where('slug',$request->subcategory_slug);
+                });
+            }
+
+            $category = $category->first();
+
+            $isPills = false;
+
+            if ($category->id === 1) {
+                $isPills = true;
+            }
+
+            $laboratoryIds = [];
+            $productIds = [];
+
+            foreach ($category->subcategories as $key => $value) {
+                foreach ($value->products as $v_key => $v_value) {
+                    array_push($laboratoryIds, $v_value->laboratory_id);
+                    array_push($productIds, $v_value->id);
+                }
+            }
+
+            $subscriptions = SubscriptionPlan::whereIn('id',ProductSubscriptionPlan::whereIn('product_id',$productIds)
+                ->get()->unique('subscription_plan_id')->pluck('subscription_plan_id'))
+                ->where('active',true)->select(['id','months'])->get();
+
+            $laboratoryIds = array_unique($laboratoryIds);
+            $laboratories = Laboratory::whereIn('id',$laboratoryIds)->where('active',true)->get();
+            $products = Product::whereIn('id',$productIds)->where('active',true)
+                ->with(['subcategory.category','images','laboratory'])->get();
+
+            $formats = $products->where('format','!=','')->pluck('format')->unique();
 
             return ApiResponse::JsonSuccess([
                 'products' => $products,
-                'categories' => $categories,
-                'sub_categories' => $subCategories,
+                'category' => $category,
                 'laboratories' => $laboratories,
-                'subscriptions' => $subscriptions
+                'subscriptions' => $subscriptions,
+                'formats' => $formats,
+                'is_pills' => $isPills
             ]);
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, $exception->getMessage());

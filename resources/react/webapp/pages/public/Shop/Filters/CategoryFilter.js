@@ -2,7 +2,11 @@ import React from 'react';
 import {Form} from "react-bootstrap";
 import { v4 as uuidv4 } from 'uuid';
 
-const CategoryFilter = ({categories, subCategoriesSelected, setSubcategoriesSelected}) => {
+const CategoryFilter = ({
+    subcategories, 
+    subCategoriesSelected, 
+    setSubCategoriesSelected
+}) => {
 
     const handleSubCategory = (e) => {
 
@@ -15,14 +19,14 @@ const CategoryFilter = ({categories, subCategoriesSelected, setSubcategoriesSele
         }
 
         if (!list.length) {
-            setSubcategoriesSelected(subCategoriesSelected);   
+            setSubCategoriesSelected(subCategoriesSelected);   
         }else{
-            setSubcategoriesSelected(list);   
+            setSubCategoriesSelected(list);   
         }
     }
 
     return(
-        categories.map((category) => {
+        subcategories.map((category) => {
             let uuid = uuidv4();
             
             return <Form.Check
