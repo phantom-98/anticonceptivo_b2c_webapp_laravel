@@ -38,7 +38,11 @@ const AddCartCard = ({quantity, setQuantity, product,subscription}) =>{
     return (
         <div className="row">
             <div className="col-auto pr-1">
-                <QuantityInput quantity={quantity} setQuantity={setQuantity}/>
+
+            {subscription != null
+                        ? null
+                        : <QuantityInput quantity={quantity} setQuantity={setQuantity}/>
+            }
             </div>
             <div className="col pl-1">
                 <button className="btn btn-outline-bicolor btn-add-cart btn-block px-1" onClick={() => handleAddToCart()}>

@@ -27,23 +27,27 @@
                 <div class="panel">
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="name">Nombre (*)</label>
                                     <input type="text" id="name" name="name" class="form-control"
                                             value="{{ old('name') }}">
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="website">Página web (*)</label>
                                     <input type="text" id="website" name="website" class="form-control"
                                             value="{{ old('website') }}">
                                 </div>
                             </div>
-                            <div class="form-group col-sm-4">
+                            <div class="form-group col-sm-6">
                                 {!! Form::label('image', 'Imagen (*)') !!}
                                 <input type='file' name='image' class='form-control' accept=".jpg, .png, .jpeg">
+                            </div>
+                            <div class="form-group col-sm-6">
+                                {!! Form::label('footer_image', 'Imagen Footer (*)') !!}
+                                <input type='file' name='footer_image' class='form-control' accept=".jpg, .png, .jpeg">
                             </div> 
                             <div class="col-sm-12">
                                 <div class="form-group">

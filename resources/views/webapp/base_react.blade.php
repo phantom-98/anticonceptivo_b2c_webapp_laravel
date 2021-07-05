@@ -47,28 +47,29 @@
     <meta name="msapplication-TileImage" content="/themes/web/favicon/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
 
-    <meta name="apple-mobile-web-app-title" content="Anticonceptivos">
-    <meta name="application-name" content="Anticonceptivos">
+    <meta name="apple-mobile-web-app-title" content="Anticonceptivo">
+    <meta name="application-name" content="Anticonceptivo">
 
-    <meta name="title" content="Anticonceptivos | Valoriza tu tiempo">
-    <meta name="description" content="">
-    <meta name="keywords" content="Ventas">
+    <meta name="title" content="Anticonceptivo.cl">
+    <meta name="description" content="El proveedor número 1 de pastillas anticonceptivas en Chile">
+    <meta name="keywords"
+          content="anticonceptivos, ecommerce, tienda, pastillas, nora, condones, durex">
     <meta name="robots" content="index, nofollow">
     <meta name="language" content="Spanish">
     <meta name="revisit-after" content="4000 days">
-    <meta name="author" content="Anticonceptivos">
-    <meta name="rights" content="Anticonceptivos"/>
+    <meta name="author" content="Anticonceptivo">
+    <meta name="rights" content="Anticonceptivo"/>
 
-    <meta property="og:site_name" content="Anticonceptivos">
-    <meta property="og:title" content="Anticonceptivos"/>
+    <meta property="og:site_name" content="Anticonceptivo.cl">
+    <meta property="og:title" content="Anticonceptivo.cl"/>
     <meta property="og:description"
-          content="Tu doctor a un click."/>
-    <meta property="og:image" itemprop="image" content="https://www.INSERT-URL.cl/themes/web/assets/images/fondo.png">
+          content="El proveedor número 1 de pastillas anticonceptivas en Chile"/>
+    <meta property="og:image" itemprop="image" content="https://www.anticonceptivo.cl/images/logo-full.svg?b3b8df2099e0585f16d824394e200f52">
     <meta property="og:type" content="website"/>
     <meta property="og:updated_time" content="1440432930"/>
-    <meta property="og:url" content="https://www.INSERT-URL.cl/"/>
+    <meta property="og:url" content="https://www.anticonceptivo.cl/"/>
 
-    <title>Anticonceptivos | @yield('page-title')</title>
+    <title>Anticonceptivo | @yield('page-title')</title>
 
 </head>
 <body>

@@ -6,7 +6,7 @@ import {Form} from "react-bootstrap";
 // import Icon from "../../../../../components/general/Icon";
 // import toastr from "toastr";
 
-const ListItem = ({address, showEdit, saveDefaultAddress, regions, communes, 
+const ListItem = ({address, showEdit, saveDefaultAddress, regions, communes, addressChecked
     // setAddresses
 }) => {
 
@@ -45,7 +45,7 @@ const ListItem = ({address, showEdit, saveDefaultAddress, regions, communes,
                         label=""
                         type="radio"
                         name="default_address"
-                        checked={address.default_address == 1 ? true : false}
+                        checked={(addressChecked ?? address.default_address) == 1 ? true : false}
                         className="mr-1"
                         onClick={() => saveDefaultAddress(address.id, address.customer_id)}
                         id={`custom-inline-radio-address-${address.id}`}

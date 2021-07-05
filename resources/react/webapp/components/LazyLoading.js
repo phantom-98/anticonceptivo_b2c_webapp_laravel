@@ -22,7 +22,7 @@ const LazyLoading = ({height = '100vh'}) => {
 
                 <br/>
 
-                <img className="py-2" src={logo} alt="Anticonceptivos"/>
+                <img className="py-2" src={logo} alt="Anticonceptivo"/>
             </div>
         </div>
     );
