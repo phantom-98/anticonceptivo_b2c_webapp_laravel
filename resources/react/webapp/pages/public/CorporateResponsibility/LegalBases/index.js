@@ -20,7 +20,7 @@ const LegalBases = ({legalBases}) => {
                                         <div className="d-flex">
                                             <div className="m-auto py-5">
                                                 <a href={legalBase.public_file} target="_blank">
-                                                    <img src={legalBase.public_icon} alt={CONFIG.APP_NAME} style={{height:54, width:46}}/>
+                                                    <img src={legalBase.public_icon} alt={CONFIG.APP_NAME}/>
                                                 </a>
                                             </div>
                                         </div>

@@ -2,8 +2,6 @@ import React, {useEffect, useState} from 'react';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
-
-import {dummy_products} from "../../helpers/productsData";
 import LazyLoading from "../LazyLoading";
 import ProductCard from "../shopping/ProductCard";
 import H2Title from "../general/H2Title";

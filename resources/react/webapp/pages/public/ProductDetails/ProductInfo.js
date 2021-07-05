@@ -5,17 +5,22 @@ import { Accordion, Card } from "react-bootstrap";
 import Icon from "../../../components/general/Icon";
 import fileSvg from '../../../assets/images/icons/file-alt-regular.svg';
 
-const ProductInfo = ({ product }) => {
+const ProductInfo = ({ product,setImageSubscription }) => {
     const [quantity, setQuantity] = useState(1);
     const [subscription, setSubscription] = useState(null);
 
-    const handleSubscription = (subscription_plan) =>{
+    const handleSubscription = (subscription_plan ) =>{
         if(subscription == null){
             setSubscription(subscription_plan.subscription_plan)
+            setImageSubscription(subscription_plan.position +1)
         }else if(subscription.id != subscription_plan.subscription_plan.id){
             setSubscription(subscription_plan.subscription_plan)
+            setImageSubscription(subscription_plan.position +1)
+
         }else{
             setSubscription(null)
+            setImageSubscription(null)
+
         }
     }
 
@@ -65,7 +70,7 @@ const ProductInfo = ({ product }) => {
                                    Al mes cada C/U
                               </span>,
                              <span className="font-poppins font-16 bold color-78d2ff ml-2">
-                                (Ahorras un %{((product.price-(subscription.price/subscription.quantity))/product.price)*100})
+                                (Ahorras un {((product.price-(subscription.price/subscription.quantity))/product.price)*100}%)
                             </span>
                           ]}
                 </span>
@@ -115,19 +120,20 @@ const ProductInfo = ({ product }) => {
             </div>
 
             <div className="col-md-12">
-                <Accordion className="accordion-faq">
+                <Accordion defaultActiveKey={product.id} className="accordion-faq">
                     <Card
                         key={product.id}
                         className="card-faq"
                         key={product.id}
                     >
-                        <Accordion.Collapse eventKey={product.id}>
+                        <Accordion.Collapse  eventKey={product.id}>
                             <Card.Body>
                                 <div className="row">
                                     <div className="col-md-12">
-                                        {product.plans.map(item => {
+                                        {product.plans.map((item, index) => {
+
                                             return (
-                                                <button className="btn btn-outline-primary btn-months mr-2" onClick={() => handleSubscription({subscription_plan: item })}>
+                                                <button className="btn btn-outline-primary btn-months mr-2" onClick={() => handleSubscription({subscription_plan: item, position: index })}>
                                                     {
                                                         item.subscription_plan
                                                             .months

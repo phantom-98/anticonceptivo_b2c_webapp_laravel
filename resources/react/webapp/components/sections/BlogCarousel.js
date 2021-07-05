@@ -61,7 +61,7 @@ const BlogCarousel = ({title, showButton = true, buttonTitle = ' VER MÁS', show
                                         {
                                             blogs.map((blog, index) => {
                                                 if (blog.id == 2 || blog.id == 3) {
-                                                    return <div className="col-md-6">
+                                                    return <div className="col-md-6" key={index*200}>
                                                         <Link to={blog.link}>
                                                             <div className="blog-card" style={{
                                                                 backgroundImage: `url('/themes/web/blog/blog-grande-${blog.id}.png')`,

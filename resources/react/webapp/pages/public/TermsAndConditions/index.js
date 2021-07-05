@@ -5,6 +5,7 @@ import BasePanelOne from "../../../template/BasePanelOne";
 // import Decree466 from "./Decree466";
 // import PUBLIC_ROUTES from "../../../routes/publicRoutes";
 import * as Services from "../../../Services";
+import H3Panel from "../../../components/general/H3Panel"
 
 const TermsAndConditions = () => {
 
@@ -101,6 +102,7 @@ const TermsAndConditions = () => {
             breadcrumbs={breadcrumbs}
         >
             <div className="row">
+
                 {
                     loaded ?
                         <Fragment>
@@ -123,6 +125,7 @@ const TermsAndConditions = () => {
                                 }
                             </div>
                             <div className="col-md-9">
+                                <H3Panel className="pl-0" title="TÉRMINOS Y CONDICIONES"/>
                                 <div dangerouslySetInnerHTML={{ __html: sectionSelected.description }}/>
                             </div>
                         </Fragment> 

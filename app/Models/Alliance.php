@@ -15,4 +15,12 @@ class Alliance extends Model
         'image'
     ];
 
+    protected $appends = [
+        'public_image'
+    ];
+
+    public function getPublicImageAttribute(){
+        return $this->image == null ? null : \Storage::url($this->image);
+    }
+
 }

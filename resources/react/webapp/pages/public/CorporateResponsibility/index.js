@@ -18,6 +18,7 @@ const CorporateResponsibility = ({match}) => {
 
     const [legalBases, setLegalBases] = useState([]);
     const [privacyPolicy, setPrivacyPolicy] = useState('');
+    const [deliveryCosts, setDeliveryCosts] = useState([]);
 
     const sections = {
         PRIVACY_POLICIES: {
@@ -66,7 +67,7 @@ const CorporateResponsibility = ({match}) => {
             case sections.LEGAL_BASE.url:
                 return <LegalBases legalBases={legalBases}/>;
             case sections.DELIVERY_COSTS_DEADLINES.url:
-                return <DeliveryCostsDeadlines/>;
+                return <DeliveryCostsDeadlines deliveryCosts={deliveryCosts}/>;
             default:
                 let url = PUBLIC_ROUTES.CORPORATE_RESPONSIBILITY.path;
                 url = url.replace(':section', sections.PRIVACY_POLICIES.url)
@@ -90,6 +91,7 @@ const CorporateResponsibility = ({match}) => {
                 success: () => {
                     setLegalBases(response.data.legal_bases);
                     setPrivacyPolicy(response.data.privacy_policy);
+                    setDeliveryCosts(response.data.delivery_costs);
                 },
             });
         }).catch(error => {

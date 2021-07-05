@@ -76,6 +76,7 @@ export const ENDPOINT = {
     },
 
     PUBLIC_AREA: {
+        FOOTER: GetBaseURL() + 'public-area/get-footer-resources',
         HEADER_MENU: GetBaseURL() + 'public-area/get-header-navbar-resources',
         BANNERS:{
             HOME:{
@@ -83,9 +84,11 @@ export const ENDPOINT = {
                 MIDDLE: GetBaseURL() + 'public-area/get-home-middle-banners',
                 BOTTOM: GetBaseURL() + 'public-area/get-home-bottom-banners',
             },
-            ABOUT_US: GetBaseURL() + 'public-area/get-about-us-banners',
         },
-        CORPORATE_RESPONSIBILITY: GetBaseURL() + 'public-area/get-corporate-responsabilities'
+        CORPORATE_RESPONSIBILITY: GetBaseURL() + 'public-area/get-corporate-responsabilities',
+        BLOG: GetBaseURL() + 'public-area/get-blog-resources',
+        ABOUT_US: GetBaseURL() + 'public-area/get-about-us-resources',
+        SUBSCRIBE: GetBaseURL() + 'public-area/subscribe',
     },
 
     NO_AUTH: {
@@ -117,9 +120,6 @@ export const ENDPOINT = {
         },
         FAQS:{
             GET_DATA: GetBaseURL() + 'public-area/get-faqs'
-        },
-        RESPONSIBLE_CONSUMPTION:{
-            GET_DATA: GetBaseURL() + 'public-area/get-responsible-consumption'
         },
         CLAIM:{
             SUBMIT: GetBaseURL() + 'public-area/submit-claim',

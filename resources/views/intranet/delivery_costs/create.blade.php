@@ -54,23 +54,29 @@
                         </div>
                         <br/>
                         <div class="row clone">
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="price">Precio(*)</label>
                                     <input type="text" name="price[1][]" class="form-control price" required
                                     oninput="checkKeyByClass('price')" >
                                 </div>
                             </div>    
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="communes">Comunas (*)</label>
                                     <select name="communes[1][]" class="form-control select2 communes" data-width="100%" multiple required>
                                         @foreach($communes as $c)
-                                            <option value="{{ $c->id }}">{{ $c->name }}</option>
+                                            <option value="{{ $c->name }}">{{ $c->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
-                            </div>   
+                            </div>  
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="color">Color(*)</label>
+                                    <input type="color" name="color[1][]" class="form-control color" required>
+                                </div>
+                            </div>     
                             <div class="col-md-2">
                                 <button class="btn btn-success" type="button" style="margin-top:22px" onclick="addNewRow()"><i
                                     class="fa fa-plus"></i> Añadir otro rango</button>
@@ -131,6 +137,9 @@
         $(".price").last().val("");
         $(".price").last().attr('name', 'price[' + count + '][]');
         $(".price").last().removeAttr("required");
+        $(".color").last().val("");
+        $(".color").last().attr('name', 'color[' + count + '][]');
+        $(".color").last().removeAttr("required");
         let element = $(".communes").last();
         $(".communes").last().attr('name', 'communes[' + count + '][]');
         $(".communes").last().val([]).change();
