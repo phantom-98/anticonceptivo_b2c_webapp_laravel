@@ -12,14 +12,16 @@ class ContactIssue extends Model
         'active',
         'type',
         'section',
-        'campaign_id'
+        'campaign_id',
     ];
 
-    public function campaign(){
+    public function campaign()
+    {
         return $this->belongsTo(Campaign::class);
     }
 
-    public function fields(){
+    public function fields()
+    {
         return $this->hasMany(DynamicField::class);
     }
 

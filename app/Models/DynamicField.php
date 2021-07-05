@@ -12,11 +12,27 @@ class DynamicField extends Model
         'name',
         'type',
         'values',
-        'contact_issue_id'
+        'contact_issue_id',
+        'section',
+        'parent_id'
     ];
 
     public function contact_issue(){
         return $this->belongsTo(ContactIssue::class);
     }
 
+    public function children()
+    {
+        return $this->hasMany(DynamicField::class, 'parent_id');
+    }
+
+    public function parent()
+    {
+        return $this->belongsTo(DynamicField::class, 'parent_id');
+    }
+
+    public function childrenRecursive()
+    {
+        return $this->hasMany(DynamicField::class, 'parent_id')->with('children');
+    }
 }
