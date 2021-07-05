@@ -20,7 +20,11 @@ class ContactIssue extends Model
     }
 
     public function fields(){
-        return $this->hasMany(DynamicField::class);
+        return $this->hasMany(DynamicField::class)->where('section', 'campaña');
+    }
+
+    public function fields_subject(){
+        return $this->hasMany(DynamicField::class)->where('section', 'asunto');
     }
 
 
