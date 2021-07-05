@@ -119,20 +119,20 @@ const Footer = () => {
                             </ul>
 
                             <div className="row pl-3 pt-2">
-                                <div className="col-auto">
+                                {/* <div className="col-auto">
                                     <Link to="#" target="_blank">
                                         <Icon path={twitter}/>
                                     </Link>
-                                </div>
+                                </div> */}
                                 <div className="col-auto">
-                                    <Link to="#" target="_blank">
+                                    <a href="https://www.facebook.com/Anticonceptivo.cl/" target="_blank">
                                         <Icon path={facebook}/>
-                                    </Link>
+                                    </a>
                                 </div>
                                 <div className="col-auto">
-                                    <Link to="#" target="_blank">
+                                    <a href="https://www.instagram.com/anticonceptivo_cl/" target="_blank">
                                         <Icon path={instagram}/>
-                                    </Link>
+                                    </a>
                                 </div>
                             </div>
                         </div>
