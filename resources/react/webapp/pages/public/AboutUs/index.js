@@ -110,10 +110,8 @@ const AboutUs = () => {
                                                     <img className="m-auto" src={value.public_image} alt={CONFIG.APP_NAME}/>
                                                 </div>
                                             </div>
-                                            <div className="col-12">
-                                                <div className="font-poppins font-14 regular">
-                                                    {value.description}
-                                                </div>
+                                            <div className="col-12 text-center">
+                                                <H2Title text={value.description} className="font-16"/>
                                             </div>
                                         </div>
                                     </div>
