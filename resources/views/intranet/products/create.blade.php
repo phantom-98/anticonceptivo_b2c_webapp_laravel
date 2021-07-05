@@ -225,10 +225,11 @@
                                             <option value="50">50</option>
                                             <option value="56">56</option>
                                             <option value="60">60</option>
-                                            <option value="80">3</option>         
+                                            <option value="80">80</option>         
                                             <option value="90">90</option>
                                             <option value="91">91</option>
-                                            <option value="100">100</option>         
+                                            <option value="100">100</option>   
+                                            <option value="133">133</option>       
                                             <option value="180">180</option>
                                             <option value="200">200</option>
                                             <option value="250">250</option>      

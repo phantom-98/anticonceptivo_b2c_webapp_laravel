@@ -12,7 +12,8 @@ class Alliance extends Model
         'website',
         'description',
         'active',
-        'image'
+        'image',
+        'footer_image'
     ];
 
     protected $appends = [
