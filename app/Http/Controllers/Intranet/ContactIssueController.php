@@ -59,7 +59,7 @@ class ContactIssueController extends GlobalController
 
         if ($validator->passes()) {
 
-            $object = ContactIssue::create($request->except('name_dynamic', 'type_dynamic', 'value'));
+            $object = ContactIssue::create($request->except('name_dynamic', 'type_dynamic', 'values', 'name_dynamic_subject', 'type_dynamic_subject', 'values_subject'));
 
             if($request->campaign_id != "" && $request->campaign_id != null){
                 foreach($request->name_dynamic as $key => $name){
@@ -72,6 +72,24 @@ class ContactIssueController extends GlobalController
                             $dynamic->values = implode(',',$request->values[$key]);
                         }
                         $dynamic->contact_issue_id = $object->id;
+                        $dynamic->section = "campaña";
+                        $dynamic->save();
+                    }
+                }
+            }
+
+            if(count($request->name_dynamic_subject > 0)){
+                foreach($request->name_dynamic_subject as $key => $name){
+                    $name = array_filter($name, function($value) { return !is_null($value) && $value !== ''; });
+                    if($name){
+                        $dynamic = new DynamicField();
+                        $dynamic->name = $name[0];
+                        $dynamic->type = $request->type_dynamic_subject[$key][0];
+                        if(isset($request->values_subject[$key])){
+                            $dynamic->values = implode(',',$request->values_subject[$key]);
+                        }
+                        $dynamic->contact_issue_id = $object->id;
+                        $dynamic->section = "asunto";
                         $dynamic->save();
                     }
                 }
@@ -129,9 +147,10 @@ class ContactIssueController extends GlobalController
 
         if ($validator->passes()) {
 
-            $object->update($request->except('name_dynamic', 'type_dynamic', 'value'));
+            $object->update($request->except('name_dynamic', 'type_dynamic', 'values', 'name_dynamic_subject', 'type_dynamic_subject', 'values_subject'));
 
             DynamicField::where('contact_issue_id', $object->id)->delete();
+
             if($request->campaign_id != "" && $request->campaign_id != null){
                 foreach($request->name_dynamic as $key => $name){
                     $name = array_filter($name, function($value) { return !is_null($value) && $value !== ''; });
@@ -143,6 +162,24 @@ class ContactIssueController extends GlobalController
                             $dynamic->values = implode(',',$request->values[$key]);
                         }
                         $dynamic->contact_issue_id = $object->id;
+                        $dynamic->section = "campaña";
+                        $dynamic->save();
+                    }
+                }
+            }
+
+            if(count($request->name_dynamic_subject > 0)){
+                foreach($request->name_dynamic_subject as $key => $name){
+                    $name = array_filter($name, function($value) { return !is_null($value) && $value !== ''; });
+                    if($name){
+                        $dynamic = new DynamicField();
+                        $dynamic->name = $name[0];
+                        $dynamic->type = $request->type_dynamic_subject[$key][0];
+                        if(isset($request->values_subject[$key])){
+                            $dynamic->values = implode(',',$request->values_subject[$key]);
+                        }
+                        $dynamic->contact_issue_id = $object->id;
+                        $dynamic->section = "asunto";
                         $dynamic->save();
                     }
                 }
