@@ -78,9 +78,6 @@ const Faq = () => {
                                         let categoryKey = uuidv4();
                                         return categorySelected === categories.id ?
                                             <Fragment key={categoryKey}>
-                                                {/* <div className="base-panel-two-title my-4">
-                                                    {categories.name}
-                                                </div> */}
                                                 {
                                                     categories.faqs.map((item, index) => {
                                                         let questionKey = uuidv4();
