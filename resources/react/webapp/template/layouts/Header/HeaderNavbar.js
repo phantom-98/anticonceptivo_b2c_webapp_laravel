@@ -84,6 +84,7 @@ const HeaderNavbar = () => {
                         categories.map(category => {
                             let url = PUBLIC_ROUTES.SHOP.path;
                             url = url.replace(":category", category.slug);
+                            
                             return(
                                 <Dropdown key={category.categoryId}
                                     show={show[category.categoryId]}
@@ -109,6 +110,7 @@ const HeaderNavbar = () => {
                                                             laboratories={laboratories}
                                                             formats={formats}
                                                             subscriptions={subscriptions}
+                                                            categorySlug={category.slug}
                                                         />
                                                     {/* </Link> */}
                                                 </Dropdown.Item>
@@ -118,8 +120,9 @@ const HeaderNavbar = () => {
                                             <Dropdown.Menu align="right" bsPrefix="dropdown-menu-custom">
                                                 {
                                                     category.subcategories.map((subCategory) => {
-                                                        let childUrl = PUBLIC_ROUTES.SHOP.path;
-                                                        childUrl = childUrl.replace(":category", subCategory.slug);
+                                                        let childUrl = PUBLIC_ROUTES.SHOP_SUBCATEGORY.path;
+                                                        childUrl = childUrl.replace(":category?", category.slug);
+                                                        childUrl = childUrl.replace(":subcategory?", subCategory.slug);
                                                         return(
                                                             <Dropdown.Item key={uuidv4()}>
                                                                 <Link to={childUrl} style={{textDecoration: 'none'}}>

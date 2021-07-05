@@ -9,6 +9,10 @@ import ProductList from "./ProductList";
 
 const Shop = ({match}) => {
 
+    useEffect(() => {
+        console.log(match);
+    },[match])
+
     // const [products, setProducts] = useState([]);
     // const [productsFiltered, setProductsFiltered] = useState([]);
 
