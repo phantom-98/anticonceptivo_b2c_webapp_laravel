@@ -21,6 +21,9 @@ use App\Models\WebpayLog;
 use App\Models\Customer;
 use App\Models\CustomerAddress;
 use App\Models\DiscountCode;
+use App\Models\SubscriptionsOrdersItem;
+use App\Models\SubscriptionPlan;
+
 use App\Http\Utils\Enum\PaymentMethodStatus;
 
 class WebpayPlusController
@@ -78,8 +81,8 @@ class WebpayPlusController
     public function createTransaction(Request $request)
     {
         try {
-
             $order = new Order();
+            $customerAddress = null;
 
             if (!Customer::find($request->customer_id)) {
                 $customer = new Customer();
@@ -106,6 +109,8 @@ class WebpayPlusController
                 $customerAddress->default_address = 1;
 
                 $customerAddress->save();
+            }else{
+                $customerAddress = CustomerAddress::find($request->id);
             }
 
             $order->customer_id = $request->customer_id ?? $customer->id;
@@ -117,24 +122,8 @@ class WebpayPlusController
 
             $subtotal = 0;
             $isSubscription = 0;
-            foreach ($request->cartItems as $key => $item) {
-                if($item['subscription'] != null){
-                    $isSubscription = 1;
-
-                    $subtotal = $subtotal + ($item['quantity'] * $item['subscription']['price']);
-                    
-                }else{
-                    $subtotal = $subtotal + ($item['quantity'] * $item['product']['price']);
-    
-                }
-            }
 
             $order->subtotal = $subtotal;
-            $order->discount = $request->discount;
-            $order->dispatch = 0;
-
-            $order->total = $order->subtotal + $order->dispatch - $order->discount;
-
             $order->save();
 
             foreach ($request->cartItems as $key => $item) {
@@ -144,11 +133,33 @@ class WebpayPlusController
                 $orderItem->name = $item['product']['name'];
                 $orderItem->quantity = $item['quantity'];
                 $orderItem->price = $item['product']['price'];
-                if($item['subscription'] != null){
+
+                if($item['subscription'] != null){          
+                    $isSubscription = 1;
+
+                    $subtotal = $subtotal + ($item['quantity'] * $item['subscription']['price']);
+
                     $orderItem->subtotal = ($item['quantity'] * $item['subscription']['price']);
                     $orderItem->subscription_plan_id = $item['subscription']['subscription_plan_id'];
+                    $subscriptionPlan = SubscriptionPlan::find($item['subscription']['subscription_plan_id']);
+                    $orderItem->save();
+
+                    for ($i=0; $i < round($subscriptionPlan->months/2); $i++) { 
+                        $subscriptionOrdersItem = new SubscriptionsOrdersItem;
+                        $subscriptionOrdersItem->is_pay = 0;
+                        $subscriptionOrdersItem->order_id = $order->id;
+                        $subscriptionOrdersItem->orders_item_id = $orderItem->id;
+                        $subscriptionOrdersItem->pay_date = Carbon::now()->addMonths($i*2);
+                        $subscriptionOrdersItem->dispatch_date = Carbon::now()->addMonths($i*2)->addDay(5);
+                        $subscriptionOrdersItem->subscription_id = $request->subscription['id'];
+                        $subscriptionOrdersItem->customer_address_id = $customerAddress->id;
+                        $subscriptionOrdersItem->status = 'CREATED';
+                        $subscriptionOrdersItem->save();
+                    }
 
                 }else{
+                    $subtotal = $subtotal + ($item['quantity'] * $item['product']['price']);
+
                     $orderItem->subtotal = ($item['quantity'] * $item['product']['price']);
                     $orderItem->subscription_plan_id = null;
 
@@ -159,11 +170,31 @@ class WebpayPlusController
                 
                 $orderItem->save();
             }
+
+            $order->subtotal = $subtotal;
+            $order->discount = $request->discount;
+            $order->dispatch = 0;
+
+            $order->total = $order->subtotal + $order->dispatch - $order->discount;
+
+            $order->save();
+
             if($isSubscription){
                 if($request->subscription){
                     $response = $this->oneclick->authorize($request->customer_id , $request->subscription['transbank_token'], $order->id, $order->total);
                     
                     if($response['status'] == "success"){
+                        $ordersItems = OrderItem::where('order_id',$order->id)->get();
+                        foreach ($ordersItems as $elementOrderItem) {
+                            $subscriptionOrdersItems = SubscriptionsOrdersItem::where('orders_item_id',$elementOrderItem->id)->orderBy('pay_date')->get();
+                            foreach ($subscriptionOrdersItems as $key => $elementSubscriptionOrdersItem) {
+                                if($key == 0){
+                                    $subscriptionOrdersItem->is_pay = 1;
+                                    $subscriptionOrdersItem->status = 'PAID';
+                                    $subscriptionOrdersItem->save();
+                                }
+                            }
+                        }
                         $order->status = PaymentStatus::PAID;
                         $order->save();  
                         return ApiResponse::JsonSuccess([

@@ -39,7 +39,7 @@ const Account = ({match}) => {
         },
         SUBSCRIPTION: {
             url: 'suscripcion',
-            name: 'Suscripción'
+            name: 'Historial de Suscripciones'
         },
         RECEIPTS: {
             url: 'mis-recetas',

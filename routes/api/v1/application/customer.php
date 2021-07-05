@@ -17,10 +17,14 @@ Route::prefix('customer')
 
         Route::post('update-default-address', [ProfileController::class, 'updateDefaultAddress'])->name('updateDefaultAddress');
 
+
+        Route::post('get-subscriptions-orders_items', [ProfileController::class, 'getSubscriptionsOrdersItems'])->name('getSubscriptionsOrdersItems');
         Route::post('get-subscriptions', [ProfileController::class, 'getSubscriptions'])->name('getSubscriptions');
         Route::post('create-subscriptions', [ProfileController::class, 'createSubscriptions'])->name('createSubscriptions');
         Route::post('update-default-subscription', [ProfileController::class, 'updateDefaultSubscription'])->name('updateDefaultSubscription');
         Route::post('delete-subscription', [ProfileController::class, 'deleteSubscription'])->name('deleteSubscription');
+        Route::post('set-address-subscription', [ProfileController::class, 'setAddressSubscription'])->name('setAddressSubscription');
+        Route::post('set-dispatch-date-subscription', [ProfileController::class, 'setDispatchDateSubscription'])->name('setDispatchDateSubscription');
 
         Route::post('get-orders', [ProfileController::class, 'getOrders'])->name('getOrders');
 

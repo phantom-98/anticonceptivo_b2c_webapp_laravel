@@ -11,7 +11,7 @@ const TotalCartPrice = () =>{
         let _total = 0;
         cartItems.map((item) =>{
             if(item.subscription != null){
-                _total = _total + (item.quantity * item.subscription.price)
+                _total = _total + (item.quantity * item.subscription.price * item.subscription.quantity)
                 
             }else{
                 _total = _total + (item.quantity * item.product.price)
