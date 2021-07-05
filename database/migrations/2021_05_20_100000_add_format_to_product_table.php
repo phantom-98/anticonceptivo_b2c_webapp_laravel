@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddToProductTable extends Migration
+class AddFormatToProductTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,8 +15,13 @@ class AddToProductTable extends Migration
     {
         Schema::table('products', function (Blueprint $table) {
             //
-            $table->text('unit_format')->nullable();
-            $table->integer('unit_price')->nullable();
+            $table->enum('format', [
+                '21',
+                '28',
+                '1',
+                '3',
+                '91'
+            ])->nullable();
 
         });
     }
