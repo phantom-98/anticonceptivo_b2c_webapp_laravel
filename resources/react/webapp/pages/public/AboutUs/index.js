@@ -110,10 +110,8 @@ const AboutUs = () => {
                                                     <img className="m-auto" src={value.public_image} alt={CONFIG.APP_NAME}/>
                                                 </div>
                                             </div>
-                                            <div className="col-12">
-                                                <div className="font-poppins font-14 regular">
-                                                    {value.description}
-                                                </div>
+                                            <div className="col-12 text-center">
+                                                <H2Title text={value.description} className="font-16"/>
                                             </div>
                                         </div>
                                     </div>
@@ -127,16 +125,22 @@ const AboutUs = () => {
                             let allianceKey = uuidv4();
                             return(
                                 <div key={allianceKey} className="row pb-5 mb-5">
-                                    <div className="col-3">
+                                    <div className="col-md-9 offset-md-3">
+                                        <div className="row">
+                                            <div className="col-12">
+                                                <a href={alliance.website} target="_blank">
+                                                    <img src={alliance.public_image} alt={CONFIG.APP_NAME}/>
+                                                </a>
+                                            </div>
 
-                                    </div>
-                                    <div className="col-9">
-                                        <div className="mb-5">
-                                            <a href={alliance.website} target="_blank">
-                                                <img src={alliance.public_image} alt={CONFIG.APP_NAME}/>
-                                            </a>
+                                            <div className="col-12 font-poppins font-22 bold color-033F5D mb-3">
+                                                {alliance.name}
+                                            </div>
+
+                                            <div className="col-12">
+                                                <div dangerouslySetInnerHTML={{ __html:alliance.description}}/>
+                                            </div> 
                                         </div>
-                                        <div dangerouslySetInnerHTML={{ __html:alliance.description}}/>
                                     </div>
                                 </div>
                             )

@@ -20,6 +20,9 @@ use App\Models\Prescription;
 use App\Models\ContactIssue;
 use App\Models\ContactMessage;
 use App\Models\Subscription;
+use App\Models\SubscriptionsOrdersItem;
+use App\Models\ProductSubscriptionPlan;
+use Carbon\Carbon;
 
 class ProfileController extends Controller
 {
@@ -182,6 +185,158 @@ class ProfileController extends Controller
             $subscription = Subscription::where('customer_id', $customer->id)->where('status','CREATED')->get();
             return ApiResponse::JsonSuccess([
                 'subscriptions' => $subscription,
+            ], OutputMessage::SUCCESS);
+            
+        } catch (\Exception $exception) {
+            return ApiResponse::JsonError(null, $exception->getMessage());
+        }
+    }
+
+    public function setAddressSubscription(Request $request)
+    {
+        try {
+            $customer = Customer::find($request->customer_id);
+
+            if (!$customer) {
+                return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_NOT_FOUND);
+            }
+
+            $address = CustomerAddress::find($request->address_id);
+
+            if (!$address) {
+                return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_ADDRESS_NOT_FOUND);
+            }
+
+            $subscriptionsOrdersItem = SubscriptionsOrdersItem::find($request->subscription_order_item_id);
+            $subscriptions_orders_items = SubscriptionsOrdersItem::where('order_id',$subscriptionsOrdersItem->order_id)
+            ->where('pay_date',$subscriptionsOrdersItem->pay_date)->get();
+
+            foreach ($subscriptions_orders_items as $key => $subscriptionsOrdersItemElement) {
+                    $subscriptionsOrdersItemElement->customer_address_id = $request->address_id;
+                    $subscriptionsOrdersItemElement->save();
+            }
+
+            return ApiResponse::JsonSuccess($subscriptions_orders_items[0], OutputMessage::SUCCESS);
+
+        } catch (\Exception $exception) {
+            return ApiResponse::JsonError(null, $exception->getMessage());
+        }
+    }
+
+    public function setDispatchDateSubscription(Request $request)
+    {
+        try {
+            $customer = Customer::find($request->customer_id);
+
+            if (!$customer) {
+                return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_NOT_FOUND);
+            }
+
+            $subscriptionsOrdersItem = SubscriptionsOrdersItem::find($request->subscription_order_item_id);
+            $subscriptions_orders_items = SubscriptionsOrdersItem::where('order_id',$subscriptionsOrdersItem->order_id)
+            ->where('pay_date',$subscriptionsOrdersItem->pay_date)->get();
+            foreach ($subscriptions_orders_items as $key => $subscriptionsOrdersItemElement) {
+
+                    if($subscriptionsOrdersItemElement->pay_date >= Carbon::createFromFormat('Y-m-d', $request->dispatch_date)->subDay(4)){
+                        return ApiResponse::JsonError(null, 'La fecha de despacho debe ser mayor a la fecha de pago');
+                    }
+
+                    $subscriptionsOrdersItemElement->dispatch_date = Carbon::createFromFormat('Y-m-d', $request->dispatch_date);
+                    $subscriptionsOrdersItemElement->save();
+            }
+
+            return ApiResponse::JsonSuccess($subscriptions_orders_items[0], OutputMessage::SUCCESS);
+
+        } catch (\Exception $exception) {
+            return ApiResponse::JsonError(null, $exception->getMessage());
+        }
+    }
+
+    public function getSubscriptionsOrdersItems(Request $request)
+    {
+        try {
+            $customer = Customer::find($request->customer_id);
+            if (!$customer) {
+                return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_NOT_FOUND);
+            }
+
+            $orders = Order::where('customer_id',$customer->id)->where('status','PAID')
+            ->with('subscriptions_orders_items.order_item.product','subscriptions_orders_items.customer_address.commune','subscriptions_orders_items.subscription')
+            ->whereHas('subscriptions_orders_items', function ($query) {
+                $query->where('id','!=', null);
+            })
+            ->get();
+
+
+            $idsOrdersItems = [];
+            foreach ($orders as $key => $element_order) {
+                foreach ($element_order->order_items as $key => $element_order_item) {
+
+                    array_push($idsOrdersItems ,$element_order_item->id);
+                }
+            }
+            
+            $arraySubscriptionsOrdersItem = [];
+            
+            $subscriptionsOrdersItem = SubscriptionsOrdersItem::whereIn('orders_item_id',$idsOrdersItems)
+            ->with(['order_item.product','customer_address.commune','subscription','order.order_items','order_item.subscription_plan'])
+            ->select('id','order_id','orders_item_id','subscription_id','customer_address_id','pay_date','dispatch_date','status','is_pay')
+            ->orderBy('order_id')->orderBy('pay_date')
+            ->get();
+
+            $prev_order_id = null;
+            $prev_pay_date = null;
+            $prev_item = null;
+            $total = 0;
+            foreach ($subscriptionsOrdersItem as $key => $item) {
+                if(($prev_order_id != $item->order->id || $prev_pay_date != $item->pay_date) && $prev_item != null){
+                    $item_tmp = [
+                        'customer_address_id' => $prev_item->customer_address_id,
+                        'customer_address' => $prev_item->customer_address,
+                        'dispatch_date' => $prev_item->dispatch_date,
+                        'id' => $prev_item->id,
+                        'is_pay' => $prev_item->is_pay,
+                        'order_item' => $prev_item->order_item,
+                        'pay_date' => $prev_item->pay_date,
+                        'dispatch_date' => $prev_item->dispatch_date,
+                        'subscription' => $prev_item->subscription,
+                        'order' => $prev_item->order,
+                        'order_id' => $prev_item->order->id,
+                        'status' => $prev_item->status,
+                        'total' => $total,
+                    ];
+                    $total = 0;
+                    array_push($arraySubscriptionsOrdersItem,$item_tmp);
+
+                }
+                $productSubscriptionPlan = ProductSubscriptionPlan::where('subscription_plan_id',$item->order_item->subscription_plan->id)
+                                            ->where('product_id',$item->order_item->product->id)->get()->first();
+                $total += $productSubscriptionPlan->price * $productSubscriptionPlan->quantity * $item->order_item->quantity; 
+                $prev_order_id = $item->order->id;
+                $prev_pay_date = $item->pay_date;
+                $prev_item = $item;
+            }
+
+            $item_tmp = [
+                'customer_address_id' => $prev_item->customer_address_id,
+                'customer_address' => $prev_item->customer_address,
+                'dispatch_date' => $prev_item->dispatch_date,
+                'id' => $prev_item->id,
+                'is_pay' => $prev_item->is_pay,
+                'order_item' => $prev_item->order_item,
+                'pay_date' => $prev_item->pay_date,
+                'dispatch_date' => $prev_item->dispatch_date,
+                'subscription' => $prev_item->subscription,
+                'order' => $prev_item->order,
+                'order_id' => $prev_item->order->id,
+                'status' => $prev_item->status,
+                'total' => $total,
+            ];
+
+            array_push($arraySubscriptionsOrdersItem,$item_tmp);
+
+            return ApiResponse::JsonSuccess([
+                'subscriptions' => $arraySubscriptionsOrdersItem,
             ], OutputMessage::SUCCESS);
             
         } catch (\Exception $exception) {

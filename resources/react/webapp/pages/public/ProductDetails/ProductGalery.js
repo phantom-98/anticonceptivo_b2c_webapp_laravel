@@ -5,12 +5,19 @@ import {
   SideBySideMagnifier
 } from "react-image-magnifiers";
 
-const ProductGallery = ({product, imageSubscription}) => {
+const ProductGallery = ({product, imageSubscription, productImage}) => {
 
-    const [imageSelected, setImageSelected] = useState(
-        product.images.length ? product.images[0].public_file : NoImage
-    )
+    const [imageSelected, setImageSelected] = useState(productImage)
     
+    useEffect(() => {
+        if (imageSubscription == null) {
+            setImageSelected (productImage)
+        }
+    },[imageSubscription])
+
+    useEffect(() => {
+        setImageSelected(productImage)
+    },[productImage])
 
     return (
         <div className="row" style={{zIndex: 1000}}>
@@ -26,6 +33,7 @@ const ProductGallery = ({product, imageSubscription}) => {
                                         setImageSelected(img.public_file)
                                     }
                                 }
+
                                 return (
                                     <div key={index} 
                                         className="img-box-product-mini mb-3 pointer" 
@@ -35,9 +43,7 @@ const ProductGallery = ({product, imageSubscription}) => {
                                             alt={`${CONFIG.APP_NAME} - ${product.name}`}
                                         />
                                     </div>
-                                )
-                                                                
-
+                                )                         
                             }
 
                         })

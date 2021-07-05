@@ -31,9 +31,8 @@
     <meta name="apple-mobile-web-app-title" content="Anticonceptivo">
     <meta name="application-name" content="Anticonceptivo">
 
-    <meta name="title" content="Anticonceptivo | Encuentra lo mejor en anticonceptivos">
-    <meta name="description"
-          content="Tienda online de diferentes anticonceptivos">
+    <meta name="title" content="Anticonceptivo.cl">
+    <meta name="description" content="El proveedor número 1 de pastillas anticonceptivas en Chile">
     <meta name="keywords"
           content="anticonceptivos, ecommerce, tienda, pastillas, nora, condones, durex">
     <meta name="robots" content="index, nofollow">
@@ -42,10 +41,10 @@
     <meta name="author" content="Anticonceptivo">
     <meta name="rights" content="Anticonceptivo"/>
 
-    <meta property="og:site_name" content="Anticonceptivo">
-    <meta property="og:title" content="Anticonceptivo"/>
+    <meta property="og:site_name" content="Anticonceptivo.cl">
+    <meta property="og:title" content="Anticonceptivo.cl"/>
     <meta property="og:description"
-          content="Tienda online de diferentes anticonceptivos."/>
+          content="El proveedor número 1 de pastillas anticonceptivas en Chile"/>
     <meta property="og:image" itemprop="image" content="https://www.anticonceptivo.cl/images/logo-full.svg?b3b8df2099e0585f16d824394e200f52">
     <meta property="og:type" content="website"/>
     <meta property="og:updated_time" content="1440432930"/>

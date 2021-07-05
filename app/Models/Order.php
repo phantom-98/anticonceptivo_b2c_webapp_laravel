@@ -103,5 +103,8 @@ class Order extends Model
         return $this->hasOne(Prescription::class);
     }
 
+    public function subscriptions_orders_items(){
+        return $this->hasMany(SubscriptionsOrdersItem::class);
+    }
 
 }

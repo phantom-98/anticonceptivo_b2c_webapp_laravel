@@ -20,9 +20,12 @@ class ContactIssue extends Model
         return $this->belongsTo(Campaign::class);
     }
 
-    public function fields()
-    {
-        return $this->hasMany(DynamicField::class);
+    public function fields(){
+        return $this->hasMany(DynamicField::class)->where('section', 'campaña');
+    }
+
+    public function fields_subject(){
+        return $this->hasMany(DynamicField::class)->where('section', 'asunto');
     }
 
 

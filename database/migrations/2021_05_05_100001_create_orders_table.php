@@ -42,7 +42,6 @@ class CreateOrdersTable extends Migration
             $table->text('comments')->nullable();
 
             $table->longText('extra_data')->nullable(); //json extra data
-
             $table->enum('status', [
                 'CREATED',
                 'CANCELED',

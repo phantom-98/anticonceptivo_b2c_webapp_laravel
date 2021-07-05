@@ -163,7 +163,7 @@ const CheckOut = () => {
     // }
 
     const getSubscriptions = () => {
-        let url = Services.ENDPOINT.AUTH.GET_SUBSCRIPTIONS;
+        let url = Services.ENDPOINT.CUSTOMER.SUBSCRIPTIONS.GET_SUBSCRIPTIONS;
         let data = {
             customer_id: auth.id
         }

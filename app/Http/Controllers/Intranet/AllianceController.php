@@ -44,7 +44,8 @@ class AllianceController extends GlobalController
         $rules = [
             'name' => 'required|unique:alliances,name',
             'website' => 'required',
-            'image' => 'required'
+            'image' => 'required',
+            'footer_image' => 'required'
         ];
 
         $messages = [
@@ -56,12 +57,19 @@ class AllianceController extends GlobalController
 
         if ($validator->passes()) {
 
-            $object = Alliance::create($request->except(['image']));
+            $object = Alliance::create($request->except(['image', 'footer_image']));
 
             if ($request->image) {
                 $image = $request->file('image');
                 $filename = 'alliance-' . $object->id  .'.'. $image->getClientOriginalExtension();
                 $object->image = $image->storeAs('public/alliances', $filename);
+                $object->save();
+            }  
+
+            if ($request->footer_image) {
+                $footer_image = $request->file('footer_image');
+                $filename = 'alliance-footer-' . $object->id  .'.'. $footer_image->getClientOriginalExtension();
+                $object->footer_image = $footer_image->storeAs('public/alliances', $filename);
                 $object->save();
             }  
 
@@ -115,7 +123,7 @@ class AllianceController extends GlobalController
 
         if ($validator->passes()) {
 
-            $object->update($request->except(['image']));
+            $object->update($request->except(['image', 'footer_image']));
 
             $object->save();
 
@@ -133,6 +141,27 @@ class AllianceController extends GlobalController
                 $object->refresh();
 
                 Log::info('Cambio de foto', [
+                    'date' => date('Y-m-d H:i:s'),
+                    'old_name' => $name,
+                    'new_name' => $filename,
+                    'user' => auth('intranet')->user()->full_name
+                ]);
+            }
+
+            if ($request->footer_image) {
+                $name = "";
+                if($object->footer_image){
+                    $name = $object->footer_image;
+                    Storage::delete($object->footer_image);
+                }
+                $footer_image = $request->file('footer_image');
+                $filename = 'alliance-footer-' . $object->id  .'.'. $footer_image->getClientOriginalExtension();
+                $object->footer_image = $footer_image->storeAs('public/alliances', $filename);
+                $object->save();
+
+                $object->refresh();
+
+                Log::info('Cambio de footer', [
                     'date' => date('Y-m-d H:i:s'),
                     'old_name' => $name,
                     'new_name' => $filename,

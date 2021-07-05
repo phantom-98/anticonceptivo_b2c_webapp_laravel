@@ -242,10 +242,11 @@
                                             <option value="50" {{$object->format == "50" ? "selected" : ""}}>50</option>
                                             <option value="56" {{$object->format == "56" ? "selected" : ""}}>56</option>
                                             <option value="60" {{$object->format == "60" ? "selected" : ""}}>60</option>
-                                            <option value="80" {{$object->format == "80" ? "selected" : ""}}>3</option>         
+                                            <option value="80" {{$object->format == "80" ? "selected" : ""}}>80</option>         
                                             <option value="90" {{$object->format == "90" ? "selected" : ""}}>90</option>
                                             <option value="91" {{$object->format == "91" ? "selected" : ""}}>91</option>
                                             <option value="100" {{$object->format == "100" ? "selected" : ""}}>100</option>         
+                                            <option value="133" {{$object->format == "133" ? "selected" : ""}}>133</option>         
                                             <option value="180" {{$object->format == "180" ? "selected" : ""}}>180</option>
                                             <option value="200" {{$object->format == "200" ? "selected" : ""}}>200</option>
                                             <option value="250" {{$object->format == "250" ? "selected" : ""}}>250</option>   
