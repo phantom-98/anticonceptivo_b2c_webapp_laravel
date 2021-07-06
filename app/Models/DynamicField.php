@@ -23,7 +23,7 @@ class DynamicField extends Model
 
     public function children()
     {
-        return $this->hasMany(DynamicField::class, 'parent_id');
+        return $this->hasMany(DynamicField::class, 'parent_id')->with('children');
     }
 
     public function parent()
@@ -31,8 +31,8 @@ class DynamicField extends Model
         return $this->belongsTo(DynamicField::class, 'parent_id');
     }
 
-    public function childrenRecursive()
-    {
-        return $this->hasMany(DynamicField::class, 'parent_id')->with('children');
-    }
+//    public function children_recursive()
+//    {
+//        return $this->hasMany(DynamicField::class, 'parent_id')->with('children');
+//    }
 }
