@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\V1\App\PublicArea\ContactController;
 use App\Http\Controllers\Api\V1\App\PublicArea\HomeController;
 use App\Http\Controllers\Api\V1\App\PublicArea\ProductController;
 use App\Http\Controllers\Api\V1\App\PublicArea\CheckoutController;
@@ -15,7 +16,7 @@ Route::prefix('public-area')
     // ->middleware(['web'])
     ->group(function () {
 
-        Route::get('get-header-navbar-resources', [HomeController::class, 'getHeaderNavbarResources'])->name('getHeaderNavbarResources');        
+        Route::get('get-header-navbar-resources', [HomeController::class, 'getHeaderNavbarResources'])->name('getHeaderNavbarResources');
         Route::get('get-home-top-banners', [HomeController::class, 'getHomeTopBanners'])->name('getHomeTopBanners');
 
 
@@ -46,4 +47,13 @@ Route::prefix('public-area')
         Route::get('get-about-us-resources', [AboutUsController::class, 'index'])->name('index');
 
         Route::post('subscribe', [SubscribeController::class, 'subscribe'])->name('subscribe');
+
+        Route::prefix('contact')
+            ->name('contact.')
+            ->group(function () {
+
+                Route::post('get-resources', [ContactController::class, 'getResources'])->name('getResources');
+                Route::post('send', [ContactController::class, 'send'])->name('send');
+
+            });
     });

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6ee1f0991df17fca1f7b499f96039440",
+    "content-hash": "0755d363bd926b2dfd2ef40cf9c564c6",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1051,6 +1051,10 @@
                 "proxy",
                 "trusted proxy"
             ],
+            "support": {
+                "issues": "https://github.com/fideloper/TrustedProxy/issues",
+                "source": "https://github.com/fideloper/TrustedProxy/tree/4.4.1"
+            },
             "time": "2020-10-22T13:48:01+00:00"
         },
         {
@@ -1102,54 +1106,6 @@
                 "php"
             ],
             "time": "2021-02-12T00:02:00+00:00"
-        },
-        {
-            "name": "freshwork/transbank",
-            "version": "1.2.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/freshworkstudio/transbank-web-services.git",
-                "reference": "690e15bd6cdeb6897f49ab12b18c3d48362e8d50"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/freshworkstudio/transbank-web-services/zipball/690e15bd6cdeb6897f49ab12b18c3d48362e8d50",
-                "reference": "690e15bd6cdeb6897f49ab12b18c3d48362e8d50",
-                "shasum": ""
-            },
-            "require": {
-                "ext-dom": "*",
-                "ext-openssl": "*",
-                "ext-soap": "*"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Freshwork\\Transbank\\Laravel\\WebpayServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Freshwork\\Transbank\\": "src/"
-                },
-                "classmap": [
-                    "src/wss"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Gonzalo De Spirito",
-                    "email": "gonzalo@freshworkstudio.com"
-                }
-            ],
-            "description": "SDK para webservices de transbank (Webpay Plus, Webpay OneClick, Webpay PatPass)",
-            "time": "2019-12-17T13:16:26+00:00"
         },
         {
             "name": "fruitcake/laravel-cors",
@@ -1475,16 +1431,16 @@
         },
         {
             "name": "innovaweb/transbank",
-            "version": "v1.1.1",
+            "version": "v1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/innovawebcl/Transbank.git",
-                "reference": "9169a0d60af9b29338cb7b395617f4e2d9b99ec7"
+                "reference": "36c89b94ebe270187e26fab23fb1c34d3c28cc23"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/innovawebcl/Transbank/zipball/9169a0d60af9b29338cb7b395617f4e2d9b99ec7",
-                "reference": "9169a0d60af9b29338cb7b395617f4e2d9b99ec7",
+                "url": "https://api.github.com/repos/innovawebcl/Transbank/zipball/36c89b94ebe270187e26fab23fb1c34d3c28cc23",
+                "reference": "36c89b94ebe270187e26fab23fb1c34d3c28cc23",
                 "shasum": ""
             },
             "require": {
@@ -1528,7 +1484,11 @@
                 "laravel",
                 "transbank"
             ],
-            "time": "2021-04-21T18:11:28+00:00"
+            "support": {
+                "issues": "https://github.com/innovawebcl/Transbank/issues",
+                "source": "https://github.com/innovawebcl/Transbank/tree/v1.2.0"
+            },
+            "time": "2021-06-22T17:28:25+00:00"
         },
         {
             "name": "laravel/framework",
@@ -8584,5 +8544,6 @@
         "php": "^7.3|^8.0",
         "ext-json": "*"
     },
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "2.0.0"
 }
