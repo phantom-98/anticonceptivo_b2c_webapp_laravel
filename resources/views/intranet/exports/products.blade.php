@@ -18,6 +18,10 @@
             <th>Formato Unidad</th>
             <th>Tipo de Receta</th>
             <th>Estado</th>
+            <th>¿Tiene Ficha Técnica?</th>
+            <th>¿Tiene Beneficios?</th>
+            <th>¿Tiene Descripción?</th>
+            <th>¿Tiene Composición?</th>
         </tr>
     </thead>
     <tbody>
@@ -40,6 +44,10 @@
                 <td>{{ $object->unit_format ?? '' }}</td>
                 <td>{{ $object->recipe_type ?? 'Venta Directa' }}</td>
                 <td>{{ $object->state_of_matter ?? 'Sólido' }}</td>
+                <td>{{ $object->data_sheet != null ? 'SI' : 'NO' }}</td>
+                <td>{{ $object->benefits != null ? 'SI' : 'NO' }}</td>
+                <td>{{ $object->description != null ? 'SI' : 'NO' }}</td>
+                <td>{{ $object->compound != null ? 'SI' : 'NO' }}</td>
             </tr>
         @endforeach
     </tbody>

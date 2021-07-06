@@ -82,7 +82,7 @@ const ProductDetail = ({match}) => {
 
                     <div className="row pb-5 mb-5">
                         <div className="col-md-6">
-                            <ProductGallery product={product} imageSubscription={imageSubscription}/>
+                            <ProductGallery product={product} imageSubscription={imageSubscription} productImage={product.images[0].public_file}/>
                         </div>
                         <div className="col-md-6">
                             <ProductInfo product={product} setImageSubscription={setImageSubscription}/>

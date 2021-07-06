@@ -38,7 +38,7 @@ const CustomerService = () => {
                 setDynamicData({});
             }
         }
-        
+
     },[data.contact_issue, contactIssues])
 
     useEffect(() => {
@@ -81,13 +81,14 @@ const CustomerService = () => {
     }
 
     const sendToCustomerService = () => {
+
         let url = Services.ENDPOINT.CUSTOMER.CUSTOMER_SERVICE.SEND;
 
         let dataForm = {
             ...data,
             dynamicData
         }
-        
+
         Services.DoPost(url, dataForm).then(response => {
             Services.Response({
                 response: response,
@@ -134,7 +135,7 @@ const CustomerService = () => {
                 e.target.id
             ]
         }
-        
+
         setDynamicData({
             ...dynamicData,
             [e.target.name]: list
@@ -169,7 +170,7 @@ const CustomerService = () => {
                         </div>
                     </div>
                     {
-                        dynamicFields.length ? 
+                        dynamicFields.length ?
                             dynamicFields.map((dynamicField, index) => {
                                 return (
                                     <DynamicField
@@ -183,7 +184,7 @@ const CustomerService = () => {
                                         handleDynamicRadio={handleDynamicRadio}
                                         handleDynamicCheckbox={handleDynamicCheckbox}
                                         key={index}
-                                    />  
+                                    />
                                 )
                             })
                         : null

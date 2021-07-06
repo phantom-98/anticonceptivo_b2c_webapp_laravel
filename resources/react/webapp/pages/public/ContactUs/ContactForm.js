@@ -1,7 +1,34 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Form} from 'react-bootstrap'
+import * as Services from "../../../Services";
 
 const ContactForm = () => {
+
+    const [contactIssues, setContactIssues] = useState([]);
+
+    useEffect(() => {
+        getResources();
+    }, [])
+
+    const getResources = () => {
+        Services.DoPost(Services.ENDPOINT.PUBLIC_AREA.CONTACT.GET_RESOURCES, {}).then(response => {
+            Services.Response({
+                response: response,
+                success: () => {
+                    toastr.success(response.message)
+                    setContactIssues(response.data.contact_issues)
+                },
+                warning: () => {
+                    // toastr.warning(response.message)
+                },
+                error: () => {
+                    // toastr.error(response.message)
+                },
+            });
+        }).catch(error => {
+            Services.ErrorCatch(error);
+        });
+    }
 
     return (
         <div className="row">

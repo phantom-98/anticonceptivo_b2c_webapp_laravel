@@ -24,18 +24,18 @@ const Footer = () => {
 
     useEffect(() => {
         getData();
-    },[])
+    }, [])
 
     const getData = () => {
         let url = Services.ENDPOINT.PUBLIC_AREA.FOOTER;
         let data = {}
-        Services.DoGet(url,data).then(response => {
+        Services.DoGet(url, data).then(response => {
             Services.Response({
-            response: response,
-            success: () => {
-                setResponsibleConsumption(response.data.responsible_consumption);
-                setAlliances(response.data.alliances);
-            },
+                response: response,
+                success: () => {
+                    setResponsibleConsumption(response.data.responsible_consumption);
+                    setAlliances(response.data.alliances);
+                },
             });
         }).catch(error => {
             Services.ErrorCatch(error)
@@ -46,17 +46,17 @@ const Footer = () => {
         <Fragment>
             <div className="footer d-flex">
                 <div className="container my-auto">
-                    <div className="row" style={{marginLeft:'-25px !important'}}>
+                    <div className="row" style={{marginLeft: '-25px !important'}}>
                         <div className="col-md-auto text-center">
                             <div className="mb-3">
                                 <img src={logoFooter} alt={CONFIG.APP_NAME}/>
                             </div>
                             <div className="font-10 regular text-white">Una alianza con</div>
                             {
-                                alliances.map((alliance, index) => {
-                                    return(
-                                        <div key={index*1234} className="mb-3">
-                                            <img src={alliance.public_image} alt={CONFIG.APP_NAME}/>
+                                alliances.map((alliance) => {
+                                    return (
+                                        <div className="mb-3">
+                                            <img src={alliance.footer_image} alt={CONFIG.APP_NAME}/>
                                         </div>
                                     )
                                 })
@@ -70,26 +70,36 @@ const Footer = () => {
                                     <Link className="nav-link" to={PUBLIC_ROUTES.ABOUT_US.path}>Sobre nosotros</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link className="nav-link" to={PUBLIC_ROUTES.FAQ.path}>Preguntas Frecuentes FAQ</Link>
+                                    <Link className="nav-link" to={PUBLIC_ROUTES.FAQ.path}>Preguntas Frecuentes
+                                        FAQ</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link className="nav-link" to={PUBLIC_ROUTES.TERMS_AND_CONDITIONS.path}>Términos y Condiciones</Link>
+                                    <Link className="nav-link" to={PUBLIC_ROUTES.TERMS_AND_CONDITIONS.path}>Términos y
+                                        Condiciones</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link" href={responsibleConsumption.public_file} target="_blank">Consumo responsable</a>
+                                    <a className="nav-link"
+                                       href={responsibleConsumption && 'public_file' in responsibleConsumption ? responsibleConsumption.public_file : ''}
+                                       target="_blank">Consumo responsable</a>
                                 </li>
                             </ul>
                         </div>
                         <div className="col-md">
                             <ul className="nav flex-column">
                                 <li className="nav-item">
-                                    <Link className="nav-link" to={(PUBLIC_ROUTES.CORPORATE_RESPONSIBILITY.path).replace(':section', 'politicas-de-privacidad')}>Políticas de Privacidad</Link>
+                                    <Link className="nav-link"
+                                          to={(PUBLIC_ROUTES.CORPORATE_RESPONSIBILITY.path).replace(':section', 'politicas-de-privacidad')}>Políticas
+                                        de Privacidad</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link className="nav-link" to={(PUBLIC_ROUTES.CORPORATE_RESPONSIBILITY.path).replace(':section', 'bases-legales')}>Bases Legales</Link>
+                                    <Link className="nav-link"
+                                          to={(PUBLIC_ROUTES.CORPORATE_RESPONSIBILITY.path).replace(':section', 'bases-legales')}>Bases
+                                        Legales</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link className="nav-link" to={(PUBLIC_ROUTES.CORPORATE_RESPONSIBILITY.path).replace(':section', 'plazos-y-costos-entrega')}>Plazos y costos de entrega</Link>
+                                    <Link className="nav-link"
+                                          to={(PUBLIC_ROUTES.CORPORATE_RESPONSIBILITY.path).replace(':section', 'plazos-y-costos-entrega')}>Plazos
+                                        y costos de entrega</Link>
                                 </li>
                                 <li className="nav-item">
                                     <Link className="nav-link" to={PUBLIC_ROUTES.BLOG.path}>Blog</Link>
@@ -112,27 +122,28 @@ const Footer = () => {
                                     </a>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link" href="mailto:contacto@anticonceptivo.cl"><Icon path={email}/>
+                                    <a className="nav-link" href="mailto:contacto@anticonceptivo.cl"><Icon
+                                        path={email}/>
                                         <span>{' '}contacto@anticonceptivo.cl</span>
                                     </a>
                                 </li>
                             </ul>
 
                             <div className="row pl-3 pt-2">
-                                <div className="col-auto">
+                                {/* <div className="col-auto">
                                     <Link to="#" target="_blank">
                                         <Icon path={twitter}/>
                                     </Link>
-                                </div>
+                                </div> */}
                                 <div className="col-auto">
-                                    <Link to="#" target="_blank">
+                                    <a href="https://www.facebook.com/Anticonceptivo.cl/" target="_blank">
                                         <Icon path={facebook}/>
-                                    </Link>
+                                    </a>
                                 </div>
                                 <div className="col-auto">
-                                    <Link to="#" target="_blank">
+                                    <a href="https://www.instagram.com/anticonceptivo_cl/" target="_blank">
                                         <Icon path={instagram}/>
-                                    </Link>
+                                    </a>
                                 </div>
                             </div>
                         </div>

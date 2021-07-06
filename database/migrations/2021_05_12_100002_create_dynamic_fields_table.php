@@ -15,7 +15,9 @@ class CreateDynamicFieldsTable extends Migration
     {
         Schema::create('dynamic_fields', function (Blueprint $table) {
             $table->bigIncrements('id');
+
             $table->string('name')->nullable();
+
             $table->enum('type', [
                 'input',
                 'textarea',
@@ -23,6 +25,7 @@ class CreateDynamicFieldsTable extends Migration
                 'radio',
                 'checkbox'
             ])->default('input');
+
             $table->text('values')->nullable();
 
             $table->unsignedBigInteger('contact_issue_id')->comment('Id de la tabla contact_issues');
