@@ -8,17 +8,20 @@ import Filter from "./Filter";
 import ProductList from "./ProductList";
 import * as Services from "../../../Services";
 import {propsLength} from "../../../helpers/ShopHelper";
+import toastr from "toastr";
 
 const Shop = ({match}) => {
 
     const [products, setProducts] = useState([]);
     const [category, setCategory] = useState({});
+    const [subcategories, setSubcategories] = useState([]);
     const [laboratories, setLaboratories] = useState([]);
     const [subscriptions, setSubscriptions] = useState([]);
     const [formats, setFormats] = useState([]);
 
     const [loading, setLoading] = useState(false);
     const [isPills, setIsPills] = useState(false);
+    const [subcatNames, setSubcatNames] = useState(null);
 
       useEffect(() => {
           switch (propsLength(match.params)) {
@@ -112,12 +115,20 @@ const Shop = ({match}) => {
                 success: () => {
                     setProducts(response.data.products);
                     setCategory(response.data.category);
+                    setSubcatNames(response.data.subcat_name);
+                    setSubcategories(response.data.subcategories);
                     setLaboratories(response.data.laboratories);
                     setSubscriptions(response.data.subscriptions);
                     setFormats(Object.values(response.data.formats));
                     setIsPills(response.data.is_pills);
                     setLoading(true);
                 },
+                error: () => {
+                    toastr.error(response.message);
+                },
+                warning: () => {
+                    toastr.warning(response.message);
+                }
             });
         }).catch(error => {
             Services.ErrorCatch(error)
@@ -147,7 +158,7 @@ const Shop = ({match}) => {
                                 <Filter
                                     isPills={isPills}
                                     laboratories={laboratories}
-                                    subcategories={category.subcategories}
+                                    subcategories={subcategories}
                                     subscriptions={subscriptions}
                                     formats={formats}
                                     // setLaboratories={setLaboratories}
@@ -163,6 +174,7 @@ const Shop = ({match}) => {
                                 <ProductList 
                                     category={category}
                                     products={products}
+                                    subcatNames={subcatNames}
                                 />
                             </div>
                         </div>

@@ -46,13 +46,19 @@ class ProductController extends Controller
                 }
             ]);
 
+            $subcategories = $category->first()->subcategories;
+            $subcatName = null;
+
             if ($request->subcategory_slug) {
-                $category = $category->whereHas('subcategories', function($q) use($request){
+                $category = $category->with('subcategories', function($q) use($request){
                     $q->where('slug',$request->subcategory_slug);
                 });
+
+                $subcatName = $category->first()->subcategories[0]->name;
             }
 
             $category = $category->first();
+            $categoryFields = $category->only(['public_banner_image','description','name']);
 
             $isPills = false;
 
@@ -62,6 +68,7 @@ class ProductController extends Controller
 
             $laboratoryIds = [];
             $productIds = [];
+            
 
             foreach ($category->subcategories as $key => $value) {
                 foreach ($value->products as $v_key => $v_value) {
@@ -70,20 +77,52 @@ class ProductController extends Controller
                 }
             }
 
+            $laboratoryIds = array_unique($laboratoryIds);
+
             $subscriptions = SubscriptionPlan::whereIn('id',ProductSubscriptionPlan::whereIn('product_id',$productIds)
                 ->get()->unique('subscription_plan_id')->pluck('subscription_plan_id'))
                 ->where('active',true)->select(['id','months'])->get();
 
-            $laboratoryIds = array_unique($laboratoryIds);
             $laboratories = Laboratory::whereIn('id',$laboratoryIds)->where('active',true)->get();
             $products = Product::whereIn('id',$productIds)->where('active',true)
-                ->with(['subcategory.category','images','laboratory'])->get();
-
+                ->with(['subcategory.category','images','laboratory']);
             $formats = $products->where('format','!=','')->pluck('format')->unique();
 
+            if ($request->type && $request->filter) {
+                switch ($request->type) {
+                    case 'laboratorio':
+                        $lab = Laboratory::where('active',true)->where('name',$request->filter)->first();
+
+                        if (!$lab) {
+                            return ApiResponse::JsonError(null, 'No es posible encontrar el laboratorio.');
+                        }
+
+                        $products->where('laboratory_id',$lab ? $lab->id : 0);
+                        break;
+                    case 'suscripcion':
+                        $subscript = SubscriptionPlan::where('active',true)->where('months',$request->filter)->first();
+
+                        if (!$subscript) {
+                            return ApiResponse::JsonError(null, 'No es posible encontrar la suscripción.');
+                        }
+                        
+                        $products->whereIn('id',ProductSubscriptionPlan::where('subscription_plan_id',$subscript->id)->pluck('product_id'));
+
+                        break;
+                    case 'formato':
+                        $products->where('format',$request->filter);
+                        break;
+                    default:
+                        return ApiResponse::JsonError(null, 'No ha sido posible realizar la petición.');
+                        break;
+                }
+            }
+
             return ApiResponse::JsonSuccess([
-                'products' => $products,
-                'category' => $category,
+                'products' => $products->get(),
+                'category' => $categoryFields,
+                'subcategories' => $subcategories,
+                'subcat_name' => $subcatName,
                 'laboratories' => $laboratories,
                 'subscriptions' => $subscriptions,
                 'formats' => $formats,

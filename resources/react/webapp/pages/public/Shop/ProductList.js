@@ -5,7 +5,8 @@ import Pagination from "react-js-pagination";
 
 const ProductList = ({
     category, 
-    products
+    products,
+    subcatNames
 }) => {
 
     const [viewCount, setViewCount] = useState(9);
@@ -31,7 +32,7 @@ const ProductList = ({
             <div className="col-12 pb-3">
                 <div className="row">
                     <div className="col-6 d-flex" style={{height: '29px'}}>
-                        <div className="font-poppins font-15 light text-black my-auto">{category.name} <span
+                        <div className="font-poppins font-15 light text-black my-auto">{subcatNames ? subcatNames : category.name} <span
                             className="color-D8D8D8">({products.length ? products.length : 0 })</span></div>
                     </div>
                     <div className="col">
