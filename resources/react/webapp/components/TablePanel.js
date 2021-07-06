@@ -6,7 +6,7 @@ import filterFactory from "react-bootstrap-table2-filter";
 import LazyLoading from "./LazyLoading";
 import NoRegisterExits from "./NoRegisterExists";
 
-const TablePanel = ({objects, columns, tableLoaded, pagination = true, bordered = false, striped = true }) => {
+const TablePanel = ({objects, columns, tableLoaded, expandRow = false, pagination = true, bordered = false, striped = true }) => {
     return (
 
            tableLoaded ? objects.length > 0 ?
@@ -15,6 +15,7 @@ const TablePanel = ({objects, columns, tableLoaded, pagination = true, bordered 
                     keyField="id"
                     data={objects}
                     columns={columns}
+                    expandRow={ expandRow }
                     pagination={pagination ? paginationFactory() : false}
                     // filter={filterFactory()}
                     bordered={bordered}

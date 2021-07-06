@@ -5,7 +5,9 @@ import { formatMoney } from "../../../../../helpers/GlobalUtils";
 import * as Services from "../../../../../Services";
 import { AuthContext } from "../../../../../context/AuthProvider";
 import { Modal } from "react-bootstrap";
-import ListItem from "../Addresses/ListItem";
+import ListItemAddresses from "../Addresses/ListItem";
+import ListItemSubscriptions from "../Subscriptions/ListItem";
+
 import Form from "../Addresses/Form";
 import CloseModal from "../../../../../components/general/CloseModal";
 import Swal from "sweetalert2";
@@ -18,6 +20,8 @@ const Table = ({
     const { auth } = useContext(AuthContext);
     const [tableLoaded, setTableLoaded] = useState(false);
     const [modalAddress, setModalAddress] = useState(false);
+    const [modalSubscriptionCard, setModalSubscriptionCard] = useState(false);
+
     const [modalDispatchDate, setModalDispatchDate] = useState(false);
     const [objects, setObjects] = useState([]);
     const [addresses, setAddresses] = useState([]);
@@ -27,6 +31,7 @@ const Table = ({
     const [view, setView] = useState("list");
     const [formMode, setFormMode] = useState("create");
     const [dispatchDate, setDispatchDate] = useState(null);
+    const [subscriptions, setSubscriptions] = useState([]);
 
     const showEdit = address => {
         setView("form");
@@ -35,8 +40,9 @@ const Table = ({
     };
 
     useEffect(() => {
-        getSubscriptions();
+        getSubscriptionsCards();
         getDataAddress();
+        getSubscriptions();
     }, []);
 
     const changeVisibleModalAddress = () => {
@@ -44,6 +50,13 @@ const Table = ({
             setModalAddress(false);
         } else {
             setModalAddress(true);
+        }
+    };
+    const changeVisibleModalSubscriptionCard = () => {
+        if (modalSubscriptionCard) {
+            setModalSubscriptionCard(false);
+        } else {
+            setModalSubscriptionCard(true);
         }
     };
 
@@ -61,11 +74,13 @@ const Table = ({
     const saveDefaultAddress = (addressId, customerId) => {
         let url =
             Services.ENDPOINT.CUSTOMER.SUBSCRIPTIONS.SET_ADDRESS_SUBSCRIPTION;
+
         let data = {
             address_id: addressId,
             customer_id: customerId,
             subscription_order_item_id: subscriptionOrderItemSelected.id
         };
+
         const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
                 confirmButton: "col-6 btn btn-bicolor btn-block",
@@ -103,12 +118,64 @@ const Table = ({
             });
     };
 
-    const selectedSubscriptionOrderItem = (subscriptionOrderItem) => {
+    const saveDefaultSubscription = (subscriptionId, customerId) => {
+        let url =
+            Services.ENDPOINT.CUSTOMER.SUBSCRIPTIONS.SET_CARD_SUBSCRIPTION;
+
+        let data = {
+            subscription_id: subscriptionId,
+            customer_id: customerId,
+            subscription_order_item_id: subscriptionOrderItemSelected.id
+        };
+
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: "col-6 btn btn-bicolor btn-block",
+                title: "mt-4"
+            },
+            buttonsStyling: false
+        });
+
+        swalWithBootstrapButtons
+            .fire({
+                title:
+                    '<span style="color: #0869A6;">¿Está seguro de cambiar la tarjeta?</span>',
+                confirmButtonText: "Confirmar",
+                reverseButtons: true
+            })
+            .then(result => {
+                if (result.isConfirmed) {
+                    Services.DoPost(url, data)
+                        .then(response => {
+                            Services.Response({
+                                response: response,
+                                success: () => {
+                                    setSubscriptionOrderItemSelected(
+                                        response.data
+                                    );
+                                    getSubscriptions();
+                                    getDataAddress();
+                                }
+                            });
+                        })
+                        .catch(error => {
+                            Services.ErrorCatch(error);
+                        });
+                }
+            });
+    };
+
+    const selectedColumnAddress = (subscriptionOrderItem) => {
         setSubscriptionOrderItemSelected(subscriptionOrderItem);
         setModalAddress(true);
     };
     
-    const selectedSubscriptionOrderItemDispatchDate = (subscriptionOrderItem) => {
+    const selectedColumnsSubscriptionCard = (subscriptionOrderItem) => {
+        setSubscriptionOrderItemSelected(subscriptionOrderItem);
+        setModalSubscriptionCard(true);
+    };
+
+    const selectedColumnDispatchDate = (subscriptionOrderItem) => {
         setSubscriptionOrderItemSelected(subscriptionOrderItem);
         setDispatchDate(subscriptionOrderItem.dispatch_date)
 
@@ -212,7 +279,62 @@ const Table = ({
 
 
     };
+    const getSubscriptionsCards = () => {
+        let url = Services.ENDPOINT.CUSTOMER.SUBSCRIPTIONS.GET;
+        let data = {
+            customer_id: auth.id
+        }
 
+        Services.DoPost(url,data).then(response => {
+            Services.Response({
+            response: response,
+                success: () => {
+                    console.log(response.data.subscriptions);
+                    setSubscriptions(response.data.subscriptions);
+                }
+            });
+        }).catch(error => {
+            Services.ErrorCatch(error)
+        });
+    }
+
+
+    const deleteSubscription = (subscription_id) => {
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'col-6 btn btn-bicolor btn-block',
+                title: 'mt-4'
+            },
+            buttonsStyling: false
+          })
+          
+          swalWithBootstrapButtons.fire({
+            title: '<span style="color: #0869A6;">¿Esta seguro de eliminar esta tarjeta?</span>',
+            // icon: 'warning',
+            // showCancelButton: true,
+            confirmButtonText: 'Confirmar',
+            // cancelButtonText: 'No, cancel!',
+            reverseButtons: true
+          }).then((result) => {
+            if (result.isConfirmed) {
+                let url = Services.ENDPOINT.CUSTOMER.SUBSCRIPTIONS.DELETE;
+                let data = {
+                    subscription_id: subscription_id,
+                }
+                Services.DoPost(url,data).then(response => {
+                    Services.Response({
+                    response: response,
+                        success: () => {
+                            getData();
+                        },
+                    });
+                }).catch(error => {
+                    Services.ErrorCatch(error)
+                });
+            }
+        })
+
+    }
 
     const getSubscriptions = () => {
         let url =
@@ -242,6 +364,21 @@ const Table = ({
         setAddressSelected(null);
     };
 
+    const formattedData = (row) => {
+        let htmlExpandRow = '';
+        row.products.forEach(function (element, i){
+            htmlExpandRow += "<div class='row ml-3'><div className='col-md-6'>"+element.name+"</div>"+"<div class='col-md-6'> "+row.plans[i].months+" Meses </div></div>"
+        });
+        return htmlExpandRow;
+    }
+
+    const expandRow = {
+        renderer: (row, rowIndex) => (
+            <div dangerouslySetInnerHTML={{__html: formattedData(row)}}>
+            </div>
+        )
+      };
+
     const columns = [
         {
             text: "NÚMERO DE PEDIDO",
@@ -260,7 +397,21 @@ const Table = ({
             classes: "",
             headerClasses: "",
             formatter: (cell, row) => {
-                return row.subscription.card_number;
+
+                if(row.status != 'CREATED' && row.status != 'REJECTED'){
+                    return row.subscription.card_number;
+                }
+
+                return (
+                    <span
+                        onClick={() => selectedColumnsSubscriptionCard(row)}
+                        className="link pointer"
+                        style={{ color: "#484848" }}
+                    >
+                        {row.subscription.card_number}
+                    </span>
+                );
+
             }
         },
 
@@ -288,7 +439,7 @@ const Table = ({
 
                 return (
                     <span
-                        onClick={() => selectedSubscriptionOrderItemDispatchDate(row)}
+                        onClick={() => selectedColumnDispatchDate(row)}
                         className="link pointer"
                         style={{ color: "#484848" }}
                     >
@@ -310,7 +461,7 @@ const Table = ({
 
                 return (
                     <span
-                        onClick={() => selectedSubscriptionOrderItem(row)}
+                        onClick={() => selectedColumnAddress(row)}
                         className="link pointer"
                         style={{ color: "#484848" }}
                     >
@@ -402,6 +553,48 @@ const Table = ({
             </Modal>
 
             <Modal
+                show={modalSubscriptionCard}
+                centered
+                size="lg"
+                backdrop="static"
+                keyboard={false}
+                onHide={modalSubscriptionCard}
+            >
+                <Modal.Header>
+                    <CloseModal hideModal={changeVisibleModalSubscriptionCard} />
+                </Modal.Header>
+                <Modal.Body className="px-5">
+                    <div className="row">
+                        <div className="col-12">
+                            <h3 className="modal-title text-center lh-34">
+                                Tarjetas
+                            </h3>
+                        </div>
+                        <div className="col-12 mt-3">
+                            {
+                    subscriptions.map((subscription, index) => (
+                    
+                        <ListItemSubscriptions 
+                            key={index} 
+                            subscription={subscription} 
+                            saveDefaultSubscription={saveDefaultSubscription}
+                            deleteSubscription={deleteSubscription}
+                            subscriptionChecked={
+                                subscriptionOrderItemSelected == null
+                                    ? 0
+                                    : (subscriptionOrderItemSelected.subscription_id ==
+                                        subscription.id
+                                    ? 1
+                                    : 0)
+                            }
+                        />))
+                               }
+                        </div>
+                    </div>
+                </Modal.Body>
+            </Modal>
+
+            <Modal
                 show={modalAddress}
                 centered
                 size="lg"
@@ -422,7 +615,7 @@ const Table = ({
                         <div className="col-12 mt-3">
                             {view === "list"
                                 ? addresses.map((address, index) => (
-                                      <ListItem
+                                      <ListItemAddresses
                                           key={index}
                                           address={address}
                                           showEdit={showEdit}
@@ -439,7 +632,6 @@ const Table = ({
                                                   ? 1
                                                   : 0)
                                           }
-                                          // setAddresses={setAddresses}
                                       />
                                   ))
                                 : null}
@@ -460,6 +652,7 @@ const Table = ({
             </Modal>
 
             <TablePanel
+                expandRow={ expandRow }
                 objects={objects}
                 columns={columns}
                 tableLoaded={tableLoaded}

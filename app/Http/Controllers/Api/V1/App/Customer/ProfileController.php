@@ -223,6 +223,37 @@ class ProfileController extends Controller
         }
     }
 
+    public function setCardSubscription(Request $request)
+    {
+        try {
+            $customer = Customer::find($request->customer_id);
+
+            if (!$customer) {
+                return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_NOT_FOUND);
+            }
+
+            $subscription = Subscription::find($request->subscription_id);
+
+            if (!$subscription) {
+                return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_SUBSCRIPTION_NOT_FOUND);
+            }
+
+            $subscriptionsOrdersItem = SubscriptionsOrdersItem::find($request->subscription_order_item_id);
+            $subscriptions_orders_items = SubscriptionsOrdersItem::where('order_id',$subscriptionsOrdersItem->order_id)
+            ->where('pay_date',$subscriptionsOrdersItem->pay_date)->get();
+
+            foreach ($subscriptions_orders_items as $key => $subscriptionsOrdersItemElement) {
+                    $subscriptionsOrdersItemElement->subscription_id = $request->subscription_id;
+                    $subscriptionsOrdersItemElement->save();
+            }
+
+            return ApiResponse::JsonSuccess($subscriptions_orders_items[0], OutputMessage::SUCCESS);
+
+        } catch (\Exception $exception) {
+            return ApiResponse::JsonError(null, $exception->getMessage());
+        }
+    }
+
     public function setDispatchDateSubscription(Request $request)
     {
         try {
@@ -277,7 +308,9 @@ class ProfileController extends Controller
             }
             
             $arraySubscriptionsOrdersItem = [];
-            
+            $arrayProducts = [];
+            $arrayPlan = [];
+
             $subscriptionsOrdersItem = SubscriptionsOrdersItem::whereIn('orders_item_id',$idsOrdersItems)
             ->with(['order_item.product','customer_address.commune','subscription','order.order_items','order_item.subscription_plan'])
             ->select('id','order_id','orders_item_id','subscription_id','customer_address_id','pay_date','dispatch_date','status','is_pay')
@@ -292,6 +325,7 @@ class ProfileController extends Controller
                 if(($prev_order_id != $item->order->id || $prev_pay_date != $item->pay_date) && $prev_item != null){
                     $item_tmp = [
                         'customer_address_id' => $prev_item->customer_address_id,
+                        'subscription_id' => $prev_item->subscription_id,
                         'customer_address' => $prev_item->customer_address,
                         'dispatch_date' => $prev_item->dispatch_date,
                         'id' => $prev_item->id,
@@ -304,21 +338,31 @@ class ProfileController extends Controller
                         'order_id' => $prev_item->order->id,
                         'status' => $prev_item->status,
                         'total' => $total,
+                        'products' => $arrayProducts,
+                        'plans' => $arrayPlan
+
                     ];
                     $total = 0;
+                    $arrayProducts = [];
+                    $arrayPlan = [];
+
                     array_push($arraySubscriptionsOrdersItem,$item_tmp);
 
                 }
-                $productSubscriptionPlan = ProductSubscriptionPlan::where('subscription_plan_id',$item->order_item->subscription_plan->id)
+                $productSubscriptionPlan = ProductSubscriptionPlan::with('subscription_plan')->where('subscription_plan_id',$item->order_item->subscription_plan->id)
                                             ->where('product_id',$item->order_item->product->id)->get()->first();
                 $total += $productSubscriptionPlan->price * $productSubscriptionPlan->quantity * $item->order_item->quantity; 
                 $prev_order_id = $item->order->id;
                 $prev_pay_date = $item->pay_date;
                 $prev_item = $item;
+                array_push($arrayProducts,$item->order_item->product);
+                array_push($arrayPlan,$productSubscriptionPlan->subscription_plan);
+
             }
 
             $item_tmp = [
                 'customer_address_id' => $prev_item->customer_address_id,
+                'subscription_id' => $prev_item->subscription_id,
                 'customer_address' => $prev_item->customer_address,
                 'dispatch_date' => $prev_item->dispatch_date,
                 'id' => $prev_item->id,
@@ -331,6 +375,9 @@ class ProfileController extends Controller
                 'order_id' => $prev_item->order->id,
                 'status' => $prev_item->status,
                 'total' => $total,
+                'products' => $arrayProducts,
+                'plans' => $arrayPlan
+
             ];
 
             array_push($arraySubscriptionsOrdersItem,$item_tmp);
