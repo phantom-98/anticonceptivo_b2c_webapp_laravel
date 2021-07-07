@@ -91,15 +91,19 @@ class ProductController extends Controller
 
             $formats =  Product::whereIn('id',$productIds)->where('active',true)
                 ->where('format','!=','')->pluck('format')->unique();
+            
+            $filter = null;
 
             if ($request->type && $request->filter) {
                 switch ($request->type) {
                     case 'laboratorio':
                         $lab = Laboratory::where('active',true)->where('name',$request->filter)->first();
-
+                        
                         if (!$lab) {
                             return ApiResponse::JsonError(null, 'No es posible encontrar el laboratorio.');
                         }
+
+                        $filter = $lab->id;
 
                         $products->where('laboratory_id',$lab ? $lab->id : 0);
                         break;
@@ -109,12 +113,15 @@ class ProductController extends Controller
                         if (!$subscript) {
                             return ApiResponse::JsonError(null, 'No es posible encontrar la suscripción.');
                         }
+
+                        $filter = $subscript->id;
                         
                         $products->whereIn('id',ProductSubscriptionPlan::where('subscription_plan_id',$subscript->id)->pluck('product_id'));
 
                         break;
                     case 'formato':
                         $products->where('format',$request->filter);
+                        $filter = $request->filter;
                         break;
                     default:
                         return ApiResponse::JsonError(null, 'No ha sido posible realizar la petición.');
@@ -130,7 +137,8 @@ class ProductController extends Controller
                 'laboratories' => $laboratories,
                 'subscriptions' => $subscriptions,
                 'formats' => $formats,
-                'is_pills' => $isPills
+                'is_pills' => $isPills,
+                'filter' => $filter
             ]);
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, $exception->getMessage());
@@ -237,7 +245,7 @@ class ProductController extends Controller
             }
 
             if (!empty($request->format)) {
-                $products = $products->where('format',$request->format);
+                $products = $products->whereIn('format',$request->format);
             }
 
             return ApiResponse::JsonSuccess([

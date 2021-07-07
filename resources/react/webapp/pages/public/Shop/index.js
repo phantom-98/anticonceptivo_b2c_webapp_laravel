@@ -68,7 +68,7 @@ const Shop = ({match}) => {
             filter: _filter,
             filters: filters
         };
-        
+
         Services.DoPost(url, data).then(response => {
             Services.Response({
                 response: response,
@@ -95,6 +95,29 @@ const Shop = ({match}) => {
                             ...filters,
                             ['subcategories']: [response.data.subcat.id]
                         });
+                    }
+
+                    switch (_type) {
+                        case 'laboratorio':
+                            setFilters({
+                                ...defaultFilters,
+                                ['laboratories']: [response.data.filter]
+                            });
+                            break;
+                        case 'suscripcion':
+                            setFilters({
+                                ...defaultFilters,
+                                ['subscriptions']: [response.data.filter]
+                            });
+                            break;
+                        case 'formato':
+                            setFilters({
+                                ...defaultFilters,
+                                ['formats']: [response.data.filter]
+                            });
+                            break;
+                        default:
+                            break;
                     }
 
                     setLoading(true);
