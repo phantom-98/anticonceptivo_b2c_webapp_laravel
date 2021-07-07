@@ -218,7 +218,12 @@ class ProductController extends Controller
             if (!empty($request->labs)) {
                 if ($laboratories) {
                     $validLabs = array_intersect($laboratories->pluck('id')->toArray(), $request->labs);
-                    $products = $products->whereIn('laboratory_id',$validLabs);
+
+                    if (!$validLabs) {
+                        $products = $products->whereIn('laboratory_id',$laboratories->pluck('id')->toArray());
+                    }else{
+                        $products = $products->whereIn('laboratory_id',$validLabs);
+                    }
                 }else{
                     $products = $products->whereIn('laboratory_id',$request->labs);
                 }
