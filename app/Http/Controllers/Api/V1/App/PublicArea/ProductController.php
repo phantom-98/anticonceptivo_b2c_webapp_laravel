@@ -197,9 +197,14 @@ class ProductController extends Controller
             $products = Product::whereIn('id',$productIds)->where('active',true)->with(['subcategory.category','images','laboratory']);
             $laboratories = Laboratory::where('active',true)->whereIn('id',$products->pluck('laboratory_id')->unique());
 
+            $subcatNames = null;
+
             if (!empty($request->subcats)) {
                 $products = $products->whereIn('subcategory_id',$request->subcats);
                 $laboratories = $laboratories->whereIn('id',$products->pluck('laboratory_id')->unique());
+
+                $subcats = SubCategory::whereIn('id',$request->subcats)->pluck('name')->toArray();
+                $subcatNames = implode(", ", $subcats);
             }
 
             if (!empty($request->labs)) {
@@ -238,6 +243,7 @@ class ProductController extends Controller
             return ApiResponse::JsonSuccess([
                 'products' => $products->get(),
                 'laboratories' => $laboratories->get(),
+                'subcat_names' => $subcatNames
                 // 'laboratories' => $laboratories
             ], OutputMessage::SUCCESS);
 
