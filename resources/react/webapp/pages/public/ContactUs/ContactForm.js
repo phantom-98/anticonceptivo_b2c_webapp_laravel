@@ -47,31 +47,38 @@ const ContactForm = () => {
     }
 
 
-    const renderDynamicFields = () => {
-         fieldsSubject.map((field, index) => {
-            return recursiveDynamic(field)
-        })
-    }
+    const renderDynamicFields = (fieldsSubject) => {
 
-    const recursiveDynamic = (field) => {
-
-        if (field.children.length) {
+        return fieldsSubject.map((field, index) => {
+            console.log(field.id);
+            if (field.children.length > 0) {
+                return renderDynamicFields(field.children)
+            }
             if (field.type === 'input') {
                 return <p>render input text</p>
             } else if (field.type === 'select') {
                 return <p>render select</p>
             }
-        }
+        })
     }
+
+    // const recursiveDynamic = (field) => {
+    //
+    //     if (field.children.length) {
+    //         if (field.type === 'input') {
+    //             return <p>render input text</p>
+    //         } else if (field.type === 'select') {
+    //             return <p>render select</p>
+    //         }
+    //     }
+    // }
 
     return (
         <div className="row">
 
             <div className="col-12">
                 {
-                    fieldsSubject.map((field, index) => {
-                        return recursiveDynamic(field)
-                    })
+                    renderDynamicFields(fieldsSubject)
                 }
             </div>
 
