@@ -63,8 +63,8 @@ const PUBLIC_ROUTES = {
         middleware: props => <PublicMiddleware {...props} />
     },
 
-    SHOP_PILLS: {
-        path: "/tienda/pastillas/:type/:filter",
+    SHOP: {
+        path: "/tienda/:category?",
         title: "Tienda",
         component: Shop,
         exact: true,
@@ -72,8 +72,17 @@ const PUBLIC_ROUTES = {
         middleware: props => <PublicMiddleware {...props} />
     },
 
-    SHOP: {
-        path: "/tienda/:category?",
+    SHOP_SUBCATEGORY: {
+        path: "/tienda/:category?/:subcategory?",
+        title: "Tienda",
+        component: Shop,
+        exact: true,
+        layout: props => <BaseTemplate {...props} />,
+        middleware: props => <PublicMiddleware {...props} />
+    },
+
+    SHOP_FILTER: {
+        path: "/tienda/:category?/:type?/:filter?",
         title: "Tienda",
         component: Shop,
         exact: true,

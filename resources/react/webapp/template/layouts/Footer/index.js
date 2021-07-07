@@ -1,11 +1,11 @@
 import React, {Fragment, useEffect, useState} from 'react';
 import FooterBottom from "./FooterBottom";
 import logoFooter from '../../../assets/images/icons/footer/logo-footer.svg'
-import eureka from '../../../assets/images/icons/footer/eureka.svg'
+// import eureka from '../../../assets/images/icons/footer/eureka.svg'
 import webpay from '../../../assets/images/icons/footer/webpay.svg'
 import phone from '../../../assets/images/icons/footer/phone.svg'
 import email from '../../../assets/images/icons/footer/email.svg'
-import twitter from '../../../assets/images/icons/footer/twitter.svg'
+// import twitter from '../../../assets/images/icons/footer/twitter.svg'
 import facebook from '../../../assets/images/icons/footer/facebook.svg'
 import instagram from '../../../assets/images/icons/footer/instagram.svg'
 import {CONFIG} from "../../../Config";
@@ -53,10 +53,10 @@ const Footer = () => {
                             </div>
                             <div className="font-10 regular text-white">Una alianza con</div>
                             {
-                                alliances.map((alliance) => {
+                                alliances.map((alliance, index) => {
                                     return (
-                                        <div className="mb-3">
-                                            <img src={alliance.public_footer_image} alt={CONFIG.APP_NAME}/>
+                                        <div className="mb-3" key={index*7777}>
+                                            <img src={alliance.footer_image} alt={CONFIG.APP_NAME}/>
                                         </div>
                                     )
                                 })

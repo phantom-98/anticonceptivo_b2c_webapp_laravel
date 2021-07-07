@@ -89,6 +89,13 @@ export const ENDPOINT = {
         BLOG: GetBaseURL() + 'public-area/get-blog-resources',
         ABOUT_US: GetBaseURL() + 'public-area/get-about-us-resources',
         SUBSCRIBE: GetBaseURL() + 'public-area/subscribe',
+        SHOP:{
+            PRODUCTS:{
+                CATEGORY: GetBaseURL() + 'public-area/get-product-by-categories',
+                SUBCATEGORY: GetBaseURL() + 'public-area/get-product-by-subcategories',
+                FILTER: GetBaseURL() + 'public-area/get-product-by-filters',
+            }
+        },
         CONTACT: {
             GET_RESOURCES: GetBaseURL() + 'public-area/contact/get-resources',
             SEND: GetBaseURL() + 'public-area/contact/send'
