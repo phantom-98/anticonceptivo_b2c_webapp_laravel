@@ -1,10 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {Form} from 'react-bootstrap'
 import * as Services from "../../../Services";
+import toastr from 'toastr';
 
 const ContactForm = () => {
 
     const [contactIssues, setContactIssues] = useState([]);
+    const [fieldsSubject, setFieldsSubject] = useState([]);
 
     useEffect(() => {
         getResources();
@@ -15,8 +17,22 @@ const ContactForm = () => {
             Services.Response({
                 response: response,
                 success: () => {
-                    toastr.success(response.message)
-                    setContactIssues(response.data.contact_issues)
+
+                    let fields = [];
+
+                    const list = response.data.contact_issues;
+
+                    list.map(contact => {
+                        contact.fields_subject.map(field_subject => {
+                            fields = [
+                                ...fields,
+                                field_subject
+                            ]
+                        });
+                    });
+                    console.log(fields);
+                    setContactIssues(list);
+                    setFieldsSubject(fields)
                 },
                 warning: () => {
                     // toastr.warning(response.message)
@@ -30,8 +46,35 @@ const ContactForm = () => {
         });
     }
 
+
+    const renderDynamicFields = () => {
+         fieldsSubject.map((field, index) => {
+            return recursiveDynamic(field)
+        })
+    }
+
+    const recursiveDynamic = (field) => {
+
+        if (field.children.length) {
+            if (field.type === 'input') {
+                return <p>render input text</p>
+            } else if (field.type === 'select') {
+                return <p>render select</p>
+            }
+        }
+    }
+
     return (
         <div className="row">
+
+            <div className="col-12">
+                {
+                    fieldsSubject.map((field, index) => {
+                        return recursiveDynamic(field)
+                    })
+                }
+            </div>
+
             <div className="col-md-6">
                 <div className="form-group">
                     <label htmlFor="first_name">Nombres</label>

@@ -29,7 +29,7 @@ class ProfileController extends Controller
     public function getProfile(Request $request)
     {
         try {
-            
+
             $customer = Customer::select([
                 'id',
                 'first_name',
@@ -61,7 +61,7 @@ class ProfileController extends Controller
                 'customer' => $customer,
                 'regions' => $regions,
             ], OutputMessage::SUCCESS);
-            
+
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, $exception->getMessage());
         }
@@ -119,7 +119,7 @@ class ProfileController extends Controller
                     return ApiResponse::JsonFieldValidation($validator->errors()
                         ->add('password', OutputMessage::FIELD_PASSWORD_INVALID));
                 }
-                    
+
                 $customer->password = bcrypt($request->new_password);
             }
 
@@ -168,7 +168,7 @@ class ProfileController extends Controller
                 'regions' => $regions,
                 'communes' => $communes
             ], OutputMessage::SUCCESS);
-            
+
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, $exception->getMessage());
         }
@@ -186,7 +186,7 @@ class ProfileController extends Controller
             return ApiResponse::JsonSuccess([
                 'subscriptions' => $subscription,
             ], OutputMessage::SUCCESS);
-            
+
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, $exception->getMessage());
         }
@@ -275,9 +275,9 @@ class ProfileController extends Controller
                     array_push($idsOrdersItems ,$element_order_item->id);
                 }
             }
-            
+
             $arraySubscriptionsOrdersItem = [];
-            
+
             $subscriptionsOrdersItem = SubscriptionsOrdersItem::whereIn('orders_item_id',$idsOrdersItems)
             ->with(['order_item.product','customer_address.commune','subscription','order.order_items','order_item.subscription_plan'])
             ->select('id','order_id','orders_item_id','subscription_id','customer_address_id','pay_date','dispatch_date','status','is_pay')
@@ -311,7 +311,7 @@ class ProfileController extends Controller
                 }
                 $productSubscriptionPlan = ProductSubscriptionPlan::where('subscription_plan_id',$item->order_item->subscription_plan->id)
                                             ->where('product_id',$item->order_item->product->id)->get()->first();
-                $total += $productSubscriptionPlan->price * $productSubscriptionPlan->quantity * $item->order_item->quantity; 
+                $total += $productSubscriptionPlan->price * $productSubscriptionPlan->quantity * $item->order_item->quantity;
                 $prev_order_id = $item->order->id;
                 $prev_pay_date = $item->pay_date;
                 $prev_item = $item;
@@ -338,7 +338,7 @@ class ProfileController extends Controller
             return ApiResponse::JsonSuccess([
                 'subscriptions' => $arraySubscriptionsOrdersItem,
             ], OutputMessage::SUCCESS);
-            
+
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, $exception->getMessage());
         }
@@ -462,7 +462,7 @@ class ProfileController extends Controller
             return ApiResponse::JsonSuccess([
                 'subscriptions' => $subscriptions
             ], OutputMessage::CUSTOMER_SUBSCRIPTIONS_CREATE);
-            
+
 
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, $exception->getMessage());
@@ -492,7 +492,7 @@ class ProfileController extends Controller
             return ApiResponse::JsonSuccess([
                 'subscription' => $subscription
             ], OutputMessage::CUSTOMER_SUBSCRIPTIONS_CREATE);
-            
+
 
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, $exception->getMessage());
@@ -681,6 +681,17 @@ class ProfileController extends Controller
         return $contactIssue;
     }
 
+    public function getContactResources(Request $request){
+        try {
+            $contact_issues = ContactIssue::whereNull('campaign_id')->with('fields_subject.children')->get();
+            return ApiResponse::JsonSuccess([
+                'contact_issues' => $contact_issues,
+            ]);
+        } catch (\Exception $exception) {
+            return ApiResponse::JsonError([]);
+        }
+    }
+
     public function send(Request $request)
     {
        try {
@@ -713,7 +724,7 @@ class ProfileController extends Controller
                 ]])->render();
 
                 $email = new Mail();
-                    
+
                 $email->setFrom(env('SENDGRID_EMAIL_FROM'), env('SENDGRID_EMAIL_NAME'));
                 $email->setSubject($emailSubject);
                 $email->addTo($request->email, env('SENDGRID_EMAIL_NAME'));
