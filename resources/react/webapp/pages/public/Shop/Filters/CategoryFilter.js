@@ -2,27 +2,36 @@ import React from 'react';
 import {Form} from "react-bootstrap";
 import { v4 as uuidv4 } from 'uuid';
 
-const CategoryFilter = ({categories, subCategoriesSelected, setSubcategoriesSelected}) => {
+const CategoryFilter = ({subcategories, setFilters, filters, filtersUpdate, setFiltersUpdate}) => {
 
-    const handleSubCategory = (e) => {
-
-        let list = [...subCategoriesSelected];
+    const handleSubcategory = (e) => {
+        let list = [...filters.subcategories];
 
         if (list.includes(parseInt(e.target.id))) {
             list = list.filter(x => x !== parseInt(e.target.id));   
         }else{
             list = [...list, parseInt(e.target.id)];
         }
-
+        
         if (!list.length) {
-            setSubcategoriesSelected(subCategoriesSelected);   
+            setFilters({
+                ...filters,
+                ['subcategories']: []
+            });
         }else{
-            setSubcategoriesSelected(list);   
+            setFilters({
+                ...filters,
+                ['subcategories']: list
+            });
         }
+
+        let count = filtersUpdate+1;
+        
+        setFiltersUpdate(count);
     }
 
     return(
-        categories.map((category) => {
+        subcategories.map((category) => {
             let uuid = uuidv4();
             
             return <Form.Check
@@ -30,9 +39,9 @@ const CategoryFilter = ({categories, subCategoriesSelected, setSubcategoriesSele
                 label={<span className="font-poppins font-12 text-black my-auto">{category.name}{/* <span className="color-D8D8D8">({category.total})</span> */}</span>}
                 type="checkbox"
                 name={category.name}
-                checked={subCategoriesSelected.includes(category.id)}
+                checked={filters.subcategories.includes(category.id)}
                 id={category.id}
-                onChange={handleSubCategory}
+                onChange={handleSubcategory}
                 key={uuid}
             />
         })

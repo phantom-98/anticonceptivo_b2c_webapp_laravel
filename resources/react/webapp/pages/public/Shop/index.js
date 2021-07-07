@@ -1,93 +1,159 @@
 import React, {Fragment, useEffect, useState} from 'react';
-
+import { Switch, Route, withRouter } from 'react-router-dom';
 import PUBLIC_ROUTES from "../../../routes/publicRoutes";
 import BasePanelTwo from "../../../template/BasePanelTwo";
+import Subscribe from "../../../components/sections/Subscribe";
+import LazyLoading from "../../../components/LazyLoading";
 import Filter from "./Filter";
 import ProductList from "./ProductList";
-import Subscribe from "../../../components/sections/Subscribe";
 import * as Services from "../../../Services";
-import LazyLoading from "../../../components/LazyLoading";
+import {propsLength} from "../../../helpers/ShopHelper";
+import toastr from "toastr";
 
 const Shop = ({match}) => {
 
     const [products, setProducts] = useState([]);
-    const [productsFiltered, setProductsFiltered] = useState([]);
-
-    const [categories, setCategories] = useState([]);
-    const [subCategories, setSubCategories] = useState([]);
+    const [category, setCategory] = useState({});
+    const [subcategories, setSubcategories] = useState([]);
     const [laboratories, setLaboratories] = useState([]);
     const [subscriptions, setSubscriptions] = useState([]);
+    const [formats, setFormats] = useState([]);
 
     const [loading, setLoading] = useState(false);
-    const [subCatName, setSubCatName] = useState(null);
+    const [isPills, setIsPills] = useState(false);
+    const [subcatNames, setSubcatNames] = useState(null);
+    const [filtersUpdate, setFiltersUpdate] = useState(1);
 
-    const [categorySelected, setCategorySelected] = useState({});
-    const [filtersCat, setFiltersCat] = useState([]);
+    const defaultFilters = {
+        subcategories: [],
+        laboratories:[],
+        isBioequivalent: null,
+        subscriptions: [],
+        formats: [],
+        price: null
+    };
 
-    const [subCategoriesSelected, setSubcategoriesSelected] = useState([]);
+    const [filters, setFilters] = useState(defaultFilters);
 
     useEffect(() => {
-        getData();
-    }, [])
-
-    useEffect(() => {
-        if (subCategories.length) {
-            // console.log('Match params category: ',match.params.category);
-            // console.log('Sub categories: ',subCategories);
-
-            let path = match.params.category;
-            let subcat = subCategories.find(x => x.slug == path);
-
-            setProductsFiltered([]);
-
-            // console.log('path: ',path);
-            
-            if (subcat) {
-                setSubCatName(subcat.name);
-                setSubcategoriesSelected([subcat.id]);
-                // console.log('subcat antes del find: ',subcat);
-                setProductsFiltered(products.filter(product => product.subcategory_id === subcat.id))
-                subcat = categories.find(category => category.id === subcat.category_id);
-                // console.log('subcat después del find: ',subcat);
-                setCategorySelected(subcat);
-                setFiltersCat(subcat.id === 1 ? [] : subCategories.filter(x => x.category_id == subcat.id))
-            }
+        setFilters(defaultFilters);
+        switch (propsLength(match.params)) {
+            case 1:
+                getProducts(match.params.category);
+                break;
+            case 2:
+                getProducts(match.params.category, match.params.subcategory);
+                break;
+            case 3:
+                getProducts(match.params.category, null, match.params.type, match.params.filter);
+                break;
+            default:
+                break;
         }
-    }, [subCategories, match])
+    },[match.params]);
 
     useEffect(() => {
-        let subcat = '';
-        let iterator;
-        
-        if (subCategoriesSelected.length > 1) {
-            subCategoriesSelected.map(subCatId => {
-                iterator = subCategories.find(x => x.id === subCatId);
-                subcat += iterator.name + ', ';
-            })
-
-            setSubCatName(subcat.slice(0,-2));
-        }else{
-            subCategoriesSelected.map(subCatId => {
-                iterator = subCategories.find(x => x.id === subCatId);
-                subcat += iterator.name;
-            })
-
-            setSubCatName(subcat)
+        if (filtersUpdate > 1) {
+            getProductsFiltered();
         }
-    },[subCategoriesSelected])
+    },[filtersUpdate])
 
-    const getData = () => {
-        let url = Services.ENDPOINT.NO_AUTH.SHOP.RESOURCES
+    const getProducts = (_category, _subcategory = null, _type = null, _filter = null) => {
+        let url = Services.ENDPOINT.PUBLIC_AREA.SHOP.PRODUCTS.CATEGORY;
         
-        Services.DoGet(url).then(response => {
+        let data = {
+            category_slug: _category,
+            subcategory_slug: _subcategory,
+            type: _type,
+            filter: _filter,
+            filters: filters
+        };
+
+        Services.DoPost(url, data).then(response => {
             Services.Response({
                 response: response,
                 success: () => {
                     setProducts(response.data.products);
-                    setCategories(response.data.categories);
-                    setSubCategories(response.data.sub_categories);
-                    // setLaboratories(response.data.laboratories);
+                    setCategory(response.data.category);
+                    setSubcategories(response.data.subcategories);
+                    setLaboratories(response.data.laboratories);
                     setSubscriptions(response.data.subscriptions);
+                    setFormats(Object.values(response.data.formats));
+                    setIsPills(response.data.is_pills);
+
+                    if (response.data.subcat){
+                        setSubcatNames(response.data.subcat.name);
+                        setFilters({
+                            ...filters,
+                            ['subcategories']: [response.data.subcat.id]
+                        });
+                    }
+
+                    if (response.data.subcat){
+                        setSubcatNames(response.data.subcat.name);
+                        setFilters({
+                            ...filters,
+                            ['subcategories']: [response.data.subcat.id]
+                        });
+                    }
+
+                    switch (_type) {
+                        case 'laboratorio':
+                            setFilters({
+                                ...defaultFilters,
+                                ['laboratories']: [response.data.filter]
+                            });
+                            break;
+                        case 'suscripcion':
+                            setFilters({
+                                ...defaultFilters,
+                                ['subscriptions']: [response.data.filter]
+                            });
+                            break;
+                        case 'formato':
+                            setFilters({
+                                ...defaultFilters,
+                                ['formats']: [response.data.filter]
+                            });
+                            break;
+                        default:
+                            break;
+                    }
+
+                    setLoading(true);
+                },
+                error: () => {
+                    toastr.error(response.message);
+                },
+                warning: () => {
+                    toastr.warning(response.message);
+                }
+            });
+        }).catch(error => {
+            Services.ErrorCatch(error)
+        });
+    }
+
+    const getProductsFiltered = () => {
+        // setLoading(false);
+        let url = Services.ENDPOINT.NO_AUTH.SHOP.PRODUCTS_FILTERED;
+        let data = {
+            category_slug: match.params.category,
+            subcats: filters.subcategories,
+            labs: filters.laboratories,
+            bioequivalent :filters.isBioequivalent,
+            subscription :filters.subscriptions,
+            format :filters.formats,
+            price : filters.price,
+        }
+        Services.DoPost(url,data).then(response => {
+            Services.Response({
+            response: response,
+                success: () => {
+                    setProducts(response.data.products);
+                    setLaboratories(response.data.laboratories);
+                    setSubcatNames(response.data.subcat_names);
+                    // setLoading(true);
                 },
             });
         }).catch(error => {
@@ -112,26 +178,26 @@ const Shop = ({match}) => {
                 breadcrumbs={breadcrumbs}
             >
                 {
-                    products ? 
+                    loading ? 
                         <div className="row pb-5 mb-5">
                             <div className="col-3">
                                 <Filter
+                                    isPills={isPills}
                                     laboratories={laboratories}
-                                    setLaboratories={setLaboratories}
+                                    subcategories={subcategories}
                                     subscriptions={subscriptions}
-                                    filtersCat={filtersCat}
-                                    setProductsFiltered={setProductsFiltered}
-                                    setLoading={setLoading}
-                                    subCategoriesSelected={subCategoriesSelected}
-                                    setSubcategoriesSelected={setSubcategoriesSelected}
+                                    formats={formats}
+                                    filters={filters}
+                                    setFilters={setFilters}
+                                    filtersUpdate={filtersUpdate}
+                                    setFiltersUpdate={setFiltersUpdate}
                                 />
                             </div>
                             <div className="col-md-9">
                                 <ProductList 
-                                    productsFiltered={productsFiltered}
-                                    categorySelected={categorySelected}
-                                    subCatName={subCatName}
-                                    loading={loading}
+                                    category={category}
+                                    products={products}
+                                    subcatNames={subcatNames}
                                 />
                             </div>
                         </div>
