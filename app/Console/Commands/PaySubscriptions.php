@@ -23,7 +23,7 @@ use App\Models\SubscriptionsOrdersItem;
 use App\Models\SubscriptionPlan;
 
 use App\Http\Utils\Enum\PaymentMethodStatus;
-class RetirementCompanySKN extends Command
+class PaySubscriptions extends Command
 {
     /**
      * The name and signature of the console command.
