@@ -2,7 +2,7 @@ import React from 'react';
 import {Form} from "react-bootstrap";
 import { v4 as uuidv4 } from 'uuid';
 
-const SubscriptionFilter = ({subscriptions, filters, setFilters}) => {
+const SubscriptionFilter = ({subscriptions, filters, setFilters, filtersUpdate, setFiltersUpdate}) => {
 
     const handleSubscriptions = (e) => {
         let list = [...filters.subscriptions];
@@ -25,6 +25,10 @@ const SubscriptionFilter = ({subscriptions, filters, setFilters}) => {
                 ['subscriptions']: list
             });
         }
+        
+        let count = filtersUpdate+1;
+
+        setFiltersUpdate(count);
     }
 
     return(

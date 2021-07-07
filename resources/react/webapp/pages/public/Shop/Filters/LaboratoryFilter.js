@@ -1,8 +1,24 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Form} from "react-bootstrap";
 import { v4 as uuidv4 } from 'uuid';
 
-const LaboratoryFilter = ({laboratories, setFilters, filters}) => {
+const LaboratoryFilter = ({laboratories, setFilters, filters, filtersUpdate, setFiltersUpdate}) => {
+
+    useEffect(() => {
+        if (filters.laboratories.length) {
+            let validLabs =  laboratories.filter(lab => filters.laboratories.includes(lab.id));
+            let list = [];
+
+            validLabs.map((lab) => {
+                list.push(lab.id);
+            })
+
+            setFilters({
+                ...filters,
+                ['laboratories']:list
+            });
+        }
+    },[laboratories])
 
     const handleLaboratorySelected = (e) => {
         let list = [...filters.laboratories];
@@ -25,6 +41,10 @@ const LaboratoryFilter = ({laboratories, setFilters, filters}) => {
                 ['laboratories']:list
             });
         }
+
+        let count = filtersUpdate+1;
+        
+        setFiltersUpdate(count);
     }
 
     return(

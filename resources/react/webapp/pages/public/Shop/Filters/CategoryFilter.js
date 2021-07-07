@@ -6,7 +6,7 @@ const CategoryFilter = ({subcategories, setFilters, filters, filtersUpdate, setF
 
     const handleSubcategory = (e) => {
         let list = [...filters.subcategories];
-        let temp = filtersUpdate;
+
         if (list.includes(parseInt(e.target.id))) {
             list = list.filter(x => x !== parseInt(e.target.id));   
         }else{

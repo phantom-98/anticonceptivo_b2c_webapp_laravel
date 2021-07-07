@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Form} from "react-bootstrap";
 import { v4 as uuidv4 } from 'uuid';
 
-const FormatFilter = ({formats, filters, setFilters}) => {
+const FormatFilter = ({formats, filters, setFilters, filtersUpdate, setFiltersUpdate}) => {
 
     const handleFormatSelected = (e) => {
         let list = [...filters.formats];
@@ -25,6 +25,9 @@ const FormatFilter = ({formats, filters, setFilters}) => {
                 ['formats']: list
             });
         }
+
+        let count = filtersUpdate+1;
+        setFiltersUpdate(count);
     }
 
     return(

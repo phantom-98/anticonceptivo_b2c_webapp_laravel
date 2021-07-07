@@ -1,13 +1,17 @@
 import React from 'react';
 import {Form} from "react-bootstrap";
 
-const PriceFilter = ({filters, setFilters, max, localPrice, setLocalPrice}) => {
+const PriceFilter = ({filters, setFilters, max, localPrice, setLocalPrice, filtersUpdate, setFiltersUpdate}) => {
 
     const handlePriceSelected = () => {
         setFilters({
             ...filters,
             ['price']: localPrice
         });
+
+        let count = filtersUpdate+1;
+
+        setFiltersUpdate(count);
     }
 
     return(

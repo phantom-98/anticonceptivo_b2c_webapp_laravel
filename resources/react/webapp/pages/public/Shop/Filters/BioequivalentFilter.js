@@ -1,7 +1,8 @@
 import React, {Fragment} from 'react';
 import {Form} from "react-bootstrap";
 
-const BioequivalentFilter = ({filters, setFilters}) => {
+const BioequivalentFilter = ({filters, setFilters, filtersUpdate, setFiltersUpdate}) => {
+    
 
     const handleBioequivalentSelected = (e) => {
         let targetId = parseInt(e.target.id.charAt(e.target.id.length - 1));
@@ -17,6 +18,8 @@ const BioequivalentFilter = ({filters, setFilters}) => {
                 ['isBioequivalent']: targetId
             });
         }
+        let count = filtersUpdate+1;
+        setFiltersUpdate(count);
     }
 
     return(

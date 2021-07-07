@@ -85,9 +85,12 @@ class ProductController extends Controller
                 ->where('active',true)->select(['id','months'])->get();
 
             $laboratories = Laboratory::whereIn('id',$laboratoryIds)->where('active',true)->get();
+
             $products = Product::whereIn('id',$productIds)->where('active',true)
                 ->with(['subcategory.category','images','laboratory']);
-            $formats = $products->where('format','!=','')->pluck('format')->unique();
+
+            $formats =  Product::whereIn('id',$productIds)->where('active',true)
+                ->where('format','!=','')->pluck('format')->unique();
 
             if ($request->type && $request->filter) {
                 switch ($request->type) {
@@ -200,10 +203,15 @@ class ProductController extends Controller
             }
 
             if (!empty($request->labs)) {
-                $products = $products->whereIn('laboratory_id',$request->labs);
+                if ($laboratories) {
+                    $validLabs = array_intersect($laboratories->pluck('id')->toArray(), $request->labs);
+                    $products = $products->whereIn('laboratory_id',$validLabs);
+                }else{
+                    $products = $products->whereIn('laboratory_id',$request->labs);
+                }
             }
 
-            if ($request->price > 0) {
+            if ($request->price) {
                 $products = $products->where('price','<',$request->price);
             }
 

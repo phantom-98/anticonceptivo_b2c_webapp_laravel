@@ -89,6 +89,8 @@ const Filter = ({
                                     laboratories={laboratories}
                                     setFilters={setFilters}
                                     filters={filters}
+                                    filtersUpdate={filtersUpdate}
+                                    setFiltersUpdate={setFiltersUpdate}
                                 />
                             </Card.Body>
                         </Accordion.Collapse>
@@ -117,6 +119,8 @@ const Filter = ({
                                         localPrice={localPrice}
                                         setLocalPrice={setLocalPrice}
                                         max={max}
+                                        filtersUpdate={filtersUpdate}
+                                        setFiltersUpdate={setFiltersUpdate}
                                     />
                                 </div>
                             </Card.Body>
@@ -132,6 +136,8 @@ const Filter = ({
                                 <BioequivalentFilter
                                     filters={filters}
                                     setFilters={setFilters}
+                                    filtersUpdate={filtersUpdate}
+                                    setFiltersUpdate={setFiltersUpdate}
                                 />
                             </Card.Body>
                         </Accordion.Collapse>
@@ -149,6 +155,8 @@ const Filter = ({
                                             subscriptions={subscriptions}
                                             filters={filters}
                                             setFilters={setFilters}
+                                            filtersUpdate={filtersUpdate}
+                                            setFiltersUpdate={setFiltersUpdate}
                                         />
                                     </Card.Body>
                                 </Accordion.Collapse>
@@ -168,6 +176,8 @@ const Filter = ({
                                             formats={formats}
                                             filters={filters}
                                             setFilters={setFilters}
+                                            filtersUpdate={filtersUpdate}
+                                            setFiltersUpdate={setFiltersUpdate}
                                         />
                                     </Card.Body>
                                 </Accordion.Collapse>
