@@ -1,6 +1,5 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {Accordion, Card} from "react-bootstrap";
-import * as Services from "../../../Services";
 import {formatMoney} from "../../../helpers/GlobalUtils";
 import BioequivalentFilter from "./Filters/BioequivalentFilter";
 import CategoryFilter from "./Filters/CategoryFilter";
@@ -15,6 +14,10 @@ const Filter = ({
     subcategories,
     subscriptions,
     formats,
+    filters,
+    setFilters,
+    filtersUpdate,
+    setFiltersUpdate
     // setLaboratories,
     // subscriptions,
     // filtersCat,
@@ -24,7 +27,7 @@ const Filter = ({
     // setSubcategoriesSelected
 }) => {
 
-    const filters = [
+    const _filters = [
         {
             id: 1, 
             name: 'Subcategorías',
@@ -51,107 +54,51 @@ const Filter = ({
         }
     ]
 
-    const [subCategoriesSelected, setSubCategoriesSelected] = useState([]);
-    const [laboratoriesSelected, setLaboratoriesSelected] = useState([]); 
-    const [bioequivalentSelected, setBioequivalentSelected] = useState(null);
-    const [subscriptionSelected, setSubscriptionSelected] = useState([]);
-    const [formatSelected, setFormatSelected] = useState([]);
-
     const [max, setMax] = useState(200000);
-    const [priceSelected, setPriceSelected] = useState(200000);
     const [localPrice, setLocalPrice] = useState(200000);
-    
-
-    // useEffect(() => {
-    //     if (subCatSelectedId) {
-    //         setSubcategories([])
-    //         setSubcategories([...subcategories, subCatSelectedId])
-    //     }
-    // },[subCatSelectedId])
-
-    // const handleSubCategory = (e) => {
-    //     let list = [...subcategories];
-
-    //     if (list.includes(parseInt(e.target.id))) {
-    //         list = list.filter(x => x !== parseInt(e.target.id));   
-    //     }else{
-    //         list = [...list, parseInt(e.target.id)];
-    //     }
-
-    //     setSubcategories(list);
-    // }
-
-    // useEffect(() => {
-    //     if (subCategoriesSelected.length > 0) {
-    //         getProductsFiltered();
-    //     }
-    // },[subCategoriesSelected, laboratoriesSelected, bioequivalentSelected, 
-    // formatSelected, subscriptionSelected, priceSelected])
-
-    // const getProductsFiltered = () => {
-    //     let url = Services.ENDPOINT.NO_AUTH.SHOP.PRODUCTS_FILTERED;
-    //     let data = {
-    //         subcats: subCategoriesSelected,
-    //         labs: laboratoriesSelected,
-    //         bioequivalent :bioequivalentSelected,
-    //         format :formatSelected,
-    //         subscription :subscriptionSelected,
-    //         price :priceSelected,
-    //     }
-    //     Services.DoPost(url,data).then(response => {
-    //         Services.Response({
-    //         response: response,
-    //             success: () => {
-    //                 setProductsFiltered(response.data.products);
-    //                 setLaboratories(response.data.laboratories)
-    //                 setLoading(true);
-    //             },
-    //         });
-    //     }).catch(error => {
-    //         Services.ErrorCatch(error)
-    //     });
-    // }
 
     return (
         <div className="row">
             <div className="col-md-12 mb-3">
-                <Accordion defaultActiveKey={!isPills ? filters[0].id : filters[1].id} className="accordion-filter">
+                <Accordion defaultActiveKey={!isPills ? _filters[0].id : _filters[1].id} className="accordion-filter">
                     {
                         !isPills ? 
-                             <Card key={filters[0].id} className="card-filter">
-                                <Accordion.Collapse eventKey={filters[0].id}>
+                             <Card key={_filters[0].id} className="card-filter">
+                                <Accordion.Collapse eventKey={_filters[0].id}>
                                     <Card.Body bsPrefix="card-body pt-0">
                                         <CategoryFilter
                                             subcategories={subcategories}
-                                            subCategoriesSelected={subCategoriesSelected}
-                                            setSubCategoriesSelected={setSubCategoriesSelected}
+                                            setFilters={setFilters}
+                                            filters={filters}
+                                            filtersUpdate={filtersUpdate}
+                                            setFiltersUpdate={setFiltersUpdate}
                                         />
                                     </Card.Body>
                                 </Accordion.Collapse>
-                                <Accordion.Toggle as={Card.Header} eventKey={filters[0].id}>
-                                    <h3>{filters[0].name}</h3>
+                                <Accordion.Toggle as={Card.Header} eventKey={_filters[0].id}>
+                                    <h3>{_filters[0].name}</h3>
                                 </Accordion.Toggle>
                             </Card>   
                         : null
                     }
 
-                    <Card key={filters[1].id} className="card-filter">
-                        <Accordion.Collapse eventKey={filters[1].id}>
+                    <Card key={_filters[1].id} className="card-filter">
+                        <Accordion.Collapse eventKey={_filters[1].id}>
                             <Card.Body bsPrefix="card-body pt-0">
                                 <LaboratoryFilter
                                     laboratories={laboratories}
-                                    laboratoriesSelected={laboratoriesSelected}
-                                    setLaboratoriesSelected={setLaboratoriesSelected}
+                                    setFilters={setFilters}
+                                    filters={filters}
                                 />
                             </Card.Body>
                         </Accordion.Collapse>
-                        <Accordion.Toggle as={Card.Header} eventKey={filters[1].id}>
-                            <h3>{filters[1].name}</h3>
+                        <Accordion.Toggle as={Card.Header} eventKey={_filters[1].id}>
+                            <h3>{_filters[1].name}</h3>
                         </Accordion.Toggle>
                     </Card>
 
-                    <Card key={filters[2].id} className="card-filter">
-                        <Accordion.Collapse eventKey={filters[2].id}>
+                    <Card key={_filters[2].id} className="card-filter">
+                        <Accordion.Collapse eventKey={_filters[2].id}>
                             <Card.Body bsPrefix="card-body pt-0">
                                 <div className="row">
                                     <div className="col-6">
@@ -165,8 +112,8 @@ const Filter = ({
                                         </span>
                                     </div>
                                     <PriceFilter
-                                        priceSelected={priceSelected}
-                                        setPriceSelected={setPriceSelected}
+                                        filters={filters}
+                                        setFilters={setFilters}
                                         localPrice={localPrice}
                                         setLocalPrice={setLocalPrice}
                                         max={max}
@@ -174,39 +121,39 @@ const Filter = ({
                                 </div>
                             </Card.Body>
                         </Accordion.Collapse>
-                        <Accordion.Toggle as={Card.Header} eventKey={filters[2].id}>
-                            <h3>{filters[2].name}</h3>
+                        <Accordion.Toggle as={Card.Header} eventKey={_filters[2].id}>
+                            <h3>{_filters[2].name}</h3>
                         </Accordion.Toggle>
                     </Card>
 
-                    <Card key={filters[3].id} className="card-filter">
-                        <Accordion.Collapse eventKey={filters[3].id}>
+                    <Card key={_filters[3].id} className="card-filter">
+                        <Accordion.Collapse eventKey={_filters[3].id}>
                             <Card.Body bsPrefix="card-body pt-0">
                                 <BioequivalentFilter
-                                    bioequivalentSelected={bioequivalentSelected}
-                                    setBioequivalentSelected={setBioequivalentSelected}
+                                    filters={filters}
+                                    setFilters={setFilters}
                                 />
                             </Card.Body>
                         </Accordion.Collapse>
-                        <Accordion.Toggle as={Card.Header} eventKey={filters[3].id}>
-                            <h3>{filters[3].name}</h3>
+                        <Accordion.Toggle as={Card.Header} eventKey={_filters[3].id}>
+                            <h3>{_filters[3].name}</h3>
                         </Accordion.Toggle>
                     </Card>
 
                     {
                         subscriptions.length ?
-                            <Card key={filters[4].id} className="card-filter">
-                                <Accordion.Collapse eventKey={filters[4].id}>
+                            <Card key={_filters[4].id} className="card-filter">
+                                <Accordion.Collapse eventKey={_filters[4].id}>
                                     <Card.Body bsPrefix="card-body pt-0">
                                         <SubscriptionFilter
                                             subscriptions={subscriptions}
-                                            subscriptionSelected={subscriptionSelected}
-                                            setSubscriptionSelected={setSubscriptionSelected}
+                                            filters={filters}
+                                            setFilters={setFilters}
                                         />
                                     </Card.Body>
                                 </Accordion.Collapse>
-                                <Accordion.Toggle as={Card.Header} eventKey={filters[4].id}>
-                                    <h3>{filters[4].name}</h3>
+                                <Accordion.Toggle as={Card.Header} eventKey={_filters[4].id}>
+                                    <h3>{_filters[4].name}</h3>
                                 </Accordion.Toggle>
                             </Card>
                         : null
@@ -214,18 +161,18 @@ const Filter = ({
 
                     {
                         formats.length ?
-                            <Card key={filters[5].id} className="card-filter">
-                                <Accordion.Collapse eventKey={filters[5].id}>
+                            <Card key={_filters[5].id} className="card-filter">
+                                <Accordion.Collapse eventKey={_filters[5].id}>
                                     <Card.Body bsPrefix="card-body pt-0">
                                         <FormatFilter 
                                             formats={formats}
-                                            formatSelected={formatSelected}
-                                            setFormatSelected={setFormatSelected}
+                                            filters={filters}
+                                            setFilters={setFilters}
                                         />
                                     </Card.Body>
                                 </Accordion.Collapse>
-                                <Accordion.Toggle as={Card.Header} eventKey={filters[5].id}>
-                                    <h3>{filters[5].name}</h3>
+                                <Accordion.Toggle as={Card.Header} eventKey={_filters[5].id}>
+                                    <h3>{_filters[5].name}</h3>
                                 </Accordion.Toggle>
                             </Card>
                         : null

@@ -46,15 +46,16 @@ class ProductController extends Controller
                 }
             ]);
 
+
             $subcategories = $category->first()->subcategories;
-            $subcatName = null;
+            $subcat = null;
 
             if ($request->subcategory_slug) {
                 $category = $category->with('subcategories', function($q) use($request){
                     $q->where('slug',$request->subcategory_slug);
                 });
 
-                $subcatName = $category->first()->subcategories[0]->name;
+                $subcat = $category->first()->subcategories[0];
             }
 
             $category = $category->first();
@@ -122,7 +123,7 @@ class ProductController extends Controller
                 'products' => $products->get(),
                 'category' => $categoryFields,
                 'subcategories' => $subcategories,
-                'subcat_name' => $subcatName,
+                'subcat' => $subcat,
                 'laboratories' => $laboratories,
                 'subscriptions' => $subscriptions,
                 'formats' => $formats,
@@ -168,10 +169,35 @@ class ProductController extends Controller
     public function getProductsFiltered(Request $request)
     {
         try {
-            
-            $products = Product::where('active',true)->with(['subcategory.category','images','laboratory','plans']);
 
-            $products = $products->whereIn('subcategory_id',$request->subcats);
+            if (!$request->category_slug) {
+                return ApiResponse::NotFound(null, 'No se ha encontrado la macro categoría.');
+            }
+
+            $category = Category::where('slug', $request->category_slug)->where('active',true)->with([
+                'subcategories' => function ($q){
+                    $q->where('active',true);
+                },
+                'subcategories.products' => function ($r){
+                    $r->where('active',true)->select(['id','active','subcategory_id','laboratory_id']);
+                }
+            ])->first();
+
+            $productIds = [];
+
+            foreach ($category->subcategories as $key => $value) {
+                foreach ($value->products as $v_key => $v_value) {
+                    array_push($productIds, $v_value->id);
+                }
+            }
+            
+            $products = Product::whereIn('id',$productIds)->where('active',true)->with(['subcategory.category','images','laboratory']);
+            $laboratories = Laboratory::where('active',true)->whereIn('id',$products->pluck('laboratory_id')->unique());
+
+            if (!empty($request->subcats)) {
+                $products = $products->whereIn('subcategory_id',$request->subcats);
+                $laboratories = $laboratories->whereIn('id',$products->pluck('laboratory_id')->unique());
+            }
 
             if (!empty($request->labs)) {
                 $products = $products->whereIn('laboratory_id',$request->labs);
@@ -201,11 +227,10 @@ class ProductController extends Controller
                 $products = $products->where('format',$request->format);
             }
 
-            $laboratories = Laboratory::where('active',true)->whereIn('id',$products->pluck('laboratory_id')->unique())->get(); 
-
             return ApiResponse::JsonSuccess([
                 'products' => $products->get(),
-                'laboratories' => $laboratories
+                'laboratories' => $laboratories->get(),
+                // 'laboratories' => $laboratories
             ], OutputMessage::SUCCESS);
 
         } catch (\Exception $exception) {

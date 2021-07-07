@@ -2,10 +2,10 @@ import React from 'react';
 import {Form} from "react-bootstrap";
 import { v4 as uuidv4 } from 'uuid';
 
-const LaboratoryFilter = ({laboratories, laboratoriesSelected, setLaboratoriesSelected}) => {
+const LaboratoryFilter = ({laboratories, setFilters, filters}) => {
 
     const handleLaboratorySelected = (e) => {
-        let list = [...laboratoriesSelected];
+        let list = [...filters.laboratories];
         let targetId = parseInt(e.target.id.replace('laboratory-',''));
 
         if (list.includes(targetId)) {
@@ -14,19 +14,29 @@ const LaboratoryFilter = ({laboratories, laboratoriesSelected, setLaboratoriesSe
             list = [...list, targetId];
         }
 
-        setLaboratoriesSelected(list);
+        if (!list.length) {
+            setFilters({
+                ...filters,
+                ['laboratories']: []
+            });
+        }else{
+            setFilters({
+                ...filters,
+                ['laboratories']:list
+            });
+        }
     }
 
     return(
         laboratories.map((laboratory) => {
             let uuid = uuidv4();
-            let laboratoryId = laboratory.id;
+            
             return <Form.Check
                 custom
                 label={<span className="font-poppins font-12 text-black my-auto">{laboratory.name}{/* <span className="color-D8D8D8">({laboratory.total})</span> */}</span>}
                 type="checkbox"
                 name={laboratory.name}
-                checked={laboratoriesSelected.includes(laboratoryId)}
+                checked={filters.laboratories.includes(laboratory.id)}
                 id={`laboratory-${laboratory.id}`}
                 onChange={(e) => handleLaboratorySelected(e)}
                 key={uuid}

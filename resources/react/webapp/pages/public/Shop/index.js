@@ -22,9 +22,22 @@ const Shop = ({match}) => {
     const [loading, setLoading] = useState(false);
     const [isPills, setIsPills] = useState(false);
     const [subcatNames, setSubcatNames] = useState(null);
+    const [filtersUpdate, setFiltersUpdate] = useState(1);
 
-      useEffect(() => {
-          switch (propsLength(match.params)) {
+    const defaultFilters = {
+        subcategories: [],
+        laboratories:[],
+        isBioequivalent: null,
+        subscriptions: [],
+        formats: [],
+        price: null
+    };
+
+    const [filters, setFilters] = useState(defaultFilters);
+
+    useEffect(() => {
+        setFilters(defaultFilters);
+        switch (propsLength(match.params)) {
             case 1:
                 getProducts(match.params.category);
                 break;
@@ -37,67 +50,13 @@ const Shop = ({match}) => {
             default:
                 break;
         }
-      },[match.params]);
+    },[match.params]);
 
-    // const [productsFiltered, setProductsFiltered] = useState([]);
-
-    // const [loading, setLoading] = useState(false);
-    // const [subCatName, setSubCatName] = useState(null);
-
-    // const [categorySelected, setCategorySelected] = useState({});
-    // const [filtersCat, setFiltersCat] = useState([]);
-
-    // const [subCategoriesSelected, setSubcategoriesSelected] = useState([]);
-
-    // useEffect(() => {
-    //     getData();
-    // }, [])
-
-    // useEffect(() => {
-    //     if (subCategories.length) {
-    //         // console.log('Match params category: ',match.params.category);
-    //         // console.log('Sub categories: ',subCategories);
-
-    //         let path = match.params.category;
-    //         let subcat = subCategories.find(x => x.slug == path);
-
-    //         setProductsFiltered([]);
-
-    //         // console.log('path: ',path);
-            
-    //         if (subcat) {
-    //             setSubCatName(subcat.name);
-    //             setSubcategoriesSelected([subcat.id]);
-    //             // console.log('subcat antes del find: ',subcat);
-    //             setProductsFiltered(products.filter(product => product.subcategory_id === subcat.id))
-    //             subcat = categories.find(category => category.id === subcat.category_id);
-    //             // console.log('subcat después del find: ',subcat);
-    //             setCategorySelected(subcat);
-    //             setFiltersCat(subcat.id === 1 ? [] : subCategories.filter(x => x.category_id == subcat.id))
-    //         }
-    //     }
-    // }, [subCategories, match])
-
-    // useEffect(() => {
-    //     let subcat = '';
-    //     let iterator;
-        
-    //     if (subCategoriesSelected.length > 1) {
-    //         subCategoriesSelected.map(subCatId => {
-    //             iterator = subCategories.find(x => x.id === subCatId);
-    //             subcat += iterator.name + ', ';
-    //         })
-
-    //         setSubCatName(subcat.slice(0,-2));
-    //     }else{
-    //         subCategoriesSelected.map(subCatId => {
-    //             iterator = subCategories.find(x => x.id === subCatId);
-    //             subcat += iterator.name;
-    //         })
-
-    //         setSubCatName(subcat)
-    //     }
-    // },[subCategoriesSelected])
+    useEffect(() => {
+        if (filtersUpdate > 1) {
+            getProductsFiltered();
+        }
+    },[filtersUpdate])
 
     const getProducts = (_category, _subcategory = null, _type = null, _filter = null) => {
         let url = Services.ENDPOINT.PUBLIC_AREA.SHOP.PRODUCTS.CATEGORY;
@@ -106,7 +65,8 @@ const Shop = ({match}) => {
             category_slug: _category,
             subcategory_slug: _subcategory,
             type: _type,
-            filter: _filter
+            filter: _filter,
+            filters: filters
         };
         
         Services.DoPost(url, data).then(response => {
@@ -115,12 +75,28 @@ const Shop = ({match}) => {
                 success: () => {
                     setProducts(response.data.products);
                     setCategory(response.data.category);
-                    setSubcatNames(response.data.subcat_name);
                     setSubcategories(response.data.subcategories);
                     setLaboratories(response.data.laboratories);
                     setSubscriptions(response.data.subscriptions);
                     setFormats(Object.values(response.data.formats));
                     setIsPills(response.data.is_pills);
+
+                    if (response.data.subcat){
+                        setSubcatNames(response.data.subcat.name);
+                        setFilters({
+                            ...filters,
+                            ['subcategories']: [response.data.subcat.id]
+                        });
+                    }
+
+                    if (response.data.subcat){
+                        setSubcatNames(response.data.subcat.name);
+                        setFilters({
+                            ...filters,
+                            ['subcategories']: [response.data.subcat.id]
+                        });
+                    }
+
                     setLoading(true);
                 },
                 error: () => {
@@ -129,6 +105,33 @@ const Shop = ({match}) => {
                 warning: () => {
                     toastr.warning(response.message);
                 }
+            });
+        }).catch(error => {
+            Services.ErrorCatch(error)
+        });
+    }
+
+    const getProductsFiltered = () => {
+        // setLoading(false);
+        let url = Services.ENDPOINT.NO_AUTH.SHOP.PRODUCTS_FILTERED;
+        let data = {
+            category_slug: match.params.category,
+            subcats: filters.subcategories,
+            labs: filters.laboratories,
+            bioequivalent :filters.isBioequivalent,
+            subscription :filters.subscriptions,
+            format :filters.formats,
+            price : filters.price,
+        }
+        Services.DoPost(url,data).then(response => {
+            Services.Response({
+            response: response,
+                success: () => {
+                    setProducts(response.data.products);
+                    setLaboratories(response.data.laboratories);
+                    setSubcatNames(response.data.subcat_names);
+                    // setLoading(true);
+                },
             });
         }).catch(error => {
             Services.ErrorCatch(error)
@@ -161,13 +164,10 @@ const Shop = ({match}) => {
                                     subcategories={subcategories}
                                     subscriptions={subscriptions}
                                     formats={formats}
-                                    // setLaboratories={setLaboratories}
-                                    // subscriptions={subscriptions}
-                                    // filtersCat={filtersCat}
-                                    // setProductsFiltered={setProductsFiltered}
-                                    // setLoading={setLoading}
-                                    // subCategoriesSelected={subCategoriesSelected}
-                                    // setSubcategoriesSelected={setSubcategoriesSelected}
+                                    filters={filters}
+                                    setFilters={setFilters}
+                                    filtersUpdate={filtersUpdate}
+                                    setFiltersUpdate={setFiltersUpdate}
                                 />
                             </div>
                             <div className="col-md-9">
