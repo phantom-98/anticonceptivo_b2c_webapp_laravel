@@ -97,7 +97,7 @@ class ProductController extends Controller
             if ($request->type && $request->filter) {
                 switch ($request->type) {
                     case 'laboratorio':
-                        $lab = Laboratory::where('active',true)->where('name',$request->filter)->first();
+                        $lab = Laboratory::where('active',true)->where('name',str_replace('-',' ', $request->filter))->first();
                         
                         if (!$lab) {
                             return ApiResponse::JsonError(null, 'No es posible encontrar el laboratorio.');

@@ -37,9 +37,6 @@ const PillsDropDown = ({laboratories, subscriptions, formats, categorySlug}) => 
                             )
                         })
                     }
-                    {/* <Link to={'#'} style={{textDecoration: 'none'}}>
-                        <h3 className="pills-sub-header-title mt-3">VER TODO</h3>
-                    </Link> */}
                 </div>
                 <div className="col-5">
                     <h3 className="pills-sub-header-title">LABORATORIO</h3>
@@ -50,7 +47,7 @@ const PillsDropDown = ({laboratories, subscriptions, formats, categorySlug}) => 
                             laboratoryUrl = laboratoryUrl.replace(":filter?", laboratory.name.replace(' ','-').toLowerCase());
 
                             return (
-                                <Link to={laboratoryUrl} style={{textDecoration: 'none'}} key={laboratoryKey}>
+                                <Link to={laboratoryUrl} style={{textDecoration: 'none', pointerEvents: 'auto'}} key={laboratoryKey}>
                                     <span key={laboratoryKey} className="font-poppins py-1 font-12 text-black my-auto d-block">{laboratory.name}</span>
                                 </Link>
                             )

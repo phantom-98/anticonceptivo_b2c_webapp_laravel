@@ -104,16 +104,22 @@ const HeaderNavbar = () => {
                                         // category.subcategories.length ? 
                                             category.id === 1 ? 
                                             <Dropdown.Menu align="right" bsPrefix="dropdown-menu-custom with-pills">
-                                                <Dropdown.Item key={uuidv4()} style={{cursor:'default'}}>
-                                                    {/* <Link to={'#'} style={{textDecoration: 'none'}}> */}
-                                                        <PillsDropDown
-                                                            laboratories={laboratories}
-                                                            formats={formats}
-                                                            subscriptions={subscriptions}
-                                                            categorySlug={category.slug}
-                                                        />
-                                                    {/* </Link> */}
-                                                </Dropdown.Item>
+                                                {/* <Dropdown.Item key={uuidv4()} style={{cursor:'default'}}>
+                                                    <PillsDropDown
+                                                        laboratories={laboratories}
+                                                        formats={formats}
+                                                        subscriptions={subscriptions}
+                                                        categorySlug={category.slug}
+                                                    />
+                                                </Dropdown.Item> */}
+                                                <div className="custom-dropdown-item" style={{cursor: 'default'}}>
+                                                    <PillsDropDown
+                                                        laboratories={laboratories}
+                                                        formats={formats}
+                                                        subscriptions={subscriptions}
+                                                        categorySlug={category.slug}
+                                                    />
+                                                </div>
                                             </Dropdown.Menu>
                                             : 
 
