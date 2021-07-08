@@ -58,7 +58,6 @@ class PaySubscriptions extends Command
     {
         $customers = Customer::all();
         foreach ($customers as $customer) {
-
             $orders = Order::where('customer_id',$customer->id)->where('status','PAID')
             ->with('subscriptions_orders_items.order_item.product','subscriptions_orders_items.customer_address.commune','subscriptions_orders_items.subscription')
             ->whereHas('subscriptions_orders_items', function ($query) {

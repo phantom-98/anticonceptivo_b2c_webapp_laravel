@@ -7,15 +7,14 @@ use App\Models\Product;
 
 class ApiHelper extends CoreHelper
 {
-
-   public const MODE = 'prod';
-
+   public const MODE = 'desa';
 
    public static function callAPI($method, $url, $data)
    {
       $curl = curl_init();
       switch ($method) {
          case "POST":
+
             curl_setopt($curl, CURLOPT_POST, 1);
             if ($data)
                curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
@@ -35,7 +34,7 @@ class ApiHelper extends CoreHelper
          if(self::MODE == 'prod'){
 
             curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-               'api-key: ',
+               'access_token: ',
                'Accept: application/json',
                'Content-Type: application/json',
                
@@ -43,7 +42,7 @@ class ApiHelper extends CoreHelper
 
          }else{
             curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-               'api-key: tuTokendeAcceso',
+               'access_token: tuTokendeAcceso',
                'Accept: application/json',
                'Content-Type: application/json',
             ));
@@ -56,8 +55,8 @@ class ApiHelper extends CoreHelper
 
       // EXECUTE:
       $result = curl_exec($curl);
-
       curl_close($curl);
+
       return $result;
    }
 }

@@ -17,7 +17,8 @@ class CreatePaymentCommissionsTable extends Migration
             $table->bigIncrements('id');
             $table->dateTime('start_date')->nullable();
             $table->dateTime('end_date')->nullable();
-            $table->double('commission', 2, 2)->default(0);
+            $table->double('commission', 12, 2)->default(0);
+            $table->boolean('active')->default(1);
             $table->timestamps();
         });
     }
