@@ -31,7 +31,7 @@ const ProductTabs = ({product, legalWarning}) =>{
                         : null
                     }
 
-                    <Tab eventKey="technical" title="Ficha Técnica">
+                    <Tab eventKey="technical" title="Descriptor">
                         <div className="panel-bordered bg-white p-5">
                             <p className="font-poppins font-14 regular">
                                 <div dangerouslySetInnerHTML={{ __html: product.data_sheet }} />

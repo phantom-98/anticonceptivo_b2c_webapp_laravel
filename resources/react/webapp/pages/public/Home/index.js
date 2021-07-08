@@ -59,11 +59,11 @@ const Home = ({match}) => {
             <div className="bg-FAFAFA">
                 <BannerCarousel topBanners={topBanners}/>
 
-                <OutstandingCarousel title="Destacados" outstandings={outstandings}/>
+                {/* <OutstandingCarousel title="Destacados" outstandings={outstandings}/> */}
 
                 <BannerStatic banners={middleBanners}/>
 
-                <BestSeller bestSellers={bestSellers}/>
+                {/* <BestSeller bestSellers={bestSellers}/> */}
 
                 <BlogCarousel title="BLOG" showButton={true} buttonTitle="VER MÁS NOTICIAS" />
 

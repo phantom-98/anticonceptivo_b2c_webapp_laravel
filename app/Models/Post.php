@@ -13,7 +13,7 @@ class Post extends Model
         'slug',
         'content',
         'principal_image',
-        'content_image',
+        // 'content_image',
         'author_id',
         'active',
         'published_at',
@@ -38,8 +38,18 @@ class Post extends Model
     protected $appends = [
         'formated_date',
         'nice_date',
-        'month'
+        'month',
+        'public_principal_image',
+        // 'public_content_image',
     ];
+
+    public function getPublicPrincipalImageAttribute(){
+        return $this->principal_image == null ? null : \Storage::url($this->principal_image);
+    }
+
+    // public function getPublicContentImageAttribute(){
+    //     return $this->content_image == null ? null : \Storage::url($this->content_image);
+    // }
 
     public function getFormatedDateAttribute(){
         return Carbon::parse($this->created_at)->format('d-m-Y');

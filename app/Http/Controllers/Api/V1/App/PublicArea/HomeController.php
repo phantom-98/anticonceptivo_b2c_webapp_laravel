@@ -19,6 +19,7 @@ use App\Models\Banner;
 use App\Models\OrderItem;
 use App\Models\Brand;
 use App\Models\Alliance;
+use App\Models\PostType;
 
 
 class HomeController extends Controller
@@ -90,6 +91,21 @@ class HomeController extends Controller
                 'responsible_consumption' => $responsible_consumption,
                 'alliances' => $alliances
             ]);
+        } catch (\Exception $exception) {
+            return ApiResponse::JsonError(null, $exception->getMessage());
+        }
+    }
+
+    public function getHeaderResources()
+    {
+        try {
+
+            $postTypes = PostType::where('active',true)->get();
+
+            return ApiResponse::JsonSuccess([
+                'post_types' => $postTypes
+            ]);
+            
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, $exception->getMessage());
         }
