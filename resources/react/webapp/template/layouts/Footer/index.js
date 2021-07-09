@@ -93,8 +93,7 @@ const Footer = () => {
                                 </li>
                                 <li className="nav-item">
                                     <Link className="nav-link"
-                                          to={(PUBLIC_ROUTES.CORPORATE_RESPONSIBILITY.path).replace(':section', 'bases-legales')}>Bases
-                                        Legales</Link>
+                                          to={(PUBLIC_ROUTES.CORPORATE_RESPONSIBILITY.path).replace(':section', 'carta-de-desabastecimiento')}>Carta de Desabastecimiento</Link>
                                 </li>
                                 <li className="nav-item">
                                     <Link className="nav-link"
