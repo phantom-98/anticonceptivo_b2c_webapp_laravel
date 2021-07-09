@@ -132,7 +132,12 @@ class WebpayPlusController
                 $orderItem->product_id = $item['product_id'];
                 $orderItem->name = $item['product']['name'];
                 $orderItem->quantity = $item['quantity'];
-                $orderItem->price = $item['product']['price'];
+
+                if ($item['product']['is_offer'] == true) {
+                    $orderItem->price = $item['product']['offer_price'];
+                }else{
+                    $orderItem->price = $item['product']['price'];
+                }
 
                 if($item['subscription'] != null){          
                     $isSubscription = 1;
@@ -158,12 +163,18 @@ class WebpayPlusController
                     }
 
                 }else{
-                    $subtotal = $subtotal + ($item['quantity'] * $item['product']['price']);
-
-                    $orderItem->subtotal = ($item['quantity'] * $item['product']['price']);
+                    if ($item['product']['is_offer'] == true) {
+                        $subtotal = $subtotal + ($item['quantity'] * $item['product']['offer_price']);
+                        $orderItem->subtotal = ($item['quantity'] * $item['product']['offer_price']);
+                    }else{
+                        $subtotal = $subtotal + ($item['quantity'] * $item['product']['price']);
+                        $orderItem->subtotal = ($item['quantity'] * $item['product']['price']);
+                    }
+                    
                     $orderItem->subscription_plan_id = null;
 
                 }
+
                 $orderItem->product_attributes = null;
                 $orderItem->extra_price = null;
                 $orderItem->extra_description = null;

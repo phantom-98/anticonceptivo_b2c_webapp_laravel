@@ -1,8 +1,8 @@
 import React, {Fragment, useEffect, useState, useContext} from 'react';
 import OurBrands from "./OurBrands";
 import Subscribe from "../../../components/sections/Subscribe";
-import BestSeller from "../../../components/sections/BestSellers";
-import OutstandingCarousel from "../../../components/sections/OutstandingCarousel";
+// import BestSeller from "../../../components/sections/BestSellers";
+// import OutstandingCarousel from "../../../components/sections/OutstandingCarousel";
 import BlogCarousel from "../../../components/sections/BlogCarousel";
 import {ModalAuthMode} from "../../../Globals";
 import {AppContext} from "../../../context/AppProvider";
