@@ -3,7 +3,7 @@ import BasePanelTwo from "../../../template/BasePanelTwo";
 import Subscribe from "../../../components/sections/Subscribe";
 import PUBLIC_ROUTES from "../../../routes/publicRoutes";
 import ProductsCarousel from "../../../components/sections/ProductsCarousel";
-import BlogCarousel from "../../../components/sections/BlogCarousel";
+// import BlogCarousel from "../../../components/sections/BlogCarousel";
 import BlogItem from "./BlogItem";
 
 const BlogList = () => {
@@ -83,7 +83,7 @@ const BlogList = () => {
 
                 </div>
             </BasePanelTwo>
-            <BlogCarousel title="Contenidos relacionados" showButton={true}/>
+            {/* <BlogCarousel title="Contenidos relacionados" showButton={true}/> */}
             <ProductsCarousel title="Te podría interesar"/>
             <Subscribe/>
         </Fragment>

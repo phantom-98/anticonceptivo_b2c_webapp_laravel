@@ -2,7 +2,7 @@ import React, {Fragment, useEffect, useState} from 'react';
 import BasePanelTwo from "../../../template/BasePanelTwo";
 import Subscribe from "../../../components/sections/Subscribe";
 import PUBLIC_ROUTES from "../../../routes/publicRoutes";
-import BlogCarousel from "../../../components/sections/BlogCarousel";
+// import BlogCarousel from "../../../components/sections/BlogCarousel";
 import {Link} from "react-router-dom";
 import * as Services from "../../../Services";
 import {CONFIG} from "../../../Config";
@@ -192,7 +192,7 @@ const Blog = ({match}) => {
                     : <LazyLoading/>
                 }
             </BasePanelTwo>
-            <BlogCarousel title="Contenidos relacionados" showButton={true} showOutstanding={true}/>
+            {/* <BlogCarousel title="Contenidos relacionados" showButton={true} showOutstanding={true}/> */}
             <Subscribe/>
         </Fragment>
     );
