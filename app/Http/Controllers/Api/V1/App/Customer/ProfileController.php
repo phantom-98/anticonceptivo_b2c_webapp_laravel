@@ -676,7 +676,7 @@ class ProfileController extends Controller
 
     private static function getCustomerService(){
         $contactIssue = ContactIssue::where('active',true)->where('section',ContactIssueTypes::CUSTOMER_SERVICE)
-            ->with(['fields'])->get();
+            ->with(['fields','campaign'])->get();
 
         return $contactIssue;
     }
