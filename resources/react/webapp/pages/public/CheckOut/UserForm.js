@@ -1,7 +1,7 @@
 import React, {Fragment, useState, useEffect, useContext} from 'react';
 import FormPersonalData from "../../private/Account/sections/PersonalInfo/FormPersonalData";
-import FormComercialInfo from "../../private/Account/sections/PersonalInfo/FormComercialInfo";
-import {CONFIG} from "../../../Config";
+// import FormComercialInfo from "../../private/Account/sections/PersonalInfo/FormComercialInfo";
+// import {CONFIG} from "../../../Config";
 import {setInputError, setCleanInputErrorById} from "../../../helpers/GlobalUtils";
 import RutValidator from "w2-rut-validator";
 import * as Services from "../../../Services";
@@ -11,78 +11,78 @@ const UserForm = ({setView, data, setData, setFile, editable}) => {
 
     const {auth} = useContext(AuthContext);
 
-    const [showBilling, setShowBilling] = useState(false);
+    // const [showBilling, setShowBilling] = useState(false);
     const [rutFlag, setRutFlag] = useState(false);
     
-    const [selectedRegion, setSelectedRegion] = useState(0);
-    const [regions, setRegions] = useState([]);
-    const [communes, setCommunes] = useState([]);
+    // const [selectedRegion, setSelectedRegion] = useState(0);
+    // const [regions, setRegions] = useState([]);
+    // const [communes, setCommunes] = useState([]);
 
-    useEffect(() => {
-        getRegions();
-    },[])
+    // useEffect(() => {
+    //     getRegions();
+    // },[])
 
-    useEffect(() => {
-        if (regions.length > 0) {
-            setSelectedRegion(data.commercial_region_id)
-        }
-    },[regions])
+    // useEffect(() => {
+    //     if (regions.length > 0) {
+    //         setSelectedRegion(data.commercial_region_id)
+    //     }
+    // },[regions])
 
-    useEffect(() => {
-        if (selectedRegion) {
-            const region = regions.find(r => r.id == selectedRegion)
-            let tempCommunes = [];
-            region.provinces.map((province) =>{
-                province.communes.map((commune) =>{
-                    tempCommunes.push(commune);
-                })
-            })
-            let orderCommunes =  tempCommunes.sort((a, b)  => {
-                const commA = a.name.toLowerCase();
-                const commB = b.name.toLowerCase();
+    // useEffect(() => {
+    //     if (selectedRegion) {
+    //         const region = regions.find(r => r.id == selectedRegion)
+    //         let tempCommunes = [];
+    //         region.provinces.map((province) =>{
+    //             province.communes.map((commune) =>{
+    //                 tempCommunes.push(commune);
+    //             })
+    //         })
+    //         let orderCommunes =  tempCommunes.sort((a, b)  => {
+    //             const commA = a.name.toLowerCase();
+    //             const commB = b.name.toLowerCase();
 
-                let comparison = 0;
-                if (commA > commB) {
-                    comparison = 1;
-                } else if (commA < commB) {
-                    comparison = -1;
-                }
-                return comparison;
-            })
+    //             let comparison = 0;
+    //             if (commA > commB) {
+    //                 comparison = 1;
+    //             } else if (commA < commB) {
+    //                 comparison = -1;
+    //             }
+    //             return comparison;
+    //         })
 
-            setCommunes(orderCommunes);
+    //         setCommunes(orderCommunes);
 
-        }
-    }, [selectedRegion]);
+    //     }
+    // }, [selectedRegion]);
 
-    const getRegions = () => {
-        let url = Services.ENDPOINT.NO_AUTH.CHECKOUT.GET_RESOURCES;
-        let dataForm = {
-            // customer_id: auth.id
-        }
+    // const getRegions = () => {
+    //     let url = Services.ENDPOINT.NO_AUTH.CHECKOUT.GET_RESOURCES;
+    //     let dataForm = {
+    //         // customer_id: auth.id
+    //     }
 
-        Services.DoPost(url, dataForm).then(response => {
-            Services.Response({
-            response: response,
-            success: () => {
-                // setData(response.data.customer);
-                setRegions(response.data.regions);
-            },
-            });
-        }).catch(error => {
-            Services.ErrorCatch(error)
-        });
-    }
+    //     Services.DoPost(url, dataForm).then(response => {
+    //         Services.Response({
+    //         response: response,
+    //         success: () => {
+    //             // setData(response.data.customer);
+    //             setRegions(response.data.regions);
+    //         },
+    //         });
+    //     }).catch(error => {
+    //         Services.ErrorCatch(error)
+    //     });
+    // }
 
-    const selectRegion = (e) => {
-        const region = regions.find(r => r.id == e.target.value)
-        setData({
-            ...data,
-            commercial_region_id : region.id,
-            commercial_commune_id: null
-        })
-        setSelectedRegion(e.target.value)
-    }
+    // const selectRegion = (e) => {
+    //     const region = regions.find(r => r.id == e.target.value)
+    //     setData({
+    //         ...data,
+    //         commercial_region_id : region.id,
+    //         commercial_commune_id: null
+    //     })
+    //     setSelectedRegion(e.target.value)
+    // }
 
     const handleData = (e) => {
         setData({...data,
@@ -231,7 +231,7 @@ const UserForm = ({setView, data, setData, setFile, editable}) => {
                     />
                 </div>
             </div>
-            <div className="panel panel-cart mb-3">
+            {/* <div className="panel panel-cart mb-3">
                 <div className="panel-body" style={{paddingTop: '20px', paddingBottom: '20px'}}>
                     <div className="row pointer" onClick={() => setShowBilling(!showBilling)}>
                         <div className="col">
@@ -262,7 +262,7 @@ const UserForm = ({setView, data, setData, setFile, editable}) => {
                         : null
                     }
                 </div>
-            </div>
+            </div> */}
             <div className="row">
                 <div className="col-md-6">
                     {/*<button onClick={() => setView('user-form')} className="link" style={{textDecoration: 'none'}}>*/}
