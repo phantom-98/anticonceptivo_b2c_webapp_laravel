@@ -102,7 +102,7 @@ const Blog = ({match}) => {
                                                     <option value="30">30</option>
                                                 </select>
                                             </div>
-                                            <div className="col-auto px-2 font-poppins font-12 semi-bold color-033F5D d-flex">
+                                            {/* <div className="col-auto px-2 font-poppins font-12 semi-bold color-033F5D d-flex">
                                                 <div className="my-auto">
                                                     Ordenar por
                                                 </div>
@@ -115,7 +115,7 @@ const Blog = ({match}) => {
                                                     <option value="12">Menor a Mayor</option>
                                                     <option value="21">Mayor a Menor</option>
                                                 </select>
-                                            </div>
+                                            </div> */}
                                         </div>
                                     </div>
                                 </div>
