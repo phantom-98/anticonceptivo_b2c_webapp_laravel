@@ -12,9 +12,7 @@ class NestedField extends Model
     protected $fillable = [
         'id',
         'name',
-        'description',
         'section',
-        'type',
         'position',
         'parent_id',
     ];
@@ -29,4 +27,7 @@ class NestedField extends Model
         return $this->belongsTo(NestedField::class, 'parent_id');
     }
 
+    public function nested_field_questions(){
+        return $this->hasMany(NestedFieldQuestion::class);
+    }
 }

@@ -15,10 +15,10 @@ class ContactController extends Controller
     public function getResources(Request $request): \Illuminate\Http\JsonResponse
     {
         try {
-            $nested_fields = NestedField::with('children')->whereNull('parent_id')->get();
+            $nested_fields = NestedField::with(['nested_field_questions', 'children'])->whereNull('parent_id')->get();
             return ApiResponse::JsonSuccess([
                 'nested_fields' => $nested_fields,
-                'list' => NestedField::with('children')->get()
+                'list' => NestedField::with(['nested_field_questions', 'children'])->get()
             ]);
         } catch (\Exception $exception) {
             return ApiResponse::JsonError([]);

@@ -16,21 +16,10 @@ class CreateNestedFieldsTable extends Migration
         Schema::create('nested_fields', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->text('description')->nullable();
-
             $table->enum('section', [
                 'campaña',
-                'asunto'
-            ])->default('asunto');
-
-            $table->enum('type', [
-                'input',
-                'textarea',
-                'select',
-                'radio',
-                'checkbox',
-                'value'
-            ])->default('value');
+                'contacto'
+            ])->default('contacto');
 
             $table->integer('position')->default(0);
 
