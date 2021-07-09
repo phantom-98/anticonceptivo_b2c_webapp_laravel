@@ -30,7 +30,7 @@ class CategoryFaqController extends GlobalController
 
     public function index()
     {
-        $objects = CategoryFaq::get();
+        $objects = CategoryFaq::orderBy('position')->get();
         return view($this->folder . 'index', compact('objects'));
     }
 
