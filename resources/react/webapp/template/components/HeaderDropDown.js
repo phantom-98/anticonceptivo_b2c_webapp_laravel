@@ -1,36 +1,29 @@
 import React from 'react';
 import {Dropdown} from 'react-bootstrap'
+import PUBLIC_ROUTES from "../../routes/publicRoutes";
+import {Link} from "react-router-dom";
 
 const HeaderDropDown = ({postTypes}) =>{
-
-    const CustomToggle = React.forwardRef(({children, onClick}, ref) => (
-        <div className="pointer" ref={ref}>
-            {children}
-        </div>
-    ));
 
     return (
         <div className="col-md-auto top-do-flex">
             <div className="my-auto">
-                <Dropdown
-                    // key={category.categoryId}
-                    // show={show[category.categoryId]}
-                    // onMouseEnter={() => showDropdown(category.categoryId)} 
-                    // onMouseLeave={() => hideDropdown(category.categoryId)}
-                    // drop={'down'}
-                >
-                    <Dropdown.Toggle as={CustomToggle} id="header-drop-down">
-                        <div className="col-md-auto header-navbar-col" style={{height : '44px'}}>
-                            <div className="my-auto">
-                                <span className="top-link header-navbar-item">Blog</span>
-                            </div>
+                <Dropdown className="testingg">
+                    <Dropdown.Toggle id="dropdown-testing" className='header-navbar-col-custom'>
+                        <div className="my-auto">
+                            <span className="top-link header-navbar-item font-regular" style={{fontWeight:500}}>Blog</span>
                         </div>
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu align="right" bsPrefix="dropdown-menu-custom">
                         {
                             postTypes.map((postType) => {
-                                return <Dropdown.Item href="#/action-1">{postType.name}</Dropdown.Item>
+                                let urlPostType = PUBLIC_ROUTES.BLOG.path.replace(':post_type_slug?',postType.slug);
+                                return <Dropdown.Item>
+                                    <Link to={urlPostType} style={{textDecoration: 'none'}}>
+                                        {postType.name}
+                                    </Link>
+                                </Dropdown.Item>
                             })
                         }
                     </Dropdown.Menu>

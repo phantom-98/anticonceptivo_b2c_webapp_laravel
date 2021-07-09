@@ -483,6 +483,24 @@
   background: #009BE8;
 }
 
+.header-navbar-col-custom {
+  display: flex !important;
+  cursor: pointer;
+  transition: all 0.25s ease-in-out;
+  background: transparent !important;
+  border-color: transparent !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+.testingg .dropdown-toggle::after {
+  display: none !important;
+}
+
+button#dropdown-testing {
+  padding: 0px;
+}
+
 .header-navbar-item {
   cursor: pointer;
   color: white;
