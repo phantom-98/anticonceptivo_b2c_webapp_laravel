@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Intranet;
 use App\Models\Faq;
 use App\Models\CategoryFaq;
 use App\Models\NestedField;
+use App\Models\NestedFieldQuestion;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Log;
@@ -22,7 +23,7 @@ class NestedFieldController extends GlobalController
         'pluralName' => 'Campo Anidado',
         'singularName' => 'Campos Anidados',
         'disableActions' => ['show', 'changeStatus'],
-        'enableActions' => ['position']
+        'enableActions' => ['position', 'removeQuestion']
 
     ];
 
@@ -33,7 +34,8 @@ class NestedFieldController extends GlobalController
 
     public function index(Request $request)
     {
-        $objects = NestedField::with(['nested_field_questions', 'children'])->orderBy('position')->whereNull('parent_id');
+
+        $objects = NestedField::with(['children'])->withCount(['nested_field_questions'])->orderBy('position')->whereNull('parent_id');
 
         if ($request->section == 'contacto') {
             $objects = $objects->where('section', 'like', 'contacto')->get();
@@ -46,7 +48,8 @@ class NestedFieldController extends GlobalController
 
     public function create()
     {
-        return view($this->folder . 'create');
+        return redirect()->route($this->route . 'index', ['section' => 'contacto']);
+//        return view($this->folder . 'create');
     }
 
     public function store(Request $request)
@@ -67,8 +70,7 @@ class NestedFieldController extends GlobalController
 
             if ($object) {
                 session()->flash('success', 'Campo creado correctamente.');
-                return redirect()->route($this->route . 'index');
-
+                return redirect()->route($this->route . 'index', ['section' => 'contacto']);
             }
 
             return redirect()->back()->withErrors(['mensaje' => 'Error inesperado al crear el campo.'])->withInput();
@@ -83,11 +85,11 @@ class NestedFieldController extends GlobalController
 
     public function edit($id)
     {
-        $object = NestedField::find($id);
+        $object = NestedField::with('nested_field_questions')->find($id);
 
         if (!$object) {
             session()->flash('warning', 'Campo no encontrado.');
-            return redirect()->route($this->route . 'index');
+            return redirect()->route($this->route . 'index', ['section' => 'contacto']);
         }
 
         return view($this->folder . 'edit', compact('object'));
@@ -95,11 +97,12 @@ class NestedFieldController extends GlobalController
 
     public function update(Request $request, $id)
     {
+//        return $request->all();
         $object = NestedField::find($id);
 
         if (!$object) {
             session()->flash('warning', 'Campo no encontrado.');
-            return redirect()->route($this->route . 'index');
+            return redirect()->route($this->route . 'index', ['section' => 'contacto']);
         }
 
         $rules = [
@@ -117,11 +120,27 @@ class NestedFieldController extends GlobalController
 
             $object->update($request->all());
 
+            try{
+                if($request->nfq_name){
+                    foreach ($request->nfq_name as $key => $data){
+                        NestedFieldQuestion::where('id', $key)->update(['name' => $data]);
+                    }
+                }
+            }catch (\Exception $exception){}
+
+            try{
+                if($request->new_nfq_name){
+                    foreach ($request->new_nfq_name as $data){
+                        NestedFieldQuestion::create(['nested_field_id' => $object->id , 'name' => $data]);
+                    }
+                }
+            }catch (\Exception $exception){}
+
             $object->save();
 
             if ($object) {
                 session()->flash('success', 'Campo modificado correctamente.');
-                return redirect()->route($this->route . 'index');
+                return redirect()->route($this->route . 'index', ['section' => 'contacto']);
             }
 
             return redirect()->back()->withErrors(['mensaje' => 'Error inesperado al modificar el campo.'])->withInput();
@@ -142,22 +161,19 @@ class NestedFieldController extends GlobalController
 
         if (!$object) {
             session()->flash('warning', 'Campo no encontrado.');
-            return redirect()->route($this->route . 'index');
         }
-
         if ($object->delete()) {
             session()->flash('success', 'Campo eliminado correctamente.');
-            return redirect()->route($this->route . 'index');
+        } else {
+            session()->flash('error', 'No se ha podido eliminar el campo.');
         }
-
-        session()->flash('error', 'No se ha podido eliminar el campo.');
-        return redirect()->route($this->route . 'index');
+        return redirect()->route($this->route . 'index', ['section' => 'contacto']);
     }
 
     private function recursivePositionUpdate($position, $item)
     {
 
-        NestedField::where('id', $item['id'])->update(['position' => $position]);
+        NestedField::where('id', $item['id'])->update(['position' => intval($position + 1)]);
 
         if (isset($item['children']) and count($item['children'])) {
             foreach ($item['children'] as $key => $data) {
@@ -196,6 +212,31 @@ class NestedFieldController extends GlobalController
             ]);
         }
 
+    }
+
+    public function removeQuestion(Request $request)
+    {
+        $object = NestedFieldQuestion::find($request->id);
+
+        if (!$object) {
+            return response()->json([
+                'status' =>  'warning',
+                'message' =>  'Campo no encontrado.',
+            ]);
+        }
+        if ($object->delete()) {
+
+            return response()->json([
+                'status' =>  'success',
+                'message' =>  'Campo eliminado correctamente.',
+            ]);
+        } else {
+
+            return response()->json([
+                'status' =>  'error',
+                'message' =>  'No se ha podido eliminar el campo.',
+            ]);
+        }
     }
 
 
