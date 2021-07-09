@@ -16,10 +16,39 @@ use App\Models\ProductSubscriptionPlan;
 
 class ProductController extends Controller
 {
+
+    public function getAllAvailable(){
+        try {
+            $products = Product::where('active',true)->with([
+                'subcategory.category' => function($c){
+                    $c->where('active',true);
+                },
+                'images',
+                'laboratory' => function($l){
+                    $l->where('active',true);
+                }
+            ])->get();
+
+            return ApiResponse::JsonSuccess([
+                'products' => $products
+            ]);
+        } catch (\Exception $exception){
+            return ApiResponse::JsonError(null, $exception->getMessage());
+        }
+    }
+
     public function getProducts()
     {
         try {
-            $products = Product::where('active',true)->with(['subcategory.category','images','laboratory'])->take(10)->get();
+            $products = Product::where('active',true)->with([
+                'subcategory.category' => function($c){
+                    $c->where('active',true);
+                },
+                'images',
+                'laboratory' => function($l){
+                    $l->where('active',true);
+                }
+            ])->take(12)->get();
 
             return ApiResponse::JsonSuccess([
                 'products' => $products
@@ -167,10 +196,21 @@ class ProductController extends Controller
 
             $legalWarnings = LegalWarning::first();
 
+            if ($product->recipe_type === 'Venta Directa') {
+                if ($product->subcategory->category_id !== 8) {
+                    $valid = true;
+                }else{
+                    $valid = false;
+                }
+            }else{
+                $valid = false;
+            }
+
             return ApiResponse::JsonSuccess([
                 'product' => $product,
                 'legal_warnings' => $legalWarnings,
-                'prods' => $prods
+                'prods' => $prods,
+                'valid' => $valid
             ], OutputMessage::SUCCESS);
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, $exception->getMessage());

@@ -79,6 +79,7 @@ export const ENDPOINT = {
         FOOTER: GetBaseURL() + 'public-area/get-footer-resources',
         HEADER: GetBaseURL() + 'public-area/get-header-resources',
         HEADER_MENU: GetBaseURL() + 'public-area/get-header-navbar-resources',
+        HEADER_BOX: GetBaseURL() + 'public-area/get-all-available',
         BANNERS:{
             HOME:{
                 TOP: GetBaseURL() + 'public-area/get-home-top-banners',

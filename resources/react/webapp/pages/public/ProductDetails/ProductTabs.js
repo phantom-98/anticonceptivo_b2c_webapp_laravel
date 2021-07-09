@@ -1,9 +1,13 @@
-import React, {useState, Fragment} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Tabs, Tab} from 'react-bootstrap';
 
-const ProductTabs = ({product, legalWarning}) =>{
+const ProductTabs = ({product, legalWarning, valid}) =>{
 
-    const [key, setKey] = useState(product.subcategory.category_id !== 8 ? 'benefits' : 'technical');
+    const [key, setKey] = useState(valid ? 'benefits' : 'technical');
+
+    useEffect(() => {
+        console.log(valid);
+    }, [valid])
 
     return (
         <div className="row pb-5">            
@@ -20,14 +24,14 @@ const ProductTabs = ({product, legalWarning}) =>{
                     onSelect={(k) => setKey(k)}
                 >
                     {
-                        product.subcategory.category_id !== 8 ? 
-                            <Tab eventKey="benefits" title="Beneficios y usos">
-                                <div className="panel-bordered bg-white p-5">
-                                    <p className="font-poppins font-14 regular">
-                                        <div dangerouslySetInnerHTML={{ __html: product.benefits }} />
-                                    </p>
-                                </div>
-                            </Tab>                        
+                        valid ?
+                                <Tab eventKey="benefits" title="Beneficios y usos">
+                                    <div className="panel-bordered bg-white p-5">
+                                        <p className="font-poppins font-14 regular">
+                                            <div dangerouslySetInnerHTML={{ __html: product.benefits }} />
+                                        </p>
+                                    </div>
+                                </Tab>                      
                         : null
                     }
 

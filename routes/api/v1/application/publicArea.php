@@ -21,6 +21,7 @@ Route::prefix('public-area')
 
         Route::post('get-resources', [ProductController::class, 'getResources'])->name('getResources');
         Route::post('get-product-by-categories', [ProductController::class, 'getProductByCategories'])->name('getProductByCategories');
+        Route::get('get-all-available', [ProductController::class, 'getAllAvailable'])->name('getAllAvailable');
         Route::get('get-products', [ProductController::class, 'getProducts'])->name('getProducts');
 
         Route::get('get-terms-and-conditions', [HomeController::class, 'getTermsAndConditions'])->name('getTermsAndConditions');
