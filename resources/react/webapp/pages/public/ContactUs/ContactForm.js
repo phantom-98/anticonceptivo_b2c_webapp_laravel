@@ -5,8 +5,8 @@ import toastr from 'toastr';
 
 const ContactForm = () => {
 
-    const [contactIssues, setContactIssues] = useState([]);
-    const [fieldsSubject, setFieldsSubject] = useState([]);
+    const [nestedFields, setNestedFields] = useState([]);
+    const [list, setList] = useState([])
 
     useEffect(() => {
         getResources();
@@ -17,22 +17,8 @@ const ContactForm = () => {
             Services.Response({
                 response: response,
                 success: () => {
-
-                    let fields = [];
-
-                    const list = response.data.contact_issues;
-
-                    list.map(contact => {
-                        contact.fields_subject.map(field_subject => {
-                            fields = [
-                                ...fields,
-                                field_subject
-                            ]
-                        });
-                    });
-                    console.log(fields);
-                    setContactIssues(list);
-                    setFieldsSubject(fields)
+                    setNestedFields(response.data.nested_fields)
+                    setList(response.data.list)
                 },
                 warning: () => {
                     // toastr.warning(response.message)
@@ -47,20 +33,20 @@ const ContactForm = () => {
     }
 
 
-    const renderDynamicFields = (fieldsSubject) => {
-
-        return fieldsSubject.map((field, index) => {
-            console.log(field.id);
-            if (field.children.length > 0) {
-                return renderDynamicFields(field.children)
-            }
-            if (field.type === 'input') {
-                return <p>render input text</p>
-            } else if (field.type === 'select') {
-                return <p>render select</p>
-            }
-        })
-    }
+    // const renderDynamicFields = () => {
+    //
+    //     return nestedFields.map((field, index) => {
+    //
+    // if (field.children.length > 0) {
+    //     renderDynamicFields(field.children)
+    // }
+    //         if (field.type === 'value') {
+    //             return <p>({field.id}) ({field.name}) value </p>
+    //         } else if (field.type === 'select') {
+    //             return <p>({field.id}) ({field.name}) seletec </p>
+    //         }
+    //     })
+    // }
 
     // const recursiveDynamic = (field) => {
     //
@@ -78,7 +64,20 @@ const ContactForm = () => {
 
             <div className="col-12">
                 {
-                    renderDynamicFields(fieldsSubject)
+                    nestedFields.map(field => {
+                        if (field.children.length > 0) {
+                            return <select name="" id="" onChange={(e => {
+                                const found = list.find(l => l.id == e.target.value)
+                                console.log('found', found);
+                            })}>
+                                {
+                                    field.children.map(ch => {
+                                        return <option value={ch.id}>{ch.name}</option>
+                                    })
+                                }
+                            </select>
+                        }
+                    })
                 }
             </div>
 
