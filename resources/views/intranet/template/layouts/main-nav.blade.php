@@ -120,7 +120,7 @@
                                 </li>
                             </ul>
                         </li>
-                        
+
                         <li class="treeview {{ is_parent_menu_active(['intranet/banners', 'intranet/tipos-post-blog', 'intranet/post-blog', 'intranet/faq', 'intranet/configuraciones', 'intranet/paginas', 'intranet/linea-tiempo', 'intranet/categorias-faq',
                             'intranet/quienes-somos', 'intranet/valores', 'intranet/alianzas', 'intranet/bases-legales', 'intranet/costos-despachos', 'intranet/consumo-responsable']) }}">
                             <a href="#">
@@ -245,6 +245,13 @@
                                         <span class="menu-title">Registro Reclamos</span>
                                     </a>
                                 </li>
+
+                                <li class="{{ is_menu_active('intranet/campos-anidados') }}">
+                                    <a href="{{ route('intranet.nested-fields.index', ['section' => 'contacto']) }}">
+                                        <span class="menu-title">Campos Anidados</span>
+                                    </a>
+                                </li>
+
                             </ul>
                         </li>
 
@@ -263,7 +270,7 @@
                             </a>
                         </li>
                         @endcan
-                      
+
                         @can('intranet.users.index')
                         <li class="{{ is_menu_active('intranet/usuarios') }}">
                             <a href="{{ route('intranet.users.index') }}">

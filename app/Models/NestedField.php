@@ -7,19 +7,21 @@ use Illuminate\Database\Eloquent\Model;
 
 class NestedField extends Model
 {
-    use HasFactory;
-
     protected $fillable = [
         'id',
         'name',
         'section',
+        'active',
         'position',
         'parent_id',
+        'campaign_id',
     ];
+
+    use HasFactory;
 
     public function children()
     {
-        return $this->hasMany(NestedField::class, 'parent_id')->with('children');
+        return $this->hasMany(NestedField::class, 'parent_id')->with('children')->orderBy('position');
     }
 
     public function parent()
@@ -27,7 +29,13 @@ class NestedField extends Model
         return $this->belongsTo(NestedField::class, 'parent_id');
     }
 
-    public function nested_field_questions(){
+    public function nested_field_questions()
+    {
         return $this->hasMany(NestedFieldQuestion::class);
+    }
+
+    public function campaign()
+    {
+        return $this->belongsTo(Campaign::class);
     }
 }

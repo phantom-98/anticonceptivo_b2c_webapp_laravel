@@ -13,6 +13,8 @@ class NestedFieldQuestion extends Model
         'id',
         'name',
         'nested_field_id',
+        'active',
+        'position',
     ];
 
     public function nested_field(){

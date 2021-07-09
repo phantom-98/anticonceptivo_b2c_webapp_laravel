@@ -21,10 +21,16 @@ class CreateNestedFieldsTable extends Migration
                 'contacto'
             ])->default('contacto');
 
+            $table->boolean('active')->default(1);
             $table->integer('position')->default(0);
 
             $table->bigInteger('parent_id')->unsigned()->nullable();
-            $table->foreign('parent_id')->references('id')->on('nested_fields')->onDelete('set null');
+            $table->foreign('parent_id')->references('id')->on('nested_fields')->onDelete('cascade');
+
+            $table->bigInteger('campaign_id')->unsigned()->nullable();
+            $table->foreign('campaign_id')->references('id')->on('campaigns')->onDelete('cascade');
+
+
             $table->timestamps();
         });
     }

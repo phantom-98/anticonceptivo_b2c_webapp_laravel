@@ -182,6 +182,11 @@ if (env('SHOW_INTRANET', 'TRUE') == 'TRUE') {
                 Route::post('codigo-descuento/active', 'DiscountCodeController@active')->name('discount_code.active');
                 Route::resource('codigo-descuento', 'DiscountCodeController', ['names' => getResourceRoutesForNameHelper('discount_code')])->except(['show']);
 
+
+                Route::post('campos-anidados/active', 'NestedFieldController@active')->name('nested-fields.active');
+                Route::post('campos-anidados/position', 'NestedFieldController@position')->name('nested-fields.position');
+                Route::resource('campos-anidados', 'NestedFieldController', ['names' => getResourceRoutesForNameHelper('nested-fields')]);
+
             });
 
         });

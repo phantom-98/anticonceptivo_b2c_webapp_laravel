@@ -16,8 +16,14 @@ class CreateNestedFieldQuestionsTable extends Migration
         Schema::create('nested_field_questions', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+
+
+            $table->boolean('active')->default(1);
+            $table->integer('position')->default(0);
+
             $table->bigInteger('nested_field_id')->unsigned()->nullable();
-            $table->foreign('nested_field_id')->references('id')->on('nested_fields')->onDelete('set null');
+            $table->foreign('nested_field_id')->references('id')->on('nested_fields')->onDelete('cascade');
+
             $table->timestamps();
         });
     }
