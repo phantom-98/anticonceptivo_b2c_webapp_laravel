@@ -40,7 +40,7 @@ class ProductController extends Controller
     public function getProducts()
     {
         try {
-            $products = Product::where('active',true)->with([
+            $products = Product::where('active',true)->where('recipe_type','Venta Directa')->with([
                 'subcategory.category' => function($c){
                     $c->where('active',true);
                 },

@@ -127,7 +127,7 @@ class HomeController extends Controller
                 $q->where('status','PAID');
             })->select('product_id', DB::raw('sum(quantity) as total'))->groupBy('product_id')->orderBy('total', 'desc')->get();
 
-            $bestSellers = Product::with(['subcategory.category','images','laboratory'])->whereIn('id',$productsId->pluck('product_id'))->get();
+            $bestSellers = Product::with(['subcategory.category','images','laboratory'])->whereIn('id',$productsId->where('recipe_type','Venta Directa')->pluck('product_id'))->get();
 
             $brands = Brand::where('active',true)->orderBy('position')->get();
 
