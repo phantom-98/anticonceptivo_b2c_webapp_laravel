@@ -325,7 +325,7 @@ const Table = ({
                     Services.Response({
                     response: response,
                         success: () => {
-                            getData();
+                            getSubscriptionsCards();
                         },
                     });
                 }).catch(error => {
