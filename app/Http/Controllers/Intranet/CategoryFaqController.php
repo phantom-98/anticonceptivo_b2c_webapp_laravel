@@ -157,7 +157,7 @@ class CategoryFaqController extends GlobalController
 
         try{
             foreach($request->data as $data){
-                $object = Timeline::find($data['id']);
+                $object = CategoryFaq::find($data['id']);
                 $object->update(['position' => $data['position']]);
             }
             return response()->json([

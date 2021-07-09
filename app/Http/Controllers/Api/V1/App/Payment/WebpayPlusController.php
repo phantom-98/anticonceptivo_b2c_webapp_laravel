@@ -199,10 +199,10 @@ class WebpayPlusController
                         foreach ($ordersItems as $elementOrderItem) {
                             $subscriptionOrdersItems = SubscriptionsOrdersItem::where('orders_item_id',$elementOrderItem->id)->orderBy('pay_date')->get();
                             foreach ($subscriptionOrdersItems as $key => $elementSubscriptionOrdersItem) {
-                                if($key == 0){
-                                    $subscriptionOrdersItem->is_pay = 1;
-                                    $subscriptionOrdersItem->status = 'PAID';
-                                    $subscriptionOrdersItem->save();
+                                if(Carbon::parse($elementSubscriptionOrdersItem->pay_date)->format('d/m/Y') == Carbon::now()->format('d/m/Y')){
+                                    $elementSubscriptionOrdersItem->is_pay = 1;
+                                    $elementSubscriptionOrdersItem->status = 'PAID';
+                                    $elementSubscriptionOrdersItem->save();
                                 }
                             }
                         }

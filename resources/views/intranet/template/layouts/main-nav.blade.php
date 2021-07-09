@@ -203,6 +203,27 @@
                             </ul>
                         </li>
 
+                    <li class="treeview {{ is_parent_menu_active(['intranet/comision-pagos', 'intranet/dia-pago']) }}">
+                        <a href="#">
+                            <i class="ti-settings"></i>
+                            <span class="menu-title">Facturación</span>
+                            <i class="arrow"></i>
+                        </a>
+                        <!--Submenu-->
+                        <ul class="collapse">
+                            <li class="{{ is_menu_active('intranet/comision-pagos') }}">
+                                <a href="{{ route('intranet.payment_commissions.index') }}">
+                                    <span class="menu-title">Comisiones</span>
+                                </a>
+                            </li>
+                            <li class="{{ is_menu_active('intranet/dia-pago') }}">
+                                <a href="{{ route('intranet.day_payment.index') }}">
+                                    <span class="menu-title">Facturas Realizadas</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
                         <li class="{{ is_menu_active('intranet/email') }}">
                             <a href="{{ route('intranet.listado') }}" target="_blank">
                                 <i class="ti-email"></i>

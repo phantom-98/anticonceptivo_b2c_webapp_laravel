@@ -1,11 +1,7 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Console\Commands;
 
-use Illuminate\Http\Request;
-use App\Models\DayPayment;
-use App\Models\PaymentCommission;
-use App\Http\Controllers\Controller;
 use App\Http\Helpers\ApiHelper;
 use App\Models\Order;
 use Illuminate\Console\Command;
@@ -22,25 +18,39 @@ use App\Models\CustomerAddress;
 use App\Models\DiscountCode;
 use App\Models\SubscriptionsOrdersItem;
 use App\Models\SubscriptionPlan;
-
-
-class TestController extends Controller
+class VoucherPaymentDays extends Command
 {
-    public function index()
-    {
-        return [
-            bcrypt(1),
-            bcrypt(1),
-            bcrypt(1),
-            encrypt(3),
-            encrypt(3),
-            encrypt(3),
-        ];
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
+    protected $signature = 'command:paySubscriptions';
 
-        return view('emails.base');
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Genera el pago de la suscripciones activas';
+
+    /**
+     * Create a new command instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        parent::__construct();
     }
 
-    public function VoucherPaymentDays(){
+    /**
+     * Execute the console command.
+     *
+     * @return mixed
+     */
+    public function handle()
+    {
         $datePayment = Carbon::now()->subDay();
 
         $orders = Order::where('status','PAID')->whereDate('created_at',$datePayment)
@@ -54,6 +64,7 @@ class TestController extends Controller
         ->get()->first();
         $countWhile = -1;
         $signWhile = 1;
+        
         while($paymentCommission == null || $countWhile > 99){
             $paymentCommission = PaymentCommission::whereDate('start_date','>=',$datePayment->subDay($countWhile))
             ->whereDate('end_date','<=',$datePayment->subDay($countWhile))
@@ -67,6 +78,7 @@ class TestController extends Controller
         }
 
         if($paymentCommission == null){
+            $this->info('No se encontro comision cercana a la fecha ' . $datePayment->format('d/m/Y'));
             return;
         }
 
@@ -135,6 +147,6 @@ class TestController extends Controller
         $dayPayment->url_pdf = $response['urlPdf'];
         $dayPayment->total = $total;
         $dayPayment->save();
+        $this->info('Pagos ejecutados correctamente');
     }
-
 }

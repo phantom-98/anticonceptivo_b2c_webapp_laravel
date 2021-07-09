@@ -157,6 +157,7 @@ export const ENDPOINT = {
             GET_SUBSCRIPTIONS: GetBaseURL() + 'customer/get-subscriptions',
             GET_SUBSCRIPTIONS_ORDERS_ITEMS: GetBaseURL() + 'customer/get-subscriptions-orders_items',
             SET_ADDRESS_SUBSCRIPTION: GetBaseURL() + 'customer/set-address-subscription',
+            SET_CARD_SUBSCRIPTION: GetBaseURL() + 'customer/set-card-subscription',
             SET_DISPATCH_DATE_SUBSCRIPTION: GetBaseURL() + 'customer/set-dispatch-date-subscription'
 
         },
