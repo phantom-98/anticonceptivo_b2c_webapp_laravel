@@ -19,6 +19,7 @@ use App\Models\Banner;
 use App\Models\OrderItem;
 use App\Models\Brand;
 use App\Models\Alliance;
+use App\Models\PostType;
 
 
 class HomeController extends Controller
@@ -95,6 +96,21 @@ class HomeController extends Controller
         }
     }
 
+    public function getHeaderResources()
+    {
+        try {
+
+            $postTypes = PostType::where('active',true)->get();
+
+            return ApiResponse::JsonSuccess([
+                'post_types' => $postTypes
+            ]);
+            
+        } catch (\Exception $exception) {
+            return ApiResponse::JsonError(null, $exception->getMessage());
+        }
+    }
+
     public function getHomeTopBanners(){
         try {
             $topBanners = Banner::where('location','Home (Superior)')->where('active',true)->orderBy('position')->get();
@@ -111,7 +127,7 @@ class HomeController extends Controller
                 $q->where('status','PAID');
             })->select('product_id', DB::raw('sum(quantity) as total'))->groupBy('product_id')->orderBy('total', 'desc')->get();
 
-            $bestSellers = Product::with(['subcategory.category','images','laboratory'])->whereIn('id',$productsId->pluck('product_id'))->get();
+            $bestSellers = Product::with(['subcategory.category','images','laboratory'])->whereIn('id',$productsId->where('recipe_type','Venta Directa')->pluck('product_id'))->get();
 
             $brands = Brand::where('active',true)->orderBy('position')->get();
 

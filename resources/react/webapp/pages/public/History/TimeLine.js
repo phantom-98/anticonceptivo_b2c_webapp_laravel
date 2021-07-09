@@ -1,5 +1,4 @@
 import React from 'react';
-// import handIcon from '../../../assets/images/icons/hands-little.svg'
 import Icon from "../../../components/general/Icon";
 import { v4 as uuidv4 } from 'uuid';
 

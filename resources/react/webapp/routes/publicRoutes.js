@@ -6,6 +6,7 @@ import Home from '../pages/public/Home';
 import AboutUs from "../pages/public/AboutUs";
 import ContactUs from "../pages/public/ContactUs";
 import Faq from "../pages/public/Faq";
+import History from "../pages/public/History";
 import Blog from "../pages/public/Blog";
 import TermsAndConditions from "../pages/public/TermsAndConditions";
 import CorporateResponsibility from "../pages/public/CorporateResponsibility";
@@ -16,6 +17,7 @@ import CheckOut from "../pages/public/CheckOut";
 import BlogExample from "../pages/public/BlogExample.js";
 import BlogList from "../pages/public/BlogList";
 import Claim from "../pages/public/Claim";
+import Post from "../pages/public/Post";
 
 const PUBLIC_ROUTES = {
     ABOUT_US: {
@@ -126,8 +128,26 @@ const PUBLIC_ROUTES = {
         middleware: props => <PublicMiddleware {...props} />
     },
 
+    HISTORY:{
+        path: "/historia-anticonceptivo",
+        title: "History",
+        component: History,
+        exact: true,
+        layout: props => <BaseTemplate {...props} />,
+        middleware: props => <PublicMiddleware {...props} />
+    },
+
+    POST: {
+        path: "/blog/:post_type_slug?/post/:post_slug?",
+        title: "Post",
+        component: Post,
+        exact: true,
+        layout: props => <BaseTemplate {...props} />,
+        middleware: props => <PublicMiddleware {...props} />
+    },
+
     BLOG: {
-        path: "/blog",
+        path: "/blog/:post_type_slug?",
         title: "Blog",
         component: Blog,
         exact: true,

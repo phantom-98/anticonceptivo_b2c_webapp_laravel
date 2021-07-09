@@ -60,9 +60,14 @@ const ProductInfo = ({ product, setImageSubscription }) => {
                 <span className="font-poppins font-36 bold color-009BE8">
                     {subscription == null
                         ? [
-                              formatMoney(product.price),
+                              formatMoney(product.is_offer ? product.offer_price  : product.price),
                               <span className="font-poppins font-16 bold color-009BE8 ml-2">
-                                  C/U
+                                  C/U {'  '}
+                                  {
+                                    product.is_offer ?
+                                        <s>{formatMoney(product.price)}</s>
+                                    : null
+                                  }
                               </span>
                           ]
                         : [

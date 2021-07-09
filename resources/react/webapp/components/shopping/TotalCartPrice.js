@@ -14,7 +14,7 @@ const TotalCartPrice = () =>{
                 _total = _total + (item.quantity * item.subscription.price * item.subscription.quantity)
                 
             }else{
-                _total = _total + (item.quantity * item.product.price)
+                _total = _total + (item.quantity * item.product.is_offer ? item.product.offer_price : item.product.price)
 
             }
         })

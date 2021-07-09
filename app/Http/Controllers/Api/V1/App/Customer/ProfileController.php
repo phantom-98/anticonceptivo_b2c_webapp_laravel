@@ -39,16 +39,16 @@ class ProfileController extends Controller
                 'id_type',
                 'phone_code',
                 'phone',
-                'business_name',
-                'business_id_number',
-                'commercial_business',
-                'commercial_email',
-                'commercial_address',
-                'commercial_additional_address',
-                'commercial_phone',
-                'commercial_phone_code',
-                'commercial_region_id',
-                'commercial_commune_id',
+                // 'business_name',
+                // 'business_id_number',
+                // 'commercial_business',
+                // 'commercial_email',
+                // 'commercial_address',
+                // 'commercial_additional_address',
+                // 'commercial_phone',
+                // 'commercial_phone_code',
+                // 'commercial_region_id',
+                // 'commercial_commune_id',
             ])->find($request->customer_id);
 
             if (!$customer) {
@@ -723,7 +723,7 @@ class ProfileController extends Controller
 
     private static function getCustomerService(){
         $contactIssue = ContactIssue::where('active',true)->where('section',ContactIssueTypes::CUSTOMER_SERVICE)
-            ->with(['fields'])->get();
+            ->with(['fields','campaign'])->get();
 
         return $contactIssue;
     }

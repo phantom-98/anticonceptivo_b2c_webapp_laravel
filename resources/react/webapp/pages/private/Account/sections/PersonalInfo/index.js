@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
 import FormPersonalData from "./FormPersonalData";
 import H3Panel from "../../../../../components/general/H3Panel";
-import FormComercialInfo from "./FormComercialInfo";
+// import FormComercialInfo from "./FormComercialInfo";
 import {AuthContext} from "../../../../../context/AuthProvider";
 import * as Services from "../../../../../Services";
 import RutValidator from "w2-rut-validator";
@@ -22,75 +22,75 @@ const PersonalInfo = () => {
         phone: '',
         password: '',
         new_password: '',
-        business_name: '',
-        business_id_number: '',
-        commercial_business: '',
-        commercial_email: '',
-        commercial_address: '',
-        commercial_additional_address:'',
-        commercial_phone: '',
-        commercial_phone_code: '',
-        commercial_region_id: '',
-        commercial_commune_id: '',
+        // business_name: '',
+        // business_id_number: '',
+        // commercial_business: '',
+        // commercial_email: '',
+        // commercial_address: '',
+        // commercial_additional_address:'',
+        // commercial_phone: '',
+        // commercial_phone_code: '',
+        // commercial_region_id: '',
+        // commercial_commune_id: '',
     }
 
     const [data, setData] = useState(defaultData);
 
-    const [selectedRegion, setSelectedRegion] = useState(0);
-    const [regions, setRegions] = useState([]);
-    const [communes, setCommunes] = useState([]);
+    // const [selectedRegion, setSelectedRegion] = useState(0);
+    // const [regions, setRegions] = useState([]);
+    // const [communes, setCommunes] = useState([]);
 
     const [rutFlag, setRutFlag] = useState(false);
 
     useEffect(() => {
         if (auth) {
             setData(auth);
-            getData();
+            // getData();
         }
     },[auth])
 
-    useEffect(() => {
-        if (regions.length > 0) {
-            setSelectedRegion(data.commercial_region_id)
-        }
-    },[regions])
+    // useEffect(() => {
+    //     if (regions.length > 0) {
+    //         setSelectedRegion(data.commercial_region_id)
+    //     }
+    // },[regions])
 
-    useEffect(() => {
-        if (selectedRegion) {
-            const region = regions.find(r => r.id == selectedRegion)
-            let tempCommunes = [];
-            region.provinces.map((province) =>{
-                province.communes.map((commune) =>{
-                    tempCommunes.push(commune);
-                })
-            })
-            let orderCommunes =  tempCommunes.sort((a, b)  => {
-                const commA = a.name.toLowerCase();
-                const commB = b.name.toLowerCase();
+    // useEffect(() => {
+    //     if (selectedRegion) {
+    //         const region = regions.find(r => r.id == selectedRegion)
+    //         let tempCommunes = [];
+    //         region.provinces.map((province) =>{
+    //             province.communes.map((commune) =>{
+    //                 tempCommunes.push(commune);
+    //             })
+    //         })
+    //         let orderCommunes =  tempCommunes.sort((a, b)  => {
+    //             const commA = a.name.toLowerCase();
+    //             const commB = b.name.toLowerCase();
 
-                let comparison = 0;
-                if (commA > commB) {
-                    comparison = 1;
-                } else if (commA < commB) {
-                    comparison = -1;
-                }
-                return comparison;
-            })
+    //             let comparison = 0;
+    //             if (commA > commB) {
+    //                 comparison = 1;
+    //             } else if (commA < commB) {
+    //                 comparison = -1;
+    //             }
+    //             return comparison;
+    //         })
 
-            setCommunes(orderCommunes);
+    //         setCommunes(orderCommunes);
 
-        }
-    }, [selectedRegion]);
+    //     }
+    // }, [selectedRegion]);
 
-    const selectRegion = (e) => {
-        const region = regions.find(r => r.id == e.target.value)
-        setData({
-            ...data,
-            commercial_region_id : region.id,
-            commercial_commune_id: null
-        })
-        setSelectedRegion(e.target.value)
-    }
+    // const selectRegion = (e) => {
+    //     const region = regions.find(r => r.id == e.target.value)
+    //     setData({
+    //         ...data,
+    //         commercial_region_id : region.id,
+    //         commercial_commune_id: null
+    //     })
+    //     setSelectedRegion(e.target.value)
+    // }
 
     const handleData = (e) => {
         setData({...data,
@@ -128,24 +128,24 @@ const PersonalInfo = () => {
         }
     }
 
-    const getData = () => {
-        let url = Services.ENDPOINT.CUSTOMER.PROFILE.GET;
-        let dataForm = {
-            customer_id: auth.id
-        }
+    // const getData = () => {
+    //     let url = Services.ENDPOINT.CUSTOMER.PROFILE.GET;
+    //     let dataForm = {
+    //         customer_id: auth.id
+    //     }
 
-        Services.DoPost(url, dataForm).then(response => {
-            Services.Response({
-            response: response,
-            success: () => {
-                // setData(response.data.customer);
-                setRegions(response.data.regions);
-            },
-            });
-        }).catch(error => {
-            Services.ErrorCatch(error)
-        });
-    }
+    //     Services.DoPost(url, dataForm).then(response => {
+    //         Services.Response({
+    //         response: response,
+    //         success: () => {
+    //             // setData(response.data.customer);
+    //             // setRegions(response.data.regions);
+    //         },
+    //         });
+    //     }).catch(error => {
+    //         Services.ErrorCatch(error)
+    //     });
+    // }
 
     const updateData = () => {
         if (rutFlag) {
@@ -207,7 +207,7 @@ const PersonalInfo = () => {
                 </div>
             </div>
 
-            <div className="col-md-12 mb-5">
+            {/* <div className="col-md-12 mb-5">
                 <div className="panel-bordered">
                     <FormComercialInfo
                         handleData={handleData}
@@ -219,7 +219,7 @@ const PersonalInfo = () => {
                         data={data}
                     />
                 </div>
-            </div>
+            </div> */}
 
             <div className="col-md-12 text-right">
                 <button type="button" className="btn btn-bicolor px-5"

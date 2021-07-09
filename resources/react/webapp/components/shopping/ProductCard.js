@@ -26,7 +26,13 @@ const ProductCard = ({product, className = ''}) => {
                         {product.name}
                     </Link>
                 </div>
-                <div className="product-card-price">{formatMoney(product.price)}</div>
+                <div className="product-card-price">{formatMoney(product.is_offer ? product.offer_price : product.price)}
+                    {
+                        product.is_offer ?
+                            <span className="font-poppins font-16 bold color-009BE8"><s>{' '}{formatMoney(product.price)}</s></span>
+                        : null
+                    }
+                </div>
             </div>
             <div className="product-card-cart">
                 <AddCartCard quantity={quantity} setQuantity={setQuantity} product={product}/>

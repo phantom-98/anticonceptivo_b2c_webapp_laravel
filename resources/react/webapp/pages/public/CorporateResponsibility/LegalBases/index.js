@@ -7,7 +7,7 @@ const LegalBases = ({legalBases}) => {
     return (
         <div className="row">
 
-            <H3Panel title="BASES LEGALES"/>
+            <H3Panel title="CARTA DE DESABASTECIMIENTO"/>
 
             <div className="col-md-12">
                 <div className="row">

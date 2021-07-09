@@ -6,9 +6,9 @@ use App\Http\Controllers\Api\V1\App\PublicArea\ProductController;
 use App\Http\Controllers\Api\V1\App\PublicArea\CheckoutController;
 use App\Http\Controllers\Api\V1\App\PublicArea\ClaimController;
 use App\Http\Controllers\Api\V1\App\PublicArea\CorporateResponsibilityController;
-use App\Http\Controllers\Api\V1\App\PublicArea\BlogController;
 use App\Http\Controllers\Api\V1\App\PublicArea\AboutUsController;
 use App\Http\Controllers\Api\V1\App\PublicArea\SubscribeController;
+use App\Http\Controllers\Api\V1\App\PublicArea\BlogController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('public-area')
@@ -21,12 +21,14 @@ Route::prefix('public-area')
 
         Route::post('get-resources', [ProductController::class, 'getResources'])->name('getResources');
         Route::post('get-product-by-categories', [ProductController::class, 'getProductByCategories'])->name('getProductByCategories');
+        Route::get('get-all-available', [ProductController::class, 'getAllAvailable'])->name('getAllAvailable');
         Route::get('get-products', [ProductController::class, 'getProducts'])->name('getProducts');
 
         Route::get('get-terms-and-conditions', [HomeController::class, 'getTermsAndConditions'])->name('getTermsAndConditions');
         Route::get('get-faqs', [HomeController::class, 'getFaqs'])->name('getFaqs');
 
         Route::get('get-footer-resources', [HomeController::class, 'getFooterResources'])->name('getFooterResources');
+        Route::get('get-header-resources', [HomeController::class, 'getHeaderResources'])->name('getHeaderResources');
 
         Route::post('get-product-by-slug', [ProductController::class, 'getProductBySlug'])->name('getProductBySlug');
         Route::post('get-products-filtered', [ProductController::class, 'getProductsFiltered'])->name('getProductsFiltered');
@@ -47,6 +49,9 @@ Route::prefix('public-area')
         Route::get('get-about-us-resources', [AboutUsController::class, 'index'])->name('index');
 
         Route::post('subscribe', [SubscribeController::class, 'subscribe'])->name('subscribe');
+        
+        Route::post('get-posts', [BlogController::class, 'getPosts'])->name('getPosts');
+        Route::post('get-post', [BlogController::class, 'getPost'])->name('getPost');
 
         Route::prefix('contact')
             ->name('contact.')
