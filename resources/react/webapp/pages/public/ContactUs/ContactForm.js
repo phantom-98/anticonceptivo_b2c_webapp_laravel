@@ -33,32 +33,6 @@ const ContactForm = () => {
     }
 
 
-    // const renderDynamicFields = () => {
-    //
-    //     return nestedFields.map((field, index) => {
-    //
-    // if (field.children.length > 0) {
-    //     renderDynamicFields(field.children)
-    // }
-    //         if (field.type === 'value') {
-    //             return <p>({field.id}) ({field.name}) value </p>
-    //         } else if (field.type === 'select') {
-    //             return <p>({field.id}) ({field.name}) seletec </p>
-    //         }
-    //     })
-    // }
-
-    // const recursiveDynamic = (field) => {
-    //
-    //     if (field.children.length) {
-    //         if (field.type === 'input') {
-    //             return <p>render input text</p>
-    //         } else if (field.type === 'select') {
-    //             return <p>render select</p>
-    //         }
-    //     }
-    // }
-
     return (
         <div className="row">
 
