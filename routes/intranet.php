@@ -104,6 +104,7 @@ if (env('SHOW_INTRANET', 'TRUE') == 'TRUE') {
                 Route::resource('faq', 'FaqController', ['names' => getResourceRoutesForNameHelper('faqs')]);
 
                 Route::post('categorias-faq/active', 'CategoryFaqController@active')->name('category_faqs.active');
+                Route::post('categorias-faq/position', 'CategoryFaqController@position')->name('category_faqs.position');
                 Route::resource('categorias-faq', 'CategoryFaqController', ['names' => getResourceRoutesForNameHelper('category_faqs')]);
 
                 Route::post('consumo-responsable/active', 'ResponsibleConsumptionController@active')->name('responsible_consumptions.active');
