@@ -3,7 +3,7 @@ import BasePanelTwo from "../../../template/BasePanelTwo";
 import Subscribe from "../../../components/sections/Subscribe";
 import PUBLIC_ROUTES from "../../../routes/publicRoutes";
 import ProductsCarousel from "../../../components/sections/ProductsCarousel";
-import BlogCarousel from "../../../components/sections/BlogCarousel";
+// import BlogCarousel from "../../../components/sections/BlogCarousel";
 import Article from "./Article";
 import * as Services from "../../../Services";
 import LazyLoading from "../../../components/LazyLoading";
@@ -78,7 +78,7 @@ const Post = ({match}) =>{
                     </div>
                 </div>
             </BasePanelTwo>
-            <BlogCarousel title="Contenidos relacionados" showButton={false} />
+            {/* <BlogCarousel title="Contenidos relacionados" showButton={false} /> */}
             <Subscribe/>
         </Fragment>
     );
