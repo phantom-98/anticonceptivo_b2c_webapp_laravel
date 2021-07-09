@@ -41,32 +41,35 @@ const ContactForm = () => {
                 {
                     nestedFields.map(field => {
                         if (field.children.length > 0) {
-                            return <select name="" id="" onChange={(e => {
-                                const found = list.find(l => l.id == e.target.value)
+                            return <div>
+                                <label htmlFor="">{field.name}</label>
+                                <select name="" id="" onChange={(e => {
+                                    const found = list.find(l => l.id == e.target.value)
 
-                                if (found.nested_field_questions.length > 0) {
-                                    // console.log('found', found);
+                                    if (found.nested_field_questions.length > 0) {
+                                        // console.log('found', found);
 
-                                    let div = [];
-                                    found.nested_field_questions.map(q => {
-                                        div.push(<div key={q.id}><label htmlFor="">{q.name}</label><input type="text" value=""/>
-                                        </div>)
+                                        let div = [];
+                                        found.nested_field_questions.map(q => {
+                                            div.push(<div key={q.id}><label htmlFor="">{q.name}</label><input type="text" value=""/>
+                                            </div>)
 
-                                    })
+                                        })
 
-                                    setInput(div)
-                                }else{
-                                    setInput(null)
-                                }
-                            })}>
+                                        setInput(div)
+                                    }else{
+                                        setInput(null)
+                                    }
+                                })}>
 
-                                <option value="">Seleccione</option>
-                                {
-                                    field.children.map(ch => {
-                                        return <option value={ch.id}>{ch.name}</option>
-                                    })
-                                }
-                            </select>
+                                    <option value="">Seleccione</option>
+                                    {
+                                        field.children.map(ch => {
+                                            return <option value={ch.id}>{ch.name}</option>
+                                        })
+                                    }
+                                </select>
+                            </div>
                         }
                     })
                 }
