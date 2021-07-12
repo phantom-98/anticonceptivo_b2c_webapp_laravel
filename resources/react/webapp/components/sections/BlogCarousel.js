@@ -61,7 +61,7 @@ const BlogCarousel = ({title, showButton = true, buttonTitle = ' VER MÁS', show
                                         {
                                             outstandings.map((outstanding, index) => {
                                                 let outstandingKey = uuidv4();
-                                                let outstandingLink = postRoute(post.post_type.slug, outstanding.slug)
+                                                let outstandingLink = postRoute(outstanding.post_type.slug, outstanding.slug)
                                                 return <div className="col-md-6" key={outstandingKey}>
                                                     <Link to={outstandingLink}>
                                                         <div className="blog-card" style={{
