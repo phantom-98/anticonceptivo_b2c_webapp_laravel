@@ -138,31 +138,31 @@ class WebpayPlusController
                 }else{
                     $orderItem->price = $item['product']['price'];
                 }
+                
+                // if($item['subscription'] != null){          
+                //     $isSubscription = 1;
 
-                if($item['subscription'] != null){          
-                    $isSubscription = 1;
+                //     $subtotal = $subtotal + ($item['quantity'] * $item['subscription']['price']);
 
-                    $subtotal = $subtotal + ($item['quantity'] * $item['subscription']['price']);
+                //     $orderItem->subtotal = ($item['quantity'] * $item['subscription']['price']);
+                //     $orderItem->subscription_plan_id = $item['subscription']['subscription_plan_id'];
+                //     $subscriptionPlan = SubscriptionPlan::find($item['subscription']['subscription_plan_id']);
+                //     $orderItem->save();
 
-                    $orderItem->subtotal = ($item['quantity'] * $item['subscription']['price']);
-                    $orderItem->subscription_plan_id = $item['subscription']['subscription_plan_id'];
-                    $subscriptionPlan = SubscriptionPlan::find($item['subscription']['subscription_plan_id']);
-                    $orderItem->save();
+                //     for ($i=0; $i < round($subscriptionPlan->months/2); $i++) { 
+                //         $subscriptionOrdersItem = new SubscriptionsOrdersItem;
+                //         $subscriptionOrdersItem->is_pay = 0;
+                //         $subscriptionOrdersItem->order_id = $order->id;
+                //         $subscriptionOrdersItem->orders_item_id = $orderItem->id;
+                //         $subscriptionOrdersItem->pay_date = Carbon::now()->addMonths($i*2);
+                //         $subscriptionOrdersItem->dispatch_date = Carbon::now()->addMonths($i*2)->addDay(5);
+                //         $subscriptionOrdersItem->subscription_id = $request->subscription['id'];
+                //         $subscriptionOrdersItem->customer_address_id = $customerAddress->id;
+                //         $subscriptionOrdersItem->status = 'CREATED';
+                //         $subscriptionOrdersItem->save();
+                //     }
 
-                    for ($i=0; $i < round($subscriptionPlan->months/2); $i++) { 
-                        $subscriptionOrdersItem = new SubscriptionsOrdersItem;
-                        $subscriptionOrdersItem->is_pay = 0;
-                        $subscriptionOrdersItem->order_id = $order->id;
-                        $subscriptionOrdersItem->orders_item_id = $orderItem->id;
-                        $subscriptionOrdersItem->pay_date = Carbon::now()->addMonths($i*2);
-                        $subscriptionOrdersItem->dispatch_date = Carbon::now()->addMonths($i*2)->addDay(5);
-                        $subscriptionOrdersItem->subscription_id = $request->subscription['id'];
-                        $subscriptionOrdersItem->customer_address_id = $customerAddress->id;
-                        $subscriptionOrdersItem->status = 'CREATED';
-                        $subscriptionOrdersItem->save();
-                    }
-
-                }else{
+                // }else{
                     if ($item['product']['is_offer'] == true) {
                         $subtotal = $subtotal + ($item['quantity'] * $item['product']['offer_price']);
                         $orderItem->subtotal = ($item['quantity'] * $item['product']['offer_price']);
@@ -173,7 +173,7 @@ class WebpayPlusController
                     
                     $orderItem->subscription_plan_id = null;
 
-                }
+                // }
 
                 $orderItem->product_attributes = null;
                 $orderItem->extra_price = null;

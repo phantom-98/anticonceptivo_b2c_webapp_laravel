@@ -36,7 +36,7 @@ const ProductItem = ({item}) => {
                     <div className="font-poppins font-16 bold color-009BE8">
 
                         {
-                            item.subscription == null ? formatMoney(item.product.price * item.product.is_offer ? item.product.offer_price : item.quantity) : formatMoney(item.subscription.price*item.subscription.quantity * item.quantity) + ' ('+ formatMoney(item.subscription.price)+' c/u)'
+                            item.subscription == null ? formatMoney( item.quantity * (item.product.is_offer ? item.product.offer_price : item.product.price)) : formatMoney(item.subscription.price*item.subscription.quantity * item.quantity) + ' ('+ formatMoney(item.subscription.price)+' c/u)'
                         }
                         
                     </div>
