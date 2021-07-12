@@ -13,6 +13,7 @@ import PUBLIC_ROUTES from "../../../routes/publicRoutes";
 import Icon from "../../../components/general/Icon";
 import {Link} from "react-router-dom";
 import * as Services from "../../../Services";
+import { v4 as uuidv4 } from 'uuid';
 
 const Footer = () => {
 
@@ -80,8 +81,9 @@ const Footer = () => {
                                 </li>
                                 {
                                     sections.map((section) => {
+                                        let sectionKey = uuidv4();
                                         return(
-                                            <li className="nav-item">
+                                            <li className="nav-item" key={sectionKey}>
                                                 <a className="nav-link" href={section.link} target="_blank">
                                                     {section.name}
                                                 </a>

@@ -1,9 +1,9 @@
 import React, {Fragment, useEffect, useState, useContext} from 'react';
 import OurBrands from "./OurBrands";
 import Subscribe from "../../../components/sections/Subscribe";
-// import BestSeller from "../../../components/sections/BestSellers";
-// import OutstandingCarousel from "../../../components/sections/OutstandingCarousel";
-// import BlogCarousel from "../../../components/sections/BlogCarousel";
+import BestSeller from "../../../components/sections/BestSellers";
+import OutstandingCarousel from "../../../components/sections/OutstandingCarousel";
+import BlogCarousel from "../../../components/sections/BlogCarousel";
 import {ModalAuthMode} from "../../../Globals";
 import {AppContext} from "../../../context/AppProvider";
 import BannerCarousel from "../../../components/sections/BannerCarousel";
@@ -59,13 +59,13 @@ const Home = ({match}) => {
             <div className="bg-FAFAFA">
                 <BannerCarousel topBanners={topBanners}/>
 
-                {/* <OutstandingCarousel title="Destacados" outstandings={outstandings}/> */}
+                <OutstandingCarousel title="Destacados" outstandings={outstandings}/>
 
                 <BannerStatic banners={middleBanners}/>
 
-                {/* <BestSeller bestSellers={bestSellers}/> */}
+                <BestSeller bestSellers={bestSellers}/>
 
-                {/* <BlogCarousel title="BLOG" showButton={true} buttonTitle="VER MÁS NOTICIAS" /> */}
+                <BlogCarousel title="BLOG" showButton={true} buttonTitle="VER MÁS NOTICIAS" />
 
                 <BannerStatic banners={bottomBanners}/>
 

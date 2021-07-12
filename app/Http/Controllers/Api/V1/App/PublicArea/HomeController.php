@@ -70,8 +70,9 @@ class HomeController extends Controller
     public function getFaqs()
     {
         try {
+            
             $category_faqs = CategoryFaq::where('active', true)->with(['faqs'])
-            ->whereHas('faqs', function($q){$q->where('active',true);})
+            ->whereHas('faqs', function($q){$q->where('active',true);})->orderBy('position')
             ->get();
 
             return ApiResponse::JsonSuccess(['category_faqs' => $category_faqs]);
@@ -121,7 +122,8 @@ class HomeController extends Controller
             $middleBanners = Banner::where('location','Home (Centro)')->where('active',true)->orderBy('position')->get();
             $bottomBanners = Banner::where('location','Home (Inferior)')->where('active',true)->orderBy('position')->get();
 
-            $outstandings = Product::where('outstanding', true)->where('active',true)->with(['subcategory.category','images','laboratory'])->get();
+            $outstandings = Product::where('outstanding', true)->where('active',true)->where('recipe_type','Venta Directa')
+                ->with(['subcategory.category','images','laboratory'])->get();
 
             if (!$outstandings->count()) {
                 $outstandings = Product::where('active',true)->with(['subcategory.category','images','laboratory'])->take(10)->get();
@@ -131,7 +133,8 @@ class HomeController extends Controller
                 $q->where('status','PAID');
             })->select('product_id', DB::raw('sum(quantity) as total'))->groupBy('product_id')->orderBy('total', 'desc')->get();
 
-            $bestSellers = Product::with(['subcategory.category','images','laboratory'])->whereIn('id',$productsId->where('recipe_type','Venta Directa')->pluck('product_id'))->get();
+            $bestSellers = Product::with(['subcategory.category','images','laboratory'])->where('recipe_type','Venta Directa')
+                ->whereIn('id',$productsId)->pluck('product_id')->get();
 
             $brands = Brand::where('active',true)->orderBy('position')->get();
 
