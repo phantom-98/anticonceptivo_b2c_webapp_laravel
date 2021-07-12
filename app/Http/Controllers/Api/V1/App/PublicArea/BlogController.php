@@ -73,4 +73,44 @@ class BlogController extends Controller
             return ApiResponse::JsonError(null, $exception->getMessage());
         }
     }
+
+    public function getCarouselPosts(Request $request){
+        try {
+
+            $posts = [];
+            $outstandings = [];
+
+            if ($request->default == false) {
+                $postType = PostType::where('slug', $request->type)->where('active',true)->first();
+
+                if ($request->show_outstanding == true) {
+                    $outstandings = Post::where('active',true)->where('post_type_id',$postType->id)
+                        ->with(['author','post_type'])->orderBy('visits','desc')->get()->take(2);
+
+                    $posts = Post::where('active',true)->where('post_type_id',$postType->id)
+                        ->with(['author','post_type'])->whereNotIn('id',$outstandings->pluck('id'))
+                            ->inRandomOrder()->get()->take(4);
+                }else{
+                    $posts = Post::where('active',true)->where('post_type_id',$postType->id)
+                        ->with(['author','post_type'])->inRandomOrder()->get()->take(4);
+                }
+            }else{
+                if ($request->show_outstanding == true) {
+                    $outstandings = Post::where('active',true)->with(['author','post_type'])->orderBy('visits','desc')->get()->take(2);
+                    $posts = Post::where('active',true)->with(['author','post_type'])->whereNotIn('id',$outstandings->pluck('id'))
+                        ->inRandomOrder()->get()->take(4);
+                }else{
+                    $posts = Post::where('active',true)->with(['author','post_type'])->inRandomOrder()->get()->take(4);
+                }
+            }
+
+            return ApiResponse::JsonSuccess([
+                'posts' => $posts,
+                'outstandings' => $outstandings
+            ]);
+
+        } catch (\Exception $exception) {
+            return ApiResponse::JsonError(null, $exception->getMessage());
+        }
+    }
 }

@@ -1,5 +1,4 @@
 import React from 'react';
-
 import PublicMiddleware from "./middleware/PublicMiddleware";
 import BaseTemplate from "../template";
 import Home from '../pages/public/Home';
@@ -14,7 +13,6 @@ import Shop from "../pages/public/Shop";
 import ProductDetail from "../pages/public/ProductDetails";
 import Cart from "../pages/public/Cart";
 import CheckOut from "../pages/public/CheckOut";
-// import BlogExample from "../pages/public/BlogExample.js";
 import BlogList from "../pages/public/BlogList";
 import Claim from "../pages/public/Claim";
 import Post from "../pages/public/Post";
@@ -163,15 +161,6 @@ const PUBLIC_ROUTES = {
         layout: props => <BaseTemplate {...props} />,
         middleware: props => <PublicMiddleware {...props} />
     },
-
-    // BLOG_EXAMPLE: {
-    //     path: "/blog/blog-de-ejemplo",
-    //     title: "Blog de Ejemplo",
-    //     component: BlogExample,
-    //     exact: true,
-    //     layout: props => <BaseTemplate {...props} />,
-    //     middleware: props => <PublicMiddleware {...props} />
-    // },
 
     RECOVERY: {
         path: "/recuperar-contrasena/:token?",

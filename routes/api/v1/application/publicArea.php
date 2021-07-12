@@ -52,6 +52,7 @@ Route::prefix('public-area')
         
         Route::post('get-posts', [BlogController::class, 'getPosts'])->name('getPosts');
         Route::post('get-post', [BlogController::class, 'getPost'])->name('getPost');
+        Route::post('get-carousel-posts', [BlogController::class, 'getCarouselPosts'])->name('getCarouselPosts');
 
         Route::prefix('contact')
             ->name('contact.')
