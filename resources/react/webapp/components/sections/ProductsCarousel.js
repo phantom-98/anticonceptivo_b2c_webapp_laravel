@@ -10,8 +10,6 @@ import { v4 as uuidv4 } from 'uuid';
 
 const ProductsCarousel = ({title}) => {
 
-    console.log('aa');
-
     const settings = {
         dots: true,
         infinite: true,
@@ -25,18 +23,15 @@ const ProductsCarousel = ({title}) => {
 
     useEffect(() => {
         getProducts();
-        console.log('a');
     }, [])
 
     const getProducts = () => {
         let url = Services.ENDPOINT.NO_AUTH.PRODUCT.GET;
         let data = {}
-        console.log('b');
         Services.DoGet(url,data).then(response => {
             Services.Response({
             response: response,
                 success: () => {
-                    console.log('c');
                     setProducts(response.data.products);
                     setLoaded(true);
                 },

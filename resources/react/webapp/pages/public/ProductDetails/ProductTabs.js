@@ -5,10 +5,6 @@ const ProductTabs = ({product, legalWarning, valid}) =>{
 
     const [key, setKey] = useState(valid ? 'benefits' : 'technical');
 
-    useEffect(() => {
-        console.log(valid);
-    }, [valid])
-
     return (
         <div className="row pb-5">            
             <div className="col-auto mr-0 pr-0" style={{width: '118px'}}>
