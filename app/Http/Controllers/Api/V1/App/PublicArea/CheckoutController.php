@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1\App\PublicArea;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Willywes\ApiResponse\ApiResponse;
 use App\Http\Utils\OutputMessage\OutputMessage;
 use App\Models\Customer;
@@ -39,6 +40,17 @@ class CheckoutController extends Controller
 
             $order = Order::with(['customer','order_items.subscription_plan.product_subscription_plan'])->find($request->order_id);
 
+            if (isset($request->attachments)) {
+                foreach ($request->attachments as $file) {
+                    $prescription = new Prescription();
+                    $prescription->customer_id = $order->customer_id;
+                    $prescription->order_id = $order->id;
+                    $prescription->name = $file->getClientOriginalName();
+                    $prescription->file = $file->storeAs('public/customer/prescriptions/prescription-' . $order->customer_id .'-' . $order->id . '-' . Str::random(6), $file->getClientOriginalName());
+                    $prescription->save();
+                }
+            }
+
             return ApiResponse::JsonSuccess([
                 'order' => $order,
             ], OutputMessage::SUCCESS);
@@ -56,15 +68,31 @@ class CheckoutController extends Controller
                 return ApiResponse::JsonError(null, 'No se ha podido validar el paso.');
             }
 
-            if ($request->step === 1) {
+            if ($request->step == 1) {
                 if (is_object(self::ValidateStepOne($request))){
                     return ApiResponse::JsonFieldValidation(self::ValidateStepOne($request));
                 }else{
+                    if ($request->product_count > 0) {
+
+                        $isFile = false;
+
+                        foreach ($request->files as $file) {
+                            if (count($file) != $request->product_count) {
+                                return ApiResponse::JsonError(null,'Por favor, ingresar todas las recetas.');
+                            }
+
+                            $isFile = true;
+                        }
+                        
+                        if (!$isFile) {
+                            return ApiResponse::JsonError(null,'Por favor, ingresar todas las recetas.');
+                        }
+                    }
                     return ApiResponse::JsonSuccess(null, OutputMessage::STEP_SUCCESS);
                 }
             }
 
-            if ($request->step === 2) {
+            if ($request->step == 2) {
                 if (is_object(self::ValidateStepTwo($request))){
                     return ApiResponse::JsonFieldValidation(self::ValidateStepTwo($request));
                 }else{

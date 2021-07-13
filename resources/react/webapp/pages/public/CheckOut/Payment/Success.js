@@ -7,7 +7,7 @@ import Icon from "../../../../components/general/Icon";
 import checkCircle from "../../../../assets/images/icons/checkmark-circle-outline.svg";
 import * as Services from "../../../../Services";
 
-const Success = ({orderId}) => {
+const Success = ({orderId, files, productCount}) => {
 
     const [order, setOrder] = useState();
     const [load, setLoad] = useState(true);
@@ -18,16 +18,31 @@ const Success = ({orderId}) => {
 
     const getData = () => {
         let url = Services.ENDPOINT.NO_AUTH.CHECKOUT.GET_ORDER;
-        let data = {
-            order_id: orderId
+
+        const formData = new FormData();
+
+        formData.append('product_count', productCount);
+        formData.append('order_id', orderId);
+
+        let fileList = [...files]
+            
+        for(let i=0; i < fileList.length; i++){
+            formData.append('attachments[]', fileList[i]);
         }
-        Services.DoPost(url,data).then(response => {
+        
+        const config = {
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
+        }
+
+        Services.DoPost(url, formData, config).then(response => {
             Services.Response({
-              response: response,
-              success: () => {
-                  setOrder(response.data.order);
-                  setLoad(false);
-              },
+            response: response,
+            success: () => {
+                setOrder(response.data.order);
+                setLoad(false);
+            },
             });
         }).catch(error => {
             Services.ErrorCatch(error)
