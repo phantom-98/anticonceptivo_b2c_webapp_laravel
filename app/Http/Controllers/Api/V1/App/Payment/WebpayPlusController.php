@@ -138,8 +138,8 @@ class WebpayPlusController
                 }else{
                     $orderItem->price = $item['product']['price'];
                 }
-
-                if($item['subscription'] != null){          
+                
+                if(isset($item['subscription'])){          
                     $isSubscription = 1;
 
                     $subtotal = $subtotal + ($item['quantity'] * $item['subscription']['price']);

@@ -1596,6 +1596,10 @@ input.my-auto.file-input {
   margin: auto;
 }
 
+.custom-file-input ~ .custom-file-label::after {
+  content: "Subir";
+}
+
 .blog-card {
   height: 379px;
   width: 100%;

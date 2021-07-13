@@ -25,3 +25,7 @@
 .circle-step-ready img{
     margin: auto;
 }
+
+.custom-file-input ~ .custom-file-label::after {
+    content: "Subir";
+}

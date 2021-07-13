@@ -151,11 +151,29 @@ class ProfileController extends Controller
 
     public function getAddresses(Request $request)
     {
-        try {
+        try {    
+
             $customer = Customer::find($request->customer_id);
 
             if (!$customer) {
                 return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_NOT_FOUND);
+            }
+
+            if ($request->product_count > 0) {
+
+                $isFile = false;
+
+                foreach ($request->files as $file) {
+                    if (count($file) != $request->product_count) {
+                        return ApiResponse::JsonError(null,'Por favor, ingresar todas las recetas.');
+                    }
+
+                    $isFile = true;
+                }
+                
+                if (!$isFile) {
+                    return ApiResponse::JsonError(null,'Por favor, ingresar todas las recetas.');
+                }
             }
 
             $addresses = CustomerAddress::where('customer_id', $customer->id)->get();
