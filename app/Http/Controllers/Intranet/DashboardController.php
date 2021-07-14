@@ -45,7 +45,7 @@ class DashboardController extends Controller
         $claims = Claim::count();
         $claims_open = Claim::where('is_reply', 0)->count();
 
-        $total_products = OrderItem::count();
+        $total_products = OrderItem::sum('quantity');
 
         $subscriptions = SubscriptionsOrdersItem::whereHas('order', function ($order) {
             $order->where('is_paid', 1);
