@@ -24,15 +24,15 @@ class DashboardController extends Controller
 
     function index(Request $request)
     {   
-        $orderTotals = Order::where('is_pay', 1)->count();
+        $orderTotals = Order::where('is_paid', 1)->count();
 
-        $orderToday = Order::whereBetween('created_at', [Carbon::now()->startOfDay(), Carbon::now()->endOfDay()])->where('is_pay', 1)->count();
-        $orderThisWeek = Order::whereBetween('created_at', [Carbon::now()->startOfWeek()->toDateTimeString(), Carbon::now()])->where('is_pay', 1)->count();
-        $orderThisMonth = Order::whereBetween('created_at', [Carbon::now()->startOfMonth()->toDateTimeString(), Carbon::now()->endOfMonth()->toDateTimeString()])->where('is_pay', 1)->count();
+        $orderToday = Order::whereBetween('created_at', [Carbon::now()->startOfDay(), Carbon::now()->endOfDay()])->where('is_paid', 1)->count();
+        $orderThisWeek = Order::whereBetween('created_at', [Carbon::now()->startOfWeek()->toDateTimeString(), Carbon::now()])->where('is_paid', 1)->count();
+        $orderThisMonth = Order::whereBetween('created_at', [Carbon::now()->startOfMonth()->toDateTimeString(), Carbon::now()->endOfMonth()->toDateTimeString()])->where('is_paid', 1)->count();
 
-        $sellToday = Order::whereBetween('created_at', [Carbon::now()->startOfDay(), Carbon::now()->endOfDay()])->where('is_pay', 1)->get()->sum('total');
-        $sellWeek = Order::whereBetween('created_at', [Carbon::now()->startOfWeek()->toDateTimeString(), Carbon::now()])->where('is_pay', 1)->get()->sum('total');
-        $sellMonth = Order::whereBetween('created_at', [Carbon::now()->startOfMonth()->toDateTimeString(), Carbon::now()->endOfMonth()->toDateTimeString()])->where('is_pay', 1)->get()->sum('total');
+        $sellToday = Order::whereBetween('created_at', [Carbon::now()->startOfDay(), Carbon::now()->endOfDay()])->where('is_paid', 1)->get()->sum('total');
+        $sellWeek = Order::whereBetween('created_at', [Carbon::now()->startOfWeek()->toDateTimeString(), Carbon::now()])->where('is_paid', 1)->get()->sum('total');
+        $sellMonth = Order::whereBetween('created_at', [Carbon::now()->startOfMonth()->toDateTimeString(), Carbon::now()->endOfMonth()->toDateTimeString()])->where('is_paid', 1)->get()->sum('total');
 
         $products = Product::count();
         $prescriptions = Prescription::count();
