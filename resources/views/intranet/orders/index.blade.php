@@ -74,6 +74,7 @@
                                             </button>
                                         </div>
                                     </div>
+                                    @can('intranet.orders.export')
                                     <div class="col-md-1" style="margin-bottom: 10px">
                                         <div class="form-group">
                                             <button type="submit" class="btn btn-success left " onclick="export_excel()"
@@ -81,6 +82,7 @@
                                             </button>
                                         </div>
                                     </div>
+                                    @endcan
                                 </form>
 
                                 <form id="form-export" target="_BLANK"
@@ -186,6 +188,7 @@
                                 @if($config['blade']['showActions'])
                                     <td>
                                         <div >
+                                            @can('intranet.orders.changeOrderStatus')
                                             @if($object->prescription && $object->prescription_validation == 0)
                                             @push('prepend_actions_buttons' .  $object->id)
                                                 <a onclick="prescription({{$object->id}})"
@@ -195,6 +198,7 @@
                                                 </a>
                                             @endpush
                                             @endif
+                                            @endcan
                                             @include('intranet.template.components._crud_html_actions_buttons')
                                         </div>
                                     </td>

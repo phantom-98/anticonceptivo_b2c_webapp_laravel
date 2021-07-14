@@ -27,7 +27,7 @@ class ProductController extends GlobalController
         'pluralName' => 'Productos',
         'singularName' => 'Producto',
         'disableActions' => ['changeStatus'],
-        'enableActions' => ['export','position', 'import']
+        'enableActions' => ['position']
     ];
 
     public function __construct()
