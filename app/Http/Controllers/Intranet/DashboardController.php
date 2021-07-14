@@ -64,7 +64,7 @@ class DashboardController extends Controller
         $total = OrderItem::whereHas('order', function ($o) use ($start, $end) {
             $o->whereBetween('created_at', [$start, $end])
             ->where('is_paid', 1);
-        })->count();
+        })->sum('quantity');
 
         $categories = Category::where('active', 1)->get();
 
@@ -82,7 +82,7 @@ class DashboardController extends Controller
             })->whereHas('order', function ($o) use ($start, $end) {
                 $o->whereBetween('created_at', [$start, $end])
                 ->where('is_paid', 1);
-            })->count();
+            })->sum('quantity');
 
             $count = round($products / $total * 100);
             array_push($array_percentage, $count);
@@ -101,7 +101,7 @@ class DashboardController extends Controller
         $total = OrderItem::whereHas('order', function ($o) use ($start, $end) {
             $o->whereBetween('created_at', [$start, $end])
             ->where('is_paid', 1);
-        })->count();
+        })->sum('quantity');
 
         $laboratories = Laboratory::where('active', 1)->get();
 
@@ -115,7 +115,7 @@ class DashboardController extends Controller
             })->whereHas('order', function ($o) use ($start, $end) {
                 $o->whereBetween('created_at', [$start, $end])
                 ->where('is_paid', 1);
-            })->count();
+            })->sum('quantity');
 
             $count = round($products / $total * 100);
             array_push($array_percentage, $count);
@@ -134,12 +134,13 @@ class DashboardController extends Controller
         $total = OrderItem::whereHas('order', function ($o) use ($start, $end) {
             $o->whereBetween('created_at', [$start, $end])
             ->where('is_paid', 1);
-        })->count();
+        })->sum('quantity');
 
         $subscriptions = [
-            "4",
-            "6",
-            "12"
+           '4',
+            '6',
+            '12',
+            'Sin suscripción'
         ];
 
         $array_percentage = [];
@@ -147,18 +148,23 @@ class DashboardController extends Controller
         $array_subscriptions = $subscriptions;
 
         foreach($subscriptions as $subscription){
-            $products = SubscriptionsOrdersItem::select('orders_item_id')->whereHas('order_item', function ($p) use ($subscription) {
-                $p->whereHas('subscription_plan', function ($p) use ($subscription) {
-                    $p->where('months', $subscription);
-                });
-            })->whereHas('order', function ($o) use ($start, $end) {
-                $o->whereBetween('created_at', [$start, $end])
-                ->where('is_paid', 1);
-            })->groupBy('orders_item_id')->count();
+            if($subscription != 'Sin suscripción'){
+                $products = SubscriptionsOrdersItem::select('orders_item_id')->whereHas('order_item', function ($p) use ($subscription) {
+                    $p->whereHas('subscription_plan', function ($p) use ($subscription) {
+                        $p->where('months', $subscription);
+                    });
+                })->whereHas('order', function ($o) use ($start, $end) {
+                    $o->whereBetween('created_at', [$start, $end])
+                    ->where('is_paid', 1);
+                })->groupBy('orders_item_id')->count();
 
-            $count = round($products / $total * 100);
-            array_push($array_percentage, $count);
-            array_push($array_count, $products);
+                $count = round($products / $total * 100);
+                array_push($array_percentage, $count);
+                array_push($array_count, $products);
+
+            } else {
+                
+            }
         }
 
         return response()->json(['names' => $array_subscriptions, 'percentage' => $array_percentage, 'count' => $array_count], 200);
@@ -173,7 +179,7 @@ class DashboardController extends Controller
         $total = OrderItem::whereHas('order', function ($o) use ($start, $end) {
             $o->whereBetween('created_at', [$start, $end])
             ->where('is_paid', 1);
-        })->count();
+        })->sum('quantity');
 
         $formats = [
             "1",
@@ -227,7 +233,7 @@ class DashboardController extends Controller
             })->whereHas('order', function ($o) use ($start, $end) {
                 $o->whereBetween('created_at', [$start, $end])
                 ->where('is_paid', 1);
-            })->count();
+            })->sum('quantity');
 
             $count = round($products / $total * 100);
             array_push($array_percentage, $count);
@@ -246,7 +252,7 @@ class DashboardController extends Controller
         $total = OrderItem::whereHas('order', function ($o) use ($start, $end) {
             $o->whereBetween('created_at', [$start, $end])
             ->where('is_paid', 1);
-        })->count();
+        })->sum('quantity');
 
         $prescriptions = [
             "Venta Directa",
@@ -270,7 +276,7 @@ class DashboardController extends Controller
             })->whereHas('order', function ($o) use ($start, $end) {
                 $o->whereBetween('created_at', [$start, $end])
                 ->where('is_paid', 1);
-            })->count();
+            })->sum('quantity');
 
             $count = round($products / $total * 100);
             array_push($array_percentage, $count);
