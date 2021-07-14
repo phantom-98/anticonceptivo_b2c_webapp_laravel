@@ -17,6 +17,7 @@ use App\Models\Category;
 use App\Models\Claim;
 use App\Models\Prescription;
 use App\Models\Laboratory;
+use App\Models\SubscriptionsOrdersItem;
 
 class DashboardController extends Controller
 {
@@ -46,7 +47,9 @@ class DashboardController extends Controller
 
         $total_products = OrderItem::count();
 
-        $subscriptions = 0;
+        $subscriptions = SubscriptionsOrdersItem::whereHas('order', function ($o) use ($start, $end) {
+            $o->where('is_paid', 1);
+        })->where('status', 'CREATED')->orderBy('dispatch_date', 'desc')->groupBy('orders_item_id')->count();
 
         return view($this->folder . 'index', compact('orderTotals', 'orderToday', 'orderThisWeek', 'orderThisMonth', 'sellToday', 'sellWeek', 'sellMonth', 
         'products', 'prescriptions', 'customers', 'contacts', 'contacts_open', 'claims', 'claims_open', 'subscriptions', 'total_products'));
@@ -74,7 +77,8 @@ class DashboardController extends Controller
                     });
                 });
             })->whereHas('order', function ($o) use ($start, $end) {
-                $o->whereBetween('created_at', [$start, $end]);
+                $o->whereBetween('created_at', [$start, $end])
+                ->where('is_paid', 1);
             })->count();
 
             $count = round($products / $total * 100);
@@ -100,10 +104,11 @@ class DashboardController extends Controller
         $array_laboratories = $laboratories->pluck('name')->toArray();
 
         foreach($laboratories as $laboratory){
-            $products = OrderItem::whereHas('product', function ($p) use ($laboratory) {
+            $products = Laboratory::whereHas('product', function ($p) use ($laboratory) {
                 $p->where('laboratory_id', '=', $laboratory->id);
             })->whereHas('order', function ($o) use ($start, $end) {
-                $o->whereBetween('created_at', [$start, $end]);
+                $o->whereBetween('created_at', [$start, $end])
+                ->where('is_paid', 1);
             })->count();
 
             $count = round($products / $total * 100);
@@ -122,25 +127,33 @@ class DashboardController extends Controller
 
         $total = OrderItem::count();
 
-        $laboratories = Laboratory::where('active', 1)->get();
+        $subscriptions = [
+            "4",
+            "6",
+            "12"
+        ];
 
         $array_percentage = [];
         $array_count = [];
-        $array_laboratories = $laboratories->pluck('name')->toArray();
+        $array_subscriptions = $subscriptions;
 
-        foreach($laboratories as $laboratory){
-            $products = OrderItem::whereHas('product', function ($p) use ($laboratory) {
-                $p->where('laboratory_id', '=', $laboratory->id);
+        foreach($subscriptions as $subscription){
+            $products = SubscriptionsOrdersItem::select('orders_item_id')->whereHas('order_item', function ($p) use ($subscription) {
+                $p->whereHas('subscription_plan', function ($o) use ($subscription) {
+                    $o->whereBetween('created_at', [$start, $end])
+                    ->where('months', $subscription);
+                });
             })->whereHas('order', function ($o) use ($start, $end) {
-                $o->whereBetween('created_at', [$start, $end]);
-            })->count();
+                $o->whereBetween('created_at', [$start, $end])
+                ->where('is_paid', 1);
+            })->groupBy('orders_item_id')->count();
 
             $count = round($products / $total * 100);
             array_push($array_percentage, $count);
             array_push($array_count, $products);
         }
 
-        return response()->json(['names' => $array_laboratories, 'percentage' => $array_percentage, 'count' => $array_count], 200);
+        return response()->json(['names' => $array_subscriptions, 'percentage' => $array_percentage, 'count' => $array_count], 200);
     }
 
     public function format(Request $request){
@@ -201,7 +214,8 @@ class DashboardController extends Controller
                     $p->whereNull('format');
                 }
             })->whereHas('order', function ($o) use ($start, $end) {
-                $o->whereBetween('created_at', [$start, $end]);
+                $o->whereBetween('created_at', [$start, $end])
+                ->where('is_paid', 1);
             })->count();
 
             $count = round($products / $total * 100);
@@ -240,7 +254,8 @@ class DashboardController extends Controller
                     $p->whereNull('recipe_type');
                 }
             })->whereHas('order', function ($o) use ($start, $end) {
-                $o->whereBetween('created_at', [$start, $end]);
+                $o->whereBetween('created_at', [$start, $end])
+                ->where('is_paid', 1);
             })->count();
 
             $count = round($products / $total * 100);

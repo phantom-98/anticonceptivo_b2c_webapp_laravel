@@ -846,7 +846,89 @@
 
 <script>
     function subscriptions(data){
-        
+        $('#subscriptionsChart').replaceWith($('<canvas id="subscriptionsChart" height="80px"></canvas>'));
+        var ctx = document.getElementById('subscriptionsChart');
+
+        var names = [];
+        var count = [];
+        var percentage = [];
+        var colors = [];
+
+        data.names.forEach(function (d, index) {
+            names.push(d);
+            colors.push('rgba('+random_rgba()+', 1)');
+        });
+
+        data.percentage.forEach(function (d, index) {
+            percentage.push(d);
+        });
+
+        data.count.forEach(function (d, index) {
+            count.push(d);
+        });
+
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: names,
+                datasets: [
+                    {
+                        label: 'Cantidad',
+                        data: count,
+                        backgroundColor: colors,
+                        scaleFontColor: "#000000",
+                        borderWidth: 1,
+                        yAxisID: 'left-axis'
+                    },
+                    {
+                        label: 'Porcentaje',
+                        data: percentage,
+                        backgroundColor: colors,
+                        scaleFontColor: "#000000",
+                        borderWidth: 1,
+                        yAxisID: 'right-axis'
+                    },
+                ]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    xAxes: [{display: true, stacked:false}],
+                    yAxes: [{
+                        beginAtZero: true,
+                        type:'linear',
+                        id:'left-axis',
+                        display: true,
+                        position: 'left',
+                        stepSize: 1,
+                        scaleLabel: {display: true, labelString: '#'},
+                        userCallback: function (label, index, labels) {
+                            // when the floored value is the same as the value we have a whole number
+                            if (Math.floor(label) === label) {
+                                return label;
+                            }
+
+                        },
+                    },{
+                        type:'linear',
+                        id:'right-axis',
+                        display: true,
+                        position: 'right',
+                        beginAtZero: true,
+                        scaleLabel: {display: true, labelString: '%'},
+                        gridLines: {drawOnChartArea:false},
+                        beginAtZero: true,
+                        userCallback: function (label, index, labels) {
+                            // when the floored value is the same as the value we have a whole number
+                            if (Math.floor(label) === label) {
+                                return label;
+                            }
+
+                        },
+                    }]
+                }
+            }
+        });
     }
 </script>
 
