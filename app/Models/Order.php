@@ -39,17 +39,17 @@ class Order extends Model
     public function getFormatedStatusAttribute()
     {
         if($this->status == 'CREATED'){
-            return "Creada";
+            return "Creado";
         } else if($this->status == 'CANCELED'){
-            return "Anulada";
-        } else if($this->status == 'PROCESSING'){
-            return "En espera de confirmación";
+            return "Anulado";
+        } else if($this->status == 'DISPATCHED'){
+            return "Despachado";
         } else if($this->status == 'REJECTED'){
-            return "Rechazada";
-        } else if($this->status == 'WAITING'){
-            return "En espera de confirmación";
+            return "Rechazado";
+        } else if($this->status == 'DELIVERED'){
+            return "Entregado";
         } else if($this->status == 'PAID'){
-            return "Pagada";
+            return "Pagado";
         }
     }
 
@@ -59,12 +59,12 @@ class Order extends Model
             return "#03a9f4";
         } else if($this->status == 'CANCELED'){
             return "#f44336";
-        } else if($this->status == 'PROCESSING'){
-            return "#ffb300";
+        } else if($this->status == 'DISPATCHED'){
+            return "#26a69a";
         } else if($this->status == 'REJECTED'){
             return "#f44336";
-        } else if($this->status == 'WAITING'){
-            return "#ffb300";
+        } else if($this->status == 'DELIVERED'){
+            return "#ab47bc";
         } else if($this->status == 'PAID'){
             return "#8bc34a";
         }
@@ -76,11 +76,11 @@ class Order extends Model
             return "#fff";
         } else if($this->status == 'CANCELED'){
             return "#fff";
-        } else if($this->status == 'PROCESSING'){
+        } else if($this->status == 'DISPATCHED'){
             return "#000";
         } else if($this->status == 'REJECTED'){
             return "#fff";
-        } else if($this->status == 'WAITING'){
+        } else if($this->status == 'DELIVERED'){
             return "#000";
         } else if($this->status == 'PAID'){
             return "#fff";
