@@ -104,7 +104,7 @@ class DashboardController extends Controller
         $array_laboratories = $laboratories->pluck('name')->toArray();
 
         foreach($laboratories as $laboratory){
-            $products = Laboratory::whereHas('product', function ($p) use ($laboratory) {
+            $products = OrderItem::whereHas('product', function ($p) use ($laboratory) {
                 $p->where('laboratory_id', '=', $laboratory->id);
             })->whereHas('order', function ($o) use ($start, $end) {
                 $o->whereBetween('created_at', [$start, $end])
@@ -140,8 +140,7 @@ class DashboardController extends Controller
         foreach($subscriptions as $subscription){
             $products = SubscriptionsOrdersItem::select('orders_item_id')->whereHas('order_item', function ($p) use ($subscription) {
                 $p->whereHas('subscription_plan', function ($o) use ($subscription) {
-                    $o->whereBetween('created_at', [$start, $end])
-                    ->where('months', $subscription);
+                    $p->where('months', $subscription);
                 });
             })->whereHas('order', function ($o) use ($start, $end) {
                 $o->whereBetween('created_at', [$start, $end])
