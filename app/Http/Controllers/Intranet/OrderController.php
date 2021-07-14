@@ -33,7 +33,7 @@ class OrderController extends GlobalController
 
     public function index(Request $request)
     {
-        $objects = Order::with(['customer', 'prescriptions.product'])->whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED'])->orderBy('created_at', 'desc');
+        $objects = Order::with(['customer', 'prescriptions.product'])->whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED']));
         $clients = Customer::get();
 
         $date = $request->date;
@@ -89,7 +89,7 @@ class OrderController extends GlobalController
         $objects = $objects->whereBetween('created_at', [$start.' 00:00:00', $end.' 23:59:59']);
         $appends['date'] = $date;
 
-        $objects = $objects->orderBy('created_at', 'desc')->get();
+        $objects = $objects->orderBy('id', 'desc')->get();
 
         return view($this->folder . 'index', compact('objects', 'date', 'start', 'end', 'clients', 'client_id', 'nameClient', 'id', 'status'));
     }
