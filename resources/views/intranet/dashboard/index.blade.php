@@ -755,7 +755,7 @@
 </script>
 
 <script>
-    function laboratories(){
+    function laboratories(data){
         $('#laboratoriesChart').replaceWith($('<canvas id="laboratoriesChart" height="80px"></canvas>'));
         var ctx = document.getElementById('laboratoriesChart');
 
@@ -841,19 +841,19 @@
 </script>
 
 <script>
-    function subscriptions(){
+    function subscriptions(data){
         
     }
 </script>
 
 <script>
-    function format(){
+    function format(data){
         
     }
 </script>
 
 <script>
-    function prescriptions(){
+    function prescriptions(data){
         
     }
 </script>
