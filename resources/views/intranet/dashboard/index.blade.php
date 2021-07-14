@@ -327,14 +327,13 @@
 <link href="/themes/intranet/plugins/chartJS/Chart.min.css" rel="stylesheet">
 <link href="/themes/intranet/plugins/date-range-picker/daterangepicker.css" rel="stylesheet">
 <link href="/themes/intranet/plugins/date-range-picker/pickerRange.min.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css">
 <style>
     .daterangepicker .ranges li.active {
-        background-color: #f59d00;
+        background-color: #0869A6;
         color: #fff;
     }
     .daterangepicker td.active, .daterangepicker td.active:hover {
-        background-color: #f59d00;
+        background-color: #0869A6;
         border-color: transparent;
         color: #fff;
     }
@@ -351,8 +350,6 @@
 <script src="/themes/intranet/plugins/date-range-picker/daterangepicker.min.js"></script>
 <script src="/themes/intranet/plugins/date-range-picker/pickerRange.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <script type="text/javascript">
 
     $(function () {
