@@ -71,9 +71,9 @@ class DashboardController extends Controller
                     $s->whereHas('category', function ($c) use ($category) {
                         $c->where('category_id', '=', $category->id);
                     });
-                })->whereHas('order', function ($o) use ($start, $end) {
-                    $c->whereBetween('created_at', [$start, $end]);
                 });
+            })->whereHas('order', function ($o) use ($start, $end) {
+                $c->whereBetween('created_at', [$start, $end]);
             })->count();
 
             $count = round($products / $total * 100);
