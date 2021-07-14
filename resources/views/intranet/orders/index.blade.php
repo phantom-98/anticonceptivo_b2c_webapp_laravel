@@ -175,7 +175,7 @@
                                 <td>${{ number_format($object->discount, 0, ',','.')}}</td>
                                 <td>${{ number_format($object->total, 0, ',','.')}}</td>
                                 <td>{{ $object->billing_date ? date('d-m-Y', strtotime($object->billing_date)) : '-' }}</td>
-                                @if($object->status == "PAID" || $object->status == "CREATED")
+                                @if($object->status != "PAID" && $object->status != "CREATED")
                                     <td>{{ $object->humidity ?? '-'}}</td>
                                     <td>{{ $object->temperature ?? '-'}}</td>
                                 @else 
