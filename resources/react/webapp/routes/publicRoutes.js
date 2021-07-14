@@ -128,7 +128,7 @@ const PUBLIC_ROUTES = {
 
     HISTORY:{
         path: "/historia-anticonceptivo",
-        title: "History",
+        title: "Historia de los Anticonceptivos",
         component: History,
         exact: true,
         layout: props => <BaseTemplate {...props} />,
