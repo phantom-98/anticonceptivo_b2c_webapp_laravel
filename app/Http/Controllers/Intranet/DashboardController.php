@@ -63,7 +63,7 @@ class DashboardController extends Controller
 
         $array_percentage = [];
         $array_count = [];
-        $array_categories = $category->pluck('name')->toArray();
+        $array_categories = $categories->pluck('name')->toArray();
 
         foreach($categories as $category){
             $products = OrderItem::whereHas('product', function ($p) use ($category) {
