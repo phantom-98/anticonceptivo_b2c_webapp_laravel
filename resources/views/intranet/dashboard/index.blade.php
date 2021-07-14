@@ -708,7 +708,7 @@
                     },
                     {
                         label: 'Porcentaje',
-                        data: percentage.'%',
+                        data: percentage+'%',
                         backgroundColor: colors,
                         borderWidth: 1
                     },
