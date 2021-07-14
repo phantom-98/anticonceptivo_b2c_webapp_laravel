@@ -47,7 +47,7 @@ class DashboardController extends Controller
 
         $total_products = OrderItem::count();
 
-        $subscriptions = SubscriptionsOrdersItem::whereHas('order', function ($o) use ($start, $end) {
+        $subscriptions = SubscriptionsOrdersItem::whereHas('order', function ($o) {
             $o->where('is_paid', 1);
         })->where('status', 'CREATED')->orderBy('dispatch_date', 'desc')->groupBy('orders_item_id')->count();
 
