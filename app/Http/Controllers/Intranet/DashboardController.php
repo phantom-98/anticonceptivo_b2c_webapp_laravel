@@ -47,8 +47,10 @@ class DashboardController extends Controller
 
         $total_products = OrderItem::count();
 
-        $subscriptions = SubscriptionsOrdersItem::whereHas('order', function ($o) {
-            $o->where('is_paid', 1);
+        $subscriptions = SubscriptionsOrdersItem::whereHas('order_item', function ($o) {
+            $o->whereHas('order', function ($order) {
+                $order->where('is_paid', 1);
+            });
         })->where('status', 'CREATED')->orderBy('dispatch_date', 'desc')->groupBy('orders_item_id')->count();
 
         return view($this->folder . 'index', compact('orderTotals', 'orderToday', 'orderThisWeek', 'orderThisMonth', 'sellToday', 'sellWeek', 'sellMonth', 
@@ -139,7 +141,7 @@ class DashboardController extends Controller
 
         foreach($subscriptions as $subscription){
             $products = SubscriptionsOrdersItem::select('orders_item_id')->whereHas('order_item', function ($p) use ($subscription) {
-                $p->whereHas('subscription_plan', function ($o) use ($subscription) {
+                $p->whereHas('subscription_plan', function ($p) use ($subscription) {
                     $p->where('months', $subscription);
                 });
             })->whereHas('order', function ($o) use ($start, $end) {
