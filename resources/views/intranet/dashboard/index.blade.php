@@ -327,7 +327,7 @@
 <link href="/themes/intranet/plugins/chartJS/Chart.min.css" rel="stylesheet">
 <link href="/themes/intranet/plugins/date-range-picker/daterangepicker.css" rel="stylesheet">
 <link href="/themes/intranet/plugins/date-range-picker/pickerRange.min.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css">
 <style>
     .daterangepicker .ranges li.active {
         background-color: #f59d00;
@@ -677,6 +677,61 @@
         var ctx = document.getElementById('categoriesChart');
 
         console.log(data);
+
+        var names = [];
+        var count = [];
+        var percentage = [];
+        var colors = [];
+
+        data.names.forEach(function (d, index) {
+            names.push(d);
+            color.push(random_rgba());
+        });
+
+        data.percentage.forEach(function (d, index) {
+            percentage.push(d);
+        });
+
+        data.count.forEach(function (d, index) {
+            count.push(d);
+        });
+
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: names,
+                datasets: [
+                    {
+                        label: 'Cantidad',
+                        data: count,
+                        backgroundColor: colors,
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Porcentaje',
+                        data: percentage,
+                        backgroundColor: colors,
+                        borderWidth: 1
+                    },
+                ]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            userCallback: function (label, index, labels) {
+                                // when the floored value is the same as the value we have a whole number
+                                if (Math.floor(label) === label) {
+                                    return label;
+                                }
+
+                            },
+                        }
+                    }]
+                }
+            }
+        });
     }
 </script>
 
@@ -701,6 +756,13 @@
 <script>
     function prescriptions(){
         
+    }
+</script>
+
+<script>
+    function random_rgba() {
+        var o = Math.round, r = Math.random, s = 255;
+        return o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s);
     }
 </script>
 
