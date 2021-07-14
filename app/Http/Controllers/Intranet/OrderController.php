@@ -89,7 +89,7 @@ class OrderController extends GlobalController
         $objects = $objects->whereBetween('created_at', [$start.' 00:00:00', $end.' 23:59:59']);
         $appends['date'] = $date;
 
-        $objects = $objects->orderBy('id', 'desc')->get();
+        $objects = $objects->orderBy('id', 'asc')->get();
 
         return view($this->folder . 'index', compact('objects', 'date', 'start', 'end', 'clients', 'client_id', 'nameClient', 'id', 'status'));
     }
