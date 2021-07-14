@@ -208,11 +208,13 @@
                                                 </a>
                                             @endpush
                                             @else
+                                                @if($object->status != "CREATED")
                                                 <a onclick="change_status({{$object->id}}, '{{$object->status}}')"
                                                     class="btn btn-sm btn-default btn-hover-info add-tooltip"
                                                     title="Rechazar Recetas">
                                                         <i class="fa fa-retweet"></i>
                                                 </a>
+                                                @endif
                                             @endif
                                             @endcan
                                             @include('intranet.template.components._crud_html_actions_buttons')
