@@ -110,6 +110,38 @@
                             </table>
                         </div>
                     </div>
+                    @if(count($object->prescriptions) > 0)
+                    <div class="row">
+                        <div class="col-md-12">
+                            <hr>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th colspan="2" class="bold bg-primary text-white" style="background-color: #0869A6">
+                                        RECETAS DEL PEDIDO
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td class="bold">RECETA</td>
+                                    <td class="bold">PRODUCTO</td>
+                                </tr>
+                                @foreach($object->prescriptions as $prescription)
+                                <tr>
+                                    <td><a href="{{ Storage::url($prescription->file) }}" target="_blank" class='btn btn-sm btn-default btn-hover-success'><i class="ti-file"></i></a></td>
+                                    <td>{{ $prescription->product->name }}</td>
+                                </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    @endif
                     <div class="row">
                         <div class="col-md-12">
                             <hr>

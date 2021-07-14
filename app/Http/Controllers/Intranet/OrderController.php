@@ -101,7 +101,7 @@ class OrderController extends GlobalController
 
     public function show($id)
     {
-        $object = Order::with(['customer', 'order_items'])->find($id);
+        $object = Order::with(['customer', 'order_items', 'prescriptions.product'])->find($id);
 
         if (!$object) {
             session()->flash('warning', 'Pedido no encontrado.');
