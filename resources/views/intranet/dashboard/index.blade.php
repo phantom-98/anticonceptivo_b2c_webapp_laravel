@@ -682,7 +682,7 @@
 
         data.names.forEach(function (d, index) {
             names.push(d);
-            colors.push(random_rgba());
+            colors.push('rgba('+random_rgba()+', 1)');
         });
 
         data.percentage.forEach(function (d, index) {
@@ -708,7 +708,7 @@
                     },
                     {
                         label: 'Porcentaje',
-                        data: percentage+'%',
+                        data: percentage,
                         backgroundColor: colors,
                         borderWidth: 1
                     },
