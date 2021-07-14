@@ -717,11 +717,7 @@
                 ]
             },
             options: {
-                maintainAspectRatio:false,
                 responsive: true,
-                title: {display: false},
-                tooltips: {mode: 'index', intersect: false},
-                hover: {mode: 'nearest', intersect: true},
                 scales: {
                     xAxes: [{display: true, stacked:true, scaleLabel: {display: false, labelString: 'time'}}],
                     yAxes: [{
