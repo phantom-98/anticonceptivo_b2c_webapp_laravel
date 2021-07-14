@@ -346,7 +346,7 @@
                         <br/>
                         @forelse($object->plans as $plan)
                         <div class="clone">
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="price">Plan</label>
                                     <select name="plan_id[{{$loop->iteration}}][]" class="form-control plan_id" data-width="100%">
@@ -357,13 +357,13 @@
                                     </select>
                                 </div>
                             </div>    
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="warnings">Disclaimer</label>
                                     <textarea name="warnings[{{$loop->iteration}}][]" class="form-control warnings summernote">{!! $plan->warnings !!}</textarea>
                                 </div>
                             </div>   
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="price">Precio</label>
                                     <input type="text" name="price_plan[{{$loop->iteration}}][]" class="form-control price" value="{{ $plan->price }}"
@@ -378,7 +378,7 @@
                         </div>
                         @empty
                         <div class="clone">
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="price">Plan</label>
                                     <select name="plan_id[1][]" class="form-control plan_id" data-width="100%">
@@ -389,13 +389,13 @@
                                     </select>
                                 </div>
                             </div>    
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="warnings">Disclaimer</label>
                                     <textarea type="text" name="warnings[1][]" class="form-control warnings summernote"></textarea>
                                 </div>
                             </div>   
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="price">Precio por mes</label>
                                     <input type="text" name="price_plan[1][]" class="form-control price"
