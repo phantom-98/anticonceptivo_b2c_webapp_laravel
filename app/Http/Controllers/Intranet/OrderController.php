@@ -33,7 +33,7 @@ class OrderController extends GlobalController
 
     public function index(Request $request)
     {
-        $objects = Order::with(['customer', 'prescriptions'])->where('status', '!=' ,'REJECTED');
+        $objects = Order::with(['customer', 'prescriptions'])->whereNotIn('status', ['REJECTED', 'CANCELED']);
         $clients = Customer::get();
 
         $date = $request->date;
@@ -176,7 +176,7 @@ class OrderController extends GlobalController
 
     function prescription_validate(Request $request){
         $object = Order::find($request->id);
-        return $request->all();
+        
         if (!$object) {
             session()->flash('warning', 'Pedido no encontrado.');
             return redirect()->route($this->route . 'index');
@@ -187,7 +187,7 @@ class OrderController extends GlobalController
                 $object->prescription_validation = 1;
                 $object->save();
             } else {
-                $object->status = 'REJECTED';
+                $object->status = 'CANCELED';
                 $object->save();
             }
         } else {
