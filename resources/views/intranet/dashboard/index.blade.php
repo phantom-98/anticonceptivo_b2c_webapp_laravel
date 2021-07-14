@@ -35,13 +35,13 @@
         <div class="col-lg-12">
             <div id="demo-panel-network" class="panel">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Productos Vendidos por Laboratorio</h3>
+                    <h3 class="panel-title">Productos Vendidos por suscripción</h3>
                 </div>
     
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-md-6">
-                            <div id="dateLaboratories"
+                            <div id="dateSubscriptions"
                                 style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
                                 <i class="fa fa-calendar"></i>&nbsp;
                                 <span></span>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-caret-down"></i>
@@ -49,7 +49,7 @@
                             <br/>
                         </div>
                         <div class="col-lg-12">
-                            <canvas id="laboratoriesChart"></canvas>
+                            <canvas id="subscriptionsChart"></canvas>
                         </div>
                     </div>
                 </div>
@@ -247,16 +247,16 @@
     </div>
     <div class="col-lg-12">
         <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-12">
                 <div id="demo-panel-network" class="panel">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Productos Vendidos por suscripción</h3>
+                        <h3 class="panel-title">Productos Vendidos por Laboratorio</h3>
                     </div>
         
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-6">
-                                <div id="dateSubscriptions"
+                                <div id="dateLaboratories"
                                     style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
                                     <i class="fa fa-calendar"></i>&nbsp;
                                     <span></span>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-caret-down"></i>
@@ -264,13 +264,13 @@
                                 <br/>
                             </div>
                             <div class="col-lg-12">
-                                <canvas id="subscriptionsChart"></canvas>
+                                <canvas id="laboratoriesChart"></canvas>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-12">
                 <div id="demo-panel-network" class="panel">
                     <div class="panel-heading">
                         <h3 class="panel-title">Productos Vendidos por formato</h3>
