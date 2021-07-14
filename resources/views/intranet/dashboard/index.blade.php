@@ -726,7 +726,14 @@
                         id:'left-axis',
                         display: true,
                         position: 'left',
-                        scaleLabel: {display: true, labelString: '#'}
+                        scaleLabel: {display: true, labelString: '#'},
+                        userCallback: function (label, index, labels) {
+                            // when the floored value is the same as the value we have a whole number
+                            if (Math.floor(label) === label) {
+                                return label;
+                            }
+
+                        },
                     },{
                         type:'linear',
                         id:'right-axis',
@@ -734,7 +741,14 @@
                         position: 'right',
                         beginAtZero: true,
                         scaleLabel: {display: true, labelString: '%'},
-                        gridLines: {drawOnChartArea:false}
+                        gridLines: {drawOnChartArea:false},
+                        userCallback: function (label, index, labels) {
+                            // when the floored value is the same as the value we have a whole number
+                            if (Math.floor(label) === label) {
+                                return label;
+                            }
+
+                        },
                     }]
                 }
             }
