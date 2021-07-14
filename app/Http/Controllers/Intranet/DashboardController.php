@@ -72,6 +72,17 @@ class DashboardController extends Controller
         $array_count = [];
         $array_categories = $categories->pluck('name')->toArray();
 
+        $category = 2;
+        return    $products = OrderItem::whereHas('product', function ($p) use ($category) {
+            $p->whereHas('subcategory', function ($s) use ($category) {
+                $s->whereHas('category', function ($c) use ($category) {
+                    $c->where('category_id', '=', $category->id);
+                });
+            });
+        })->whereHas('order', function ($o) {
+            $o->where('is_paid', 1);
+        })->sum('quantity');
+
         foreach($categories as $category){
             $products = OrderItem::whereHas('product', function ($p) use ($category) {
                 $p->whereHas('subcategory', function ($s) use ($category) {
