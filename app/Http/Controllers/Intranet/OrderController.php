@@ -191,7 +191,7 @@ class OrderController extends GlobalController
                 $object->save();
             }
         } else {
-            if(isset($object->status) && $object->status != ""){
+            if(isset($request->order_status_id) && $request->order_status_id != "" && $request->order_status_id != null){
                 $object->status = $request->order_status_id;
                 if($request->order_status_id == "DISPATCHED"){
                     $object->humidity = $request->humidity;
