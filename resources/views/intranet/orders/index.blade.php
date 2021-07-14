@@ -185,7 +185,7 @@
                                 @if(count($object->prescriptions) > 0)
                                 <td>
                                     @foreach($object->prescriptions as $prescription)
-                                    <a href="{{ Storage::url($prescription->file) }}" target="_blank" class='btn btn-sm btn-default btn-hover-success add-tooltip' title="Ver Receta"><i class="ti-file"></i></a>
+                                    <a href="{{ Storage::url($prescription->file) }}" target="_blank" class='btn btn-sm btn-default btn-hover-success' data-toggle="tooltip" title="{{$prescription->product->name}}"><i class="ti-file"></i></a>
                                     @endforeach
                                 </td>
                                 @else
@@ -206,12 +206,12 @@
                                             @if(count($object->prescriptions) > 0 && $object->prescription_validation == 0)
                                             @push('prepend_actions_buttons' .  $object->id)
                                                 <a onclick="prescriptionSuccess({{$object->id}})"
-                                                class="btn btn-sm btn-default btn-hover-success"
+                                                class="btn btn-sm btn-default btn-hover-success add-tooltip"
                                                 title="Validar Recetas">
                                                     <i class="fa fa-check"></i>
                                                 </a>
                                                 <a onclick="prescriptionRejected({{$object->id}})"
-                                                    class="btn btn-sm btn-default btn-hover-danger"
+                                                    class="btn btn-sm btn-default btn-hover-danger add-tooltip"
                                                     title="Rechazar Recetas">
                                                         <i class="fa fa-times"></i>
                                                 </a>
@@ -426,7 +426,7 @@
 
     <script>
         $(document).ready(function(){
-            $('[data-toggle="data-original-title"]').tooltip();   
+            $('[data-toggle="tooltip"]').tooltip();   
         });
     </script>
 
