@@ -176,7 +176,7 @@ class OrderController extends GlobalController
 
     function prescription_validate(Request $request){
         $object = Order::find($request->id);
-
+        return $request->all();
         if (!$object) {
             session()->flash('warning', 'Pedido no encontrado.');
             return redirect()->route($this->route . 'index');
