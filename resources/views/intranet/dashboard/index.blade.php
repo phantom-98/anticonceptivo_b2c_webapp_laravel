@@ -706,27 +706,42 @@
                     },
                     {
                         label: 'Porcentaje',
-                        data: percentage,
+                        data: percentage.'%',
                         backgroundColor: colors,
                         borderWidth: 1
                     },
                 ]
             },
             options: {
+                responsive: true,
+                interaction: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                stacked: false,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Chart.js Line Chart - Multi Axis'
+                    }
+                },
                 scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true,
-                            userCallback: function (label, index, labels) {
-                                // when the floored value is the same as the value we have a whole number
-                                if (Math.floor(label) === label) {
-                                    return label;
-                                }
+                    y: {
+                        type: 'linear',
+                        display: true,
+                        position: 'left',
+                    },
+                    y1: {
+                        type: 'linear',
+                        display: true,
+                        position: 'right',
 
-                            },
-                        }
-                    }]
-                }
+                        // grid line settings
+                        grid: {
+                        drawOnChartArea: false, // only want the grid lines for one axis to show up
+                        },
+                    },
+                });
             }
         });
     }
