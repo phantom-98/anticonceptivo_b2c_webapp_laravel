@@ -1,11 +1,11 @@
 import React, {Fragment, useEffect, useState} from 'react';
 import FooterBottom from "./FooterBottom";
 import logoFooter from '../../../assets/images/icons/footer/logo-footer.svg'
-import eureka from '../../../assets/images/icons/footer/eureka.svg'
+// import eureka from '../../../assets/images/icons/footer/eureka.svg'
 import webpay from '../../../assets/images/icons/footer/webpay.svg'
 import phone from '../../../assets/images/icons/footer/phone.svg'
 import email from '../../../assets/images/icons/footer/email.svg'
-import twitter from '../../../assets/images/icons/footer/twitter.svg'
+// import twitter from '../../../assets/images/icons/footer/twitter.svg'
 import facebook from '../../../assets/images/icons/footer/facebook.svg'
 import instagram from '../../../assets/images/icons/footer/instagram.svg'
 import {CONFIG} from "../../../Config";
@@ -13,6 +13,7 @@ import PUBLIC_ROUTES from "../../../routes/publicRoutes";
 import Icon from "../../../components/general/Icon";
 import {Link} from "react-router-dom";
 import * as Services from "../../../Services";
+import { v4 as uuidv4 } from 'uuid';
 
 const Footer = () => {
 
@@ -21,6 +22,8 @@ const Footer = () => {
     });
 
     const [alliances, setAlliances] = useState([]);
+
+    const [sections, setSections] = useState([]);
 
     useEffect(() => {
         getData();
@@ -35,6 +38,7 @@ const Footer = () => {
                 success: () => {
                     setResponsibleConsumption(response.data.responsible_consumption);
                     setAlliances(response.data.alliances);
+                    setSections(response.data.sections);
                 },
             });
         }).catch(error => {
@@ -53,9 +57,9 @@ const Footer = () => {
                             </div>
                             <div className="font-10 regular text-white">Una alianza con</div>
                             {
-                                alliances.map((alliance) => {
+                                alliances.map((alliance, index) => {
                                     return (
-                                        <div className="mb-3">
+                                        <div className="mb-3" key={index*7777}>
                                             <img src={alliance.public_footer_image} alt={CONFIG.APP_NAME}/>
                                         </div>
                                     )
@@ -70,13 +74,23 @@ const Footer = () => {
                                     <Link className="nav-link" to={PUBLIC_ROUTES.ABOUT_US.path}>Sobre nosotros</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link className="nav-link" to={PUBLIC_ROUTES.FAQ.path}>Preguntas Frecuentes
-                                        FAQ</Link>
+                                    <Link className="nav-link" to={PUBLIC_ROUTES.FAQ.path}>Preguntas Frecuentes FAQ</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link className="nav-link" to={PUBLIC_ROUTES.TERMS_AND_CONDITIONS.path}>Términos y
-                                        Condiciones</Link>
+                                    <Link className="nav-link" to={PUBLIC_ROUTES.TERMS_AND_CONDITIONS.path}>Términos y Condiciones</Link>
                                 </li>
+                                {
+                                    sections.map((section) => {
+                                        let sectionKey = uuidv4();
+                                        return(
+                                            <li className="nav-item" key={sectionKey}>
+                                                <a className="nav-link" href={section.link} target="_blank">
+                                                    {section.name}
+                                                </a>
+                                            </li>
+                                        )
+                                    })
+                                }
                                 <li className="nav-item">
                                     <a className="nav-link"
                                        href={responsibleConsumption && 'public_file' in responsibleConsumption ? responsibleConsumption.public_file : ''}
@@ -93,8 +107,7 @@ const Footer = () => {
                                 </li>
                                 <li className="nav-item">
                                     <Link className="nav-link"
-                                          to={(PUBLIC_ROUTES.CORPORATE_RESPONSIBILITY.path).replace(':section', 'bases-legales')}>Bases
-                                        Legales</Link>
+                                          to={(PUBLIC_ROUTES.CORPORATE_RESPONSIBILITY.path).replace(':section', 'carta-de-desabastecimiento')}>Carta de Desabastecimiento</Link>
                                 </li>
                                 <li className="nav-item">
                                     <Link className="nav-link"

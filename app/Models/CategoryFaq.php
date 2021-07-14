@@ -8,7 +8,8 @@ class CategoryFaq extends Model
 {
     protected $fillable = [
         'name',
-        'active'
+        'active',
+        'position'
     ];
 
     public function faqs(){

@@ -17,13 +17,13 @@ const ClaimItem = ({name, date, description, color}) => {
         <div className="row">
             <div className="col-auto">
                <div className="bold font-poppins" style={style}>
-                    {name ? name.charAt(0).toUpperCase() : null}
+                    {name ? name.charAt(0) : null}
                </div>
             </div>
             <div className="col-10">
                 <div className="row">
                     <div className="col-12 font-inter font-18 regular color-033F5D">
-                        {name}{'   '}{date}
+                        {date}
                     </div>
                     <div className="col-12 mt-1 font-poppins font-14 regular color-484848">
                         {description}

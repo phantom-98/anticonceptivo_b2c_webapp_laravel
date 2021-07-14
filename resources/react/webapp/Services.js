@@ -77,7 +77,9 @@ export const ENDPOINT = {
 
     PUBLIC_AREA: {
         FOOTER: GetBaseURL() + 'public-area/get-footer-resources',
+        HEADER: GetBaseURL() + 'public-area/get-header-resources',
         HEADER_MENU: GetBaseURL() + 'public-area/get-header-navbar-resources',
+        HEADER_BOX: GetBaseURL() + 'public-area/get-all-available',
         BANNERS:{
             HOME:{
                 TOP: GetBaseURL() + 'public-area/get-home-top-banners',
@@ -86,9 +88,20 @@ export const ENDPOINT = {
             },
         },
         CORPORATE_RESPONSIBILITY: GetBaseURL() + 'public-area/get-corporate-responsabilities',
-        BLOG: GetBaseURL() + 'public-area/get-blog-resources',
+        BLOG: {
+            POSTS: GetBaseURL() + 'public-area/get-posts',
+            POST: GetBaseURL() + 'public-area/get-post',
+            CAROUSEL: GetBaseURL() + 'public-area/get-carousel-posts'
+        },
         ABOUT_US: GetBaseURL() + 'public-area/get-about-us-resources',
         SUBSCRIBE: GetBaseURL() + 'public-area/subscribe',
+        SHOP:{
+            PRODUCTS:{
+                CATEGORY: GetBaseURL() + 'public-area/get-product-by-categories',
+                SUBCATEGORY: GetBaseURL() + 'public-area/get-product-by-subcategories',
+                FILTER: GetBaseURL() + 'public-area/get-product-by-filters',
+            }
+        },
         CONTACT: {
             GET_RESOURCES: GetBaseURL() + 'public-area/contact/get-resources',
             SEND: GetBaseURL() + 'public-area/contact/send'

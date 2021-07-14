@@ -20,7 +20,7 @@ const Home = ({match}) => {
     const [middleBanners, setMiddleBanners] = useState([]);
     const [bottomBanners, setBottomBanners] = useState([]);
     const [outstandings, setOutstandings] = useState([]);
-    const [bestSellers, setBestSellers] = useState([]);
+    // const [bestSellers, setBestSellers] = useState([]);
     const [brands, setBrands] = useState([]);
     
     useEffect(() => {
@@ -63,7 +63,7 @@ const Home = ({match}) => {
 
                 <BannerStatic banners={middleBanners}/>
 
-                <BestSeller bestSellers={bestSellers}/>
+                {/* <BestSeller bestSellers={bestSellers}/> */}
 
                 <BlogCarousel title="BLOG" showButton={true} buttonTitle="VER MÁS NOTICIAS" />
 

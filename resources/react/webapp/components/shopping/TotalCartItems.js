@@ -13,6 +13,7 @@ const TotalCartItems = () =>{
         cartItems.map((item) =>{
             _total = _total + item.quantity
         })
+        
         setTotalCart(_total);
         // console.log(cartItems);
     },[cartItems])

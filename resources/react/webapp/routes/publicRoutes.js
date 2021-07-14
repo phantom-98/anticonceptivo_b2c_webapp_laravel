@@ -1,11 +1,11 @@
 import React from 'react';
-
 import PublicMiddleware from "./middleware/PublicMiddleware";
 import BaseTemplate from "../template";
 import Home from '../pages/public/Home';
 import AboutUs from "../pages/public/AboutUs";
 import ContactUs from "../pages/public/ContactUs";
 import Faq from "../pages/public/Faq";
+import History from "../pages/public/History";
 import Blog from "../pages/public/Blog";
 import TermsAndConditions from "../pages/public/TermsAndConditions";
 import CorporateResponsibility from "../pages/public/CorporateResponsibility";
@@ -13,9 +13,9 @@ import Shop from "../pages/public/Shop";
 import ProductDetail from "../pages/public/ProductDetails";
 import Cart from "../pages/public/Cart";
 import CheckOut from "../pages/public/CheckOut";
-import BlogExample from "../pages/public/BlogExample.js";
 import BlogList from "../pages/public/BlogList";
 import Claim from "../pages/public/Claim";
+import Post from "../pages/public/Post";
 
 const PUBLIC_ROUTES = {
     ABOUT_US: {
@@ -63,8 +63,8 @@ const PUBLIC_ROUTES = {
         middleware: props => <PublicMiddleware {...props} />
     },
 
-    SHOP_PILLS: {
-        path: "/tienda/pastillas/:type/:filter",
+    SHOP: {
+        path: "/tienda/:category?",
         title: "Tienda",
         component: Shop,
         exact: true,
@@ -72,8 +72,17 @@ const PUBLIC_ROUTES = {
         middleware: props => <PublicMiddleware {...props} />
     },
 
-    SHOP: {
-        path: "/tienda/:category?",
+    SHOP_SUBCATEGORY: {
+        path: "/tienda/:category?/:subcategory?",
+        title: "Tienda",
+        component: Shop,
+        exact: true,
+        layout: props => <BaseTemplate {...props} />,
+        middleware: props => <PublicMiddleware {...props} />
+    },
+
+    SHOP_FILTER: {
+        path: "/tienda/:category?/:type?/:filter?",
         title: "Tienda",
         component: Shop,
         exact: true,
@@ -117,8 +126,26 @@ const PUBLIC_ROUTES = {
         middleware: props => <PublicMiddleware {...props} />
     },
 
+    HISTORY:{
+        path: "/historia-anticonceptivo",
+        title: "Historia de los Anticonceptivos",
+        component: History,
+        exact: true,
+        layout: props => <BaseTemplate {...props} />,
+        middleware: props => <PublicMiddleware {...props} />
+    },
+
+    POST: {
+        path: "/blog/:post_type_slug?/post/:post_slug?",
+        title: "Post",
+        component: Post,
+        exact: true,
+        layout: props => <BaseTemplate {...props} />,
+        middleware: props => <PublicMiddleware {...props} />
+    },
+
     BLOG: {
-        path: "/blog",
+        path: "/blog/:post_type_slug?",
         title: "Blog",
         component: Blog,
         exact: true,
@@ -130,15 +157,6 @@ const PUBLIC_ROUTES = {
         path: "/blog/lista",
         title: "Blog Lista",
         component: BlogList,
-        exact: true,
-        layout: props => <BaseTemplate {...props} />,
-        middleware: props => <PublicMiddleware {...props} />
-    },
-
-    BLOG_EXAMPLE: {
-        path: "/blog/blog-de-ejemplo",
-        title: "Blog de Ejemplo",
-        component: BlogExample,
         exact: true,
         layout: props => <BaseTemplate {...props} />,
         middleware: props => <PublicMiddleware {...props} />

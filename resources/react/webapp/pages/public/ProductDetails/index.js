@@ -14,10 +14,12 @@ import Bioequivalent from "../../../assets/images/icons/bioequivalence.png"
 const ProductDetail = ({match}) => {
 
     const [product, setProduct] = useState(null);
+    const [valid, setValid] = useState(null);
     const [prods, setProds] = useState([]);
     const [legalWarning, setLegalWarning] = useState({});
     const [breadcrumbs, setBreadcrumbs] = useState([]);
     const [imageSubscription, setImageSubscription] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         if (product) {
@@ -56,6 +58,8 @@ const ProductDetail = ({match}) => {
                     setProduct(response.data.product);
                     setProds(response.data.prods);
                     setLegalWarning(response.data.legal_warnings);
+                    setValid(response.data.valid);
+                    setLoading(false);
                 },
                 error: () => {
                     window.location.href = PUBLIC_ROUTES.SHOP.path
@@ -68,7 +72,7 @@ const ProductDetail = ({match}) => {
 
     return (
         
-        product ? 
+        !loading ? 
             <Fragment>
                 <div style={{background: '#FAFAFA'}}>
                     <div className="container">
@@ -101,17 +105,17 @@ const ProductDetail = ({match}) => {
                         : null
                     }
 
-                    <ProductTabs product={product} legalWarning={legalWarning}/>
+                    <ProductTabs product={product} legalWarning={legalWarning} valid={valid}/>
 
                 </BasePanelTwo>
 
                 {
-                    prods.length ?
+                    // prods.length ?
                         <ProductsCarousel
                             prods={prods}
                             title="Te podría interesar"
                         />
-                    : null
+                    // : null
                 }
 
                 <Subscribe/>

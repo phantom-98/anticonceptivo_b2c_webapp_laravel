@@ -39,16 +39,16 @@ class ProfileController extends Controller
                 'id_type',
                 'phone_code',
                 'phone',
-                'business_name',
-                'business_id_number',
-                'commercial_business',
-                'commercial_email',
-                'commercial_address',
-                'commercial_additional_address',
-                'commercial_phone',
-                'commercial_phone_code',
-                'commercial_region_id',
-                'commercial_commune_id',
+                // 'business_name',
+                // 'business_id_number',
+                // 'commercial_business',
+                // 'commercial_email',
+                // 'commercial_address',
+                // 'commercial_additional_address',
+                // 'commercial_phone',
+                // 'commercial_phone_code',
+                // 'commercial_region_id',
+                // 'commercial_commune_id',
             ])->find($request->customer_id);
 
             if (!$customer) {
@@ -151,11 +151,29 @@ class ProfileController extends Controller
 
     public function getAddresses(Request $request)
     {
-        try {
+        try {    
+
             $customer = Customer::find($request->customer_id);
 
             if (!$customer) {
                 return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_NOT_FOUND);
+            }
+
+            if ($request->product_count > 0) {
+
+                $isFile = false;
+
+                foreach ($request->files as $file) {
+                    if (count($file) != $request->product_count) {
+                        return ApiResponse::JsonError(null,'Por favor, ingresar todas las recetas.');
+                    }
+
+                    $isFile = true;
+                }
+                
+                if (!$isFile) {
+                    return ApiResponse::JsonError(null,'Por favor, ingresar todas las recetas.');
+                }
             }
 
             $addresses = CustomerAddress::where('customer_id', $customer->id)->get();
@@ -723,7 +741,7 @@ class ProfileController extends Controller
 
     private static function getCustomerService(){
         $contactIssue = ContactIssue::where('active',true)->where('section',ContactIssueTypes::CUSTOMER_SERVICE)
-            ->with(['fields'])->get();
+            ->with(['fields','campaign'])->get();
 
         return $contactIssue;
     }

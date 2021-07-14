@@ -52,7 +52,7 @@ const HeaderBox = () => {
     }, [search])
 
     const getProducts = () => {
-        let url = Services.ENDPOINT.NO_AUTH.SHOP.RESOURCES;
+        let url = Services.ENDPOINT.PUBLIC_AREA.HEADER_BOX;
         let data = {}
         Services.DoGet(url,data).then(response => {
             Services.Response({

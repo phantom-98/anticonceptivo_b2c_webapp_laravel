@@ -483,6 +483,24 @@
   background: #009BE8;
 }
 
+.header-navbar-col-custom {
+  display: flex !important;
+  cursor: pointer;
+  transition: all 0.25s ease-in-out;
+  background: transparent !important;
+  border-color: transparent !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+.testingg .dropdown-toggle::after {
+  display: none !important;
+}
+
+button#dropdown-testing {
+  padding: 0px;
+}
+
 .header-navbar-item {
   cursor: pointer;
   color: white;
@@ -554,6 +572,19 @@
   font-family: "Poppins", sans-serif;
   font-weight: 600;
   letter-spacing: 2px;
+}
+
+.custom-dropdown-item {
+  display: block;
+  width: 100%;
+  padding: 0.25rem 1.5rem;
+  clear: both;
+  font-weight: 400;
+  color: #212529;
+  text-align: inherit;
+  white-space: nowrap;
+  background-color: white;
+  border: 0;
 }
 
 .footer-bottom {
@@ -1563,6 +1594,10 @@ input.my-auto.file-input {
 
 .circle-step-ready img {
   margin: auto;
+}
+
+.custom-file-input ~ .custom-file-label::after {
+  content: "Subir";
 }
 
 .blog-card {

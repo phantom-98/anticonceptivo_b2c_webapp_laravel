@@ -26,8 +26,8 @@ const CorporateResponsibility = ({match}) => {
             name: 'Políticas de Privacidad'
         },
         LEGAL_BASE: {
-            url: 'bases-legales',
-            name: 'Bases Legales'
+            url: 'carta-de-desabastecimiento',
+            name: 'Carta de Desabastecimiento'
         },
         DELIVERY_COSTS_DEADLINES: {
             url: 'plazos-y-costos-entrega',

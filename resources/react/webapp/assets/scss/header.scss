@@ -58,6 +58,28 @@
     //background: linear-gradient(90deg, rgba(0,155,232,1) 0%, rgba(0,219,174,1) 100%);
 }
 
+.header-navbar-col-custom{
+    display: flex !important;
+    // min-height: 44px;
+    cursor: pointer;
+    -moz-transition: all .25s ease-in-out;
+    -o-transition: all .25s ease-in-out;
+    -webkit-transition: all .25s ease-in-out;
+    transition: all .25s ease-in-out;
+    background: transparent !important;
+    border-color: transparent !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+}
+
+.testingg .dropdown-toggle::after {
+    display: none !important;
+}
+
+button#dropdown-testing {
+    padding: 0px;
+}
+
 .header-navbar-item {
     cursor: pointer;
     color: white;
@@ -131,4 +153,17 @@
     font-family: "Poppins", sans-serif;
     font-weight: 600;
     letter-spacing: 2px;
+}
+
+.custom-dropdown-item{
+    display: block;
+    width: 100%;
+    padding: .25rem 1.5rem;
+    clear: both;
+    font-weight: 400;
+    color: #212529;
+    text-align: inherit;
+    white-space: nowrap;
+    background-color: white;
+    border: 0;
 }

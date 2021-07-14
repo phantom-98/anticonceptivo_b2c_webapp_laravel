@@ -23,6 +23,7 @@ const CustomerService = () => {
     const [dynamicData, setDynamicData] = useState({});
     const [contactIssues, setContactIssues] = useState([]);
     const [dynamicFields, setDynamicFields] = useState([]);
+    const [description, setDescription] = useState('');
 
     useEffect(() => {
         getData();
@@ -31,6 +32,7 @@ const CustomerService = () => {
     useEffect(() => {
         if (contactIssues.length) {
             var temp = contactIssues.find((contact) => contact.id == data.contact_issue)
+            setDescription(temp.campaign.description);
             if (temp.fields.length) {
                 setDynamicFields(temp.fields);
             }else{
@@ -168,6 +170,9 @@ const CustomerService = () => {
                                     }
                             </select>
                         </div>
+                    </div>
+                    <div className="col-md-12 text-justify">
+                        <div dangerouslySetInnerHTML={{ __html:description}}/>
                     </div>
                     {
                         dynamicFields.length ?
