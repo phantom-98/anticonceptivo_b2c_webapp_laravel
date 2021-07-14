@@ -719,8 +719,9 @@
             options: {
                 responsive: true,
                 scales: {
-                    xAxes: [{display: true, stacked:true, scaleLabel: {display: false, labelString: 'time'}}],
+                    xAxes: [{display: true, stacked:false}],
                     yAxes: [{
+                        beginAtZero: true,
                         type:'linear',
                         id:'left-axis',
                         display: true,
@@ -731,7 +732,7 @@
                         id:'right-axis',
                         display: true,
                         position: 'right',
-                        stacked:false,
+                        beginAtZero: true,
                         scaleLabel: {display: true, labelString: '%'},
                         gridLines: {drawOnChartArea:false}
                     }]
