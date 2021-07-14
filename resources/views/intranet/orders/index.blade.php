@@ -206,12 +206,12 @@
                                             @if(count($object->prescriptions) > 0 && $object->prescription_validation == 0)
                                             @push('prepend_actions_buttons' .  $object->id)
                                                 <a onclick="prescriptionSuccess({{$object->id}})"
-                                                class="btn btn-sm btn-default btn-hover-info add-tooltip"
+                                                class="btn btn-sm btn-default btn-hover-success"
                                                 title="Validar Recetas">
                                                     <i class="fa fa-check"></i>
                                                 </a>
                                                 <a onclick="prescriptionRejected({{$object->id}})"
-                                                    class="btn btn-sm btn-default btn-hover-info add-tooltip"
+                                                    class="btn btn-sm btn-default btn-hover-danger"
                                                     title="Rechazar Recetas">
                                                         <i class="fa fa-times"></i>
                                                 </a>
