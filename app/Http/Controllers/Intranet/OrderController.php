@@ -191,12 +191,16 @@ class OrderController extends GlobalController
                 $object->save();
             }
         } else {
-            $object->status = $request->order_status_id;
-            if($request->order_status_id == "DISPATCHED"){
-                $object->humidity = $request->humidity;
-                $object->temperature = $request->temperature;
+            if(isset($object->status) && $object->status != ""){
+                $object->status = $request->order_status_id;
+                if($request->order_status_id == "DISPATCHED"){
+                    $object->humidity = $request->humidity;
+                    $object->temperature = $request->temperature;
+                }
+                $object->save();
+            } else {
+                session()->flash('danger', 'Debe seleccionar un estado para actualizar el pedido.');
             }
-            $object->save();
         }
 
         if ($object) {

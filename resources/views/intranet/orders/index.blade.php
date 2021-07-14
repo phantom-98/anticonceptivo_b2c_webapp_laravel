@@ -143,6 +143,8 @@
                             <th data-cell-style="cellStyle" data-sorter="priceSorter" data-sortable="true" data-valign="middle">Descuento</th>
                             <th data-cell-style="cellStyle" data-sorter="priceSorter" data-sortable="true" data-valign="middle">Total</th>
                             <th data-cell-style="cellStyle" data-field="dateBilling" data-sorter="datesSorter" data-sortable="true" data-valign="middle">Fecha Facturación</th>
+                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Humedad Despachador</th>
+                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Temperatura Despachador</th>
                             <th data-cell-style="cellStyle" data-sorter="priceSorter" data-sortable="true" data-valign="middle">Receta</th>
                             @if($config['blade']['showActions'])
                                 <th data-cell-style="cellStyle" data-valign="middle">Acciones</th>
@@ -173,6 +175,8 @@
                                 <td>${{ number_format($object->discount, 0, ',','.')}}</td>
                                 <td>${{ number_format($object->total, 0, ',','.')}}</td>
                                 <td>{{ $object->billing_date ? date('d-m-Y', strtotime($object->billing_date)) : '-' }}</td>
+                                <td>{{ $object->humidity ?? '-'}}</td>
+                                <td>{{ $object->temperature ?? '-'}}</td>
                                 @if(count($object->prescriptions) > 0)
                                 <td>
                                     @foreach($object->prescriptions as $prescription)
@@ -313,20 +317,21 @@
         function change_status(id, status){
             var html = '<span>Seleccione un estado</span><br/><br/><div class="form-inline"><center>';
             html += '<select id="select_order_status_id" name="order_status_id" class="form-control" style="width:30%; font-size: 14px" onclick="changeDispatch(this.value)">';
+            html += '<option value="">Seleccione un estado</option>';
             if(status == "PAID"){
-                html += '<option value="DISPATCHED">DESPACHADO</option>';
-                html += '<option value="DELIVERED">ENTREGADO</option>';
+                html += '<option value="DISPATCHED">Despachado</option>';
+                html += '<option value="DELIVERED">Entregado</option>';
             } else {
-                html += '<option value="DELIVERED">ENTREGADO</option>';
+                html += '<option value="DELIVERED">Entregado</option>';
             }
             html += '</select>';
-            html += '<input type="number" step=".01" class="form-control dispatched" id="humidity" name="humidity" placeholder="Ej: 35.20" style="width:30%; font-size: 14px; display:none">';
-            html += '<input type="number" step=".01" class="form-control dispatched" id="temperature" name="temperature" placeholder="Ej: 35.20" style="width:30%; font-size: 14px; display:none">';
+            html += '<input type="number" step=".01" class="form-control dispatched" id="humidity" name="humidity" onkeyup="validateDispatch()" placeholder="Ej: 35.20" style="margin-left:20px; width:25%; font-size: 14px; display:none">';
+            html += '<input type="number" step=".01" class="form-control dispatched" id="temperature" name="temperature" onkeyup="validateDispatch()" placeholder="Ej: 35.20" style="margin-left:20px; width:25%; font-size: 14px; display:none">';
             html += '</center></div><br/><br/>';
             swal({
                 title: 'Cambiar estado del pedido',
                 html: html,
-                customClass: "swal-wide",
+                customClass: "swal-wide-2",
                 type: 'info',
                 showCancelButton: true,
                 confirmButtonColor: '#43a047',
@@ -365,8 +370,20 @@
         function changeDispatch(value){
             if(value == "DISPATCHED"){
                 $(".dispatched").show();
+                $(".swal2-confirm").prop('disabled', true);
             } else {
                 $(".dispatched").hide();
+                $(".swal2-confirm").prop('disabled', false);
+            }
+        }
+    </script>
+
+    <script>
+        function validateDispatch(value){
+            if($("#temperature").val() != "" && $("#humidity").val() != ""){
+                $(".swal2-confirm").prop('disabled', false);
+            } else {
+                $(".swal2-confirm").prop('disabled', true);
             }
         }
     </script>

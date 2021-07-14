@@ -14,6 +14,8 @@
             <th>Descuento</th>
             <th>Total</th>
             <th>Fecha Facturación</th>
+            <th>Humedad Despachador</th>
+            <th>Temperatura Despachador</th>
         </tr>
     </thead>
     <tbody>
@@ -32,6 +34,8 @@
                 <td>{{ $object->discount }}</td>
                 <td>{{ $object->total }}</td>
                 <td>{{ $object->billing_date ? date('d-m-Y', strtotime($object->billing_date)) : '-' }}</td>
+                <td>{{ $object->humidity ?? '-'}}</td>
+                <td>{{ $object->temperature ?? '-'}}</td>
             </tr>
         @endforeach
     </tbody>
