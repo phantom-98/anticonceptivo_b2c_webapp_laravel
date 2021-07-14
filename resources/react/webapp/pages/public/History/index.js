@@ -17,8 +17,8 @@ const History = () => {
             name: 'Inicio'
         },
         {
-            url: PUBLIC_ROUTES.BLOG.path,
-            name: PUBLIC_ROUTES.BLOG.title,
+            url: PUBLIC_ROUTES.HISTORY.path,
+            name: PUBLIC_ROUTES.HISTORY.title,
         },
     ];
 
@@ -66,7 +66,7 @@ const History = () => {
                     </div>
                 </div>
             </BasePanelTwo>
-            <ProductsCarousel title="Te podría interesar"/>
+            {/* <ProductsCarousel title="Te podría interesar"/> */}
             <Subscribe/>
         </Fragment>
     );

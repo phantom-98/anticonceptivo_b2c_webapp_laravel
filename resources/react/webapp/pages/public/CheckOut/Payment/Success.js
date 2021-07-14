@@ -23,11 +23,12 @@ const Success = ({orderId, files, productCount}) => {
 
         formData.append('product_count', productCount);
         formData.append('order_id', orderId);
-
+        
         let fileList = [...files]
-            
+        
         for(let i=0; i < fileList.length; i++){
             formData.append('attachments[]', fileList[i]);
+            formData.append('productIds[]', fileList[i].product_id);
         }
         
         const config = {
