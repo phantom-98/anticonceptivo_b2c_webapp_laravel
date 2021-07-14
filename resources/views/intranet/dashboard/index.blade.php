@@ -726,6 +726,7 @@
                         id:'left-axis',
                         display: true,
                         position: 'left',
+                        stepSize: 1,
                         scaleLabel: {display: true, labelString: '#'},
                         userCallback: function (label, index, labels) {
                             // when the floored value is the same as the value we have a whole number
@@ -742,6 +743,7 @@
                         beginAtZero: true,
                         scaleLabel: {display: true, labelString: '%'},
                         gridLines: {drawOnChartArea:false},
+                        beginAtZero: true,
                         userCallback: function (label, index, labels) {
                             // when the floored value is the same as the value we have a whole number
                             if (Math.floor(label) === label) {
