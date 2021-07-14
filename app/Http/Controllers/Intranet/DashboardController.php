@@ -16,6 +16,7 @@ use App\Models\Contact;
 use App\Models\Category;
 use App\Models\Claim;
 use App\Models\Prescription;
+use App\Models\Laboratory;
 
 class DashboardController extends Controller
 {
