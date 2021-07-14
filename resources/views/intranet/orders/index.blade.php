@@ -330,8 +330,8 @@
                 html += '<option value="DELIVERED">Entregado</option>';
             }
             html += '</select>';
-            html += '<input type="number" step=".01" class="form-control dispatched" id="humidity" name="humidity" onkeyup="validateDispatch()" placeholder="Ej: 35.20" style="margin-left:20px; width:25%; font-size: 14px; display:none">';
-            html += '<input type="number" step=".01" class="form-control dispatched" id="temperature" name="temperature" onkeyup="validateDispatch()" placeholder="Ej: 35.20" style="margin-left:20px; width:25%; font-size: 14px; display:none">';
+            html += '<input type="number" step=".01" class="form-control dispatched" id="humidity" name="humidity" onkeyup="validateDispatch()" placeholder="Humedad" style="margin-left:20px; width:25%; font-size: 14px; display:none">';
+            html += '<input type="number" step=".01" class="form-control dispatched" id="temperature" name="temperature" onkeyup="validateDispatch()" placeholder="Temperatura" style="margin-left:20px; width:25%; font-size: 14px; display:none">';
             html += '</center></div><br/><br/>';
             swal({
                 title: 'Cambiar estado del pedido',
