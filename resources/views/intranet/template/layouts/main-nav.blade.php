@@ -64,6 +64,7 @@
                             </a>
                         </li>
 
+                        @can('intranet.orders.index')
                         <li class="treeview {{ is_parent_menu_active(['intranet/categorias', 'intranet/subcategorias', 'intranet/marcas', 'intranet/productos',
                             'intranet/pedidos', 'intranet/laboratorios', 'intranet/aviso-legal-productos','intranet/precios-productos', 'intranet/planes-suscripcion']) }}">
                             <a href="#">
@@ -73,53 +74,72 @@
                             </a>
                             <!--Submenu-->
                             <ul class="collapse">
+                                @can('intranet.categories.index')
                                 <li class="{{ is_menu_active('intranet/categorias') }}">
                                     <a href="{{ route('intranet.categories.index') }}">
                                         <span class="menu-title">Categorías</span>
                                     </a>
                                 </li>
+                                @endcan
+                                @can('intranet.subcategories.index')
                                 <li class="{{ is_menu_active('intranet/subcategorias') }}">
                                     <a href="{{ route('intranet.subcategories.index') }}">
                                         <span class="menu-title">Sub Categorías</span>
                                     </a>
                                 </li>
+                                @endcan
+                                @can('intranet.brands.index')
                                 <li class="{{ is_menu_active('intranet/marcas') }}">
                                     <a href="{{ route('intranet.brands.index') }}">
                                         <span class="menu-title">Marcas</span>
                                     </a>
                                 </li>
+                                @endcan
+                                @can('intranet.laboratories.index')
                                 <li class="{{ is_menu_active('intranet/laboratorios') }}">
                                     <a href="{{ route('intranet.laboratories.index') }}">
                                         <span class="menu-title">Laboratorios</span>
                                     </a>
                                 </li>
+                                @endcan
+                                @can('intranet.legal_warnings.index')
                                 <li class="{{ is_menu_active('intranet/aviso-legal-productos') }}">
                                     <a href="{{ route('intranet.legal_warnings.index') }}">
                                         <span class="menu-title">Aviso Legal Productos</span>
                                     </a>
                                 </li>
+                                @endcan
+                                @can('intranet.subscription_plans.index')
                                 <li class="{{ is_menu_active('intranet/planes-suscripcion') }}">
                                     <a href="{{ route('intranet.subscription_plans.index') }}">
                                         <span class="menu-title">Planes suscripción producto</span>
                                     </a>
                                 </li>
+                                @endcan
+                                @can('intranet.products.index')
                                 <li class="{{ is_menu_active('intranet/productos') }}">
                                     <a href="{{ route('intranet.products.index') }}">
                                         <span class="menu-title">Productos</span>
                                     </a>
                                 </li>
+                                @endcan
+                                @can('intranet.prices.index')
                                 <li class="{{ is_menu_active('intranet/precios-productos') }}">
                                     <a href="{{ route('intranet.prices.index') }}">
                                         <span class="menu-title">Precios Planes Productos</span>
                                     </a>
                                 </li>
+                                @endcan
+                                @can('intranet.orders.index')
                                 <li class="{{ is_menu_active('intranet/pedidos') }}">
                                     <a href="{{ route('intranet.orders.index') }}">
                                         <span class="menu-title">Pedidos</span>
                                     </a>
                                 </li>
+                                @endcan
                             </ul>
                         </li>
+                        @endcan
                         
                         <li class="treeview {{ is_parent_menu_active(['intranet/banners', 'intranet/tipos-post-blog', 'intranet/post-blog', 'intranet/faq', 'intranet/configuraciones', 'intranet/paginas', 'intranet/linea-tiempo', 'intranet/categorias-faq',
                             'intranet/quienes-somos', 'intranet/valores', 'intranet/alianzas', 'intranet/bases-legales', 'intranet/costos-despachos', 'intranet/consumo-responsable']) }}">
@@ -130,71 +150,97 @@
                             </a>
                             <!--Submenu-->
                             <ul class="collapse">
+                                @can('intranet.banners.edit')
                                 <li class="{{ is_menu_active('intranet/banners') }}">
                                     <a href="{{ route('intranet.banners.edit', 'slider-principal') }}">
                                         <span class="menu-title">Banners</span>
                                     </a>
                                 </li>
+                                @endcan
+                                @can('intranet.post-types.index')
                                 <li class="{{ is_menu_active('intranet/tipos-post-blog') }}">
                                     <a href="{{ route('intranet.post-types.index') }}">
                                         <span class="menu-title">Tipos de Post Blog</span>
                                     </a>
                                 </li>
+                                @endcan
+                                @can('intranet.posts.index')
                                 <li class="{{ is_menu_active('intranet/post-blog') }}">
                                     <a href="{{ route('intranet.posts.index') }}">
                                         <span class="menu-title">Post Blog</span>
                                     </a>
                                 </li>
+                                @endcan
+                                @can('intranet.category_faqs.index')
                                 <li class="{{ is_menu_active('intranet/categorias-faq') }}">
                                     <a href="{{ route('intranet.category_faqs.index') }}">
                                         <span class="menu-title">Categoría FAQ</span>
                                     </a>
                                 </li>
+                                @endcan
+                                @can('intranet.faqs.index')
                                 <li class="{{ is_menu_active('intranet/faq') }}">
                                     <a href="{{ route('intranet.faqs.index') }}">
                                         <span class="menu-title">FAQ</span>
                                     </a>
                                 </li>
+                                @endcan
+                                @can('intranet.pages.index')
                                 <li class="{{ is_menu_active('intranet/paginas') }}">
                                     <a href="{{ route('intranet.pages.index') }}">
                                         <span class="menu-title">Páginas</span>
                                     </a>
                                 </li>
+                                @endcan
+                                @can('intranet.timelines.index')
                                 <li class="{{ is_menu_active('intranet/linea-tiempo') }}">
                                     <a href="{{ route('intranet.timelines.index') }}">
                                         <span class="menu-title">Línea de Tiempo</span>
                                     </a>
                                 </li>
+                                @endcan
+                                @can('intranet.abouts.index')
                                 <li class="{{ is_menu_active('intranet/quienes-somos') }}">
                                     <a href="{{ route('intranet.abouts.index') }}">
                                         <span class="menu-title">Quienes Somos</span>
                                     </a>
                                 </li>
+                                @endcan
+                                @can('intranet.values.index')
                                 <li class="{{ is_menu_active('intranet/valores') }}">
                                     <a href="{{ route('intranet.values.index') }}">
                                         <span class="menu-title">Valores Empresa</span>
                                     </a>
                                 </li>
+                                @endcan
+                                @can('intranet.alliances.index')
                                 <li class="{{ is_menu_active('intranet/alianzas') }}">
                                     <a href="{{ route('intranet.alliances.index') }}">
                                         <span class="menu-title">Alianzas</span>
                                     </a>
                                 </li>
+                                @endcan
+                                @can('intranet.legal_bases.index')
                                 <li class="{{ is_menu_active('intranet/bases-legales') }}">
                                     <a href="{{ route('intranet.legal_bases.index') }}">
                                         <span class="menu-title">Bases Legales</span>
                                     </a>
                                 </li>
+                                @endcan
+                                @can('intranet.delivery_costs.index')
                                 <li class="{{ is_menu_active('intranet/costos-despachos') }}">
                                     <a href="{{ route('intranet.delivery_costs.index') }}">
                                         <span class="menu-title">Costos Delivery</span>
                                     </a>
                                 </li>
+                                @endcan
+                                @can('intranet.responsible_consumptions.index')
                                 <li class="{{ is_menu_active('intranet/consumo-responsable') }}">
                                     <a href="{{ route('intranet.responsible_consumptions.index') }}">
                                         <span class="menu-title">Consumo Responsable</span>
                                     </a>
                                 </li>
+                                @endcan
                                 <!--<li class="{{ is_menu_active('intranet/configuraciones') }}">
                                     <a href="{{ route('intranet.settings.index') }}">
                                         <span class="menu-title">Configuraciones Generales</span>
@@ -203,6 +249,7 @@
                             </ul>
                         </li>
 
+                    @can('intranet.day_payment.index')
                     <li class="treeview {{ is_parent_menu_active(['intranet/comision-pagos', 'intranet/dia-pago']) }}">
                         <a href="#">
                             <i class="ti-settings"></i>
@@ -211,33 +258,43 @@
                         </a>
                         <!--Submenu-->
                         <ul class="collapse">
+                            @can('intranet.payment_commissions.index')
                             <li class="{{ is_menu_active('intranet/comision-pagos') }}">
                                 <a href="{{ route('intranet.payment_commissions.index') }}">
                                     <span class="menu-title">Comisiones</span>
                                 </a>
                             </li>
+                            @endcan
+                            @can('intranet.day_payment.index')
                             <li class="{{ is_menu_active('intranet/dia-pago') }}">
                                 <a href="{{ route('intranet.day_payment.index') }}">
                                     <span class="menu-title">Facturas Realizadas</span>
                                 </a>
                             </li>
+                            @endcan
                         </ul>
                     </li>
+                    @endcan
 
+                        @can('intranet.listado')
                         <li class="{{ is_menu_active('intranet/email') }}">
                             <a href="{{ route('intranet.listado') }}" target="_blank">
                                 <i class="ti-email"></i>
                                 <span class="menu-title">Newsletter Clientes</span>
                             </a>
                         </li>
+                        @endcan
 
+                        @can('intranet.customers.index')
                         <li class="{{ is_menu_active('intranet/clientes') }}">
                             <a href="{{ route('intranet.customers.index') }}" target="_blank">
                                 <i class="ti-user"></i>
                                 <span class="menu-title">Listado Clientes</span>
                             </a>
                         </li>
+                        @endcan
 
+                        @can('intranet.claims.index')
                         <li class="treeview {{ is_parent_menu_active(['intranet/tipos-contacto', 'intranet/contactos', 'intranet/campanas', 'intranet/reclamos']) }}">
                             <a href="#">
                                 <i class="ti-help"></i>
@@ -246,35 +303,46 @@
                             </a>
                             <!--Submenu-->
                             <ul class="collapse">
+                                @can('intranet.campaigns.index')
                                 <li class="{{ is_menu_active('intranet/campanas') }}">
                                     <a href="{{ route('intranet.campaigns.index') }}">
                                         <span class="menu-title">Campañas</span>
                                     </a>
                                 </li>
+                                @endcan
+                                @can('intranet.contact_issues.index')
                                 <li class="{{ is_menu_active('intranet/tipos-contacto') }}">
                                     <a href="{{ route('intranet.contact_issues.index') }}">
                                         <span class="menu-title">Tipos de Contacto</span>
                                     </a>
                                 </li>
+                                @endcan
+                                @can('intranet.contacts.index')
                                 <li class="{{ is_menu_active('intranet/contactos') }}">
                                     <a href="{{ route('intranet.contacts.index') }}">
                                         <span class="menu-title">Registro Contactos</span>
                                     </a>
                                 </li>
+                                @endcan
+                                @can('intranet.claims.index')
                                 <li class="{{ is_menu_active('intranet/reclamos') }}">
                                     <a href="{{ route('intranet.claims.index') }}">
                                         <span class="menu-title">Registro Reclamos</span>
                                     </a>
                                 </li>
+                                @endcan
                             </ul>
                         </li>
+                        @endcan
 
+                        @can('intranet.discount_code.index')
                         <li class="{{ is_menu_active('intranet/codigo-descuento') }}">
                             <a href="{{ route('intranet.discount_code.index') }}">
                                 <i class="fa fa-cart-plus"></i>
                                 <span class="menu-title">Códigos de descuento</span>
                             </a>
                         </li>
+                        @endcan
 
                         @can('intranet.roles.index')
                         <li class="{{ is_menu_active('intranet/roles') }}">
