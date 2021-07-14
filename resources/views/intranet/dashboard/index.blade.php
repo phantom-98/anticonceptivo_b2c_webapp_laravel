@@ -55,76 +55,6 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-12">
-            <div id="demo-panel-network" class="panel">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Productos Vendidos por suscripción</h3>
-                </div>
-    
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div id="dateSubscriptions"
-                                style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
-                                <i class="fa fa-calendar"></i>&nbsp;
-                                <span></span>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-caret-down"></i>
-                            </div>
-                            <br/>
-                        </div>
-                        <div class="col-lg-12">
-                            <canvas id="subscriptionsChart"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-12">
-            <div id="demo-panel-network" class="panel">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Productos Vendidos por formato</h3>
-                </div>
-    
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div id="dateFormat"
-                                style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
-                                <i class="fa fa-calendar"></i>&nbsp;
-                                <span></span>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-caret-down"></i>
-                            </div>
-                            <br/>
-                        </div>
-                        <div class="col-lg-12">
-                            <canvas id="formatChart"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-12">
-            <div id="demo-panel-network" class="panel">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Productos Vendidos por tipo receta</h3>
-                </div>
-    
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div id="datePrescriptions"
-                                style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
-                                <i class="fa fa-calendar"></i>&nbsp;
-                                <span></span>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-caret-down"></i>
-                            </div>
-                            <br/>
-                        </div>
-                        <div class="col-lg-12">
-                            <canvas id="prescriptionsChart"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
     </div>
     <div class="col-lg-5">
         <div class="row">
@@ -217,7 +147,7 @@
                     </div>
                     <div class="media-body">
                         <p class="text-2x mar-no text-semibold">{{ $products }}</p>
-                        <p class="mar-no">Productos</p>
+                        <p class="mar-no">Productos cargados</p>
                     </div>
                 </div>
             </div>
@@ -314,6 +244,79 @@
             </div>
         </div>
 
+    </div>
+    <div class="col-lg-12">
+        <div class="row">
+            <div class="col-lg-6">
+                <div id="demo-panel-network" class="panel">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Productos Vendidos por suscripción</h3>
+                    </div>
+        
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div id="dateSubscriptions"
+                                    style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
+                                    <i class="fa fa-calendar"></i>&nbsp;
+                                    <span></span>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-caret-down"></i>
+                                </div>
+                                <br/>
+                            </div>
+                            <div class="col-lg-12">
+                                <canvas id="subscriptionsChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div id="demo-panel-network" class="panel">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Productos Vendidos por formato</h3>
+                    </div>
+        
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div id="dateFormat"
+                                    style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
+                                    <i class="fa fa-calendar"></i>&nbsp;
+                                    <span></span>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-caret-down"></i>
+                                </div>
+                                <br/>
+                            </div>
+                            <div class="col-lg-12">
+                                <canvas id="formatChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div id="demo-panel-network" class="panel">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Productos Vendidos por tipo receta</h3>
+                    </div>
+        
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div id="datePrescriptions"
+                                    style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
+                                    <i class="fa fa-calendar"></i>&nbsp;
+                                    <span></span>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-caret-down"></i>
+                                </div>
+                                <br/>
+                            </div>
+                            <div class="col-lg-12">
+                                <canvas id="prescriptionsChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 @endcan
