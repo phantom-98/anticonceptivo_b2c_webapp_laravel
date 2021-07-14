@@ -64,7 +64,6 @@
                             </a>
                         </li>
 
-                        @can('intranet.orders.index')
                         <li class="treeview {{ is_parent_menu_active(['intranet/categorias', 'intranet/subcategorias', 'intranet/marcas', 'intranet/productos',
                             'intranet/pedidos', 'intranet/laboratorios', 'intranet/aviso-legal-productos','intranet/precios-productos', 'intranet/planes-suscripcion']) }}">
                             <a href="#">
@@ -139,7 +138,6 @@
                                 @endcan
                             </ul>
                         </li>
-                        @endcan
                         
                         <li class="treeview {{ is_parent_menu_active(['intranet/banners', 'intranet/tipos-post-blog', 'intranet/post-blog', 'intranet/faq', 'intranet/configuraciones', 'intranet/paginas', 'intranet/linea-tiempo', 'intranet/categorias-faq',
                             'intranet/quienes-somos', 'intranet/valores', 'intranet/alianzas', 'intranet/bases-legales', 'intranet/costos-despachos', 'intranet/consumo-responsable']) }}">
