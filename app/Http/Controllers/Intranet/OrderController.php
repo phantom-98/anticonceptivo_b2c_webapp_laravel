@@ -33,7 +33,7 @@ class OrderController extends GlobalController
 
     public function index(Request $request)
     {
-        $objects = Order::with(['customer', 'prescriptions.product'])->whereNotIn('status', ['REJECTED', 'CANCELED']);
+        $objects = Order::with(['customer', 'prescriptions.product'])->whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED'])->orderBy('created_at', 'desc');
         $clients = Customer::get();
 
         $date = $request->date;
