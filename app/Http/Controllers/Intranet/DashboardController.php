@@ -151,21 +151,20 @@ class DashboardController extends Controller
 
         foreach($subscriptions as $subscription){
             if($subscription != 'Sin suscripción'){
-                $products = SubscriptionsOrdersItem::select('orders_item_id')->whereHas('order_item', function ($p) use ($subscription) {
-                    $p->whereHas('subscription_plan', function ($p) use ($subscription) {
-                        $p->where('months', $subscription);
-                    });
+                $products = OrderItem::whereHas('subscription_plan', function ($p) use ($subscription) {
+                    $p->where('months', $subscription);
                 })->whereHas('order', function ($o) use ($start, $end) {
                     $o->whereBetween('created_at', [$start, $end])
-                    ->where('is_paid', 1);
-                })->groupBy('orders_item_id')->count();
+                    ->whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED']);
+                })->sum('quantity');
 
                 $count = round($products / $total * 100);
                 array_push($array_percentage, $count);
                 array_push($array_count, $products);
 
             } else {
-                
+                array_push($array_percentage, 100 - round($array_percentage));
+                array_push($array_count, $total - array_sum($array_count));
             }
         }
 
