@@ -743,7 +743,7 @@
                         drawOnChartArea: false, // only want the grid lines for one axis to show up
                         },
                     },
-                };
+                }
             }
         });
     }
