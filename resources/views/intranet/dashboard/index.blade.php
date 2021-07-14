@@ -729,19 +729,32 @@
                 },
                 scales: {
                     y: {
-                        type: 'linear',
                         display: true,
                         position: 'left',
+                        ticks: {
+                            beginAtZero: true,
+                            userCallback: function (label, index, labels) {
+                                // when the floored value is the same as the value we have a whole number
+                                if (Math.floor(label) === label) {
+                                    return label;
+                                }
+
+                            },
+                        }
                     },
                     y1: {
-                        type: 'linear',
                         display: true,
                         position: 'right',
+                        ticks: {
+                            beginAtZero: true,
+                            userCallback: function (label, index, labels) {
+                                // when the floored value is the same as the value we have a whole number
+                                if (Math.floor(label) === label) {
+                                    return label;
+                                }
 
-                        // grid line settings
-                        grid: {
-                        drawOnChartArea: false, // only want the grid lines for one axis to show up
-                        },
+                            },
+                        }
                     },
                 }
             }
