@@ -73,7 +73,7 @@ class DashboardController extends Controller
                     });
                 });
             })->whereHas('order', function ($o) use ($start, $end) {
-                $c->whereBetween('created_at', [$start, $end]);
+                $o->whereBetween('created_at', [$start, $end]);
             })->count();
 
             $count = round($products / $total * 100);
