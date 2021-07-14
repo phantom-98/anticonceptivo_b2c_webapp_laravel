@@ -704,58 +704,41 @@
                         label: 'Cantidad',
                         data: count,
                         backgroundColor: colors,
-                        borderWidth: 1
+                        borderWidth: 1,
+                        yAxisID: 'left-axis'
                     },
                     {
                         label: 'Porcentaje',
                         data: percentage,
                         backgroundColor: colors,
-                        borderWidth: 1
+                        borderWidth: 1,
+                        yAxisID: 'right-axis'
                     },
                 ]
             },
             options: {
+                maintainAspectRatio:false,
                 responsive: true,
-                interaction: {
-                    mode: 'index',
-                    intersect: false,
-                },
-                stacked: false,
-                plugins: {
-                    title: {
-                        display: true,
-                        text: 'Chart.js Line Chart - Multi Axis'
-                    }
-                },
+                title: {display: false},
+                tooltips: {mode: 'index', intersect: false},
+                hover: {mode: 'nearest', intersect: true},
                 scales: {
-                    y: {
+                    xAxes: [{display: true, stacked:true, scaleLabel: {display: false, labelString: 'time'}}],
+                    yAxes: [{
+                        type:'linear',
+                        id:'left-axis',
                         display: true,
                         position: 'left',
-                        ticks: {
-                            beginAtZero: true,
-                            userCallback: function (label, index, labels) {
-                                // when the floored value is the same as the value we have a whole number
-                                if (Math.floor(label) === label) {
-                                    return label;
-                                }
-
-                            },
-                        }
-                    },
-                    y1: {
+                        scaleLabel: {display: true, labelString: '#'}
+                    },{
+                        type:'linear',
+                        id:'right-axis',
                         display: true,
                         position: 'right',
-                        ticks: {
-                            beginAtZero: true,
-                            userCallback: function (label, index, labels) {
-                                // when the floored value is the same as the value we have a whole number
-                                if (Math.floor(label) === label) {
-                                    return label;
-                                }
-
-                            },
-                        }
-                    },
+                        stacked:false,
+                        scaleLabel: {display: true, labelString: '%'},
+                        gridLines: {drawOnChartArea:false}
+                    }]
                 }
             }
         });
