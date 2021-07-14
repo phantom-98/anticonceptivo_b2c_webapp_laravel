@@ -426,7 +426,7 @@
 
     <script>
         $(document).ready(function(){
-            $('[data-toggle="tooltip"]').tooltip();   
+            $('[data-toggle="data-original-title"]').tooltip();   
         });
     </script>
 
