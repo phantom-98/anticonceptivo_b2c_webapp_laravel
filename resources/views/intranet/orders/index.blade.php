@@ -175,8 +175,13 @@
                                 <td>${{ number_format($object->discount, 0, ',','.')}}</td>
                                 <td>${{ number_format($object->total, 0, ',','.')}}</td>
                                 <td>{{ $object->billing_date ? date('d-m-Y', strtotime($object->billing_date)) : '-' }}</td>
-                                <td>{{ $object->humidity ?? '-'}}</td>
-                                <td>{{ $object->temperature ?? '-'}}</td>
+                                @if($object->status == "PAID" || $object->status == "CREATED")
+                                    <td>{{ $object->humidity ?? '-'}}</td>
+                                    <td>{{ $object->temperature ?? '-'}}</td>
+                                @else 
+                                    <td>-</td>
+                                    <td>-</td>
+                                @endif
                                 @if(count($object->prescriptions) > 0)
                                 <td>
                                     @foreach($object->prescriptions as $prescription)
