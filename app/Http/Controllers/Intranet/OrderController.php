@@ -200,6 +200,7 @@ class OrderController extends GlobalController
                 $object->save();
             } else {
                 session()->flash('danger', 'Debe seleccionar un estado para actualizar el pedido.');
+                return redirect()->route($this->route . 'index');
             }
         }
 
