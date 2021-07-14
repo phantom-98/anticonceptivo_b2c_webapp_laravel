@@ -85,7 +85,32 @@ class DashboardController extends Controller
     }
 
     public function laboratories(Request $request){
+        $data = [];
 
+        $start = $request->start . ' 00:00:00';
+        $end = $request->end . ' 23:59:59';
+
+        $total = OrderItem::count();
+
+        $laboratories = Laboratory::where('active', 1)->get();
+
+        $array_percentage = [];
+        $array_count = [];
+        $array_laboratories = $laboratories->pluck('name')->toArray();
+
+        foreach($laboratories as $laboratory){
+            $products = OrderItem::whereHas('product', function ($p) use ($laboratory) {
+                $p->where('laboratory_id', '=', $laboratory->id);
+            })->whereHas('order', function ($o) use ($start, $end) {
+                $o->whereBetween('created_at', [$start, $end]);
+            })->count();
+
+            $count = round($products / $total * 100);
+            array_push($array_percentage, $count);
+            array_push($array_count, $products);
+        }
+
+        return response()->json(['names' => $array_laboratories, 'percentage' => $array_percentage, 'count' => $array_count], 200);
     }
 
     public function subscriptions(Request $request){
