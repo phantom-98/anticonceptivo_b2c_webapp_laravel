@@ -66,8 +66,8 @@ class DashboardController extends Controller
         $array_categories = $category->pluck('name')->toArray();
 
         foreach($categories as $category){
-            $products = OrderItem::whereHas('product', function ($p) {
-                $p->whereHas('subcategory', function ($s) {
+            $products = OrderItem::whereHas('product', function ($p) use ($category) {
+                $p->whereHas('subcategory', function ($s) use ($category) {
                     $s->whereHas('category', function ($c) use ($category) {
                         $c->where('category_id', '=', $category->id);
                     });
