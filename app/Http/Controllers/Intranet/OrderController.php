@@ -23,7 +23,7 @@ class OrderController extends GlobalController
         'pluralName' => 'Pedidos',
         'singularName' => 'Pedido',
         'disableActions' => ['create', 'edit', 'active', 'destroy', 'changeStatus'],
-        'enableActions' => ['search_client', 'show', 'changeOrderStatus', 'prescription_validate']
+        'enableActions' => ['search_client', 'show', 'prescription_validate']
     ];
 
     public function __construct()
@@ -33,7 +33,7 @@ class OrderController extends GlobalController
 
     public function index(Request $request)
     {
-        $objects = Order::with(['customer', 'prescription']);
+        $objects = Order::with(['customer', 'prescriptions'])->where('status', '!=' ,'REJECTED');
         $clients = Customer::get();
 
         $date = $request->date;
@@ -182,11 +182,33 @@ class OrderController extends GlobalController
             return redirect()->route($this->route . 'index');
         }
 
-        $object->prescription_validation = 1;
-        $object->save();
+        if(isset($request->prescription)){
+            if($request->prescription == 1){
+                $object->prescription_validation = 1;
+                $object->save();
+            } else {
+                $object->status = 'REJECTED';
+                $object->save();
+            }
+        } else {
+            $object->status = $request->order_status_id;
+            if($request->order_status_id == "DISPATCHED"){
+                $object->humidity = $request->humidity;
+                $object->temperature = $request->temperature;
+            }
+            $object->save();
+        }
 
         if ($object) {
-            session()->flash('success', 'Receta validada correctamente.');
+            if(isset($request->prescription)){
+                if($request->prescription == 1){
+                    session()->flash('success', 'Pedido validado correctamente.');
+                } else {
+                    session()->flash('success', 'Pedido rechazado correctamente.');
+                }
+            } else {
+                session()->flash('success', 'Estado del pedido actualizado correctamente.');
+            }
             return redirect()->route($this->route . 'index');
         }
     }

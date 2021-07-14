@@ -700,6 +700,7 @@
                         label: 'Cantidad',
                         data: count,
                         backgroundColor: colors,
+                        scaleFontColor: "#000000",
                         borderWidth: 1,
                         yAxisID: 'left-axis'
                     },
@@ -707,6 +708,7 @@
                         label: 'Porcentaje',
                         data: percentage,
                         backgroundColor: colors,
+                        scaleFontColor: "#000000",
                         borderWidth: 1,
                         yAxisID: 'right-axis'
                     },
@@ -786,6 +788,7 @@
                         label: 'Cantidad',
                         data: count,
                         backgroundColor: colors,
+                        scaleFontColor: "#000000",
                         borderWidth: 1,
                         yAxisID: 'left-axis'
                     },
@@ -793,6 +796,7 @@
                         label: 'Porcentaje',
                         data: percentage,
                         backgroundColor: colors,
+                        scaleFontColor: "#000000",
                         borderWidth: 1,
                         yAxisID: 'right-axis'
                     },
@@ -878,6 +882,7 @@
                         label: 'Cantidad',
                         data: count,
                         backgroundColor: colors,
+                        scaleFontColor: "#000000",
                         borderWidth: 1,
                         yAxisID: 'left-axis'
                     },
@@ -885,6 +890,7 @@
                         label: 'Porcentaje',
                         data: percentage,
                         backgroundColor: colors,
+                        scaleFontColor: "#000000",
                         borderWidth: 1,
                         yAxisID: 'right-axis'
                     },
@@ -964,6 +970,7 @@
                         label: 'Cantidad',
                         data: count,
                         backgroundColor: colors,
+                        scaleFontColor: "#000000",
                         borderWidth: 1,
                         yAxisID: 'left-axis'
                     },
@@ -971,6 +978,7 @@
                         label: 'Porcentaje',
                         data: percentage,
                         backgroundColor: colors,
+                        scaleFontColor: "#000000",
                         borderWidth: 1,
                         yAxisID: 'right-axis'
                     },

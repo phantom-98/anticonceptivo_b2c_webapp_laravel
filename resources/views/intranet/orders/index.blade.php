@@ -55,9 +55,10 @@
                                             <label for="status">Estado</label>
                                             <select id="status" name="status" class="form-control select2" data-width="100%">
                                                 <option value="">Todos</option>
-                                                <option value="PAID" {{ $status == "PAID" ? "selected" : "" }}>Pagada</option>
-                                                <option value="CREATED" {{ $status == "CREATED" ? "selected" : "" }}>Creada</option>
-                                                <option value="CANCELED" {{ $status == "CANCELED" ? "selected" : "" }}>Rechazada</option>
+                                                <option value="PAID" {{ $status == "PAID" ? "selected" : "" }}>Pagado</option>
+                                                <option value="CREATED" {{ $status == "CREATED" ? "selected" : "" }}>Creado</option>
+                                                <option value="DISPATCHED" {{ $status == "DISPATCHED" ? "selected" : "" }}>Despachado</option>
+                                                <option value="DELIVERED" {{ $status == "DELIVERED" ? "selected" : "" }}>Entregado</option>
                                             </select>
                                         </div>
                                     </div>
@@ -172,8 +173,12 @@
                                 <td>${{ number_format($object->discount, 0, ',','.')}}</td>
                                 <td>${{ number_format($object->total, 0, ',','.')}}</td>
                                 <td>{{ $object->billing_date ? date('d-m-Y', strtotime($object->billing_date)) : '-' }}</td>
-                                @if($object->prescription)
-                                <td><a href="{{ Storage::url($object->prescription->file) }}" target="_blank" class='btn btn-sm btn-default btn-hover-success add-tooltip' title="Ver Receta"><i class="ti-file"></i></a></td>
+                                @if(count($object->prescriptions) > 0)
+                                <td>
+                                    @foreach($object->prescriptions as $prescription)
+                                    <a href="{{ Storage::url($prescription->file) }}" target="_blank" class='btn btn-sm btn-default btn-hover-success add-tooltip' title="Ver Receta"><i class="ti-file"></i></a>
+                                    @endforeach
+                                </td>
                                 @else
                                 <td>Venta Directa</td>
                                 @endif
@@ -189,14 +194,21 @@
                                     <td>
                                         <div >
                                             @can('intranet.orders.changeOrderStatus')
-                                            @if($object->prescription && $object->prescription_validation == 0)
+                                            @if(count($object->prescriptions) > 0 && $object->prescription_validation == 0)
                                             @push('prepend_actions_buttons' .  $object->id)
-                                                <a onclick="prescription({{$object->id}})"
+                                                <a onclick="prescriptionSuccess({{$object->id}})"
                                                 class="btn btn-sm btn-default btn-hover-info add-tooltip"
-                                                title="Validar Receta">
+                                                title="Validar Recetas">
                                                     <i class="fa fa-check"></i>
                                                 </a>
+                                                <a onclick="prescriptionRejected({{$object->id}})"
+                                                    class="btn btn-sm btn-default btn-hover-info add-tooltip"
+                                                    title="Rechazar Recetas">
+                                                        <i class="fa fa-times"></i>
+                                                </a>
                                             @endpush
+                                            @else
+
                                             @endif
                                             @endcan
                                             @include('intranet.template.components._crud_html_actions_buttons')
@@ -260,16 +272,98 @@
     @include('intranet.template.components._crud_script_delete')
 
     <script>
-        function prescription(id){
+        function prescriptionSuccess(id){
             $('<input>').attr({
                 type: 'hidden',
                 name: 'id',
                 value: id
             }).appendTo('#prescription-validate-form');
+            $('<input>').attr({
+                type: 'hidden',
+                name: 'prescription',
+                value: 1
+            }).appendTo('#prescription-validate-form');
             $('#prescription-validate-form').submit();
         }
     </script>
 
+    <script>
+        function prescriptionRejected(id){
+            $('<input>').attr({
+                type: 'hidden',
+                name: 'id',
+                value: id
+            }).appendTo('#prescription-validate-form');
+            $('<input>').attr({
+                type: 'hidden',
+                name: 'prescription',
+                value: 0
+            }).appendTo('#prescription-validate-form');
+            $('#prescription-validate-form').submit();
+        }
+    </script>
+
+    <script>
+        function change_status(id, status){
+            var html = '<span>Seleccione un estado</span><br/><br/><div class="form-inline"><center>';
+            html += '<select id="select_order_status_id" name="order_status_id" class="form-control" style="width:30%; font-size: 14px" onclick="changeDispatch(this.value)">';
+            if(status == "PAID"){
+                html += '<option value="DISPATCHED">DESPACHADO</option>';
+                html += '<option value="DELIVERED">ENTREGADO</option>';
+            } else {
+                html += '<option value="DELIVERED">ENTREGADO</option>';
+            }
+            html += '</select>';
+            html += '<input type="number" step=".01" class="form-control dispatched" id="humidity" name="humidity" placeholder="Ej: 35.20" style="width:30%; font-size: 14px; display:none">';
+            html += '<input type="number" step=".01" class="form-control dispatched" id="temperature" name="temperature" placeholder="Ej: 35.20" style="width:30%; font-size: 14px; display:none">';
+            html += '</center></div><br/><br/>';
+            swal({
+                title: 'Cambiar estado del pedido',
+                html: html,
+                customClass: "swal-wide",
+                type: 'info',
+                showCancelButton: true,
+                confirmButtonColor: '#43a047',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Confirmar',
+                cancelButtonText: 'Cancelar'
+            }).then(function (result) {
+                if (result.value) {
+                    $('<input>').attr({
+                        type: 'hidden',
+                        name: 'id',
+                        value: id
+                    }).appendTo('#prescription-validate-form');
+                    $('<input>').attr({
+                        type: 'hidden',
+                        name: 'order_status_id',
+                        value: $("#select_order_status_id").val()
+                    }).appendTo('#prescription-validate-form');
+                    $('<input>').attr({
+                        type: 'hidden',
+                        name: 'humidity',
+                        value: $("#humidity").val()
+                    }).appendTo('#prescription-validate-form');
+                    $('<input>').attr({
+                        type: 'hidden',
+                        name: 'temperature',
+                        value: $("#temperature").val()
+                    }).appendTo('#prescription-validate-form');
+                    $('#prescription-validate-form').submit();
+                }
+            });
+        }
+    </script>
+
+    <script>
+        function changeDispatch(value){
+            if(value == "DISPATCHED"){
+                $(".dispatched").show();
+            } else {
+                $(".dispatched").hide();
+            }
+        }
+    </script>
 
     <script>
         function datesSorter(a, b) {
@@ -300,6 +394,12 @@
             return aa - bb
         }
 
+    </script>
+
+    <script>
+        $(document).ready(function(){
+            $('[data-toggle="tooltip"]').tooltip();   
+        });
     </script>
 
     <script>
