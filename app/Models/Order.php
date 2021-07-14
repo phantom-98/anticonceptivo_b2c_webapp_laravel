@@ -77,11 +77,11 @@ class Order extends Model
         } else if($this->status == 'CANCELED'){
             return "#fff";
         } else if($this->status == 'DISPATCHED'){
-            return "#000";
+            return "#fff";
         } else if($this->status == 'REJECTED'){
             return "#fff";
         } else if($this->status == 'DELIVERED'){
-            return "#000";
+            return "#fff";
         } else if($this->status == 'PAID'){
             return "#fff";
         }
