@@ -163,7 +163,7 @@ class DashboardController extends Controller
                 array_push($array_count, $products);
 
             } else {
-                array_push($array_percentage, 100 - round($array_percentage));
+                array_push($array_percentage, 100 - round(array_sum($array_percentage)));
                 array_push($array_count, $total - array_sum($array_count));
             }
         }
