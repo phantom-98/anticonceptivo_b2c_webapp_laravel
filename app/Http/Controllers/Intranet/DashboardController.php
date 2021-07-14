@@ -63,7 +63,10 @@ class DashboardController extends Controller
         $start = $request->start . ' 00:00:00';
         $end = $request->end . ' 23:59:59';
 
-        $total = OrderItem::count();
+        $total = OrderItem::whereHas('order', function ($o) use ($start, $end) {
+            $o->whereBetween('created_at', [$start, $end])
+            ->where('is_paid', 1);
+        })->count();
 
         $categories = Category::where('active', 1)->get();
 
@@ -97,7 +100,10 @@ class DashboardController extends Controller
         $start = $request->start . ' 00:00:00';
         $end = $request->end . ' 23:59:59';
 
-        $total = OrderItem::count();
+        $total = OrderItem::whereHas('order', function ($o) use ($start, $end) {
+            $o->whereBetween('created_at', [$start, $end])
+            ->where('is_paid', 1);
+        })->count();
 
         $laboratories = Laboratory::where('active', 1)->get();
 
@@ -127,7 +133,10 @@ class DashboardController extends Controller
         $start = $request->start . ' 00:00:00';
         $end = $request->end . ' 23:59:59';
 
-        $total = OrderItem::count();
+        $total = OrderItem::whereHas('order', function ($o) use ($start, $end) {
+            $o->whereBetween('created_at', [$start, $end])
+            ->where('is_paid', 1);
+        })->count();
 
         $subscriptions = [
             "4",
@@ -163,7 +172,10 @@ class DashboardController extends Controller
         $start = $request->start . ' 00:00:00';
         $end = $request->end . ' 23:59:59';
 
-        $total = OrderItem::count();
+        $total = OrderItem::whereHas('order', function ($o) use ($start, $end) {
+            $o->whereBetween('created_at', [$start, $end])
+            ->where('is_paid', 1);
+        })->count();
 
         $formats = [
             "1",
@@ -233,7 +245,10 @@ class DashboardController extends Controller
         $start = $request->start . ' 00:00:00';
         $end = $request->end . ' 23:59:59';
 
-        $total = OrderItem::count();
+        $total = OrderItem::whereHas('order', function ($o) use ($start, $end) {
+            $o->whereBetween('created_at', [$start, $end])
+            ->where('is_paid', 1);
+        })->count();
 
         $prescriptions = [
             "Venta Directa",
