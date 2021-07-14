@@ -76,7 +76,7 @@ class DashboardController extends Controller
         return    $products = OrderItem::whereHas('product', function ($p) use ($category) {
             $p->whereHas('subcategory', function ($s) use ($category) {
                 $s->whereHas('category', function ($c) use ($category) {
-                    $c->where('category_id', '=', $category->id);
+                    $c->where('category_id', '=', $category);
                 });
             });
         })->whereHas('order', function ($o) {
