@@ -119,11 +119,111 @@ class DashboardController extends Controller
     }
 
     public function format(Request $request){
+        $data = [];
 
+        $start = $request->start . ' 00:00:00';
+        $end = $request->end . ' 23:59:59';
+
+        $total = OrderItem::count();
+
+        $formats = [
+            "1",
+            "2",
+            "3",
+            "3.5",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "10",        
+            "12",
+            "14",
+            "15",        
+            "16",
+            "20",
+            "21",        
+            "24",
+            "25",
+            "28",
+            "30",
+            "35",      
+            "40",
+            "45",
+            "50",
+            "56",
+            "60",
+            "80",       
+            "90",
+            "91",
+            "100",  
+            "133",     
+            "180",
+            "200",
+            "250", 
+            "Sin Formato"    
+        ];
+
+        $array_percentage = [];
+        $array_count = [];
+        $array_formats = $formats;
+
+        foreach($formats as $format){
+            $products = OrderItem::whereHas('product', function ($p) use ($format) {
+                if($format != "Sin Formato"){
+                    $p->where('format', '=', $format);
+                } else {
+                    $p->whereNull('format');
+                }
+            })->whereHas('order', function ($o) use ($start, $end) {
+                $o->whereBetween('created_at', [$start, $end]);
+            })->count();
+
+            $count = round($products / $total * 100);
+            array_push($array_percentage, $count);
+            array_push($array_count, $products);
+        }
+
+        return response()->json(['names' => $array_formats, 'percentage' => $array_percentage, 'count' => $array_count], 200);
     }
 
     public function prescriptions(Request $request){
+        $data = [];
 
+        $start = $request->start . ' 00:00:00';
+        $end = $request->end . ' 23:59:59';
+
+        $total = OrderItem::count();
+
+        $prescriptions = [
+            "Venta Directa",
+            "Receta Simple (R)",
+            "Receta Retenida (RR)",
+            "Receta Cheque (RCH)",
+            "Sin receta"    
+        ];
+
+        $array_percentage = [];
+        $array_count = [];
+        $array_prescriptions = $prescriptions;
+
+        foreach($prescriptions as $prescription){
+            $products = OrderItem::whereHas('product', function ($p) use ($prescription) {
+                if($prescription != "Sin receta"){
+                    $p->where('recipe_type', '=', $prescription);
+                } else {
+                    $p->whereNull('recipe_type');
+                }
+            })->whereHas('order', function ($o) use ($start, $end) {
+                $o->whereBetween('created_at', [$start, $end]);
+            })->count();
+
+            $count = round($products / $total * 100);
+            array_push($array_percentage, $count);
+            array_push($array_count, $products);
+        }
+
+        return response()->json(['names' => $array_prescriptions, 'percentage' => $array_percentage, 'count' => $array_count], 200);
     }
 
 }
