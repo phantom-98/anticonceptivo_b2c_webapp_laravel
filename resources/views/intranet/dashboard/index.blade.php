@@ -685,7 +685,7 @@
 
         data.names.forEach(function (d, index) {
             names.push(d);
-            color.push(random_rgba());
+            colors.push(random_rgba());
         });
 
         data.percentage.forEach(function (d, index) {
