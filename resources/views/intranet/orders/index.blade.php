@@ -130,7 +130,7 @@
                            data-show-pagination-switch="true">
                         <thead>
                         <tr>
-                            <th data-cell-style="cellStyle" data-field="id" data-sorter="idSorter" data-sortable="true" data-valign="middle">Nº Ped.</th>
+                            <th data-cell-style="cellStyle" data-sortable="false" data-valign="middle">Nº Ped.</th>
                             <th data-cell-style="cellStyle" data-field="date" data-sorter="datesSorter" data-sortable="true" data-valign="middle">Fecha</th>
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Hora</th>
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Estado</th>
