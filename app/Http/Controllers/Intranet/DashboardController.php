@@ -50,7 +50,7 @@ class DashboardController extends Controller
         })->sum('quantity');
 
         $subscriptions = SubscriptionsOrdersItem::whereHas('order', function ($order) {
-            $order->whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED'])
+            $order->whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED']);
         })->where('status', 'CREATED')->orderBy('dispatch_date', 'desc')->count();
 
         return view($this->folder . 'index', compact('orderTotals', 'orderToday', 'orderThisWeek', 'orderThisMonth', 'sellToday', 'sellWeek', 'sellMonth', 
