@@ -44,11 +44,21 @@ const AddCartCard = ({quantity, setQuantity, product,subscription}) =>{
                         : <QuantityInput quantity={quantity} setQuantity={setQuantity}/>
             }
             </div>
-            <div className="col pl-1">
+
+            {product.stock != 0
+                ?            <div className="col pl-1">
                 <button className="btn btn-outline-bicolor btn-add-cart btn-block px-1" onClick={() => handleAddToCart()}>
                     <span>AGREGAR AL CARRO</span>
                 </button>
             </div>
+                :
+                <div className="col pl-1">
+                <button disabled className="btn btn-outline-bicolor btn-add-cart btn-block px-1" >
+                    <span>SIN STOCK </span>
+                </button>
+            </div>
+            }
+
         </div>
     );
 };

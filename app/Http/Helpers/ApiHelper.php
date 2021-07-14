@@ -9,7 +9,7 @@ class ApiHelper extends CoreHelper
 {
    public const MODE = 'desa';
 
-   public static function callAPI($method, $url, $data)
+   public static function callAPI($method, $url, $data, $integration = 'bsale')
    {
       $curl = curl_init();
       switch ($method) {
@@ -33,19 +33,43 @@ class ApiHelper extends CoreHelper
 
          if(self::MODE == 'prod'){
 
-            curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-               'access_token: ',
-               'Accept: application/json',
-               'Content-Type: application/json',
-               
-            ));
+            if($integration == 'bsale'){
+               curl_setopt($curl, CURLOPT_HTTPHEADER, array(
+                  'access_token: ',
+                  'Accept: application/json',
+                  'Content-Type: application/json',
+                  
+               ));
+            }else if($integration == 'llego'){
+
+            }else if($integration == 'ailoo'){
+               curl_setopt($curl, CURLOPT_HTTPHEADER, array(
+                  'X-Ailoo-Access-Token: )H@McQfTjWnZr4t7w!z%C*F-JaNdRgUkXp2s5v8x/A?D(G+KbPeShVmYq3t6w9z$B&E)H@McQfTjWnZr4u7x!A%D*F-JaNdRgUkXp2s5v8y/B?E(H+KbPeShVmYq3t6w',
+                  'Accept: application/json',
+                  'Content-Type: application/json',
+                  
+               ));
+            }
+
 
          }else{
-            curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-               'access_token: tuTokendeAcceso',
-               'Accept: application/json',
-               'Content-Type: application/json',
-            ));
+            if($integration == 'bsale'){
+               curl_setopt($curl, CURLOPT_HTTPHEADER, array(
+                  'access_token: tuTokendeAcceso',
+                  'Accept: application/json',
+                  'Content-Type: application/json',
+               ));
+            }else if($integration == 'llego'){
+
+            }else if($integration == 'ailoo'){
+               curl_setopt($curl, CURLOPT_HTTPHEADER, array(
+                  'X-Ailoo-Access-Token: )H@McQfTjWnZr4t7w!z%C*F-JaNdRgUkXp2s5v8x/A?D(G+KbPeShVmYq3t6w9z$B&E)H@McQfTjWnZr4u7x!A%D*F-JaNdRgUkXp2s5v8y/B?E(H+KbPeShVmYq3t6w',
+                  'Accept: application/json',
+                  'Content-Type: application/json',
+                  
+               ));
+            }
+
 
          }
 
