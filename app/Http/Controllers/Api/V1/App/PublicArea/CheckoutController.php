@@ -41,10 +41,11 @@ class CheckoutController extends Controller
             $order = Order::with(['customer','order_items.subscription_plan.product_subscription_plan'])->find($request->order_id);
 
             if (isset($request->attachments)) {
-                foreach ($request->attachments as $file) {
+                foreach ($request->attachments as $key =>  $file) {
                     $prescription = new Prescription();
                     $prescription->customer_id = $order->customer_id;
                     $prescription->order_id = $order->id;
+                    $prescription->product_id = $request->productIds[$key];
                     $prescription->name = $file->getClientOriginalName();
                     $prescription->file = $file->storeAs('public/customer/prescriptions/prescription-' . $order->customer_id .'-' . $order->id . '-' . Str::random(6), $file->getClientOriginalName());
                     $prescription->save();
