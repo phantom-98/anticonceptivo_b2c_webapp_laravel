@@ -693,6 +693,8 @@
             count.push(d);
         });
 
+        console.log(colors);
+
         var myChart = new Chart(ctx, {
             type: 'bar',
             data: {
