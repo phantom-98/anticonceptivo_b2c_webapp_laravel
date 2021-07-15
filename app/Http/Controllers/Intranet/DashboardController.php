@@ -28,13 +28,13 @@ class DashboardController extends Controller
     {   
         $orderTotals = Order::where('is_paid', 1)->count();
 
-        $orderToday = Order::whereBetween('created_at', [Carbon::now()->startOfDay(), Carbon::now()->endOfDay()])->where('is_paid', 1)->count();
-        $orderThisWeek = Order::whereBetween('created_at', [Carbon::now()->startOfWeek()->toDateTimeString(), Carbon::now()])->where('is_paid', 1)->count();
-        $orderThisMonth = Order::whereBetween('created_at', [Carbon::now()->startOfMonth()->toDateTimeString(), Carbon::now()->endOfMonth()->toDateTimeString()])->where('is_paid', 1)->count();
+        $orderToday = Order::whereBetween('created_at', [Carbon::now()->startOfDay(), Carbon::now()->endOfDay()])->whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED'])->count();
+        $orderThisWeek = Order::whereBetween('created_at', [Carbon::now()->startOfWeek()->toDateTimeString(), Carbon::now()])->whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED'])->count();
+        $orderThisMonth = Order::whereBetween('created_at', [Carbon::now()->startOfMonth()->toDateTimeString(), Carbon::now()->endOfMonth()->toDateTimeString()])->whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED'])->count();
 
-        $sellToday = Order::whereBetween('created_at', [Carbon::now()->startOfDay(), Carbon::now()->endOfDay()])->where('is_paid', 1)->get()->sum('total');
-        $sellWeek = Order::whereBetween('created_at', [Carbon::now()->startOfWeek()->toDateTimeString(), Carbon::now()])->where('is_paid', 1)->get()->sum('total');
-        $sellMonth = Order::whereBetween('created_at', [Carbon::now()->startOfMonth()->toDateTimeString(), Carbon::now()->endOfMonth()->toDateTimeString()])->where('is_paid', 1)->get()->sum('total');
+        $sellToday = Order::whereBetween('created_at', [Carbon::now()->startOfDay(), Carbon::now()->endOfDay()])->whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED'])->get()->sum('total');
+        $sellWeek = Order::whereBetween('created_at', [Carbon::now()->startOfWeek()->toDateTimeString(), Carbon::now()])->whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED'])->get()->sum('total');
+        $sellMonth = Order::whereBetween('created_at', [Carbon::now()->startOfMonth()->toDateTimeString(), Carbon::now()->endOfMonth()->toDateTimeString()])->whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED'])->get()->sum('total');
 
         $products = Product::count();
         $prescriptions = Prescription::count();
@@ -46,7 +46,7 @@ class DashboardController extends Controller
         $claims_open = Claim::where('is_reply', 0)->count();
 
         $total_products = OrderItem::whereHas('order', function ($order) {
-            $order->where('is_paid', 1);
+            $order->whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED']);
         })->sum('quantity');
 
         $subscriptions = SubscriptionsOrdersItem::whereHas('order', function ($order) {
@@ -65,7 +65,7 @@ class DashboardController extends Controller
 
         $total = OrderItem::whereHas('order', function ($o) use ($start, $end) {
             $o->whereBetween('created_at', [$start, $end])
-            ->where('is_paid', 1);
+            ->whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED']);
         })->sum('quantity');
 
         $categories = Category::where('active', 1)->get();
@@ -83,7 +83,7 @@ class DashboardController extends Controller
                 });
             })->whereHas('order', function ($o) use ($start, $end) {
                 $o->whereBetween('created_at', [$start, $end])
-                ->where('is_paid', 1);
+                ->whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED']);
             })->sum('quantity');
 
             $count = round($products / $total * 100);
@@ -102,7 +102,7 @@ class DashboardController extends Controller
 
         $total = OrderItem::whereHas('order', function ($o) use ($start, $end) {
             $o->whereBetween('created_at', [$start, $end])
-            ->where('is_paid', 1);
+            ->whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED']);
         })->sum('quantity');
 
         $laboratories = Laboratory::where('active', 1)->get();
@@ -116,7 +116,7 @@ class DashboardController extends Controller
                 $p->where('laboratory_id', '=', $laboratory->id);
             })->whereHas('order', function ($o) use ($start, $end) {
                 $o->whereBetween('created_at', [$start, $end])
-                ->where('is_paid', 1);
+                ->whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED']);
             })->sum('quantity');
 
             $count = round($products / $total * 100);
@@ -135,7 +135,7 @@ class DashboardController extends Controller
 
         $total = OrderItem::whereHas('order', function ($o) use ($start, $end) {
             $o->whereBetween('created_at', [$start, $end])
-            ->where('is_paid', 1);
+            ->whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED']);
         })->sum('quantity');
 
         $subscriptions = [
@@ -179,7 +179,7 @@ class DashboardController extends Controller
 
         $total = OrderItem::whereHas('order', function ($o) use ($start, $end) {
             $o->whereBetween('created_at', [$start, $end])
-            ->where('is_paid', 1);
+            ->whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED']);
         })->sum('quantity');
 
         $formats = [
@@ -233,7 +233,7 @@ class DashboardController extends Controller
                 }
             })->whereHas('order', function ($o) use ($start, $end) {
                 $o->whereBetween('created_at', [$start, $end])
-                ->where('is_paid', 1);
+                ->whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED']);
             })->sum('quantity');
 
             $count = round($products / $total * 100);
@@ -252,7 +252,7 @@ class DashboardController extends Controller
 
         $total = OrderItem::whereHas('order', function ($o) use ($start, $end) {
             $o->whereBetween('created_at', [$start, $end])
-            ->where('is_paid', 1);
+            ->whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED']);
         })->sum('quantity');
 
         $prescriptions = [
@@ -276,7 +276,7 @@ class DashboardController extends Controller
                 }
             })->whereHas('order', function ($o) use ($start, $end) {
                 $o->whereBetween('created_at', [$start, $end])
-                ->where('is_paid', 1);
+                ->whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED']);
             })->sum('quantity');
 
             $count = round($products / $total * 100);
