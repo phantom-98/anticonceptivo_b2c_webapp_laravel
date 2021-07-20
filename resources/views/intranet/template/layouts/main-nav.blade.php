@@ -259,7 +259,7 @@
                             @can('intranet.payment_commissions.index')
                             <li class="{{ is_menu_active('intranet/comision-pagos') }}">
                                 <a href="{{ route('intranet.payment_commissions.index') }}">
-                                    <span class="menu-title">Comisiones</span>
+                                    <span class="menu-title">Porcentajes a Facturar</span>
                                 </a>
                             </li>
                             @endcan

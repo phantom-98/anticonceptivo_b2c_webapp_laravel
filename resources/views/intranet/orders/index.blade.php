@@ -143,8 +143,8 @@
                             <th data-cell-style="cellStyle" data-sorter="priceSorter" data-sortable="true" data-valign="middle">Descuento</th>
                             <th data-cell-style="cellStyle" data-sorter="priceSorter" data-sortable="true" data-valign="middle">Total</th>
                             <th data-cell-style="cellStyle" data-field="dateBilling" data-sorter="datesSorter" data-sortable="true" data-valign="middle">Fecha Facturación</th>
-                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Humedad Despachador</th>
-                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Temperatura Despachador</th>
+                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Humedad Despachador (%)</th>
+                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Temperatura Despachador (° C)</th>
                             <th data-cell-style="cellStyle" data-sorter="priceSorter" data-sortable="true" data-valign="middle">Receta</th>
                             @if($config['blade']['showActions'])
                                 <th data-cell-style="cellStyle" data-valign="middle">Acciones</th>
@@ -330,8 +330,8 @@
                 html += '<option value="DELIVERED">Entregado</option>';
             }
             html += '</select>';
-            html += '<input type="number" step=".01" class="form-control dispatched" id="humidity" name="humidity" onkeyup="validateDispatch()" placeholder="Humedad" style="margin-left:20px; width:25%; font-size: 14px; display:none">';
-            html += '<input type="number" step=".01" class="form-control dispatched" id="temperature" name="temperature" onkeyup="validateDispatch()" placeholder="Temperatura" style="margin-left:20px; width:25%; font-size: 14px; display:none">';
+            html += '<input type="number" step=".01" class="form-control dispatched" id="humidity" name="humidity" onkeyup="validateDispatch()" placeholder="Humedad (%)" style="margin-left:20px; width:25%; font-size: 14px; display:none">';
+            html += '<input type="number" step=".01" class="form-control dispatched" id="temperature" name="temperature" onkeyup="validateDispatch()" placeholder="Temperatura (° C)" style="margin-left:20px; width:25%; font-size: 14px; display:none">';
             html += '</center></div><br/><br/>';
             swal({
                 title: 'Cambiar estado del pedido',

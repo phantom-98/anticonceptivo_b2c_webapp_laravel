@@ -17,8 +17,8 @@ class PaymentCommissionController extends GlobalController
     protected $options = [
         'route' => 'intranet.payment_commissions.',
         'folder' => 'intranet.payment_commissions.',
-        'pluralName' => 'Comisiones',
-        'singularName' => 'Comisión',
+        'pluralName' => 'Porcentajes a Facturar',
+        'singularName' => 'Porcentaje a Facturar',
         'disableActions' => ['show', 'changeStatus']
     ];
 
@@ -50,7 +50,7 @@ class PaymentCommissionController extends GlobalController
 
         ];
         $messages = [
-            'commission.required' => 'La comisión es requerida',
+            'commission.required' => 'El Porcentaje a Facturar es requerido',
             'end_date.required' => 'La fecha de termino es requerida',
             'start_date.required' => 'La fecha de inicio es  requerida',
         ];
@@ -66,10 +66,10 @@ class PaymentCommissionController extends GlobalController
             $paymentCommission->end_date = date('Y-m-d', strtotime($request->end_date));
             $paymentCommission->save();
             if ($paymentCommission) {
-                session()->flash('success', 'Comisión creada correctamente.');
+                session()->flash('success', 'Porcentaje a Facturar creado correctamente.');
                 return redirect()->route($this->route . 'index');
             }
-            return redirect()->back()->withErrors(['mensaje' => 'Error inesperado al crear la Comisión'])->withInput();
+            return redirect()->back()->withErrors(['mensaje' => 'Error inesperado al crear el Porcentaje a Facturar'])->withInput();
         } else {
             return redirect()->back()->withErrors($validator)->withInput();
         }
@@ -80,7 +80,7 @@ class PaymentCommissionController extends GlobalController
         $object = PaymentCommission::find($id);
 
         if (!$object) {
-            session()->flash('warning', 'Comisión no encontrada.');
+            session()->flash('warning', 'Porcentaje a Facturar no encontrado.');
             return back();
         }
 
@@ -93,7 +93,7 @@ class PaymentCommissionController extends GlobalController
         $paymentCommission = PaymentCommission::find($id);
 
         if (!$paymentCommission) {
-            session()->flash('warning', 'Comisión no encontrada.');
+            session()->flash('warning', 'Porcentaje a Facturar no encontrado.');
             return back();
         }
 
@@ -104,7 +104,7 @@ class PaymentCommissionController extends GlobalController
 
         ];
         $messages = [
-            'commission.required' => 'La comisión es requerida',
+            'commission.required' => 'El Porcentaje a Facturar es requerido',
             'end_date.required' => 'La fecha de termino es requerida',
             'start_date.required' => 'La fecha de inicio es  requerida',
         ];
@@ -122,10 +122,10 @@ class PaymentCommissionController extends GlobalController
             $paymentCommission->save();
 
             if ($paymentCommission) {
-                session()->flash('success', 'Comisión actulizado correctamente.');
+                session()->flash('success', 'Porcentaje a Facturar actulizado correctamente.');
                 return redirect()->route($this->route . 'index');
             }
-            return redirect()->back()->withErrors(['mensaje' => 'Error inesperado al actualizar el Comisión '])->withInput();
+            return redirect()->back()->withErrors(['mensaje' => 'Error inesperado al actualizar el Porcentaje a Facturar '])->withInput();
         } else {
             return redirect()->back()->withErrors($validator)->withInput();
         }
@@ -136,16 +136,16 @@ class PaymentCommissionController extends GlobalController
         $paymentCommission = PaymentCommission::find($id);
 
         if (!$paymentCommission) {
-            session()->flash('warning', 'Comisión no encontrada.');
+            session()->flash('warning', 'Porcentaje a Facturar no encontrado.');
             return back();
         }
         try {
             if ($paymentCommission->delete()) {
-                session()->flash('success', 'Comisión eliminada correctamente.');
+                session()->flash('success', 'Porcentaje a Facturar eliminado correctamente.');
                 return redirect()->route($this->route . 'index');
             }
         } catch (\Exception $exception) {
-            return redirect()->back()->withErrors(['mensaje' => 'Error inesperado al intentar eliminar la Comisión.']);
+            return redirect()->back()->withErrors(['mensaje' => 'Error inesperado al intentar eliminar el Porcentaje a Facturar.']);
         }
     }
 
@@ -163,13 +163,13 @@ class PaymentCommissionController extends GlobalController
 
                 return response()->json([
                     'status' => 'success',
-                    'message' => $object->active == 1 ? 'Sección Comisión activado correctamente.' : 'Sección Comisión  desactivado correctamente.',
+                    'message' => $object->active == 1 ? 'Porcentaje a Facturar activado correctamente.' : 'Porcentaje a Facturar  desactivado correctamente.',
                     'object' => $object
                 ]);
             } else {
                 return response()->json([
                     'status' => 'error',
-                    'message' => 'Comisión no encontrada'
+                    'message' => 'Porcentaje a Facturar no encontrado'
                 ]);
             }
 

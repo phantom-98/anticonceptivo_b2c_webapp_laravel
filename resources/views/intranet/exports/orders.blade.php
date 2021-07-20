@@ -14,8 +14,8 @@
             <th>Descuento</th>
             <th>Total</th>
             <th>Fecha Facturación</th>
-            <th>Humedad Despachador</th>
-            <th>Temperatura Despachador</th>
+            <th>Humedad Despachador (%)</th>
+            <th>Temperatura Despachador (° C)</th>
         </tr>
     </thead>
     <tbody>

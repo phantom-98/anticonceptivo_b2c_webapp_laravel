@@ -28,7 +28,7 @@
 
                 <div class="panel">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Crear comisión</h3>
+                        <h3 class="panel-title">Crear Porcentaje a Facturar</h3>
                     </div>
                     <div class="panel-body">
                         <div class="row">
@@ -36,7 +36,7 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group {{ $errors->has('commission') ? 'has-error':'' }}">
-                                            <label for="name">Comisión (*)</label>
+                                            <label for="name">Porcentaje a Facturar (*)</label>
                                             <input type="number"
                                                 step=".01"
                                                 class="form-control"

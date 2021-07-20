@@ -39,7 +39,7 @@
 
                                     <div class="col-md-4">
                                         <div class="form-group {{ $errors->has('commission') ? 'has-error' : '' }}">
-                                            <label for="name">Comisión (*)</label>
+                                            <label for="name">Porcentaje a Facturar (*)</label>
                                             <input step=".01" type="number" class="form-control" id="commission" name="commission"
                                                 value="{{ old('commission') ?? $object->commission }}"
                                                  placeholder="Ej: 1000">
