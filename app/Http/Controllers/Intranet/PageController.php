@@ -19,7 +19,8 @@ class PageController extends GlobalController
         'folder' => 'intranet.pages.',
         'pluralName' => 'Páginas',
         'singularName' => 'Página',
-        'disableActions' => ['show', 'changeStatus']
+        'disableActions' => ['show', 'changeStatus'],
+        'enableActions' => ['position']
 
     ];
 

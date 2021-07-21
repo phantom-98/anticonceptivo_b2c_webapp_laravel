@@ -23,7 +23,7 @@ class OrderController extends GlobalController
         'pluralName' => 'Pedidos',
         'singularName' => 'Pedido',
         'disableActions' => ['create', 'edit', 'active', 'destroy', 'changeStatus'],
-        'enableActions' => ['search_client', 'show', 'changeOrderStatus', 'prescription_validate']
+        'enableActions' => ['search_client', 'show', 'prescription_validate']
     ];
 
     public function __construct()
@@ -33,7 +33,7 @@ class OrderController extends GlobalController
 
     public function index(Request $request)
     {
-        $objects = Order::with(['customer', 'prescription']);
+        $objects = Order::with(['customer', 'prescriptions.product'])->whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED']);
         $clients = Customer::get();
 
         $date = $request->date;
@@ -89,7 +89,7 @@ class OrderController extends GlobalController
         $objects = $objects->whereBetween('created_at', [$start.' 00:00:00', $end.' 23:59:59']);
         $appends['date'] = $date;
 
-        $objects = $objects->orderBy('created_at', 'desc')->get();
+        $objects = $objects->orderBy('id', 'desc')->get();
 
         return view($this->folder . 'index', compact('objects', 'date', 'start', 'end', 'clients', 'client_id', 'nameClient', 'id', 'status'));
     }
@@ -101,7 +101,7 @@ class OrderController extends GlobalController
 
     public function show($id)
     {
-        $object = Order::with(['customer', 'order_items'])->find($id);
+        $object = Order::with(['customer', 'order_items', 'prescriptions.product'])->find($id);
 
         if (!$object) {
             session()->flash('warning', 'Pedido no encontrado.');
@@ -176,17 +176,44 @@ class OrderController extends GlobalController
 
     function prescription_validate(Request $request){
         $object = Order::find($request->id);
-
+        
         if (!$object) {
             session()->flash('warning', 'Pedido no encontrado.');
             return redirect()->route($this->route . 'index');
         }
 
-        $object->prescription_validation = 1;
-        $object->save();
+        if(isset($request->prescription)){
+            if($request->prescription == 1){
+                $object->prescription_validation = 1;
+                $object->save();
+            } else {
+                $object->status = 'CANCELED';
+                $object->save();
+            }
+        } else {
+            if(isset($request->order_status_id) && $request->order_status_id != "" && $request->order_status_id != null){
+                $object->status = $request->order_status_id;
+                if($request->order_status_id == "DISPATCHED"){
+                    $object->humidity = $request->humidity;
+                    $object->temperature = $request->temperature;
+                }
+                $object->save();
+            } else {
+                session()->flash('danger', 'Debe seleccionar un estado para actualizar el pedido.');
+                return redirect()->route($this->route . 'index');
+            }
+        }
 
         if ($object) {
-            session()->flash('success', 'Receta validada correctamente.');
+            if(isset($request->prescription)){
+                if($request->prescription == 1){
+                    session()->flash('success', 'Pedido validado correctamente.');
+                } else {
+                    session()->flash('success', 'Pedido rechazado correctamente.');
+                }
+            } else {
+                session()->flash('success', 'Estado del pedido actualizado correctamente.');
+            }
             return redirect()->route($this->route . 'index');
         }
     }

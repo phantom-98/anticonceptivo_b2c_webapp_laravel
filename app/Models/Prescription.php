@@ -11,7 +11,9 @@ class Prescription extends Model
         'name',
         'date',
         'file',
-        'customer_id'
+        'customer_id',
+        'product_id',
+        'order_id'
     ];
 
     protected $appends = [
@@ -25,5 +27,13 @@ class Prescription extends Model
 
     public function customer(){
         return $this->belongsTo(Customer::class);
+    }
+
+    public function order(){
+        return $this->belongsTo(Order::class);
+    }
+
+    public function product(){
+        return $this->belongsTo(Product::class);
     }
 }

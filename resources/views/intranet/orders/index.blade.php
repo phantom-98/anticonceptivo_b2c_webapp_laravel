@@ -55,9 +55,10 @@
                                             <label for="status">Estado</label>
                                             <select id="status" name="status" class="form-control select2" data-width="100%">
                                                 <option value="">Todos</option>
-                                                <option value="PAID" {{ $status == "PAID" ? "selected" : "" }}>Pagada</option>
-                                                <option value="CREATED" {{ $status == "CREATED" ? "selected" : "" }}>Creada</option>
-                                                <option value="CANCELED" {{ $status == "CANCELED" ? "selected" : "" }}>Rechazada</option>
+                                                <option value="PAID" {{ $status == "PAID" ? "selected" : "" }}>Pagado</option>
+                                                <option value="CREATED" {{ $status == "CREATED" ? "selected" : "" }}>Creado</option>
+                                                <option value="DISPATCHED" {{ $status == "DISPATCHED" ? "selected" : "" }}>Despachado</option>
+                                                <option value="DELIVERED" {{ $status == "DELIVERED" ? "selected" : "" }}>Entregado</option>
                                             </select>
                                         </div>
                                     </div>
@@ -74,6 +75,7 @@
                                             </button>
                                         </div>
                                     </div>
+                                    @can('intranet.orders.export')
                                     <div class="col-md-1" style="margin-bottom: 10px">
                                         <div class="form-group">
                                             <button type="submit" class="btn btn-success left " onclick="export_excel()"
@@ -81,6 +83,7 @@
                                             </button>
                                         </div>
                                     </div>
+                                    @endcan
                                 </form>
 
                                 <form id="form-export" target="_BLANK"
@@ -127,7 +130,7 @@
                            data-show-pagination-switch="true">
                         <thead>
                         <tr>
-                            <th data-cell-style="cellStyle" data-field="id" data-sorter="idSorter" data-sortable="true" data-valign="middle">Nº Ped.</th>
+                            <th data-cell-style="cellStyle" data-sortable="false" data-valign="middle">Nº Ped.</th>
                             <th data-cell-style="cellStyle" data-field="date" data-sorter="datesSorter" data-sortable="true" data-valign="middle">Fecha</th>
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Hora</th>
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Estado</th>
@@ -140,6 +143,8 @@
                             <th data-cell-style="cellStyle" data-sorter="priceSorter" data-sortable="true" data-valign="middle">Descuento</th>
                             <th data-cell-style="cellStyle" data-sorter="priceSorter" data-sortable="true" data-valign="middle">Total</th>
                             <th data-cell-style="cellStyle" data-field="dateBilling" data-sorter="datesSorter" data-sortable="true" data-valign="middle">Fecha Facturación</th>
+                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Humedad Despachador (%)</th>
+                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Temperatura Despachador (° C)</th>
                             <th data-cell-style="cellStyle" data-sorter="priceSorter" data-sortable="true" data-valign="middle">Receta</th>
                             @if($config['blade']['showActions'])
                                 <th data-cell-style="cellStyle" data-valign="middle">Acciones</th>
@@ -170,8 +175,19 @@
                                 <td>${{ number_format($object->discount, 0, ',','.')}}</td>
                                 <td>${{ number_format($object->total, 0, ',','.')}}</td>
                                 <td>{{ $object->billing_date ? date('d-m-Y', strtotime($object->billing_date)) : '-' }}</td>
-                                @if($object->prescription)
-                                <td><a href="{{ Storage::url($object->prescription->file) }}" target="_blank" class='btn btn-sm btn-default btn-hover-success add-tooltip' title="Ver Receta"><i class="ti-file"></i></a></td>
+                                @if($object->status != "PAID" && $object->status != "CREATED")
+                                    <td>{{ $object->humidity ?? '-'}}</td>
+                                    <td>{{ $object->temperature ?? '-'}}</td>
+                                @else 
+                                    <td>-</td>
+                                    <td>-</td>
+                                @endif
+                                @if(count($object->prescriptions) > 0)
+                                <td>
+                                    @foreach($object->prescriptions as $prescription)
+                                    <a href="{{ Storage::url($prescription->file) }}" target="_blank" class='btn btn-sm btn-default btn-hover-success' data-toggle="tooltip" title="{{$prescription->product->name}}"><i class="ti-file"></i></a>
+                                    @endforeach
+                                </td>
                                 @else
                                 <td>Venta Directa</td>
                                 @endif
@@ -186,15 +202,30 @@
                                 @if($config['blade']['showActions'])
                                     <td>
                                         <div >
-                                            @if($object->prescription && $object->prescription_validation == 0)
+                                            @can('intranet.orders.changeOrderStatus')
+                                            @if(count($object->prescriptions) > 0 && $object->prescription_validation == 0)
                                             @push('prepend_actions_buttons' .  $object->id)
-                                                <a onclick="prescription({{$object->id}})"
-                                                class="btn btn-sm btn-default btn-hover-info add-tooltip"
-                                                title="Validar Receta">
+                                                <a onclick="prescriptionSuccess({{$object->id}})"
+                                                class="btn btn-sm btn-default btn-hover-success add-tooltip"
+                                                title="Validar Recetas">
                                                     <i class="fa fa-check"></i>
                                                 </a>
+                                                <a onclick="prescriptionRejected({{$object->id}})"
+                                                    class="btn btn-sm btn-default btn-hover-danger add-tooltip"
+                                                    title="Rechazar Recetas">
+                                                        <i class="fa fa-times"></i>
+                                                </a>
                                             @endpush
+                                            @else
+                                                @if($object->status != "CREATED" && $object->status != "DELIVERED")
+                                                <a onclick="change_status({{$object->id}}, '{{$object->status}}')"
+                                                    class="btn btn-sm btn-default btn-hover-info add-tooltip"
+                                                    title="Rechazar Recetas">
+                                                        <i class="fa fa-retweet"></i>
+                                                </a>
+                                                @endif
                                             @endif
+                                            @endcan
                                             @include('intranet.template.components._crud_html_actions_buttons')
                                         </div>
                                     </td>
@@ -256,16 +287,111 @@
     @include('intranet.template.components._crud_script_delete')
 
     <script>
-        function prescription(id){
+        function prescriptionSuccess(id){
             $('<input>').attr({
                 type: 'hidden',
                 name: 'id',
                 value: id
             }).appendTo('#prescription-validate-form');
+            $('<input>').attr({
+                type: 'hidden',
+                name: 'prescription',
+                value: 1
+            }).appendTo('#prescription-validate-form');
             $('#prescription-validate-form').submit();
         }
     </script>
 
+    <script>
+        function prescriptionRejected(id){
+            $('<input>').attr({
+                type: 'hidden',
+                name: 'id',
+                value: id
+            }).appendTo('#prescription-validate-form');
+            $('<input>').attr({
+                type: 'hidden',
+                name: 'prescription',
+                value: 0
+            }).appendTo('#prescription-validate-form');
+            $('#prescription-validate-form').submit();
+        }
+    </script>
+
+    <script>
+        function change_status(id, status){
+            var html = '<span>Seleccione un estado</span><br/><br/><div class="form-inline"><center>';
+            html += '<select id="select_order_status_id" name="order_status_id" class="form-control" style="width:30%; font-size: 14px" onclick="changeDispatch(this.value)">';
+            html += '<option value="">Seleccione un estado</option>';
+            if(status == "PAID"){
+                html += '<option value="DISPATCHED">Despachado</option>';
+                html += '<option value="DELIVERED">Entregado</option>';
+            } else {
+                html += '<option value="DELIVERED">Entregado</option>';
+            }
+            html += '</select>';
+            html += '<input type="number" step=".01" class="form-control dispatched" id="humidity" name="humidity" onkeyup="validateDispatch()" placeholder="Humedad (%)" style="margin-left:20px; width:25%; font-size: 14px; display:none">';
+            html += '<input type="number" step=".01" class="form-control dispatched" id="temperature" name="temperature" onkeyup="validateDispatch()" placeholder="Temperatura (° C)" style="margin-left:20px; width:25%; font-size: 14px; display:none">';
+            html += '</center></div><br/><br/>';
+            swal({
+                title: 'Cambiar estado del pedido',
+                html: html,
+                customClass: "swal-wide-2",
+                type: 'info',
+                showCancelButton: true,
+                confirmButtonColor: '#43a047',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Confirmar',
+                cancelButtonText: 'Cancelar'
+            }).then(function (result) {
+                if (result.value) {
+                    $('<input>').attr({
+                        type: 'hidden',
+                        name: 'id',
+                        value: id
+                    }).appendTo('#prescription-validate-form');
+                    $('<input>').attr({
+                        type: 'hidden',
+                        name: 'order_status_id',
+                        value: $("#select_order_status_id").val()
+                    }).appendTo('#prescription-validate-form');
+                    $('<input>').attr({
+                        type: 'hidden',
+                        name: 'humidity',
+                        value: $("#humidity").val()
+                    }).appendTo('#prescription-validate-form');
+                    $('<input>').attr({
+                        type: 'hidden',
+                        name: 'temperature',
+                        value: $("#temperature").val()
+                    }).appendTo('#prescription-validate-form');
+                    $('#prescription-validate-form').submit();
+                }
+            });
+        }
+    </script>
+
+    <script>
+        function changeDispatch(value){
+            if(value == "DISPATCHED"){
+                $(".dispatched").show();
+                $(".swal2-confirm").prop('disabled', true);
+            } else {
+                $(".dispatched").hide();
+                $(".swal2-confirm").prop('disabled', false);
+            }
+        }
+    </script>
+
+    <script>
+        function validateDispatch(value){
+            if($("#temperature").val() != "" && $("#humidity").val() != ""){
+                $(".swal2-confirm").prop('disabled', false);
+            } else {
+                $(".swal2-confirm").prop('disabled', true);
+            }
+        }
+    </script>
 
     <script>
         function datesSorter(a, b) {
@@ -296,6 +422,12 @@
             return aa - bb
         }
 
+    </script>
+
+    <script>
+        $(document).ready(function(){
+            $('[data-toggle="tooltip"]').tooltip();   
+        });
     </script>
 
     <script>

@@ -22,7 +22,7 @@
                     <div id="toolbar">
                         @if($config['action']['create'])
                             <a href="{{ route($config['route'] . 'create') }}" class="btn btn-success"><i
-                                    class="ti-plus"></i> Nueva comisión </a>
+                                    class="ti-plus"></i> Nuevo Porcentaje a Facturar </a>
                         @endif
 
                         {{--<button id="delete-row" class="btn btn-danger" disabled><i class="demo-pli-cross"></i> Delete</button>--}}
@@ -61,7 +61,7 @@
 
             let columns = [
                 {
-                    title: 'Comisión',
+                    title: 'Porcentaje a Facturar',
                     field: 'commisssion',
                     sortable: true,
                     cellStyle: midAling,

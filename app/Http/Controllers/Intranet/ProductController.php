@@ -27,7 +27,7 @@ class ProductController extends GlobalController
         'pluralName' => 'Productos',
         'singularName' => 'Producto',
         'disableActions' => ['changeStatus'],
-        'enableActions' => ['export','position', 'import']
+        'enableActions' => ['position']
     ];
 
     public function __construct()
@@ -157,7 +157,6 @@ class ProductController extends GlobalController
                     $new_plan->subscription_plan_id = $plan[0];
                     $new_plan->warnings = $request->warnings[$key][0];
                     $new_plan->price = $request->price_plan[$key][0];
-                    $new_plan->quantity = $request->cantidad_plan[$key][0];
                     $new_plan->product_id = $product->id;
                     $new_plan->save();
 
@@ -165,7 +164,6 @@ class ProductController extends GlobalController
                     $price->product_id = $product->id;
                     $price->price = $request->price_plan[$key][0];
                     $price->subscription_plan_id = $plan[0];
-                    $price->quantity = $request->cantidad_plan[$key][0];
                     $price->save();
 
                 }
@@ -291,7 +289,6 @@ class ProductController extends GlobalController
                     $new_plan->subscription_plan_id = $plan[0];
                     $new_plan->warnings = $request->warnings[$key][0];
                     $new_plan->price = $request->price_plan[$key][0];
-                    $new_plan->quantity = $request->cantidad_plan[$key][0];
                     $new_plan->product_id = $product->id;
                     $new_plan->save();
 
@@ -306,7 +303,6 @@ class ProductController extends GlobalController
                     $price->product_id = $product->id;
                     $price->price = $request->price_plan[$key][0];
                     $price->subscription_plan_id = $plan[0];
-                    $price->quantity = $request->cantidad_plan[$key][0];
                     $price->save();
                 }
             }

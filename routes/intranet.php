@@ -50,6 +50,12 @@ if (env('SHOW_INTRANET', 'TRUE') == 'TRUE') {
 
                 Route::get('/inicio', 'DashboardController@index')->name('dashboard');
 
+                Route::get('/get-categories', 'DashboardController@categories')->name('dashboard.categories');
+                Route::get('/get-laboratories', 'DashboardController@laboratories')->name('dashboard.laboratories');
+                Route::get('/get-subscriptions', 'DashboardController@subscriptions')->name('dashboard.subscriptions');
+                Route::get('/get-format', 'DashboardController@format')->name('dashboard.format');
+                Route::get('/get-prescriptions', 'DashboardController@prescriptions')->name('dashboard.prescriptions');
+
                 Route::get('listado', function () {
                     return Excel::download(new EmailsExport, 'newsletter-clientes.xlsx');
                 })->name('listado');

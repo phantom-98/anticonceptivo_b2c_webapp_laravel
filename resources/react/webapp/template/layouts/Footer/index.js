@@ -162,7 +162,7 @@ const Footer = () => {
                         </div>
 
                         <div className="col-md-auto">
-                            <div className="mt-5 pt-5">
+                            <div className="pt-5">
                                 <img src={webpay} alt={CONFIG.APP_NAME}/>
                             </div>
                         </div>

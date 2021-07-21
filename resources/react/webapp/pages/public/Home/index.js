@@ -19,7 +19,7 @@ const Home = ({match}) => {
     const [topBanners, setTopBanners] = useState([]);
     const [middleBanners, setMiddleBanners] = useState([]);
     const [bottomBanners, setBottomBanners] = useState([]);
-    const [outstandings, setOutstandings] = useState([]);
+    // const [outstandings, setOutstandings] = useState([]);
     // const [bestSellers, setBestSellers] = useState([]);
     const [brands, setBrands] = useState([]);
     
@@ -59,7 +59,7 @@ const Home = ({match}) => {
             <div className="bg-FAFAFA">
                 <BannerCarousel topBanners={topBanners}/>
 
-                <OutstandingCarousel title="Destacados" outstandings={outstandings}/>
+                {/* <OutstandingCarousel title="Destacados" outstandings={outstandings}/> */}
 
                 <BannerStatic banners={middleBanners}/>
 
