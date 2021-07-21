@@ -42,6 +42,7 @@
                         <thead>
                         <tr>
                             <th data-sortable="true" data-cell-style="cellStyle"  data-valign="middle">Nombre</th>
+                            <th data-sortable="true" data-cell-style="cellStyle"  data-valign="middle">Cantidad Limite</th>
                             <th data-sortable="true" data-cell-style="cellStyle"  data-valign="middle">Imagen</th>
                             <th data-sortable="true" data-cell-style="cellStyle"  data-valign="middle">Banner</th>
                             <th data-sortable="true" data-cell-style="cellStyle"  data-valign="middle">Sub Banner</th>
@@ -64,6 +65,7 @@
                             @foreach($objects as $object)
                                     <tr data-position="{{$object->position}}" data-id="{{$object->id}}">
                                         <td>{{ $object->name }}</td>
+                                        <td>{{ $object->quantity_limit }}</td>
                                         <td><img src="{{ Storage::url($object->image) }}" style="max-width: 100px;"/></td>
                                         <td><img src="{{ Storage::url($object->banner_image) }}" style="max-width: 200px;"/></td>
                                         <td><img src="{{ Storage::url($object->subbanner_image) }}" style="max-width: 200px;"/></td>

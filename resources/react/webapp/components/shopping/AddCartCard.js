@@ -10,27 +10,7 @@ const AddCartCard = ({quantity, setQuantity, product,subscription}) =>{
     const handleAddToCart = () =>{
         addToCart(quantity, product, subscription)
         setQuantity(1)
-        toastr.options = {
-            "closeButton": false,
-            "debug": false,
-            "newestOnTop": false,
-            "progressBar": true,
-            "positionClass": "toast-top-right",
-            "preventDuplicates": true,
-            "onclick": null,
-            "showDuration": "300",
-            "hideDuration": "1000",
-            "timeOut": "1000",
-            "extendedTimeOut": "1000",
-            "showEasing": "swing",
-            "hideEasing": "linear",
-            "showMethod": "fadeIn",
-            "hideMethod": "fadeOut"
-        }
 
-        toastr.info(`<div>
-            <div>Producto <b>${product.name}</b> añadido al carrito</div>
-        </div>`)
     }
 
     return (
@@ -39,7 +19,7 @@ const AddCartCard = ({quantity, setQuantity, product,subscription}) =>{
 
             {subscription != null
                         ? null
-                        : <QuantityInput quantity={quantity} setQuantity={setQuantity}/>
+                        : <QuantityInput quantity={quantity} setQuantity={setQuantity} maxQuantity={product.subcategory.category.quantity_limit}/>
             }
             </div>
 

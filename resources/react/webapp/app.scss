@@ -35,6 +35,29 @@ html, body {
     font-family: 'Poppins', sans-serif;
     color: #222222;
 }
+.table {
+    width: 100%;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid #e8e8e8;
+    padding: 5px 10px;
+}
+
+table th {
+    background-color: #0869A6;
+    color: #ffffff !important;
+    padding: 5px;
+}
+
+.w-25 {
+    width: 20%;
+}
+
 
 h1, h2, h3, h4, h4 {
     font-family: 'Poppins', sans-serif;

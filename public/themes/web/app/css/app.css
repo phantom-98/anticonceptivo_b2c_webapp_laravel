@@ -1392,6 +1392,20 @@ input.my-auto.file-input {
   padding-top: 3px;
 }
 
+/* Chrome, Safari, Edge, Opera */
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
 .quantity-input-button {
   width: 15px;
   text-align: center;
@@ -1704,6 +1718,31 @@ html,
 body {
   font-family: "Poppins", sans-serif;
   color: #222222;
+}
+
+.table {
+  width: 100%;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+table,
+th,
+td {
+  border: 1px solid #e8e8e8;
+  padding: 5px 10px;
+}
+
+table th {
+  background-color: #0869A6;
+  color: #ffffff !important;
+  padding: 5px;
+}
+
+.w-25 {
+  width: 20%;
 }
 
 h1,

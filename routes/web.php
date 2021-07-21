@@ -19,5 +19,5 @@ Route::get('email-test', [TestController::class, 'index'])->name('test');
 Route::get('VoucherPaymentDays-test', [TestController::class, 'VoucherPaymentDays']);
 
 
-Route::view('/{path?}/{pathTwo?}/{pathThree?}/{pathFour?}/{pathFive?}/{pathSix?}', 'webapp.base_react');
+Route::view('/{path?}/{pathTwo?}/{pathThree?}/{pathFour?}/{pathFive?}/{pathSix?}/{pathSeven?}', 'webapp.base_react');
 

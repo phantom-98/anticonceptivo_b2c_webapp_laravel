@@ -51,6 +51,8 @@ class UpdateStock extends Command
                 foreach ($response['inventoryItems'] as $key => $inventory) {
                     if($inventory['facilityName'] == 'Local 1'){
                         $product->stock = $inventory['quantity'];
+                        $product->product_item_id_ailoo = $inventory['productItemId'];
+
                     }
                 }
             } catch (\Throwable $th) {

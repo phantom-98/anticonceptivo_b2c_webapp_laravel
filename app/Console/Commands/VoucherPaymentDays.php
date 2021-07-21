@@ -25,7 +25,7 @@ class VoucherPaymentDays extends Command
      *
      * @var string
      */
-    protected $signature = 'command:paySubscriptions';
+    protected $signature = 'command:voucherPaymentDays';
 
     /**
      * The console command description.

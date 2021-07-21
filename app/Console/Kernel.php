@@ -24,7 +24,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('paySubscriptions')->dailyAt('00:01');
+        $schedule->command('voucherPaymentDays')->dailyAt('00:01');
         $schedule->command('updateStock')->everyFiveMinutes();
     }
 

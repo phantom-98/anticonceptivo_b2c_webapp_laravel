@@ -289,7 +289,6 @@ const Table = ({
             Services.Response({
             response: response,
                 success: () => {
-                    console.log(response.data.subscriptions);
                     setSubscriptions(response.data.subscriptions);
                 }
             });
@@ -397,6 +396,18 @@ const Table = ({
             classes: "",
             headerClasses: "",
             formatter: (cell, row) => {
+
+                if(row.subscription == null){
+                    return (
+                        <span
+                            onClick={() => selectedColumnsSubscriptionCard(row)}
+                            className="link pointer"
+                            style={{ color: "#484848" }}
+                        >
+                            Tarjeta No Encontrada
+                        </span>
+                    );
+                }
 
                 if(row.status != 'CREATED' && row.status != 'REJECTED'){
                     return row.subscription.card_number;

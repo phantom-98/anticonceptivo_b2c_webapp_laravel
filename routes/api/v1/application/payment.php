@@ -17,7 +17,7 @@ Route::prefix('payment')
         Route::post('webpay/create-transaction', [WebpayPlusController::class, 'createTransaction'])->name('webpay.createTransaction');
         Route::post('webpay/create-subscription', [WebpayPlusController::class, 'createSubscription'])->name('webpay.createSubscription');
 
-        Route::post('webpay/response', [WebpayPlusController::class, 'response'])->name('webpay.response');
-        Route::post('webpay/response-payment-method', [WebpayPlusController::class, 'responsePaymentMethod'])->name('webpay.responsePaymentMethod');
+        Route::match(['get', 'post'], 'webpay/response', [WebpayPlusController::class, 'response'])->name('webpay.response');
+        Route::match(['get', 'post'], 'webpay/response-payment-method', [WebpayPlusController::class, 'responsePaymentMethod'])->name('webpay.responsePaymentMethod');
 
     });

@@ -30,11 +30,18 @@
                 <div class="panel">
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="name">Nombre (*)</label>
                                     <input type="text" id="name" name="name" class="form-control"
                                            value="{{ old('name') ?? $object->name }}">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="quantity_limit">Cantidad Limite</label>
+                                    <input type="text" id="quantity_limit" name="quantity_limit" class="form-control"
+                                           value="{{ old('quantity_limit') ?? $object->quantity_limit }}">
                                 </div>
                             </div>
                             <div class="form-group col-sm-6">

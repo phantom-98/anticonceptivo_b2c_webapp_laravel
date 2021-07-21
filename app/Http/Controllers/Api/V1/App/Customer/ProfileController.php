@@ -328,7 +328,6 @@ class ProfileController extends Controller
             $arraySubscriptionsOrdersItem = [];
             $arrayProducts = [];
             $arrayPlan = [];
-
             $subscriptionsOrdersItem = SubscriptionsOrdersItem::whereIn('orders_item_id',$idsOrdersItems)
             ->with(['order_item.product','customer_address.commune','subscription','order.order_items','order_item.subscription_plan'])
             ->select('id','order_id','orders_item_id','subscription_id','customer_address_id','pay_date','dispatch_date','status','is_pay')

@@ -35,7 +35,7 @@ class ApiHelper extends CoreHelper
 
             if($integration == 'bsale'){
                curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-                  'access_token: ',
+                  'access_token: e5f3b7f9abe58b72464c2b958ac2eeb621b9c8ca',
                   'Accept: application/json',
                   'Content-Type: application/json',
                   

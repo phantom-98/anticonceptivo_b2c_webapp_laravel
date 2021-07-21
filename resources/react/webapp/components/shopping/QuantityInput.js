@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-const QuantityInput = ({quantity, setQuantity}) => {
+const QuantityInput = ({quantity, setQuantity, maxQuantity}) => {
 
 
 
@@ -12,7 +12,7 @@ const QuantityInput = ({quantity, setQuantity}) => {
     }
 
     const addQuantity = () => {
-        if (quantity <= 99) {
+        if (quantity + 1 <= maxQuantity) {
             setQuantity(quantity + 1)
         }
     }
@@ -29,7 +29,7 @@ const QuantityInput = ({quantity, setQuantity}) => {
                 -
             </div>
             <div className="quantity-input-field">
-                <input type="text" min="0" max="100" value={quantity} onChange={handleQuantity}/>
+                <input type="number" min="0" max={maxQuantity} value={quantity} onChange={handleQuantity}/>
             </div>
             <div className="quantity-input-button" onClick={addQuantity}>
                 +

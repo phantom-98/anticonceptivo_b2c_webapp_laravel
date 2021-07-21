@@ -108,5 +108,14 @@ class Order extends Model
     public function subscriptions_orders_items(){
         return $this->hasMany(SubscriptionsOrdersItem::class);
     }
+    public function getPaymentType(){
+        if($this->payment_type == 'webpay'){
+            return 'Webpay';
+        }
+        if($this->payment_type == 'tarjeta'){
+            return 'Tarjeta de Débito / Crédito';
+        }
 
+        return '-';
+    }
 }

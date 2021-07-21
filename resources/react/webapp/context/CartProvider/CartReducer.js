@@ -8,6 +8,7 @@ import {
     CLEAR_CART
 } from "./types";
 import { LOCAL_STORAGE } from "../LocalStorage";
+import toastr from 'toastr';
 
 export default (state, action) => {
     switch (action.type) {
@@ -24,6 +25,24 @@ export default (state, action) => {
             };
 
         case ADD_TO_CART:
+            toastr.options = {
+                "closeButton": false,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": true,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": true,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "1000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+
             let cartItems = state.cartItems;
 
             const item = action.payload;
@@ -36,10 +55,33 @@ export default (state, action) => {
                             : item.subscription.id))
             );
 
+
+            //Se debe refactorizar
             if (cartItems.length > 0 && cartItems[found] ) {
+
+                if((cartItems[found].quantity + item.quantity)> (item.product.subcategory.category.quantity_limit ?? 1)){
+                    toastr.error(`<div>
+                        <div>El limite de la categoría  <b>${item.product.subcategory.category.name}</b> es de ${item.product.subcategory.category.quantity_limit ?? 1} unidad</div>
+                    </div>`)
+                    return {
+                        ...state,
+                        cartItems: [...cartItems]
+                    };
+                }
                 cartItems[found].quantity =
                     cartItems[found].quantity + item.quantity;
             } else {
+
+                if((item.quantity)> (item.product.subcategory.category.quantity_limit ?? 1)){
+                    toastr.error(`<div>
+                        <div>El limite de la categoría  <b>${item.product.subcategory.category.name}</b> es de ${item.product.subcategory.category.quantity_limit ?? 1} unidad</div>
+                    </div>`)
+                    return {
+                        ...state,
+                        cartItems: [...cartItems]
+                    };
+                }
+    
                 cartItems = [...cartItems, item];
             }
 
@@ -47,6 +89,11 @@ export default (state, action) => {
                 LOCAL_STORAGE.CART_ITEMS,
                 JSON.stringify([...cartItems])
             );
+
+    
+            toastr.info(`<div>
+                <div>Producto <b>${item.product.name}</b> añadido al carrito</div>
+            </div>`)
 
             return {
                 ...state,

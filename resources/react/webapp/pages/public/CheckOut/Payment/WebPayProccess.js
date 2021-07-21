@@ -61,6 +61,7 @@ const WebPayProccess = ({
         subscription.map(element => {
             if(element.default_subscription){
                 selectedSubscription  = element;
+                showWaitingPayment();
             }
         });
 
@@ -83,7 +84,7 @@ const WebPayProccess = ({
                     success: () => {
                             if(response.message == "Compra OneClick"){
                                 clearCart();
-                                submitPrescription(response.data.order.id, response.data.order.customer_id);
+                                // submitPrescription(response.data.order.id, response.data.order.customer_id);
                                 updateDiscountCode(discountCode)
                                 setOrderId(response.data.order.id)
                                 hideWaitingPayment();
