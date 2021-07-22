@@ -45,7 +45,7 @@
                             <th data-sortable="true" data-cell-style="cellStyle"  data-valign="middle">Cantidad Limite</th>
                             <th data-sortable="true" data-cell-style="cellStyle"  data-valign="middle">Imagen</th>
                             <th data-sortable="true" data-cell-style="cellStyle"  data-valign="middle">Banner</th>
-                            <th data-sortable="true" data-cell-style="cellStyle"  data-valign="middle">Sub Banner</th>
+                            <th data-sortable="true" data-cell-style="cellStyle"  data-valign="middle">Banner Home</th>
                             <th data-sortable="true" data-valign="middle">Descripción</th>
                             @if($config['action']['changeStatus'])
                             <th data-cell-style="cellStyle" data-sortable="true">Estado</th>
