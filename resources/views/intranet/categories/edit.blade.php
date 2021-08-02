@@ -61,7 +61,7 @@
                                 @endif
                             </div>  
                             <div class="form-group col-sm-6">
-                                {!! Form::label('banner_subimage', 'Imagen Sub Banner (850 x 200 px)(*)') !!}
+                                {!! Form::label('banner_subimage', 'Imagen Banner Home (850 x 200 px)(*)') !!}
                                 <input id="file-image-3" type='file' name='banner_subimage' class='form-control' accept=".jpg, .png, .jpeg">
                                 <br/>
                                 @if ($object->subbanner_image)

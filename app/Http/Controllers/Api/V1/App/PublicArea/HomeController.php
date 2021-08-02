@@ -138,13 +138,16 @@ class HomeController extends Controller
 
             $brands = Brand::where('active',true)->orderBy('position')->get();
 
+            $bannerCategories = Category::where('active',true)->orderBy('position')->get();
+
             return ApiResponse::JsonSuccess([
                 'top_banners' => $topBanners,
                 'middle_banners' => $middleBanners,
                 'bottom_banners' => $bottomBanners,
                 'outstandings' => $outstandings,
                 'best_sellers' => $bestSellers,
-                'brands' => $brands
+                'brands' => $brands,
+                'bannerCategories' => $bannerCategories
             ]);
 
         } catch (\Exception $exception) {

@@ -2,10 +2,10 @@
 @section('header', 'Nuevo Pedido')
 
 @section('content')
-    <div class="titulo">Estimado/a {{ $order->customer->first_name }} :</div>
+    <div class="titulo">Estimado Administrador:</div>
     <div class="mensaje">
         <p>
-            Hemos recibido tu pedido #<b>{{ $order->id }}</b> exitosamente.
+            Hemos recibido un nuevo pedido, su número es #<b>{{ $order->id }}</b>.
         </p>
         <div style="margin-bottom: 20px;">
             <table class="table">
@@ -150,26 +150,8 @@
                 </tbody>
             </table>
         </div>
-
         <p>
-            @if($order->voucher_pdf)
-            
-                <a href="{{$order->voucher_pdf}}" target="_blank">Descargar boleta</a>
-            @endif
-        </p> 
-
-        {{-- <p>
-            Puedes obtener la información de seguimiento mediante el siguiente link:
-
-        </p>
-        <p>
-            @if($order->tracking)
-            
-                <a href="{{$order->tracking->tracking_web}}" target="_blank">Tracking</a>
-            @endif
-        </p> --}}
-        <p>
-            Agradecemos tu compra.
+            Puedes revisar más información de la orden y cambiar su estado desde el administrador.
         </p>
     </div>
     <div class="text-legal">

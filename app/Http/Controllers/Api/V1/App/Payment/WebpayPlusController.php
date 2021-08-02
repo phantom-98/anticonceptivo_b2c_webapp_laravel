@@ -25,6 +25,7 @@ use App\Models\DiscountCode;
 use App\Models\SubscriptionsOrdersItem;
 use App\Models\SubscriptionPlan;
 use App\Http\Helpers\ApiHelper;
+use App\Http\Helpers\CallIntegrationsPay;
 use App\Http\Utils\Enum\PaymentMethodStatus;
 use Illuminate\Support\Facades\DB;
 
@@ -32,6 +33,7 @@ class WebpayPlusController
 {
 
     private $webpay_plus;
+    private $oneclick;
 
     public function __construct()
     {
@@ -209,6 +211,14 @@ class WebpayPlusController
             if($isSubscription){
                 if($request->subscription){
                     $response = $this->oneclick->authorize($request->customer_id , $request->subscription['transbank_token'], $order->id, $order->total);
+                    
+                    Log::info('OneClick', 
+                    [
+                        "response" => $response,
+                        "tbk_user" => $request->subscription['transbank_token'],
+                        "username" => $request->customer_id
+                    ]);
+
                     if($response['status'] == "success"){
                         $ordersItems = OrderItem::where('order_id',$order->id)->get();
                         foreach ($ordersItems as $elementOrderItem) {
@@ -226,9 +236,10 @@ class WebpayPlusController
                         $order->status = PaymentStatus::PAID;
                         $order->payment_type = 'tarjeta';
                         $order->save();  
-                        $dataVoucher = $this->callVoucher($order->customer_id, $order->id,$customerAddress);
-                        $this->updateStockProducts($order->id);
-                        $this->sendEmailsOrder($order->id);
+                        $dataVoucher = CallIntegrationsPay::callVoucher($order->id,$customerAddress);
+                        CallIntegrationsPay::callDispatchLlego($order->id,$customerAddress);
+                        CallIntegrationsPay::callUpdateStockProducts($order->id);
+                        CallIntegrationsPay::sendEmailsOrder($order->id);
 
                         return ApiResponse::JsonSuccess([
                             'order' => $order
@@ -270,67 +281,6 @@ class WebpayPlusController
         } catch (\Exception $exception) {
             return ApiResponse::JsonError([], $exception->getMessage());
         }
-    }
-
-    private function callVoucher($customer_id, $order_id, $customer_address){
-        $customer = Customer::find($customer_id);
-        $ordersItems = OrderITem::with('product','subscription_plan')->where('order_id',$order_id)->get();
-        $items = [];
-        foreach ($ordersItems as $elementOrderItem) {
-            $item = array(
-                'productItemId' => $elementOrderItem->product->product_item_id_ailoo,
-                'price' => $elementOrderItem->subscription_plan_id  == null ? $elementOrderItem->price : $elementOrderItem->subtotal ,
-                'quantity' => $elementOrderItem->subscription_plan_id  == null ? $elementOrderItem->quantity : $elementOrderItem->subscription_plan->months,
-                "taxable"=> true,
-                "type"=> "PRODUCT"
-            );
-            array_push($items,$item);
-        }
-
-        $data = array(
-            "client"=> [ 
-                "razonSocial"=> null,
-                "rut"=> $customer->id_number,
-                "fistName"=> $customer->fist_name,
-                "lastName"=> $customer->last_name,
-                "tradeName"=> null,
-                "email"=> $customer->email,
-                "phone"=> $customer->phone,
-                "address"=> $customer_address->address .' '. $customer_address->extra_info 
-            ],
-              "facilityId"=> 1540,
-              "cashRegisterId"=> 1069,
-              "saleTypeId"=> 3,
-              "comment"=> "Venta API",
-              "items"=> $items,
-              "user"=> "anticonceptivo"
-        );
-        $get_data = ApiHelper::callAPI('POST', 'https://api.ailoo.cl/v1/sale/boleta', json_encode($data), 'ailoo');
-        $response = json_decode($get_data, true);
-        return $response;
-    }
-
-
-    private function updateStockProducts($order_id){
-        $orderItems =OrderItem::where('order_id',$order_id)->get();
-
-        foreach ($orderItems as $key => $orderItem) {
-            $product = $orderItem->product;
-            $get_data = ApiHelper::callAPI('GET', 'https://api.ailoo.cl/v1/inventory/barCode/'.$product->barcode, null, 'ailoo');
-            $response = json_decode($get_data, true);
-
-            try {
-                foreach ($response['inventoryItems'] as $key => $inventory) {
-                    if($inventory['facilityName'] == 'Local 1'){
-                        $product->stock = intval($inventory['quantity']);
-                    }
-                }
-            } catch (\Throwable $th) {
-                $product->stock = 0;
-            }
-            $product->save();
-        }
-
     }
 
     private function isStockProducts($orderItems){
@@ -382,7 +332,7 @@ class WebpayPlusController
             $response = $commit['response'];
             Log::info('WebpayPlusController', [$commit]);
 
-            $order = Order::with('order_items.subscription_plan')->find($response->buyOrder);
+            $order = Order::with('order_items.subscription_plan','customer','order_items.product')->find($response->buyOrder);
 
             if ($response->responseCode == 0) {
 
@@ -401,9 +351,11 @@ class WebpayPlusController
                     $order->save();
                     
                 }else{
-                    $customerAddress = CustomerAddress::where('customer_id',$order->customer_id)->where('default_address',1)->get()->first();
-                    $this->callVoucher($order->customer_id, $order->id,$customerAddress);
-                    $this->updateStockProducts($order->id);
+                    $customerAddress = CustomerAddress::with('commune')->where('customer_id',$order->customer_id)->where('default_address',1)->get()->first();
+                    CallIntegrationsPay::callVoucher($order->id,$customerAddress);
+                    CallIntegrationsPay::callUpdateStockProducts($order->id);
+                    CallIntegrationsPay::callDispatchLlego($order->id,$customerAddress);
+                    CallIntegrationsPay::sendEmailsOrder($order->id);
                 }
 
             } else {
@@ -419,56 +371,9 @@ class WebpayPlusController
             } catch (\Exception $exception) {
 
             }
-        } else if($request->TBK_TOKEN){
-            //terminar de aca adaptar lo hecho en oneclick
-            // dd($request->TBK_TOKEN);
-
-        } else {
-
-            //transacción anulada
-            // $order = Order::find($request->TBK_ORDEN_COMPRA);
-            // $order->status = PaymentStatus::CANCELED;
-            // $order->save();
-        }
+        } 
 
         return view('webapp.payment.webpay-finish');
-    }
-
-    private function sendEmailsOrder($order_id){
-        $order = Order::with(['customer', 'order_items.subscription_plan'])->find($order_id);
-
-        $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
-
-        // Envio al cliente
-        $html = view('emails.orders', ['order' => $order, 'type' => 'producto', 'nombre' => 'Equipo Anticonceptivo'])->render();
-
-        $email = new \SendGrid\Mail\Mail();
-
-        $email->setFrom("info@anticonceptivo.cl", 'Anticonceptivo');
-        $email->setSubject('Compra #' . $order->id);
-        // $email->addTo($order->customer->email, 'Pedido');
-        $email->addTo("victor.araya.del@gmail.com", 'Pedido');
-
-        $email->addContent(
-            "text/html", $html
-        );
-        $sendgrid->send($email);
-
-        // Envio al admin
-        $html2 = view('emails.orders_admin', ['order' => $order, 'type' => 'producto', 'nombre' => 'Equipo Anticonceptivo'])->render();
-
-        $email2 = new \SendGrid\Mail\Mail();
-
-        $email2->setFrom("info@anticonceptivo.cl", 'Anticonceptivo');
-        $email2->setSubject('Nuevo pedido recibido #' . $order->id);
-        $email2->addTo("varaya@innovaweb.cl", 'Pedido');
-
-        $email2->addContent(
-            "text/html", $html2
-        );
-
-        $sendgrid->send($email2);
-
     }
 
     public function responsePaymentMethod(Request $request)

@@ -309,26 +309,13 @@ class ProfileController extends Controller
                 return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_NOT_FOUND);
             }
 
-            $orders = Order::where('customer_id',$customer->id)->where('status','PAID')
-            ->with('subscriptions_orders_items.order_item.product','subscriptions_orders_items.customer_address.commune','subscriptions_orders_items.subscription')
-            ->whereHas('subscriptions_orders_items', function ($query) {
-                $query->where('id','!=', null);
-            })
-            ->get();
-
-
-            $idsOrdersItems = [];
-            foreach ($orders as $key => $element_order) {
-                foreach ($element_order->order_items as $key => $element_order_item) {
-
-                    array_push($idsOrdersItems ,$element_order_item->id);
-                }
-            }
-            
             $arraySubscriptionsOrdersItem = [];
             $arrayProducts = [];
             $arrayPlan = [];
-            $subscriptionsOrdersItem = SubscriptionsOrdersItem::whereIn('orders_item_id',$idsOrdersItems)
+
+            $subscriptionsOrdersItem = SubscriptionsOrdersItem::whereHas('order',function($q) use ($customer){
+                $q->where('customer_id',$customer->id);
+            })
             ->with(['order_item.product','customer_address.commune','subscription','order.order_items','order_item.subscription_plan'])
             ->select('id','order_id','orders_item_id','subscription_id','customer_address_id','pay_date','dispatch_date','status','is_pay')
             ->orderBy('order_id')->orderBy('pay_date')

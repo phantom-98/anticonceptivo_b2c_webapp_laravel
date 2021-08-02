@@ -96,7 +96,7 @@ class VoucherPaymentDays extends Command
 
         }
 
-        $subscriptions_orders_items = SubscriptionsOrdersItem::with('order_item')
+        $subscriptions_orders_items = SubscriptionsOrdersItem::with('order_item.subscription_plan','order_item.product')
         ->where('status','PAID')->whereDate('pay_date',$datePayment)
         ->orderBy('order_id')->orderBy('pay_date')
         ->get();
@@ -111,8 +111,11 @@ class VoucherPaymentDays extends Command
             if($order){
                 continue;
             }
+            $productSubscriptionPlan = ProductSubscriptionPlan::where('subscription_plan_id',$subscription_order_item->order_item->subscription_plan->id)
+            ->where('product_id',$subscription_order_item->order_item->product->id)->get()->first();
+
             $detail = [
-                "netUnitValue"=> round($subscription_order_item->order_item->price * ($commission/100)),
+                "netUnitValue"=> round(($productSubscriptionPlan->price*$productSubscriptionPlan->quantity*$subscription_order_item->order_item->quantity) * ($commission/100)),
                 "quantity"=> 1,
                 "comment"=> "Suscripción del pedido número ".$subscription_order_item->$order->id . " "
             ];

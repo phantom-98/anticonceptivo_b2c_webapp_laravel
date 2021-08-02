@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('email-test', [TestController::class, 'index'])->name('test');
 
 Route::get('VoucherPaymentDays-test', [TestController::class, 'VoucherPaymentDays']);
+Route::get('PaySubscription-test', [TestController::class, 'PaySubscription']);
 
 
 Route::view('/{path?}/{pathTwo?}/{pathThree?}/{pathFour?}/{pathFive?}/{pathSix?}/{pathSeven?}', 'webapp.base_react');

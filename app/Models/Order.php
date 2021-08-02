@@ -30,6 +30,7 @@ class Order extends Model
         'status',
         'discount_code_id',
         'prescription_validation',
+        'voucher_pdf',
         'humidity',
         'temperature'
     ];
