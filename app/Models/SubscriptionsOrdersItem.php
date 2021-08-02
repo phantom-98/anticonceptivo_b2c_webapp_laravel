@@ -14,6 +14,7 @@ class SubscriptionsOrdersItem extends Model
         'customer_address_id',
         'subscription_id',
         'order_id',
+        'voucher_pdf',
         'status'
     ];
 

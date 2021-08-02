@@ -55,7 +55,7 @@ export default (state, action) => {
                             : item.subscription.id))
             );
 
-
+                
             //Se debe refactorizar
             if (cartItems.length > 0 && cartItems[found] ) {
 
@@ -63,13 +63,17 @@ export default (state, action) => {
                     toastr.error(`<div>
                         <div>El limite de la categoría  <b>${item.product.subcategory.category.name}</b> es de ${item.product.subcategory.category.quantity_limit ?? 1} unidad</div>
                     </div>`)
+
                     return {
                         ...state,
                         cartItems: [...cartItems]
                     };
                 }
-                cartItems[found].quantity =
-                    cartItems[found].quantity + item.quantity;
+
+                if(cartItems[found].subscription == null){
+                    cartItems[found].quantity = cartItems[found].quantity + item.quantity;
+                }
+
             } else {
 
                 if((item.quantity)> (item.product.subcategory.category.quantity_limit ?? 1)){
