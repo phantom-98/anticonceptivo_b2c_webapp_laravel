@@ -1215,19 +1215,19 @@ input.my-auto.file-input {
 }
 
 .modal-auth {
-  width: 412px;
+  max-width: 412px;
 }
 
 .modal-success {
-  width: 486px;
+  max-width: 486px;
 }
 
 .modal-waiting-payment {
-  width: 920px !important;
+  max-width: 920px !important;
 }
 
 .modal-new-claim {
-  width: 712px;
+  max-width: 712px;
 }
 
 .modal-title {

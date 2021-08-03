@@ -60,7 +60,7 @@ const Shop = ({match}) => {
 
     const getProducts = (_category, _subcategory = null, _type = null, _filter = null) => {
         let url = Services.ENDPOINT.PUBLIC_AREA.SHOP.PRODUCTS.CATEGORY;
-        
+
         let data = {
             category_slug: _category,
             subcategory_slug: _subcategory,
@@ -178,9 +178,9 @@ const Shop = ({match}) => {
                 breadcrumbs={breadcrumbs}
             >
                 {
-                    loading ? 
+                    loading ?
                         <div className="row pb-5 mb-5">
-                            <div className="col-3">
+                            <div className="col-md-3">
                                 <Filter
                                     isPills={isPills}
                                     laboratories={laboratories}
@@ -194,7 +194,7 @@ const Shop = ({match}) => {
                                 />
                             </div>
                             <div className="col-md-9">
-                                <ProductList 
+                                <ProductList
                                     category={category}
                                     products={products}
                                     subcatNames={subcatNames}
@@ -203,7 +203,7 @@ const Shop = ({match}) => {
                         </div>
                     : <LazyLoading/>
                 }
-                
+
             </BasePanelTwo>
 
             <Subscribe/>

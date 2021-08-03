@@ -48,7 +48,7 @@ const Footer = () => {
 
     return (
         <Fragment>
-            <div className="footer d-flex">
+            <div className="footer d-flex py-5">
                 <div className="container my-auto">
                     <div className="row" style={{marginLeft: '-25px !important'}}>
                         <div className="col-md-auto text-center">
@@ -70,20 +70,20 @@ const Footer = () => {
 
                         <div className="col-md">
                             <ul className="nav flex-column">
-                                <li className="nav-item">
+                                <li className="nav-item text-center text-md-left">
                                     <Link className="nav-link" to={PUBLIC_ROUTES.ABOUT_US.path}>Sobre nosotros</Link>
                                 </li>
-                                <li className="nav-item">
+                                <li className="nav-item text-center text-md-left">
                                     <Link className="nav-link" to={PUBLIC_ROUTES.FAQ.path}>Preguntas Frecuentes FAQ</Link>
                                 </li>
-                                <li className="nav-item">
+                                <li className="nav-item text-center text-md-left">
                                     <Link className="nav-link" to={PUBLIC_ROUTES.TERMS_AND_CONDITIONS.path}>Términos y Condiciones</Link>
                                 </li>
                                 {
                                     sections.map((section) => {
                                         let sectionKey = uuidv4();
                                         return(
-                                            <li className="nav-item" key={sectionKey}>
+                                            <li className="nav-item text-center text-md-left" key={sectionKey}>
                                                 <a className="nav-link" href={section.link} target="_blank">
                                                     {section.name}
                                                 </a>
@@ -91,7 +91,7 @@ const Footer = () => {
                                         )
                                     })
                                 }
-                                <li className="nav-item">
+                                <li className="nav-item text-center text-md-left">
                                     <a className="nav-link"
                                        href={responsibleConsumption && 'public_file' in responsibleConsumption ? responsibleConsumption.public_file : ''}
                                        target="_blank">Consumo responsable</a>
@@ -100,24 +100,24 @@ const Footer = () => {
                         </div>
                         <div className="col-md">
                             <ul className="nav flex-column">
-                                <li className="nav-item">
+                                <li className="nav-item text-center text-md-left">
                                     <Link className="nav-link"
                                           to={(PUBLIC_ROUTES.CORPORATE_RESPONSIBILITY.path).replace(':section', 'politicas-de-privacidad')}>Políticas
                                         de Privacidad</Link>
                                 </li>
-                                <li className="nav-item">
+                                <li className="nav-item text-center text-md-left">
                                     <Link className="nav-link"
                                           to={(PUBLIC_ROUTES.CORPORATE_RESPONSIBILITY.path).replace(':section', 'carta-de-desabastecimiento')}>Carta de Desabastecimiento</Link>
                                 </li>
-                                <li className="nav-item">
+                                <li className="nav-item text-center text-md-left">
                                     <Link className="nav-link"
                                           to={(PUBLIC_ROUTES.CORPORATE_RESPONSIBILITY.path).replace(':section', 'plazos-y-costos-entrega')}>Plazos
                                         y costos de entrega</Link>
                                 </li>
-                                <li className="nav-item">
+                                <li className="nav-item text-center text-md-left">
                                     <Link className="nav-link" to={PUBLIC_ROUTES.BLOG.path}>Blog</Link>
                                 </li>
-                                <li className="nav-item">
+                                <li className="nav-item text-center text-md-left">
                                     <Link className="nav-link" to={PUBLIC_ROUTES.CLAIM.path}>Libro de Reclamos</Link>
                                 </li>
                             </ul>
@@ -125,16 +125,16 @@ const Footer = () => {
                         <div className="col-md-auto">
                             <ul className="nav flex-column">
                                 <li className="nav-item d-flex" style={{height: '34px'}}>
-                                    <div className="px-3 my-auto font-15 bold font-poppins text-white">
+                                    <div className="px-3 my-auto mx-auto mx-md-0 font-15 bold font-poppins text-white">
                                         CONTACTO
                                     </div>
                                 </li>
-                                <li className="nav-item">
+                                <li className="nav-item text-center text-md-left">
                                     <a className="nav-link" href="tel:232451883"><Icon path={phone}/>
                                         <span>{' '}(2) 3245 1883</span>
                                     </a>
                                 </li>
-                                <li className="nav-item">
+                                <li className="nav-item text-center text-md-left">
                                     <a className="nav-link" href="mailto:contacto@anticonceptivo.cl"><Icon
                                         path={email}/>
                                         <span>{' '}contacto@anticonceptivo.cl</span>
@@ -142,7 +142,7 @@ const Footer = () => {
                                 </li>
                             </ul>
 
-                            <div className="row pl-3 pt-2">
+                            <div className="row pl-3 pt-2 justify-content-md-start justify-content-center">
                                 {/* <div className="col-auto">
                                     <Link to="#" target="_blank">
                                         <Icon path={twitter}/>
@@ -161,8 +161,8 @@ const Footer = () => {
                             </div>
                         </div>
 
-                        <div className="col-md-auto">
-                            <div className="pt-5">
+                        <div className="col-md-auto d-flex">
+                            <div className="pt-5 mx-auto mx-md-0">
                                 <img src={webpay} alt={CONFIG.APP_NAME}/>
                             </div>
                         </div>
