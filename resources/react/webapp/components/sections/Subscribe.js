@@ -21,10 +21,10 @@ const Subscribe = () => {
         let dataForm = data;
         Services.DoPost(url,dataForm).then(response => {
             Services.Response({
-            response: response, 
-            success: () => {    
+            response: response,
+            success: () => {
                 setData(defaultData);
-            },  
+            },
             });
         }).catch(error => {
             Services.ErrorCatch(error)
@@ -45,9 +45,9 @@ const Subscribe = () => {
 
                     </div>
                     <div className="row">
-                        <div className="col-8">
+                        <div className="col-md-8">
                             <div className="input-group search-filter-button">
-                                <input 
+                                <input
                                     type="text"
                                     name='subscribe_email'
                                     className="form-control form-control-custom form-control-custom-60"

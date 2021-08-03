@@ -7,7 +7,7 @@ const HeaderNavbarItem = ({icon, text, linkTo}) =>{
         <div className="col-md-auto header-navbar-col" style={{height : '44px'}}>
             <div className="my-auto">
                <Link to={linkTo ? linkTo : '#'} style={{textDecoration: 'none'}}>
-                   {icon ? <Icon path={icon}/> : null} <span className="header-navbar-item">{text}</span>
+                   {icon ? <div className="left" style={{width : '25px'}}> <Icon path={icon}/></div> : null} <div className="left header-navbar-item pt-1">{text}</div>
                </Link>
             </div>
         </div>
