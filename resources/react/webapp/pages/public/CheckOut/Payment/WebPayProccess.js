@@ -14,6 +14,7 @@ const WebPayProccess = ({
         setOrderId,
         total,
         subtotal,
+        dispatch,
         discount,
         discountCode
     }) => {
@@ -74,6 +75,7 @@ const WebPayProccess = ({
             total: total,
             subtotal: subtotal,
             discount: discount,
+            dispatch: dispatch,
             cartItems: cartItems
         }
 

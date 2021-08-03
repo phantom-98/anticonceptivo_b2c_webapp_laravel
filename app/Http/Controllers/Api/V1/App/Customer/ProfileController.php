@@ -20,6 +20,8 @@ use App\Models\Prescription;
 use App\Models\ContactIssue;
 use App\Models\ContactMessage;
 use App\Models\Subscription;
+use App\Models\DeliveryCost;
+
 use App\Models\SubscriptionsOrdersItem;
 use App\Models\ProductSubscriptionPlan;
 use Carbon\Carbon;
@@ -226,11 +228,15 @@ class ProfileController extends Controller
             }
 
             $subscriptionsOrdersItem = SubscriptionsOrdersItem::find($request->subscription_order_item_id);
+
             $subscriptions_orders_items = SubscriptionsOrdersItem::where('order_id',$subscriptionsOrdersItem->order_id)
             ->where('pay_date',$subscriptionsOrdersItem->pay_date)->get();
 
+            
             foreach ($subscriptions_orders_items as $key => $subscriptionsOrdersItemElement) {
                     $subscriptionsOrdersItemElement->customer_address_id = $request->address_id;
+                    $subscriptionsOrdersItemElement->commune_id = $address->commune_id;
+                    $subscriptionsOrdersItemElement->delivery_address = $address->address . ' ' .$address->extra_info;
                     $subscriptionsOrdersItemElement->save();
             }
 
@@ -282,12 +288,32 @@ class ProfileController extends Controller
             }
 
             $subscriptionsOrdersItem = SubscriptionsOrdersItem::find($request->subscription_order_item_id);
-            $subscriptions_orders_items = SubscriptionsOrdersItem::where('order_id',$subscriptionsOrdersItem->order_id)
+            $subscriptions_orders_items = SubscriptionsOrdersItem::with('customer_address.commune')
+            ->where('order_id',$subscriptionsOrdersItem->order_id)
             ->where('pay_date',$subscriptionsOrdersItem->pay_date)->get();
+
+            $deliveryCosts = DeliveryCost::where('active',1)->get();
+            $itemDeliveryCost = null;
+            $itemDeliveryCostArrayCost = null;
+    
+
             foreach ($subscriptions_orders_items as $key => $subscriptionsOrdersItemElement) {
 
-                    if($subscriptionsOrdersItemElement->pay_date >= Carbon::createFromFormat('Y-m-d', $request->dispatch_date)->subDay(4)){
-                        return ApiResponse::JsonError(null, 'La fecha de despacho debe ser mayor a la fecha de pago');
+                    foreach ($deliveryCosts as $key => $deliveryCost) {
+                        $costs = json_decode($deliveryCost->costs);
+                        foreach ($costs as $key => $itemCost) {
+                            $communes = $itemCost->communes;
+            
+                            $found_key = array_search($item->customer_address->commune->name, $communes);
+                            if($found_key !== false){
+                                $itemDeliveryCost = $deliveryCost;
+                                $itemDeliveryCostArrayCost =$itemCost;
+                            }
+                        }
+                    }
+
+                    if($subscriptionsOrdersItemElement->pay_date->addHours($itemDeliveryCost->deadline_delivery) >= Carbon::createFromFormat('Y-m-d', $request->dispatch_date)){
+                        return ApiResponse::JsonError(null, 'No se puede adelantar la fecha de despacho');
                     }
 
                     $subscriptionsOrdersItemElement->dispatch_date = Carbon::createFromFormat('Y-m-d', $request->dispatch_date);

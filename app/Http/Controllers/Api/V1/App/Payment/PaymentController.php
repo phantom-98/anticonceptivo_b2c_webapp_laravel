@@ -9,8 +9,10 @@ use App\Http\Utils\OutputMessage\OutputMessage;
 use Carbon\Carbon;
 use \Datetime;
 use App\Models\Order;
-use App\Models\Subscription;
+use App\Models\Commune;
 
+use App\Models\Subscription;
+use App\Models\DeliveryCost;
 use App\Models\DiscountCode;
 
 class PaymentController
@@ -107,4 +109,35 @@ class PaymentController
 
         // return ['is_valid' => 1,'object' => $discountCode, 'message' => 'Código correcto'];
     }
+
+
+    public function getDispatch(Request $request)
+    {
+
+        $commune_name = Commune::find($request->commune_id)->name;
+        $deliveryCosts = DeliveryCost::where('active',1)->get();
+        $itemDeliveryCost = null;
+        $itemDeliveryCostArrayCost = null;
+
+        foreach ($deliveryCosts as $key => $deliveryCost) {
+            $costs = json_decode($deliveryCost->costs);
+            foreach ($costs as $key => $itemCost) {
+                $communes = $itemCost->communes;
+
+                $found_key = array_search($commune_name, $communes);
+                if($found_key !== false){
+                    $itemDeliveryCost = $deliveryCost;
+                    $itemDeliveryCostArrayCost =$itemCost;
+                }
+            }
+        }
+
+        $dispatch = $itemDeliveryCostArrayCost != null ? intVal($itemDeliveryCostArrayCost->price[0]) : 0;
+
+        return ApiResponse::JsonSuccess([
+            'dispatch' => $dispatch,
+        ]);
+
+    }
+
 }

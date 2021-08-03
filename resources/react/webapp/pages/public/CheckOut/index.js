@@ -79,6 +79,8 @@ const CheckOut = () => {
         }
     },[auth])
 
+
+
     useEffect(() => {
         switch (view) {
             case "grant-user":

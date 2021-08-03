@@ -27,21 +27,28 @@
                 <div class="panel">
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="name">Nombre (*)</label>
                                     <input type="text" id="name" name="name" class="form-control" required
                                             value="{{ old('name') }}">
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="deadline_delivery">Plazo máximo de entrega (*)</label>
                                     <input type="text" id="deadline_delivery" name="deadline_delivery" class="form-control" required
                                     oninput="checkKey('deadline_delivery')" value="{{ old('deadline_delivery') }}">
                                 </div>
                             </div>      
-                            <div class="form-group col-md-4">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="deadline_delivery_llego">Plazo máximo de entrega llego (*)</label>
+                                    <input type="text" id="deadline_delivery_llego" name="deadline_delivery_llego" class="form-control" required
+                                    oninput="checkKey('deadline_delivery_llego')" value="{{ old('deadline_delivery_llego') }}">
+                                </div>
+                            </div>     
+                            <div class="form-group col-md-3">
                                 {!! Form::label('image', 'Imagen (*)') !!}
                                 <input type='file' name='image' class='form-control' accept=".jpg, .png, .jpeg" required>
                             </div>                     

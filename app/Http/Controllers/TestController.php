@@ -20,6 +20,7 @@ use App\Models\WebpayLog;
 use App\Models\Customer;
 use App\Models\CustomerAddress;
 use App\Models\DiscountCode;
+use App\Models\DeliveryCost;
 use App\Models\SubscriptionsOrdersItem;
 use App\Models\SubscriptionPlan;
 use App\Models\ProductSubscriptionPlan;
@@ -74,6 +75,27 @@ class TestController extends Controller
                 
                 $total = ($productSubscriptionPlan->price*$productSubscriptionPlan->quantity*$item->order_item->quantity);
                 $response = $this->oneclick->authorize($customer->id , $item->subscription->transbank_token, $item->id, $total);
+
+
+                $deliveryCosts = DeliveryCost::where('active',1)->get();
+                $itemDeliveryCost = null;
+                $itemDeliveryCostArrayCost = null;
+        
+
+                foreach ($deliveryCosts as $key => $deliveryCost) {
+                    $costs = json_decode($deliveryCost->costs);
+                    foreach ($costs as $key => $itemCost) {
+                        $communes = $itemCost->communes;
+        
+                        $found_key = array_search($item->customer_address->commune->name, $communes);
+                        if($found_key !== false){
+                            $itemDeliveryCost = $deliveryCost;
+                            $itemDeliveryCostArrayCost =$itemCost;
+                        }
+                    }
+                }
+
+
                 if($response['status'] == "success"){
                     $items = [];
                     $itemProduct = array(
@@ -125,6 +147,11 @@ class TestController extends Controller
                     }
                     $product->save();
 
+
+
+                    $item->dispatch = $itemDeliveryCostArrayCost ? $itemDeliveryCostArrayCost->price[0] : 0;
+
+
                     $data_llego_products = [];
 
                     $product_item = $tem->order->order_item->product;
@@ -138,9 +165,9 @@ class TestController extends Controller
                     array_push($data_llego_products,$data_llego_item_product);
             
                     $data_llego = array (
-                        'identificador' => $order->id,
+                        'identificador' => $item->id,
                         'linea_negocio' => 'ANTICONCEPTIVO',
-                        'fecha_pactada_cliente' => Carbon::now()->addDay()->format('d-m-Y'),
+                        'fecha_pactada_cliente' => Carbon::now()->addHours($itemDeliveryCost->deadline_delivery_llego)->format('d-m-Y'),
                         'cliente_nombres' => $item->order->customer->first_name . ' ' . $tem->order->customer->last_name,
                         'cliente_direccion1' => $item->customer_address->address,
                         'cliente_direccion2' =>  $item->customer_address->extra_info ,
@@ -161,14 +188,13 @@ class TestController extends Controller
                     $get_data = ApiHelper::callAPI('POST', 'https://qa-integracion.llego.cl/api/100/Anticonceptivo/carga/Pedido', json_encode($data_llego), 'llego');
                     $response = json_decode($get_data, true);
 
-                    if($response['code'] == 200){
-                        $item->dispatch_status = $response['status']['estado'];
+                    if($response['codigo'] == 200){
+                        $item->dispatch_status = 'Procesando';
                     }
 
                     $item->is_pay = 1;
                     $item->status = 'PAID';
                     $item->save();
-
 
                     $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
             
@@ -204,12 +230,10 @@ class TestController extends Controller
             
                     $sendgrid->send($email2);
 
-                    
-
                 }else{
                     $item->is_pay = 0;
                     $item->pay_date = Carbon::now()->addDay();
-                    $item->dispatch_date = Carbon::now()->addDay(4);
+                    $item->dispatch_date = Carbon::now()->addHours($itemDeliveryCost->deadline_delivery);
                     $item->status = 'REJECTED';
                     $item->save();
                 }
@@ -217,6 +241,42 @@ class TestController extends Controller
         }
 
 
+    }
+
+    public function UpdateStateDispatch(){
+        $subscriptionsOrdersItems = SubscriptionsOrdersItem::whereHas('order',function($q) use ($customer){
+            $q->where('status','PAID')->where('customer_id',$customer->id);
+        })
+        ->where('status','PAID')
+        ->whereDate('pay_date','>=',Carbon::now()->subDays(3))
+        ->whereNotNull('dispatch_status')
+        ->orderBy('order_id')->orderBy('pay_date')
+        ->get();
+
+        foreach ($subscriptionsOrdersItems as $key => $value) {
+            $data_llego = array (
+                'identificador' => $value->id,
+            );
+            $get_data = ApiHelper::callAPI('GET', 'https://qa-integracion.llego.cl/api/100/Anticonceptivo/consulta/Pedido', json_encode($data_llego), 'llego');
+            $response = json_decode($get_data, true);
+            if($response['codigo'] == 200){
+                $value->dispatch_status = $response['status']['estado'];
+                $value->save();
+            }
+        }
+
+        $orders = Order::whereDate('created_at','>=',Carbon::now()->subDays(3))->where('status','PAID')->get();
+        foreach ($orders as $key => $value) {
+            $data_llego = array (
+                'identificador' => $value->id,
+            );
+            $get_data = ApiHelper::callAPI('GET', 'https://qa-integracion.llego.cl/api/100/Anticonceptivo/consulta/Pedido', json_encode($data_llego), 'llego');
+            $response = json_decode($get_data, true);
+            if($response['codigo'] == 200){
+                $value->dispatch_status = $response['status']['estado'];
+                $value->save();
+            }
+        }
     }
 
     public function VoucherPaymentDays(){
