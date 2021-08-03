@@ -52,7 +52,6 @@ const Home = ({match}) => {
                 // setBestSellers(response.data.best_sellers);
                 setBrands(response.data.brands);
                 setBannerCategories(response.data.bannerCategories);
-                console.log(response.data.bannerCategories);
             },  
             });
         }).catch(error => {
