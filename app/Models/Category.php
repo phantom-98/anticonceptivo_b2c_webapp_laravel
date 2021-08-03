@@ -16,6 +16,7 @@ class Category extends Model
         'subbanner_image',
         'position',
         'description',
+        'position_banner',
         'quantity_limit'
     ];
 

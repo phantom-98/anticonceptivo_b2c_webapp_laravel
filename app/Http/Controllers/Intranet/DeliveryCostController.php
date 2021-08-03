@@ -48,19 +48,19 @@ class DeliveryCostController extends GlobalController
         $rules = [
             'name' => 'required|unique:delivery_costs,name',
             'deadline_delivery' => 'required',
+            'deadline_delivery_llego' => 'required',
             'image' => 'required',
         ];
 
         $messages = [
             'name.required' => 'El campo nombre es obligatorio.',
             'deadline_delivery.required' => 'El campo plazo máximo de entrega obligatorio.',
+            'deadline_delivery_llego.required' => 'El campo plazo máximo de entrega de llego obligatorio.',
             'image.required' => 'El campo imagen es obligatorio.',
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
-
         if ($validator->passes()) {
-
             $json_save = [];
             foreach($request->price as $key => $price){
                 $price = array_filter($price, function($value) { return !is_null($value) && $value !== ''; });
@@ -120,12 +120,15 @@ class DeliveryCostController extends GlobalController
 
         $rules = [
             'name' => 'required|unique:delivery_costs,name,' . $id,
-            'deadline_delivery' => 'required'
+            'deadline_delivery' => 'required',
+            'deadline_delivery_llego' => 'required'
         ];
 
         $messages = [
             'name.required' => 'El campo nombre es obligatorio.',
-            'deadline_delivery.required' => 'El campo horas de plazo máximo obligatorio.'
+            'deadline_delivery.required' => 'El campo horas de plazo máximo obligatorio.',
+            'deadline_delivery_llego.required' => 'El campo plazo máximo de entrega llego obligatorio.',
+
         ];
 
 

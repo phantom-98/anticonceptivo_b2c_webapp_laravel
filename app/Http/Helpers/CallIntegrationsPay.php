@@ -8,6 +8,7 @@ use App\Models\Order;
 use App\Models\Customer;
 use App\Models\CustomerAddress;
 use App\Models\OrderItem;
+use App\Models\DeliveryCost;
 use App\Http\Helpers\ApiHelper;
 use Carbon\Carbon;
 
@@ -52,7 +53,6 @@ class CallIntegrationsPay extends CoreHelper
         // var_dump($data);
         $get_data = ApiHelper::callAPI('POST', 'https://api.ailoo.cl/dummy/sale/boleta/print_type/1', json_encode($data), 'ailoo');
         $response = json_decode($get_data, true);
-
         if($response['error']['code'] != 0){
             $order->voucher_pdf = $response['pdfUrl'];
             $order->save();
@@ -86,6 +86,28 @@ class CallIntegrationsPay extends CoreHelper
    public static function callDispatchLlego($order_id,$customerAddress)
    {
         $order = Order::with('order_items.subscription_plan','customer','order_items.product')->find($order_id);
+
+
+        $deliveryCosts = DeliveryCost::where('active',1)->get();
+        $itemDeliveryCost = null;
+        $itemDeliveryCostArrayCost = null;
+
+
+        foreach ($deliveryCosts as $key => $deliveryCost) {
+            $costs = json_decode($deliveryCost->costs);
+            foreach ($costs as $key => $itemCost) {
+                $communes = $itemCost->communes;
+
+                $found_key = array_search($customerAddress->commune->name, $communes);
+                if($found_key !== false){
+                    $itemDeliveryCost = $deliveryCost;
+                    $itemDeliveryCostArrayCost =$itemCost;
+                }
+            }
+        }
+
+        $order->dispatch = $itemDeliveryCostArrayCost ? $itemDeliveryCostArrayCost->price[0] : 0;
+
         $data_llego_products = [];
         foreach ($order->order_items as $key => $order_item) {
             $product_item = $order_item->product;
@@ -120,20 +142,20 @@ class CallIntegrationsPay extends CoreHelper
             ),
             ),
         );
-
+        
         $get_data = ApiHelper::callAPI('POST', 'https://qa-integracion.llego.cl/api/100/Anticonceptivo/carga/Pedido', json_encode($data_llego), 'llego');
         $response = json_decode($get_data, true);
-        if($response['code'] == 200){
-            $order->dispatch_status = $response['status']['estado'];
+        if($response['codigo'] == 200){
+            $order->dispatch_status = 'Procesando';
         }
+        $order->save();
         return $response;
    }
 
 
    public static function sendEmailsOrder($order_id)
    {
-        $orderItems =OrderItem::where('order_id',$order_id)->get();
-
+        $order =Order::with('customer','order_items.subscription_plan')->where('id',$order_id)->get()->first();
         $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
 
         // Envio al cliente

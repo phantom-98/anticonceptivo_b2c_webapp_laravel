@@ -31,7 +31,15 @@ class ApiHelper extends CoreHelper
             break;
          default:
             if ($data)
-               $url = sprintf("%s?%s", $url, http_build_query($data));
+               if($integration == 'llego'){
+                  curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "GET");
+
+                  curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+
+               }else{
+                  $url = sprintf("%s?%s", $url, http_build_query($data));
+
+               }
       }
       // OPTIONS:
       curl_setopt($curl, CURLOPT_URL, $url);
@@ -65,13 +73,24 @@ class ApiHelper extends CoreHelper
                   'Content-Type: application/json',
                ));
             }else if($integration == 'llego'){
-               curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-                  'x-apiKey: QYY6ki8CZt05z3TXJCqs034tKmBnUKoH',
-                  'x-cliente: ANTICONCEPTIVO',
-                  'Accept: application/json',
-                  'Content-Type: application/json',
-                  
-               ));
+               if($method == 'POST'){
+                  curl_setopt($curl, CURLOPT_HTTPHEADER, array(
+                     'x-apiKey: QYY6ki8CZt05z3TXJCqs034tKmBnUKoH',
+                     'x-cliente: ANTICONCEPTIVO',
+                     'Accept: application/json',
+                     'Content-Type: application/json',
+                     
+                  ));
+               }else{
+                  curl_setopt($curl, CURLOPT_HTTPHEADER, array(
+                     'x-apiKey: 114Pmikw8dAlWre5eTOM0lciZCo9TbYB',
+                     'x-cliente: ANTICONCEPTIVO',
+                     'Accept: application/json',
+                     'Content-Type: application/json',
+                     
+                  ));
+               }
+
             }else if($integration == 'ailoo'){
                curl_setopt($curl, CURLOPT_HTTPHEADER, array(
                   'X-Ailoo-Access-Token: )H@McQfTjWnZr4t7w!z%C*F-JaNdRgUkXp2s5v8x/A?D(G+KbPeShVmYq3t6w9z$B&E)H@McQfTjWnZr4u7x!A%D*F-JaNdRgUkXp2s5v8y/B?E(H+KbPeShVmYq3t6w',

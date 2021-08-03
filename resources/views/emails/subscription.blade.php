@@ -57,7 +57,7 @@
                 </tr>
                 <tr>
                     <td class="bold w-25">DIRECCIÓN</td>
-                    <td colspan="4">{{ $subscription_order->delivery_address ??  'Dirección no registrada' }}</td>
+                    <td colspan="4">{{ $subscription_order->customer_address->address . ' ' . $subscription->customer_address->extra_info ??  'Dirección no registrada' }}</td>
                 </tr>
                 {{-- @if($order->dispatch_type == 'delivery')
                 <tr>
@@ -65,29 +65,6 @@
                     <td colspan="4">{{ date('d-m-Y', strtotime($order->estimated_date)) }}</td>
                 </tr>
                 @endif --}}
-
-                <tr>
-                    <td class="bold w-25">SUBTOTAL</td>
-                    <td class="bold w-25">ENVÍO</td>
-                    {{-- <td class="bold w-25">DESC.</td> --}}
-                    <td class="bold w-25">TOTAL</td>
-                </tr>
-                <tr>
-                    <td class=" w-25">${{ number_format($order->subtotal, 0, ',','.')}}</td>
-                    @if($order->dispatch == -1)
-
-                        <td class=" w-25">Por pagar</td>
-
-                    @else
-                        <td class=" w-25">${{ number_format($order->dispatch, 0, ',','.')}}</td>
-
-
-
-                    @endif
-                    {{-- <td class=" w-25">${{ number_format($order->discount, 0, ',','.')}}</td> --}}
-                    {{-- <td class=" w-25">${{ number_format($order->tips, 0, ',','.')}}</td> --}}
-                    <td class=" w-25">${{ number_format($order->total, 0, ',','.')}}</td>
-                </tr>
                 </tbody>
             </table>
         </div>
@@ -108,45 +85,38 @@
                     <td class="bold">SUBTOTAL</td>
                 </tr>
 
-                @foreach($subscription_order->order_items as $item)
+                
                     <tr>
                         <td style="word-break: normal;">
-                            {{ $item->name }}
-                            @if($item->subscription_plan_id != null)
+                            {{ $subscription_order->order_item->name }}
+
                              (suscripción)
-                            @endif
+
                         </td>
                         <td style="text-align: right;">
-                            ${{ number_format(($item->subscription_plan_id != null ? $item->subtotal : $item->price) , 0, ',','.')}}
+                            ${{ number_format(($subscription_order->order_item->subtotal) , 0, ',','.')}}
                         </td>
-                        <td style="text-align: center;">{{ ($item->subscription_plan_id != null ? ($item->subscription_plan->months . ' Meses') : $item->quantity)  }}</td>
+                        <td style="text-align: center;">{{ ('2' . ' Meses') : $item->quantity)  }}</td>
                         <td style="text-align: right;">
-                            ${{ number_format(($item->subscription_plan_id != null ? $item->subtotal : $item->price * $item->quantity) , 0, ',','.')}}
+                            ${{ number_format(($subscription_order->order_item->subtotal) , 0, ',','.')}}
 
                         </td>
                     </tr>
-                @endforeach
-                <tr>
-                    <td colspan="1" style="border:none"></td>
-                    <td colspan="2" class="text-right">SUBTOTAL</td>
-                    <td class="bold w-25" style="text-align: right;"> ${{ number_format($subscription_order->subtotal, 0, ',','.')}}</td>
-                </tr>
-                <tr>
-                    <td colspan="1" style="border:none"></td>
-                    <td colspan="2" class="text-right">ENVÍO</td>
-                    <td class="bold w-25" style="text-align: right;"> ${{ number_format($subscription_order->dispatch, 0, ',','.')}}</td>
-                </tr>
-                {{-- <tr>
-                    <td colspan="1" style="border:none"></td>
-                    <td colspan="2" class="text-right">DESCUENTO</td>
-                    <td class="bold w-25" style="text-align: right;"> ${{ number_format($order->discount, 0, ',','.')}}</td>
-                </tr> --}}
-
-                <tr>
-                    <td colspan="1" style="border:none"></td>
-                    <td colspan="2" class="text-right">TOTAL</td>
-                    <td class="bold w-25" style="text-align: right;"><b> ${{ number_format($subscription_order->total, 0, ',','.')}}</b></td>
-                </tr>
+                    <tr>
+                        <td colspan="1" style="border:none"></td>
+                        <td colspan="2" class="text-right">SUBTOTAL</td>
+                        <td class="bold w-25" style="text-align: right;"> ${{ number_format($subscription_order->order_item->subtotal, 0, ',','.')}}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="1" style="border:none"></td>
+                        <td colspan="2" class="text-right">ENVÍO</td>
+                        <td class="bold w-25" style="text-align: right;"> ${{ number_format($subscription_order->dispatch, 0, ',','.')}}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="1" style="border:none"></td>
+                        <td colspan="2" class="text-right">TOTAL</td>
+                        <td class="bold w-25" style="text-align: right;"><b> ${{ number_format($subscription_order->order_item->subtotal + $subscription_order->dispatch, 0, ',','.')}}</b></td>
+                    </tr>
                 </tbody>
             </table>
         </div>
