@@ -460,24 +460,47 @@ const Table = ({
             }
         },
         {
+            text: "ESTADO DE DESPACHO",
+            dataField: "subtotal",
+            sort: true,
+            classes: "",
+            headerClasses: "",
+            formatter: (cell, row) => {
+                if(row.dispatch_status != null){
+                    return row.dispatch_status
+
+                }else if(row.order.dispatch_status != null){
+                    return row.order.dispatch_status
+                }else{
+                    return 'Sin Despachar';
+                }
+            }
+        },
+        {
             text: "DIRECCIÓN",
             dataField: "subtotal",
             sort: true,
             classes: "",
             headerClasses: "",
             formatter: (cell, row) => {
-                if(row.status != 'CREATED' && row.status != 'REJECTED'){
-                    return  row.customer_address.address  + ' ' + row.customer_address.extra_info               
+                let address = '';
+
+                if(row.delivery_address != null){
+                    address = row.delivery_address               
+                }else if(row.customer_address){
+                    address = row.customer_address.address  + ' ' + row.customer_address.extra_info               
                 }
 
+                if(row.status != 'CREATED' && row.status != 'REJECTED'){
+                    return address;
+                }
                 return (
                     <span
                         onClick={() => selectedColumnAddress(row)}
                         className="link pointer"
                         style={{ color: "#484848" }}
                     >
-                        {row.customer_address ? row.customer_address.address : ' '}{" "}
-                        {row.customer_address ? row.customer_address.extra_info : ' '}
+                        {address}
                     </span>
                 );
             }

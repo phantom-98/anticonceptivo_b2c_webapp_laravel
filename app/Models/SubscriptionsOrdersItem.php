@@ -13,6 +13,8 @@ class SubscriptionsOrdersItem extends Model
         'is_pay',
         'customer_address_id',
         'subscription_id',
+        'delivery_address',
+        'commune_id',
         'order_id',
         'voucher_pdf',
         'status'

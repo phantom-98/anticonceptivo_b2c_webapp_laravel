@@ -13,6 +13,7 @@ use App\Http\Utils\Enum\PaymentStatus;
 use App\Http\Utils\Enum\PaymentType;
 use Carbon\Carbon;
 use App\Models\Order;
+use App\Models\DeliveryCost;
 use App\Models\Subscription;
 use App\Models\OrderItem;
 use App\Models\Region;
@@ -80,8 +81,6 @@ class WebpayPlusController
         }
     }
 
-
-
     public function createTransaction(Request $request)
     {
 
@@ -118,6 +117,25 @@ class WebpayPlusController
                 $customerAddress = CustomerAddress::find($request->id);
             }
 
+            $deliveryCosts = DeliveryCost::where('active',1)->get();
+            $itemDeliveryCost = null;
+            $itemDeliveryCostArrayCost = null;
+            $commune_name = Commune::find($customerAddress->commune_id)->name;
+            foreach ($deliveryCosts as $key => $deliveryCost) {
+                $costs = json_decode($deliveryCost->costs);
+
+                foreach ($costs as $key => $itemCost) {
+                    $communes = $itemCost->communes;
+    
+                    $found_key = array_search($commune_name, $communes);
+                    if($found_key !== false){
+                        $itemDeliveryCost = $deliveryCost;
+                        $itemDeliveryCostArrayCost =$itemCost;
+                    }
+                }
+            }
+            $order->delivery_date = Carbon::now()->addHours($itemDeliveryCost->deadline_delivery);
+
             $order->customer_id = $request->customer_id ?? $customer->id;
 
             $region = Region::find($request->region_id);
@@ -151,7 +169,6 @@ class WebpayPlusController
                     $isSubscription = 1;
 
                     $subtotal = $subtotal + ($item['subscription']['quantity'] * $item['subscription']['price']);
-
                     $orderItem->subtotal = ($item['subscription']['quantity'] * $item['subscription']['price']);
                     $orderItem->subscription_plan_id = $item['subscription']['subscription_plan_id'];
                     $subscriptionPlan = SubscriptionPlan::find($item['subscription']['subscription_plan_id']);
@@ -164,9 +181,12 @@ class WebpayPlusController
                         $subscriptionOrdersItem->order_id = $order->id;
                         $subscriptionOrdersItem->orders_item_id = $orderItem->id;
                         $subscriptionOrdersItem->pay_date = Carbon::now()->addMonths($i*2);
-                        $subscriptionOrdersItem->dispatch_date = Carbon::now()->addMonths($i*2)->addDay(5);
+                        $subscriptionOrdersItem->dispatch = $itemDeliveryCostArrayCost ? $itemDeliveryCostArrayCost->price[0] : 0;
+                        $subscriptionOrdersItem->dispatch_date = Carbon::now()->addMonths($i*2)->addHours($itemDeliveryCost->deadline_delivery);
                         $subscriptionOrdersItem->subscription_id = $request->subscription['id'];
                         $subscriptionOrdersItem->customer_address_id = $customerAddress->id;
+                        $subscriptionOrdersItem->commune_id = $customerAddress->commune_id;
+                        $subscriptionOrdersItem->delivery_address = $customerAddress->address . ' ' .$customerAddress->extra_info;
                         $subscriptionOrdersItem->status = 'CREATED';
                         $subscriptionOrdersItem->save();
                     }
@@ -194,7 +214,7 @@ class WebpayPlusController
             }
             $order->subtotal = $subtotal;
             $order->discount = $request->discount;
-            $order->dispatch = 0;
+            $order->dispatch = $request->dispatch ?? 0;
 
             $order->total = $order->subtotal + $order->dispatch - $order->discount;
 
@@ -264,7 +284,6 @@ class WebpayPlusController
                 );
 
                 if ($response['response']->token) {
-
                     $order->payment_token = $response['response']->token;
                     $order->save();
                     
@@ -299,19 +318,18 @@ class WebpayPlusController
             $product = Product::find($id);
             $get_data = ApiHelper::callAPI('GET', 'https://api.ailoo.cl/v1/inventory/barCode/'.$product->barcode, null, 'ailoo');
             $response = json_decode($get_data, true);
-
-                foreach ($response['inventoryItems'] as $key => $inventory) {
-                    if($inventory['facilityName'] == 'Local 1'){
-                        $product->stock = intval($inventory['quantity']);
-                    }
+            foreach ($response['inventoryItems'] as $key => $inventory) {
+                if($inventory['facilityName'] == 'Local 1'){
+                    $product->stock = intval($inventory['quantity']);
+                    $product->save();
                 }
+            }
 
             if($product->stock < $quantity ){
                 return array(
                     'status'=>false,
                     'product' => $product,
                     'quantity' => $quantity
-
                 );
             }
 

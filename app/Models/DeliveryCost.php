@@ -11,6 +11,7 @@ class DeliveryCost extends Model
         'name',
         'image',
         'deadline_delivery',
+        'deadline_delivery_llego',
         'costs',
         'active',
     ];

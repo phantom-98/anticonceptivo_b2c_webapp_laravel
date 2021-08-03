@@ -2,10 +2,9 @@ import React, {Fragment, useContext, useEffect, useState} from 'react';
 import {formatMoney} from "../../helpers/GlobalUtils";
 import {CartContext} from "../../context/CartProvider";
 
-const TotalCartPriceFinal = ({discount, discountType, total, setTotal, subtotal, setSubtotal}) => {
+const TotalCartPriceFinal = ({discount, discountType, total, setTotal, subtotal, setSubtotal, dispatch}) => {
 
     const {cartItems} = useContext(CartContext);
-    const [dispatch, setDispatch] = useState(0)
 
     useEffect(() => {
         let _total = 0;
@@ -30,7 +29,7 @@ const TotalCartPriceFinal = ({discount, discountType, total, setTotal, subtotal,
 
         setTotal(_total);
         // setTotalCart(_total);
-    }, [cartItems, discount])
+    }, [cartItems, discount,dispatch])
 
     return (
         <Fragment>

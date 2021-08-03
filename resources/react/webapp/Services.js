@@ -179,6 +179,7 @@ export const ENDPOINT = {
         CREATE_ORDER: GetBaseURL() + 'payment/create-order',
         GET_ORDER_TO_PAY: GetBaseURL() + 'payment/get-order-to-pay',
         DISCOUNT_CODE: GetBaseURL() + 'payment/discount-code',
+        GET_DISPATCH: GetBaseURL() + 'payment/get-dispatch',
         VERIFY: GetBaseURL() + 'payment/verify',
         VERIFY_SUBSCRIPTION: GetBaseURL() + 'payment/verify-subscription',
 

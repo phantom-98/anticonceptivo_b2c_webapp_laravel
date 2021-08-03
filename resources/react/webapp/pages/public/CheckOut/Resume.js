@@ -1,4 +1,4 @@
-import React, {Fragment, useContext, useState} from 'react';
+import React, {Fragment, useContext, useState, useEffect} from 'react';
 import TotalCartItems from "../../../components/shopping/TotalCartItems";
 import {CONFIG} from "../../../Config";
 import ProductItem from "../../../components/shopping/MiniCart/ProductItem";
@@ -25,12 +25,38 @@ const Resume = ({
     setTotal
     }) => {
 
+    const [dispatch , setDispatch] = useState(0);
     const [showResumenCart, setShowResumenCart] = useState(false)
-    const [dispatch, setDispatch] = useState(0);
     const [discount, setDiscount] = useState(0);
     const [discountType, setDiscountType] = useState(0);
     const [discountCode, setDiscountCode] = useState("");
+
     const {cartItems} = useContext(CartContext);
+
+    useEffect(() => {
+        console.log(address)
+        let url = Services.ENDPOINT.PAYMENTS.GET_DISPATCH;
+
+        let data = {
+            commune_id: address.commune_id
+        }
+        
+        Services.DoPost(url, data).then(response => {
+            Services.Response({
+              response: response,
+              success: () => {
+                setDispatch(response.data.dispatch)
+              },
+              warning: () => {
+                toastr.warning(response.message);
+              },
+            });
+        }).catch(error => {
+            Services.ErrorCatch(error)
+        });
+
+    },[address])
+
 
     const handleDiscount = (e) => {
         setDiscountCode(e.target.value);
@@ -144,6 +170,7 @@ const Resume = ({
                                         setTotal={setTotal}
                                         subtotal={subtotal}
                                         setSubtotal={setSubtotal}
+                                        dispatch={dispatch}
                                     />
                                 </div>
                         }

@@ -4,7 +4,6 @@ import AddCartCard from "../../../components/shopping/AddCartCard";
 import { Accordion, Card } from "react-bootstrap";
 import Icon from "../../../components/general/Icon";
 import fileSvg from "../../../assets/images/icons/file-alt-regular.svg";
-import { round } from "lodash-es";
 
 const ProductInfo = ({ product, setImageSubscription }) => {
     const [quantity, setQuantity] = useState(1);
@@ -77,7 +76,7 @@ const ProductInfo = ({ product, setImageSubscription }) => {
                               </span>,
                               <span className="font-poppins font-16 bold color-78d2ff ml-2">
                                   (Ahorras un{" "}
-                                  {round(
+                                  {Math.round(
                                       ((product.price - subscription.price) /
                                           product.price) *
                                           100
