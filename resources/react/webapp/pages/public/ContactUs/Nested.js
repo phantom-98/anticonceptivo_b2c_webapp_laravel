@@ -5,29 +5,37 @@ const Nested = ({children, path, setPath, list}) => {
     const handleChildren = (e) => {
         const found = list.find(x => x.id == e.target.value)
 
-        // let flag = [];
+        // grandparent = 4 = 0
+        // child 1 = 1
+        // child.parent_id == e.target.value ?
+        // evaluar si child.parent_id esta en el path
+        // index - key : slice
+        // const newPath
+        // setPath
 
-        // path.forEach(parent => {
-        //     const obj = {
-        //         id: parent.id,
-        //         parent: parent.children.find(y => y.parent_id == e.target.value) ? true : false
+        console.log('value',e.target.value);
+        console.log('path',path);
+
+        var temp_path = [];
+
+        path.forEach((element, index) => {
+            let position = element.children.findIndex(pa => pa.id == e.target.value);
+            if (position != -1) {
+                return index;
+            }
+            temp_path.push(element);
+        });
+
+        console.log('temp path:',temp_path);
+
+        // path.forEach((element, index) => {
+        //     if (index <= externalPosition) {
+        //         temp_path.push(element);
         //     }
+        // });
 
-        //     flag.push(obj)
-        // })
-
-        
-
-        console.log(flag);
-
-        setPath(path => [...path, found]);
+        setPath(path => [...path, found]);   
     }
-
-    useEffect(() => {
-        if (path.length > 1) {
-            console.log(path);
-        }
-    },[path])
 
     return(
         <select 
