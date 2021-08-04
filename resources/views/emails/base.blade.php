@@ -121,6 +121,28 @@
         .bold {
             font-weight: bold;
         }
+        .table {
+            width: 100%;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid #e8e8e8;
+            padding: 5px 10px;
+        }
+
+        table th {
+            background-color: #0869A6;
+            color: #ffffff;
+            padding: 5px;
+        }
+
+        .w-25 {
+            width: 20%;
+        }
     </style>
 </head>
 <body style="width:100%;background:#f5f5f5;overflow-x: hidden;">

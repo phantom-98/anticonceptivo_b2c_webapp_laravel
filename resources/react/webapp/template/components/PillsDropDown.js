@@ -3,7 +3,9 @@ import { v4 as uuidv4 } from 'uuid';
 import {Link} from "react-router-dom";
 import PUBLIC_ROUTES from "../../routes/publicRoutes";
 
-const PillsDropDown = ({laboratories, subscriptions, formats}) => {
+const PillsDropDown = ({laboratories, subscriptions, formats, categorySlug}) => {
+
+    const categoryUrl =  PUBLIC_ROUTES.SHOP_FILTER.path.replace(':category?',categorySlug);
 
     return (
         <Fragment>
@@ -12,11 +14,11 @@ const PillsDropDown = ({laboratories, subscriptions, formats}) => {
                     <h3 className="pills-sub-header-title">FORMATO</h3>
                     {
                         formats.map((format) => {
-                            
-                            
                             let formatKey = uuidv4();
+                            let formatUrl = categoryUrl.replace(':type?','formato');
+                            formatUrl = formatUrl.replace(':filter?',format);
                             return (
-                                <Link to={'#'} style={{textDecoration: 'none'}} key={formatKey}>
+                                <Link to={formatUrl} style={{textDecoration: 'none'}} key={formatKey}>
                                     <span className="font-poppins py-1 font-12 text-black my-auto d-block">{format}</span>
                                 </Link>
                             )
@@ -26,31 +28,26 @@ const PillsDropDown = ({laboratories, subscriptions, formats}) => {
                     {
                         subscriptions.map((subscription) => {
                             let subscriptionKey = uuidv4();
-                            let subscriptionId = subscription.id;
+                            let subscriptionUrl = categoryUrl.replace(':type?','suscripcion');
+                            subscriptionUrl = subscriptionUrl.replace(':filter?', subscription.months);
                             return (
-                                <Link to={'#'} style={{textDecoration: 'none'}} key={subscriptionKey}>
+                                <Link to={subscriptionUrl} style={{textDecoration: 'none'}} key={subscriptionKey}>
                                     <span className="font-poppins py-1 font-12 text-black my-auto d-block">{subscription.months} Meses</span>
                                 </Link>
                             )
                         })
                     }
-                    <Link to={'#'} style={{textDecoration: 'none'}}>
-                        <h3 className="pills-sub-header-title mt-3">VER TODO</h3>
-                    </Link>
                 </div>
                 <div className="col-5">
                     <h3 className="pills-sub-header-title">LABORATORIO</h3>
                     {
                         laboratories.map((laboratory) => {
                             let laboratoryKey = uuidv4();
-
-                            let url = PUBLIC_ROUTES.SHOP_PILLS.path;
-                            
-                            url = url.replace(":type", 'laboratorio');
-                            url = url.replace(":filter", laboratory.name.replace(' ','-').toLowerCase());
+                            let laboratoryUrl = categoryUrl.replace(':type?', 'laboratorio');
+                            laboratoryUrl = laboratoryUrl.replace(":filter?", laboratory.name.replace(' ','-').toLowerCase());
 
                             return (
-                                <Link to={url} style={{textDecoration: 'none'}} key={laboratoryKey}>
+                                <Link to={laboratoryUrl} style={{textDecoration: 'none', pointerEvents: 'auto'}} key={laboratoryKey}>
                                     <span key={laboratoryKey} className="font-poppins py-1 font-12 text-black my-auto d-block">{laboratory.name}</span>
                                 </Link>
                             )

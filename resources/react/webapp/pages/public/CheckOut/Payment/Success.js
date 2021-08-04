@@ -6,11 +6,14 @@ import RowCol from "../../../../components/general/RowCol";
 import Icon from "../../../../components/general/Icon";
 import checkCircle from "../../../../assets/images/icons/checkmark-circle-outline.svg";
 import * as Services from "../../../../Services";
+import { formatMoney } from "../../../../helpers/GlobalUtils";
+import moment from "moment";
 
-const Success = ({orderId}) => {
+const Success = ({orderId, files, productCount}) => {
 
     const [order, setOrder] = useState();
     const [load, setLoad] = useState(true);
+
 
     useEffect(() => {
         getData();
@@ -18,16 +21,32 @@ const Success = ({orderId}) => {
 
     const getData = () => {
         let url = Services.ENDPOINT.NO_AUTH.CHECKOUT.GET_ORDER;
-        let data = {
-            order_id: orderId
+
+        const formData = new FormData();
+
+        formData.append('product_count', productCount);
+        formData.append('order_id', orderId);
+        
+        let fileList = [...files]
+        
+        for(let i=0; i < fileList.length; i++){
+            formData.append('attachments[]', fileList[i]);
+            formData.append('productIds[]', fileList[i].product_id);
         }
-        Services.DoPost(url,data).then(response => {
+        
+        const config = {
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
+        }
+
+        Services.DoPost(url, formData, config).then(response => {
             Services.Response({
-              response: response,
-              success: () => {
-                  setOrder(response.data.order);
-                  setLoad(false);
-              },
+            response: response,
+            success: () => {
+                setOrder(response.data.order);
+                setLoad(false);
+            },
             });
         }).catch(error => {
             Services.ErrorCatch(error)
@@ -55,35 +74,136 @@ const Success = ({orderId}) => {
                                         <span className="font-poppins font-18 regular color-005A86">Pedido número <span className="bold">{order.id}</span></span>
                                     </div>
                                 </div>
+                                <div style={{marginBottom: "20px"}}>
+            <table className="table">
+                <thead>
+                <tr>
+                    <th colSpan="2" className="bold text-center" style={{marginBottom: "20px"}}>
+                        DATOS DEL CLIENTE
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td className="bold w-25">NOMBRE</td>
+                    <td>{ order.customer.full_name }</td>
+                </tr>
+                <tr>
+                    <td className="bold w-25">EMAIL</td>
+                    <td><a className="text-info" href="mailto:"
+                           target="_blank">{ order.customer.email  }</a></td>
+                </tr>
+                <tr>
+                    <td className="bold w-25">TELÉFONO</td>
+                    <td><a className="text-info" href="tel:+56"
+                           target="_blank">+56{ order.customer.phone  }</a></td>
+                </tr>
 
-                                <div className="row py-3">
-                                    <H3Panel title="DATOS DEL CLIENTE" className="mb-0"/>
-                                    <RowCol name="RUT" value={order.customer.id_number}/>
-                                    <RowCol name="NOMBRE" value={order.customer.full_name}/>
-                                    <RowCol name="EMAIL" value={order.customer.email}/>
-                                    <RowCol name="TELÉFONO" value={order.customer.full_phone}/>
-                                    <RowCol name="DIRECCIÓN" value={order.delivery_address}/>
-                                </div>
+                </tbody>
+            </table>
+        </div>
+        <div style={{marginBottom: "20px"}}>
+            <table className="table" style={{marginBottom: "20px"}}>
+                <thead>
+                <tr>
+                    <th colSpan="5" className="bold text-center">
+                        DATOS DEL PEDIDO
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td className="bold w-25">FECHA</td>
+                    <td colSpan="4">{ moment(order.updated_at).format('DD/MM/YYYY')  }</td>
+                </tr>
+                <tr>
+                    <td className="bold w-25">MÉTODO DE PAGO</td>
+                    <td colSpan="4">{order.payment_type }
 
-                                <div className="row py-3">
-                                    <H3Panel title="DETALLE DEL PEDIDO" className="mb-0"/>
-                                    {
-                                        order.order_items.map((item) => {
-                                            return(
-                                                <RowCol name={item.name} value={'Cantidad ' + item.quantity} firstColSize="8"/>
-                                            )
-                                        })
-                                    }
-                                    <RowCol name="TOTAL" value={order.total} firstColSize="8"/>
-                                </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td className="bold w-25">DIRECCIÓN</td>
+                    <td colSpan="4">{ order.delivery_address ??  'Dirección no registrada' }</td>
+                </tr>
 
-                                <div className="row py-3">
-                                    <H3Panel title="DATOS DEL PEDIDO" className="mb-0"/>
-                                    <RowCol name="FECHA DE ENVÍO" value={order.delivery_date}/>
-                                    <RowCol name="TIPO DOCUMENTO" value={order.document_type}/>
-                                    <RowCol name="MÉTODO DE PAGO" value={order.payment_type}/>
-                                    <RowCol name="MÉTODO DE ENVÍO" value={order.shipping_type}/>
-                                </div>
+                <tr>
+                    <td className="bold w-25">SUBTOTAL</td>
+                    <td className="bold w-25">ENVÍO</td>
+                    <td className="bold w-25">DESC.</td>
+                    <td className="bold w-25">TOTAL</td>
+                </tr>
+                <tr>
+                    <td className=" w-25">{ formatMoney(order.subtotal)}</td>
+                    <td className=" w-25">{ formatMoney(order.dispatch)}</td>
+
+                    <td className=" w-25">{ formatMoney(order.discount)}</td>
+                    <td className=" w-25">{ formatMoney(order.total)}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div style={{marginBottom: "20px"}}>
+            <table className="table">
+                <thead>
+                <tr>
+                    <th colSpan="5" className="bold text-center" style={{marginBottom: "20px"}}>
+                        DETALLE DEL PEDIDO
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td className="bold">PRODUCTO</td>
+                    <td className="bold">P. UNI.</td>
+                    <td className="bold">CANT.</td>
+                    <td className="bold">SUBTOTAL</td>
+                </tr>
+                {
+                    order.order_items.map((item) => {
+                        return(
+                            <tr>
+                            <td >
+                                { item.name }
+                                { item.subscription_plan_id  != null ? '(suscripción)' : ''}
+                            </td>
+                            <td className="text-right">
+                                { formatMoney((item.subscription_plan_id != null ? item.subtotal : item.price) )}
+                            </td>
+                            <td style={{textAlign: "center"}}>{ (item.subscription_plan_id != null ? (item.subscription_plan.months + ' Meses') : item.quantity)  }</td>
+                            <td className="text-right">
+                                { formatMoney((item.subscription_plan_id != null ? item.subtotal : item.price * item.quantity) )}
+    
+                            </td>
+                        </tr>
+                        )
+                    })
+                }
+
+                <tr>
+                    <td colSpan="1" ></td>
+                    <td colSpan="2" className="text-right">SUBTOTAL</td>
+                    <td className="bold w-25" className="text-right"> { formatMoney(order.subtotal)}</td>
+                </tr>
+                <tr>
+                    <td colSpan="1" style={{border:"none"}}></td>
+                    <td colSpan="2" className="text-right">ENVÍO</td>
+                    <td className="bold w-25" className="text-right"> { formatMoney(order.dispatch)}</td>
+                </tr>
+                <tr>
+                    <td colSpan="1" style={{border:"none"}}></td>
+                    <td colSpan="2" className="text-right">DESCUENTO</td>
+                    <td className="bold w-25 text-right" > { formatMoney(order.discount)}</td>
+                </tr>
+
+                <tr>
+                    <td colSpan="1" style={{border:"none"}}></td>
+                    <td colSpan="2" className="text-right">TOTAL</td>
+                    <td className="bold w-25 text-right"><b> { formatMoney(order.total)}</b></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
 
                                 <div className="row">
                                     <div className="col-md-4 offset-md-4 mt-5">

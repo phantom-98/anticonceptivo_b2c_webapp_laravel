@@ -19,6 +19,7 @@ use App\Models\Banner;
 use App\Models\OrderItem;
 use App\Models\Brand;
 use App\Models\Alliance;
+use App\Models\PostType;
 
 
 class HomeController extends Controller
@@ -69,8 +70,9 @@ class HomeController extends Controller
     public function getFaqs()
     {
         try {
+            
             $category_faqs = CategoryFaq::where('active', true)->with(['faqs'])
-            ->whereHas('faqs', function($q){$q->where('active',true);})
+            ->whereHas('faqs', function($q){$q->where('active',true);})->orderBy('position')
             ->get();
 
             return ApiResponse::JsonSuccess(['category_faqs' => $category_faqs]);
@@ -85,11 +87,30 @@ class HomeController extends Controller
 
             $responsible_consumption = ResponsibleConsumption::first();
             $alliances = Alliance::where('active',true)->get();
+            $sections = Page::where('active', true)->where('section', SectionTypes::TERMS_AND_CONDITIONS)->whereIn('id',[1,2])
+            ->orderBy('position')->get();
+
 
             return ApiResponse::JsonSuccess([
                 'responsible_consumption' => $responsible_consumption,
-                'alliances' => $alliances
+                'alliances' => $alliances,
+                'sections' => $sections
             ]);
+        } catch (\Exception $exception) {
+            return ApiResponse::JsonError(null, $exception->getMessage());
+        }
+    }
+
+    public function getHeaderResources()
+    {
+        try {
+
+            $postTypes = PostType::where('active',true)->get();
+
+            return ApiResponse::JsonSuccess([
+                'post_types' => $postTypes
+            ]);
+            
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, $exception->getMessage());
         }
@@ -100,28 +121,32 @@ class HomeController extends Controller
             $topBanners = Banner::where('location','Home (Superior)')->where('active',true)->orderBy('position')->get();
             $middleBanners = Banner::where('location','Home (Centro)')->where('active',true)->orderBy('position')->get();
             $bottomBanners = Banner::where('location','Home (Inferior)')->where('active',true)->orderBy('position')->get();
-
-            $outstandings = Product::where('outstanding', true)->where('active',true)->with(['subcategory.category','images','laboratory'])->get();
+            
+            $outstandings = Product::where('outstanding', true)->where('active',true)->where('recipe_type','Venta Directa')
+                ->with(['subcategory.category','images','laboratory'])->get();
 
             if (!$outstandings->count()) {
-                $outstandings = Product::where('active',true)->with(['subcategory.category','images','laboratory'])->take(10)->get();
+                $outstandings = Product::where('active',true)->where('recipe_type','Venta Directa')->with(['subcategory.category','images','laboratory'])->take(10)->get();
             }
 
             $productsId = OrderItem::with(['order','product'])->whereHas('order', function($q){
                 $q->where('status','PAID');
             })->select('product_id', DB::raw('sum(quantity) as total'))->groupBy('product_id')->orderBy('total', 'desc')->get();
 
-            $bestSellers = Product::with(['subcategory.category','images','laboratory'])->whereIn('id',$productsId->pluck('product_id'))->get();
+            $bestSellers = Product::where('recipe_type','Venta Directa')->whereIn('id',$productsId->pluck('product_id'))
+                ->with(['subcategory.category','images','laboratory'])->get();
 
             $brands = Brand::where('active',true)->orderBy('position')->get();
 
+            $bannerCategories = Category::where('active',true)->orderBy('position_banner')->get();
             return ApiResponse::JsonSuccess([
                 'top_banners' => $topBanners,
                 'middle_banners' => $middleBanners,
                 'bottom_banners' => $bottomBanners,
                 'outstandings' => $outstandings,
                 'best_sellers' => $bestSellers,
-                'brands' => $brands
+                'brands' => $brands,
+                'bannerCategories' => $bannerCategories
             ]);
 
         } catch (\Exception $exception) {

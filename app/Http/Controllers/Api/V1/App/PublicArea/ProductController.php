@@ -12,13 +12,43 @@ use App\Models\SubCategory;
 use App\Models\LegalWarning;
 use App\Models\Laboratory;
 use App\Models\SubscriptionPlan;
+use App\Models\ProductSubscriptionPlan;
 
 class ProductController extends Controller
 {
+
+    public function getAllAvailable(){
+        try {
+            $products = Product::where('active',true)->with([
+                'subcategory.category' => function($c){
+                    $c->where('active',true);
+                },
+                'images',
+                'laboratory' => function($l){
+                    $l->where('active',true);
+                }
+            ])->get();
+
+            return ApiResponse::JsonSuccess([
+                'products' => $products
+            ]);
+        } catch (\Exception $exception){
+            return ApiResponse::JsonError(null, $exception->getMessage());
+        }
+    }
+
     public function getProducts()
     {
         try {
-            $products = Product::where('active',true)->with(['subcategory.category','images','laboratory'])->take(10)->get();
+            $products = Product::where('active',true)->where('recipe_type','Venta Directa')->with([
+                'subcategory.category' => function($c){
+                    $c->where('active',true);
+                },
+                'images',
+                'laboratory' => function($l){
+                    $l->where('active',true);
+                }
+            ])->take(12)->get();
 
             return ApiResponse::JsonSuccess([
                 'products' => $products
@@ -28,23 +58,116 @@ class ProductController extends Controller
         }
     }
 
-    public function getResources()
+    public function getProductByCategories(Request $request)
     {
         try {
-            $products = Product::where('active',true)->with(['subcategory.category','images','laboratory'])->get();
-            $categories = Category::where('active',true)->with(['subcategories'])
-            ->whereHas('subcategories', function($q){$q->where('active',true)->orderBy('position');})
-            ->orderBy('position')->get();
-            $subCategories = SubCategory::where('active',true)->orderBy('position')->get();
-            $laboratories = Laboratory::where('active',true)->get();
-            $subscriptions = SubscriptionPlan::where('active',true)->get();
+
+            if (!$request->category_slug) {
+                return ApiResponse::NotFound(null, 'No se ha encontrado la macro categoría.');
+            }
+
+            $category = Category::where('slug', $request->category_slug)->where('active',true)->with([
+                'subcategories' => function ($q){
+                    $q->where('active',true);
+                },
+                'subcategories.products' => function ($r){
+                    $r->where('active',true)->select(['id','active','subcategory_id','laboratory_id']);
+                }
+            ]);
+
+
+            $subcategories = $category->first()->subcategories;
+            $subcat = null;
+
+            if ($request->subcategory_slug) {
+                $category = $category->with('subcategories', function($q) use($request){
+                    $q->where('slug',$request->subcategory_slug);
+                });
+
+                $subcat = $category->first()->subcategories[0];
+            }
+
+            $category = $category->first();
+            $categoryFields = $category->only(['public_banner_image','description','name']);
+
+            $isPills = false;
+
+            if ($category->id === 1) {
+                $isPills = true;
+            }
+
+            $laboratoryIds = [];
+            $productIds = [];
+            
+
+            foreach ($category->subcategories as $key => $value) {
+                foreach ($value->products as $v_key => $v_value) {
+                    array_push($laboratoryIds, $v_value->laboratory_id);
+                    array_push($productIds, $v_value->id);
+                }
+            }
+
+            $laboratoryIds = array_unique($laboratoryIds);
+
+            $subscriptions = SubscriptionPlan::whereIn('id',ProductSubscriptionPlan::whereIn('product_id',$productIds)
+                ->get()->unique('subscription_plan_id')->pluck('subscription_plan_id'))
+                ->where('active',true)->select(['id','months'])->get();
+
+            $laboratories = Laboratory::whereIn('id',$laboratoryIds)->where('active',true)->get();
+
+            $products = Product::whereIn('id',$productIds)->where('active',true)
+                ->with(['subcategory.category','images','laboratory']);
+
+            $formats =  Product::whereIn('id',$productIds)->where('active',true)
+                ->where('format','!=','')->pluck('format')->unique();
+            
+            $filter = null;
+
+            if ($request->type && $request->filter) {
+                switch ($request->type) {
+                    case 'laboratorio':
+                        $lab = Laboratory::where('active',true)->where('name',str_replace('-',' ', $request->filter))->first();
+                        
+                        if (!$lab) {
+                            return ApiResponse::JsonError(null, 'No es posible encontrar el laboratorio.');
+                        }
+
+                        $filter = $lab->id;
+
+                        $products->where('laboratory_id',$lab ? $lab->id : 0);
+                        break;
+                    case 'suscripcion':
+                        $subscript = SubscriptionPlan::where('active',true)->where('months',$request->filter)->first();
+
+                        if (!$subscript) {
+                            return ApiResponse::JsonError(null, 'No es posible encontrar la suscripción.');
+                        }
+
+                        $filter = $subscript->id;
+                        
+                        $products->whereIn('id',ProductSubscriptionPlan::where('subscription_plan_id',$subscript->id)->pluck('product_id'));
+
+                        break;
+                    case 'formato':
+                        $products->where('format',$request->filter);
+                        $filter = $request->filter;
+                        break;
+                    default:
+                        return ApiResponse::JsonError(null, 'No ha sido posible realizar la petición.');
+                        break;
+                }
+            }
 
             return ApiResponse::JsonSuccess([
-                'products' => $products,
-                'categories' => $categories,
-                'sub_categories' => $subCategories,
+                'products' => $products->get(),
+                'category' => $categoryFields,
+                'subcategories' => $subcategories,
+                'subcat' => $subcat,
                 'laboratories' => $laboratories,
-                'subscriptions' => $subscriptions
+                'subscriptions' => $subscriptions,
+                'formats' => $formats,
+                'is_pills' => $isPills,
+                'filter' => $filter
             ]);
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, $exception->getMessage());
@@ -73,10 +196,21 @@ class ProductController extends Controller
 
             $legalWarnings = LegalWarning::first();
 
+            if ($product->recipe_type === 'Venta Directa') {
+                if ($product->subcategory->category_id !== 8) {
+                    $valid = true;
+                }else{
+                    $valid = false;
+                }
+            }else{
+                $valid = false;
+            }
+
             return ApiResponse::JsonSuccess([
                 'product' => $product,
                 'legal_warnings' => $legalWarnings,
-                'prods' => $prods
+                'prods' => $prods,
+                'valid' => $valid
             ], OutputMessage::SUCCESS);
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, $exception->getMessage());
@@ -86,16 +220,56 @@ class ProductController extends Controller
     public function getProductsFiltered(Request $request)
     {
         try {
-            
-            $products = Product::where('active',true)->with(['subcategory.category','images','laboratory','plans']);
 
-            $products = $products->whereIn('subcategory_id',$request->subcats);
-
-            if (!empty($request->labs)) {
-                $products = $products->whereIn('laboratory_id',$request->labs);
+            if (!$request->category_slug) {
+                return ApiResponse::NotFound(null, 'No se ha encontrado la macro categoría.');
             }
 
-            if ($request->price > 0) {
+            $category = Category::where('slug', $request->category_slug)->where('active',true)->with([
+                'subcategories' => function ($q){
+                    $q->where('active',true);
+                },
+                'subcategories.products' => function ($r){
+                    $r->where('active',true)->select(['id','active','subcategory_id','laboratory_id']);
+                }
+            ])->first();
+
+            $productIds = [];
+
+            foreach ($category->subcategories as $key => $value) {
+                foreach ($value->products as $v_key => $v_value) {
+                    array_push($productIds, $v_value->id);
+                }
+            }
+            
+            $products = Product::whereIn('id',$productIds)->where('active',true)->with(['subcategory.category','images','laboratory']);
+            $laboratories = Laboratory::where('active',true)->whereIn('id',$products->pluck('laboratory_id')->unique());
+
+            $subcatNames = null;
+
+            if (!empty($request->subcats)) {
+                $products = $products->whereIn('subcategory_id',$request->subcats);
+                $laboratories = $laboratories->whereIn('id',$products->pluck('laboratory_id')->unique());
+
+                $subcats = SubCategory::whereIn('id',$request->subcats)->pluck('name')->toArray();
+                $subcatNames = implode(", ", $subcats);
+            }
+
+            if (!empty($request->labs)) {
+                if ($laboratories) {
+                    $validLabs = array_intersect($laboratories->pluck('id')->toArray(), $request->labs);
+
+                    if (!$validLabs) {
+                        $products = $products->whereIn('laboratory_id',$laboratories->pluck('id')->toArray());
+                    }else{
+                        $products = $products->whereIn('laboratory_id',$validLabs);
+                    }
+                }else{
+                    $products = $products->whereIn('laboratory_id',$request->labs);
+                }
+            }
+
+            if ($request->price) {
                 $products = $products->where('price','<',$request->price);
             }
 
@@ -116,14 +290,14 @@ class ProductController extends Controller
             }
 
             if (!empty($request->format)) {
-                $products = $products->where('format',$request->format);
+                $products = $products->whereIn('format',$request->format);
             }
-
-            $laboratories = Laboratory::where('active',true)->whereIn('id',$products->pluck('laboratory_id')->unique())->get(); 
 
             return ApiResponse::JsonSuccess([
                 'products' => $products->get(),
-                'laboratories' => $laboratories
+                'laboratories' => $laboratories->get(),
+                'subcat_names' => $subcatNames
+                // 'laboratories' => $laboratories
             ], OutputMessage::SUCCESS);
 
         } catch (\Exception $exception) {

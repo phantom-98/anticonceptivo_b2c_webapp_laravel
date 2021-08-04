@@ -483,6 +483,24 @@
   background: #009BE8;
 }
 
+.header-navbar-col-custom {
+  display: flex !important;
+  cursor: pointer;
+  transition: all 0.25s ease-in-out;
+  background: transparent !important;
+  border-color: transparent !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+.testingg .dropdown-toggle::after {
+  display: none !important;
+}
+
+button#dropdown-testing {
+  padding: 0px;
+}
+
 .header-navbar-item {
   cursor: pointer;
   color: white;
@@ -554,6 +572,19 @@
   font-family: "Poppins", sans-serif;
   font-weight: 600;
   letter-spacing: 2px;
+}
+
+.custom-dropdown-item {
+  display: block;
+  width: 100%;
+  padding: 0.25rem 1.5rem;
+  clear: both;
+  font-weight: 400;
+  color: #212529;
+  text-align: inherit;
+  white-space: nowrap;
+  background-color: white;
+  border: 0;
 }
 
 .footer-bottom {
@@ -1184,19 +1215,19 @@ input.my-auto.file-input {
 }
 
 .modal-auth {
-  width: 412px;
+  max-width: 412px;
 }
 
 .modal-success {
-  width: 486px;
+  max-width: 486px;
 }
 
 .modal-waiting-payment {
-  width: 920px !important;
+  max-width: 920px !important;
 }
 
 .modal-new-claim {
-  width: 712px;
+  max-width: 712px;
 }
 
 .modal-title {
@@ -1359,6 +1390,20 @@ input.my-auto.file-input {
 .quantity-input div {
   float: left;
   padding-top: 3px;
+}
+
+/* Chrome, Safari, Edge, Opera */
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+
+input[type=number] {
+  -moz-appearance: textfield;
 }
 
 .quantity-input-button {
@@ -1565,6 +1610,10 @@ input.my-auto.file-input {
   margin: auto;
 }
 
+.custom-file-input ~ .custom-file-label::after {
+  content: "Subir";
+}
+
 .blog-card {
   height: 379px;
   width: 100%;
@@ -1669,6 +1718,31 @@ html,
 body {
   font-family: "Poppins", sans-serif;
   color: #222222;
+}
+
+.table {
+  width: 100%;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+table,
+th,
+td {
+  border: 1px solid #e8e8e8;
+  padding: 5px 10px;
+}
+
+table th {
+  background-color: #0869A6;
+  color: #ffffff !important;
+  padding: 5px;
+}
+
+.w-25 {
+  width: 20%;
 }
 
 h1,

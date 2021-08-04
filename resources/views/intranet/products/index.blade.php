@@ -26,12 +26,16 @@
                                     class="ti-plus"></i> Nuevo producto</a>
                         @endif
 
+                        @can('intranet.products.export')
                         <button type="submit" class="btn btn-success " onclick="export_excel()"
                                 style="margin-left: 20px"><i class="fa fa-file-excel-o"></i> Exportar
                         </button>
+                        @endcan
 
+                        @can('intranet.products.import')
                         <a class="btn btn-success" data-toggle="modal" data-target="#modal-create" style="margin-left: 20px"><i
                             class="ti-export"></i>&nbsp;&nbsp;&nbsp;Carga masiva de productos</a>
+                        @endcan
 
                         <form id="form-export" target="_BLANK"
                                 action="{{ route($config['route'] . 'export') }}"

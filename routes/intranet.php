@@ -50,6 +50,12 @@ if (env('SHOW_INTRANET', 'TRUE') == 'TRUE') {
 
                 Route::get('/inicio', 'DashboardController@index')->name('dashboard');
 
+                Route::get('/get-categories', 'DashboardController@categories')->name('dashboard.categories');
+                Route::get('/get-laboratories', 'DashboardController@laboratories')->name('dashboard.laboratories');
+                Route::get('/get-subscriptions', 'DashboardController@subscriptions')->name('dashboard.subscriptions');
+                Route::get('/get-format', 'DashboardController@format')->name('dashboard.format');
+                Route::get('/get-prescriptions', 'DashboardController@prescriptions')->name('dashboard.prescriptions');
+
                 Route::get('listado', function () {
                     return Excel::download(new EmailsExport, 'newsletter-clientes.xlsx');
                 })->name('listado');
@@ -104,12 +110,14 @@ if (env('SHOW_INTRANET', 'TRUE') == 'TRUE') {
                 Route::resource('faq', 'FaqController', ['names' => getResourceRoutesForNameHelper('faqs')]);
 
                 Route::post('categorias-faq/active', 'CategoryFaqController@active')->name('category_faqs.active');
+                Route::post('categorias-faq/position', 'CategoryFaqController@position')->name('category_faqs.position');
                 Route::resource('categorias-faq', 'CategoryFaqController', ['names' => getResourceRoutesForNameHelper('category_faqs')]);
 
                 Route::post('consumo-responsable/active', 'ResponsibleConsumptionController@active')->name('responsible_consumptions.active');
                 Route::resource('consumo-responsable', 'ResponsibleConsumptionController', ['names' => getResourceRoutesForNameHelper('responsible_consumptions')]);
 
                 Route::resource('clientes', 'CustomerController', ['names' => getResourceRoutesForNameHelper('customers')]);
+                Route::resource('dia-pago', 'DayPaymentController', ['names' => getResourceRoutesForNameHelper('day_payment')]);
 
                 Route::get('pedidos/search-client', 'OrderController@search_client')->name('orders.search_client');
                 Route::get('pedidos/detalle', 'OrderController@detail')->name('orders.detail');
@@ -181,6 +189,9 @@ if (env('SHOW_INTRANET', 'TRUE') == 'TRUE') {
 
                 Route::post('codigo-descuento/active', 'DiscountCodeController@active')->name('discount_code.active');
                 Route::resource('codigo-descuento', 'DiscountCodeController', ['names' => getResourceRoutesForNameHelper('discount_code')])->except(['show']);
+
+                Route::post('comision-pagos/active', 'PaymentCommissionController@active')->name('payment_commissions.active');
+                Route::resource('comision-pagos', 'PaymentCommissionController', ['names' => getResourceRoutesForNameHelper('payment_commissions')])->except(['show']);
 
 
                 Route::post('campos-anidados/active', 'NestedFieldController@active')->name('nested-fields.active');

@@ -48,7 +48,7 @@ const CheckOut = () => {
     }
 
     const [data, setData] = useState(defaultData);
-    const [file, setFile] = useState(null);
+    const [files, setFiles] = useState([]);
     const [editable, setEditable] = useState(false);
     const [regions, setRegions] = useState([]);
     const [communes, setCommunes] = useState([]);
@@ -56,6 +56,7 @@ const CheckOut = () => {
     const [total, setTotal] = useState(0);
     const [subtotal, setSubtotal] = useState(0);
     const [containsSubscriptions, setContainsSubscriptions] = useState(false);
+    const [productCount, setProductCount] = useState(null);
 
     const [address, setAddress] = useState({
         name: '',
@@ -65,7 +66,7 @@ const CheckOut = () => {
         extra_info: ''
     });
 
-    const [subscription, setSubscription] = useState(null);
+    const [subscription, setSubscription] = useState([]);
 
 
     useEffect(() => {
@@ -77,6 +78,8 @@ const CheckOut = () => {
             setView("user-form");
         }
     },[auth])
+
+
 
     useEffect(() => {
         switch (view) {
@@ -207,18 +210,20 @@ const CheckOut = () => {
                                                         setView={setView}
                                                         data={data}
                                                         setData={setData}
-                                                        setFile={setFile}
+                                                        setFiles={setFiles}
+                                                        files={files}
                                                         editable={editable}
                                                         regions={regions}
+                                                        setProductCount={setProductCount}
                                                     /> : null
                                             }
                                             {
                                                 (containsSubscriptions && (view == 'addresses' || view == 'add-address')) ? 
 
                                                 <Subscriptions 
-                                                setView={setView}
-                                                subscription={subscription}
-                                                setSubscription={setSubscription}
+                                                    setView={setView}
+                                                    subscription={subscription}
+                                                    setSubscription={setSubscription}
                                                 /> : null
                                             }
 
@@ -248,7 +253,7 @@ const CheckOut = () => {
                                             <Resume 
                                                 showFinal={showFinal}
                                                 data={data}
-                                                file={file}
+                                                files={files}
                                                 address={address}
                                                 subscription={subscription}
                                                 setFinishWebpayProccess={setFinishWebpayProccess}
@@ -267,6 +272,8 @@ const CheckOut = () => {
                         <HandleResponse
                             webpayProccessSuccess={webpayProccessSuccess}
                             orderId={orderId}
+                            productCount={productCount}
+                            files={files}
                         />
                     }
                 </div>

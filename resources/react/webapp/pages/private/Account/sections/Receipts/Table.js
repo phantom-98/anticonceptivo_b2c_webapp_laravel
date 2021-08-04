@@ -19,24 +19,6 @@ const Table = () => {
 
     useEffect(() => {
         getData();
-        // //emulación
-        // const q = 7;
-        // let _data = [];
-        // for (let i = 0; i < q; i++) {
-        //     _data = [
-        //         ..._data,
-        //         {
-        //             created_at: '2021-05-04 12:13:14',
-        //             id: 1202202345 + i,
-        //             name : 'receta remedio pastillas anticonceptivas',
-        //             total: Math.floor(Math.random() * 999999) + 10000,
-        //         }
-        //     ]
-        // }
-
-        // setObjects(_data)
-        // setTableLoaded(true)
-
     }, [])
 
     const getData = () => {
@@ -106,19 +88,19 @@ const Table = () => {
             formatter: (cell, row) => {
                 return <a href={row.file_public} target="_blank" className="link pointer">Ver Receta</a>
             }
-        },
-        {
-            text: '',
-            dataField: 'id',
-            sort: true,
-            classes: 'text-left',
-            headerClasses: '',
-            formatter: (cell, row) => {
-                return <span onClick={() => removeData(row.id)} className="link pointer">
-                    <Icon path={iconTrash} />
-                </span>
-            }
-        },
+        }
+        // {
+        //     text: '',
+        //     dataField: 'id',
+        //     sort: true,
+        //     classes: 'text-left',
+        //     headerClasses: '',
+        //     formatter: (cell, row) => {
+        //         return <span onClick={() => removeData(row.id)} className="link pointer">
+        //             <Icon path={iconTrash} />
+        //         </span>
+        //     }
+        // },
 
     ];
 

@@ -20,6 +20,8 @@ use App\Models\Prescription;
 use App\Models\ContactIssue;
 use App\Models\ContactMessage;
 use App\Models\Subscription;
+use App\Models\DeliveryCost;
+
 use App\Models\SubscriptionsOrdersItem;
 use App\Models\ProductSubscriptionPlan;
 use Carbon\Carbon;
@@ -39,16 +41,16 @@ class ProfileController extends Controller
                 'id_type',
                 'phone_code',
                 'phone',
-                'business_name',
-                'business_id_number',
-                'commercial_business',
-                'commercial_email',
-                'commercial_address',
-                'commercial_additional_address',
-                'commercial_phone',
-                'commercial_phone_code',
-                'commercial_region_id',
-                'commercial_commune_id',
+                // 'business_name',
+                // 'business_id_number',
+                // 'commercial_business',
+                // 'commercial_email',
+                // 'commercial_address',
+                // 'commercial_additional_address',
+                // 'commercial_phone',
+                // 'commercial_phone_code',
+                // 'commercial_region_id',
+                // 'commercial_commune_id',
             ])->find($request->customer_id);
 
             if (!$customer) {
@@ -151,11 +153,29 @@ class ProfileController extends Controller
 
     public function getAddresses(Request $request)
     {
-        try {
+        try {    
+
             $customer = Customer::find($request->customer_id);
 
             if (!$customer) {
                 return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_NOT_FOUND);
+            }
+
+            if ($request->product_count > 0) {
+
+                $isFile = false;
+
+                foreach ($request->files as $file) {
+                    if (count($file) != $request->product_count) {
+                        return ApiResponse::JsonError(null,'Por favor, ingresar todas las recetas.');
+                    }
+
+                    $isFile = true;
+                }
+                
+                if (!$isFile) {
+                    return ApiResponse::JsonError(null,'Por favor, ingresar todas las recetas.');
+                }
             }
 
             $addresses = CustomerAddress::where('customer_id', $customer->id)->get();
@@ -208,11 +228,46 @@ class ProfileController extends Controller
             }
 
             $subscriptionsOrdersItem = SubscriptionsOrdersItem::find($request->subscription_order_item_id);
+
+            $subscriptions_orders_items = SubscriptionsOrdersItem::where('order_id',$subscriptionsOrdersItem->order_id)
+            ->where('pay_date',$subscriptionsOrdersItem->pay_date)->get();
+
+            
+            foreach ($subscriptions_orders_items as $key => $subscriptionsOrdersItemElement) {
+                    $subscriptionsOrdersItemElement->customer_address_id = $request->address_id;
+                    $subscriptionsOrdersItemElement->commune_id = $address->commune_id;
+                    $subscriptionsOrdersItemElement->delivery_address = $address->address . ' ' .$address->extra_info;
+                    $subscriptionsOrdersItemElement->save();
+            }
+
+            return ApiResponse::JsonSuccess($subscriptions_orders_items[0], OutputMessage::SUCCESS);
+
+        } catch (\Exception $exception) {
+            return ApiResponse::JsonError(null, $exception->getMessage());
+        }
+    }
+
+    public function setCardSubscription(Request $request)
+    {
+        try {
+            $customer = Customer::find($request->customer_id);
+
+            if (!$customer) {
+                return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_NOT_FOUND);
+            }
+
+            $subscription = Subscription::find($request->subscription_id);
+
+            if (!$subscription) {
+                return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_SUBSCRIPTION_NOT_FOUND);
+            }
+
+            $subscriptionsOrdersItem = SubscriptionsOrdersItem::find($request->subscription_order_item_id);
             $subscriptions_orders_items = SubscriptionsOrdersItem::where('order_id',$subscriptionsOrdersItem->order_id)
             ->where('pay_date',$subscriptionsOrdersItem->pay_date)->get();
 
             foreach ($subscriptions_orders_items as $key => $subscriptionsOrdersItemElement) {
-                    $subscriptionsOrdersItemElement->customer_address_id = $request->address_id;
+                    $subscriptionsOrdersItemElement->subscription_id = $request->subscription_id;
                     $subscriptionsOrdersItemElement->save();
             }
 
@@ -233,12 +288,32 @@ class ProfileController extends Controller
             }
 
             $subscriptionsOrdersItem = SubscriptionsOrdersItem::find($request->subscription_order_item_id);
-            $subscriptions_orders_items = SubscriptionsOrdersItem::where('order_id',$subscriptionsOrdersItem->order_id)
+            $subscriptions_orders_items = SubscriptionsOrdersItem::with('customer_address.commune')
+            ->where('order_id',$subscriptionsOrdersItem->order_id)
             ->where('pay_date',$subscriptionsOrdersItem->pay_date)->get();
+
+            $deliveryCosts = DeliveryCost::where('active',1)->get();
+            $itemDeliveryCost = null;
+            $itemDeliveryCostArrayCost = null;
+    
+
             foreach ($subscriptions_orders_items as $key => $subscriptionsOrdersItemElement) {
 
-                    if($subscriptionsOrdersItemElement->pay_date >= Carbon::createFromFormat('Y-m-d', $request->dispatch_date)->subDay(4)){
-                        return ApiResponse::JsonError(null, 'La fecha de despacho debe ser mayor a la fecha de pago');
+                    foreach ($deliveryCosts as $key => $deliveryCost) {
+                        $costs = json_decode($deliveryCost->costs);
+                        foreach ($costs as $key => $itemCost) {
+                            $communes = $itemCost->communes;
+            
+                            $found_key = array_search($item->customer_address->commune->name, $communes);
+                            if($found_key !== false){
+                                $itemDeliveryCost = $deliveryCost;
+                                $itemDeliveryCostArrayCost =$itemCost;
+                            }
+                        }
+                    }
+
+                    if($subscriptionsOrdersItemElement->pay_date->addHours($itemDeliveryCost->deadline_delivery) >= Carbon::createFromFormat('Y-m-d', $request->dispatch_date)){
+                        return ApiResponse::JsonError(null, 'No se puede adelantar la fecha de despacho');
                     }
 
                     $subscriptionsOrdersItemElement->dispatch_date = Carbon::createFromFormat('Y-m-d', $request->dispatch_date);
@@ -260,25 +335,13 @@ class ProfileController extends Controller
                 return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_NOT_FOUND);
             }
 
-            $orders = Order::where('customer_id',$customer->id)->where('status','PAID')
-            ->with('subscriptions_orders_items.order_item.product','subscriptions_orders_items.customer_address.commune','subscriptions_orders_items.subscription')
-            ->whereHas('subscriptions_orders_items', function ($query) {
-                $query->where('id','!=', null);
-            })
-            ->get();
-
-
-            $idsOrdersItems = [];
-            foreach ($orders as $key => $element_order) {
-                foreach ($element_order->order_items as $key => $element_order_item) {
-
-                    array_push($idsOrdersItems ,$element_order_item->id);
-                }
-            }
-
             $arraySubscriptionsOrdersItem = [];
+            $arrayProducts = [];
+            $arrayPlan = [];
 
-            $subscriptionsOrdersItem = SubscriptionsOrdersItem::whereIn('orders_item_id',$idsOrdersItems)
+            $subscriptionsOrdersItem = SubscriptionsOrdersItem::whereHas('order',function($q) use ($customer){
+                $q->where('customer_id',$customer->id);
+            })
             ->with(['order_item.product','customer_address.commune','subscription','order.order_items','order_item.subscription_plan'])
             ->select('id','order_id','orders_item_id','subscription_id','customer_address_id','pay_date','dispatch_date','status','is_pay')
             ->orderBy('order_id')->orderBy('pay_date')
@@ -292,6 +355,7 @@ class ProfileController extends Controller
                 if(($prev_order_id != $item->order->id || $prev_pay_date != $item->pay_date) && $prev_item != null){
                     $item_tmp = [
                         'customer_address_id' => $prev_item->customer_address_id,
+                        'subscription_id' => $prev_item->subscription_id,
                         'customer_address' => $prev_item->customer_address,
                         'dispatch_date' => $prev_item->dispatch_date,
                         'id' => $prev_item->id,
@@ -304,21 +368,31 @@ class ProfileController extends Controller
                         'order_id' => $prev_item->order->id,
                         'status' => $prev_item->status,
                         'total' => $total,
+                        'products' => $arrayProducts,
+                        'plans' => $arrayPlan
+
                     ];
                     $total = 0;
+                    $arrayProducts = [];
+                    $arrayPlan = [];
+
                     array_push($arraySubscriptionsOrdersItem,$item_tmp);
 
                 }
-                $productSubscriptionPlan = ProductSubscriptionPlan::where('subscription_plan_id',$item->order_item->subscription_plan->id)
+                $productSubscriptionPlan = ProductSubscriptionPlan::with('subscription_plan')->where('subscription_plan_id',$item->order_item->subscription_plan->id)
                                             ->where('product_id',$item->order_item->product->id)->get()->first();
                 $total += $productSubscriptionPlan->price * $productSubscriptionPlan->quantity * $item->order_item->quantity;
                 $prev_order_id = $item->order->id;
                 $prev_pay_date = $item->pay_date;
                 $prev_item = $item;
+                array_push($arrayProducts,$item->order_item->product);
+                array_push($arrayPlan,$productSubscriptionPlan->subscription_plan);
+
             }
 
             $item_tmp = [
                 'customer_address_id' => $prev_item->customer_address_id,
+                'subscription_id' => $prev_item->subscription_id,
                 'customer_address' => $prev_item->customer_address,
                 'dispatch_date' => $prev_item->dispatch_date,
                 'id' => $prev_item->id,
@@ -331,6 +405,9 @@ class ProfileController extends Controller
                 'order_id' => $prev_item->order->id,
                 'status' => $prev_item->status,
                 'total' => $total,
+                'products' => $arrayProducts,
+                'plans' => $arrayPlan
+
             ];
 
             array_push($arraySubscriptionsOrdersItem,$item_tmp);
@@ -676,7 +753,7 @@ class ProfileController extends Controller
 
     private static function getCustomerService(){
         $contactIssue = ContactIssue::where('active',true)->where('section',ContactIssueTypes::CUSTOMER_SERVICE)
-            ->with(['fields'])->get();
+            ->with(['fields','campaign'])->get();
 
         return $contactIssue;
     }

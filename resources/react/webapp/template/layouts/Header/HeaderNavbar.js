@@ -62,13 +62,13 @@ const HeaderNavbar = () => {
     }
 
     const CustomToggle = React.forwardRef(({children, onClick}, ref) => (
-        <div className="pointer" ref={ref}  
-            // onMouseEnter={(e)=> { 
-            //     e.preventDefault(); 
+        <div className="pointer" ref={ref}
+            // onMouseEnter={(e)=> {
+            //     e.preventDefault();
             //     onClick(e);
             // }}
-            // onMouseLeave={(e)=> { 
-            //     e.preventDefault(); 
+            // onMouseLeave={(e)=> {
+            //     e.preventDefault();
             //     onClick(e);
             // }}
             >
@@ -78,48 +78,57 @@ const HeaderNavbar = () => {
 
     return (
         <div className="header-navbar bg-0869A6">
-            <div className="container" style={{maxWidth:'1500px'}}>
+            <div className="container px-0" style={{maxWidth:'1500px'}}>
                 <div className="row justify-content-center">
                     {
                         categories.map(category => {
                             let url = PUBLIC_ROUTES.SHOP.path;
                             url = url.replace(":category", category.slug);
+
                             return(
                                 <Dropdown key={category.categoryId}
                                     show={show[category.categoryId]}
-                                    onMouseEnter={() => showDropdown(category.categoryId)} 
+                                    onMouseEnter={() => showDropdown(category.categoryId)}
                                     onMouseLeave={() => hideDropdown(category.categoryId)}
                                     drop={'down'}
                                 >
                                     <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
-                                        <HeaderNavbarItem 
-                                            // linkTo={url}
+                                        <HeaderNavbarItem
+                                            linkTo={url}
                                             icon={category.public_image}
                                             text={category.name}
                                         />
                                     </Dropdown.Toggle>
-                                    
+
                                     {
-                                        category.subcategories.length ? 
-                                            category.id === 1 ? 
+                                        // category.subcategories.length ?
+                                            category.id === 1 ?
                                             <Dropdown.Menu align="right" bsPrefix="dropdown-menu-custom with-pills">
-                                                <Dropdown.Item key={uuidv4()} style={{cursor:'default'}}>
-                                                    {/* <Link to={'#'} style={{textDecoration: 'none'}}> */}
-                                                        <PillsDropDown
-                                                            laboratories={laboratories}
-                                                            formats={formats}
-                                                            subscriptions={subscriptions}
-                                                        />
-                                                    {/* </Link> */}
-                                                </Dropdown.Item>
+                                                {/* <Dropdown.Item key={uuidv4()} style={{cursor:'default'}}>
+                                                    <PillsDropDown
+                                                        laboratories={laboratories}
+                                                        formats={formats}
+                                                        subscriptions={subscriptions}
+                                                        categorySlug={category.slug}
+                                                    />
+                                                </Dropdown.Item> */}
+                                                <div className="custom-dropdown-item" style={{cursor: 'default'}}>
+                                                    <PillsDropDown
+                                                        laboratories={laboratories}
+                                                        formats={formats}
+                                                        subscriptions={subscriptions}
+                                                        categorySlug={category.slug}
+                                                    />
+                                                </div>
                                             </Dropdown.Menu>
-                                            : 
+                                            :
 
                                             <Dropdown.Menu align="right" bsPrefix="dropdown-menu-custom">
                                                 {
                                                     category.subcategories.map((subCategory) => {
-                                                        let childUrl = PUBLIC_ROUTES.SHOP.path;
-                                                        childUrl = childUrl.replace(":category", subCategory.slug);
+                                                        let childUrl = PUBLIC_ROUTES.SHOP_SUBCATEGORY.path;
+                                                        childUrl = childUrl.replace(":category?", category.slug);
+                                                        childUrl = childUrl.replace(":subcategory?", subCategory.slug);
                                                         return(
                                                             <Dropdown.Item key={uuidv4()}>
                                                                 <Link to={childUrl} style={{textDecoration: 'none'}}>
@@ -130,9 +139,9 @@ const HeaderNavbar = () => {
                                                     })
                                                 }
                                             </Dropdown.Menu>
-                                        : null
+                                        // : null
                                     }
-                                </Dropdown>                                    
+                                </Dropdown>
                             )
                         })
                     }

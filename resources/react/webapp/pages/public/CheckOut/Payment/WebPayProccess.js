@@ -7,7 +7,6 @@ import Swal from 'sweetalert2'
 
 const WebPayProccess = ({
         data,
-        file,
         address,
         subscription,
         setFinishWebpayProccess,
@@ -15,6 +14,7 @@ const WebPayProccess = ({
         setOrderId,
         total,
         subtotal,
+        dispatch,
         discount,
         discountCode
     }) => {
@@ -59,9 +59,10 @@ const WebPayProccess = ({
         // }
 
         let selectedSubscription  = null;
-        subscription.forEach(element => {
+        subscription.map(element => {
             if(element.default_subscription){
                 selectedSubscription  = element;
+                showWaitingPayment();
             }
         });
 
@@ -74,6 +75,7 @@ const WebPayProccess = ({
             total: total,
             subtotal: subtotal,
             discount: discount,
+            dispatch: dispatch,
             cartItems: cartItems
         }
 
@@ -84,7 +86,7 @@ const WebPayProccess = ({
                     success: () => {
                             if(response.message == "Compra OneClick"){
                                 clearCart();
-                                submitPrescription(response.data.order.id, response.data.order.customer_id);
+                                // submitPrescription(response.data.order.id, response.data.order.customer_id);
                                 updateDiscountCode(discountCode)
                                 setOrderId(response.data.order.id)
                                 hideWaitingPayment();
@@ -125,25 +127,6 @@ const WebPayProccess = ({
                 Services.ErrorCatch(error);
             });
     };
-
-    const submitPrescription = (orderId, customerId) => {
-        let url = Services.ENDPOINT.NO_AUTH.CHECKOUT.SUBMIT_PRESCRIPTION;
-
-        const formData = new FormData();
-
-        formData.append('file', file)
-        formData.append('order_id', orderId)
-        formData.append('customer_id', customerId)
-
-        Services.DoPost(url, formData).then(response => {
-            Services.Response({
-                response: response,
-                success: () => {}
-            });
-        }).catch(error => {
-            Services.ErrorCatch(error)
-        });
-    }
 
     const updateDiscountCode = (discountCode) => {
         let url = Services.ENDPOINT.NO_AUTH.CHECKOUT.UPDATE_DISCOUNTS;
@@ -186,7 +169,6 @@ const WebPayProccess = ({
                 success: () => {
                     if (response.data.order && response.data.order.status == 'PAID') {
                         clearCart();
-                        submitPrescription(orderId, customerId);
                         updateDiscountCode(discountCode)
                         hideWaitingPayment();
                         setWebpayProccessSuccess(true);

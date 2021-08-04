@@ -3,7 +3,7 @@ import {Form} from "react-bootstrap";
 import Icon from "../../../../../components/general/Icon";
 import iconRemove from "../../../../../assets/images/icons/remove-mini-cart.svg";
 
-const ListItem = ({subscription, saveDefaultSubscription,deleteSubscription}) => {
+const ListItem = ({subscription, saveDefaultSubscription,deleteSubscription,subscriptionChecked}) => {
 
 
 
@@ -18,7 +18,7 @@ const ListItem = ({subscription, saveDefaultSubscription,deleteSubscription}) =>
                         label=""
                         type="radio"
                         name="default_subscription"
-                        checked={subscription.default_subscription == 1 ? true : false}
+                        checked={(subscriptionChecked ?? subscription.default_subscription) == 1 ? true : false}
                         className="mr-1"
                         onClick={() => saveDefaultSubscription(subscription.id, subscription.customer_id)}
                         id={`custom-inline-radio-subscription-${subscription.id}`}
