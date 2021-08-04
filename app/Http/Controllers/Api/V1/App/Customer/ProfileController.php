@@ -389,28 +389,31 @@ class ProfileController extends Controller
                 array_push($arrayPlan,$productSubscriptionPlan->subscription_plan);
 
             }
+            if(count($subscriptionsOrdersItem) > 0){
+                $item_tmp = [
+                    'customer_address_id' => $prev_item->customer_address_id,
+                    'subscription_id' => $prev_item->subscription_id,
+                    'customer_address' => $prev_item->customer_address,
+                    'dispatch_date' => $prev_item->dispatch_date,
+                    'id' => $prev_item->id,
+                    'is_pay' => $prev_item->is_pay,
+                    'order_item' => $prev_item->order_item,
+                    'pay_date' => $prev_item->pay_date,
+                    'dispatch_date' => $prev_item->dispatch_date,
+                    'subscription' => $prev_item->subscription,
+                    'order' => $prev_item->order,
+                    'order_id' => $prev_item->order->id,
+                    'status' => $prev_item->status,
+                    'total' => $total,
+                    'products' => $arrayProducts,
+                    'plans' => $arrayPlan
+    
+                ];
+                array_push($arraySubscriptionsOrdersItem,$item_tmp);
 
-            $item_tmp = [
-                'customer_address_id' => $prev_item->customer_address_id,
-                'subscription_id' => $prev_item->subscription_id,
-                'customer_address' => $prev_item->customer_address,
-                'dispatch_date' => $prev_item->dispatch_date,
-                'id' => $prev_item->id,
-                'is_pay' => $prev_item->is_pay,
-                'order_item' => $prev_item->order_item,
-                'pay_date' => $prev_item->pay_date,
-                'dispatch_date' => $prev_item->dispatch_date,
-                'subscription' => $prev_item->subscription,
-                'order' => $prev_item->order,
-                'order_id' => $prev_item->order->id,
-                'status' => $prev_item->status,
-                'total' => $total,
-                'products' => $arrayProducts,
-                'plans' => $arrayPlan
+            }
 
-            ];
 
-            array_push($arraySubscriptionsOrdersItem,$item_tmp);
 
             return ApiResponse::JsonSuccess([
                 'subscriptions' => $arraySubscriptionsOrdersItem,
