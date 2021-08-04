@@ -42,6 +42,8 @@ class OutputMessage implements iValidationField, iException, iAuth
     const PRODUCT_SLUG_NOT_FOUND = 'No se ha podido encontrar el producto.';
     const PRODUCT_NOT_FOUND = 'No se ha podido encontrar el producto.';
 
+    const COMMUNE_NOT_FOUND = 'No se ha podido encontrar la comuna.';
+
     const RECOVERY_PASSWORD_ERROR = 'No hemos podido generar un link de recuperación de contraseña, por favor re intentalo más tarde.';
     const RECOVERY_PASSWORD = 'Se ha envíado un correo para recuperar la contraseña.';
 

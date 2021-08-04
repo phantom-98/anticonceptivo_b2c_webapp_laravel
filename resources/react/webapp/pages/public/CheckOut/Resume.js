@@ -22,7 +22,9 @@ const Resume = ({
     total,
     subtotal,
     setSubtotal,
-    setTotal
+    setTotal,
+    setDispatchDate,
+    installment
     }) => {
 
     const [dispatch , setDispatch] = useState(0);
@@ -46,10 +48,9 @@ const Resume = ({
               response: response,
               success: () => {
                 setDispatch(response.data.dispatch)
+                setDispatchDate(response.data.date_dispatch)
               },
-              warning: () => {
-                toastr.warning(response.message);
-              },
+
             });
         }).catch(error => {
             Services.ErrorCatch(error)
@@ -216,6 +217,7 @@ const Resume = ({
                                     total={total}
                                     subtotal={subtotal}
                                     discountCode={discountCode}
+                                    installment={installment}
                                 />
                             : null
                         }

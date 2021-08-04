@@ -16,7 +16,8 @@ const WebPayProccess = ({
         subtotal,
         dispatch,
         discount,
-        discountCode
+        discountCode,
+        installment
     }) => {
 
     const {auth} = useContext(AuthContext);
@@ -76,6 +77,7 @@ const WebPayProccess = ({
             subtotal: subtotal,
             discount: discount,
             dispatch: dispatch,
+            installment:installment,
             cartItems: cartItems
         }
 

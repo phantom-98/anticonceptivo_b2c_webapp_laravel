@@ -230,8 +230,7 @@ class WebpayPlusController
             }
             if($isSubscription){
                 if($request->subscription){
-                    $response = $this->oneclick->authorize($request->customer_id , $request->subscription['transbank_token'], $order->id, $order->total);
-                    
+                    $response = $this->oneclick->authorize($request->customer_id , $request->subscription['transbank_token'], $order->id, $order->total,$request->installment ?? 0);
                     Log::info('OneClick', 
                     [
                         "response" => $response,
@@ -345,9 +344,10 @@ class WebpayPlusController
     public function response(Request $request)
     {
         if ($request->token_ws) {
-
+            dd(1);
             $commit = $this->webpay_plus->commitTransaction($request->token_ws);
             $response = $commit['response'];
+            
             Log::info('WebpayPlusController', [$commit]);
 
             $order = Order::with('order_items.subscription_plan','customer','order_items.product')->find($response->buyOrder);
@@ -389,7 +389,12 @@ class WebpayPlusController
             } catch (\Exception $exception) {
 
             }
-        } 
+        }else{
+            $order = Order::find($request['TBK_ORDEN_COMPRA']);
+            $order->status = PaymentStatus::CANCELED;
+            $order->save();
+
+        }
 
         return view('webapp.payment.webpay-finish');
     }
@@ -401,7 +406,15 @@ class WebpayPlusController
                 $request['TBK_TOKEN']
             );
             $subscription = Subscription::where('token_inscription',$request['TBK_TOKEN'])->get()->first();
+
+            if($response['status'] != 'success'){
+                $subscription->status = PaymentMethodStatus::CANCELED;
+                $subscription->save();
+                return view('webapp.payment.webpay-finish');
+                
+            }
             $response = $response['response'];
+
             if ($response->getResponseCode() == 0) {
 
 

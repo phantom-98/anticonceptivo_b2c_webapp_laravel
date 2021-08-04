@@ -107,10 +107,14 @@ const Subscriptions = ({setView, subscription, setSubscription}) => {
                             getData();
     
                         } else if(response.data.subscription.status == 'REJECTED') {
-                            console.log(response.data.subscription);
                             hideWaitingPaymentMethod();
                             clearInterval(interval)
                             toastr.error('Tarjeta Rechazada');
+                        }else if(response.data.subscription.status == 'CANCELED') {
+                            hideWaitingPaymentMethod();
+                            clearInterval(interval)
+                            toastr.error('Cancelado');
+
                         }
                     }
 
