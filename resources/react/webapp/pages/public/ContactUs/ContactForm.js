@@ -2,12 +2,15 @@ import React, {useEffect, useState} from 'react';
 import {Form} from 'react-bootstrap'
 import * as Services from "../../../Services";
 import toastr from 'toastr';
+import { v4 as uuidv4 } from 'uuid';
+import Nested from './Nested';
 
 const ContactForm = () => {
 
     const [nestedFields, setNestedFields] = useState([]);
-    const [list, setList] = useState([])
-    const [inputs, setInput] = useState()
+    const [list, setList] = useState([]);
+    const [inputs, setInput] = useState([]);
+    const [path, setPath] = useState([]);
 
     useEffect(() => {
         getResources();
@@ -33,52 +36,95 @@ const ContactForm = () => {
         });
     }
 
+    const handleParent = (e) => {
+        const found = list.find(x => x.id == e.target.value)
+        setPath([found]);   
+    }
 
     return (
         <div className="row">
-
             <div className="col-12">
-                {/*{*/}
-                {/*    nestedFields.map(field => {*/}
-                {/*        if (field.children.length > 0) {*/}
-                {/*            return <div>*/}
-                {/*                <label htmlFor="">{field.name}</label>*/}
-                {/*                <select name="" id="" onChange={(e => {*/}
-                {/*                    const found = list.find(l => l.id == e.target.value)*/}
-
-                {/*                    if (found.nested_field_questions.length > 0) {*/}
-                {/*                        // console.log('found', found);*/}
-
-                {/*                        let div = [];*/}
-                {/*                        found.nested_field_questions.map(q => {*/}
-                {/*                            div.push(<div key={q.id}><label htmlFor="">{q.name}</label><input type="text" value=""/>*/}
-                {/*                            </div>)*/}
-
-                {/*                        })*/}
-
-                {/*                        setInput(div)*/}
-                {/*                    }else{*/}
-                {/*                        setInput(null)*/}
-                {/*                    }*/}
-                {/*                })}>*/}
-
-                {/*                    <option value="">Seleccione</option>*/}
-                {/*                    {*/}
-                {/*                        field.children.map(ch => {*/}
-                {/*                            return <option value={ch.id}>{ch.name}</option>*/}
-                {/*                        })*/}
-                {/*                    }*/}
-                {/*                </select>*/}
-                {/*            </div>*/}
-                {/*        }*/}
-                {/*    })*/}
-                {/*}*/}
-                {/*{*/}
-                {/*    inputs*/}
-                {/*}*/}
+                <select 
+                    className="form-control" 
+                    name=""
+                    id=""
+                    onChange={handleParent}
+                >
+                    <option value={''} disabled={true} selected={true}>Seleccione</option>
+                    {
+                        nestedFields.map(parent => {
+                            let parentId = uuidv4();
+                            return(
+                                <option selected={path.find(x => x.id == parent.id)} value={parent.id} key={parentId}>
+                                    {parent.name}
+                                </option>
+                            )
+                        })
+                    }
+                </select>
             </div>
 
-            <div className="col-md-6">
+            {
+                path.length && path[0].children.length ? 
+
+                <div className="col-12">
+                    {
+                        path.map((parent) => {
+                            return(
+                                <Nested
+                                    children={parent.children}
+                                    path={path}
+                                    setPath={setPath}
+                                    list={list}
+                                />
+                            )
+                        })
+                    }
+                </div>
+
+                : null
+            }
+
+            {/* <div className="col-12">
+                {
+                    nestedFields.map((field, index) => {
+                        if (field.children.length > 0) {
+                            return <div key={index}>
+                                <label htmlFor="">{field.name}</label>
+                                <select name="" id="" onChange={(e => {
+                                    const found = list.find(l => l.id == e.target.value)
+                                    if (found.nested_field_questions.length > 0) {
+                                        let div = [];
+                                        found.nested_field_questions.map(q => {
+                                            div.push(<div key={q.id}><label htmlFor="">{q.name}</label><input type="text" value=""/>
+                                            </div>)
+                                        })
+                                        setInput(div)
+                                    }else{
+                                        setInput(null)
+                                    }
+                                })}>
+                                    <option value="">Seleccione</option>
+                                    {
+                                        field.children.map((ch, index) => {
+                                            return (
+                                                <option value={ch.id} key={index+100}>
+                                                    {ch.name}
+                                                </option>
+                                            )
+                                        })
+                                    }
+                                </select>
+                            </div>
+                        }
+                    })
+                }
+                {
+                    inputs
+                }
+            </div> */}
+
+            {/* <div className="col-md-6">
                 <div className="form-group">
                     <label htmlFor="first_name">Nombres</label>
                     <input type="text"
@@ -100,7 +146,6 @@ const ContactForm = () => {
                     />
                 </div>
             </div>
-
             <div className="col-md-6">
                 <div className="form-group">
                     <label htmlFor="subject">Asunto</label>
@@ -117,7 +162,6 @@ const ContactForm = () => {
                     </select>
                 </div>
             </div>
-
             <div className="col-md-6">
                 <div className="form-group">
                     <label htmlFor="order_id">¿Cuál es el número de tu orden?</label>
@@ -129,7 +173,6 @@ const ContactForm = () => {
                     />
                 </div>
             </div>
-
             <div className="col-md-6">
                 <div className="form-group">
                     <label htmlFor="email">E-Mail</label>
@@ -141,7 +184,6 @@ const ContactForm = () => {
                     />
                 </div>
             </div>
-
             <div className="col-md-6">
                 <div className="row">
                     <div className="col-md-3">
@@ -170,8 +212,6 @@ const ContactForm = () => {
                     </div>
                 </div>
             </div>
-
-
             <div className="col-md-12">
                 <div className="form-group">
                     <label htmlFor="message">Mensaje</label>
@@ -204,6 +244,7 @@ const ContactForm = () => {
                     </div>
                 </div>
             </div>
+         */}
         </div>
     );
 };
