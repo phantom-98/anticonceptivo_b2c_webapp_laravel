@@ -14,4 +14,6 @@ abstract class PaymentMethodStatus
     const CREATED = 'CREATED';
     const REJECTED = 'REJECTED';
     const WAITING = 'WAITING';
+    const CANCELED = 'CANCELED';
+
 }

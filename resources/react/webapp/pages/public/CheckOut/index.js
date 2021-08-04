@@ -6,6 +6,7 @@ import UserForm from "./UserForm";
 import AddAddress from "./AddAddress";
 import Addresses from "./Addresses";
 import Subscriptions from "./Subscriptions";
+import Installments from "./Installments";
 
 import Header from "./Header";
 import {AuthContext} from "../../../context/AuthProvider";
@@ -17,7 +18,8 @@ const CheckOut = () => {
 
     const {auth} = useContext(AuthContext);
     const {cartItems} = useContext(CartContext);
-
+    const [dispatchDate, setDispatchDate] = useState([]);
+    const [installment, setInstallment] = useState(1);
     const [showFinal, setShowFinal] = useState(1);
     const [finishWebpayProccess, setFinishWebpayProccess] = useState(0);
     const [webpayProccessSuccess, setWebpayProccessSuccess] = useState();
@@ -140,31 +142,6 @@ const CheckOut = () => {
         });
     }
 
-    // const getAddress = () => {
-    //     let url = Services.ENDPOINT.AUTH.GET_ADDRESS;
-    //     let data = {
-    //         customer_id: auth.id
-    //     }
-    //     Services.DoPost(url,data).then(response => {
-    //         console.log(234324234324324432);
-
-    //         Services.Response({
-    //           response: response,
-    //           success: () => {
-    //                 if(response.data.addresses != null){
-    //                     response.data.addresses.forEach(elementAddress => {
-    //                         if(elementAddress.default_address){
-    //                             setAddress(elementAddress);
-    //                         }
-    //                     });
-    //                 }
-    //           },
-    //         });
-    //     }).catch(error => {
-    //         Services.ErrorCatch(error)
-    //     });
-    // }
-
     const getSubscriptions = () => {
         let url = Services.ENDPOINT.CUSTOMER.SUBSCRIPTIONS.GET_SUBSCRIPTIONS;
         let data = {
@@ -220,11 +197,19 @@ const CheckOut = () => {
                                             {
                                                 (containsSubscriptions && (view == 'addresses' || view == 'add-address')) ? 
 
-                                                <Subscriptions 
+                                                [<Subscriptions 
                                                     setView={setView}
                                                     subscription={subscription}
                                                     setSubscription={setSubscription}
-                                                /> : null
+                                                />, 
+                                                <Installments
+                                                    setInstallment={setInstallment}
+
+                                                />]
+                                                
+                                                : null
+
+                                                
                                             }
 
                                             {
@@ -241,6 +226,7 @@ const CheckOut = () => {
                                                     <Addresses 
                                                         setView={setView}
                                                         regions={regions}
+                                                        dispatchDate={dispatchDate}
                                                         communes={communes}
                                                         address={address}
                                                         setAddress={setAddress}
@@ -251,10 +237,12 @@ const CheckOut = () => {
                                         </div>
                                         <div className="col-md-auto pl-2" style={{width: '408px'}}>
                                             <Resume 
+                                                installment={installment}
                                                 showFinal={showFinal}
                                                 data={data}
                                                 files={files}
                                                 address={address}
+                                                setDispatchDate={setDispatchDate}
                                                 subscription={subscription}
                                                 setFinishWebpayProccess={setFinishWebpayProccess}
                                                 setWebpayProccessSuccess={setWebpayProccessSuccess}

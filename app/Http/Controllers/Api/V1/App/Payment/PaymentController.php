@@ -114,7 +114,14 @@ class PaymentController
     public function getDispatch(Request $request)
     {
 
-        $commune_name = Commune::find($request->commune_id)->name;
+        $commune = Commune::find($request->commune_id);
+        $commune_name = '';
+        if($commune){
+            $commune_name = $commune->name;
+        }else{
+            return ApiResponse::JsonWarning(null, OutputMessage::COMMUNE_NOT_FOUND);
+        }
+
         $deliveryCosts = DeliveryCost::where('active',1)->get();
         $itemDeliveryCost = null;
         $itemDeliveryCostArrayCost = null;
@@ -134,8 +141,13 @@ class PaymentController
 
         $dispatch = $itemDeliveryCostArrayCost != null ? intVal($itemDeliveryCostArrayCost->price[0]) : 0;
 
+        $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+        $fecha = Carbon::now()->addHours($itemDeliveryCost->deadline_delivery);
+        $mes = $meses[($fecha->format('n')) - 1];
         return ApiResponse::JsonSuccess([
             'dispatch' => $dispatch,
+            'date_dispatch' => $fecha->format('d') . ' de ' . $mes . ' de ' . $fecha->format('Y'),
+
         ]);
 
     }

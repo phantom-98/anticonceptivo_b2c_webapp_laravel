@@ -7,7 +7,7 @@ import clockBlue from '../../../assets/images/icons/clock-blue.svg'
 import {AuthContext} from "../../../context/AuthProvider";
 import * as Services from "../../../Services";
 
-const Addresses = ({setView, regions, communes, address, setAddress}) => {
+const Addresses = ({setView, regions, communes, address, setAddress, dispatchDate}) => {
 
     const {auth} = useContext(AuthContext);
 
@@ -114,7 +114,7 @@ const Addresses = ({setView, regions, communes, address, setAddress}) => {
                         <div className="col">
                             <Icon path={calendarBlue} />
                             {' '} <span className="font-poppins font-12 regular color-8E8E8E">Fecha de entrega</span>
-                            {'    '}<span className="font-poppins font-16 regular color-484848">04 de septiembre</span>
+                            {'    '}<span className="font-poppins font-16 regular color-484848">{dispatchDate}</span>
                         </div>
                         <div className="col-auto">
                             <Icon path={clockBlue} />

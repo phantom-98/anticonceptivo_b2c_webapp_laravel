@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5763067177f3bccaaaad81016113c6c4",
+    "content-hash": "5761846ccdf4af0b4f39a8171d283701",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1578,16 +1578,16 @@
         },
         {
             "name": "innovaweb/transbank",
-            "version": "v2.1.0",
+            "version": "v2.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/innovawebcl/Transbank.git",
-                "reference": "75cbd717db56e08fff7cfdd2c4de7182646fa09f"
+                "reference": "68ad7c8931bbb17cc6677ad435530442bc08f98e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/innovawebcl/Transbank/zipball/75cbd717db56e08fff7cfdd2c4de7182646fa09f",
-                "reference": "75cbd717db56e08fff7cfdd2c4de7182646fa09f",
+                "url": "https://api.github.com/repos/innovawebcl/Transbank/zipball/68ad7c8931bbb17cc6677ad435530442bc08f98e",
+                "reference": "68ad7c8931bbb17cc6677ad435530442bc08f98e",
                 "shasum": ""
             },
             "require": {
@@ -1638,7 +1638,7 @@
                 "laravel",
                 "transbank"
             ],
-            "time": "2021-07-20T14:11:34+00:00"
+            "time": "2021-07-29T13:12:35+00:00"
         },
         {
             "name": "laravel/framework",
