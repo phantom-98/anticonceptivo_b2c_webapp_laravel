@@ -266,6 +266,7 @@ const ContactForm = () => {
                                     setPath={setPath}
                                     list={list}
                                     key={parentChild}
+                                    parent={parent}
                                 />
                             ) : null
                         })

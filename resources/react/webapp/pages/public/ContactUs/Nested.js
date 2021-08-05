@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
-const Nested = ({children, path, setPath, list}) => {
+const Nested = ({children, path, setPath, list,parent}) => {
 
     const [inputs, setInputs] = useState([]);
     const [test, setTest] = useState([]);
@@ -46,12 +46,11 @@ const Nested = ({children, path, setPath, list}) => {
         if(isNew){
             temp_path.push(found);
         }
-
-        if (found.nested_field_questions.length > 0) {
-            setInputs(found.nested_field_questions)
-        }else{
-            setInputs(null)
-        }
+        // if (found.nested_field_questions.length > 0) {
+        //     setInputs(found.nested_field_questions)
+        // }else{
+        //     setInputs(null)
+        // }
 
         setPath(temp_path)
     }
@@ -79,9 +78,9 @@ const Nested = ({children, path, setPath, list}) => {
             >
                 <option value={''} disabled={true} selected={true}>Seleccione</option>
                 {
-                    children.map(ch => {
+                    children.map((ch,index) => {
                         let child = uuidv4();
-                        return(
+                        return( 
                             <option key={child} selected={path.find(x => x.id == ch.id)} value={ch.id}>
                                 {ch.name}
                             </option>
@@ -89,6 +88,31 @@ const Nested = ({children, path, setPath, list}) => {
                     })
                 }
             </select>
+            
+            {
+                
+                parent.nested_field_questions.map((element,index) => {
+                    console.log(element)
+                    let elementKey = uuidv4();
+                        return( 
+                            <input type="text" class="form-control" value={element.name}></input>
+                        )
+                    // console.log(ch)
+                    // ch.nested_field_questions && ch.nested_field_questions.length ? 
+                    // ch.nested_field_questions.map((ch2,index) => {
+                    //     console.log(ch2)
+                    //     let child = uuidv4();
+                    //     return( 
+                    //         <input key={child} value={ch2.id}>
+                    //             {ch2.name}
+                    //         </input>
+                    //     )
+                    // })
+                    // : null
+                })
+
+
+            }
         </div>
     )
 }
