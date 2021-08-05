@@ -1,6 +1,32 @@
-import React, {useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 const Nested = ({children, path, setPath, list}) => {
+
+    const [inputs, setInputs] = useState([]);
+    const [test, setTest] = useState([]);
+
+    // useEffect(() => {
+    //     if (test.length) {
+    //         if (test.nested_field_questions.length > 0) {
+    //             let div = [];
+    //             test.nested_field_questions.map(q => {
+    //                 div.push(<div key={`question_${q.id}`}>
+    //                     <label htmlFor={q.id}>{q.name}</label>
+    //                     <input type="text"
+    //                         className="form-control form-control-custom"
+    //                         id=""
+    //                         name=""
+    //                         placeholder=""
+    //                     />
+    //                 </div>)
+    //             })
+    //             setInputs(div)
+    //         }else{
+    //             setInputs(null)
+    //         }
+    //     }
+    // },[test])
 
     const handleChildren = (e) => {
         const found = list.find(x => x.id == e.target.value)
@@ -20,27 +46,50 @@ const Nested = ({children, path, setPath, list}) => {
         if(isNew){
             temp_path.push(found);
         }
+
+        if (found.nested_field_questions.length > 0) {
+            setInputs(found.nested_field_questions)
+        }else{
+            setInputs(null)
+        }
+
         setPath(temp_path)
     }
 
+    const renderInput = (q) => {
+        return (<div key={`question_${q.id}`}>
+            <label htmlFor={q.id}>{q.name}</label>
+            <input type="text"
+                className="form-control form-control-custom"
+                id=""
+                name=""
+                placeholder=""
+            />
+        </div>)
+    }
+ 
     return(
-        <select 
-            className="form-control" 
-            name=""
-            id=""
-            onChange={handleChildren}
-        >
-            <option value={''} disabled={true} selected={true}>Seleccione</option>
-            {
-                children.map(ch => {
-                    return(
-                        <option selected={path.find(x => x.id == ch.id)} value={ch.id}>
-                            {ch.name}
-                        </option>
-                    )
-                })
-            }
-        </select>
+        <div className="form-group">
+            <label htmlFor={`identificar al children seleccionado`}>?</label>
+            <select 
+                className="form-control form-control-custom pl-2"
+                name={`identificar al children seleccionado`}
+                id={`identificar al children seleccionado`}
+                onChange={(handleChildren)}
+            >
+                <option value={''} disabled={true} selected={true}>Seleccione</option>
+                {
+                    children.map(ch => {
+                        let child = uuidv4();
+                        return(
+                            <option key={child} selected={path.find(x => x.id == ch.id)} value={ch.id}>
+                                {ch.name}
+                            </option>
+                        )
+                    })
+                }
+            </select>
+        </div>
     )
 }
 
