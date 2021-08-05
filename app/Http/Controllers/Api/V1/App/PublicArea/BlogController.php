@@ -13,7 +13,7 @@ use App\Models\PostType;
 
 class BlogController extends Controller
 {
-    public function index()
+    public function getTimeline()
     {
         try {
             $timeLines = Timeline::where('active',true)->orderBy('position')->get();

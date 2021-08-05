@@ -27,12 +27,13 @@ const History = () => {
     },[])
 
     const getData = () => {
-        let url = Services.ENDPOINT.PUBLIC_AREA.BLOG;
+        let url = Services.ENDPOINT.PUBLIC_AREA.HISTORY;
         let data = {}
         Services.DoGet(url,data).then(response => {
             Services.Response({
                 response: response,
                 success: () => {
+                    console.log(response.data.time_lines);
                     setTimelines(response.data.time_lines);
                 },
             });

@@ -91,8 +91,9 @@ export const ENDPOINT = {
         BLOG: {
             POSTS: GetBaseURL() + 'public-area/get-posts',
             POST: GetBaseURL() + 'public-area/get-post',
-            CAROUSEL: GetBaseURL() + 'public-area/get-carousel-posts'
+            CAROUSEL: GetBaseURL() + 'public-area/get-carousel-posts',
         },
+        HISTORY: GetBaseURL() + 'public-area/get-timeline',
         ABOUT_US: GetBaseURL() + 'public-area/get-about-us-resources',
         SUBSCRIBE: GetBaseURL() + 'public-area/subscribe',
         SHOP:{

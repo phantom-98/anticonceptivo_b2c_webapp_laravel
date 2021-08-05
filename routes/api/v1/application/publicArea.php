@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\V1\App\PublicArea\CorporateResponsibilityController
 use App\Http\Controllers\Api\V1\App\PublicArea\AboutUsController;
 use App\Http\Controllers\Api\V1\App\PublicArea\SubscribeController;
 use App\Http\Controllers\Api\V1\App\PublicArea\BlogController;
+use App\Http\Controllers\Api\V1\App\PublicArea\TimelineController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('public-area')
@@ -53,6 +54,8 @@ Route::prefix('public-area')
         Route::post('get-posts', [BlogController::class, 'getPosts'])->name('getPosts');
         Route::post('get-post', [BlogController::class, 'getPost'])->name('getPost');
         Route::post('get-carousel-posts', [BlogController::class, 'getCarouselPosts'])->name('getCarouselPosts');
+
+        Route::get('get-timeline', [TimelineController::class, 'getTimeline'])->name('getTimeline');
 
         Route::prefix('contact')
             ->name('contact.')
