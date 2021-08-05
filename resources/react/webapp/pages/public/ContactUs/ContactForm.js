@@ -247,9 +247,9 @@ const ContactForm = () => {
                             })
                         }
                     </select>
-                    {
+                    {/* {
                         inputs
-                    }
+                    } */}
                 </div>
             </div>
             {
@@ -257,7 +257,7 @@ const ContactForm = () => {
 
                 <div className="col-md-12">
                     {
-                        path.map((parent) => {
+                        path.map((parent, index) => {
                             let parentChild = uuidv4();
                             return parent.children.length ? (
                                 <Nested
