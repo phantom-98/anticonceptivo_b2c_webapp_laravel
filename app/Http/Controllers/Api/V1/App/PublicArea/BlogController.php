@@ -7,26 +7,11 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Willywes\ApiResponse\ApiResponse;
 use App\Http\Utils\OutputMessage\OutputMessage;
-use App\Models\Timeline;
 use App\Models\Post;
 use App\Models\PostType;
 
 class BlogController extends Controller
 {
-    public function getTimeline()
-    {
-        try {
-            $timeLines = Timeline::where('active',true)->orderBy('position')->get();
-
-            return ApiResponse::JsonSuccess([
-                'time_lines' => $timeLines,
-            ]);
-
-        } catch (\Exception $exception) {
-            return ApiResponse::JsonError(null, $exception->getMessage());
-        }
-    }
-
     public function getPosts(Request $request){
         try {
             
