@@ -2,11 +2,11 @@ import React, {useEffect, useState} from 'react';
 import {Form} from 'react-bootstrap'
 import * as Services from "../../../Services";
 import toastr from 'toastr';
-import { v4 as uuidv4 } from 'uuid';
+import {v4 as uuidv4} from 'uuid';
 import Nested from './Nested';
 
 const ContactForm = () => {
-    
+
     const defaultData = {
         contact_first_name: '',
         contact_last_name: '',
@@ -56,15 +56,15 @@ const ContactForm = () => {
                 div.push(<div key={`question_${q.id}`}>
                     <label htmlFor={q.id}>{q.name}</label>
                     <input type="text"
-                        className="form-control form-control-custom"
-                        id=""
-                        name=""
-                        placeholder=""
+                           className="form-control form-control-custom"
+                           id=""
+                           name=""
+                           placeholder=""
                     />
                 </div>)
             })
             setInput(div)
-        }else{
+        } else {
             setInput(null)
         }
 
@@ -73,7 +73,7 @@ const ContactForm = () => {
             [e.target.name]: e.target.value
         })
 
-        setPath([found]);   
+        setPath([found]);
     }
 
     const handleData = (e) => {
@@ -228,7 +228,7 @@ const ContactForm = () => {
             <div className="col-md-12">
                 <div className="form-group">
                     <label htmlFor="contact_subject_parent">Asunto</label>
-                    <select 
+                    <select
                         className="form-control form-control-custom pl-2"
                         name="contact_subject_parent"
                         id="contact_subject_parent"
@@ -239,8 +239,9 @@ const ContactForm = () => {
                         {
                             nestedFields.map(parent => {
                                 let parentId = uuidv4();
-                                return(
-                                    <option selected={path.find(x => x.id == parent.id)} value={parent.id} key={parentId}>
+                                return (
+                                    <option selected={path.find(x => x.id == parent.id)} value={parent.id}
+                                            key={parentId}>
                                         {parent.name}
                                     </option>
                                 )
@@ -253,26 +254,24 @@ const ContactForm = () => {
                 </div>
             </div>
             {
-                path.length && path[0].children.length ? 
+                path.length && path[0].children.length ?
 
-                <div className="col-md-12">
-                    {
-                        path.map((parent) => {
-                            let parentChild = uuidv4();
-                            return parent.children.length ? (
-                                <Nested
+                    <div className="col-md-12">
+                        {
+                            path.map((parent) => {
+                                let parentChild = uuidv4();
+                                return parent.children.length ? <Nested
                                     children={parent.children}
                                     path={path}
                                     setPath={setPath}
                                     list={list}
                                     key={parentChild}
-                                />
-                            ) : null
-                        })
-                    }
-                </div>
+                                /> : null
+                            })
+                        }
+                    </div>
 
-                : null
+                    : null
             }
             <div className="col-md-12 mt-3">
                 <div className="row">

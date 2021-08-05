@@ -1,10 +1,15 @@
 import React, {useState, useEffect} from 'react';
-import { v4 as uuidv4 } from 'uuid';
+import {v4 as uuidv4} from 'uuid';
 
 const Nested = ({children, path, setPath, list}) => {
 
-    const [inputs, setInputs] = useState([]);
-    const [test, setTest] = useState([]);
+    const [textFields, setTextFields] = useState([1]);
+
+    useEffect(() => {
+        if (textFields.length) {
+            console.log(textFields);
+        }
+    }, [textFields])
 
     // useEffect(() => {
     //     if (test.length) {
@@ -21,36 +26,38 @@ const Nested = ({children, path, setPath, list}) => {
     //                     />
     //                 </div>)
     //             })
-    //             setInputs(div)
+    //             setTextFields(div)
     //         }else{
-    //             setInputs(null)
+    //             setTextFields(null)
     //         }
     //     }
     // },[test])
 
     const handleChildren = (e) => {
         const found = list.find(x => x.id == e.target.value)
-        var temp_path = [];
+
+        let temp_path = [];
         let position = -1;
         let isNew = true
+
         path.every((element, index) => {
             position = element.children.findIndex(pa => pa.id == found.id);
             temp_path.push(element);
-            if(index + 1 != path.length && position != -1 ){
+            if (index + 1 != path.length && position != -1) {
                 temp_path.push(found);
                 isNew = false
-                return isNew
             }
             return isNew
         });
-        if(isNew){
+
+        if (isNew) {
             temp_path.push(found);
         }
 
         if (found.nested_field_questions.length > 0) {
-            setInputs(found.nested_field_questions)
-        }else{
-            setInputs(null)
+            setTextFields(found.nested_field_questions)
+        } else {
+            setTextFields([])
         }
 
         setPath(temp_path)
@@ -60,18 +67,18 @@ const Nested = ({children, path, setPath, list}) => {
         return (<div key={`question_${q.id}`}>
             <label htmlFor={q.id}>{q.name}</label>
             <input type="text"
-                className="form-control form-control-custom"
-                id=""
-                name=""
-                placeholder=""
+                   className="form-control form-control-custom"
+                   id=""
+                   name=""
+                   placeholder=""
             />
         </div>)
     }
- 
-    return(
+
+    return (
         <div className="form-group">
             <label htmlFor={`identificar al children seleccionado`}>?</label>
-            <select 
+            <select
                 className="form-control form-control-custom pl-2"
                 name={`identificar al children seleccionado`}
                 id={`identificar al children seleccionado`}
@@ -81,7 +88,7 @@ const Nested = ({children, path, setPath, list}) => {
                 {
                     children.map(ch => {
                         let child = uuidv4();
-                        return(
+                        return (
                             <option key={child} selected={path.find(x => x.id == ch.id)} value={ch.id}>
                                 {ch.name}
                             </option>
