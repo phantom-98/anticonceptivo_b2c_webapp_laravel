@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {Fragment} from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 const Nested = ({children, path, setPath, list, parent}) => {
@@ -21,11 +21,6 @@ const Nested = ({children, path, setPath, list, parent}) => {
         if(isNew){
             temp_path.push(found);
         }
-        // if (found.nested_field_questions.length > 0) {
-        //     setInputs(found.nested_field_questions)
-        // }else{
-        //     setInputs(null)
-        // }
         setPath(temp_path);
     }
 
@@ -44,24 +39,27 @@ const Nested = ({children, path, setPath, list, parent}) => {
     return(
         <div className="form-group">
             {
-                parent.nested_field_questions.map((element,index) => {
+                parent.nested_field_questions.map((element, index) => {
                     let elementKey = uuidv4();
                         return( 
-                            <input type="text"
-                                key={elementKey}
-                                className="form-control form-control-custom"
-                                id=""
-                                name=""
-                                placeholder=""
-                            />
+                            <Fragment>
+                                <label htmlFor={``}>{element.name}</label>
+                                    <input type="text"
+                                        key={elementKey}
+                                        className="form-control form-control-custom"
+                                        id=""
+                                        name=""
+                                        placeholder=""
+                                    />
+                            </Fragment>
                         )
                 })
             }
-            <label htmlFor={`identificar al children seleccionado`}>?</label>
+            <label htmlFor={``}>{parent.group_title}</label>
             <select 
                 className="form-control form-control-custom pl-2"
-                name={`identificar al children seleccionado`}
-                id={`identificar al children seleccionado`}
+                name={``}
+                id={``}
                 onChange={(handleChildren)}
             >
                 <option value={''} disabled={true} selected={true}>Seleccione</option>
