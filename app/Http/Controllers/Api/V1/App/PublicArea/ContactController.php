@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Willywes\ApiResponse\ApiResponse;
 use App\Models\Contact;
 use App\Models\NestedField;
+use App\Models\Order;
 
 class ContactController extends Controller
 {
@@ -32,7 +33,7 @@ class ContactController extends Controller
             $rules = [
                 'contact_first_name' => 'required',
                 'contact_last_name' => 'required',
-                'contact_order_id' => 'required',
+                'contact_order_id' => 'required|integer',
                 'contact_email' => 'required|email',
                 'contact_phone_code' => 'required',
                 'contact_phone' => 'required',
@@ -51,17 +52,24 @@ class ContactController extends Controller
                 'contact_subject_parent.required' => 'El campo Asunto es requerido.',
 
                 'contact_email.email' => 'Ingresar correo electronico valido.',
+                'contact_order_id.integer' => 'Ingresar solo ingresar valores númericos.',
             ];
 
             $validator = Validator::make($request->all(), $rules, $messages);
 
             if ($validator->passes()) {
 
+                $order = Order::find($request->contact_order_id);
+
+                if (!$order) {
+                    return ApiResponse::JsonError(null,'Orden no encontrada.');
+                }
+
                 $contact = new Contact();
                 
                 $contact->first_name = $request->contact_first_name;
                 $contact->last_name = $request->contact_last_name;
-                $contact->order_id = $request->contact_order_id;
+                $contact->order_id = $order->id;
                 $contact->email = $request->contact_email;
                 $contact->phone_code = $request->contact_phone_code;
                 $contact->phone = $request->contact_phone;
@@ -72,7 +80,7 @@ class ContactController extends Controller
                 if ($contact->save()) {
                     return ApiResponse::JsonSuccess([]);
                 }else{
-                    return ApiResponse::JsonError(null, '');
+                    return ApiResponse::JsonError(null, 'No se ha podido envíar el mensaje.');
                 }
             }else{
                 return ApiResponse::JsonFieldValidation($validator->errors());
