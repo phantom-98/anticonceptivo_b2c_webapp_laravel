@@ -59,15 +59,15 @@ class ContactController extends Controller
 
                 $contact = new Contact();
                 
-                $contact->contact_first_name = $request->contact_first_name;
-                $contact->contact_last_name = $request->contact_last_name;
-                $contact->contact_order_id = $request->contact_order_id;
-                $contact->contact_email = $request->contact_email;
-                $contact->contact_phone_code = $request->contact_phone_code;
-                $contact->contact_phone = $request->contact_phone;
-                $contact->contact_message = $request->contact_message;
-                $contact->contact_subject_parent = $request->contact_subject_parent;
-                $contact->contact_issue_id = 1;
+                $contact->first_name = $request->contact_first_name;
+                $contact->last_name = $request->contact_last_name;
+                $contact->order_id = $request->contact_order_id;
+                $contact->email = $request->contact_email;
+                $contact->phone_code = $request->contact_phone_code;
+                $contact->phone = $request->contact_phone;
+                $contact->message = $request->contact_message;
+                $contact->subject_parent = $request->contact_subject_parent;
+                $contact->issue_id = 1;
 
                 if ($contact->save()) {
                     return ApiResponse::JsonSuccess([]);
