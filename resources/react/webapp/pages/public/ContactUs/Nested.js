@@ -10,6 +10,9 @@ const Nested = ({children, path, setPath, list, parent, model, setModel}) => {
         let isNew = true
         path.every((element, index) => {
             position = element.children.findIndex(pa => pa.id == found.id);
+
+            found['question'] = path.find(p => p.id == found.parent_id).group_title;
+            found['answer'] = found.name;
             temp_path.push(element);
             if(index + 1 != path.length && position != -1 ){
                 temp_path.push(found);
@@ -58,7 +61,7 @@ const Nested = ({children, path, setPath, list, parent, model, setModel}) => {
                         let childKey = uuidv4();
                         return( 
                             <option key={childKey} selected={path.find(x => x.id == ch.id)} value={ch.id}>
-                                {ch.name}
+                                {ch.name} - {childKey}
                             </option>
                         )
                     })

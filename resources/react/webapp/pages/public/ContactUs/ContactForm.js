@@ -20,6 +20,7 @@ const ContactForm = () => {
         contact_questions:[],
         contact_selects:[]
     }
+
     const [loading, setLoading] = useState(true);
     const [model, setModel] = useState(defaultModel);
     const [nestedFields, setNestedFields] = useState([]);
@@ -52,25 +53,11 @@ const ContactForm = () => {
         });
     }
 
-    const handleParent = (e) => {
-        const found = list.find(x => x.id == e.target.value)
-        // if (found.nested_field_questions.length > 0) {
-        //     let div = [];
-        //     found.nested_field_questions.map(q => {
-        //         div.push(<div key={`question_${q.id}`}>
-        //             <label htmlFor={q.id}>{q.name}</label>
-        //             <input type="text"
-        //                 className="form-control form-control-custom"
-        //                 id=""
-        //                 name=""
-        //                 placeholder=""
-        //             />
-        //         </div>)
-        //     })
-        //     setInput(div)
-        // }else{
-        //     setInput(null)
-        // }
+    const handleParent = (e, index) => {
+        let found = list.find(x => x.id == e.target.value)
+
+        found['question'] = 'Asunto';
+        found['answer'] = found.name;
 
         setModel({
             ...model,
@@ -87,8 +74,22 @@ const ContactForm = () => {
         })
     }
 
+    const handleInputs = (e, parentId, inputId) => {
+        let found = path.find(p => p.id == parentId);
+        let nestedField = found.nested_field_questions.findIndex(nfq => nfq.id == inputId);
+
+        nestedField['question'] = nestedField.name;
+        nestedField['answer'] = e.target.value;
+
+        setPath([
+            ...path,
+            path[pathIndex] = found
+        ]);
+    }
+
     const sendData = () => {
-        // let url = Services.REPLACE_FOR_VALID_ROUTE;
+        let url = Services.ENDPOINT.PUBLIC_AREA.CONTACT.SEND;
+
         let data = {
             ...model,
         }
@@ -233,7 +234,7 @@ const ContactForm = () => {
                                         let parentId = uuidv4();
                                         return(
                                             <option selected={path.find(x => x.id == parent.id)} value={parent.id} key={parentId}>
-                                                {parent.name}
+                                                {parent.name} {parentId}
                                             </option>
                                         )
                                     })
@@ -257,7 +258,7 @@ const ContactForm = () => {
                                                     let elementKey = uuidv4();
                                                         return( 
                                                             <div key={elementKey} className="form-group">
-                                                                <label htmlFor={``}>{element.name}</label>
+                                                                <label htmlFor={``}>{element.name}</label> {elementKey}
                                                                     <input type="text"
                                                                         className="form-control form-control-custom"
                                                                         id=""
