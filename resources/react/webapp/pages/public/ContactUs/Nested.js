@@ -26,24 +26,6 @@ const Nested = ({children, path, setPath, list, parent, model, setModel}) => {
             temp_path.push(found);
         }
         setPath(temp_path);
-
-        // tengo que copiar el state, dentro de ese state tengo un campo que guarda arrays
-        // dentro de ese array tengo que guardar como key el e.target.name
-        // en esa key guardo e.target.value
-        // al actualizar el estado tengo que devolver el array mutado
-
-        let selectList = [...model.contact_selects];
-
-        // selectList = {...selectList,
-        //     [e.target.name]: e.target.value
-        // }
-
-        console.log(selectList);
-
-        // setModel({
-        //     ...model,
-        //     ['contact_selects'] : [selectList]
-        // })
     }
 
     return(
@@ -54,7 +36,6 @@ const Nested = ({children, path, setPath, list, parent, model, setModel}) => {
                 name={`select_id_${parent.id}`}
                 id={parent.group_title}
                 onChange={(handleChildren)}
-                // value={model.contact_selects[parent.id]}
             >
                 <option value={''} disabled={true} selected={true}>Seleccione</option>
                 {
