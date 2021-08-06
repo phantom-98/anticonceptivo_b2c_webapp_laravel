@@ -38,7 +38,7 @@ const Nested = ({children, path, setPath, list, parent}) => {
  
     return(
         <div className="form-group">
-            {
+            {/* {
                 parent.nested_field_questions.map((element, index) => {
                     let elementKey = uuidv4();
                         return( 
@@ -53,7 +53,7 @@ const Nested = ({children, path, setPath, list, parent}) => {
                             </Fragment>
                         )
                 })
-            }
+            } */}
             <label htmlFor={``}>{parent.group_title}</label>
             <select 
                 className="form-control form-control-custom pl-2"

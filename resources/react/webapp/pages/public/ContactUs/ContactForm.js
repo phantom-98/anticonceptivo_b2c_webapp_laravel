@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, Fragment} from 'react';
 import {Form} from 'react-bootstrap'
 import * as Services from "../../../Services";
 import toastr from 'toastr';
@@ -257,32 +257,38 @@ const ContactForm = () => {
                     {
                         path.map((parent, index) => {
                             let parentChild = uuidv4();
-                            let questions = list.find(l => l.id == parent.id).nested_field_questions;
-                            return parent.children.length ? (
-                                <Nested
-                                    children={parent.children}
-                                    path={path}
-                                    setPath={setPath}
-                                    list={list}
-                                    key={parentChild}
-                                    parent={parent}
-                                />
-                            ) : questions.length > 0 ?
-                                questions.map((element, index) => {
-                                    let elementKey = uuidv4();
-                                        return( 
-                                            <div key={elementKey} className="form-group">
-                                                <label htmlFor={``}>{element.name}</label>
-                                                    <input type="text"
-                                                        className="form-control form-control-custom"
-                                                        id=""
-                                                        name=""
-                                                        placeholder=""
-                                                    />
-                                            </div>
-                                        )
-                                })
-                            : null
+                            return(
+                                <Fragment>
+                                    {
+                                        parent.nested_field_questions.map((element, index) => {
+                                            let elementKey = uuidv4();
+                                                return( 
+                                                    <div key={elementKey} className="form-group">
+                                                        <label htmlFor={``}>{element.name}</label>
+                                                            <input type="text"
+                                                                className="form-control form-control-custom"
+                                                                id=""
+                                                                name=""
+                                                                placeholder=""
+                                                            />
+                                                    </div>
+                                                )
+                                        })
+                                    }
+                                    {
+                                        parent.children.length ? 
+                                            <Nested
+                                                children={parent.children}
+                                                path={path}
+                                                setPath={setPath}
+                                                list={list}
+                                                key={parentChild}
+                                                parent={parent}
+                                            />
+                                        : null
+                                    }
+                                </Fragment>
+                            ) 
                         })
                     }
                 </div>
