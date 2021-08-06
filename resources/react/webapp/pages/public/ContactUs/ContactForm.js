@@ -23,7 +23,6 @@ const ContactForm = () => {
     const [model, setModel] = useState(defaultModel);
     const [nestedFields, setNestedFields] = useState([]);
     const [list, setList] = useState([]);
-    // const [inputs, setInput] = useState([]);
     const [path, setPath] = useState([]);
 
     useEffect(() => {
@@ -38,12 +37,6 @@ const ContactForm = () => {
                     setNestedFields(response.data.nested_fields)
                     setList(response.data.list)
                     setLoading(false);
-                },
-                warning: () => {
-                    // toastr.warning(response.message)
-                },
-                error: () => {
-                    // toastr.error(response.message)
                 },
             });
         }).catch(error => {
@@ -106,10 +99,10 @@ const ContactForm = () => {
                     setPath([]);
                 },
                 error: () => {
-                    // toastr.error(response.message);
+                    toastr.error(response.message);
                 },
                 warning: () => {
-                    // toastr.warning(response.message);
+                    toastr.warning(response.message);
                 },
             });
         }).catch(error => {
