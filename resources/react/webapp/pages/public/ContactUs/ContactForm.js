@@ -110,7 +110,7 @@ const ContactForm = () => {
             }
         })
         let data = {
-            model,
+            ...model,
             dynamic_fields: fields
         }
 

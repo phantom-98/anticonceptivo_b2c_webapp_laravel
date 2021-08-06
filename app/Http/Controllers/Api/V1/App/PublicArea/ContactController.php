@@ -69,7 +69,7 @@ class ContactController extends Controller
                 $contact->message = $request->contact_message;
                 $contact->dynamic_fields = $request->dynamic_fields;
                 $contact->subject_parent = $request->contact_subject_parent;
-                $contact->issue_id = 1;
+                $contact->contact_issue_id = 1;
 
                 if ($contact->save()) {
                     return ApiResponse::JsonSuccess([]);
@@ -80,7 +80,7 @@ class ContactController extends Controller
                 return ApiResponse::JsonFieldValidation($validator->errors());
             }
         } catch (\Exception $exception) {
-            return ApiResponse::JsonError([]);
+            return ApiResponse::JsonError([], $exception->getMessage());
         }
     }
 }

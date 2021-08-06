@@ -17,6 +17,7 @@ class Contact extends Model
         'order_id',
         'message',
         'dynamic_fields',
+        'subject_parent',
         'is_reply',
         'reply'
     ];
