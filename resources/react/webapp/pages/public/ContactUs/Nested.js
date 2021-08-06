@@ -61,7 +61,7 @@ const Nested = ({children, path, setPath, list, parent, model, setModel}) => {
                         let childKey = uuidv4();
                         return( 
                             <option key={childKey} selected={path.find(x => x.id == ch.id)} value={ch.id}>
-                                {ch.name} - {childKey}
+                                {ch.name}
                             </option>
                         )
                     })
