@@ -42,10 +42,9 @@ const Nested = ({children, path, setPath, list, parent}) => {
                 parent.nested_field_questions.map((element, index) => {
                     let elementKey = uuidv4();
                         return( 
-                            <Fragment>
+                            <Fragment key={elementKey}>
                                 <label htmlFor={``}>{element.name}</label>
                                     <input type="text"
-                                        key={elementKey}
                                         className="form-control form-control-custom"
                                         id=""
                                         name=""
@@ -65,9 +64,9 @@ const Nested = ({children, path, setPath, list, parent}) => {
                 <option value={''} disabled={true} selected={true}>Seleccione</option>
                 {
                     children.map((ch,index) => {
-                        let child = uuidv4();
+                        let childKey = uuidv4();
                         return( 
-                            <option key={child} selected={path.find(x => x.id == ch.id)} value={ch.id}>
+                            <option key={childKey} selected={path.find(x => x.id == ch.id)} value={ch.id}>
                                 {ch.name}
                             </option>
                         )

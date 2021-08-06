@@ -7,7 +7,7 @@ import Nested from './Nested';
 
 const ContactForm = () => {
     
-    const defaultData = {
+    const defaultModel = {
         contact_first_name: '',
         contact_last_name: '',
         contact_order_id: '',
@@ -18,10 +18,10 @@ const ContactForm = () => {
         contact_subject_parent: '',
     }
 
-    const [model, setModel] = useState(defaultData);
+    const [model, setModel] = useState(defaultModel);
     const [nestedFields, setNestedFields] = useState([]);
     const [list, setList] = useState([]);
-    const [inputs, setInput] = useState([]);
+    // const [inputs, setInput] = useState([]);
     const [path, setPath] = useState([]);
 
     useEffect(() => {
@@ -50,23 +50,23 @@ const ContactForm = () => {
 
     const handleParent = (e) => {
         const found = list.find(x => x.id == e.target.value)
-        if (found.nested_field_questions.length > 0) {
-            let div = [];
-            found.nested_field_questions.map(q => {
-                div.push(<div key={`question_${q.id}`}>
-                    <label htmlFor={q.id}>{q.name}</label>
-                    <input type="text"
-                        className="form-control form-control-custom"
-                        id=""
-                        name=""
-                        placeholder=""
-                    />
-                </div>)
-            })
-            setInput(div)
-        }else{
-            setInput(null)
-        }
+        // if (found.nested_field_questions.length > 0) {
+        //     let div = [];
+        //     found.nested_field_questions.map(q => {
+        //         div.push(<div key={`question_${q.id}`}>
+        //             <label htmlFor={q.id}>{q.name}</label>
+        //             <input type="text"
+        //                 className="form-control form-control-custom"
+        //                 id=""
+        //                 name=""
+        //                 placeholder=""
+        //             />
+        //         </div>)
+        //     })
+        //     setInput(div)
+        // }else{
+        //     setInput(null)
+        // }
 
         setModel({
             ...model,
@@ -96,6 +96,7 @@ const ContactForm = () => {
         //         response: response,
         //         success: () => {
         //             toastr.success(response.message);
+        //              setModel(defaultModel)
         //         },
         //         error: () => {
         //             // toastr.error(response.message);
@@ -247,18 +248,16 @@ const ContactForm = () => {
                             })
                         }
                     </select>
-                    {/* {
-                        inputs
-                    } */}
                 </div>
             </div>
             {
-                path.length && path[0].children.length ? 
+                path.length  ? 
 
                 <div className="col-md-12">
                     {
                         path.map((parent, index) => {
                             let parentChild = uuidv4();
+                            let questions = list.find(l => l.id == parent.id).nested_field_questions;
                             return parent.children.length ? (
                                 <Nested
                                     children={parent.children}
@@ -268,7 +267,22 @@ const ContactForm = () => {
                                     key={parentChild}
                                     parent={parent}
                                 />
-                            ) : null
+                            ) : questions.length > 0 ?
+                                questions.map((element, index) => {
+                                    let elementKey = uuidv4();
+                                        return( 
+                                            <div key={elementKey} className="form-group">
+                                                <label htmlFor={``}>{element.name}</label>
+                                                    <input type="text"
+                                                        className="form-control form-control-custom"
+                                                        id=""
+                                                        name=""
+                                                        placeholder=""
+                                                    />
+                                            </div>
+                                        )
+                                })
+                            : null
                         })
                     }
                 </div>
