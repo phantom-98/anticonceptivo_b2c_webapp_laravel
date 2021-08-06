@@ -17,8 +17,6 @@ const ContactForm = () => {
         contact_phone: '',
         contact_message: '',
         contact_subject_parent: '',
-        contact_questions: [],
-        contact_selects: []
     }
 
     const [loading, setLoading] = useState(true);

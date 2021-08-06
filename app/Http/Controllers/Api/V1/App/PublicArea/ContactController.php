@@ -7,7 +7,7 @@ namespace App\Http\Controllers\Api\V1\App\PublicArea;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Willywes\ApiResponse\ApiResponse;
-use App\Models\ContactIssue;
+use App\Models\Contact;
 use App\Models\NestedField;
 
 class ContactController extends Controller
@@ -57,20 +57,19 @@ class ContactController extends Controller
 
             if ($validator->passes()) {
 
-                $contactMessage = new ContactMessage();
+                $contact = new Contact();
                 
-                $contactMessage->contact_first_name = $request->contact_first_name;
-                $contactMessage->contact_last_name = $request->contact_last_name;
-                $contactMessage->contact_order_id = $request->contact_order_id;
-                $contactMessage->contact_email = $request->contact_email;
-                $contactMessage->contact_phone_code = $request->contact_phone_code;
-                $contactMessage->contact_phone = $request->contact_phone;
-                $contactMessage->contact_message = $request->contact_message;
-                $contactMessage->contact_subject_parent = $request->contact_subject_parent;
+                $contact->contact_first_name = $request->contact_first_name;
+                $contact->contact_last_name = $request->contact_last_name;
+                $contact->contact_order_id = $request->contact_order_id;
+                $contact->contact_email = $request->contact_email;
+                $contact->contact_phone_code = $request->contact_phone_code;
+                $contact->contact_phone = $request->contact_phone;
+                $contact->contact_message = $request->contact_message;
+                $contact->contact_subject_parent = $request->contact_subject_parent;
+                $contact->contact_issue_id = 1;
 
-
-
-                if ($contactMessage->save()) {
+                if ($contact->save()) {
                     return ApiResponse::JsonSuccess([]);
                 }else{
                     return ApiResponse::JsonError(null, '');
