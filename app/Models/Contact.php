@@ -16,10 +16,15 @@ class Contact extends Model
         'contact_issue_id',
         'order_id',
         'message',
+        'dynamic_fields',
         'is_reply',
         'reply'
     ];
-    
+
+    protected $casts = [
+        'dynamic_fields' => 'array'
+    ];
+
     public function order()
     {
         return $this->belongsTo(Order::class);
@@ -34,7 +39,8 @@ class Contact extends Model
         'formated_date'
     ];
 
-    public function getFormatedDateAttribute(){
+    public function getFormatedDateAttribute()
+    {
         return Carbon::parse($this->created_at)->format('d-m-Y H:i');
     }
 

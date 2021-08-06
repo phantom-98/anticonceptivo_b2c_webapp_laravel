@@ -93,12 +93,31 @@ const ContactForm = () => {
     const sendData = () => {
         let url = Services.ENDPOINT.PUBLIC_AREA.CONTACT.SEND;
 
+        let fields = [];
+
+        path.map(p => {
+            fields.push({
+                question: p.question,
+                answer: p.answer,
+            })
+            if (p.nested_field_questions) {
+                p.nested_field_questions.map(nf => {
+                    if ('question' in nf && 'answer' in nf) {
+                        fields.push({
+                            question: nf.question,
+                            answer: nf.answer,
+                        })
+                    }
+                })
+            }
+        })
         let data = {
-            ...model,
+            model,
+            fields
         }
 
         console.log(data);
-
+        return null;
         Services.DoPost(url, data).then(response => {
             Services.Response({
                 response: response,

@@ -23,11 +23,12 @@ class CreateContactsTable extends Migration
 
             $table->bigInteger('contact_issue_id')->unsigned()->nullable();
             $table->foreign('contact_issue_id')->references('id')->on('contact_issues')->onDelete('cascade');
-       
+
             $table->bigInteger('order_id')->unsigned()->nullable();
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
 
             $table->text('message')->nullable();
+            $table->longText('dynamic_fields')->nullable();
 
             $table->boolean('is_reply')->default(0);
             $table->text('reply')->nullable();
