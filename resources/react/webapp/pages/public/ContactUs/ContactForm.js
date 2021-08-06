@@ -16,6 +16,8 @@ const ContactForm = () => {
         contact_phone: '',
         contact_message: '',
         contact_subject_parent: '',
+        contact_questions:[],
+        contact_selects:[]
     }
 
     const [model, setModel] = useState(defaultModel);
@@ -258,7 +260,7 @@ const ContactForm = () => {
                         path.map((parent, index) => {
                             let parentChild = uuidv4();
                             return(
-                                <Fragment>
+                                <Fragment key={parentChild}>
                                     {
                                         parent.nested_field_questions.map((element, index) => {
                                             let elementKey = uuidv4();
@@ -282,8 +284,9 @@ const ContactForm = () => {
                                                 path={path}
                                                 setPath={setPath}
                                                 list={list}
-                                                key={parentChild}
                                                 parent={parent}
+                                                model={model}
+                                                setModel={setModel}
                                             />
                                         : null
                                     }

@@ -1,7 +1,7 @@
-import React, {Fragment} from 'react';
+import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
-const Nested = ({children, path, setPath, list, parent}) => {
+const Nested = ({children, path, setPath, list, parent, model, setModel}) => {
 
     const handleChildren = (e) => {
         const found = list.find(x => x.id == e.target.value)
@@ -22,28 +22,35 @@ const Nested = ({children, path, setPath, list, parent}) => {
             temp_path.push(found);
         }
         setPath(temp_path);
-    }
 
-    const renderInput = (q) => {
-        return (<div key={`question_${q.id}`}>
-            <label htmlFor={q.id}>{q.name}</label>
-            <input type="text"
-                className="form-control form-control-custom"
-                id=""
-                name=""
-                placeholder=""
-            />
-        </div>)
+        // tengo que copiar el state, dentro de ese state tengo un campo que guarda arrays
+        // dentro de ese array tengo que guardar como key el e.target.name
+        // en esa key guardo e.target.value
+        // al actualizar el estado tengo que devolver el array mutado 
+
+        let selectList = [...model.contact_selects];
+        
+        // selectList = {...selectList,
+        //     [e.target.name]: e.target.value
+        // }
+
+        console.log(selectList);
+
+        // setModel({
+        //     ...model,
+        //     ['contact_selects'] : [selectList]
+        // })
     }
  
     return(
         <div className="form-group">
-            <label htmlFor={``}>{parent.group_title}</label>
+            <label htmlFor={parent.group_title}>{parent.group_title}</label>
             <select 
                 className="form-control form-control-custom pl-2"
-                name={``}
-                id={``}
+                name={`select_id_${parent.id}`}
+                id={parent.group_title}
                 onChange={(handleChildren)}
+                // value={model.contact_selects[parent.id]}
             >
                 <option value={''} disabled={true} selected={true}>Seleccione</option>
                 {
