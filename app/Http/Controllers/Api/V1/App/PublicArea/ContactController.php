@@ -5,10 +5,10 @@ namespace App\Http\Controllers\Api\V1\App\PublicArea;
 
 
 use App\Http\Controllers\Controller;
-use App\Models\ContactIssue;
-use App\Models\NestedField;
 use Illuminate\Http\Request;
 use Willywes\ApiResponse\ApiResponse;
+use App\Models\ContactIssue;
+use App\Models\NestedField;
 
 class ContactController extends Controller
 {
@@ -68,14 +68,16 @@ class ContactController extends Controller
                 $contactMessage->contact_message = $request->contact_message;
                 $contactMessage->contact_subject_parent = $request->contact_subject_parent;
 
-                $contactMessage->save();
-               
-                
+
+
+                if ($contactMessage->save()) {
+                    return ApiResponse::JsonSuccess([]);
+                }else{
+                    return ApiResponse::JsonError(null, '');
+                }
             }else{
                 return ApiResponse::JsonFieldValidation($validator->errors());
             }
-
-            return ApiResponse::JsonSuccess([]);
         } catch (\Exception $exception) {
             return ApiResponse::JsonError([]);
         }
