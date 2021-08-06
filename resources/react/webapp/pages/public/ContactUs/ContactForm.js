@@ -2,12 +2,12 @@ import React, {useEffect, useState, Fragment} from 'react';
 import {Form} from 'react-bootstrap'
 import * as Services from "../../../Services";
 import toastr from 'toastr';
-import { v4 as uuidv4 } from 'uuid';
+import {v4 as uuidv4} from 'uuid';
 import Nested from './Nested';
 import LazyLoading from "../../../components/LazyLoading";
 
 const ContactForm = () => {
-    
+
     const defaultModel = {
         contact_first_name: '',
         contact_last_name: '',
@@ -17,8 +17,8 @@ const ContactForm = () => {
         contact_phone: '',
         contact_message: '',
         contact_subject_parent: '',
-        contact_questions:[],
-        contact_selects:[]
+        contact_questions: [],
+        contact_selects: []
     }
 
     const [loading, setLoading] = useState(true);
@@ -64,7 +64,7 @@ const ContactForm = () => {
             [e.target.name]: e.target.value
         })
 
-        setPath([found]);   
+        setPath([found]);
     }
 
     const handleData = (e) => {
@@ -75,16 +75,19 @@ const ContactForm = () => {
     }
 
     const handleInputs = (e, parentId, inputId) => {
-        let found = path.find(p => p.id == parentId);
-        let nestedField = found.nested_field_questions.findIndex(nfq => nfq.id == inputId);
+        let tempPath = path;
+        let foundIndex = path.findIndex(p => p.id == parentId);
+        let found = path[foundIndex]
 
-        nestedField['question'] = nestedField.name;
-        nestedField['answer'] = e.target.value;
+        let nestedFieldQuestions = found.nested_field_questions
+        let nestedIndex = nestedFieldQuestions.findIndex(nfq => nfq.id == inputId);
 
-        setPath([
-            ...path,
-            path[pathIndex] = found
-        ]);
+        nestedFieldQuestions[nestedIndex]['question'] = nestedFieldQuestions[nestedIndex].name;
+        nestedFieldQuestions[nestedIndex]['answer'] = e.target.value;
+
+        found['nested_field_questions'] = nestedFieldQuestions
+        tempPath[foundIndex] = found
+        setPath(tempPath);
     }
 
     const sendData = () => {
@@ -96,7 +99,7 @@ const ContactForm = () => {
 
         console.log(data);
 
-        Services.DoPost(url,data).then(response => {
+        Services.DoPost(url, data).then(response => {
             Services.Response({
                 response: response,
                 success: () => {
@@ -221,7 +224,7 @@ const ContactForm = () => {
                     <div className="col-md-12">
                         <div className="form-group">
                             <label htmlFor="contact_subject_parent">Asunto</label>
-                            <select 
+                            <select
                                 className="form-control form-control-custom pl-2"
                                 name="contact_subject_parent"
                                 id="contact_subject_parent"
@@ -232,8 +235,9 @@ const ContactForm = () => {
                                 {
                                     nestedFields.map(parent => {
                                         let parentId = uuidv4();
-                                        return(
-                                            <option selected={path.find(x => x.id == parent.id)} value={parent.id} key={parentId}>
+                                        return (
+                                            <option selected={path.find(x => x.id == parent.id)} value={parent.id}
+                                                    key={parentId}>
                                                 {parent.name} {parentId}
                                             </option>
                                         )
@@ -242,35 +246,37 @@ const ContactForm = () => {
                             </select>
                         </div>
                     </div>
-                : null
+                    : null
             }
             {
                 !loading ?
-                    path.length  ? 
+                    path.length ?
                         <div className="col-md-12">
                             {
                                 path.map((parent, index) => {
                                     let parentChild = uuidv4();
-                                    return(
+                                    return (
                                         <Fragment key={parentChild}>
                                             {
                                                 parent.nested_field_questions.map((element, index) => {
                                                     let elementKey = uuidv4();
-                                                        return( 
-                                                            <div key={elementKey} className="form-group">
-                                                                <label htmlFor={``}>{element.name}</label> {elementKey}
-                                                                    <input type="text"
-                                                                        className="form-control form-control-custom"
-                                                                        id=""
-                                                                        name=""
-                                                                        placeholder=""
-                                                                    />
-                                                            </div>
-                                                        )
+                                                    return (
+                                                        <div key={elementKey} className="form-group">
+                                                            <label htmlFor={``}>{element.name}</label> {elementKey}
+                                                            <input type="text"
+                                                                   className="form-control form-control-custom"
+                                                                   id=""
+                                                                   name=""
+                                                                   placeholder=""
+                                                                   value={element.answer}
+                                                                   onChange={(e) => handleInputs(e, parent.id, element.id)}
+                                                            />
+                                                        </div>
+                                                    )
                                                 })
                                             }
                                             {
-                                                parent.children.length ? 
+                                                parent.children.length ?
                                                     <Nested
                                                         children={parent.children}
                                                         path={path}
@@ -280,15 +286,15 @@ const ContactForm = () => {
                                                         model={model}
                                                         setModel={setModel}
                                                     />
-                                                : null
+                                                    : null
                                             }
                                         </Fragment>
-                                    ) 
+                                    )
                                 })
                             }
                         </div>
                         : null
-                : <LazyLoading/>
+                    : <LazyLoading/>
             }
             <div className="col-md-12 mt-3">
                 <div className="row">

@@ -9,6 +9,7 @@ const Nested = ({children, path, setPath, list, parent, model, setModel}) => {
         let position = -1;
         let isNew = true
         path.every((element, index) => {
+
             position = element.children.findIndex(pa => pa.id == found.id);
 
             found['question'] = path.find(p => p.id == found.parent_id).group_title;
@@ -29,10 +30,10 @@ const Nested = ({children, path, setPath, list, parent, model, setModel}) => {
         // tengo que copiar el state, dentro de ese state tengo un campo que guarda arrays
         // dentro de ese array tengo que guardar como key el e.target.name
         // en esa key guardo e.target.value
-        // al actualizar el estado tengo que devolver el array mutado 
+        // al actualizar el estado tengo que devolver el array mutado
 
         let selectList = [...model.contact_selects];
-        
+
         // selectList = {...selectList,
         //     [e.target.name]: e.target.value
         // }
@@ -44,11 +45,11 @@ const Nested = ({children, path, setPath, list, parent, model, setModel}) => {
         //     ['contact_selects'] : [selectList]
         // })
     }
- 
+
     return(
         <div className="form-group">
             <label htmlFor={parent.group_title}>{parent.group_title}</label>
-            <select 
+            <select
                 className="form-control form-control-custom pl-2"
                 name={`select_id_${parent.id}`}
                 id={parent.group_title}
@@ -59,7 +60,7 @@ const Nested = ({children, path, setPath, list, parent, model, setModel}) => {
                 {
                     children.map((ch,index) => {
                         let childKey = uuidv4();
-                        return( 
+                        return(
                             <option key={childKey} selected={path.find(x => x.id == ch.id)} value={ch.id}>
                                 {ch.name} - {childKey}
                             </option>
