@@ -16,6 +16,7 @@ class CreateNestedFieldsTable extends Migration
         Schema::create('nested_fields', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
+            $table->string('group_title')->nullable();
             $table->enum('section', [
                 'campaña',
                 'contacto'

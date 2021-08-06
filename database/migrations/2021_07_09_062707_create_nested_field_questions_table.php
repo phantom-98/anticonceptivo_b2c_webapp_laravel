@@ -17,7 +17,6 @@ class CreateNestedFieldQuestionsTable extends Migration
             $table->id();
             $table->string('name');
 
-
             $table->boolean('active')->default(1);
             $table->integer('position')->default(0);
 

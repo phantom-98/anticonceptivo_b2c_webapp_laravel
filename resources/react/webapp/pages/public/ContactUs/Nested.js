@@ -1,96 +1,67 @@
-import React, {useState, useEffect} from 'react';
-import {v4 as uuidv4} from 'uuid';
+import React from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
-const Nested = ({children, path, setPath, list}) => {
-
-    const [textFields, setTextFields] = useState([1]);
-
-    useEffect(() => {
-        if (textFields.length) {
-            console.log(textFields);
-        }
-    }, [textFields])
-
-    // useEffect(() => {
-    //     if (test.length) {
-    //         if (test.nested_field_questions.length > 0) {
-    //             let div = [];
-    //             test.nested_field_questions.map(q => {
-    //                 div.push(<div key={`question_${q.id}`}>
-    //                     <label htmlFor={q.id}>{q.name}</label>
-    //                     <input type="text"
-    //                         className="form-control form-control-custom"
-    //                         id=""
-    //                         name=""
-    //                         placeholder=""
-    //                     />
-    //                 </div>)
-    //             })
-    //             setTextFields(div)
-    //         }else{
-    //             setTextFields(null)
-    //         }
-    //     }
-    // },[test])
+const Nested = ({children, path, setPath, list, parent, model, setModel}) => {
 
     const handleChildren = (e) => {
         const found = list.find(x => x.id == e.target.value)
-
-        let temp_path = [];
+        var temp_path = [];
         let position = -1;
         let isNew = true
-
         path.every((element, index) => {
             position = element.children.findIndex(pa => pa.id == found.id);
+
+            found['question'] = path.find(p => p.id == found.parent_id).group_title;
+            found['answer'] = found.name;
             temp_path.push(element);
-            if (index + 1 != path.length && position != -1) {
+            if(index + 1 != path.length && position != -1 ){
                 temp_path.push(found);
                 isNew = false
+                return isNew
             }
             return isNew
         });
-
-        if (isNew) {
+        if(isNew){
             temp_path.push(found);
         }
+        setPath(temp_path);
 
-        if (found.nested_field_questions.length > 0) {
-            setTextFields(found.nested_field_questions)
-        } else {
-            setTextFields([])
-        }
+        // tengo que copiar el state, dentro de ese state tengo un campo que guarda arrays
+        // dentro de ese array tengo que guardar como key el e.target.name
+        // en esa key guardo e.target.value
+        // al actualizar el estado tengo que devolver el array mutado 
 
-        setPath(temp_path)
+        let selectList = [...model.contact_selects];
+        
+        // selectList = {...selectList,
+        //     [e.target.name]: e.target.value
+        // }
+
+        console.log(selectList);
+
+        // setModel({
+        //     ...model,
+        //     ['contact_selects'] : [selectList]
+        // })
     }
-
-    const renderInput = (q) => {
-        return (<div key={`question_${q.id}`}>
-            <label htmlFor={q.id}>{q.name}</label>
-            <input type="text"
-                   className="form-control form-control-custom"
-                   id=""
-                   name=""
-                   placeholder=""
-            />
-        </div>)
-    }
-
-    return (
+ 
+    return(
         <div className="form-group">
-            <label htmlFor={`identificar al children seleccionado`}>?</label>
-            <select
+            <label htmlFor={parent.group_title}>{parent.group_title}</label>
+            <select 
                 className="form-control form-control-custom pl-2"
-                name={`identificar al children seleccionado`}
-                id={`identificar al children seleccionado`}
+                name={`select_id_${parent.id}`}
+                id={parent.group_title}
                 onChange={(handleChildren)}
+                // value={model.contact_selects[parent.id]}
             >
                 <option value={''} disabled={true} selected={true}>Seleccione</option>
                 {
-                    children.map(ch => {
-                        let child = uuidv4();
-                        return (
-                            <option key={child} selected={path.find(x => x.id == ch.id)} value={ch.id}>
-                                {ch.name}
+                    children.map((ch,index) => {
+                        let childKey = uuidv4();
+                        return( 
+                            <option key={childKey} selected={path.find(x => x.id == ch.id)} value={ch.id}>
+                                {ch.name} - {childKey}
                             </option>
                         )
                     })

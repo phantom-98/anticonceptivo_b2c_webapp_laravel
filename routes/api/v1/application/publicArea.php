@@ -57,9 +57,7 @@ Route::prefix('public-area')
         Route::prefix('contact')
             ->name('contact.')
             ->group(function () {
-
                 Route::post('get-resources', [ContactController::class, 'getResources'])->name('getResources');
                 Route::post('send', [ContactController::class, 'send'])->name('send');
-
             });
     });

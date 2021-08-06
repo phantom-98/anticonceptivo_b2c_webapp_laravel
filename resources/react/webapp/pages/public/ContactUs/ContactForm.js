@@ -1,13 +1,14 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, Fragment} from 'react';
 import {Form} from 'react-bootstrap'
 import * as Services from "../../../Services";
 import toastr from 'toastr';
-import {v4 as uuidv4} from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 import Nested from './Nested';
+import LazyLoading from "../../../components/LazyLoading";
 
 const ContactForm = () => {
-
-    const defaultData = {
+    
+    const defaultModel = {
         contact_first_name: '',
         contact_last_name: '',
         contact_order_id: '',
@@ -16,12 +17,15 @@ const ContactForm = () => {
         contact_phone: '',
         contact_message: '',
         contact_subject_parent: '',
+        contact_questions:[],
+        contact_selects:[]
     }
 
-    const [model, setModel] = useState(defaultData);
+    const [loading, setLoading] = useState(true);
+    const [model, setModel] = useState(defaultModel);
     const [nestedFields, setNestedFields] = useState([]);
     const [list, setList] = useState([]);
-    const [inputs, setInput] = useState([]);
+    // const [inputs, setInput] = useState([]);
     const [path, setPath] = useState([]);
 
     useEffect(() => {
@@ -35,6 +39,7 @@ const ContactForm = () => {
                 success: () => {
                     setNestedFields(response.data.nested_fields)
                     setList(response.data.list)
+                    setLoading(false);
                 },
                 warning: () => {
                     // toastr.warning(response.message)
@@ -48,32 +53,18 @@ const ContactForm = () => {
         });
     }
 
-    const handleParent = (e) => {
-        const found = list.find(x => x.id == e.target.value)
-        if (found.nested_field_questions.length > 0) {
-            let div = [];
-            found.nested_field_questions.map(q => {
-                div.push(<div key={`question_${q.id}`}>
-                    <label htmlFor={q.id}>{q.name}</label>
-                    <input type="text"
-                           className="form-control form-control-custom"
-                           id=""
-                           name=""
-                           placeholder=""
-                    />
-                </div>)
-            })
-            setInput(div)
-        } else {
-            setInput(null)
-        }
+    const handleParent = (e, index) => {
+        let found = list.find(x => x.id == e.target.value)
+
+        found['question'] = 'Asunto';
+        found['answer'] = found.name;
 
         setModel({
             ...model,
             [e.target.name]: e.target.value
         })
 
-        setPath([found]);
+        setPath([found]);   
     }
 
     const handleData = (e) => {
@@ -83,30 +74,46 @@ const ContactForm = () => {
         })
     }
 
+    const handleInputs = (e, parentId, inputId) => {
+        let found = path.find(p => p.id == parentId);
+        let nestedField = found.nested_field_questions.findIndex(nfq => nfq.id == inputId);
+
+        nestedField['question'] = nestedField.name;
+        nestedField['answer'] = e.target.value;
+
+        setPath([
+            ...path,
+            path[pathIndex] = found
+        ]);
+    }
+
     const sendData = () => {
-        // let url = Services.REPLACE_FOR_VALID_ROUTE;
+        let url = Services.ENDPOINT.PUBLIC_AREA.CONTACT.SEND;
+
         let data = {
             ...model,
         }
 
         console.log(data);
 
-        // Services.DoPost(url,data).then(response => {
-        //     Services.Response({
-        //         response: response,
-        //         success: () => {
-        //             toastr.success(response.message);
-        //         },
-        //         error: () => {
-        //             // toastr.error(response.message);
-        //         },
-        //         warning: () => {
-        //             // toastr.warning(response.message);
-        //         },
-        //     });
-        // }).catch(error => {
-        //     Services.ErrorCatch(error)
-        // });
+        Services.DoPost(url,data).then(response => {
+            Services.Response({
+                response: response,
+                success: () => {
+                    toastr.success(response.message);
+                    setModel(defaultModel)
+                    setPath([]);
+                },
+                error: () => {
+                    // toastr.error(response.message);
+                },
+                warning: () => {
+                    // toastr.warning(response.message);
+                },
+            });
+        }).catch(error => {
+            Services.ErrorCatch(error)
+        });
     }
 
     return (
@@ -137,22 +144,6 @@ const ContactForm = () => {
                     />
                 </div>
             </div>
-            {/* <div className="col-md-6">
-                <div className="form-group">
-                    <label htmlFor="subject">Asunto</label>
-                    <select
-                        className="form-control form-control-custom pl-2"
-                        id="subject"
-                        name="subject"
-                    >
-                        <option value="1">Quiero saber el estado de mi pedido</option>
-                        <option value="2">Quiero cambiar un producto</option>
-                        <option value="3">Disponibilidad y Precio Producto(s)</option>
-                        <option value="4">Felicitaciones</option>
-                        <option value="5">Reclamos</option>
-                    </select>
-                </div>
-            </div> */}
             <div className="col-md-6">
                 <div className="form-group">
                     <label htmlFor="contact_order_id">¿Cuál es el número de tu orden?</label>
@@ -225,53 +216,79 @@ const ContactForm = () => {
                     />
                 </div>
             </div>
-            <div className="col-md-12">
-                <div className="form-group">
-                    <label htmlFor="contact_subject_parent">Asunto</label>
-                    <select
-                        className="form-control form-control-custom pl-2"
-                        name="contact_subject_parent"
-                        id="contact_subject_parent"
-                        onChange={handleParent}
-                        value={model.contact_subject_parent}
-                    >
-                        <option value={''} disabled={true} selected={true}>Seleccione</option>
-                        {
-                            nestedFields.map(parent => {
-                                let parentId = uuidv4();
-                                return (
-                                    <option selected={path.find(x => x.id == parent.id)} value={parent.id}
-                                            key={parentId}>
-                                        {parent.name}
-                                    </option>
-                                )
-                            })
-                        }
-                    </select>
-                    {
-                        inputs
-                    }
-                </div>
-            </div>
             {
-                path.length && path[0].children.length ?
-
+                !loading ?
                     <div className="col-md-12">
-                        {
-                            path.map((parent) => {
-                                let parentChild = uuidv4();
-                                return parent.children.length ? <Nested
-                                    children={parent.children}
-                                    path={path}
-                                    setPath={setPath}
-                                    list={list}
-                                    key={parentChild}
-                                /> : null
-                            })
-                        }
+                        <div className="form-group">
+                            <label htmlFor="contact_subject_parent">Asunto</label>
+                            <select 
+                                className="form-control form-control-custom pl-2"
+                                name="contact_subject_parent"
+                                id="contact_subject_parent"
+                                onChange={handleParent}
+                                value={model.contact_subject_parent}
+                            >
+                                <option value={''} disabled={true} selected={true}>Seleccione</option>
+                                {
+                                    nestedFields.map(parent => {
+                                        let parentId = uuidv4();
+                                        return(
+                                            <option selected={path.find(x => x.id == parent.id)} value={parent.id} key={parentId}>
+                                                {parent.name} {parentId}
+                                            </option>
+                                        )
+                                    })
+                                }
+                            </select>
+                        </div>
                     </div>
-
-                    : null
+                : null
+            }
+            {
+                !loading ?
+                    path.length  ? 
+                        <div className="col-md-12">
+                            {
+                                path.map((parent, index) => {
+                                    let parentChild = uuidv4();
+                                    return(
+                                        <Fragment key={parentChild}>
+                                            {
+                                                parent.nested_field_questions.map((element, index) => {
+                                                    let elementKey = uuidv4();
+                                                        return( 
+                                                            <div key={elementKey} className="form-group">
+                                                                <label htmlFor={``}>{element.name}</label> {elementKey}
+                                                                    <input type="text"
+                                                                        className="form-control form-control-custom"
+                                                                        id=""
+                                                                        name=""
+                                                                        placeholder=""
+                                                                    />
+                                                            </div>
+                                                        )
+                                                })
+                                            }
+                                            {
+                                                parent.children.length ? 
+                                                    <Nested
+                                                        children={parent.children}
+                                                        path={path}
+                                                        setPath={setPath}
+                                                        list={list}
+                                                        parent={parent}
+                                                        model={model}
+                                                        setModel={setModel}
+                                                    />
+                                                : null
+                                            }
+                                        </Fragment>
+                                    ) 
+                                })
+                            }
+                        </div>
+                        : null
+                : <LazyLoading/>
             }
             <div className="col-md-12 mt-3">
                 <div className="row">
