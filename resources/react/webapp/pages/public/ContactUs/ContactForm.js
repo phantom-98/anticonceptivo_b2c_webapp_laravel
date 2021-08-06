@@ -84,11 +84,28 @@ const ContactForm = () => {
     const sendData = () => {
         let url = Services.ENDPOINT.PUBLIC_AREA.CONTACT.SEND;
 
+        let fields = [];
+
+        path.map(p => {
+            fields.push({
+                question: p.question,
+                answer: p.answer,
+            })
+            if (p.nested_field_questions) {
+                p.nested_field_questions.map(nf => {
+                    if ('question' in nf && 'answer' in nf) {
+                        fields.push({
+                            question: nf.question,
+                            answer: nf.answer,
+                        })
+                    }
+                })
+            }
+        })
         let data = {
             ...model,
+            dynamic_fields: fields
         }
-
-        console.log(data);
 
         Services.DoPost(url, data).then(response => {
             Services.Response({
@@ -227,7 +244,8 @@ const ContactForm = () => {
                                     nestedFields.map(parent => {
                                         let parentId = uuidv4();
                                         return (
-                                            <option selected={path.find(x => x.id == parent.id)} value={parent.id} key={parentId}>
+                                            <option selected={path.find(x => x.id == parent.id)} value={parent.id}
+                                                    key={parentId}>
                                                 {parent.name}
                                             </option>
                                         )

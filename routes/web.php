@@ -13,7 +13,9 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get('test-contact', function ( ) {
+    return \App\Models\Contact::all();
+});
 Route::get('email-test', [TestController::class, 'index'])->name('test');
 
 Route::get('VoucherPaymentDays-test', [TestController::class, 'VoucherPaymentDays']);
