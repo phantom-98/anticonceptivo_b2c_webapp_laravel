@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Api\V1\App\PublicArea;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Willywes\ApiResponse\ApiResponse;
 use App\Models\Contact;
 use App\Models\NestedField;
@@ -58,7 +59,7 @@ class ContactController extends Controller
             if ($validator->passes()) {
 
                 $contact = new Contact();
-                
+
                 $contact->contact_first_name = $request->contact_first_name;
                 $contact->contact_last_name = $request->contact_last_name;
                 $contact->contact_order_id = $request->contact_order_id;
@@ -66,6 +67,7 @@ class ContactController extends Controller
                 $contact->contact_phone_code = $request->contact_phone_code;
                 $contact->contact_phone = $request->contact_phone;
                 $contact->contact_message = $request->contact_message;
+                $contact->dynamic_fields = $request->dynamic_fields;
                 $contact->contact_subject_parent = $request->contact_subject_parent;
                 $contact->contact_issue_id = 1;
 

@@ -111,11 +111,9 @@ const ContactForm = () => {
         })
         let data = {
             model,
-            fields
+            dynamic_fields: fields
         }
 
-        console.log(data);
-        return null;
         Services.DoPost(url, data).then(response => {
             Services.Response({
                 response: response,
@@ -253,7 +251,8 @@ const ContactForm = () => {
                                     nestedFields.map(parent => {
                                         let parentId = uuidv4();
                                         return (
-                                            <option selected={path.find(x => x.id == parent.id)} value={parent.id} key={parentId}>
+                                            <option selected={path.find(x => x.id == parent.id)} value={parent.id}
+                                                    key={parentId}>
                                                 {parent.name}
                                             </option>
                                         )
