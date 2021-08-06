@@ -236,9 +236,8 @@ const ContactForm = () => {
                                     nestedFields.map(parent => {
                                         let parentId = uuidv4();
                                         return (
-                                            <option selected={path.find(x => x.id == parent.id)} value={parent.id}
-                                                    key={parentId}>
-                                                {parent.name} {parentId}
+                                            <option selected={path.find(x => x.id == parent.id)} value={parent.id} key={parentId}>
+                                                {parent.name}
                                             </option>
                                         )
                                     })
@@ -262,7 +261,7 @@ const ContactForm = () => {
                                                     let elementKey = uuidv4();
                                                     return (
                                                         <div key={elementKey} className="form-group">
-                                                            <label htmlFor={``}>{element.name}</label> {elementKey}
+                                                            <label htmlFor={``}>{element.name}</label>
                                                             <input type="text"
                                                                    className="form-control form-control-custom"
                                                                    id=""
