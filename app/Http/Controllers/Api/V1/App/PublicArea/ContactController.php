@@ -19,7 +19,7 @@ class ContactController extends Controller
     public function getResources(Request $request)
     {
         try {
-            $nested_fields = NestedField::with(['nested_field_questions', 'children'])->whereNull('parent_id')->get();
+            $nested_fields = NestedField::with(['nested_field_questions', 'children'])->whereNull('parent_id')->where('section','contacto')->get();
             $privacyPolicy = Page::where('active',true)->where('name','Política de Privacidad')->first();
             return ApiResponse::JsonSuccess([
                 'nested_fields' => $nested_fields,
@@ -65,8 +65,6 @@ class ContactController extends Controller
             $validator = Validator::make($request->all(), $rules, $messages);
 
             if ($validator->passes()) {
-
-                return 'a';
 
                 $order = Order::find($request->contact_order_id);
 
