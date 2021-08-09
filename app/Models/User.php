@@ -98,7 +98,7 @@ class User extends Authenticatable
                 return Storage::url('public/perfil/'.$this->id.'.png');
             }
         }
-        return null;
+        return '/themes/intranet/img/user-default.png';
     }
 
 }
