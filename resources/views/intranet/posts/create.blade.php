@@ -30,7 +30,7 @@
                         
                         <div class="row">
 
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="title">Título (*)</label>
                                     <input type="text" id="title" name="title" class="form-control"
@@ -38,7 +38,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="post_type_id">Tipo de Blog</label>
                                     <select id="post_type_id" name="post_type_id" class="form-control select2" data-width="100%">
@@ -48,9 +48,22 @@
                                         @endforeach
                                     </select>
                                 </div>
-                            </div>    
+                            </div>   
+                            
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="author_id">Autor</label>
+                                    <select id="author_id" name="author_id" class="form-control select2" data-width="100%">
+                                        <option value="" selected disabled>Seleccione un autor</option>
+                                        @foreach($autors as $c)
+                                            <option value="{{ $c->id }}" {{ old('author_id') == $c->id ? 'selected' : ''}}>{{ $c->getFullNameAttribute()}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>   
 
-                            <div class="col-md-4">
+
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="question_text">Elemento principal (*)</label>
                                     <select id="type" name="type" class="form-control" onchange="divRender(this.value)">

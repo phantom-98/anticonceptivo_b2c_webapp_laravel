@@ -91,7 +91,14 @@ class User extends Authenticatable
 
     public function getAvatarPublicAttribute()
     {
-        return $this->avatar == null ? null : Storage::url($this->avatar);
+        if(file_exists(storage_path('app/public/perfil/'.$this->id.'.jpg')) || file_exists(storage_path('app/public/perfil/'.$this->id.'.png'))){
+            if(file_exists(storage_path('app/public/perfil/'.$this->id.'.jpg'))){
+                return Storage::url('public/perfil/'.$this->id.'.jpg');
+            }else{
+                return Storage::url('public/perfil/'.$this->id.'.png');
+            }
+        }
+        return null;
     }
 
 }

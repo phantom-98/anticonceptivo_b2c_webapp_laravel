@@ -32,7 +32,7 @@ const AddCartCard = ({quantity, setQuantity, product,subscription}) =>{
                 :
                 <div className="col pl-1">
                 <button disabled className="btn btn-outline-bicolor btn-add-cart btn-block px-1" >
-                    <span>SIN STOCK </span>
+                    <span>SIN STOCK ONLINE </span>
                 </button>
             </div>
             }

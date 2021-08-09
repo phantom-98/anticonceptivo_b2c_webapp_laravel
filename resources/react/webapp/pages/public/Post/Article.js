@@ -8,7 +8,7 @@ const Article = ({post}) =>{
             <div className="row pb-5">
                 <div className="col-md-2 d-flex">
                     <div className="mt-auto">
-                        <div><img src={post.author.avatar_public} alt={CONFIG.APP_NAME}/></div>
+                        <div><img width="110px"  src={post.author.avatar_public} alt={CONFIG.APP_NAME}/></div>
                         <div className="font-inter font-18 bold text-black">{post.author.full_name}</div>
                         <div className="font-inter font-16 bold text-black">{moment(post.published_at).lang('es').format('DD MMM YYYY')}</div>
                     </div>

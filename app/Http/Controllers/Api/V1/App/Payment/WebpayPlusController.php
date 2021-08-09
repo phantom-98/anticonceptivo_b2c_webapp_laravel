@@ -84,7 +84,6 @@ class WebpayPlusController
     public function createTransaction(Request $request)
     {
 
-        try {
             $order = new Order();
             $customerAddress = null;
 
@@ -297,9 +296,7 @@ class WebpayPlusController
 
             return ApiResponse::JsonError([], 'No ha podido conectar con webpay');
 
-        } catch (\Exception $exception) {
-            return ApiResponse::JsonError([], $exception->getMessage());
-        }
+
     }
 
     private function isStockProducts($orderItems){
@@ -318,12 +315,17 @@ class WebpayPlusController
             $product = Product::find($id);
             $get_data = ApiHelper::callAPI('GET', 'https://api.ailoo.cl/v1/inventory/barCode/'.$product->barcode, null, 'ailoo');
             $response = json_decode($get_data, true);
-            foreach ($response['inventoryItems'] as $key => $inventory) {
-                if($inventory['facilityName'] == 'Local 1'){
-                    $product->stock = intval($inventory['quantity']);
-                    $product->save();
+            if($response != null && array_key_exists('inventoryItems',$response)){
+                foreach ($response['inventoryItems'] as $key => $inventory) {
+                    if($inventory['facilityName'] == 'Local 1'){
+                        $product->stock = intval($inventory['quantity']);
+                        $product->save();
+                    }
                 }
-            }
+    
+            }else{
+                $product->stock = 0;
+            }   
 
             if($product->stock < $quantity ){
                 return array(
