@@ -1,7 +1,7 @@
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
-const Nested = ({children, path, setPath, list, parent, model, setModel}) => {
+const Nested = ({children, path, setPath, list, parent}) => {
 
     const handleChildren = (e) => {
         const found = list.find(x => x.id == e.target.value)

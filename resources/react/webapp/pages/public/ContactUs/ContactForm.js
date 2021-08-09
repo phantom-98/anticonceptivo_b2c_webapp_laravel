@@ -29,7 +29,7 @@ const ContactForm = () => {
     const [nestedFields, setNestedFields] = useState([]);
     const [list, setList] = useState([]);
     const [path, setPath] = useState([]);
-    const [privacyPolicy, setPrivacyPolicy] = useState({})
+    const [privacyPolicy, setPrivacyPolicy] = useState({});
 
     const [handleTermsModal, setHandleTermsModal] = useState(false);
     const [handlePrivacyPoliceModal, setHandlePrivacyPoliceModal] = useState(false);
@@ -248,22 +248,6 @@ const ContactForm = () => {
                     </div>
                 </div>
             </div>
-            <div className="col-md-12">
-                <div className="form-group">
-                    <label htmlFor="contact_message">Mensaje</label>
-                    <textarea
-                        rows="7"
-                        className="form-control form-control-custom"
-                        id="contact_message"
-                        name="contact_message"
-                        placeholder="Mensaje"
-                        onChange={handleData}
-                        value={model.contact_message}
-                        onFocus={setCleanInputError}
-                    />
-                    <div className="invalid-feedback" />
-                </div>
-            </div>
             {
                 !loading ?
                     <div className="col-md-12">
@@ -330,8 +314,6 @@ const ContactForm = () => {
                                                         setPath={setPath}
                                                         list={list}
                                                         parent={parent}
-                                                        model={model}
-                                                        setModel={setModel}
                                                     />
                                                     : null
                                             }
@@ -343,6 +325,22 @@ const ContactForm = () => {
                         : null
                     : <LazyLoading/>
             }
+            <div className="col-md-12">
+                <div className="form-group">
+                    <label htmlFor="contact_message">Mensaje</label>
+                    <textarea
+                        rows="7"
+                        className="form-control form-control-custom"
+                        id="contact_message"
+                        name="contact_message"
+                        placeholder="Mensaje"
+                        onChange={handleData}
+                        value={model.contact_message}
+                        onFocus={setCleanInputError}
+                    />
+                    <div className="invalid-feedback" />
+                </div>
+            </div>
             <div className="col-md-12 mt-3">
                 <div className="row">
                     <div className="col">

@@ -1,4 +1,4 @@
-import React, {useState, useContext, useEffect} from 'react';
+import React, {useState, useContext, useEffect, Fragment} from 'react';
 import H3Panel from "../../../../../components/general/H3Panel";
 import {AuthContext} from '../../../../../context/AuthProvider';
 import * as Services from "../../../../../Services";
@@ -6,6 +6,8 @@ import {setCleanInputError} from "../../../../../helpers/GlobalUtils";
 import toastr from "toastr";
 import { v4 as uuidv4 } from "uuid";
 import DynamicField from "./DynamicField"
+import Nested from '../../../../public/ContactUs/Nested';
+import LazyLoading from "../../../../../components/LazyLoading";
 
 const CustomerService = () => {
 
@@ -17,13 +19,19 @@ const CustomerService = () => {
         name: auth.full_name,
         contact_issue: "1",
         message: '',
+        contact_subject_parent: '',
     }
 
     const [data, setData] = useState(defaultData);
-    const [dynamicData, setDynamicData] = useState({});
+    const [dynamic_inputs, setDynamicData] = useState({});
     const [contactIssues, setContactIssues] = useState([]);
     const [dynamicFields, setDynamicFields] = useState([]);
     const [description, setDescription] = useState('');
+
+    const [loading, setLoading] = useState(true);
+    const [nestedFields, setNestedFields] = useState([]);
+    const [list, setList] = useState([]);
+    const [path, setPath] = useState([]);
 
     useEffect(() => {
         getData();
@@ -75,6 +83,9 @@ const CustomerService = () => {
                 response: response,
                 success: () => {
                     setContactIssues(response.data.contact_issues);
+                    setNestedFields(response.data.nested_fields);
+                    setList(response.data.list);
+                    setLoading(false);
                 },
             });
         }).catch(error => {
@@ -86,9 +97,29 @@ const CustomerService = () => {
 
         let url = Services.ENDPOINT.CUSTOMER.CUSTOMER_SERVICE.SEND;
 
+        let fields = [];
+
+        path.map(p => {
+            fields.push({
+                question: p.question,
+                answer: p.answer,
+            })
+            if (p.nested_field_questions) {
+                p.nested_field_questions.map(nf => {
+                    if ('question' in nf && 'answer' in nf) {
+                        fields.push({
+                            question: nf.question,
+                            answer: nf.answer,
+                        })
+                    }
+                })
+            }
+        })
+
         let dataForm = {
             ...data,
-            dynamicData
+            dynamic_inputs,
+            dynamic_fields: fields
         }
 
         Services.DoPost(url, dataForm).then(response => {
@@ -112,14 +143,14 @@ const CustomerService = () => {
 
     const handleDynamicData = (e) => {
         setDynamicData({
-            ...dynamicData,
+            ...dynamic_inputs,
             [e.target.name]: e.target.value
         })
     }
 
     const handleDynamicRadio = (e) => {
         setDynamicData({
-            ...dynamicData,
+            ...dynamic_inputs,
             [e.target.name]: e.target.id
         })
     }
@@ -127,21 +158,35 @@ const CustomerService = () => {
     const handleDynamicCheckbox = (e) => {
         let list = [];
 
-        if(dynamicData[e.target.name].includes(e.target.id)){
+        if(dynamic_inputs[e.target.name].includes(e.target.id)){
 
-            list = dynamicData[e.target.name].filter(x => x !== e.target.id)
+            list = dynamic_inputs[e.target.name].filter(x => x !== e.target.id)
 
         }else{
             list = [
-                ...dynamicData[e.target.name],
+                ...dynamic_inputs[e.target.name],
                 e.target.id
             ]
         }
 
         setDynamicData({
-            ...dynamicData,
+            ...dynamic_inputs,
             [e.target.name]: list
         })
+    }
+
+    const handleParent = (e, index) => {
+        let found = list.find(x => x.id == e.target.value)
+
+        found['question'] = 'Asunto';
+        found['answer'] = found.name;
+
+        setData({
+            ...data,
+            [e.target.name]: e.target.value
+        })
+
+        setPath([found]);
     }
 
     return (
@@ -184,7 +229,7 @@ const CustomerService = () => {
                                         values={dynamicField.values}
                                         type={dynamicField.type}
                                         index={index}
-                                        dynamicData={dynamicData}
+                                        dynamic_inputs={dynamic_inputs}
                                         handleDynamicData={handleDynamicData}
                                         handleDynamicRadio={handleDynamicRadio}
                                         handleDynamicCheckbox={handleDynamicCheckbox}
@@ -193,6 +238,83 @@ const CustomerService = () => {
                                 )
                             })
                         : null
+                    }
+                    {
+                        !loading ?
+                            <div className="col-md-12">
+                                <div className="form-group">
+                                    <label htmlFor="contact_subject_parent">Asunto</label>
+                                    <select
+                                        className="form-control form-control-custom pl-2"
+                                        name="contact_subject_parent"
+                                        id="contact_subject_parent"
+                                        onChange={handleParent}
+                                        value={data.contact_subject_parent}
+                                        onFocus={setCleanInputError}
+                                    >
+                                        <option value={''} disabled={true} selected={true}>Seleccione</option>
+                                        {
+                                            nestedFields.map(parent => {
+                                                let parentId = uuidv4();
+                                                return (
+                                                    <option selected={path.find(x => x.id == parent.id)} value={parent.id}
+                                                            key={parentId}>
+                                                        {parent.name}
+                                                    </option>
+                                                )
+                                            })
+                                        }
+                                    </select>
+                                    <div className="invalid-feedback" />
+                                </div>
+                            </div>
+                            : null
+                    }
+                    {
+                        !loading ?
+                            path.length ?
+                                <div className="col-md-12">
+                                    {
+                                        path.map((parent, index) => {
+                                            let parentChild = uuidv4();
+                                            return (
+                                                <Fragment key={parentChild}>
+                                                    {
+                                                        parent.nested_field_questions.map((element, index) => {
+                                                            let elementKey = uuidv4();
+                                                            return (
+                                                                <div key={elementKey} className="form-group">
+                                                                    <label htmlFor={``}>{element.name}</label>
+                                                                    <input type="text"
+                                                                        className="form-control form-control-custom"
+                                                                        id=""
+                                                                        name=""
+                                                                        placeholder=""
+                                                                        value={element.answer}
+                                                                        onChange={(e) => handleInputs(e, parent.id, element.id)}
+                                                                    />
+                                                                </div>
+                                                            )
+                                                        })
+                                                    }
+                                                    {
+                                                        parent.children.length ?
+                                                            <Nested
+                                                                children={parent.children}
+                                                                path={path}
+                                                                setPath={setPath}
+                                                                list={list}
+                                                                parent={parent}
+                                                            />
+                                                            : null
+                                                    }
+                                                </Fragment>
+                                            )
+                                        })
+                                    }
+                                </div>
+                                : null
+                            : <LazyLoading/>
                     }
                     <div className="col-md-12">
                         <div className="form-group">
