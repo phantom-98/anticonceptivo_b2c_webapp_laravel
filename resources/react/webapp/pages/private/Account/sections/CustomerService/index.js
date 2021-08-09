@@ -255,16 +255,20 @@ const CustomerService = () => {
                             })
                         : null
                     }
-                    <DynamicPath
-                        loading={loading}
-                        model={data}
-                        handleParent={handleParent}
-                        handleInputs={handleInputs}
-                        nestedFields={nestedFields}
-                        path={path}
-                        setPath={setPath}
-                        list={list}
-                    />
+                    {
+                        data.contact_issue == 3 ?
+                        <DynamicPath
+                            loading={loading}
+                            model={data}
+                            handleParent={handleParent}
+                            handleInputs={handleInputs}
+                            nestedFields={nestedFields}
+                            path={path}
+                            setPath={setPath}
+                            list={list}
+                        />
+                        : null
+                    }
                     <div className="col-md-12">
                         <div className="form-group">
                             <label htmlFor="message">Mensaje</label>
