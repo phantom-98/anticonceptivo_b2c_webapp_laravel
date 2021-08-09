@@ -187,7 +187,7 @@ const ContactForm = () => {
                            className="form-control form-control-custom"
                            id="contact_order_id"
                            name="contact_order_id"
-                           placeholder="Apellidos"
+                           placeholder="Nº de orden Ej: 293"
                            onChange={handleData}
                            value={model.contact_order_id}
                            onFocus={setCleanInputError}
