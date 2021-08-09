@@ -165,8 +165,8 @@ class CallIntegrationsPay extends CoreHelper
 
         $email->setFrom("info@anticonceptivo.cl", 'Anticonceptivo');
         $email->setSubject('Compra #' . $order->id);
-        // $email->addTo($order->customer->email, 'Pedido');
-        $email->addTo("victor.araya.del@gmail.com", 'Pedido');
+        $email->addTo($order->customer->email, 'Pedido');
+        // $email->addTo("victor.araya.del@gmail.com", 'Pedido');
 
         $email->addContent(
             "text/html", $html
