@@ -12,6 +12,7 @@ use App\Http\Utils\Email;
 use App\Models\Contact;
 use App\Models\NestedField;
 use App\Models\Order;
+use App\Models\Page;
 
 class ContactController extends Controller
 {
@@ -19,9 +20,11 @@ class ContactController extends Controller
     {
         try {
             $nested_fields = NestedField::with(['nested_field_questions', 'children'])->whereNull('parent_id')->get();
+            $privacyPolicy = Page::where('active',true)->where('name','Política de Privacidad')->first();
             return ApiResponse::JsonSuccess([
                 'nested_fields' => $nested_fields,
-                'list' => NestedField::with(['nested_field_questions', 'children'])->get()
+                'list' => NestedField::with(['nested_field_questions', 'children'])->get(),
+                'privacy_policy' => $privacyPolicy,
             ]);
         } catch (\Exception $exception) {
             return ApiResponse::JsonError([]);
@@ -41,6 +44,7 @@ class ContactController extends Controller
                 'contact_phone' => 'required',
                 'contact_message' => 'required',
                 'contact_subject_parent' => 'required',
+                'contact_accept_terms' => 'required|boolean|ends_with:'.true,
             ];
 
             $messages = [
@@ -55,11 +59,14 @@ class ContactController extends Controller
 
                 'contact_email.email' => 'Ingresar correo electronico valido.',
                 'contact_order_id.integer' => 'Ingresar solo ingresar valores númericos.',
+                'contact_accept_terms.ends_with' => 'Debe aceptar nuestros Términos y condiciones y Políticas de privacidad.',
             ];
 
             $validator = Validator::make($request->all(), $rules, $messages);
 
             if ($validator->passes()) {
+
+                return 'a';
 
                 $order = Order::find($request->contact_order_id);
 
