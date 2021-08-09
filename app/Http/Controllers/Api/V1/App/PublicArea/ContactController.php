@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Willywes\ApiResponse\ApiResponse;
+use App\Http\Utils\Email;
 use App\Models\Contact;
 use App\Models\NestedField;
 use App\Models\Order;
@@ -76,10 +77,20 @@ class ContactController extends Controller
                 $contact->phone = $request->contact_phone;
                 $contact->message = $request->contact_message;
                 $contact->dynamic_fields = $request->dynamic_fields;
-                $contact->subject_parent = $request->contact_subject_parent;
+                // $contact->subject_parent = $request->contact_subject_parent;
                 $contact->contact_issue_id = 1;
 
                 if ($contact->save()) {
+
+                    $subject = 'Soporte Anticonceptivo';
+
+                    $body = view('emails.contact-us', ['data' => [
+                        'contact_id' => $contact->id,
+                    ]])->render();
+
+                    $email = new Email();
+                    $email->send($contact->email, $subject, $body);
+
                     return ApiResponse::JsonSuccess([]);
                 }else{
                     return ApiResponse::JsonError(null, 'No se ha podido envíar el mensaje.');
