@@ -755,7 +755,7 @@ class ProfileController extends Controller
     private static function getCustomerService(){
         $data['contact_issues'] = ContactIssue::where('active',true)->where('section',ContactIssueTypes::CUSTOMER_SERVICE)
             ->with(['fields','campaign'])->get();
-        $data['nested_fields'] = NestedField::with(['nested_field_questions', 'children'])->whereNull('parent_id')->get();
+        $data['nested_fields'] = NestedField::with(['nested_field_questions', 'children'])->whereNull('parent_id')->where('section','campaña')->get();
         $data['list'] = NestedField::with(['nested_field_questions', 'children'])->get();
 
         return $data;
