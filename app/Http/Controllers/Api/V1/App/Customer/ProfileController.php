@@ -21,9 +21,9 @@ use App\Models\ContactIssue;
 use App\Models\ContactMessage;
 use App\Models\Subscription;
 use App\Models\DeliveryCost;
-
 use App\Models\SubscriptionsOrdersItem;
 use App\Models\ProductSubscriptionPlan;
+use App\Models\NestedField;
 use Carbon\Carbon;
 
 class ProfileController extends Controller
@@ -516,7 +516,6 @@ class ProfileController extends Controller
         }
     }
 
-
     public function createSubscriptions(Request $request)
     {
         try {
@@ -746,16 +745,20 @@ class ProfileController extends Controller
             case 'CUSTOMER_SERVICE_DATA':
                 $data = self::getCustomerService();
                 return ApiResponse::JsonSuccess([
-                    'contact_issues' => $data
+                    'contact_issues' => $data['contact_issues'],
+                    'nested_fields' => $data['nested_fields'],
+                    'list' => $data['list'],
                 ],OutputMessage::SUCCESS);
         }
     }
 
     private static function getCustomerService(){
-        $contactIssue = ContactIssue::where('active',true)->where('section',ContactIssueTypes::CUSTOMER_SERVICE)
+        $data['contact_issues'] = ContactIssue::where('active',true)->where('section',ContactIssueTypes::CUSTOMER_SERVICE)
             ->with(['fields','campaign'])->get();
+        $data['nested_fields'] = NestedField::with(['nested_field_questions', 'children'])->whereNull('parent_id')->get();
+        $data['list'] = NestedField::with(['nested_field_questions', 'children'])->get();
 
-        return $contactIssue;
+        return $data;
     }
 
     public function getContactResources(Request $request){
@@ -788,10 +791,14 @@ class ProfileController extends Controller
 
             if ($validator->passes()) {
 
-                $contact = ContactIssue::find($request->contact_issue);
+                $contactIssue = ContactIssue::find($request->contact_issue);
 
-                $emailSubject = $contact->section;
-                $subEmailSubject = $contact->name;
+                if (!$contactIssue) {
+                    return ApiResponse::JsonError(null,'Ha ocurrido un error.');
+                }
+
+                $emailSubject = $contactIssue->section;
+                $subEmailSubject = $contactIssue->name;
 
                 $emailBody = view('emails.contact-form', ['data' => [
                     'title' => $emailSubject,
@@ -816,9 +823,10 @@ class ProfileController extends Controller
                     Log::info('SENDGRID CONTACT FORM ENVIADO');
 
                     $contactMessage = New ContactMessage();
-                    $contactMessage->values = json_encode($request->dynamicData);
+                    $contactMessage->values = json_encode($request->dynamic_inputs);
+                    $contactMessage->dynamic_fields = $request->dynamic_fields;
                     $contactMessage->message = $request->message;
-                    $contactMessage->contact_issue_id = $contact->id;
+                    $contactMessage->contact_issue_id = $contactIssue->id;
                     $contactMessage->customer_id = $request->customer_id;
 
                     if ($contactMessage->save()) {

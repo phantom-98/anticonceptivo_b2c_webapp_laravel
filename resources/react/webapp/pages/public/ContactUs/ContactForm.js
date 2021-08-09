@@ -1,10 +1,12 @@
-import React, {useEffect, useState, Fragment} from 'react';
-import {Form} from 'react-bootstrap'
+import React, {useEffect, useState} from 'react';
+import {Form, Modal} from 'react-bootstrap'
 import * as Services from "../../../Services";
 import toastr from 'toastr';
-import {v4 as uuidv4} from 'uuid';
-import Nested from './Nested';
-import LazyLoading from "../../../components/LazyLoading";
+import Terms from "../TermsAndConditions/Terms";
+import PrivacyPolice from "../CorporateResponsibility/PrivacyPolicies";
+import CloseModal from "../../../components/general/CloseModal";
+import {setCleanInputError} from "../../../helpers/GlobalUtils";
+import DynamicPath from "./DynamicPath";
 
 const ContactForm = () => {
 
@@ -17,14 +19,24 @@ const ContactForm = () => {
         contact_phone: '',
         contact_message: '',
         contact_subject_parent: '',
+        contact_accept_terms: '0'
     }
 
     const [loading, setLoading] = useState(true);
     const [model, setModel] = useState(defaultModel);
     const [nestedFields, setNestedFields] = useState([]);
     const [list, setList] = useState([]);
-    // const [inputs, setInput] = useState([]);
     const [path, setPath] = useState([]);
+    const [privacyPolicy, setPrivacyPolicy] = useState({});
+
+    const [handleTermsModal, setHandleTermsModal] = useState(false);
+    const [handlePrivacyPoliceModal, setHandlePrivacyPoliceModal] = useState(false);
+
+    const showTermsModal = () => setHandleTermsModal(true);
+    const hideTermsModal = () => setHandleTermsModal(false);
+
+    const showPrivacyPoliceModal = () => setHandlePrivacyPoliceModal(true);
+    const hidePrivacyPoliceModal = () => setHandlePrivacyPoliceModal(false);
 
     useEffect(() => {
         getResources();
@@ -37,13 +49,8 @@ const ContactForm = () => {
                 success: () => {
                     setNestedFields(response.data.nested_fields)
                     setList(response.data.list)
+                    setPrivacyPolicy(response.data.privacy_policy)
                     setLoading(false);
-                },
-                warning: () => {
-                    // toastr.warning(response.message)
-                },
-                error: () => {
-                    // toastr.error(response.message)
                 },
             });
         }).catch(error => {
@@ -65,11 +72,18 @@ const ContactForm = () => {
         setPath([found]);
     }
 
-    const handleData = (e) => {
-        setModel({
-            ...model,
-            [e.target.name]: e.target.value
-        })
+    const handleData = (e, isRadio = false) => {
+        if (isRadio) {
+            setModel({
+                ...model,
+                ['contact_accept_terms']: e.target.value == '0' ? '1' : '0'
+            })
+        }else{
+            setModel({
+                ...model,
+                [e.target.name]: e.target.value
+            })
+        }
     }
 
     const handleInputs = (e, parentId, inputId) => {
@@ -123,10 +137,10 @@ const ContactForm = () => {
                     setPath([]);
                 },
                 error: () => {
-                    // toastr.error(response.message);
+                    toastr.error(response.message);
                 },
                 warning: () => {
-                    // toastr.warning(response.message);
+                    toastr.warning(response.message);
                 },
             });
         }).catch(error => {
@@ -146,7 +160,9 @@ const ContactForm = () => {
                            placeholder="Nombres"
                            onChange={handleData}
                            value={model.contact_first_name}
+                           onFocus={setCleanInputError}
                     />
+                    <div className="invalid-feedback" />
                 </div>
             </div>
             <div className="col-md-6">
@@ -159,7 +175,9 @@ const ContactForm = () => {
                            placeholder="Apellidos"
                            onChange={handleData}
                            value={model.contact_last_name}
+                           onFocus={setCleanInputError}
                     />
+                    <div className="invalid-feedback" />
                 </div>
             </div>
             <div className="col-md-6">
@@ -172,7 +190,9 @@ const ContactForm = () => {
                            placeholder="Apellidos"
                            onChange={handleData}
                            value={model.contact_order_id}
+                           onFocus={setCleanInputError}
                     />
+                    <div className="invalid-feedback" />
                 </div>
             </div>
             <div className="col-md-6">
@@ -185,7 +205,9 @@ const ContactForm = () => {
                            placeholder="E-Mail"
                            onChange={handleData}
                            value={model.contact_email}
+                           onFocus={setCleanInputError}
                     />
+                    <div className="invalid-feedback" />
                 </div>
             </div>
             <div className="col-md-6">
@@ -199,9 +221,11 @@ const ContactForm = () => {
                                 name="contact_phone_code"
                                 onChange={handleData}
                                 value={model.contact_phone_code}
+                                onFocus={setCleanInputError}
                             >
                                 <option value="+56">+56</option>
                             </select>
+                            <div className="invalid-feedback" />
                         </div>
                     </div>
 
@@ -215,11 +239,23 @@ const ContactForm = () => {
                                    placeholder="9 8765 4321"
                                    onChange={handleData}
                                    value={model.contact_phone}
+                                   onFocus={setCleanInputError}
                             />
+                            <div className="invalid-feedback" />
                         </div>
                     </div>
                 </div>
             </div>
+            <DynamicPath
+                loading={loading}
+                model={model}
+                handleParent={handleParent}
+                handleInputs={handleInputs}
+                nestedFields={nestedFields}
+                path={path}
+                setPath={setPath}
+                list={list}
+            />
             <div className="col-md-12">
                 <div className="form-group">
                     <label htmlFor="contact_message">Mensaje</label>
@@ -231,97 +267,26 @@ const ContactForm = () => {
                         placeholder="Mensaje"
                         onChange={handleData}
                         value={model.contact_message}
+                        onFocus={setCleanInputError}
                     />
+                    <div className="invalid-feedback" />
                 </div>
             </div>
-            {
-                !loading ?
-                    <div className="col-md-12">
-                        <div className="form-group">
-                            <label htmlFor="contact_subject_parent">Asunto</label>
-                            <select
-                                className="form-control form-control-custom pl-2"
-                                name="contact_subject_parent"
-                                id="contact_subject_parent"
-                                onChange={handleParent}
-                                value={model.contact_subject_parent}
-                            >
-                                <option value={''} disabled={true} selected={true}>Seleccione</option>
-                                {
-                                    nestedFields.map(parent => {
-                                        let parentId = uuidv4();
-                                        return (
-                                            <option selected={path.find(x => x.id == parent.id)} value={parent.id}
-                                                    key={parentId}>
-                                                {parent.name}
-                                            </option>
-                                        )
-                                    })
-                                }
-                            </select>
-                        </div>
-                    </div>
-                    : null
-            }
-            {
-                !loading ?
-                    path.length ?
-                        <div className="col-md-12">
-                            {
-                                path.map((parent, index) => {
-                                    let parentChild = uuidv4();
-                                    return (
-                                        <Fragment key={parentChild}>
-                                            {
-                                                parent.nested_field_questions.map((element, index) => {
-                                                    let elementKey = uuidv4();
-                                                    return (
-                                                        <div key={elementKey} className="form-group">
-                                                            <label htmlFor={``}>{element.name}</label>
-                                                            <input type="text"
-                                                                   className="form-control form-control-custom"
-                                                                   id=""
-                                                                   name=""
-                                                                   placeholder=""
-                                                                   value={element.answer}
-                                                                   onChange={(e) => handleInputs(e, parent.id, element.id)}
-                                                            />
-                                                        </div>
-                                                    )
-                                                })
-                                            }
-                                            {
-                                                parent.children.length ?
-                                                    <Nested
-                                                        children={parent.children}
-                                                        path={path}
-                                                        setPath={setPath}
-                                                        list={list}
-                                                        parent={parent}
-                                                        model={model}
-                                                        setModel={setModel}
-                                                    />
-                                                    : null
-                                            }
-                                        </Fragment>
-                                    )
-                                })
-                            }
-                        </div>
-                        : null
-                    : <LazyLoading/>
-            }
             <div className="col-md-12 mt-3">
                 <div className="row">
                     <div className="col">
                         <Form.Check
                             custom
                             type="checkbox"
-                            id="accept_terms"
+                            id="contact_accept_terms"
+                            value={model.contact_accept_terms}
+                            onFocus={setCleanInputError}
+                            onChange={(e) => handleData(e, true)}
                             label={<span className="font-inter font-12 regular color-707070">Aceptar <span
-                                className="link pointer" onClick={() => alert('Términos y condiciones')}>Términos y condiciones</span> y <span
-                                className="link pointer" onClick={() => alert('Políticas de privacidad')}>Políticas de privacidad</span></span>}
+                                className="link pointer" onClick={() => showTermsModal()}>Términos y condiciones</span> y <span
+                                className="link pointer" onClick={() => showPrivacyPoliceModal()}>Políticas de privacidad</span></span>}
                         />
+                        <div className="invalid-feedback" />
                     </div>
                     <div className="col-auto">
                         <button type="button" className="btn btn-bicolor px-5"
@@ -331,6 +296,52 @@ const ContactForm = () => {
                     </div>
                 </div>
             </div>
+            <Modal 
+                show={handleTermsModal}
+                centered
+                backdrop="static"
+                keyboard={false}
+                onHide={hideTermsModal}
+                dialogClassName="modal-new-claim"
+            >
+                <Modal.Header>
+                    <CloseModal hideModal={hideTermsModal} />
+                </Modal.Header>
+                <Modal.Body className="px-5">
+
+                    <div className="row">
+                        <div className="col-12">
+                            <Terms/>
+                        </div>
+                    </div>
+
+                </Modal.Body>
+
+            </Modal>
+            <Modal 
+                show={handlePrivacyPoliceModal}
+                centered
+                backdrop="static"
+                keyboard={false}
+                onHide={hidePrivacyPoliceModal}
+                dialogClassName="modal-new-claim"
+            >
+                <Modal.Header>
+                    <CloseModal hideModal={hidePrivacyPoliceModal} />
+                </Modal.Header>
+                <Modal.Body className="px-5">
+
+                    <div className="row">
+                        <div className="col-12">
+                            <PrivacyPolice
+                                privacyPolicy={privacyPolicy}
+                            />
+                        </div>
+                    </div>
+
+                </Modal.Body>
+
+            </Modal>
         </div>
     );
 };
