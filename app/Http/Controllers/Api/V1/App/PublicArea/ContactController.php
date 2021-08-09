@@ -27,7 +27,7 @@ class ContactController extends Controller
                 'privacy_policy' => $privacyPolicy,
             ]);
         } catch (\Exception $exception) {
-            return ApiResponse::JsonError([]);
+            return ApiResponse::JsonError([], $exception->getMessage());
         }
     }
 
