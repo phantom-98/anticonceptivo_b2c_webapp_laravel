@@ -39,7 +39,9 @@ class NestedFieldController extends GlobalController
 
         if ($request->section == 'contacto') {
             $objects = $objects->where('section', 'like', 'contacto')->get();
-        } else {
+        } else if ($request->section == 'campaña'){
+            $objects = $objects->where('section', 'campaña')->get();
+        } else{
             $objects = $objects->where('section', '-1')->get();
         }
 
