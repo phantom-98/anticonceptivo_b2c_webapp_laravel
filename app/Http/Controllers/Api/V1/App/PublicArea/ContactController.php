@@ -91,7 +91,7 @@ class ContactController extends Controller
                     $email = new Email();
                     $email->send($contact->email, $subject, $body);
 
-                    return ApiResponse::JsonSuccess([]);
+                    return ApiResponse::JsonSuccess(null, 'Mensaje envíado.');
                 }else{
                     return ApiResponse::JsonError(null, 'No se ha podido envíar el mensaje.');
                 }
