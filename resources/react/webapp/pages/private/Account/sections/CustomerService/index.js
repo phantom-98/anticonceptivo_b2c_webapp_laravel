@@ -274,6 +274,7 @@ const CustomerService = () => {
                                 id="message"
                                 name="message"
                                 placeholder="Mensaje"
+                                value={data.message}
                                 onChange={handleData}
                                 onFocus={setCleanInputError}
                             />
