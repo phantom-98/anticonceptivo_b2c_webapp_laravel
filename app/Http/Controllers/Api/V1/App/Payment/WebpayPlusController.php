@@ -125,7 +125,7 @@ class WebpayPlusController
 
                 foreach ($costs as $key => $itemCost) {
                     $communes = $itemCost->communes;
-    
+
                     $found_key = array_search($commune_name, $communes);
                     if($found_key !== false){
                         $itemDeliveryCost = $deliveryCost;
@@ -163,8 +163,8 @@ class WebpayPlusController
                 }
 
                 $quantityFinal = 0;
-                
-                if(isset($item['subscription'])){          
+
+                if(isset($item['subscription'])){
                     $isSubscription = 1;
 
                     $subtotal = $subtotal + ($item['subscription']['quantity'] * $item['subscription']['price']);
@@ -174,7 +174,7 @@ class WebpayPlusController
                     $orderItem->save();
                     $quantityFinal = $subscriptionPlan->months;
 
-                    for ($i=0; $i < round($subscriptionPlan->months/2); $i++) { 
+                    for ($i=0; $i < round($subscriptionPlan->months/2); $i++) {
                         $subscriptionOrdersItem = new SubscriptionsOrdersItem;
                         $subscriptionOrdersItem->is_pay = 0;
                         $subscriptionOrdersItem->order_id = $order->id;
@@ -200,7 +200,7 @@ class WebpayPlusController
                         $subtotal = $subtotal + ($item['quantity'] * $item['product']['price']);
                         $orderItem->subtotal = ($item['quantity'] * $item['product']['price']);
                     }
-                    
+
                     $orderItem->subscription_plan_id = null;
 
                 }
@@ -208,7 +208,7 @@ class WebpayPlusController
                 $orderItem->product_attributes = null;
                 $orderItem->extra_price = null;
                 $orderItem->extra_description = null;
-                
+
                 $orderItem->save();
             }
             $order->subtotal = $subtotal;
@@ -230,7 +230,7 @@ class WebpayPlusController
             if($isSubscription){
                 if($request->subscription){
                     $response = $this->oneclick->authorize($request->customer_id , $request->subscription['transbank_token'], $order->id, $order->total,$request->installment ?? 0);
-                    Log::info('OneClick', 
+                    Log::info('OneClick',
                     [
                         "response" => $response,
                         "tbk_user" => $request->subscription['transbank_token'],
@@ -253,7 +253,7 @@ class WebpayPlusController
 
                         $order->status = PaymentStatus::PAID;
                         $order->payment_type = 'tarjeta';
-                        $order->save();  
+                        $order->save();
                         $dataVoucher = CallIntegrationsPay::callVoucher($order->id,$customerAddress);
                         CallIntegrationsPay::callDispatchLlego($order->id,$customerAddress);
                         CallIntegrationsPay::callUpdateStockProducts($order->id);
@@ -262,9 +262,9 @@ class WebpayPlusController
                         return ApiResponse::JsonSuccess([
                             'order' => $order
                         ], 'Compra OneClick');
-        
+
                     }else{
-                        
+
                         return ApiResponse::JsonError([], 'Error con la tarjeta');
                     }
                 }else{
@@ -284,7 +284,7 @@ class WebpayPlusController
                 if ($response['response']->token) {
                     $order->payment_token = $response['response']->token;
                     $order->save();
-                    
+
                     return ApiResponse::JsonSuccess([
                         'webpay' => $this->webpay_plus->redirectHTML(),
                         'token' => $response['response']->token,
@@ -302,7 +302,7 @@ class WebpayPlusController
         $arrayProductsQuantity = [];
         foreach ($orderItems as $key => $orderItem) {
             $quantityFinal = 0;
-            if(isset($orderItem->subscription_plan)){          
+            if(isset($orderItem->subscription_plan)){
                 $quantityFinal = $orderItem->subscription_plan->months;
             }else{
                 $quantityFinal = $orderItem->quantity;
@@ -321,10 +321,10 @@ class WebpayPlusController
                         $product->save();
                     }
                 }
-    
+
             }else{
                 $product->stock = 0;
-            }   
+            }
 
             if($product->stock < $quantity ){
                 return array(
@@ -346,10 +346,10 @@ class WebpayPlusController
     public function response(Request $request)
     {
         if ($request->token_ws) {
-            dd(1);
+//            dd(1);
             $commit = $this->webpay_plus->commitTransaction($request->token_ws);
             $response = $commit['response'];
-            
+
             Log::info('WebpayPlusController', [$commit]);
 
             $order = Order::with('order_items.subscription_plan','customer','order_items.product')->find($response->buyOrder);
@@ -369,7 +369,7 @@ class WebpayPlusController
                     $order->status = PaymentStatus::CANCELED;
                     $order->is_paid = false;
                     $order->save();
-                    
+
                 }else{
                     $customerAddress = CustomerAddress::with('commune')->where('customer_id',$order->customer_id)->where('default_address',1)->get()->first();
                     CallIntegrationsPay::callVoucher($order->id,$customerAddress);
@@ -402,7 +402,7 @@ class WebpayPlusController
     }
 
     public function responsePaymentMethod(Request $request)
-    {   
+    {
         if($request['TBK_TOKEN']){
             $response = $this->oneclick->finishInscription(
                 $request['TBK_TOKEN']
@@ -413,7 +413,7 @@ class WebpayPlusController
                 $subscription->status = PaymentMethodStatus::CANCELED;
                 $subscription->save();
                 return view('webapp.payment.webpay-finish');
-                
+
             }
             $response = $response['response'];
 
@@ -426,7 +426,7 @@ class WebpayPlusController
                         $item_subscriptions->update(['default_subscription' => false]);
                     }
                 }
-                
+
                 $subscription->card_number = $response->getCardNumber();
                 $subscription->card_type = $response->getCardType();
                 $subscription->oneclick_auth_code = $response->getAuthorizationCode();
@@ -434,12 +434,12 @@ class WebpayPlusController
                 $subscription->status = PaymentMethodStatus::CREATED;
                 $subscription->default_subscription = 1;
                 $subscription->save();
-                
+
             }else{
                 $subscription->status = PaymentMethodStatus::REJECTED;
                 $subscription->save();
             }
-        } 
+        }
 
         return view('webapp.payment.webpay-finish');
     }
