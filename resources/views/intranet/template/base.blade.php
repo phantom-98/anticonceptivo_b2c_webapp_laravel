@@ -23,7 +23,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/themes/web/assets/img/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="96x96" href="/themes/web/assets/img/favicon/favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/themes/web/assets/img/favicon/favicon-16x16.png">
-    <link rel="manifest" href="/themes/intranet/img/logos/site.webmanifest">
+{{--    <link rel="manifest" href="/themes/intranet/img/logos/site.webmanifest">--}}
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/themes/web/assets/img/favicon/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
@@ -99,7 +99,7 @@
             </div>
             <div id="page-content">
                 @include('intranet.template.components._alerts')
-                
+
                 @yield('content')
             </div>
         </div>
@@ -138,7 +138,7 @@
     $(".select2").select2({
         language: {
             noResults: function() {
-                return "No hay resultado";        
+                return "No hay resultado";
             },
             searching: function() {
                 return "Buscando..";

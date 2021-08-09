@@ -43,9 +43,12 @@
                                         <div class="form-group">
                                             <label for="date">Estado</label>
                                             <select id="status_filter" name="status_filter" class="form-control">
-                                                <option value="Todos"  {{ $status == "Todos" ? "selected" : ""}}>Todos</option>
-                                                <option value="0"  {{ $status == "0" ? "selected" : ""}}>Pendiente</option>
-                                                <option value="1" {{ $status == "1" ? "selected" : ""}}>Resuelto</option>
+                                                <option value="Todos" {{ $status == "Todos" ? "selected" : ""}}>Todos
+                                                </option>
+                                                <option value="0" {{ $status == "0" ? "selected" : ""}}>Pendiente
+                                                </option>
+                                                <option value="1" {{ $status == "1" ? "selected" : ""}}>Resuelto
+                                                </option>
                                             </select>
                                         </div>
                                     </div>
@@ -53,10 +56,17 @@
                                         <div class="form-group">
                                             <label for="type">Tipo</label>
                                             <select id="type" name="type" class="form-control">
-                                                <option value="Todos"  {{ $type == "Todos" ? "selected" : ""}}>Todos</option>
-                                                <option value="Reclamos"  {{ $type == "Reclamos" ? "selected" : ""}}>Reclamos</option>
-                                                <option value="Sugerencias"  {{ $type == "Sugerencias" ? "selected" : ""}}>Sugerencias</option>
-                                                <option value="Otros"  {{ $type == "Otros" ? "selected" : ""}}>Otros</option>
+                                                <option value="Todos" {{ $type == "Todos" ? "selected" : ""}}>Todos
+                                                </option>
+                                                <option value="Reclamos" {{ $type == "Reclamos" ? "selected" : ""}}>
+                                                    Reclamos
+                                                </option>
+                                                <option
+                                                    value="Sugerencias" {{ $type == "Sugerencias" ? "selected" : ""}}>
+                                                    Sugerencias
+                                                </option>
+                                                <option value="Otros" {{ $type == "Otros" ? "selected" : ""}}>Otros
+                                                </option>
                                             </select>
                                         </div>
                                     </div>
@@ -64,9 +74,16 @@
                                         <div class="form-group">
                                             <label for="section">Sección</label>
                                             <select id="section" name="section" class="form-control">
-                                                <option value="Todas"  {{ $section == "Todas" ? "selected" : ""}}>Todas</option>
-                                                <option value="Servicio al Cliente"  {{ $section == "Servicio al Cliente" ? "selected" : ""}}>Servicio al Cliente</option>
-                                                <option value="Contáctanos"  {{ $section == "Contáctanos" ? "selected" : ""}}>Contáctanos</option>
+                                                <option value="Todas" {{ $section == "Todas" ? "selected" : ""}}>Todas
+                                                </option>
+                                                <option
+                                                    value="Servicio al Cliente" {{ $section == "Servicio al Cliente" ? "selected" : ""}}>
+                                                    Servicio al Cliente
+                                                </option>
+                                                <option
+                                                    value="Contáctanos" {{ $section == "Contáctanos" ? "selected" : ""}}>
+                                                    Contáctanos
+                                                </option>
                                             </select>
                                         </div>
                                     </div>
@@ -87,8 +104,8 @@
                                 </form>
 
                                 <form id="form-export" target="_BLANK"
-                                        action="{{ route($config['route'] . 'export') }}"
-                                        enctype="multipart/form-data" method="GET">
+                                      action="{{ route($config['route'] . 'export') }}"
+                                      enctype="multipart/form-data" method="GET">
                                 </form>
 
                             </div>
@@ -126,7 +143,8 @@
                            data-show-pagination-switch="true">
                     </table>
 
-                    <form id="changeStatusTicket" action="{{ route('intranet.contacts.reply') }}" method="post" enctype="multipart/form-data">
+                    <form id="changeStatusTicket" action="{{ route('intranet.contacts.reply') }}" method="post"
+                          enctype="multipart/form-data">
                         @csrf()
                     </form>
                 </div>
@@ -168,13 +186,13 @@
 @endsection
 
 @section('styles')
-<style>
-    .swal-wide-2 {
-        width: 900px !important;
-        height: 600px !important;
-    }
-</style>
-<link rel="stylesheet" href="/themes/intranet/plugins/air_datepicker/datepicker.min.css">
+    <style>
+        .swal-wide-2 {
+            width: 900px !important;
+            height: 600px !important;
+        }
+    </style>
+    <link rel="stylesheet" href="/themes/intranet/plugins/air_datepicker/datepicker.min.css">
 @endsection
 
 @section('scripts')
@@ -195,7 +213,7 @@
             multipleDates: true
         });
         $("#date").keydown(false);
-        if(start){
+        if (start) {
             var fecha_start = new Date(start);
             fecha_start.setDate(fecha_start.getDate() + 1);
             var fecha_end = new Date(end);
@@ -206,8 +224,8 @@
 
     <script>
         const capitalize = (s) => {
-        if (typeof s !== 'string') return ''
-        return s.charAt(0).toUpperCase() + s.slice(1)
+            if (typeof s !== 'string') return ''
+            return s.charAt(0).toUpperCase() + s.slice(1)
         }
 
     </script>
@@ -222,7 +240,7 @@
                     sortable: true,
                     cellStyle: midAling,
                     formatter: function (value, row, index) {
-                        return '#'+row.id;
+                        return '#' + row.id;
                     }
                 },
                 {
@@ -237,7 +255,7 @@
                     sortable: true,
                     cellStyle: cellStyle,
                     formatter: function (value, row, index) {
-                        return row.first_name+''+row.last_name;
+                        return row.first_name + '' + row.last_name;
                     }
                 },
                 {
@@ -252,7 +270,7 @@
                     sortable: true,
                     cellStyle: cellStyle,
                     formatter: function (value, row, index) {
-                        return row.phone_code+''+row.phone;
+                        return row.phone_code + '' + row.phone;
                     }
                 },
                 {
@@ -283,7 +301,9 @@
                     sortable: true,
                     cellStyle: cellStyle,
                     formatter: function (value, row, index) {
-                        return "<div class='btn-group' style='width: max-content;'><a onclick='openModalContenido(&quot;" + row.message.replace(/(?:\r\n|\r|\n)/g, '<br>' )+ "&quot;)' class='btn btn-sm btn-default btn-hover-success add-tooltip' title='Ver contenido'><i class='fa fa-search'></i></a></div>";
+                        return "<div class='btn-group' style='width: max-content;'>" +
+                            "<a onclick='openModalContenido(" + row.id + ")' " +
+                            "class='btn btn-sm btn-default btn-hover-success add-tooltip' title='Ver contenido'><i class='fa fa-search'></i></a></div>";
                     }
                 },
                 {
@@ -292,7 +312,7 @@
                     sortable: true,
                     cellStyle: cellStyle,
                     formatter: function (value, row, index) {
-                        if(row.is_reply == 1){
+                        if (row.is_reply == 1) {
                             var html = '<div class="label label-table label-success" style="width:80px">Resuelto</div>';
                         } else if (row.is_reply == 0) {
                             var html = '<div class="label label-table label-warning" style="width:80px">Pendiente</div>';
@@ -307,7 +327,7 @@
                     sortable: true,
                     cellStyle: midAling,
                     formatter: function (value, row, index) {
-                        if(row.reply){
+                        if (row.reply) {
                             return "<div class='btn-group' style='width: max-content;'><a onclick='openModalRespuesta(&quot;" + row.reply.replace(/(?:\r\n|\r|\n)/g, '<br>') + "&quot;)' class='btn btn-sm btn-default btn-hover-success add-tooltip' title='Ver respuesta'><i class='fa fa-search'></i></a></div>";
                         } else {
                             return "Sin respuesta";
@@ -327,9 +347,9 @@
                     let append = '';
                     let prepend = '';
 
-                    if(row.is_reply == 0){
-                        var functionV = 'changestatus('+row.id+')';
-                        prepend = "<a onclick='"+functionV+"' class='btn btn-sm btn-default btn-hover-info add-tooltip' title='Cambiar estado'><i class='fa fa-retweet'></i></a>";
+                    if (row.is_reply == 0) {
+                        var functionV = 'changestatus(' + row.id + ')';
+                        prepend = "<a onclick='" + functionV + "' class='btn btn-sm btn-default btn-hover-info add-tooltip' title='Cambiar estado'><i class='fa fa-retweet'></i></a>";
                     } else {
                         prepend = "-";
                     }
@@ -349,8 +369,8 @@
     </script>
 
     <script>
-        function validarText(element){
-            if($(element).val() != ""){
+        function validarText(element) {
+            if ($(element).val() != "") {
                 $(".swal2-confirm").attr('disabled', false);
             } else {
                 $(".swal2-confirm").attr('disabled', 'disabled');
@@ -359,7 +379,7 @@
     </script>
 
     <script>
-        function answerOption(element){
+        function answerOption(element) {
             $("#reply").val($(element).find(':selected').data('description'));
             $(".swal2-confirm").attr('disabled', false);
         }
@@ -392,18 +412,32 @@
     </script>
 
     <script>
-        function openModalRespuesta(reply){
+        function openModalRespuesta(reply) {
             $("#replyAnswer").html(reply);
             $("#modalReply").modal("show");
         }
 
-        function openModalContenido(content){
-            $("#replyContent").html(content);
+        var list = @json($objects);
+        function openModalContenido(id) {
+
+            let $htmlContent = $("#replyContent");
+            $htmlContent.html('');
+
+            const item = list.find(l => l.id == id);
+
+            if (item.dynamic_fields.length) {
+                item.dynamic_fields.forEach(item => {
+                    $htmlContent.append('<p><strong>' + item.question + ' : </strong>' + item.answer + '</p>')
+                });
+            }
+
+            $htmlContent.append('<p><strong>Mensaje : </strong>' + item.message.replace(/(?:\r\n|\r|\n)/g, '<br>') + '</p>')
+
             $("#modalContent").modal("show");
         }
 
 
-        function changestatus(id){
+        function changestatus(id) {
             form = $("#changeStatusTicket");
             var html = '<br/><div class="form-inline" style="padding-left: 15px; padding-right: 15px;"><center><textarea id="reply" cols="30" rows="5" class="form-control" style="resize: none; width: 100%; font-size:20px" onkeyup="validarText(this)"></textarea></center></div>';
 
@@ -412,14 +446,14 @@
                 type: 'info',
                 html: html,
                 showCancelButton: false,
-                allowEscapeKey : false,
+                allowEscapeKey: false,
                 allowOutsideClick: false,
                 customClass: 'swal-wide-2',
                 confirmButtonColor: '#00a65a',
                 cancelButtonColor: '#d33',
                 confirmButtonText: 'Enviar respuesta',
                 cancelButtonText: 'Cancelar',
-                onOpen: function (){
+                onOpen: function () {
                     $('#reply').focus();
                     $(".swal2-confirm").attr('disabled', 'disabled');
                 }

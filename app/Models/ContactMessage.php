@@ -11,10 +11,15 @@ class ContactMessage extends Model
         'id',
 
         'values',
+        'dynamic_fields',
         'message',
 
         'customer_id',
         'contact_issue_id',
+    ];
+
+    protected $casts = [
+        'dynamic_fields' => 'array'
     ];
 
     public function customer()

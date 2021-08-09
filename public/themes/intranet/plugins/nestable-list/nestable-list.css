@@ -37,6 +37,7 @@
     padding: 7px 10px;
     text-decoration: none;
     font-weight: normal;
+    border: 1px solid #ecf0f5;
 }
 
 .dd-handle i {
@@ -126,7 +127,7 @@ body.dd-dragging * {
 }
 
 .dd-outline {
-    border: 1px solid rgba(0,0,0,.1);
+    border: 1px solid rgba(0, 0, 0, .1);
     transition: all .2s
 }
 
@@ -136,7 +137,7 @@ body.dd-dragging * {
 }
 
 .dd-dashed {
-    border-bottom: 1px dashed rgba(0,0,0,.2);
+    border-bottom: 1px dashed rgba(0, 0, 0, .2);
     transition: all .2s
 }
 
@@ -211,17 +212,19 @@ body.dd-dragging * {
     box-shadow: .5em 0, 0 .5em, .5em .5em, 0 1em, .5em 1em;
     /*box-shadow: .5em 0, 1em 0, 0 .5em, .5em .5em, 1em .5em, 0 1em, .5em 1em, 1em 1em;*/
 }
-.dd-content{
+
+.dd-content {
     padding: 5px 0 0 35px;
     min-height: 30px;
     vertical-align: middle;
     background-color: #fff
 }
 
-.dd-list-handle-btn > .dd-item{
+.dd-list-handle-btn > .dd-item {
     position: relative;
 }
-.dd-list-handle-btn .dd-item > button{
+
+.dd-list-handle-btn .dd-item > button {
     margin-left: 25px
 }
 
