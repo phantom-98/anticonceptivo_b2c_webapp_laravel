@@ -15,7 +15,7 @@ use App\Models\Order;
 
 class ContactController extends Controller
 {
-    public function getResources(Request $request): \Illuminate\Http\JsonResponse
+    public function getResources(Request $request)
     {
         try {
             $nested_fields = NestedField::with(['nested_field_questions', 'children'])->whereNull('parent_id')->get();
@@ -28,7 +28,7 @@ class ContactController extends Controller
         }
     }
 
-    public function send(Request $request): \Illuminate\Http\JsonResponse
+    public function send(Request $request)
     {
         try {
 
