@@ -1,14 +1,12 @@
-import React, {useEffect, useState, Fragment} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Form, Modal} from 'react-bootstrap'
 import * as Services from "../../../Services";
 import toastr from 'toastr';
-import {v4 as uuidv4} from 'uuid';
-import Nested from './Nested';
-import LazyLoading from "../../../components/LazyLoading";
 import Terms from "../TermsAndConditions/Terms";
 import PrivacyPolice from "../CorporateResponsibility/PrivacyPolicies";
 import CloseModal from "../../../components/general/CloseModal";
 import {setCleanInputError} from "../../../helpers/GlobalUtils";
+import DynamicPath from "./DynamicPath";
 
 const ContactForm = () => {
 
@@ -248,83 +246,16 @@ const ContactForm = () => {
                     </div>
                 </div>
             </div>
-            {
-                !loading ?
-                    <div className="col-md-12">
-                        <div className="form-group">
-                            <label htmlFor="contact_subject_parent">Asunto</label>
-                            <select
-                                className="form-control form-control-custom pl-2"
-                                name="contact_subject_parent"
-                                id="contact_subject_parent"
-                                onChange={handleParent}
-                                value={model.contact_subject_parent}
-                                onFocus={setCleanInputError}
-                            >
-                                <option value={''} disabled={true} selected={true}>Seleccione</option>
-                                {
-                                    nestedFields.map(parent => {
-                                        let parentId = uuidv4();
-                                        return (
-                                            <option selected={path.find(x => x.id == parent.id)} value={parent.id}
-                                                    key={parentId}>
-                                                {parent.name}
-                                            </option>
-                                        )
-                                    })
-                                }
-                            </select>
-                            <div className="invalid-feedback" />
-                        </div>
-                    </div>
-                    : null
-            }
-            {
-                !loading ?
-                    path.length ?
-                        <div className="col-md-12">
-                            {
-                                path.map((parent, index) => {
-                                    let parentChild = uuidv4();
-                                    return (
-                                        <Fragment key={parentChild}>
-                                            {
-                                                parent.nested_field_questions.map((element, index) => {
-                                                    let elementKey = uuidv4();
-                                                    return (
-                                                        <div key={elementKey} className="form-group">
-                                                            <label htmlFor={``}>{element.name}</label>
-                                                            <input type="text"
-                                                                   className="form-control form-control-custom"
-                                                                   id=""
-                                                                   name=""
-                                                                   placeholder=""
-                                                                   value={element.answer}
-                                                                   onChange={(e) => handleInputs(e, parent.id, element.id)}
-                                                            />
-                                                        </div>
-                                                    )
-                                                })
-                                            }
-                                            {
-                                                parent.children.length ?
-                                                    <Nested
-                                                        children={parent.children}
-                                                        path={path}
-                                                        setPath={setPath}
-                                                        list={list}
-                                                        parent={parent}
-                                                    />
-                                                    : null
-                                            }
-                                        </Fragment>
-                                    )
-                                })
-                            }
-                        </div>
-                        : null
-                    : <LazyLoading/>
-            }
+            <DynamicPath
+                loading={loading}
+                model={model}
+                handleParent={handleParent}
+                handleInputs={handleInputs}
+                nestedFields={nestedFields}
+                path={path}
+                setPath={setPath}
+                list={list}
+            />
             <div className="col-md-12">
                 <div className="form-group">
                     <label htmlFor="contact_message">Mensaje</label>

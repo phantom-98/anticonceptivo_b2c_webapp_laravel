@@ -1,4 +1,4 @@
-import React, {useState, useContext, useEffect, Fragment} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import H3Panel from "../../../../../components/general/H3Panel";
 import {AuthContext} from '../../../../../context/AuthProvider';
 import * as Services from "../../../../../Services";
@@ -6,8 +6,7 @@ import {setCleanInputError} from "../../../../../helpers/GlobalUtils";
 import toastr from "toastr";
 import { v4 as uuidv4 } from "uuid";
 import DynamicField from "./DynamicField"
-import Nested from '../../../../public/ContactUs/Nested';
-import LazyLoading from "../../../../../components/LazyLoading";
+import DynamicPath from "../../../../public/ContactUs/DynamicPath";
 
 const CustomerService = () => {
 
@@ -127,6 +126,7 @@ const CustomerService = () => {
                 response: response,
                 success: () => {
                     setData(defaultData);
+                    setPath([]);
                     toastr.success(response.message);
                 },
             });
@@ -189,6 +189,22 @@ const CustomerService = () => {
         setPath([found]);
     }
 
+    const handleInputs = (e, parentId, inputId) => {
+        let tempPath = path;
+        let foundIndex = path.findIndex(p => p.id == parentId);
+        let found = path[foundIndex]
+
+        let nestedFieldQuestions = found.nested_field_questions
+        let nestedIndex = nestedFieldQuestions.findIndex(nfq => nfq.id == inputId);
+
+        nestedFieldQuestions[nestedIndex]['question'] = nestedFieldQuestions[nestedIndex].name;
+        nestedFieldQuestions[nestedIndex]['answer'] = e.target.value;
+
+        found['nested_field_questions'] = nestedFieldQuestions
+        tempPath[foundIndex] = found
+        setPath(tempPath);
+    }
+
     return (
         <div className="row">
             <H3Panel title="SERVICIO AL CLIENTE"/>
@@ -220,8 +236,8 @@ const CustomerService = () => {
                         <div dangerouslySetInnerHTML={{ __html:description}}/>
                     </div>
                     {
-                        dynamicFields.length ?
-                            dynamicFields.map((dynamicField, index) => {
+                        dynamic_inputs.length ?
+                            dynamic_inputs.map((dynamicField, index) => {
                                 return (
                                     <DynamicField
                                         id={dynamicField.id}
@@ -239,83 +255,16 @@ const CustomerService = () => {
                             })
                         : null
                     }
-                    {
-                        !loading ?
-                            <div className="col-md-12">
-                                <div className="form-group">
-                                    <label htmlFor="contact_subject_parent">Asunto</label>
-                                    <select
-                                        className="form-control form-control-custom pl-2"
-                                        name="contact_subject_parent"
-                                        id="contact_subject_parent"
-                                        onChange={handleParent}
-                                        value={data.contact_subject_parent}
-                                        onFocus={setCleanInputError}
-                                    >
-                                        <option value={''} disabled={true} selected={true}>Seleccione</option>
-                                        {
-                                            nestedFields.map(parent => {
-                                                let parentId = uuidv4();
-                                                return (
-                                                    <option selected={path.find(x => x.id == parent.id)} value={parent.id}
-                                                            key={parentId}>
-                                                        {parent.name}
-                                                    </option>
-                                                )
-                                            })
-                                        }
-                                    </select>
-                                    <div className="invalid-feedback" />
-                                </div>
-                            </div>
-                            : null
-                    }
-                    {
-                        !loading ?
-                            path.length ?
-                                <div className="col-md-12">
-                                    {
-                                        path.map((parent, index) => {
-                                            let parentChild = uuidv4();
-                                            return (
-                                                <Fragment key={parentChild}>
-                                                    {
-                                                        parent.nested_field_questions.map((element, index) => {
-                                                            let elementKey = uuidv4();
-                                                            return (
-                                                                <div key={elementKey} className="form-group">
-                                                                    <label htmlFor={``}>{element.name}</label>
-                                                                    <input type="text"
-                                                                        className="form-control form-control-custom"
-                                                                        id=""
-                                                                        name=""
-                                                                        placeholder=""
-                                                                        value={element.answer}
-                                                                        onChange={(e) => handleInputs(e, parent.id, element.id)}
-                                                                    />
-                                                                </div>
-                                                            )
-                                                        })
-                                                    }
-                                                    {
-                                                        parent.children.length ?
-                                                            <Nested
-                                                                children={parent.children}
-                                                                path={path}
-                                                                setPath={setPath}
-                                                                list={list}
-                                                                parent={parent}
-                                                            />
-                                                            : null
-                                                    }
-                                                </Fragment>
-                                            )
-                                        })
-                                    }
-                                </div>
-                                : null
-                            : <LazyLoading/>
-                    }
+                    <DynamicPath
+                        loading={loading}
+                        model={data}
+                        handleParent={handleParent}
+                        handleInputs={handleInputs}
+                        nestedFields={nestedFields}
+                        path={path}
+                        setPath={setPath}
+                        list={list}
+                    />
                     <div className="col-md-12">
                         <div className="form-group">
                             <label htmlFor="message">Mensaje</label>
