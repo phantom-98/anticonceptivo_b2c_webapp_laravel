@@ -15,8 +15,8 @@ class AddUnitToProductTable extends Migration
     {
         Schema::table('products', function (Blueprint $table) {
             //
-            $table->text('unit_format')->nullable();
-            $table->integer('unit_price')->nullable();
+            // $table->text('unit_format')->nullable();
+            // $table->integer('unit_price')->nullable();
 
         });
     }

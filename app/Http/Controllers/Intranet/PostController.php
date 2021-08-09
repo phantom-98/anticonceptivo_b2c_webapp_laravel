@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Intranet;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\User;
 use App\Models\PostType;
 use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
@@ -28,14 +29,14 @@ class PostController extends GlobalController
 
     public function index(Request $request){
 
-        $objects = Post::with('post_type')->orderBy('position')->get();
-
+        $objects = Post::with('post_type','author')->orderBy('position')->get();
         return view($this->folder . 'index', compact('objects'));
     }
 
     public function create(){
         $types = PostType::get();
-        return view($this->folder.'create', compact('types'));
+        $autors = User::get();
+        return view($this->folder.'create', compact('types','autors'));
     }
 
     public function store(Request $request){
@@ -54,7 +55,7 @@ class PostController extends GlobalController
             $object->content = $request->content;
             $object->link = null;
             $object->type = $request->type;
-            $object->author_id = auth()->user()->id;
+            $object->author_id = $request->author_id;
             $object->published_at = Carbon::now()->format('Y-m-d');
             $object->post_type_id = $request->post_type_id;
             $object->save();
@@ -79,7 +80,7 @@ class PostController extends GlobalController
             $object->principal_image = null;
             $object->link = $request->link;
             $object->type = $request->type;
-            $object->author_id = auth()->user()->id;
+            $object->author_id = $request->author_id;
             $object->published_at = Carbon::now()->format('Y-m-d');
             $object->post_type_id = $request->post_type_id;
             $object->save();
@@ -98,8 +99,9 @@ class PostController extends GlobalController
         }
 
         $types = PostType::get();
+        $autors = User::get();
 
-        return view($this->folder.'edit', compact('object', 'types'));
+        return view($this->folder.'edit', compact('object', 'types','autors'));
     }
 
     public function update(Request $request, $id){
@@ -122,7 +124,7 @@ class PostController extends GlobalController
             $object->content = $request->content;
             $object->link = null;
             $object->type = $request->type;
-            $object->author_id = auth()->user()->id;
+            $object->author_id = $request->author_id;
             $object->published_at = Carbon::now()->format('Y-m-d');
             $object->post_type_id = $request->post_type_id;
             $object->save();

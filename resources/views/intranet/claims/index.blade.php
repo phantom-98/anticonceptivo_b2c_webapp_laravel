@@ -250,7 +250,7 @@
                     sortable: true,
                     cellStyle: cellStyle,
                     formatter: function (value, row, index) {
-                        return "<div class='btn-group' style='width: max-content;'><a onclick='openModalContenido(&quot;" + row.message.replace(/(?:\r\n|\r|\n)/g, '<br>' )+ "&quot;)' class='btn btn-sm btn-default btn-hover-success add-tooltip' title='Ver contenido'><i class='fa fa-search'></i></a></div>";
+                        return "<div class='btn-group' style='width: max-content;'><a onclick='openModalContenido(" + row.id + ")' class='btn btn-sm btn-default btn-hover-success add-tooltip' title='Ver contenido'><i class='fa fa-search'></i></a></div>";
                     }
                 },
                 {
@@ -354,8 +354,22 @@
             $("#modalReply").modal("show");
         }
 
-        function openModalContenido(content){
-            $("#replyContent").html(content);
+        var list = @json($objects);
+        function openModalContenido(id) {
+
+            let $htmlContent = $("#replyContent");
+            $htmlContent.html('');
+
+            const item = list.find(l => l.id == id);
+
+            if (item.dynamic_fields.length) {
+                item.dynamic_fields.forEach(item => {
+                    $htmlContent.append('<p><strong>' + item.question + ' : </strong>' + item.answer + '</p>')
+                });
+            }
+
+            $htmlContent.append('<p><strong>Mensaje : </strong>' + item.message.replace(/(?:\r\n|\r|\n)/g, '<br>') + '</p>')
+
             $("#modalContent").modal("show");
         }
 

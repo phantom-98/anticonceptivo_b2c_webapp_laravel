@@ -14,7 +14,7 @@ class AddCategoryFaqsTable extends Migration
     public function up()
     {
         Schema::table('category_faqs', function (Blueprint $table) {
-            $table->integer('position')->default(0)->nullable();
+            // $table->integer('position')->default(0)->nullable();
         });
     }
 

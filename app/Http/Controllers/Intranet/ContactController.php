@@ -62,11 +62,11 @@ class ContactController extends GlobalController
                 $end = Carbon::parse($start)->format('Y-m-d');
             }
         }
-        
+
         if ($status != "Todos") {
             $objects = $objects->where('is_reply', $status);
             $appends['status'] = $status;
-        } 
+        }
 
         if($section){
             if($section == "Todas"){
@@ -77,8 +77,8 @@ class ContactController extends GlobalController
                 });
                 $appends['section'] = $section;
             }
-        }   
-        
+        }
+
         if($type){
             if($type == "Todos"){
 
@@ -131,7 +131,7 @@ class ContactController extends GlobalController
         $section = $request->section;
         $status = $request->status;
         $type = $request->type;
-        
+
         return Excel::download(new ContactExport($startFilter, $endFilter, $section, $status, $type), 'listado-contacto-' . $start . '-' . ($end ? $end : '') . ($section ? '-' . $section : '') . ($status ? '-' . $status : '') . ($type ? '-' . $type : '') . '.xlsx');
     }
 
@@ -143,7 +143,7 @@ class ContactController extends GlobalController
             session()->flash('warning', 'Contacto no encontrado.');
             return redirect()->route($this->route . 'index');
         }
-        
+
         $this->validate($request, [
             'reply' => 'required',
         ]);
@@ -155,7 +155,7 @@ class ContactController extends GlobalController
         $emailBody = view('intranet.emails.reply', ['nombre' => $object->first_name.' '.$object->last_name, 'texto' => $request->reply])->render();
 
         $email = new Mail();
-            
+
         $email->setFrom(env('SENDGRID_EMAIL_FROM'), env('SENDGRID_EMAIL_NAME'));
         $email->setSubject('Respuesta a consulta #'. $object->id);
         $email->addTo($object->email, $object->first_name.' '.$object->last_name);
@@ -170,5 +170,5 @@ class ContactController extends GlobalController
         return redirect()->back();
 
     }
-   
+
 }

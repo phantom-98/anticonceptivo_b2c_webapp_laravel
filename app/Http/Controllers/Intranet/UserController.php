@@ -63,6 +63,23 @@ class UserController extends GlobalController
             $object->password = bcrypt($request->password);
             $object->save();
 
+
+            if($request->imagen){
+                if(file_exists(storage_path('app/public/perfil/'.$object->id.'.jpg')) || file_exists(storage_path('app/public/perfil/'.$object->id.'.png'))){
+                    if(file_exists(storage_path('app/public/perfil/'.$object->id.'.jpg'))){
+                        \Storage::delete('public/perfil/'.$object->id.'.jpg');
+                    } else {
+                        \Storage::delete('public/perfil/'.$object->id.'.png');
+                    }
+                }
+                $ext = $request->file("imagen")->getClientOriginalExtension();
+                $request->file("imagen")
+                ->storeAs('public/perfil', $object->id.'.'.$ext);
+                $object->save();
+
+            }
+    
+
             if ($object) {
                 session()->flash('success', 'Usuario creado correctamente.');
                 return redirect()->route($this->route . 'index');
@@ -134,6 +151,22 @@ class UserController extends GlobalController
                 $object->password = bcrypt($request->password);
             }
             $object->save();
+            
+            if($request->imagen){
+                if(file_exists(storage_path('app/public/perfil/'.$object->id.'.jpg')) || file_exists(storage_path('app/public/perfil/'.$object->id.'.png'))){
+                    if(file_exists(storage_path('app/public/perfil/'.$object->id.'.jpg'))){
+                        \Storage::delete('public/perfil/'.$object->id.'.jpg');
+                    } else {
+                        \Storage::delete('public/perfil/'.$object->id.'.png');
+                    }
+                }
+                $ext = $request->file("imagen")->getClientOriginalExtension();
+                $request->file("imagen")
+                ->storeAs('public/perfil', $object->id.'.'.$ext);
+                $object->save();
+
+            }
+    
 
             if ($object) {
                 session()->flash('success', 'Usuario actualizado correctamente.');

@@ -193,6 +193,12 @@ if (env('SHOW_INTRANET', 'TRUE') == 'TRUE') {
                 Route::post('comision-pagos/active', 'PaymentCommissionController@active')->name('payment_commissions.active');
                 Route::resource('comision-pagos', 'PaymentCommissionController', ['names' => getResourceRoutesForNameHelper('payment_commissions')])->except(['show']);
 
+
+                Route::post('campos-anidados/active', 'NestedFieldController@active')->name('nested-fields.active');
+                Route::post('campos-anidados/position', 'NestedFieldController@position')->name('nested-fields.position');
+                Route::post('campos-anidados/remove-question', 'NestedFieldController@removeQuestion')->name('nested-fields.removeQuestion');
+                Route::resource('campos-anidados', 'NestedFieldController', ['names' => getResourceRoutesForNameHelper('nested-fields')]);
+
             });
 
         });
