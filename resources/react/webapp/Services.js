@@ -99,6 +99,7 @@ export const ENDPOINT = {
         SHOP:{
             PRODUCTS:{
                 CATEGORY: GetBaseURL() + 'public-area/get-product-by-categories',
+                SEARCH: GetBaseURL() + 'public-area/get-product-by-search',
                 SUBCATEGORY: GetBaseURL() + 'public-area/get-product-by-subcategories',
                 FILTER: GetBaseURL() + 'public-area/get-product-by-filters',
             }
@@ -115,6 +116,7 @@ export const ENDPOINT = {
         SHOP:{
             RESOURCES: GetBaseURL() + 'public-area/get-resources',
             PRODUCTS_FILTERED: GetBaseURL() + 'public-area/get-products-filtered',
+            PRODUCTS_SEARCH_FILTER: GetBaseURL() + 'public-area/get-product-by-filtered-search',
         },
         PRODUCT:{
             GET: GetBaseURL() + 'public-area/get-products',

@@ -29,7 +29,14 @@ const HeaderBox = () => {
     const sendSearch = (e) => {
         setSearch((e.target.value).toLowerCase());
     }
+    const getSearch = (e) => {
+        if(search.trim() != ''){
+            let url = PUBLIC_ROUTES.SHOP_SEARCH.path;
+            url = url.replace(":search", search);
+            window.location.href = url; 
+        }
 
+    }
     useEffect(() => {
         getProducts();
     },[])
@@ -94,11 +101,14 @@ const HeaderBox = () => {
                                 onChange={e => sendSearch(e)}
                             />
                             <div className="input-group-append">
-                                <button
+                            <button
+                                    onClick={() => getSearch()}
                                     type="button"
                                     className="btn btn-bicolor" style={{height: '60px'}}>
                                     <span className="px-3"><Icon path={searchWhite}/></span>
                                 </button>
+
+
                             </div>
                         </div>
                         <div className="dropdown-content" style={ productsWithFilter.length && search.length > 0 ? dropdownStyle : null}>

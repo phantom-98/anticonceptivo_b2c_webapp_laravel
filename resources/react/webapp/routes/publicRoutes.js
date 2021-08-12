@@ -16,6 +16,7 @@ import CheckOut from "../pages/public/CheckOut";
 import BlogList from "../pages/public/BlogList";
 import Claim from "../pages/public/Claim";
 import Post from "../pages/public/Post";
+import ShopSearch from '../pages/public/Shop/indexSearch';
 
 const PUBLIC_ROUTES = {
     ABOUT_US: {
@@ -67,6 +68,15 @@ const PUBLIC_ROUTES = {
         path: "/tienda/:category?",
         title: "Tienda",
         component: Shop,
+        exact: true,
+        layout: props => <BaseTemplate {...props} />,
+        middleware: props => <PublicMiddleware {...props} />
+    },
+
+    SHOP_SEARCH: {
+        path: "/tienda/buscar/:search?",
+        title: "Tienda",
+        component: ShopSearch,
         exact: true,
         layout: props => <BaseTemplate {...props} />,
         middleware: props => <PublicMiddleware {...props} />

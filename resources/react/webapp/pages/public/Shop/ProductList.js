@@ -6,7 +6,8 @@ import Pagination from "react-js-pagination";
 const ProductList = ({
     category, 
     products,
-    subcatNames
+    subcatNames,
+    search = null
 }) => {
 
     const [viewCount, setViewCount] = useState(9);
@@ -19,20 +20,22 @@ const ProductList = ({
 
     return (
         <div className="row">
-            {
+            { search == null ? 
                 <div className="col-12 pb-3">
                     <img width="100%" src={category.public_banner_image} alt={CONFIG.APP_NAME}/>
                 </div>
+                : null
             }
             <div className="col-12 my-3 pb-3 text-primary">
-                {
+                { search == null ? 
                     <div dangerouslySetInnerHTML={{ __html: category.description }} />
-                }
+                    : null
+                } 
             </div>
             <div className="col-12 pb-3">
                 <div className="row">
                     <div className="col-6 d-flex" style={{height: '29px'}}>
-                        <div className="font-poppins font-15 light text-black my-auto">{subcatNames ? subcatNames : category.name} <span
+                        <div className="font-poppins font-15 light text-black my-auto">{subcatNames ? subcatNames : (search == null ? category.name : search)} <span
                             className="color-D8D8D8">({products.length ? products.length : 0 })</span></div>
                     </div>
                     <div className="col">

@@ -58,6 +58,146 @@ class ProductController extends Controller
         }
     }
 
+    public function getProductBySearch(Request $request)
+    {
+        try {
+
+            if (!$request->search) {
+                return ApiResponse::NotFound(null, 'No existe la búsqueda.');
+            }
+            $search = $request->search;
+            $products = Product::with(['subcategory.category','laboratory','images'])
+            ->where(function($query) use ($search){
+                $query->where('name', 'LIKE', '%'.$search.'%')
+                      ->orWhere('sku','LIKE','%'.$search.'%');
+            })->where('active',true)->get();
+
+            $subcategories = [];
+            foreach ($products as $key => $product) {
+                $subcategory_id = $product->subcategory->id;
+                $neededObject = array_filter(
+                    $subcategories,
+                    function ($e) use (&$subcategory_id) {
+                        return $e->id == $subcategory_id;
+                    }
+                );
+                if(count($neededObject) == 0){
+                    array_push($subcategories,$product->subcategory);
+                }
+            }
+
+            $laboratories = [];
+
+            foreach ($products as $key => $product) {
+                $laboratory_id = $product->laboratory->id;
+                $neededObject = array_filter(
+                    $laboratories,
+                    function ($e) use (&$laboratory_id) {
+                        return $e->id == $laboratory_id;
+                    }
+                );
+                if(count($neededObject) == 0){
+                    array_push($laboratories,$product->laboratory);
+                }
+            }
+
+            $productIds = [];
+            
+
+            foreach ($products as $v_key => $v_value) {
+                array_push($productIds, $v_value->id);
+            }
+
+
+            $subscriptions = SubscriptionPlan::whereIn('id',ProductSubscriptionPlan::whereIn('product_id',$productIds)
+                ->get()->unique('subscription_plan_id')->pluck('subscription_plan_id'))
+                ->where('active',true)->select(['id','months'])->get();
+
+            return ApiResponse::JsonSuccess([
+                'products' => $products,
+                'subcategories' => $subcategories,
+                // 'subcat' => $subcat,
+                'laboratories' => $laboratories,
+                'subscriptions' => $subscriptions,
+                // 'formats' => $formats,
+                // 'is_pills' => $isPills,
+                // 'filter' => $filter
+            ]);
+
+        } catch (\Exception $exception) {
+            return ApiResponse::JsonError(null, $exception->getMessage());
+        } 
+    }
+    public function getProductsSearchFiltered(Request $request)
+    {
+        try {
+            $search = $request->search;
+            $products = Product::with(['subcategory.category','images','laboratory'])
+            ->where(function($query) use ($search){
+                $query->where('name', 'LIKE', '%'.$search.'%')
+                      ->orWhere('sku','LIKE','%'.$search.'%');
+            })->where('active',true);
+            
+            $laboratories = Laboratory::where('active',true)->whereIn('id',$products->pluck('laboratory_id')->unique());
+            $subcatNames = null;
+            
+            if (!empty($request->subcats)) {
+                $products = $products->whereIn('subcategory_id',$request->subcats);
+                $laboratories = $laboratories->whereIn('id',$products->pluck('laboratory_id')->unique());
+                $subcats = SubCategory::whereIn('id',$request->subcats)->pluck('name')->toArray();
+                $subcatNames = implode(", ", $subcats);
+            }
+
+            if (!empty($request->labs)) {
+                if ($laboratories) {
+                    $validLabs = array_intersect($laboratories->pluck('id')->toArray(), $request->labs);
+                    if (!$validLabs) {
+                        $products = $products->whereIn('laboratory_id',$laboratories->pluck('id')->toArray());
+                    }else{
+                        $products = $products->whereIn('laboratory_id',$validLabs);
+                    }
+                }else{
+                    $products = $products->whereIn('laboratory_id',$request->labs);
+                }
+            }
+
+            if ($request->price) {
+                $products = $products->where('price','<',$request->price);
+            }
+
+            if (!is_null($request->bioequivalent)) {
+                if ($request->bioequivalent == true) {
+                    $products = $products->where('is_bioequivalent',true);
+                }else if($request->bioequivalent == false) {
+                    $products = $products->where('is_bioequivalent',false);
+                }
+            }
+
+            if (!empty($request->subscription)) {
+                $subscription = $request->subscription;
+
+                $products->whereHas('plans', function ($query) use($subscription) {
+                    $query->whereIn('subscription_plan_id', $subscription);
+                });
+            }
+
+            if (!empty($request->format)) {
+                $products = $products->whereIn('format',$request->format);
+            }
+
+
+            return ApiResponse::JsonSuccess([
+                'products' => $products->get(),
+                'laboratories' => $laboratories->get(),
+                'subcat_names' => $subcatNames
+                // 'laboratories' => $laboratories
+            ], OutputMessage::SUCCESS);
+
+        } catch (\Exception $exception) {
+            return ApiResponse::JsonError(null, $exception->getMessage());
+        }
+    }
+    
     public function getProductByCategories(Request $request)
     {
         try {
