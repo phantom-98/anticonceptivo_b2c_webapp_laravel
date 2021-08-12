@@ -69,7 +69,11 @@ class ProductController extends Controller
             $products = Product::with(['subcategory.category','laboratory','images'])
             ->where(function($query) use ($search){
                 $query->where('name', 'LIKE', '%'.$search.'%')
-                      ->orWhere('sku','LIKE','%'.$search.'%');
+                      ->orWhere('sku','LIKE','%'.$search.'%')
+                      ->orWhere('description','LIKE','%'.$search.'%')
+                      ->orWhereHas('laboratory', function($query) use ($search) {
+                        $query->where('name','LIKE','%'.$search.'%');
+                        });
             })->where('active',true)->get();
 
             $subcategories = [];
@@ -108,6 +112,8 @@ class ProductController extends Controller
                 array_push($productIds, $v_value->id);
             }
 
+            $formats =  Product::whereIn('id',$productIds)->where('active',true)
+                ->where('format','!=','')->pluck('format')->unique();
 
             $subscriptions = SubscriptionPlan::whereIn('id',ProductSubscriptionPlan::whereIn('product_id',$productIds)
                 ->get()->unique('subscription_plan_id')->pluck('subscription_plan_id'))
@@ -119,7 +125,7 @@ class ProductController extends Controller
                 // 'subcat' => $subcat,
                 'laboratories' => $laboratories,
                 'subscriptions' => $subscriptions,
-                // 'formats' => $formats,
+                'formats' => $formats,
                 // 'is_pills' => $isPills,
                 // 'filter' => $filter
             ]);
@@ -135,7 +141,11 @@ class ProductController extends Controller
             $products = Product::with(['subcategory.category','images','laboratory'])
             ->where(function($query) use ($search){
                 $query->where('name', 'LIKE', '%'.$search.'%')
-                      ->orWhere('sku','LIKE','%'.$search.'%');
+                      ->orWhere('sku','LIKE','%'.$search.'%')
+                      ->orWhere('description','LIKE','%'.$search.'%')
+                      ->orWhereHas('laboratory', function($query) use ($search) {
+                        $query->where('name','LIKE','%'.$search.'%');
+                        });
             })->where('active',true);
             
             $laboratories = Laboratory::where('active',true)->whereIn('id',$products->pluck('laboratory_id')->unique());

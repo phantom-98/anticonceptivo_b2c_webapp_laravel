@@ -63,7 +63,7 @@ const ShopSearch = ({match}) => {
                     setSubcategories(response.data.subcategories);
                     setLaboratories(response.data.laboratories);
                     setSubscriptions(response.data.subscriptions);
-                    // setFormats(Object.values(response.data.formats));
+                    setFormats(Object.values(response.data.formats));
                     // setIsPills(response.data.is_pills);
 
                     // if (response.data.subcat){

@@ -29,6 +29,13 @@ const HeaderBox = () => {
     const sendSearch = (e) => {
         setSearch((e.target.value).toLowerCase());
     }
+
+    const handleKeyPress = (event) => {
+        if(event.key === 'Enter'){
+            getSearch()
+        }
+    }
+      
     const getSearch = (e) => {
         if(search.trim() != ''){
             let url = PUBLIC_ROUTES.SHOP_SEARCH.path;
@@ -46,9 +53,12 @@ const HeaderBox = () => {
             let productList = products;
             productList = productList.filter(product => {
                 const name = (product.name).toLowerCase();
+                const sku = product.sku;
+                const laboratory = product.laboratory.name.toLowerCase();
+
                 const description = product.description ? (product.description).toLowerCase() : '';
 
-                if(name.includes(search) || description.includes(search)){
+                if(name.includes(search) || description.includes(search) || sku.includes(search) || laboratory.includes(search)){
                     return product;
                 }
             })
@@ -96,9 +106,11 @@ const HeaderBox = () => {
                         <div className="input-group search-filter-button">
                             <input type="text"
                                 className="form-control form-control-custom form-control-custom-60"
-                                placeholder="Buscar medicamentos, marcas"
+                                placeholder="Buscar medicamentos, laboratorios"
                                 value={search}
                                 onChange={e => sendSearch(e)}
+                                onKeyPress={handleKeyPress}
+
                             />
                             <div className="input-group-append">
                             <button
