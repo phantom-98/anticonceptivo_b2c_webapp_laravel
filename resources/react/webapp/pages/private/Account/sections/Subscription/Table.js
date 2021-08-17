@@ -45,6 +45,7 @@ const Table = ({
         getSubscriptions();
     }, []);
 
+
     const changeVisibleModalAddress = () => {
         if (modalAddress) {
             setModalAddress(false);
@@ -169,7 +170,7 @@ const Table = ({
         setSubscriptionOrderItemSelected(subscriptionOrderItem);
         setModalAddress(true);
     };
-    
+
     const selectedColumnsSubscriptionCard = (subscriptionOrderItem) => {
         setSubscriptionOrderItemSelected(subscriptionOrderItem);
         setModalSubscriptionCard(true);
@@ -261,12 +262,12 @@ const Table = ({
                                 getSubscriptions();
                                 getDataAddress();
                                 setModalDispatchDate(false);
-        
+
                             },
                             error: () => {
                                 toastr.error(response.message);
 
-        
+
                             }
                         });
                     })
@@ -306,7 +307,7 @@ const Table = ({
             },
             buttonsStyling: false
           })
-          
+
           swalWithBootstrapButtons.fire({
             title: '<span style="color: #0869A6;">¿Esta seguro de eliminar esta tarjeta?</span>',
             // icon: 'warning',
@@ -366,7 +367,7 @@ const Table = ({
     const formattedData = (row) => {
         let htmlExpandRow = '';
         row.products.forEach(function (element, i){
-            htmlExpandRow += "<div class='row ml-3'><div className='col-md-6'>"+element.name+"</div>"+"<div class='col-md-6'> "+row.plans[i].months+" Meses </div></div>"
+            htmlExpandRow += "<div class='row ml-3'><div className='col-md-8'>"+element.name+"</div>"+"<div class='col-md-4'> "+row.plans[i].months+" Meses </div></div>"
         });
         return htmlExpandRow;
     }
@@ -486,9 +487,9 @@ const Table = ({
                 let address = '';
 
                 if(row.delivery_address != null){
-                    address = row.delivery_address               
+                    address = row.delivery_address
                 }else if(row.customer_address){
-                    address = row.customer_address.address  + ' ' + row.customer_address.extra_info               
+                    address = row.customer_address.address  + ' ' + row.customer_address.extra_info
                 }
 
                 if(row.status != 'CREATED' && row.status != 'REJECTED'){
@@ -568,8 +569,8 @@ const Table = ({
                         </div>
                         <div className="col-12 mt-3 text-center">
 
-                                   
-                                   
+
+
                            <input type="date" onChange={handleDispatchDate} placeholder="dd/mm/yyyy" value={moment(dispatchDate).format("YYYY-MM-DD")}></input>
 
 
@@ -607,10 +608,10 @@ const Table = ({
                         <div className="col-12 mt-3">
                             {
                     subscriptions.map((subscription, index) => (
-                    
-                        <ListItemSubscriptions 
-                            key={index} 
-                            subscription={subscription} 
+
+                        <ListItemSubscriptions
+                            key={index}
+                            subscription={subscription}
                             saveDefaultSubscription={saveDefaultSubscription}
                             deleteSubscription={deleteSubscription}
                             subscriptionChecked={

@@ -38,7 +38,7 @@ class TestController extends Controller
             $this->oneclick = new OneClickMall();
         }
     }
-    
+
     public function index()
     {
         return [
@@ -69,10 +69,114 @@ class TestController extends Controller
             ->orderBy('order_id')->orderBy('pay_date')
             ->get();
 
+
+
+
+            $deliveryCosts = DeliveryCost::where('active',1)->get();
+
+            foreach ($subscriptionsOrdersItems as $key => $item) {
+                if(($prev_order_id != $item->order->id || $prev_pay_date != $item->pay_date) && $prev_item != null){
+
+                    foreach ($deliveryCosts as $key => $deliveryCost) {
+                        $costs = json_decode($deliveryCost->costs);
+                        foreach ($costs as $key => $itemCost) {
+                            $communes = $itemCost->communes;
+
+                            $found_key = array_search($prev_item->customer_address->commune->name, $communes);
+                            if($found_key !== false){
+                                $itemDeliveryCostArrayCost =$itemCost;
+                            }
+                        }
+                    }
+                    $dispatch = $itemDeliveryCostArrayCost ? $itemDeliveryCostArrayCost->price[0] : 0;
+
+                    $item_tmp = [
+                        'customer_address_id' => $prev_item->customer_address_id,
+                        'subscription_id' => $prev_item->subscription_id,
+                        'customer_address' => $prev_item->customer_address,
+                        'dispatch_date' => $prev_item->dispatch_date,
+                        'id' => $prev_item->id,
+                        'is_pay' => $prev_item->is_pay,
+                        'order_item' => $prev_item->order_item,
+                        'pay_date' => $prev_item->pay_date,
+                        'dispatch_date' => $prev_item->dispatch_date,
+                        'subscription' => $prev_item->subscription,
+                        'order' => $prev_item->order,
+                        'order_id' => $prev_item->order->id,
+                        'status' => $prev_item->status,
+                        'total' => $total + $dispatch,
+                        'products' => $arrayProducts,
+                        'plans' => $arrayPlan
+
+                    ];
+                    $total = $total + $dispatch;
+                    $response = $this->oneclick->authorize($customer->id , $item->subscription->transbank_token, $item->id, $total);
+
+                    $total = 0;
+                    $arrayProducts = [];
+                    $arrayPlan = [];
+
+                    array_push($arraySubscriptionsOrdersItem,$item_tmp);
+
+                }
+                $productSubscriptionPlan = ProductSubscriptionPlan::with('subscription_plan')->where('subscription_plan_id',$item->order_item->subscription_plan->id)
+                    ->where('product_id',$item->order_item->product->id)->get()->first();
+                $total += $productSubscriptionPlan->price * $productSubscriptionPlan->quantity * $item->order_item->quantity;
+                $prev_order_id = $item->order->id;
+                $prev_pay_date = $item->pay_date;
+                $prev_item = $item;
+                array_push($arrayProducts,$item->order_item->product);
+                array_push($arrayPlan,$productSubscriptionPlan->subscription_plan);
+
+            }
+            if(count($subscriptionsOrdersItems) > 0){
+
+                foreach ($deliveryCosts as $key => $deliveryCost) {
+                    $costs = json_decode($deliveryCost->costs);
+                    foreach ($costs as $key => $itemCost) {
+                        $communes = $itemCost->communes;
+
+                        $found_key = array_search($prev_item->customer_address->commune->name, $communes);
+                        if($found_key !== false){
+                            $itemDeliveryCostArrayCost =$itemCost;
+                        }
+                    }
+                }
+                $dispatch = $itemDeliveryCostArrayCost ? $itemDeliveryCostArrayCost->price[0] : 0;
+
+                $item_tmp = [
+                    'customer_address_id' => $prev_item->customer_address_id,
+                    'subscription_id' => $prev_item->subscription_id,
+                    'customer_address' => $prev_item->customer_address,
+                    'dispatch_date' => $prev_item->dispatch_date,
+                    'id' => $prev_item->id,
+                    'is_pay' => $prev_item->is_pay,
+                    'order_item' => $prev_item->order_item,
+                    'pay_date' => $prev_item->pay_date,
+                    'dispatch_date' => $prev_item->dispatch_date,
+                    'subscription' => $prev_item->subscription,
+                    'order' => $prev_item->order,
+                    'order_id' => $prev_item->order->id,
+                    'status' => $prev_item->status,
+                    'total' => $total + $dispatch,
+                    'products' => $arrayProducts,
+                    'plans' => $arrayPlan
+
+                ];
+                array_push($arraySubscriptionsOrdersItem,$item_tmp);
+
+            }
+
+
+
+
+
+
+
             foreach ($subscriptionsOrdersItems as $key => $item) {
                 $productSubscriptionPlan = ProductSubscriptionPlan::where('subscription_plan_id',$item->order_item->subscription_plan->id)
                                             ->where('product_id',$item->order_item->product->id)->get()->first();
-                
+
                 $total = ($productSubscriptionPlan->price*$productSubscriptionPlan->quantity*$item->order_item->quantity);
                 $response = $this->oneclick->authorize($customer->id , $item->subscription->transbank_token, $item->id, $total);
 
@@ -80,13 +184,13 @@ class TestController extends Controller
                 $deliveryCosts = DeliveryCost::where('active',1)->get();
                 $itemDeliveryCost = null;
                 $itemDeliveryCostArrayCost = null;
-        
+
 
                 foreach ($deliveryCosts as $key => $deliveryCost) {
                     $costs = json_decode($deliveryCost->costs);
                     foreach ($costs as $key => $itemCost) {
                         $communes = $itemCost->communes;
-        
+
                         $found_key = array_search($item->customer_address->commune->name, $communes);
                         if($found_key !== false){
                             $itemDeliveryCost = $deliveryCost;
@@ -107,7 +211,7 @@ class TestController extends Controller
                     );
                     array_push($items,$itemProduct);
                     $data = array(
-                        "client"=> [ 
+                        "client"=> [
                             "razonSocial"=> null,
                             "rut"=> $customer->id_number,
                             "fistName"=> $customer->fist_name,
@@ -115,7 +219,7 @@ class TestController extends Controller
                             "tradeName"=> null,
                             "email"=> $customer->email,
                             "phone"=> $customer->phone,
-                            "address"=> $item->customer_address->address .' '. $item->customer_address->extra_info 
+                            "address"=> $item->customer_address->address .' '. $item->customer_address->extra_info
                         ],
                             "facilityId"=> 1540,
                             "cashRegisterId"=> 1069,
@@ -147,11 +251,7 @@ class TestController extends Controller
                     }
                     $product->save();
 
-
-
                     $item->dispatch = $itemDeliveryCostArrayCost ? $itemDeliveryCostArrayCost->price[0] : 0;
-
-
                     $data_llego_products = [];
 
                     $product_item = $tem->order->order_item->product;
@@ -161,9 +261,9 @@ class TestController extends Controller
                         'unidades' => $order_item->quantity,
                         'valor' => $order_item->price,
                     );
-        
+
                     array_push($data_llego_products,$data_llego_item_product);
-            
+
                     $data_llego = array (
                         'identificador' => $item->id,
                         'linea_negocio' => 'ANTICONCEPTIVO',
@@ -175,16 +275,16 @@ class TestController extends Controller
                         'cliente_comuna' => $item->customer_address->commune->name,
                         'cliente_telefono' => $item->order->customer->phone,
                         'cliente_correo' => $item->order->customer->email,
-                        'bultos' => 
+                        'bultos' =>
                         array (
-                        0 => 
+                        0 =>
                         array (
                             'carton' => $item->order->id.'C1',
                             'productos' => $data_llego_products
                         ),
                         ),
                     );
-            
+
                     $get_data = ApiHelper::callAPI('POST', 'https://qa-integracion.llego.cl/api/100/Anticonceptivo/carga/Pedido', json_encode($data_llego), 'llego');
                     $response = json_decode($get_data, true);
 
@@ -197,37 +297,37 @@ class TestController extends Controller
                     $item->save();
 
                     $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
-            
+
                     // Envio al cliente
                     $html = view('emails.subscription', ['customer' => $customer, 'subscription_order' => $item, 'type' => 'producto', 'nombre' => 'Equipo Anticonceptivo'])->render();
-            
+
                     $email = new \SendGrid\Mail\Mail();
-            
+
                     $email->setFrom("info@anticonceptivo.cl", 'Anticonceptivo');
                     $email->setSubject('Compra #' . $order->id);
                     // $email->addTo($order->customer->email, 'Pedido');
                     $email->addTo("victor.araya.del@gmail.com", 'Pedido');
-            
+
                     $email->addContent(
                         "text/html", $html
                     );
-            
+
                     $sendgrid->send($email);
-            
+
                     // Envio al admin
                     $html2 = view('emails.subscription_admin', ['customer' => $customer,'subscription_order' => $item, 'type' => 'producto', 'nombre' => 'Equipo Anticonceptivo'])->render();
-            
+
                     $email2 = new \SendGrid\Mail\Mail();
-            
+
                     $email2->setFrom("info@anticonceptivo.cl", 'Anticonceptivo');
                     $email2->setSubject('Nuevo pedido recibido #' . $order->id);
                     $email2->addTo("victor.araya.del@gmail.com", 'Pedido');
                     // $email2->addTo("@.cl", 'Pedido');
-            
+
                     $email2->addContent(
                         "text/html", $html2
                     );
-            
+
                     $sendgrid->send($email2);
 
                 }else{
@@ -311,7 +411,7 @@ class TestController extends Controller
 
         $commission = $paymentCommission->commission;
 
-        foreach ($orders as $key => $order) {   
+        foreach ($orders as $key => $order) {
 
             $detail = [
                 "netUnitValue"=> round($order->total * ($commission/100)),
@@ -327,14 +427,14 @@ class TestController extends Controller
         ->where('status','PAID')->whereDate('pay_date',$datePayment)
         ->orderBy('order_id')->orderBy('pay_date')
         ->get();
-       
+
         $prev_order_id = null;
         $prev_pay_date = null;
 
         foreach ($subscriptions_orders_items as $key => $subscription_order_item) {
             $order = Order::where('id',$subscription_order_item->order_id)
             ->whereDate('created_at','>=',Carbon::parse( $subscription_order_item->pay_date)->subDay())->get()->first();
-            
+
             if($order){
                 continue;
             }
@@ -351,7 +451,7 @@ class TestController extends Controller
             "codeSii"=> 33,
             "officeId"=> 2,
             "emissionDate"=> Carbon::now()->timestamp,
-            "client"=> [ 
+            "client"=> [
               "code"=> "76.736.577-2",
               "company"=> "ASOCIACIÓN DE FARMACÉUTICOS SPA",
               "activity"=> "Giro Informática",

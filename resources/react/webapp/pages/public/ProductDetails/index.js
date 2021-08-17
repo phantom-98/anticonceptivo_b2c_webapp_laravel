@@ -71,8 +71,8 @@ const ProductDetail = ({match}) => {
     }
 
     return (
-        
-        !loading ? 
+
+        !loading ?
             <Fragment>
                 <div style={{background: '#FAFAFA'}}>
                     <div className="container">

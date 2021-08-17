@@ -70,6 +70,7 @@ class ProductController extends Controller
             ->where(function($query) use ($search){
                 $query->where('name', 'LIKE', '%'.$search.'%')
                       ->orWhere('sku','LIKE','%'.$search.'%')
+                    ->orWhere('compound', 'LIKE', '%'.$search.'%')
                       ->orWhere('description','LIKE','%'.$search.'%')
                       ->orWhereHas('laboratory', function($query) use ($search) {
                         $query->where('name','LIKE','%'.$search.'%');
@@ -106,7 +107,7 @@ class ProductController extends Controller
             }
 
             $productIds = [];
-            
+
 
             foreach ($products as $v_key => $v_value) {
                 array_push($productIds, $v_value->id);
@@ -132,7 +133,7 @@ class ProductController extends Controller
 
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, $exception->getMessage());
-        } 
+        }
     }
     public function getProductsSearchFiltered(Request $request)
     {
@@ -143,14 +144,15 @@ class ProductController extends Controller
                 $query->where('name', 'LIKE', '%'.$search.'%')
                       ->orWhere('sku','LIKE','%'.$search.'%')
                       ->orWhere('description','LIKE','%'.$search.'%')
+                    ->orWhere('compound', 'LIKE', '%'.$search.'%')
                       ->orWhereHas('laboratory', function($query) use ($search) {
                         $query->where('name','LIKE','%'.$search.'%');
                         });
             })->where('active',true);
-            
+
             $laboratories = Laboratory::where('active',true)->whereIn('id',$products->pluck('laboratory_id')->unique());
             $subcatNames = null;
-            
+
             if (!empty($request->subcats)) {
                 $products = $products->whereIn('subcategory_id',$request->subcats);
                 $laboratories = $laboratories->whereIn('id',$products->pluck('laboratory_id')->unique());
@@ -207,7 +209,7 @@ class ProductController extends Controller
             return ApiResponse::JsonError(null, $exception->getMessage());
         }
     }
-    
+
     public function getProductByCategories(Request $request)
     {
         try {
@@ -248,7 +250,7 @@ class ProductController extends Controller
 
             $laboratoryIds = [];
             $productIds = [];
-            
+
 
             foreach ($category->subcategories as $key => $value) {
                 foreach ($value->products as $v_key => $v_value) {
@@ -270,14 +272,14 @@ class ProductController extends Controller
 
             $formats =  Product::whereIn('id',$productIds)->where('active',true)
                 ->where('format','!=','')->pluck('format')->unique();
-            
+
             $filter = null;
 
             if ($request->type && $request->filter) {
                 switch ($request->type) {
                     case 'laboratorio':
                         $lab = Laboratory::where('active',true)->where('name',str_replace('-',' ', $request->filter))->first();
-                        
+
                         if (!$lab) {
                             return ApiResponse::JsonError(null, 'No es posible encontrar el laboratorio.');
                         }
@@ -294,7 +296,7 @@ class ProductController extends Controller
                         }
 
                         $filter = $subscript->id;
-                        
+
                         $products->whereIn('id',ProductSubscriptionPlan::where('subscription_plan_id',$subscript->id)->pluck('product_id'));
 
                         break;
@@ -340,9 +342,7 @@ class ProductController extends Controller
             }
 
             $prods = Product::where('active',true)->where('id','!=',$product->id)->with('subcategory.category','laboratory','images')
-            ->whereHas('subcategory',function($q) use ($product){
-                $q->where('category_id',$product->subcategory->category_id);
-            })->get();
+            ->where('compound',$product->compound)->get();
 
             $legalWarnings = LegalWarning::first();
 
@@ -391,7 +391,7 @@ class ProductController extends Controller
                     array_push($productIds, $v_value->id);
                 }
             }
-            
+
             $products = Product::whereIn('id',$productIds)->where('active',true)->with(['subcategory.category','images','laboratory']);
             $laboratories = Laboratory::where('active',true)->whereIn('id',$products->pluck('laboratory_id')->unique());
 

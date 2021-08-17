@@ -39,7 +39,7 @@ class HomeController extends Controller
 
             $subscriptionPlanIds = ProductSubscriptionPlan::whereIn('product_id',$products->pluck('id'))
             ->pluck('subscription_plan_id')->unique();
-            
+
             $laboratories = Laboratory::where('active',true)->whereIn('id',$laboratoriesWithPills)->get();
             $subscriptions = SubscriptionPlan::where('active',true)->whereIn('id',$subscriptionPlanIds)->get();
             $formats = $products->where('format','!=','')->pluck('format')->unique();
@@ -70,7 +70,7 @@ class HomeController extends Controller
     public function getFaqs()
     {
         try {
-            
+
             $category_faqs = CategoryFaq::where('active', true)->with(['faqs'])
             ->whereHas('faqs', function($q){$q->where('active',true);})->orderBy('position')
             ->get();
@@ -87,7 +87,7 @@ class HomeController extends Controller
 
             $responsible_consumption = ResponsibleConsumption::first();
             $alliances = Alliance::where('active',true)->get();
-            $sections = Page::where('active', true)->where('section', SectionTypes::TERMS_AND_CONDITIONS)->whereIn('id',[1,2])
+            $sections = Page::where('section', SectionTypes::TERMS_AND_CONDITIONS)->whereIn('id',[1,2])
             ->orderBy('position')->get();
 
 
@@ -110,7 +110,7 @@ class HomeController extends Controller
             return ApiResponse::JsonSuccess([
                 'post_types' => $postTypes
             ]);
-            
+
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, $exception->getMessage());
         }
@@ -121,7 +121,7 @@ class HomeController extends Controller
             $topBanners = Banner::where('location','Home (Superior)')->where('active',true)->orderBy('position')->get();
             $middleBanners = Banner::where('location','Home (Centro)')->where('active',true)->orderBy('position')->get();
             $bottomBanners = Banner::where('location','Home (Inferior)')->where('active',true)->orderBy('position')->get();
-            
+
             $outstandings = Product::where('outstanding', true)->where('active',true)->where('recipe_type','Venta Directa')
                 ->with(['subcategory.category','images','laboratory'])->get();
 

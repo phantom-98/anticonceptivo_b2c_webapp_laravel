@@ -14,16 +14,16 @@ const Subscription = () => {
 
     return (
         <>
-        <div className="row">
-            <H3Panel title="HISTORIAL DE SUSCRIPCIONES"/>
-            <div className="col-md-12">
-                {
-                    view === 'table' ? <Table setSubscriptionOrderItemSelected={setSubscriptionOrderItemSelected} subscriptionOrderItemSelected={subscriptionOrderItemSelected}/> : null
-                }
+            <div className="row">
+                <H3Panel title="HISTORIAL DE SUSCRIPCIONES"/>
+                <div className="col-md-12">
+                    {
+                        view === 'table' ? <Table setSubscriptionOrderItemSelected={setSubscriptionOrderItemSelected}
+                                                  subscriptionOrderItemSelected={subscriptionOrderItemSelected}/> : null
+                    }
+                </div>
             </div>
-        </div>
-    </>
-
+        </>
     );
 };
 

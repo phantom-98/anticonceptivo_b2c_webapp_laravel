@@ -17,7 +17,7 @@ const ListItem = ({address, showEdit, saveDefaultAddress, regions, communes, add
 
     // const removeData = (addresId) => {
     //     let url = Services.ENDPOINT.CUSTOMER.ADDRESSES.REMOVE;
-        
+
     //     let data = {
     //         customer_id: auth.id,
     //         address_id: addresId
@@ -34,7 +34,7 @@ const ListItem = ({address, showEdit, saveDefaultAddress, regions, communes, add
     //         Services.ErrorCatch(error)
     //     });
     // }
-    
+
     return (
         <div className="row">
             <div className="col-auto d-flex pr-0">
@@ -71,7 +71,8 @@ const ListItem = ({address, showEdit, saveDefaultAddress, regions, communes, add
                     <span onClick={() => showEdit(address)} className="link pointer font-12 regular">editar</span>
                 </div>
             </div>
-            
+
+
             {/* <div className="col-auto d-flex">
                 <div className="my-auto">
                     <span onClick={() => removeData(address.id)} className="link pointer">
@@ -80,7 +81,7 @@ const ListItem = ({address, showEdit, saveDefaultAddress, regions, communes, add
                 </div>
             </div> */}
 
-            
+
             <div className="col-md-12">
                 <hr/>
             </div>

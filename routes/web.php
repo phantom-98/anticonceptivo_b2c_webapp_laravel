@@ -17,10 +17,6 @@ Route::get('test-contact', function ( ) {
     return \App\Models\Contact::all();
 });
 Route::get('email-test', [TestController::class, 'index'])->name('test');
-
 Route::get('VoucherPaymentDays-test', [TestController::class, 'VoucherPaymentDays']);
 Route::get('PaySubscription-test', [TestController::class, 'PaySubscription']);
-
-
 Route::view('/{path?}/{pathTwo?}/{pathThree?}/{pathFour?}/{pathFive?}/{pathSix?}/{pathSeven?}', 'webapp.base_react');
-

@@ -153,7 +153,7 @@ class ProfileController extends Controller
 
     public function getAddresses(Request $request)
     {
-        try {    
+        try {
 
             $customer = Customer::find($request->customer_id);
 
@@ -172,7 +172,7 @@ class ProfileController extends Controller
 
                     $isFile = true;
                 }
-                
+
                 if (!$isFile) {
                     return ApiResponse::JsonError(null,'Por favor, ingresar todas las recetas.');
                 }
@@ -232,12 +232,13 @@ class ProfileController extends Controller
             $subscriptions_orders_items = SubscriptionsOrdersItem::where('order_id',$subscriptionsOrdersItem->order_id)
             ->where('pay_date',$subscriptionsOrdersItem->pay_date)->get();
 
-            
+
             foreach ($subscriptions_orders_items as $key => $subscriptionsOrdersItemElement) {
-                    $subscriptionsOrdersItemElement->customer_address_id = $request->address_id;
-                    $subscriptionsOrdersItemElement->commune_id = $address->commune_id;
-                    $subscriptionsOrdersItemElement->delivery_address = $address->address . ' ' .$address->extra_info;
-                    $subscriptionsOrdersItemElement->save();
+
+                $subscriptionsOrdersItemElement->customer_address_id = $request->address_id;
+                $subscriptionsOrdersItemElement->commune_id = $address->commune_id;
+                $subscriptionsOrdersItemElement->delivery_address = $address->address . ' ' .$address->extra_info;
+                $subscriptionsOrdersItemElement->save();
             }
 
             return ApiResponse::JsonSuccess($subscriptions_orders_items[0], OutputMessage::SUCCESS);
@@ -294,8 +295,6 @@ class ProfileController extends Controller
 
             $deliveryCosts = DeliveryCost::where('active',1)->get();
             $itemDeliveryCost = null;
-            $itemDeliveryCostArrayCost = null;
-    
 
             foreach ($subscriptions_orders_items as $key => $subscriptionsOrdersItemElement) {
 
@@ -303,8 +302,8 @@ class ProfileController extends Controller
                         $costs = json_decode($deliveryCost->costs);
                         foreach ($costs as $key => $itemCost) {
                             $communes = $itemCost->communes;
-            
-                            $found_key = array_search($item->customer_address->commune->name, $communes);
+
+                            $found_key = array_search($subscriptionsOrdersItemElement->customer_address->commune->name, $communes);
                             if($found_key !== false){
                                 $itemDeliveryCost = $deliveryCost;
                                 $itemDeliveryCostArrayCost =$itemCost;
@@ -343,7 +342,7 @@ class ProfileController extends Controller
                 $q->where('customer_id',$customer->id);
             })
             ->with(['order_item.product','customer_address.commune','subscription','order.order_items','order_item.subscription_plan'])
-            ->select('id','order_id','orders_item_id','subscription_id','customer_address_id','pay_date','dispatch_date','status','is_pay')
+            ->select('id','order_id','orders_item_id','subscription_id','customer_address_id','pay_date','dispatch_date','status','is_pay','dispatch')
             ->orderBy('order_id')->orderBy('pay_date')
             ->get();
 
@@ -351,8 +350,24 @@ class ProfileController extends Controller
             $prev_pay_date = null;
             $prev_item = null;
             $total = 0;
+            $deliveryCosts = DeliveryCost::where('active',1)->get();
+
             foreach ($subscriptionsOrdersItem as $key => $item) {
                 if(($prev_order_id != $item->order->id || $prev_pay_date != $item->pay_date) && $prev_item != null){
+
+                    foreach ($deliveryCosts as $key => $deliveryCost) {
+                        $costs = json_decode($deliveryCost->costs);
+                        foreach ($costs as $key => $itemCost) {
+                            $communes = $itemCost->communes;
+
+                            $found_key = array_search($prev_item->customer_address->commune->name, $communes);
+                            if($found_key !== false){
+                                $itemDeliveryCostArrayCost =$itemCost;
+                            }
+                        }
+                    }
+                    $dispatch = $itemDeliveryCostArrayCost ? $itemDeliveryCostArrayCost->price[0] : 0;
+
                     $item_tmp = [
                         'customer_address_id' => $prev_item->customer_address_id,
                         'subscription_id' => $prev_item->subscription_id,
@@ -367,7 +382,7 @@ class ProfileController extends Controller
                         'order' => $prev_item->order,
                         'order_id' => $prev_item->order->id,
                         'status' => $prev_item->status,
-                        'total' => $total,
+                        'total' => $total + $dispatch,
                         'products' => $arrayProducts,
                         'plans' => $arrayPlan
 
@@ -390,6 +405,20 @@ class ProfileController extends Controller
 
             }
             if(count($subscriptionsOrdersItem) > 0){
+
+                foreach ($deliveryCosts as $key => $deliveryCost) {
+                    $costs = json_decode($deliveryCost->costs);
+                    foreach ($costs as $key => $itemCost) {
+                        $communes = $itemCost->communes;
+
+                        $found_key = array_search($prev_item->customer_address->commune->name, $communes);
+                        if($found_key !== false){
+                            $itemDeliveryCostArrayCost =$itemCost;
+                        }
+                    }
+                }
+                $dispatch = $itemDeliveryCostArrayCost ? $itemDeliveryCostArrayCost->price[0] : 0;
+
                 $item_tmp = [
                     'customer_address_id' => $prev_item->customer_address_id,
                     'subscription_id' => $prev_item->subscription_id,
@@ -404,10 +433,10 @@ class ProfileController extends Controller
                     'order' => $prev_item->order,
                     'order_id' => $prev_item->order->id,
                     'status' => $prev_item->status,
-                    'total' => $total,
+                    'total' => $total + $dispatch,
                     'products' => $arrayProducts,
                     'plans' => $arrayPlan
-    
+
                 ];
                 array_push($arraySubscriptionsOrdersItem,$item_tmp);
 

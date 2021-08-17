@@ -28,7 +28,7 @@
                 <div class="panel">
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-md-12 text-center">
+                            <div class="col-md-4 text-center">
                                 <div class="form-group" id="group-error-imagen">
                                     <label for="avatar">Foto de perfil</label>
                                     <div class="image-product">
@@ -49,8 +49,8 @@
                                     <div class="link-del" onclick="deleteImg();"></div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
+                            <div class="col-sm-8">
+
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>RUT (*)</label>
@@ -60,34 +60,30 @@
                                     >
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="first_name">Nombres (*)</label>
-                                    <input type="text" id="first_name" name="first_name" class="form-control" 
+                                    <input type="text" id="first_name" name="first_name" class="form-control"
                                            value="{{ old('first_name') }}">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="last_name">Apellidos (*)</label>
-                                    <input type="text" id="last_name" name="last_name" class="form-control" 
+                                    <input type="text" id="last_name" name="last_name" class="form-control"
                                            value="{{ old('last_name') }}">
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="row">
 
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="email">Email (*)</label>
-                                    <input type="email" id="email" name="email" class="form-control" 
+                                    <input type="email" id="email" name="email" class="form-control"
                                            value="{{ old('email') }}">
                                 </div>
                             </div>
-                            
+
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="user_type_id">Tipo de usuario (*)</label>
@@ -106,9 +102,7 @@
                                 </div>
                             </div>
 
-                        </div>
 
-                        <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="password" class="control-label">Contraseña (*)</label>

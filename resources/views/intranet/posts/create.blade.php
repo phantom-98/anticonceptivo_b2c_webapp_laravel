@@ -27,7 +27,7 @@
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel">
                     <div class="panel-body">
-                        
+
                         <div class="row">
 
                             <div class="col-md-3">
@@ -48,8 +48,8 @@
                                         @endforeach
                                     </select>
                                 </div>
-                            </div>   
-                            
+                            </div>
+
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="author_id">Autor</label>
@@ -60,7 +60,7 @@
                                         @endforeach
                                     </select>
                                 </div>
-                            </div>   
+                            </div>
 
 
                             <div class="col-md-3">
@@ -78,11 +78,11 @@
                                 <div class="form-group">
                                     <label for="content">Contenido (*)</label>
                                     <textarea name="content" id="content" rows="3" style="resize: none">{{ old('content') }}</textarea>
-                                </div>  
+                                </div>
                             </div>
 
                             <div id="divImagen" class="form-group col-sm-4" style="display:none">
-                                {!! Form::label('image', 'Imagen (300 x 200 px):') !!}
+                                {!! Form::label('image', 'Imagen (1200 x 400 px):') !!}
                                 <input type='file' id="image" name='image' class='form-control' accept=".jpg, .png, .jpeg">
                             </div>
 
@@ -184,7 +184,7 @@
             height: '280px',
             on: {
                 change: function() {
-                    checkContent(); 
+                    checkContent();
                 }
             }
         });
@@ -220,9 +220,9 @@
                     confirmButtonText: 'Aceptar',
                     cancelButtonText: 'No, cancelar!'
                 }).then(function (result) {
-                    
+
                 });
-            } 
+            }
         });
     </script>
 @endsection

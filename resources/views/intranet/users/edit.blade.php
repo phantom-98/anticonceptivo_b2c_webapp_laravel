@@ -2,20 +2,20 @@
 @section('title', $config['blade']['viewTitle'])
 
 @if ($config['blade']['showBreadcrumb'])
-    @section('breadcrumb')
-        @php(array_push($config['breadcrumb'], ['link'=>'', 'name' =>  $config['blade']['viewEdit']]))
-        @foreach($config['breadcrumb'] as $key => $data)
-            <li><a href="{{ $data['link'] }}"
-                   class="{{ count($config['breadcrumb']) == $key + 1 ? 'active' : '' }}">{{ $data['name'] }}</a></li>
-        @endforeach
-    @endsection
+@section('breadcrumb')
+    @php(array_push($config['breadcrumb'], ['link'=>'', 'name' =>  $config['blade']['viewEdit']]))
+    @foreach($config['breadcrumb'] as $key => $data)
+        <li><a href="{{ $data['link'] }}"
+               class="{{ count($config['breadcrumb']) == $key + 1 ? 'active' : '' }}">{{ $data['name'] }}</a></li>
+    @endforeach
+@endsection
 @endif
 
 @section('toolbar-buttons')
     <a href="{{route($config['route'] . 'index')}}" class="btn btn-default"><i
-                class="fa fa-chevron-left"></i> {{ $config['blade']['btnBack']}}</a>
+            class="fa fa-chevron-left"></i> {{ $config['blade']['btnBack']}}</a>
     <button class="btn btn-primary" type="button" onclick="doSubmit('form-edit')"><i
-                class="fa fa-save"></i> {{ $config['blade']['btnUpdate']}}</button>
+            class="fa fa-save"></i> {{ $config['blade']['btnUpdate']}}</button>
 @endsection
 
 @section('content')
@@ -31,124 +31,120 @@
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel">
                     <div class="panel-body">
-                        
+
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-4">
                                 <div class="form-group text-center" id="group-error-imagen">
                                     <label for="avatar">Foto de perfil</label>
                                     <div class="image-product">
                                         @if(file_exists(storage_path('app/public/perfil/'.$object->id.'.jpg')) || file_exists(storage_path('app/public/perfil/'.$object->id.'.png')))
                                             @if(file_exists(storage_path('app/public/perfil/'.$object->id.'.jpg')))
-                                            <img id="image-product" src="{{ Storage::url('public/perfil/'.$object->id.'.jpg') }}">
+                                                <img id="image-product"
+                                                     src="{{ Storage::url('public/perfil/'.$object->id.'.jpg') }}">
                                             @else
-                                            <img id="image-product" src="{{ Storage::url('public/perfil/'.$object->id.'.png') }}">
+                                                <img id="image-product"
+                                                     src="{{ Storage::url('public/perfil/'.$object->id.'.png') }}">
                                             @endif
                                         @else
-                                        <img id="image-product" src="/themes/intranet/img/user-default.png">
+                                            <img id="image-product" src="/themes/intranet/img/user-default.png">
                                         @endif
                                     </div>
                                     <input type="file" name="imagen" id="file-image-product"
-                                            class="inputfile" accept="image/x-png,image/gif,image/jpeg"/>
+                                           class="inputfile" accept="image/x-png,image/gif,image/jpeg"/>
                                     <label for="file-image-product">Seleccione una imagen</label>
                                     <span class="help-block" id="label-error-image"></span>
                                     <div class="link-del" onclick="deleteImg();"></div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label>RUT (*)</label>
-                                    <input type="text" id="rut" name='rut'
-                                        class='form-control' oninput='checkKey("rut")'
-                                        maxlength='15' value="{{ old('rut') ?? $object->rut }}"
-                                    >
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="first_name">Nombres (*)</label>
-                                    <input type="text" id="first_name" name="first_name" class="form-control" 
-                                           value="{{ old('first_name')  ?? $object->first_name }}">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="last_name">Apellidos (*)</label>
-                                    <input type="text" id="last_name" name="last_name" class="form-control" 
-                                           value="{{ old('last_name') ?? $object->last_name }}">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="email">Email (*)</label>
-                                    <input type="email" id="email" name="email" class="form-control" 
-                                           value="{{ old('email') ?? $object->email}}">
-                                </div>
-                            </div>
-                    
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="user_type_id">Tipo de usuario (*)</label>
-                                    <select name="user_type_id" id="user_type_id" class="form-control select2" data-width="100%">
-                                        @foreach($user_types as $option)
-                                            @if($option->name == "God Admin")
-                                            <option
-                                                value="{{$option->id}}" {{ in_array($option->id, $userType) ? 'selected' : '' }}>Administrador</option>
-                                            @else 
-                                            <option
-                                                value="{{$option->id}}" {{ in_array($option->id, $userType) ? 'selected' : '' }}>{{ ucfirst(mb_strtolower($option->name, 'UTF-8')) }}</option>
-                                            @endif
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="password" class="control-label">Contraseña (*)</label>
-                                    <div class="input-group">
-                                        <input id="password" name="password" class="form-control"
-                                               autocomplete="off"
-                                               value="{{ old('password') }}">
-                                        <div class="input-group-btn">
-                                            <button class="btn btn-primary btn-flat" type="button"
-                                                    onclick="generatePassword()">
-                                                <i class="fa fa-key"></i> Generar
-                                            </button>
-                                        </div>
+                            <div class="col-md-8">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>RUT (*)</label>
+                                        <input type="text" id="rut" name='rut'
+                                               class='form-control' oninput='checkKey("rut")'
+                                               maxlength='15' value="{{ old('rut') ?? $object->rut }}"
+                                        >
                                     </div>
-                                    <span class="help-block">Si no desea cambiar su contraseña, deje este campo en blanco.</span>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="first_name">Nombres (*)</label>
+                                        <input type="text" id="first_name" name="first_name" class="form-control"
+                                               value="{{ old('first_name')  ?? $object->first_name }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="last_name">Apellidos (*)</label>
+                                        <input type="text" id="last_name" name="last_name" class="form-control"
+                                               value="{{ old('last_name') ?? $object->last_name }}">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="email">Email (*)</label>
+                                        <input type="email" id="email" name="email" class="form-control"
+                                               value="{{ old('email') ?? $object->email}}">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="user_type_id">Tipo de usuario (*)</label>
+                                        <select name="user_type_id" id="user_type_id" class="form-control select2"
+                                                data-width="100%">
+                                            @foreach($user_types as $option)
+                                                @if($option->name == "God Admin")
+                                                    <option
+                                                        value="{{$option->id}}" {{ in_array($option->id, $userType) ? 'selected' : '' }}>
+                                                        Administrador
+                                                    </option>
+                                                @else
+                                                    <option
+                                                        value="{{$option->id}}" {{ in_array($option->id, $userType) ? 'selected' : '' }}>{{ ucfirst(mb_strtolower($option->name, 'UTF-8')) }}</option>
+                                                @endif
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="password" class="control-label">Contraseña (*)</label>
+                                        <div class="input-group">
+                                            <input id="password" name="password" class="form-control"
+                                                   autocomplete="off"
+                                                   value="{{ old('password') }}">
+                                            <div class="input-group-btn">
+                                                <button class="btn btn-primary btn-flat" type="button"
+                                                        onclick="generatePassword()">
+                                                    <i class="fa fa-key"></i> Generar
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <span class="help-block">Si no desea cambiar su contraseña, deje este campo en blanco.</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                    </div>
-                    <div class="panel-footer">
-                        <div class="row">
-                            <div class="col-xs-6">
-                                <a href="{{route($config['route'] . 'index')}}" class="btn btn-default"><i
+                        </div>
+                        <div class="panel-footer">
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <a href="{{route($config['route'] . 'index')}}" class="btn btn-default"><i
                                             class="fa fa-chevron-left"></i> {{ $config['blade']['btnBack']}}</a>
-                            </div>
-                            <div class="col-xs-6 text-right">
-                                <button class="btn btn-primary" type="submit"><i
+                                </div>
+                                <div class="col-xs-6 text-right">
+                                    <button class="btn btn-primary" type="submit"><i
                                             class="fa fa-save"></i> {{ $config['blade']['btnUpdate']}}</button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
     </form>
 @endsection
 
@@ -182,6 +178,7 @@
             display: block;
             padding-bottom: 100%;
         }
+
         .inputfile {
             width: 0.1px;
             height: 0.1px;
@@ -223,6 +220,7 @@
             background-color: #0869A6;
             border-color: #0869A6;
         }
+
         .link-del {
             text-align: center;
             color: #ff0f00;
@@ -238,9 +236,9 @@
 
     <script>
         function checkKey(name) {
-            var clean = $('#'+name).val().replace(/[^0-9kK]/g, "");
+            var clean = $('#' + name).val().replace(/[^0-9kK]/g, "");
             // don't move cursor to end if no change
-            if (clean !== $('#'+name).val()) $('#'+name).val(clean);
+            if (clean !== $('#' + name).val()) $('#' + name).val(clean);
         }
     </script>
     <script>

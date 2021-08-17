@@ -35,12 +35,12 @@ const HeaderBox = () => {
             getSearch()
         }
     }
-      
+
     const getSearch = (e) => {
         if(search.trim() != ''){
             let url = PUBLIC_ROUTES.SHOP_SEARCH.path;
             url = url.replace(":search", search);
-            window.location.href = url; 
+            window.location.href = url;
         }
 
     }
@@ -55,10 +55,11 @@ const HeaderBox = () => {
                 const name = (product.name).toLowerCase();
                 const sku = product.sku;
                 const laboratory = product.laboratory.name.toLowerCase();
+                const texCompound = product.compound;
 
                 const description = product.description ? (product.description).toLowerCase() : '';
 
-                if(name.includes(search) || description.includes(search) || sku.includes(search) || laboratory.includes(search)){
+                if(name.includes(search) || (texCompound !== null ? texCompound.includes(search) : false) || description.includes(search) || sku.includes(search) || laboratory.includes(search)){
                     return product;
                 }
             })
@@ -125,11 +126,11 @@ const HeaderBox = () => {
                         </div>
                         <div className="dropdown-content" style={ productsWithFilter.length && search.length > 0 ? dropdownStyle : null}>
                         {
-                            search.length ? 
+                            search.length ?
                                 productsWithFilter.map((product, index) => {
                                     return (
                                         <Fragment>
-                                            
+
                                                 <Link to={(PUBLIC_ROUTES.PRODUCT_DETAIL.path).replace(':slug?', product.slug)} style={{textDecoration: 'none', color: '#000000'}}>
                                                     <div className="row mt-2 px-0">
                                                         <div className="col-2 text-center">
@@ -147,9 +148,9 @@ const HeaderBox = () => {
                                                     </div>
                                                 </Link>
                                                 {
-                                                    productsWithFilter.length !== index+1 ? 
+                                                    productsWithFilter.length !== index+1 ?
                                                     <hr/>
-                                                    : null 
+                                                    : null
                                                 }
                                         </Fragment>
                                     );
