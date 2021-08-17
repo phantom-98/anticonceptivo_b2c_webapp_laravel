@@ -38,7 +38,7 @@ const Footer = () => {
                 success: () => {
                     setResponsibleConsumption(response.data.responsible_consumption);
                     setAlliances(response.data.alliances);
-                    setSections(response.data.sections);
+                    setSections(response.data.sectionsFooter);
                 },
             });
         }).catch(error => {

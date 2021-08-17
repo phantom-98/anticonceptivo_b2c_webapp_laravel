@@ -136,7 +136,7 @@ class ProductController extends GlobalController
             $product->state_of_matter = $request->state_of_matter;
             $product->save();
 
-            
+
             if ($request->hasFile('image')) {
 
                 foreach($request->file('image') as $key=>$item_file)
@@ -189,7 +189,7 @@ class ProductController extends GlobalController
     public function edit($id)
     {
         $object = Product::with('images', 'plans')->find($id);
-        
+
         if (!$object) {
             session()->flash('warning', 'Producto no encontrado.');
             return redirect()->route($this->route . 'index');
@@ -349,7 +349,6 @@ class ProductController extends GlobalController
                 'message' => 'Ha ocurrido un error inesperado, inténtelo denuevo más tarde.' . $e->getMessage()
             ]);
         }
-
     }
 
     public function export(Request $request)
@@ -362,9 +361,9 @@ class ProductController extends GlobalController
         $request->validate([
             'file' => 'required'
         ]);
- 
+
             Excel::import(new ProductImport,request()->file('file'));
-    
+
 
         session()->flash('success', 'Producto(s) importado(s) con éxito.');
         return redirect(route($this->route . 'index'));

@@ -87,14 +87,16 @@ class HomeController extends Controller
 
             $responsible_consumption = ResponsibleConsumption::first();
             $alliances = Alliance::where('active',true)->get();
-            $sections = Page::where('section', SectionTypes::TERMS_AND_CONDITIONS)->whereIn('id',[1,2])
+            $sections = Page::where('active', true)->where('section', SectionTypes::TERMS_AND_CONDITIONS)->whereIn('id',[1,2])
             ->orderBy('position')->get();
-
+            $sectionsFooter = Page::where('section', SectionTypes::TERMS_AND_CONDITIONS)->whereIn('id',[1,2])
+                ->orderBy('position')->get();
 
             return ApiResponse::JsonSuccess([
                 'responsible_consumption' => $responsible_consumption,
                 'alliances' => $alliances,
-                'sections' => $sections
+                'sections' => $sections,
+                'sectionsFooter' => $sectionsFooter
             ]);
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, $exception->getMessage());
