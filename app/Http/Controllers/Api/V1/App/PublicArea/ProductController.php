@@ -342,7 +342,7 @@ class ProductController extends Controller
             }
 
             $prods = Product::where('active',true)->where('id','!=',$product->id)->with('subcategory.category','laboratory','images')
-            ->where('compound',$product->compound)->get();
+            ->where('compound',$product->compound)->whereNotNull('compound')->get();
 
             $legalWarnings = LegalWarning::first();
 
