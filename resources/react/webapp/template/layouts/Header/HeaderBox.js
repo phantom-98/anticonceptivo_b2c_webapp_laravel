@@ -107,7 +107,7 @@ const HeaderBox = () => {
                         <div className="input-group search-filter-button">
                             <input type="text"
                                 className="form-control form-control-custom form-control-custom-60"
-                                placeholder="Buscar medicamentos, laboratorios"
+                                placeholder="Buscar medicamentos, laboratorios o principio activo"
                                 value={search}
                                 onChange={e => sendSearch(e)}
                                 onKeyPress={handleKeyPress}
