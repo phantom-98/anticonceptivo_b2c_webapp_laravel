@@ -38,7 +38,7 @@ class NestedFieldController extends GlobalController
         $objects = NestedField::with(['children'])->withCount(['nested_field_questions'])->orderBy('position')->whereNull('parent_id');
         $contact_issues = ContactIssue::all();
         $allowNew = false;
-        $contact_issue_id = -1;
+        $contact_issue_id = null;
         if ($request->section == 'contacto') {
             $objects = $objects->where('section', 'like', 'contacto')->get();
             $allowNew = true;
@@ -84,7 +84,11 @@ class NestedFieldController extends GlobalController
 
             if ($object) {
                 session()->flash('success', 'Campo creado correctamente.');
-                return redirect()->route($this->route . 'index', ['section' => 'contacto']);
+                if ($request->section == 'campania') {
+                    return redirect()->route($this->route . 'index', ['section' => $request->section, 'contact_id' => $request->contact_issue_id]);   
+                }
+                return redirect()->route($this->route . 'index', ['section' => $request->section]);   
+
             }
 
             return redirect()->back()->withErrors(['mensaje' => 'Error inesperado al crear el campo.'])->withInput();

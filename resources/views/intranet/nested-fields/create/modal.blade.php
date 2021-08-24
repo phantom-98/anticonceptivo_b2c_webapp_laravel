@@ -14,6 +14,10 @@
                         <div class="col-md-12">
                             <div class="form-group {{ $errors->has('name') ? 'has-error':'' }}">
                                 <input type="hidden" id="section" name="section" value="{{$section}}" class="form-control">
+                                @if ($section == 'campania') 
+                                    <input type="hidden" id="contact_issue_id" name="contact_issue_id" value="{{$contact_issue_id}}" class="form-control">
+                                @endif
+ 
                                 <label class="control-label" for="name">Nombre (*)</label>
                                 <input type="text" id="name" name="name" class="form-control"
                                        value="{{ old('name') }}">

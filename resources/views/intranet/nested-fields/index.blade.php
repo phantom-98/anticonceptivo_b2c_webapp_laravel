@@ -34,6 +34,10 @@
                                 @if($section == "campania")
                                     <label for="idSelectContact">Asunto</label>
                                     <select id="idSelectContact" class="form-control" onchange="location = this.value;">
+                                        @if ($section == 'campania')
+                                            <option value selected disabled>Seleccione una opción</option>
+                                            
+                                        @endif    
                                         @foreach($contact_issues as $contact_issue)
                                             <option {{$contact_issue_id == $contact_issue->id ? 'selected' : null}} value="{{ route($config['route'] . 'index',['section' => 'campania', 'contact_id' => $contact_issue->id] ) }}">{{$contact_issue->name}}</option>
                                         @endforeach
