@@ -175,7 +175,10 @@ class ContactIssueController extends GlobalController
                 }
             }
 
-            if(count($request->name_dynamic_subject > 0)){
+            $contador = count($request->name_dynamic_subject);
+            // return $contador;
+
+            if($contador > 0){
                 foreach($request->name_dynamic_subject as $key => $name){
                     $name = array_filter($name, function($value) { return !is_null($value) && $value !== ''; });
                     if($name){
