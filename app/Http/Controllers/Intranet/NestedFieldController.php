@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Intranet;
 
+use App\Models\ContactIssue;
 use App\Models\Faq;
 use App\Models\CategoryFaq;
 use App\Models\NestedField;
@@ -34,18 +35,30 @@ class NestedFieldController extends GlobalController
 
     public function index(Request $request)
     {
-
         $objects = NestedField::with(['children'])->withCount(['nested_field_questions'])->orderBy('position')->whereNull('parent_id');
-
+        $contact_issues = ContactIssue::all();
+        $allowNew = false;
+        $contact_issue_id = -1;
         if ($request->section == 'contacto') {
             $objects = $objects->where('section', 'like', 'contacto')->get();
-        } else if ($request->section == 'campaña'){
-            $objects = $objects->where('section', 'campaña')->get();
+            $allowNew = true;
+
+        } else if ($request->section == 'campania'){
+
+            if(isset($request->contact_id)){
+                $objects = $objects->where('section', 'campania')->where('contact_issue_id',$request->contact_id)->get();
+                $allowNew = true;
+                $contact_issue_id = $request->contact_id;
+            }else{
+                $objects = $objects->where('section', '-1')->get();
+
+            }
         } else{
             $objects = $objects->where('section', '-1')->get();
-        }
 
-        return view($this->folder . 'index', compact('objects'));
+        }
+        $section = $request->section;
+        return view($this->folder . 'index', compact('objects','section', 'allowNew','contact_issues','contact_issue_id'));
     }
 
     public function create()
@@ -63,7 +76,6 @@ class NestedFieldController extends GlobalController
         $messages = [
             'name.unique' => 'El nombre debe ser único'
         ];
-
         $validator = Validator::make($request->all(), $rules, $messages);
 
         if ($validator->passes()) {
@@ -117,7 +129,6 @@ class NestedFieldController extends GlobalController
 
 
         $validator = Validator::make($request->all(), $rules, $messages);
-
         if ($validator->passes()) {
 
             $object->update($request->all());

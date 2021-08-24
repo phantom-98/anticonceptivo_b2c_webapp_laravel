@@ -13,7 +13,9 @@ class NestedField extends Model
         'section',
         'active',
         'position',
+        'group_title',
         'parent_id',
+        'contact_issue_id',
         'campaign_id',
     ];
 

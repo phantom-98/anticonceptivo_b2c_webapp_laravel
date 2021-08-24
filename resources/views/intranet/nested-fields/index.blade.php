@@ -22,9 +22,35 @@
                 <div class="panel-body">
 
                     <div id="toolbar">
-                        <button onclick="openCreate()"  class="btn btn-success">
-                            <i class="ti-plus"></i> Nueva Pregunta
-                        </button>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="idSelectContact">Lugar</label>
+                                <select id="idSelectContact" class="form-control"  onchange="location = this.value;">
+                                        <option {{$section == 'contacto' ? 'selected' : null}} value="{{ route($config['route'] . 'index',['section' => 'contacto'] ) }}">Contacto</option>
+                                        <option {{$section == 'campania' ? 'selected' : null}} value="{{ route($config['route'] . 'index',['section' => 'campania'] ) }}">Servicio al cliente</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                @if($section == "campania")
+                                    <label for="idSelectContact">Asunto</label>
+                                    <select id="idSelectContact" class="form-control" onchange="location = this.value;">
+                                        @foreach($contact_issues as $contact_issue)
+                                            <option {{$contact_issue_id == $contact_issue->id ? 'selected' : null}} value="{{ route($config['route'] . 'index',['section' => 'campania', 'contact_id' => $contact_issue->id] ) }}">{{$contact_issue->name}}</option>
+                                        @endforeach
+                                    </select>
+                                @endif
+
+                            </div>
+                            <div class="col-md-4">
+                                @if($allowNew)
+                                    <button onclick="openCreate()"  class="btn btn-success">
+                                        <i class="ti-plus"></i> Nueva Pregunta
+                                    </button>
+                                @endif
+                            </div>
+
+                        </div>
+
                         {{--<button id="delete-row" class="btn btn-danger" disabled><i class="demo-pli-cross"></i> Delete</button>--}}
                     </div>
 
@@ -58,15 +84,14 @@
 
 @section('scripts')
 
-    <script src="/themes/intranet/plugins/nestable-list/jquery.nestable.js"></script>
+
+
+    @include('intranet.template.components._crud_script_delete')
+
+
+<script src="/themes/intranet/plugins/nestable-list/jquery.nestable.js"></script>
 
     @include('intranet.nested-fields.create.script')
-
-{{--    @include('intranet.template.components._crud_script_change_status')--}}
-{{--    @include('intranet.template.components._crud_script_active')--}}
-{{--    @include('intranet.template.components._crud_script_delete')--}}
-
-
 
     <script>
         $('.dd').nestable({ /* config options */ });

@@ -6,7 +6,6 @@ import {setCleanInputError} from "../../../../../helpers/GlobalUtils";
 import toastr from "toastr";
 import { v4 as uuidv4 } from "uuid";
 import DynamicField from "./DynamicField"
-import DynamicPath from "../../../../public/ContactUs/DynamicPath";
 
 const CustomerService = () => {
 
@@ -18,19 +17,13 @@ const CustomerService = () => {
         name: auth.full_name,
         contact_issue: "1",
         message: '',
-        contact_subject_parent: '',
     }
 
     const [data, setData] = useState(defaultData);
-    const [dynamic_inputs, setDynamicData] = useState({});
+    const [dynamicData, setDynamicData] = useState({});
     const [contactIssues, setContactIssues] = useState([]);
     const [dynamicFields, setDynamicFields] = useState([]);
     const [description, setDescription] = useState('');
-
-    const [loading, setLoading] = useState(true);
-    const [nestedFields, setNestedFields] = useState([]);
-    const [list, setList] = useState([]);
-    const [path, setPath] = useState([]);
 
     useEffect(() => {
         getData();
@@ -55,17 +48,17 @@ const CustomerService = () => {
             let temp = {};
 
             dynamicFields.map(dynamic => {
-               if (dynamic.type === 'checkbox') {
-                   temp = {
+                if (dynamic.type === 'checkbox') {
+                    temp = {
                         ...temp,
                         [dynamic.type+'-'+dynamic.id]: []
                     }
-               }else{
-                   temp = {
+                }else{
+                    temp = {
                         ...temp,
                         [dynamic.type+'-'+dynamic.id]: ''
                     }
-               }
+                }
             })
 
             setDynamicData(temp);
@@ -82,9 +75,6 @@ const CustomerService = () => {
                 response: response,
                 success: () => {
                     setContactIssues(response.data.contact_issues);
-                    setNestedFields(response.data.nested_fields);
-                    setList(response.data.list);
-                    setLoading(false);
                 },
             });
         }).catch(error => {
@@ -96,29 +86,9 @@ const CustomerService = () => {
 
         let url = Services.ENDPOINT.CUSTOMER.CUSTOMER_SERVICE.SEND;
 
-        let fields = [];
-
-        path.map(p => {
-            fields.push({
-                question: p.question,
-                answer: p.answer,
-            })
-            if (p.nested_field_questions) {
-                p.nested_field_questions.map(nf => {
-                    if ('question' in nf && 'answer' in nf) {
-                        fields.push({
-                            question: nf.question,
-                            answer: nf.answer,
-                        })
-                    }
-                })
-            }
-        })
-
         let dataForm = {
             ...data,
-            dynamic_inputs,
-            dynamic_fields: fields
+            dynamicData
         }
 
         Services.DoPost(url, dataForm).then(response => {
@@ -126,7 +96,6 @@ const CustomerService = () => {
                 response: response,
                 success: () => {
                     setData(defaultData);
-                    setPath([]);
                     toastr.success(response.message);
                 },
             });
@@ -143,14 +112,14 @@ const CustomerService = () => {
 
     const handleDynamicData = (e) => {
         setDynamicData({
-            ...dynamic_inputs,
+            ...dynamicData,
             [e.target.name]: e.target.value
         })
     }
 
     const handleDynamicRadio = (e) => {
         setDynamicData({
-            ...dynamic_inputs,
+            ...dynamicData,
             [e.target.name]: e.target.id
         })
     }
@@ -158,51 +127,21 @@ const CustomerService = () => {
     const handleDynamicCheckbox = (e) => {
         let list = [];
 
-        if(dynamic_inputs[e.target.name].includes(e.target.id)){
+        if(dynamicData[e.target.name].includes(e.target.id)){
 
-            list = dynamic_inputs[e.target.name].filter(x => x !== e.target.id)
+            list = dynamicData[e.target.name].filter(x => x !== e.target.id)
 
         }else{
             list = [
-                ...dynamic_inputs[e.target.name],
+                ...dynamicData[e.target.name],
                 e.target.id
             ]
         }
 
         setDynamicData({
-            ...dynamic_inputs,
+            ...dynamicData,
             [e.target.name]: list
         })
-    }
-
-    const handleParent = (e, index) => {
-        let found = list.find(x => x.id == e.target.value)
-
-        found['question'] = 'Asunto';
-        found['answer'] = found.name;
-
-        setData({
-            ...data,
-            [e.target.name]: e.target.value
-        })
-
-        setPath([found]);
-    }
-
-    const handleInputs = (e, parentId, inputId) => {
-        let tempPath = path;
-        let foundIndex = path.findIndex(p => p.id == parentId);
-        let found = path[foundIndex]
-
-        let nestedFieldQuestions = found.nested_field_questions
-        let nestedIndex = nestedFieldQuestions.findIndex(nfq => nfq.id == inputId);
-
-        nestedFieldQuestions[nestedIndex]['question'] = nestedFieldQuestions[nestedIndex].name;
-        nestedFieldQuestions[nestedIndex]['answer'] = e.target.value;
-
-        found['nested_field_questions'] = nestedFieldQuestions
-        tempPath[foundIndex] = found
-        setPath(tempPath);
     }
 
     return (
@@ -220,15 +159,15 @@ const CustomerService = () => {
                                 onChange={handleData}
                                 onFocus={setCleanInputError}
                                 value={data.contact_issue}
-                                >
-                                    {
-                                        contactIssues.map((issue) => {
-                                            let uuid = uuidv4();
-                                            return(
-                                                <option value={issue.id} key={uuid}>{issue.name}</option>
-                                            )
-                                        })
-                                    }
+                            >
+                                {
+                                    contactIssues.map((issue) => {
+                                        let uuid = uuidv4();
+                                        return(
+                                            <option value={issue.id} key={uuid}>{issue.name}</option>
+                                        )
+                                    })
+                                }
                             </select>
                         </div>
                     </div>
@@ -236,8 +175,8 @@ const CustomerService = () => {
                         <div dangerouslySetInnerHTML={{ __html:description}}/>
                     </div>
                     {
-                        dynamic_inputs.length ?
-                            dynamic_inputs.map((dynamicField, index) => {
+                        dynamicFields.length ?
+                            dynamicFields.map((dynamicField, index) => {
                                 return (
                                     <DynamicField
                                         id={dynamicField.id}
@@ -245,7 +184,7 @@ const CustomerService = () => {
                                         values={dynamicField.values}
                                         type={dynamicField.type}
                                         index={index}
-                                        dynamic_inputs={dynamic_inputs}
+                                        dynamicData={dynamicData}
                                         handleDynamicData={handleDynamicData}
                                         handleDynamicRadio={handleDynamicRadio}
                                         handleDynamicCheckbox={handleDynamicCheckbox}
@@ -253,21 +192,7 @@ const CustomerService = () => {
                                     />
                                 )
                             })
-                        : null
-                    }
-                    {
-                        data.contact_issue == 3 ?
-                        <DynamicPath
-                            loading={loading}
-                            model={data}
-                            handleParent={handleParent}
-                            handleInputs={handleInputs}
-                            nestedFields={nestedFields}
-                            path={path}
-                            setPath={setPath}
-                            list={list}
-                        />
-                        : null
+                            : null
                     }
                     <div className="col-md-12">
                         <div className="form-group">
@@ -278,7 +203,6 @@ const CustomerService = () => {
                                 id="message"
                                 name="message"
                                 placeholder="Mensaje"
-                                value={data.message}
                                 onChange={handleData}
                                 onFocus={setCleanInputError}
                             />

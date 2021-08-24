@@ -296,7 +296,7 @@ const ContactForm = () => {
                     </div>
                 </div>
             </div>
-            <Modal 
+            <Modal
                 show={handleTermsModal}
                 centered
                 backdrop="static"
@@ -318,7 +318,7 @@ const ContactForm = () => {
                 </Modal.Body>
 
             </Modal>
-            <Modal 
+            <Modal
                 show={handlePrivacyPoliceModal}
                 centered
                 backdrop="static"

@@ -13,6 +13,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group {{ $errors->has('name') ? 'has-error':'' }}">
+                                <input type="hidden" id="section" name="section" value="{{$section}}" class="form-control">
                                 <label class="control-label" for="name">Nombre (*)</label>
                                 <input type="text" id="name" name="name" class="form-control"
                                        value="{{ old('name') }}">

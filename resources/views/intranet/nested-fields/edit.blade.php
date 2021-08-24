@@ -39,6 +39,14 @@
                                     {!! $errors->first('name', '<span class="help-block">:message</span>') !!}
                                 </div>
                             </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="question">Titulo de la siguiente seleccion (*)</label>
+                                    <input type="text" id="group_title" name="group_title" class="form-control"
+                                           value="{{ old('group_title') ?? $object->group_title }}">
+                                    {!! $errors->first('group_title', '<span class="help-block">:message</span>') !!}
+                                </div>
+                            </div>
 
                             <div class="col-md-12">
                                 <hr/>
