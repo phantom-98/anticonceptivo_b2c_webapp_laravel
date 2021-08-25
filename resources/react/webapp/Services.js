@@ -175,6 +175,7 @@ export const ENDPOINT = {
         CUSTOMER_SERVICE: {
             SEND: GetBaseURL() + 'customer/send',
             GET: GetBaseURL() + 'customer/get-action'
+
         },
 
     },

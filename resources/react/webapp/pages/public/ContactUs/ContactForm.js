@@ -47,6 +47,7 @@ const ContactForm = () => {
             Services.Response({
                 response: response,
                 success: () => {
+                    console.log(response.data)
                     setNestedFields(response.data.nested_fields)
                     setList(response.data.list)
                     setPrivacyPolicy(response.data.privacy_policy)

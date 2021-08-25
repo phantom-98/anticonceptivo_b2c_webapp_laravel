@@ -6,6 +6,7 @@ import {setCleanInputError} from "../../../../../helpers/GlobalUtils";
 import toastr from "toastr";
 import { v4 as uuidv4 } from "uuid";
 import DynamicField from "./DynamicField"
+import DynamicPath from "../../../../public/ContactUs/DynamicPath";
 
 const CustomerService = () => {
 
@@ -19,11 +20,21 @@ const CustomerService = () => {
         message: '',
     }
 
+    const defaultModel = {
+        contact_subject_parent: '',
+    }
+    const [model, setModel] = useState(defaultModel);
+
     const [data, setData] = useState(defaultData);
     const [dynamicData, setDynamicData] = useState({});
     const [contactIssues, setContactIssues] = useState([]);
     const [dynamicFields, setDynamicFields] = useState([]);
     const [description, setDescription] = useState('');
+
+    const [nestedFields, setNestedFields] = useState([]);
+    const [list, setList] = useState([]);
+    const [path, setPath] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         getData();
@@ -31,7 +42,28 @@ const CustomerService = () => {
 
     useEffect(() => {
         if (contactIssues.length) {
+
             var temp = contactIssues.find((contact) => contact.id == data.contact_issue)
+
+            let url = Services.ENDPOINT.CUSTOMER.CUSTOMER_SERVICE.GET;
+            let data_id = {
+                action: 'CUSTOMER_SERVICE_DATA_FOR_CONTACT',
+                contact_issue_id: temp.id
+            }
+            Services.DoPost(url,data_id).then(response => {
+                Services.Response({
+                    response: response,
+                    success: () => {
+                        setNestedFields(response.data.nested_field);
+                        setLoading(false);
+
+                    },
+                });
+            }).catch(error => {
+                Services.ErrorCatch(error)
+            });
+
+
             setDescription(temp.campaign.description);
             if (temp.fields.length) {
                 setDynamicFields(temp.fields);
@@ -40,7 +72,6 @@ const CustomerService = () => {
                 setDynamicData({});
             }
         }
-
     },[data.contact_issue, contactIssues])
 
     useEffect(() => {
@@ -75,6 +106,8 @@ const CustomerService = () => {
                 response: response,
                 success: () => {
                     setContactIssues(response.data.contact_issues);
+                    setList(response.data.list);
+
                 },
             });
         }).catch(error => {
@@ -85,11 +118,32 @@ const CustomerService = () => {
     const sendToCustomerService = () => {
 
         let url = Services.ENDPOINT.CUSTOMER.CUSTOMER_SERVICE.SEND;
+        let fields = [];
+
+        path.map(p => {
+            fields.push({
+                question: p.question,
+                answer: p.answer,
+            })
+            if (p.nested_field_questions) {
+                p.nested_field_questions.map(nf => {
+                    if ('question' in nf && 'answer' in nf) {
+                        fields.push({
+                            question: nf.question,
+                            answer: nf.answer,
+                        })
+                    }
+                })
+            }
+        })
 
         let dataForm = {
             ...data,
-            dynamicData
+            ...model,
+            dynamicData,
+            dynamic_fields: fields
         }
+
 
         Services.DoPost(url, dataForm).then(response => {
             Services.Response({
@@ -108,6 +162,37 @@ const CustomerService = () => {
         setData({...data,
             [e.target.name]: e.target.value
         })
+    }
+
+
+    const handleParent = (e, index) => {
+        let found = list.find(x => x.id == e.target.value)
+
+        found['question'] = 'Asunto';
+        found['answer'] = found.name;
+
+        setModel({
+            ...model,
+            [e.target.name]: e.target.value
+        })
+
+        setPath([found]);
+    }
+
+    const handleInputs = (e, parentId, inputId) => {
+        let tempPath = path;
+        let foundIndex = path.findIndex(p => p.id == parentId);
+        let found = path[foundIndex]
+
+        let nestedFieldQuestions = found.nested_field_questions
+        let nestedIndex = nestedFieldQuestions.findIndex(nfq => nfq.id == inputId);
+
+        nestedFieldQuestions[nestedIndex]['question'] = nestedFieldQuestions[nestedIndex].name;
+        nestedFieldQuestions[nestedIndex]['answer'] = e.target.value;
+
+        found['nested_field_questions'] = nestedFieldQuestions
+        tempPath[foundIndex] = found
+        setPath(tempPath);
     }
 
     const handleDynamicData = (e) => {
@@ -192,6 +277,20 @@ const CustomerService = () => {
                                     />
                                 )
                             })
+                            : null
+                    }
+                    {
+                        nestedFields.length > 0 ?
+                            <DynamicPath
+                                loading={loading}
+                                model={model}
+                                handleParent={handleParent}
+                                handleInputs={handleInputs}
+                                nestedFields={nestedFields}
+                                path={path}
+                                setPath={setPath}
+                                list={list}
+                            />
                             : null
                     }
                     <div className="col-md-12">

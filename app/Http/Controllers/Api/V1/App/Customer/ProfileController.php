@@ -781,13 +781,24 @@ class ProfileController extends Controller
                     'nested_fields' => $data['nested_fields'],
                     'list' => $data['list'],
                 ],OutputMessage::SUCCESS);
+
+            case 'CUSTOMER_SERVICE_DATA_FOR_CONTACT':
+                $nested_field = NestedField::with(['nested_field_questions', 'children'])
+                                        ->whereNull('parent_id')->where('section','campania')
+                                        ->where('contact_issue_id', $request->contact_issue_id)
+                                        ->get();
+
+                return  ApiResponse::JsonSuccess([
+                    'nested_field' => $nested_field
+                ],OutputMessage::SUCCESS);
         }
     }
 
     private static function getCustomerService(){
+
         $data['contact_issues'] = ContactIssue::where('active',true)->where('section',ContactIssueTypes::CUSTOMER_SERVICE)
             ->with(['fields','campaign'])->get();
-        $data['nested_fields'] = NestedField::with(['nested_field_questions', 'children'])->whereNull('parent_id')->where('section','campaña')->get();
+        $data['nested_fields'] = NestedField::with(['nested_field_questions', 'children'])->whereNull('parent_id')->where('section','campania')->get();
         $data['list'] = NestedField::with(['nested_field_questions', 'children'])->get();
 
         return $data;
@@ -824,7 +835,7 @@ class ProfileController extends Controller
             if ($validator->passes()) {
 
                 $contactIssue = ContactIssue::find($request->contact_issue);
-
+                dd($request->all());
                 if (!$contactIssue) {
                     return ApiResponse::JsonError(null,'Ha ocurrido un error.');
                 }
@@ -855,8 +866,8 @@ class ProfileController extends Controller
                     Log::info('SENDGRID CONTACT FORM ENVIADO');
 
                     $contactMessage = New ContactMessage();
-                    $contactMessage->values = json_encode($request->dynamic_inputs);
-                    $contactMessage->dynamic_fields = $request->dynamic_fields;
+                    $contactMessage->values = json_encode($request->dynamicData);
+                    $contactMessage->dynamic_fields = json_encode($request->dynamic_fields);
                     $contactMessage->message = $request->message;
                     $contactMessage->contact_issue_id = $contactIssue->id;
                     $contactMessage->customer_id = $request->customer_id;
