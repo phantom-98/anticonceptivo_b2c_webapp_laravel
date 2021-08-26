@@ -10,6 +10,7 @@ use App\Models\CustomerAddress;
 use App\Models\OrderItem;
 use App\Models\DeliveryCost;
 use App\Http\Helpers\ApiHelper;
+use App\Models\SubscriptionsOrdersItem;
 use Carbon\Carbon;
 
 
@@ -21,10 +22,12 @@ class CallIntegrationsPay extends CoreHelper
         $customer = Customer::find($order->customer_id);
         $ordersItems = $order->order_items;
         $items = [];
-        foreach ($ordersItems as $elementOrderItem) {
+
+       foreach ($ordersItems as $elementOrderItem) {
+
             $item = array(
                 'productItemId' => $elementOrderItem->product->product_item_id_ailoo,
-                'price' => $elementOrderItem->subscription_plan_id  == null ? $elementOrderItem->price : $elementOrderItem->subtotal ,
+                'price' => $elementOrderItem->price,
                 'quantity' => $elementOrderItem->subscription_plan_id  == null ? $elementOrderItem->quantity : 2,
                 "taxable"=> true,
                 "type"=> "PRODUCT"
@@ -33,35 +36,33 @@ class CallIntegrationsPay extends CoreHelper
         }
 
         $data = array(
-            "client"=> [ 
+            "client"=> [
                 "razonSocial"=> null,
                 "rut"=> $customer->id_number,
                 "fistName"=> $customer->fist_name,
                 "lastName"=> $customer->last_name,
                 "tradeName"=> null,
-                "email"=> $customer->email,
+//                "email"=> $customer->email,
                 "phone"=> $customer->phone,
-                "address"=> $customerAddress->address .' '. $customerAddress->extra_info 
+                "address"=> $customerAddress->address .' '. $customerAddress->extra_info
             ],
-                "facilityId"=> 1540,
-                "cashRegisterId"=> 1069,
-                "saleTypeId"=> 3,
+                "facilityId"=> env('FACILITY_ID',1540),
+                "cashRegisterId"=> env('CASH_REGISTER',1069),
+                "saleTypeId"=> env('SALE_TYPE_ID',3),
                 "comment"=> "Venta API",
                 "items"=> $items,
                 "user"=> "anticonceptivo"
         );
-        // var_dump($data);
         $get_data = ApiHelper::callAPI('POST', 'https://api.ailoo.cl/v2/sale/boleta/print_type/1', json_encode($data), 'ailoo');
         $response = json_decode($get_data, true);
         if($response['error']['code'] == 0){
             $order->voucher_pdf = $response['pdfUrl'];
             $order->save();
         }
-
         return $response;
    }
-   
-   public static function callUpdateStockProducts($order_id)
+
+   public static function  callUpdateStockProducts($order_id)
    {
         $orderItems =OrderItem::where('order_id',$order_id)->get();
 
@@ -133,16 +134,16 @@ class CallIntegrationsPay extends CoreHelper
             'cliente_telefono' => $order->customer->phone,
             'cliente_correo' => $order->customer->email,
 
-            'bultos' => 
+            'bultos' =>
             array (
-            0 => 
+            0 =>
             array (
                 'carton' => $order->id.'C1',
                 'productos' => $data_llego_products
             ),
             ),
         );
-        
+
         $get_data = ApiHelper::callAPI('POST', 'https://qa-integracion.llego.cl/api/100/Anticonceptivo/carga/Pedido', json_encode($data_llego), 'llego');
         $response = json_decode($get_data, true);
         if($response['codigo'] == 200){

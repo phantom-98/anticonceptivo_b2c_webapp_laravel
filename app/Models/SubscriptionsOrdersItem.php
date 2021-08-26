@@ -17,6 +17,11 @@ class SubscriptionsOrdersItem extends Model
         'commune_id',
         'order_id',
         'voucher_pdf',
+        'name',
+        'price',
+        'subtotal',
+        'order_parent_id',
+        'quantity',
         'status'
     ];
 
@@ -34,5 +39,9 @@ class SubscriptionsOrdersItem extends Model
 
     public function order(){
         return $this->belongsTo(Order::class,'order_id');
+    }
+
+    public function order_parent(){
+        return $this->belongsTo(Order::class,'order_parent_id');
     }
 }

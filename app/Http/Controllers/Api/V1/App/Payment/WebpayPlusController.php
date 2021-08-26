@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1\App\Payment;
 
 // use App\Models\WebpayLog;
+use App\Models\ProductSubscriptionPlan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Innovaweb\Transbank\WebpayPlus;
@@ -169,21 +170,35 @@ class WebpayPlusController
 
                     $subtotal = $subtotal + ($item['subscription']['quantity'] * $item['subscription']['price']);
                     $orderItem->subtotal = ($item['subscription']['quantity'] * $item['subscription']['price']);
+                    $orderItem->price = $item['subscription']['price'];
                     $orderItem->subscription_plan_id = $item['subscription']['subscription_plan_id'];
                     $subscriptionPlan = SubscriptionPlan::find($item['subscription']['subscription_plan_id']);
                     $orderItem->save();
                     $quantityFinal = $subscriptionPlan->months;
-
                     for ($i=0; $i < round($subscriptionPlan->months/2); $i++) {
+
+                        $productSubscriptionPlan = ProductSubscriptionPlan::where('product_id',$orderItem->product_id)
+                                                ->where('subscription_plan_id',$subscriptionPlan->id)->get()->first();
+                        $quantity = 2;
+                        if($i == round($subscriptionPlan->months/2)-1 && round($subscriptionPlan->months/2)%2!=0){
+                            $quantity = 1;
+                        }
+
+                        $pay_date = Carbon::now()->addDays(($i*$productSubscriptionPlan->days)-($i == 0 ? 0 : 4));
                         $subscriptionOrdersItem = new SubscriptionsOrdersItem;
                         $subscriptionOrdersItem->is_pay = 0;
-                        $subscriptionOrdersItem->order_id = $order->id;
+                        $subscriptionOrdersItem->name = $orderItem->name;
+                        $subscriptionOrdersItem->price = $orderItem->price;
+                        $subscriptionOrdersItem->subtotal = $orderItem->subtotal;
+                        $subscriptionOrdersItem->order_parent_id = $order->id;
                         $subscriptionOrdersItem->orders_item_id = $orderItem->id;
-                        $subscriptionOrdersItem->pay_date = Carbon::now()->addMonths($i*2);
+                        $subscriptionOrdersItem->pay_date = $pay_date;
+                        $subscriptionOrdersItem->save();
                         $subscriptionOrdersItem->dispatch = $itemDeliveryCostArrayCost ? $itemDeliveryCostArrayCost->price[0] : 0;
-                        $subscriptionOrdersItem->dispatch_date = Carbon::now()->addMonths($i*2)->addHours($itemDeliveryCost->deadline_delivery);
+                        $subscriptionOrdersItem->dispatch_date = $pay_date->addHours($itemDeliveryCost->deadline_delivery);
                         $subscriptionOrdersItem->subscription_id = $request->subscription['id'];
                         $subscriptionOrdersItem->customer_address_id = $customerAddress->id;
+                        $subscriptionOrdersItem->quantity = $quantity;
                         $subscriptionOrdersItem->commune_id = $customerAddress->commune_id;
                         $subscriptionOrdersItem->delivery_address = $customerAddress->address . ' ' .$customerAddress->extra_info;
                         $subscriptionOrdersItem->status = 'CREATED';
@@ -239,22 +254,26 @@ class WebpayPlusController
 
                     if($response['status'] == "success"){
                         $ordersItems = OrderItem::where('order_id',$order->id)->get();
+
                         foreach ($ordersItems as $elementOrderItem) {
-                            $subscriptionOrdersItems = SubscriptionsOrdersItem::where('orders_item_id',$elementOrderItem->id)->orderBy('pay_date')->get();
-                            foreach ($subscriptionOrdersItems as $key => $elementSubscriptionOrdersItem) {
-                                if(Carbon::parse($elementSubscriptionOrdersItem->pay_date)->format('d/m/Y') == Carbon::now()->format('d/m/Y')){
-                                    $elementSubscriptionOrdersItem->is_pay = 1;
-                                    $elementSubscriptionOrdersItem->status = 'PAID';
-                                    $elementSubscriptionOrdersItem->save();
-                                }
+                            $subscriptionOrdersItem = SubscriptionsOrdersItem::where('orders_item_id',$elementOrderItem->id)->orderBy('pay_date')->first();
+                            if($subscriptionOrdersItem){
+                                $subscriptionOrdersItem->is_pay = 1;
+                                $subscriptionOrdersItem->order_id = $order->id;
+                                $subscriptionOrdersItem->status = 'PAID';
+                                $subscriptionOrdersItem->save();
+                            }else{
+                                $subscriptionOrdersItem->orders_item_id = $order->id;
+                                $subscriptionOrdersItem->save();
                             }
                         }
-                        $order->is_paid = 1;
 
+                        $order->is_paid = 1;
                         $order->status = PaymentStatus::PAID;
                         $order->payment_type = 'tarjeta';
                         $order->save();
-                        $dataVoucher = CallIntegrationsPay::callVoucher($order->id,$customerAddress);
+
+                        CallIntegrationsPay::callVoucher($order->id,$customerAddress);
                         CallIntegrationsPay::callDispatchLlego($order->id,$customerAddress);
                         CallIntegrationsPay::callUpdateStockProducts($order->id);
                         CallIntegrationsPay::sendEmailsOrder($order->id);

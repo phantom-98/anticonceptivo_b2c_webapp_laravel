@@ -70,7 +70,7 @@
                                         {!! $errors->first('sku', '<span class="help-block">:message</span>') !!}
                                     </div>
                                 </div>
-                                
+
                                 <div class="col-md-6">
                                     <div class="form-group {{ $errors->has('subcategory_id') ? 'has-error':'' }}">
                                         <label for="subcategory_id">Subcategoría (*)</label>
@@ -208,34 +208,34 @@
                                             <option value="6">6</option>
                                             <option value="7">7</option>
                                             <option value="8">8</option>
-                                            <option value="10">10</option>         
+                                            <option value="10">10</option>
                                             <option value="12">12</option>
                                             <option value="14">14</option>
-                                            <option value="15">15</option>         
+                                            <option value="15">15</option>
                                             <option value="16">16</option>
                                             <option value="20">20</option>
-                                            <option value="21">21</option>         
+                                            <option value="21">21</option>
                                             <option value="24">24</option>
                                             <option value="25">25</option>
                                             <option value="28">28</option>
                                             <option value="30">30</option>
-                                            <option value="35">35</option>         
+                                            <option value="35">35</option>
                                             <option value="40">40</option>
                                             <option value="45">45</option>
                                             <option value="50">50</option>
                                             <option value="56">56</option>
                                             <option value="60">60</option>
-                                            <option value="80">80</option>         
+                                            <option value="80">80</option>
                                             <option value="90">90</option>
                                             <option value="91">91</option>
-                                            <option value="100">100</option>   
-                                            <option value="133">133</option>       
+                                            <option value="100">100</option>
+                                            <option value="133">133</option>
                                             <option value="180">180</option>
                                             <option value="200">200</option>
-                                            <option value="250">250</option>      
+                                            <option value="250">250</option>
                                         </select>
                                     </div>
-                                </div> 
+                                </div>
                                 <div class="col-md-3">
                                     <div class="form-group {{ $errors->has('barcode') ? 'has-error':'' }}">
                                         <label for="barcode">Código de Barras </label>
@@ -330,30 +330,30 @@
                                 <div class="form-group">
                                     <label for="price">Plan</label>
                                     <select name="plan_id[1][]" class="form-control plan_id" data-width="100%">
-                                        <option value="">Seleccione un plan (mes)</option>
+                                        <option value="">Seleccione un plan (periodos)</option>
                                         @foreach($plans as $c)
                                             <option value="{{ $c->id }}">{{ $c->months }}</option>
                                         @endforeach
                                     </select>
                                 </div>
-                            </div>    
+                            </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="warnings">Disclaimer</label>
                                     <textarea name="warnings[1][]" class="form-control warnings summernote"></textarea>
                                 </div>
-                            </div>   
+                            </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="price">Precio por mes</label>
                                     <input type="text" name="price_plan[1][]" class="form-control price"
                                     oninput="checkKeyByClass('price')" >
                                 </div>
-                            </div>   
+                            </div>
                             <div class="col-md-2">
                                 <button class="btn btn-success" type="button" style="margin-top:22px" onclick="addNewRow()"><i
                                     class="fa fa-plus"></i> Añadir otro plan</button>
-                            </div> 
+                            </div>
                             <div class="clearfix"></div>
                         </div>
                         <div class="col-md-12">
@@ -504,17 +504,17 @@
     <script>
         $(document).ready(function() {
             $('.summernote').summernote({
-                
+
                 height: 100,
                 callbacks: {
                     onFocus: function (contents) {
                         if($('.summernote').summernote('isEmpty')){
-                            $(".summernote").html(''); 
+                            $(".summernote").html('');
                         }
                     }
                 }
             });
-            
+
         });
     </script>
 
@@ -599,18 +599,18 @@
             $(".warnings").last().removeAttr("required");
             let object = $(".warnings").last();
             $(object).summernote({
-                
+
                 height: 100,
                 callbacks: {
                     onFocus: function (contents) {
                         if($(object).summernote('isEmpty')){
-                            $(object).html(''); 
+                            $(object).html('');
                         }
                     }
                 }
             })
             $(object).summernote('reset');
-            
+
         }
     </script>
 

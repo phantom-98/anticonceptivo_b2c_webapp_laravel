@@ -14,6 +14,7 @@ class ProductSubscriptionPlan extends Model
         'subscription_plan_id',
         'price',
         'quantity',
+        'days',
         'product_id'
     ];
 
