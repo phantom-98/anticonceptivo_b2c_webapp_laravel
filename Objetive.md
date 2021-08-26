@@ -1,3 +1,5 @@
+TABLES
+
 ContactMessage
 -   Context: Customer
 -   Store: DynamicField
@@ -13,6 +15,8 @@ Contacts
 -   Store: ContactIssue (hard)
 -   Without: Selectable ContactIssue
 
+Campaign ? 
+
 ------------------ TARGET ------------------
 
 Contacts
@@ -22,3 +26,32 @@ Contacts
 -   Selectables: By Context
 
 ------------------ TARGET ------------------
+
+Incong:
+
+-   Table: NestedFields: section: campania = customer/contacto
+
+Explain: 
+
+-   section: campania: target customer?
+-   section: contact: target public
+
+Solution:
+
+-   NestedFields: section: customer_service/contact
+
+
+------------------ WORKING ------------------
+-   ContactController.php
+-   Context: API - Public
+-   Now Get: ContactIssue
+-   Now Post: contact_issue_id
+-   Missing: React connection
+------------------ WORKING ------------------
+
+
+CUSTOMER SERVICE
+NESTED_FIELDS => CONTACT_ISSUE $ VAR IF SECTION => SERVICIO AL CLIENTE => CAMPAÑA
+
+PUBLIC
+NESTED_FIELDS => CONTACT_ISSUE NULL => X SECTION & X TYPE => CAN'T SHOW BY FILTERS

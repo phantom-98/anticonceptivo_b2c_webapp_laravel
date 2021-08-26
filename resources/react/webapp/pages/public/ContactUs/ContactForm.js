@@ -11,6 +11,7 @@ import DynamicPath from "./DynamicPath";
 const ContactForm = () => {
 
     const defaultModel = {
+        // contact_issue_id: '',
         contact_first_name: '',
         contact_last_name: '',
         contact_order_id: '',
@@ -28,6 +29,7 @@ const ContactForm = () => {
     const [list, setList] = useState([]);
     const [path, setPath] = useState([]);
     const [privacyPolicy, setPrivacyPolicy] = useState({});
+    // const [contactIssues, setContactIssues] = useState([]);
 
     const [handleTermsModal, setHandleTermsModal] = useState(false);
     const [handlePrivacyPoliceModal, setHandlePrivacyPoliceModal] = useState(false);
@@ -48,6 +50,7 @@ const ContactForm = () => {
                 response: response,
                 success: () => {
                     console.log(response.data)
+                    // setContactIssues(response.data.contact_issues)
                     setNestedFields(response.data.nested_fields)
                     setList(response.data.list)
                     setPrivacyPolicy(response.data.privacy_policy)
@@ -151,6 +154,31 @@ const ContactForm = () => {
 
     return (
         <div className="row">
+             {/* <div className="col-md-12">
+                 <div className="form-group">
+                    <label htmlFor="contact_issue_id">Que es lo que buscas</label>
+                    <select
+                        className="form-control form-control-custom pl-2"
+                        id="contact_issue_id"
+                        name="contact_issue_id"
+                        onChange={handleData}
+                        value={model.contact_issue_id}
+                        onFocus={setCleanInputError}
+                    >
+                        <option selected={true} disabled={true} value={''}>Seleccione</option>
+                        {
+                            contactIssues.map((contact) => {
+                                return(
+                                    <option key={contact.id} value={contact.id}>
+                                        {contact.name}
+                                    </option>
+                                )
+                            })
+                        }
+                    </select>
+                    <div className="invalid-feedback" />
+                </div>    
+            </div> */}
             <div className="col-md-6">
                 <div className="form-group">
                     <label htmlFor="contact_first_name">Nombres</label>
