@@ -19,7 +19,8 @@ class Contact extends Model
         'dynamic_fields',
         'subject_parent',
         'is_reply',
-        'reply'
+        'reply',
+        'customer_id'
     ];
 
     protected $casts = [
@@ -34,6 +35,11 @@ class Contact extends Model
     public function contact_issue()
     {
         return $this->belongsTo(ContactIssue::class);
+    }
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
     }
 
     protected $appends = [
