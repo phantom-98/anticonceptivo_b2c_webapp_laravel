@@ -14,11 +14,7 @@ class AddCustomerIdToContactsTable extends Migration
     public function up()
     {
         Schema::table('contacts', function (Blueprint $table) {
-
-            $table->renameColumn('dynamic_fields', 'nested_fields');
-
-            $table->bigInteger('customer_id')->unsigned()->nullable();
-            $table->foreign('customer_id')->references('id')->on('customers')->onDelete('set null');
+            $table->longText('dynamic_fields')->nullable()->after('nested_fields');
         });
     }
 
