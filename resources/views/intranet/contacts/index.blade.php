@@ -237,22 +237,38 @@
                     sortable: true,
                     cellStyle: cellStyle,
                     formatter: function(value, row, index) {
-                        return row.first_name + '' + row.last_name;
+                        if (value) {
+                            return row.first_name + '' + row.last_name;
+                        }else{
+                            return row.customer.first_name + ' ' + row.customer.last_name;
+                            
+                        }
                     }
                 },
                 {
                     title: 'Email',
                     field: 'email',
                     sortable: true,
-                    cellStyle: cellStyle
+                    cellStyle: cellStyle,
+                    formatter: function(value, row, index) {
+                        if (value) {
+                            return row.email;
+                        }else{
+                            return row.customer.email;
+                            
+                        }
+                    }
                 },
                 {
                     title: 'Teléfono Celular',
-                    field: 'celphone',
+                    field: 'phone',
                     sortable: true,
                     cellStyle: cellStyle,
                     formatter: function(value, row, index) {
-                        return row.phone_code + '' + row.phone;
+                        if (value) {
+                            
+                            return row.phone_code + '' + row.phone;
+                        }
                     }
                 },
                 {
@@ -303,28 +319,29 @@
                         }
                         return html;
                     }
-                },
-                {
-                    title: 'Respuesta',
-                    field: 'reply',
-                    align: 'center',
-                    sortable: true,
-                    cellStyle: midAling,
-                    formatter: function(value, row, index) {
-                        if (row.reply) {
-                            return "<div class='btn-group' style='width: max-content;'><a onclick='openModalRespuesta(&quot;" +
-                                row.reply.replace(/(?:\r\n|\r|\n)/g, '<br>') +
-                                "&quot;)' class='btn btn-sm btn-default btn-hover-success add-tooltip' title='Ver respuesta'><i class='fa fa-search'></i></a></div>";
-                        } else {
-                            return "Sin respuesta";
-                        }
-                    }
                 }
+                // ,
+                // {
+                //     title: 'Respuesta',
+                //     field: 'reply',
+                //     align: 'center',
+                //     sortable: true,
+                //     cellStyle: midAling,
+                //     formatter: function(value, row, index) {
+                //         if (row.reply) {
+                //             return "<div class='btn-group' style='width: max-content;'><a onclick='openModalRespuesta(&quot;" +
+                //                 row.reply.replace(/(?:\r\n|\r|\n)/g, '<br>') +
+                //                 "&quot;)' class='btn btn-sm btn-default btn-hover-success add-tooltip' title='Ver respuesta'><i class='fa fa-search'></i></a></div>";
+                //         } else {
+                //             return "Sin respuesta";
+                //         }
+                //     }
+                // }
 
             ];
 
             columns.push({
-                title: 'Responder',
+                title: 'Acciones',
                 field: 'active',
                 align: 'center',
                 cellStyle: cellStyle,

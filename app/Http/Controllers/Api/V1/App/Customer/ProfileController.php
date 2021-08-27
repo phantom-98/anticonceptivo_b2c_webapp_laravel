@@ -862,8 +862,8 @@ class ProfileController extends Controller
 
                     $contact = New Contact();
 
-                    $contact->dynamic_fields = json_encode($request->dynamic_fields);
-                    $contact->nested_fields = json_encode($request->nested_fields);
+                    $contact->dynamic_fields = $request->dynamic_fields;
+                    $contact->nested_fields = $request->nested_fields;
                     $contact->message = $request->message;
 
                     // $contact->order_id = $order_id->id;
