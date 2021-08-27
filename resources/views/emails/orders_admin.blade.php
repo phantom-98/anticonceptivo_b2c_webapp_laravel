@@ -5,7 +5,13 @@
     <div class="titulo">Estimado Administrador:</div>
     <div class="mensaje">
         <p>
-            Hemos recibido un nuevo pedido, su número es #<b>{{ $order->id }}</b>.
+            @if($type == 'subscription')
+                Hemos recibido un nuevo pago automatico de suscripción, su número es #<b>{{ $order->id }}</b>.
+
+            @else
+                Hemos recibido un nuevo pedido, su número es #<b>{{ $order->id }}</b>.
+
+            @endif
         </p>
         <div style="margin-bottom: 20px;">
             <table class="table">
@@ -59,13 +65,10 @@
                     <td class="bold w-25">DIRECCIÓN</td>
                     <td colspan="4">{{ $order->delivery_address ??  'Dirección no registrada' }}</td>
                 </tr>
-                {{-- @if($order->dispatch_type == 'delivery')
                 <tr>
                     <td class="bold w-25">FECHA ESTIMADA DE ENTREGA</td>
-                    <td colspan="4">{{ date('d-m-Y', strtotime($order->estimated_date)) }}</td>
+                    <td colspan="4">{{ date('d-m-Y', strtotime($order->delivery_date)) }}</td>
                 </tr>
-                @endif --}}
-
                 <tr>
                     <td class="bold w-25">SUBTOTAL</td>
                     <td class="bold w-25">ENVÍO</td>
@@ -112,16 +115,13 @@
                     <tr>
                         <td style="word-break: normal;">
                             {{ $item->name }}
-                            @if($item->subscription_plan_id != null)
-                             (suscripción)
-                            @endif
                         </td>
                         <td style="text-align: right;">
-                            ${{ number_format(($item->subscription_plan_id != null ? $item->subtotal : $item->price) , 0, ',','.')}}
+                            ${{ number_format($item->price , 0, ',','.')}}
                         </td>
-                        <td style="text-align: center;">{{ ($item->subscription_plan_id != null ? ($item->subscription_plan->months . ' Meses') : $item->quantity)  }}</td>
+                        <td style="text-align: center;">{{ ($item->subscription_plan_id != null ? $item->quantity . ' (Suscripción)': $item->quantity)  }}</td>
                         <td style="text-align: right;">
-                            ${{ number_format(($item->subscription_plan_id != null ? $item->subtotal : $item->price * $item->quantity) , 0, ',','.')}}
+                            ${{ number_format(($item->subtotal) , 0, ',','.')}}
 
                         </td>
                     </tr>

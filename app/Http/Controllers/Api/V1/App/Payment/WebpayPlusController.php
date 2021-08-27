@@ -175,7 +175,11 @@ class WebpayPlusController
                     $subscriptionPlan = SubscriptionPlan::find($item['subscription']['subscription_plan_id']);
                     $orderItem->save();
                     $quantityFinal = $subscriptionPlan->months;
+                    $period = 0;
+                    $pay_date = Carbon::now();
                     for ($i=0; $i < round($subscriptionPlan->months/2); $i++) {
+                        $period++;
+                        $period_string = $period . '';
 
                         $productSubscriptionPlan = ProductSubscriptionPlan::where('product_id',$orderItem->product_id)
                                                 ->where('subscription_plan_id',$subscriptionPlan->id)->get()->first();
@@ -183,9 +187,17 @@ class WebpayPlusController
                         if($i == round($subscriptionPlan->months/2)-1 && round($subscriptionPlan->months/2)%2!=0){
                             $quantity = 1;
                         }
-                        $pay_date = Carbon::now()->addDays(($i*$productSubscriptionPlan->days)-($i == 0 ? 0 : 4));
+                        if($quantity == 2){
+                            $period++;
+                            $period_string .= ' y ' . $period;
+                        }
+                        if($i != 0){
+                            $pay_date->addDays(($productSubscriptionPlan->days*$quantity)-($i == 0 ? 0 : 4));
+                        }
                         $subscriptionOrdersItem = new SubscriptionsOrdersItem;
                         $subscriptionOrdersItem->is_pay = 0;
+                        $subscriptionOrdersItem->days = $quantity *$productSubscriptionPlan->days;
+                        $subscriptionOrdersItem->period = $period_string;
                         $subscriptionOrdersItem->name = $orderItem->name;
                         $subscriptionOrdersItem->price = $orderItem->price;
                         $subscriptionOrdersItem->subtotal = $orderItem->subtotal;
@@ -202,6 +214,10 @@ class WebpayPlusController
                         $subscriptionOrdersItem->delivery_address = $customerAddress->address . ' ' .$customerAddress->extra_info;
                         $subscriptionOrdersItem->status = 'CREATED';
                         $subscriptionOrdersItem->save();
+                        if($i != 0){
+                            $pay_date->addDays(4);
+                        }
+
                     }
 
                 }else{

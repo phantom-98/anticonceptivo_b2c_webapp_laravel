@@ -4,8 +4,16 @@
 @section('content')
     <div class="titulo">Estimado/a {{ $order->customer->first_name }} :</div>
     <div class="mensaje">
+
+
         <p>
-            Hemos recibido tu pedido #<b>{{ $order->id }}</b> exitosamente.
+            @if($type == 'subscription')
+                Pago automatico de suscripción, su número es #<b>{{ $order->id }}</b>.
+
+            @else
+                Hemos recibido tu pedido #<b>{{ $order->id }}</b> exitosamente.
+
+            @endif
         </p>
         <div style="margin-bottom: 20px;">
             <table class="table">
@@ -112,17 +120,13 @@
                     <tr>
                         <td style="word-break: normal;">
                             {{ $item->name }}
-                            @if($item->subscription_plan_id != null)
-                             (suscripción)
-                            @endif
                         </td>
                         <td style="text-align: right;">
-                            ${{ number_format(($item->subscription_plan_id != null ? $item->subtotal : $item->price) , 0, ',','.')}}
+                            ${{ number_format($item->price , 0, ',','.')}}
                         </td>
-                        <td style="text-align: center;">{{ ($item->subscription_plan_id != null ? ($item->subscription_plan->months . ' Meses') : $item->quantity)  }}</td>
+                        <td style="text-align: center;">{{ ($item->subscription_plan_id != null ? $item->quantity . ' (Suscripción)': $item->quantity)  }}</td>
                         <td style="text-align: right;">
-                            ${{ number_format(($item->subscription_plan_id != null ? $item->subtotal : $item->price * $item->quantity) , 0, ',','.')}}
-
+                            ${{ number_format(($item->subtotal) , 0, ',','.')}}
                         </td>
                     </tr>
                 @endforeach
@@ -153,10 +157,10 @@
 
         <p>
             @if($order->voucher_pdf)
-            
+
                 <a href="{{$order->voucher_pdf}}" target="_blank">Descargar boleta</a>
             @endif
-        </p> 
+        </p>
 
         {{-- <p>
             Puedes obtener la información de seguimiento mediante el siguiente link:
@@ -164,7 +168,7 @@
         </p>
         <p>
             @if($order->tracking)
-            
+
                 <a href="{{$order->tracking->tracking_web}}" target="_blank">Tracking</a>
             @endif
         </p> --}}

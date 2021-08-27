@@ -154,13 +154,13 @@ class CallIntegrationsPay extends CoreHelper
    }
 
 
-   public static function sendEmailsOrder($order_id)
+   public static function sendEmailsOrder($order_id, $type = 'compra')
    {
         $order =Order::with('customer','order_items.subscription_plan')->where('id',$order_id)->get()->first();
         $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
 
         // Envio al cliente
-        $html = view('emails.orders', ['order' => $order, 'type' => 'producto', 'nombre' => 'Equipo Anticonceptivo'])->render();
+        $html = view('emails.orders', ['order' => $order, 'type' => $type, 'nombre' => 'Equipo Anticonceptivo'])->render();
 
         $email = new \SendGrid\Mail\Mail();
 
@@ -176,7 +176,7 @@ class CallIntegrationsPay extends CoreHelper
         $sendgrid->send($email);
 
         // Envio al admin
-        $html2 = view('emails.orders_admin', ['order' => $order, 'type' => 'producto', 'nombre' => 'Equipo Anticonceptivo'])->render();
+        $html2 = view('emails.orders_admin', ['order' => $order, 'type' => $type, 'nombre' => 'Equipo Anticonceptivo'])->render();
 
         $email2 = new \SendGrid\Mail\Mail();
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Helpers\CallIntegrationsPay;
 use Illuminate\Http\Request;
 use App\Models\DayPayment;
 use App\Models\PaymentCommission;
@@ -57,7 +58,7 @@ class TestController extends Controller
 
     public function PaySubscription()
     {
-        $datePayment = Carbon::now()->addDays(22);
+        $datePayment = Carbon::now()->addDays(24);
         $customers = Customer::all();
         foreach ($customers as $customer) {
             $subscriptionsOrdersItems = SubscriptionsOrdersItem::whereHas('order_parent', function ($q) use ($customer) {
@@ -66,7 +67,7 @@ class TestController extends Controller
                 ->whereIn('status', ['CREATED', 'REJECTED'])
                 ->whereDate('pay_date', $datePayment)
                 ->with(['order_item.product', 'subscription', 'order.order_items', 'order_item.subscription_plan', 'order.customer', 'customer_address.commune'])
-                ->select('id', 'order_parent_id as order_id', 'orders_item_id','price','quantity', 'subscription_id', 'customer_address_id', 'pay_date', 'dispatch_date', 'status', 'is_pay')
+                ->select('id', 'order_parent_id as order_id','subtotal','name', 'orders_item_id','price','quantity', 'subscription_id','delivery_address', 'customer_address_id', 'pay_date', 'dispatch_date', 'status', 'is_pay')
                 ->orderBy('order_parent_id')->orderBy('pay_date')
                 ->get();
             $prev_order_id = null;
@@ -101,13 +102,12 @@ class TestController extends Controller
                 $dispatch = $this->getDeliveryCost($prev_item->customer_address->commune->name)['price_dispatch'];
                 $total = $total + $dispatch;
 
-//                $response = $this->oneclick->authorize($customer->id, $prev_item->subscription->transbank_token, $prev_item->id, $total);
-//                var_dump($response);
-//                if($response['status'] == "success") {
+                $response = $this->oneclick->authorize($customer->id, $prev_item->subscription->transbank_token, $prev_item->id, $total);
+                if($response['status'] == "success") {
                     $this->sendCallIntegration(collect($array_item));
-//                }else{
-//                    dd($response['status']);
-//                }
+                }else{
+                    dd($response['status']);
+                }
                 $array_item = [];
 
             }
@@ -119,7 +119,6 @@ class TestController extends Controller
 
     private function sendCallIntegration($array_subscription_order_items){
         $first_subcription_order_item = $array_subscription_order_items->first();
-        dd($first_subcription_order_item);
 
         $order = new Order();
         $order->delivery_address = $first_subcription_order_item->delivery_address . ', '.  $first_subcription_order_item->customer_address->commune->name;
@@ -134,15 +133,17 @@ class TestController extends Controller
             $orderItem->name = $subscription_order_item->name;
             $orderItem->quantity = $subscription_order_item->quantity;
             $orderItem->price = $subscription_order_item->price;
-            $orderItem->subscription_plan = $subscription_order_item->order_item->subscription_plan;
-            $orderItem->subtotal = $order->subtotal;
+            $orderItem->subscription_plan_id = $subscription_order_item->order_item->subscription_plan->id;
+            $orderItem->subtotal = $subscription_order_item->subtotal;
             $orderItem->save();
+            $subscription_order_item->orders_item_id = $orderItem->id;
+            $subscription_order_item->save();
             $subtotal += $orderItem->subtotal;
         }
         $order->subtotal = $subtotal;
         $order->total = $subtotal + $order->dispatch;
         $order->payment_type = 'tarjeta';
-        $order->customer_id = $first_subcription_order_item->customer_id;
+        $order->customer_id = $first_subcription_order_item->order->customer_id;
         $order->delivery_date = $first_subcription_order_item->dispatch_date;
         $order->save();
 
@@ -237,54 +238,25 @@ class TestController extends Controller
         $get_data = ApiHelper::callAPI('POST', 'https://qa-integracion.llego.cl/api/100/Anticonceptivo/carga/Pedido', json_encode($data_llego), 'llego');
         $response = json_decode($get_data, true);
 
-        foreach ($array_subscription_order_items as $item){
-            if($response['codigo'] == 200){
-                $item->dispatch_status = 'Procesando';
-            }else{
-                dd('murio llego');
-            }
-            $item->is_pay = 1;
-            $item->status = 'PAID';
-            $item->save();
-        }
-
         $order->is_paid = 1;
         $order->status = 'PAID';
         $order->save();
 
-        $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
+        foreach ($array_subscription_order_items as $item){
+            if($response['codigo'] == 200){
+                $item->dispatch_status = 'Procesando';
+            }else{
+                $item->dispatch_status = 'Error';
+            }
+            $item->is_pay = 1;
+            $item->status = 'PAID';
+            $item->save();
 
-//        // Envio al cliente
-//        $html = view('emails.subscription', ['customer' => $customer, 'subscription_order' => $item, 'type' => 'producto', 'nombre' => 'Equipo Anticonceptivo'])->render();
-//
-//        $email = new \SendGrid\Mail\Mail();
-//
-//        $email->setFrom("info@anticonceptivo.cl", 'Anticonceptivo');
-//        $email->setSubject('Compra #' . $item->order->id);
-//        // $email->addTo($order->customer->email, 'Pedido');
-//        $email->addTo("victor.araya.del@gmail.com", 'Pedido');
-//
-//        $email->addContent(
-//            "text/html", $html
-//        );
-//
-//        $sendgrid->send($email);
-//
-//        // Envio al admin
-//        $html2 = view('emails.subscription_admin', ['customer' => $customer,'subscription_order' => $item, 'type' => 'producto', 'nombre' => 'Equipo Anticonceptivo'])->render();
-//
-//        $email2 = new \SendGrid\Mail\Mail();
-//
-//        $email2->setFrom("info@anticonceptivo.cl", 'Anticonceptivo');
-//        $email2->setSubject('Nuevo pedido recibido #' . $item->order->id);
-//        $email2->addTo("victor.araya.del@gmail.com", 'Pedido');
-//        // $email2->addTo("@.cl", 'Pedido');
-//
-//        $email2->addContent(
-//            "text/html", $html2
-//        );
-//
-//        $sendgrid->send($email2);
+            $tmp_subscription_order = SubscriptionsOrdersItem::find($item->id);
+            $tmp_subscription_order->order_id = $order->id;
+            $tmp_subscription_order->save();
+        }
+        CallIntegrationsPay::sendEmailsOrder($order->id,'subscription');
     }
 
     private function getDeliveryCost($commune_name){

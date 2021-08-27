@@ -19,6 +19,9 @@ Route::prefix('customer')
 
 
         Route::post('get-subscriptions-orders_items', [ProfileController::class, 'getSubscriptionsOrdersItems'])->name('getSubscriptionsOrdersItems');
+        Route::post('get-active-subscriptions-orders_items', [ProfileController::class, 'getActiveSubscriptionsOrdersItems'])->name('getActiveSubscriptionsOrdersItems');
+
+
         Route::post('get-subscriptions', [ProfileController::class, 'getSubscriptions'])->name('getSubscriptions');
         Route::post('create-subscriptions', [ProfileController::class, 'createSubscriptions'])->name('createSubscriptions');
         Route::post('update-default-subscription', [ProfileController::class, 'updateDefaultSubscription'])->name('updateDefaultSubscription');

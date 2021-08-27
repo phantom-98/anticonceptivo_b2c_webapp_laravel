@@ -51,7 +51,7 @@ class ApiHelper extends CoreHelper
                   'access_token: e5f3b7f9abe58b72464c2b958ac2eeb621b9c8ca',
                   'Accept: application/json',
                   'Content-Type: application/json',
-                  
+
                ));
             }else if($integration == 'llego'){
 
@@ -60,7 +60,6 @@ class ApiHelper extends CoreHelper
                   'X-Ailoo-Access-Token: )H@McQfTjWnZr4t7w!z%C*F-JaNdRgUkXp2s5v8x/A?D(G+KbPeShVmYq3t6w9z$B&E)H@McQfTjWnZr4u7x!A%D*F-JaNdRgUkXp2s5v8y/B?E(H+KbPeShVmYq3t6w',
                   'Accept: application/json',
                   'Content-Type: application/json',
-                  
                ));
             }
 
@@ -79,7 +78,7 @@ class ApiHelper extends CoreHelper
                      'x-cliente: ANTICONCEPTIVO',
                      'Accept: application/json',
                      'Content-Type: application/json',
-                     
+
                   ));
                }else{
                   curl_setopt($curl, CURLOPT_HTTPHEADER, array(
@@ -87,7 +86,7 @@ class ApiHelper extends CoreHelper
                      'x-cliente: ANTICONCEPTIVO',
                      'Accept: application/json',
                      'Content-Type: application/json',
-                     
+
                   ));
                }
 
@@ -96,7 +95,7 @@ class ApiHelper extends CoreHelper
                   'X-Ailoo-Access-Token: )H@McQfTjWnZr4t7w!z%C*F-JaNdRgUkXp2s5v8x/A?D(G+KbPeShVmYq3t6w9z$B&E)H@McQfTjWnZr4u7x!A%D*F-JaNdRgUkXp2s5v8y/B?E(H+KbPeShVmYq3t6w',
                   'Accept: application/json',
                   'Content-Type: application/json',
-                  
+
                ));
             }
 

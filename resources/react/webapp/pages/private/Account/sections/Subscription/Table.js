@@ -12,6 +12,7 @@ import Form from "../Addresses/Form";
 import CloseModal from "../../../../../components/general/CloseModal";
 import Swal from "sweetalert2";
 import toastr from "toastr";
+import {v4 as uuidv4} from "uuid";
 
 const Table = ({
     setSubscriptionOrderItemSelected,
@@ -21,6 +22,7 @@ const Table = ({
     const [tableLoaded, setTableLoaded] = useState(false);
     const [modalAddress, setModalAddress] = useState(false);
     const [modalSubscriptionCard, setModalSubscriptionCard] = useState(false);
+    const [activeSubscription, setActiveSubscription] = useState([]);
 
     const [modalDispatchDate, setModalDispatchDate] = useState(false);
     const [objects, setObjects] = useState([]);
@@ -40,11 +42,35 @@ const Table = ({
     };
 
     useEffect(() => {
+        getActiveSubscriptions();
         getSubscriptionsCards();
         getDataAddress();
         getSubscriptions();
+        console.log(activeSubscription)
     }, []);
 
+
+    const getActiveSubscriptions = () => {
+        let url =
+            Services.ENDPOINT.CUSTOMER.SUBSCRIPTIONS
+                .GET_ACTIVE_SUBSCRIPTIONS_ORDERS_ITEMS;
+        let data = {
+            customer_id: auth.id
+        };
+        Services.DoPost(url, data)
+            .then(response => {
+                Services.Response({
+                    response: response,
+                    success: () => {
+                        setActiveSubscription(response.data.active_subscriptions);
+                        console.log(activeSubscription)
+                    }
+                });
+            })
+            .catch(error => {
+                Services.ErrorCatch(error);
+            });
+    }
 
     const changeVisibleModalAddress = () => {
         if (modalAddress) {
@@ -367,7 +393,7 @@ const Table = ({
     const formattedData = (row) => {
         let htmlExpandRow = '';
         row.products.forEach(function (element, i){
-            htmlExpandRow += "<div class='row ml-3'><div className='col-md-8'>"+element.name+"</div>"+"<div class='col-md-4'> "+row.plans[i].months+" Meses </div></div>"
+            htmlExpandRow += "<div class='row ml-3'><div className='col-md-8'>"+element.name+"</div>"+"<div class='col-md-4'> Corresponde al periodo"+" "+row.period+"  </div></div>"
         });
         return htmlExpandRow;
     }
@@ -686,6 +712,15 @@ const Table = ({
                 </Modal.Body>
             </Modal>
 
+            {
+                activeSubscription.map((item,index) => {
+                    return(
+                        <p>
+                            {item.name}  Le quedan  {item.days} días de protección
+                        </p>
+                    )
+                })
+            }
             <TablePanel
                 expandRow={ expandRow }
                 objects={objects}

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1\App\Customer;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
@@ -326,6 +327,29 @@ class ProfileController extends Controller
         }
     }
 
+    public function getActiveSubscriptionsOrdersItems(Request $request)
+    {
+        try {
+            $customer = Customer::find($request->customer_id);
+            if (!$customer) {
+                return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_NOT_FOUND);
+            }
+            $subscriptionsOrdersItems = SubscriptionsOrdersItem::whereHas('order_parent', function ($q) use ($customer) {
+                $q->where('status', 'PAID')->where('customer_id', $customer->id);
+            })
+                ->whereIn('status', ['CREATED'])
+                ->select('name',DB::raw('SUM(days) AS days'))
+                ->groupBy('name')
+                ->get();
+
+            return ApiResponse::JsonSuccess([
+                'active_subscriptions' => $subscriptionsOrdersItems,
+            ], OutputMessage::SUCCESS);
+
+        } catch (\Exception $exception) {
+            return ApiResponse::JsonError(null, $exception->getMessage());
+        }
+    }
     public function getSubscriptionsOrdersItems(Request $request)
     {
         try {
@@ -342,7 +366,7 @@ class ProfileController extends Controller
                 $q->where('customer_id',$customer->id);
             })
             ->with(['order_item.product','customer_address.commune','subscription','order_parent.order_items','order_item.subscription_plan'])
-            ->select('id','order_parent_id as order_id','orders_item_id','subscription_id','customer_address_id','pay_date','dispatch_date','status','is_pay','dispatch')
+            ->select('id','order_parent_id as order_id','orders_item_id','subscription_id','customer_address_id','pay_date','dispatch_date','status','is_pay','dispatch','period')
             ->orderBy('order_id')->orderBy('pay_date')
             ->get();
 
@@ -382,8 +406,8 @@ class ProfileController extends Controller
                         'status' => $prev_item->status,
                         'total' => $total + $dispatch,
                         'products' => $arrayProducts,
+                        'period' => $prev_item->period,
                         'plans' => $arrayPlan
-
                     ];
                     $total = 0;
                     $arrayProducts = [];
@@ -432,6 +456,7 @@ class ProfileController extends Controller
                     'status' => $prev_item->status,
                     'total' => $total + $dispatch,
                     'products' => $arrayProducts,
+                    'period' => $prev_item->period,
                     'plans' => $arrayPlan
 
                 ];
