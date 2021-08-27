@@ -860,12 +860,10 @@ class ProfileController extends Controller
                 // if ($response->statusCode() == 202) {
                     // Log::info('SENDGRID CONTACT FORM ENVIADO');
 
-                    return $request->all();
-
                     $contact = New Contact();
 
-                    $contact->dynamic_fields = json_encode($request->dynamicData);
-                    $contact->nested_fields = json_encode($request->dynamic_fields);
+                    $contact->dynamic_fields = json_encode($request->dynamic_fields);
+                    $contact->nested_fields = json_encode($request->nested_fields);
                     $contact->message = $request->message;
 
                     // $contact->order_id = $order_id->id;

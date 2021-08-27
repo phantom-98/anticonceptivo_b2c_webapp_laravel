@@ -16,6 +16,7 @@ class Contact extends Model
         'contact_issue_id',
         'order_id',
         'message',
+        'nested_fields',
         'dynamic_fields',
         'subject_parent',
         'is_reply',
@@ -24,8 +25,14 @@ class Contact extends Model
     ];
 
     protected $casts = [
-        'dynamic_fields' => 'array'
+        // 'dynamic_fields' => 'array',
+        // 'nested_fields' => 'array',
     ];
+
+    protected $appends = [
+        'formated_date'
+    ];
+
 
     public function order()
     {
@@ -41,10 +48,6 @@ class Contact extends Model
     {
         return $this->belongsTo(Customer::class);
     }
-
-    protected $appends = [
-        'formated_date'
-    ];
 
     public function getFormatedDateAttribute()
     {

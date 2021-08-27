@@ -120,6 +120,18 @@ const CustomerService = () => {
         let url = Services.ENDPOINT.CUSTOMER.CUSTOMER_SERVICE.SEND;
         let fields = [];
 
+        let dynamic_fields_temp = [];
+
+        Object.entries(dynamicData).map(item => {
+            let temp = {
+                id: item[0].split('-').pop(),
+                type: item[0].split('-').shift(),
+                value: item[1]
+            };
+
+            dynamic_fields_temp.push(temp);
+        })
+
         path.map(p => {
             fields.push({
                 question: p.question,
@@ -140,8 +152,8 @@ const CustomerService = () => {
         let dataForm = {
             ...data,
             ...model,
-            dynamicData,
-            dynamic_fields: fields
+            dynamic_fields: dynamic_fields_temp,
+            nested_fields: fields
         }
 
 
