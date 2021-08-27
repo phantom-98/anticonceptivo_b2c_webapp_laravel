@@ -107,6 +107,8 @@ class ContactController extends GlobalController
 
         $objects = $objects->orderBy('created_at', 'desc')->get();
 
+        // return $objects;
+
         return view($this->folder . 'index', compact('objects', 'status', 'section', 'type', 'date', 'start', 'end'));
     }
 
