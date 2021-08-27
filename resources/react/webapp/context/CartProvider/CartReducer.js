@@ -47,7 +47,7 @@ export default (state, action) => {
             const found = cartItems.findIndex(
                 c =>
                     (c.product_id == item.product.id &&
-                    (c.subscription == null ? null : c.subscription.id) ===
+                        (c.subscription == null ? null : c.subscription.id) ===
                         (item.subscription == null
                             ? null
                             : item.subscription.id))
@@ -116,12 +116,13 @@ export default (state, action) => {
             };
         case REMOVE_FROM_CART:
             const list = state.cartItems;
-
-            const filtered = list.filter(c => c.product_id != action.payload ||
+            const filtered = list.filter(
+                c =>
+                    c.product_id != action.payload.product.id ||
                 (c.subscription == null ? null : c.subscription.id) !=
-                    (action.payload.subscription == null
-                        ? null
-                        : action.payload.subscription.id)
+                (action.payload.subscription == null
+                    ? null
+                    : action.payload.subscription.id)
             );
 
             localStorage.setItem(
@@ -140,7 +141,7 @@ export default (state, action) => {
             const foundUpdate = items.findIndex(
                 c =>
                     (c.product_id == itemUpdate.product.id &&
-                    (c.subscription == null ? null : c.subscription.id) ===
+                        (c.subscription == null ? null : c.subscription.id) ===
                         (itemUpdate.subscription == null
                             ? null
                             : itemUpdate.subscription.id))
@@ -166,7 +167,7 @@ export default (state, action) => {
             return {
                 ...state,
                 cartItems: []
-        }
+            }
 
         default:
             return state;

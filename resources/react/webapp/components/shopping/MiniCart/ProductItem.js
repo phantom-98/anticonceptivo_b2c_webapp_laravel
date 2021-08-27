@@ -26,22 +26,22 @@ const ProductItem = ({item}) => {
                 <div className="col">
 
                     <div className="font-poppins font-12 color-009BE8">{item.product.sku}</div>
-                    <div className="font-poppins font-14 bold text-black"> 
-                    
+                    <div className="font-poppins font-14 bold text-black">
+
                     {
                         item.subscription == null ? item.product.name : item.product.name + ' ('+ 'suscripción' +')'
                     }
-                    
+
                     </div>
                     <div className="font-poppins font-16 bold color-009BE8">
 
                         {
                             item.subscription == null ? formatMoney( item.quantity * (item.product.is_offer ? item.product.offer_price : item.product.price)) : formatMoney(item.subscription.price*item.subscription.quantity * item.quantity) + ' ('+ formatMoney(item.subscription.price)+' c/u)'
                         }
-                        
+
                     </div>
 
-                        
+
 
                     <div className="row">
                         <div className="col pt-2">
@@ -50,7 +50,7 @@ const ProductItem = ({item}) => {
                             : <QuantityInput quantity={item.quantity} setQuantity={setQuantity} maxQuantity={item.product.subcategory.category.quantity_limit}/>
                             }
                         </div>
-                        <div className="col-auto pt-1 text-center pointer" onClick={() => removeFromCart(item.product_id)}>
+                        <div className="col-auto pt-1 text-center pointer" onClick={() => removeFromCart(item)}>
                             <div><Icon path={iconRemove}/></div>
                             <div className="font-poppins font-12 color-A3A3A3">BORRAR</div>
                         </div>
