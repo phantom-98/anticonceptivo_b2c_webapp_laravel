@@ -24,6 +24,7 @@ use App\Models\DeliveryCost;
 use App\Models\SubscriptionsOrdersItem;
 use App\Models\ProductSubscriptionPlan;
 use App\Models\NestedField;
+use App\Models\DynamicField;
 use Carbon\Carbon;
 
 class ProfileController extends Controller
@@ -775,6 +776,7 @@ class ProfileController extends Controller
                     'contact_issues' => $data['contact_issues'],
                     'nested_fields' => $data['nested_fields'],
                     'list' => $data['list'],
+                    'questions' => $data['questions'],
                 ],OutputMessage::SUCCESS);
 
             case 'CUSTOMER_SERVICE_DATA_FOR_CONTACT':
@@ -793,8 +795,11 @@ class ProfileController extends Controller
 
         $data['contact_issues'] = ContactIssue::where('active',true)->where('section',ContactIssueTypes::CUSTOMER_SERVICE)
             ->with(['fields','campaign'])->get();
-        $data['nested_fields'] = NestedField::with(['nested_field_questions', 'children'])->whereNull('parent_id')->where('section','campania')->get();
+        $data['nested_fields'] = NestedField::with(['nested_field_questions', 'children'])->
+            whereNull('parent_id')->where('section','campania')->get();
         $data['list'] = NestedField::with(['nested_field_questions', 'children'])->get();
+
+        $data['questions'] = DynamicField::get();
 
         return $data;
     }

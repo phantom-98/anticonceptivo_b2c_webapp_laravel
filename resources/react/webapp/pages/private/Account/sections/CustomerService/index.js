@@ -36,6 +36,8 @@ const CustomerService = () => {
     const [path, setPath] = useState([]);
     const [loading, setLoading] = useState(true);
 
+    const [questions, setQuestions] = useState([]);
+
     useEffect(() => {
         getData();
     },[])
@@ -105,9 +107,9 @@ const CustomerService = () => {
             Services.Response({
                 response: response,
                 success: () => {
-                    setContactIssues(response.data.contact_issues);
                     setList(response.data.list);
-
+                    setQuestions(response.data.questions);
+                    setContactIssues(response.data.contact_issues);
                 },
             });
         }).catch(error => {
@@ -124,9 +126,9 @@ const CustomerService = () => {
 
         Object.entries(dynamicData).map(item => {
             let temp = {
-                id: item[0].split('-').pop(),
-                type: item[0].split('-').shift(),
-                value: item[1]
+                question: questions.find(q => q.id == item[0].split('-').pop()).name,
+                // type: item[0].split('-').shift(),
+                answer: item[1]
             };
 
             dynamic_fields_temp.push(temp);

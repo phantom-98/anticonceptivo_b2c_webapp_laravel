@@ -119,14 +119,18 @@ export default (state, action) => {
 
         case REMOVE_FROM_CART:
             const list = state.cartItems;
-            const filtered = list.filter(
-                c =>
-                c.product_id != action.payload.product.id ||
-                (c.subscription == null ? null : c.subscription.id) !=
-                    (action.payload.subscription == null
-                        ? null
-                        : action.payload.subscription.id)
-            );
+
+            if (list.length) {
+                const filtered = list.filter(
+                    c =>
+                    c.product_id != action.payload.product.id ||
+                    (c.subscription == null ? null : c.subscription.id) !=
+                        (action.payload.subscription == null
+                            ? null
+                            : action.payload.subscription.id)
+                );
+            }
+        
             localStorage.setItem(
                 LOCAL_STORAGE.CART_ITEMS,
                 JSON.stringify(filtered)
@@ -134,7 +138,7 @@ export default (state, action) => {
 
             return {
                 ...state,
-                // showingMiniCart: false,
+                showingMiniCart: false,
                 cartItems: filtered
             };
 
