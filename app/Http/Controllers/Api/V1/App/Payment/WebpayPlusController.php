@@ -184,8 +184,13 @@ class WebpayPlusController
                         $productSubscriptionPlan = ProductSubscriptionPlan::where('product_id',$orderItem->product_id)
                                                 ->where('subscription_plan_id',$subscriptionPlan->id)->get()->first();
                         $quantity = 2;
+                        if($i == round($subscriptionPlan->months/2)-2 && (round($subscriptionPlan->months/2)-1)%2==0){
+                            $period_string .= ', ' . ($period +1) . ' y ' . ($period +2);
+                            $quantity = 3;
+                        }
+
                         if($i == round($subscriptionPlan->months/2)-1 && round($subscriptionPlan->months/2)%2!=0){
-                            $quantity = 1;
+                            break;
                         }
                         if($quantity == 2){
                             $period++;
@@ -200,7 +205,7 @@ class WebpayPlusController
                         $subscriptionOrdersItem->period = $period_string;
                         $subscriptionOrdersItem->name = $orderItem->name;
                         $subscriptionOrdersItem->price = $orderItem->price;
-                        $subscriptionOrdersItem->subtotal = $orderItem->subtotal;
+                        $subscriptionOrdersItem->subtotal = $orderItem->price * $quantity;
                         $subscriptionOrdersItem->order_parent_id = $order->id;
                         $subscriptionOrdersItem->orders_item_id = $orderItem->id;
                         $subscriptionOrdersItem->pay_date = $pay_date;

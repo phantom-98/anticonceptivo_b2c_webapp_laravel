@@ -367,8 +367,8 @@ class ProfileController extends Controller
                 $q->where('customer_id',$customer->id);
             })
             ->with(['order_item.product','customer_address.commune','subscription','order_parent.order_items','order_item.subscription_plan'])
-            ->select('id','order_parent_id as order_id','orders_item_id','subscription_id','customer_address_id','pay_date','dispatch_date','status','is_pay','dispatch','period')
-            ->orderBy('order_id')->orderBy('pay_date')
+            ->select('id','order_parent_id as order_id','price','quantity','orders_item_id','subscription_id','customer_address_id','pay_date','dispatch_date','status','is_pay','dispatch','period')
+                ->orderBy('order_id', 'desc')->orderBy('pay_date')
             ->get();
 
             $prev_order_id = null;
@@ -419,7 +419,7 @@ class ProfileController extends Controller
                 }
                 $productSubscriptionPlan = ProductSubscriptionPlan::with('subscription_plan')->where('subscription_plan_id',$item->order_item->subscription_plan->id)
                                             ->where('product_id',$item->order_item->product->id)->get()->first();
-                $total += $productSubscriptionPlan->price * $productSubscriptionPlan->quantity * $item->order_item->quantity;
+                $total += $item->price * $item->quantity;
                 $prev_order_id = $item->order->id;
                 $prev_pay_date = $item->pay_date;
                 $prev_item = $item;
@@ -864,23 +864,23 @@ class ProfileController extends Controller
                 if (!$contactIssue) {
                     return ApiResponse::JsonError(null,'Ha ocurrido un error.');
                 }
-                
+
                 $contact = New Contact();
-                
+
                 $contact->dynamic_fields = $request->dynamic_fields;
                 $contact->nested_fields = $request->nested_fields;
                 $contact->message = $request->message;
-                
+
                 // $contact->order_id = $order_id->id;
-                
+
                 $contact->contact_issue_id = $contactIssue->id;
                 $contact->customer_id = $request->customer_id;
-                
+
                 if ($contact->save()) {
-                    
+
                     $emailSubject = $contactIssue->section;
                     $subEmailSubject = $contactIssue->name;
-    
+
                     $emailBody = view('emails.contact-form', ['data' => [
                         'title' => $emailSubject,
                         'title_2' => $subEmailSubject,
@@ -888,38 +888,38 @@ class ProfileController extends Controller
                         'contact_id' => $contact->id,
                         // 'message' => $request->message
                     ]])->render();
-    
+
                     $email = new Mail();
-    
+
                     $email->setFrom(env('SENDGRID_EMAIL_FROM'), env('SENDGRID_EMAIL_NAME'));
                     $email->setSubject($emailSubject);
                     $email->addTo($request->email, env('SENDGRID_EMAIL_NAME'));
                     $email->addContent(
                         "text/html", $emailBody
                     );
-    
+
                     $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
                     $response = $sendgrid->send($email);
-    
+
                     if ($response->statusCode() == 202) {
                         Log::info('SENDGRID CONTACT FORM ENVIADO');
-                        
+
                     } else {
                         Log::info('SENDGRID CONTACT FORM FALLIDO');
                         Log::info($response->statusCode());
                         return ApiResponse::JsonError(null, 'Ha ocurrido un error al enviar el mensaje por favor inténtelo de nuevo más tarde.');
                     }
-                    
-                    
-                    
+
+
+
                     return ApiResponse::JsonSuccess(null, 'Hemos enviado el mensaje correctamente.');
                 }else {
                     Log::info('SENDGRID CONTACT FORM NO SE HA PODIDO GUARDAR EN BD');
                     return ApiResponse::JsonError(null, 'Ha ocurrido un error al enviar el mensaje por favor inténtelo de nuevo más tarde.');
                 }
-                
-                
-               
+
+
+
 
 
 
