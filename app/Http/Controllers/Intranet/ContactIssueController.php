@@ -43,7 +43,7 @@ class ContactIssueController extends GlobalController
 
     public function store(Request $request)
     {
-        //return $request->all();
+        // return $request->all();
         $rules = [
             'name' => 'required|unique:contact_issues,name',
             'section' => 'required',
@@ -57,6 +57,7 @@ class ContactIssueController extends GlobalController
 
         $validator = Validator::make($request->all(), $rules, $messages);
 
+        
         if ($validator->passes()) {
 
             // return $request->all();
@@ -64,6 +65,8 @@ class ContactIssueController extends GlobalController
             $object = ContactIssue::create($request->except('name_dynamic', 'type_dynamic', 'values', 'name_dynamic_subject', 'type_dynamic_subject', 'values_subject'));
 
             // return $object;
+            // return $request->name_dynamic;
+
 
             if($request->campaign_id != "" && $request->campaign_id != null){
                 foreach($request->name_dynamic as $key => $name){
@@ -77,26 +80,6 @@ class ContactIssueController extends GlobalController
                         }
                         $dynamic->contact_issue_id = $object->id;
                         $dynamic->section = "campaña";
-                        $dynamic->save();
-                    }
-                }
-            }
-
-            $contador = count($request->name_dynamic_subject);
-            // return $contador;
-
-            if($contador > 0){
-                foreach($request->name_dynamic_subject as $key => $name){
-                    $name = array_filter($name, function($value) { return !is_null($value) && $value !== ''; });
-                    if($name){
-                        $dynamic = new DynamicField();
-                        $dynamic->name = $name[0];
-                        $dynamic->type = $request->type_dynamic_subject[$key][0];
-                        if(isset($request->values_subject[$key])){
-                            $dynamic->values = implode(',',$request->values_subject[$key]);
-                        }
-                        $dynamic->contact_issue_id = $object->id;
-                        $dynamic->section = "asunto";
                         $dynamic->save();
                     }
                 }
@@ -170,26 +153,6 @@ class ContactIssueController extends GlobalController
                         }
                         $dynamic->contact_issue_id = $object->id;
                         $dynamic->section = "campaña";
-                        $dynamic->save();
-                    }
-                }
-            }
-
-            $contador = count($request->name_dynamic_subject);
-            // return $contador;
-
-            if($contador > 0){
-                foreach($request->name_dynamic_subject as $key => $name){
-                    $name = array_filter($name, function($value) { return !is_null($value) && $value !== ''; });
-                    if($name){
-                        $dynamic = new DynamicField();
-                        $dynamic->name = $name[0];
-                        $dynamic->type = $request->type_dynamic_subject[$key][0];
-                        if(isset($request->values_subject[$key])){
-                            $dynamic->values = implode(',',$request->values_subject[$key]);
-                        }
-                        $dynamic->contact_issue_id = $object->id;
-                        $dynamic->section = "asunto";
                         $dynamic->save();
                     }
                 }

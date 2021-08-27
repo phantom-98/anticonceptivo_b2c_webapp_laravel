@@ -54,6 +54,23 @@
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group">
+                                            <label for="section">Sección</label>
+                                            <select id="section" name="section" class="form-control">
+                                                <option value="Todas" {{ $section == "Todas" ? "selected" : ""}}>Todas
+                                                </option>
+                                                <option
+                                                    value="Servicio al Cliente" {{ $section == "Servicio al Cliente" ? "selected" : ""}}>
+                                                    Servicio al Cliente
+                                                </option>
+                                                <option
+                                                    value="Contáctanos" {{ $section == "Contáctanos" ? "selected" : ""}}>
+                                                    Contáctanos
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group" id="type_select" style="display: none;">
                                             <label for="type">Tipo</label>
                                             <select id="type" name="type" class="form-control">
                                                 <option value="Todos" {{ $type == "Todos" ? "selected" : ""}}>Todos
@@ -66,23 +83,6 @@
                                                     Sugerencias
                                                 </option>
                                                 <option value="Otros" {{ $type == "Otros" ? "selected" : ""}}>Otros
-                                                </option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label for="section">Sección</label>
-                                            <select id="section" name="section" class="form-control">
-                                                <option value="Todas" {{ $section == "Todas" ? "selected" : ""}}>Todas
-                                                </option>
-                                                <option
-                                                    value="Servicio al Cliente" {{ $section == "Servicio al Cliente" ? "selected" : ""}}>
-                                                    Servicio al Cliente
-                                                </option>
-                                                <option
-                                                    value="Contáctanos" {{ $section == "Contáctanos" ? "selected" : ""}}>
-                                                    Contáctanos
                                                 </option>
                                             </select>
                                         </div>
@@ -504,6 +504,25 @@
             var bb = b
             return aa - bb
         }
+
+    </script>
+    
+    <script>
+        $('#section').change(function(){
+            if (this.value == "Todas" || this.value == "Contáctanos") {
+                $('#type_select').css('display', 'none');
+            }else{
+                $('#type_select').css('display', 'block');
+
+            } 
+            // console.log(this.value);
+        });
+
+        $(document).ready(function () {
+            if ($('#section').val() == "Servicio al Cliente") {
+                $('#type_select').css('display', 'block');
+            } 
+        });
 
     </script>
 

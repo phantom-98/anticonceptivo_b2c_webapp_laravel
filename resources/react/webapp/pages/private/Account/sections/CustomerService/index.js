@@ -16,7 +16,7 @@ const CustomerService = () => {
         customer_id: auth.id,
         email: auth.email,
         name: auth.full_name,
-        contact_issue: "1",
+        contact_issue_id: "1",
         message: '',
     }
 
@@ -43,7 +43,7 @@ const CustomerService = () => {
     useEffect(() => {
         if (contactIssues.length) {
 
-            var temp = contactIssues.find((contact) => contact.id == data.contact_issue)
+            var temp = contactIssues.find((contact) => contact.id == data.contact_issue_id)
 
             let url = Services.ENDPOINT.CUSTOMER.CUSTOMER_SERVICE.GET;
             let data_id = {
@@ -72,7 +72,7 @@ const CustomerService = () => {
                 setDynamicData({});
             }
         }
-    },[data.contact_issue, contactIssues])
+    },[data.contact_issue_id, contactIssues])
 
     useEffect(() => {
         if (dynamicFields.length) {
@@ -120,6 +120,18 @@ const CustomerService = () => {
         let url = Services.ENDPOINT.CUSTOMER.CUSTOMER_SERVICE.SEND;
         let fields = [];
 
+        let dynamic_fields_temp = [];
+
+        Object.entries(dynamicData).map(item => {
+            let temp = {
+                id: item[0].split('-').pop(),
+                type: item[0].split('-').shift(),
+                value: item[1]
+            };
+
+            dynamic_fields_temp.push(temp);
+        })
+
         path.map(p => {
             fields.push({
                 question: p.question,
@@ -140,8 +152,8 @@ const CustomerService = () => {
         let dataForm = {
             ...data,
             ...model,
-            dynamicData,
-            dynamic_fields: fields
+            dynamic_fields: dynamic_fields_temp,
+            nested_fields: fields
         }
 
 
@@ -236,14 +248,14 @@ const CustomerService = () => {
                 <div className="row">
                     <div className="col-md-12">
                         <div className="form-group">
-                            <label htmlFor="contact_issue">Asunto</label>
+                            <label htmlFor="contact_issue_id">Asunto</label>
                             <select
                                 className="form-control form-control-custom pl-2"
-                                id="contact_issue"
-                                name="contact_issue"
+                                id="contact_issue_id"
+                                name="contact_issue_id"
                                 onChange={handleData}
                                 onFocus={setCleanInputError}
-                                value={data.contact_issue}
+                                value={data.contact_issue_id}
                             >
                                 {
                                     contactIssues.map((issue) => {

@@ -34,6 +34,7 @@ class ContactController extends GlobalController
 
     public function index(Request $request)
     {
+        // dd($request->all());
         $objects = Contact::with('contact_issue');
 
         $status = $request->status_filter ?? "Todos";
@@ -63,31 +64,42 @@ class ContactController extends GlobalController
             }
         }
 
-        if ($status != "Todos") {
-            $objects = $objects->where('is_reply', $status);
-            $appends['status'] = $status;
-        }
 
         if($section){
             if($section == "Todas"){
+            //  dd('Estas en Todas');   
 
-            } else {
+            }elseif($section == "Contáctanos"){
+            //  dd('Estas en Contactanos');   
+                
+                $objects = $objects->whereNull('contact_issue_id');
+                $appends['type'] = $type;
+            
+            }else {
+            //  dd('Estas en Servicio al cliente');   
+                
                 $objects = $objects->whereHas('contact_issue', function($q) use($section){
                     $q->where('section', $section);
                 });
                 $appends['section'] = $section;
+
+                if($type){
+                    if($type == "Todos"){
+        
+                    } else {
+                        $objects = $objects->whereHas('contact_issue', function($q) use($type){
+                            $q->where('type', $type);
+                        });
+                        $appends['type'] = $type;
+                    }
+                }
+
             }
         }
 
-        if($type){
-            if($type == "Todos"){
-
-            } else {
-                $objects = $objects->whereHas('contact_issue', function($q) use($type){
-                    $q->where('type', $type);
-                });
-                $appends['type'] = $type;
-            }
+        if ($status != "Todos") {
+            $objects = $objects->where('is_reply', $status);
+            $appends['status'] = $status;
         }
 
         $objects = $objects->whereBetween('created_at', [$start.' 00:00:00', $end.' 23:59:59']);

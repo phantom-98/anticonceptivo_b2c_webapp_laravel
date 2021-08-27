@@ -67,47 +67,7 @@
                                 </div>
                             </div> 
                         </div>
-                        <div class="row">
-                            <br/>
-                            <div class="col-md-6">
-                                Campos dinámicos de asunto a rellenar
-                            </div>
-                            <div class="clearfix"></div>
-                            <br/>
-                            <div class="cloneSubject">
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label for="name_dynamic_subject">Nombre(*)</label>
-                                        <input type="text" name="name_dynamic_subject[1][]" class="form-control name_dynamic_subject">
-                                    </div>
-                                </div>   
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label for="type_dynamic_subject">Tipo (*)</label>
-                                        <select name="type_dynamic_subject[1][]" class="form-control type_dynamic_subject" data-width="100%" onchange="changeTypeSubject(this)">
-                                            <option value="input">Cuadro de texto</option>
-                                            <option value="textarea">Texto largo</option>
-                                            <option value="select">Listado</option>
-                                            <option value="radio">Radio</option>
-                                            <option value="checkbox">Casilla</option>
-                                        </select>
-                                    </div>
-                                </div>    
-                                <div class="col-md-3 divValuesSubject">
-                                    <div class="form-group">
-                                        <label for="values_subject">Valores (*)</label>
-                                        <select name="values_subject[1][]" class="form-control select2tag values_subject" data-width="100%" multiple disabled>
 
-                                        </select>
-                                    </div>
-                                </div>   
-                                <div class="col-md-2">
-                                    <button class="btn btn-success" type="button" style="margin-top:22px" onclick="addNewRowSubject()"><i
-                                        class="fa fa-plus"></i> Añadir otro campo</button>
-                                </div> 
-                                <div class="clearfix"></div>
-                            </div>
-                        </div>
                         <div class="row" id="dynamicRow" style="display: none">
                             <br/>
                             <div class="col-md-6">
