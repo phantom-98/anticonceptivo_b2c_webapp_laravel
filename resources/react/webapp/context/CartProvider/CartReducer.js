@@ -3,7 +3,7 @@ import {
     MINI_CART_CLOSE,
     ADD_TO_CART,
     UPDATE_CART,
-    REMOVE_FROM_CART, 
+    REMOVE_FROM_CART,
     UPDATE_QUANTITY,
     CLEAR_CART
 } from "./types";
@@ -53,7 +53,7 @@ export default (state, action) => {
                             : item.subscription.id))
             );
 
-                
+
             //Se debe refactorizar
             if (cartItems.length > 0 && cartItems[found] ) {
 
@@ -83,7 +83,7 @@ export default (state, action) => {
                         cartItems: [...cartItems]
                     };
                 }
-    
+
                 cartItems = [...cartItems, item];
             }
 
@@ -92,7 +92,7 @@ export default (state, action) => {
                 JSON.stringify([...cartItems])
             );
 
-    
+
             toastr.info(`<div>
                 <div>Producto <b>${item.product.name}</b> añadido al carrito</div>
             </div>`)

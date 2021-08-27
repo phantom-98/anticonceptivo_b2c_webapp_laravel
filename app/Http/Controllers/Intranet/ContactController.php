@@ -22,7 +22,7 @@ class ContactController extends GlobalController
         'folder' => 'intranet.contacts.',
         'pluralName' => 'Registro Contacto',
         'singularName' => 'Registro Contacto',
-        'disableActions' => ['show', 'changeStatus'],
+        'disableActions' => ['changeStatus'],
         'enableActions' => ['reply', 'export']
 
     ];
@@ -34,8 +34,7 @@ class ContactController extends GlobalController
 
     public function index(Request $request)
     {
-        // dd($request->all());
-        $objects = Contact::with('contact_issue');
+        $objects = Contact::with('contact_issue', 'customer');
 
         $status = $request->status_filter ?? "Todos";
         $date = $request->date;
@@ -67,16 +66,15 @@ class ContactController extends GlobalController
 
         if($section){
             if($section == "Todas"){
-            //  dd('Estas en Todas');   
 
             }elseif($section == "Contáctanos"){
-            //  dd('Estas en Contactanos');   
+          
                 
                 $objects = $objects->whereNull('contact_issue_id');
                 $appends['type'] = $type;
             
             }else {
-            //  dd('Estas en Servicio al cliente');   
+            
                 
                 $objects = $objects->whereHas('contact_issue', function($q) use($section){
                     $q->where('section', $section);
@@ -106,6 +104,8 @@ class ContactController extends GlobalController
         $appends['date'] = $date;
 
         $objects = $objects->orderBy('created_at', 'desc')->get();
+
+        // return $objects;
 
         return view($this->folder . 'index', compact('objects', 'status', 'section', 'type', 'date', 'start', 'end'));
     }
@@ -181,6 +181,18 @@ class ContactController extends GlobalController
         session()->flash('success', 'Respuesta enviada correctamente.');
         return redirect()->back();
 
+    }
+
+    public function show($id)
+    {
+        $object = Contact::with('contact_issue','customer','order')->where('id', $id)->first();
+        
+        if (!$object) {
+            session()->flash('warning', $this->responseMessages['notFound']);
+            return redirect()->route($this->route . 'index');
+        }
+
+        return view($this->folder . 'show', compact('object'));
     }
 
 }

@@ -293,7 +293,7 @@
                         @endcan
 
                         @can('intranet.claims.index')
-                        <li class="treeview {{ is_parent_menu_active(['intranet/tipos-contacto', 'intranet/contactos', 'intranet/campanas', 'intranet/reclamos']) }}">
+                        <li class="treeview {{ is_parent_menu_active(['intranet/tipos-contacto', 'intranet/contactos', 'intranet/campanas', 'intranet/reclamos', 'intranet/campos-anidados']) }}">
                             <a href="#">
                                 <i class="ti-help"></i>
                                 <span class="menu-title">Contacto / Reclamo</span>

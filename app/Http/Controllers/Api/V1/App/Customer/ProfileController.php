@@ -25,6 +25,7 @@ use App\Models\DeliveryCost;
 use App\Models\SubscriptionsOrdersItem;
 use App\Models\ProductSubscriptionPlan;
 use App\Models\NestedField;
+use App\Models\DynamicField;
 use Carbon\Carbon;
 
 class ProfileController extends Controller
@@ -800,6 +801,7 @@ class ProfileController extends Controller
                     'contact_issues' => $data['contact_issues'],
                     'nested_fields' => $data['nested_fields'],
                     'list' => $data['list'],
+                    'questions' => $data['questions'],
                 ],OutputMessage::SUCCESS);
 
             case 'CUSTOMER_SERVICE_DATA_FOR_CONTACT':
@@ -818,8 +820,11 @@ class ProfileController extends Controller
 
         $data['contact_issues'] = ContactIssue::where('active',true)->where('section',ContactIssueTypes::CUSTOMER_SERVICE)
             ->with(['fields','campaign'])->get();
-        $data['nested_fields'] = NestedField::with(['nested_field_questions', 'children'])->whereNull('parent_id')->where('section','campania')->get();
+        $data['nested_fields'] = NestedField::with(['nested_field_questions', 'children'])->
+            whereNull('parent_id')->where('section','campania')->get();
         $data['list'] = NestedField::with(['nested_field_questions', 'children'])->get();
+
+        $data['questions'] = DynamicField::get();
 
         return $data;
     }
@@ -859,54 +864,66 @@ class ProfileController extends Controller
                 if (!$contactIssue) {
                     return ApiResponse::JsonError(null,'Ha ocurrido un error.');
                 }
-
-                // $emailSubject = $contactIssue->section;
-                // $subEmailSubject = $contactIssue->name;
-
-                // $emailBody = view('emails.contact-form', ['data' => [
-                //     'title' => $emailSubject,
-                //     'title_2' => $subEmailSubject,
-                //     'name' => $request->name,
-                //     // 'message' => $request->message
-                // ]])->render();
-
-                // $email = new Mail();
-
-                // $email->setFrom(env('SENDGRID_EMAIL_FROM'), env('SENDGRID_EMAIL_NAME'));
-                // $email->setSubject($emailSubject);
-                // $email->addTo($request->email, env('SENDGRID_EMAIL_NAME'));
-                // $email->addContent(
-                //     "text/html", $emailBody
-                // );
-
-                // $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
-                // $response = $sendgrid->send($email);
-
-                // if ($response->statusCode() == 202) {
-                    // Log::info('SENDGRID CONTACT FORM ENVIADO');
-
-                    $contact = New Contact();
-
-                    $contact->dynamic_fields = json_encode($request->dynamic_fields);
-                    $contact->nested_fields = json_encode($request->nested_fields);
-                    $contact->message = $request->message;
-
-                    // $contact->order_id = $order_id->id;
-
-                    $contact->contact_issue_id = $contactIssue->id;
-                    $contact->customer_id = $request->customer_id;
-
-                    if ($contact->save()) {
-                        return ApiResponse::JsonSuccess(null, 'Hemos enviado el mensaje correctamente.');
-                    }else {
-                        Log::info('SENDGRID CONTACT FORM NO SE HA PODIDO GUARDAR EN BD');
+                
+                $contact = New Contact();
+                
+                $contact->dynamic_fields = $request->dynamic_fields;
+                $contact->nested_fields = $request->nested_fields;
+                $contact->message = $request->message;
+                
+                // $contact->order_id = $order_id->id;
+                
+                $contact->contact_issue_id = $contactIssue->id;
+                $contact->customer_id = $request->customer_id;
+                
+                if ($contact->save()) {
+                    
+                    $emailSubject = $contactIssue->section;
+                    $subEmailSubject = $contactIssue->name;
+    
+                    $emailBody = view('emails.contact-form', ['data' => [
+                        'title' => $emailSubject,
+                        'title_2' => $subEmailSubject,
+                        'name' => $request->name,
+                        'contact_id' => $contact->id,
+                        // 'message' => $request->message
+                    ]])->render();
+    
+                    $email = new Mail();
+    
+                    $email->setFrom(env('SENDGRID_EMAIL_FROM'), env('SENDGRID_EMAIL_NAME'));
+                    $email->setSubject($emailSubject);
+                    $email->addTo($request->email, env('SENDGRID_EMAIL_NAME'));
+                    $email->addContent(
+                        "text/html", $emailBody
+                    );
+    
+                    $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
+                    $response = $sendgrid->send($email);
+    
+                    if ($response->statusCode() == 202) {
+                        Log::info('SENDGRID CONTACT FORM ENVIADO');
+                        
+                    } else {
+                        Log::info('SENDGRID CONTACT FORM FALLIDO');
+                        Log::info($response->statusCode());
                         return ApiResponse::JsonError(null, 'Ha ocurrido un error al enviar el mensaje por favor inténtelo de nuevo más tarde.');
                     }
-                // } else {
-                //     Log::info('SENDGRID CONTACT FORM FALLIDO');
-                //     Log::info($response->statusCode());
-                //     return ApiResponse::JsonError(null, 'Ha ocurrido un error al enviar el mensaje por favor inténtelo de nuevo más tarde.');
-                // }
+                    
+                    
+                    
+                    return ApiResponse::JsonSuccess(null, 'Hemos enviado el mensaje correctamente.');
+                }else {
+                    Log::info('SENDGRID CONTACT FORM NO SE HA PODIDO GUARDAR EN BD');
+                    return ApiResponse::JsonError(null, 'Ha ocurrido un error al enviar el mensaje por favor inténtelo de nuevo más tarde.');
+                }
+                
+                
+               
+
+
+
+
             } else {
                 return ApiResponse::JsonFieldValidation($validator->errors());
             }
