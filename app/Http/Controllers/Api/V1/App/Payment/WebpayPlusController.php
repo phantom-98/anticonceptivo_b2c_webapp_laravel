@@ -167,7 +167,7 @@ class WebpayPlusController
 
                 if(isset($item['subscription'])){
                     $isSubscription = 1;
-
+                    $orderItem->quantity =2;
                     $subtotal = $subtotal + ($item['subscription']['quantity'] * $item['subscription']['price']);
                     $orderItem->subtotal = ($item['subscription']['quantity'] * $item['subscription']['price']);
                     $orderItem->price = $item['subscription']['price'];
@@ -183,7 +183,6 @@ class WebpayPlusController
                         if($i == round($subscriptionPlan->months/2)-1 && round($subscriptionPlan->months/2)%2!=0){
                             $quantity = 1;
                         }
-
                         $pay_date = Carbon::now()->addDays(($i*$productSubscriptionPlan->days)-($i == 0 ? 0 : 4));
                         $subscriptionOrdersItem = new SubscriptionsOrdersItem;
                         $subscriptionOrdersItem->is_pay = 0;

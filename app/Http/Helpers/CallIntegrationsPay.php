@@ -28,7 +28,7 @@ class CallIntegrationsPay extends CoreHelper
             $item = array(
                 'productItemId' => $elementOrderItem->product->product_item_id_ailoo,
                 'price' => $elementOrderItem->price,
-                'quantity' => $elementOrderItem->subscription_plan_id  == null ? $elementOrderItem->quantity : 2,
+                'quantity' => $elementOrderItem->quantity,
                 "taxable"=> true,
                 "type"=> "PRODUCT"
             );
