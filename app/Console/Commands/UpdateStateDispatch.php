@@ -51,37 +51,28 @@ class UpdateStateDispatch extends Command
      */
     public function handle()
     {
-        $subscriptionsOrdersItems = SubscriptionsOrdersItem::whereHas('order',function($q) use ($customer){
-            $q->where('status','PAID')->where('customer_id',$customer->id);
-        })
-        ->where('status','PAID')
-        ->whereDate('pay_date','>=',Carbon::now()->subDays(3))
-        ->whereNotNull('dispatch_status')
-        ->orderBy('order_id')->orderBy('pay_date')
-        ->get();
+        $customers = Customer::all();
+        foreach ($customers as $customer) {
+            $subscriptionsOrdersItems = SubscriptionsOrdersItem::whereHas('order', function ($q) use ($customer) {
+                $q->where('status', 'PAID')->where('customer_id', $customer->id);
+            })
+                ->where('status', 'PAID')
+                ->whereDate('pay_date', '>=', Carbon::now()->subDays(3))
+                ->whereNotNull('dispatch_status')
+                ->orderBy('order_id')->orderBy('pay_date')
+                ->get();
 
-        foreach ($subscriptionsOrdersItems as $key => $value) {
-            $data_llego = array (
-                'identificador' => $value->id,
-            );
-            $get_data = ApiHelper::callAPI('GET', 'https://qa-integracion.llego.cl/api/100/Anticonceptivo/consulta/Pedido', json_encode($data_llego), 'llego');
-            $response = json_decode($get_data, true);
-            if($response['codigo'] == 200){
-                $value->dispatch_status = $response['status']['estado'];
-                $value->save();
-            }
-        }
-
-        $orders = Order::whereDate('created_at','>=',Carbon::now()->subDays(3))->where('status','PAID')->get();
-        foreach ($orders as $key => $value) {
-            $data_llego = array (
-                'identificador' => $value->id,
-            );
-            $get_data = ApiHelper::callAPI('GET', 'https://qa-integracion.llego.cl/api/100/Anticonceptivo/consulta/Pedido', json_encode($data_llego), 'llego');
-            $response = json_decode($get_data, true);
-            if($response['codigo'] == 200){
-                $value->dispatch_status = $response['status']['estado'];
-                $value->save();
+            $orders = Order::whereDate('created_at', '>=', Carbon::now()->subDays(3))->where('status', 'PAID')->get();
+            foreach ($orders as $key => $value) {
+                $data_llego = array(
+                    'identificador' => $value->id,
+                );
+                $get_data = ApiHelper::callAPI('GET', 'https://qa-integracion.llego.cl/api/100/Anticonceptivo/consulta/Pedido', json_encode($data_llego), 'llego');
+                $response = json_decode($get_data, true);
+                if ($response['codigo'] == 200) {
+                    $value->dispatch_status = $response['status']['estado'];
+                    $value->save();
+                }
             }
         }
     }
