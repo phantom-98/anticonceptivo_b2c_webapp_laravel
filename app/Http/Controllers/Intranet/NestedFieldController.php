@@ -69,29 +69,40 @@ class NestedFieldController extends GlobalController
 
     public function store(Request $request)
     {
+        // dd($request->all());
         $rules = [
-            'name' => 'required|unique:nested_fields,name',
+            'name' => 'required',
         ];
 
         $messages = [
-            'name.unique' => 'El nombre debe ser único'
+            'name.required' => 'El nombre es requerido'
         ];
+
         $validator = Validator::make($request->all(), $rules, $messages);
 
         if ($validator->passes()) {
 
-            $object = NestedField::create($request->all());
-
-            if ($object) {
-                session()->flash('success', 'Campo creado correctamente.');
-                if ($request->section == 'campania') {
-                    return redirect()->route($this->route . 'index', ['section' => $request->section, 'contact_id' => $request->contact_issue_id]);   
+            $nested_field_names = NestedField::where('section', $request->section)->where('contact_issue_id', $request->contact_issue_id)->pluck('name')->toArray();
+            
+            if (in_array($request->name, $nested_field_names) == false) {
+                
+                $object = NestedField::create($request->all());
+    
+                if ($object) {
+                    session()->flash('success', 'Campo creado correctamente.');
+                    if ($request->section == 'campania') {
+                        return redirect()->route($this->route . 'index', ['section' => $request->section, 'contact_id' => $request->contact_issue_id]);   
+                    }
+                    return redirect()->route($this->route . 'index', ['section' => $request->section]);   
+    
                 }
-                return redirect()->route($this->route . 'index', ['section' => $request->section]);   
+    
+                return redirect()->back()->withErrors(['mensaje' => 'Error inesperado al crear el campo.'])->withInput();
+            }else{
 
+                return redirect()->back()->withErrors(['mensaje' => 'El nombre debe ser unico.'])->withInput();
             }
-
-            return redirect()->back()->withErrors(['mensaje' => 'Error inesperado al crear el campo.'])->withInput();
+            
         } else {
             return redirect()->back()->withErrors($validator)->withInput();
         }
