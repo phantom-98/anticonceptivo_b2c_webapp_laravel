@@ -265,10 +265,12 @@
                     sortable: true,
                     cellStyle: cellStyle,
                     formatter: function(value, row, index) {
-                        if (value) {
-                            
+                        if (row.phone_code) {
                             return row.phone_code + '' + row.phone;
+                        }else{
+                            return row.customer.phone_code + '' + row.customer.phone;
                         }
+                            
                     }
                 },
                 {
@@ -276,12 +278,18 @@
                     field: 'contact_issue.type',
                     sortable: true,
                     cellStyle: cellStyle,
+                    formatter: function(value, row, index) {
+                        return value ? value : 'Sin Tipo Asociado';
+                    }
                 },
                 {
                     title: 'Sección',
                     field: 'contact_issue.section',
                     sortable: true,
                     cellStyle: cellStyle,
+                    formatter: function(value, row, index) {
+                        return value ? value : 'Sin Sección Asociada';
+                    }
                 },
                 {
                     title: 'N° Pedido',
@@ -289,7 +297,7 @@
                     sortable: true,
                     cellStyle: cellStyle,
                     formatter: function(value, row, index) {
-                        return row.order_id ? row.order_id : '-';
+                        return row.order_id ? row.order_id : 'Sin Pedido Asociado';
                     }
                 },
                 {
