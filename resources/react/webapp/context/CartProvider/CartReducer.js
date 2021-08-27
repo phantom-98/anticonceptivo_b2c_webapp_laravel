@@ -17,13 +17,11 @@ export default (state, action) => {
                 ...state,
                 showingMiniCart: true
             };
-
         case MINI_CART_CLOSE:
             return {
                 ...state,
                 showingMiniCart: false
             };
-
         case ADD_TO_CART:
             toastr.options = {
                 "closeButton": false,
@@ -116,17 +114,16 @@ export default (state, action) => {
                 ...state,
                 cartItems: [...cart]
             };
-
         case REMOVE_FROM_CART:
             const list = state.cartItems;
-            const filtered = list.filter(
-                c =>
-                c.product_id != action.payload.product.id ||
+
+            const filtered = list.filter(c => c.product_id != action.payload ||
                 (c.subscription == null ? null : c.subscription.id) !=
                     (action.payload.subscription == null
                         ? null
                         : action.payload.subscription.id)
             );
+
             localStorage.setItem(
                 LOCAL_STORAGE.CART_ITEMS,
                 JSON.stringify(filtered)
@@ -137,7 +134,6 @@ export default (state, action) => {
                 // showingMiniCart: false,
                 cartItems: filtered
             };
-
         case UPDATE_QUANTITY:
             let items = state.cartItems;
             const itemUpdate = action.payload;
@@ -166,12 +162,11 @@ export default (state, action) => {
                 // showingMiniCart: false,
                 cartItems: [...items]
             };
-
         case CLEAR_CART:
             return {
                 ...state,
                 cartItems: []
-            }
+        }
 
         default:
             return state;
