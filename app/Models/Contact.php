@@ -25,8 +25,8 @@ class Contact extends Model
     ];
 
     protected $casts = [
-        // 'dynamic_fields' => 'array',
-        // 'nested_fields' => 'array',
+        'dynamic_fields' => 'array',
+        'nested_fields' => 'array',
     ];
 
     protected $appends = [
