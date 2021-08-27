@@ -157,6 +157,9 @@ class NestedFieldController extends GlobalController
 
             if ($object) {
                 session()->flash('success', 'Campo modificado correctamente.');
+                if ($object->section && $object->contact_issue_id) {
+                    return redirect()->route('intranet.nested-fields.index', ['section' => $object->section, 'contact_id' => $object->contact_issue_id]);        
+                }
                 return redirect()->route($this->route . 'index', ['section' => 'contacto']);
             }
 
