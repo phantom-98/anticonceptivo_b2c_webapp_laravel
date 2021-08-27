@@ -45,9 +45,9 @@
                                 @endif
 
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-4 mt-3">
                                 @if($allowNew)
-                                    <button onclick="openCreate()"  class="btn btn-success">
+                                    <button onclick="openCreate()"  class="btn btn-success mt-4">
                                         <i class="ti-plus"></i> Nueva Pregunta
                                     </button>
                                 @endif
