@@ -194,7 +194,7 @@ const ProductInfo = ({ product, setImageSubscription }) => {
                                                                     .subscription_plan
                                                                     .months
                                                             }{" "}
-                                                            Meses
+                                                            Ciclos
                                                         </button>
                                                     ) : (
                                                         <button
@@ -213,7 +213,7 @@ const ProductInfo = ({ product, setImageSubscription }) => {
                                                                     .subscription_plan
                                                                     .months
                                                             }{" "}
-                                                            Meses
+                                                            Ciclos
                                                         </button>
                                                     );
                                                 }
