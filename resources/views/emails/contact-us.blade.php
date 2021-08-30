@@ -1,5 +1,5 @@
 @extends('emails.base')
-@section('header', 'Contacto Anticonceptivo')
+@section('header', $data['subject'])
 @section('content')
 
     <div class="title">Hemos recibido tu mensaje</div>

@@ -93,12 +93,25 @@ class ContactController extends Controller
 
                     $subject = 'Soporte Anticonceptivo';
 
+                    $emailBody = view('emails.contact-form', ['data' => [
+                        'title' => $subject,
+                        'title_2' => 'Hemos recibido tu mensaje',
+                        'name' => $request->contact_first_name.' '.$request->contact_last_name,
+                        'contact_id' => $contact->id,
+                        // 'message' => $request->message
+                    ]])->render();;
+                    
                     $body = view('emails.contact-us', ['data' => [
                         'contact_id' => $contact->id,
+                        'subject' => $subject,
                     ]])->render();
 
                     $email = new Email();
+                    
+                    // ENVIO AL CLIENTE
                     $email->send($contact->email, $subject, $body);
+                    // ENVIO AL ADMINISTRADOR
+                    $email->send(env('SENDGRID_EMAIL_TO'), $subject, $emailBody);
 
                     return ApiResponse::JsonSuccess(null, 'Mensaje envíado.');
                 }else{
