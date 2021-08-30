@@ -21,7 +21,7 @@ const CheckOut = () => {
     const [dispatchDate, setDispatchDate] = useState([]);
     const [installment, setInstallment] = useState(1);
     const [showFinal, setShowFinal] = useState(1);
-    const [finishWebpayProccess, setFinishWebpayProccess] = useState(0);
+    const [finishWebpayProccess, setFinishWebpayProcess] = useState(0);
     const [webpayProccessSuccess, setWebpayProccessSuccess] = useState();
     const [view, setView] = useState('grant-user');
     const [step, setStep] = useState({
@@ -167,11 +167,11 @@ const CheckOut = () => {
             <div className="pb-5" style={{background: '#FAFAFA'}}>
                 <div className="container pt-4">
                     {
-                        !finishWebpayProccess ? 
+                        !finishWebpayProccess ?
                             <Fragment>
                                 <Header showFinal={showFinal} />
                                     <div className="row pb-5">
-                                        <div className="col-md pr-2">
+                                        <div className="col-md pr-md-2">
                                             <div className="panel panel-cart mb-3">
                                                 <div className="panel-body" style={{paddingTop: '11px', paddingBottom: '10px'}}>
                                                     <Step title={step.title} number={step.number} disabled={false}/>
@@ -182,8 +182,8 @@ const CheckOut = () => {
                                                 view == 'grant-user' ? <GrantUser setView={setView}/> : null
                                             }
                                             {
-                                                view == 'user-form' ? 
-                                                    <UserForm 
+                                                view == 'user-form' ?
+                                                    <UserForm
                                                         setView={setView}
                                                         data={data}
                                                         setData={setData}
@@ -195,25 +195,25 @@ const CheckOut = () => {
                                                     /> : null
                                             }
                                             {
-                                                (containsSubscriptions && (view == 'addresses' || view == 'add-address')) ? 
+                                                (containsSubscriptions && (view == 'addresses' || view == 'add-address')) ?
 
-                                                [<Subscriptions 
+                                                [<Subscriptions
                                                     setView={setView}
                                                     subscription={subscription}
                                                     setSubscription={setSubscription}
-                                                />, 
+                                                />,
                                                 <Installments
                                                     setInstallment={setInstallment}
 
                                                 />]
-                                                
+
                                                 : null
 
-                                                
+
                                             }
 
                                             {
-                                                view == 'add-address' ? 
+                                                view == 'add-address' ?
                                                     <AddAddress
                                                         setView={setView}
                                                         regions={regions}
@@ -222,8 +222,8 @@ const CheckOut = () => {
                                                     /> : null
                                             }
                                             {
-                                                view == 'addresses' ? 
-                                                    <Addresses 
+                                                view == 'addresses' ?
+                                                    <Addresses
                                                         setView={setView}
                                                         regions={regions}
                                                         dispatchDate={dispatchDate}
@@ -235,8 +235,8 @@ const CheckOut = () => {
 
 
                                         </div>
-                                        <div className="col-md-auto pl-2" style={{width: '408px'}}>
-                                            <Resume 
+                                        <div className="col-md-auto pl-md-2" style={{width: '408px'}}>
+                                            <Resume
                                                 installment={installment}
                                                 showFinal={showFinal}
                                                 data={data}
@@ -256,7 +256,7 @@ const CheckOut = () => {
                                         </div>
                                     </div>
                             </Fragment>
-                        : 
+                        :
                         <HandleResponse
                             webpayProccessSuccess={webpayProccessSuccess}
                             orderId={orderId}
