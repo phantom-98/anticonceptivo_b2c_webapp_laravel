@@ -200,11 +200,7 @@
                                         <select id="format" name="format" class="form-control">
                                             <option value="" selected>Sin formato</option>
                                             <option value="1">1</option>
-                                            <option value="3">3</option>
-                                            <option value="21">21</option>
-                                            <option value="28">28</option>
-                                            <option value="91">91</option>
-                                            {{-- <option value="2">2</option>
+                                            <option value="2">2</option>
                                             <option value="3">3</option>
                                             <option value="3.5">3.5</option>
                                             <option value="4">4</option>
@@ -236,7 +232,7 @@
                                             <option value="133">133</option>
                                             <option value="180">180</option>
                                             <option value="200">200</option>
-                                            <option value="250">250</option> --}}
+                                            <option value="250">250</option>
                                         </select>
                                     </div>
                                 </div>
