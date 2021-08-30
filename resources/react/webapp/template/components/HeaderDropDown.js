@@ -9,7 +9,7 @@ const HeaderDropDown = ({postTypes}) =>{
     return (
         <div className="col-md-auto top-do-flex">
             <div className="my-auto">
-                <Dropdown className="testingg">
+                <Dropdown className="display-none-work">
                     <Dropdown.Toggle id="dropdown-testing" className='header-navbar-col-custom'>
                         <div className="my-auto">
                             <span className="top-link header-navbar-item font-regular" style={{fontWeight:500}}>Blog</span>

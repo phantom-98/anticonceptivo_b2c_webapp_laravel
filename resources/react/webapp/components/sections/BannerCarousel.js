@@ -29,10 +29,10 @@ const BannerCarousel = ({topBanners}) => {
                             banner.button_title ? 
                                 <div>
                                     <img key={topBannerKey} src={banner.public_file} alt={CONFIG.APP_NAME} width="100%"/>
-                                    <div className="testing font-poppins font-35 bold color-033F5D">
+                                    <div className="banner-buttons font-poppins font-35 bold color-033F5D">
                                         <span style={{backgroundColor: 'white'}}>{banner.title}</span>
                                     </div>
-                                    <div className="testing-2 font-poppins font-35 bold color-033F5D">
+                                    <div className="banner-buttons-2 font-poppins font-35 bold color-033F5D">
                                         <a href={banner.button_link} target={banner.button_target} className="btn btn-bicolor btn-block">
                                             <span style={{lineHeight:'35px'}}>{banner.button_title}</span>
                                         </a>
@@ -42,7 +42,7 @@ const BannerCarousel = ({topBanners}) => {
                                 <div>
                                     <a href={banner.button_link} target={banner.button_target}>
                                         <img key={topBannerKey} src={banner.public_file} alt={CONFIG.APP_NAME} width="100%"/>
-                                        <div className="testing font-poppins font-35 bold color-033F5D">
+                                        <div className="banner-buttons font-poppins font-35 bold color-033F5D">
                                             <span style={{backgroundColor: 'white'}}>{banner.title}</span>
                                         </div>
                                     </a>

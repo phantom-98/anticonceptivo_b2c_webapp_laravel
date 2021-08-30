@@ -72,7 +72,7 @@
     box-shadow: none !important;
 }
 
-.testingg .dropdown-toggle::after {
+.display-none-work .dropdown-toggle::after {
     display: none !important;
 }
 
@@ -166,4 +166,24 @@ button#dropdown-testing {
     white-space: nowrap;
     background-color: white;
     border: 0;
+}
+
+.menu-mobile{
+    width: 100%;
+    height: 85px;
+    position: fixed;
+    background: white !important;
+    box-shadow: 0 1px 12px rgb(0 0 0 / 15%);
+    top: 0;
+    z-index: 2;
+}
+
+.menu-mobile div.first-row {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    font-size: 12px;
+    background-color: #033F5D;
+    color: white;
 }
