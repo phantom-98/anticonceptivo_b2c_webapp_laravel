@@ -41,7 +41,7 @@
                            data-show-pagination-switch="true">
                         <thead>
                         <tr>
-                            <th data-sortable="true" data-cell-style="cellStyle"  data-valign="middle">Cantidad de Meses</th>
+                            <th data-sortable="true" data-cell-style="cellStyle"  data-valign="middle">Planes</th>
                             @if($config['action']['changeStatus'])
                             <th data-cell-style="cellStyle" data-sortable="true">Estado</th>
                             @endif
