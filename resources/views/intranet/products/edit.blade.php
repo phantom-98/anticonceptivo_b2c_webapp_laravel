@@ -217,7 +217,11 @@
                                         <select id="format" name="format" class="form-control">
                                             <option value="" {{$object->format == null ? "selected" : ""}}>Sin formato</option>
                                             <option value="1" {{$object->format == "1" ? "selected" : ""}}>1</option>
-                                            <option value="2" {{$object->format == "2" ? "selected" : ""}}>2</option>
+                                            <option value="3" {{$object->format == "3" ? "selected" : ""}}>3</option>
+                                            <option value="21" {{$object->format == "21" ? "selected" : ""}}>21</option>
+                                            <option value="28" {{$object->format == "28" ? "selected" : ""}}>28</option>
+                                            <option value="91" {{$object->format == "91" ? "selected" : ""}}>91</option>
+                                            {{-- <option value="2" {{$object->format == "2" ? "selected" : ""}}>2</option>
                                             <option value="3" {{$object->format == "3" ? "selected" : ""}}>3</option>
                                             <option value="3.5" {{$object->format == "3.5" ? "selected" : ""}}>3.5</option>
                                             <option value="4" {{$object->format == "4" ? "selected" : ""}}>4</option>
@@ -249,7 +253,7 @@
                                             <option value="133" {{$object->format == "133" ? "selected" : ""}}>133</option>
                                             <option value="180" {{$object->format == "180" ? "selected" : ""}}>180</option>
                                             <option value="200" {{$object->format == "200" ? "selected" : ""}}>200</option>
-                                            <option value="250" {{$object->format == "250" ? "selected" : ""}}>250</option>
+                                            <option value="250" {{$object->format == "250" ? "selected" : ""}}>250</option> --}}
                                         </select>
                                     </div>
                                 </div>
@@ -346,7 +350,7 @@
                         <br/>
                         @forelse($object->plans as $plan)
                         <div class="clone">
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <div class="form-group">
                                     <label for="price">Plan</label>
                                     <select name="plan_id[{{$loop->iteration}}][]" class="form-control plan_id" data-width="100%">
@@ -357,17 +361,24 @@
                                     </select>
                                 </div>
                             </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="price">Precio unitario</label>
+                                    <input type="text" name="price_plan[{{$loop->iteration}}][]" class="form-control price" value="{{ $plan->price }}"
+                                    oninput="checkKeyByClass('price')" >
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="price">Días</label>
+                                    <input type="text" name="days[{{$loop->iteration}}][]" class="form-control days" value="{{ $plan->days }}"
+                                    oninput="checkKeyByClass('price')" >
+                                </div>
+                            </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="warnings">Disclaimer</label>
                                     <textarea name="warnings[{{$loop->iteration}}][]" class="form-control warnings summernote">{!! $plan->warnings !!}</textarea>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="price">Precio</label>
-                                    <input type="text" name="price_plan[{{$loop->iteration}}][]" class="form-control price" value="{{ $plan->price }}"
-                                    oninput="checkKeyByClass('price')" >
                                 </div>
                             </div>
                             <div class="col-md-2">
@@ -378,7 +389,7 @@
                         </div>
                         @empty
                         <div class="clone">
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <div class="form-group">
                                     <label for="price">Plan</label>
                                     <select name="plan_id[1][]" class="form-control plan_id" data-width="100%">
@@ -389,17 +400,24 @@
                                     </select>
                                 </div>
                             </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="price">Precio unitario</label>
+                                    <input type="text" name="price_plan[1][]" class="form-control price"
+                                    oninput="checkKeyByClass('price')" >
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="days">Días</label>
+                                    <input type="number" name="days[1][]" min="7" class="form-control days"
+                                    oninput="checkKeyByClass('price')" >
+                                </div>
+                            </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="warnings">Disclaimer</label>
                                     <textarea type="text" name="warnings[1][]" class="form-control warnings summernote"></textarea>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="price">Precio por mes</label>
-                                    <input type="text" name="price_plan[1][]" class="form-control price"
-                                    oninput="checkKeyByClass('price')" >
                                 </div>
                             </div>
                             <div class="col-md-2">
@@ -562,6 +580,8 @@
             $(".plan_id").last().removeAttr("required");
             $(".price").last().val("");
             $(".price").last().attr('name', 'price_plan[' + count + '][]');
+            $(".days").last().val("");
+            $(".days").last().attr('name', 'days[' + count + '][]');
             $(".warnings").last().html('');
             $(".note-editor").last().remove();
             $(".warnings").last().attr('name', 'warnings[' + count + '][]');
