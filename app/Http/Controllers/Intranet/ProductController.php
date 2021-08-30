@@ -89,6 +89,7 @@ class ProductController extends GlobalController
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $rules = [
             'name' => 'required',
             'sku' => 'required|unique:products,sku',
@@ -157,6 +158,7 @@ class ProductController extends GlobalController
                     $new_plan->subscription_plan_id = $plan[0];
                     $new_plan->warnings = $request->warnings[$key][0];
                     $new_plan->price = $request->price_plan[$key][0];
+                    $new_plan->days = $request->days[$key][0] < 7 ? 7 : $request->days[$key][0];
                     $new_plan->product_id = $product->id;
                     $new_plan->save();
 
@@ -212,7 +214,7 @@ class ProductController extends GlobalController
      */
     public function update(Request $request, $id)
     {
-
+        // dd($request->all());
         $product = Product::find($id);
         if (!$product) {
             session()->flash('warning', 'Producto no encontrado.');
@@ -288,7 +290,8 @@ class ProductController extends GlobalController
                     $new_plan = new ProductSubscriptionPlan();
                     $new_plan->subscription_plan_id = $plan[0];
                     $new_plan->warnings = $request->warnings[$key][0];
-                    $new_plan->price = $request->price_plan[$key][0];
+                    $new_plan->price = $request->price_plan[$key][0];                        
+                    $new_plan->days = $request->days[$key][0];
                     $new_plan->product_id = $product->id;
                     $new_plan->save();
 

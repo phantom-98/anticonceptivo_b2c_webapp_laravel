@@ -82,7 +82,7 @@ class NestedFieldController extends GlobalController
 
         if ($validator->passes()) {
 
-            $nested_field_names = NestedField::where('section', $request->section)->where('contact_issue_id', $request->contact_issue_id)->pluck('name')->toArray();
+            $nested_field_names = NestedField::where('section', $request->section)->orWhere('contact_issue_id', $request->contact_issue_id)->pluck('name')->toArray();
             
             if (in_array($request->name, $nested_field_names) == false) {
                 

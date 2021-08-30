@@ -877,7 +877,9 @@ class ProfileController extends Controller
                 $contact->customer_id = $request->customer_id;
 
                 if ($contact->save()) {
-
+                    // CORREO AL ADMINISTRADOR
+                    $subject = 'Servicio al Cliente';
+                    
                     $emailSubject = $contactIssue->section;
                     $subEmailSubject = $contactIssue->name;
 
@@ -892,8 +894,8 @@ class ProfileController extends Controller
                     $email = new Mail();
 
                     $email->setFrom(env('SENDGRID_EMAIL_FROM'), env('SENDGRID_EMAIL_NAME'));
-                    $email->setSubject($emailSubject);
-                    $email->addTo($request->email, env('SENDGRID_EMAIL_NAME'));
+                    $email->setSubject($subject);
+                    $email->addTo(env('SENDGRID_EMAIL_TO'), env('SENDGRID_EMAIL_NAME'));
                     $email->addContent(
                         "text/html", $emailBody
                     );
@@ -901,7 +903,20 @@ class ProfileController extends Controller
                     $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
                     $response = $sendgrid->send($email);
 
+                    
+
                     if ($response->statusCode() == 202) {
+
+                        // CORREO AL CLIENTE
+
+                        $body = view('emails.contact-us', ['data' => [
+                            'contact_id' => $contact->id,
+                            'subject' => $subject,
+                        ]])->render();
+
+                        $emailCustomer = new Email();
+                        $emailCustomer->send($request->email, $subject, $body);
+
                         Log::info('SENDGRID CONTACT FORM ENVIADO');
 
                     } else {

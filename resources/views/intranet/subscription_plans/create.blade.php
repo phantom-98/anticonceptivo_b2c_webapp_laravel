@@ -29,7 +29,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="months">Cantidad de Meses (*)</label>
+                                    <label for="months">Planes (*)</label>
                                     <input type="text" id="months" name="months" class="form-control"
                                             value="{{ old('months') }}">
                                 </div>

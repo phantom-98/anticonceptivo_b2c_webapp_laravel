@@ -27,7 +27,7 @@ const Cart = () => {
                                     className="font-poppins font-16 regular color-6C6B6B">(<TotalCartItems/>)</span>
                             </h3>
                         </div>
-                        <div className="col-md pr-2">
+                        <div className="col-md pr-md-2 pb-3">
                             <div className="panel panel-cart">
                                 <div className="panel-body">
                                     <div className="row">
@@ -42,7 +42,7 @@ const Cart = () => {
                             </div>
                         </div>
 
-                        <div className="col-md-auto pl-2" style={{width : '408px'}}>
+                        <div className="col-md-auto pl-md-2" style={{width : '408px'}}>
                             <div className="panel panel-cart">
                                 <div className="panel-body">
                                     <div className="row">

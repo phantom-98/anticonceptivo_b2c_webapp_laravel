@@ -149,7 +149,7 @@ const AddAddress = ({setView, regions, address, setAddress}) => {
                             <div className="form-group">
                                 <label htmlFor="region_id">Región</label>
                                 <select
-                                    className="form-control form-control-custom pl-2"
+                                    className="form-control form-control-custom pl-md-2"
                                     id="region_id"
                                     name="region_id"
                                     value={address.region_id}
@@ -173,7 +173,7 @@ const AddAddress = ({setView, regions, address, setAddress}) => {
                             <div className="form-group">
                                 <label htmlFor="commune_id">Comuna</label>
                                 <select
-                                    className="form-control form-control-custom pl-2"
+                                    className="form-control form-control-custom pl-md-2"
                                     id="commune_id"
                                     name="commune_id"
                                     onChange={handleAddress}

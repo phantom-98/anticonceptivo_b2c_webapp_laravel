@@ -152,6 +152,29 @@
                             </div>
                             @endforelse
                         </div>
+
+                        {{-- <div class="py-3">
+                            <br/>
+                            <div class="col-md-6">
+                                Campos anidados
+                            </div>
+                            <div class="clearfix"></div>
+                            <br/>
+                            <div class="dd" id="list">
+                                @if (count($objects) > 0)
+                                    <ol class="dd-list">
+                                        @foreach ($objects as $nested_field)
+                                            @include('intranet.nested-fields.partial-nested-fields', $nested_field)
+                                        @endforeach
+                                    </ol>
+                                @else
+                                    <div class="alert alert-info">
+                                        No existen registros.
+                                    </div>
+                                @endif
+                            </div>
+                        </div> --}}
+
                     </div>
                     <div class="panel-footer">
                         <div class="row">
@@ -174,9 +197,49 @@
 @section('styles')
     <link href="/themes/intranet/plugins/switchery/switchery.min.css" rel="stylesheet">
     <link href="/themes/intranet/plugins/select2/css/select2.min.css" rel="stylesheet">
+    <link href="/themes/intranet/plugins/nestable-list/nestable-list.css" rel="stylesheet" >
 @endsection
 
 @section('scripts')
+
+
+@include('intranet.template.components._crud_script_delete')
+
+<script src="/themes/intranet/plugins/nestable-list/jquery.nestable.js"></script>
+
+@include('intranet.nested-fields.create.script')
+
+
+<script>
+    $('.dd').nestable({ /* config options */ });
+
+    $('.dd').on('change', function(e) {
+        savePosition();
+    });
+
+    function savePosition(){
+        $.ajax({
+            type: "post",
+            dataType: 'json',
+            url: "{{ route('intranet.nested-fields.position') }}",
+            data: {
+                _token: '{{ csrf_token() }}',
+                data: $('.dd').nestable('serialize')
+            },
+            success: function (msg) {
+                if(msg.status){
+                    toastr.success('Se ha reordenado correctamente la lista ');
+                } else {
+                    toastr.error('No se ha podido reordenar la lista ');
+                }
+            },
+            error: function (msg) {
+                toastr.error('No se ha podido reordenar la lista ');
+            }
+        })
+    }
+</script>
+
 <script>
     $(document).ready(function () {
         var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));

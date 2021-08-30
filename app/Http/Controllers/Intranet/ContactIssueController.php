@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Intranet;
 use App\Models\ContactIssue;
 use App\Models\Campaign;
 use App\Models\DynamicField;
+// use App\Models\NestedField;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -103,13 +104,35 @@ class ContactIssueController extends GlobalController
 
     public function edit($id)
     {
+        
         $object = ContactIssue::with('fields')->find($id);
-
+        
+        // $objects = NestedField::with(['children'])->withCount(['nested_field_questions'])->orderBy('position')->whereNull('parent_id');
+        
+        // $allowNew = false;
+        
+        
         if (!$object) {
             session()->flash('warning', 'Tipo de Contacto / Reclamo no encontrado.');
             return redirect()->route($this->route . 'index');
         }
+        
+        // if ($object->section == 'Contáctanos') {
+        //     $objects = $objects->where('section', 'like', 'contacto')->get();
+        //     $allowNew = true;
+            
+        // } else if ($object->section == 'Servicio al Cliente'){
+            
+        //     $objects = $objects->where('section', 'campania')->where('contact_issue_id',$object->id)->get();
+        //     $allowNew = true;
+            
+        // } else{
+        //     $objects = $objects->where('section', '-1')->get();
+            
+        // }
+        
         $campaigns = Campaign::get();
+        // return view($this->folder . 'edit', compact('object', 'campaigns', 'objects', 'allowNew'));
         return view($this->folder . 'edit', compact('object', 'campaigns'));
     }
 
