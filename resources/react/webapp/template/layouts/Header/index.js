@@ -38,8 +38,13 @@ const Header = () => {
             <section id="header" style={styleProps} className="header">
                 {/* Desktop */}
 
-                {/* <HeaderTop />  */}
-                {/* <HeaderBox /> */}
+                <div className="d-md-block d-none">
+                    <HeaderTop /> 
+                </div>
+
+                <div className="d-md-block d-none">
+                    <HeaderBox />
+                </div>
                 <div className="d-md-block d-none">
                     <HeaderNavbar />
                 </div>

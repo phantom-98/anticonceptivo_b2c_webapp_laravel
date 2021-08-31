@@ -27,8 +27,8 @@ const BannerCarousel = ({topBanners}) => {
                         let topBannerKey = uuidv4();
                         return (        
                             banner.button_title ? 
-                                <div>
-                                    <img key={topBannerKey} src={banner.public_file} alt={CONFIG.APP_NAME} width="100%"/>
+                                <div key={topBannerKey}>
+                                    <img src={banner.public_file} alt={CONFIG.APP_NAME} width="100%"/>
                                     <div className="banner-buttons font-poppins font-35 bold color-033F5D">
                                         <span style={{backgroundColor: 'white'}}>{banner.title}</span>
                                     </div>
@@ -39,9 +39,9 @@ const BannerCarousel = ({topBanners}) => {
                                     </div> 
                                 </div>
                             :
-                                <div>
+                                <div key={topBannerKey}>
                                     <a href={banner.button_link} target={banner.button_target}>
-                                        <img key={topBannerKey} src={banner.public_file} alt={CONFIG.APP_NAME} width="100%"/>
+                                        <img src={banner.public_file} alt={CONFIG.APP_NAME} width="100%"/>
                                         <div className="banner-buttons font-poppins font-35 bold color-033F5D">
                                             <span style={{backgroundColor: 'white'}}>{banner.title}</span>
                                         </div>

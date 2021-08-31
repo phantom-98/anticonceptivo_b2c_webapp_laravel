@@ -23,8 +23,8 @@ const PillsMenuMobile = ({laboratories, subscriptions, formats, categorySlug, hi
                                     let formatUrl = categoryUrl.replace(':type?','formato');
                                     formatUrl = formatUrl.replace(':filter?',format);
                                     return (
-                                        <li className="my-2">
-                                            <Link onClick={hideMenu} to={formatUrl} style={{textDecoration: 'none'}} key={formatKey}>
+                                        <li className="my-2" key={formatKey}>
+                                            <Link onClick={hideMenu} to={formatUrl} style={{textDecoration: 'none'}}>
                                                 <span className="font-poppins py-1 font-12 text-black my-auto d-block">{format}</span>
                                             </Link>
                                         </li>
@@ -48,8 +48,8 @@ const PillsMenuMobile = ({laboratories, subscriptions, formats, categorySlug, hi
                                     let subscriptionUrl = categoryUrl.replace(':type?','suscripcion');
                                     subscriptionUrl = subscriptionUrl.replace(':filter?', subscription.months);
                                     return (
-                                        <li className="my-2">
-                                            <Link onClick={hideMenu} to={subscriptionUrl} style={{textDecoration: 'none'}} key={subscriptionKey}>
+                                        <li className="my-2" key={subscriptionKey}>
+                                            <Link onClick={hideMenu} to={subscriptionUrl} style={{textDecoration: 'none'}}>
                                                 <span className="font-poppins py-1 font-12 text-black my-auto d-block">{subscription.months} Meses</span>
                                             </Link>
                                         </li>
@@ -75,8 +75,8 @@ const PillsMenuMobile = ({laboratories, subscriptions, formats, categorySlug, hi
                                     laboratoryUrl = laboratoryUrl.replace(":filter?", laboratory.name.replace(' ','-').toLowerCase());
 
                                     return (
-                                        <li className="my-2">
-                                            <Link hideMenu={hideMenu} to={laboratoryUrl} style={{textDecoration: 'none', pointerEvents: 'auto'}} key={laboratoryKey}>
+                                        <li className="my-2" key={laboratoryKey}>
+                                            <Link hideMenu={hideMenu} to={laboratoryUrl} style={{textDecoration: 'none', pointerEvents: 'auto'}}>
                                                 <span key={laboratoryKey} className="font-poppins py-1 font-12 text-black my-auto d-block">{laboratory.name}</span>
                                             </Link>
                                         </li>

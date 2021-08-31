@@ -46,7 +46,7 @@ const CategoryMenuMobile = ({hideMenu}) => {
             let url = PUBLIC_ROUTES.SHOP.path;
             url = url.replace(":category", category.slug);
             return(
-                <div className="col-12">
+                <div className="col-12" key={category.categoryId}>
                     <Link to={url} onClick={hideMenu} className='link-no-style-blue font-16'>
                         {category.name}
                     </Link>
@@ -69,8 +69,9 @@ const CategoryMenuMobile = ({hideMenu}) => {
                                 let childUrl = PUBLIC_ROUTES.SHOP_SUBCATEGORY.path;
                                 childUrl = childUrl.replace(":category?", category.slug);
                                 childUrl = childUrl.replace(":subcategory?", subCategory.slug);
+                                let subcatId = uuidv4();
                                 return(
-                                    <li className="my-2">
+                                    <li className="my-2" key={subcatId}>
                                         <Link to={childUrl} onClick={hideMenu} className='link-no-style'>
                                             {subCategory.name}
                                         </Link>
