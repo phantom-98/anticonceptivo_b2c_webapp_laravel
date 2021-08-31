@@ -24,7 +24,7 @@
             <th>Composición</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody>        
         @foreach($products as $object)
             <tr>
                 <td>{{ $object->sku }}</td>
@@ -33,7 +33,7 @@
                 <td>{{ $object->laboratory->name }}</td>
                 <td>{{ $object->price }}</td>
                 <td>{{ $object->offer_price ?? '' }}</td>
-                <td>{{ $object->subcategory->name }}</td>
+                <td>{{ $object->subcategory->name ?? '' }}</td>
                 <td>{{ $object->format }}</td>
                 <td>{{ $object->width ?? '' }}</td>
                 <td>{{ $object->height ?? '' }}</td>
@@ -45,7 +45,7 @@
                 <td>{{ $object->recipe_type ?? 'Venta Directa' }}</td>
                 <td>{{ $object->state_of_matter ?? 'Sólido' }}</td>
                 <td>{!! $object->data_sheet !!}</td>
-                <td>{!! $object->benefits !!}</td>
+                <td>{!! strip_tags($object->benefits) !!}</td>
                 <td>{!! $object->description !!}</td>
                 <td>{!! $object->compound !!}</td>
             </tr>
