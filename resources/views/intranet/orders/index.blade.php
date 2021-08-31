@@ -54,9 +54,8 @@
                                         <div class="form-group">
                                             <label for="status">Estado</label>
                                             <select id="status" name="status" class="form-control select2" data-width="100%">
-                                                <option value="">Todos</option>
+                                                <option value="Todos">Todos</option>
                                                 <option value="PAID" {{ $status == "PAID" ? "selected" : "" }}>Pagado</option>
-                                                <option value="CREATED" {{ $status == "CREATED" ? "selected" : "" }}>Creado</option>
                                                 <option value="DISPATCHED" {{ $status == "DISPATCHED" ? "selected" : "" }}>Despachado</option>
                                                 <option value="DELIVERED" {{ $status == "DELIVERED" ? "selected" : "" }}>Entregado</option>
                                             </select>
