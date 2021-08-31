@@ -33,8 +33,8 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="months">Planes (*)</label>
-                                    <input type="text" id="months" name="months" class="form-control"
-                                           value="{{ old('months') ?? $object->months }}">
+                                    <input type="number" id="months" name="months" class="form-control" min="1"
+                                           value="{{ old('months') ?? $object->months }}" onkeypress="return isNumberKey(event)">
                                 </div>
                             </div>    
                         </div>
@@ -163,5 +163,13 @@
         $("#file-image-menu").change(function () {
             readURL2(this);
         });
+    </script>
+    <script>
+        function isNumberKey(evt) {
+            var charCode = (evt.which) ? evt.which : evt.keyCode
+            if (charCode > 31 && (charCode < 48 || charCode > 57))
+                return false;
+            return true;
+        }
     </script>
 @endsection
