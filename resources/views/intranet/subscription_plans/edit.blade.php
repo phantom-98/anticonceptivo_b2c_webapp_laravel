@@ -33,7 +33,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="months">Planes (*)</label>
-                                    <input type="number" id="months" name="months" class="form-control" min="1"
+                                    <input type="number" id="months" name="months" class="form-control" min="1" max="999999"
                                            value="{{ old('months') ?? $object->months }}" onkeypress="return isNumberKey(event)">
                                 </div>
                             </div>    
