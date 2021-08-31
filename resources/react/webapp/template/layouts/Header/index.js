@@ -1,4 +1,4 @@
-import React, {Fragment, useState, useContext, useEffect} from 'react';
+import React, {Fragment, useState, useContext} from 'react';
 import menu from "../../../assets/images/icons/header/menu.svg";
 import anticonceptivo from "../../../assets/images/logo.svg";
 import cartBlue from "../../../assets/images/icons/header/cart-blue.svg";
@@ -13,7 +13,16 @@ import {CartContext} from "../../../context/CartProvider";
 import {AppContext} from "../../../context/AppProvider";
 import {ModalAuthMode} from "../../../Globals";
 import CategoryMenuMobile from "./CategoryMenuMobile";
-import {useLocation} from "react-router-dom";
+// import "slick-carousel/slick/slick.css";
+// import "slick-carousel/slick/slick-theme.css";
+// import Slider from "react-slick";
+import phoneWhite from "../../../assets/images/icons/header/phone-white.svg"
+import emailWhite from "../../../assets/images/icons/header/email-white.svg"
+import boxWhite from "../../../assets/images/icons/header/box-white.svg"
+import PUBLIC_ROUTES from "../../../routes/publicRoutes";
+import { v4 as uuidv4 } from 'uuid';
+import Icon from "../../../components/general/Icon";
+import SearchModal from "./SearchModal";
 
 const Header = () => {
 
@@ -32,6 +41,64 @@ const Header = () => {
     const [showingMenu, setShowingMenu] = useState(false);
     const showMenu = () => setShowingMenu(true);
     const hideMenu = () => setShowingMenu(false);
+
+    const [showingSearch, setShowingSearch] = useState(false);
+    const showSearch = () => setShowingSearch(true);
+    const hideSearch = () => setShowingSearch(false);
+
+    const carrousels = [
+        {
+            icon: boxWhite,
+            name: 'Contamos con reparto solo en la Región Metropolitana',
+            fontSize: 'font-10',
+            isLink: false,
+        },
+        {
+            phone: true,
+            icon: phoneWhite,
+            name: '(2) 3245 1883',
+            link: 'tel:232451883',
+            isLink: false,
+        },
+        {
+            email: true,
+            icon: emailWhite,
+            name: 'contacto@anticonceptivo.cl',
+            link: 'mailto:contacto@anticonceptivo.cl',
+            isLink: false,
+        },
+        {
+            name: 'Historía de los anticonceptivos',
+            link: PUBLIC_ROUTES.HISTORY.path,
+            isLink: true
+        },
+        {
+            name: 'Sobre nosotros',
+            link: PUBLIC_ROUTES.ABOUT_US.path,
+            isLink: true
+        },
+        {
+            name: 'Contacto',
+            link: PUBLIC_ROUTES.CONTACT_US.path,
+            isLink: true
+        },
+        {
+            name: 'FAQ',
+            link: PUBLIC_ROUTES.FAQ.path,
+            isLink: true
+        }
+    ];
+
+    // const settings = {
+    //     dots: false,
+    //     infinite: false,
+    //     slidesToShow: 1,
+    //     slidesToScroll: 1,
+    //     // autoplay: true,
+    //     // speed: 2000,
+    //     // autoplaySpeed: 2000,
+    //     // cssEase: "linear"
+    // };
 
     return (
         <Fragment>
@@ -53,8 +120,21 @@ const Header = () => {
                 <div className="d-md-none d-block">
                     <div className="menu-mobile">
                         <div className="row first-row" style={{height: '25px'}}>
-                            <div className="col-auto">
-                                Carrousel
+                            <div className="col-auto font-poppins font-11 text-center">
+                                <span><Icon path={carrousels[0].icon}/> {carrousels[0].name}</span>
+                                {/* <Slider {...settings}>
+                                    {
+                                        carrousels.map((carrousel) => {
+                                            let linkKey = uuidv4();
+                                            return (
+                                                    <Link key={linkKey} to={carrousel.link} style={{display: 'flex',justifyContent: 'center'}}>
+                                                        {carrousel.icon ? <Icon path={carrousel.icon}/> : null} 
+                                                            <span className={`${carrousel.fontSize ? carrousel.fontSize : '' }`}>{carrousel.name}</span>
+                                                    </Link>
+                                                )
+                                            })
+                                    }
+                                </Slider> */}
                             </div>
                         </div>
                         <div className="row mx-2" style={{height: '60px'}}>
@@ -70,7 +150,7 @@ const Header = () => {
                             </div>
 
                             <div className="col-2 d-flex" style={{justifyContent:'center'}}>
-                                <div className="my-auto" onClick={showMenu}>
+                                <div className="my-auto" onClick={showSearch}>
                                     <img src={search}
                                          alt=""
                                          title="Anticonceptivo"
@@ -126,7 +206,12 @@ const Header = () => {
                         </div>
                     </OffCanvas>
                 </div>
-
+                <div className="d-md-none d-block">
+                    <SearchModal
+                        showingSearch={showingSearch}
+                        hideSearch={hideSearch}
+                    />
+                </div>
             </section>
         </Fragment>
     );
