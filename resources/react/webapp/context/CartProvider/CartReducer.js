@@ -5,7 +5,8 @@ import {
     UPDATE_CART,
     REMOVE_FROM_CART,
     UPDATE_QUANTITY,
-    CLEAR_CART
+    CLEAR_CART,
+    IS_CART_READY
 } from "./types";
 import { LOCAL_STORAGE } from "../LocalStorage";
 import toastr from 'toastr';
@@ -115,6 +116,7 @@ export default (state, action) => {
                 cartItems: [...cart]
             };
         case REMOVE_FROM_CART:
+            console.log(state);
             const list = state.cartItems;
             const filtered = list.filter(
                 c =>
@@ -167,6 +169,12 @@ export default (state, action) => {
             return {
                 ...state,
                 cartItems: []
+            }
+
+        case IS_CART_READY:
+            return {
+                ...state,
+                isCartReady: true
             }
 
         default:

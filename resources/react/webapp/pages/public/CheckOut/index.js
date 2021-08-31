@@ -7,21 +7,22 @@ import AddAddress from "./AddAddress";
 import Addresses from "./Addresses";
 import Subscriptions from "./Subscriptions";
 import Installments from "./Installments";
-
 import Header from "./Header";
 import {AuthContext} from "../../../context/AuthProvider";
 import * as Services from "../../../Services";
 import HandleResponse from "./HandleResponse";
 import {CartContext} from "../../../context/CartProvider";
+import PUBLIC_ROUTES from "../../../routes/publicRoutes";
+import { useHistory } from "react-router-dom";
 
 const CheckOut = () => {
 
     const {auth} = useContext(AuthContext);
-    const {cartItems} = useContext(CartContext);
+    const {cartItems, isCartReady, checkCart} = useContext(CartContext);
     const [dispatchDate, setDispatchDate] = useState([]);
     const [installment, setInstallment] = useState(1);
     const [showFinal, setShowFinal] = useState(1);
-    const [finishWebpayProccess, setFinishWebpayProcess] = useState(0);
+    const [finishWebpayProccess, setFinishWebpayProccess] = useState(0);
     const [webpayProccessSuccess, setWebpayProccessSuccess] = useState();
     const [view, setView] = useState('grant-user');
     const [step, setStep] = useState({
@@ -80,8 +81,6 @@ const CheckOut = () => {
             setView("user-form");
         }
     },[auth])
-
-
 
     useEffect(() => {
         switch (view) {
@@ -160,6 +159,15 @@ const CheckOut = () => {
         }).catch(error => {
             Services.ErrorCatch(error)
         });
+    }
+
+    if (!isCartReady) {
+        checkCart();
+    }else{
+        if (!cartItems.length) {
+            let history = useHistory();
+            history.push(PUBLIC_ROUTES.CART.path);
+        }
     }
 
     return (

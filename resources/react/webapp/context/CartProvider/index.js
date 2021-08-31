@@ -7,7 +7,8 @@ import {
     ADD_TO_CART, 
     REMOVE_FROM_CART, 
     UPDATE_QUANTITY,
-    CLEAR_CART
+    CLEAR_CART,
+    IS_CART_READY,
 } from "./types";
 import {LOCAL_STORAGE} from "../LocalStorage";
 
@@ -19,7 +20,8 @@ const CartProvider = (props) => {
 
     const initialState = {
         showingMiniCart: false,
-        cartItems: []
+        cartItems: [],
+        isCartReady: false,
     };
 
     const [state, dispatch] = useReducer(CartReducer, initialState);
@@ -83,19 +85,26 @@ const CartProvider = (props) => {
         })
     }
 
+    const checkCart = () => {
+        dispatch({
+            type: IS_CART_READY
+        })
+    }
+
     return (
         <CartContext.Provider value={{
             showingMiniCart: state.showingMiniCart,
             containsSubscriptions: state.containsSubscriptions,
 
             cartItems: state.cartItems,
+            isCartReady: state.isCartReady,
             
             showMiniCart: showMiniCart,
             hideMiniCart: hideMiniCart,
             updateCart: updateCart, 
             clearCart: clearCart,
+            checkCart: checkCart,
             
-
             addToCart: addToCart,
             removeFromCart: removeFromCart,
             updateQuantity : updateQuantity,
