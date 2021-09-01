@@ -33,7 +33,7 @@ class OrderController extends GlobalController
 
     public function index(Request $request)
     {
-        $objects = Order::with(['customer', 'prescriptions.product'])->whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED']);
+        $objects = Order::with(['customer', 'prescriptions.product'])->whereNotIn('status', ['CREATED']);
         $clients = Customer::get();
 
         $date = $request->date;
@@ -73,7 +73,10 @@ class OrderController extends GlobalController
         }
 
         if ($status) {
-            $objects = $objects->where('status', $status);
+            if ($status != 'Todos') {
+
+                $objects = $objects->where('status', $status);
+            }          
         }
 
 
@@ -113,6 +116,7 @@ class OrderController extends GlobalController
 
     public function export(Request $request)
     {
+        // dd($request->all());
         $end = null;
         $date = $request->date;
         if (!$date) {

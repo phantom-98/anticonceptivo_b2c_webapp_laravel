@@ -37,8 +37,8 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="quantity_limit">Cantidad Limite (*)</label>
-                                    <input type="text" id="quantity_limit" name="quantity_limit" class="form-control"
-                                            value="{{ old('quantity_limit') }}">
+                                    <input type="number" id="quantity_limit" name="quantity_limit" class="form-control" min="1"
+                                            value="{{ old('quantity_limit') }}" onkeypress="return isNumberKey(event)">
                                 </div>
                             </div>
                             <div class="form-group col-sm-6">
@@ -112,5 +112,13 @@
         });
         
     });
+</script>
+<script>
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : evt.keyCode
+        if (charCode > 31 && (charCode < 48 || charCode > 57))
+            return false;
+        return true;
+    }
 </script>
 @endsection
