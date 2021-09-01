@@ -72,7 +72,7 @@
     box-shadow: none !important;
 }
 
-.testingg .dropdown-toggle::after {
+.display-none-work .dropdown-toggle::after {
     display: none !important;
 }
 
@@ -148,6 +148,19 @@ button#dropdown-testing {
     max-height: 248px;
 }
 
+.dropdown-content-mobile {
+    display: block;
+    position: absolute;
+    background-color: white;
+    min-width: 180px;
+    padding: 12px 16px;
+    z-index: 11;
+    width: 537px;
+    top: 60px;
+    border-radius: 25px;
+    max-height: 248px;
+}
+
 .pills-sub-header-title{
     font-size: 14px;
     font-family: "Poppins", sans-serif;
@@ -166,4 +179,24 @@ button#dropdown-testing {
     white-space: nowrap;
     background-color: white;
     border: 0;
+}
+
+.menu-mobile{
+    width: 100%;
+    height: 95px;
+    position: fixed;
+    background: white !important;
+    box-shadow: 0 1px 12px rgb(0 0 0 / 15%);
+    top: 0;
+    z-index: 2;
+}
+
+.menu-mobile div.first-row {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    font-size: 12px;
+    background-color: #033F5D;
+    color: white;
 }

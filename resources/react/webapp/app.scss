@@ -208,3 +208,18 @@ a:-webkit-any-link:focus-visible {
 :focus-visible {
     outline: -webkit-focus-ring-color auto 0px !important;
 }
+
+.menu-mobile-issue .card-header {
+    padding: 0.25rem 0;
+    margin-bottom: 0;
+    background-color: white;
+    color: black !important;
+    border : none;
+}
+.menu-mobile-issue .card-header span{
+    text-transform: capitalize;
+}
+
+.search-modal .modal-content{
+    height: calc(100vh - 100px);
+}

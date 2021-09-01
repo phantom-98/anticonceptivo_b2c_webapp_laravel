@@ -33,9 +33,14 @@ const Cart = () => {
                                     <div className="row">
 
                                         {
-                                            cartItems.map((item, index) => {
+                                            cartItems.length ? cartItems.map((item, index) => {
                                                 return <ProductItemList item={item} key={index}/>
                                             })
+
+                                            :
+                                            <div className="col-10 offset-1 alert alert-danger text-center">
+                                                <span className="font-12 font-poppins">Carro sin productos</span>
+                                            </div>
                                         }
                                     </div>
                                 </div>
@@ -59,7 +64,7 @@ const Cart = () => {
                                         </div>
 
                                         <div className="col-12 mt-2">
-                                            <Link to={PUBLIC_ROUTES.CHECKOUT.path}
+                                            <Link to={cartItems.length ? PUBLIC_ROUTES.CHECKOUT.path : '#'}
                                                   className="btn btn-bicolor btn-block d-flex my-2">
                                                 <span className="m-auto font-poppins font-14 bold">CONTINUAR CON LA COMPRA</span>
                                             </Link>

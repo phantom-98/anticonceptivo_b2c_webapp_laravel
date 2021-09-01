@@ -53,7 +53,7 @@ const ProductItemList = ({item}) => {
                             }
                             
                         </div>
-                        <div className="col-auto pt-1 text-center pointer" onClick={() => removeFromCart(item.product_id)}>
+                        <div className="col-auto pt-1 text-center pointer" onClick={() => removeFromCart(item)}>
                             <div><Icon path={iconRemove}/></div>
                             <div className="font-poppins font-12 color-A3A3A3">BORRAR</div>
                         </div>
