@@ -10,8 +10,8 @@ const SearchModal = ({showingSearch, hideSearch}) => {
                backdrop="static"
                keyboard={false}
                onHide={hideSearch}
-               dialogClassName="">
-                   
+               dialogClassName="search-modal">
+
         <Modal.Header>
             <CloseModal hideModal={hideSearch} />
             </Modal.Header>

@@ -106,7 +106,7 @@ const Header = () => {
                 {/* Desktop */}
 
                 <div className="d-md-block d-none">
-                    <HeaderTop /> 
+                    <HeaderTop />
                 </div>
 
                 <div className="d-md-block d-none">
@@ -128,7 +128,7 @@ const Header = () => {
                                             let linkKey = uuidv4();
                                             return (
                                                     <Link key={linkKey} to={carrousel.link} style={{display: 'flex',justifyContent: 'center'}}>
-                                                        {carrousel.icon ? <Icon path={carrousel.icon}/> : null} 
+                                                        {carrousel.icon ? <Icon path={carrousel.icon}/> : null}
                                                             <span className={`${carrousel.fontSize ? carrousel.fontSize : '' }`}>{carrousel.name}</span>
                                                     </Link>
                                                 )
@@ -137,7 +137,7 @@ const Header = () => {
                                 </Slider> */}
                             </div>
                         </div>
-                        <div className="row mx-2" style={{height: '60px'}}>
+                        <div className="row mx-2" style={{height: '70px'}}>
                             <div className="col-2 d-flex" style={{justifyContent:'center'}}>
                                 <div className="my-auto" onClick={showMenu}>
                                     <img src={menu}
@@ -199,7 +199,7 @@ const Header = () => {
                 </div>
                 <div className="d-md-none d-block">
                     <OffCanvas showCanvas={showingMenu} closeCanvas={hideMenu}>
-                        <div className="row">
+                        <div className="row menu-mobile-issue">
                             <CategoryMenuMobile
                                 hideMenu={hideMenu}
                             />
