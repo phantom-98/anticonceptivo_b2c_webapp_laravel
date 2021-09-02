@@ -12,13 +12,14 @@ import {AuthContext} from "../../../context/AuthProvider";
 import * as Services from "../../../Services";
 import HandleResponse from "./HandleResponse";
 import {CartContext} from "../../../context/CartProvider";
-import PUBLIC_ROUTES from "../../../routes/publicRoutes";
-import { useHistory } from "react-router-dom";
+// import PUBLIC_ROUTES from "../../../routes/publicRoutes";
+// import { useHistory } from "react-router-dom";
 
 const CheckOut = () => {
 
     const {auth} = useContext(AuthContext);
-    const {cartItems, isCartReady, checkCart} = useContext(CartContext);
+    // const {cartItems, isCartReady, checkCart} = useContext(CartContext);
+    const {isCartReady, checkCart} = useContext(CartContext);
     const [dispatchDate, setDispatchDate] = useState([]);
     const [installment, setInstallment] = useState(1);
     const [showFinal, setShowFinal] = useState(1);
@@ -161,14 +162,14 @@ const CheckOut = () => {
         });
     }
 
-    if (!isCartReady) {
-        checkCart();
-    }else{
-        if (!cartItems.length) {
-            let history = useHistory();
-            history.push(PUBLIC_ROUTES.CART.path);
-        }
-    }
+    // if (!isCartReady) {
+    //     checkCart();
+    // }else{
+    //     if (!cartItems.length) {
+    //         let history = useHistory();
+    //         history.push(PUBLIC_ROUTES.CART.path);
+    //     }
+    // }
 
     return (
         <Fragment>
