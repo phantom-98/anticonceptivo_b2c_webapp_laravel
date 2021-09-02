@@ -401,7 +401,7 @@ const UserForm = ({setView, data, setData, setFiles, files, editable, setProduct
                     {/*</button>*/}
                 </div>
                 <div className="col-md-6">
-                    <button className="btn btn-bicolor btn-block" onClick={ auth ? () =>  hasAddress() : () => validateData()}>
+                    <button className="btn btn-bicolor btn-block" disabled={cartItems.length ? false : true} onClick={ auth ? () =>  hasAddress() : () => validateData()}>
                         <span className="font-14 px-5">CONTINUAR</span>
                     </button>
                 </div>
