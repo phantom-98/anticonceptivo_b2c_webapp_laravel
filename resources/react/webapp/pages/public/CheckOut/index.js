@@ -161,14 +161,14 @@ const CheckOut = () => {
         });
     }
 
-    if (!isCartReady) {
-        checkCart();
-    }else{
-        if (!cartItems.length) {
-            let history = useHistory();
-            history.push(PUBLIC_ROUTES.CART.path);
-        }
-    }
+    // if (!isCartReady) {
+    //     checkCart();
+    // }else{
+    //     if (!cartItems.length) {
+    //         let history = useHistory();
+    //         history.push(PUBLIC_ROUTES.CART.path);
+    //     }
+    // }
 
     return (
         <Fragment>
