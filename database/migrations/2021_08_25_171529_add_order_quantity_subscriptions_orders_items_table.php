@@ -16,7 +16,7 @@ class AddOrderQuantitySubscriptionsOrdersItemsTable extends Migration
         Schema::table('subscriptions_orders_items', function (Blueprint $table) {
             $table->integer('quantity')->default(2);
             $table->bigInteger('order_parent_id')->unsigned()->nullable();
-            $table->foreign('order_parent_id')->references('id')->on('order_items')->onDelete('cascade');
+            $table->foreign('order_parent_id')->references('id')->on('orders')->onDelete('cascade');
         });
     }
 
