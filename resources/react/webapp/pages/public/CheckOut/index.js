@@ -18,8 +18,8 @@ import {CartContext} from "../../../context/CartProvider";
 const CheckOut = () => {
 
     const {auth} = useContext(AuthContext);
-    // const {cartItems, isCartReady, checkCart} = useContext(CartContext);
-    const {isCartReady, checkCart} = useContext(CartContext);
+    const {cartItems} = useContext(CartContext);
+    // const {isCartReady, checkCart} = useContext(CartContext);
     const [dispatchDate, setDispatchDate] = useState([]);
     const [installment, setInstallment] = useState(1);
     const [showFinal, setShowFinal] = useState(1);
