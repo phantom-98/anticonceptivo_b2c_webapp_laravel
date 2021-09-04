@@ -58,6 +58,7 @@
         "react-slick": "^0.28.0",
         "react-switch": "^6.0.0",
         "react-toggle-button": "^2.2.0",
+        "react-tooltip": "^4.2.21",
         "slick-carousel": "^1.8.1",
         "style-loader": "^2.0.0",
         "sweetalert2": "^10.16.9",

@@ -7,7 +7,7 @@ import { AuthContext } from "../../../../../context/AuthProvider";
 import { Modal } from "react-bootstrap";
 import ListItemAddresses from "../Addresses/ListItem";
 import ListItemSubscriptions from "../Subscriptions/ListItem";
-
+import ReactTooltip from 'react-tooltip';
 import Form from "../Addresses/Form";
 import CloseModal from "../../../../../components/general/CloseModal";
 import Swal from "sweetalert2";
@@ -413,7 +413,7 @@ const Table = ({
             classes: "",
             headerClasses: "",
             formatter: (cell, row) => {
-                return row.order_id;
+                return '#'+row.order_id;
             }
         },
         {
@@ -562,7 +562,21 @@ const Table = ({
             }
         },
         {
-            text: 'TOTAL',
+            text:   [<span className="img-in-input" data-tip data-for="password_tooltip">TOTAL (*)</span>,
+        <ReactTooltip
+            place="right"
+            type="light"
+            effect="solid"
+            id="password_tooltip"
+            multiline={true}
+            className="tooltip-box-shadow"
+        >
+            <div className="text-left">
+        <span className="bold color-707070">
+             Tarifas del despacho pueden variar
+        </span>
+            </div>
+        </ReactTooltip>],
             dataField: 'total',
             sort: true,
             classes: '',
@@ -714,11 +728,14 @@ const Table = ({
 
             {
                 activeSubscription.map((item,index) => {
-                    return(
+
+                    return item.days >0 ? (
+
                         <p>
-                            {item.name}  Le quedan  {item.days} días de protección
+                            #{item.order_parent_id} {item.name}  Le quedan  {item.days} días de protección
                         </p>
-                    )
+                    ) : null
+
                 })
             }
             <TablePanel
