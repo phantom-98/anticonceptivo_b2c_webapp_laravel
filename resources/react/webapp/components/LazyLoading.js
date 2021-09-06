@@ -17,7 +17,7 @@ const LazyLoading = ({height = '100vh'}) => {
         <div className="w-100 d-flex" style={style}>
             <div className="m-auto text-center">
                 
-                <img className="py-2 pulse-effect" src={logo} alt="anticonceptivo.cl"/>
+                <img className="py-2 pulse-effect" src={logo} alt="anticonceptivo.cl" style={{width: 310}}/>
 
                 <br/>
 

@@ -99,7 +99,7 @@ const HeaderBox = () => {
                     <div className="col-md-auto top-do-flex pointer">
                         <div className="my-auto">
                             <Link to={PUBLIC_ROUTES.HOME.path}>
-                                <Icon path={logoFull}/>
+                                <Icon path={logoFull} style={{width: 310}}/>
                             </Link>
                         </div>
                     </div>
