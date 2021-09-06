@@ -114,9 +114,9 @@ const Footer = () => {
                                           to={(PUBLIC_ROUTES.CORPORATE_RESPONSIBILITY.path).replace(':section', 'plazos-y-costos-entrega')}>Plazos
                                         y costos de entrega</Link>
                                 </li>
-                                <li className="nav-item text-center text-md-left">
+                                {/* <li className="nav-item text-center text-md-left">
                                     <Link className="nav-link" to={PUBLIC_ROUTES.BLOG.path}>Blog</Link>
-                                </li>
+                                </li> */}
                                 <li className="nav-item text-center text-md-left">
                                     <Link className="nav-link" to={PUBLIC_ROUTES.CLAIM.path}>Libro de Reclamos</Link>
                                 </li>
