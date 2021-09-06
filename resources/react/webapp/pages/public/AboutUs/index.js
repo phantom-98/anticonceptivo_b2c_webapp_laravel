@@ -61,9 +61,9 @@ const AboutUs = () => {
                 <div className="px-3">
                     <div className="row pb-5 mb-5">
                         <div className="col-md-9 offset-md-3 col-xs-12">
-                            <h3 className="font-poppins font-22 bold color-033F5D mb-3 responsive-d-none">
+                            {/* <h3 className="font-poppins font-22 bold color-033F5D mb-3 responsive-d-none">
                                 {aboutUs.title_review}
-                            </h3>
+                            </h3> */}
                             <img className="responsive-d-display w-100 my-3" src={logoFull} alt={CONFIG.APP_NAME}/>
                             <div dangerouslySetInnerHTML={{ __html: aboutUs.review}}/>
                         </div>
