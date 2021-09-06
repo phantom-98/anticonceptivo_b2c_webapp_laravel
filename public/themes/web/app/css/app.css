@@ -3311,3 +3311,8 @@ a:-webkit-any-link:focus-visible {
   height: calc(100vh - 100px);
 }
 
+.slick-prev:before,
+.slick-next:before {
+  line-height: 1.2 !important;
+}
+

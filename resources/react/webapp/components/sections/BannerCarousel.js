@@ -5,6 +5,28 @@ import Slider from "react-slick";
 import { v4 as uuidv4 } from 'uuid';
 import {CONFIG} from "../../Config";
 
+function SampleNextArrow(props) {
+  const { className, style, onClick } = props;
+  return (
+    <div
+      className={className}
+      style={{ ...style, display: "block", background: "gray", right:0, top: '55%', height:25}}
+      onClick={onClick}
+    />
+  );
+}
+
+function SamplePrevArrow(props) {
+  const { className, style, onClick } = props;
+  return (
+    <div
+      className={className}
+      style={{ ...style, display: "block", background: "gray", left:0, top: '55%', height:25}}
+      onClick={onClick}
+    />
+  );
+}
+
 const BannerCarousel = ({topBanners}) => {
 
     const settings = {
@@ -17,6 +39,8 @@ const BannerCarousel = ({topBanners}) => {
         speed: 1500,
         autoplaySpeed: 4500, // 4500
         // cssEase: "linear"
+        // nextArrow: <SampleNextArrow/>,
+        // prevArrow: <SamplePrevArrow/>
     };
 
     return (

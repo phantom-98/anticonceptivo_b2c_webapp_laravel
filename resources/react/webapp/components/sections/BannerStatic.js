@@ -5,7 +5,7 @@ import {CONFIG} from "../../Config";
 const BannerStatic = ({banners}) => {
 
     return (
-        <div className="container">
+        <div className="container mt-4 pt-2">
             <div className="row">
                 {
                     banners.length ? 
