@@ -1894,6 +1894,26 @@ input[type=number] {
   }
 }
 
+@media (min-width: 768px) {
+  .img-alliance-responsive {
+    width: 50%;
+  }
+
+  .responsive-base-panel {
+    padding: 40px !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .img-alliance-responsive {
+    width: 100%;
+  }
+
+  .responsive-base-panel {
+    padding: 20px !important;
+  }
+}
+
 .app-content {
   margin-top: 30px;
   min-height: calc(100vh - 482px);
@@ -3411,11 +3431,35 @@ a:-webkit-any-link:focus-visible {
   .app-margin-top {
     margin-top: 185px;
   }
+
+  .responsive-d-display {
+    display: none;
+  }
+
+  .responsive-d-none {
+    display: block;
+  }
+
+  .responsive-padding-tabs {
+    padding: 3rem;
+  }
 }
 
-@media (min-width: 320px) {
+@media (max-width: 767px) {
   .app-margin-top {
     margin-top: 85px;
+  }
+
+  .responsive-d-none {
+    display: none;
+  }
+
+  .responsive-d-display {
+    display: block;
+  }
+
+  .responsive-padding-tabs {
+    padding: 2rem;
   }
 }
 

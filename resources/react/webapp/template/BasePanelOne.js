@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React from 'react';
 import Breadcrumbs from "../components/Breadcrumbs";
 
 const BasePanelOne = (props) => {
@@ -10,7 +10,7 @@ const BasePanelOne = (props) => {
                 <Breadcrumbs items={props.breadcrumbs}/>
 
                 <div className="panel mb-4">
-                    <div className="panel-body">
+                    <div className="responsive-base-panel" style={props.style}>
                         <div className="row">
                             <div className="col-md-12">
                                 {

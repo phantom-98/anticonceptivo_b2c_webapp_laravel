@@ -25,6 +25,7 @@
 @import 'assets/scss/checkout';
 @import 'assets/scss/blog';
 @import 'assets/scss/product-detail';
+@import 'assets/scss/about-us';
 
 .app-content {
     margin-top: 30px;
@@ -237,11 +238,34 @@ a:-webkit-any-link:focus-visible {
     .app-margin-top{
         margin-top: 185px;
     }
-}
 
-@media (min-width: 320px) {
-    .app-margin-top{
-        margin-top: 85px;
+    .responsive-d-display{
+        display: none;
+    }
+
+    .responsive-d-none{
+        display: block;
+    }
+
+    .responsive-padding-tabs{
+        padding: 3rem;
     }
 }
 
+@media (max-width: 767px) {
+    .app-margin-top{
+        margin-top: 85px;
+    }
+
+    .responsive-d-none{
+        display: none;
+    }
+
+    .responsive-d-display{
+        display: block;
+    }
+
+    .responsive-padding-tabs{
+        padding: 2rem;
+    }
+}
