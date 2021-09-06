@@ -3321,3 +3321,15 @@ a:-webkit-any-link:focus-visible {
           animation: pulse 1s linear infinite;
 }
 
+@media (min-width: 768px) {
+  .app-margin-top {
+    margin-top: 185px;
+  }
+}
+
+@media (min-width: 320px) {
+  .app-margin-top {
+    margin-top: 85px;
+  }
+}
+
