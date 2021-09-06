@@ -211,15 +211,30 @@ input[type=number] {
     margin-top: 2px;
 }
 
-.img-box-product-mini,
-.img-box-product {
-    background: white;
-    padding: 5px;
-    border: 1px solid #E8E8E8;
-    width: 100%;
-    max-width: 457px;
-    height: 460px;
-    object-fit: contain;
+@media (min-width: 768px) {
+    .img-box-product-mini,
+    .img-box-product {
+        background: white;
+        padding: 5px;
+        border: 1px solid #E8E8E8;
+        width: 100%;
+        max-width: 457px;
+        height: 460px;
+        object-fit: contain;
+    }
+}
+
+@media (min-width: 320px) {
+    .img-box-product-mini,
+    .img-box-product {
+        background: white;
+        padding: 5px;
+        border: 1px solid #E8E8E8;
+        width: 100%;
+        max-width: 457px;
+        height: 222px;
+        object-fit: contain;
+    }
 }
 
 .img-box-product-mini {
