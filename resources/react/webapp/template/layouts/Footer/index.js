@@ -51,7 +51,7 @@ const Footer = () => {
             <div className="footer d-flex py-5">
                 <div className="container my-auto">
                     <div className="row" style={{marginLeft: '-25px !important'}}>
-                        <div className="col-md-auto text-center">
+                        <div className="col-md-auto text-center flex-footer-column">
                             <div className="mb-3">
                                 <img src={logoFooter} alt={CONFIG.APP_NAME}/>
                             </div>
@@ -161,8 +161,8 @@ const Footer = () => {
                             </div>
                         </div>
 
-                        <div className="col-md-auto d-flex">
-                            <div className="pt-5 mx-auto mx-md-0">
+                        <div className="col-md-auto flex-footer-column">
+                            <div className="mx-auto mx-md-0">
                                 <img src={webpay} alt={CONFIG.APP_NAME}/>
                             </div>
                         </div>

@@ -29,3 +29,9 @@
     text-shadow: 0px -0.5px 0px white;
     color: white;
 }
+
+.flex-footer-column{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}

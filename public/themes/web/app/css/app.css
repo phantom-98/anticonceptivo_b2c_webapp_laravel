@@ -652,6 +652,12 @@ button#dropdown-testing {
   color: white;
 }
 
+.flex-footer-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .form-group label {
   font-size: 12px;
   font-family: "Poppins", sans-serif;
