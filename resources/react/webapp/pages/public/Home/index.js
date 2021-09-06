@@ -61,27 +61,27 @@ const Home = ({match}) => {
     }
 
     return (
-        <Fragment>
-            <div className="bg-FAFAFA">
-                <BannerCarousel topBanners={topBanners}/>
+        // <Fragment>
+        //     <div className="bg-FAFAFA">
+        //         <BannerCarousel topBanners={topBanners}/>
 
-                {/* <OutstandingCarousel title="Destacados" outstandings={outstandings}/> */}
+        //         {/* <OutstandingCarousel title="Destacados" outstandings={outstandings}/> */}
 
-                <BannerStatic banners={middleBanners}/>
-                <BannerCategories bannerCategories={bannerCategories}/>
+        //         <BannerStatic banners={middleBanners}/>
+        //         <BannerCategories bannerCategories={bannerCategories}/>
 
-                {/* <BestSeller bestSellers={bestSellers}/> */}
+        //         {/* <BestSeller bestSellers={bestSellers}/> */}
 
-                {/* <BlogCarousel title="BLOG" showButton={true} buttonTitle="VER MÁS NOTICIAS" /> */}
+        //         {/* <BlogCarousel title="BLOG" showButton={true} buttonTitle="VER MÁS NOTICIAS" /> */}
 
-                <BannerStatic banners={bottomBanners}/>
+        //         <BannerStatic banners={bottomBanners}/>
 
-                <OurBrands brands={brands}/>
+        //         <OurBrands brands={brands}/>
 
-                <Subscribe/>
-            </div>
-        </Fragment>
-        // <LazyLoading/>
+        //         <Subscribe/>
+        //     </div>
+        // </Fragment>
+        <LazyLoading/>
     );
 };
 
