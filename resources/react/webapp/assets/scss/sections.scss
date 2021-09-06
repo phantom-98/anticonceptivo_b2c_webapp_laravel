@@ -71,6 +71,20 @@
     padding-right: 3rem;
 }
 
+@media (min-width: 768px) {
+    .tabs-about-us{
+        padding-left: 3rem;
+        padding-right: 3rem;
+    }
+}
+
+@media (max-width: 320px) {
+    .tabs-about-us{
+        padding-left: 0rem;
+        padding-right: 0rem;
+    }
+}
+
 .tabs-about-us .nav-item {
     border-radius: 12px 12px 0 0;
     font-size: 16px;

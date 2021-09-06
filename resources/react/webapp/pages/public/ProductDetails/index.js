@@ -84,7 +84,7 @@ const ProductDetail = ({match}) => {
 
                 <BasePanelTwo breadcrumbs={breadcrumbs} >
 
-                    <div className="row pb-5 mb-5">
+                    <div className="row product-separator">
                         <div className="col-md-6">
                             <ProductGallery product={product} imageSubscription={imageSubscription} productImage={product.images[0].public_file}/>
                         </div>
@@ -95,11 +95,10 @@ const ProductDetail = ({match}) => {
 
                     {
                         product.is_bioequivalent ?
-                        <div className="row pb-5">
-                            <div className="col-auto mr-0 pr-0" style={{width: '118px'}}></div>
-                            <div className="col mx-3" style={{backgroundColor: '#FFEA17', borderRadius: '10px', height:'50px', lineHeight:'50px'}}>
+                        <div className="row padding-beneficy">
+                            <div className="col product-detail-tabs font-beneficy" style={{backgroundColor: '#FFEA17', borderRadius: '10px', height:'50px', lineHeight:'50px'}}>
                                 <img src={Bioequivalent} className="mr-2"/>
-                                <span className="font-14 font-poppins regular">Este medicamento es bioequivalente</span>
+                                <span className="font-poppins regular">Este medicamento es bioequivalente</span>
                             </div>
                         </div>
                         : null

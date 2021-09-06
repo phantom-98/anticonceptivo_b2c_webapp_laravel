@@ -87,40 +87,6 @@ const ProductInfo = ({ product, setImageSubscription }) => {
                 </span>
             </div>
 
-            {/* <div className="col-md-12 mb-3">
-                <p className="font-inter font-16 bold color-033F5D">
-                    Suscríbete a nuestros planes
-                </p>
-                <div className="row">
-                    {
-                        product.plans.map(plan => {
-                            return(
-                                <div className="col-auto ">
-                                    <button className="btn btn-outline-primary btn-months">
-                                       { plan.subscription_plan.months } Meses
-                                    </button>
-                                </div>
-                            )
-                        })
-                    } */}
-            {/* <div className="col-auto ">
-                        <button className="btn btn-outline-primary btn-months">
-                            4 Meses
-                        </button>
-                    </div>
-                    <div className="col-auto px-0">
-                        <button className="btn btn-outline-primary btn-months">
-                            6 Meses
-                        </button>
-                    </div>
-                    <div className="col-auto">
-                        <button className="btn btn-outline-primary btn-months">
-                            12 Meses
-                        </button>
-                    </div> */}
-            {/* </div>
-            </div> */}
-
             <div className="col-md-6 mb-3">
                 <AddCartCard
                     quantity={quantity}
@@ -151,7 +117,7 @@ const ProductInfo = ({ product, setImageSubscription }) => {
                 </div>
             ) : null}
 
-            <div className="col-md-12 mt-3">
+            <div className="col-md-12 mt-4">
                 <h1 className="font-poppins font-12 regular color-6C6B6B">
                     <Icon className="icon-document" path={fileSvg} />{" "}
                     {product.recipe_type

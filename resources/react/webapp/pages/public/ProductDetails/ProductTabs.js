@@ -7,22 +7,18 @@ const ProductTabs = ({product, legalWarning, valid}) =>{
 
     return (
         <div className="row pb-5">            
-            <div className="col-auto mr-0 pr-0" style={{width: '118px'}}>
-
-            </div>
-
-            <div className="col">
+            <div className="product-detail-tabs">
                 <Tabs
                     id="tabs"
                     variant="pills"
-                    className="tabs-about-us"
+                    className="tabs-about-us pr-2 col-12"
                     activeKey={key}
                     onSelect={(k) => setKey(k)}
                 >
                     {
                         valid ?
                                 <Tab eventKey="benefits" title="Beneficios y usos">
-                                    <div className="panel-bordered bg-white p-5">
+                                    <div className="panel-bordered bg-white padding-responsive-detail">
                                         <p className="font-poppins font-14 regular">
                                             <div dangerouslySetInnerHTML={{ __html: product.benefits }} />
                                         </p>
@@ -32,7 +28,7 @@ const ProductTabs = ({product, legalWarning, valid}) =>{
                     }
 
                     <Tab eventKey="technical" title="Descriptor">
-                        <div className="panel-bordered bg-white p-5">
+                        <div className="panel-bordered bg-white padding-responsive-detail">
                             <p className="font-poppins font-14 regular">
                                 <div dangerouslySetInnerHTML={{ __html: product.data_sheet }} />
                             </p>
@@ -40,7 +36,7 @@ const ProductTabs = ({product, legalWarning, valid}) =>{
                     </Tab>
 
                     <Tab eventKey="legal" title="Aviso Legal">
-                        <div className="panel-bordered bg-white p-5">
+                        <div className="panel-bordered bg-white padding-responsive-detail">
                             <p className="font-poppins font-14 regular">
                                 <div dangerouslySetInnerHTML={{ __html: legalWarning.description }} />
                             </p>
