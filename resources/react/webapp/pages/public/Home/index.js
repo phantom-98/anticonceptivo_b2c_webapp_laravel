@@ -11,6 +11,7 @@ import {AppContext} from "../../../context/AppProvider";
 import BannerCarousel from "../../../components/sections/BannerCarousel";
 import BannerStatic from "../../../components/sections/BannerStatic";
 import * as Services from "../../../Services";
+import LazyLoading from '../../../components/LazyLoading';
 
 const Home = ({match}) => {
 
@@ -60,26 +61,27 @@ const Home = ({match}) => {
     }
 
     return (
-        <Fragment>
-            <div className="bg-FAFAFA">
-                <BannerCarousel topBanners={topBanners}/>
+        // <Fragment>
+        //     <div className="bg-FAFAFA">
+        //         <BannerCarousel topBanners={topBanners}/>
 
-                {/* <OutstandingCarousel title="Destacados" outstandings={outstandings}/> */}
+        //         {/* <OutstandingCarousel title="Destacados" outstandings={outstandings}/> */}
 
-                <BannerStatic banners={middleBanners}/>
-                <BannerCategories bannerCategories={bannerCategories}/>
+        //         <BannerStatic banners={middleBanners}/>
+        //         <BannerCategories bannerCategories={bannerCategories}/>
 
-                {/* <BestSeller bestSellers={bestSellers}/> */}
+        //         {/* <BestSeller bestSellers={bestSellers}/> */}
 
-                <BlogCarousel title="BLOG" showButton={true} buttonTitle="VER MÁS NOTICIAS" />
+        //         {/* <BlogCarousel title="BLOG" showButton={true} buttonTitle="VER MÁS NOTICIAS" /> */}
 
-                <BannerStatic banners={bottomBanners}/>
+        //         <BannerStatic banners={bottomBanners}/>
 
-                <OurBrands brands={brands}/>
+        //         <OurBrands brands={brands}/>
 
-                <Subscribe/>
-            </div>
-        </Fragment>
+        //         <Subscribe/>
+        //     </div>
+        // </Fragment>
+        <LazyLoading/>
     );
 };
 

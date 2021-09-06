@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from '../assets/images/logo.svg'
+import logo from '../assets/images/logo-full.svg'
 
 const LazyLoading = ({height = '100vh'}) => {
 
@@ -16,13 +16,15 @@ const LazyLoading = ({height = '100vh'}) => {
 
         <div className="w-100 d-flex" style={style}>
             <div className="m-auto text-center">
+                
+                <img className="py-2 pulse-effect" src={logo} alt="anticonceptivo.cl"/>
+
+                <br/>
+
                 <div className="spinner-border text-secondary" role="status">
                     <span className="sr-only">Loading...</span>
                 </div>
 
-                <br/>
-
-                <img className="py-2" src={logo} alt="anticonceptivo.cl"/>
             </div>
         </div>
     );

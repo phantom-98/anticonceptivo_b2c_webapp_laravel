@@ -227,3 +227,7 @@ a:-webkit-any-link:focus-visible {
 .slick-prev:before, .slick-next:before{
     line-height: 1.2 !important;
 }
+
+.pulse-effect {
+   	animation: pulse 1s linear infinite;
+}
