@@ -129,7 +129,7 @@ const AboutUs = () => {
                                         <div className="row">
                                             <div className="col-12">
                                                 <a href={alliance.website} target="_blank">
-                                                    <img src={alliance.public_image} style={{width:150, height: 150}} alt={CONFIG.APP_NAME}/>
+                                                    <img src={alliance.public_image} alt={CONFIG.APP_NAME}/>
                                                 </a>
                                             </div>
 
