@@ -107,7 +107,7 @@ const AboutUs = () => {
                                         <div className="row">
                                             <div className="col-12 mb-5">
                                                 <div className="circle-about-us mx-auto">
-                                                    <img className="m-auto" src={value.public_image} alt={CONFIG.APP_NAME}/>
+                                                    <img className="m-auto" style={{width:125, height:125, borderRadius:'50%'}} src={value.public_image} alt={CONFIG.APP_NAME}/>
                                                 </div>
                                             </div>
                                             <div className="col-12 text-center">
@@ -129,13 +129,13 @@ const AboutUs = () => {
                                         <div className="row">
                                             <div className="col-12">
                                                 <a href={alliance.website} target="_blank">
-                                                    <img src={alliance.public_image} alt={CONFIG.APP_NAME}/>
+                                                    <img src={alliance.public_image} style={{width:150, height: 150}} alt={CONFIG.APP_NAME}/>
                                                 </a>
                                             </div>
 
-                                            <div className="col-12 font-poppins font-22 bold color-033F5D mb-3">
+                                            {/* <div className="col-12 font-poppins font-22 bold color-033F5D mb-3">
                                                 {alliance.name}
-                                            </div>
+                                            </div> */}
 
                                             <div className="col-12">
                                                 <div dangerouslySetInnerHTML={{ __html:alliance.description}}/>
