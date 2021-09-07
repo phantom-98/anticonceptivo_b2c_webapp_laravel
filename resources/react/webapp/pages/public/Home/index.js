@@ -24,9 +24,9 @@ const Home = ({match}) => {
 
     const [middleBanners, setMiddleBanners] = useState([]);
     const [bottomBanners, setBottomBanners] = useState([]);
+    const [brands, setBrands] = useState([]);
     // const [outstandings, setOutstandings] = useState([]);
     // const [bestSellers, setBestSellers] = useState([]);
-    const [brands, setBrands] = useState([]);
     
     useEffect(() => {
         if (token  && token.length > 15) {

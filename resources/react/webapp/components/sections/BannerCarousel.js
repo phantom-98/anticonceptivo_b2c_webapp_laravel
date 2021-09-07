@@ -1,33 +1,40 @@
-import React, {Fragment} from 'react';
+import React from 'react';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import { v4 as uuidv4 } from 'uuid';
 import {CONFIG} from "../../Config";
-
-function SampleNextArrow(props) {
-  const { className, style, onClick } = props;
-  return (
-    <div
-      className={className}
-      style={{ ...style, display: "block", background: "gray", right:0, top: '55%', height:25}}
-      onClick={onClick}
-    />
-  );
-}
-
-function SamplePrevArrow(props) {
-  const { className, style, onClick } = props;
-  return (
-    <div
-      className={className}
-      style={{ ...style, display: "block", background: "gray", left:0, top: '55%', height:25}}
-      onClick={onClick}
-    />
-  );
-}
+import SliderArrow from '../general/SliderArrow';
+import SliderArrowRight from '../../assets/images/icons/slider-arrow-right.svg';
+import SliderArrowLeft from '../../assets/images/icons/slider-arrow-left.svg';
+import Icon from '../general/Icon';
 
 const BannerCarousel = ({topBanners}) => {
+
+    function Arrow(props) {
+        let className = props.type === "next" ? "nextArrow" : "prevArrow";
+        className += " arrow";
+
+        let right = {
+            position: 'absolute',
+            top: '45%',
+            right: '10px',
+            zIndex: 1,
+        }
+
+        let left = {
+            position: 'absolute',
+            top: '45%',
+            left: '10px',
+            zIndex: 1,
+        }
+
+        return (
+            props.type == 'next' ? 
+                <img src={SliderArrowRight} onClick={props.onClick} className={`pointer ${className}`} style={right}/>
+            : <img src={SliderArrowLeft} onClick={props.onClick} className={`pointer ${className}`} style={left}/>
+        );
+    }
 
     const settings = {
         dots: true,
@@ -37,10 +44,10 @@ const BannerCarousel = ({topBanners}) => {
         slidesToScroll: 1,
         autoplay: true,
         speed: 1500,
-        autoplaySpeed: 4500, // 4500
-        // cssEase: "linear"
-        // nextArrow: <SampleNextArrow/>,
-        // prevArrow: <SamplePrevArrow/>
+        autoplaySpeed: 4500,
+        // cssEase: "linear",
+        prevArrow: <Arrow type="prev"/>,
+        nextArrow: <Arrow type="next"/>,
     };
 
     return (
@@ -52,7 +59,7 @@ const BannerCarousel = ({topBanners}) => {
                         return (        
                             banner.button_title ? 
                                 <div key={topBannerKey}>
-                                    <img src={banner.public_file} alt={CONFIG.APP_NAME} width="100%"/>
+                                    <img src={banner.public_file} alt={CONFIG.APP_NAME} style={{height:388, width:'100%'}}/>
                                     <div className="banner-buttons font-poppins font-35 bold color-033F5D">
                                         <span style={{backgroundColor: 'white'}}>{banner.title}</span>
                                     </div>
@@ -65,7 +72,7 @@ const BannerCarousel = ({topBanners}) => {
                             :
                                 <div key={topBannerKey}>
                                     <a href={banner.button_link} target={banner.button_target}>
-                                        <img src={banner.public_file} alt={CONFIG.APP_NAME} width="100%"/>
+                                        <img src={banner.public_file} alt={CONFIG.APP_NAME} style={{height:388, width:'100%'}}/>
                                         <div className="banner-buttons font-poppins font-35 bold color-033F5D">
                                             <span style={{backgroundColor: 'white'}}>{banner.title}</span>
                                         </div>
