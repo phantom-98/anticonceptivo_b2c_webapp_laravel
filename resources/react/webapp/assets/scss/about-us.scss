@@ -1,0 +1,21 @@
+
+
+@media (min-width: 768px) {
+    .img-alliance-responsive{
+        width:50%;
+    }
+
+    .responsive-base-panel{
+        padding: 40px !important;
+    }
+}
+
+@media (max-width: 767px) {
+    .img-alliance-responsive{
+        width:100%;
+    }
+
+    .responsive-base-panel{
+        padding: 20px !important;
+    }
+}

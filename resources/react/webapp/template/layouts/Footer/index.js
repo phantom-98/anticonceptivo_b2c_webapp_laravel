@@ -51,7 +51,7 @@ const Footer = () => {
             <div className="footer d-flex py-5">
                 <div className="container my-auto">
                     <div className="row" style={{marginLeft: '-25px !important'}}>
-                        <div className="col-md-auto text-center">
+                        <div className="col-md-auto text-center flex-footer-column">
                             <div className="mb-3">
                                 <img src={logoFooter} alt={CONFIG.APP_NAME}/>
                             </div>
@@ -114,9 +114,9 @@ const Footer = () => {
                                           to={(PUBLIC_ROUTES.CORPORATE_RESPONSIBILITY.path).replace(':section', 'plazos-y-costos-entrega')}>Plazos
                                         y costos de entrega</Link>
                                 </li>
-                                <li className="nav-item text-center text-md-left">
+                                {/* <li className="nav-item text-center text-md-left">
                                     <Link className="nav-link" to={PUBLIC_ROUTES.BLOG.path}>Blog</Link>
-                                </li>
+                                </li> */}
                                 <li className="nav-item text-center text-md-left">
                                     <Link className="nav-link" to={PUBLIC_ROUTES.CLAIM.path}>Libro de Reclamos</Link>
                                 </li>
@@ -161,8 +161,8 @@ const Footer = () => {
                             </div>
                         </div>
 
-                        <div className="col-md-auto d-flex">
-                            <div className="pt-5 mx-auto mx-md-0">
+                        <div className="col-md-auto flex-footer-column">
+                            <div className="mx-auto mx-md-0">
                                 <img src={webpay} alt={CONFIG.APP_NAME}/>
                             </div>
                         </div>

@@ -1,4 +1,4 @@
 export const CONFIG = {
-    APP_NAME : "Anticonceptivo",
+    APP_NAME : "anticonceptivo.cl",
     APP_TITLE : ""
 }

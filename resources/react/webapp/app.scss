@@ -24,6 +24,9 @@
 @import 'assets/scss/cart';
 @import 'assets/scss/checkout';
 @import 'assets/scss/blog';
+@import 'assets/scss/product-detail';
+@import 'assets/scss/about-us';
+@import 'assets/scss/subscribe';
 
 .app-content {
     margin-top: 30px;
@@ -222,4 +225,44 @@ a:-webkit-any-link:focus-visible {
 
 .search-modal .modal-content{
     height: calc(100vh - 100px);
+}
+
+@media (min-width: 768px) {
+    .app-margin-top{
+        margin-top: 185px;
+    }
+
+    .responsive-d-display{
+        display: none;
+    }
+
+    .responsive-d-none{
+        display: inline-block;
+    }
+
+    .responsive-padding-tabs{
+        padding: 3rem;
+    }
+}
+
+@media (max-width: 767px) {
+    .app-margin-top{
+        margin-top: 85px;
+    }
+
+    .responsive-d-none{
+        display: none;
+    }
+
+    .repsonsive-d-none-v2{
+        display: none;
+    }
+
+    .responsive-d-display{
+        display: block;
+    }
+
+    .responsive-padding-tabs{
+        padding: 2rem;
+    }
 }

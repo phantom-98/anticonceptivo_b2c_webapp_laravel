@@ -335,13 +335,16 @@ class ProfileController extends Controller
             if (!$customer) {
                 return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_NOT_FOUND);
             }
+
             $subscriptionsOrdersItems = SubscriptionsOrdersItem::whereHas('order_parent', function ($q) use ($customer) {
                 $q->where('status', 'PAID')->where('customer_id', $customer->id);
             })
-                ->whereIn('status', ['CREATED'])
-                ->select('name',DB::raw('SUM(days) AS days'))
-                ->groupBy('name')
+                ->select('order_parent_id','name',
+                    DB::raw('TIMESTAMPDIFF(DAY, NOW(), DATE_ADD(max(pay_date),INTERVAL max(days)+4 DAY)) AS days'),
+                DB::raw('DATE_ADD(max(pay_date),INTERVAL max(days) DAY)  as max_date'))
+                ->groupBy('name','order_parent_id')
                 ->get();
+
 
             return ApiResponse::JsonSuccess([
                 'active_subscriptions' => $subscriptionsOrdersItems,
@@ -879,7 +882,7 @@ class ProfileController extends Controller
                 if ($contact->save()) {
                     // CORREO AL ADMINISTRADOR
                     $subject = 'Servicio al Cliente';
-                    
+
                     $emailSubject = $contactIssue->section;
                     $subEmailSubject = $contactIssue->name;
 
@@ -903,7 +906,7 @@ class ProfileController extends Controller
                     $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
                     $response = $sendgrid->send($email);
 
-                    
+
 
                     if ($response->statusCode() == 202) {
 

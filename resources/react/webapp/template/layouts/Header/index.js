@@ -52,40 +52,6 @@ const Header = () => {
             name: 'Contamos con reparto solo en la Región Metropolitana',
             fontSize: 'font-10',
             isLink: false,
-        },
-        {
-            phone: true,
-            icon: phoneWhite,
-            name: '(2) 3245 1883',
-            link: 'tel:232451883',
-            isLink: false,
-        },
-        {
-            email: true,
-            icon: emailWhite,
-            name: 'contacto@anticonceptivo.cl',
-            link: 'mailto:contacto@anticonceptivo.cl',
-            isLink: false,
-        },
-        {
-            name: 'Historía de los anticonceptivos',
-            link: PUBLIC_ROUTES.HISTORY.path,
-            isLink: true
-        },
-        {
-            name: 'Sobre nosotros',
-            link: PUBLIC_ROUTES.ABOUT_US.path,
-            isLink: true
-        },
-        {
-            name: 'Contacto',
-            link: PUBLIC_ROUTES.CONTACT_US.path,
-            isLink: true
-        },
-        {
-            name: 'FAQ',
-            link: PUBLIC_ROUTES.FAQ.path,
-            isLink: true
         }
     ];
 
@@ -122,19 +88,6 @@ const Header = () => {
                         <div className="row first-row" style={{height: '25px'}}>
                             <div className="col-auto font-poppins font-11 text-center">
                                 <span><Icon path={carrousels[0].icon}/> {carrousels[0].name}</span>
-                                {/* <Slider {...settings}>
-                                    {
-                                        carrousels.map((carrousel) => {
-                                            let linkKey = uuidv4();
-                                            return (
-                                                    <Link key={linkKey} to={carrousel.link} style={{display: 'flex',justifyContent: 'center'}}>
-                                                        {carrousel.icon ? <Icon path={carrousel.icon}/> : null}
-                                                            <span className={`${carrousel.fontSize ? carrousel.fontSize : '' }`}>{carrousel.name}</span>
-                                                    </Link>
-                                                )
-                                            })
-                                    }
-                                </Slider> */}
                             </div>
                         </div>
                         <div className="row mx-2" style={{height: '70px'}}>

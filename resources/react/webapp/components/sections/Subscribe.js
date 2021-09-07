@@ -37,7 +37,7 @@ const Subscribe = () => {
                 <div className="container py-3">
                     <div className="row">
                         <div className="col-12">
-                            <h3 className="font-poppins font-25 text-white bold mb-3">
+                            <h3 className="font-poppins subscribe-font text-white bold mb-3">
                                 Mantente informado con nuestras promociones y <br/>
                                 novedades pensadas para tu bienestar.
                             </h3>
@@ -45,23 +45,23 @@ const Subscribe = () => {
 
                     </div>
                     <div className="row">
-                        <div className="col-md-8">
+                        <div className="col-md-8 col-12">
                             <div className="input-group search-filter-button">
                                 <input
                                     type="text"
                                     name='subscribe_email'
-                                    className="form-control form-control-custom form-control-custom-60"
+                                    className="form-control form-control-custom-subscribe form-control-custom-60"
                                     placeholder="correo@hola.com"
                                     value={data.subscribe_email}
                                     onChange={(e) => handleData(e)}
                                 />
-                                <div className="input-group-append">
+                                <div className="input-group-append ">
                                     <button
                                         type="button"
                                         className="btn btn-primary btn-bicolor" style={{height: '60px'}}
                                         onClick={subscribe}
                                     >
-                                        <span className="font-poppins font-18 bold text-white px-3">Suscribirme</span>
+                                        <span className="font-poppins subscribe-btn-font bold text-white px-3">Suscribirme</span>
                                     </button>
                                 </div>
                             </div>

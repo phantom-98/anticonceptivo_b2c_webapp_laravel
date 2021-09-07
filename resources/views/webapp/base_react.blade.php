@@ -24,6 +24,16 @@
       })(window,document,'script','dataLayer','GTM-PH7DZ9Q');</script>
       <!-- End Google Tag Manager -->
 
+      <!-- Global site tag (gtag.js) - Google Analytics -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-05PCWD57LN"></script>
+      <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-05PCWD57LN');
+      </script>
+      <!-- End Google Analytics -->
+
     @yield('styles')
 
     <link rel="shortcut icon" href="/themes/web/favicon/favicon.ico" type="image/x-icon">

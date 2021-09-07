@@ -105,7 +105,8 @@ class DashboardController extends Controller
             ->whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED']);
         })->sum('quantity');
 
-        $laboratories = Laboratory::where('active', 1)->get();
+        $products = Product::whereHas('order_items')->where('active',true)->groupBy('laboratory_id')->pluck('laboratory_id')->toArray();
+        $laboratories = Laboratory::where('active', 1)->whereIn('id',$products)->get();
 
         $array_percentage = [];
         $array_count = [];
@@ -182,7 +183,7 @@ class DashboardController extends Controller
             ->whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED']);
         })->sum('quantity');
 
-        $formats = [
+        $base_formats = [
             "1",
             "2",
             "3",
@@ -222,8 +223,11 @@ class DashboardController extends Controller
 
         $array_percentage = [];
         $array_count = [];
-        $array_formats = $formats;
+        $array_formats = $base_formats;
 
+        $products = Product::whereHas('order_items')->where('active',true)->groupBy('format')->pluck('format')->toArray();
+        $formats = array_values(array_intersect($base_formats,$products));
+        array_push($formats,"Sin Formato");
         foreach($formats as $format){
             $products = OrderItem::whereHas('product', function ($p) use ($format) {
                 if($format != "Sin Formato"){
@@ -241,7 +245,7 @@ class DashboardController extends Controller
             array_push($array_count, $products);
         }
 
-        return response()->json(['names' => $array_formats, 'percentage' => $array_percentage, 'count' => $array_count], 200);
+        return response()->json(['names' => $formats, 'percentage' => $array_percentage, 'count' => $array_count], 200);
     }
 
     public function prescriptions(Request $request){

@@ -177,6 +177,8 @@ class WebpayPlusController
                     $quantityFinal = $subscriptionPlan->months;
                     $period = 0;
                     $pay_date = Carbon::now();
+                    $dispatch_date=Carbon::now();
+                    $isSubscriptionOrderItemPrev = null;
                     for ($i=0; $i < round($subscriptionPlan->months/2); $i++) {
                         $period++;
                         $period_string = $period . '';
@@ -197,8 +199,11 @@ class WebpayPlusController
                             $period_string .= ' y ' . $period;
                         }
                         if($i != 0){
-                            $pay_date->addDays(($productSubscriptionPlan->days*$quantity)-($i == 0 ? 0 : 4));
+                            $days_tmp = SubscriptionsOrdersItem::find($isSubscriptionOrderItemPrev)->days;
+                            $pay_date->addDays(($days_tmp-($i == 1 ? 4 : 0)));
+                            $dispatch_date->addDays(($days_tmp-($i == 1 ? 4 : 0)));
                         }
+
                         $subscriptionOrdersItem = new SubscriptionsOrdersItem;
                         $subscriptionOrdersItem->is_pay = 0;
                         $subscriptionOrdersItem->days = $quantity *$productSubscriptionPlan->days;
@@ -211,7 +216,7 @@ class WebpayPlusController
                         $subscriptionOrdersItem->pay_date = $pay_date;
                         $subscriptionOrdersItem->save();
                         $subscriptionOrdersItem->dispatch = $itemDeliveryCostArrayCost ? $itemDeliveryCostArrayCost->price[0] : 0;
-                        $subscriptionOrdersItem->dispatch_date = $pay_date->addHours($itemDeliveryCost->deadline_delivery);
+                        $subscriptionOrdersItem->dispatch_date = $dispatch_date->addHours($itemDeliveryCost->deadline_delivery);
                         $subscriptionOrdersItem->subscription_id = $request->subscription['id'];
                         $subscriptionOrdersItem->customer_address_id = $customerAddress->id;
                         $subscriptionOrdersItem->quantity = $quantity;
@@ -219,12 +224,9 @@ class WebpayPlusController
                         $subscriptionOrdersItem->delivery_address = $customerAddress->address . ' ' .$customerAddress->extra_info;
                         $subscriptionOrdersItem->status = 'CREATED';
                         $subscriptionOrdersItem->save();
-                        if($i != 0){
-                            $pay_date->addDays(4);
-                        }
+                        $isSubscriptionOrderItemPrev = $subscriptionOrdersItem->id;
 
                     }
-
                 }else{
                     $quantityFinal = $item['quantity'];
 

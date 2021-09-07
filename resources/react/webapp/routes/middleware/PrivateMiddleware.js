@@ -8,7 +8,7 @@ const PrivateMiddleware = ({path: path, component: Component, layout: Layout, ti
     const {auth, authType} = useContext(AuthContext);
     const [load, setLoad] = useState(false);
 
-    document.title = 'Anticonceptivo | ' + (title);
+    document.title = 'anticonceptivo.cl | ' + (title);
 
     useEffect(() => {
         setLoad(true)

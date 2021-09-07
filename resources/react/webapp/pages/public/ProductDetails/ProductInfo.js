@@ -34,7 +34,7 @@ const ProductInfo = ({ product, setImageSubscription }) => {
                     SKU: {product.sku}
                 </span>
             </div>
-            <div className="col-md-12">
+            <div className="col-md-12 responsive-d-none">
                 <h1 className="font-poppins font-27 bold text-black">
                     {product.name}
                 </h1>
@@ -87,40 +87,6 @@ const ProductInfo = ({ product, setImageSubscription }) => {
                 </span>
             </div>
 
-            {/* <div className="col-md-12 mb-3">
-                <p className="font-inter font-16 bold color-033F5D">
-                    Suscríbete a nuestros planes
-                </p>
-                <div className="row">
-                    {
-                        product.plans.map(plan => {
-                            return(
-                                <div className="col-auto ">
-                                    <button className="btn btn-outline-primary btn-months">
-                                       { plan.subscription_plan.months } Meses
-                                    </button>
-                                </div>
-                            )
-                        })
-                    } */}
-            {/* <div className="col-auto ">
-                        <button className="btn btn-outline-primary btn-months">
-                            4 Meses
-                        </button>
-                    </div>
-                    <div className="col-auto px-0">
-                        <button className="btn btn-outline-primary btn-months">
-                            6 Meses
-                        </button>
-                    </div>
-                    <div className="col-auto">
-                        <button className="btn btn-outline-primary btn-months">
-                            12 Meses
-                        </button>
-                    </div> */}
-            {/* </div>
-            </div> */}
-
             <div className="col-md-6 mb-3">
                 <AddCartCard
                     quantity={quantity}
@@ -132,27 +98,25 @@ const ProductInfo = ({ product, setImageSubscription }) => {
 
             <div className="offset-md-1 mb-3" />
             {product.unit_format ? (
-                <div className="col-md-12 py-2 product-format-style">
-                    <span className="font-poppins font-14 regular color-6C6B6B">
-                        Precio por unidad: $
-                        {product.state_of_matter === "Líquido"
-                            ? Math.round(
-                                  (product.price / parseInt(product.format)) *
-                                      100
-                              ) +
-                              " " +
-                              product.unit_format
-                            : Math.round(
-                                  product.price / parseInt(product.format)
-                              ) +
-                              " " +
-                              product.unit_format}
-                    </span>
+                <div className="col-md-12 col-6 py-2 product-format-style font-poppins regular color-6C6B6B">
+                    Precio por unidad: $
+                    {product.state_of_matter === "Líquido"
+                        ? Math.round(
+                                (product.price / parseInt(product.format)) *
+                                    100
+                            ) +
+                            " " +
+                            product.unit_format
+                        : Math.round(
+                                product.price / parseInt(product.format)
+                            ) +
+                            " " +
+                            product.unit_format}
                 </div>
             ) : null}
 
-            <div className="col-md-12 mt-3">
-                <h1 className="font-poppins font-12 regular color-6C6B6B">
+            <div className="col-md-12 col-6 product-recipe-column">
+                <h1 className="font-poppins product-recipe-style regular color-6C6B6B">
                     <Icon className="icon-document" path={fileSvg} />{" "}
                     {product.recipe_type
                         ? product.recipe_type
@@ -173,13 +137,12 @@ const ProductInfo = ({ product, setImageSubscription }) => {
                             <Accordion.Collapse eventKey={product.id}>
                                 <Card.Body>
                                     <div className="row">
-                                        <div className="col-md-12">
+                                        <div className="col-12 subscription-buttons">
                                             {product.plans.map(
                                                 (item, index) => {
-                                                    return subscription ==
-                                                        item ? (
+                                                    return subscription == item ? (
                                                         <button
-                                                            className="btn btn-outline-primary btn-months mr-2 focus"
+                                                            className="btn btn-outline-primary btn-months mr-2 subscription-button-margin focus"
                                                             onClick={() =>
                                                                 handleSubscription(
                                                                     {
@@ -189,16 +152,11 @@ const ProductInfo = ({ product, setImageSubscription }) => {
                                                                 )
                                                             }
                                                         >
-                                                            {
-                                                                item
-                                                                    .subscription_plan
-                                                                    .months
-                                                            }{" "}
-                                                            Ciclos
+                                                            {item.subscription_plan.months == 13 ? 12 : item.subscription_plan.months}{" "}Meses / {item.subscription_plan.months}{" "}Ciclos 
                                                         </button>
                                                     ) : (
                                                         <button
-                                                            className="btn btn-outline-primary btn-months mr-2"
+                                                            className="btn btn-outline-primary btn-months mr-2 subscription-button-margin"
                                                             onClick={() =>
                                                                 handleSubscription(
                                                                     {
@@ -208,25 +166,12 @@ const ProductInfo = ({ product, setImageSubscription }) => {
                                                                 )
                                                             }
                                                         >
-                                                            {
-                                                                item
-                                                                    .subscription_plan
-                                                                    .months
-                                                            }{" "}
-                                                            Ciclos
+                                                            {item.subscription_plan.months == 13 ? 12 : item.subscription_plan.months}{" "}Meses / {item.subscription_plan.months}{" "}Ciclos 
                                                         </button>
                                                     );
                                                 }
                                             )}
                                         </div>
-                                        {/* <div className="col-md-5">
-                                        <AddCartCard
-                                            quantity={quantity}
-                                            setQuantity={setQuantity}
-                                            product={product}
-                                            subscription={subscription}
-                                        />
-                                    </div> */}
                                         <div className="col-md-12">
                                             <div
                                                 className="mt-3"

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="57.611" height="57.611" viewBox="0 0 57.611 57.611">
+  <defs>
+    <filter id="Elipse_52" x="0" y="0" width="57.611" height="57.611" filterUnits="userSpaceOnUse">
+      <feOffset input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Grupo_854" data-name="Grupo 854" transform="translate(48.611 48.611) rotate(180)">
+    <g transform="matrix(-1, 0, 0, -1, 48.61, 48.61)" filter="url(#Elipse_52)">
+      <circle id="Elipse_52-2" data-name="Elipse 52" cx="19.805" cy="19.805" r="19.805" transform="translate(48.61 48.61) rotate(180)" fill="#fff"/>
+    </g>
+    <g id="arrow-right" transform="translate(19.54 16.269)">
+      <path id="Trazado_200" data-name="Trazado 200" d="M0,0,3.537,3.537,0,7.073" transform="translate(0 0)" fill="none" stroke="#222" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+    </g>
+  </g>
+</svg>

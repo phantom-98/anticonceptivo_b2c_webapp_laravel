@@ -3,13 +3,12 @@ import PUBLIC_ROUTES from "../../../routes/publicRoutes";
 import BasePanelOne from "../../../template/BasePanelOne";
 import Subscribe from "../../../components/sections/Subscribe";
 import {CONFIG} from "../../../Config";
-import eurekaLogo from '../../../assets/images/pages/about-us/eureka-logo.png'
 import H2Title from "../../../components/general/H2Title";
-// import handsWhite from '../../../assets/images/icons/hands-white.svg'
 import {Tabs, Tab} from 'react-bootstrap';
 import BannerCarousel from "../../../components/sections/BannerCarousel";
 import * as Services from "../../../Services";
 import { v4 as uuidv4 } from 'uuid';
+import logoFull from "../../../assets/images/logo-full.svg";
 
 const AboutUs = () => {
 
@@ -61,13 +60,11 @@ const AboutUs = () => {
             >
                 <div className="px-3">
                     <div className="row pb-5 mb-5">
-                        <div className="col-3">
-
-                        </div>
-                        <div className="col-9">
-                            <h3 className="font-poppins font-22 bold color-033F5D mb-3">
+                        <div className="col-md-9 offset-md-3 col-xs-12">
+                            {/* <h3 className="font-poppins font-22 bold color-033F5D mb-3 responsive-d-none">
                                 {aboutUs.title_review}
-                            </h3>
+                            </h3> */}
+                            <img className="responsive-d-display w-100 my-3" src={logoFull} alt={CONFIG.APP_NAME}/>
                             <div dangerouslySetInnerHTML={{ __html: aboutUs.review}}/>
                         </div>
                     </div>
@@ -82,12 +79,12 @@ const AboutUs = () => {
                                 onSelect={(k) => setKey(k)}
                             >
                                 <Tab eventKey="mission" title="Misión">
-                                    <div className="panel-bordered p-5">
+                                    <div className="panel-bordered responsive-padding-tabs">
                                         <div dangerouslySetInnerHTML={{ __html: aboutUs.mission}}/>
                                     </div>
                                 </Tab>
                                 <Tab eventKey="vision" title="Visión">
-                                    <div className="panel-bordered p-5">
+                                    <div className="panel-bordered responsive-padding-tabs">
                                         <div dangerouslySetInnerHTML={{ __html: aboutUs.view}}/>
                                     </div>
                                 </Tab>
@@ -107,7 +104,7 @@ const AboutUs = () => {
                                         <div className="row">
                                             <div className="col-12 mb-5">
                                                 <div className="circle-about-us mx-auto">
-                                                    <img className="m-auto" src={value.public_image} alt={CONFIG.APP_NAME}/>
+                                                    <img className="m-auto" style={{width:125, height:125, borderRadius:'50%'}} src={value.public_image} alt={CONFIG.APP_NAME}/>
                                                 </div>
                                             </div>
                                             <div className="col-12 text-center">
@@ -129,13 +126,13 @@ const AboutUs = () => {
                                         <div className="row">
                                             <div className="col-12">
                                                 <a href={alliance.website} target="_blank">
-                                                    <img src={alliance.public_image} alt={CONFIG.APP_NAME}/>
+                                                    <img className="img-alliance-responsive" src={alliance.public_image} alt={CONFIG.APP_NAME}/>
                                                 </a>
                                             </div>
 
-                                            <div className="col-12 font-poppins font-22 bold color-033F5D mb-3">
+                                            {/* <div className="col-12 font-poppins font-22 bold color-033F5D mb-3">
                                                 {alliance.name}
-                                            </div>
+                                            </div> */}
 
                                             <div className="col-12">
                                                 <div dangerouslySetInnerHTML={{ __html:alliance.description}}/>
