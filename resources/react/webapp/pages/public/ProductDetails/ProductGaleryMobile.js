@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import Slider from "react-slick";
 
 const ProductGaleryMobile = ({images}) => {
@@ -10,10 +10,6 @@ const ProductGaleryMobile = ({images}) => {
       slidesToShow: 1,
       slidesToScroll: 1
     };
-
-    useEffect(() => {
-        console.log(images);
-    },[images])
 
     return (
         <Slider {...settings}>
