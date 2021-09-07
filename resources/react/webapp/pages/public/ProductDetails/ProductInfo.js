@@ -137,13 +137,12 @@ const ProductInfo = ({ product, setImageSubscription }) => {
                             <Accordion.Collapse eventKey={product.id}>
                                 <Card.Body>
                                     <div className="row">
-                                        <div className="col-md-12">
+                                        <div className="col-12 subscription-buttons">
                                             {product.plans.map(
                                                 (item, index) => {
-                                                    return subscription ==
-                                                        item ? (
+                                                    return subscription == item ? (
                                                         <button
-                                                            className="btn btn-outline-primary btn-months mr-2 focus"
+                                                            className="btn btn-outline-primary btn-months mr-2 subscription-button-margin focus"
                                                             onClick={() =>
                                                                 handleSubscription(
                                                                     {
@@ -153,16 +152,11 @@ const ProductInfo = ({ product, setImageSubscription }) => {
                                                                 )
                                                             }
                                                         >
-                                                            {
-                                                                item
-                                                                    .subscription_plan
-                                                                    .months
-                                                            }{" "}
-                                                            Ciclos
+                                                            {item.subscription_plan.months == 13 ? 12 : item.subscription_plan.months}{" "}Meses / {item.subscription_plan.months}{" "}Ciclos 
                                                         </button>
                                                     ) : (
                                                         <button
-                                                            className="btn btn-outline-primary btn-months mr-2"
+                                                            className="btn btn-outline-primary btn-months mr-2 subscription-button-margin"
                                                             onClick={() =>
                                                                 handleSubscription(
                                                                     {
@@ -172,25 +166,12 @@ const ProductInfo = ({ product, setImageSubscription }) => {
                                                                 )
                                                             }
                                                         >
-                                                            {
-                                                                item
-                                                                    .subscription_plan
-                                                                    .months
-                                                            }{" "}
-                                                            Ciclos
+                                                            {item.subscription_plan.months == 13 ? 12 : item.subscription_plan.months}{" "}Meses / {item.subscription_plan.months}{" "}Ciclos 
                                                         </button>
                                                     );
                                                 }
                                             )}
                                         </div>
-                                        {/* <div className="col-md-5">
-                                        <AddCartCard
-                                            quantity={quantity}
-                                            setQuantity={setQuantity}
-                                            product={product}
-                                            subscription={subscription}
-                                        />
-                                    </div> */}
                                         <div className="col-md-12">
                                             <div
                                                 className="mt-3"
