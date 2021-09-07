@@ -98,27 +98,25 @@ const ProductInfo = ({ product, setImageSubscription }) => {
 
             <div className="offset-md-1 mb-3" />
             {product.unit_format ? (
-                <div className="col-md-12 py-2 product-format-style">
-                    <span className="font-poppins font-14 regular color-6C6B6B">
-                        Precio por unidad: $
-                        {product.state_of_matter === "Líquido"
-                            ? Math.round(
-                                  (product.price / parseInt(product.format)) *
-                                      100
-                              ) +
-                              " " +
-                              product.unit_format
-                            : Math.round(
-                                  product.price / parseInt(product.format)
-                              ) +
-                              " " +
-                              product.unit_format}
-                    </span>
+                <div className="col-md-12 col-6 py-2 product-format-style font-poppins regular color-6C6B6B">
+                    Precio por unidad: $
+                    {product.state_of_matter === "Líquido"
+                        ? Math.round(
+                                (product.price / parseInt(product.format)) *
+                                    100
+                            ) +
+                            " " +
+                            product.unit_format
+                        : Math.round(
+                                product.price / parseInt(product.format)
+                            ) +
+                            " " +
+                            product.unit_format}
                 </div>
             ) : null}
 
-            <div className="col-md-12 mt-4">
-                <h1 className="font-poppins font-12 regular color-6C6B6B">
+            <div className="col-md-12 col-6 product-recipe-column">
+                <h1 className="font-poppins product-recipe-style regular color-6C6B6B">
                     <Icon className="icon-document" path={fileSvg} />{" "}
                     {product.recipe_type
                         ? product.recipe_type

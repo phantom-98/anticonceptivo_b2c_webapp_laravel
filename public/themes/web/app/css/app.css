@@ -1360,19 +1360,6 @@ input.my-auto.file-input {
   margin-bottom: 1rem;
 }
 
-.product-format-style {
-  background: #fafac8;
-  border-radius: 10px;
-  border: solid 1px;
-  border-color: #f0f08c;
-  margin-left: 0.8rem !important;
-}
-
-.icon-document {
-  height: 15px;
-  padding-right: 10px;
-}
-
 .panel {
   background: white;
 }
@@ -1862,6 +1849,20 @@ input[type=number] {
     margin-bottom: 3rem !important;
     padding-bottom: 3rem !important;
   }
+
+  .product-format-style {
+    background: #fafac8;
+    border-radius: 10px;
+    border: solid 1px;
+    border-color: #f0f08c;
+    margin-left: 0.8rem !important;
+    font-size: 14px;
+  }
+
+  .product-recipe-style {
+    font-size: 12px;
+    margin-top: 1.5rem !important;
+  }
 }
 
 @media (max-width: 767px) {
@@ -1892,6 +1893,31 @@ input[type=number] {
   .product-separator {
     margin-bottom: 1rem !important;
   }
+
+  .product-format-style {
+    background: #fafac8;
+    border-radius: 10px;
+    border: solid 1px;
+    border-color: #f0f08c;
+    font-size: 12px;
+    text-align: center;
+  }
+
+  .product-recipe-style {
+    font-size: 10px;
+    text-align: center;
+  }
+
+  .product-recipe-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+
+.icon-document {
+  height: 15px;
+  padding-right: 10px;
 }
 
 @media (min-width: 768px) {
