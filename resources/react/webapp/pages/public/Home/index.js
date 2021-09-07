@@ -1,11 +1,10 @@
-import React, {Fragment, useEffect, useState, useContext} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import OurBrands from "./OurBrands";
 import Subscribe from "../../../components/sections/Subscribe";
-import BestSeller from "../../../components/sections/BestSellers";
-import OutstandingCarousel from "../../../components/sections/OutstandingCarousel";
+// import BestSeller from "../../../components/sections/BestSellers";
+// import OutstandingCarousel from "../../../components/sections/OutstandingCarousel";
 import BannerCategories from "../../../components/sections/BannerCategories";
-
-import BlogCarousel from "../../../components/sections/BlogCarousel";
+// import BlogCarousel from "../../../components/sections/BlogCarousel";
 import {ModalAuthMode} from "../../../Globals";
 import {AppContext} from "../../../context/AppProvider";
 import BannerCarousel from "../../../components/sections/BannerCarousel";
@@ -21,6 +20,7 @@ const Home = ({match}) => {
 
     const [topBanners, setTopBanners] = useState([]);
     const [bannerCategories, setBannerCategories] = useState([]);
+    const [isLoaded, setIsLoaded] = useState(false);
 
     const [middleBanners, setMiddleBanners] = useState([]);
     const [bottomBanners, setBottomBanners] = useState([]);
@@ -53,6 +53,7 @@ const Home = ({match}) => {
                 // setBestSellers(response.data.best_sellers);
                 setBrands(response.data.brands);
                 setBannerCategories(response.data.bannerCategories);
+                setIsLoaded(true);
             },  
             });
         }).catch(error => {
@@ -60,28 +61,31 @@ const Home = ({match}) => {
         });
     }
 
+    if (!isLoaded) {
+        return (
+            <LazyLoading/>
+        )
+    }
+
     return (
-        // <Fragment>
-        //     <div className="bg-FAFAFA">
-        //         <BannerCarousel topBanners={topBanners}/>
+        <div className="bg-FAFAFA">
+            <BannerCarousel topBanners={topBanners}/>
 
-        //         {/* <OutstandingCarousel title="Destacados" outstandings={outstandings}/> */}
+            {/* <OutstandingCarousel title="Destacados" outstandings={outstandings}/> */}
 
-        //         <BannerStatic banners={middleBanners}/>
-        //         <BannerCategories bannerCategories={bannerCategories}/>
+            <BannerStatic banners={middleBanners}/>
+            <BannerCategories bannerCategories={bannerCategories}/>
 
-        //         {/* <BestSeller bestSellers={bestSellers}/> */}
+            {/* <BestSeller bestSellers={bestSellers}/> */}
 
-        //         {/* <BlogCarousel title="BLOG" showButton={true} buttonTitle="VER MÁS NOTICIAS" /> */}
+            {/* <BlogCarousel title="BLOG" showButton={true} buttonTitle="VER MÁS NOTICIAS" /> */}
 
-        //         <BannerStatic banners={bottomBanners}/>
+            <BannerStatic banners={bottomBanners}/>
 
-        //         <OurBrands brands={brands}/>
+            <OurBrands brands={brands}/>
 
-        //         <Subscribe/>
-        //     </div>
-        // </Fragment>
-        <LazyLoading/>
+            <Subscribe/>
+        </div>
     );
 };
 
