@@ -67,6 +67,13 @@ class WebpayPlusController
                 $subscription->customer_id = $request->customer_id;
                 $subscription->token_inscription = $response['response']->token;
                 $subscription->save();
+                
+                Log::info('OneClickCancel',
+                [
+                    "response" => $response['response'],
+                    "tbk_token_inscription" => $response['response']->token,
+                    "username" => $request->customer_id
+                ]);
 
                 return ApiResponse::JsonSuccess([
                     'webpay' => $this->oneclick->redirectHTML(),
