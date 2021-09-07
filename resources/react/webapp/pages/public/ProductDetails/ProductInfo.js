@@ -34,7 +34,7 @@ const ProductInfo = ({ product, setImageSubscription }) => {
                     SKU: {product.sku}
                 </span>
             </div>
-            <div className="col-md-12">
+            <div className="col-md-12 responsive-d-none">
                 <h1 className="font-poppins font-27 bold text-black">
                     {product.name}
                 </h1>

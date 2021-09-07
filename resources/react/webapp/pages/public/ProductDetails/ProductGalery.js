@@ -21,6 +21,13 @@ const ProductGallery = ({product, imageSubscription, productImage}) => {
 
     return (
         <Fragment>
+            <div className="row mb-3 responsive-d-display">
+                <div className="col-12">
+                    <h1 className="font-poppins font-27 bold text-black">
+                        {product.name}
+                    </h1>
+                </div>
+            </div>
             {/* Desktop */}
             <div className="row repsonsive-d-none-v2" style={{zIndex: 1000}}>
                 <div className="col-auto mr-0 pr-0" style={{width: '118px'}}>
