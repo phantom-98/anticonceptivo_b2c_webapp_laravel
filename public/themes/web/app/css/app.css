@@ -3448,11 +3448,6 @@ a:-webkit-any-link:focus-visible {
   line-height: 1.2 !important;
 }
 
-.pulse-effect {
-  -webkit-animation: pulse 1s linear infinite;
-          animation: pulse 1s linear infinite;
-}
-
 @media (min-width: 768px) {
   .app-margin-top {
     margin-top: 185px;
@@ -3477,6 +3472,10 @@ a:-webkit-any-link:focus-visible {
   }
 
   .responsive-d-none {
+    display: none;
+  }
+
+  .repsonsive-d-none-v2 {
     display: none;
   }
 
