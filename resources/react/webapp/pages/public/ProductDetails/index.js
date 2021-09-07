@@ -71,7 +71,6 @@ const ProductDetail = ({match}) => {
     }
 
     return (
-
         !loading ?
             <Fragment>
                 <div style={{background: '#FAFAFA'}}>
@@ -110,10 +109,10 @@ const ProductDetail = ({match}) => {
 
                 {
                     // prods.length ?
-                        <ProductsCarousel
-                            prods={prods}
-                            title="Te podría interesar"
-                        />
+                    <ProductsCarousel
+                        prods={prods}
+                        title="Te podría interesar"
+                    />
                     // : null
                 }
 
