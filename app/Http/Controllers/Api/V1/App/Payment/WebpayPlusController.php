@@ -448,6 +448,13 @@ class WebpayPlusController
             );
             $subscription = Subscription::where('token_inscription',$request['TBK_TOKEN'])->get()->first();
 
+            Log::info('OneClick',
+                    [
+                        "response" => $response,
+                        "tbk_user" => $request['TBK_TOKEN'],
+                        "username" => $subscription->customer_id
+                    ]);
+
             if($response['status'] != 'success'){
                 $subscription->status = PaymentMethodStatus::CANCELED;
                 $subscription->save();
