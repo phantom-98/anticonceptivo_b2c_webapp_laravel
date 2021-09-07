@@ -54,6 +54,10 @@ class Product extends Model
         return $this->hasMany(ProductSubscriptionPlan::class);
     }
 
+    public function order_items(){
+        return $this->hasMany(OrderItem::class);
+    }
+
     public static function getEnumColumnValues($table, $column) {
 
         $type = DB::select(DB::raw("SHOW COLUMNS FROM $table WHERE Field = '{$column}'"))[0]->Type ;
