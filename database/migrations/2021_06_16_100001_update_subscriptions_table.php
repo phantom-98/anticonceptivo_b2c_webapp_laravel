@@ -30,6 +30,8 @@ class UpdateSubscriptionsTable extends Migration
                 'CREATED',
                 'REJECTED',
                 'WAITING',
+                'CANCELED',
+                'PROCESSING'
             ])->default('WAITING');
 
         });
