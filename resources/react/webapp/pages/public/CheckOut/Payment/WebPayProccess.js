@@ -120,7 +120,11 @@ const WebPayProccess = ({
                         swalWithBootstrapButtons.fire({
                             // icon: 'error',
                             title: '<span style="color: #0869A6;">'+response.message+'</span>',
-                        })
+                        });
+                        setWebpayProccessSuccess(false);
+                        hideWaitingPayment();
+                        setFinishWebpayProccess(1);
+                        clearInterval(interval)
                     }
 
                 });
