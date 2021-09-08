@@ -91,7 +91,7 @@ class WebpayPlusController
 
     public function createTransaction(Request $request)
     {
-
+        try {
             $order = new Order();
             $customerAddress = null;
 
@@ -282,6 +282,15 @@ class WebpayPlusController
                     ]);
 
                     if($response['status'] == "success"){
+            
+                        if ($response['response']->details[0]->status != 'AUTHORIZED') {
+                            $order->is_paid = 0;
+                            $order->status = PaymentStatus::REJECTED;
+                            $order->payment_type = 'tarjeta';
+                            $order->save();
+                            return ApiResponse::JsonError([], 'Pago Rechazado');
+                        }
+            
                         $ordersItems = OrderItem::where('order_id',$order->id)->get();
 
                         foreach ($ordersItems as $elementOrderItem) {
@@ -342,6 +351,16 @@ class WebpayPlusController
             }
 
             return ApiResponse::JsonError([], 'No ha podido conectar con webpay');
+        } catch (\Exception $ex) {
+            Log::info('ExceptionCreateTransaction',
+                [
+                    "message" => $ex->getMessage(),
+                ]);
+
+            return ApiResponse::JsonError([], 'Error Inesperado');
+        }
+
+           
 
 
     }
