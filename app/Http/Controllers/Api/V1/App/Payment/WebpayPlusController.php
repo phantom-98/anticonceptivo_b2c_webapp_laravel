@@ -67,6 +67,13 @@ class WebpayPlusController
                 $subscription->customer_id = $request->customer_id;
                 $subscription->token_inscription = $response['response']->token;
                 $subscription->save();
+                
+                Log::info('OneClickCancel',
+                [
+                    "response" => $response['response'],
+                    "tbk_token_inscription" => $response['response']->token,
+                    "username" => $request->customer_id
+                ]);
 
                 return ApiResponse::JsonSuccess([
                     'webpay' => $this->oneclick->redirectHTML(),
@@ -84,7 +91,7 @@ class WebpayPlusController
 
     public function createTransaction(Request $request)
     {
-
+        try {
             $order = new Order();
             $customerAddress = null;
 
@@ -275,6 +282,15 @@ class WebpayPlusController
                     ]);
 
                     if($response['status'] == "success"){
+            
+                        if ($response['response']->details[0]->status != 'AUTHORIZED') {
+                            $order->is_paid = 0;
+                            $order->status = PaymentStatus::REJECTED;
+                            $order->payment_type = 'tarjeta';
+                            $order->save();
+                            return ApiResponse::JsonError([], 'Pago Rechazado');
+                        }
+            
                         $ordersItems = OrderItem::where('order_id',$order->id)->get();
 
                         foreach ($ordersItems as $elementOrderItem) {
@@ -335,6 +351,16 @@ class WebpayPlusController
             }
 
             return ApiResponse::JsonError([], 'No ha podido conectar con webpay');
+        } catch (\Exception $ex) {
+            Log::info('ExceptionCreateTransaction',
+                [
+                    "message" => $ex->getMessage(),
+                ]);
+
+            return ApiResponse::JsonError([], 'Error Inesperado');
+        }
+
+           
 
 
     }
