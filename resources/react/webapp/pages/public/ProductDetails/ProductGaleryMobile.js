@@ -14,7 +14,7 @@ const ProductGaleryMobile = ({images}) => {
     return (
         <Slider {...settings}>
             {
-                images.map((image) => {
+                images.map(image => {
                     return(
                         <div className="col-12">
                             <img src={image.public_file} style={{width: '100%'}}/>
