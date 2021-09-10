@@ -30,7 +30,7 @@ const BannerCarousel = ({topBanners}) => {
         }
 
         return (
-            props.type == 'next' ? 
+            props.type == 'next' ?
                 <img src={SliderArrowRight} onClick={props.onClick} className={`pointer ${className}`} style={right}/>
             : <img src={SliderArrowLeft} onClick={props.onClick} className={`pointer ${className}`} style={left}/>
         );
@@ -56,10 +56,10 @@ const BannerCarousel = ({topBanners}) => {
                 topBanners.length ?
                     topBanners.map((banner) => {
                         let topBannerKey = uuidv4();
-                        return (        
-                            banner.button_title ? 
+                        return (
+                            banner.button_title ?
                                 <div key={topBannerKey}>
-                                    <img src={banner.public_file} alt={CONFIG.APP_NAME} style={{height:388, width:'100%'}}/>
+                                    <img src={banner.public_file} alt={CONFIG.APP_NAME} style={{ width:'100%'}}/>
                                     <div className="banner-buttons font-poppins font-35 bold color-033F5D">
                                         <span style={{backgroundColor: 'white'}}>{banner.title}</span>
                                     </div>
@@ -67,12 +67,12 @@ const BannerCarousel = ({topBanners}) => {
                                         <a href={banner.button_link} target={banner.button_target} className="btn btn-bicolor btn-block">
                                             <span style={{lineHeight:'35px'}}>{banner.button_title}</span>
                                         </a>
-                                    </div> 
+                                    </div>
                                 </div>
                             :
                                 <div key={topBannerKey}>
                                     <a href={banner.button_link} target={banner.button_target}>
-                                        <img src={banner.public_file} alt={CONFIG.APP_NAME} style={{height:388, width:'100%'}}/>
+                                        <img src={banner.public_file} alt={CONFIG.APP_NAME} style={{ width:'100%'}}/>
                                         <div className="banner-buttons font-poppins font-35 bold color-033F5D">
                                             <span style={{backgroundColor: 'white'}}>{banner.title}</span>
                                         </div>

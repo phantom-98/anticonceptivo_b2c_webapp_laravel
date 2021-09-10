@@ -191,7 +191,7 @@ const PersonalInfo = () => {
     }
 
     return (
-        <div className="row">
+        <div className="row" style={{marginTop: '-50px'}}>
 
             <H3Panel title="EDITAR PERFIL"/>
 

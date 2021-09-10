@@ -9,7 +9,7 @@ const Index = () => {
     const {auth} = useContext(AuthContext)
 
     const [addresses, setAddresses] = useState([]);
-    
+
     const [regions, setRegions] = useState([]);
     const [communes, setCommunes] = useState([]);
 
@@ -62,7 +62,7 @@ const Index = () => {
     }
 
     return (
-        <div className="row">
+        <div className="row" style={{marginTop: '-50px'}}>
             <H3Panel title="EDITAR DIRECCIONES"/>
             <div className="col-md-12 ">
                 <div className="panel-bordered px-4 pt-4 pb-5">
@@ -75,11 +75,11 @@ const Index = () => {
                     </div>
 
                     {
-                        view === 'list' ? 
-                            <List 
-                                addresses={addresses} 
-                                getData={getData} 
-                                showEdit={showEdit} 
+                        view === 'list' ?
+                            <List
+                                addresses={addresses}
+                                getData={getData}
+                                showEdit={showEdit}
                                 showCreate={showCreate}
                                 regions={regions}
                                 communes={communes}
@@ -88,16 +88,16 @@ const Index = () => {
                     }
 
                     {
-                        view === 'form' ? 
-                            <Form 
-                                formMode={formMode} 
-                                addressSelected={addressSelected} 
-                                goBack={goBack} 
+                        view === 'form' ?
+                            <Form
+                                formMode={formMode}
+                                addressSelected={addressSelected}
+                                goBack={goBack}
                                 getData={getData}
                                 customerId={auth.id}
                                 regions={regions}
                                 setAddresses={setAddresses}
-                            /> 
+                            />
                         : null
                     }
                 </div>

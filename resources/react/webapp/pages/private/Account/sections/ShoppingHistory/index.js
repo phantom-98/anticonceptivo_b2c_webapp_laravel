@@ -19,7 +19,7 @@ const Index = () => {
     }
 
     return (
-        <div className="row">
+        <div className="row" style={{marginTop: '-50px'}}>
             <H3Panel title="MIS COMPRAS"/>
             <div className="col-md-12">
                 {

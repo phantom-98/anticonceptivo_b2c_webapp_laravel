@@ -6,7 +6,7 @@ import Table from "./Table";
 
 const Receipts = () =>{
     return (
-        <div className="row">
+        <div className="row" style={{marginTop: '-50px'}}>
             <H3Panel title="Mis recetas"/>
             <div className="col-md-12">
                 <Table />

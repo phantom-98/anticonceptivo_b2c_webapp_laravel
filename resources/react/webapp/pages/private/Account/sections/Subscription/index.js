@@ -18,7 +18,7 @@ const Subscription = () => {
 
     return (
         <>
-            <div className="row">
+            <div className="row" style={{marginTop: '-50px'}}>
                 <H3Panel title="HISTORIAL DE SUSCRIPCIONES"/>
 
 
