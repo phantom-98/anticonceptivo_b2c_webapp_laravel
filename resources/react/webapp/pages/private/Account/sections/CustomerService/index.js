@@ -244,7 +244,7 @@ const CustomerService = () => {
     }
 
     return (
-        <div className="row">
+        <div className="row" style={{marginTop: '-50px'}}>
             <H3Panel title="SERVICIO AL CLIENTE"/>
             <div className="col-md-12">
                 <div className="row">
