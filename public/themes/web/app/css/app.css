@@ -621,7 +621,6 @@ button#dropdown-testing {
 }
 
 .footer-bottom {
-  height: 36px;
   color: white;
   font-family: "Poppins", sans-serif;
   font-size: 14px;
@@ -1843,11 +1842,6 @@ input[type=number] {
 
   .padding-beneficy {
     padding-bottom: 2rem !important;
-  }
-
-  .product-separator {
-    margin-bottom: 3rem !important;
-    padding-bottom: 3rem !important;
   }
 
   .product-format-style {

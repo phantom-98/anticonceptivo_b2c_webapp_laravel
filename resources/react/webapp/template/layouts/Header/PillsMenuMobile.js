@@ -13,7 +13,7 @@ const PillsMenuMobile = ({laboratories, subscriptions, formats, categorySlug, hi
             <li>
                 <Accordion>
                     <Accordion.Toggle as={Card.Header} eventKey={1}>
-                        <span className="font-poppins font-14" style={{color: '#0869A6'}}>Formato</span>     
+                        <span className="font-poppins font-14" style={{color: '#0869A6'}}>Formato</span>
                     </Accordion.Toggle>
                     <Accordion.Collapse eventKey={1}>
                         <ul style={{listStyleType:'none'}}>
@@ -31,7 +31,7 @@ const PillsMenuMobile = ({laboratories, subscriptions, formats, categorySlug, hi
                                     )
                                 })
                             }
-                        </ul>   
+                        </ul>
                     </Accordion.Collapse>
                 </Accordion>
             </li>
@@ -50,10 +50,10 @@ const PillsMenuMobile = ({laboratories, subscriptions, formats, categorySlug, hi
                                     return (
                                         <li className="my-2" key={subscriptionKey}>
                                             <Link onClick={hideMenu} to={subscriptionUrl} style={{textDecoration: 'none'}}>
-                                                <span className="font-poppins py-1 font-12 text-black my-auto d-block">{subscription.months} Meses</span>
+                                                <span className="font-poppins py-1 font-12 text-black my-auto d-block">{subscription.months == 13 ? 12 : subscription.months} Meses / {subscription.months} Ciclos</span>
                                             </Link>
                                         </li>
-                                        
+
                                     )
                                 })
                             }
