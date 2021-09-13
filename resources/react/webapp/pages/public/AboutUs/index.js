@@ -62,7 +62,7 @@ const AboutUs = () => {
                     <div className="row pb-5 mb-5">
                         <div className="col-md-12">
 
-                                <img className="d-none d-sm-block my-3" style={{width:400,marginRight: 'auto',marginLeft: 'auto' }} src={logoFull} alt={CONFIG.APP_NAME}/>
+                                <img className="d-none d-sm-block my-3" style={{width:500,marginRight: 'auto',marginLeft: 'auto' }} src={logoFull} alt={CONFIG.APP_NAME}/>
 
                         </div>
                         <div className="col-md-9 offset-md-3 col-xs-12">

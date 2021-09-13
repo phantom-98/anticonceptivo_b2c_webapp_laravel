@@ -26,14 +26,14 @@ const Success = ({orderId, files, productCount}) => {
 
         formData.append('product_count', productCount);
         formData.append('order_id', orderId);
-        
+
         let fileList = [...files]
-        
+
         for(let i=0; i < fileList.length; i++){
             formData.append('attachments[]', fileList[i]);
             formData.append('productIds[]', fileList[i].product_id);
         }
-        
+
         const config = {
             headers: {
                 'content-type': 'multipart/form-data'
@@ -64,7 +64,7 @@ const Success = ({orderId, files, productCount}) => {
                         <div className="text-center mb-5">
                             <span className="bold font-poppins font-26 d-block">Pago Aprobado</span>
                         </div>
-                        
+
                         {
                             !load ?
 
@@ -170,10 +170,10 @@ const Success = ({orderId, files, productCount}) => {
                             <td className="text-right">
                                 { formatMoney((item.subscription_plan_id != null ? item.subtotal : item.price) )}
                             </td>
-                            <td style={{textAlign: "center"}}>{ (item.subscription_plan_id != null ? (item.subscription_plan.months + ' Meses') : item.quantity)  }</td>
+                            <td style={{textAlign: "center"}}>{ (item.subscription_plan_id != null ? (item.subscription_plan.months + ' Ciclos') : item.quantity)  }</td>
                             <td className="text-right">
                                 { formatMoney((item.subscription_plan_id != null ? item.subtotal : item.price * item.quantity) )}
-    
+
                             </td>
                         </tr>
                         )
@@ -216,7 +216,7 @@ const Success = ({orderId, files, productCount}) => {
 
                             : null
                         }
-                        
+
                     </div>
                 </div>
             </div>
