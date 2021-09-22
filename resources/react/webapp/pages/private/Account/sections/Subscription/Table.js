@@ -562,27 +562,34 @@ const Table = ({
             }
         },
         {
-            text:   [<span className="img-in-input" data-tip data-for="password_tooltip">TOTAL (*)</span>,
-        <ReactTooltip
-            place="right"
-            type="light"
-            effect="solid"
-            id="password_tooltip"
-            multiline={true}
-            className="tooltip-box-shadow"
-        >
-            <div className="text-left">
-        <span className="bold color-707070">
-             Tarifas del despacho pueden variar
-        </span>
-            </div>
-        </ReactTooltip>],
+            text:   [<span className="img-in-input" data-tip data-for="password_tooltip">TOTAL</span>,
+        // <ReactTooltip
+        //     place="right"
+        //     type="light"
+        //     effect="solid"
+        //     id="password_tooltip"
+        //     multiline={true}
+        //     className="tooltip-box-shadow"
+        // >
+        //     <div className="text-left">
+        // <span className="bold color-707070">
+        //      Tarifas del despacho pueden variar
+        // </span>
+        //     </div>
+        // </ReactTooltip>
+            ],
             dataField: 'total',
             sort: true,
             classes: '',
             headerClasses: '',
             formatter: (cell, row) => {
+
+                if(row.status !== 'PAID'){
+                    return formatMoney(cell) + '(*)'
+
+                }
                 return formatMoney(cell)
+
             }
         },
     ];
@@ -743,6 +750,7 @@ const Table = ({
                 objects={objects}
                 columns={columns}
                 tableLoaded={tableLoaded}
+                showTextPriceDispatch={true}
             />
         </>
     );

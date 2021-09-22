@@ -29,23 +29,23 @@ const Filter = ({
 
     const _filters = [
         {
-            id: 1, 
+            id: 1,
             name: 'Subcategorías',
         },
         {
-            id: 2, 
+            id: 2,
             name: 'Laboratorio',
         },
         {
-            id: 3, 
+            id: 3,
             name: 'Precio',
         },
         {
-            id: 4, 
+            id: 4,
             name: 'Bioequivalencia',
         },
         {
-            id: 5, 
+            id: 5,
             name: 'Suscripción',
         },
         {
@@ -62,7 +62,7 @@ const Filter = ({
             <div className="col-md-12 mb-3">
                 <Accordion defaultActiveKey={!isPills ? _filters[0].id : _filters[1].id} className="accordion-filter">
                     {
-                        !isPills ? 
+                        !isPills ?
                              <Card key={_filters[0].id} className="card-filter">
                                 <Accordion.Collapse eventKey={_filters[0].id}>
                                     <Card.Body bsPrefix="card-body pt-0">
@@ -78,7 +78,7 @@ const Filter = ({
                                 <Accordion.Toggle as={Card.Header} eventKey={_filters[0].id}>
                                     <h3>{_filters[0].name}</h3>
                                 </Accordion.Toggle>
-                            </Card>   
+                            </Card>
                         : null
                     }
 
@@ -172,7 +172,7 @@ const Filter = ({
                             <Card key={_filters[5].id} className="card-filter">
                                 <Accordion.Collapse eventKey={_filters[5].id}>
                                     <Card.Body bsPrefix="card-body pt-0">
-                                        <FormatFilter 
+                                        <FormatFilter
                                             formats={formats}
                                             filters={filters}
                                             setFilters={setFilters}

@@ -54,7 +54,7 @@
 }
 
 .product-card-name {
-    height: 90px;
+    //height: 90px;
     font-family: 'Poppins', sans-serif;
     font-size: 16px;
     font-weight: 700;
@@ -231,8 +231,8 @@ input[type=number] {
         padding: 5px;
         border: 1px solid #E8E8E8;
         width: 100%;
-        max-width: 457px;
-        height: 222px;
+        max-width: 400px;
+        height: 400px;
         object-fit: contain;
     }
 }

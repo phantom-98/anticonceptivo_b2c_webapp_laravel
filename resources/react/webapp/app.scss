@@ -187,9 +187,18 @@ $customColor: (
 
 @media (min-width: 1200px) {
     .container, .container-lg, .container-md, .container-sm, .container-xl {
-        max-width: 1170px;
+        max-width: 1200px;
     }
 }
+
+.max-header-navbar{
+    max-width:1500px
+}
+//@media (min-width: 1060px) {
+//    .max-header-navbar{
+//        max-width:830px
+//    }
+//}
 
 .link {
 
