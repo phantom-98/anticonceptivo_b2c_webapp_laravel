@@ -21,9 +21,13 @@ const ProductCard = ({product, className = ''}) => {
             <div className="product-card-body">
                 <div className="product-card-brand">{product.laboratory.name}</div>
                 <div className="product-card-name">
-                    <Link to={(PUBLIC_ROUTES.PRODUCT_DETAIL.path).replace(':slug?', product.slug)}
+                    <Link  to={(PUBLIC_ROUTES.PRODUCT_DETAIL.path).replace(':slug?', product.slug)}
                           style={{textDecoration: 'none', color: '#000000'}}>
-                        {product.name}
+                        <div className="col-md-12 text-truncate p-0">
+                            {product.name}
+
+                        </div>
+                        {/*{String(product.name).length >= 23 ? product.name.substring(0, 23) + '...' : product.name }*/}
                     </Link>
                 </div>
                 <div className="product-card-price">{formatMoney(product.is_offer ? product.offer_price : product.price)}

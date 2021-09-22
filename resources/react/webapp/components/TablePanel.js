@@ -6,11 +6,11 @@ import filterFactory from "react-bootstrap-table2-filter";
 import LazyLoading from "./LazyLoading";
 import NoRegisterExits from "./NoRegisterExists";
 
-const TablePanel = ({objects, columns, tableLoaded, expandRow = false, pagination = true, bordered = false, striped = true }) => {
+const TablePanel = ({objects, columns, tableLoaded, expandRow = false, pagination = true, bordered = false, striped = true, showTextPriceDispatch = false }) => {
     return (
 
            tableLoaded ? objects.length > 0 ?
-                <BootstrapTable
+               [<BootstrapTable
                     bootstrap4
                     keyField="id"
                     data={objects}
@@ -21,7 +21,13 @@ const TablePanel = ({objects, columns, tableLoaded, expandRow = false, paginatio
                     bordered={bordered}
                     striped={striped}
                     classes="table-panel"
-                /> :
+                />,
+                   showTextPriceDispatch ?
+                   <div
+                       // style={{'margin-top': '-65px', 'margin-bottom': '20px'}}
+                   >(*) Tarifas de despacho pueden variar</div>
+                    : null]
+               :
                 tableLoaded ?
                     <NoRegisterExits />: null : <LazyLoading height="400px" />
 

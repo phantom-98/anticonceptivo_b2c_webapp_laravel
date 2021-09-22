@@ -8,7 +8,7 @@ import ProductGaleryMobile from "./ProductGaleryMobile";
 const ProductGallery = ({product, imageSubscription, productImage}) => {
 
     const [imageSelected, setImageSelected] = useState(productImage)
-    
+
     useEffect(() => {
         if (imageSubscription == null) {
             setImageSelected (productImage)
@@ -44,15 +44,15 @@ const ProductGallery = ({product, imageSubscription, productImage}) => {
                                     }
 
                                     return (
-                                        <div key={index} 
-                                            className="img-box-product-mini mb-3 pointer" 
+                                        <div key={index}
+                                            className="img-box-product-mini mb-3 pointer"
                                             style={imageSelected === img.public_file ? {boxShadow:'1px 1px 8px -1px #009BE8'} : {}}>
-                                            <img src={img.public_file} 
+                                            <img src={img.public_file}
                                                 onMouseEnter={() => setImageSelected(img.public_file)}
                                                 alt={`${CONFIG.APP_NAME} - ${product.name}`}
                                             />
                                         </div>
-                                    )                         
+                                    )
                                 }
 
                             })
@@ -62,7 +62,7 @@ const ProductGallery = ({product, imageSubscription, productImage}) => {
                 <div className="col">
                     <div className="img-box-product">
                         {/* <img src={imageSelected} alt={`${CONFIG.APP_NAME} - ${product.name}`}/> */}
-                        <SideBySideMagnifier 
+                        <SideBySideMagnifier
                             imageSrc={imageSelected}
                             // largeImageSrc={imageSelected}
                             imageAlt={`${CONFIG.APP_NAME}`}
@@ -73,14 +73,14 @@ const ProductGallery = ({product, imageSubscription, productImage}) => {
                     </div>
                 </div>
             </div>
-            
+
             {/* Mobile */}
             <div className="row responsive-d-display">
                 <ProductGaleryMobile
                     images={
-                        !imageSubscription ? 
-                        product.images.slice(0,3) : 
-                        [product.images.slice(3,product.images.length)[imageSubscription-1]] 
+                        !imageSubscription ?
+                        product.images.slice(0,3) :
+                        [product.images.slice(3,product.images.length)[imageSubscription-1]]
                     }
                 />
             </div>
