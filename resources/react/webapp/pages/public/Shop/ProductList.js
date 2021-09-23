@@ -4,7 +4,7 @@ import ProductCard from "../../../components/shopping/ProductCard";
 import Pagination from "react-js-pagination";
 
 const ProductList = ({
-    category, 
+    category,
     products,
     subcatNames,
     search = null
@@ -20,17 +20,18 @@ const ProductList = ({
 
     return (
         <div className="row">
-            { search == null ? 
-                <div className="col-12 pb-3">
+            { search == null ?
+                // <div className="col-12 pb-3">
+                <div className={category.banner_image_size +" pt-3"}>
                     <img width="100%" src={category.public_banner_image} alt={CONFIG.APP_NAME}/>
                 </div>
                 : null
             }
             <div className="col-12 my-3 pb-3 text-primary">
-                { search == null ? 
+                { search == null ?
                     <div dangerouslySetInnerHTML={{ __html: category.description }} />
                     : null
-                } 
+                }
             </div>
             <div className="col-12 pb-3">
                 <div className="row">
@@ -46,11 +47,11 @@ const ProductList = ({
                                 </div>
                             </div>
                             <div className="col-auto px-2">
-                                <select className="form-control form-control-custom w-auto select-product-list" 
+                                <select className="form-control form-control-custom w-auto select-product-list"
                                     name=""
                                     id=""
                                     onChange={(e) => setViewCount(e.target.value)}
-                                    value={viewCount}    
+                                    value={viewCount}
                                 >
                                     <option value="9">9</option>
                                     <option value="12">12</option>
@@ -87,7 +88,7 @@ const ProductList = ({
                                 return position > init && position <= finish ?
                                     <div className="col-md-4 mb-3" key={index}>
                                         <ProductCard product={product}/>
-                                    </div> 
+                                    </div>
                                 : null
                             })
                         :   <div className="col-md-12 mt-5">

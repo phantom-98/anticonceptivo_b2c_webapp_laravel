@@ -169,9 +169,9 @@ class PaySubscriptions extends Command
                 "phone"=> $customer->phone,
                 "address"=> $first_subcription_order_item->customer_address->address .' '. $first_subcription_order_item->customer_address->extra_info
             ],
-            "facilityId"=> 1540,
-            "cashRegisterId"=> 1069,
-            "saleTypeId"=> 3,
+            "facilityId"=> env('FACILITY_ID'),
+            "cashRegisterId"=> env('CASH_REGISTER'),
+            "saleTypeId"=> env('SALE_TYPE_ID'),
             "comment"=> "Venta API",
             "items"=> $items->toArray(),
             "user"=> "anticonceptivo"

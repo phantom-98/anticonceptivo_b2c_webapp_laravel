@@ -46,9 +46,9 @@ class CallIntegrationsPay extends CoreHelper
                 "phone"=> $customer->phone,
                 "address"=> $customerAddress->address .' '. $customerAddress->extra_info
             ],
-                "facilityId"=> env('FACILITY_ID',1540),
-                "cashRegisterId"=> env('CASH_REGISTER',1069),
-                "saleTypeId"=> env('SALE_TYPE_ID',3),
+                "facilityId"=> env('FACILITY_ID'),
+                "cashRegisterId"=> env('CASH_REGISTER'),
+                "saleTypeId"=> env('SALE_TYPE_ID'),
                 "comment"=> "Venta API",
                 "items"=> $items,
                 "user"=> "anticonceptivo"

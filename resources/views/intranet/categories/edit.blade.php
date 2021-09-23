@@ -51,7 +51,35 @@
                                 @if ($object->image)
                                 <img id="image-edit" src="{{ Storage::url($object->image) }}" style="max-width: 100px;"/>
                                 @endif
-                            </div>         
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="size">Tamaño Imagen Banner (*)</label>
+                                    <select id="banner_image_size" name="banner_image_size" class="form-control">
+                                        <option value="col-md-3" {{ $object->banner_image_size == "col-md-3" ? 'selected': ''}}>25% de la pantalla (300x388)</option>
+                                        <option value="col-md-4" {{ $object->banner_image_size == "col-md-4" ? 'selected': ''}}>33% de la pantalla (433x388)</option>
+                                        <option value="col-md-6" {{ $object->banner_image_size == "col-md-6" ? 'selected': ''}}>50% de la pantalla (566x388)</option>
+                                        <option value="col-md-8" {{ $object->banner_image_size == "col-md-8" ? 'selected': ''}}>75% de la pantalla (750x388)</option>
+                                        <option value="col-md-9" {{ $object->banner_image_size == "col-md-9" ? 'selected': ''}}>80% de la pantalla (920x388)</option>
+                                        <option value="col-md-12" {{ $object->banner_image_size == "col-md-12" ? 'selected': ''}}>100% de la pantalla (1080x388)</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="size">Imagen Banner Home (*)</label>
+                                    <select id="subbanner_image_size" name="subbanner_image_size" class="form-control">
+                                        <option value="col-md-3" {{ $object->subbanner_image_size == "col-md-3" ? 'selected': ''}}>25% de la pantalla (300x388)</option>
+                                        <option value="col-md-4" {{ $object->subbanner_image_size == "col-md-4" ? 'selected': ''}}>33% de la pantalla (433x388)</option>
+                                        <option value="col-md-6" {{ $object->subbanner_image_size == "col-md-6" ? 'selected': ''}}>50% de la pantalla (566x388)</option>
+                                        <option value="col-md-8" {{ $object->subbanner_image_size == "col-md-8" ? 'selected': ''}}>75% de la pantalla (750x388)</option>
+                                        <option value="col-md-9" {{ $object->subbanner_image_size == "col-md-9" ? 'selected': ''}}>80% de la pantalla (920x388)</option>
+                                        <option value="col-md-12" {{ $object->subbanner_image_size == "col-md-12" ? 'selected': ''}}>100% de la pantalla (1080x388)</option>
+                                    </select>
+                                </div>
+                            </div>
+
                             <div class="form-group col-sm-6">
                                 {!! Form::label('banner_image', 'Imagen Banner (850 x 200 px)(*)') !!}
                                 <input id="file-image-2" type='file' name='banner_image' class='form-control' accept=".jpg, .png, .jpeg">
@@ -59,7 +87,8 @@
                                 @if ($object->banner_image)
                                 <img id="image-edit-2" src="{{ Storage::url($object->banner_image) }}" style="max-width: 200px;"/>
                                 @endif
-                            </div>  
+                            </div>
+
                             <div class="form-group col-sm-6">
                                 {!! Form::label('banner_subimage', 'Imagen Banner Home (850 x 200 px)(*)') !!}
                                 <input id="file-image-3" type='file' name='banner_subimage' class='form-control' accept=".jpg, .png, .jpeg">
@@ -67,14 +96,14 @@
                                 @if ($object->subbanner_image)
                                 <img id="image-edit-3" src="{{ Storage::url($object->subbanner_image) }}" style="max-width: 200px;"/>
                                 @endif
-                            </div>  
+                            </div>
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="description">Descripción</label>
                                     <textarea id="description" name="description" class="form-control summernote"
                                     >{{ old('description') ?? $object->description }}</textarea>
                                 </div>
-                            </div>             
+                            </div>
                         </div>
                     </div>
                     <div class="panel-footer">
@@ -121,17 +150,17 @@
     <script>
         $(document).ready(function() {
             $('.summernote').summernote({
-                
+
                 height: 100,
                 callbacks: {
                     onFocus: function (contents) {
                         if($('.summernote').summernote('isEmpty')){
-                            $(".summernote").html(''); 
+                            $(".summernote").html('');
                         }
                     }
                 }
             });
-            
+
         });
     </script>
 

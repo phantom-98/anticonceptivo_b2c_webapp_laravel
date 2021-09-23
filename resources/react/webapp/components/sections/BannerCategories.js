@@ -7,15 +7,15 @@ import PUBLIC_ROUTES from "../../routes/publicRoutes";
 const BannerCategories = ({ bannerCategories }) => {
     return (
         <div className="container">
+            <div className="row">
             {bannerCategories.length
                 ? bannerCategories.map((bannerCategory, key) => {
 
                       let bannerCategoryStaticKey = uuidv4();
                       return bannerCategory.public_subbanner_image
                           ? [
-                                <div className="row">
                                     <div
-                                        className="col-md-12 mb-3"
+                                        className={(bannerCategory.subbanner_image_size ?? 'col-md-12') + ' mb-3'}
                                         key={bannerCategoryStaticKey}
                                     >
                                         <Link
@@ -36,12 +36,13 @@ const BannerCategories = ({ bannerCategories }) => {
                                                 style={{ width: "100%" }}
                                             />
                                         </Link>
-                                    </div>
+
                                 </div>
                             ]
                           : null;
                   })
                 : null}
+            </div>
         </div>
     );
 };

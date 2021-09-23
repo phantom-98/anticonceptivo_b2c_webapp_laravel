@@ -75,6 +75,7 @@ const ProductDetail = ({match}) => {
             <Fragment>
                 <div style={{background: '#FAFAFA'}}>
                     <div className="container">
+                        {/*<div className={product.subcategory.category.banner_image_size +" pt-4"}>*/}
                         <div className="w-100 pt-4">
                             <img width="100%" style={{objectFit:'cover', height:'110px'}} src={product.subcategory.category.public_banner_image} alt={CONFIG.APP_NAME}/>
                         </div>

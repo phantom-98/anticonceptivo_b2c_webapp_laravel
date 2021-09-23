@@ -39,7 +39,6 @@ export const Response = (params) => {
     if (status === 'warning') {
         'warning' in params ? params.warning() : null;
     }
-
     if (status === 'validate' || status === 'fields_validation') {
 
         for (const error in data) {

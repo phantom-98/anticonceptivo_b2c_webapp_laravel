@@ -14,6 +14,8 @@ class Category extends Model
         'active',
         'banner_image',
         'subbanner_image',
+        'banner_image_size',
+        'subbanner_image_size',
         'position',
         'description',
         'position_banner',
