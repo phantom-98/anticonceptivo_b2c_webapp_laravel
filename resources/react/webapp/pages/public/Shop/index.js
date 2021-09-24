@@ -192,7 +192,7 @@ const Shop = ({match}) => {
                             <div className="col-md-3">
                                 <div className='mb-3 d-block d-sm-none' onClick={() => showFilter()}>
                                     {/*<button className="btn btn-outline-bicolor w-50 px-1" onClick={() => handleAddToCart()}>*/}
-                                        <div className="font-poppins font-15 light text-black my-auto float-right">Filtrar</div>
+                                        <div className="font-poppins font-15 light text-primary my-auto float-right">Filtros</div>
                                     {/*</button>*/}
                                 </div>
                                 {/*filtro responsivo*/}
