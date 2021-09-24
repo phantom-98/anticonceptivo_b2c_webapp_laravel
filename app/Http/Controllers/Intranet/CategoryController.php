@@ -64,22 +64,25 @@ class CategoryController extends GlobalController
                 $filename = 'category-' . $object->id  .'.'. $image->getClientOriginalExtension();
                 $object->image = $image->storeAs('public/categories', $filename);
                 $object->save();
-            }  
+            }
 
             if ($request->banner_image) {
                 $banner_image = $request->file('banner_image');
                 $filename = 'banner-category-' . $object->id  .'.'. $banner_image->getClientOriginalExtension();
                 $object->banner_image = $banner_image->storeAs('public/categories', $filename);
                 $object->save();
-            }  
+            }
 
             if ($request->banner_subimage) {
                 $banner_subimage = $request->file('banner_subimage');
                 $filename = 'subbanner-category-' . $object->id  .'.'. $banner_subimage->getClientOriginalExtension();
                 $object->subbanner_image = $banner_subimage->storeAs('public/categories', $filename);
                 $object->save();
-            }  
+            }
 
+            $object->banner_image_size = $request->banner_image_size;
+            $object->subbanner_image_size =  $request->subbanner_image_size;
+            $object->save();
 
             if ($object) {
                 session()->flash('success', 'Categoría creada correctamente.');
@@ -123,7 +126,7 @@ class CategoryController extends GlobalController
         ];
 
         $messages = [
-   
+
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
@@ -196,6 +199,9 @@ class CategoryController extends GlobalController
                     'user' => auth('intranet')->user()->full_name
                 ]);
             }
+            $object->banner_image_size = $request->banner_image_size;
+            $object->subbanner_image_size =  $request->subbanner_image_size;
+            $object->save();
 
             if ($object) {
                 session()->flash('success', 'Categoría modificada correctamente.');
@@ -223,7 +229,7 @@ class CategoryController extends GlobalController
             ]);
         }
 
-        
+
     }
     /**
      * Remove the specified resource from storage.

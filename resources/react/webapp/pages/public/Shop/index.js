@@ -10,6 +10,7 @@ import * as Services from "../../../Services";
 import {propsLength} from "../../../helpers/ShopHelper";
 import toastr from "toastr";
 
+
 const Shop = ({match}) => {
 
     const [products, setProducts] = useState([]);
@@ -18,6 +19,7 @@ const Shop = ({match}) => {
     const [laboratories, setLaboratories] = useState([]);
     const [subscriptions, setSubscriptions] = useState([]);
     const [formats, setFormats] = useState([]);
+    const [showFilterResponsive, setShowFilterResponsive] = useState(false);
 
     const [loading, setLoading] = useState(false);
     const [isPills, setIsPills] = useState(false);
@@ -171,6 +173,13 @@ const Shop = ({match}) => {
             name: PUBLIC_ROUTES.SHOP.title,
         },
     ];
+    const showFilter = () => {
+        if(showFilterResponsive){
+            setShowFilterResponsive(false)
+        }else{
+            setShowFilterResponsive(true)
+        }
+    }
 
     return (
         <Fragment>
@@ -181,17 +190,40 @@ const Shop = ({match}) => {
                     loading ?
                         <div className="row pb-5 mb-5">
                             <div className="col-md-3">
-                                <Filter
-                                    isPills={isPills}
-                                    laboratories={laboratories}
-                                    subcategories={subcategories}
-                                    subscriptions={subscriptions}
-                                    formats={formats}
-                                    filters={filters}
-                                    setFilters={setFilters}
-                                    filtersUpdate={filtersUpdate}
-                                    setFiltersUpdate={setFiltersUpdate}
-                                />
+                                <div className='mb-3 d-block d-sm-none' onClick={() => showFilter()}>
+                                    {/*<button className="btn btn-outline-bicolor w-50 px-1" onClick={() => handleAddToCart()}>*/}
+                                        <div className="font-poppins font-15 light text-black my-auto float-right">Filtrar</div>
+                                    {/*</button>*/}
+                                </div>
+                                {/*filtro responsivo*/}
+                                <div className="d-block d-sm-none">
+                                    { showFilterResponsive ?
+                                        <Filter
+                                            isPills={isPills}
+                                            laboratories={laboratories}
+                                            subcategories={subcategories}
+                                            subscriptions={subscriptions}
+                                            formats={formats}
+                                            filters={filters}
+                                            setFilters={setFilters}
+                                            filtersUpdate={filtersUpdate}
+                                            setFiltersUpdate={setFiltersUpdate}
+                                        /> : null
+                                    }
+                                </div>
+                                <div className="d-none d-md-block d-md-block">
+                                    <Filter
+                                        isPills={isPills}
+                                        laboratories={laboratories}
+                                        subcategories={subcategories}
+                                        subscriptions={subscriptions}
+                                        formats={formats}
+                                        filters={filters}
+                                        setFilters={setFilters}
+                                        filtersUpdate={filtersUpdate}
+                                        setFiltersUpdate={setFiltersUpdate}
+                                    />
+                                </div>
                             </div>
                             <div className="col-md-9">
                                 <ProductList

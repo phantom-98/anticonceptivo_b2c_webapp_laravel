@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import bgSubscribe from '../../assets/images/sections/subscribe.png'
 import * as Services from "../../Services";
+import toastr from "toastr";
 
 const Subscribe = () => {
 
@@ -23,11 +24,15 @@ const Subscribe = () => {
             Services.Response({
             response: response,
             success: () => {
+                toastr.success(response.message);
                 setData(defaultData);
             },
+                validate: () => {
+                    toastr.error('Ingrese un email valido');
+                }
             });
         }).catch(error => {
-            Services.ErrorCatch(error)
+            toastr.error(response.message);
         });
     }
 
