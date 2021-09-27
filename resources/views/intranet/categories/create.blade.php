@@ -50,12 +50,12 @@
                                 <div class="form-group">
                                     <label for="size">Tamaño Imagen Banner (*)</label>
                                     <select id="banner_image_size" name="banner_image_size" class="form-control">
-                                        <option value="col-md-3">25% de la pantalla (300x388)</option>
-                                        <option value="col-md-4">33% de la pantalla (433x388)</option>
-                                        <option value="col-md-6">50% de la pantalla (566x388)</option>
-                                        <option value="col-md-8">75% de la pantalla (750x388)</option>
-                                        <option value="col-md-9">80% de la pantalla (920x388)</option>
-                                        <option value="col-md-12">100% de la pantalla (1080x388)</option>
+                                        <option value="col-md-3">25% de la pantalla (300x310)</option>
+                                        <option value="col-md-4">33% de la pantalla (433x310)</option>
+                                        <option value="col-md-6">50% de la pantalla (566x310)</option>
+                                        <option value="col-md-8">75% de la pantalla (750x310)</option>
+                                        <option value="col-md-9">80% de la pantalla (920x310)</option>
+                                        <option value="col-md-12">100% de la pantalla (1100x310)</option>
                                     </select>
                                 </div>
                             </div>
@@ -64,12 +64,12 @@
                                 <div class="form-group">
                                     <label for="size">Imagen Banner Home (*)</label>
                                     <select id="subbanner_image_size" name="subbanner_image_size" class="form-control">
-                                        <option value="col-md-3">25% de la pantalla (300x388)</option>
-                                        <option value="col-md-4">33% de la pantalla (433x388)</option>
-                                        <option value="col-md-6">50% de la pantalla (566x388)</option>
-                                        <option value="col-md-8">75% de la pantalla (750x388)</option>
-                                        <option value="col-md-9">80% de la pantalla (920x388)</option>
-                                        <option value="col-md-12">100% de la pantalla (1080x388)</option>
+                                        <option value="col-md-3">25% de la pantalla (300x310)</option>
+                                        <option value="col-md-4">33% de la pantalla (433x310)</option>
+                                        <option value="col-md-6">50% de la pantalla (566x310)</option>
+                                        <option value="col-md-8">75% de la pantalla (750x310)</option>
+                                        <option value="col-md-9">80% de la pantalla (920x310)</option>
+                                        <option value="col-md-12">100% de la pantalla (1100x310)</option>
                                     </select>
                                 </div>
                             </div>
