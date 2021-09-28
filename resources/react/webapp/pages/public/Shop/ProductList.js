@@ -33,9 +33,11 @@ const ProductList = ({
                     : null
                 }
             </div>
-            <div className="col-12 pb-3">
+            <div className="col-12 pb-3 d-sm-none">
                 <div className="row">
-                    <div className="font-poppins font-12 semi-bold color-033F5D my-auto float-right">Filtros</div>
+                    <div className="col-12 float-right">
+                        <div className="font-poppins font-12 semi-bold color-033F5D my-auto float-right">Filtros</div>
+                    </div>
                 </div>
             </div>
             <div className="col-12 pb-3">
