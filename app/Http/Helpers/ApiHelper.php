@@ -53,9 +53,10 @@ class ApiHelper extends CoreHelper
                   'Content-Type: application/json',
                ));
             }else if($integration == 'llego'){
+//Borrar credenciales a futuro ya q son de prueba
                 if($method == 'POST'){
                     curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-                        'x-apiKey: BmWsZdHRhZEwZ5K99mJQA4zNG3zJbBJ8',
+                        'x-apiKey: QYY6ki8CZt05z3TXJCqs034tKmBnUKoH',
                         'x-cliente: ANTICONCEPTIVO',
                         'Accept: application/json',
                         'Content-Type: application/json',
@@ -63,13 +64,32 @@ class ApiHelper extends CoreHelper
                     ));
                 }else{
                     curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-                        'x-apiKey: jB87Fw2TE6AV2QKpEYqxYmVEj64gm6pq',
+                        'x-apiKey: 114Pmikw8dAlWre5eTOM0lciZCo9TbYB',
                         'x-cliente: ANTICONCEPTIVO',
                         'Accept: application/json',
                         'Content-Type: application/json',
 
                     ));
                 }
+
+                //Credenciales de produccion de llego
+//                if($method == 'POST'){
+//                    curl_setopt($curl, CURLOPT_HTTPHEADER, array(
+//                        'x-apiKey: BmWsZdHRhZEwZ5K99mJQA4zNG3zJbBJ8',
+//                        'x-cliente: ANTICONCEPTIVO',
+//                        'Accept: application/json',
+//                        'Content-Type: application/json',
+//
+//                    ));
+//                }else{
+//                    curl_setopt($curl, CURLOPT_HTTPHEADER, array(
+//                        'x-apiKey: jB87Fw2TE6AV2QKpEYqxYmVEj64gm6pq',
+//                        'x-cliente: ANTICONCEPTIVO',
+//                        'Accept: application/json',
+//                        'Content-Type: application/json',
+//
+//                    ));
+//                }
             }else if($integration == 'ailoo'){
                curl_setopt($curl, CURLOPT_HTTPHEADER, array(
                   'X-Ailoo-Access-Token: )H@McQfTjWnZr4t7w!z%C*F-JaNdRgUkXp2s5v8x/A?D(G+KbPeShVmYq3t6w9z$B&E)H@McQfTjWnZr4u7x!A%D*F-JaNdRgUkXp2s5v8y/B?E(H+KbPeShVmYq3t6w',
