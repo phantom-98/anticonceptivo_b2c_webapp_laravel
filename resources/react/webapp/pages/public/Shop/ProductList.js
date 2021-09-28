@@ -40,7 +40,7 @@ const ProductList = ({
             </div>
             <div className="col-12 pb-3">
                 <div className="row">
-                    <div className="col-6 d-flex" style={{height: '29px'}}>
+                    <div className="col-6 d-flex" style={{minHeight: '29px'}}>
                         <div className="font-poppins font-15 light text-black my-auto">{subcatNames ? subcatNames : (search == null ? category.name : search)} <span
                             className="color-D8D8D8">({products.length ? products.length : 0 })</span></div>
                     </div>
