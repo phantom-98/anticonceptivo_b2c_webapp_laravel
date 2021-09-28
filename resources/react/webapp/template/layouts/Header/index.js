@@ -86,7 +86,7 @@ const Header = () => {
                 <div className="d-md-none d-block">
                     <div className="menu-mobile">
                         <div className="row first-row" style={{height: '25px'}}>
-                            <div className="col-auto font-poppins font-11 text-center">
+                            <div className="col-auto font-poppins font-10 text-center">
                                 <span><Icon path={carrousels[0].icon}/> {carrousels[0].name}</span>
                             </div>
                         </div>
