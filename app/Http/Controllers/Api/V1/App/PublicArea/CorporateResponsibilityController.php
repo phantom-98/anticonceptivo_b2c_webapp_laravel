@@ -16,7 +16,7 @@ class CorporateResponsibilityController extends Controller
     public function index()
     {
         try {
-            $legalBases = LegalBase::where('active',true)->get();
+            $legalBases = LegalBase::where('active',true)->orderBy('id','desc')->get();
             $privacyPolicy = Page::where('active',true)->where('name','Política de Privacidad')->first();
             $deliveryCosts = DeliveryCost::where('active',true)->get();
 
