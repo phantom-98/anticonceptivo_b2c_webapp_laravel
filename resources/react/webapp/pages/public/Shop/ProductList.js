@@ -35,8 +35,24 @@ const ProductList = ({
             </div>
             <div className="col-12 pb-3 d-sm-none">
                 <div className="row">
-                    <div className="col-12 float-right">
+                    <div className="col-12 float-right" onClick={() => showFilter()}>
                         <div className="font-poppins font-12 semi-bold color-033F5D my-auto float-right">Filtros</div>
+                        {/*filtro responsivo*/}
+                        <div className="d-block d-sm-none" style={{marginTop: '40px'}}>
+                            { showFilterResponsive ?
+                                <Filter
+                                    isPills={isPills}
+                                    laboratories={laboratories}
+                                    subcategories={subcategories}
+                                    subscriptions={subscriptions}
+                                    formats={formats}
+                                    filters={filters}
+                                    setFilters={setFilters}
+                                    filtersUpdate={filtersUpdate}
+                                    setFiltersUpdate={setFiltersUpdate}
+                                /> : null
+                            }
+                        </div>
                     </div>
                 </div>
             </div>

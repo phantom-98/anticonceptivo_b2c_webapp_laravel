@@ -190,26 +190,10 @@ const Shop = ({match}) => {
                     loading ?
                         <div className="row pb-5 mb-5">
                             <div className="col-md-3">
-                                <div className='mb-3 d-block d-sm-none' onClick={() => showFilter()}>
+                                <div className='mb-3 d-block d-sm-none'>
                                     {/*<button className="btn btn-outline-bicolor w-50 px-1" onClick={() => handleAddToCart()}>*/}
                                      
                                     {/*</button>*/}
-                                </div>
-                                {/*filtro responsivo*/}
-                                <div className="d-block d-sm-none" style={{marginTop: '40px'}}>
-                                    { showFilterResponsive ?
-                                        <Filter
-                                            isPills={isPills}
-                                            laboratories={laboratories}
-                                            subcategories={subcategories}
-                                            subscriptions={subscriptions}
-                                            formats={formats}
-                                            filters={filters}
-                                            setFilters={setFilters}
-                                            filtersUpdate={filtersUpdate}
-                                            setFiltersUpdate={setFiltersUpdate}
-                                        /> : null
-                                    }
                                 </div>
                                 <div className="d-none d-md-block d-md-block">
                                     <Filter
