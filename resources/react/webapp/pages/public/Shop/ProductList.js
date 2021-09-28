@@ -35,6 +35,11 @@ const ProductList = ({
             </div>
             <div className="col-12 pb-3">
                 <div className="row">
+                    <div className="font-poppins font-12 semi-bold color-033F5D my-auto float-right">Filtros</div>
+                </div>
+            </div>
+            <div className="col-12 pb-3">
+                <div className="row">
                     <div className="col-6 d-flex" style={{height: '29px'}}>
                         <div className="font-poppins font-15 light text-black my-auto">{subcatNames ? subcatNames : (search == null ? category.name : search)} <span
                             className="color-D8D8D8">({products.length ? products.length : 0 })</span></div>
