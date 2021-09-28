@@ -13,7 +13,7 @@ const FooterBottom = () => {
                         </div>
                     </div>
                     <div className="col-md-4 bottom-to-flex">
-                        <div className="my-auto">
+                        <div className="my-auto font-12">
                             Autorizado por ISP: Res. Ex. 4003 del 31.08.2021
                         </div>
                     </div>
