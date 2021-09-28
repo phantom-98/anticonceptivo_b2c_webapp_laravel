@@ -61,7 +61,7 @@ class ContactController extends Controller
                 'contact_message.required' => 'El campo Mensaje es requerido.',
                 'contact_subject_parent.required' => 'El campo Asunto es requerido.',
 
-                'contact_email.email' => 'Ingresar correo electronico valido.',
+                'contact_email.email' => 'Ingresar correo electronico válido.',
                 'contact_order_id.integer' => 'Ingresar solo ingresar valores númericos.',
                 'contact_accept_terms.ends_with' => 'Debe aceptar nuestros Términos y condiciones y Políticas de privacidad.',
                 // 'contact_issue_id.required' => 'Debe seleccionar un xd',

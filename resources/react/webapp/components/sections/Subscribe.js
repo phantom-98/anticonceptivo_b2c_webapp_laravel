@@ -28,7 +28,7 @@ const Subscribe = () => {
                 setData(defaultData);
             },
                 validate: () => {
-                    toastr.error('Ingrese un email valido');
+                    toastr.error('Ingrese un email válido');
                 }
             });
         }).catch(error => {

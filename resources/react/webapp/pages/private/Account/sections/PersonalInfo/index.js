@@ -149,7 +149,7 @@ const PersonalInfo = () => {
 
     const updateData = () => {
         if (rutFlag) {
-            toastr.warning('El formato del rut es invalido.','Perfil no actualizado.');
+            toastr.warning('El formato del rut es incorrecto.','Perfil no actualizado.');
         }else{
             let url = Services.ENDPOINT.CUSTOMER.PROFILE.UPDATE;
 

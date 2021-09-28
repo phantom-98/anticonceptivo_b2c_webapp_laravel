@@ -72,7 +72,7 @@ const Register = () => {
 
     const save = () => {
         if (rutFlag) {
-        toastr.warning('El formato del rut es invalido.','Perfil no actualizado.');
+        toastr.warning('El formato del rut es incorrecto.','Perfil no actualizado.');
         } else {
             let url = Services.ENDPOINT.AUTH.REGISTER;
             let formData = data;

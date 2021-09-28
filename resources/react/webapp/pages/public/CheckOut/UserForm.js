@@ -165,7 +165,7 @@ const UserForm = ({setView, data, setData, setFiles, files, editable, setProduct
 
     const validateData = () => {
         if (rutFlag) {
-            toastr.warning('El formato del rut es invalido.','Perfil no actualizado.');
+            toastr.warning('El formato del rut es incorrecto.','Perfil no actualizado.');
         }else{
             let url = Services.ENDPOINT.NO_AUTH.CHECKOUT.VALIDATE_STEPS;
 
