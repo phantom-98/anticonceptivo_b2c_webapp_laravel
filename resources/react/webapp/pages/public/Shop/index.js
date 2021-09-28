@@ -174,6 +174,8 @@ const Shop = ({match}) => {
         },
     ];
     const showFilter = () => {
+        document.body.scrollTop = 0; // For Safari
+        document.documentElement.scrollTop = 0;
         if(showFilterResponsive){
             setShowFilterResponsive(false)
         }else{
@@ -194,6 +196,22 @@ const Shop = ({match}) => {
                                     {/*<button className="btn btn-outline-bicolor w-50 px-1" onClick={() => handleAddToCart()}>*/}
                                      
                                     {/*</button>*/}
+                                </div>
+                                {/*filtro responsivo*/}
+                                <div className="d-block d-sm-none" style={{marginTop: '40px'}}>
+                                    { showFilterResponsive ?
+                                        <Filter
+                                            isPills={isPills}
+                                            laboratories={laboratories}
+                                            subcategories={subcategories}
+                                            subscriptions={subscriptions}
+                                            formats={formats}
+                                            filters={filters}
+                                            setFilters={setFilters}
+                                            filtersUpdate={filtersUpdate}
+                                            setFiltersUpdate={setFiltersUpdate}
+                                        /> : null
+                                    }
                                 </div>
                                 <div className="d-none d-md-block d-md-block">
                                     <Filter
