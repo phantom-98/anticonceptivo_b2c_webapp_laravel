@@ -22,7 +22,7 @@ const ProductList = ({
         <div className="row">
             { search == null ?
                 // <div className="col-12 pb-3">
-                <div className={category.banner_image_size +" pt-3"}>
+                <div className={category.banner_image_size}>
                     <img width="100%" src={category.public_banner_image} alt={CONFIG.APP_NAME}/>
                 </div>
                 : null
