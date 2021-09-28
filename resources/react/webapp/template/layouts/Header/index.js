@@ -120,7 +120,6 @@ const Header = () => {
                                             src={anticonceptivo}
                                             alt=""
                                             title="Anticonceptivo"
-                                            style={{height: '45px'}}
                                         />
                                     </Link>
                                 </div>
