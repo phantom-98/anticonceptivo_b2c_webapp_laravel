@@ -76,12 +76,12 @@
                                                 <div class="form-group">
                                                     <label for="size">Tamaño (*)</label>
                                                     <select id="size" name="size" class="form-control">
-                                                        <option value="col-md-3" {{ $slider->size == "col-md-3" ? 'selected': ''}}>25% de la pantalla (300x310)</option>
-                                                        <option value="col-md-4" {{ $slider->size == "col-md-4" ? 'selected': ''}}>33% de la pantalla (433x310)</option>
-                                                        <option value="col-md-6" {{ $slider->size == "col-md-6" ? 'selected': ''}}>50% de la pantalla (566x310)</option>
-                                                        <option value="col-md-8" {{ $slider->size == "col-md-8" ? 'selected': ''}}>75% de la pantalla (750x310)</option>
-                                                        <option value="col-md-9" {{ $slider->size == "col-md-9" ? 'selected': ''}}>80% de la pantalla (920x310)</option>
-                                                        <option value="col-md-12" {{ $slider->size == "col-md-12" ? 'selected': ''}}>100% de la pantalla (1100x310)</option>
+                                                        <option value="col-md-3" {{ $slider->size == "col-md-3" ? 'selected': ''}}>25% de la pantalla (433px de Ancho)</option>
+                                                        <option value="col-md-4" {{ $slider->size == "col-md-4" ? 'selected': ''}}>33% de la pantalla (566px de Ancho)</option>
+                                                        <option value="col-md-6" {{ $slider->size == "col-md-6" ? 'selected': ''}}>50% de la pantalla (750px de Ancho)</option>
+                                                        <option value="col-md-8" {{ $slider->size == "col-md-8" ? 'selected': ''}}>75% de la pantalla (1080px de Ancho)</option>
+                                                        <option value="col-md-9" {{ $slider->size == "col-md-9" ? 'selected': ''}}>80% de la pantalla (1520px de Ancho)</option>
+                                                        <option value="col-md-12" {{ $slider->size == "col-md-12" ? 'selected': ''}}>100% de la pantalla (1900x512)</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -181,12 +181,12 @@
                                 <label for="size">Tamaño (*)</label>
                                 <select id="size" name="size" class="form-control">
                                     <option value="">Seleccione un tamaño</option>
-                                    <option value="col-md-3">25% de la pantalla (300x310)</option>
-                                    <option value="col-md-4">33% de la pantalla (433x310)</option>
-                                    <option value="col-md-6">50% de la pantalla (566x310)</option>
-                                    <option value="col-md-8">75% de la pantalla (750x310)</option>
-                                    <option value="col-md-9">80% de la pantalla (920x310)</option>
-                                    <option value="col-md-12">100% de la pantalla (1100x310)</option>
+                                    <option value="col-md-3">25% de la pantalla (433px de Ancho)</option>
+                                    <option value="col-md-4">33% de la pantalla (566px de Ancho)</option>
+                                    <option value="col-md-6">50% de la pantalla (750px de Ancho)</option>
+                                    <option value="col-md-8">75% de la pantalla (1080px de Ancho)</option>
+                                    <option value="col-md-9">80% de la pantalla (1520px de Ancho)</option>
+                                    <option value="col-md-12">100% de la pantalla (1900x512)</option>
                                 </select>
                             </div>
                         </div>
