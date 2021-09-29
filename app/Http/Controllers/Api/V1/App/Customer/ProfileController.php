@@ -341,7 +341,7 @@ class ProfileController extends Controller
             })
                 ->select('order_parent_id','name',
                     DB::raw('TIMESTAMPDIFF(DAY, NOW(), DATE_ADD(max(pay_date),INTERVAL max(days)+4 DAY)) AS days'),
-                DB::raw('DATE_ADD(max(pay_date),INTERVAL max(days) DAY)  as max_date'))
+                DB::raw('DATE_FORMAT(DATE_ADD(max(pay_date),INTERVAL max(days) DAY),"%d de %M %Y")  as max_date'))
                 ->groupBy('name','order_parent_id')
                 ->get();
 

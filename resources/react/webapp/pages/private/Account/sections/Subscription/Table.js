@@ -50,6 +50,22 @@ const Table = ({
     }, []);
 
 
+    const changeMonthToSpanish= (dateString) =>{
+        dateString = p.replace('January', 'Enero')
+        dateString = p.replace('February', 'Enero')
+        dateString = p.replace('March', 'Febrero')
+        dateString = p.replace('April', 'Abril')
+        dateString = p.replace('May', 'Mayo')
+        dateString = p.replace('June', 'Junio')
+        dateString = p.replace('July', 'Julio')
+        dateString = p.replace('August', 'Agosto')
+        dateString = p.replace('September', 'Septiembre')
+        dateString = p.replace('October', 'Octubre')
+        dateString = p.replace('November', 'Noviembre')
+        dateString = p.replace('December', 'Diciembre')
+        return dateString;
+    }
+
     const getActiveSubscriptions = () => {
         let url =
             Services.ENDPOINT.CUSTOMER.SUBSCRIPTIONS
@@ -739,7 +755,9 @@ const Table = ({
                     return item.days >0 ? (
 
                         <p>
-                            #{item.order_parent_id} {item.name}  Le quedan  {item.days} días de protección
+                            {/*#{item.order_parent_id} {item.name}  Le quedan  {item.days} días de protección*/}
+                            #{item.order_parent_id} {item.name} le quedan  {item.days} días o hasta el {item.max_date} de proteccion
+
                         </p>
                     ) : null
 

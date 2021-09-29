@@ -73,7 +73,7 @@ class CallIntegrationsPay extends CoreHelper
 
             try {
                 foreach ($response['inventoryItems'] as $key => $inventory) {
-                    if($inventory['facilityName'] == 'Local 1'){
+                    if($inventory['facilityName'] == 'Web'){
                         $product->stock = intval($inventory['quantity']);
                     }
                 }

@@ -195,7 +195,7 @@ class TestController extends Controller
         $response = json_decode($get_data, true);
         try {
             foreach ($response['inventoryItems'] as $key => $inventory) {
-                if($inventory['facilityName'] == 'Local 1'){
+                if($inventory['facilityName'] == 'Web'){
                     $product->stock = intval($inventory['quantity']);
                 }
             }

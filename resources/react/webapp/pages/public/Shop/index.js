@@ -174,8 +174,8 @@ const Shop = ({match}) => {
         },
     ];
     const showFilter = () => {
-        document.body.scrollTop = 0; // For Safari
-        document.documentElement.scrollTop = 0;
+        // document.body.scrollTop = 0; // For Safari
+        // document.documentElement.scrollTop = 0;
         if(showFilterResponsive){
             setShowFilterResponsive(false)
         }else{
@@ -194,25 +194,11 @@ const Shop = ({match}) => {
                             <div className="col-md-3">
                                 <div className='mb-3 d-block d-sm-none'>
                                     {/*<button className="btn btn-outline-bicolor w-50 px-1" onClick={() => handleAddToCart()}>*/}
-                                     
+
                                     {/*</button>*/}
                                 </div>
-                                {/*filtro responsivo*/}
-                                <div className="d-block d-sm-none" style={{marginTop: '40px'}}>
-                                    { showFilterResponsive ?
-                                        <Filter
-                                            isPills={isPills}
-                                            laboratories={laboratories}
-                                            subcategories={subcategories}
-                                            subscriptions={subscriptions}
-                                            formats={formats}
-                                            filters={filters}
-                                            setFilters={setFilters}
-                                            filtersUpdate={filtersUpdate}
-                                            setFiltersUpdate={setFiltersUpdate}
-                                        /> : null
-                                    }
-                                </div>
+
+
                                 <div className="d-none d-md-block d-md-block">
                                     <Filter
                                         isPills={isPills}
@@ -232,6 +218,22 @@ const Shop = ({match}) => {
                                     category={category}
                                     products={products}
                                     subcatNames={subcatNames}
+                                    filter={                                <div className="d-block d-sm-none" style={{marginTop: '10px'}}>
+                                        { showFilterResponsive ?
+                                            <Filter
+                                                isPills={isPills}
+                                                laboratories={laboratories}
+                                                subcategories={subcategories}
+                                                subscriptions={subscriptions}
+                                                formats={formats}
+                                                filters={filters}
+                                                setFilters={setFilters}
+                                                filtersUpdate={filtersUpdate}
+                                                setFiltersUpdate={setFiltersUpdate}
+                                            /> : null
+                                        }
+                                    </div>}
+                                    showFilter={showFilter}
                                 />
                             </div>
                         </div>

@@ -89,7 +89,7 @@ const HeaderNavbar = () => {
                                 let url = PUBLIC_ROUTES.SHOP.path;
                                 url = url.replace(":category", category.slug);
                                 console.log(index)
-                                if (size.width <= 1060 && index <= 3) {
+                                if (size.width <= 1351 && index <= 3) {
                                     return (
 
                                         <Dropdown key={category.categoryId}
@@ -152,7 +152,7 @@ const HeaderNavbar = () => {
                                         </Dropdown>
 
                                     )
-                                }else if(size.width > 1060){
+                                }else if(size.width > 1351){
                                     return (
 
                                         <Dropdown key={category.categoryId}
@@ -229,7 +229,7 @@ const HeaderNavbar = () => {
                                 let url = PUBLIC_ROUTES.SHOP.path;
                                 url = url.replace(":category", category.slug);
                                 console.log(index)
-                                if (size.width <= 1060 && index > 3) {
+                                if (size.width <= 1351 && index > 3) {
                                     return (
 
                                         <Dropdown key={category.categoryId}

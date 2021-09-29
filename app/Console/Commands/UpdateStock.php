@@ -6,6 +6,7 @@ use App\Http\Helpers\ApiHelper;
 use Illuminate\Console\Command;
 use Carbon\Carbon;
 use App\Models\Product;
+use Illuminate\Support\Facades\Log;
 
 class UpdateStock extends Command
 {
@@ -40,27 +41,36 @@ class UpdateStock extends Command
      */
     public function handle()
     {
+        try {
+            $products = Product::where('active',1)->get();
 
-        $products = Product::where('active',1)->get();
+            foreach ($products as $key => $product) {
+                $get_data = ApiHelper::callAPI('GET', 'https://api.ailoo.cl/v1/inventory/barCode/'.$product->barcode, null, 'ailoo');
+                $response = json_decode($get_data, true);
 
-        foreach ($products as $key => $product) {
-            $get_data = ApiHelper::callAPI('GET', 'https://api.ailoo.cl/v1/inventory/barCode/'.$product->barcode, null, 'ailoo');
-            $response = json_decode($get_data, true);
+                try {
+                    foreach ($response['inventoryItems'] as $key => $inventory) {
+                        if($inventory['facilityName'] == 'Web'){
+                            $product->stock = $inventory['quantity'];
+                            $product->product_item_id_ailoo = $inventory['productItemId'];
 
-            try {
-                foreach ($response['inventoryItems'] as $key => $inventory) {
-                    if($inventory['facilityName'] == 'Local 1'){
-                        $product->stock = $inventory['quantity'];
-                        $product->product_item_id_ailoo = $inventory['productItemId'];
-
+                        }
                     }
+                } catch (\Throwable $th) {
+                    $product->stock = 0;
                 }
-            } catch (\Throwable $th) {
-                $product->stock = 0;
+                $product->save();
             }
-            $product->save();
+
+            Log::info('Stock actualizados correctamente');
+        } catch (\Exception $e){
+
+            Log::info('Error catch updateStock',
+                [
+                    "response" => $e->getMessage()
+                ]);
         }
 
-        $this->info('Stock actualizados correctamente');
+
     }
 }

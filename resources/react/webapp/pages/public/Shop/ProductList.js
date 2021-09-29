@@ -7,6 +7,8 @@ const ProductList = ({
     category,
     products,
     subcatNames,
+    filter,
+                         showFilter,
     search = null
 }) => {
 
@@ -38,6 +40,10 @@ const ProductList = ({
                     <div className="col-12 float-right" onClick={() => showFilter()}>
                         <div className="font-poppins font-12 semi-bold color-033F5D my-auto float-right">Filtros</div>
                     </div>
+                    <div className="col-12">
+                    {filter}
+                    </div>
+
                 </div>
             </div>
             <div className="col-12 pb-3">

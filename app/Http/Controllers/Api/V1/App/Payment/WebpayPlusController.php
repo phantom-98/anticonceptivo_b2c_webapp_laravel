@@ -67,7 +67,7 @@ class WebpayPlusController
                 $subscription->customer_id = $request->customer_id;
                 $subscription->token_inscription = $response['response']->token;
                 $subscription->save();
-                
+
                 Log::info('OneClickCancel',
                 [
                     "response" => $response['response'],
@@ -282,7 +282,7 @@ class WebpayPlusController
                     ]);
 
                     if($response['status'] == "success"){
-            
+
                         if ($response['response']->details[0]->status != 'AUTHORIZED') {
                             $order->is_paid = 0;
                             $order->status = PaymentStatus::REJECTED;
@@ -290,7 +290,7 @@ class WebpayPlusController
                             $order->save();
                             return ApiResponse::JsonError([], 'Pago Rechazado');
                         }
-            
+
                         $ordersItems = OrderItem::where('order_id',$order->id)->get();
 
                         foreach ($ordersItems as $elementOrderItem) {
@@ -360,7 +360,7 @@ class WebpayPlusController
             return ApiResponse::JsonError([], 'Error Inesperado');
         }
 
-           
+
 
 
     }
@@ -383,7 +383,7 @@ class WebpayPlusController
             $response = json_decode($get_data, true);
             if($response != null && array_key_exists('inventoryItems',$response)){
                 foreach ($response['inventoryItems'] as $key => $inventory) {
-                    if($inventory['facilityName'] == 'Local 1'){
+                    if($inventory['facilityName'] == 'Web'){
                         $product->stock = intval($inventory['quantity']);
                         $product->save();
                     }

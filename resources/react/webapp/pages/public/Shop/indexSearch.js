@@ -18,6 +18,7 @@ const ShopSearch = ({match}) => {
     const [laboratories, setLaboratories] = useState([]);
     const [subscriptions, setSubscriptions] = useState([]);
     const [formats, setFormats] = useState([]);
+    const [showFilterResponsive, setShowFilterResponsive] = useState(false);
 
     const [loading, setLoading] = useState(false);
     const [isPills, setIsPills] = useState(false);
@@ -46,6 +47,16 @@ const ShopSearch = ({match}) => {
             getProductsFiltered();
         }
     },[filtersUpdate])
+
+    const showFilter = () => {
+        // document.body.scrollTop = 0; // For Safari
+        // document.documentElement.scrollTop = 0;
+        if(showFilterResponsive){
+            setShowFilterResponsive(false)
+        }else{
+            setShowFilterResponsive(true)
+        }
+    }
 
     const getProducts = (_search) => {
         let url = Services.ENDPOINT.PUBLIC_AREA.SHOP.PRODUCTS.SEARCH;
@@ -145,23 +156,41 @@ const ShopSearch = ({match}) => {
                     loading ?
                         <div className="row pb-5 mb-5">
                             <div className="col-md-3">
-                                <Filter
-                                    isPills={isPills}
-                                    laboratories={laboratories}
-                                    subcategories={subcategories}
-                                    subscriptions={subscriptions}
-                                    formats={formats}
-                                    filters={filters}
-                                    setFilters={setFilters}
-                                    filtersUpdate={filtersUpdate}
-                                    setFiltersUpdate={setFiltersUpdate}
-                                />
+                                <div className="d-none d-md-block d-md-block">
+                                    <Filter
+                                        isPills={isPills}
+                                        laboratories={laboratories}
+                                        subcategories={subcategories}
+                                        subscriptions={subscriptions}
+                                        formats={formats}
+                                        filters={filters}
+                                        setFilters={setFilters}
+                                        filtersUpdate={filtersUpdate}
+                                        setFiltersUpdate={setFiltersUpdate}
+                                    />
+                                </div>
                             </div>
                             <div className="col-md-9">
                                 <ProductList
                                     category={category}
                                     products={products}
                                     subcatNames={subcatNames}
+                                    filter={                                <div className="d-block d-sm-none" style={{marginTop: '10px'}}>
+                                        { showFilterResponsive ?
+                                            <Filter
+                                                isPills={isPills}
+                                                laboratories={laboratories}
+                                                subcategories={subcategories}
+                                                subscriptions={subscriptions}
+                                                formats={formats}
+                                                filters={filters}
+                                                setFilters={setFilters}
+                                                filtersUpdate={filtersUpdate}
+                                                setFiltersUpdate={setFiltersUpdate}
+                                            /> : null
+                                        }
+                                    </div>}
+                                    showFilter={showFilter}
                                     search={match.params.search}
 
                                 />
