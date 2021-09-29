@@ -86,7 +86,11 @@ class DashboardController extends Controller
                 ->whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED']);
             })->sum('quantity');
 
-            $count = round($products / $total * 100);
+            if($products > 0 && $total > 0){
+                $count = round($products / $total * 100);
+            } else {
+                $count = 0;
+            }
             array_push($array_percentage, $count);
             array_push($array_count, $products);
         }
@@ -120,7 +124,11 @@ class DashboardController extends Controller
                 ->whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED']);
             })->sum('quantity');
 
-            $count = round($products / $total * 100);
+            if($products > 0 && $total > 0){
+                $count = round($products / $total * 100);
+            } else {
+                $count = 0;
+            }
             array_push($array_percentage, $count);
             array_push($array_count, $products);
         }
@@ -159,7 +167,11 @@ class DashboardController extends Controller
                     ->whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED']);
                 })->sum('quantity');
 
-                $count = round($products / $total * 100);
+                if($products > 0 && $total > 0){
+                    $count = round($products / $total * 100);
+                } else {
+                    $count = 0;
+                }
                 array_push($array_percentage, $count);
                 array_push($array_count, $products);
 
@@ -240,7 +252,11 @@ class DashboardController extends Controller
                 ->whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED']);
             })->sum('quantity');
 
-            $count = round($products / $total * 100);
+            if($products > 0 && $total > 0){
+                $count = round($products / $total * 100);
+            } else {
+                $count = 0;
+            }
             array_push($array_percentage, $count);
             array_push($array_count, $products);
         }
@@ -283,7 +299,11 @@ class DashboardController extends Controller
                 ->whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED']);
             })->sum('quantity');
 
-            $count = round($products / $total * 100);
+            if($products > 0 && $total > 0){
+                $count = round($products / $total * 100);
+            } else {
+                $count = 0;
+            }
             array_push($array_percentage, $count);
             array_push($array_count, $products);
         }
