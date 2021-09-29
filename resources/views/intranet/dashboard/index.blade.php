@@ -717,7 +717,8 @@
             options: {
                 responsive: true,
                 scales: {
-                    xAxes: [{display: true, stacked:false, begitAtZero: true}],
+                    xAxes: [{display: true, stacked:false, ticks: {
+                beginAtZero: true}}],
                     yAxes: [{
                         beginAtZero: true,
                         type:'linear',
@@ -805,7 +806,8 @@
             options: {
                 responsive: true,
                 scales: {
-                    xAxes: [{display: true, stacked:false, begitAtZero: true}],
+                    xAxes: [{display: true, stacked:false, ticks: {
+                beginAtZero: true}}],
                     yAxes: [{
                         beginAtZero: true,
                         type:'linear',
@@ -893,7 +895,8 @@
             options: {
                 responsive: true,
                 scales: {
-                    xAxes: [{display: true, stacked:false, begitAtZero: true}],
+                    xAxes: [{display: true, stacked:false, ticks: {
+                beginAtZero: true}}],
                     yAxes: [{
                         beginAtZero: true,
                         type:'linear',
@@ -981,7 +984,8 @@
             options: {
                 responsive: true,
                 scales: {
-                    xAxes: [{display: true, stacked:false, begitAtZero: true}],
+                    xAxes: [{display: true, stacked:false, ticks: {
+                beginAtZero: true,}],
                     yAxes: [{
                         beginAtZero: true,
                         type:'linear',
@@ -1069,7 +1073,8 @@
             options: {
                 responsive: true,
                 scales: {
-                    xAxes: [{display: true, stacked:false, begitAtZero: true}],
+                    xAxes: [{display: true, stacked:false, ticks: {
+                beginAtZero: true}}],
                     yAxes: [{
                         beginAtZero: true,
                         type:'linear',
