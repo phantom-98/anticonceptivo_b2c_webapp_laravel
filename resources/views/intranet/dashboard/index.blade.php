@@ -717,11 +717,15 @@
             options: {
                 responsive: true,
                 scales: {
-                    xAxes: [{display: true, stacked:false, ticks: {
-                beginAtZero: true}}],
+                    xAxes: [
+                        {display: true, stacked:false,ticks: {
+                            beginAtZero: true
+                        }},
+                    ]
                     yAxes: [{
                         ticks: {
-                beginAtZero: true},
+                            beginAtZero: true
+                        },
                         type:'linear',
                         id:'left-axis',
                         display: true,
@@ -741,11 +745,10 @@
                         display: true,
                         position: 'right',
                         ticks: {
-                beginAtZero: true},
+                            beginAtZero: true
+                        },
                         scaleLabel: {display: true, labelString: '%'},
                         gridLines: {drawOnChartArea:false},
-                        ticks: {
-                beginAtZero: true},
                         userCallback: function (label, index, labels) {
                             // when the floored value is the same as the value we have a whole number
                             if (Math.floor(label) === label) {
@@ -809,11 +812,15 @@
             options: {
                 responsive: true,
                 scales: {
-                    xAxes: [{display: true, stacked:false, ticks: {
-                beginAtZero: true}}],
+                    xAxes: [
+                        {display: true, stacked:false,ticks: {
+                            beginAtZero: true
+                        }},
+                    ]
                     yAxes: [{
                         ticks: {
-                beginAtZero: true},
+                            beginAtZero: true
+                        },
                         type:'linear',
                         id:'left-axis',
                         display: true,
@@ -833,11 +840,10 @@
                         display: true,
                         position: 'right',
                         ticks: {
-                beginAtZero: true},
+                            beginAtZero: true
+                        },
                         scaleLabel: {display: true, labelString: '%'},
                         gridLines: {drawOnChartArea:false},
-                        ticks: {
-                beginAtZero: true},
                         userCallback: function (label, index, labels) {
                             // when the floored value is the same as the value we have a whole number
                             if (Math.floor(label) === label) {
@@ -901,11 +907,15 @@
             options: {
                 responsive: true,
                 scales: {
-                    xAxes: [{display: true, stacked:false, ticks: {
-                beginAtZero: true}}],
+                    xAxes: [
+                        {display: true, stacked:false,ticks: {
+                            beginAtZero: true
+                        }},
+                    ]
                     yAxes: [{
                         ticks: {
-                beginAtZero: true},
+                            beginAtZero: true
+                        },
                         type:'linear',
                         id:'left-axis',
                         display: true,
@@ -925,11 +935,10 @@
                         display: true,
                         position: 'right',
                         ticks: {
-                beginAtZero: true},
+                            beginAtZero: true
+                        },
                         scaleLabel: {display: true, labelString: '%'},
                         gridLines: {drawOnChartArea:false},
-                        ticks: {
-                beginAtZero: true},
                         userCallback: function (label, index, labels) {
                             // when the floored value is the same as the value we have a whole number
                             if (Math.floor(label) === label) {
@@ -993,12 +1002,15 @@
             options: {
                 responsive: true,
                 scales: {
-                    xAxes: [{display: true, stacked:false, ticks: {
-                ticks: {
-                    beginAtZero: true}}],
+                    xAxes: [
+                        {display: true, stacked:false,ticks: {
+                            beginAtZero: true
+                        }},
+                    ]
                     yAxes: [{
                         ticks: {
-                beginAtZero: true},
+                            beginAtZero: true
+                        },
                         type:'linear',
                         id:'left-axis',
                         display: true,
@@ -1018,11 +1030,10 @@
                         display: true,
                         position: 'right',
                         ticks: {
-                beginAtZero: true},
+                            beginAtZero: true
+                        },
                         scaleLabel: {display: true, labelString: '%'},
                         gridLines: {drawOnChartArea:false},
-                        ticks: {
-                beginAtZero: true},
                         userCallback: function (label, index, labels) {
                             // when the floored value is the same as the value we have a whole number
                             if (Math.floor(label) === label) {
@@ -1086,11 +1097,15 @@
             options: {
                 responsive: true,
                 scales: {
-                    xAxes: [{display: true, stacked:false, ticks: {
-                beginAtZero: true}}],
+                    xAxes: [
+                        {display: true, stacked:false,ticks: {
+                            beginAtZero: true
+                        }},
+                    ]
                     yAxes: [{
                         ticks: {
-                beginAtZero: true},
+                            beginAtZero: true
+                        },
                         type:'linear',
                         id:'left-axis',
                         display: true,
@@ -1110,11 +1125,10 @@
                         display: true,
                         position: 'right',
                         ticks: {
-                beginAtZero: true},
+                            beginAtZero: true
+                        },
                         scaleLabel: {display: true, labelString: '%'},
                         gridLines: {drawOnChartArea:false},
-                        ticks: {
-                beginAtZero: true},
                         userCallback: function (label, index, labels) {
                             // when the floored value is the same as the value we have a whole number
                             if (Math.floor(label) === label) {
