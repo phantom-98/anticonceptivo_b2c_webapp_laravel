@@ -360,14 +360,14 @@
                                 <div class="form-group">
                                     <label for="price">Precio unitario</label>
                                     <input type="text" name="price_plan[{{$loop->iteration}}][]" class="form-control price" value="{{ $plan->price }}"
-                                    oninput="checkKeyByClass('price')" >
+                                    oninput="checkKeyByClass(this)" >
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label for="price">Días</label>
                                     <input type="text" name="days[{{$loop->iteration}}][]" class="form-control days" value="{{ $plan->days }}"
-                                    oninput="checkKeyByClass('price')" >
+                                    oninput="checkKeyByClass(this)" >
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -399,14 +399,14 @@
                                 <div class="form-group">
                                     <label for="price">Precio unitario</label>
                                     <input type="text" name="price_plan[1][]" class="form-control price"
-                                    oninput="checkKeyByClass('price')" >
+                                    oninput="checkKeyByClass(this)" >
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label for="days">Días</label>
                                     <input type="number" name="days[1][]" min="7" class="form-control days"
-                                    oninput="checkKeyByClass('price')" >
+                                    oninput="checkKeyByClass(this)" >
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -565,10 +565,10 @@
             if (clean !== $('#' + name).val()) $('#' + name).val(clean);
         }
 
-        function checkKeyByClass(name){
-            var clean = $('.' + name).val().replace(/[^0-9]/g, "");
+        function checkKeyByClass(element){
+            var clean = $(element).val().replace(/[^0-9]/g, "");
             // don't move cursor to end if no change
-            if (clean !== $('.' + name).val()) $('.' + name).val(clean);
+            if (clean !== $(element).val()) $(element).val(clean);
         }
     </script>
 
