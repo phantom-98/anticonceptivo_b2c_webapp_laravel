@@ -60,7 +60,7 @@ const Footer = () => {
                                 alliances.map((alliance, index) => {
                                     return (
                                         <div className="mb-3" key={index*7777}>
-                                            <img style={{width: '150px'}} src={alliance.public_footer_image} alt={CONFIG.APP_NAME}/>
+                                            <img src={alliance.public_footer_image} alt={CONFIG.APP_NAME}/>
                                         </div>
                                     )
                                 })
