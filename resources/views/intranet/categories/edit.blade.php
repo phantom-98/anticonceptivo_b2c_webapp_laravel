@@ -61,7 +61,7 @@
                                         <option value="col-md-6" {{ $object->banner_image_size == "col-md-6" ? 'selected': ''}}>50% de la pantalla (750px de Ancho)</option>
                                         <option value="col-md-8" {{ $object->banner_image_size == "col-md-8" ? 'selected': ''}}>75% de la pantalla (1080px de Ancho)</option>
                                         <option value="col-md-9" {{ $object->banner_image_size == "col-md-9" ? 'selected': ''}}>80% de la pantalla (1520px de Ancho)</option>
-                                        <option value="col-md-12" {{ $object->banner_image_size == "col-md-12" ? 'selected': ''}}>100% de la pantalla (1900x535)</option>
+                                        <option value="col-md-12" {{ $object->banner_image_size == "col-md-12" ? 'selected': ''}}>100% de la pantalla (1900x490)</option>
                                     </select>
                                 </div>
                             </div>
@@ -75,7 +75,7 @@
                                         <option value="col-md-6" {{ $object->subbanner_image_size == "col-md-6" ? 'selected': ''}}>50% de la pantalla (750px de Ancho)</option>
                                         <option value="col-md-8" {{ $object->subbanner_image_size == "col-md-8" ? 'selected': ''}}>75% de la pantalla (1080px de Ancho)</option>
                                         <option value="col-md-9" {{ $object->subbanner_image_size == "col-md-9" ? 'selected': ''}}>80% de la pantalla (1520px de Ancho)</option>
-                                        <option value="col-md-12" {{ $object->subbanner_image_size == "col-md-12" ? 'selected': ''}}>100% de la pantalla (1900x535)</option>
+                                        <option value="col-md-12" {{ $object->subbanner_image_size == "col-md-12" ? 'selected': ''}}>100% de la pantalla (1900x490)</option>
                                     </select>
                                 </div>
                             </div>
