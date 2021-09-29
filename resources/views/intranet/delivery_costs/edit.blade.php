@@ -175,6 +175,12 @@
             // don't move cursor to end if no change
             if (clean !== $('#' + name).val()) $('#' + name).val(clean);
         }
+
+        function checkKeyByClass(name){
+            var clean = $('.' + name).val().replace(/[^0-9]/g, "");
+            // don't move cursor to end if no change
+            if (clean !== $('.' + name).val()) $('.' + name).val(clean);
+        }
     </script>
 
     <script>
