@@ -4,6 +4,7 @@ import List from "./List";
 import Form from "./Form";
 import {AuthContext} from "../../../../../context/AuthProvider";
 import * as Services from "../../../../../Services";
+import UseWindowDimensions from "../../../../../helpers/UseWindowDimensions";
 
 const Index = () => {
     const {auth} = useContext(AuthContext)
@@ -60,9 +61,10 @@ const Index = () => {
         setFormMode('create')
         setAddressSelected(null)
     }
+    const { height, width } = UseWindowDimensions();
 
     return (
-        <div className="row" style={{marginTop: '-50px'}}>
+        <div className="row" style={{marginTop: width<=980 ? '0px' :'-50px'}}>
             <H3Panel title="EDITAR DIRECCIONES"/>
             <div className="col-md-12 ">
                 <div className="panel-bordered px-4 pt-4 pb-5">

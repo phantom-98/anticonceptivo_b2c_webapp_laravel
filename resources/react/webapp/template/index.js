@@ -3,7 +3,8 @@ import React, {Fragment} from 'react';
 import {withRouter} from "react-router-dom";
 import Header from "./layouts/Header";
 import Footer from "./layouts/Footer";
-
+import { FloatingWhatsApp } from 'react-floating-whatsapp-button'
+import 'react-floating-whatsapp-button/dist/index.css'
 const BaseTemplate = (props) => {
 
     return (
@@ -14,6 +15,7 @@ const BaseTemplate = (props) => {
                 {
                     props.children
                 }
+                <FloatingWhatsApp  popupMessage={'¿En qué podemos ayudarte?'} autoOpenTimeout={9999999999999} phone={'+56975423779'} zIndex={999} />
             </div>
             <Footer/>
         </div>

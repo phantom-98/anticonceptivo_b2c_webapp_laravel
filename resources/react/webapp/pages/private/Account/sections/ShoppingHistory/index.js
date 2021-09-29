@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import H3Panel from "../../../../../components/general/H3Panel";
 import Table from "./Table";
 import Detail from "./Detail";
+import UseWindowDimensions from "../../../../../helpers/UseWindowDimensions";
 
 const Index = () => {
 
@@ -18,8 +19,10 @@ const Index = () => {
         setOrderSelected(order)
     }
 
+    const { height, width } = UseWindowDimensions();
+
     return (
-        <div className="row" style={{marginTop: '-50px'}}>
+        <div className="row" style={{marginTop: width<=980 ? '0px' :'-50px'}}>
             <H3Panel title="MIS COMPRAS"/>
             <div className="col-md-12">
                 {

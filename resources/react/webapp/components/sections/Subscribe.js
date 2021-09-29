@@ -63,7 +63,7 @@ const Subscribe = () => {
                                 <div className="input-group-append ">
                                     <button
                                         type="button"
-                                        className="btn btn-primary btn-bicolor" style={{height: '60px'}}
+                                        className="btn btn-primary btn-bicolor" style={{height: '60px', zIndex: '0'}}
                                         onClick={subscribe}
                                     >
                                         <span className="font-poppins subscribe-btn-font bold text-white px-3">Suscribirme</span>

@@ -51,18 +51,18 @@ const Table = ({
 
 
     const changeMonthToSpanish= (dateString) =>{
-        dateString = p.replace('January', 'Enero')
-        dateString = p.replace('February', 'Enero')
-        dateString = p.replace('March', 'Febrero')
-        dateString = p.replace('April', 'Abril')
-        dateString = p.replace('May', 'Mayo')
-        dateString = p.replace('June', 'Junio')
-        dateString = p.replace('July', 'Julio')
-        dateString = p.replace('August', 'Agosto')
-        dateString = p.replace('September', 'Septiembre')
-        dateString = p.replace('October', 'Octubre')
-        dateString = p.replace('November', 'Noviembre')
-        dateString = p.replace('December', 'Diciembre')
+        dateString = dateString.replace('January', 'Enero')
+        dateString = dateString.replace('February', 'Enero')
+        dateString = dateString.replace('March', 'Febrero')
+        dateString = dateString.replace('April', 'Abril')
+        dateString = dateString.replace('May', 'Mayo')
+        dateString = dateString.replace('June', 'Junio')
+        dateString = dateString.replace('July', 'Julio')
+        dateString = dateString.replace('August', 'Agosto')
+        dateString = dateString.replace('September', 'Septiembre')
+        dateString = dateString.replace('October', 'Octubre')
+        dateString = dateString.replace('November', 'Noviembre')
+        dateString = dateString.replace('December', 'Diciembre')
         return dateString;
     }
 
@@ -756,7 +756,7 @@ const Table = ({
 
                         <p>
                             {/*#{item.order_parent_id} {item.name}  Le quedan  {item.days} días de protección*/}
-                            #{item.order_parent_id} {item.name} le quedan  {item.days} días o hasta el {item.max_date} de proteccion
+                            #{item.order_parent_id} {item.name} le quedan  {item.days} días o hasta el {changeMonthToSpanish(item.max_date)} de proteccion
 
                         </p>
                     ) : null

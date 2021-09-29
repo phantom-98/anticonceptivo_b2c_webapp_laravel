@@ -7,6 +7,7 @@ import * as Services from "../../../../../Services";
 import RutValidator from "w2-rut-validator";
 import {setInputError, setCleanInputErrorById} from "../../../../../helpers/GlobalUtils";
 import toastr from "toastr";
+import UseWindowDimensions from "../../../../../helpers/UseWindowDimensions";
 
 const PersonalInfo = () => {
 
@@ -189,9 +190,10 @@ const PersonalInfo = () => {
             }
         }
     }
+    const { height, width } = UseWindowDimensions();
 
     return (
-        <div className="row" style={{marginTop: '-50px'}}>
+        <div className="row" style={{marginTop: width<=980 ? '0px' :'-50px'}}>
 
             <H3Panel title="EDITAR PERFIL"/>
 

@@ -7,6 +7,7 @@ import toastr from "toastr";
 import { v4 as uuidv4 } from "uuid";
 import DynamicField from "./DynamicField"
 import DynamicPath from "../../../../public/ContactUs/DynamicPath";
+import UseWindowDimensions from "../../../../../helpers/UseWindowDimensions";
 
 const CustomerService = () => {
 
@@ -30,6 +31,7 @@ const CustomerService = () => {
     const [contactIssues, setContactIssues] = useState([]);
     const [dynamicFields, setDynamicFields] = useState([]);
     const [description, setDescription] = useState('');
+    const { height, width } = UseWindowDimensions();
 
     const [nestedFields, setNestedFields] = useState([]);
     const [list, setList] = useState([]);
@@ -244,7 +246,7 @@ const CustomerService = () => {
     }
 
     return (
-        <div className="row" style={{marginTop: '-50px'}}>
+        <div className="row" style={{marginTop: width<=980 ? '0px' :'-50px'}}>
             <H3Panel title="SERVICIO AL CLIENTE"/>
             <div className="col-md-12">
                 <div className="row">
