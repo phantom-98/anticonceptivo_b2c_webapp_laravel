@@ -42,6 +42,8 @@ class UpdateStock extends Command
     public function handle()
     {
         try {
+            Log::info('Stock iniciado');
+
             $products = Product::where('active',1)->get();
 
             foreach ($products as $key => $product) {
