@@ -725,7 +725,7 @@
                                 beginAtZero: true
                             }
                         }
-                    ]
+                    ],
                     yAxes: [{
                         ticks: {
                             beginAtZero: true
@@ -824,7 +824,7 @@
                                 beginAtZero: true
                             }
                         }
-                    ]
+                    ],
                     yAxes: [{
                         ticks: {
                             beginAtZero: true
@@ -923,7 +923,7 @@
                                 beginAtZero: true
                             }
                         }
-                    ]
+                    ],
                     yAxes: [{
                         ticks: {
                             beginAtZero: true
@@ -1022,7 +1022,7 @@
                                 beginAtZero: true
                             }
                         }
-                    ]
+                    ],
                     yAxes: [{
                         ticks: {
                             beginAtZero: true
@@ -1121,7 +1121,7 @@
                                 beginAtZero: true
                             }
                         }
-                    ]
+                    ],
                     yAxes: [{
                         ticks: {
                             beginAtZero: true
