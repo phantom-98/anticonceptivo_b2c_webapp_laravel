@@ -13,7 +13,10 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        Commands\PaySubscriptions::class,
+        Commands\UpdateStateDispatch::class,
+        Commands\UpdateStock::class,
+        Commands\VoucherPaymentDays::class,
     ];
 
     /**
