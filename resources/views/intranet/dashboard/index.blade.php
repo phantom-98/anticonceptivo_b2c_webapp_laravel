@@ -717,7 +717,7 @@
             options: {
                 responsive: true,
                 scales: {
-                    xAxes: [{display: true, stacked:false}],
+                    xAxes: [{display: true, stacked:false, begitAtZero: true}],
                     yAxes: [{
                         beginAtZero: true,
                         type:'linear',
@@ -805,7 +805,7 @@
             options: {
                 responsive: true,
                 scales: {
-                    xAxes: [{display: true, stacked:false}],
+                    xAxes: [{display: true, stacked:false, begitAtZero: true}],
                     yAxes: [{
                         beginAtZero: true,
                         type:'linear',
@@ -893,7 +893,7 @@
             options: {
                 responsive: true,
                 scales: {
-                    xAxes: [{display: true, stacked:false}],
+                    xAxes: [{display: true, stacked:false, begitAtZero: true}],
                     yAxes: [{
                         beginAtZero: true,
                         type:'linear',
@@ -981,7 +981,7 @@
             options: {
                 responsive: true,
                 scales: {
-                    xAxes: [{display: true, stacked:false}],
+                    xAxes: [{display: true, stacked:false, begitAtZero: true}],
                     yAxes: [{
                         beginAtZero: true,
                         type:'linear',
@@ -1069,7 +1069,7 @@
             options: {
                 responsive: true,
                 scales: {
-                    xAxes: [{display: true, stacked:false}],
+                    xAxes: [{display: true, stacked:false, begitAtZero: true}],
                     yAxes: [{
                         beginAtZero: true,
                         type:'linear',
