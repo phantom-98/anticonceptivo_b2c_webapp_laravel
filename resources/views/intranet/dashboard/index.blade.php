@@ -718,9 +718,13 @@
                 responsive: true,
                 scales: {
                     xAxes: [
-                        {display: true, stacked:false,ticks: {
-                            beginAtZero: true
-                        }},
+                        {
+                            display: true, 
+                            stacked:false,
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }
                     ]
                     yAxes: [{
                         ticks: {
@@ -813,9 +817,13 @@
                 responsive: true,
                 scales: {
                     xAxes: [
-                        {display: true, stacked:false,ticks: {
-                            beginAtZero: true
-                        }},
+                        {
+                            display: true, 
+                            stacked:false,
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }
                     ]
                     yAxes: [{
                         ticks: {
@@ -908,9 +916,13 @@
                 responsive: true,
                 scales: {
                     xAxes: [
-                        {display: true, stacked:false,ticks: {
-                            beginAtZero: true
-                        }},
+                        {
+                            display: true, 
+                            stacked:false,
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }
                     ]
                     yAxes: [{
                         ticks: {
@@ -1003,9 +1015,13 @@
                 responsive: true,
                 scales: {
                     xAxes: [
-                        {display: true, stacked:false,ticks: {
-                            beginAtZero: true
-                        }},
+                        {
+                            display: true, 
+                            stacked:false,
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }
                     ]
                     yAxes: [{
                         ticks: {
@@ -1098,9 +1114,13 @@
                 responsive: true,
                 scales: {
                     xAxes: [
-                        {display: true, stacked:false,ticks: {
-                            beginAtZero: true
-                        }},
+                        {
+                            display: true, 
+                            stacked:false,
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }
                     ]
                     yAxes: [{
                         ticks: {
