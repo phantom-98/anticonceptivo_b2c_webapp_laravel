@@ -41,7 +41,7 @@ class WebpayPlusController
     {
         if (env('APP_ENV') == 'production') {
             $this->webpay_plus = new WebpayPlus(env('TBK_CC'), env('TBK_API_KEY'), WebpayPlus::PRODUCTION);
-            $this->oneclick = new OneClickMall(env('TBK_CC'), env('TBK_API_KEY'), WebpayPlus::PRODUCTION);
+            $this->oneclick = new OneClickMall(env('TBK_CC_ONECLICK'), env('TBK_API_KEY_ONECLICK'), WebpayPlus::PRODUCTION);
 
         } else {
             $this->webpay_plus = new WebpayPlus();

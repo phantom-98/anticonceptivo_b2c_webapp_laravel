@@ -8,7 +8,7 @@ use App\Models\Order;
 use Illuminate\Console\Command;
 use App\Models\Subscription;
 use Carbon\Carbon;
-
+use Innovaweb\Transbank\WebpayPlus;
 use Innovaweb\Transbank\OneClickMall;
 use App\Http\Utils\Enum\PaymentStatus;
 use App\Http\Utils\Enum\PaymentType;
@@ -50,7 +50,7 @@ class PaySubscriptions extends Command
     public function __construct()
     {
         if (env('APP_ENV') == 'production') {
-            $this->oneclick = new OneClickMall(env('TBK_CC'), env('TBK_API_KEY'), WebpayPlus::PRODUCTION);
+            $this->oneclick = new OneClickMall(env('TBK_CC_ONECLICK'), env('TBK_API_KEY_ONECLICK'), WebpayPlus::PRODUCTION);
 
         } else {
             $this->oneclick = new OneClickMall();
