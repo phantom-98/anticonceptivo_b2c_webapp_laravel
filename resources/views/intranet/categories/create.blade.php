@@ -55,7 +55,7 @@
                                         <option value="col-md-6">50% de la pantalla (750px de Ancho)</option>
                                         <option value="col-md-8">75% de la pantalla (1080px de Ancho)</option>
                                         <option value="col-md-9">80% de la pantalla (1520px de Ancho)</option>
-                                        <option value="col-md-12">100% de la pantalla (1900x512)</option>
+                                        <option value="col-md-12">100% de la pantalla (1900x535)</option>
                                     </select>
                                 </div>
                             </div>
@@ -69,7 +69,7 @@
                                         <option value="col-md-6">50% de la pantalla (750px de Ancho)</option>
                                         <option value="col-md-8">75% de la pantalla (1080px de Ancho)</option>
                                         <option value="col-md-9">80% de la pantalla (1520px de Ancho)</option>
-                                        <option value="col-md-12">100% de la pantalla (1900x512)</option>
+                                        <option value="col-md-12">100% de la pantalla (1900x535)</option>
                                     </select>
                                 </div>
                             </div>
