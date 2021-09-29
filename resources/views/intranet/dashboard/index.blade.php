@@ -995,7 +995,7 @@
                 scales: {
                     xAxes: [{display: true, stacked:false, ticks: {
                 ticks: {
-                beginAtZero: true},}],
+                    beginAtZero: true}}],
                     yAxes: [{
                         ticks: {
                 beginAtZero: true},
