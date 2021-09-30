@@ -32,7 +32,7 @@ export default (state, action) => {
                 "positionClass": "toast-top-right",
                 "preventDuplicates": true,
                 "onclick": null,
-                "showDuration": "2000",
+                "showDuration": "4000",
                 "hideDuration": "1000",
                 "timeOut": "1000",
                 "extendedTimeOut": "1000",
