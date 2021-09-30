@@ -18,6 +18,8 @@ use App\Models\CustomerAddress;
 use App\Models\DiscountCode;
 use App\Models\SubscriptionsOrdersItem;
 use App\Models\SubscriptionPlan;
+use Illuminate\Support\Facades\Log;
+
 class VoucherPaymentDays extends Command
 {
     /**
@@ -51,105 +53,114 @@ class VoucherPaymentDays extends Command
      */
     public function handle()
     {
-        $datePayment = Carbon::now()->subDay();
+        try{
 
-        $orders = Order::where('status','PAID')->whereDate('created_at',$datePayment)
-        // ->with('subscriptions_orders_items.order_item','order_items')
-        ->get();
-        $details = [];
-        $total = 0;
+            $datePayment = Carbon::now();
 
-        $paymentCommission = PaymentCommission::whereDate('start_date','>=',$datePayment)->whereDate('end_date','<=',$datePayment)
-        ->where('active',1)
-        ->get()->first();
-        $countWhile = -1;
-        $signWhile = 1;
-        
-        while($paymentCommission == null || $countWhile > 99){
-            $paymentCommission = PaymentCommission::whereDate('start_date','>=',$datePayment->subDay($countWhile))
-            ->whereDate('end_date','<=',$datePayment->subDay($countWhile))
+            $orders = Order::where('status','PAID')->whereDate('created_at',$datePayment)
+            // ->with('subscriptions_orders_items.order_item','order_items')
+            ->get();
+            $details = [];
+            $total = 0;
+
+            $paymentCommission = PaymentCommission::whereDate('start_date','>=',$datePayment)->whereDate('end_date','<=',$datePayment)
             ->where('active',1)
             ->get()->first();
-            if($countWhile < 0 && $signWhile< 0){
-                $countWhile--;
+            $countWhile = -1;
+            $signWhile = 1;
+
+            while($paymentCommission == null || $countWhile > 99){
+                $paymentCommission = PaymentCommission::whereDate('start_date','>=',$datePayment->subDay($countWhile))
+                ->whereDate('end_date','<=',$datePayment->subDay($countWhile))
+                ->where('active',1)
+                ->get()->first();
+                if($countWhile < 0 && $signWhile< 0){
+                    $countWhile--;
+                }
+                $signWhile *= -1;
+                $countWhile *= $signWhile;
             }
-            $signWhile *= -1;
-            $countWhile *= $signWhile;
-        }
 
-        if($paymentCommission == null){
-            $this->info('No se encontro comision cercana a la fecha ' . $datePayment->format('d/m/Y'));
-            return;
-        }
-
-        $commission = $paymentCommission->commission;
-
-        foreach ($orders as $key => $order) {   
-
-            $detail = [
-                "netUnitValue"=> round($order->total * ($commission/100)),
-                "quantity"=> 1,
-                "comment"=> "Pedido número ".$order->id
-            ];
-            array_push($details, $detail);
-            $total += round($order->total * ($commission/100));
-
-        }
-
-        $subscriptions_orders_items = SubscriptionsOrdersItem::with('order_item.subscription_plan','order_item.product')
-        ->where('status','PAID')->whereDate('pay_date',$datePayment)
-        ->orderBy('order_id')->orderBy('pay_date')
-        ->get();
-       
-        $prev_order_id = null;
-        $prev_pay_date = null;
-
-        foreach ($subscriptions_orders_items as $key => $subscription_order_item) {
-            $order = Order::where('id',$subscription_order_item->order_id)
-            ->whereDate('created_at','>=',Carbon::parse( $subscription_order_item->pay_date)->subDay())->get()->first();
-            
-            if($order){
-                continue;
+            if($paymentCommission == null){
+                $this->info('No se encontro comision cercana a la fecha ' . $datePayment->format('d/m/Y'));
+                return;
             }
-            $productSubscriptionPlan = ProductSubscriptionPlan::where('subscription_plan_id',$subscription_order_item->order_item->subscription_plan->id)
-            ->where('product_id',$subscription_order_item->order_item->product->id)->get()->first();
 
-            $detail = [
-                "netUnitValue"=> round(($productSubscriptionPlan->price*$productSubscriptionPlan->quantity*$subscription_order_item->order_item->quantity) * ($commission/100)),
-                "quantity"=> 1,
-                "comment"=> "Suscripción del pedido número ".$subscription_order_item->$order->id . " "
-            ];
-            array_push($details, $detail);
-            $total += round($subscription_order_item->order_item->price * ($commission/100));
+            $commission = $paymentCommission->commission;
+
+            foreach ($orders as $key => $order) {
+
+                $detail = [
+                    "netUnitValue"=> round($order->total * ($commission/100)),
+                    "quantity"=> 1,
+                    "comment"=> "Pedido número ".$order->id
+                ];
+                array_push($details, $detail);
+                $total += round($order->total * ($commission/100));
+
+            }
+
+            $subscriptions_orders_items = SubscriptionsOrdersItem::with('order_item.subscription_plan','order_item.product')
+            ->where('status','PAID')->whereDate('pay_date',$datePayment)
+            ->orderBy('order_id')->orderBy('pay_date')
+            ->get();
+
+            $prev_order_id = null;
+            $prev_pay_date = null;
+
+            foreach ($subscriptions_orders_items as $key => $subscription_order_item) {
+                $order = Order::where('id',$subscription_order_item->order_id)
+                ->whereDate('created_at','>=',Carbon::parse( $subscription_order_item->pay_date)->subDay())->get()->first();
+
+                if($order){
+                    continue;
+                }
+                $productSubscriptionPlan = ProductSubscriptionPlan::where('subscription_plan_id',$subscription_order_item->order_item->subscription_plan->id)
+                ->where('product_id',$subscription_order_item->order_item->product->id)->get()->first();
+
+                $detail = [
+                    "netUnitValue"=> round(($productSubscriptionPlan->price*$productSubscriptionPlan->quantity*$subscription_order_item->order_item->quantity) * ($commission/100)),
+                    "quantity"=> 1,
+                    "comment"=> "Suscripción del pedido número ".$subscription_order_item->$order->id . " "
+                ];
+                array_push($details, $detail);
+                $total += round($subscription_order_item->order_item->price * ($commission/100));
+            }
+
+            $data_voucher = array(
+                "codeSii"=> 33,
+                "officeId"=> 2,
+                "emissionDate"=> Carbon::now()->timestamp,
+                "client"=> [
+                  "code"=> "76.736.577-2",
+                  "company"=> "ASOCIACIÓN DE FARMACÉUTICOS SPA",
+                  "activity"=> "Giro Informática",
+                  "municipality"=> "Ñuñoa",
+                  "city"=> "Santiago",
+                  "address"=> "General Gorostiaga Nº57",
+                //   "email"=> "api@bsale.cl"
+                ],
+                "details"=> $details,
+                "payments"=> array([
+                    "paymentTypeId"=> 4,
+                    "amount"=> $total
+                ])
+            );
+
+            $get_data = ApiHelper::callAPI('POST', 'https://api.bsale.cl/v1/documents.json', json_encode($data_voucher), true);
+            $response = json_decode($get_data, true);
+
+            $dayPayment = new DayPayment();
+            $dayPayment->url_pdf = $response['urlPdf'];
+            $dayPayment->total = $total;
+            $dayPayment->save();
+            $this->info('Pagos ejecutados correctamente');
+        } catch (\Exception $e){
+
+            Log::info('Error catch boleta Farmacia',
+                [
+                    "response" => $e->getMessage()
+                ]);
         }
-
-        $data_voucher = array(
-            "codeSii"=> 33,
-            "officeId"=> 2,
-            "emissionDate"=> Carbon::now()->timestamp,
-            "client"=> [ 
-              "code"=> "76.736.577-2",
-              "company"=> "ASOCIACIÓN DE FARMACÉUTICOS SPA",
-              "activity"=> "Giro Informática",
-              "municipality"=> "Ñuñoa",
-              "city"=> "Santiago",
-              "address"=> "General Gorostiaga Nº57",
-            //   "email"=> "api@bsale.cl"
-            ],
-            "details"=> $details,
-            "payments"=> array([
-                "paymentTypeId"=> 4,
-                "amount"=> $total
-            ])
-        );
-
-        $get_data = ApiHelper::callAPI('POST', 'https://api.bsale.cl/v1/documents.json', json_encode($data_voucher), true);
-        $response = json_decode($get_data, true);
-
-        $dayPayment = new DayPayment();
-        $dayPayment->url_pdf = $response['urlPdf'];
-        $dayPayment->total = $total;
-        $dayPayment->save();
-        $this->info('Pagos ejecutados correctamente');
     }
 }

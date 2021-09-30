@@ -147,15 +147,28 @@ class PaySubscriptions extends Command
         $order->delivery_date = $first_subcription_order_item->dispatch_date;
         $order->save();
 
-        $items = $array_subscription_order_items->map(function ($item) {
-            return array(
-                'productItemId' => $item->order_item->product->product_item_id_ailoo,
-                'price' =>  $item->price ,
-                'quantity' => $item->quantity,
+        $items = [];
+
+        foreach ($array_subscription_order_items as $elementOrderItem) {
+
+            $item = array(
+                'productItemId' => $elementOrderItem->product->product_item_id_ailoo,
+                'price' => $elementOrderItem->price,
+                'quantity' => $elementOrderItem->quantity,
                 "taxable"=> true,
                 "type"=> "PRODUCT"
             );
-        });
+            array_push($items,$item);
+        }
+
+        $item = array(
+            'productItemId' => 2376186,
+            'price' => $order->dispatch,
+            'quantity' => 1,
+            "taxable"=> true,
+            "type"=> "PRODUCT"
+        );
+
         $customer = $first_subcription_order_item->order->customer;
 
         $data = array(
