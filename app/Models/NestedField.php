@@ -38,6 +38,6 @@ class NestedField extends Model
 
     public function campaign()
     {
-        return $this->belongsTo(Campaign::class)->where('active', 1);
+        return $this->belongsTo(Campaign::class);
     }
 }
