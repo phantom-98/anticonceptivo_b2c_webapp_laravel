@@ -91,7 +91,7 @@ class WebpayPlusController
 
     public function createTransaction(Request $request)
     {
-        try {
+//        try {
             $order = new Order();
             $customerAddress = null;
 
@@ -257,6 +257,11 @@ class WebpayPlusController
             }
             $order->subtotal = $subtotal;
             $order->discount = $request->discount;
+
+            if($request->discountType == 1){
+                $order->discount = ($order->subtotal * $order->discount);
+            }
+
             $order->dispatch = $request->dispatch ?? 0;
 
             $order->total = $order->subtotal + $order->dispatch - $order->discount;
@@ -330,7 +335,6 @@ class WebpayPlusController
 
             }else{
                 // name('webpay-response') usar esta si se bloquea por verifyToken
-
                 $response = $this->webpay_plus->createTransaction(
                     $order->id,
                     'session-' . $order->id,
@@ -351,14 +355,14 @@ class WebpayPlusController
             }
 
             return ApiResponse::JsonError([], 'No ha podido conectar con webpay');
-        } catch (\Exception $ex) {
-            Log::info('ExceptionCreateTransaction',
-                [
-                    "message" => $ex->getMessage(),
-                ]);
-
-            return ApiResponse::JsonError([], 'Error Inesperado');
-        }
+//        } catch (\Exception $ex) {
+//            Log::info('ExceptionCreateTransaction',
+//                [
+//                    "message" => $ex->getMessage(),
+//                ]);
+//
+//            return ApiResponse::JsonError([], 'Error Inesperado');
+//        }
 
 
 

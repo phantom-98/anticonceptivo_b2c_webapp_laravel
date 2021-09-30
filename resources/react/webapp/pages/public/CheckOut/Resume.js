@@ -75,9 +75,11 @@ const Resume = ({
               response: response,
               success: () => {if (response.data.discount_type === 1) {
                   setDiscountType(1)
+
                   setDiscount(response.data.discount/100)
                 }else{
                   setDiscountType(0)
+
                   setDiscount(response.data.discount)
                 }
                 toastr.success(response.message);
@@ -213,6 +215,7 @@ const Resume = ({
                                     setOrderId={setOrderId}
                                     dispatch={dispatch}
                                     discount={discount}
+                                    discountType={discountType}
                                     total={total}
                                     subtotal={subtotal}
                                     discountCode={discountCode}
