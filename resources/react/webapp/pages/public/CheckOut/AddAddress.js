@@ -58,10 +58,12 @@ const AddAddress = ({setView, regions, address, setAddress}) => {
     }
 
     const handleAddress = (e) => {
-        setAddress({
-            ...address,
-            [e.target.name]: e.target.value
-        })
+        if (!e.target.value.match('[^A-Za-z0-9]+')) {
+            setAddress({
+                ...address,
+                [e.target.name]: e.target.value
+            })
+        }
     }
 
     const validateData = () => {
