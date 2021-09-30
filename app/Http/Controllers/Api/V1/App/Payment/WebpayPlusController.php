@@ -413,7 +413,6 @@ class WebpayPlusController
     public function response(Request $request)
     {
         if ($request->token_ws) {
-//            dd(1);
             $commit = $this->webpay_plus->commitTransaction($request->token_ws);
             $response = $commit['response'];
 
