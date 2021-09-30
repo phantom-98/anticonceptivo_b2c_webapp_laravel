@@ -35,6 +35,16 @@ class CallIntegrationsPay extends CoreHelper
             array_push($items,$item);
         }
 
+       $item = array(
+           'productItemId' => null,
+           'price' => $order->dispatch,
+           'quantity' => 1,
+           "taxable"=> true,
+           "type"=> "PRODUCT"
+       );
+
+       array_push($items,$item);
+
         $data = array(
             "client"=> [
                 "razonSocial"=> null,
