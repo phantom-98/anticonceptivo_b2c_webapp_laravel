@@ -26,7 +26,7 @@ class DashboardController extends Controller
 
     function index(Request $request)
     {   
-        $orderTotals = Order::where('is_paid', 1)->count();
+        $orderTotals = Order::whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED'])->count();
         
         $orderToday = Order::whereBetween('created_at', [Carbon::now()->startOfDay(), Carbon::now()->endOfDay()])->whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED'])->count();
         $orderThisWeek = Order::whereBetween('created_at', [Carbon::now()->startOfWeek()->toDateTimeString(), Carbon::now()])->whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED'])->count();
