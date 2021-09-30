@@ -17,7 +17,7 @@ class ContactIssue extends Model
 
     public function campaign()
     {
-        return $this->belongsTo(Campaign::class);
+        return $this->belongsTo(Campaign::class)->where('active', 1);
     }
 
     public function fields(){
