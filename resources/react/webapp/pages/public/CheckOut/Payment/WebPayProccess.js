@@ -15,8 +15,7 @@ const WebPayProccess = ({
         total,
         subtotal,
         dispatch,
-        discount,
-        discountCode,
+        discount, discountType, discountCode,
         installment
     }) => {
 
@@ -38,7 +37,7 @@ const WebPayProccess = ({
     //     cartItems.map((item) =>{
     //         if(item.subscription != null){
     //             _total = _total + (item.quantity * item.subscription.price)
-                
+
     //         }else{
     //             _total = _total + (item.quantity * item.product.price)
 
@@ -46,7 +45,7 @@ const WebPayProccess = ({
     //     })
     //     setTotalCart(_total);
     // },[cartItems])
-    
+
     const [token, setToken] = useState('');
 
     const initPayment = () => {
@@ -74,9 +73,11 @@ const WebPayProccess = ({
             subscription: selectedSubscription,
             customer_id: auth ? auth.id : null,
             total: total,
+            discountType: discountType,
             subtotal: subtotal,
             discount: discount,
             dispatch: dispatch,
+
             installment:installment,
             cartItems: cartItems
         }
