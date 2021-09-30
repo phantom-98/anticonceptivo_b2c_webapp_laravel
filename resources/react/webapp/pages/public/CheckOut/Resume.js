@@ -73,14 +73,13 @@ const Resume = ({
         Services.DoPost(url, data).then(response => {
             Services.Response({
               response: response,
-              success: () => {
-                  if (response.data.discount_type === 1) {
-                    setDiscount(parseFloat('0.'+Math.round(response.data.discount)),5)
+              success: () => {if (response.data.discount_type === 1) {
+                  setDiscountType(1)
+                  setDiscount(response.data.discount/100)
                 }else{
-                    setDiscount(response.data.discount)
+                  setDiscountType(0)
+                  setDiscount(response.data.discount)
                 }
-
-                setDiscountType(response.data.discount_type)
                 toastr.success(response.message);
               },
               warning: () => {
