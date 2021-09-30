@@ -13,7 +13,7 @@ class ApiHelper extends CoreHelper
    {
 
       if(self::MODE == 'prod'){
-         $url = str_replace("qa-","",$url);
+//         $url = str_replace("qa-","",$url);
       }
 
       $curl = curl_init();
