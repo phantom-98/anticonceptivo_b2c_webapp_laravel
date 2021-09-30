@@ -15,7 +15,7 @@ const BaseTemplate = (props) => {
                 {
                     props.children
                 }
-                <FloatingWhatsApp  popupMessage={'¿En qué podemos ayudarte?'} autoOpenTimeout={9999999999999} phone={'+56975423779'} zIndex={999} />
+                <FloatingWhatsApp size={'40px'} popupMessage={'¿En qué podemos ayudarte?'} autoOpenTimeout={9999999999999} phone={'+56975423779'} zIndex={999} />
             </div>
             <Footer/>
         </div>
