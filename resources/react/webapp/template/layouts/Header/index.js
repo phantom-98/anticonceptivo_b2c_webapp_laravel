@@ -23,6 +23,7 @@ import PUBLIC_ROUTES from "../../../routes/publicRoutes";
 import { v4 as uuidv4 } from 'uuid';
 import Icon from "../../../components/general/Icon";
 import SearchModal from "./SearchModal";
+import TotalCartItems from "../../../components/shopping/TotalCartItems";
 
 const Header = () => {
 
@@ -138,6 +139,7 @@ const Header = () => {
 
                             <div className="col-2 d-flex" style={{justifyContent:'center'}}>
                                 <div className="my-auto" onClick={showMiniCart}>
+                                    <div className="cart-badge-quantity"><TotalCartItems/></div>
                                     <img src={cartBlue}
                                          alt=""
                                          title="Anticonceptivo"
