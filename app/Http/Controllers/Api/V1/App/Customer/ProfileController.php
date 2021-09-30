@@ -328,6 +328,21 @@ class ProfileController extends Controller
         }
     }
 
+    public function repeatOrder(Request $request)
+    {
+        try {
+
+            $order = Order::with('order_items')->where('customer_id', auth()->guard('customer')->user()->id)->find($request->id);
+            if ($order) {
+                return ApiResponse::JsonSuccess([
+                    'order_items' => $order->order_items,
+                ], OutputMessage::SUCCESS);
+            }
+        } catch (\Exception $exception) {
+            return ApiResponse::JsonError(null, $exception->getMessage());
+        }
+    }
+
     public function getActiveSubscriptionsOrdersItems(Request $request)
     {
         try {

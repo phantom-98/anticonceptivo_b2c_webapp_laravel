@@ -51,13 +51,19 @@ class UpdateStock extends Command
                 $response = json_decode($get_data, true);
 
                 try {
+                    $isWeb = false;
                     foreach ($response['inventoryItems'] as $key => $inventory) {
                         if($inventory['facilityName'] == 'Web'){
                             $product->stock = $inventory['quantity'];
                             $product->product_item_id_ailoo = $inventory['productItemId'];
-
+                            $isWeb = true;
                         }
                     }
+
+                    if(!$isWeb){
+                        $product->stock = 0;
+                    }
+
                 } catch (\Throwable $th) {
                     $product->stock = 0;
                 }
