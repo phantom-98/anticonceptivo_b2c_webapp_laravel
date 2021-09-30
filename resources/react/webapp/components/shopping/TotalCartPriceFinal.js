@@ -12,7 +12,7 @@ const TotalCartPriceFinal = ({discount, discountType, total, setTotal, subtotal,
         cartItems.map((item) => {
             if(item.subscription != null){
                 _total = _total + (item.quantity * item.subscription.price * item.subscription.quantity)
-                
+
             }else{
                 _total = _total + (item.quantity * (item.product.is_offer ? item.product.offer_price : item.product.price))
 
@@ -20,11 +20,11 @@ const TotalCartPriceFinal = ({discount, discountType, total, setTotal, subtotal,
         })
 
         setSubtotal(_total);
-
         if (discountType === 0) {
             _total = _total + dispatch - discount;
         }else{
-            _total = (_total*discount) + (dispatch);
+            _total = _total - Math.round(_total*discount) + (dispatch);
+
         }
 
         setTotal(_total);
@@ -58,7 +58,7 @@ const TotalCartPriceFinal = ({discount, discountType, total, setTotal, subtotal,
                 <div className="col text-right">
                     <span className="font-poppins font-12 regular color-1F1F1F">
                         {
-                            formatMoney(discount === 0 ? 0 : (discountType === 0 ? discount : total*discount)*-1)
+                            formatMoney(discount === 0 ? 0 : (discountType === 0 ? discount : Math.round(subtotal*discount))*-1)
                         }
                     </span>
                 </div>

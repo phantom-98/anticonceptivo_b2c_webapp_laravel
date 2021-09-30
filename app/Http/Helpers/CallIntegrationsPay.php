@@ -12,6 +12,7 @@ use App\Models\DeliveryCost;
 use App\Http\Helpers\ApiHelper;
 use App\Models\SubscriptionsOrdersItem;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 
 
 class CallIntegrationsPay extends CoreHelper
@@ -36,7 +37,7 @@ class CallIntegrationsPay extends CoreHelper
         }
 
        $item = array(
-           'productItemId' => null,
+           'productItemId' => 2376186,
            'price' => $order->dispatch,
            'quantity' => 1,
            "taxable"=> true,
@@ -65,6 +66,10 @@ class CallIntegrationsPay extends CoreHelper
         );
         $get_data = ApiHelper::callAPI('POST', 'https://api.ailoo.cl/v2/sale/boleta/print_type/1', json_encode($data), 'ailoo');
         $response = json_decode($get_data, true);
+        Log::info('Voucher',
+           [
+               "response" => $response,
+           ]);
         if($response['error']['code'] == 0){
             $order->voucher_pdf = $response['pdfUrl'];
             $order->save();
@@ -82,10 +87,16 @@ class CallIntegrationsPay extends CoreHelper
             $response = json_decode($get_data, true);
 
             try {
+                $isWeb = false;
                 foreach ($response['inventoryItems'] as $key => $inventory) {
                     if($inventory['facilityName'] == 'Web'){
-                        $product->stock = intval($inventory['quantity']);
+                        $product->stock = $inventory['quantity'];
+                        $isWeb = true;
                     }
+                }
+
+                if(!$isWeb){
+                    $product->stock = 0;
                 }
             } catch (\Throwable $th) {
                 $product->stock = 0;
@@ -156,6 +167,10 @@ class CallIntegrationsPay extends CoreHelper
 
         $get_data = ApiHelper::callAPI('POST', 'https://qa-integracion.llego.cl/api/100/Anticonceptivo/carga/Pedido', json_encode($data_llego), 'llego');
         $response = json_decode($get_data, true);
+        Log::info('Llego',
+           [
+               "response" => $response,
+           ]);
         if($response['codigo'] == 200){
             $order->dispatch_status = 'Procesando';
         }

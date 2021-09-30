@@ -54,7 +54,7 @@ class PaymentController
         $discountCode = DiscountCode::where('active',1)->where('name',$request->discount_code)->first();
 
         if(!$discountCode){
-            // $data = (array) session()->get('checkout_data');  
+            // $data = (array) session()->get('checkout_data');
             // unset($data['id_code_discount']);
             // session()->put('checkout_data',$data);
 
@@ -94,15 +94,18 @@ class PaymentController
             }else{
                 // $data =(array) session()->get('checkout_data');
                 // unset($data['id_code_discount']);
-                // session()->put('checkout_data',$data);
+                // session()->put('checkout_data',$data);e
 
                 return ApiResponse::JsonWarning(null, OutputMessage::DISCOUNT_CODE_NOT_VALID);
                 // return ['is_valid' => 0,'object' => $discountCode, 'message' => 'El código ha expirado'];
             }
         }
 
-        return ApiResponse::JsonSuccess(OutputMessage::DISCOUNT_CODE_VALID);
-        
+        return ApiResponse::JsonSuccess([
+            'discount' => $discountCode->discount,
+            'discount_type' => $discountCode->is_percentage,
+        ],OutputMessage::DISCOUNT_CODE_VALID);
+
         // $data = array_merge((array) session()->get('checkout_data'), array("id_code_discount" => $discountCode->id));
 
         // session()->put('checkout_data',$data);

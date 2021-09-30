@@ -11,14 +11,14 @@ import * as Services from "../../../Services";
 import toastr from "toastr";
 
 const Resume = ({
-    showFinal, 
-    data, 
-    file, 
-    address, 
+    showFinal,
+    data,
+    file,
+    address,
     subscription,
-    setFinishWebpayProccess, 
-    setWebpayProccessSuccess, 
-    setOrderId, 
+    setFinishWebpayProccess,
+    setWebpayProccessSuccess,
+    setOrderId,
     total,
     subtotal,
     setSubtotal,
@@ -42,7 +42,7 @@ const Resume = ({
         let data = {
             commune_id: address.commune_id
         }
-        
+
         Services.DoPost(url, data).then(response => {
             Services.Response({
               response: response,
@@ -69,18 +69,17 @@ const Resume = ({
         let data = {
             discount_code: discountCode
         }
-        
+
         Services.DoPost(url, data).then(response => {
             Services.Response({
               response: response,
-              success: () => {
-                if (response.data.discount_type === 1) {
-                    setDiscount(parseFloat('0.'+response.data.discount),5)
+              success: () => {if (response.data.discount_type === 1) {
+                  setDiscountType(1)
+                  setDiscount(response.data.discount/100)
                 }else{
-                    setDiscount(response.data.discount)
+                  setDiscountType(0)
+                  setDiscount(response.data.discount)
                 }
-
-                setDiscountType(response.data.discount_type)
                 toastr.success(response.message);
               },
               warning: () => {
@@ -128,8 +127,8 @@ const Resume = ({
                  showFinal === 3 ?
                     <div className="row mb-3">
                         <div className="col">
-                            <input 
-                                type="text" 
+                            <input
+                                type="text"
                                 className="form-control form-control-custom"
                                 placeholder="Ingresar código de descuento"
                                 onChange={handleDiscount}

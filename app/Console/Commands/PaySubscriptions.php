@@ -194,10 +194,17 @@ class PaySubscriptions extends Command
         $get_data = ApiHelper::callAPI('GET', 'https://api.ailoo.cl/v1/inventory/barCode/'.$product->barcode, null, 'ailoo');
         $response = json_decode($get_data, true);
         try {
+
+            $isWeb = false;
             foreach ($response['inventoryItems'] as $key => $inventory) {
                 if($inventory['facilityName'] == 'Web'){
-                    $product->stock = intval($inventory['quantity']);
+                    $product->stock = $inventory['quantity'];
+                    $isWeb = true;
                 }
+            }
+
+            if(!$isWeb){
+                $product->stock = 0;
             }
         } catch (\Throwable $th) {
             $product->stock = 0;
