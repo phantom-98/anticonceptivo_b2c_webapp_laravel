@@ -50,12 +50,12 @@ class CallIntegrationsPay extends CoreHelper
             "client"=> [
                 "razonSocial"=> null,
                 "rut"=> $customer->id_number,
-                "fistName"=> $customer->fist_name,
-                "lastName"=> $customer->last_name,
+                "fistName"=> str_replace('ñ','n',$customer->fist_name),
+                "lastName"=> str_replace('ñ','n',$customer->last_name),
                 "tradeName"=> null,
 //                "email"=> $customer->email,
                 "phone"=> $customer->phone,
-                "address"=> $customerAddress->address .' '. $customerAddress->extra_info
+                "address"=> str_replace('ñ','n',$customerAddress->address) .' '. str_replace('ñ','n',$customerAddress->extra_info)
             ],
                 "facilityId"=> env('FACILITY_ID'),
                 "cashRegisterId"=> env('CASH_REGISTER'),
