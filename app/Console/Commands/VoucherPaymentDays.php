@@ -57,7 +57,7 @@ class VoucherPaymentDays extends Command
     {
         try{
             Log::info('Paso 1');
-            $datePayment = Carbon::parse('2021-09-30');
+            $datePayment = Carbon::now();
 
             $orders = Order::where('status','PAID')->whereDate('created_at',$datePayment)
             // ->with('subscriptions_orders_items.order_item','order_items')
