@@ -24,7 +24,7 @@ const ProductList = ({
         <div className="row">
             { search == null ?
                 // <div className="col-12 pb-3">
-                <div className={category.banner_image_size}>
+                <div className={`${category.banner_image_size ? category.banner_image_size : 'col-12'}`}>
                     <img width="100%" src={category.public_banner_image} alt={CONFIG.APP_NAME}/>
                 </div>
                 : null
@@ -99,7 +99,7 @@ const ProductList = ({
                                 const init = activePage === 1 ? 0 : (activePage - 1) * parseInt(viewCount);
                                 const finish = init+parseInt(viewCount);
                                 return position > init && position <= finish ?
-                                    <div className="col-md-4 mb-3" key={index}>
+                                    <div className="col-sm-12 col-md-6 col-lg-4 mb-3" key={index}>
                                         <ProductCard product={product}/>
                                     </div>
                                 : null

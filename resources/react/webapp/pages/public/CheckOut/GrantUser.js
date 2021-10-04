@@ -30,7 +30,7 @@ const GrantUser = ({setView}) =>{
         <div className="panel panel-cart mb-3">
             <div className="panel-body">
                 <div className="row">
-                    <div className="col-md-6">
+                    <div className="col-12 col-md-12 col-lg-6 pb-5">
                         <h3 className="font-poppins font-14 bold color-2A317F">Iniciar Sesión</h3>
 
                         <div className="row">
@@ -69,12 +69,12 @@ const GrantUser = ({setView}) =>{
                             </button>
                         </div>
                         <div className="row">
-                            <div className="col-md-6">
+                            <div className="col-6 col-sm">
                                 <button type="button" className="link" onClick={() => setView('user-form')}>
                                     <span className="font-12">Recuperar contraseña</span>
                                 </button>
                             </div>
-                            <div className="col-md-6 text-right">
+                            <div className="col-6 col-sm-auto text-right">
                                 <button type="button" className="link" onClick={() => setView('user-form')}>
                                     <span className="font-12">Crear cuenta</span>
                                 </button>
@@ -82,7 +82,7 @@ const GrantUser = ({setView}) =>{
                         </div>
                     </div>
 
-                    <div className="col-md-6">
+                    <div className="col-12 col-md-12 col-lg-6">
                         <h3 className="font-poppins font-14 bold color-2A317F">Compra sin registro</h3>
                         <p className="font-poppins font-12 regular color-484848 mb-0">
                             Puedes compra sin guardar tus datos, registrarse es opcional.

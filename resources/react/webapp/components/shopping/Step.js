@@ -9,7 +9,7 @@ const Step = ({title, number, disabled = false, isHeader = false, isReady = fals
             <div className="col-auto pr-0">
                 <div className={`circle-step ${isReady ? 'circle-step-ready' : ''}`}>
                     {
-                        isReady ? <Icon path={stepCheck} /> :  <span>{number}</span>
+                        isReady ? <Icon path={stepCheck} title={title} /> :  <span>{number}</span>
                     }
                 </div>
             </div>

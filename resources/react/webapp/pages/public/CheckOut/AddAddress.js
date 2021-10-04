@@ -231,12 +231,12 @@ const AddAddress = ({setView, regions, address, setAddress}) => {
             </div>
 
             <div className="row">
-                <div className="col-md-6">
+                <div className="col-md-6 pb-5">
                     <button onClick={() => setView('user-form')} className="link" style={{textDecoration: 'none'}}>
                         <span className="font-12">{"< Volver a paso anterior"}</span>
                     </button>
                 </div>
-                <div className="col-md-6">
+                <div className="col-md-6 pb-5">
                     <button className="btn btn-bicolor btn-block" onClick={auth ? () =>  updateData() : () => validateData()}>
                         <span className="font-14 px-5">CONTINUAR</span>
                     </button>

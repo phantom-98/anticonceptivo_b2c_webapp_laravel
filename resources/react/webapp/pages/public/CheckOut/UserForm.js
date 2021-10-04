@@ -18,7 +18,7 @@ const UserForm = ({setView, data, setData, setFiles, files, editable, setProduct
 
     // const [showBilling, setShowBilling] = useState(false);
     const [rutFlag, setRutFlag] = useState(false);
-    
+
     // const [selectedRegion, setSelectedRegion] = useState(0);
     // const [regions, setRegions] = useState([]);
     // const [communes, setCommunes] = useState([]);
@@ -152,7 +152,7 @@ const UserForm = ({setView, data, setData, setFiles, files, editable, setProduct
     }
 
     const handleFile = (e) => {
-        
+
         let file = e.target.files[0];
         file.product_id = parseInt(e.target.id);
 
@@ -186,11 +186,11 @@ const UserForm = ({setView, data, setData, setFiles, files, editable, setProduct
 
 
             let fileList = [...files]
-                
+
             for(let i=0; i < fileList.length; i++){
                 formData.append('files[]', fileList[i]);
             }
-            
+
             const config = {
                 headers: {
                     'content-type': 'multipart/form-data'
@@ -226,11 +226,11 @@ const UserForm = ({setView, data, setData, setFiles, files, editable, setProduct
         formData.append('customer_id', auth.id);
 
         let fileList = [...files]
-            
+
         for(let i=0; i < fileList.length; i++){
             formData.append('files[]', fileList[i]);
         }
-        
+
         const config = {
             headers: {
                 'content-type': 'multipart/form-data'
@@ -263,7 +263,7 @@ const UserForm = ({setView, data, setData, setFiles, files, editable, setProduct
     return (
         <Fragment>
             {
-                cartItems.filter((item) => item.product.recipe_type != 'Venta Directa').length ? 
+                cartItems.filter((item) => item.product.recipe_type != 'Venta Directa').length ?
                     <Accordion defaultActiveKey={'#'}>
                         <Card className="panel panel-cart my-4">
                             <Accordion.Toggle as={Card.Header} eventKey={'#'} style={{backgroundColor: 'white'}}>
@@ -285,19 +285,19 @@ const UserForm = ({setView, data, setData, setFiles, files, editable, setProduct
                                                         <div className="col-md-9 mb-3">
 
                                                             <div className="font-poppins font-12 color-009BE8">{item.product.sku}</div>
-                                                            <div className="font-poppins font-14 bold text-black"> 
-                                                            
+                                                            <div className="font-poppins font-14 bold text-black">
+
                                                             {
                                                                 item.subscription == null ? item.product.name : item.product.name + ' ('+ 'suscripción' +')'
                                                             }
-                                                            
+
                                                             </div>
                                                             <div className="font-poppins font-16 bold color-009BE8">
 
                                                                 {
                                                                     item.subscription == null ? formatMoney( item.quantity * (item.product.is_offer ? item.product.offer_price : item.product.price)) : formatMoney(item.subscription.price*item.subscription.quantity * item.quantity) + ' ('+ formatMoney(item.subscription.price)+' c/u)'
                                                                 }
-                                                                
+
                                                             </div>
                                                         </div>
                                                         <div className="col-md-12 mt-2">
@@ -319,8 +319,8 @@ const UserForm = ({setView, data, setData, setFiles, files, editable, setProduct
                                                                 >
                                                                     {
                                                                         files.map((file) => {
-                                                                            return file.product_id == item.product.id ? 
-                                                                                <span className="font-14 font-poppins regular">{file.name}</span> 
+                                                                            return file.product_id == item.product.id ?
+                                                                                <span className="font-14 font-poppins regular">{file.name}</span>
                                                                             :  null
                                                                             // <span className="font-14 font-poppins regular">Sin archivo</span>
                                                                         })
@@ -344,7 +344,7 @@ const UserForm = ({setView, data, setData, setFiles, files, editable, setProduct
                 <div className="panel-body" style={{ paddingTop : '11px', paddingBottom : '10px'}}>
                    <div className="row">
                        <div className="col d-flex">
-                        
+
                        </div>
                    </div>
                 </div>
@@ -380,7 +380,7 @@ const UserForm = ({setView, data, setData, setFiles, files, editable, setProduct
 
                     {
                         showBilling ?
-                            <FormComercialInfo 
+                            <FormComercialInfo
                                 data={data}
                                 handleData={handleData}
                                 rutFormat={RutFormat}
@@ -395,12 +395,12 @@ const UserForm = ({setView, data, setData, setFiles, files, editable, setProduct
                 </div>
             </div> */}
             <div className="row">
-                <div className="col-md-6">
+                <div className="col-md-6 pb-5">
                     {/*<button onClick={() => setView('user-form')} className="link" style={{textDecoration: 'none'}}>*/}
                     {/*    <span className="font-12">{"< Volver a paso anterior"}</span>*/}
                     {/*</button>*/}
                 </div>
-                <div className="col-md-6">
+                <div className="col-md-6 pb-5">
                     <button className="btn btn-bicolor btn-block" disabled={cartItems.length ? false : true} onClick={ auth ? () =>  hasAddress() : () => validateData()}>
                         <span className="font-14 px-5">CONTINUAR</span>
                     </button>

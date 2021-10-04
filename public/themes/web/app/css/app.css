@@ -908,6 +908,7 @@ input.my-auto.file-input {
   font-weight: 450;
   font-size: 12px;
   cursor: pointer;
+  margin: 0 2px;
 }
 
 .paginator-buttons.active {
@@ -3521,6 +3522,22 @@ a:-webkit-any-link:focus-visible {
 
   .responsive-padding-tabs {
     padding: 2rem;
+  }
+}
+
+.app-margin-top {
+  min-height: calc(100vh - 587px);
+}
+
+@media (min-width: 768px) {
+  .app-margin-top {
+    margin-top: 230px;
+  }
+}
+
+@media (min-width: 1335px) {
+  .app-margin-top {
+    margin-top: 185px;
   }
 }
 

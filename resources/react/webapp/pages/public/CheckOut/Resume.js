@@ -137,7 +137,7 @@ const Resume = ({
                                 value={discountCode}
                             />
                         </div>
-                        <div className="col-auto">
+                        <div className="col-auto pl-0">
                             <button className="btn btn-bicolor btn-block" onClick={addDiscount}>
                                 <span>APLICAR</span>
                             </button>

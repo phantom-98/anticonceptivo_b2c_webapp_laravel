@@ -191,7 +191,7 @@ const Shop = ({match}) => {
                 {
                     loading ?
                         <div className="row pb-5 mb-5">
-                            <div className="col-md-3">
+                            <div className="col-auto" style={{ minWidth : '230px'}}>
                                 <div className='mb-3 d-block d-sm-none'>
                                     {/*<button className="btn btn-outline-bicolor w-50 px-1" onClick={() => handleAddToCart()}>*/}
 
@@ -213,12 +213,12 @@ const Shop = ({match}) => {
                                     />
                                 </div>
                             </div>
-                            <div className="col-md-9">
+                            <div className="col-md">
                                 <ProductList
                                     category={category}
                                     products={products}
                                     subcatNames={subcatNames}
-                                    filter={                                <div className="d-block d-sm-none" style={{marginTop: '10px'}}>
+                                    filter={<div className="d-block d-sm-none" style={{marginTop: '10px'}}>
                                         { showFilterResponsive ?
                                             <Filter
                                                 isPills={isPills}
