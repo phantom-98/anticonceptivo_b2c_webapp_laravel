@@ -214,6 +214,16 @@
                                                     title="Rechazar Recetas">
                                                         <i class="fa fa-times"></i>
                                                 </a>
+                                                <a onclick="prescriptionRejected({{$object->id}})"
+                                                    class="btn btn-sm btn-default btn-hover-danger add-tooltip"
+                                                    title="Rechazar Recetas">
+                                                        <i class="fa fa-times"></i>
+                                                </a>
+                                                <a onclick="sendEmail({{$object->id}})"
+                                                    class="btn btn-sm btn-default btn-hover-info add-tooltip"
+                                                    title="Reenviar correo">
+                                                        <i class="fa fa-envelope"></i>
+                                                </a>
                                             @endpush
                                             @else
                                                 @if($object->status != "CREATED" && $object->status != "DELIVERED")
@@ -221,6 +231,11 @@
                                                     class="btn btn-sm btn-default btn-hover-info add-tooltip"
                                                     title="Rechazar Recetas">
                                                         <i class="fa fa-retweet"></i>
+                                                </a>
+                                                <a onclick="sendEmail({{$object->id}})"
+                                                    class="btn btn-sm btn-default btn-hover-info add-tooltip"
+                                                    title="Reenviar correo">
+                                                        <i class="fa fa-envelope"></i>
                                                 </a>
                                                 @endif
                                             @endif
@@ -238,6 +253,11 @@
                         enctype="multipart/form-data" method="POST">
                         @csrf()
                     </form>
+
+                    <form id="send-email-form" action="{{ route($config['route'] . 'sendEmail') }}"
+                    enctype="multipart/form-data" method="POST">
+                    @csrf()
+                </form>
 
                 </div>
             </div>
@@ -298,6 +318,20 @@
                 value: 1
             }).appendTo('#prescription-validate-form');
             $('#prescription-validate-form').submit();
+        }
+
+        function sendEmail(id){
+            $('<input>').attr({
+                type: 'hidden',
+                name: 'id',
+                value: id
+            }).appendTo('#send-email-form');
+            $('<input>').attr({
+                type: 'hidden',
+                name: 'prescription',
+                value: 1
+            }).appendTo('#send-email-form');
+            $('#send-email-form').submit();
         }
     </script>
 

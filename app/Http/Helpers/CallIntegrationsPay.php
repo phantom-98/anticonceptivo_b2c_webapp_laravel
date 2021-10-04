@@ -14,7 +14,6 @@ use App\Models\SubscriptionsOrdersItem;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 
-
 class CallIntegrationsPay extends CoreHelper
 {
    public static function callVoucher($order_id,$customerAddress)
@@ -216,4 +215,26 @@ class CallIntegrationsPay extends CoreHelper
 
         $sendgrid->send($email2);
    }
+
+   public static function sendEmailsOrderRepeat($order_id, $type = 'compra')
+   {
+        $order =Order::with('customer','order_items.subscription_plan')->where('id',$order_id)->get()->first();
+        $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
+
+        // Envio al cliente
+        $html = view('emails.orders', ['order' => $order, 'type' => $type, 'nombre' => 'Equipo Anticonceptivo'])->render();
+
+        $email = new \SendGrid\Mail\Mail();
+
+        $email->setFrom("info@anticonceptivo.cl", 'Anticonceptivo');
+        $email->setSubject('Compra #' . $order->id);
+        $email->addTo($order->customer->email, 'Pedido');
+        // $email->addTo("victor.araya.del@gmail.com", 'Pedido');
+
+        $email->addContent(
+            "text/html", $html
+        );
+
+        $sendgrid->send($email);
+    }
 }

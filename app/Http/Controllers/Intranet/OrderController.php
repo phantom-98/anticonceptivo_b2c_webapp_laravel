@@ -13,7 +13,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\OrderExportIndex;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
-use App\Models\Retention;
+use App\Http\Helpers\CallIntegrationsPay;
 
 class OrderController extends GlobalController
 {
@@ -23,7 +23,7 @@ class OrderController extends GlobalController
         'pluralName' => 'Pedidos',
         'singularName' => 'Pedido',
         'disableActions' => ['create', 'edit', 'active', 'destroy', 'changeStatus'],
-        'enableActions' => ['search_client', 'show', 'prescription_validate']
+        'enableActions' => ['search_client', 'show', 'prescription_validate', 'sendEmail']
     ];
 
     public function __construct()
@@ -220,6 +220,12 @@ class OrderController extends GlobalController
             }
             return redirect()->route($this->route . 'index');
         }
+    }
+
+    public function sendEmail($id){
+        CallIntegrationsPay::sendEmailsOrderRepeat($id);
+        session()->flash('success', 'Boleta reenviada exitosamente.');
+        return redirect()->route($this->route . 'index');
     }
 
 }
