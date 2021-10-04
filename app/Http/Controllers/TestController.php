@@ -25,6 +25,7 @@ use App\Models\DeliveryCost;
 use App\Models\SubscriptionsOrdersItem;
 use App\Models\SubscriptionPlan;
 use App\Models\ProductSubscriptionPlan;
+use Illuminate\Support\Facades\Log;
 use Innovaweb\Transbank\OneClickMall;
 
 class TestController extends Controller
@@ -55,9 +56,58 @@ class TestController extends Controller
         return view('emails.base');
     }
 
+    public function AiloTest()
+    {
+        $items = [];
+//        dd(1);
+
+
+        $item = array(
+            'productItemId' => 1998343,
+            'price' => 77,
+            'quantity' => 1,
+            "taxable"=> true,
+            "type"=> "PRODUCT"
+        );
+
+        array_push($items,$item);
+
+        $item = array(
+            'productItemId' => 2376186,
+            'price' => 22,
+            'quantity' => 1,
+            "taxable"=> true,
+            "type"=> "PRODUCT"
+        );
+
+        array_push($items,$item);
+
+        $data = array(
+            "client"=> [
+                "razonSocial"=> null,
+                "rut"=> '18361842-3',
+                "fistName"=> 'Victor',
+                "lastName"=> 'Araya',
+                "tradeName"=> null,
+//                "email"=> $customer->email,
+                "phone"=> '981516307',
+                "address"=> 'Ing Hyatt' .' '. '9753'
+            ],
+            "facilityId"=> env('FACILITY_ID'),
+            "cashRegisterId"=> env('CASH_REGISTER'),
+            "saleTypeId"=> env('SALE_TYPE_ID'),
+            "comment"=> "Venta API",
+            "items"=> $items,
+            "user"=> "anticonceptivo"
+        );
+        $get_data = ApiHelper::callAPI('POST', 'https://api.ailoo.cl/v2/sale/boleta/print_type/1', json_encode($data), 'ailoo');
+        $response = json_decode($get_data, true);
+        dd($response);
+    }
 
     public function PaySubscription()
     {
+        dd(1);
         $datePayment = Carbon::now()->addDays(24);
         $customers = Customer::all();
         foreach ($customers as $customer) {
@@ -70,6 +120,7 @@ class TestController extends Controller
                 ->select('id', 'order_parent_id as order_id','subtotal','name', 'orders_item_id','price','quantity', 'subscription_id','delivery_address', 'customer_address_id', 'pay_date', 'dispatch_date', 'status', 'is_pay')
                 ->orderBy('order_parent_id')->orderBy('pay_date')
                 ->get();
+
             $prev_order_id = null;
             $prev_pay_date = null;
             $prev_item = null;

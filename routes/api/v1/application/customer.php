@@ -32,6 +32,7 @@ Route::prefix('customer')
         Route::post('set-dispatch-date-subscription', [ProfileController::class, 'setDispatchDateSubscription'])->name('setDispatchDateSubscription');
 
         Route::post('get-orders', [ProfileController::class, 'getOrders'])->name('getOrders');
+        Route::post('repeat-order', [ProfileController::class, 'repeatOrder'])->name('repeatOrder');
 
         Route::post('get-prescriptions', [ProfileController::class, 'getPrescriptions'])->name('getPrescriptions');
         Route::post('remove-prescriptions', [ProfileController::class, 'removePrescriptions'])->name('removePrescriptions');

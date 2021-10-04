@@ -278,7 +278,18 @@ class WebpayPlusController
             }
             if($isSubscription){
                 if($request->subscription){
-                    $response = $this->oneclick->authorize($request->customer_id , $request->subscription['transbank_token'], $order->id, $order->total,$request->installment ?? 0);
+
+                    $details = [
+                        [
+                            "commerce_code" => env('TBK_ONECLICK_MALL'),
+                            "buy_order" => $order->id,
+                            "amount" =>  $order->total,
+                            "installments_number" => $request->installment ?? 0
+                        ]
+                    ];
+
+                    $response = $this->oneclick->authorize($request->customer_id , $request->subscription['transbank_token'],$order->id,$details);
+
                     Log::info('OneClick',
                     [
                         "response" => $response,

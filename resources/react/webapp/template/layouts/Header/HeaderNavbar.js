@@ -88,7 +88,7 @@ const HeaderNavbar = () => {
                             categories.map((category, index) => {
                                 let url = PUBLIC_ROUTES.SHOP.path;
                                 url = url.replace(":category", category.slug);
-                                console.log(index)
+
                                 if (size.width <= 1351 && index <= 3) {
                                     return (
 
@@ -228,7 +228,7 @@ const HeaderNavbar = () => {
                             categories.map((category, index) => {
                                 let url = PUBLIC_ROUTES.SHOP.path;
                                 url = url.replace(":category", category.slug);
-                                console.log(index)
+
                                 if (size.width <= 1351 && index > 3) {
                                     return (
 

@@ -4,8 +4,8 @@ import {
     MINI_CART_OPEN,
     MINI_CART_CLOSE,
     UPDATE_CART,
-    ADD_TO_CART, 
-    REMOVE_FROM_CART, 
+    ADD_TO_CART,
+    REMOVE_FROM_CART,
     UPDATE_QUANTITY,
     CLEAR_CART,
     IS_CART_READY,
@@ -45,6 +45,15 @@ const CartProvider = (props) => {
     const updateCart = () => {
         dispatch({
             type: UPDATE_CART
+        })
+    }
+
+    const repeatOrder = (orderItem) => {
+        dispatch({
+            type: ADD_TO_CART,
+            payload: {
+                orderItem : orderItem,
+            }
         })
     }
 
@@ -98,13 +107,15 @@ const CartProvider = (props) => {
 
             cartItems: state.cartItems,
             isCartReady: state.isCartReady,
-            
+
             showMiniCart: showMiniCart,
             hideMiniCart: hideMiniCart,
-            updateCart: updateCart, 
+            updateCart: updateCart,
+            repeatOrder: repeatOrder,
+
             clearCart: clearCart,
             checkCart: checkCart,
-            
+
             addToCart: addToCart,
             removeFromCart: removeFromCart,
             updateQuantity : updateQuantity,

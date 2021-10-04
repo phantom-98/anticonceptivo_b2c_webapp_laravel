@@ -1,8 +1,40 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import H3Panel from "../../../../../components/general/H3Panel";
 import RowCol from "../../../../../components/general/RowCol";
+import * as Services from "../../../../../Services";
+import PUBLIC_ROUTES from "../../../../../routes/publicRoutes";
+import {CartContext} from "../../../../../context/CartProvider";
 
 const Detail = ({order, goBack}) => {
+
+    const {addToCart} = useContext(CartContext);
+
+    const repeatOrder = () => {
+        let url = Services.ENDPOINT.CUSTOMER.ORDERS.REPEAT_ORDER;
+        let data = {
+            order_id: order.id
+        }
+        Services.DoPost(url,data).then(response => {
+            Services.Response({
+                response: response,
+                success: () => {
+                    // toastr.success('');
+                    response.data.order_items.forEach( function(item, index, array) {
+                        let quantity = item.subscription ? 1 : item.quantity;
+                        addToCart(quantity, item.product, item.subscription);
+                    });
+                    // window.location.href = PUBLIC_ROUTES.HOME.path
+
+                },
+                error: () => {
+                    // window.location.href = PUBLIC_ROUTES.SHOP.path
+                },
+            });
+        }).catch(error => {
+            Services.ErrorCatch(error)
+        });
+    }
+
     return (
         <div className="panel-bordered py-3">
             <div className="row">

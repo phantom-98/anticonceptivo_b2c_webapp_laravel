@@ -328,20 +328,6 @@ class ProfileController extends Controller
         }
     }
 
-    public function repeatOrder(Request $request)
-    {
-        try {
-
-            $order = Order::with('order_items')->where('customer_id', auth()->guard('customer')->user()->id)->find($request->id);
-            if ($order) {
-                return ApiResponse::JsonSuccess([
-                    'order_items' => $order->order_items,
-                ], OutputMessage::SUCCESS);
-            }
-        } catch (\Exception $exception) {
-            return ApiResponse::JsonError(null, $exception->getMessage());
-        }
-    }
 
     public function getActiveSubscriptionsOrdersItems(Request $request)
     {
@@ -679,6 +665,38 @@ class ProfileController extends Controller
         }
     }
 
+
+    public function repeatOrder(Request $request)
+    {
+        try {
+
+            $order = Order::with(['order_items.product','order_items.product.plans','order_items.subscription_plan','order_items.product.subcategory.category','order_items.product.images'])->find($request->order_id);
+
+//            $order->whereHas('plans', function ($query) use($subscription) {
+//                $query->whereIn('subscription_plan_id', $subscription);
+//            })->get();
+
+
+            if (!$order) {
+                return ApiResponse::NotFound(null, "Orden no encontrada");
+            }
+            $order_items = $order->order_items->map(function ($item) {
+
+                $product_subscription_plan = ProductSubscriptionPlan::with('subscription_plan')->where('product_id', $item->product->id)->where('subscription_plan_id',$item->subscription_plan ? $item->subscription_plan->id : -1)->get()->first();
+                return [
+                    'quantity' => $item->quantity,
+                    'product' => $item->product,
+                    'subscription' => $product_subscription_plan,
+                ];
+            });
+            return ApiResponse::JsonSuccess([
+                'order_items' => $order_items,
+            ], OutputMessage::SUCCESS);
+
+        } catch (\Exception $exception) {
+            return ApiResponse::JsonError(null, $exception->getMessage());
+        }
+    }
 
     public function getOrders(Request $request)
     {

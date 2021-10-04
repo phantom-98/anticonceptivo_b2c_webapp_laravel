@@ -8,6 +8,10 @@ const AddCartCard = ({quantity, setQuantity, product,subscription}) =>{
     const {addToCart} = useContext(CartContext);
 
     const handleAddToCart = () =>{
+        console.log(quantity)
+        console.log(product)
+        console.log(subscription)
+
         addToCart(quantity, product, subscription)
         setQuantity(1)
 
