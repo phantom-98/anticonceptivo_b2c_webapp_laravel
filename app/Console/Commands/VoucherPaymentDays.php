@@ -119,7 +119,7 @@ class VoucherPaymentDays extends Command
             Log::info('Paso 4');
             $data_voucher = array(
                 "codeSii"=> 33,
-                "officeId"=> 2,
+                "officeId"=> 1,
                 "emissionDate"=> Carbon::now()->timestamp,
                 "client"=> [
                   "code"=> "76.736.577-2",
