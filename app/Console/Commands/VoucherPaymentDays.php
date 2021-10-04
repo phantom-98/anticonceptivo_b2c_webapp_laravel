@@ -56,7 +56,7 @@ class VoucherPaymentDays extends Command
     public function handle()
     {
         try{
-
+            Log::info('Paso 1');
             $datePayment = Carbon::parse('2021-09-30');
 
             $orders = Order::where('status','PAID')->whereDate('created_at',$datePayment)
@@ -78,7 +78,7 @@ class VoucherPaymentDays extends Command
             $commission = $paymentCommission->commission;
 
             foreach ($orders as $key => $order) {
-
+                Log::info('Paso 2');
                 $detail = [
                     "netUnitValue"=> round($order->total * ($commission/100)),
                     "quantity"=> 1,
@@ -98,6 +98,7 @@ class VoucherPaymentDays extends Command
             $prev_pay_date = null;
 
             foreach ($subscriptions_orders_items as $key => $subscription_order_item) {
+                Log::info('Paso 3');
                 $order = Order::where('id',$subscription_order_item->order_id)
                 ->whereDate('created_at','>=',Carbon::parse( $subscription_order_item->pay_date)->subDay())->get()->first();
 
@@ -115,7 +116,7 @@ class VoucherPaymentDays extends Command
                 array_push($details, $detail);
                 $total += round($subscription_order_item->order_item->price * ($commission/100));
             }
-
+            Log::info('Paso 4');
             $data_voucher = array(
                 "codeSii"=> 33,
                 "officeId"=> 2,
@@ -145,6 +146,8 @@ class VoucherPaymentDays extends Command
             $dayPayment->url_pdf = $response['urlPdf'];
             $dayPayment->total = $total;
             $dayPayment->save();
+
+            Log::info('Paso 5');
 
             $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
             $html = view('emails.send-voucher', ['url_pdf' => $dayPayment->url_pdf, 'name' => 'Equipo Anticonceptivo'])->render();
