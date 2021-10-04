@@ -277,6 +277,11 @@ a:-webkit-any-link:focus-visible {
 }
 
 
+
+.app-margin-top {
+    min-height: calc(100vh - 587px);
+}
+
 @media (min-width: 768px){
     .app-margin-top {
         margin-top: 230px;
