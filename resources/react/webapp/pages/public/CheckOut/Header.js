@@ -30,13 +30,13 @@ const Header = ({showFinal}) =>{
 
     return (
         <div className="row pb-4">
-            <div className="col-sm-12 co-lg-auto pb-3 pb-md-0">
+            <div className="col-md-12 col-lg pb-3 pb-lg-0">
                 <div className="my-auto">
-                    <Icon path={logoFull} className="w-100"/>
+                    <Icon path={logoFull} style={{ width : '100%', maxWidth : '366px'}}/>
                 </div>
             </div>
-            <div className="col-sm-12 col-lg">
-               <div className="row justify-content-end">
+            <div className="col-md-12 col-lg-auto">
+               <div className="row  justify-content-md-start justify-content-end">
                    <div className="col-12 col-md-auto py-1">
                        <Step title="DATOS PERSONALES" number="1" disabled={false} isHeader={true} isReady={ready.one}/>
                    </div>
