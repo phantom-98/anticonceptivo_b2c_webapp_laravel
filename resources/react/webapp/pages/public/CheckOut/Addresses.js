@@ -74,30 +74,30 @@ const Addresses = ({setView, regions, communes, address, setAddress, dispatchDat
                     </h3>
 
                     {
-                        view === 'list' ? 
-                            <List 
-                                addresses={auth ? addresses : address} 
-                                showEdit={showEdit} 
+                        view === 'list' ?
+                            <List
+                                addresses={auth ? addresses : address}
+                                showEdit={showEdit}
                                 showCreate={showCreate}
                                 regions={regions}
                                 communes={communes}
                                 getData={getData}
                                 setAddress={setAddress}
                                 // setAddresses={setAddresses}
-                            /> 
+                            />
                         : null
                     }
 
                     {
-                        view === 'form' ? 
-                            <Form 
-                                formMode={formMode} 
-                                addressSelected={addressSelected} 
-                                regions={regions} 
-                                customerId={auth ? auth.id : null} 
+                        view === 'form' ?
+                            <Form
+                                formMode={formMode}
+                                addressSelected={addressSelected}
+                                regions={regions}
+                                customerId={auth ? auth.id : null}
                                 goBack={goBack}
                                 setAddresses={auth ? setAddresses : setAddress}
-                            /> 
+                            />
                         : null
                     }
                 </div>
@@ -111,12 +111,12 @@ const Addresses = ({setView, regions, communes, address, setAddress, dispatchDat
                     </h3>
 
                     <div className="row">
-                        <div className="col">
+                        <div className="col-12 col-md pb-2">
                             <Icon path={calendarBlue} />
-                            {' '} <span className="font-poppins font-12 regular color-8E8E8E">Fecha de entrega</span>
+                            {' '} <span className="font-poppins font-12 regular col-12 color-8E8E8E">Fecha de entrega</span>
                             {'    '}<span className="font-poppins font-16 regular color-484848">{dispatchDate}</span>
                         </div>
-                        <div className="col-auto">
+                        <div className="col-12 col-md-auto pb-2">
                             <Icon path={clockBlue} />
                             {' '} <span className="font-poppins font-12 regular color-8E8E8E">Fecha de entrega</span>
                             {'    '}<span className="font-poppins font-16 regular color-484848">09:00 a 21:00</span>
@@ -127,12 +127,12 @@ const Addresses = ({setView, regions, communes, address, setAddress, dispatchDat
             </div>
 
             <div className="row">
-                <div className="col-md-6">
+                <div className="col-md-6 pb-5">
                     <button onClick={() => setView('user-form')} className="link" style={{textDecoration: 'none'}}>
                         <span className="font-12">{"< Volver a paso anterior"}</span>
                     </button>
                 </div>
-                {/*<div className="col-md-6">*/}
+                {/*<div className="col-md-6 pb-5">*/}
                 {/*    <button className="btn btn-bicolor btn-block" onClick={() => setViewAd('user-form')}>*/}
                 {/*        <span className="font-14 px-5">CONTINUAR</span>*/}
                 {/*    </button>*/}

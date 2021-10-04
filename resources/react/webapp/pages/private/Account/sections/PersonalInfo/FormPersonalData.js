@@ -2,11 +2,11 @@ import React, {Fragment} from 'react';
 import {Form} from "react-bootstrap";
 import {setCleanInputError} from "../../../../../helpers/GlobalUtils";
 
-const FormPersonalData = ({handleData, 
-    handleCheckBox, 
-    rutFormat, 
-    rutValidate, 
-    data,  
+const FormPersonalData = ({handleData,
+    handleCheckBox,
+    rutFormat,
+    rutValidate,
+    data,
     password = true,
     editable = false
     }) => {
@@ -78,7 +78,6 @@ const FormPersonalData = ({handleData,
                             label="RUT"
                             type="radio"
                             name="id_type"
-                            checked
                             id={`custom-inline-radio-rut`}
                             onClick={(e) => handleCheckBox(e)}
                             checked={data.id_type === 'RUT' ? true : false}
@@ -110,39 +109,43 @@ const FormPersonalData = ({handleData,
                     <div className="invalid-feedback" />
                 </div>
             </div>
-            
-            <div className="col-md-3">
-                <div className="form-group">
-                    <label htmlFor="phone_code">Código</label>
-                    <select
-                        className="form-control form-control-custom pl-2"
-                        id="phone_code"
-                        name="phone_code"
-                        onChange={(e) => handleData(e)}
-                        onFocus={setCleanInputError}
-                        disabled={editable}
-                    >
-                        <option value="+56">+56</option>
-                    </select>
-                    <div className="invalid-feedback" />
-                </div>
-            </div>
-            <div className="col-md-9">
-                <div className="form-group">
-                    <label htmlFor="phone">Teléfono</label>
-                    <input type="text"
-                           className="form-control form-control-custom"
-                           id="phone"
-                           name="phone"
-                           placeholder="987 654 321"
-                           onChange={(e) => handleData(e)}
-                           value={data.phone}
-                           onFocus={setCleanInputError}
-                           disabled={editable}
-                    />
-                    <div className="invalid-feedback" />
-                </div>
-            </div>
+
+     <div className="col-md-12">
+         <div className="row">
+             <div className="col-md-auto pr-3 pr-md-0">
+                 <div className="form-group">
+                     <label htmlFor="phone_code">Código</label>
+                     <select
+                         className="form-control form-control-custom pl-2"
+                         id="phone_code"
+                         name="phone_code"
+                         onChange={(e) => handleData(e)}
+                         onFocus={setCleanInputError}
+                         disabled={editable}
+                     >
+                         <option value="+56">+56</option>
+                     </select>
+                     <div className="invalid-feedback" />
+                 </div>
+             </div>
+             <div className="col-md">
+                 <div className="form-group">
+                     <label htmlFor="phone">Teléfono</label>
+                     <input type="text"
+                            className="form-control form-control-custom"
+                            id="phone"
+                            name="phone"
+                            placeholder="987 654 321"
+                            onChange={(e) => handleData(e)}
+                            value={data.phone}
+                            onFocus={setCleanInputError}
+                            disabled={editable}
+                     />
+                     <div className="invalid-feedback" />
+                 </div>
+             </div>
+         </div>
+     </div>
             {
                 password ?
                     <Fragment>
