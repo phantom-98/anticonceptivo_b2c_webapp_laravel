@@ -141,7 +141,7 @@ class VoucherPaymentDays extends Command
             }
             $get_data = ApiHelper::callAPI('POST', 'https://api.bsale.cl/v1/documents.json', json_encode($data_voucher), true);
             $response = json_decode($get_data, true);
-
+            Log::info($response);
             $dayPayment = new DayPayment();
             $dayPayment->url_pdf = $response['urlPdf'];
             $dayPayment->total = $total;
