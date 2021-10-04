@@ -83,6 +83,11 @@ class BannerController extends GlobalController
             $name = pathinfo($request->file("file")->getClientOriginalName(), PATHINFO_FILENAME);
             $object->file = $request->file("file")
             ->storeAs('public/sliders', 'slider_'.$name.'.'.$ext);
+
+            $ext = $request->file("responsive_file")->getClientOriginalExtension();
+            $name = pathinfo($request->file("responsive_file")->getClientOriginalName(), PATHINFO_FILENAME);
+            $object->responsive_file = $request->file("responsive_file")
+            ->storeAs('public/sliders', 'responsive_slider_'.$name.'.'.$ext);
             
             $object->save();
 
@@ -160,6 +165,24 @@ class BannerController extends GlobalController
             ]);
         }
 
+        if($request->file("responsive_file")){
+            \Storage::delete($object->responsive_file);
+            
+            $ext = $request->file("responsive_file")->getClientOriginalExtension();
+            $name = pathinfo($request->file("responsive_file")->getClientOriginalName(), PATHINFO_FILENAME);
+            $object->responsive_file = $request->file("responsive_file")
+            ->storeAs('public/sliders', 'responsive_slider_'.$name.'.'.$ext);
+
+            $object->save();
+            $object->refresh();
+
+            Log::info('Cambio de foto', [
+                'date' => date('Y-m-d H:i:s'),
+                'new_name' => $name,
+                'user' => auth('intranet')->user()->full_name
+            ]);
+        }
+
         if ($object) {
             session()->flash('success', 'Banner modificado correctamente.');
             return redirect()->back();
@@ -178,6 +201,7 @@ class BannerController extends GlobalController
         }
 
         \Storage::delete($object->file);
+        \Storage::delete($object->responsive_file);
 
         if($object->delete()){
             session()->flash('success', 'Banner eliminado correctamente.');
