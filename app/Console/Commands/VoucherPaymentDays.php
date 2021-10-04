@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Http\Helpers\ApiHelper;
+use App\Models\DayPayment;
 use App\Models\Order;
 use Illuminate\Console\Command;
 use App\Models\Subscription;
@@ -64,27 +65,14 @@ class VoucherPaymentDays extends Command
             $details = [];
             $total = 0;
 
-            $paymentCommission = PaymentCommission::whereDate('start_date','>=',$datePayment)->whereDate('end_date','<=',$datePayment)
-            ->where('active',1)
-            ->get()->first();
-            $countWhile = -1;
-            $signWhile = 1;
+            $paymentCommission = PaymentCommission::where('active',1)
+            ->latest()->first();
 
-            while($paymentCommission == null || $countWhile > 99){
-                $paymentCommission = PaymentCommission::whereDate('start_date','>=',$datePayment->subDay($countWhile))
-                ->whereDate('end_date','<=',$datePayment->subDay($countWhile))
-                ->where('active',1)
-                ->get()->first();
-                if($countWhile < 0 && $signWhile< 0){
-                    $countWhile--;
-                }
-                $signWhile *= -1;
-                $countWhile *= $signWhile;
-            }
 
             if($paymentCommission == null){
-                $this->info('No se encontro comision cercana a la fecha ' . $datePayment->format('d/m/Y'));
-                return;
+                return false;
+//                $paymentCommission = PaymentCommission::where('active',1)
+//                    ->get()->last();
             }
 
             $commission = $paymentCommission->commission;
@@ -147,7 +135,9 @@ class VoucherPaymentDays extends Command
                     "amount"=> $total
                 ])
             );
-
+            if($total == 0){
+                return false;
+            }
             $get_data = ApiHelper::callAPI('POST', 'https://api.bsale.cl/v1/documents.json', json_encode($data_voucher), true);
             $response = json_decode($get_data, true);
 
@@ -155,7 +145,24 @@ class VoucherPaymentDays extends Command
             $dayPayment->url_pdf = $response['urlPdf'];
             $dayPayment->total = $total;
             $dayPayment->save();
+
+            $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
+            $html = view('emails.send-voucher', ['url_pdf' => $dayPayment->url_pdf, 'name' => 'Equipo Anticonceptivo'])->render();
+
+            $email = new \SendGrid\Mail\Mail();
+            $email->setFrom("info@anticonceptivo.cl", 'Anticonceptivo');
+            $email->setSubject('Factura Eureka' . $datePayment->format('dd/mm/yyyy'));
+            $email->addTo("victor.araya.del@gmail.com", 'Factura');
+
+            $email->addContent(
+                "text/html", $html
+            );
+
+            $sendgrid->send($email);
+
             $this->info('Pagos ejecutados correctamente');
+
+
         } catch (\Exception $e){
 
             Log::info('Error catch boleta Farmacia',

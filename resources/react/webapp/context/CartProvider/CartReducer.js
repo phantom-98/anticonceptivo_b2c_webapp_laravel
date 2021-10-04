@@ -125,8 +125,10 @@ export default (state, action) => {
             let cartItemsRepeatOrder = []
 
             const orderItems = action.payload;
+            orderItems.orderItem.forEach( function(item, index, array){
+                cartItemsRepeatOrder = [...cartItemsRepeatOrder, item];
+            });
 
-            cartItemsRepeatOrder = [...cartItemsRepeatOrder, orderItems];
 
             localStorage.setItem(
                 LOCAL_STORAGE.CART_ITEMS,

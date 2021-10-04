@@ -684,7 +684,9 @@ class ProfileController extends Controller
 
                 $product_subscription_plan = ProductSubscriptionPlan::with('subscription_plan')->where('product_id', $item->product->id)->where('subscription_plan_id',$item->subscription_plan ? $item->subscription_plan->id : -1)->get()->first();
                 return [
-                    'quantity' => $item->quantity,
+
+
+                    'quantity' => $product_subscription_plan ? 1 : $item->quantity,
                     'product' => $item->product,
                     'subscription' => $product_subscription_plan,
                 ];
