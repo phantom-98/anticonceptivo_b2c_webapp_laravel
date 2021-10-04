@@ -57,7 +57,7 @@ class VoucherPaymentDays extends Command
     {
         try{
             Log::info('Paso 1');
-            $datePayment = Carbon::now();
+            $datePayment = Carbon::parse('2021-09-30');
 
             $orders = Order::where('status','PAID')->whereDate('created_at',$datePayment)
             // ->with('subscriptions_orders_items.order_item','order_items')
@@ -154,8 +154,8 @@ class VoucherPaymentDays extends Command
 
             $email = new \SendGrid\Mail\Mail();
             $email->setFrom("info@anticonceptivo.cl", 'Anticonceptivo');
-            $email->setSubject('Factura Eureka' . $datePayment->format('dd/mm/yyyy'));
-            $email->addTo("victor.araya.del@gmail.com", 'Factura');
+            $email->setSubject('Factura Eureka ' . Carbon::parse($datePayment)->format('d-m-Y'));
+            $email->addTo("contacto@anticonceptivo", 'Anticonceptivo');
 
             $email->addContent(
                 "text/html", $html
