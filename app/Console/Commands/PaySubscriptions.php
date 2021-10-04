@@ -175,12 +175,12 @@ class PaySubscriptions extends Command
             "client"=> [
                 "razonSocial"=> null,
                 "rut"=> $customer->id_number,
-                "fistName"=> $customer->fist_name,
-                "lastName"=> $customer->last_name,
+                "fistName"=> str_replace('ñ','n',$customer->fist_name),
+                "lastName"=> str_replace('ñ','n',$customer->last_name),
                 "tradeName"=> null,
                 "email"=> $customer->email,
                 "phone"=> $customer->phone,
-                "address"=> $first_subcription_order_item->customer_address->address .' '. $first_subcription_order_item->customer_address->extra_info
+                "address"=> str_replace('ñ','n',$first_subcription_order_item->customer_address->address) .' '. str_replace('ñ','n',$first_subcription_order_item->customer_address->extra_info)
             ],
             "facilityId"=> env('FACILITY_ID'),
             "cashRegisterId"=> env('CASH_REGISTER'),
