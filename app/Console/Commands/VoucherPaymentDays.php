@@ -65,7 +65,6 @@ class VoucherPaymentDays extends Command
             $details = [];
             $total = 0;
 
-            Log::info('Paso 1');
             $paymentCommission = PaymentCommission::whereDate('start_date','>=',$datePayment)->whereDate('end_date','<=',$datePayment)
             ->where('active',1)
             ->get()->first();
@@ -73,7 +72,6 @@ class VoucherPaymentDays extends Command
             $signWhile = 1;
 
             while($paymentCommission == null || $countWhile > 99){
-                Log::info('Paso 2');
                 $paymentCommission = PaymentCommission::whereDate('start_date','>=',$datePayment->subDay($countWhile))
                 ->whereDate('end_date','<=',$datePayment->subDay($countWhile))
                 ->where('active',1)
@@ -86,7 +84,6 @@ class VoucherPaymentDays extends Command
             }
 
             if($paymentCommission == null){
-                Log::info('No se encontro nada');
                 $this->info('No se encontro comision cercana a la fecha ' . $datePayment->format('d/m/Y'));
                 return;
             }
@@ -94,7 +91,7 @@ class VoucherPaymentDays extends Command
             $commission = $paymentCommission->commission;
 
             foreach ($orders as $key => $order) {
-                Log::info('Paso 3');
+
                 $detail = [
                     "netUnitValue"=> round($order->total * ($commission/100)),
                     "quantity"=> 1,
@@ -105,7 +102,6 @@ class VoucherPaymentDays extends Command
 
             }
 
-            Log::info('Paso 4');
             $subscriptions_orders_items = SubscriptionsOrdersItem::with('order_item.subscription_plan','order_item.product')
             ->where('status','PAID')->whereDate('pay_date',$datePayment)
             ->orderBy('order_id')->orderBy('pay_date')
@@ -115,7 +111,6 @@ class VoucherPaymentDays extends Command
             $prev_pay_date = null;
 
             foreach ($subscriptions_orders_items as $key => $subscription_order_item) {
-                Log::info('Paso 5');
                 $order = Order::where('id',$subscription_order_item->order_id)
                 ->whereDate('created_at','>=',Carbon::parse( $subscription_order_item->pay_date)->subDay())->get()->first();
 
@@ -134,7 +129,6 @@ class VoucherPaymentDays extends Command
                 $total += round($subscription_order_item->order_item->price * ($commission/100));
             }
 
-            Log::info('Paso 6');
             $data_voucher = array(
                 "codeSii"=> 33,
                 "officeId"=> 2,
