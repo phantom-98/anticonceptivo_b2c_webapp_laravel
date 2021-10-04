@@ -275,3 +275,17 @@ a:-webkit-any-link:focus-visible {
         padding: 2rem;
     }
 }
+
+
+@media (min-width: 768px){
+    .app-margin-top {
+        margin-top: 230px;
+    }
+}
+
+@media (min-width: 1335px){
+    .app-margin-top {
+        margin-top: 185px;
+    }
+}
+

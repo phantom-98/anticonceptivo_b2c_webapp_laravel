@@ -34,7 +34,7 @@ const HeaderTop = () => {
     return (
         <div className="top-header bg-033F5D">
             <div className="row mx-2">
-                <div className="col-md-auto top-do-flex">
+                <div className="col-md-auto py-2">
                     <div className="my-auto">
                         <Icon path={boxWhite}/> Contamos con reparto solo en la Región Metropolitana
                     </div>
