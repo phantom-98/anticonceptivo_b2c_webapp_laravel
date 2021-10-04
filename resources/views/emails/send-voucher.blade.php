@@ -5,9 +5,9 @@
     <div class="message">
         <div class="titulo">Estimado/a {{ $name }} :</div>
 
-        <p>Estimado ha emitido la siguiente factura</b></p>
+        <p>Se ha emitido la factura automática correspondiente</b></p>
         <div>
-            <p>Para descargar la boleta haga click en el siguiente link <a href='{{ $url_pdf }}'>link</a></p>
+            <p>Para descargar la boleta haga click <a href='{{ $url_pdf }}'>aquí</a></p>
         </div>
     </div>
 

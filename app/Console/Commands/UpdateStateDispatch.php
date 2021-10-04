@@ -57,7 +57,7 @@ class UpdateStateDispatch extends Command
             $customers = Customer::all();
             foreach ($customers as $customer) {
                 $subscriptionsOrdersItems = SubscriptionsOrdersItem::whereHas('order', function ($q) use ($customer) {
-                    $q->where('status', 'PAID')->where('customer_id', $customer->id);
+                    $q->whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED'])->where('customer_id', $customer->id);
                 })
                     ->where('status', 'PAID')
                     ->whereDate('pay_date', '>=', Carbon::now()->subDays(3))

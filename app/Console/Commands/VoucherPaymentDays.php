@@ -56,10 +56,10 @@ class VoucherPaymentDays extends Command
     public function handle()
     {
         try{
+            Log::info('Paso 1');
+            $datePayment = Carbon::now()->subDay();
 
-            $datePayment = Carbon::parse('2021-07-07');
-
-            $orders = Order::where('status','PAID')->whereDate('created_at',$datePayment)
+            $orders = Order::whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED'])->whereDate('created_at',$datePayment)
             // ->with('subscriptions_orders_items.order_item','order_items')
             ->get();
             $details = [];
@@ -78,7 +78,7 @@ class VoucherPaymentDays extends Command
             $commission = $paymentCommission->commission;
 
             foreach ($orders as $key => $order) {
-
+                Log::info('Paso 2');
                 $detail = [
                     "netUnitValue"=> round($order->total * ($commission/100)),
                     "quantity"=> 1,
@@ -98,6 +98,7 @@ class VoucherPaymentDays extends Command
             $prev_pay_date = null;
 
             foreach ($subscriptions_orders_items as $key => $subscription_order_item) {
+                Log::info('Paso 3');
                 $order = Order::where('id',$subscription_order_item->order_id)
                 ->whereDate('created_at','>=',Carbon::parse( $subscription_order_item->pay_date)->subDay())->get()->first();
 
@@ -115,7 +116,7 @@ class VoucherPaymentDays extends Command
                 array_push($details, $detail);
                 $total += round($subscription_order_item->order_item->price * ($commission/100));
             }
-
+            Log::info('Paso 4');
             $data_voucher = array(
                 "codeSii"=> 33,
                 "officeId"=> 1,
@@ -140,20 +141,22 @@ class VoucherPaymentDays extends Command
             }
             $get_data = ApiHelper::callAPI('POST', 'https://api.bsale.cl/v1/documents.json', json_encode($data_voucher), true);
             $response = json_decode($get_data, true);
-
+            Log::info($response);
             $dayPayment = new DayPayment();
             $dayPayment->url_pdf = $response['urlPdf'];
             $dayPayment->date_payment = $datePayment;
             $dayPayment->total = $total;
             $dayPayment->save();
 
+            Log::info('Paso 5');
+
             $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
             $html = view('emails.send-voucher', ['url_pdf' => $dayPayment->url_pdf, 'name' => 'Equipo Anticonceptivo'])->render();
 
             $email = new \SendGrid\Mail\Mail();
             $email->setFrom("info@anticonceptivo.cl", 'Anticonceptivo');
-            $email->setSubject('Factura Eureka' . $datePayment->format('dd/mm/yyyy'));
-            $email->addTo("victor.araya.del@gmail.com", 'Factura');
+            $email->setSubject('Factura Eureka ' . Carbon::parse($datePayment)->format('d-m-Y'));
+            $email->addTo("contacto@anticonceptivo.cl", 'Anticonceptivo');
 
             $email->addContent(
                 "text/html", $html
