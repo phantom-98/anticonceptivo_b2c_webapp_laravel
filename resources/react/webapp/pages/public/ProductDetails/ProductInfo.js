@@ -10,6 +10,7 @@ const ProductInfo = ({ product, setImageSubscription }) => {
     const [subscription, setSubscription] = useState(null);
 
     const handleSubscription = subscription_plan => {
+        // console.log(subscription_plan.subscription_plan)
         if (subscription == null) {
             setSubscription(subscription_plan.subscription_plan);
             setImageSubscription(subscription_plan.position + 1);
@@ -152,7 +153,7 @@ const ProductInfo = ({ product, setImageSubscription }) => {
                                                                 )
                                                             }
                                                         >
-                                                            {item.subscription_plan.months == 13 ? 12 : item.subscription_plan.months}{" "}Meses / {item.subscription_plan.months}{" "}Ciclos 
+                                                            {item.subscription_plan.months == 13 ? 12 : item.subscription_plan.months}{" "}Meses / {item.subscription_plan.months}{" "}Ciclos
                                                         </button>
                                                     ) : (
                                                         <button
@@ -166,7 +167,7 @@ const ProductInfo = ({ product, setImageSubscription }) => {
                                                                 )
                                                             }
                                                         >
-                                                            {item.subscription_plan.months == 13 ? 12 : item.subscription_plan.months}{" "}Meses / {item.subscription_plan.months}{" "}Ciclos 
+                                                            {item.subscription_plan.months == 13 ? 12 : item.subscription_plan.months}{" "}Meses / {item.subscription_plan.months}{" "}Ciclos
                                                         </button>
                                                     );
                                                 }

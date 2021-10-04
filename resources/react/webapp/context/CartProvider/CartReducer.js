@@ -3,6 +3,7 @@ import {
     MINI_CART_CLOSE,
     ADD_TO_CART,
     UPDATE_CART,
+    REPEAT_ORDER,
     REMOVE_FROM_CART,
     UPDATE_QUANTITY,
     CLEAR_CART,
@@ -103,6 +104,44 @@ export default (state, action) => {
                 // showingMiniCart: false,
                 cartItems: [...cartItems]
             };
+        case REPEAT_ORDER:
+            toastr.options = {
+                "closeButton": false,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": true,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": true,
+                "onclick": null,
+                "showDuration": "2500",
+                "hideDuration": "1000",
+                "timeOut": "2500",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+            let cartItemsRepeatOrder = []
+
+            const orderItems = action.payload;
+
+            cartItemsRepeatOrder = [...cartItemsRepeatOrder, orderItems];
+
+            localStorage.setItem(
+                LOCAL_STORAGE.CART_ITEMS,
+                JSON.stringify([...cartItemsRepeatOrder])
+            );
+
+
+            toastr.info(`<div>
+                <div>Se repitio el pedido</div>
+            </div>`)
+
+            return {
+                ...state,
+                cartItemsRepeatOrder: [...cartItemsRepeatOrder]
+            };
         case UPDATE_CART:
             let cart = JSON.parse(
                 localStorage.getItem(LOCAL_STORAGE.CART_ITEMS)
@@ -116,7 +155,6 @@ export default (state, action) => {
                 cartItems: [...cart]
             };
         case REMOVE_FROM_CART:
-            console.log(state);
             const list = state.cartItems;
             const filtered = list.filter(
                 c =>

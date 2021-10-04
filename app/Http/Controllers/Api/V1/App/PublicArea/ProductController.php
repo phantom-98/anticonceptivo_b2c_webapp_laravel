@@ -355,6 +355,11 @@ class ProductController extends Controller
             }else{
                 $valid = false;
             }
+//            if(count($product->images) !== 3){
+//                for ($i= 0; $i<count($product->images); $i++){
+//
+//                }
+//            }
 
             return ApiResponse::JsonSuccess([
                 'product' => $product,

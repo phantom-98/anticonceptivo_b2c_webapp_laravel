@@ -167,6 +167,8 @@ export const ENDPOINT = {
         },
         ORDERS:{
             GET: GetBaseURL() + 'customer/get-orders',
+            REPEAT_ORDER: GetBaseURL() + 'customer/repeat-order',
+
         },
         PRESCRIPTIONS:{
             GET: GetBaseURL() + 'customer/get-prescriptions',
