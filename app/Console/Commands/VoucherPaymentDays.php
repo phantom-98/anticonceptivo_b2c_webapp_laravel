@@ -57,7 +57,7 @@ class VoucherPaymentDays extends Command
     {
         try{
 
-            $datePayment = Carbon::now();
+            $datePayment = Carbon::parse('2021-07-07');
 
             $orders = Order::where('status','PAID')->whereDate('created_at',$datePayment)
             // ->with('subscriptions_orders_items.order_item','order_items')
@@ -118,7 +118,7 @@ class VoucherPaymentDays extends Command
 
             $data_voucher = array(
                 "codeSii"=> 33,
-                "officeId"=> 2,
+                "officeId"=> 1,
                 "emissionDate"=> Carbon::now()->timestamp,
                 "client"=> [
                   "code"=> "76.736.577-2",
@@ -143,6 +143,7 @@ class VoucherPaymentDays extends Command
 
             $dayPayment = new DayPayment();
             $dayPayment->url_pdf = $response['urlPdf'];
+            $dayPayment->date_payment = $datePayment;
             $dayPayment->total = $total;
             $dayPayment->save();
 

@@ -12,6 +12,7 @@ class DayPayment extends Model
         'url_pdf',
         'total',
         'payment_commission_id',
+        'date_payment',
         'created_at',
         'updated_at'
     ];
@@ -25,6 +26,6 @@ class DayPayment extends Model
     }
     public function getNiceDateAttribute()
     {
-        return Carbon::parse($this->created_at)->format('d-m-Y') ?? 'No especificada';
+        return Carbon::parse($this->date_payment)->format('d-m-Y') ?? 'No especificada';
     }
 }

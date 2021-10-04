@@ -49,7 +49,7 @@ class DayPaymentController extends GlobalController
             }
         }
 
-        $objects = DayPayment::whereBetween('created_at', [$start.' 00:00:00', $end.' 23:59:59'])->get();
+        $objects = DayPayment::whereBetween('date_payment', [$start.' 00:00:00', $end.' 23:59:59'])->get();
         return view($this->folder . 'index', compact('objects','date','start','end'));
     }
 

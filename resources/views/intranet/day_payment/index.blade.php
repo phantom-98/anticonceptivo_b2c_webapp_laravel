@@ -65,7 +65,7 @@
                            data-show-pagination-switch="true">
                     </table>
 
-                    
+
                 </div>
             </div>
         </div>
@@ -106,8 +106,8 @@
 
             let columns = [
                 {
-                    title: 'Fecha de registro',
-                    field: 'created_at',
+                    title: 'Fecha de pago',
+                    field: 'date_payment',
                     sortable: true,
                     cellStyle: midAling,
                     formatter: function (value, row, index) {
