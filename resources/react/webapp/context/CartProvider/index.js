@@ -5,6 +5,7 @@ import {
     MINI_CART_CLOSE,
     UPDATE_CART,
     ADD_TO_CART,
+    REPEAT_ORDER,
     REMOVE_FROM_CART,
     UPDATE_QUANTITY,
     CLEAR_CART,
@@ -50,7 +51,7 @@ const CartProvider = (props) => {
 
     const repeatOrder = (orderItem) => {
         dispatch({
-            type: ADD_TO_CART,
+            type: REPEAT_ORDER,
             payload: {
                 orderItem : orderItem,
             }

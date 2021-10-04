@@ -7,9 +7,9 @@ import {CartContext} from "../../../../../context/CartProvider";
 
 const Detail = ({order, goBack}) => {
 
-    const {addToCart} = useContext(CartContext);
+    const {repeatOrder} = useContext(CartContext);
 
-    const repeatOrder = () => {
+    const repeatOrderCart = () => {
         let url = Services.ENDPOINT.CUSTOMER.ORDERS.REPEAT_ORDER;
         let data = {
             order_id: order.id
@@ -18,13 +18,7 @@ const Detail = ({order, goBack}) => {
             Services.Response({
                 response: response,
                 success: () => {
-                    // toastr.success('');
-                    response.data.order_items.forEach( function(item, index, array) {
-                        let quantity = item.subscription ? 1 : item.quantity;
-                        addToCart(quantity, item.product, item.subscription);
-                    });
-                    // window.location.href = PUBLIC_ROUTES.HOME.path
-
+                    repeatOrder(response.data.order_items);
                 },
                 error: () => {
                     // window.location.href = PUBLIC_ROUTES.SHOP.path
@@ -82,7 +76,7 @@ const Detail = ({order, goBack}) => {
             <div className="row py-4">
                 <div className="col-md-12 ">
                     <button type="button" className="btn btn-bicolor  px-5"
-                            onClick={() => repeatOrder()}>
+                            onClick={() => repeatOrderCart()}>
                         <span className="px-5">VOLVER A COMPRAR</span>
                     </button>
                 </div>
