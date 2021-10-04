@@ -54,7 +54,6 @@ class VoucherPaymentDays extends Command
      */
     public function handle()
     {
-        Log::info('Facturame por favor');
         try{
 
             $datePayment = Carbon::parse('2021-09-30');
