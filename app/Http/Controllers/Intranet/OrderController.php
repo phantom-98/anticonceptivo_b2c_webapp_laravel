@@ -222,8 +222,8 @@ class OrderController extends GlobalController
         }
     }
 
-    public function sendEmail($id){
-        CallIntegrationsPay::sendEmailsOrderRepeat($id);
+    public function sendEmail(Request $request){
+        CallIntegrationsPay::sendEmailsOrderRepeat($request->id);
         session()->flash('success', 'Boleta reenviada exitosamente.');
         return redirect()->route($this->route . 'index');
     }
