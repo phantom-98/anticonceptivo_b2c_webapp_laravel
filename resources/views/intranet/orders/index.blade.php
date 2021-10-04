@@ -214,11 +214,6 @@
                                                     title="Rechazar Recetas">
                                                         <i class="fa fa-times"></i>
                                                 </a>
-                                                <a onclick="prescriptionRejected({{$object->id}})"
-                                                    class="btn btn-sm btn-default btn-hover-danger add-tooltip"
-                                                    title="Rechazar Recetas">
-                                                        <i class="fa fa-times"></i>
-                                                </a>
                                                 <a onclick="sendEmail({{$object->id}})"
                                                     class="btn btn-sm btn-default btn-hover-info add-tooltip"
                                                     title="Reenviar correo">
