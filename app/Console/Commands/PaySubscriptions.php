@@ -70,7 +70,7 @@ class PaySubscriptions extends Command
         $customers = Customer::all();
         foreach ($customers as $customer) {
             $subscriptionsOrdersItems = SubscriptionsOrdersItem::whereHas('order_parent', function ($q) use ($customer) {
-                $q->where('status', 'PAID')->where('customer_id', $customer->id);
+                $q->whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED'])->where('customer_id', $customer->id);
             })
                 ->whereIn('status', ['CREATED', 'REJECTED'])
                 ->whereDate('pay_date', $datePayment)
