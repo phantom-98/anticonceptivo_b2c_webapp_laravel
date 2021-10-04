@@ -1,6 +1,8 @@
 import React, {useContext, useState, useEffect, Fragment} from 'react';
 import Icon from "../../../components/general/Icon";
 import logoFull from "../../../assets/images/logo-full.svg";
+import logoShort from "../../../assets/images/logo.svg";
+
 import userBlue from "../../../assets/images/icons/header/user-blue.svg"
 import cartBlue from "../../../assets/images/icons/header/cart-blue.svg"
 import searchWhite from "../../../assets/images/icons/header/search-white.svg"
@@ -98,9 +100,16 @@ const HeaderBox = () => {
 
                     <div className="col-md-auto top-do-flex pointer">
                         <div className="my-auto">
-                            <Link to={PUBLIC_ROUTES.HOME.path}>
-                                <Icon path={logoFull} style={{width: 310}}/>
-                            </Link>
+                            <div className="d-none d-xl-block" >
+                                <Link to={PUBLIC_ROUTES.HOME.path}>
+                                    <Icon path={logoFull} style={{height: 46}}/>
+                                </Link>
+                            </div>
+                            <div className="d-block d-xl-none">
+                                <Link to={PUBLIC_ROUTES.HOME.path}>
+                                    <Icon path={logoShort} style={{height: 46}}/>
+                                </Link>
+                            </div>
                         </div>
                     </div>
                     <div className="col top-do-flex">
