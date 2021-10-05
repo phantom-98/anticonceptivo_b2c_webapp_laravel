@@ -5,8 +5,8 @@ import Slider from "react-slick";
 import { v4 as uuidv4 } from 'uuid';
 import {CONFIG} from "../../Config";
 import SliderArrow from '../general/SliderArrow';
-import SliderArrowRight from '../../assets/images/icons/slider-arrow-right.svg';
-import SliderArrowLeft from '../../assets/images/icons/slider-arrow-left.svg';
+import SliderArrowRight from '../../assets/images/icons/slider-arrow-right.png';
+import SliderArrowLeft from '../../assets/images/icons/slider-arrow-left.png';
 import Icon from '../general/Icon';
 import UseWindowDimensions from "../../helpers/UseWindowDimensions";
 
@@ -19,15 +19,17 @@ const BannerCarousel = ({topBanners}) => {
 
         let right = {
             position: 'absolute',
+            height: '52px',
             top: '45%',
-            right: '10px',
+            right: '25px',
             zIndex: 1,
         }
 
         let left = {
             position: 'absolute',
+            height: '52px',
             top: '45%',
-            left: '10px',
+            left: '25px',
             zIndex: 1,
         }
 

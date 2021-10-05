@@ -26,10 +26,10 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         try {
-            
+
             $rules = [
-                'first_name' => 'required',
-                'last_name' => 'required',
+                'first_name' => 'required|regex:/^[a-zA-Z]+$/u',
+                'last_name' => 'required|regex:/^[a-zA-Z]+$/u',
                 'email' => 'required|email|unique:customers,email',
                 'id_number' => 'required|unique:customers,id_number',
                 'id_type' => 'required',
@@ -54,13 +54,12 @@ class AuthController extends Controller
             ];
 
             $validator = Validator::make($request->all(), $rules, $messages);
-
             if ($validator->passes()) {
 
                 $customer = Customer::create(array_merge($request->except(['password']), [
                     'password' => bcrypt($request->password)
                 ]));
-                
+
                 if ($customer) {
 
                     $customer->last_access = Carbon::now();
@@ -91,7 +90,7 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         try {
-            
+
             $rules = [
                 'email' => 'required|email',
                 'password' => 'required',
@@ -125,7 +124,7 @@ class AuthController extends Controller
                     config(['auth.guards.api.provider' => 'customer']);
 
                     $token = Helper::GenerateAuthToken();
-                    
+
                     $auth = AuthGenerator::GenerateAuth($customer, $token, 'customer');
 
                     return ApiResponse::JsonSuccess([
@@ -182,7 +181,7 @@ class AuthController extends Controller
 
                     $email = new Email();
                     $email->send($customer->email, $subject, $body);
-                        
+
                     return ApiResponse::JsonSuccess($customer->full_name, OutputMessage::RECOVERY_PASSWORD);
 
                 } else {

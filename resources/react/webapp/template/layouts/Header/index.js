@@ -24,8 +24,12 @@ import { v4 as uuidv4 } from 'uuid';
 import Icon from "../../../components/general/Icon";
 import SearchModal from "./SearchModal";
 import TotalCartItems from "../../../components/shopping/TotalCartItems";
+import PRIVATE_ROUTES from "../../../routes/privateRoutes";
+import {AuthContext} from "../../../context/AuthProvider";
 
 const Header = () => {
+
+    const {auth, logout} = useContext(AuthContext)
 
     const styleProps = {
         top: 0,
@@ -66,6 +70,8 @@ const Header = () => {
     //     // autoplaySpeed: 2000,
     //     // cssEase: "linear"
     // };
+    var url = PRIVATE_ROUTES.ACCOUNT.path;
+    url = url.replace(':section', 'informacion-personal')
 
     return (
         <Fragment>
@@ -127,14 +133,30 @@ const Header = () => {
                             </div>
 
                             <div className="col-2 d-flex" style={{justifyContent:'center'}}>
-                                <div className="my-auto" onClick={() => showModalAuth(ModalAuthMode.LOGIN)}>
-                                    <img src={userBlue}
-                                         alt=""
-                                         title="Anticonceptivo"
-                                         rel="nofollow"
-                                         height="25px"
-                                         />
-                                </div>
+
+                                {
+                                    auth ?
+                                        <Link className="my-auto" to={url}>
+                                            <img src={userBlue}
+                                                 alt=""
+                                                 title="Anticonceptivo"
+                                                 rel="nofollow"
+                                                 height="25px"
+                                            />
+                                        </Link>
+                                        :
+
+                                        <div className="my-auto" onClick={() => showModalAuth(ModalAuthMode.LOGIN)}>
+                                            <img src={userBlue}
+                                                 alt=""
+                                                 title="Anticonceptivo"
+                                                 rel="nofollow"
+                                                 height="25px"
+                                            />
+                                        </div>
+                                }
+
+
                             </div>
 
                             <div className="col-2 d-flex" style={{justifyContent:'center'}}>
