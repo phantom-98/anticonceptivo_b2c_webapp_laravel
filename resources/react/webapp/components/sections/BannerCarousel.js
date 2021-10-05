@@ -8,8 +8,10 @@ import SliderArrow from '../general/SliderArrow';
 import SliderArrowRight from '../../assets/images/icons/slider-arrow-right.svg';
 import SliderArrowLeft from '../../assets/images/icons/slider-arrow-left.svg';
 import Icon from '../general/Icon';
+import UseWindowDimensions from "../../helpers/UseWindowDimensions";
 
 const BannerCarousel = ({topBanners}) => {
+    const { height, width } = UseWindowDimensions();
 
     function Arrow(props) {
         let className = props.type === "next" ? "nextArrow" : "prevArrow";
@@ -59,7 +61,7 @@ const BannerCarousel = ({topBanners}) => {
                         return (
                             banner.button_title ?
                                 <div key={topBannerKey}>
-                                    <img src={banner.public_file} alt={CONFIG.APP_NAME} style={{ width:'100%'}}/>
+                                    <img src={width > 750 ? banner.public_file : banner.public_file_responsive ?? banner.public_file} alt={CONFIG.APP_NAME} style={{ width:'100%'}}/>
                                     <div className="banner-buttons font-poppins font-35 bold color-033F5D">
                                         <span style={{backgroundColor: 'white'}}>{banner.title}</span>
                                     </div>
@@ -72,7 +74,7 @@ const BannerCarousel = ({topBanners}) => {
                             :
                                 <div key={topBannerKey}>
                                     <a href={banner.button_link} target={banner.button_target}>
-                                        <img src={banner.public_file} alt={CONFIG.APP_NAME} style={{ width:'100%'}}/>
+                                        <img  src={width > 750 ? banner.public_file : banner.public_file_responsive ?? banner.public_file} alt={CONFIG.APP_NAME} style={{ width:'100%'}}/>
                                         <div className="banner-buttons font-poppins font-35 bold color-033F5D">
                                             <span style={{backgroundColor: 'white'}}>{banner.title}</span>
                                         </div>

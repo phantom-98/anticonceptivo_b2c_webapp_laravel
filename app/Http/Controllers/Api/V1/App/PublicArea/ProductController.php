@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api\V1\App\PublicArea;
 
 use App\Http\Controllers\Controller;
+use App\Models\Image;
+use App\Models\ProductImage;
 use Illuminate\Http\Request;
 use Willywes\ApiResponse\ApiResponse;
 use App\Http\Utils\OutputMessage\OutputMessage;
@@ -355,12 +357,13 @@ class ProductController extends Controller
             }else{
                 $valid = false;
             }
-//            if(count($product->images) !== 3){
-//                for ($i= 0; $i<count($product->images); $i++){
-//
-//                }
-//            }
-
+            if(count($product->images) < 6){
+                for ($i= count($product->images); $i<6; $i++){
+                    $image = new ProductImage();
+                    $image->file = asset('images/producto-default.png');
+                    $product->images->push($image);
+                }
+            }
             return ApiResponse::JsonSuccess([
                 'product' => $product,
                 'legal_warnings' => $legalWarnings,

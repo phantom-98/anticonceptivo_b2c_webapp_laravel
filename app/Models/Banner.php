@@ -24,7 +24,8 @@ class Banner extends Model
     ];
 
     protected $appends = [
-        'public_file'
+        'public_file',
+        'public_file_responsive'
     ];
 
     public function cms_slider()
@@ -34,6 +35,9 @@ class Banner extends Model
 
     public function getPublicFileAttribute(){
         return $this->file == null ? null : \Storage::url($this->file);
+    }
+    public function getPublicFileResponsiveAttribute(){
+        return $this->responsive_file == null ? null : \Storage::url($this->responsive_file);
     }
 }
 

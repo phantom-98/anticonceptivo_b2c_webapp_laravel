@@ -124,8 +124,8 @@ export default (state, action) => {
             }
             let cartItemsRepeatOrder = []
 
-            const orderItems = action.payload;
-            orderItems.orderItem.forEach( function(item, index, array){
+            const orderItems = action.payload.orderItem;
+            orderItems.forEach( function(item, index, array){
                 cartItemsRepeatOrder = [...cartItemsRepeatOrder, item];
             });
 
@@ -136,9 +136,9 @@ export default (state, action) => {
             );
 
 
-            toastr.info(`<div>
-                <div>Se repitio el pedido</div>
-            </div>`)
+            // toastr.info(`<div>
+            //     <div>Se repitio el pedido</div>
+            // </div>`)
 
             return {
                 ...state,
