@@ -19,6 +19,7 @@ const Detail = ({order, goBack}) => {
                 response: response,
                 success: () => {
                     repeatOrder(response.data.order_items);
+                    window.location.href = PUBLIC_ROUTES.CART.path
                 },
                 error: () => {
                     // window.location.href = PUBLIC_ROUTES.SHOP.path

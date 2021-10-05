@@ -21,7 +21,9 @@ class ProductImage extends Model
     }
 
     public function getPublicFileAttribute(){
+        if(strpos($this->file,'http') !== false){
+            return $this->file;
+        }
         return $this->file == null ? null : \Storage::url($this->file);
     }
-
 }

@@ -672,11 +672,6 @@ class ProfileController extends Controller
 
             $order = Order::with(['order_items.product','order_items.product.plans','order_items.subscription_plan','order_items.product.subcategory.category','order_items.product.images'])->find($request->order_id);
 
-//            $order->whereHas('plans', function ($query) use($subscription) {
-//                $query->whereIn('subscription_plan_id', $subscription);
-//            })->get();
-
-
             if (!$order) {
                 return ApiResponse::NotFound(null, "Orden no encontrada");
             }
@@ -684,9 +679,8 @@ class ProfileController extends Controller
 
                 $product_subscription_plan = ProductSubscriptionPlan::with('subscription_plan')->where('product_id', $item->product->id)->where('subscription_plan_id',$item->subscription_plan ? $item->subscription_plan->id : -1)->get()->first();
                 return [
-
-
                     'quantity' => $product_subscription_plan ? 1 : $item->quantity,
+                    'product_id' => $item->product->id,
                     'product' => $item->product,
                     'subscription' => $product_subscription_plan,
                 ];
