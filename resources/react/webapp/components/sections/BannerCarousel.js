@@ -19,7 +19,7 @@ const BannerCarousel = ({topBanners}) => {
 
         let right = {
             position: 'absolute',
-            height: '52px',
+            height: '45px',
             top: '45%',
             right: '25px',
             zIndex: 1,
@@ -27,7 +27,7 @@ const BannerCarousel = ({topBanners}) => {
 
         let left = {
             position: 'absolute',
-            height: '52px',
+            height: '45px',
             top: '45%',
             left: '25px',
             zIndex: 1,
