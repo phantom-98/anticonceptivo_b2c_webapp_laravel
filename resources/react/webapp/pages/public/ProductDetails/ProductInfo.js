@@ -98,7 +98,7 @@ const ProductInfo = ({ product, setImageSubscription }) => {
             </div>
 
             <div className="offset-md-1 mb-3" />
-            {product.unit_format ? (
+            {product.unit_format && product.format != null  ? (
                 <div className="col-md-12 col-6 py-2 product-format-style font-poppins regular color-6C6B6B">
                     Precio por unidad: $
                     {product.state_of_matter === "Líquido"

@@ -170,13 +170,10 @@
         <div class="card-footer">
             <div class="mb-2 text-center" style="">
                 <div>
-                    <a href="#" target="_blank" style="text-decoration: none;">
-                        <img style="margin: 0 5px;" src="https://anticonceptivo.cl/themes/web/assets/images/email/twitter.png"/>
-                    </a>
-                    <a href="#" target="_blank" style="text-decoration: none;">
+                    <a href="https://www.facebook.com/anticonceptivo.cl/" target="_blank" style="text-decoration: none;">
                         <img style="margin: 0 5px;" src="https://anticonceptivo.cl/themes/web/assets/images/email/facebook.png"/>
                     </a>
-                    <a href="#" target="_blank" style="text-decoration: none;">
+                    <a href="https://www.instagram.com/anticonceptivo_cl/" target="_blank" style="text-decoration: none;">
                         <img style="margin: 0 5px;" src="https://anticonceptivo.cl/themes/web/assets/images/email/instagram.png"/>
                     </a>
                 </div>

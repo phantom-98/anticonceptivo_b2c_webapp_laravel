@@ -10,7 +10,7 @@ const AccordionBody = ({data}) => {
         <div className="row">
             <div className="col-md-12 mb-3 d-flex">
                 <div className="m-auto">
-                    <img src={data.public_image} alt={CONFIG.APP_NAME}/>
+                    <img src={data.public_image} alt={CONFIG.APP_NAME} style={{maxWidth: '100%'}}/>
                 </div>
             </div>
             <div className="col-md-12 mb-3 font-inter font-22 bold color-033F5D">
