@@ -115,7 +115,7 @@ class TestController extends Controller
         $order =Order::with('order_items.subscription_plan','customer','order_items.product')->find($id);
         if($order->status == "CREATED"){
             $order->status = PaymentStatus::PAID;
-            $order->payment_date = Carbon\Carbon::now();
+            $order->payment_date = Carbon::now();
             $order->payment_type = 'webpay';
             $order->is_paid = true;
             $order->save();
