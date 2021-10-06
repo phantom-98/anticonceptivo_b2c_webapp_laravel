@@ -108,62 +108,22 @@ class TestController extends Controller
     public function PaySubscription()
     {
         dd(1);
-        $datePayment = Carbon::now()->addDays(24);
-        $customers = Customer::all();
-        foreach ($customers as $customer) {
-            $subscriptionsOrdersItems = SubscriptionsOrdersItem::whereHas('order_parent', function ($q) use ($customer) {
-                $q->where('status', 'PAID')->where('customer_id', $customer->id);
-            })
-                ->whereIn('status', ['CREATED', 'REJECTED'])
-                ->whereDate('pay_date', $datePayment)
-                ->with(['order_item.product', 'subscription', 'order.order_items', 'order_item.subscription_plan', 'order.customer', 'customer_address.commune'])
-                ->select('id', 'order_parent_id as order_id','subtotal','name', 'orders_item_id','price','quantity', 'subscription_id','delivery_address', 'customer_address_id', 'pay_date', 'dispatch_date', 'status', 'is_pay')
-                ->orderBy('order_parent_id')->orderBy('pay_date')
-                ->get();
-
-            $prev_order_id = null;
-            $prev_pay_date = null;
-            $prev_item = null;
-            $total = 0;
-            $array_item = [];
-
-            foreach ($subscriptionsOrdersItems as $item) {
-                if (($prev_order_id != $item->order->id || $prev_pay_date != $item->pay_date) && $prev_item != null) {
-
-                    $dispatch = $this->getDeliveryCost($prev_item->customer_address->commune->name)['price_dispatch'];
-
-                    $total = $total + $dispatch;
-                    $response = $this->oneclick->authorize($customer->id, $prev_item->subscription->transbank_token, $prev_item->id, $total);
-                    $total = 0;
-                    if($response['status'] == "success") {
-                        $this->sendCallIntegration($array_item);
-                    }
-                    $array_item = [];
-
-                }
-                $total += $item->price * $item->quantity;
-                $prev_order_id = $item->order->id;
-                $prev_pay_date = $item->pay_date;
-                $prev_item = $item;
-                array_push($array_item , $item);
-
-            }
-
-            if (count($subscriptionsOrdersItems) > 0) {
-                $dispatch = $this->getDeliveryCost($prev_item->customer_address->commune->name)['price_dispatch'];
-                $total = $total + $dispatch;
-
-                $response = $this->oneclick->authorize($customer->id, $prev_item->subscription->transbank_token, $prev_item->id, $total);
-                if($response['status'] == "success") {
-                    $this->sendCallIntegration(collect($array_item));
-                }else{
-                    dd($response['status']);
-                }
-                $array_item = [];
-
-            }
-
+        $order = App\Models\Order::find($id);
+        if($order->status == "CREATED"){
+            $order->status = App\Http\Utils\Enum\PaymentStatus::PAID;
+            $order->payment_date = Carbon\Carbon::now();
+            $order->payment_type = 'webpay';
+            $order->is_paid = true;
+            $order->save();
         }
+    
+        $customerAddress = App\Models\CustomerAddress::with('commune')->where('customer_id',$order->customer_id)->where('default_address',1)->get()->first();
+        App\Http\Helpers\CallIntegrationsPay::callVoucher($order->id,$customerAddress);
+        App\Http\Helpers\CallIntegrationsPay::callUpdateStockProducts($order->id);
+        App\Http\Helpers\CallIntegrationsPay::callDispatchLlego($order->id,$customerAddress);
+        App\Http\Helpers\CallIntegrationsPay::sendEmailsOrder($order->id);
+    
+        return "Done";
     }
 
 
