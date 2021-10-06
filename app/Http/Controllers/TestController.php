@@ -109,7 +109,7 @@ class TestController extends Controller
         dd($response);
     }
 
-    public function PaySubscription()
+    public function PaySubscription($id)
     {
         //dd(1);
         $order =Order::with('order_items.subscription_plan','customer','order_items.product')->find($id);
