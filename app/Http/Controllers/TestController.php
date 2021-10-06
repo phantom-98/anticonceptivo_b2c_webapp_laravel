@@ -26,6 +26,7 @@ use App\Models\SubscriptionsOrdersItem;
 use App\Models\SubscriptionPlan;
 use App\Models\ProductSubscriptionPlan;
 use Illuminate\Support\Facades\Log;
+use Innovaweb\Transbank\WebpayPlus;
 use Innovaweb\Transbank\OneClickMall;
 
 class TestController extends Controller
@@ -35,10 +36,13 @@ class TestController extends Controller
     public function __construct()
     {
         if (env('APP_ENV') == 'production') {
-            $this->oneclick = new OneClickMall(env('TBK_CC'), env('TBK_API_KEY'), WebpayPlus::PRODUCTION);
+            $this->webpay_plus = new WebpayPlus(env('TBK_CC'), env('TBK_API_KEY'), WebpayPlus::PRODUCTION);
+            $this->oneclick = new OneClickMall(env('TBK_CC_ONECLICK'), env('TBK_API_KEY_ONECLICK'), WebpayPlus::PRODUCTION);
 
         } else {
+            $this->webpay_plus = new WebpayPlus();
             $this->oneclick = new OneClickMall();
+
         }
     }
 
