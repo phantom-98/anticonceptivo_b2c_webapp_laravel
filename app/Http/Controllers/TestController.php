@@ -112,20 +112,20 @@ class TestController extends Controller
     public function PaySubscription()
     {
         //dd(1);
-        $order = App\Models\Order::with('order_items.subscription_plan','customer','order_items.product')->find($id);
+        $order =Order::with('order_items.subscription_plan','customer','order_items.product')->find($id);
         if($order->status == "CREATED"){
-            $order->status = App\Http\Utils\Enum\PaymentStatus::PAID;
+            $order->status = PaymentStatus::PAID;
             $order->payment_date = Carbon\Carbon::now();
             $order->payment_type = 'webpay';
             $order->is_paid = true;
             $order->save();
         }
     
-        $customerAddress = App\Models\CustomerAddress::with('commune')->where('customer_id',$order->customer_id)->where('default_address',1)->get()->first();
-        App\Http\Helpers\CallIntegrationsPay::callVoucher($order->id,$customerAddress);
-        App\Http\Helpers\CallIntegrationsPay::callUpdateStockProducts($order->id);
-        App\Http\Helpers\CallIntegrationsPay::callDispatchLlego($order->id,$customerAddress);
-        App\Http\Helpers\CallIntegrationsPay::sendEmailsOrder($order->id);
+        $customerAddress = CustomerAddress::with('commune')->where('customer_id',$order->customer_id)->where('default_address',1)->get()->first();
+        CallIntegrationsPay::callVoucher($order->id,$customerAddress);
+        CallIntegrationsPay::callUpdateStockProducts($order->id);
+        CallIntegrationsPay::callDispatchLlego($order->id,$customerAddress);
+        CallIntegrationsPay::sendEmailsOrder($order->id);
     
         return "Done";
     }
