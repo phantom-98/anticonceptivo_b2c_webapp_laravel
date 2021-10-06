@@ -19,7 +19,7 @@ const PillsDropDown = ({laboratories, subscriptions, formats, categorySlug}) => 
                             formatUrl = formatUrl.replace(':filter?',format);
                             return (
                                 <Link to={formatUrl} style={{textDecoration: 'none'}} key={formatKey}>
-                                    <span className="font-poppins py-1 font-12 text-black my-auto d-block">{format}</span>
+                                    <span className="font-poppins py-1 font-12 text-black my-auto d-block">{format} pastillas</span>
                                 </Link>
                             )
                         })
