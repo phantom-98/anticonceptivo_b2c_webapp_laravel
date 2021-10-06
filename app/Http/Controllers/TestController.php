@@ -108,7 +108,7 @@ class TestController extends Controller
     public function PaySubscription()
     {
         dd(1);
-        $order = App\Models\Order::find($id);
+        $order = App\Models\Order::with('order_items.subscription_plan','customer','order_items.product')->find($id);
         if($order->status == "CREATED"){
             $order->status = App\Http\Utils\Enum\PaymentStatus::PAID;
             $order->payment_date = Carbon\Carbon::now();
