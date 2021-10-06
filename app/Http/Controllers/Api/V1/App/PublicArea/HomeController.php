@@ -42,7 +42,7 @@ class HomeController extends Controller
 
             $laboratories = Laboratory::where('active',true)->whereIn('id',$laboratoriesWithPills)->get();
             $subscriptions = SubscriptionPlan::where('active',true)->whereIn('id',$subscriptionPlanIds)->get();
-            $formats = $products->where('format','!=','')->pluck('format')->orderBy('format')->unique();
+            $formats = $products->where('format','!=','')->orderBy('format')->pluck('format')->unique();
 
             return ApiResponse::JsonSuccess([
                 'categories' => $categories,
