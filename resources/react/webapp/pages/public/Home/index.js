@@ -20,41 +20,41 @@ const Home = ({match}) => {
 
     const [topBanners, setTopBanners] = useState([]);
     const [bannerCategories, setBannerCategories] = useState([]);
-    const [isLoaded, setIsLoaded] = useState(false);
+    const [isLoaded, setIsLoaded] = useState(false);
 
     const [middleBanners, setMiddleBanners] = useState([]);
     const [bottomBanners, setBottomBanners] = useState([]);
     const [brands, setBrands] = useState([]);
     // const [outstandings, setOutstandings] = useState([]);
     // const [bestSellers, setBestSellers] = useState([]);
-    
+
     useEffect(() => {
-        if (token  && token.length > 15) {
+        if (token && token.length > 15) {
             setTokenModalAuth(token);
-            showModalAuth(ModalAuthMode.SET_NEW_PASSWORD); 
+            showModalAuth(ModalAuthMode.SET_NEW_PASSWORD);
         }
     }, [])
 
     useEffect(() => {
         getData();
-    },[])
+    }, [])
 
     const getData = () => {
         let url = Services.ENDPOINT.PUBLIC_AREA.BANNERS.HOME.TOP;
         let data = {}
-        Services.DoGet(url,data).then(response => {
+        Services.DoGet(url, data).then(response => {
             Services.Response({
-            response: response, 
-            success: () => {    
-                setTopBanners(response.data.top_banners);
-                setMiddleBanners(response.data.middle_banners);
-                setBottomBanners(response.data.bottom_banners);
-                // setOutstandings(response.data.outstandings);
-                // setBestSellers(response.data.best_sellers);
-                setBrands(response.data.brands);
-                setBannerCategories(response.data.bannerCategories);
-                setIsLoaded(true);
-            },  
+                response: response,
+                success: () => {
+                    setTopBanners(response.data.top_banners);
+                    setMiddleBanners(response.data.middle_banners);
+                    setBottomBanners(response.data.bottom_banners);
+                    // setOutstandings(response.data.outstandings);
+                    // setBestSellers(response.data.best_sellers);
+                    setBrands(response.data.brands);
+                    setBannerCategories(response.data.bannerCategories);
+                    setIsLoaded(true);
+                },
             });
         }).catch(error => {
             Services.ErrorCatch(error)
@@ -63,7 +63,7 @@ const Home = ({match}) => {
 
     if (!isLoaded) {
         return (
-            <LazyLoading/>
+            <LazyLoading />
         )
     }
 

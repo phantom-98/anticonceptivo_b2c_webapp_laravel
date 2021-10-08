@@ -10,12 +10,12 @@ const SearchModal = ({showingSearch, hideSearch}) => {
                backdrop="static"
                keyboard={false}
                onHide={hideSearch}
-               dialogClassName="search-modal">
+               dialogClassName="search-modal modal-search-force">
 
         <Modal.Header>
             <CloseModal hideModal={hideSearch} />
             </Modal.Header>
-            <Modal.Body className="px-2 mt-2">
+            <Modal.Body className="px-2 mt-2" >
 
                 <div className="row">
                     <div className="col-12">

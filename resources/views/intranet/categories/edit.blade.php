@@ -97,6 +97,13 @@
                                 <img id="image-edit-3" src="{{ Storage::url($object->subbanner_image) }}" style="max-width: 200px;"/>
                                 @endif
                             </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="unit_format">Formato unidad </label>
+                                    <input type="text" id="unit_format" name="unit_format" class="form-control" min="1"
+                                            value="{{ old('unit_format') ?? $object->unit_format }}">
+                                </div>
+                            </div>
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="description">Descripción</label>

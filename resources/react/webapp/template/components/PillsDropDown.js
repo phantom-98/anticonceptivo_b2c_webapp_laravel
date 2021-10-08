@@ -32,7 +32,7 @@ const PillsDropDown = ({laboratories, subscriptions, formats, categorySlug}) => 
                             subscriptionUrl = subscriptionUrl.replace(':filter?', subscription.months);
                             return (
                                 <Link to={subscriptionUrl} style={{textDecoration: 'none'}} key={subscriptionKey}>
-                                    <span className="font-poppins py-1 font-12 text-black my-auto d-block">{subscription.months == 13 ? 12 : subscription.months} Meses / {subscription.months} Ciclos</span>
+                                    <span className="font-poppins py-1 font-12 text-black my-auto d-block ">{subscription.months == 13 ? 12 : subscription.months} Meses / {subscription.months} Ciclos</span>
                                 </Link>
                             )
                         })
