@@ -236,13 +236,17 @@ a:-webkit-any-link:focus-visible {
     height: calc(100vh - 100px);
 }
 
+.margin-menu-bottom{
+    border-bottom: 1px solid #0869a699 !important;
+    padding-bottom: 5px;
+}
+
 .filter-width {
     width: 313px;
 }
 
-.margin-menu-bottom{
-    border-bottom: 1px solid #0869a699 !important;
-    padding-bottom: 5px;
+.modal-search-force .modal-content{
+    height: 128px;
 }
 
 @media (min-width: 768px) {
@@ -267,7 +271,7 @@ a:-webkit-any-link:focus-visible {
 @media (max-width: 767px) {
     .app-margin-top{
         //margin-top: 85px;
-        margin-top: 0px;
+        margin-top: 95px;
     }
 
     .responsive-d-none{
@@ -301,7 +305,7 @@ a:-webkit-any-link:focus-visible {
 @media (min-width: 768px){
     .app-margin-top {
         //margin-top: 230px;
-        margin-top: 0;
+        margin-top: 0px;
         min-height: calc(100vh - 587px);
     }
 }

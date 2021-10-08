@@ -10,48 +10,72 @@
     <!-- Fonts -->
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
 
     <link rel="stylesheet" href="/themes/web/assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="/themes/web/assets/plugins/toastr/toastr.min.css">
     <link rel="stylesheet" href="/themes/web/app/css/app.css">
 
-      <!-- Google Tag Manager -->
-      <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-      })(window,document,'script','dataLayer','GTM-PH7DZ9Q');</script>
-      <!-- End Google Tag Manager -->
+    <!-- Google Tag Manager -->
+    <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            });
+            var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+            j.async = true;
+            j.src =
+                'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+            f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-PH7DZ9Q');</script>
+    <!-- End Google Tag Manager -->
 
-      <!-- Global site tag (gtag.js) - Google Analytics -->
-      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-209380285-1"></script>
-      <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-209380285-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
 
-      gtag('config', 'UA-209380285-1');
-      </script>
+        function gtag() {
+            dataLayer.push(arguments);
+        }
 
-      <!-- Facebook Pixel Code -->
-      <script>
-      !function(f,b,e,v,n,t,s)
-      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-      n.queue=[];t=b.createElement(e);t.async=!0;
-      t.src=v;s=b.getElementsByTagName(e)[0];
-      s.parentNode.insertBefore(t,s)}(window, document,'script',
-      'https://connect.facebook.net/en_US/fbevents.js');
-      fbq('init', '409511283912775');
-      fbq('track', 'PageView');
-      </script>
-      <noscript><img height="1" width="1" style="display:none"
-      src="https://www.facebook.com/tr?id=409511283912775&ev=PageView&noscript=1"
-      /></noscript>
-      <!-- End Facebook Pixel Code -->
-      
+        gtag('js', new Date());
+
+        gtag('config', 'UA-209380285-1');
+    </script>
+
+    <!-- Facebook Pixel Code -->
+    <script>
+        !function (f, b, e, v, n, t, s) {
+            if (f.fbq) return;
+            n = f.fbq = function () {
+                n.callMethod ?
+                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            };
+            if (!f._fbq) f._fbq = n;
+            n.push = n;
+            n.loaded = !0;
+            n.version = '2.0';
+            n.queue = [];
+            t = b.createElement(e);
+            t.async = !0;
+            t.src = v;
+            s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s)
+        }(window, document, 'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '409511283912775');
+        fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+                   src="https://www.facebook.com/tr?id=409511283912775&ev=PageView&noscript=1"
+        /></noscript>
+    <!-- End Facebook Pixel Code -->
+
 
     @yield('styles')
 
@@ -93,7 +117,8 @@
     <meta property="og:title" content="Anticonceptivo.cl"/>
     <meta property="og:description"
           content="El proveedor número 1 de pastillas anticonceptivas en Chile"/>
-    <meta property="og:image" itemprop="image" content="https://www.anticonceptivo.cl/images/logo-full.svg?b3b8df2099e0585f16d824394e200f52">
+    <meta property="og:image" itemprop="image"
+          content="https://www.anticonceptivo.cl/images/logo-full.svg?b3b8df2099e0585f16d824394e200f52">
     <meta property="og:type" content="website"/>
     <meta property="og:updated_time" content="1440432930"/>
     <meta property="og:url" content="https://www.anticonceptivo.cl/"/>
@@ -104,12 +129,37 @@
 <body>
 
 <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PH7DZ9Q"
-      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PH7DZ9Q"
+            height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
 <!-- End Google Tag Manager (noscript) -->
 
 <div>
-    <div id="app" style="overflow:hidden;"></div>
+
+    @if(strtoupper(env('TURN_OFF')) == 'TRUE' or strtoupper(env('TURN_OFF')) == true)
+        <div style="width: 100%; height: 100vh; display: flex">
+            <div style="margin: auto; padding: 25px;">
+                <div style="width: 100%; text-align: center;">
+                    <img style="width: 100%; max-width: 300px" src="/themes/web/assets/images/logo-full.png"
+                         alt="anticonceptivo">
+                </div>
+                <div style="width: 100%; text-align: center;">
+                    <img style="width: 80%; max-width: 120px" src="/themes/web/assets/images/working.gif"
+                         alt="anticonceptivo">
+                </div>
+
+                <div style="width: 100%; max-width: 500px; padding: 15px 30px; text-align: center">
+                    <h1 style="font-size: 20px; font-weight: 300; color: #0869a6;">{{env('TURN_OFF_MSG')}}</h1>
+                </div>
+            </div>
+        </div>
+    @else
+        <div id="app" style="overflow:hidden;"></div>
+
+    @endif
+
+
 </div>
 
 <script src="/themes/web/app/js/app.js"></script>
