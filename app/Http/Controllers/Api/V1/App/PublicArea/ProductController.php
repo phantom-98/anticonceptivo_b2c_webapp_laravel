@@ -272,9 +272,8 @@ class ProductController extends Controller
             $products = Product::whereIn('id',$productIds)->where('active',true)
                 ->with(['subcategory.category','images','laboratory']);
 
-            $formats =  Product::whereIn('id',$productIds)->where('active',true)
-                ->where('format','!=','')->pluck('format')->unique();
-            
+
+
             $product_subcategory =  Product::select('subcategory_id')->whereIn('id',$productIds)->where('active',true)
             ->where('format','!=','')->whereNotNull('subcategory_id')->first();
 
@@ -286,10 +285,13 @@ class ProductController extends Controller
                 if ($subcategory) {
                     $category = Category::where('id',$subcategory->category_id)->first();
                     if ($category) {
-                        $unit_format = $category->unit_format != null ? $category->unit_format : ''; 
+                        $unit_format = $category->unit_format != null ? $category->unit_format : '';
                     }
                 }
             }
+
+            $formats =  Product::whereIn('id',$productIds)->where('active',true)
+                ->where('format','!=','')->pluck('format')->unique();
 
             $filter = null;
 

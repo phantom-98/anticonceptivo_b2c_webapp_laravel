@@ -17,7 +17,8 @@ const Filter = ({
     filters,
     setFilters,
     filtersUpdate,
-    setFiltersUpdate
+    setFiltersUpdate,
+    unitFormat
     // setLaboratories,
     // subscriptions,
     // filtersCat,
@@ -178,6 +179,7 @@ const Filter = ({
                                             setFilters={setFilters}
                                             filtersUpdate={filtersUpdate}
                                             setFiltersUpdate={setFiltersUpdate}
+                                            unitFormat={unitFormat}
                                         />
                                     </Card.Body>
                                 </Accordion.Collapse>
