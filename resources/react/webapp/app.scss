@@ -245,6 +245,10 @@ a:-webkit-any-link:focus-visible {
     width: 313px;
 }
 
+.modal-search-force .modal-content{
+    height: 128px;
+}
+
 @media (min-width: 768px) {
     .app-margin-top{
         //margin-top: 185px;
@@ -267,7 +271,7 @@ a:-webkit-any-link:focus-visible {
 @media (max-width: 767px) {
     .app-margin-top{
         //margin-top: 85px;
-        margin-top: 0px;
+        margin-top: 95px;
     }
 
     .responsive-d-none{
@@ -301,7 +305,7 @@ a:-webkit-any-link:focus-visible {
 @media (min-width: 768px){
     .app-margin-top {
         //margin-top: 230px;
-        margin-top: 95px;
+        margin-top: 0px;
         min-height: calc(100vh - 587px);
     }
 }
