@@ -537,6 +537,7 @@ class WebpayPlusController
 
         return view('webapp.payment.webpay-finish');
     }
+
     public function verify(Request $request)
     {
         try {
