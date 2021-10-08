@@ -2,13 +2,13 @@ import React from 'react';
 import logo from '../assets/images/logo-full.svg'
 import logoGif from '../assets/images/logo-spinner.gif';
 
-const LazyLoading = ({height = '100vh'}) => {
-
-    let style = {};
+const LazyLoading = ({height = '100vh', style = {}}) => {
 
     if (height) {
         style = {
-            height: height
+            ...style,
+            height: height,
+            paddingBottom: 'calc(100vh / 2)',
         }
     }
 
@@ -17,8 +17,8 @@ const LazyLoading = ({height = '100vh'}) => {
 
         <div className="w-100 d-flex" style={style}>
             <div className="m-auto text-center">
-                
-                <img className="py-2 responsive-d-none" src={logo} alt="anticonceptivo.cl" style={{width:310}}/>
+
+                <img className="py-2 responsive-d-none" src={logo} alt="anticonceptivo.cl" style={{width: 310}}/>
 
                 <br/>
 
@@ -27,7 +27,7 @@ const LazyLoading = ({height = '100vh'}) => {
                 </div>
 
                 <img className="py-2 responsive-d-display" src={logoGif} alt="anticonceptivo.cl" style={{width: 50}}/>
-                
+
             </div>
         </div>
     );

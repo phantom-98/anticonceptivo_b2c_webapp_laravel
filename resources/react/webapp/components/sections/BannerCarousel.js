@@ -11,10 +11,13 @@ import Icon from '../general/Icon';
 import UseWindowDimensions from "../../helpers/UseWindowDimensions";
 
 const BannerCarousel = ({topBanners}) => {
+
     const { height, width } = UseWindowDimensions();
 
     function Arrow(props) {
+
         let className = props.type === "next" ? "nextArrow" : "prevArrow";
+
         className += " arrow";
 
         let right = {
@@ -35,8 +38,8 @@ const BannerCarousel = ({topBanners}) => {
 
         return (
             props.type == 'next' ?
-                <img src={SliderArrowRight} onClick={props.onClick} className={`pointer ${className}`} style={right}/>
-            : <img src={SliderArrowLeft} onClick={props.onClick} className={`pointer ${className}`} style={left}/>
+                <img src={SliderArrowRight} onClick={props.onClick} className={`pointer ${className}`} style={right} alt="anticonceptivo"/>
+            : <img src={SliderArrowLeft} onClick={props.onClick} className={`pointer ${className}`} style={left} alt="anticonceptivo"/>
         );
     }
 
