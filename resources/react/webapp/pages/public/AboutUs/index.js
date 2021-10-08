@@ -110,7 +110,7 @@ const AboutUs = () => {
                                         <div className="row">
                                             <div className="col-12 mb-5">
                                                 <div className="circle-about-us mx-auto">
-                                                    <img className="m-auto" style={{width:125, height:125, borderRadius:'50%'}} src={value.public_image} alt={CONFIG.APP_NAME}/>
+                                                    <img className="m-auto" style={{borderRadius:'50%'}} src={value.public_image} alt={CONFIG.APP_NAME}/>
                                                 </div>
                                             </div>
                                             <div className="col-12 text-center">
