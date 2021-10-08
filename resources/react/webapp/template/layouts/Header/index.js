@@ -1,4 +1,4 @@
-import React, {Fragment, useState, useContext} from 'react';
+import React, {Fragment, useState, useContext, useEffect} from 'react';
 import menu from "../../../assets/images/icons/header/menu.svg";
 import anticonceptivo from "../../../assets/images/logo-responsive.png";
 import cartBlue from "../../../assets/images/icons/header/cart-blue.svg";
@@ -20,7 +20,7 @@ import phoneWhite from "../../../assets/images/icons/header/phone-white.svg"
 import emailWhite from "../../../assets/images/icons/header/email-white.svg"
 import boxWhite from "../../../assets/images/icons/header/box-white.svg"
 import PUBLIC_ROUTES from "../../../routes/publicRoutes";
-import { v4 as uuidv4 } from 'uuid';
+import {v4 as uuidv4} from 'uuid';
 import Icon from "../../../components/general/Icon";
 import SearchModal from "./SearchModal";
 import TotalCartItems from "../../../components/shopping/TotalCartItems";
@@ -32,7 +32,6 @@ const Header = () => {
     const {auth, logout} = useContext(AuthContext)
 
     const styleProps = {
-        top: 0,
         position: 'fixed',
         right: 0,
         left: 0,
@@ -50,6 +49,30 @@ const Header = () => {
     const [showingSearch, setShowingSearch] = useState(false);
     const showSearch = () => setShowingSearch(true);
     const hideSearch = () => setShowingSearch(false);
+
+    const [topFixed, setTopFixed] = useState({
+        top: 34,
+        boxShadow: '0px 1px 4px rgb(0 0 0 / 0%)'
+    });
+
+    useEffect(() => {
+        function onScroll() {
+            if (window.pageYOffset >= 100) {
+                setTopFixed({
+                    top: 0,
+                    boxShadow: '0px 1px 4px rgb(0 0 0 / 20%)'
+                })
+            } else {
+                setTopFixed({
+                    top: 34,
+                    boxShadow: '0px 1px 4px rgb(0 0 0 / 0%)'
+                })
+            }
+        }
+
+        window.addEventListener("scroll", onScroll);
+        return () => window.removeEventListener("scroll", onScroll);
+    }, []);
 
     const carrousels = [
         {
@@ -75,18 +98,20 @@ const Header = () => {
 
     return (
         <Fragment>
-            <section id="header" style={styleProps} className="header">
+            <section id="header" className="header">
                 {/* Desktop */}
 
                 <div className="d-md-block d-none">
-                    <HeaderTop />
+                    <HeaderTop/>
                 </div>
 
                 <div className="d-md-block d-none">
-                    <HeaderBox />
+                    <div style={{...styleProps, ...topFixed}}>
+                        <HeaderBox/>
+                    </div>
                 </div>
-                <div className="d-md-block d-none">
-                    <HeaderNavbar />
+                <div className="d-md-block d-none" style={{marginTop: 108}}>
+                    <HeaderNavbar/>
                 </div>
 
                 {/* Mobile */}
@@ -98,29 +123,29 @@ const Header = () => {
                             </div>
                         </div>
                         <div className="row mx-2" style={{height: '70px'}}>
-                            <div className="col-2 d-flex" style={{justifyContent:'center'}}>
+                            <div className="col-2 d-flex" style={{justifyContent: 'center'}}>
                                 <div className="my-auto" onClick={showMenu}>
                                     <img src={menu}
                                          alt=""
                                          title="Anticonceptivo"
                                          rel="nofollow"
                                          height="34px"
-                                         />
+                                    />
                                 </div>
                             </div>
 
-                            <div className="col-2 d-flex" style={{justifyContent:'center'}}>
+                            <div className="col-2 d-flex" style={{justifyContent: 'center'}}>
                                 <div className="my-auto" onClick={showSearch}>
                                     <img src={search}
                                          alt=""
                                          title="Anticonceptivo"
                                          rel="nofollow"
                                          height="25px"
-                                         />
+                                    />
                                 </div>
                             </div>
 
-                            <div className="col-4 d-flex" style={{justifyContent:'center'}}>
+                            <div className="col-4 d-flex" style={{justifyContent: 'center'}}>
                                 <div className="m-auto">
                                     <Link to="/">
                                         <img
@@ -132,7 +157,7 @@ const Header = () => {
                                 </div>
                             </div>
 
-                            <div className="col-2 d-flex" style={{justifyContent:'center'}}>
+                            <div className="col-2 d-flex" style={{justifyContent: 'center'}}>
 
                                 {
                                     auth ?
@@ -159,7 +184,7 @@ const Header = () => {
 
                             </div>
 
-                            <div className="col-2 d-flex" style={{justifyContent:'center'}}>
+                            <div className="col-2 d-flex" style={{justifyContent: 'center'}}>
                                 <div className="my-auto" onClick={showMiniCart}>
                                     <div className="cart-badge-quantity"><TotalCartItems/></div>
                                     <img src={cartBlue}
@@ -167,7 +192,7 @@ const Header = () => {
                                          title="Anticonceptivo"
                                          rel="nofollow"
                                          height="25px"
-                                         />
+                                    />
                                 </div>
                             </div>
                         </div>
