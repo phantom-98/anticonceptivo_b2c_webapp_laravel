@@ -124,7 +124,7 @@ const ShopSearch = ({match}) => {
             Services.Response({
             response: response,
                 success: () => {
-                    console.log(response.data.products)
+                    // console.log(response.data.products)
                     setProducts(response.data.products);
                     setLaboratories(response.data.laboratories);
                     setSubcatNames(response.data.subcat_names);

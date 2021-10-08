@@ -91,8 +91,6 @@ const HeaderNavbar = () => {
                                 let url = PUBLIC_ROUTES.SHOP.path;
                                 url = url.replace(":category", category.slug);
 
-                                console.log(category.categoryId);
-
                                 if (size.width <= 1351 && index <= 3) {
 
                                     return <Dropdown key={category.categoryId}
