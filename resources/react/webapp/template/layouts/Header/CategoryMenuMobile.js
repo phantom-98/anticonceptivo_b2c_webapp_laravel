@@ -4,6 +4,7 @@ import * as Services from "../../../Services";
 import { v4 as uuidv4 } from 'uuid';
 import {Link} from "react-router-dom";
 import PillsMenuMobile from "./PillsMenuMobile";
+import Icon from "../../../components/general/Icon";
 
 const CategoryMenuMobile = ({hideMenu}) => {
 
@@ -47,9 +48,11 @@ const CategoryMenuMobile = ({hideMenu}) => {
             url = url.replace(":category", category.slug);
             return(
                 <div className="col-12" key={category.categoryId}>
-                    <Link to={url} onClick={hideMenu} className='link-no-style-blue font-16'>
-                        {category.name}
-                    </Link>
+                    <div className="margin-menu-bottom">
+                        <Link to={url} onClick={hideMenu} className='link-no-style-blue font-16'>
+                            {category.public_image ? <div className="left" style={{width : '25px'}}> <Icon path={category.public_image}/></div> : null}{'  '}{category.name}
+                        </Link>
+                    </div>
                 {
                     category.id === 1 ?
 
@@ -61,9 +64,10 @@ const CategoryMenuMobile = ({hideMenu}) => {
                         hideMenu={hideMenu}
                     />
 
-                    : 
+                    :
 
                     <ul style={{listStyleType:'none'}}>
+
                         {
                             category.subcategories.map((subCategory) => {
                                 let childUrl = PUBLIC_ROUTES.SHOP_SUBCATEGORY.path;
@@ -72,7 +76,7 @@ const CategoryMenuMobile = ({hideMenu}) => {
                                 let subcatId = uuidv4();
                                 return(
                                     <li className="my-2" key={subcatId}>
-                                        <Link to={childUrl} onClick={hideMenu} className='link-no-style'>
+                                        <Link to={childUrl} onClick={hideMenu} className='link-no-style font-12'>
                                             {subCategory.name}
                                         </Link>
                                     </li>
