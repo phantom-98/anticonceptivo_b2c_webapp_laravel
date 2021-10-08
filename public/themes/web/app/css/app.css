@@ -3498,6 +3498,13 @@ a:-webkit-any-link:focus-visible {
   height: 128px;
 }
 
+.mobile-producto-img {
+  width: 100px;
+  height: 100px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
 @media (min-width: 768px) {
   .app-margin-top {
     margin-top: 0;
