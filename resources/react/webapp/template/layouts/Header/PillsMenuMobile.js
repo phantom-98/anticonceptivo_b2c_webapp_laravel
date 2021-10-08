@@ -13,7 +13,9 @@ const PillsMenuMobile = ({laboratories, subscriptions, formats, categorySlug, hi
             <li>
                 <Accordion>
                     <Accordion.Toggle as={Card.Header} eventKey={1}>
-                        <span className="font-poppins font-14" style={{color: '#0869A6'}}>Formato</span>
+                        <div className="margin-menu-bottom">
+                            <span className="font-poppins font-14" style={{color: '#0869A6'}}>Formato</span>
+                        </div>
                     </Accordion.Toggle>
                     <Accordion.Collapse eventKey={1}>
                         <ul style={{listStyleType:'none'}}>
@@ -38,7 +40,9 @@ const PillsMenuMobile = ({laboratories, subscriptions, formats, categorySlug, hi
             <li>
                 <Accordion>
                     <Accordion.Toggle as={Card.Header} eventKey={2}>
-                        <span className="font-poppins font-14" style={{color: '#0869A6'}}>Suscripción</span>
+                        <div className="margin-menu-bottom">
+                            <span className="font-poppins font-14" style={{color: '#0869A6'}}>Suscripción</span>
+                        </div>
                     </Accordion.Toggle>
                     <Accordion.Collapse eventKey={2}>
                         <ul style={{listStyleType:'none'}}>
@@ -64,8 +68,10 @@ const PillsMenuMobile = ({laboratories, subscriptions, formats, categorySlug, hi
             <li>
                 <Accordion>
                     <Accordion.Toggle as={Card.Header} eventKey={3}>
-                        <span className="font-poppins font-14" style={{color: '#0869A6'}}>Laboratorio</span>
-                        </Accordion.Toggle>
+                        <div className="margin-menu-bottom">
+                            <span className="font-poppins font-14" style={{color: '#0869A6'}}>Laboratorio</span>
+                        </div>
+                    </Accordion.Toggle>
                     <Accordion.Collapse eventKey={3}>
                         <ul style={{listStyleType:'none'}}>
                             {

@@ -236,6 +236,11 @@ a:-webkit-any-link:focus-visible {
     height: calc(100vh - 100px);
 }
 
+.margin-menu-bottom{
+    border-bottom: 1px solid #0869a699 !important;
+    padding-bottom: 5px;
+}
+
 @media (min-width: 768px) {
     .app-margin-top{
         margin-top: 185px;
