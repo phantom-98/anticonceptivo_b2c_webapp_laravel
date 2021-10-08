@@ -72,6 +72,11 @@ const CheckOut = () => {
 
     const [subscription, setSubscription] = useState([]);
 
+    const [user, setUser] = useState({
+        customer_id: '',
+        email: ''
+    });
+
 
     useEffect(() => {
         if (auth) {
@@ -201,6 +206,7 @@ const CheckOut = () => {
                                                         editable={editable}
                                                         regions={regions}
                                                         setProductCount={setProductCount}
+                                                        setUser={setUser}
                                                     /> : null
                                             }
                                             {
@@ -210,6 +216,7 @@ const CheckOut = () => {
                                                     setView={setView}
                                                     subscription={subscription}
                                                     setSubscription={setSubscription}
+                                                    user={user}
                                                 />,
                                                 <Installments
                                                     setInstallment={setInstallment}

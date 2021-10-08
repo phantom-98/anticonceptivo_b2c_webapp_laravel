@@ -55,11 +55,40 @@ const Form = ({addressSelected, goBack, formMode, customerId = null, regions, se
         }
     }, [selectedRegion]);
 
-    const handleAddress = (e) => {
-        setAddress({
-            ...address,
-            [e.target.name]: e.target.value
-        })
+    const handleAddress = (e, direction = false, number = false, text = false) => {
+        if (direction) {
+            if(e.target.value.match('^$|^[a-zA-Z0-9\ñ ]+$')){
+                setAddress({
+                    ...address,
+                    [e.target.name]: e.target.value
+                })  
+            }
+        }
+
+        if (number) {
+            if(e.target.value.match("^$|^[0-9]+$")){
+                setAddress({
+                    ...address,
+                    [e.target.name]: e.target.value
+                })  
+            }
+        }
+
+        if (text) {
+            if(e.target.value.match('^$|^[a-zA-Z\ñ ]+$')){
+                setAddress({
+                    ...address,
+                    [e.target.name]: e.target.value
+                })  
+            }
+        }
+
+        if (!direction && !number && !text) {
+            setAddress({
+                ...address,
+                [e.target.name]: e.target.value
+            })
+        }
     }
 
     const updateData = () => {
@@ -116,7 +145,7 @@ const Form = ({addressSelected, goBack, formMode, customerId = null, regions, se
                            name="name"
                            placeholder="Nombre Dirección"
                            value={address.name}
-                           onChange={handleAddress}
+                           onChange={(e) => handleAddress(e, false, false, true)}
                            onFocus={setCleanInputError}
                     />
                     <div className="invalid-feedback" />
@@ -180,7 +209,7 @@ const Form = ({addressSelected, goBack, formMode, customerId = null, regions, se
                            name="address"
                            placeholder="Dirección"
                            value={address.address}
-                           onChange={handleAddress}
+                           onChange={(e) => handleAddress(e, true, false, false)}
                            onFocus={setCleanInputError}
                     />
                     <div className="invalid-feedback" />
@@ -195,7 +224,7 @@ const Form = ({addressSelected, goBack, formMode, customerId = null, regions, se
                            name="extra_info"
                            placeholder="Número casa / depto"
                            value={address.extra_info}
-                           onChange={handleAddress}
+                           onChange={(e) => handleAddress(e, false, true, false)}
                            onFocus={setCleanInputError}
                     />
                     <div className="invalid-feedback" />

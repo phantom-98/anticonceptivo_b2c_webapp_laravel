@@ -27,7 +27,7 @@ const FormPersonalData = ({handleData,
                             className="form-control form-control-custom"
                             id="first_name"
                             name="first_name"
-                            onChange={(e) => handleData(e)}
+                            onChange={(e) => handleData(e,true)}
                             value={data.first_name}
                             placeholder="Nombres"
                             onFocus={setCleanInputError}
@@ -44,7 +44,7 @@ const FormPersonalData = ({handleData,
                            id="last_name"
                            name="last_name"
                            placeholder="Apellidos"
-                           onChange={(e) => handleData(e)}
+                           onChange={(e) => handleData(e, true)}
                            value={data.last_name}
                            onFocus={setCleanInputError}
                            disabled={editable}
@@ -135,8 +135,8 @@ const FormPersonalData = ({handleData,
                             className="form-control form-control-custom"
                             id="phone"
                             name="phone"
-                            placeholder="987 654 321"
-                            onChange={(e) => handleData(e)}
+                            placeholder="987654321"
+                            onChange={(e) => handleData(e, false, true)}
                             value={data.phone}
                             onFocus={setCleanInputError}
                             disabled={editable}
