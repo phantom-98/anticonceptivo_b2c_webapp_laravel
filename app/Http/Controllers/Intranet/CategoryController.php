@@ -80,6 +80,7 @@ class CategoryController extends GlobalController
                 $object->save();
             }
 
+            $object->unit_format = strtolower($request->unit_format);
             $object->banner_image_size = $request->banner_image_size;
             $object->subbanner_image_size =  $request->subbanner_image_size;
             $object->save();
@@ -199,6 +200,7 @@ class CategoryController extends GlobalController
                     'user' => auth('intranet')->user()->full_name
                 ]);
             }
+            $object->unit_format = strtolower($request->unit_format);
             $object->banner_image_size = $request->banner_image_size;
             $object->subbanner_image_size =  $request->subbanner_image_size;
             $object->save();

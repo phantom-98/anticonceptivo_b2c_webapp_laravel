@@ -274,6 +274,22 @@ class ProductController extends Controller
 
             $formats =  Product::whereIn('id',$productIds)->where('active',true)
                 ->where('format','!=','')->pluck('format')->unique();
+            
+            $product_subcategory =  Product::select('subcategory_id')->whereIn('id',$productIds)->where('active',true)
+            ->where('format','!=','')->whereNotNull('subcategory_id')->first();
+
+            $unit_format = '';
+
+            if ($product_subcategory) {
+                $subcategory = SubCategory::where('id',$product_subcategory->subcategory_id)->first();
+
+                if ($subcategory) {
+                    $category = Category::where('id',$subcategory->category_id)->first();
+                    if ($category) {
+                        $unit_format = $category->unit_format != null ? $category->unit_format : ''; 
+                    }
+                }
+            }
 
             $filter = null;
 
@@ -320,6 +336,7 @@ class ProductController extends Controller
                 'laboratories' => $laboratories,
                 'subscriptions' => $subscriptions,
                 'formats' => $formats,
+                'unit_format' => $unit_format,
                 'is_pills' => $isPills,
                 'filter' => $filter
             ]);
