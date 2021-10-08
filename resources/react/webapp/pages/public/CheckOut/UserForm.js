@@ -312,6 +312,7 @@ const UserForm = ({setView, data, setData, setFiles, files, editable, setProduct
                                                                     name={item.product.id}
                                                                     name="avatar"
                                                                     onChange={handleFile}
+                                                                    accept=".jpg, .jpeg, .png, .pdf"
                                                                 />
                                                                 <label
                                                                     className="custom-file-label ml-0 pb-0 input-file-register"
