@@ -28,6 +28,7 @@ export default (state, action) =>{
 
             localStorage.removeItem(LOCAL_STORAGE.AUTH);
             localStorage.removeItem(LOCAL_STORAGE.AUTH_TOKEN);
+            localStorage.removeItem(LOCAL_STORAGE.CART_ITEMS);
 
             return {
                 ...state,
