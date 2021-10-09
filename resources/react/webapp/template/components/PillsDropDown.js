@@ -19,7 +19,7 @@ const PillsDropDown = ({laboratories, subscriptions, formats, categorySlug}) => 
                             formatUrl = formatUrl.replace(':filter?',format);
                             return (
                                 <Link to={formatUrl} style={{textDecoration: 'none'}} key={formatKey}>
-                                    <span className="font-poppins py-1 font-12 text-black my-auto d-block">{format} pastillas</span>
+                                    <span className="font-poppins py-1 font-12 text-black my-auto d-block pills-span">{format} pastillas</span>
                                 </Link>
                             )
                         })
@@ -32,7 +32,7 @@ const PillsDropDown = ({laboratories, subscriptions, formats, categorySlug}) => 
                             subscriptionUrl = subscriptionUrl.replace(':filter?', subscription.months);
                             return (
                                 <Link to={subscriptionUrl} style={{textDecoration: 'none'}} key={subscriptionKey}>
-                                    <span className="font-poppins py-1 font-12 text-black my-auto d-block ">{subscription.months == 13 ? 12 : subscription.months} Meses / {subscription.months} Ciclos</span>
+                                    <span className="font-poppins py-1 font-12 text-black my-auto d-block pills-span ">{subscription.months == 13 ? 12 : subscription.months} Meses / {subscription.months} Ciclos</span>
                                 </Link>
                             )
                         })
@@ -48,7 +48,7 @@ const PillsDropDown = ({laboratories, subscriptions, formats, categorySlug}) => 
 
                             return (
                                 <Link to={laboratoryUrl} style={{textDecoration: 'none', pointerEvents: 'auto'}} key={laboratoryKey}>
-                                    <span key={laboratoryKey} className="font-poppins py-1 font-12 text-black my-auto d-block">{laboratory.name}</span>
+                                    <span key={laboratoryKey} className="font-poppins py-1 font-12 text-black my-auto d-block pills-span">{laboratory.name}</span>
                                 </Link>
                             )
                         })
