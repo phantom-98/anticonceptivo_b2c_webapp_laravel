@@ -14,6 +14,7 @@ use App\Models\Commune;
 use App\Models\Order;
 use App\Models\Prescription;
 use App\Models\DiscountCode;
+use App\Models\User;
 
 class CheckoutController extends Controller
 {
@@ -89,7 +90,25 @@ class CheckoutController extends Controller
                             return ApiResponse::JsonError(null,'Por favor, ingresar todas las recetas.');
                         }
                     }
-                    return ApiResponse::JsonSuccess(null, OutputMessage::STEP_SUCCESS);
+
+                    $customer = Customer::where('id_number',$request->id_number)->first();
+
+                    if (!$customer) {
+                        
+                        $customer = Customer::create(array_merge($request->except(['password']), [
+                            'password' => bcrypt(Str::random(8)),
+                            'is_guest' => true
+                        ]));
+
+                        $customer->save();
+                    }
+
+                    $custo['id'] = $customer->id;
+                    $custo['email'] = $customer->email;
+
+                    return ApiResponse::JsonSuccess([
+                        'customer' => $custo,
+                    ], OutputMessage::STEP_SUCCESS);
                 }
             }
 

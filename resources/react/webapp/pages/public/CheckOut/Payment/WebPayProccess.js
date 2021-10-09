@@ -101,10 +101,15 @@ const WebPayProccess = ({
                                 setOrderId(response.data.order.id)
                                 setToken(response.data.token)
                                 showWaitingPayment();
-                                var win = window.open();
-                                win.document.open();
-                                win.document.write(response.data.webpay);
-                                win.document.close();
+
+                                // importante cambiar en oneclick
+                                const urlWebpay = response.data.webpay_data.url + '?token_ws=' + response.data.webpay_data.token
+                                window.open(urlWebpay, '_blank');
+
+                                // var win = window.open();
+                                // win.document.open();
+                                // win.document.write(response.data.webpay);
+                                // win.document.close();
                             }
 
 

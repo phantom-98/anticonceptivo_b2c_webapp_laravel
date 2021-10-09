@@ -359,6 +359,7 @@ class WebpayPlusController
 
                     return ApiResponse::JsonSuccess([
                         'webpay' => $this->webpay_plus->redirectHTML(),
+                        'webpay_data' => $this->webpay_plus,
                         'token' => $response['response']->token,
                         'order' => Order::with(['customer'])->find($order->id)
                     ], 'Iniciado Webpay');
@@ -536,6 +537,7 @@ class WebpayPlusController
 
         return view('webapp.payment.webpay-finish');
     }
+
     public function verify(Request $request)
     {
         try {

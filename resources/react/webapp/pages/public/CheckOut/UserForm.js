@@ -11,7 +11,7 @@ import {CONFIG} from "../../../Config";
 import {v4 as uuidv4} from 'uuid';
 import toastr from "toastr";
 
-const UserForm = ({setView, data, setData, setFiles, files, editable, setProductCount}) => {
+const UserForm = ({setView, data, setData, setFiles, files, editable, setProductCount, setUser}) => {
 
     const {auth} = useContext(AuthContext);
     const {cartItems} = useContext(CartContext);
@@ -89,10 +89,28 @@ const UserForm = ({setView, data, setData, setFiles, files, editable, setProduct
     //     setSelectedRegion(e.target.value)
     // }
 
-    const handleData = (e) => {
-        setData({...data,
-            [e.target.id]: e.target.value
-        })
+    const handleData = (e, onlyText = false, phone = false) => {
+        if (phone) {
+            if (e.target.value.match("^$|^[0-9]+$")) {
+                setData({...data,
+                    [e.target.id]: e.target.value
+                }) 
+            }
+        }
+
+        if (onlyText) {
+            if (e.target.value.match('^$|^[a-zA-Z\ñ ]+$')) {
+                setData({...data,
+                    [e.target.id]: e.target.value
+                })   
+            }
+        }
+
+        if (!onlyText && !phone) {
+            setData({...data,
+                [e.target.id]: e.target.value
+            })
+        }
     }
 
     const RutFormat = e => {
@@ -167,8 +185,8 @@ const UserForm = ({setView, data, setData, setFiles, files, editable, setProduct
         if (rutFlag) {
             toastr.warning('El formato del rut es incorrecto.','Perfil no actualizado.');
         }else{
-            let url = Services.ENDPOINT.NO_AUTH.CHECKOUT.VALIDATE_STEPS;
 
+            let url = Services.ENDPOINT.NO_AUTH.CHECKOUT.VALIDATE_STEPS;
 
             let productCount = cartItems.filter((item) => item.product.recipe_type != 'Venta Directa').length;
 
@@ -183,7 +201,6 @@ const UserForm = ({setView, data, setData, setFiles, files, editable, setProduct
             formData.append('last_name', data.last_name);
             formData.append('phone', data.phone);
             formData.append('phone_code', data.phone_code);
-
 
             let fileList = [...files]
 
@@ -201,6 +218,8 @@ const UserForm = ({setView, data, setData, setFiles, files, editable, setProduct
                 Services.Response({
                 response: response,
                 success: () => {
+                    // SETEAR CUSTOMER PARA 
+                    setUser(response.data.customer)
                     setView('add-address')
                 },
                 error: () => {
