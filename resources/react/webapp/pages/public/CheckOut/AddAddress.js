@@ -57,8 +57,35 @@ const AddAddress = ({setView, regions, address, setAddress}) => {
         setSelectedRegion(e.target.value)
     }
 
-    const handleAddress = (e) => {
-        if (!e.target.value.match('[^A-Za-z0-9]+')) {
+    const handleAddress = (e, direction = false, number = false, text = false) => {
+        if (direction) {
+            if(e.target.value.match('^$|^[a-zA-Z0-9\ñ ]+$')){
+                setAddress({
+                    ...address,
+                    [e.target.name]: e.target.value
+                })  
+            }
+        }
+
+        if (number) {
+            if(e.target.value.match("^$|^[0-9]+$")){
+                setAddress({
+                    ...address,
+                    [e.target.name]: e.target.value
+                })  
+            }
+        }
+
+        if (text) {
+            if(e.target.value.match('^$|^[a-zA-Z\ñ ]+$')){
+                setAddress({
+                    ...address,
+                    [e.target.name]: e.target.value
+                })  
+            }
+        }
+
+        if (!direction && !number && !text) {
             setAddress({
                 ...address,
                 [e.target.name]: e.target.value
@@ -124,7 +151,7 @@ const AddAddress = ({setView, regions, address, setAddress}) => {
                                        name="name"
                                        placeholder="Nombre Contacto"
                                        value={address.name}
-                                       onChange={handleAddress}
+                                       onChange={(e) => handleAddress(e, false, false, true)}
                                        onFocus={setCleanInputError}
                                 />
                                 <div className="invalid-feedback" />
@@ -178,7 +205,7 @@ const AddAddress = ({setView, regions, address, setAddress}) => {
                                     className="form-control form-control-custom pl-md-2"
                                     id="commune_id"
                                     name="commune_id"
-                                    onChange={handleAddress}
+                                    onChange={(e) => handleAddress(e)}
                                     onFocus={setCleanInputError}
                                     value={address.commune_id}
                                 >
@@ -204,7 +231,7 @@ const AddAddress = ({setView, regions, address, setAddress}) => {
                                        name="address"
                                        placeholder="Dirección"
                                        value={address.address}
-                                       onChange={handleAddress}
+                                       onChange={(e) => handleAddress(e, true)}
                                        onFocus={setCleanInputError}
                                 />
                                 <div className="invalid-feedback" />
@@ -219,7 +246,7 @@ const AddAddress = ({setView, regions, address, setAddress}) => {
                                        name="extra_info"
                                        placeholder="Número casa / depto"
                                        value={address.extra_info}
-                                       onChange={handleAddress}
+                                       onChange={(e) => handleAddress(e, false, true)}
                                        onFocus={setCleanInputError}
                                 />
                                 <div className="invalid-feedback" />

@@ -72,7 +72,6 @@ const CheckOut = () => {
 
     const [subscription, setSubscription] = useState([]);
 
-
     useEffect(() => {
         if (auth) {
             setData(auth);

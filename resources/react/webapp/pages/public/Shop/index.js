@@ -19,6 +19,7 @@ const Shop = ({match}) => {
     const [laboratories, setLaboratories] = useState([]);
     const [subscriptions, setSubscriptions] = useState([]);
     const [formats, setFormats] = useState([]);
+    const [unitFormat, setUnitFormat] = useState('');
     const [showFilterResponsive, setShowFilterResponsive] = useState(false);
 
     const [loading, setLoading] = useState(false);
@@ -82,6 +83,7 @@ const Shop = ({match}) => {
                     setSubscriptions(response.data.subscriptions);
                     setFormats(Object.values(response.data.formats));
                     setIsPills(response.data.is_pills);
+                    setUnitFormat(response.data.unit_format)
 
                     if (response.data.subcat){
                         setSubcatNames(response.data.subcat.name);
@@ -155,6 +157,7 @@ const Shop = ({match}) => {
                     setProducts(response.data.products);
                     setLaboratories(response.data.laboratories);
                     setSubcatNames(response.data.subcat_names);
+
                     // setLoading(true);
                 },
             });
@@ -210,6 +213,7 @@ const Shop = ({match}) => {
                                         setFilters={setFilters}
                                         filtersUpdate={filtersUpdate}
                                         setFiltersUpdate={setFiltersUpdate}
+                                        unitFormat={unitFormat}
                                     />
                                 </div>
                             </div>
@@ -230,6 +234,7 @@ const Shop = ({match}) => {
                                                 setFilters={setFilters}
                                                 filtersUpdate={filtersUpdate}
                                                 setFiltersUpdate={setFiltersUpdate}
+                                                unitFormat={unitFormat}
                                             /> : null
                                         }
                                     </div>}

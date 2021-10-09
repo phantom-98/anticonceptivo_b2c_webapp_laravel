@@ -32,7 +32,7 @@ const Subscriptions = ({setView, subscription, setSubscription}) => {
     const getData = () => {
         let url = Services.ENDPOINT.CUSTOMER.SUBSCRIPTIONS.GET;
         let data = {
-            customer_id: auth.id
+            customer_id: auth ? auth.id : null
         }
 
         Services.DoPost(url,data).then(response => {

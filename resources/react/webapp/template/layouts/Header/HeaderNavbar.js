@@ -78,6 +78,7 @@ const HeaderNavbar = () => {
 
     return (
         <div className="header-navbar bg-0869A6">
+
             <div className="container px-0 max-header-navbar">
                 <div>
 
@@ -86,31 +87,31 @@ const HeaderNavbar = () => {
                         {
 
                             categories.map((category, index) => {
+
                                 let url = PUBLIC_ROUTES.SHOP.path;
                                 url = url.replace(":category", category.slug);
 
                                 if (size.width <= 1351 && index <= 3) {
-                                    return (
 
-                                        <Dropdown key={category.categoryId}
-                                                  show={show[category.categoryId]}
-                                                  onMouseEnter={() => showDropdown(category.categoryId)}
-                                                  onMouseLeave={() => hideDropdown(category.categoryId)}
-                                                  drop={'down'}
-                                        >
-                                            <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
-                                                <HeaderNavbarItem
-                                                    linkTo={url}
-                                                    icon={category.public_image}
-                                                    text={category.name}
-                                                />
-                                            </Dropdown.Toggle>
+                                    return <Dropdown key={category.categoryId}
+                                                     show={show[category.categoryId]}
+                                                     onMouseEnter={() => showDropdown(category.categoryId)}
+                                                     onMouseLeave={() => hideDropdown(category.categoryId)}
+                                                     drop={'down'}>
+                                        <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
+                                            <HeaderNavbarItem
+                                                linkTo={url}
+                                                icon={category.public_image}
+                                                text={category.name}
+                                            />
+                                        </Dropdown.Toggle>
 
-                                            {
-                                                // category.subcategories.length ?
-                                                category.id === 1 ?
-                                                    <Dropdown.Menu align="right" bsPrefix="dropdown-menu-custom with-pills">
-                                                        {/* <Dropdown.Item key={uuidv4()} style={{cursor:'default'}}>
+                                        {
+                                            // category.subcategories.length ?
+                                            category.id === 1 ?
+
+                                                <Dropdown.Menu align="right" bsPrefix="dropdown-menu-custom with-pills">
+                                                    {/* <Dropdown.Item key={uuidv4()} style={{cursor:'default'}}>
                                                     <PillsDropDown
                                                         laboratories={laboratories}
                                                         formats={formats}
@@ -118,62 +119,66 @@ const HeaderNavbar = () => {
                                                         categorySlug={category.slug}
                                                     />
                                                 </Dropdown.Item> */}
-                                                        <div className="custom-dropdown-item" style={{cursor: 'default'}}>
-                                                            <PillsDropDown
-                                                                laboratories={laboratories}
-                                                                formats={formats}
-                                                                subscriptions={subscriptions}
-                                                                categorySlug={category.slug}
-                                                            />
-                                                        </div>
-                                                    </Dropdown.Menu>
-                                                    :
-
-                                                    <Dropdown.Menu align="right" bsPrefix="dropdown-menu-custom">
+                                                    <div className="custom-dropdown-item" style={{cursor: 'default'}}>
                                                         {
-                                                            category.subcategories.map((subCategory) => {
-                                                                let childUrl = PUBLIC_ROUTES.SHOP_SUBCATEGORY.path;
-                                                                childUrl = childUrl.replace(":category?", category.slug);
-                                                                childUrl = childUrl.replace(":subcategory?", subCategory.slug);
-                                                                return (
-                                                                    <Dropdown.Item key={uuidv4()}>
-                                                                        <Link to={childUrl}
-                                                                              style={{textDecoration: 'none'}}>
+                                                            show[category.categoryId] ?
+                                                                <PillsDropDown
+                                                                    laboratories={laboratories}
+                                                                    formats={formats}
+                                                                    subscriptions={subscriptions}
+                                                                    categorySlug={category.slug}
+                                                                />
+                                                                : null
+                                                        }
+                                                    </div>
+                                                </Dropdown.Menu>
+
+                                                :
+
+                                                <Dropdown.Menu align="right" bsPrefix="dropdown-menu-custom">
+                                                    {
+                                                        category.subcategories.map((subCategory) => {
+                                                            let childUrl = PUBLIC_ROUTES.SHOP_SUBCATEGORY.path;
+                                                            childUrl = childUrl.replace(":category?", category.slug);
+                                                            childUrl = childUrl.replace(":subcategory?", subCategory.slug);
+                                                            return (
+                                                                <Dropdown.Item key={uuidv4()}>
+                                                                    <Link to={childUrl}
+                                                                          style={{textDecoration: 'none'}}>
                                                                         <span
                                                                             className="header-navbar-subitem">{subCategory.name}</span>
-                                                                        </Link>
-                                                                    </Dropdown.Item>
-                                                                )
-                                                            })
-                                                        }
-                                                    </Dropdown.Menu>
-                                                // : null
-                                            }
-                                        </Dropdown>
+                                                                    </Link>
+                                                                </Dropdown.Item>
+                                                            )
+                                                        })
+                                                    }
+                                                </Dropdown.Menu>
+                                            // : null
+                                        }
+                                    </Dropdown>
 
-                                    )
-                                }else if(size.width > 1351){
-                                    return (
+                                } else if (size.width > 1351) {
 
-                                        <Dropdown key={category.categoryId}
-                                                  show={show[category.categoryId]}
-                                                  onMouseEnter={() => showDropdown(category.categoryId)}
-                                                  onMouseLeave={() => hideDropdown(category.categoryId)}
-                                                  drop={'down'}
-                                        >
-                                            <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
-                                                <HeaderNavbarItem
-                                                    linkTo={url}
-                                                    icon={category.public_image}
-                                                    text={category.name}
-                                                />
-                                            </Dropdown.Toggle>
+                                    return <Dropdown key={category.categoryId}
+                                                     show={show[category.categoryId]}
+                                                     onMouseEnter={() => showDropdown(category.categoryId)}
+                                                     onMouseLeave={() => hideDropdown(category.categoryId)}
+                                                     drop={'down'}>
 
-                                            {
-                                                // category.subcategories.length ?
-                                                category.id === 1 ?
-                                                    <Dropdown.Menu align="right" bsPrefix="dropdown-menu-custom with-pills">
-                                                        {/* <Dropdown.Item key={uuidv4()} style={{cursor:'default'}}>
+                                        <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
+                                            <HeaderNavbarItem
+                                                linkTo={url}
+                                                icon={category.public_image}
+                                                text={category.name}
+                                            />
+                                        </Dropdown.Toggle>
+
+                                        {
+                                            // category.subcategories.length ?
+                                            category.id === 1 ?
+                                                <Dropdown.Menu align="right"
+                                                               bsPrefix="dropdown-menu-custom with-pills">
+                                                    {/* <Dropdown.Item key={uuidv4()} style={{cursor:'default'}}>
                                                     <PillsDropDown
                                                         laboratories={laboratories}
                                                         formats={formats}
@@ -181,40 +186,43 @@ const HeaderNavbar = () => {
                                                         categorySlug={category.slug}
                                                     />
                                                 </Dropdown.Item> */}
-                                                        <div className="custom-dropdown-item" style={{cursor: 'default'}}>
-                                                            <PillsDropDown
-                                                                laboratories={laboratories}
-                                                                formats={formats}
-                                                                subscriptions={subscriptions}
-                                                                categorySlug={category.slug}
-                                                            />
-                                                        </div>
-                                                    </Dropdown.Menu>
-                                                    :
-
-                                                    <Dropdown.Menu align="right" bsPrefix="dropdown-menu-custom">
+                                                    <div className="custom-dropdown-item"
+                                                         style={{cursor: 'default'}}>
                                                         {
-                                                            category.subcategories.map((subCategory) => {
-                                                                let childUrl = PUBLIC_ROUTES.SHOP_SUBCATEGORY.path;
-                                                                childUrl = childUrl.replace(":category?", category.slug);
-                                                                childUrl = childUrl.replace(":subcategory?", subCategory.slug);
-                                                                return (
-                                                                    <Dropdown.Item key={uuidv4()}>
-                                                                        <Link to={childUrl}
-                                                                              style={{textDecoration: 'none'}}>
+                                                            show[category.categoryId] ?
+                                                                <PillsDropDown
+                                                                    laboratories={laboratories}
+                                                                    formats={formats}
+                                                                    subscriptions={subscriptions}
+                                                                    categorySlug={category.slug}
+                                                                />
+                                                                : null
+                                                        }
+                                                    </div>
+                                                </Dropdown.Menu>
+                                                :
+
+                                                <Dropdown.Menu align="right" bsPrefix="dropdown-menu-custom">
+                                                    {
+                                                        category.subcategories.map((subCategory) => {
+                                                            let childUrl = PUBLIC_ROUTES.SHOP_SUBCATEGORY.path;
+                                                            childUrl = childUrl.replace(":category?", category.slug);
+                                                            childUrl = childUrl.replace(":subcategory?", subCategory.slug);
+                                                            return (
+                                                                <Dropdown.Item key={uuidv4()}>
+                                                                    <Link to={childUrl}
+                                                                          style={{textDecoration: 'none'}}>
                                                                         <span
                                                                             className="header-navbar-subitem">{subCategory.name}</span>
-                                                                        </Link>
-                                                                    </Dropdown.Item>
-                                                                )
-                                                            })
-                                                        }
-                                                    </Dropdown.Menu>
-                                                // : null
-                                            }
-                                        </Dropdown>
-
-                                    )
+                                                                    </Link>
+                                                                </Dropdown.Item>
+                                                            )
+                                                        })
+                                                    }
+                                                </Dropdown.Menu>
+                                            // : null
+                                        }
+                                    </Dropdown>
                                 }
 
                             })
@@ -249,7 +257,8 @@ const HeaderNavbar = () => {
                                             {
                                                 // category.subcategories.length ?
                                                 category.id === 1 ?
-                                                    <Dropdown.Menu align="right" bsPrefix="dropdown-menu-custom with-pills">
+                                                    <Dropdown.Menu align="right"
+                                                                   bsPrefix="dropdown-menu-custom with-pills">
                                                         {/* <Dropdown.Item key={uuidv4()} style={{cursor:'default'}}>
                                                     <PillsDropDown
                                                         laboratories={laboratories}
@@ -258,7 +267,8 @@ const HeaderNavbar = () => {
                                                         categorySlug={category.slug}
                                                     />
                                                 </Dropdown.Item> */}
-                                                        <div className="custom-dropdown-item" style={{cursor: 'default'}}>
+                                                        <div className="custom-dropdown-item"
+                                                             style={{cursor: 'default'}}>
                                                             <PillsDropDown
                                                                 laboratories={laboratories}
                                                                 formats={formats}

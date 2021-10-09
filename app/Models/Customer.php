@@ -47,6 +47,7 @@ class Customer extends Authenticatable
         'commercial_commune_id',
         'recovery_pin',
         'last_access',
+        'is_guest',
         'photo'
     ];
 

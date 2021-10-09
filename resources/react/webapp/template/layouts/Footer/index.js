@@ -55,11 +55,11 @@ const Footer = () => {
                             <div className="mb-3">
                                 <img src={logoFooter} alt={CONFIG.APP_NAME}/>
                             </div>
-                            <div className="font-10 regular text-white">Una alianza con</div>
+                            <div className="font-10 regular text-white footer-nav-item">Una alianza con</div>
                             {
                                 alliances.map((alliance, index) => {
                                     return (
-                                        <div className="mb-3" key={index*7777}>
+                                        <div className="mb-3 footer-nav-item" key={index*7777}>
                                             <img src={alliance.public_footer_image} alt={CONFIG.APP_NAME}/>
                                         </div>
                                     )
@@ -76,14 +76,14 @@ const Footer = () => {
                                 <li className="nav-item text-center text-lg-left">
                                     <Link className="nav-link" to={PUBLIC_ROUTES.FAQ.path}>Preguntas Frecuentes FAQ</Link>
                                 </li>
-                                <li className="nav-item text-center text-lg-left">
+                                <li className="nav-item text-center text-lg-left footer-nav-item">
                                     <Link className="nav-link" to={PUBLIC_ROUTES.TERMS_AND_CONDITIONS.path}>Términos y Condiciones</Link>
                                 </li>
                                 {
                                     sections.map((section) => {
                                         let sectionKey = uuidv4();
                                         return(
-                                            <li className="nav-item text-center text-lg-left" key={sectionKey}>
+                                            <li className="nav-item text-center text-lg-left footer-nav-item" key={sectionKey}>
                                                 <a className="nav-link" href={section.link} target="_blank">
                                                     {section.name}
                                                 </a>
@@ -91,7 +91,7 @@ const Footer = () => {
                                         )
                                     })
                                 }
-                                <li className="nav-item text-center text-lg-left">
+                                <li className="nav-item text-center text-lg-left footer-nav-item">
                                     <a className="nav-link"
                                        href={responsibleConsumption && 'public_file' in responsibleConsumption ? responsibleConsumption.public_file : ''}
                                        target="_blank">Consumo responsable</a>
@@ -100,12 +100,12 @@ const Footer = () => {
                         </div>
                         <div className="col-lg">
                             <ul className="nav flex-column">
-                                <li className="nav-item text-center text-lg-left">
+                                <li className="nav-item text-center text-lg-left footer-nav-item">
                                     <Link className="nav-link"
                                           to={(PUBLIC_ROUTES.CORPORATE_RESPONSIBILITY.path).replace(':section', 'politicas-de-privacidad')}>Políticas
                                         de Privacidad</Link>
                                 </li>
-                                <li className="nav-item text-center text-lg-left">
+                                <li className="nav-item text-center text-lg-left footer-nav-item">
                                     <Link className="nav-link"
                                           to={(PUBLIC_ROUTES.CORPORATE_RESPONSIBILITY.path).replace(':section', 'carta-de-desabastecimiento')}>Carta de Desabastecimiento</Link>
                                 </li>
@@ -117,7 +117,7 @@ const Footer = () => {
                                 {/* <li className="nav-item text-center text-lg-left">
                                     <Link className="nav-link" to={PUBLIC_ROUTES.BLOG.path}>Blog</Link>
                                 </li> */}
-                                <li className="nav-item text-center text-lg-left">
+                                <li className="nav-item text-center text-lg-left footer-nav-item">
                                     <Link className="nav-link" to={PUBLIC_ROUTES.CLAIM.path}>Libro de Reclamos</Link>
                                 </li>
                             </ul>
@@ -161,7 +161,7 @@ const Footer = () => {
                             </div>
                         </div>
 
-                        <div className="col-lg-auto flex-footer-column">
+                        <div className="col-lg-auto flex-footer-column footer-nav-item">
                             <div className="mx-auto mx-lg-0">
                                 <img src={webpay} alt={CONFIG.APP_NAME}/>
                             </div>

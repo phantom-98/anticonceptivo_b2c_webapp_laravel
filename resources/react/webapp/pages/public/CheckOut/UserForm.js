@@ -89,10 +89,28 @@ const UserForm = ({setView, data, setData, setFiles, files, editable, setProduct
     //     setSelectedRegion(e.target.value)
     // }
 
-    const handleData = (e) => {
-        setData({...data,
-            [e.target.id]: e.target.value
-        })
+    const handleData = (e, onlyText = false, phone = false) => {
+        if (phone) {
+            if (e.target.value.match("^$|^[0-9]+$")) {
+                setData({...data,
+                    [e.target.id]: e.target.value
+                }) 
+            }
+        }
+
+        if (onlyText) {
+            if (e.target.value.match('^$|^[a-zA-Z\ñ ]+$')) {
+                setData({...data,
+                    [e.target.id]: e.target.value
+                })   
+            }
+        }
+
+        if (!onlyText && !phone) {
+            setData({...data,
+                [e.target.id]: e.target.value
+            })
+        }
     }
 
     const RutFormat = e => {
@@ -167,8 +185,8 @@ const UserForm = ({setView, data, setData, setFiles, files, editable, setProduct
         if (rutFlag) {
             toastr.warning('El formato del rut es incorrecto.','Perfil no actualizado.');
         }else{
-            let url = Services.ENDPOINT.NO_AUTH.CHECKOUT.VALIDATE_STEPS;
 
+            let url = Services.ENDPOINT.NO_AUTH.CHECKOUT.VALIDATE_STEPS;
 
             let productCount = cartItems.filter((item) => item.product.recipe_type != 'Venta Directa').length;
 
@@ -183,7 +201,6 @@ const UserForm = ({setView, data, setData, setFiles, files, editable, setProduct
             formData.append('last_name', data.last_name);
             formData.append('phone', data.phone);
             formData.append('phone_code', data.phone_code);
-
 
             let fileList = [...files]
 
@@ -312,6 +329,7 @@ const UserForm = ({setView, data, setData, setFiles, files, editable, setProduct
                                                                     name={item.product.id}
                                                                     name="avatar"
                                                                     onChange={handleFile}
+                                                                    accept=".jpg, .jpeg, .png, .pdf"
                                                                 />
                                                                 <label
                                                                     className="custom-file-label ml-0 pb-0 input-file-register"

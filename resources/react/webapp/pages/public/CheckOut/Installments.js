@@ -21,13 +21,10 @@ const Installments = ({setInstallment}) => {
                         Selecciona la cantidad de cuotas
                     </h3>
                     <select onChange={e => handleAddrTypeChange(e)} className='form-control'>
-                            <option>
-                                1
-                            </option>
-                            <option>
-                                3
-                            </option>
-                         </select>
+                        <option>
+                            1
+                        </option>
+                    </select>
 
 
                 </div>

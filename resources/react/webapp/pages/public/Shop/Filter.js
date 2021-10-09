@@ -17,7 +17,8 @@ const Filter = ({
     filters,
     setFilters,
     filtersUpdate,
-    setFiltersUpdate
+    setFiltersUpdate,
+    unitFormat
     // setLaboratories,
     // subscriptions,
     // filtersCat,
@@ -59,7 +60,7 @@ const Filter = ({
 
     return (
         <div className="row">
-            <div className="col-md-12 mb-3">
+            <div className="col-md-12 mb-3 filter-width">
                 <Accordion defaultActiveKey={!isPills ? _filters[0].id : _filters[1].id} className="accordion-filter">
                     {
                         !isPills ?
@@ -178,6 +179,7 @@ const Filter = ({
                                             setFilters={setFilters}
                                             filtersUpdate={filtersUpdate}
                                             setFiltersUpdate={setFiltersUpdate}
+                                            unitFormat={unitFormat}
                                         />
                                     </Card.Body>
                                 </Accordion.Collapse>

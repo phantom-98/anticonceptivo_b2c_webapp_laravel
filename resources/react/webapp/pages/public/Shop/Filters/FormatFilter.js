@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Form} from "react-bootstrap";
 import { v4 as uuidv4 } from 'uuid';
 
-const FormatFilter = ({formats, filters, setFilters, filtersUpdate, setFiltersUpdate}) => {
+const FormatFilter = ({formats, filters, setFilters, filtersUpdate, setFiltersUpdate, unitFormat}) => {
 
     const handleFormatSelected = (e) => {
         let list = [...filters.formats];
@@ -35,7 +35,7 @@ const FormatFilter = ({formats, filters, setFilters, filtersUpdate, setFiltersUp
             let uuid = uuidv4();
             return <Form.Check
                 custom
-                label={<span className="font-poppins font-12 text-black my-auto">{format}{/* <span className="color-D8D8D8">({laboratory.total})</span> */}</span>}
+                label={<span className="font-poppins font-12 text-black my-auto">{format} {unitFormat}</span>}
                 type="checkbox"
                 name={"format-custom-checkbox"}
                 checked={filters.formats.includes(format)}

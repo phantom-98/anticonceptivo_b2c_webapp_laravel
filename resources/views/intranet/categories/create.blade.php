@@ -82,6 +82,13 @@
                                 {!! Form::label('banner_subimage', 'Imagen Banner Home (850 x 200 px)(*)') !!}
                                 <input type='file' name='banner_subimage' class='form-control' accept=".jpg, .png, .jpeg">
                             </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="unit_format">Formato unidad </label>
+                                    <input type="text" id="unit_format" name="unit_format" class="form-control" min="1"
+                                            value="{{ old('unit_format') }}">
+                                </div>
+                            </div>
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="description">Descripción</label>
