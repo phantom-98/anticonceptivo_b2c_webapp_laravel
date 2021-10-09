@@ -11,7 +11,7 @@ import {CONFIG} from "../../../Config";
 import {v4 as uuidv4} from 'uuid';
 import toastr from "toastr";
 
-const UserForm = ({setView, data, setData, setFiles, files, editable, setProductCount, setUser}) => {
+const UserForm = ({setView, data, setData, setFiles, files, editable, setProductCount}) => {
 
     const {auth} = useContext(AuthContext);
     const {cartItems} = useContext(CartContext);
@@ -218,8 +218,6 @@ const UserForm = ({setView, data, setData, setFiles, files, editable, setProduct
                 Services.Response({
                 response: response,
                 success: () => {
-                    // SETEAR CUSTOMER PARA 
-                    setUser(response.data.customer)
                     setView('add-address')
                 },
                 error: () => {
