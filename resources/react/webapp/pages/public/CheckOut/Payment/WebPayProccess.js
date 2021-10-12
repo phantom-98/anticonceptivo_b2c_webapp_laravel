@@ -1,23 +1,23 @@
-import React, { useState, useContext, Fragment} from 'react';
+import React, {useState, useContext, Fragment} from 'react';
 import * as Services from "../../../../Services";
-import { AuthContext } from "../../../../context/AuthProvider";
-import { CartContext } from "../../../../context/CartProvider";
+import {AuthContext} from "../../../../context/AuthProvider";
+import {CartContext} from "../../../../context/CartProvider";
 import WaitingPayment from "./WaitingPayment";
 import Swal from 'sweetalert2'
 
 const WebPayProccess = ({
-        data,
-        address,
-        subscription,
-        setFinishWebpayProccess,
-        setWebpayProccessSuccess,
-        setOrderId,
-        total,
-        subtotal,
-        dispatch,
-        discount, discountType, discountCode,
-        installment
-    }) => {
+                            data,
+                            address,
+                            subscription,
+                            setFinishWebpayProccess,
+                            setWebpayProccessSuccess,
+                            setOrderId,
+                            total,
+                            subtotal,
+                            dispatch,
+                            discount, discountType, discountCode,
+                            installment
+                        }) => {
 
     const {auth} = useContext(AuthContext);
     const {cartItems, clearCart} = useContext(CartContext);
@@ -58,10 +58,13 @@ const WebPayProccess = ({
         //     toastr.warning('Debes agregar una dirección para proceder al pago.')
         // }
 
-        let selectedSubscription  = null;
+        let win = window.open(window.location.href + '?attempt-payment-webpay=true', '_blank');
+
+
+        let selectedSubscription = null;
         subscription.map(element => {
-            if(element.default_subscription){
-                selectedSubscription  = element;
+            if (element.default_subscription) {
+                selectedSubscription = element;
                 showWaitingPayment();
             }
         });
@@ -78,7 +81,7 @@ const WebPayProccess = ({
             discount: discount,
             dispatch: dispatch,
 
-            installment:installment,
+            installment: installment,
             cartItems: cartItems
         }
 
@@ -87,30 +90,30 @@ const WebPayProccess = ({
                 Services.Response({
                     response: response,
                     success: () => {
-                            if(response.message == "Compra OneClick"){
-                                clearCart();
-                                // submitPrescription(response.data.order.id, response.data.order.customer_id);
-                                updateDiscountCode(discountCode)
-                                setOrderId(response.data.order.id)
-                                hideWaitingPayment();
-                                setWebpayProccessSuccess(true);
-                                setFinishWebpayProccess(1);
-                                clearInterval(interval)
-                            }else{
-                                runVerify(response.data.order.id, response.data.order.customer_id)
-                                setOrderId(response.data.order.id)
-                                setToken(response.data.token)
-                                showWaitingPayment();
+                        if (response.message == "Compra OneClick") {
+                            clearCart();
+                            // submitPrescription(response.data.order.id, response.data.order.customer_id);
+                            updateDiscountCode(discountCode)
+                            setOrderId(response.data.order.id)
+                            hideWaitingPayment();
+                            setWebpayProccessSuccess(true);
+                            setFinishWebpayProccess(1);
+                            clearInterval(interval)
+                        } else {
+                            runVerify(response.data.order.id, response.data.order.customer_id)
+                            setOrderId(response.data.order.id)
+                            setToken(response.data.token)
+                            showWaitingPayment();
 
-                                // importante cambiar en oneclick
-                                const urlWebpay = response.data.webpay_data.url + '?token_ws=' + response.data.webpay_data.token
-                                window.open(urlWebpay, '_blank');
+                            // importante cambiar en oneclick
+                            // const urlWebpay = response.data.webpay_data.url + '?token_ws=' + response.data.webpay_data.token
+                            // window.open(urlWebpay, '_blank');
 
-                                // var win = window.open();
-                                // win.document.open();
-                                // win.document.write(response.data.webpay);
-                                // win.document.close();
-                            }
+                            // var win = window.open();
+                            // win.document.open();
+                            win.document.write(response.data.webpay);
+                            win.document.focus();
+                        }
 
 
                     },
@@ -121,11 +124,11 @@ const WebPayProccess = ({
                                 title: 'mt-4'
                             },
                             buttonsStyling: false
-                          })
+                        })
 
                         swalWithBootstrapButtons.fire({
                             // icon: 'error',
-                            title: '<span style="color: #0869A6;">'+response.message+'</span>',
+                            title: '<span style="color: #0869A6;">' + response.message + '</span>',
                         });
                         setWebpayProccessSuccess(false);
                         hideWaitingPayment();
@@ -150,7 +153,8 @@ const WebPayProccess = ({
         Services.DoPost(url, data).then(response => {
             Services.Response({
                 response: response,
-                success: () => {}
+                success: () => {
+                }
             });
         }).catch(error => {
             Services.ErrorCatch(error)
@@ -214,7 +218,7 @@ const WebPayProccess = ({
 
     return (
         <Fragment>
-            <WaitingPayment  showingWaitingPayment={showingWaitingPayment}/>
+            <WaitingPayment showingWaitingPayment={showingWaitingPayment}/>
             <div className="col-md-12 pt-2">
                 <button className="btn btn-bicolor btn-block" onClick={initPayment}>
                     <span className="font-14 px-5">PAGAR</span>
