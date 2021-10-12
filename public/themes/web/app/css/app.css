@@ -3568,3 +3568,8 @@ a:-webkit-any-link:focus-visible {
   }
 }
 
+.pills-span:hover {
+  color: #029BE8 !important;
+  font-weight: 700;
+}
+

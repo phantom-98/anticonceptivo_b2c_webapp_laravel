@@ -5,6 +5,8 @@ import React, {Fragment, useState, useEffect, useContext} from 'react';
 import {setCleanInputError} from "../../../helpers/GlobalUtils";
 import * as Services from "../../../Services";
 import {AuthContext} from "../../../context/AuthProvider";
+import { GOOGLE_MAPS } from '../../../Globals';
+import AutoComplete from "react-google-autocomplete";
 
 const AddAddress = ({setView, regions, address, setAddress}) => {
 
@@ -14,6 +16,7 @@ const AddAddress = ({setView, regions, address, setAddress}) => {
 
     const [selectedRegion, setSelectedRegion] = useState(0);
     const [communes, setCommunes] = useState([]);
+    const [googleAddress, setGoogleAddress] = useState('');
 
     useEffect(() => {
         if (regions.length > 0) {
@@ -46,6 +49,16 @@ const AddAddress = ({setView, regions, address, setAddress}) => {
             setCommunes(orderCommunes);
         }
     }, [selectedRegion]);
+    
+    useEffect(() => {
+        if (googleAddress.length > 0) {
+            setAddress({
+                ...address,
+                ['address']: googleAddress,
+                ['isAutocomplete']: true
+            })  
+        }
+    },[googleAddress])
 
     const selectRegion = (e) => {
         const region = regions.find(r => r.id == e.target.value)
@@ -114,6 +127,11 @@ const AddAddress = ({setView, regions, address, setAddress}) => {
     const updateData = () => {
         let url = Services.ENDPOINT.CUSTOMER.ADDRESSES.UPDATE;
 
+        if (!address.isAutocomplete) {
+            setInputError('address','Por favor, ingrese una dirección valida.');
+            return null;
+        }
+
         let data = {
             customer_id: auth.id,
             address_id: address.id,
@@ -137,6 +155,15 @@ const AddAddress = ({setView, regions, address, setAddress}) => {
         });
     }
 
+    const autoCompleteHandle = (place, isAutocomplete = false) => {
+        setGoogleAddress('');
+        setAddress({
+            ...address,
+            ['address']: place,
+            ['isAutocomplete']: isAutocomplete
+        })   
+    }
+
     return (
         <Fragment>
             <div className="panel panel-cart mb-3">
@@ -157,22 +184,6 @@ const AddAddress = ({setView, regions, address, setAddress}) => {
                                 <div className="invalid-feedback" />
                             </div>
                         </div>
-
-                        {/* <div className="col-md-12">
-                            <div className="form-group">
-                                <label htmlFor="contact_last_name">Apellido</label>
-                                <input type="text"
-                                       className="form-control form-control-custom"
-                                       id="contact_last_name"
-                                       name="contact_last_name"
-                                       placeholder="Nombre Contacto"
-                                       value={address.contact_last_name}
-                                       onChange={handleAddress}
-                                       onFocus={setCleanInputError}
-                                />
-                                <div className="invalid-feedback" />
-                            </div>
-                        </div> */}
 
                         <div className="col-md-6">
                             <div className="form-group">
@@ -225,14 +236,19 @@ const AddAddress = ({setView, regions, address, setAddress}) => {
                         <div className="col-md-8">
                             <div className="form-group">
                                 <label htmlFor="address">Dirección</label>
-                                <input type="text"
-                                       className="form-control form-control-custom"
-                                       id="address"
-                                       name="address"
-                                       placeholder="Dirección"
-                                       value={address.address}
-                                       onChange={(e) => handleAddress(e, true)}
-                                       onFocus={setCleanInputError}
+                                <AutoComplete
+                                    className="form-control form-control-custom"
+                                    placeholder="Dirección"
+                                    id={'address'}
+                                    value={address.address}
+                                    apiKey={GOOGLE_MAPS.API_KEY}
+                                    onPlaceSelected={(place) => setGoogleAddress(place.formatted_address)}
+                                    onChange={(e) => autoCompleteHandle(e.target.value)}
+                                    options={{
+                                        types: ["address"],
+                                        componentRestrictions: { country: "cl" },
+                                    }}
+                                    onFocus={setCleanInputError}
                                 />
                                 <div className="invalid-feedback" />
                             </div>

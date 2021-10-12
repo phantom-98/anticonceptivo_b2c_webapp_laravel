@@ -17,8 +17,18 @@ import BlogList from "../pages/public/BlogList";
 import Claim from "../pages/public/Claim";
 import Post from "../pages/public/Post";
 import ShopSearch from '../pages/public/Shop/indexSearch';
+// import Test from '../pages/public/Test';
 
 const PUBLIC_ROUTES = {
+    // TEST: {
+    //     path: "/testing",
+    //     title: "Pruebas",
+    //     component: Test,
+    //     exact: true,
+    //     layout: props => <BaseTemplate {...props} />,
+    //     middleware: props => <PublicMiddleware {...props} />
+    // },
+
     ABOUT_US: {
         path: "/sobre-nosotros",
         title: "Sobre Nosotros",

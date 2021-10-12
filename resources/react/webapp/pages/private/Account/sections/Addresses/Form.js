@@ -1,7 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import toastr from "toastr";
-import {setCleanInputError} from "../../../../../helpers/GlobalUtils";
+import {setCleanInputError, setInputError} from "../../../../../helpers/GlobalUtils";
 import * as Services from "../../../../../Services";
+import { GOOGLE_MAPS } from '../../../../../Globals';
+import AutoComplete from "react-google-autocomplete";
 
 const Form = ({addressSelected, goBack, formMode, customerId = null, regions, setAddresses}) => {
 
@@ -11,15 +13,20 @@ const Form = ({addressSelected, goBack, formMode, customerId = null, regions, se
         region_id: '',
         commune_id: '',
         address: '',
-        extra_info: ''
+        extra_info: '',
+        isAutocomplete: true,
     });
 
+    const [googleAddress, setGoogleAddress] = useState('');
     const [selectedRegion, setSelectedRegion] = useState(0);
     const [communes, setCommunes] = useState([]);
 
     useEffect(() => {
         if (formMode === 'edit') {
-            setAddress(addressSelected)
+            setAddress({
+                ...addressSelected,
+                ['isAutocomplete']: true
+            })
         }
     }, []);
 
@@ -54,6 +61,16 @@ const Form = ({addressSelected, goBack, formMode, customerId = null, regions, se
             setCommunes(orderCommunes);
         }
     }, [selectedRegion]);
+
+    useEffect(() => {
+        if (googleAddress.length > 0) {
+            setAddress({
+                ...address,
+                ['address']: googleAddress,
+                ['isAutocomplete']: true
+            })  
+        }
+    },[googleAddress])
 
     const handleAddress = (e, direction = false, number = false, text = false) => {
         if (direction) {
@@ -92,6 +109,12 @@ const Form = ({addressSelected, goBack, formMode, customerId = null, regions, se
     }
 
     const updateData = () => {
+
+        if (!address.isAutocomplete) {
+            setInputError('address','Por favor, ingrese una dirección valida.');
+            return null;
+        }
+
         let url = Services.ENDPOINT.CUSTOMER.ADDRESSES.UPDATE;
 
         let data = {
@@ -130,8 +153,22 @@ const Form = ({addressSelected, goBack, formMode, customerId = null, regions, se
     }
 
     const setAddressNoAuth = () => {
+         if (!address.isAutocomplete) {
+            setInputError('address','Por favor, ingrese una dirección valida.');
+            return null;
+        }
+        
         setAddresses(address);
         goBack();
+    }
+
+    const autoCompleteHandle = (place, isAutocomplete = false) => {
+        setGoogleAddress('');
+        setAddress({
+            ...address,
+            ['address']: place,
+            ['isAutocomplete']: isAutocomplete
+        })   
     }
 
     return (
@@ -203,14 +240,19 @@ const Form = ({addressSelected, goBack, formMode, customerId = null, regions, se
             <div className="col-md-8">
                 <div className="form-group">
                     <label htmlFor="address">Dirección</label>
-                    <input type="text"
-                           className="form-control form-control-custom"
-                           id="address"
-                           name="address"
-                           placeholder="Dirección"
-                           value={address.address}
-                           onChange={(e) => handleAddress(e, true, false, false)}
-                           onFocus={setCleanInputError}
+                    <AutoComplete
+                        className="form-control form-control-custom"
+                        placeholder="Dirección"
+                        id={'address'}
+                        value={address.address}
+                        apiKey={GOOGLE_MAPS.API_KEY}
+                        onPlaceSelected={(place) => setGoogleAddress(place.formatted_address)}
+                        onChange={(e) => autoCompleteHandle(e.target.value)}
+                        options={{
+                            types: ["address"],
+                            componentRestrictions: { country: "cl" },
+                        }}
+                        onFocus={setCleanInputError}
                     />
                     <div className="invalid-feedback" />
                 </div>

@@ -41,7 +41,7 @@ const List = ({addresses, showEdit, showCreate, getData, regions, communes, setA
                 {
                     auth ? 
                     addresses.map((address, index) => (
-                        <ListItem 
+                        <ListItem
                             key={index} 
                             address={address} 
                             showEdit={showEdit} 
