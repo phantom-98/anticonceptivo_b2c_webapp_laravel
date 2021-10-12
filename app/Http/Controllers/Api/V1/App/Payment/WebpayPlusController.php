@@ -37,6 +37,7 @@ class WebpayPlusController
 
     private $webpay_plus;
     private $oneclick;
+    private $commerce_code;
 
     public function __construct()
     {
