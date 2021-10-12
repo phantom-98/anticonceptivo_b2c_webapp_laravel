@@ -285,7 +285,7 @@ class WebpayPlusController
                             "commerce_code" => $this->commerce_code,
                             "buy_order" => $order->id,
                             "amount" =>  $order->total,
-                            "installments_number" => $request->installment ?? 0
+                            "installments_number" => $request->installment ?? 1
                         ]
                     ];
 
