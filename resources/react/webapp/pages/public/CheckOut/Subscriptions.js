@@ -6,7 +6,7 @@ import WaitingPaymentMethod from "./Payment/WaitingPaymentMethod";
 import toastr from "toastr";
 
 
-const Subscriptions = ({setView, subscription, setSubscription, user}) => {
+const Subscriptions = ({setView, subscription, setSubscription}) => {
 
     const {auth} = useContext(AuthContext);
 
@@ -32,7 +32,7 @@ const Subscriptions = ({setView, subscription, setSubscription, user}) => {
     const getData = () => {
         let url = Services.ENDPOINT.CUSTOMER.SUBSCRIPTIONS.GET;
         let data = {
-            customer_id: auth ? auth.id : user.id
+            customer_id: auth ? auth.id : null
         }
 
         Services.DoPost(url,data).then(response => {
@@ -50,8 +50,8 @@ const Subscriptions = ({setView, subscription, setSubscription, user}) => {
     const showCreate = () => {
             let url = Services.ENDPOINT.PAYMENTS.WEBPAY.CREATE_SUBSCRIPTION;
             let dataForm = {
-                customer_id: auth ? auth.id : user.id,
-                email: auth ? auth.email : user.email,
+                customer_id: auth ? auth.id : null,
+                email: auth ? auth.email : null,
             }
     
             Services.DoPost(url, dataForm)
