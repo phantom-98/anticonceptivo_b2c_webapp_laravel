@@ -30,6 +30,7 @@ use App\Http\Helpers\ApiHelper;
 use App\Http\Helpers\CallIntegrationsPay;
 use App\Http\Utils\Enum\PaymentMethodStatus;
 use Illuminate\Support\Facades\DB;
+use Transbank\Webpay\Oneclick as OneClick;
 
 class WebpayPlusController
 {
@@ -42,11 +43,11 @@ class WebpayPlusController
         if (env('APP_ENV') == 'production') {
             $this->webpay_plus = new WebpayPlus(env('TBK_CC'), env('TBK_API_KEY'), WebpayPlus::PRODUCTION);
             $this->oneclick = new OneClickMall(env('TBK_CC_ONECLICK'), env('TBK_API_KEY_ONECLICK'), WebpayPlus::PRODUCTION);
-
+            $this->commerce_code = env('TBK_ONECLICK_MALL');
         } else {
             $this->webpay_plus = new WebpayPlus();
             $this->oneclick = new OneClickMall();
-
+            $this->commerce_code = Oneclick::DEFAULT_CHILD_COMMERCE_CODE_1;
         }
     }
 
@@ -281,7 +282,7 @@ class WebpayPlusController
 
                     $details = [
                         [
-                            "commerce_code" => env('TBK_ONECLICK_MALL'),
+                            "commerce_code" => $this->commerce_code,
                             "buy_order" => $order->id,
                             "amount" =>  $order->total,
                             "installments_number" => $request->installment ?? 0
