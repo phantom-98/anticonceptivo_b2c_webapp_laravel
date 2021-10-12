@@ -2,7 +2,7 @@ import React, {Fragment, useState, useEffect, useContext} from 'react';
 // import FormPersonalData from "../../private/Account/sections/PersonalInfo/FormPersonalData";
 // import FormComercialInfo from "../../private/Account/sections/PersonalInfo/FormComercialInfo";
 // import {CONFIG} from "../../../Config";
-import {setCleanInputError} from "../../../helpers/GlobalUtils";
+import {setCleanInputError, setInputError} from "../../../helpers/GlobalUtils";
 import * as Services from "../../../Services";
 import {AuthContext} from "../../../context/AuthProvider";
 import { GOOGLE_MAPS } from '../../../Globals';
@@ -16,7 +16,9 @@ const AddAddress = ({setView, regions, address, setAddress}) => {
 
     const [selectedRegion, setSelectedRegion] = useState(0);
     const [communes, setCommunes] = useState([]);
+
     const [googleAddress, setGoogleAddress] = useState('');
+    const [validAddress, setValidAddress] = useState(false);
 
     useEffect(() => {
         if (regions.length > 0) {
@@ -55,10 +57,9 @@ const AddAddress = ({setView, regions, address, setAddress}) => {
             setAddress({
                 ...address,
                 ['address']: googleAddress,
-                ['isAutocomplete']: true
             })  
         }
-    },[googleAddress])
+    },[googleAddress]);
 
     const selectRegion = (e) => {
         const region = regions.find(r => r.id == e.target.value)
@@ -107,6 +108,11 @@ const AddAddress = ({setView, regions, address, setAddress}) => {
     }
 
     const validateData = () => {
+        if (validAddress === false) {
+            setInputError('address','Por favor, ingrese una dirección valida.');
+            return null;
+        }
+
         let url = Services.ENDPOINT.NO_AUTH.CHECKOUT.VALIDATE_STEPS;
         let dataForm = {
             ...address,
@@ -127,7 +133,7 @@ const AddAddress = ({setView, regions, address, setAddress}) => {
     const updateData = () => {
         let url = Services.ENDPOINT.CUSTOMER.ADDRESSES.UPDATE;
 
-        if (!address.isAutocomplete) {
+        if (validAddress === false) {
             setInputError('address','Por favor, ingrese una dirección valida.');
             return null;
         }
@@ -155,12 +161,12 @@ const AddAddress = ({setView, regions, address, setAddress}) => {
         });
     }
 
-    const autoCompleteHandle = (place, isAutocomplete = false) => {
+    const autoCompleteHandle = (place) => {
         setGoogleAddress('');
+        setValidAddress(false);
         setAddress({
             ...address,
             ['address']: place,
-            ['isAutocomplete']: isAutocomplete
         })   
     }
 
@@ -242,7 +248,24 @@ const AddAddress = ({setView, regions, address, setAddress}) => {
                                     id={'address'}
                                     value={address.address}
                                     apiKey={GOOGLE_MAPS.API_KEY}
-                                    onPlaceSelected={(place) => setGoogleAddress(place.formatted_address)}
+                                    onPlaceSelected={(place, a, b, c) => {
+                                        let flag = false;
+
+                                        place.address_components.forEach(addComponents => {
+                                            if (addComponents.long_name.includes('Región Metropolitana')) {
+                                                flag = true;
+                                            }
+                                        });
+
+                                        setGoogleAddress(place.formatted_address)
+
+                                        if (flag) {
+                                            setValidAddress(true);
+                                        }else{
+                                            setValidAddress(false);
+                                            setInputError('address','La dirección ingresada no esta en nuestro rango de cobertura, por favor intente con otra.');
+                                        }
+                                    }}
                                     onChange={(e) => autoCompleteHandle(e.target.value)}
                                     options={{
                                         types: ["address"],

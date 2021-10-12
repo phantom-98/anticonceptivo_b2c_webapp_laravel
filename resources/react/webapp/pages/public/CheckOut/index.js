@@ -68,7 +68,6 @@ const CheckOut = () => {
         commune_id: '',
         address: '',
         extra_info: '',
-        isAutocomplete: true,
     });
 
     const [subscription, setSubscription] = useState([]);

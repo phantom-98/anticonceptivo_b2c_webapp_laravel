@@ -17,15 +17,15 @@ const Form = ({addressSelected, goBack, formMode, customerId = null, regions, se
         isAutocomplete: true,
     });
 
-    const [googleAddress, setGoogleAddress] = useState('');
-    const [selectedRegion, setSelectedRegion] = useState(0);
-    const [communes, setCommunes] = useState([]);
+    const [googleAddress, setGoogleAddress] = useState('')
+    const [validAddress, setValidAddress] = useState(true)
+    const [selectedRegion, setSelectedRegion] = useState(0)
+    const [communes, setCommunes] = useState([])
 
     useEffect(() => {
         if (formMode === 'edit') {
             setAddress({
-                ...addressSelected,
-                ['isAutocomplete']: true
+                ...addressSelected
             })
         }
     }, []);
@@ -66,8 +66,7 @@ const Form = ({addressSelected, goBack, formMode, customerId = null, regions, se
         if (googleAddress.length > 0) {
             setAddress({
                 ...address,
-                ['address']: googleAddress,
-                ['isAutocomplete']: true
+                ['address']: googleAddress
             })  
         }
     },[googleAddress])
@@ -110,7 +109,7 @@ const Form = ({addressSelected, goBack, formMode, customerId = null, regions, se
 
     const updateData = () => {
 
-        if (!address.isAutocomplete) {
+        if (validAddress === false) {
             setInputError('address','Por favor, ingrese una dirección valida.');
             return null;
         }
@@ -121,7 +120,6 @@ const Form = ({addressSelected, goBack, formMode, customerId = null, regions, se
             customer_id: customerId,
             address_id: address.id,
             name: address.name,
-            last_name: address.last_name,
             region_id: address.region_id,
             commune_id: parseInt(address.commune_id),
             address: address.address,
@@ -162,12 +160,12 @@ const Form = ({addressSelected, goBack, formMode, customerId = null, regions, se
         goBack();
     }
 
-    const autoCompleteHandle = (place, isAutocomplete = false) => {
+    const autoCompleteHandle = (place) => {
         setGoogleAddress('');
+        setValidAddress(false);
         setAddress({
             ...address,
             ['address']: place,
-            ['isAutocomplete']: isAutocomplete
         })   
     }
 
@@ -246,7 +244,24 @@ const Form = ({addressSelected, goBack, formMode, customerId = null, regions, se
                         id={'address'}
                         value={address.address}
                         apiKey={GOOGLE_MAPS.API_KEY}
-                        onPlaceSelected={(place) => setGoogleAddress(place.formatted_address)}
+                        onPlaceSelected={(place, a, b, c) => {
+                            let flag = false;
+
+                            place.address_components.forEach(addComponents => {
+                                if (addComponents.long_name.includes('Región Metropolitana')) {
+                                    flag = true;
+                                }
+                            });
+
+                            setGoogleAddress(place.formatted_address)
+
+                            if (flag) {
+                                setValidAddress(true);
+                            }else{
+                                setValidAddress(false);
+                                setInputError('address','La dirección ingresada no esta en nuestro rango de cobertura, por favor intente con otra.');
+                            }
+                        }}
                         onChange={(e) => autoCompleteHandle(e.target.value)}
                         options={{
                             types: ["address"],
