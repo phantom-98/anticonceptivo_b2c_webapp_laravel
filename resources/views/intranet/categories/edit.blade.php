@@ -97,7 +97,10 @@
                                 <img id="image-edit-3" src="{{ Storage::url($object->subbanner_image) }}" style="max-width: 200px;"/>
                                 @endif
                             </div>
-                            <div class="col-md-3">
+
+                            <div class="clearfix"></div>
+
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="unit_format">Formato unidad </label>
                                     <input type="text" id="unit_format" name="unit_format" class="form-control" min="1"
