@@ -47,7 +47,7 @@ class WebpayPlusController
         } else {
             $this->webpay_plus = new WebpayPlus();
             $this->oneclick = new OneClickMall();
-            $this->commerce_code = Oneclick::DEFAULT_CHILD_COMMERCE_CODE_1;
+            $this->commerce_code = '597055555543';
         }
     }
 
