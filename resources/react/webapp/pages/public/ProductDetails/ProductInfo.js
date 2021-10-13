@@ -117,7 +117,7 @@ const ProductInfo = ({ product, setImageSubscription }) => {
             ) : null}
 
             <div className="col-md-12 col-6 product-recipe-column">
-                <h1 className="font-poppins product-recipe-style regular color-6C6B6B">
+                <h1 className="font-poppins product-recipe-style regular color-009BE8">
                     <Icon className="icon-document" path={fileSvg} />{" "}
                     {product.recipe_type
                         ? product.recipe_type

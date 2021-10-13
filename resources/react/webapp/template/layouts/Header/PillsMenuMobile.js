@@ -27,7 +27,7 @@ const PillsMenuMobile = ({laboratories, subscriptions, formats, categorySlug, hi
                                     return (
                                         <li className="my-2" key={formatKey}>
                                             <Link onClick={hideMenu} to={formatUrl} style={{textDecoration: 'none'}}>
-                                                <span className="font-poppins py-1 font-12 text-black my-auto d-block">{format}</span>
+                                                <span className="font-poppins py-1 font-12 text-black my-auto d-block">{format} Pastillas</span>
                                             </Link>
                                         </li>
                                     )

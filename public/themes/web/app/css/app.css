@@ -514,7 +514,7 @@ button#dropdown-testing {
   cursor: pointer;
   color: black;
   font-family: "Poppins", sans-serif;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 400;
   text-transform: capitalize;
   transition: all 0.3s;
@@ -581,7 +581,7 @@ button#dropdown-testing {
 }
 
 .pills-sub-header-title {
-  font-size: 14px;
+  font-size: 10px;
   font-family: "Poppins", sans-serif;
   font-weight: 600;
   letter-spacing: 2px;
@@ -3566,6 +3566,10 @@ a:-webkit-any-link:focus-visible {
     margin-top: 0;
     min-height: calc(100vh - 520px);
   }
+}
+
+.pills-span {
+  font-size: 10px;
 }
 
 .pills-span:hover {
