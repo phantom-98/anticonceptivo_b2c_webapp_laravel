@@ -175,6 +175,9 @@ const ShopSearch = ({match}) => {
                                     category={category}
                                     products={products}
                                     subcatNames={subcatNames}
+                                    subscriptions={subscriptions}
+                                    filters={filters}
+                                    setFilters={setFilters}
                                     filter={                                <div className="d-block d-sm-none" style={{marginTop: '10px'}}>
                                         { showFilterResponsive ?
                                             <Filter

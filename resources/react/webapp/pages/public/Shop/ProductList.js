@@ -8,7 +8,10 @@ const ProductList = ({
     products,
     subcatNames,
     filter,
-                         showFilter,
+    showFilter,
+    subscriptions,
+    filters,
+    setFilters,
     search = null
 }) => {
 
@@ -47,6 +50,24 @@ const ProductList = ({
                 </div>
             </div>
             <div className="col-12 pb-3">
+                <div className="row mb-3">
+                    <div className="col-12 text-center">
+                        {
+                                subscriptions.map((subscription) => {
+                                    return(
+                                        <div className={`btn btn-outline-primary btn-months ${filters.subscriptions.includes(subscription.id) ? 'focus': ''} mx-3`}
+                                            onClick={() => setFilters({
+                                                    ...filters,
+                                                    ['subscriptions']: [subscription.id]
+                                                })}
+                                        >
+                                            {subscription.months == 13 ? 12 : subscription.months} Meses / {subscription.months} Ciclos
+                                        </div>
+                                    )
+                                })
+                        }
+                    </div>
+                </div>
                 <div className="row">
                     <div className="col-6 d-flex" style={{minHeight: '29px'}}>
                         <div className="font-poppins font-15 light text-black my-auto">{subcatNames ? subcatNames : (search == null ? category.name : search)} <span
@@ -100,7 +121,10 @@ const ProductList = ({
                                 const finish = init+parseInt(viewCount);
                                 return position > init && position <= finish ?
                                     <div className="col-sm-12 col-md-6 col-lg-4 mb-3" key={index}>
-                                        <ProductCard product={product}/>
+                                        <ProductCard 
+                                            product={product}
+                                            subscriptionFilter={filters.subscriptions}
+                                        />
                                     </div>
                                 : null
                             })

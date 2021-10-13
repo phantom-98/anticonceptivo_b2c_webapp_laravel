@@ -176,6 +176,7 @@ const Shop = ({match}) => {
             name: PUBLIC_ROUTES.SHOP.title,
         },
     ];
+
     const showFilter = () => {
         // document.body.scrollTop = 0; // For Safari
         // document.documentElement.scrollTop = 0;
@@ -222,6 +223,9 @@ const Shop = ({match}) => {
                                     category={category}
                                     products={products}
                                     subcatNames={subcatNames}
+                                    subscriptions={subscriptions}
+                                    filters={filters}
+                                    setFilters={setFilters}
                                     filter={<div className="d-block d-sm-none" style={{marginTop: '10px'}}>
                                         { showFilterResponsive ?
                                             <Filter
