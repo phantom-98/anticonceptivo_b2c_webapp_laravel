@@ -200,10 +200,19 @@ const HeaderBox = () => {
                         </div>
                     </div>
 
-                    <div className="col-md-auto top-do-flex pointer" onClick={showMiniCart}>
+                    {/* <div className="col-md-auto top-do-flex pointer" onClick={showMiniCart}>
                         <div className="my-auto">
                             <div className="cart-badge-quantity"><TotalCartItems/></div>
                             <Icon path={cartBlue}/>
+                        </div>
+                    </div> */}
+
+                    <div className="col-md-auto top-do-flex pointer">
+                        <div className="my-auto">
+                            <Link to={PUBLIC_ROUTES.CART.path} >
+                                <div className="cart-badge-quantity"><TotalCartItems/></div>
+                                <Icon path={cartBlue}/>
+                            </Link>
                         </div>
                     </div>
 

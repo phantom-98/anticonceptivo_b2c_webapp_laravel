@@ -36,7 +36,7 @@ const Resume = ({
     const {cartItems} = useContext(CartContext);
 
     useEffect(() => {
-        console.log(address)
+        // console.log(address)
         let url = Services.ENDPOINT.PAYMENTS.GET_DISPATCH;
 
         let data = {

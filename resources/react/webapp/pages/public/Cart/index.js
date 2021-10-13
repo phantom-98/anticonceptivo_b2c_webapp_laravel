@@ -66,7 +66,7 @@ const Cart = () => {
                                         <div className="col-12 mt-2">
                                             <Link to={cartItems.length ? PUBLIC_ROUTES.CHECKOUT.path : '#'}
                                                   className="btn btn-bicolor btn-block d-flex my-2">
-                                                <span className="m-auto font-poppins font-14 bold">CONTINUAR CON LA COMPRA</span>
+                                                <span className="m-auto font-poppins font-14 bold">CONTINUAR AL PAGO</span>
                                             </Link>
                                             <p className="font-poppins font-12 regular color-484848">
                                                 *El costo de entrega se calculará al añadir la dirección.

@@ -35,3 +35,7 @@ export const FORMATS = {
     TWENTY_EIGHT: 28,
     NINETY_ONE: 91
 }
+
+export const GOOGLE_MAPS = {
+    API_KEY: 'AIzaSyC6QLjvU7x6mcrNuViitxwues5LysQXcTk',
+}
