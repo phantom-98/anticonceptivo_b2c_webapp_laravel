@@ -59,6 +59,8 @@ class ProfileController extends Controller
                 return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_NOT_FOUND);
             }
 
+            // CAMBIAR A WHERE IN PARA AGREGAR MÁS REGIONES
+
             $regions = Region::where('id',7)->with('provinces.communes')->get();
 
             return ApiResponse::JsonSuccess([
@@ -491,7 +493,7 @@ class ProfileController extends Controller
             $rules = [
                 'address' => 'required',
                 'name' => 'required',
-                'extra_info' => 'required',
+                // 'extra_info' => 'required',
                 'commune_id' => 'required',
                 'region_id' => 'required',
             ];

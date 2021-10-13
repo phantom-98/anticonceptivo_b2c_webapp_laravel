@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
-import bgSubscribe from '../../assets/images/sections/subscribe.png'
+import bgSubscribe from '../../assets/images/sections/subscribe.jpeg'
+import bgSubscribeMobile from '../../assets/images/sections/subscribe-mobile.jpeg'
+import UseWindowDimensions from "../customHooks/UseWindowDimensions";
 import * as Services from "../../Services";
 import toastr from "toastr";
 
@@ -36,8 +38,10 @@ const Subscribe = () => {
         });
     }
 
+    const { height, width } = UseWindowDimensions();
+
     return (
-        <div className="suscribe" style={{backgroundImage: `url(${bgSubscribe})`}}>
+        <div className="suscribe" style={{backgroundImage: width >= 620 ? `url(${bgSubscribe})` : `url(${bgSubscribeMobile})`}}>
             <div className="py-5">
                 <div className="container py-3">
                     <div className="row">

@@ -185,7 +185,7 @@ const Header = () => {
                             </div>
 
                             <div className="col-2 d-flex" style={{justifyContent: 'center'}}>
-                                <div className="my-auto" onClick={showMiniCart}>
+                                {/* <div className="my-auto" onClick={showMiniCart}>
                                     <div className="cart-badge-quantity"><TotalCartItems/></div>
                                     <img src={cartBlue}
                                          alt=""
@@ -193,7 +193,21 @@ const Header = () => {
                                          rel="nofollow"
                                          height="25px"
                                     />
+                                </div> */}
+
+                                
+                                <div className="my-auto">
+                                    <Link to={PUBLIC_ROUTES.CART.path} >
+                                        <div className="cart-badge-quantity"><TotalCartItems/></div>
+                                        <img src={cartBlue}
+                                            alt=""
+                                            title="Anticonceptivo"
+                                            rel="nofollow"
+                                            height="25px"
+                                        />
+                                    </Link>
                                 </div>
+                                
                             </div>
                         </div>
                     </div>

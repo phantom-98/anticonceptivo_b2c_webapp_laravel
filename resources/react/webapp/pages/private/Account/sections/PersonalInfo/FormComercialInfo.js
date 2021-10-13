@@ -127,12 +127,12 @@ const FormComercialInfo = ({handleData,
             </div>
             <div className="col-md-4">
                 <div className="form-group">
-                    <label htmlFor="commercial_additional_address">Número casa / depto</label>
+                    <label htmlFor="commercial_additional_address">Número casa o departamento</label>
                     <input type="text"
                            className="form-control form-control-custom"
                            id="commercial_additional_address"
                            name="commercial_additional_address"
-                           placeholder="Número casa / depto"
+                           placeholder="Número casa o departamento"
                            onChange={(e) => handleData(e)}
                            value={data.commercial_additional_address}
                            onFocus={setCleanInputError}

@@ -61,7 +61,7 @@ const ListItem = ({address, showEdit, saveDefaultAddress, regions, communes, add
                     </div>
                     <div className="col-12">
                         <span className="font-poppins font-16 regular color-484848">
-                            {address.address}, {address.extra_info} , {commune ? commune.name : null} , {region ? region.name : null}
+                            {address.address} , {address.extra_info ? address.extra_info+ ' , ' : ''} {commune ? commune.name : null} , {region ? region.name : null}
                         </span>
                     </div>
                 </div>

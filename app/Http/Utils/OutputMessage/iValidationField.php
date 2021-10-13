@@ -18,7 +18,7 @@ interface iValidationField
     const FIELD_MESSAGE_REQUIRED = 'El mensaje es obligatorio.';
     
     const FIELD_ADDRESS_NAME_REQUIRED = 'El nombre de la dirección es obligatorio.';
-    const FIELD_ADDRESS_REQUIRED = 'La dirección es obligatoria.';
+    const FIELD_ADDRESS_REQUIRED = 'La calle y el número son obligatorios.';
     const FIELD_COMMUNE_ID_REQUIRED = 'La comuna es obligatoria.';
     const FIELD_REGION_ID_REQUIRED = 'La región es obligatoria.';
     const FIELD_EXTRA_INFO_REQUIRED = 'El número de casa / depto es obligatorio.';
