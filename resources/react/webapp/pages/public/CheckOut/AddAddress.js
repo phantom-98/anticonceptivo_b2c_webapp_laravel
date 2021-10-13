@@ -241,31 +241,51 @@ const AddAddress = ({setView, regions, address, setAddress}) => {
 
                         <div className="col-md-8">
                             <div className="form-group">
-                                <label htmlFor="address">Dirección</label>
+                                <label htmlFor="address">Calle y Número</label>
                                 <AutoComplete
                                     className="form-control form-control-custom"
-                                    placeholder="Dirección"
+                                    placeholder="Calle y Número"
                                     id={'address'}
                                     value={address.address}
                                     apiKey={GOOGLE_MAPS.API_KEY}
                                     onPlaceSelected={(place, a, b, c) => {
-                                        let flag = false;
+                                    let flag = false;
+                                    let street_number = '';
+                                    let route = '';
 
-                                        place.address_components.forEach(addComponents => {
-                                            if (addComponents.long_name.includes('Región Metropolitana')) {
-                                                flag = true;
-                                            }
-                                        });
+                                    place.address_components.forEach(addComponents => {
+                                        if (addComponents.long_name.includes('Región Metropolitana')) {
+                                            flag = true;
+                                        }
 
-                                        setGoogleAddress(place.formatted_address)
+                                        if (addComponents.types.find(x => x == 'route')) {
+                                            route = addComponents.long_name;
+                                        }
 
-                                        if (flag) {
+                                        if (addComponents.types.find(x => x == 'street_number')) {
+                                            street_number = addComponents.long_name;
+                                        }
+                                    });
+
+                                    setGoogleAddress(route+', '+street_number)
+
+                                    if (flag) {
+                                        if (street_number.length > 0 && route.length > 0) {
                                             setValidAddress(true);
                                         }else{
                                             setValidAddress(false);
-                                            setInputError('address','La dirección ingresada no esta en nuestro rango de cobertura, por favor intente con otra.');
+                                            setInputError('address','Formato de la dirección incorrecta, por favor ingrese el nombre de la calle y el número.');
                                         }
-                                    }}
+                                    }else{
+                                        setValidAddress(false);
+                                        setInputError('address','La dirección ingresada no esta en nuestro rango de cobertura, por favor intente con otra.');
+                                    }
+                                }}
+                                onChange={(e) => autoCompleteHandle(e.target.value)}
+                                options={{
+                                    types: ["address"],
+                                    componentRestrictions: { country: "cl" },
+                                }}
                                     onChange={(e) => autoCompleteHandle(e.target.value)}
                                     options={{
                                         types: ["address"],
@@ -278,12 +298,12 @@ const AddAddress = ({setView, regions, address, setAddress}) => {
                         </div>
                         <div className="col-md-4">
                             <div className="form-group">
-                                <label htmlFor="extra_info">Número casa / depto</label>
+                                <label htmlFor="extra_info">Número casa o departamento</label>
                                 <input type="text"
                                        className="form-control form-control-custom"
                                        id="extra_info"
                                        name="extra_info"
-                                       placeholder="Número casa / depto"
+                                       placeholder="Número casa o departamento"
                                        value={address.extra_info}
                                        onChange={(e) => handleAddress(e, false, true)}
                                        onFocus={setCleanInputError}

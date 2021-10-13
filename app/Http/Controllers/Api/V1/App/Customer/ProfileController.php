@@ -493,7 +493,7 @@ class ProfileController extends Controller
             $rules = [
                 'address' => 'required',
                 'name' => 'required',
-                'extra_info' => 'required',
+                // 'extra_info' => 'required',
                 'commune_id' => 'required',
                 'region_id' => 'required',
             ];

@@ -173,7 +173,7 @@ const Form = ({addressSelected, goBack, formMode, customerId = null, regions, se
         <div className="row">
             <div className="col-md-12">
                 <div className="form-group">
-                    <label htmlFor="name">Nombre</label>
+                    <label htmlFor="name">Nombre (*)</label>
                     <input type="text"
                            className="form-control form-control-custom"
                            id="name"
@@ -189,7 +189,7 @@ const Form = ({addressSelected, goBack, formMode, customerId = null, regions, se
 
             <div className="col-md-6">
                 <div className="form-group">
-                    <label htmlFor="region_id">Región</label>
+                    <label htmlFor="region_id">Región (*)</label>
                     <select
                         className="form-control form-control-custom pl-2"
                         id="region_id"
@@ -213,7 +213,7 @@ const Form = ({addressSelected, goBack, formMode, customerId = null, regions, se
 
             <div className="col-md-6">
                 <div className="form-group">
-                    <label htmlFor="commune_id">Comuna</label>
+                    <label htmlFor="commune_id">Comuna (*)</label>
                     <select
                         className="form-control form-control-custom pl-2"
                         id="commune_id"
@@ -237,26 +237,41 @@ const Form = ({addressSelected, goBack, formMode, customerId = null, regions, se
 
             <div className="col-md-8">
                 <div className="form-group">
-                    <label htmlFor="address">Dirección</label>
+                    <label htmlFor="address">Calle y Número (*)</label>
                     <AutoComplete
                         className="form-control form-control-custom"
-                        placeholder="Dirección"
+                        placeholder="Calle y Número"
                         id={'address'}
                         value={address.address}
                         apiKey={GOOGLE_MAPS.API_KEY}
                         onPlaceSelected={(place, a, b, c) => {
                             let flag = false;
+                            let street_number = '';
+                            let route = '';
 
                             place.address_components.forEach(addComponents => {
                                 if (addComponents.long_name.includes('Región Metropolitana')) {
                                     flag = true;
                                 }
+
+                                if (addComponents.types.find(x => x == 'route')) {
+                                    route = addComponents.long_name;
+                                }
+
+                                if (addComponents.types.find(x => x == 'street_number')) {
+                                    street_number = addComponents.long_name;
+                                }
                             });
 
-                            setGoogleAddress(place.formatted_address)
+                            setGoogleAddress(route+', '+street_number)
 
                             if (flag) {
-                                setValidAddress(true);
+                                if (street_number.length > 0 && route.length > 0) {
+                                    setValidAddress(true);
+                                }else{
+                                    setValidAddress(false);
+                                    setInputError('address','Formato de la dirección incorrecta, por favor ingrese el nombre de la calle y el número.');
+                                }
                             }else{
                                 setValidAddress(false);
                                 setInputError('address','La dirección ingresada no esta en nuestro rango de cobertura, por favor intente con otra.');
@@ -274,12 +289,12 @@ const Form = ({addressSelected, goBack, formMode, customerId = null, regions, se
             </div>
             <div className="col-md-4">
                 <div className="form-group">
-                    <label htmlFor="extra_info">Número casa / depto</label>
+                    <label htmlFor="extra_info">Número casa o departamento</label>
                     <input type="text"
                            className="form-control form-control-custom"
                            id="extra_info"
                            name="extra_info"
-                           placeholder="Número casa / depto"
+                           placeholder="Número casa o departamento"
                            value={address.extra_info}
                            onChange={(e) => handleAddress(e, false, true, false)}
                            onFocus={setCleanInputError}
