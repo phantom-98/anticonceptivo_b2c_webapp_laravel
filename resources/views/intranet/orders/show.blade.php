@@ -173,7 +173,7 @@
                                              (4 Ciclos / 4 meses)
                                             @elseif($item->subscription_plan_id == 2)
                                              (6 Ciclos / 6 meses)
-                                            @else
+                                            @elseif($item->subscription_plan_id == 3)
                                              (13 Ciclos / 12 meses)
                                             @endif
                                         </td>
