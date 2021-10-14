@@ -5,26 +5,39 @@ import { v4 as uuidv4 } from 'uuid';
 const SubscriptionFilter = ({subscriptions, filters, setFilters, filtersUpdate, setFiltersUpdate}) => {
 
     const handleSubscriptions = (e) => {
-        let list = [...filters.subscriptions];
+        // let list = [...filters.subscriptions];
         let targetId = parseInt(e.target.id.replace('subscription-',''));
-
-        if (list.includes(targetId)) {
-            list = list.filter(x => x !== targetId);
-        }else{
-            list = [...list, targetId];
-        }
-
-        if (!list.length) {
-            setFilters({
+        // list = [targetId];
+        
+        if (filters.subscriptions.includes(targetId)) {
+             setFilters({
                 ...filters,
                 ['subscriptions']: []
             });
         }else{
-            setFilters({
+             setFilters({
                 ...filters,
-                ['subscriptions']: list
+                ['subscriptions']: [targetId]
             });
         }
+
+        // if (list.includes(targetId)) {
+        //     list = list.filter(x => x !== targetId);
+        // }else{
+        //     list = [...list, targetId];
+        // }
+
+        // if (!list.length) {
+        //     setFilters({
+        //         ...filters,
+        //         ['subscriptions']: []
+        //     });
+        // }else{
+        //     setFilters({
+        //         ...filters,
+        //         ['subscriptions']: list
+        //     });
+        // }
 
         let count = filtersUpdate+1;
 

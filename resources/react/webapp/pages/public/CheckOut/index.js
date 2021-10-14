@@ -209,11 +209,13 @@ const CheckOut = () => {
                                                     setView={setView}
                                                     subscription={subscription}
                                                     setSubscription={setSubscription}
-                                                />,
-                                                <Installments
-                                                    setInstallment={setInstallment}
+                                                />
+                                                // ,
+                                                // <Installments
+                                                //     setInstallment={setInstallment}
 
-                                                />]
+                                                // />
+                                            ]
 
                                                 : null
 

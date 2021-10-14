@@ -54,7 +54,6 @@ const ProductGallery = ({product, imageSubscription, productImage}) => {
                                         </div>
                                     )
                                 }
-
                             })
                         : null
                     }
