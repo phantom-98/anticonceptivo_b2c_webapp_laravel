@@ -14,7 +14,7 @@ class AddColumnSubjectToClaimsTable extends Migration
     public function up()
     {
         Schema::table('claims', function (Blueprint $table) {
-            $table->text('subject')->after('is_reply');
+            // $table->text('subject')->after('is_reply');
         });
     }
 
@@ -26,7 +26,7 @@ class AddColumnSubjectToClaimsTable extends Migration
     public function down()
     {
         Schema::table('claims', function (Blueprint $table) {
-            $table->text('subject')->after('is_reply');
+            // $table->text('subject')->after('is_reply');
         });
     }
 }

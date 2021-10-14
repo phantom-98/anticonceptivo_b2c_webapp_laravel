@@ -29,7 +29,7 @@ const Claim = () => {
         email: '',
         phone: '',
         phone_code: '+56',
-        subject: '',
+        // subject: '',
         message:'',
     }
 

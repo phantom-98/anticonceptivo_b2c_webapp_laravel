@@ -87,7 +87,7 @@ const ModalClaim = ({show, hide, saveClaim, data, handleData}) => {
                         </div>
                     </div>
 
-                    <div className="col-md-12">
+                    {/* <div className="col-md-12">
                          <div className="form-group">
                             <label htmlFor="subject">Asunto</label>
                                 <select
@@ -105,7 +105,7 @@ const ModalClaim = ({show, hide, saveClaim, data, handleData}) => {
                                 </select>
                                 <div className="invalid-feedback" />
                         </div>
-                    </div>
+                    </div> */}
 
                     <div className="col-md-12">                        
                         <div className="form-group">
