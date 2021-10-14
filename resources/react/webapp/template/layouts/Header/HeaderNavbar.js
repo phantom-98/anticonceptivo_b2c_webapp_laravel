@@ -91,6 +91,11 @@ const HeaderNavbar = () => {
                                 let url = PUBLIC_ROUTES.SHOP.path;
                                 url = url.replace(":category", category.slug);
 
+                                if (category.id === 1) {
+                                    let pillsUrl = PUBLIC_ROUTES.SHOP.path;
+                                    pillsUrl = pillsUrl.replace(":category", category.slug);
+                                }
+
                                 if (size.width <= 1351 && index <= 3) {
 
                                     return <Dropdown key={category.categoryId}
@@ -107,18 +112,8 @@ const HeaderNavbar = () => {
                                         </Dropdown.Toggle>
 
                                         {
-                                            // category.subcategories.length ?
                                             category.id === 1 ?
-
                                                 <Dropdown.Menu align="right" bsPrefix="dropdown-menu-custom with-pills">
-                                                    {/* <Dropdown.Item key={uuidv4()} style={{cursor:'default'}}>
-                                                    <PillsDropDown
-                                                        laboratories={laboratories}
-                                                        formats={formats}
-                                                        subscriptions={subscriptions}
-                                                        categorySlug={category.slug}
-                                                    />
-                                                </Dropdown.Item> */}
                                                     <div className="custom-dropdown-item" style={{cursor: 'default'}}>
                                                         {
                                                             show[category.categoryId] ?
@@ -127,8 +122,9 @@ const HeaderNavbar = () => {
                                                                     formats={formats}
                                                                     subscriptions={subscriptions}
                                                                     categorySlug={category.slug}
+                                                                    linkTo={pillsUrl}
                                                                 />
-                                                                : null
+                                                            : null
                                                         }
                                                     </div>
                                                 </Dropdown.Menu>

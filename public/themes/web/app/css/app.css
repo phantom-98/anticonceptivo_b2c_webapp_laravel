@@ -620,6 +620,14 @@ button#dropdown-testing {
   color: white;
 }
 
+.pills-subscription-color {
+  color: black;
+}
+
+.pills-subscription-color:hover {
+  color: #029BE8;
+}
+
 .footer-bottom {
   color: white;
   font-family: "Poppins", sans-serif;
