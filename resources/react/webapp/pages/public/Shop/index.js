@@ -26,6 +26,7 @@ const Shop = ({match}) => {
     const [isPills, setIsPills] = useState(false);
     const [subcatNames, setSubcatNames] = useState(null);
     const [filtersUpdate, setFiltersUpdate] = useState(1);
+    const [filterLoading, setFilterLoading] = useState(false);
 
     const defaultFilters = {
         subcategories: [],
@@ -139,7 +140,7 @@ const Shop = ({match}) => {
     }
 
     const getProductsFiltered = () => {
-        // setLoading(false);
+        setFilterLoading(true);
         let url = Services.ENDPOINT.NO_AUTH.SHOP.PRODUCTS_FILTERED;
         let data = {
             category_slug: match.params.category,
@@ -157,7 +158,7 @@ const Shop = ({match}) => {
                     setProducts(response.data.products);
                     setLaboratories(response.data.laboratories);
                     setSubcatNames(response.data.subcat_names);
-
+                    setFilterLoading(false);
                     // setLoading(true);
                 },
             });
@@ -176,6 +177,7 @@ const Shop = ({match}) => {
             name: PUBLIC_ROUTES.SHOP.title,
         },
     ];
+
     const showFilter = () => {
         // document.body.scrollTop = 0; // For Safari
         // document.documentElement.scrollTop = 0;
@@ -184,6 +186,12 @@ const Shop = ({match}) => {
         }else{
             setShowFilterResponsive(true)
         }
+    }
+
+    const updateFilter = () => {
+        let count = filtersUpdate+1;
+
+        setFiltersUpdate(count);
     }
 
     return (
@@ -222,6 +230,11 @@ const Shop = ({match}) => {
                                     category={category}
                                     products={products}
                                     subcatNames={subcatNames}
+                                    subscriptions={subscriptions}
+                                    filters={filters}
+                                    setFilters={setFilters}
+                                    updateFilter={updateFilter}
+                                    filterLoading={filterLoading}
                                     filter={<div className="d-block d-sm-none" style={{marginTop: '10px'}}>
                                         { showFilterResponsive ?
                                             <Filter

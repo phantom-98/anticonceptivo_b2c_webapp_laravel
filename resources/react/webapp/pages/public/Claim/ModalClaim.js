@@ -86,7 +86,27 @@ const ModalClaim = ({show, hide, saveClaim, data, handleData}) => {
                             <div className="invalid-feedback" />
                         </div>
                     </div>
-                    
+
+                    {/* <div className="col-md-12">
+                         <div className="form-group">
+                            <label htmlFor="subject">Asunto</label>
+                                <select
+                                    className="form-control form-control-custom"
+                                    id="subject"
+                                    name="subject"
+                                    onChange={handleData}
+                                    value={data.subject}
+                                    onFocus={setCleanInputError}
+                                >
+                                    <option value={''} disabled>Seleccione</option>
+                                    <option value={'Demora en tiempo de despacho'}>Demora en tiempo de despacho</option>
+                                    <option value={'Producto en mal estado'}>Producto en mal estado</option>
+                                    <option value={'Cobro equivocado'}>Cobro equivocado</option>
+                                </select>
+                                <div className="invalid-feedback" />
+                        </div>
+                    </div> */}
+
                     <div className="col-md-12">                        
                         <div className="form-group">
                             <label htmlFor="message">Mensaje</label>

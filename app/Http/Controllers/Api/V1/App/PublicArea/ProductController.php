@@ -68,7 +68,7 @@ class ProductController extends Controller
                 return ApiResponse::NotFound(null, 'No existe la búsqueda.');
             }
             $search = $request->search;
-            $products = Product::with(['subcategory.category','laboratory','images'])
+            $products = Product::with(['subcategory.category','laboratory','images','plans.subscription_plan'])
             ->where(function($query) use ($search){
                 $query->where('name', 'LIKE', '%'.$search.'%')
                       ->orWhere('sku','LIKE','%'.$search.'%')
@@ -141,7 +141,7 @@ class ProductController extends Controller
     {
         try {
             $search = $request->search;
-            $products = Product::with(['subcategory.category','images','laboratory'])
+            $products = Product::with(['subcategory.category','images','laboratory','plans.subscription_plan'])
             ->where(function($query) use ($search){
                 $query->where('name', 'LIKE', '%'.$search.'%')
                       ->orWhere('sku','LIKE','%'.$search.'%')
@@ -270,9 +270,7 @@ class ProductController extends Controller
             $laboratories = Laboratory::whereIn('id',$laboratoryIds)->where('active',true)->get();
 
             $products = Product::whereIn('id',$productIds)->where('active',true)
-                ->with(['subcategory.category','images','laboratory']);
-
-
+                ->with(['subcategory.category','images','laboratory', 'plans.subscription_plan']);
 
             $product_subcategory =  Product::select('subcategory_id')->whereIn('id',$productIds)->where('active',true)
             ->where('format','!=','')->whereNotNull('subcategory_id')->first();
@@ -331,7 +329,7 @@ class ProductController extends Controller
             }
 
             return ApiResponse::JsonSuccess([
-                'products' => $products->get(),
+                'products' => $products->orderBy('name')->get(),
                 'category' => $categoryFields,
                 'subcategories' => $subcategories,
                 'subcat' => $subcat,
@@ -419,7 +417,7 @@ class ProductController extends Controller
                 }
             }
 
-            $products = Product::whereIn('id',$productIds)->where('active',true)->with(['subcategory.category','images','laboratory']);
+            $products = Product::whereIn('id',$productIds)->where('active',true)->with(['subcategory.category','images','laboratory','plans.subscription_plan']);
             $laboratories = Laboratory::where('active',true)->whereIn('id',$products->pluck('laboratory_id')->unique());
 
             $subcatNames = null;
@@ -471,7 +469,7 @@ class ProductController extends Controller
             }
 
             return ApiResponse::JsonSuccess([
-                'products' => $products->get(),
+                'products' => $products->orderBy('name')->get(),
                 'laboratories' => $laboratories->get(),
                 'subcat_names' => $subcatNames
                 // 'laboratories' => $laboratories
