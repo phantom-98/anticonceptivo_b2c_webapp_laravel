@@ -25,6 +25,13 @@ Route::view('/{path?}/{pathTwo?}/{pathThree?}/{pathFour?}/{pathFive?}/{pathSix?}
 
 Route::get('fix-orders-payment/{id}', function ($id) {
     $order = \App\Models\Order::find($id);
+    if($order->is_paid == 0){
+        $order->status = PaymentStatus::PAID;
+        $order->payment_date = Carbon::now();
+        $order->payment_type = 'webpay';
+        $order->is_paid = true;
+        $order->save();
+    }
     App\Http\Helpers\CallIntegrationsPay::callVoucher($order->id,$customerAddress);
     App\Http\Helpers\CallIntegrationsPay::callDispatchLlego($order->id,$customerAddress);
     App\Http\Helpers\CallIntegrationsPay::callUpdateStockProducts($order->id);
