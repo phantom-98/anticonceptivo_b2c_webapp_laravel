@@ -5,6 +5,7 @@ import ProductItem from "../../../components/shopping/MiniCart/ProductItem";
 import TotalCartPrice from "../../../components/shopping/TotalCartPrice";
 import logoWebpay from "../../../assets/images/webpayColor.svg";
 import {CartContext} from "../../../context/CartProvider";
+import {AuthContext} from "../../../context/AuthProvider";
 import TotalCartPriceFinal from "../../../components/shopping/TotalCartPriceFinal";
 import WebPayProccess from "./Payment/WebPayProccess";
 import * as Services from "../../../Services";
@@ -24,7 +25,10 @@ const Resume = ({
     setSubtotal,
     setTotal,
     setDispatchDate,
-    installment
+    installment,
+    validateData,
+    hasAddress,
+    view
     }) => {
 
     const [dispatch , setDispatch] = useState(0);
@@ -34,6 +38,7 @@ const Resume = ({
     const [discountCode, setDiscountCode] = useState("");
 
     const {cartItems} = useContext(CartContext);
+    const {auth} = useContext(AuthContext);
 
     useEffect(() => {
         // console.log(address)
@@ -160,9 +165,20 @@ const Resume = ({
 
                         {
                              showFinal === 1 ?
-                                <div className="col-md-12">
+                                <>
+                                    <div className="col-md-12">
                                     <TotalCartPrice/>
-                                </div>
+                                    </div>
+                                    {
+                                        view === 'user-form' ? 
+                                            <div className="col-md-12 mt-2">
+                                                <button className="btn btn-bicolor btn-block" disabled={cartItems.length ? false : true} onClick={ auth ? () =>  hasAddress() : () => validateData()}>
+                                                    <span className="font-14 px-5">CONTINUAR</span>
+                                                </button>
+                                            </div>
+                                        : null
+                                    }
+                                </>
                                 :
                                 <div className="col-md-12">
                                     <TotalCartPriceFinal
