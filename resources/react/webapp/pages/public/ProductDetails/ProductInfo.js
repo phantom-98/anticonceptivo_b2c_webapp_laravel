@@ -74,10 +74,10 @@ const ProductInfo = ({ product, setImageSubscription }) => {
                             [
                                 formatMoney(subscription.price),
                                 <span className="font-poppins font-16 bold color-009BE8 ml-2">
-                                    Al mes cada C/U
+                                    Al mes c/u
                                 </span>,
                                 <span className="font-poppins font-16 bold color-78d2ff ml-2">
-                                    (Ahorras un{" "}
+                                    (Ahorra un{" "}
                                     {Math.round(
                                         ((product.price - subscription.price) /
                                             product.price) *
