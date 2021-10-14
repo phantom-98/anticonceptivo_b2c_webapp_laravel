@@ -13,6 +13,7 @@ class Claim extends Model
         'email',
         'phone_code',
         'phone',
+        'subject',
         'contact_issue_id',
         'order_id',
         'message',

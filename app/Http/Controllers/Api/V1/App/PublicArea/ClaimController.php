@@ -36,6 +36,7 @@ class ClaimController extends Controller
                 'phone_code' => 'required',
                 'phone' => 'required',
                 'message' => 'required',
+                'subject' => 'required',
             ];
 
             $messages = [
@@ -44,6 +45,7 @@ class ClaimController extends Controller
                 'phone_code.required' => OutputMessage::FIELD_PHONE_CODE_REQUIRED,
                 'phone.required' => OutputMessage::FIELD_PHONE_REQUIRED,
                 'message.required' => OutputMessage::FIELD_MESSAGE_REQUIRED,
+                'subject.required' => OutputMessage::FIELD_MESSAGE_REQUIRED,
             ];
 
             $validator = Validator::make($request->all(), $rules, $messages);
@@ -57,6 +59,7 @@ class ClaimController extends Controller
                 $claim->phone_code = $request->phone_code;
                 $claim->phone = $request->phone;
                 $claim->message = $request->message;
+                $claim->subject = $request->subject;
 
                 if ($claim->save()) {
 

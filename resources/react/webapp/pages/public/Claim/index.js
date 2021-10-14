@@ -29,7 +29,8 @@ const Claim = () => {
         email: '',
         phone: '',
         phone_code: '+56',
-        message:''
+        subject: '',
+        message:'',
     }
 
     const [data, setData] = useState(defaultData);
