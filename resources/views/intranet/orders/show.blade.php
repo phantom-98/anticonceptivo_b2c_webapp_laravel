@@ -134,7 +134,15 @@
                                 @foreach($object->prescriptions as $prescription)
                                 <tr>
                                     <td><a href="{{ Storage::url($prescription->file) }}" target="_blank" class='btn btn-sm btn-default btn-hover-success'><i class="ti-file"></i></a></td>
-                                    <td>{{ $prescription->product->name }}</td>
+                                    <td>{{ $prescription->product->name }} 
+                                        @if($item->subscription_plan_id == 1)
+                                         (4 Ciclos / 4 meses)
+                                       @elseif($item->subscription_plan_id == 2)
+                                         (6 Ciclos / 6 meses)
+                                       @else
+                                         (13 Ciclos / 12 meses)
+                                       @endif
+                                    </td>
                                 </tr>
                                 @endforeach
                                 </tbody>
@@ -170,11 +178,11 @@
                                         <td>
                                             {{ $item->name }}
                                             @if($item->subscription_plan_id == 1)
-                                             (4 Ciclos)
+                                             (4 Ciclos / 4 meses)
                                             @elseif($item->subscription_plan_id == 2)
-                                             (6 Ciclos)
+                                             (6 Ciclos / 6 meses)
                                             @else
-                                             (13 Ciclos)
+                                             (13 Ciclos / 12 meses)
                                             @endif
                                         </td>
                                         <td>
