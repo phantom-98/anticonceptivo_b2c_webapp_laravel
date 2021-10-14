@@ -11,13 +11,12 @@ import {CONFIG} from "../../../Config";
 import {v4 as uuidv4} from 'uuid';
 import toastr from "toastr";
 
-const UserForm = ({setView, data, setData, setFiles, files, editable, setProductCount}) => {
+const UserForm = ({setView, data, setData, setFiles, files, editable, setProductCount, rutFlag, setRutFlag}) => {
 
     const {auth} = useContext(AuthContext);
     const {cartItems} = useContext(CartContext);
 
     // const [showBilling, setShowBilling] = useState(false);
-    const [rutFlag, setRutFlag] = useState(false);
 
     // const [selectedRegion, setSelectedRegion] = useState(0);
     // const [regions, setRegions] = useState([]);
@@ -188,101 +187,101 @@ const UserForm = ({setView, data, setData, setFiles, files, editable, setProduct
         setFiles(list);
     }
 
-    const validateData = () => {
-        if (rutFlag) {
-            toastr.warning('El formato del rut es incorrecto.','Perfil no actualizado.');
-        }else{
+    // const validateData = () => {
+    //     if (rutFlag) {
+    //         toastr.warning('El formato del rut es incorrecto.','Perfil no actualizado.');
+    //     }else{
 
-            let url = Services.ENDPOINT.NO_AUTH.CHECKOUT.VALIDATE_STEPS;
+    //         let url = Services.ENDPOINT.NO_AUTH.CHECKOUT.VALIDATE_STEPS;
 
-            let productCount = cartItems.filter((item) => item.product.recipe_type != 'Venta Directa').length;
+    //         let productCount = cartItems.filter((item) => item.product.recipe_type != 'Venta Directa').length;
 
-            const formData = new FormData();
+    //         const formData = new FormData();
 
-            formData.append('product_count', productCount);
-            formData.append('step', 1);
-            formData.append('email', data.email);
-            formData.append('first_name', data.first_name);
-            formData.append('id_number', data.id_number);
-            formData.append('id_type', data.id_type);
-            formData.append('last_name', data.last_name);
-            formData.append('phone', data.phone);
-            formData.append('phone_code', data.phone_code);
+    //         formData.append('product_count', productCount);
+    //         formData.append('step', 1);
+    //         formData.append('email', data.email);
+    //         formData.append('first_name', data.first_name);
+    //         formData.append('id_number', data.id_number);
+    //         formData.append('id_type', data.id_type);
+    //         formData.append('last_name', data.last_name);
+    //         formData.append('phone', data.phone);
+    //         formData.append('phone_code', data.phone_code);
 
-            let fileList = [...files]
+    //         let fileList = [...files]
 
-            for(let i=0; i < fileList.length; i++){
-                formData.append('files[]', fileList[i]);
-            }
+    //         for(let i=0; i < fileList.length; i++){
+    //             formData.append('files[]', fileList[i]);
+    //         }
 
-            const config = {
-                headers: {
-                    'content-type': 'multipart/form-data'
-                }
-            }
+    //         const config = {
+    //             headers: {
+    //                 'content-type': 'multipart/form-data'
+    //             }
+    //         }
 
-            Services.DoPost(url, formData, config).then(response => {
-                Services.Response({
-                response: response,
-                success: () => {
-                    setView('add-address')
-                },
-                error: () => {
-                    toastr.error(response.message);
-                },
-                warning: () => {
-                    toastr.warning(response.message);
-                },
-                });
-            }).catch(error => {
-                Services.ErrorCatch(error)
-            });
-        }
-    }
+    //         Services.DoPost(url, formData, config).then(response => {
+    //             Services.Response({
+    //             response: response,
+    //             success: () => {
+    //                 setView('add-address')
+    //             },
+    //             error: () => {
+    //                 toastr.error(response.message);
+    //             },
+    //             warning: () => {
+    //                 toastr.warning(response.message);
+    //             },
+    //             });
+    //         }).catch(error => {
+    //             Services.ErrorCatch(error)
+    //         });
+    //     }
+    // }
 
-    const hasAddress = () => {
-        let url = Services.ENDPOINT.CUSTOMER.ADDRESSES.GET;
-        let productCount = cartItems.filter((item) => item.product.recipe_type != 'Venta Directa').length;
+    // const hasAddress = () => {
+    //     let url = Services.ENDPOINT.CUSTOMER.ADDRESSES.GET;
+    //     let productCount = cartItems.filter((item) => item.product.recipe_type != 'Venta Directa').length;
 
-        const formData = new FormData();
+    //     const formData = new FormData();
 
-        formData.append('product_count', productCount);
-        formData.append('customer_id', auth.id);
+    //     formData.append('product_count', productCount);
+    //     formData.append('customer_id', auth.id);
 
-        let fileList = [...files]
+    //     let fileList = [...files]
 
-        for(let i=0; i < fileList.length; i++){
-            formData.append('files[]', fileList[i]);
-        }
+    //     for(let i=0; i < fileList.length; i++){
+    //         formData.append('files[]', fileList[i]);
+    //     }
 
-        const config = {
-            headers: {
-                'content-type': 'multipart/form-data'
-            }
-        }
+    //     const config = {
+    //         headers: {
+    //             'content-type': 'multipart/form-data'
+    //         }
+    //     }
 
-        Services.DoPost(url, formData, config).then(response => {
-            Services.Response({
-            response: response,
-                success: () => {
-                    setProductCount(productCount);
-                    if (response.data.addresses.length) {
-                        setView('addresses');
-                    }else{
-                        setView('add-address');
-                    }
-                },
-                error: () => {
-                    toastr.error(response.message);
-                },
-                warning: () => {
-                    toastr.warning(response.message);
-                },
-            });
-        }).catch(error => {
-            Services.ErrorCatch(error)
-        });
-    }
+    //     Services.DoPost(url, formData, config).then(response => {
+    //         Services.Response({
+    //         response: response,
+    //             success: () => {
+    //                 setProductCount(productCount);
+    //                 if (response.data.addresses.length) {
+    //                     setView('addresses');
+    //                 }else{
+    //                     setView('add-address');
+    //                 }
+    //             },
+    //             error: () => {
+    //                 toastr.error(response.message);
+    //             },
+    //             warning: () => {
+    //                 toastr.warning(response.message);
+    //             },
+    //         });
+    //     }).catch(error => {
+    //         Services.ErrorCatch(error)
+    //     });
+    // }
 
     return (
         <Fragment>
@@ -425,11 +424,11 @@ const UserForm = ({setView, data, setData, setFiles, files, editable, setProduct
                     {/*    <span className="font-12">{"< Volver a paso anterior"}</span>*/}
                     {/*</button>*/}
                 </div>
-                <div className="col-md-6 pb-5">
+                {/* <div className="col-md-6 pb-5">
                     <button className="btn btn-bicolor btn-block" disabled={cartItems.length ? false : true} onClick={ auth ? () =>  hasAddress() : () => validateData()}>
                         <span className="font-14 px-5">CONTINUAR</span>
                     </button>
-                </div>
+                </div> */}
             </div>
         </Fragment>
     );
