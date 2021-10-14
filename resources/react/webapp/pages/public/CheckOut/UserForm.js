@@ -170,13 +170,20 @@ const UserForm = ({setView, data, setData, setFiles, files, editable, setProduct
     }
 
     const handleFile = (e) => {
-
         let file = e.target.files[0];
+
         file.product_id = parseInt(e.target.id);
+        file.name_id = parseInt(e.target.name);
 
         let list = [...files];
 
-        list.push(e.target.files[0]);
+
+        if (files.find(x => x.name_id == parseInt(e.target.name))) {
+            let found = files.findIndex(x => x.name_id == parseInt(e.target.name));
+            list.splice(found,1,e.target.files[0]);
+        }else{
+            list.push(e.target.files[0]);
+        }
 
         setFiles(list);
     }
@@ -291,7 +298,7 @@ const UserForm = ({setView, data, setData, setFiles, files, editable, setProduct
                             <Accordion.Collapse eventKey={'#'}>
                                 <Card.Body>
                                     {
-                                        cartItems.map((item) => {
+                                        cartItems.map((item, index) => {
                                             let prescriptionKey = uuidv4();
                                             return item.product.recipe_type != 'Venta Directa'  ? (
                                                 <div className="col-12 product-item" key={prescriptionKey}>
@@ -326,8 +333,8 @@ const UserForm = ({setView, data, setData, setFiles, files, editable, setProduct
                                                                     type="file"
                                                                     className="my-auto custom-file-input"
                                                                     id={item.product.id}
-                                                                    name={item.product.id}
-                                                                    name="avatar"
+                                                                    name={index}
+                                                                    // name="avatar"
                                                                     onChange={handleFile}
                                                                     accept=".jpg, .jpeg, .png, .pdf"
                                                                 />
@@ -337,7 +344,7 @@ const UserForm = ({setView, data, setData, setFiles, files, editable, setProduct
                                                                 >
                                                                     {
                                                                         files.map((file) => {
-                                                                            return file.product_id == item.product.id ?
+                                                                            return file.name_id == index ?
                                                                                 <span className="font-14 font-poppins regular">{file.name}</span>
                                                                             :  null
                                                                             // <span className="font-14 font-poppins regular">Sin archivo</span>
