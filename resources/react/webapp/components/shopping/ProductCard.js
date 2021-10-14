@@ -30,6 +30,10 @@ const ProductCard = ({product, className = '', subscriptionFilter = []}) => {
 
     const handlePrice = (prod) => {
 
+        if (!prod.plans) {
+            return null;
+        }
+
         if (!prod.plans.length) {
             return null;
         }
@@ -93,6 +97,10 @@ const ProductCard = ({product, className = '', subscriptionFilter = []}) => {
     }
 
     const handleSubscription = (prod) => {
+        if (!prod.plans) {
+            return null;
+        }
+        
         if (!prod.plans.length) {
             return null;
         }
