@@ -21,7 +21,6 @@ Route::get('VoucherPaymentDays-test', [TestController::class, 'VoucherPaymentDay
 Route::get('test-ailoo', [TestController::class, 'AiloTest']);
 
 Route::get('PaySubscription-test/{id?}', [TestController::class, 'PaySubscription']);
-Route::view('/{path?}/{pathTwo?}/{pathThree?}/{pathFour?}/{pathFive?}/{pathSix?}/{pathSeven?}', 'webapp.base_react');
 
 Route::get('fix-orders-payment/{id}', function ($id) {
     $order = \App\Models\Order::find($id);
@@ -37,3 +36,5 @@ Route::get('fix-orders-payment/{id}', function ($id) {
     App\Http\Helpers\CallIntegrationsPay::callUpdateStockProducts($order->id);
     App\Http\Helpers\CallIntegrationsPay::sendEmailsOrder($order->id);
 });
+
+Route::view('/{path?}/{pathTwo?}/{pathThree?}/{pathFour?}/{pathFive?}/{pathSix?}/{pathSeven?}', 'webapp.base_react');
