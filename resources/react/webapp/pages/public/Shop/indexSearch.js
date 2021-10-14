@@ -24,6 +24,7 @@ const ShopSearch = ({match}) => {
     const [isPills, setIsPills] = useState(false);
     const [subcatNames, setSubcatNames] = useState(null);
     const [filtersUpdate, setFiltersUpdate] = useState(1);
+    const [filterLoading, setFilterLoading] = useState(false);
 
     const defaultFilters = {
         subcategories: [],
@@ -109,7 +110,7 @@ const ShopSearch = ({match}) => {
     }
 
     const getProductsFiltered = () => {
-        // setLoading(false);
+        setFilterLoading(true);
         let url = Services.ENDPOINT.NO_AUTH.SHOP.PRODUCTS_SEARCH_FILTER;
         let data = {
             search: match.params.search,
@@ -128,7 +129,7 @@ const ShopSearch = ({match}) => {
                     setProducts(response.data.products);
                     setLaboratories(response.data.laboratories);
                     setSubcatNames(response.data.subcat_names);
-                    // setLoading(true);
+                    setFilterLoading(false);
                 },
             });
         }).catch(error => {
@@ -146,6 +147,12 @@ const ShopSearch = ({match}) => {
             name: PUBLIC_ROUTES.SHOP.title,
         },
     ];
+
+    const updateFilter = () => {
+        let count = filtersUpdate+1;
+
+        setFiltersUpdate(count);
+    }
 
     return (
         <Fragment>
@@ -178,6 +185,8 @@ const ShopSearch = ({match}) => {
                                     subscriptions={subscriptions}
                                     filters={filters}
                                     setFilters={setFilters}
+                                    updateFilter={updateFilter}
+                                    filterLoading={filterLoading}
                                     filter={                                <div className="d-block d-sm-none" style={{marginTop: '10px'}}>
                                         { showFilterResponsive ?
                                             <Filter

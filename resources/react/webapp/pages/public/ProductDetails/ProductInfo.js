@@ -58,33 +58,35 @@ const ProductInfo = ({ product, setImageSubscription }) => {
             </div>
             <div className="col-md-12">
                 <span className="font-poppins font-36 bold color-009BE8">
-                    {subscription == null
-                        ? [
-                              formatMoney(product.is_offer ? product.offer_price  : product.price),
-                              <span className="font-poppins font-16 bold color-009BE8 ml-2">
-                                  C/U {'  '}
-                                  {
+                    {subscription == null ? 
+                            [
+                                formatMoney(product.is_offer ? product.offer_price  : product.price),
+                                <span className="font-poppins font-16 bold color-009BE8 ml-2">
+                                    C/U {'  '}
+                                    {
                                     product.is_offer ?
                                         <s>{formatMoney(product.price)}</s>
                                     : null
-                                  }
-                              </span>
-                          ]
-                        : [
-                              formatMoney(subscription.price),
-                              <span className="font-poppins font-16 bold color-009BE8 ml-2">
-                                  Al mes cada C/U
-                              </span>,
-                              <span className="font-poppins font-16 bold color-78d2ff ml-2">
-                                  (Ahorras un{" "}
-                                  {Math.round(
-                                      ((product.price - subscription.price) /
-                                          product.price) *
-                                          100
-                                  )}
-                                  %)
-                              </span>
-                          ]}
+                                    }
+                                </span>
+                            ]
+                        : 
+                            [
+                                formatMoney(subscription.price),
+                                <span className="font-poppins font-16 bold color-009BE8 ml-2">
+                                    Al mes cada C/U
+                                </span>,
+                                <span className="font-poppins font-16 bold color-78d2ff ml-2">
+                                    (Ahorras un{" "}
+                                    {Math.round(
+                                        ((product.price - subscription.price) /
+                                            product.price) *
+                                            100
+                                    )}
+                                    %)
+                                </span>
+                            ]
+                    }
                 </span>
             </div>
 

@@ -8,11 +8,18 @@ const SubscriptionFilter = ({subscriptions, filters, setFilters, filtersUpdate, 
         // let list = [...filters.subscriptions];
         let targetId = parseInt(e.target.id.replace('subscription-',''));
         // list = [targetId];
-
-        setFilters({
-            ...filters,
-            ['subscriptions']: [targetId]
-        });
+        
+        if (filters.subscriptions.includes(targetId)) {
+             setFilters({
+                ...filters,
+                ['subscriptions']: []
+            });
+        }else{
+             setFilters({
+                ...filters,
+                ['subscriptions']: [targetId]
+            });
+        }
 
         // if (list.includes(targetId)) {
         //     list = list.filter(x => x !== targetId);
@@ -44,8 +51,8 @@ const SubscriptionFilter = ({subscriptions, filters, setFilters, filtersUpdate, 
             return <Form.Check
                 custom
                 label={<span className="font-poppins font-12 text-black my-auto">{subscription.months == 13 ? 12 : subscription.months} Meses / {subscription.months} Ciclos{/* <span className="color-D8D8D8">({subscription.total})</span> */}</span>}
-                type="radio"
-                name={"subscription-custom-radio"}
+                type="checkbox"
+                name={"subscription-custom-checkbox"}
                 checked={filters.subscriptions.includes(subscription.id)}
                 id={`subscription-${subscription.id}`}
                 onChange={(e) => handleSubscriptions(e)}
