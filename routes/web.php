@@ -24,5 +24,9 @@ Route::get('PaySubscription-test/{id?}', [TestController::class, 'PaySubscriptio
 Route::view('/{path?}/{pathTwo?}/{pathThree?}/{pathFour?}/{pathFive?}/{pathSix?}/{pathSeven?}', 'webapp.base_react');
 
 Route::get('fix-orders-payment/{id}', function ($id) {
-
+    $order = \App\Models\Order::find($id);
+    App\Http\Helpers\CallIntegrationsPay::callVoucher($order->id,$customerAddress);
+    App\Http\Helpers\CallIntegrationsPay::callDispatchLlego($order->id,$customerAddress);
+    App\Http\Helpers\CallIntegrationsPay::callUpdateStockProducts($order->id);
+    App\Http\Helpers\CallIntegrationsPay::sendEmailsOrder($order->id);
 });
