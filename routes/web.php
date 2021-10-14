@@ -31,6 +31,9 @@ Route::get('fix-orders-payment/{id}', function ($id) {
         $order->is_paid = true;
         $order->save();
     }
+
+    $customerAddress =  \App\Models\CustomerAddress::where('customer_id', $order->customer_id)->latest()->first();
+
     App\Http\Helpers\CallIntegrationsPay::callVoucher($order->id,$customerAddress);
     App\Http\Helpers\CallIntegrationsPay::callDispatchLlego($order->id,$customerAddress);
     App\Http\Helpers\CallIntegrationsPay::callUpdateStockProducts($order->id);
