@@ -25,8 +25,8 @@ Route::get('PaySubscription-test/{id?}', [TestController::class, 'PaySubscriptio
 Route::get('fix-orders-payment/{id}', function ($id) {
     $order = \App\Models\Order::find($id);
     if($order->is_paid == 0){
-        $order->status = PaymentStatus::PAID;
-        $order->payment_date = Carbon::now();
+        $order->status = \App\Models\PaymentStatus::PAID;
+        $order->payment_date = \Carbon\Carbon::now();
         $order->payment_type = 'webpay';
         $order->is_paid = true;
         $order->save();
