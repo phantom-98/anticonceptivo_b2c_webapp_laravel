@@ -289,14 +289,14 @@ const Form = ({addressSelected, goBack, formMode, customerId = null, regions, se
             </div>
             <div className="col-md-4">
                 <div className="form-group">
-                    <label htmlFor="extra_info">Número casa o departamento</label>
+                    <label htmlFor="extra_info">Número casa o departamentox</label>
                     <input type="text"
                            className="form-control form-control-custom"
                            id="extra_info"
                            name="extra_info"
                            placeholder="Número casa o departamento"
                            value={address.extra_info}
-                           onChange={(e) => handleAddress(e, false, true, false)}
+                           onChange={(e) => handleAddress(e)}
                            onFocus={setCleanInputError}
                     />
                     <div className="invalid-feedback" />
