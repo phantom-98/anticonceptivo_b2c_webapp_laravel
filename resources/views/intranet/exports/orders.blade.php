@@ -4,6 +4,7 @@
             <th>Nº Ped.</th>
             <th>Fecha</th>
             <th>Hora</th>
+            <th>Método de Pago</th>
             <th>Estado</th>
             <th>RUT Cliente</th>
             <th>Nombre Cliente</th>
@@ -24,6 +25,7 @@
                 <td>#{{ $object->id}}</td>
                 <td>{{ date('d-m-Y', strtotime($object->created_at)) }}</td>
                 <td>{{ date('H:i:s', strtotime($object->created_at)) }}</td>
+                <td>{{ $object->payment_type == "webpay" ? "Webpay" : "Oneclick" }}</td>
                 <td>{{ $object->formated_status }}</td>
                 <td>{{ $object->customer->id_number ?? '-' }}</td>
                 <td>{{ mb_strtoupper($object->customer->full_name ?? '-', 'UTF-8') }}</td>
