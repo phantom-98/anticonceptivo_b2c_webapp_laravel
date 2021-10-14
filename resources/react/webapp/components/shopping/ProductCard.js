@@ -51,7 +51,7 @@ const ProductCard = ({product, className = '', subscriptionFilter = []}) => {
         }
     }
 
-    const handleText = (prod) => {
+    const handleText = (prod, mobile = false) => {
         if (!prod.plans.length) {
             return null;
         }
@@ -59,10 +59,10 @@ const ProductCard = ({product, className = '', subscriptionFilter = []}) => {
         if (subscriptionFilter.includes(1)) {
             return(
                  <>
-                    <span className="font-poppins font-16 bold color-009BE8 ml-2">
+                    <span className={`font-poppins ${!mobile ? 'font-16' : 'font-12'} ${mobile ? 'd-block' : ''} bold color-009BE8 ${!mobile ? 'ml-2' : ''}`}>
                         Al mes cada C/U
                     </span>
-                    <span className="font-poppins font-16 bold color-78d2ff ml-2">
+                    <span className={`font-poppins ${!mobile ? 'font-16' : 'font-12'} ${mobile ? 'd-block' : ''} bold color-78d2ff ${!mobile ? 'ml-2' : ''}`}>
                         (Ahorras un{" "}{Math.round(((prod.price - prod.plans[0].price) / prod.price) * 100)} %)
                     </span>
                 </>
@@ -72,10 +72,10 @@ const ProductCard = ({product, className = '', subscriptionFilter = []}) => {
         if (subscriptionFilter.includes(2)) {
             return(
                  <>
-                    <span className="font-poppins font-16 bold color-009BE8 ml-2">
+                    <span className={`font-poppins ${!mobile ? 'font-16' : 'font-12'} ${mobile ? 'd-block' : ''} bold color-009BE8 ${!mobile ? 'ml-2' : ''}`}>
                         Al mes cada C/U
                     </span>
-                    <span className="font-poppins font-16 bold color-78d2ff ml-2">
+                    <span className={`font-poppins ${!mobile ? 'font-16' : 'font-12'} ${mobile ? 'd-block' : ''} bold color-78d2ff ${!mobile ? 'ml-2' : ''}`}>
                         (Ahorras un{" "}{Math.round(((prod.price - prod.plans[1].price) / prod.price) * 100)} %)
                     </span>
                 </>
@@ -85,10 +85,10 @@ const ProductCard = ({product, className = '', subscriptionFilter = []}) => {
         if (subscriptionFilter.includes(3)) {
             return(
                  <>
-                    <span className="font-poppins font-16 bold color-009BE8 ml-2">
+                    <span className={`font-poppins ${!mobile ? 'font-16' : 'font-12'} ${mobile ? 'd-block' : ''} bold color-009BE8 ${!mobile ? 'ml-2' : ''}`}>
                         Al mes cada C/U
                     </span>
-                    <span className="font-poppins font-16 bold color-78d2ff ml-2">
+                    <span className={`font-poppins ${!mobile ? 'font-16' : 'font-12'} ${mobile ? 'd-block' : ''} bold color-78d2ff ${!mobile ? 'ml-2' : ''}`}>
                         (Ahorras un{" "}{Math.round(((prod.price - prod.plans[2].price) / prod.price) * 100)} %)
                     </span>
                 </>
@@ -166,7 +166,7 @@ const ProductCard = ({product, className = '', subscriptionFilter = []}) => {
                     <div className="col-auto">
                         <Link to={(PUBLIC_ROUTES.PRODUCT_DETAIL.path).replace(':slug?', product.slug)}
                               style={{textDecoration: 'none', color: '#000000'}}>
-                            <img className="mobile-producto-img" src={product.images.length ? product.images[0].public_file : noImage} alt={`${CONFIG.APP_NAME} - ${product.name}`}/>
+                            <img className="mobile-producto-img" src={subscriptionFilter.length ? handleSubscriptionImage(product) : product.images[0].public_file} alt={`${CONFIG.APP_NAME} - ${product.name}`}/>
                         </Link>
                     </div>
                     <div className="col">
@@ -181,10 +181,31 @@ const ProductCard = ({product, className = '', subscriptionFilter = []}) => {
                                 {/*{String(product.name).length >= 23 ? product.name.substring(0, 23) + '...' : product.name }*/}
                             </Link>
                         </div>
-                        <div className="product-card-price">{formatMoney(product.is_offer ? product.offer_price : product.price)}
+                        <div className="product-card-price">
+                            {/* {
+                                formatMoney(product.is_offer ? 
+                                    product.offer_price : 
+                                product.price)}
                             {
                                 product.is_offer ?
                                     <span className="font-poppins font-16 bold color-009BE8"><s>{' '}{formatMoney(product.price)}</s></span>
+                                    : null
+                            } */}
+
+                            {
+                                formatMoney(
+                                    subscriptionFilter.length ? 
+                                        handlePrice(product) 
+                                    : product.is_offer ? 
+                                        product.offer_price 
+                                        : product.price)
+                            }
+                            {
+                                subscriptionFilter.length ? 
+                                    handleText(product, true)
+                                :
+                                    product.is_offer ?
+                                        <span className="font-poppins font-16 bold color-009BE8"><s>{' '}{formatMoney(product.price)}</s></span>
                                     : null
                             }
                         </div>
@@ -193,7 +214,7 @@ const ProductCard = ({product, className = '', subscriptionFilter = []}) => {
                 <div className="row pt-3">
                     <div className="col">
                         <div className="product-card-cart">
-                            <AddCartCard quantity={quantity} setQuantity={setQuantity} product={product}/>
+                            <AddCartCard quantity={quantity} setQuantity={setQuantity} product={product} subscription={handleSubscription(product)}/>
                         </div>
                     </div>
                 </div>

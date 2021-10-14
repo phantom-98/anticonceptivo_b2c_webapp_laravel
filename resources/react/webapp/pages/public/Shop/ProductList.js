@@ -58,7 +58,7 @@ const ProductList = ({
                         {
                                 subscriptions.map((subscription) => {
                                     return(
-                                        <div className={`btn btn-outline-primary btn-months ${filters.subscriptions.includes(subscription.id) ? 'focus': ''} mx-3`}
+                                        <div className={`btn btn-outline-primary btn-months ${filters.subscriptions.includes(subscription.id) ? 'focus': ''} mx-3 my-2`}
                                             onClick={() => {
                                                 updateFilter();
                                                 if (filters.subscriptions.includes(subscription.id)) {
