@@ -305,7 +305,7 @@ const AddAddress = ({setView, regions, address, setAddress}) => {
                                        name="extra_info"
                                        placeholder="Número casa o departamento"
                                        value={address.extra_info}
-                                       onChange={(e) => handleAddress(e, false, true)}
+                                       onChange={(e) => handleAddress(e)}
                                        onFocus={setCleanInputError}
                                 />
                                 <div className="invalid-feedback" />
