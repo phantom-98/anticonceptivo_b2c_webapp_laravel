@@ -112,7 +112,7 @@ class WebpayPlusController
                 $customer->phone = $request->phone;
                 $customer->phone_code = $request->phone_code;
 
-                $customer->is_guest = $request->true;
+                $customer->is_guest = true;
 
                 $customer->save();
 
