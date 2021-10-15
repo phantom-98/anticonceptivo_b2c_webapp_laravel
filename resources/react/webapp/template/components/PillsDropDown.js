@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import {Link} from "react-router-dom";
 import PUBLIC_ROUTES from "../../routes/publicRoutes";
 
-const PillsDropDown = ({laboratories, subscriptions, formats, categorySlug, linkTo = '/tienda/pastillas'}) => {
+const PillsDropDown = ({laboratories, subscriptions, formats, categorySlug}) => {
 
     const categoryUrl =  PUBLIC_ROUTES.SHOP_FILTER.path.replace(':category?',categorySlug);
 
@@ -26,7 +26,7 @@ const PillsDropDown = ({laboratories, subscriptions, formats, categorySlug, link
                     }
                     {/* <h3 className="pills-sub-header-title mt-3">SUSCRIPCIÓN</h3> */}
 
-                    <Link to={linkTo} style={{textDecoration: 'none'}} className="pills-subscription-color">
+                    <Link to={'/tienda/pastillas'} style={{textDecoration: 'none'}} className="pills-subscription-color">
                         <div className="pills-sub-header-title mt-3">SUSCRIPCIÓN</div>
                     </Link>
 

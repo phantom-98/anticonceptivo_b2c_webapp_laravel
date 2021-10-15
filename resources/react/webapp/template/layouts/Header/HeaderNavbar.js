@@ -91,10 +91,10 @@ const HeaderNavbar = () => {
                                 let url = PUBLIC_ROUTES.SHOP.path;
                                 url = url.replace(":category", category.slug);
 
-                                if (category.id === 1) {
-                                    let pillsUrl = PUBLIC_ROUTES.SHOP.path;
-                                    pillsUrl = pillsUrl.replace(":category", category.slug);
-                                }
+                                // if (category.id === 1) {
+                                //     let pillsUrl = PUBLIC_ROUTES.SHOP.path;
+                                //     pillsUrl = pillsUrl.replace(":category", category.slug);
+                                // }
 
                                 if (size.width <= 1351 && index <= 3) {
 
@@ -122,7 +122,7 @@ const HeaderNavbar = () => {
                                                                     formats={formats}
                                                                     subscriptions={subscriptions}
                                                                     categorySlug={category.slug}
-                                                                    linkTo={pillsUrl}
+                                                                    // linkTo={pillsUrl}
                                                                 />
                                                             : null
                                                         }
