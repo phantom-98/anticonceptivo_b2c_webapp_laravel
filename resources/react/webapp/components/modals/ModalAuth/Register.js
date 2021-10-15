@@ -13,13 +13,13 @@ const Register = () => {
     const {showModalAuth} = useContext(AppContext)
 
     const defaultData = {
-        first_name: '',
-        last_name: '',
-        email: '',
-        id_type: 'RUT',
-        id_number: '',
-        phone_code: '+56',
-        phone: '',
+        register_first_name: '',
+        register_last_name: '',
+        register_email: '',
+        register_id_type: 'RUT',
+        register_id_number: '',
+        register_phone_code: '+56',
+        register_phone: '',
         password: '',
         accept_terms: false
     }
@@ -29,10 +29,10 @@ const Register = () => {
 
     const handleCheckBox = (e) => {
         if (e.target.id == 'custom-inline-radio-rut') {
-            if ((data.id_number).length > 0) {
-                if (!RutValidator.validate(data.id_number)) {
+            if ((data.register_id_number).length > 0) {
+                if (!RutValidator.validate(data.register_id_number)) {
                     setRutFlag(true);
-                    setInputError('id_number', 'El formato del RUT no es correcto.')
+                    setInputError('register_id_number', 'El formato del RUT no es correcto.')
                 }else{
                     setRutFlag(false);
                 }
@@ -44,9 +44,9 @@ const Register = () => {
         }
 
         if (e.target.id == 'custom-inline-radio-dni') {
-            if ((data.id_number).length > 0) {
-                if (!RutValidator.validate(data.id_number)) {
-                    setCleanInputErrorById('id_number')
+            if ((data.register_id_number).length > 0) {
+                if (!RutValidator.validate(data.register_id_number)) {
+                    setCleanInputErrorById('register_id_number')
                 }
             }
             setRutFlag(false);
@@ -118,7 +118,7 @@ const Register = () => {
 
     var inputProps =  {};
 
-    if (data.id_type === 'RUT') {
+    if (data.register_id_type === 'RUT') {
         inputProps.onKeyUp = RutFormat;
         inputProps.onBlur = RutValidate;
     };
@@ -132,13 +132,13 @@ const Register = () => {
                 <div className="row">
                     <div className="col-md-12">
                         <div className="form-group">
-                            <label htmlFor="first_name">Nombres</label>
+                            <label htmlFor="register_first_name">Nombres</label>
                             <input type="text"
                                    className="form-control form-control-custom"
-                                   id="first_name"
-                                   name="first_name"
+                                   id="register_first_name"
+                                   name="register_first_name"
                                    onChange={(e) => handleData(e)}
-                                   value={data.first_name}
+                                   value={data.register_first_name}
                                    placeholder="Nombres"
                                    onFocus={setCleanInputError}
                             />
@@ -147,13 +147,13 @@ const Register = () => {
                     </div>
                     <div className="col-md-12">
                         <div className="form-group">
-                            <label htmlFor="last_name">Apellidos</label>
+                            <label htmlFor="register_last_name">Apellidos</label>
                             <input type="text"
                                    className="form-control form-control-custom"
-                                   id="last_name"
-                                   name="last_name"
+                                   id="register_last_name"
+                                   name="register_last_name"
                                    onChange={(e) => handleData(e)}
-                                   value={data.last_name}
+                                   value={data.register_last_name}
                                    placeholder="Apellidos"
                                    onFocus={setCleanInputError}
                             />
@@ -162,13 +162,13 @@ const Register = () => {
                     </div>
                     <div className="col-md-12">
                         <div className="form-group">
-                            <label htmlFor="email">E-Mail</label>
+                            <label htmlFor="register_email">E-Mail</label>
                             <input type="email"
                                    className="form-control form-control-custom"
-                                   id="email"
-                                   name="email"
+                                   id="register_email"
+                                   name="register_email"
                                    onChange={(e) => handleData(e)}
-                                   value={data.email}
+                                   value={data.register_email}
                                    placeholder="E-Mail"
                                    onFocus={setCleanInputError}
                             />
@@ -184,9 +184,9 @@ const Register = () => {
                                     inline
                                     label="RUT"
                                     type="radio"
-                                    name="id_type"
+                                    name="register_id_type"
                                     onClick={(e) => handleCheckBox(e)}
-                                    checked={data.id_type === 'RUT' ? true : false}
+                                    checked={data.register_id_type === 'RUT' ? true : false}
                                     id={`custom-inline-radio-rut`}
                                 />
                                 <Form.Check
@@ -194,19 +194,19 @@ const Register = () => {
                                     inline
                                     label="DNI"
                                     type="radio"
-                                    name="id_type"
+                                    name="register_id_type"
                                     onClick={(e) => handleCheckBox(e)}
-                                    checked={data.id_type === 'DNI' ? true : false}
+                                    checked={data.register_id_type === 'DNI' ? true : false}
                                     id={`custom-inline-radio-dni`}
                                 />
                             </div>
                             <input type="text"
                                 className="form-control form-control-custom"
-                                id="id_number"
-                                name="id_number"
+                                id="register_id_number"
+                                name="register_id_number"
                                 placeholder=""
                                 onChange={(e) => handleData(e)}
-                                value={data.id_number}
+                                value={data.register_id_number}
                                 onFocus={setCleanInputError}
                                 {...inputProps}
                             />
@@ -215,13 +215,13 @@ const Register = () => {
                     </div>
                     <div className="col-md-4">
                         <div className="form-group">
-                            <label htmlFor="phone_code">Código</label>
+                            <label htmlFor="register_phone_code">Código</label>
                             <select
                                 className="form-control form-control-custom pl-2"
-                                id="phone_code"
-                                name="phone_code"
+                                id="register_phone_code"
+                                name="register_phone_code"
                                 onChange={(e) => handleData(e)}
-                                value={data.phone_code}
+                                value={data.register_phone_code}
                                 onFocus={setCleanInputError}
                             >
                                 <option defaultValue value="+56">+56</option>
@@ -231,13 +231,13 @@ const Register = () => {
 
                     <div className="col-md-8">
                         <div className="form-group">
-                            <label htmlFor="phone">Teléfono</label>
+                            <label htmlFor="register_phone">Teléfono</label>
                             <input type="text"
                                    className="form-control form-control-custom"
-                                   id="phone"
-                                   name="phone"
+                                   id="register_phone"
+                                   name="register_phone"
                                    onChange={(e) => handleData(e)}
-                                   value={data.phone}
+                                   value={data.register_phone}
                                    placeholder="9 5643 2653"
                                    onFocus={setCleanInputError}
                             />

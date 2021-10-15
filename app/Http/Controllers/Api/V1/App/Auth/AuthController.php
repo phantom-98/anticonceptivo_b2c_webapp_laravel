@@ -28,42 +28,49 @@ class AuthController extends Controller
         try {
 
             $rules = [
-                'first_name' => 'required|regex:/^[a-zA-Z]+$/u',
-                'last_name' => 'required|regex:/^[a-zA-Z]+$/u',
-                'email' => 'required|email|unique:customers,email',
-                'id_number' => 'required|unique:customers,id_number',
-                'id_type' => 'required',
+                'register_first_name' => 'required|regex:/^[a-zA-Z]+$/u',
+                'register_last_name' => 'required|regex:/^[a-zA-Z]+$/u',
+                'register_email' => 'required|email|unique:customers,email',
+                'register_id_number' => 'required|unique:customers,id_number',
+                'register_id_type' => 'required',
                 'password' => 'required',
-                'phone_code' => 'required',
-                'phone' => 'required|unique:customers,phone',
+                'register_phone_code' => 'required',
+                'register_phone' => 'required|unique:customers,phone',
                 'accept_terms' => 'required|boolean|ends_with:'.true,
             ];
 
             $messages = [
-                'first_name.required' => OutputMessage::FIELD_FIRST_NAME_REQUIRED,
-                'last_name.required' => OutputMessage::FIELD_LAST_NAME_REQUIRED,
-                'email.required' => OutputMessage::FIELD_EMAIL_REQUIRED,
-                'id_number.required' => OutputMessage::FIELD_ID_NUMBER_REQUIRED,
-                'id_type.required' => OutputMessage::FIELD_ID_TYPE_REQUIRED,
+                'register_first_name.required' => OutputMessage::FIELD_FIRST_NAME_REQUIRED,
+                'register_last_name.required' => OutputMessage::FIELD_LAST_NAME_REQUIRED,
+                'register_email.required' => OutputMessage::FIELD_EMAIL_REQUIRED,
+                'register_id_number.required' => OutputMessage::FIELD_ID_NUMBER_REQUIRED,
+                'register_id_type.required' => OutputMessage::FIELD_ID_TYPE_REQUIRED,
                 'password.required' => OutputMessage::FIELD_PASSWORD_REQUIRED,
-                'phone_code.required' => OutputMessage::FIELD_PHONE_CODE_REQUIRED,
-                'phone.required' => OutputMessage::FIELD_PHONE_REQUIRED,
-                'id_number.unique' => OutputMessage::FIELD_ID_NUMBER_UNIQUE,
-                'email.unique' => OutputMessage::FIELD_EMAIL_UNIQUE,
-                'phone.unique' => OutputMessage::FIELD_PHONE_UNIQUE,
+                'register_phone_code.required' => OutputMessage::FIELD_PHONE_CODE_REQUIRED,
+                'register_phone.required' => OutputMessage::FIELD_PHONE_REQUIRED,
+                'register_id_number.unique' => OutputMessage::FIELD_ID_NUMBER_UNIQUE,
+                'register_email.unique' => OutputMessage::FIELD_EMAIL_UNIQUE,
+                'register_phone.unique' => OutputMessage::FIELD_PHONE_UNIQUE,
             ];
 
             $validator = Validator::make($request->all(), $rules, $messages);
             if ($validator->passes()) {
+                // HACERLO MANUAL
+                $customer = new Customer();
 
-                $customer = Customer::create(array_merge($request->except(['password']), [
-                    'password' => bcrypt($request->password)
-                ]));
+                $customer->first_name = $request->register_first_name;
+                $customer->last_name = $request->register_last_name;
+                $customer->email = $request->register_email;
+                $customer->id_number = $request->register_id_number;
+                $customer->id_type = $request->register_id_type;
+                $customer->phone_code = $request->register_phone_code;
+                $customer->phone = $request->register_phone;
+                // $customer->accept_terms = $request->accept_terms;
+                $customer->password = bcrypt($request->password);
+                $customer->last_access = Carbon::now();
+                
+                if ($customer->save()) {
 
-                if ($customer) {
-
-                    $customer->last_access = Carbon::now();
-                    $customer->save();
 
                     config(['auth.guards.api.provider' => 'customer']);
 
