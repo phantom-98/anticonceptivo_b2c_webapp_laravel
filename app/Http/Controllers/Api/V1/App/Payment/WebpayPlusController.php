@@ -99,10 +99,13 @@ class WebpayPlusController
     public function createTransaction(Request $request)
     {
 //        try {
+
+    
             $order = new Order();
             $customerAddress = null;
+            $customer = Customer::find($request->customer_id);
 
-            if (!Customer::find($request->customer_id)) {
+            if (!$customer) {
                 $customer = new Customer();
 
                 $customer->id_number = $request->id_number;
@@ -113,6 +116,8 @@ class WebpayPlusController
                 $customer->last_name = $request->last_name;
                 $customer->phone = $request->phone;
                 $customer->phone_code = $request->phone_code;
+
+                $customer->is_guest = true;
 
                 $customer->save();
 
@@ -128,7 +133,28 @@ class WebpayPlusController
 
                 $customerAddress->save();
             }else{
-                $customerAddress = CustomerAddress::find($request->id);
+                if ($customer->is_guest) {
+                    $customer->email = $request->email;
+                    $customer->id_type = $request->id_type;
+                    $customer->first_name = $request->first_name;
+                    $customer->last_name = $request->last_name;
+                    $customer->phone = $request->phone;
+                    $customer->phone_code = $request->phone_code;
+
+                    $customer->save();
+
+                    $customerAddress = CustomerAddress::where('customer_id',$customer->id)->first();
+
+                    $customerAddress->address = $request->address;
+                    $customerAddress->name = $request->name;
+                    $customerAddress->region_id = $request->region_id;
+                    $customerAddress->commune_id = intVal($request->commune_id);
+                    $customerAddress->extra_info = $request->extra_info;
+
+                    $customerAddress->save();
+                }else{
+                    $customerAddress = CustomerAddress::find($request->id);
+                }
             }
 
             $deliveryCosts = DeliveryCost::where('active',1)->get();

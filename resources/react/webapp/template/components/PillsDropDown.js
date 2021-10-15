@@ -24,7 +24,12 @@ const PillsDropDown = ({laboratories, subscriptions, formats, categorySlug}) => 
                             )
                         })
                     }
-                    <h3 className="pills-sub-header-title mt-3">SUSCRIPCIÓN</h3>
+                    {/* <h3 className="pills-sub-header-title mt-3">SUSCRIPCIÓN</h3> */}
+
+                    <Link to={'/tienda/pastillas'} style={{textDecoration: 'none'}} className="pills-subscription-color">
+                        <div className="pills-sub-header-title mt-3">SUSCRIPCIÓN</div>
+                    </Link>
+
                     {
                         subscriptions.map((subscription) => {
                             let subscriptionKey = uuidv4();
