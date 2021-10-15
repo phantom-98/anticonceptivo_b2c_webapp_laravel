@@ -63,6 +63,7 @@ class CheckoutController extends Controller
 
     public function validateSteps(Request $request)
     {
+        // return ApiResponse::JsonFieldValidation(self::ValidateStepOne($request));
         try {
 
             if (!$request->step) {
@@ -71,8 +72,10 @@ class CheckoutController extends Controller
 
             if ($request->step == 1) {
 
-                if (is_object(self::ValidateStepOne($request))){
-                    return ApiResponse::JsonFieldValidation(self::ValidateStepOne($request));
+                $validation_one = self::ValidateStepOne($request);
+
+                if ($validation_one['status'] == false){
+                    return ApiResponse::JsonFieldValidation($validation_one['errors']);
                 }else{
                     if ($request->product_count > 0) {
 
@@ -121,59 +124,81 @@ class CheckoutController extends Controller
     }
 
     private static function ValidateStepOne($request){
+        
+        try {
+            $customer = Customer::where('id_number',$request->id_number)
+            // ->where('is_guest', true)
+            ->first();
+            
+            if ($customer && $customer->is_guest == false) {
+                return [
+                    'status' => false,
+                    'errors' => [
+                        'id_number' => [
+                            'Debe iniciar sesion para continuar.'
+                        ]
+                    ]
+                ];
 
-        $rules = [
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'email' => 'required|email',
-            'id_number' => 'required',
-            'id_type' => 'required',
-            'phone_code' => 'required',
-            'phone' => 'required',
-        ];
+            }
 
-        $messages = [
-            'first_name.required' => OutputMessage::FIELD_FIRST_NAME_REQUIRED,
-            'last_name.required' => OutputMessage::FIELD_LAST_NAME_REQUIRED,
-            'email.required' => OutputMessage::FIELD_EMAIL_REQUIRED,
-            'id_number.required' => OutputMessage::FIELD_ID_NUMBER_REQUIRED,
-            'id_type.required' => OutputMessage::FIELD_ID_TYPE_REQUIRED,
-            'phone_code.required' => OutputMessage::FIELD_PHONE_CODE_REQUIRED,
-            'phone.required' => OutputMessage::FIELD_PHONE_REQUIRED,
-            'email.unique' => OutputMessage::FIELD_EMAIL_UNIQUE,
-            'phone.unique' => OutputMessage::FIELD_PHONE_UNIQUE,
-        ];
-
-        $validator = Validator::make($request->all(), $rules, $messages);
-
-        if ($validator->passes()) {
-
-            $innerRules = [
-                'id_number' => 'unique:customers,id_number',
+            $rules = [
+                'first_name' => 'required',
+                'last_name' => 'required',
+                'id_type' => 'required',
+                'phone_code' => 'required',
+                'phone' => 'required',
             ];
-
-            $innerMessages = [
-                'id_number.unique' => OutputMessage::FIELD_ID_NUMBER_UNIQUE,
+    
+            $messages = [
+                'first_name.required' => OutputMessage::FIELD_FIRST_NAME_REQUIRED,
+                'last_name.required' => OutputMessage::FIELD_LAST_NAME_REQUIRED,
+                'email.required' => OutputMessage::FIELD_EMAIL_REQUIRED,
+                'id_number.required' => OutputMessage::FIELD_ID_NUMBER_REQUIRED,
+                'id_type.required' => OutputMessage::FIELD_ID_TYPE_REQUIRED,
+                'phone_code.required' => OutputMessage::FIELD_PHONE_CODE_REQUIRED,
+                'phone.required' => OutputMessage::FIELD_PHONE_REQUIRED,
+                'email.unique' => OutputMessage::FIELD_EMAIL_UNIQUE,
+                'phone.unique' => OutputMessage::FIELD_PHONE_UNIQUE,
             ];
+    
+    
+            if ($customer && $customer->is_guest) {
 
-            $innerValidator = Validator::make(['id_number' => $request->id_number], $innerRules, $innerMessages);
-
-            if (!$innerValidator->passes()) {
-
-                $customer = Customer::where('id_number',$request->id_number)->where('is_guest',true)->first();
-
-                if ($customer) {
-                    return true;
-                }else{
-                    return $innerValidator->errors();
-                }
+                $rules += [
+                    'email' => 'required|email|unique:customers,email,'.$customer->id,
+                    'id_number' => 'required|unique:customers,id_number,'.$customer->id,
+                ];
 
             }else{
-                return true;
+
+                $rules += [
+                    'email' => 'required|email|unique:customers,email',
+                    'id_number' => 'required|unique:customers,id_number',
+                ];
+
             }
-        }else{
-            return $validator->errors();
+            
+            $validator = Validator::make($request->all(), $rules, $messages);
+    
+            if ($validator->passes()) {
+                return [
+                    'status' => true
+                ];
+            }else{
+                return [
+                    'status' => false,
+                    'errors' => $validator->errors()
+                ];
+            }
+        } catch (\Exception $ex) {
+            return [
+                'status' => false,
+                'errors' => $ex->getMessage()
+            ];
         }
+
+        
     }
 
     private static function ValidateStepTwo($request){

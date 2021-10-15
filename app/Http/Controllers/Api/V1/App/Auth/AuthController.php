@@ -58,7 +58,7 @@ class AuthController extends Controller
             if ($validator->passes()) {
                 $innerRules = [
                     'register_id_number' => 'unique:customers,id_number', 
-                    'register_email' => 'unique:customers,id_number', 
+                    'register_email' => 'unique:customers,email', 
                 ];
                 
                 $innerMessages = [
@@ -73,11 +73,7 @@ class AuthController extends Controller
 
                 if (!$innerValidator->passes()) {         
                     
-                    // A = id_number = a email = a // id_number √ email = b <--- != en la base de dd a excepción del customer actual
-                    // b = id_number = a email = b <---
-                    
                     $customer = Customer::where('id_number',$request->register_id_number)
-                        // ->where('email',$request->register_email)
                         ->where('is_guest',true)->first();
 
                     if ($customer) {
