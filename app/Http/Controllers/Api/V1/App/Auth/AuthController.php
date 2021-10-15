@@ -30,7 +30,7 @@ class AuthController extends Controller
             $rules = [
                 'register_first_name' => 'required|regex:/^[a-zA-Z]+$/u',
                 'register_last_name' => 'required|regex:/^[a-zA-Z]+$/u',
-                'register_email' => 'required|email|unique:customers,email',
+                'register_email' => 'required|email',
                 'register_id_number' => 'required',
                 'register_id_type' => 'required',
                 'password' => 'required',
@@ -58,18 +58,34 @@ class AuthController extends Controller
             if ($validator->passes()) {
                 $innerRules = [
                     'register_id_number' => 'unique:customers,id_number', 
+                    'register_email' => 'unique:customers,id_number', 
                 ];
                 
                 $innerMessages = [
                     'register_id_number.unique' => OutputMessage::FIELD_ID_NUMBER_UNIQUE,
+                    'register_email.unique' => OutputMessage::FIELD_EMAIL_UNIQUE,
                 ];
 
-                $innerValidator = Validator::make(['register_id_number' => $request->register_id_number], $innerRules, $innerMessages);
+                $innerValidator = Validator::make([
+                    'register_id_number' => $request->register_id_number,
+                    'register_email' => $request->register_email
+                ], $innerRules, $innerMessages);
 
-                if (!$innerValidator->passes()) {                    
-                    $customer = Customer::where('id_number',$request->register_id_number)->where('is_guest',true)->first();
+                if (!$innerValidator->passes()) {         
+                    
+                    // A = id_number = a email = a // id_number √ email = b <--- != en la base de dd a excepción del customer actual
+                    // b = id_number = a email = b <---
+                    
+                    $customer = Customer::where('id_number',$request->register_id_number)
+                        // ->where('email',$request->register_email)
+                        ->where('is_guest',true)->first();
 
                     if ($customer) {
+
+                        if (Customer::where('id', '!=',$customer->id)->where('email',$request->register_email)->first()) {
+                            return ApiResponse::JsonFieldValidation($innerValidator->errors());
+                        }
+
                         $customer->first_name = $request->register_first_name;
                         $customer->last_name = $request->register_last_name;
                         $customer->email = $request->register_email;
@@ -92,7 +108,6 @@ class AuthController extends Controller
                                 'auth_token' => $token,
                             ], OutputMessage::AUTH_GRANTED);
         
-                            // return ApiResponse::JsonSuccess(null, OutputMessage::CUSTOMER_REGISTER);
                         } else {
                             return ApiResponse::JsonError(null, OutputMessage::CUSTOMER_REGISTER_ERROR);
                         }
