@@ -73,6 +73,7 @@ const CheckOut = () => {
 
     const [subscription, setSubscription] = useState([]);
     const [rutFlag, setRutFlag] = useState(false);
+    const [customerId, setCustomerId] = useState(null);
 
     useEffect(() => {
         if (auth) {
@@ -201,6 +202,9 @@ const CheckOut = () => {
                 response: response,
                 success: () => {
                     setView('add-address')
+                    if (response.data.customer_id) {
+                        setCustomerId(response.data.customer_id);
+                    }
                 },
                 error: () => {
                     toastr.error(response.message);
@@ -356,6 +360,7 @@ const CheckOut = () => {
                                                 validateData={validateData}
                                                 hasAddress={hasAddress}
                                                 view={view}
+                                                customerId={customerId}
                                             />
                                         </div>
                                     </div>

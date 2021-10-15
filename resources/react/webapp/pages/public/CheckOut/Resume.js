@@ -28,7 +28,8 @@ const Resume = ({
     installment,
     validateData,
     hasAddress,
-    view
+    view,
+    customerId
     }) => {
 
     const [dispatch , setDispatch] = useState(0);
@@ -236,6 +237,7 @@ const Resume = ({
                                     subtotal={subtotal}
                                     discountCode={discountCode}
                                     installment={installment}
+                                    customerId={customerId}
                                 />
                             : null
                         }

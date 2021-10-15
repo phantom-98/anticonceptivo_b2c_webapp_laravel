@@ -70,6 +70,7 @@ class CheckoutController extends Controller
             }
 
             if ($request->step == 1) {
+
                 if (is_object(self::ValidateStepOne($request))){
                     return ApiResponse::JsonFieldValidation(self::ValidateStepOne($request));
                 }else{
@@ -89,7 +90,20 @@ class CheckoutController extends Controller
                             return ApiResponse::JsonError(null,'Por favor, ingresar todas las recetas.');
                         }
                     }
-                    return ApiResponse::JsonSuccess(null, OutputMessage::STEP_SUCCESS);
+
+                    // a = tiene registro
+                    // b = tiene registro, pero es guest
+                    // c = no tiene nada.
+
+                    $customer = Customer::where('id_number',$request->id_number)->first();
+
+                    if ($customer) {
+                        return ApiResponse::JsonSuccess([
+                            'customer_id' => $customer->id,
+                        ], OutputMessage::STEP_SUCCESS);
+                    }else{
+                        return ApiResponse::JsonSuccess(null, OutputMessage::STEP_SUCCESS);
+                    }
                 }
             }
 
@@ -111,11 +125,11 @@ class CheckoutController extends Controller
         $rules = [
             'first_name' => 'required',
             'last_name' => 'required',
-            'email' => 'required|email|unique:customers,email',
-            'id_number' => 'required|unique:customers,id_number',
+            'email' => 'required|email',
+            'id_number' => 'required',
             'id_type' => 'required',
             'phone_code' => 'required',
-            'phone' => 'required|unique:customers,phone',
+            'phone' => 'required',
         ];
 
         $messages = [
@@ -126,7 +140,6 @@ class CheckoutController extends Controller
             'id_type.required' => OutputMessage::FIELD_ID_TYPE_REQUIRED,
             'phone_code.required' => OutputMessage::FIELD_PHONE_CODE_REQUIRED,
             'phone.required' => OutputMessage::FIELD_PHONE_REQUIRED,
-            'id_number.unique' => OutputMessage::FIELD_ID_NUMBER_UNIQUE,
             'email.unique' => OutputMessage::FIELD_EMAIL_UNIQUE,
             'phone.unique' => OutputMessage::FIELD_PHONE_UNIQUE,
         ];
@@ -134,8 +147,31 @@ class CheckoutController extends Controller
         $validator = Validator::make($request->all(), $rules, $messages);
 
         if ($validator->passes()) {
-            return true;
-        } else {
+
+            $innerRules = [
+                'id_number' => 'unique:customers,id_number',
+            ];
+
+            $innerMessages = [
+                'id_number.unique' => OutputMessage::FIELD_ID_NUMBER_UNIQUE,
+            ];
+
+            $innerValidator = Validator::make(['id_number' => $request->id_number], $innerRules, $innerMessages);
+
+            if (!$innerValidator->passes()) {
+
+                $customer = Customer::where('id_number',$request->id_number)->where('is_guest',true)->first();
+
+                if ($customer) {
+                    return true;
+                }else{
+                    return $innerValidator->errors();
+                }
+
+            }else{
+                return true;
+            }
+        }else{
             return $validator->errors();
         }
     }

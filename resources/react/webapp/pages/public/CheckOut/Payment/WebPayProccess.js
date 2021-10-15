@@ -6,18 +6,21 @@ import WaitingPayment from "./WaitingPayment";
 import Swal from 'sweetalert2'
 
 const WebPayProccess = ({
-                            data,
-                            address,
-                            subscription,
-                            setFinishWebpayProccess,
-                            setWebpayProccessSuccess,
-                            setOrderId,
-                            total,
-                            subtotal,
-                            dispatch,
-                            discount, discountType, discountCode,
-                            installment
-                        }) => {
+    data,
+    address,
+    subscription,
+    setFinishWebpayProccess,
+    setWebpayProccessSuccess,
+    setOrderId,
+    total,
+    subtotal,
+    dispatch,
+    discount, 
+    discountType, 
+    discountCode,
+    installment,
+    customerId
+}) => {
 
     const {auth} = useContext(AuthContext);
     const {cartItems, clearCart} = useContext(CartContext);
@@ -74,7 +77,7 @@ const WebPayProccess = ({
             ...data,
             ...address,
             subscription: selectedSubscription,
-            customer_id: auth ? auth.id : null,
+            customer_id: auth ? auth.id : customerId,
             total: total,
             discountType: discountType,
             subtotal: subtotal,
