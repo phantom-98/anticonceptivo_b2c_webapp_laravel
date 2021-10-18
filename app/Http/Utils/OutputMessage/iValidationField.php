@@ -8,8 +8,10 @@ interface iValidationField
     const FIELD_NEW_PASSWORD_REQUIRED = 'La nueva contraseña es obligatoria.';
     const FIELD_PASSWORD_CONFIRMATION_REQUIRED = 'El campo repetir contraseña es obligatorio.';
     const FIELD_RUT_REQUIRED = 'El rut es obligatorio.';
-    const FIELD_FIRST_NAME_REQUIRED = 'Los nombres son obligatorios.';
-    const FIELD_LAST_NAME_REQUIRED = 'Los apellidos son obligatorios.';
+    const FIELD_FIRST_NAME_REQUIRED = 'El nombre es obligatorio.';
+    const FIELD_FIRST_NAME_FORMAT = 'El formato del nombre no es correcto.';
+    const FIELD_LAST_NAME_REQUIRED = 'El apellido es obligatorio.';
+    const FIELD_LAST_NAME_FORMAT = 'El formato del apellido no es correcto.';
     const FIELD_PHONE_REQUIRED = 'El teléfono es obligatorio.';
     const FIELD_PHONE_CODE_REQUIRED = 'El código teléfonico es obligatorio.';
     const FIELD_EMAIL_REQUIRED = 'El email es obligatorio.';

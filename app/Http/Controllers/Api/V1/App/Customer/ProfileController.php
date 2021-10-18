@@ -84,8 +84,8 @@ class ProfileController extends Controller
             }
 
             $rules = [
-                'first_name' => 'required',
-                'last_name' => 'required',
+                'first_name' => 'required|regex:/^[a-zA-Z]+$/u',
+                'last_name' => 'required|regex:/^[a-zA-Z]+$/u',
                 'email' => 'required|email|unique:customers,email,'. $customer->id,
                 'id_number' => 'required|unique:customers,id_number,'. $customer->id,
                 'id_type' => 'required',
@@ -95,7 +95,9 @@ class ProfileController extends Controller
 
             $messages = [
                 'first_name.required' => OutputMessage::FIELD_FIRST_NAME_REQUIRED,
+                'first_name.regex' => OutputMessage::FIELD_FIRST_NAME_FORMAT,
                 'last_name.required' => OutputMessage::FIELD_LAST_NAME_REQUIRED,
+                'last_name.regex' => OutputMessage::FIELD_LAST_NAME_FORMAT,
                 'email.required' => OutputMessage::FIELD_EMAIL_REQUIRED,
                 'id_number.required' => OutputMessage::FIELD_ID_NUMBER_REQUIRED,
                 'id_type.required' => OutputMessage::FIELD_ID_TYPE_REQUIRED,
