@@ -167,7 +167,16 @@
 
                                 @foreach($object->order_items as $item)
                                     <tr>
-                                        <td>{{ $item->name }}</td>
+                                        <td>
+                                            {{ $item->name }}
+                                            @if($item->subscription_plan_id == 1)
+                                             (4 Ciclos / 4 meses)
+                                            @elseif($item->subscription_plan_id == 2)
+                                             (6 Ciclos / 6 meses)
+                                            @elseif($item->subscription_plan_id == 3)
+                                             (13 Ciclos / 12 meses)
+                                            @endif
+                                        </td>
                                         <td>
                                             $<span class="right"> {{ number_format($item->price, 0, ',','.')}}</span>
                                         </td>

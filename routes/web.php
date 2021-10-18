@@ -21,8 +21,23 @@ Route::get('VoucherPaymentDays-test', [TestController::class, 'VoucherPaymentDay
 Route::get('test-ailoo', [TestController::class, 'AiloTest']);
 
 Route::get('PaySubscription-test/{id?}', [TestController::class, 'PaySubscription']);
-Route::view('/{path?}/{pathTwo?}/{pathThree?}/{pathFour?}/{pathFive?}/{pathSix?}/{pathSeven?}', 'webapp.base_react');
 
 Route::get('fix-orders-payment/{id}', function ($id) {
+    $order = \App\Models\Order::find($id);
+    if($order->is_paid == 0){
+        $order->status = App\Http\Utils\Enum\PaymentStatus::PAID;
+        $order->payment_date = \Carbon\Carbon::now();
+        $order->payment_type = 'webpay';
+        $order->is_paid = true;
+        $order->save();
+    }
 
+    $customerAddress =  \App\Models\CustomerAddress::where('customer_id', $order->customer_id)->latest()->first();
+
+    App\Http\Helpers\CallIntegrationsPay::callVoucher($order->id,$customerAddress);
+    App\Http\Helpers\CallIntegrationsPay::callDispatchLlego($order->id,$customerAddress);
+    App\Http\Helpers\CallIntegrationsPay::callUpdateStockProducts($order->id);
+    App\Http\Helpers\CallIntegrationsPay::sendEmailsOrder($order->id);
 });
+
+Route::view('/{path?}/{pathTwo?}/{pathThree?}/{pathFour?}/{pathFive?}/{pathSix?}/{pathSeven?}', 'webapp.base_react');

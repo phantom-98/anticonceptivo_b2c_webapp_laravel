@@ -63,7 +63,6 @@ class CheckoutController extends Controller
 
     public function validateSteps(Request $request)
     {
-        // return ApiResponse::JsonFieldValidation(self::ValidateStepOne($request));
         try {
 
             if (!$request->step) {
@@ -82,21 +81,18 @@ class CheckoutController extends Controller
                         $isFile = false;
 
                         foreach ($request->files as $file) {
-                            if (count($file) != $request->product_count) {
-                                return ApiResponse::JsonError(null,'Por favor, ingresar todas las recetas.');
-                            }
 
+                            // if (count($file) != $request->product_count) {
+                                // return ApiResponse::JsonError(null,'Por favor, ingresar todas las recetas.');
+                            // }
+                            
                             $isFile = true;
                         }
                         
                         if (!$isFile) {
-                            return ApiResponse::JsonError(null,'Por favor, ingresar todas las recetas.');
+                            return ApiResponse::JsonError(null,'Por favor, ingresar al menos una receta.');
                         }
                     }
-
-                    // a = tiene registro
-                    // b = tiene registro, pero es guest
-                    // c = no tiene nada.
 
                     $customer = Customer::where('id_number',$request->id_number)->first();
 
@@ -160,8 +156,7 @@ class CheckoutController extends Controller
                 'phone.required' => OutputMessage::FIELD_PHONE_REQUIRED,
                 'email.unique' => OutputMessage::FIELD_EMAIL_UNIQUE,
                 'phone.unique' => OutputMessage::FIELD_PHONE_UNIQUE,
-            ];
-    
+            ];    
     
             if ($customer && $customer->is_guest) {
 
