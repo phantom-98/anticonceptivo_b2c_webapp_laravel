@@ -32,10 +32,10 @@
     <meta name="application-name" content="Anticonceptivo">
 
     <meta name="title" content="Anticonceptivo.cl">
-    <meta name="description" content="El proveedor número 1 de pastillas anticonceptivas en Chile">
+    <meta name="description" content="¡Aprovecha tu tiempo en lo que más te gusta! Compra en línea y recibe en casa. Conoce nuestros planes de suscripción y cuídate de forma periódica y segura. Opción de suscripción.">
     <meta name="keywords"
           content="anticonceptivos, ecommerce, tienda, pastillas, nora, condones, durex">
-    <meta name="robots" content="index, nofollow">
+    <meta name="robots" content="index, follow">
     <meta name="language" content="Spanish">
     <meta name="revisit-after" content="4000 days">
     <meta name="author" content="Anticonceptivo">
@@ -44,7 +44,7 @@
     <meta property="og:site_name" content="Anticonceptivo.cl">
     <meta property="og:title" content="Anticonceptivo.cl"/>
     <meta property="og:description"
-          content="El proveedor número 1 de pastillas anticonceptivas en Chile"/>
+          content="¡Aprovecha tu tiempo en lo que más te gusta! Compra en línea y recibe en casa. Conoce nuestros planes de suscripción y cuídate de forma periódica y segura. Opción de suscripción."/>
     <meta property="og:image" itemprop="image" content="https://www.anticonceptivo.cl/images/logo-full.svg?b3b8df2099e0585f16d824394e200f52">
     <meta property="og:type" content="website"/>
     <meta property="og:updated_time" content="1440432930"/>

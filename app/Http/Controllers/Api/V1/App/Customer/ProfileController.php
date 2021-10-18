@@ -170,15 +170,16 @@ class ProfileController extends Controller
                 $isFile = false;
 
                 foreach ($request->files as $file) {
-                    if (count($file) != $request->product_count) {
-                        return ApiResponse::JsonError(null,'Por favor, ingresar todas las recetas.');
-                    }
 
+                    // if (count($file) != $request->product_count) {
+                        // return ApiResponse::JsonError(null,'Por favor, ingresar todas las recetas.');
+                    // }
+                    
                     $isFile = true;
                 }
-
+                
                 if (!$isFile) {
-                    return ApiResponse::JsonError(null,'Por favor, ingresar todas las recetas.');
+                    return ApiResponse::JsonError(null,'Por favor, ingresar al menos una receta.');
                 }
             }
 

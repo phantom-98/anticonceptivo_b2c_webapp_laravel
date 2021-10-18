@@ -50,11 +50,12 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-2">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="status">Estado</label>
                                             <select id="status" name="status" class="form-control select2" data-width="100%">
                                                 <option value="Todos">Todos</option>
+                                                <option value="CREATED" {{ $status == "CREATED" ? "selected" : "" }}>Creados (Sin terminar Proceso pago)</option>
                                                 <option value="PAID" {{ $status == "PAID" ? "selected" : "" }}>Pagado</option>
                                                 <option value="DISPATCHED" {{ $status == "DISPATCHED" ? "selected" : "" }}>Despachado</option>
                                                 <option value="DELIVERED" {{ $status == "DELIVERED" ? "selected" : "" }}>Entregado</option>
@@ -132,6 +133,7 @@
                             <th data-cell-style="cellStyle" data-sortable="false" data-valign="middle">Nº Ped.</th>
                             <th data-cell-style="cellStyle" data-field="date" data-sorter="datesSorter" data-sortable="true" data-valign="middle">Fecha</th>
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Hora</th>
+                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Método de Pago</th>
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Estado</th>
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">RUT Cliente</th>
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Nombre Cliente</th>
@@ -160,6 +162,7 @@
                                 <td>#{{ $object->id}}</td>
                                 <td>{{ date('d-m-Y', strtotime($object->created_at)) }}</td>
                                 <td>{{ date('H:i:s', strtotime($object->created_at)) }}</td>
+                                <td>{{ $object->payment_type == "webpay" ? "Webpay" : "Oneclick" }}</td>
                                 <td>
                                     <div class="label label-table" style="background: {{$object->formated_background}}; color: {{$object->formated_color}}; cursor:default">
                                         {{ $object->formated_status }}
@@ -204,6 +207,7 @@
                                             @can('intranet.orders.changeOrderStatus')
                                             @if(count($object->prescriptions) > 0 && $object->prescription_validation == 0)
                                             @push('prepend_actions_buttons' .  $object->id)
+                                                @if($object->status != "CREATED")
                                                 <a onclick="prescriptionSuccess({{$object->id}})"
                                                 class="btn btn-sm btn-default btn-hover-success add-tooltip"
                                                 title="Validar Recetas">
@@ -219,6 +223,7 @@
                                                     title="Reenviar correo">
                                                         <i class="fa fa-envelope"></i>
                                                 </a>
+                                                @endif
                                             @endpush
                                             @else
                                                 @if($object->status != "CREATED" && $object->status != "DELIVERED")

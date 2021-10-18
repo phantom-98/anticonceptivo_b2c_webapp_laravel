@@ -70,12 +70,17 @@ class WebpayPlusController
                 $subscription->token_inscription = $response['response']->token;
                 $subscription->save();
 
-                Log::info('OneClickCancel',
-                [
-                    "response" => $response['response'],
-                    "tbk_token_inscription" => $response['response']->token,
-                    "username" => $request->customer_id
-                ]);
+                try{
+                    Log::info('OneClickCancel',
+                    [
+                        "response" => $response['response'],
+                        "tbk_token_inscription" => $response['response']->token,
+                        "username" => $request->customer_id
+                    ]);
+                } catch(\Exception $ex){
+                    
+                }
+
 
                 return ApiResponse::JsonSuccess([
                     'webpay' => $this->oneclick->redirectHTML(),
@@ -318,12 +323,16 @@ class WebpayPlusController
 
                     $response = $this->oneclick->authorize($request->customer_id , $request->subscription['transbank_token'],$order->id,$details);
 
-                    Log::info('OneClick',
-                    [
-                        "response" => $response,
-                        "tbk_user" => $request->subscription['transbank_token'],
-                        "username" => $request->customer_id
-                    ]);
+                    try{
+                        Log::info('OneClick',
+                        [
+                            "response" => $response,
+                            "tbk_user" => $request->subscription['transbank_token'],
+                            "username" => $request->customer_id
+                        ]);
+                    } catch(\Exception $ex){
+                
+                    }
 
                     if($response['status'] == "success"){
 
@@ -355,9 +364,9 @@ class WebpayPlusController
                         $order->payment_type = 'tarjeta';
                         $order->save();
 
-                        //CallIntegrationsPay::callVoucher($order->id,$customerAddress);
-                        //CallIntegrationsPay::callDispatchLlego($order->id,$customerAddress);
-                        //CallIntegrationsPay::callUpdateStockProducts($order->id);
+                        CallIntegrationsPay::callVoucher($order->id,$customerAddress);
+                        CallIntegrationsPay::callDispatchLlego($order->id,$customerAddress);
+                        CallIntegrationsPay::callUpdateStockProducts($order->id);
                         CallIntegrationsPay::sendEmailsOrder($order->id);
 
                         return ApiResponse::JsonSuccess([
@@ -465,7 +474,11 @@ class WebpayPlusController
             $commit = $this->webpay_plus->commitTransaction($request->token_ws);
             $response = $commit['response'];
 
-            Log::info('WebpayPlusController', [$commit]);
+            try{
+                Log::info('WebpayPlusController', [$commit]);
+            } catch(\Exception $ex){
+
+            }
 
             $order = Order::with('order_items.subscription_plan','customer','order_items.product')->find($response->buyOrder);
 
@@ -487,9 +500,9 @@ class WebpayPlusController
 
                 }else{
                     $customerAddress = CustomerAddress::with('commune')->where('customer_id',$order->customer_id)->where('default_address',1)->get()->first();
-                    //CallIntegrationsPay::callVoucher($order->id,$customerAddress);
-                    //CallIntegrationsPay::callUpdateStockProducts($order->id);
-                    //CallIntegrationsPay::callDispatchLlego($order->id,$customerAddress);
+                    CallIntegrationsPay::callVoucher($order->id,$customerAddress);
+                    CallIntegrationsPay::callUpdateStockProducts($order->id);
+                    CallIntegrationsPay::callDispatchLlego($order->id,$customerAddress);
                     CallIntegrationsPay::sendEmailsOrder($order->id);
                 }
 
@@ -524,12 +537,16 @@ class WebpayPlusController
             );
             $subscription = Subscription::where('token_inscription',$request['TBK_TOKEN'])->get()->first();
 
-            Log::info('OneClick',
-                    [
-                        "response" => $response,
-                        "tbk_user" => $request['TBK_TOKEN'],
-                        "username" => $subscription->customer_id
-                    ]);
+            try{
+                Log::info('OneClick',
+                [
+                    "response" => $response,
+                    "tbk_user" => $request['TBK_TOKEN'],
+                    "username" => $subscription->customer_id
+                ]);
+            } catch(\Exception $ex){
+        
+            }
 
             if($response['status'] != 'success'){
                 $subscription->status = PaymentMethodStatus::CANCELED;

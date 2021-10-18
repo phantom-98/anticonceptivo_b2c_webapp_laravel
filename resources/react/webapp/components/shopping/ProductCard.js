@@ -60,10 +60,10 @@ const ProductCard = ({product, className = '', subscriptionFilter = []}) => {
             return(
                  <>
                     <span className={`font-poppins ${!mobile ? 'font-16' : 'font-12'} ${mobile ? 'd-block' : ''} bold color-009BE8 ${!mobile ? 'ml-2' : ''}`}>
-                        Al mes cada C/U
+                        Al mes c/u
                     </span>
                     <span className={`font-poppins ${!mobile ? 'font-16' : 'font-12'} ${mobile ? 'd-block' : ''} bold color-78d2ff ${!mobile ? 'ml-2' : ''}`}>
-                        (Ahorras un{" "}{Math.round(((prod.price - prod.plans[0].price) / prod.price) * 100)} %)
+                        (Ahorra un{" "}{Math.round(((prod.price - prod.plans[0].price) / prod.price) * 100)} %)
                     </span>
                 </>
             )
@@ -73,10 +73,10 @@ const ProductCard = ({product, className = '', subscriptionFilter = []}) => {
             return(
                  <>
                     <span className={`font-poppins ${!mobile ? 'font-16' : 'font-12'} ${mobile ? 'd-block' : ''} bold color-009BE8 ${!mobile ? 'ml-2' : ''}`}>
-                        Al mes cada C/U
+                        Al mes c/u
                     </span>
                     <span className={`font-poppins ${!mobile ? 'font-16' : 'font-12'} ${mobile ? 'd-block' : ''} bold color-78d2ff ${!mobile ? 'ml-2' : ''}`}>
-                        (Ahorras un{" "}{Math.round(((prod.price - prod.plans[1].price) / prod.price) * 100)} %)
+                        (Ahorra un{" "}{Math.round(((prod.price - prod.plans[1].price) / prod.price) * 100)} %)
                     </span>
                 </>
             )
@@ -86,10 +86,10 @@ const ProductCard = ({product, className = '', subscriptionFilter = []}) => {
             return(
                  <>
                     <span className={`font-poppins ${!mobile ? 'font-16' : 'font-12'} ${mobile ? 'd-block' : ''} bold color-009BE8 ${!mobile ? 'ml-2' : ''}`}>
-                        Al mes cada C/U
+                        Al mes c/u
                     </span>
                     <span className={`font-poppins ${!mobile ? 'font-16' : 'font-12'} ${mobile ? 'd-block' : ''} bold color-78d2ff ${!mobile ? 'ml-2' : ''}`}>
-                        (Ahorras un{" "}{Math.round(((prod.price - prod.plans[2].price) / prod.price) * 100)} %)
+                        (Ahorra un{" "}{Math.round(((prod.price - prod.plans[2].price) / prod.price) * 100)} %)
                     </span>
                 </>
             )
