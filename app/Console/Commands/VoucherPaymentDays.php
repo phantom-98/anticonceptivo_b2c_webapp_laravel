@@ -137,6 +137,7 @@ class VoucherPaymentDays extends Command
                 ])
             );
             if($total == 0){
+                Log::info('No hay nada que facturar');
                 return false;
             }
             $get_data = ApiHelper::callAPI('POST', 'https://api.bsale.cl/v1/documents.json', json_encode($data_voucher), true);

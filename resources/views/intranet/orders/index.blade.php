@@ -206,6 +206,7 @@
                                             @can('intranet.orders.changeOrderStatus')
                                             @if(count($object->prescriptions) > 0 && $object->prescription_validation == 0)
                                             @push('prepend_actions_buttons' .  $object->id)
+                                                @if($object->status != "CREATED")
                                                 <a onclick="prescriptionSuccess({{$object->id}})"
                                                 class="btn btn-sm btn-default btn-hover-success add-tooltip"
                                                 title="Validar Recetas">
@@ -221,6 +222,7 @@
                                                     title="Reenviar correo">
                                                         <i class="fa fa-envelope"></i>
                                                 </a>
+                                                @endif
                                             @endpush
                                             @else
                                                 @if($object->status != "CREATED" && $object->status != "DELIVERED")
