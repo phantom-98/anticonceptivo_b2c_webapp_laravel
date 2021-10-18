@@ -1,92 +1,17 @@
-import React, {Fragment, useState, useContext, useEffect} from 'react';
+import React, {Fragment, useContext} from 'react';
 import FormPersonalData from "../../private/Account/sections/PersonalInfo/FormPersonalData";
 import {setInputError, setCleanInputErrorById} from "../../../helpers/GlobalUtils";
 import RutValidator from "w2-rut-validator";
-import * as Services from "../../../Services";
 import {AuthContext} from "../../../context/AuthProvider";
 import {Accordion, Card} from "react-bootstrap";
 import {CartContext} from "../../../context/CartProvider";
 import {formatMoney} from "../../../helpers/GlobalUtils";
 import {CONFIG} from "../../../Config";
 import {v4 as uuidv4} from 'uuid';
-import toastr from "toastr";
 
 const UserForm = ({setView, data, setData, setFiles, files, editable, setProductCount, rutFlag, setRutFlag}) => {
 
-    const {auth} = useContext(AuthContext);
     const {cartItems} = useContext(CartContext);
-
-    // const [showBilling, setShowBilling] = useState(false);
-
-    // const [selectedRegion, setSelectedRegion] = useState(0);
-    // const [regions, setRegions] = useState([]);
-    // const [communes, setCommunes] = useState([]);
-
-    // useEffect(() => {
-    //     getRegions();
-    // },[])
-
-    // useEffect(() => {
-    //     if (regions.length > 0) {
-    //         setSelectedRegion(data.commercial_region_id)
-    //     }
-    // },[regions])
-
-    // useEffect(() => {
-    //     if (selectedRegion) {
-    //         const region = regions.find(r => r.id == selectedRegion)
-    //         let tempCommunes = [];
-    //         region.provinces.map((province) =>{
-    //             province.communes.map((commune) =>{
-    //                 tempCommunes.push(commune);
-    //             })
-    //         })
-    //         let orderCommunes =  tempCommunes.sort((a, b)  => {
-    //             const commA = a.name.toLowerCase();
-    //             const commB = b.name.toLowerCase();
-
-    //             let comparison = 0;
-    //             if (commA > commB) {
-    //                 comparison = 1;
-    //             } else if (commA < commB) {
-    //                 comparison = -1;
-    //             }
-    //             return comparison;
-    //         })
-
-    //         setCommunes(orderCommunes);
-
-    //     }
-    // }, [selectedRegion]);
-
-    // const getRegions = () => {
-    //     let url = Services.ENDPOINT.NO_AUTH.CHECKOUT.GET_RESOURCES;
-    //     let dataForm = {
-    //         // customer_id: auth.id
-    //     }
-
-    //     Services.DoPost(url, dataForm).then(response => {
-    //         Services.Response({
-    //         response: response,
-    //         success: () => {
-    //             // setData(response.data.customer);
-    //             setRegions(response.data.regions);
-    //         },
-    //         });
-    //     }).catch(error => {
-    //         Services.ErrorCatch(error)
-    //     });
-    // }
-
-    // const selectRegion = (e) => {
-    //     const region = regions.find(r => r.id == e.target.value)
-    //     setData({
-    //         ...data,
-    //         commercial_region_id : region.id,
-    //         commercial_commune_id: null
-    //     })
-    //     setSelectedRegion(e.target.value)
-    // }
 
     const handleData = (e, onlyText = false, phone = false) => {
         if (phone) {
@@ -98,7 +23,7 @@ const UserForm = ({setView, data, setData, setFiles, files, editable, setProduct
         }
 
         if (onlyText) {
-            if (e.target.value.match('^$|^[a-zA-Z\ñ ]+$')) {
+            if (e.target.value.match('^$|^[a-zA-Z ]+$')) {
                 setData({...data,
                     [e.target.id]: e.target.value
                 })   
@@ -187,102 +112,6 @@ const UserForm = ({setView, data, setData, setFiles, files, editable, setProduct
         setFiles(list);
     }
 
-    // const validateData = () => {
-    //     if (rutFlag) {
-    //         toastr.warning('El formato del rut es incorrecto.','Perfil no actualizado.');
-    //     }else{
-
-    //         let url = Services.ENDPOINT.NO_AUTH.CHECKOUT.VALIDATE_STEPS;
-
-    //         let productCount = cartItems.filter((item) => item.product.recipe_type != 'Venta Directa').length;
-
-    //         const formData = new FormData();
-
-    //         formData.append('product_count', productCount);
-    //         formData.append('step', 1);
-    //         formData.append('email', data.email);
-    //         formData.append('first_name', data.first_name);
-    //         formData.append('id_number', data.id_number);
-    //         formData.append('id_type', data.id_type);
-    //         formData.append('last_name', data.last_name);
-    //         formData.append('phone', data.phone);
-    //         formData.append('phone_code', data.phone_code);
-
-    //         let fileList = [...files]
-
-    //         for(let i=0; i < fileList.length; i++){
-    //             formData.append('files[]', fileList[i]);
-    //         }
-
-    //         const config = {
-    //             headers: {
-    //                 'content-type': 'multipart/form-data'
-    //             }
-    //         }
-
-    //         Services.DoPost(url, formData, config).then(response => {
-    //             Services.Response({
-    //             response: response,
-    //             success: () => {
-    //                 setView('add-address')
-    //             },
-    //             error: () => {
-    //                 toastr.error(response.message);
-    //             },
-    //             warning: () => {
-    //                 toastr.warning(response.message);
-    //             },
-    //             });
-    //         }).catch(error => {
-    //             Services.ErrorCatch(error)
-    //         });
-    //     }
-    // }
-
-    // const hasAddress = () => {
-    //     let url = Services.ENDPOINT.CUSTOMER.ADDRESSES.GET;
-    //     let productCount = cartItems.filter((item) => item.product.recipe_type != 'Venta Directa').length;
-
-    //     const formData = new FormData();
-
-    //     formData.append('product_count', productCount);
-    //     formData.append('customer_id', auth.id);
-
-    //     let fileList = [...files]
-
-    //     for(let i=0; i < fileList.length; i++){
-    //         formData.append('files[]', fileList[i]);
-    //     }
-
-    //     const config = {
-    //         headers: {
-    //             'content-type': 'multipart/form-data'
-    //         }
-    //     }
-
-    //     Services.DoPost(url, formData, config).then(response => {
-    //         Services.Response({
-    //         response: response,
-    //             success: () => {
-    //                 setProductCount(productCount);
-    //                 if (response.data.addresses.length) {
-    //                     setView('addresses');
-    //                 }else{
-    //                     setView('add-address');
-    //                 }
-    //             },
-    //             error: () => {
-    //                 toastr.error(response.message);
-    //             },
-    //             warning: () => {
-    //                 toastr.warning(response.message);
-    //             },
-    //         });
-    //     }).catch(error => {
-    //         Services.ErrorCatch(error)
-    //     });
-    // }
-
     return (
         <Fragment>
             {
@@ -346,7 +175,6 @@ const UserForm = ({setView, data, setData, setFiles, files, editable, setProduct
                                                                             return file.name_id == index ?
                                                                                 <span className="font-14 font-poppins regular">{file.name}</span>
                                                                             :  null
-                                                                            // <span className="font-14 font-poppins regular">Sin archivo</span>
                                                                         })
                                                                     }
                                                                 </label>
@@ -364,15 +192,7 @@ const UserForm = ({setView, data, setData, setFiles, files, editable, setProduct
                     </Accordion>
                 : null
             }
-            {/* <div className="panel panel-cart mb-3">
-                <div className="panel-body" style={{ paddingTop : '11px', paddingBottom : '10px'}}>
-                   <div className="row">
-                       <div className="col d-flex">
-
-                       </div>
-                   </div>
-                </div>
-            </div> */}
+            
             <div className="panel panel-cart mb-3">
                 <div className="panel-body">
                     <FormPersonalData
@@ -386,50 +206,12 @@ const UserForm = ({setView, data, setData, setFiles, files, editable, setProduct
                     />
                 </div>
             </div>
-            {/* <div className="panel panel-cart mb-3">
-                <div className="panel-body" style={{paddingTop: '20px', paddingBottom: '20px'}}>
-                    <div className="row pointer" onClick={() => setShowBilling(!showBilling)}>
-                        <div className="col">
-                            <h3 className="font-poppins font-16 bold color-033F5D mb-0">¿Necesitas factura?</h3>
-                        </div>
-                        <div className="col-auto">
-                            {
-                                showBilling ?
-                                    <img src="/themes/web/assets/images/up.svg" alt={CONFIG.APP_NAME}/>
-                                    :
-                                    <img src="/themes/web/assets/images/down.svg" alt={CONFIG.APP_NAME}/>
-                            }
-                        </div>
-                    </div>
 
-                    {
-                        showBilling ?
-                            <FormComercialInfo
-                                data={data}
-                                handleData={handleData}
-                                rutFormat={RutFormat}
-                                rutValidate={RutValidate}
-                                regions={regions}
-                                communes={communes}
-                                selectRegion={selectRegion}
-                                title={''}
-                            />
-                        : null
-                    }
+            {/* <div className="row">
+                <div className="col-md-6 pb-5">
+
                 </div>
             </div> */}
-            <div className="row">
-                <div className="col-md-6 pb-5">
-                    {/*<button onClick={() => setView('user-form')} className="link" style={{textDecoration: 'none'}}>*/}
-                    {/*    <span className="font-12">{"< Volver a paso anterior"}</span>*/}
-                    {/*</button>*/}
-                </div>
-                {/* <div className="col-md-6 pb-5">
-                    <button className="btn btn-bicolor btn-block" disabled={cartItems.length ? false : true} onClick={ auth ? () =>  hasAddress() : () => validateData()}>
-                        <span className="font-14 px-5">CONTINUAR</span>
-                    </button>
-                </div> */}
-            </div>
         </Fragment>
     );
 };
