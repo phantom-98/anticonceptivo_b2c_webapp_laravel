@@ -51,19 +51,33 @@ class WebpayLog extends Model
             $webpayLog = new WebpayLog();
 
             $webpayLog->order_id = $order_id;
+            // ok
             $webpayLog->accounting_date = $response->accountingDate;
+            // ok
             $webpayLog->buy_order = $response->buyOrder;
-            $webpayLog->card_number = $response->cardDetail->cardNumber;
-            $webpayLog->card_expiration_date = $response->cardDetail->cardExpirationDate;
-            $webpayLog->authorization_code = $response->detailOutput->authorizationCode;
+            // webpay $response->cardDetail->card_number;
+            $webpayLog->card_number = $response->cardDetail->card_number;
+            // webpay no
+            $webpayLog->card_expiration_date = $response->cardDetail->cardExpirationDate ?? null;
+
+            // oneclick
+            $webpayLog->authorization_code = $response->detailOutput->authorizationCode ?? null;
             $webpayLog->payment_type_code = $response->detailOutput->paymentTypeCode;
-            $webpayLog->response_code = $response->detailOutput->responseCode;
-            $webpayLog->shares_number = $response->detailOutput->sharesNumber;
-            $webpayLog->amount = $response->detailOutput->amount;
-            $webpayLog->commerce_code = $response->detailOutput->commerceCode;
+            $webpayLog->response_code = $response->detailOutput->responseCode ?? null;
+            $webpayLog->shares_number = $response->detailOutput->sharesNumber ?? null;
+            $webpayLog->amount = $response->detailOutput->amount ?? null;
+            $webpayLog->commerce_code = $response->detailOutput->commerceCode ?? null;
+            // oneclick
+
+            // ok
             $webpayLog->session_id = $response->sessionId;
+            // ok
             $webpayLog->transaction_date = $response->transactionDate;
-            $webpayLog->url_redirection = $response->urlRedirection;
+
+            // webpay not found
+            $webpayLog->url_redirection = $response->urlRedirection ?? null;
+
+            // ok
             $webpayLog->vci = $response->VCI;
 
             $webpayLog->save();
