@@ -56,7 +56,7 @@ class WebpayLog extends Model
             // ok
             $webpayLog->buy_order = $response->buyOrder;
             // webpay $response->cardDetail->card_number;
-            $webpayLog->card_number = $response->cardDetail->card_number;
+            $webpayLog->card_number = $response->cardDetail['card_number'];
             // webpay no
             $webpayLog->card_expiration_date = $response->cardDetail->cardExpirationDate ?? null;
 
