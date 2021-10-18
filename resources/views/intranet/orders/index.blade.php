@@ -50,11 +50,12 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-2">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="status">Estado</label>
                                             <select id="status" name="status" class="form-control select2" data-width="100%">
                                                 <option value="Todos">Todos</option>
+                                                <option value="CREATED" {{ $status == "CREATED" ? "selected" : "" }}>Creados (Sin terminar Proceso pago)</option>
                                                 <option value="PAID" {{ $status == "PAID" ? "selected" : "" }}>Pagado</option>
                                                 <option value="DISPATCHED" {{ $status == "DISPATCHED" ? "selected" : "" }}>Despachado</option>
                                                 <option value="DELIVERED" {{ $status == "DELIVERED" ? "selected" : "" }}>Entregado</option>
@@ -206,6 +207,7 @@
                                             @can('intranet.orders.changeOrderStatus')
                                             @if(count($object->prescriptions) > 0 && $object->prescription_validation == 0)
                                             @push('prepend_actions_buttons' .  $object->id)
+                                                @if($object->status != "CREATED")
                                                 <a onclick="prescriptionSuccess({{$object->id}})"
                                                 class="btn btn-sm btn-default btn-hover-success add-tooltip"
                                                 title="Validar Recetas">
@@ -221,6 +223,7 @@
                                                     title="Reenviar correo">
                                                         <i class="fa fa-envelope"></i>
                                                 </a>
+                                                @endif
                                             @endpush
                                             @else
                                                 @if($object->status != "CREATED" && $object->status != "DELIVERED")
