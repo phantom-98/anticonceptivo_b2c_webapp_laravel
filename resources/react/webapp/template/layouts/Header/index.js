@@ -35,6 +35,14 @@ const Header = () => {
         position: 'fixed',
         right: 0,
         left: 0,
+        zIndex: 1031,
+        backgroundColor: 'white',
+    }
+
+    const stylePropsMenu = {
+        position: 'fixed',
+        right: 0,
+        left: 0,
         zIndex: 1030,
         backgroundColor: 'white',
     }
@@ -55,7 +63,7 @@ const Header = () => {
         boxShadow: '0px 1px 4px rgb(0 0 0 / 0%)'
     });
 
-    const [topFixed2, setTopFixed2] = useState({
+    const [topFixedMenu, setTopFixedMenu] = useState({
         top: 142,
         boxShadow: '0px 1px 4px rgb(0 0 0 / 0%)'
     });
@@ -67,7 +75,7 @@ const Header = () => {
                     top: 0,
                     boxShadow: '0px 1px 4px rgb(0 0 0 / 20%)'
                 })
-                setTopFixed2({
+                setTopFixedMenu({
                     top: 108,
                     boxShadow: '0px 1px 4px rgb(0 0 0 / 20%)'
                 })
@@ -76,7 +84,7 @@ const Header = () => {
                     top: 34,
                     boxShadow: '0px 1px 4px rgb(0 0 0 / 0%)'
                 })
-                setTopFixed2({
+                setTopFixedMenu({
                     top: 142,
                     boxShadow: '0px 1px 4px rgb(0 0 0 / 0%)'
                 })
@@ -124,7 +132,7 @@ const Header = () => {
                     </div>
                 </div>
                 <div className="d-md-block d-none">
-                    <div style={{...styleProps, ...topFixed2}}>
+                    <div style={{...stylePropsMenu, ...topFixedMenu}}>
                         <HeaderNavbar/>
                     </div>
                 </div>

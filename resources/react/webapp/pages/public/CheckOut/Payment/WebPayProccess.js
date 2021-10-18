@@ -53,6 +53,7 @@ const WebPayProccess = ({
 
     const initPayment = () => {
         // runPayment('webpayPlus')
+        showWaitingPayment();
         create();
     }
 
@@ -106,7 +107,6 @@ const WebPayProccess = ({
                             runVerify(response.data.order.id, response.data.order.customer_id)
                             setOrderId(response.data.order.id)
                             setToken(response.data.token)
-                            showWaitingPayment();
 
                             // importante cambiar en oneclick
                             // const urlWebpay = response.data.webpay_data.url + '?token_ws=' + response.data.webpay_data.token
@@ -115,7 +115,7 @@ const WebPayProccess = ({
                             // var win = window.open();
                             // win.document.open();
                             win.document.write(response.data.webpay);
-                            win.document.focus();
+                            // win.document.focus();
                         }
 
 
@@ -138,7 +138,6 @@ const WebPayProccess = ({
                         setFinishWebpayProccess(1);
                         clearInterval(interval)
                     }
-
                 });
             })
             .catch(error => {
@@ -223,7 +222,7 @@ const WebPayProccess = ({
         <Fragment>
             <WaitingPayment showingWaitingPayment={showingWaitingPayment}/>
             <div className="col-md-12 pt-2">
-                <button className="btn btn-bicolor btn-block" onClick={initPayment}>
+                <button className={`btn btn-bicolor btn-block`} disabled={showingWaitingPayment ? true : false} onClick={!showingWaitingPayment ? () => initPayment() : null}>
                     <span className="font-14 px-5">PAGAR</span>
                 </button>
             </div>
