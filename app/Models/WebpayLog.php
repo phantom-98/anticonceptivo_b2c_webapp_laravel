@@ -71,6 +71,7 @@ class WebpayLog extends Model
 
             // ok
             $webpayLog->session_id = $response->sessionId;
+            
             // ok
             $webpayLog->transaction_date = $response->transactionDate;
 
@@ -78,7 +79,7 @@ class WebpayLog extends Model
             $webpayLog->url_redirection = $response->urlRedirection ?? null;
 
             // ok
-            $webpayLog->vci = $response->VCI;
+            $webpayLog->vci = $response->vci;
 
             $webpayLog->save();
 
