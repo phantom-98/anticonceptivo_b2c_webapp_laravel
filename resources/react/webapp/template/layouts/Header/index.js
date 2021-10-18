@@ -62,7 +62,7 @@ const Header = () => {
 
     useEffect(() => {
         function onScroll() {
-            if (window.pageYOffset >= 100) {
+            if (window.pageYOffset >= 1) {
                 setTopFixed({
                     top: 0,
                     boxShadow: '0px 1px 4px rgb(0 0 0 / 20%)'
