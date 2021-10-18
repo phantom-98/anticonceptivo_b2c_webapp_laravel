@@ -61,12 +61,12 @@ class WebpayLog extends Model
             $webpayLog->card_expiration_date = $response->cardDetail->cardExpirationDate ?? null;
 
             // oneclick
-            $webpayLog->authorization_code = $response->detailOutput ? $response->detailOutput->authorizationCode : null;
-            $webpayLog->payment_type_code = $response->detailOutput ? $response->detailOutput->paymentTypeCode : null;
-            $webpayLog->response_code = $response->detailOutput ? $response->detailOutput->responseCode : null;
-            $webpayLog->shares_number = $response->detailOutput ? $response->detailOutput->sharesNumber : null;
-            $webpayLog->amount = $response->detailOutput ? $response->detailOutput->amount : null;
-            $webpayLog->commerce_code = $response->detailOutput ? $response->detailOutput->commerceCode : null;
+            $webpayLog->authorization_code = isset($response->detailOutput) ? $response->detailOutput->authorizationCode : null;
+            $webpayLog->payment_type_code = isset($response->detailOutput) ? $response->detailOutput->paymentTypeCode : null;
+            $webpayLog->response_code = isset($response->detailOutput) ? $response->detailOutput->responseCode : null;
+            $webpayLog->shares_number = isset($response->detailOutput) ? $response->detailOutput->sharesNumber : null;
+            $webpayLog->amount = isset($response->detailOutput) ? $response->detailOutput->amount : null;
+            $webpayLog->commerce_code = isset($response->detailOutput) ? $response->detailOutput->commerceCode : null;
             // oneclick
 
             // ok
