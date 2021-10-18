@@ -15,6 +15,7 @@ import {Link} from "react-router-dom";
 import PillsDropDown from "../../components/PillsDropDown";
 
 const HeaderNavbar = () => {
+
     const size = useWindowSize();
     const [categories, setCategories] = useState([]);
     const [show, setShow] = useState({});
@@ -27,6 +28,7 @@ const HeaderNavbar = () => {
         Object.keys(show).map((key, index) => (listShow = {...listShow, [key]: key == categoryId ? true : false}))
         setShow(listShow);
     }
+
     const hideDropdown = (categoryId) => {
         setShow({...show, [categoryId]: false});
     }
@@ -62,26 +64,15 @@ const HeaderNavbar = () => {
     }
 
     const CustomToggle = React.forwardRef(({children, onClick}, ref) => (
-        <div className="pointer" ref={ref}
-            // onMouseEnter={(e)=> {
-            //     e.preventDefault();
-            //     onClick(e);
-            // }}
-            // onMouseLeave={(e)=> {
-            //     e.preventDefault();
-            //     onClick(e);
-            // }}
-        >
+        <div className="pointer" ref={ref}>
             {children}
         </div>
     ));
 
     return (
         <div className="header-navbar bg-0869A6">
-
             <div className="container px-0 max-header-navbar">
                 <div>
-
                     <div className="row justify-content-center">
 
                         {
@@ -90,11 +81,6 @@ const HeaderNavbar = () => {
 
                                 let url = PUBLIC_ROUTES.SHOP.path;
                                 url = url.replace(":category", category.slug);
-
-                                // if (category.id === 1) {
-                                //     let pillsUrl = PUBLIC_ROUTES.SHOP.path;
-                                //     pillsUrl = pillsUrl.replace(":category", category.slug);
-                                // }
 
                                 if (size.width <= 1351 && index <= 3) {
 
@@ -122,7 +108,6 @@ const HeaderNavbar = () => {
                                                                     formats={formats}
                                                                     subscriptions={subscriptions}
                                                                     categorySlug={category.slug}
-                                                                    // linkTo={pillsUrl}
                                                                 />
                                                             : null
                                                         }
@@ -149,7 +134,7 @@ const HeaderNavbar = () => {
                                                         })
                                                     }
                                                 </Dropdown.Menu>
-                                            // : null
+                                            
                                         }
                                     </Dropdown>
 
@@ -170,18 +155,8 @@ const HeaderNavbar = () => {
                                         </Dropdown.Toggle>
 
                                         {
-                                            // category.subcategories.length ?
                                             category.id === 1 ?
-                                                <Dropdown.Menu align="right"
-                                                               bsPrefix="dropdown-menu-custom with-pills">
-                                                    {/* <Dropdown.Item key={uuidv4()} style={{cursor:'default'}}>
-                                                    <PillsDropDown
-                                                        laboratories={laboratories}
-                                                        formats={formats}
-                                                        subscriptions={subscriptions}
-                                                        categorySlug={category.slug}
-                                                    />
-                                                </Dropdown.Item> */}
+                                                <Dropdown.Menu align="right" bsPrefix="dropdown-menu-custom with-pills">
                                                     <div className="custom-dropdown-item"
                                                          style={{cursor: 'default'}}>
                                                         {
@@ -216,7 +191,7 @@ const HeaderNavbar = () => {
                                                         })
                                                     }
                                                 </Dropdown.Menu>
-                                            // : null
+
                                         }
                                     </Dropdown>
                                 }
@@ -251,18 +226,8 @@ const HeaderNavbar = () => {
                                             </Dropdown.Toggle>
 
                                             {
-                                                // category.subcategories.length ?
                                                 category.id === 1 ?
-                                                    <Dropdown.Menu align="right"
-                                                                   bsPrefix="dropdown-menu-custom with-pills">
-                                                        {/* <Dropdown.Item key={uuidv4()} style={{cursor:'default'}}>
-                                                    <PillsDropDown
-                                                        laboratories={laboratories}
-                                                        formats={formats}
-                                                        subscriptions={subscriptions}
-                                                        categorySlug={category.slug}
-                                                    />
-                                                </Dropdown.Item> */}
+                                                    <Dropdown.Menu align="right" bsPrefix="dropdown-menu-custom with-pills">
                                                         <div className="custom-dropdown-item"
                                                              style={{cursor: 'default'}}>
                                                             <PillsDropDown
@@ -293,7 +258,6 @@ const HeaderNavbar = () => {
                                                             })
                                                         }
                                                     </Dropdown.Menu>
-                                                // : null
                                             }
                                         </Dropdown>
 

@@ -55,6 +55,11 @@ const Header = () => {
         boxShadow: '0px 1px 4px rgb(0 0 0 / 0%)'
     });
 
+    const [topFixed2, setTopFixed2] = useState({
+        top: 142,
+        boxShadow: '0px 1px 4px rgb(0 0 0 / 0%)'
+    });
+
     useEffect(() => {
         function onScroll() {
             if (window.pageYOffset >= 100) {
@@ -62,9 +67,17 @@ const Header = () => {
                     top: 0,
                     boxShadow: '0px 1px 4px rgb(0 0 0 / 20%)'
                 })
+                setTopFixed2({
+                    top: 108,
+                    boxShadow: '0px 1px 4px rgb(0 0 0 / 20%)'
+                })
             } else {
                 setTopFixed({
                     top: 34,
+                    boxShadow: '0px 1px 4px rgb(0 0 0 / 0%)'
+                })
+                setTopFixed2({
+                    top: 142,
                     boxShadow: '0px 1px 4px rgb(0 0 0 / 0%)'
                 })
             }
@@ -110,8 +123,10 @@ const Header = () => {
                         <HeaderBox/>
                     </div>
                 </div>
-                <div className="d-md-block d-none" style={{marginTop: 108}}>
-                    <HeaderNavbar/>
+                <div className="d-md-block d-none">
+                    <div style={{...styleProps, ...topFixed2}}>
+                        <HeaderNavbar/>
+                    </div>
                 </div>
 
                 {/* Mobile */}
