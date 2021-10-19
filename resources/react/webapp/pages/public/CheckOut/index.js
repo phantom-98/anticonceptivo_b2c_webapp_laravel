@@ -75,6 +75,10 @@ const CheckOut = () => {
     const [rutFlag, setRutFlag] = useState(false);
     const [customerId, setCustomerId] = useState(null);
 
+    const [prescriptionRadio, setPrescriptionRadio] = useState(true);
+    const [withoutPrescriptionAnswer, setWithoutPrescriptionAnswer] = useState(null);
+
+
     useEffect(() => {
         if (auth) {
             setData(auth);
@@ -184,6 +188,8 @@ const CheckOut = () => {
             formData.append('last_name', data.last_name);
             formData.append('phone', data.phone);
             formData.append('phone_code', data.phone_code);
+            formData.append('prescription_radio', productCount > 0 ? prescriptionRadio : null);
+            formData.append('without_prescription_answer', withoutPrescriptionAnswer);
 
             let fileList = [...files]
 
@@ -295,6 +301,10 @@ const CheckOut = () => {
                                                         setProductCount={setProductCount}
                                                         rutFlag={rutFlag}
                                                         setRutFlag={setRutFlag}
+                                                        prescriptionRadio={prescriptionRadio}
+                                                        setPrescriptionRadio={setPrescriptionRadio}
+                                                        withoutPrescriptionAnswer={withoutPrescriptionAnswer}
+                                                        setWithoutPrescriptionAnswer={setWithoutPrescriptionAnswer}
                                                     /> : null
                                             }
                                             {
