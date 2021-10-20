@@ -25,7 +25,7 @@
                                       method="GET">
                                     <div class="col-md-2">
                                         <div class="form-group">
-                                            <label for="date">Fecha</label>
+                                            <label for="date">Rango de Fecha</label>
                                             <input type="text"
                                                    id="date"
                                                    name="date"
