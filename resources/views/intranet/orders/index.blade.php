@@ -219,12 +219,14 @@
                                                                 <i class="fa fa-times"></i>
                                                         </a>
                                                     @endif
-                                                    @if($object->status == "PAID" || $object->status == "DISPATCHED")
-                                                    <a onclick="change_status({{$object->id}}, '{{$object->status}}')"
-                                                        class="btn btn-sm btn-default btn-hover-info add-tooltip"
-                                                        title="Cambiar estado">
-                                                            <i class="fa fa-retweet"></i>
-                                                    </a>
+                                                    @if($object->prescription_validation == 1)
+                                                        @if($object->status == "PAID" || $object->status == "DISPATCHED")
+                                                        <a onclick="change_status({{$object->id}}, '{{$object->status}}')"
+                                                            class="btn btn-sm btn-default btn-hover-info add-tooltip"
+                                                            title="Cambiar estado">
+                                                                <i class="fa fa-retweet"></i>
+                                                        </a>
+                                                        @endif
                                                     @endif
                                                     @if($object->status == "PAID" || $object->status == "DISPATCHED" || $object->status == "DELIVERED")
                                                     <a onclick="sendEmail({{$object->id}})"
