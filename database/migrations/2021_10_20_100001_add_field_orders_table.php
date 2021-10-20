@@ -14,7 +14,7 @@ class AddFieldOrdersTable extends Migration
     public function up()
     {
         Schema::table('orders', function (Blueprint $table) {
-            $table->text('prescription_answer')->nullable()->before('extra_data');
+            $table->text('prescription_answer')->nullable();
         });
     }
 

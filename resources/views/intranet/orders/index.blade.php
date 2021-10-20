@@ -185,13 +185,15 @@
                                     <td>-</td>
                                 @endif
                                 @if(count($object->prescriptions) > 0)
-                                <td>
-                                    @foreach($object->prescriptions as $prescription)
-                                    <a href="{{ Storage::url($prescription->file) }}" target="_blank" class='btn btn-sm btn-default btn-hover-success' data-toggle="tooltip" title="{{$prescription->product->name}}"><i class="ti-file"></i></a>
-                                    @endforeach
-                                </td>
+                                    <td>
+                                        @foreach($object->prescriptions as $prescription)
+                                        <a href="{{ Storage::url($prescription->file) }}" target="_blank" class='btn btn-sm btn-default btn-hover-success' data-toggle="tooltip" title="{{$prescription->product->name}}"><i class="ti-file"></i></a>
+                                        @endforeach
+                                    </td>
                                 @else
-                                <td>Venta Directa</td>
+                                    <td>
+                                        {{ $object->prescription_answer ?? 'Venta Directa'}}
+                                    </td>
                                 @endif
                                 @if($config['action']['changeStatus'])
                                    @include('intranet.template.components._crud_html_change_status')
