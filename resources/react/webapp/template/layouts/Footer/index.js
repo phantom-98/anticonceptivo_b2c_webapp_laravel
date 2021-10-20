@@ -55,11 +55,11 @@ const Footer = () => {
                             <div className="mb-3">
                                 <img src={logoFooter} alt={CONFIG.APP_NAME}/>
                             </div>
-                            <div className="font-10 regular text-white footer-nav-item">Una alianza con</div>
+                            <div className="font-10 regular text-white">Una alianza con</div>
                             {
                                 alliances.map((alliance, index) => {
                                     return (
-                                        <div className="mb-3 footer-nav-item" key={index*7777}>
+                                        <div className="mb-3" key={index*7777}>
                                             <img src={alliance.public_footer_image} alt={CONFIG.APP_NAME}/>
                                         </div>
                                     )
