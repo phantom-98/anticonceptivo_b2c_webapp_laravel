@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddColumnSubjectToClaimsTable extends Migration
+class AddFieldOrdersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddColumnSubjectToClaimsTable extends Migration
      */
     public function up()
     {
-        Schema::table('claims', function (Blueprint $table) {
-            // $table->text('subject')->after('is_reply');
+        Schema::table('orders', function (Blueprint $table) {
+            $table->text('prescription_answer')->nullable()->before('extra_data');
         });
     }
 
@@ -25,8 +25,8 @@ class AddColumnSubjectToClaimsTable extends Migration
      */
     public function down()
     {
-        Schema::table('claims', function (Blueprint $table) {
-            // $table->text('subject')->after('is_reply');
+        Schema::table('orders', function (Blueprint $table) {
+            // $table->text('prescription_answer')->drop();
         });
     }
 }

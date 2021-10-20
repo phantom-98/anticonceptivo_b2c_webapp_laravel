@@ -167,22 +167,18 @@ class ProfileController extends Controller
                 return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_NOT_FOUND);
             }
 
-            if ($request->product_count > 0) {
+            if ($request->product_count > 0 && $request->prescription_radio == 'true') {
 
                 $isFile = false;
 
                 foreach ($request->files as $file) {
-
-                    // if (count($file) != $request->product_count) {
-                        // return ApiResponse::JsonError(null,'Por favor, ingresar todas las recetas.');
-                    // }
-                    
                     $isFile = true;
                 }
                 
                 if (!$isFile) {
                     return ApiResponse::JsonError(null,'Por favor, ingresar al menos una receta.');
                 }
+
             }
 
             $addresses = CustomerAddress::where('customer_id', $customer->id)->get();

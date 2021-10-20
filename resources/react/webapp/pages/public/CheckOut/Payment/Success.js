@@ -9,7 +9,7 @@ import * as Services from "../../../../Services";
 import { formatMoney } from "../../../../helpers/GlobalUtils";
 import moment from "moment";
 
-const Success = ({orderId, files, productCount}) => {
+const Success = ({orderId, files, productCount, prescriptionRadio, withoutPrescriptionAnswer}) => {
 
     const [order, setOrder] = useState();
     const [load, setLoad] = useState(true);
@@ -26,6 +26,8 @@ const Success = ({orderId, files, productCount}) => {
 
         formData.append('product_count', productCount);
         formData.append('order_id', orderId);
+        formData.append('prescription_radio', productCount > 0 ? prescriptionRadio : null);
+        formData.append('without_prescription_answer', withoutPrescriptionAnswer);
 
         let fileList = [...files]
 
