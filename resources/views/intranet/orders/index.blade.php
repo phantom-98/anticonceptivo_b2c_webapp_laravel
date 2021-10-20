@@ -226,7 +226,7 @@
                                                 @endif
                                             @endpush
                                             @else
-                                                @if($object->status != "CREATED" || $object->status != "DELIVERED")
+                                                @if($object->status != "CREATED" || $object->status != "DISPATCHED")
                                                 <a onclick="change_status({{$object->id}}, '{{$object->status}}')"
                                                     class="btn btn-sm btn-default btn-hover-info add-tooltip"
                                                     title="Rechazar Recetas">
