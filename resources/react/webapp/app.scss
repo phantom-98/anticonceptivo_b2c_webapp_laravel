@@ -255,6 +255,11 @@ a:-webkit-any-link:focus-visible {
     object-fit: cover;
 }
 
+.custom-col-responsive{
+    flex: 0 0 91.66667%;
+    max-width: 91.66667%;
+}
+
 @media (min-width: 768px) {
     .app-margin-top{
         margin-top: 0;
@@ -302,6 +307,21 @@ a:-webkit-any-link:focus-visible {
 
     .footer-nav-item{
         display: none;
+    }
+
+    .custom-col-responsive{
+        flex: 0 0 98%;
+        max-width: 98%;
+        margin-left: 3px;
+        margin-top: -18px;
+    }
+
+    .bioequivalent-font{
+        font-size: 11px;
+    }
+
+    .custom-accordion-responsive{
+        margin-top: 2.5rem !important;
     }
 
 }

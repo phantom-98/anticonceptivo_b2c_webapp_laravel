@@ -127,7 +127,7 @@ const ProductInfo = ({ product, setImageSubscription }) => {
                 </h1>
             </div>
             {product.plans.length > 0 ? (
-                <div className="col-md-12 mt-2">
+                <div className="col-md-12 mt-2 custom-accordion-responsive">
                     <Accordion
                         defaultActiveKey={product.id}
                         className="accordion-faq"

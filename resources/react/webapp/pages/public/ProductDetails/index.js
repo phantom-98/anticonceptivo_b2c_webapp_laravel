@@ -95,10 +95,15 @@ const ProductDetail = ({match}) => {
 
                     {
                         product.is_bioequivalent ?
-                        <div className="row padding-beneficy">
-                            <div className="col product-detail-tabs font-beneficy" style={{backgroundColor: '#FFEA17', borderRadius: '10px', height:'50px', lineHeight:'50px'}}>
-                                <img src={Bioequivalent} className="mr-2"/>
-                                <span className="font-poppins regular">Este medicamento es bioequivalente</span>
+                        <div className="row">
+                            <div className="col-1">
+                            
+                            </div>
+                            <div className="custom-col-responsive">
+                                <div className="font-beneficy" style={{backgroundColor: '#FFEA17', borderRadius: '10px', height:'50px', lineHeight:'50px'}}>
+                                    <img src={Bioequivalent} className="ml-3 mr-2"/>
+                                    <span className="font-poppins regular bioequivalent-font">Este medicamento es bioequivalente</span>
+                                </div>
                             </div>
                         </div>
                         : null

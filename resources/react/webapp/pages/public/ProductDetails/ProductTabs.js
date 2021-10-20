@@ -6,8 +6,11 @@ const ProductTabs = ({product, legalWarning, valid}) =>{
     const [key, setKey] = useState(valid ? 'benefits' : 'technical');
 
     return (
-        <div className="row pb-5">            
-            <div className="product-detail-tabs">
+        <div className="row pb-5 mt-5">
+            <div className="col-1">
+                
+            </div>            
+            <div className="custom-col-responsive">
                 <Tabs
                     id="tabs"
                     variant="pills"
