@@ -37,6 +37,7 @@ class AuthController extends Controller
                 'register_id_type' => 'required',
                 'password' => 'required',
                 'register_phone_code' => 'required',
+                // 'register_phone' => 'required|unique:customers,phone',
                 'accept_terms' => 'required|boolean|ends_with:'.true,
             ];
 
