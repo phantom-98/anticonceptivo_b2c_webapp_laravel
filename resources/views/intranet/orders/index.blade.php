@@ -205,33 +205,45 @@
                                     <td>
                                         <div >
                                             @can('intranet.orders.changeOrderStatus')
-                                            @if(count($object->prescriptions) > 0 && $object->prescription_validation == 0)
-                                            @push('prepend_actions_buttons' .  $object->id)
-                                                @if($object->status != "CREATED")
-                                                <a onclick="prescriptionSuccess({{$object->id}})"
-                                                class="btn btn-sm btn-default btn-hover-success add-tooltip"
-                                                title="Validar Recetas">
-                                                    <i class="fa fa-check"></i>
-                                                </a>
-                                                <a onclick="prescriptionRejected({{$object->id}})"
-                                                    class="btn btn-sm btn-default btn-hover-danger add-tooltip"
-                                                    title="Rechazar Recetas">
-                                                        <i class="fa fa-times"></i>
-                                                </a>
-                                                <a onclick="sendEmail({{$object->id}})"
-                                                    class="btn btn-sm btn-default btn-hover-info add-tooltip"
-                                                    title="Reenviar correo">
-                                                        <i class="fa fa-envelope"></i>
-                                                </a>
-                                                @endif
-                                            @endpush
+                                            @if(count($object->prescriptions) > 0)
+                                                @push('prepend_actions_buttons' .  $object->id)
+                                                    @if($object->status != "CREATED")
+                                                        @if($object->prescription_validation == 0 && $object->status == "PAID")
+                                                            <a onclick="prescriptionSuccess({{$object->id}})"
+                                                            class="btn btn-sm btn-default btn-hover-success add-tooltip"
+                                                            title="Validar Recetas">
+                                                                <i class="fa fa-check"></i>
+                                                            </a>
+                                                            <a onclick="prescriptionRejected({{$object->id}})"
+                                                                class="btn btn-sm btn-default btn-hover-danger add-tooltip"
+                                                                title="Rechazar Recetas">
+                                                                    <i class="fa fa-times"></i>
+                                                            </a>
+                                                        @endif
+                                                        @if($object->status == "PAID" || $object->status == "DISPATCHED")
+                                                        <a onclick="change_status({{$object->id}}, '{{$object->status}}')"
+                                                            class="btn btn-sm btn-default btn-hover-info add-tooltip"
+                                                            title="Cambiar estado">
+                                                                <i class="fa fa-retweet"></i>
+                                                        </a>
+                                                        @endif
+                                                        @if($object->status == "PAID" || $object->status == "DISPATCHED" || $object->status == "DELIVERED")
+                                                        <a onclick="sendEmail({{$object->id}})"
+                                                            class="btn btn-sm btn-default btn-hover-info add-tooltip"
+                                                            title="Reenviar correo">
+                                                                <i class="fa fa-envelope"></i>
+                                                        </a>
+                                                        @endif
+                                                @endpush
                                             @else
-                                                @if($object->status == "PAID" && $object->status == "DISPATCHED")
+                                                @if($object->status == "PAID" || $object->status == "DISPATCHED")
                                                 <a onclick="change_status({{$object->id}}, '{{$object->status}}')"
                                                     class="btn btn-sm btn-default btn-hover-info add-tooltip"
-                                                    title="Rechazar Recetas">
+                                                    title="Cambiar estado">
                                                         <i class="fa fa-retweet"></i>
                                                 </a>
+                                                @endif
+                                                @if($object->status == "PAID" || $object->status == "DISPATCHED" || $object->status == "DELIVERED")
                                                 <a onclick="sendEmail({{$object->id}})"
                                                     class="btn btn-sm btn-default btn-hover-info add-tooltip"
                                                     title="Reenviar correo">
