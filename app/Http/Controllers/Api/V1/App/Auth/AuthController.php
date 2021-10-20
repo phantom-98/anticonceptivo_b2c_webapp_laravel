@@ -37,7 +37,6 @@ class AuthController extends Controller
                 'register_id_type' => 'required',
                 'password' => 'required',
                 'register_phone_code' => 'required',
-                'register_phone' => 'required|unique:customers,phone',
                 'accept_terms' => 'required|boolean|ends_with:'.true,
             ];
 
@@ -61,11 +60,14 @@ class AuthController extends Controller
                 $rules += [
                     'register_email' => 'required|email|unique:customers,email,'.$customer->id,
                     'register_id_number' => 'required|unique:customers,id_number,'.$customer->id,
+                    'register_phone' => 'required|unique:customers,phone,'.$customer->id,
+
                 ];
             }else{
                 $rules += [
                     'register_email' => 'required|email|unique:customers,email',
                     'register_id_number' => 'required|unique:customers,id_number',
+                    'register_phone' => 'required|unique:customers,phone',
                 ];
             }
 
