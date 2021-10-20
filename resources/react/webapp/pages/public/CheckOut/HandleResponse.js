@@ -2,7 +2,13 @@ import React from 'react';
 import Success from "./Payment/Success";
 import Error from "./Payment/Error";
 
-const HandleResponse = ({webpayProccessSuccess, orderId, productCount, files}) => {
+const HandleResponse = ({
+    webpayProccessSuccess, 
+    orderId, 
+    productCount, 
+    files, 
+    prescriptionRadio, 
+    withoutPrescriptionAnswer}) => {
 
     return (
         webpayProccessSuccess ?
@@ -10,6 +16,8 @@ const HandleResponse = ({webpayProccessSuccess, orderId, productCount, files}) =
                 orderId={orderId}
                 productCount={productCount}
                 files={files}
+                prescriptionRadio={prescriptionRadio}
+                withoutPrescriptionAnswer={withoutPrescriptionAnswer}
             />
         : 
             <Error/>

@@ -75,6 +75,10 @@ const CheckOut = () => {
     const [rutFlag, setRutFlag] = useState(false);
     const [customerId, setCustomerId] = useState(null);
 
+    const [prescriptionRadio, setPrescriptionRadio] = useState(true);
+    const [withoutPrescriptionAnswer, setWithoutPrescriptionAnswer] = useState(null);
+
+
     useEffect(() => {
         if (auth) {
             setData(auth);
@@ -167,11 +171,17 @@ const CheckOut = () => {
     const validateData = () => {
         if (rutFlag) {
             toastr.warning('El formato del rut es incorrecto.','Perfil no actualizado.');
+            return null;
         }else{
 
             let url = Services.ENDPOINT.NO_AUTH.CHECKOUT.VALIDATE_STEPS;
 
             let productCount = cartItems.filter((item) => item.product.recipe_type != 'Venta Directa').length;
+
+            if (productCount > 0 && prescriptionRadio == false && withoutPrescriptionAnswer == null) {
+                toastr.warning('Debes seleccionar un motivo.');
+                return null;
+            }
 
             const formData = new FormData();
 
@@ -184,6 +194,8 @@ const CheckOut = () => {
             formData.append('last_name', data.last_name);
             formData.append('phone', data.phone);
             formData.append('phone_code', data.phone_code);
+            formData.append('prescription_radio', productCount > 0 ? prescriptionRadio : null);
+            formData.append('without_prescription_answer', withoutPrescriptionAnswer);
 
             let fileList = [...files]
 
@@ -202,6 +214,7 @@ const CheckOut = () => {
                 response: response,
                 success: () => {
                     setView('add-address')
+                    setProductCount(productCount);
                     if (response.data.customer_id) {
                         setCustomerId(response.data.customer_id);
                     }
@@ -223,10 +236,17 @@ const CheckOut = () => {
         let url = Services.ENDPOINT.CUSTOMER.ADDRESSES.GET;
         let productCount = cartItems.filter((item) => item.product.recipe_type != 'Venta Directa').length;
 
+        if (productCount > 0 && prescriptionRadio == false && withoutPrescriptionAnswer == null) {
+            toastr.warning('Debes seleccionar un motivo.');
+            return null;
+        }
+
         const formData = new FormData();
 
         formData.append('product_count', productCount);
         formData.append('customer_id', auth.id);
+        formData.append('prescription_radio', productCount > 0 ? prescriptionRadio : null);
+        formData.append('without_prescription_answer', withoutPrescriptionAnswer);
 
         let fileList = [...files]
 
@@ -295,6 +315,10 @@ const CheckOut = () => {
                                                         setProductCount={setProductCount}
                                                         rutFlag={rutFlag}
                                                         setRutFlag={setRutFlag}
+                                                        prescriptionRadio={prescriptionRadio}
+                                                        setPrescriptionRadio={setPrescriptionRadio}
+                                                        withoutPrescriptionAnswer={withoutPrescriptionAnswer}
+                                                        setWithoutPrescriptionAnswer={setWithoutPrescriptionAnswer}
                                                     /> : null
                                             }
                                             {
@@ -371,6 +395,8 @@ const CheckOut = () => {
                             orderId={orderId}
                             productCount={productCount}
                             files={files}
+                            prescriptionRadio={prescriptionRadio}
+                            withoutPrescriptionAnswer={withoutPrescriptionAnswer}
                         />
                     }
                 </div>

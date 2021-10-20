@@ -1,15 +1,17 @@
-import React, {Fragment, useContext} from 'react';
+import React, {Fragment, useContext, useState} from 'react';
 import FormPersonalData from "../../private/Account/sections/PersonalInfo/FormPersonalData";
 import {setInputError, setCleanInputErrorById} from "../../../helpers/GlobalUtils";
 import RutValidator from "w2-rut-validator";
+import {Form} from "react-bootstrap";
 import {AuthContext} from "../../../context/AuthProvider";
-import {Accordion, Card} from "react-bootstrap";
+import {Accordion, Card, InputGroup} from "react-bootstrap";
 import {CartContext} from "../../../context/CartProvider";
 import {formatMoney} from "../../../helpers/GlobalUtils";
 import {CONFIG} from "../../../Config";
 import {v4 as uuidv4} from 'uuid';
 
-const UserForm = ({setView, data, setData, setFiles, files, editable, setProductCount, rutFlag, setRutFlag}) => {
+const UserForm = ({setView, data, setData, setFiles, files, editable, setProductCount, rutFlag, setRutFlag, prescriptionRadio, setPrescriptionRadio,
+    withoutPrescriptionAnswer, setWithoutPrescriptionAnswer}) => {
 
     const {cartItems} = useContext(CartContext);
 
@@ -112,24 +114,58 @@ const UserForm = ({setView, data, setData, setFiles, files, editable, setProduct
         setFiles(list);
     }
 
+    const handlePrescriptionRadio = (status) => {
+        setPrescriptionRadio(status);
+        if (status) {
+            setWithoutPrescriptionAnswer(null);
+        }
+    }
+
     return (
         <Fragment>
-            {
-                cartItems.filter((item) => item.product.recipe_type != 'Venta Directa').length ?
-                    <Accordion defaultActiveKey={'#'}>
-                        <Card className="panel panel-cart my-4">
-                            <Accordion.Toggle as={Card.Header} eventKey={'#'} style={{backgroundColor: 'white'}}>
-                                <h3 className="my-auto font-poppins font-16 bold color-033F5D mb-0" style={{backgroundColor: 'white'}}>
-                                    Subir receta
-                                </h3>
-                            </Accordion.Toggle>
-                            <Accordion.Collapse eventKey={'#'}>
-                                <Card.Body>
-                                    {
+            <Accordion defaultActiveKey={'#'}>
+                <Card className="panel panel-cart my-4">
+                    <Accordion.Toggle as={Card.Header} eventKey={'#'} style={{backgroundColor: 'white'}}>
+                        <h3 className="my-auto font-poppins font-16 bold color-033F5D mb-0" style={{backgroundColor: 'white'}}>
+                            Subir receta
+                        </h3>
+                    </Accordion.Toggle>
+                    <Accordion.Collapse eventKey={'#'}>
+                        <Card.Body>
+                            <h3 className="my-auto font-poppins font-14 bold color-033F5D" style={{backgroundColor: 'white'}}>
+                                ¿Cuentas con una receta?
+                            </h3>
+                            <div className="form-group">
+                                <div className="mt-1">
+                                    <Form.Check
+                                        custom
+                                        label="Si"
+                                        type="radio"
+                                        className="my-2"
+                                        name="prescription_radio"
+                                        id={`with_prescription`}
+                                        onClick={() => handlePrescriptionRadio(true)}
+                                        checked={prescriptionRadio == true ? true : false}
+                                    />
+                                    <Form.Check
+                                        custom
+                                        label="No"
+                                        type="radio"
+                                        className="my-2"
+                                        name="prescription_radio"
+                                        id={`without_prescription`}
+                                        onClick={() => handlePrescriptionRadio(false)}
+                                        checked={prescriptionRadio == true ? false : true}
+                                    />
+                                </div>
+                            </div>
+                            {
+                                cartItems.filter((item) => item.product.recipe_type != 'Venta Directa').length ?
+                                    prescriptionRadio ? 
                                         cartItems.map((item, index) => {
                                             let prescriptionKey = uuidv4();
                                             return item.product.recipe_type != 'Venta Directa'  ? (
-                                                <div className="col-12 product-item" key={prescriptionKey}>
+                                                <div className="col-12 product-item mt-4" key={prescriptionKey}>
                                                     <div className="row">
                                                         <div className="col-md-3">
                                                             <img src={item.product.images ? item.product.images[0].public_file : null} alt={CONFIG.APP_NAME} style={{width: '77px'}}/>
@@ -185,14 +221,54 @@ const UserForm = ({setView, data, setData, setFiles, files, editable, setProduct
                                                 </div>
                                             ) : null
                                         })
-                                    }
-                                </Card.Body>
-                            </Accordion.Collapse>
-                        </Card>
-                    </Accordion>
-                : null
-            }
-            
+                                    :                    
+                                        <div className="form-group">
+                                            <h3 className="my-auto font-poppins font-14 bold color-033F5D" style={{backgroundColor: 'white'}}>
+                                                Motivo
+                                            </h3>
+                                            <div className="mt-1">
+                                                <Form.Check
+                                                    custom
+                                                    // inline
+                                                    label="Perdí mi Receta."
+                                                    type="radio"
+                                                    className="my-2"
+                                                    name="without_prescription_answer"
+                                                    id={`without_prescription_answer_one`}
+                                                    onClick={() => setWithoutPrescriptionAnswer(1)}
+                                                    checked={withoutPrescriptionAnswer === 1 ? true : false}
+                                                />
+                                                <Form.Check
+                                                    custom
+                                                    // inline
+                                                    label="Siempre la tomo, pero no cuento con una Receta."
+                                                    type="radio"
+                                                    className="my-2"
+                                                    name="without_prescription_answer"
+                                                    id={`without_prescription_answer_two`}
+                                                    onClick={() => setWithoutPrescriptionAnswer(2)}
+                                                    checked={withoutPrescriptionAnswer === 2 ? true : false}
+                                                />
+                                                <Form.Check
+                                                    custom
+                                                    // inline
+                                                    label="Es mi anticonceptivo que me dejo mi Doctor, pero no tengo Receta."
+                                                    type="radio"
+                                                    className="my-2"
+                                                    name="without_prescription_answer"
+                                                    id={`without_prescription_answer_three`}
+                                                    onClick={() => setWithoutPrescriptionAnswer(3)}
+                                                    checked={withoutPrescriptionAnswer === 3 ? true : false}
+                                                />
+                                            </div>
+                                        </div>
+                                : null
+                            }
+                        </Card.Body>
+                    </Accordion.Collapse>
+                </Card>
+            </Accordion>
+
             <div className="panel panel-cart mb-3">
                 <div className="panel-body">
                     <FormPersonalData

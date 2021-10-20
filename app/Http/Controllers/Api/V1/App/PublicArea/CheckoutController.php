@@ -40,7 +40,7 @@ class CheckoutController extends Controller
 
             $order = Order::with(['customer','order_items.subscription_plan.product_subscription_plan'])->find($request->order_id);
 
-            if (isset($request->attachments)) {
+            if (isset($request->attachments) && $request->prescription_radio == 'true') {
                 foreach ($request->attachments as $key =>  $file) {
                     $prescription = new Prescription();
                     $prescription->customer_id = $order->customer_id;
@@ -50,6 +50,24 @@ class CheckoutController extends Controller
                     $prescription->file = $file->storeAs('public/customer/prescriptions/prescription-' . $order->customer_id .'-' . $order->id . '-' . Str::random(6), $file->getClientOriginalName());
                     $prescription->save();
                 }
+            }
+
+            if (isset($request->prescription_radio) && $request->prescription_radio == 'false') {
+                $text = '';
+                if ($request->without_prescription_answer == 1) {
+                    $text = 'Perdí mi Receta.';
+                }
+
+                if ($request->without_prescription_answer == 2) {
+                    $text = 'Siempre la tomo, pero no cuento con Receta.';
+                }
+
+                if ($request->without_prescription_answer == 3) {
+                    $text = 'Es mi anticonceptivo que me dejo mi Doctor, pero no tengo Receta.';
+                }
+
+                $order->prescription_answer = $text;
+                $order->save();
             }
 
             return ApiResponse::JsonSuccess([
@@ -76,22 +94,18 @@ class CheckoutController extends Controller
                 if ($validation_one['status'] == false){
                     return ApiResponse::JsonFieldValidation($validation_one['errors']);
                 }else{
-                    if ($request->product_count > 0) {
-
+                    if ($request->product_count > 0 && $request->prescription_radio == 'true') {
+                        
                         $isFile = false;
 
                         foreach ($request->files as $file) {
-
-                            // if (count($file) != $request->product_count) {
-                                // return ApiResponse::JsonError(null,'Por favor, ingresar todas las recetas.');
-                            // }
-                            
                             $isFile = true;
                         }
                         
                         if (!$isFile) {
                             return ApiResponse::JsonError(null,'Por favor, ingresar al menos una receta.');
                         }
+
                     }
 
                     $customer = Customer::where('id_number',$request->id_number)->first();
@@ -101,7 +115,7 @@ class CheckoutController extends Controller
                             'customer_id' => $customer->id,
                         ], OutputMessage::STEP_SUCCESS);
                     }else{
-                        return ApiResponse::JsonSuccess(null, OutputMessage::STEP_SUCCESS);
+                        return ApiResponse::JsonSuccess([], OutputMessage::STEP_SUCCESS);
                     }
                 }
             }
