@@ -162,7 +162,13 @@
                                 <td>#{{ $object->id}}</td>
                                 <td>{{ date('d-m-Y', strtotime($object->created_at)) }}</td>
                                 <td>{{ date('H:i:s', strtotime($object->created_at)) }}</td>
-                                <td>{{ $object->payment_type == "webpay" ? "Webpay" : "Oneclick" }}</td>
+                                @if($object->payment_type == "webpay")
+                                <td>Webpay</td>
+                                @elseif($object->payment_type == "tarjeta")
+                                <td>Oneclick</td>
+                                @else
+                                <td>Pedido con error</td>
+                                @endif
                                 <td>
                                     <div class="label label-table" style="background: {{$object->formated_background}}; color: {{$object->formated_color}}; cursor:default">
                                         {{ $object->formated_status }}
