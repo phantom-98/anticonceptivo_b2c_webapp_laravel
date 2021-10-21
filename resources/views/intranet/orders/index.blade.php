@@ -167,7 +167,7 @@
                                 @elseif($object->payment_type == "tarjeta")
                                 <td>Oneclick</td>
                                 @else
-                                <td>Pedido con error</td>
+                                <td>Proceso no terminado</td>
                                 @endif
                                 <td>
                                     <div class="label label-table" style="background: {{$object->formated_background}}; color: {{$object->formated_color}}; cursor:default">
