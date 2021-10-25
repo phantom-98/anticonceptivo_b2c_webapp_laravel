@@ -157,7 +157,6 @@ class CheckoutController extends Controller
                 'last_name' => 'required',
                 'id_type' => 'required',
                 'phone_code' => 'required',
-                'phone' => 'required',
             ];
     
             $messages = [
@@ -177,6 +176,7 @@ class CheckoutController extends Controller
                 $rules += [
                     'email' => 'required|email|unique:customers,email,'.$customer->id,
                     'id_number' => 'required|unique:customers,id_number,'.$customer->id,
+                    'phone' => 'required|unique:customers,phone,'.$customer->id,
                 ];
 
             }else{
@@ -184,6 +184,7 @@ class CheckoutController extends Controller
                 $rules += [
                     'email' => 'required|email|unique:customers,email',
                     'id_number' => 'required|unique:customers,id_number',
+                    'phone' => 'required|unique:customers,phone',
                 ];
 
             }
