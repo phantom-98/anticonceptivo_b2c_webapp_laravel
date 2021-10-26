@@ -79,9 +79,14 @@ class VoucherPaymentDays extends Command
 
             foreach ($orders as $key => $order) {
                 Log::info('Paso 2');
+                $total_order = round($order->total * ($commission/100));
                 $detail = [
-                    "netUnitValue"=> round($order->total * ($commission/100)),
+                    "netUnitValue"=> $total_order / 1.19,
                     "quantity"=> 1,
+                    "taxes"=> array([
+                        "code" => 14,
+                        "percentage" => 19
+                    ]),
                     "comment"=> "Pedido número ".$order->id
                 ];
                 array_push($details, $detail);
@@ -107,10 +112,14 @@ class VoucherPaymentDays extends Command
                 }
                 $productSubscriptionPlan = ProductSubscriptionPlan::where('subscription_plan_id',$subscription_order_item->order_item->subscription_plan->id)
                 ->where('product_id',$subscription_order_item->order_item->product->id)->get()->first();
-
+                $total_order = round(($productSubscriptionPlan->price*$productSubscriptionPlan->quantity*$subscription_order_item->order_item->quantity) * ($commission/100));
                 $detail = [
-                    "netUnitValue"=> round(($productSubscriptionPlan->price*$productSubscriptionPlan->quantity*$subscription_order_item->order_item->quantity) * ($commission/100)),
+                    "netUnitValue"=> $total_order / 1.19,
                     "quantity"=> 1,
+                    "taxes"=> array([
+                        "code" => 14,
+                        "percentage" => 19
+                    ]),
                     "comment"=> "Suscripción del pedido número ".$subscription_order_item->$order->id . " "
                 ];
                 array_push($details, $detail);
