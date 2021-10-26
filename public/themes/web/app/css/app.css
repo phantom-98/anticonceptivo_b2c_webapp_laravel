@@ -1986,6 +1986,12 @@ input[type=number] {
   }
 }
 
+@media (max-width: 767px) {
+  .accordion-deadlines-responsive {
+    display: none;
+  }
+}
+
 .app-content {
   margin-top: 30px;
   min-height: calc(100vh - 482px);

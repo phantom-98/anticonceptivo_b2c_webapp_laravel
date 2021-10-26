@@ -5,7 +5,7 @@ import {Redirect} from "react-router-dom";
 import PrivacyPolicies from "./PrivacyPolicies";
 import LegalBases from "./LegalBases";
 import DeliveryCostsDeadlines from "./DeliveryCostsDeadlines";
-import BasePanelOne from "../../../template/BasePanelOne";
+import BasePanelCorporate from "../../../template/BasePanelCorporate";
 import LateralMenu from "../../../components/general/LateralMenu";
 import * as Services from "../../../Services";
 
@@ -100,7 +100,7 @@ const CorporateResponsibility = ({match}) => {
     }
 
     return (
-        <BasePanelOne
+        <BasePanelCorporate
             breadcrumbs={breadcrumbs}
             title="RESPONSABILIDAD EMPRESARIAL"
         >
@@ -108,7 +108,7 @@ const CorporateResponsibility = ({match}) => {
                 {
                     loaded ?
                         <Fragment>
-                            <div className="col-md-3">
+                            <div className="col-md-3 accordion-deadlines-responsive">
                                 <LateralMenu sections={sections} sectionSelected={sectionSelected} handleSection={handleSection}/>
                             </div>
                             <div className="col-md-9">
@@ -121,7 +121,7 @@ const CorporateResponsibility = ({match}) => {
                         </Fragment> : null
                 }
             </div>
-        </BasePanelOne>
+        </BasePanelCorporate>
     );
 };
 
