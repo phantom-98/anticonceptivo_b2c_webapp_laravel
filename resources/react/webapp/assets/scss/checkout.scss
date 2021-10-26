@@ -29,3 +29,24 @@
 .custom-file-input ~ .custom-file-label::after {
     content: "Subir";
 }
+
+@media (min-width: 768px){
+    .prescription-format-style {
+        background: #fafac8;
+        border-radius: 10px;
+        border: solid 1px;
+        border-color: #f0f08c;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 767px){
+    .prescription-format-style {
+        background: #fafac8;
+        border-radius: 10px;
+        border: solid 1px;
+        border-color: #f0f08c;
+        font-size: 12px;
+        text-align: center;
+    }
+}

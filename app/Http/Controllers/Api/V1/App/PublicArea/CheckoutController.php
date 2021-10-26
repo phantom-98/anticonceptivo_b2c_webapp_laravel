@@ -55,15 +55,11 @@ class CheckoutController extends Controller
             if (isset($request->prescription_radio) && $request->prescription_radio == 'false') {
                 $text = '';
                 if ($request->without_prescription_answer == 1) {
-                    $text = 'Perdí mi Receta.';
+                    $text = 'Mi doctor me dijo que siguiera con este, pero no me renovó la receta.';
                 }
 
                 if ($request->without_prescription_answer == 2) {
-                    $text = 'Siempre la tomo, pero no cuento con Receta.';
-                }
-
-                if ($request->without_prescription_answer == 3) {
-                    $text = 'Es mi anticonceptivo que me dejo mi Doctor, pero no tengo Receta.';
+                    $text = 'Es el que me recetaron y he tomado, pero ya no cuento con la receta.';
                 }
 
                 $order->prescription_answer = $text;

@@ -222,6 +222,7 @@ const UserForm = ({setView, data, setData, setFiles, files, editable, setProduct
                                             ) : null
                                         })
                                     :                    
+                                    <>
                                         <div className="form-group">
                                             <h3 className="my-auto font-poppins font-14 bold color-033F5D" style={{backgroundColor: 'white'}}>
                                                 Motivo
@@ -230,7 +231,7 @@ const UserForm = ({setView, data, setData, setFiles, files, editable, setProduct
                                                 <Form.Check
                                                     custom
                                                     // inline
-                                                    label="Perdí mi Receta."
+                                                    label="Mi doctor me dijo que siguiera con este, pero no me renovó la receta."
                                                     type="radio"
                                                     className="my-2"
                                                     name="without_prescription_answer"
@@ -241,7 +242,7 @@ const UserForm = ({setView, data, setData, setFiles, files, editable, setProduct
                                                 <Form.Check
                                                     custom
                                                     // inline
-                                                    label="Siempre la tomo, pero no cuento con una Receta."
+                                                    label="Es el que me recetaron y he tomado, pero ya no cuento con la receta."
                                                     type="radio"
                                                     className="my-2"
                                                     name="without_prescription_answer"
@@ -249,19 +250,15 @@ const UserForm = ({setView, data, setData, setFiles, files, editable, setProduct
                                                     onClick={() => setWithoutPrescriptionAnswer(2)}
                                                     checked={withoutPrescriptionAnswer === 2 ? true : false}
                                                 />
-                                                <Form.Check
-                                                    custom
-                                                    // inline
-                                                    label="Es mi anticonceptivo que me dejo mi Doctor, pero no tengo Receta."
-                                                    type="radio"
-                                                    className="my-2"
-                                                    name="without_prescription_answer"
-                                                    id={`without_prescription_answer_three`}
-                                                    onClick={() => setWithoutPrescriptionAnswer(3)}
-                                                    checked={withoutPrescriptionAnswer === 3 ? true : false}
-                                                />
                                             </div>
                                         </div>
+
+                                        <div className="form-group">
+                                            <div className="col-md-12 col-12 mt-4 py-2 prescription-format-style font-poppins regular color-6C6B6B">
+                                                (*) Opciones validadas por el Farmaceútico, sólo son excepcionales y no reemplazan por ningún motivo la atención con un médico o matrona.
+                                            </div>
+                                        </div>
+                                    </>
                                 : null
                             }
                         </Card.Body>
