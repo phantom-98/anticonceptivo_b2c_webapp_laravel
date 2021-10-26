@@ -367,10 +367,10 @@ class WebpayPlusController
                     $order->payment_type = 'tarjeta';
                     $order->save();
 
-                    CallIntegrationsPay::callVoucher($order->id,$customerAddress);
-                    CallIntegrationsPay::callDispatchLlego($order->id,$customerAddress);
-                    CallIntegrationsPay::callUpdateStockProducts($order->id);
-                    CallIntegrationsPay::sendEmailsOrder($order->id);
+                    //CallIntegrationsPay::callVoucher($order->id,$customerAddress);
+                    //CallIntegrationsPay::callDispatchLlego($order->id,$customerAddress);
+                    //CallIntegrationsPay::callUpdateStockProducts($order->id);
+                    //CallIntegrationsPay::sendEmailsOrder($order->id);
 
                     return ApiResponse::JsonSuccess([
                         'order' => $order
@@ -500,10 +500,10 @@ class WebpayPlusController
                     Log::info('RESPONSE_STOCK_PRODUCT_FOUND', [$responseStockProduct['status']]);
 
                     $customerAddress = CustomerAddress::with('commune')->where('customer_id',$order->customer_id)->where('default_address',1)->get()->first();
-                    CallIntegrationsPay::callVoucher($order->id,$customerAddress);
-                    CallIntegrationsPay::callUpdateStockProducts($order->id);
-                    CallIntegrationsPay::callDispatchLlego($order->id,$customerAddress);
-                    CallIntegrationsPay::sendEmailsOrder($order->id);
+                    //CallIntegrationsPay::callVoucher($order->id,$customerAddress);
+                    //CallIntegrationsPay::callUpdateStockProducts($order->id);
+                    //CallIntegrationsPay::callDispatchLlego($order->id,$customerAddress);
+                    //CallIntegrationsPay::sendEmailsOrder($order->id);
                 }
 
             } else {
