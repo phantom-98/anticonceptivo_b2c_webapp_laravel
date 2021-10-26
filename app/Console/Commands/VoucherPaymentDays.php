@@ -129,6 +129,7 @@ class VoucherPaymentDays extends Command
             $data_voucher = array(
                 "codeSii"=> 33,
                 "officeId"=> 1,
+                "declareSii" => 1,
                 "emissionDate"=> Carbon::now()->timestamp,
                 "client"=> [
                   "code"=> "76.736.577-2",
