@@ -179,7 +179,7 @@ class WebpayPlusController
         $region = Region::find($request->region_id);
         $commune = Commune::find($request->commune_id);
 
-        $order->delivery_address = $request->address .', '. $commune->name . ', ' . $region->name;
+        $order->delivery_address = $request->address .', '. $commune->name . ', ' . $region->name. ' N° de casa / Depto: ' . $request->extra_info ?? '-';
 
         $subtotal = 0;
         $isSubscription = 0;

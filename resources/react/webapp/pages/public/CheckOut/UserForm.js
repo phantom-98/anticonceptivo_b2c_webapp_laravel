@@ -255,7 +255,7 @@ const UserForm = ({setView, data, setData, setFiles, files, editable, setProduct
 
                                         <div className="form-group">
                                             <div className="col-md-12 col-12 mt-4 py-2 prescription-format-style font-poppins regular color-6C6B6B">
-                                                (*) Opciones validadas por el Farmaceútico, sólo son excepcionales y no reemplazan por ningún motivo la atención con un médico o matrona.
+                                                (*) Opciones validadas por el Farmacéutico, sólo son excepcionales y no reemplazan por ningún motivo la atención con un médico o matrona.
                                             </div>
                                         </div>
                                     </>

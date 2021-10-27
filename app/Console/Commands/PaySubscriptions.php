@@ -121,7 +121,7 @@ class PaySubscriptions extends Command
     private function sendCallIntegration($array_subscription_order_items){
         $first_subcription_order_item = $array_subscription_order_items->first();
         $order = new Order();
-        $order->delivery_address = $first_subcription_order_item->delivery_address . ', '.  $first_subcription_order_item->customer_address->commune->name;
+        $order->delivery_address = $first_subcription_order_item->delivery_address;
         $order->discount = 0;
         $order->dispatch = $this->getDeliveryCost($first_subcription_order_item->customer_address->commune->name)['price_dispatch'];
         $order->save();
@@ -180,7 +180,7 @@ class PaySubscriptions extends Command
                 "tradeName"=> null,
                 "email"=> $customer->email,
                 "phone"=> $customer->phone,
-                "address"=> str_replace('ñ','n',$first_subcription_order_item->customer_address->address) .' '. str_replace('ñ','n',$first_subcription_order_item->customer_address->extra_info)
+                "address"=> str_replace('ñ','n',$first_subcription_order_item->customer_address->address)
             ],
             "facilityId"=> env('FACILITY_ID'),
             "cashRegisterId"=> env('CASH_REGISTER'),
