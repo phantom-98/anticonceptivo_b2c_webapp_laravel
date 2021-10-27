@@ -57,7 +57,7 @@ class VoucherPaymentDays extends Command
     {
         try{
             Log::info('Paso 1');
-            $datePayment = Carbon::now()->subDay();
+            $datePayment = Carbon::now()->subDays(2);
 
             $orders = Order::whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED'])->whereDate('created_at',$datePayment)
             // ->with('subscriptions_orders_items.order_item','order_items')
