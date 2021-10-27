@@ -1,14 +1,16 @@
 import React, {Fragment} from 'react';
 import {CONFIG} from "../../../Config";
 import moment from "moment";
+import noImage from "../../../assets/images/producto-default.png";
 
 const Article = ({post}) =>{
+
     return (
         <Fragment>
             <div className="row pb-5">
                 <div className="col-md-2 d-flex">
                     <div className="mt-auto">
-                        <div><img width="110px"  src={post.author.avatar_public} alt={CONFIG.APP_NAME}/></div>
+                        <div><img width="110px"  src={post.author.avatar_public ? post.author.avatar_public :noImage } alt={CONFIG.APP_NAME}/></div>
                         <div className="font-inter font-18 bold text-black">{post.author.full_name}</div>
                         <div className="font-inter font-16 bold text-black">{moment(post.published_at).lang('es').format('DD MMM YYYY')}</div>
                     </div>
