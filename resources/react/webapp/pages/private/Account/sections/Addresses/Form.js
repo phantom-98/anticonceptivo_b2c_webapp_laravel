@@ -263,7 +263,7 @@ const Form = ({addressSelected, goBack, formMode, customerId = null, regions, se
                                 }
                             });
 
-                            setGoogleAddress(route+', '+street_number)
+                            setGoogleAddress(route+' '+street_number)
 
                             if (flag) {
                                 if (street_number.length > 0 && route.length > 0) {
