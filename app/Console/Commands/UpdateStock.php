@@ -70,7 +70,7 @@ class UpdateStock extends Command
                 $product->save();
             }
 
-            Log::info('Stock actualizados correctamente');
+            //Log::info('Stock actualizados correctamente');
         } catch (\Exception $e){
 
             Log::info('Error catch updateStock',

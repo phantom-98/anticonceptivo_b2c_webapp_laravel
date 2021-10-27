@@ -79,10 +79,10 @@ class UpdateStateDispatch extends Command
                 }
             }
         }catch (\Exception $e){
-            Log::info('Error catch status llego',
+            /*Log::info('Error catch status llego',
                 [
                     "response" => $e->getMessage()
-                ]);
+                ]);*/
         }
 
     }
