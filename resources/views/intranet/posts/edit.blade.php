@@ -58,7 +58,7 @@
                                     <label for="author_id">Autor</label>
                                     <select id="author_id" name="author_id" class="form-control select2" data-width="100%">
                                         <option value="" selected disabled>Seleccione un autor</option>
-                                        @foreach($types as $c)
+                                        @foreach($autors as $c)
                                             <option value="{{ $c->id }}" {{ $object->author_id == $c->id ? 'selected' : ''}}>{{ $c->name }}</option>
                                         @endforeach
                                     </select>
