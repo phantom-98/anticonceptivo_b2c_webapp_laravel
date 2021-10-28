@@ -87,7 +87,7 @@ class AuthController extends Controller
     public function recoveryPassword(Request $request)
     {
         $this->validate($request, [
-            'recovery_pin' => 'required|numeric|max:100000',
+            'remember_token' => 'required|numeric|max:100000',
             'email' => 'required|email',
             'password' => 'required|min:4|confirmed',
             'password_confirmation' => 'required|min:4'
@@ -97,9 +97,9 @@ class AuthController extends Controller
 
         if ($user) {
 
-            if ($user->recovery_pin == $request->recovery_pin) {
+            if ($user->remember_token == $request->remember_token) {
                 $user->password = bcrypt($request->password);
-                $user->recovery_pin = null;
+                $user->remember_token = null;
                 $user->save();
 
                 session()->flash('success', 'Su contraseña ha sido modificada correctamente.');
