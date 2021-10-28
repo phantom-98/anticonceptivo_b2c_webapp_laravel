@@ -18,7 +18,7 @@
                 {{ csrf_field() }}
                 <div class="form-group has-feedback {{ $errors->has('remember_token') ? 'has-error':'' }}">
                     <input type="text"
-                           maxlength="4"
+                           maxlength="6"
                            class="form-control"
                            placeholder="Código PIN"
                            name="remember_token"
