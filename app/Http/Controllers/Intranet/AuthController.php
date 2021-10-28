@@ -97,9 +97,9 @@ class AuthController extends Controller
 
         if ($user) {
 
-            if ($user->remember_token == $request->remember_token) {
+            if ($user->recovery_pin == $request->remember_token) {
                 $user->password = bcrypt($request->password);
-                $user->remember_token = null;
+                $user->recovery_pin = null;
                 $user->save();
 
                 session()->flash('success', 'Su contraseña ha sido modificada correctamente.');
