@@ -31,7 +31,7 @@ const BasePanelOne = (props) => {
                                     </div>
 
                                     {
-                                        location.pathname === '/mi-cuenta/informacion-personal' ?
+                                         location.pathname.includes('/mi-cuenta/') ?
                                             <div className="col-4">
                                                 <Link to="#" onClick={() => logout()} className="font-poppins font-16 lh-12 regular pointer text-danger">
                                                     <div className="text-right mt-2">Cerrar</div>
