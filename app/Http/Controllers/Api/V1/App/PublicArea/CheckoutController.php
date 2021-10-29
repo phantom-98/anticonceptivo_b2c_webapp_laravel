@@ -41,6 +41,24 @@ class CheckoutController extends Controller
             $order = Order::with(['customer','order_items.subscription_plan.product_subscription_plan'])->find($request->order_id);
 
             if (isset($request->attachments) && $request->prescription_radio == 'true') {
+                
+                $rules = [
+                    'attachments' => 'required',
+                    'attachments.*' => 'mimes:jpg,jpeg,png,pdf,doc,docx|max:5000'
+                ];
+
+                $messages = [
+                    'attachments.required' => 'Por favor, ingresar al menos una receta.',
+                    'attachments.*.mimes' => 'Las extensiones .jpg, .jpeg, .png, .pdf, .doc y .docx están permitidos.',
+                    'attachments.*.max' => 'El archivo no puede superar los 5MB.',
+                ];
+
+                $validator = Validator::make($request->all(), $rules, $messages);
+
+                if (!$validator->passes()) {
+                    return ApiResponse::JsonFieldValidation($validator->errors());
+                }
+
                 foreach ($request->attachments as $key =>  $file) {
                     $prescription = new Prescription();
                     $prescription->customer_id = $order->customer_id;
@@ -92,16 +110,22 @@ class CheckoutController extends Controller
                 }else{
                     if ($request->product_count > 0 && $request->prescription_radio == 'true') {
                         
-                        $isFile = false;
+                        $rules = [
+                            'attachments' => 'required',
+                            'attachments.*' => 'mimes:jpg,jpeg,png,pdf,doc,docx|max:5000'
+                        ];
 
-                        foreach ($request->files as $file) {
-                            $isFile = true;
-                        }
-                        
-                        if (!$isFile) {
-                            return ApiResponse::JsonError(null,'Por favor, ingresar al menos una receta.');
-                        }
+                        $messages = [
+                            'attachments.required' => 'Por favor, ingresar al menos una receta.',
+                            'attachments.*.mimes' => 'Las extensiones .jpg, .jpeg, .png, .pdf, .doc y .docx están permitidos.',
+                            'attachments.*.max' => 'El archivo no puede superar los 5MB.',
+                        ];
 
+                        $validator = Validator::make($request->all(), $rules, $messages);
+
+                        if (!$validator->passes()) {
+                            return ApiResponse::JsonFieldValidation($validator->errors());
+                        }
                     }
 
                     $customer = Customer::where('id_number',$request->id_number)->first();

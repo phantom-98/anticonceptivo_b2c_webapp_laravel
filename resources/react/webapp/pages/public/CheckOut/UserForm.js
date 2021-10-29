@@ -198,10 +198,12 @@ const UserForm = ({setView, data, setData, setFiles, files, editable, setProduct
                                                                     className="my-auto custom-file-input"
                                                                     id={item.product.id}
                                                                     name={index}
-                                                                    // name="avatar"
                                                                     onChange={handleFile}
-                                                                    accept=".jpg, .jpeg, .png, .pdf"
+                                                                    // onFocus={setCleanInputErrorById(`files.${index}`)}
+                                                                    accept=".jpg, .jpeg, .png, .pdf, .doc, .docx"
                                                                 />
+                                                                <div id={`attachments.${index}`}/>
+                                                                <div className="invalid-feedback" />
                                                                 <label
                                                                     className="custom-file-label ml-0 pb-0 input-file-register"
                                                                     htmlFor={item.product.id}
