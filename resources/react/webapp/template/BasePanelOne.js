@@ -1,15 +1,15 @@
 import React, {useContext} from 'react';
 import Breadcrumbs from "../components/Breadcrumbs";
 import UseWindowDimensions from "../components/customHooks/UseWindowDimensions";
-import {Link} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import {AuthContext} from "../context/AuthProvider";
-
 
 const BasePanelOne = (props) => {
 
     const { width } = UseWindowDimensions();
     const { logout } = useContext(AuthContext)
-
+    
+    let location = useLocation();
     return (
         <div style={{background : '#FAFAFA'}}>
             <div className="container py-4">
@@ -29,11 +29,16 @@ const BasePanelOne = (props) => {
                                             : null
                                         }
                                     </div>
-                                    <div className="col-4">
-                                        <Link to="#" onClick={() => logout()} className="font-poppins font-16 lh-12 regular pointer text-danger">
-                                            <div className="text-right mt-2">Cerrar</div>
-                                        </Link>
-                                    </div>
+
+                                    {
+                                        location.pathname === '/mi-cuenta/informacion-personal' ?
+                                            <div className="col-4">
+                                                <Link to="#" onClick={() => logout()} className="font-poppins font-16 lh-12 regular pointer text-danger">
+                                                    <div className="text-right mt-2">Cerrar</div>
+                                                </Link>
+                                            </div>
+                                        : null
+                                    }
                                 </>
                                 : 
 

@@ -88,18 +88,32 @@ export const phoneLength = (number) => {
 // }
 
 
-export const capitalizeFirstLetterOfEachWord = (value) => {
+export const capitalizeFirstLetterOfEachWord = (value, isSpace) => {
     try {
 
-        let string = value
-            .toLowerCase()
-            .split(" ")
-            .map(word => word.charAt(0).toUpperCase() + word.substring(1))
-            .join(" ");
+        if (isSpace) {
+            let string = value
+                .toLowerCase()
+                .split(" ")
+                .map(word => word.charAt(0).toUpperCase() + word.substring(1))
+                .join(" ");
 
-        string = string.replace(/[^a-zA-ZáéíóúÁÉÍÓÚ´ñÑ ]/g, "");
+            string = string.replace(/[^a-zA-ZáéíóúÁÉÍÓÚ´ñÑ ]/g, "");
 
-        return string;
+            return string;
+        } else {
+            let string = value
+                .toLowerCase()
+                .split("-")
+                .map(word => word.charAt(0).toUpperCase() + word.substring(1))
+                .join(" ");
+
+            string = string.replace(/[^a-zA-ZáéíóúÁÉÍÓÚ´ñÑ ]/g, "");
+
+            return string;
+        }
+
+        
 
     } catch (e) {
     }

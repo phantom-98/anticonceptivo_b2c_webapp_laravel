@@ -1,12 +1,10 @@
-import React, {useState} from 'react';
+import React from 'react';
 
 const QuantityInput = ({quantity, setQuantity, maxQuantity}) => {
 
-
-
     const handleQuantity = (e) => {
         const value = parseInt(e.target.value);
-        if (!isNaN(value)) {
+        if (!isNaN(value) && e.target.value.match(`^[1-9][0-9]?$|^${maxQuantity}$`) && value <= maxQuantity) {
             setQuantity(value)
         }
     }

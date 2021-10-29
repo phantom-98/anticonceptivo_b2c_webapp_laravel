@@ -9,7 +9,7 @@ import ProductList from "./ProductList";
 import * as Services from "../../../Services";
 import {propsLength} from "../../../helpers/ShopHelper";
 import toastr from "toastr";
-
+import {capitalizeFirstLetterOfEachWord} from "../../../helpers/GlobalUtils";
 
 const Shop = ({match}) => {
 
@@ -88,19 +88,22 @@ const Shop = ({match}) => {
 
                     if (response.data.subcat){
                         setSubcatNames(response.data.subcat.name);
+                        document.title = 'anticonceptivo.cl | ' + (capitalizeFirstLetterOfEachWord(response.data.subcat.name));
                         setFilters({
                             ...filters,
                             ['subcategories']: [response.data.subcat.id]
                         });
+                    }else{
+                        document.title = 'anticonceptivo.cl | ' + (capitalizeFirstLetterOfEachWord(response.data.category.name));
                     }
 
-                    if (response.data.subcat){
-                        setSubcatNames(response.data.subcat.name);
-                        setFilters({
-                            ...filters,
-                            ['subcategories']: [response.data.subcat.id]
-                        });
-                    }
+                    // if (response.data.subcat){
+                    //     setSubcatNames(response.data.subcat.name);
+                    //     setFilters({
+                    //         ...filters,
+                    //         ['subcategories']: [response.data.subcat.id]
+                    //     });
+                    // }
 
                     switch (_type) {
                         case 'laboratorio':

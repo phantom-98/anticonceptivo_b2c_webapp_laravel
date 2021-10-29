@@ -13,9 +13,6 @@ const AddCartCard = ({quantity, setQuantity, product,subscription}) =>{
     const {showModalAuth} = useContext(AppContext)
 
     const handleAddToCart = () =>{
-        // console.log(quantity)
-        // console.log(product)
-        // console.log(subscription)
 
         if (subscription && !auth) {
             const swalWithBootstrapButtons = Swal.mixin({
@@ -29,8 +26,6 @@ const AddCartCard = ({quantity, setQuantity, product,subscription}) =>{
             
             swalWithBootstrapButtons.fire({
                 title: '<span style="color: #0869A6;">Para agregar este producto debes acceder a tu cuenta</span>',
-                // icon: 'warning',
-                // showCancelButton: true,
                 confirmButtonText: 'Acceder',
                 cancelButtonText: 'Cancelar',
                 showCancelButton: true,
@@ -52,25 +47,26 @@ const AddCartCard = ({quantity, setQuantity, product,subscription}) =>{
     return (
         <div className="row">
             <div className="col-auto pr-1">
-
-            {subscription != null
-                        ? null
-                        : <QuantityInput quantity={quantity} setQuantity={setQuantity} maxQuantity={product.subcategory.category.quantity_limit}/>
+            {
+                subscription != null 
+                    ? null
+                : <QuantityInput quantity={quantity} setQuantity={setQuantity} maxQuantity={product.subcategory.category.quantity_limit}/>
             }
             </div>
 
-            {product.stock != 0
-                ?            <div className="col pl-1">
-                <button className="btn btn-outline-bicolor btn-add-cart btn-block px-1" onClick={() => handleAddToCart()}>
-                    <span>AGREGAR AL CARRO</span>
-                </button>
-            </div>
+            {
+                product.stock != 0 ? 
+                    <div className="col pl-1">
+                        <button className="btn btn-outline-bicolor btn-add-cart btn-block px-1" onClick={() => handleAddToCart()}>
+                            <span>AGREGAR AL CARRO</span>
+                        </button>
+                    </div>
                 :
-                <div className="col pl-1">
-                <button disabled className="btn btn-outline-bicolor btn-add-cart btn-block px-1" >
-                    <span>SIN STOCK ONLINE </span>
-                </button>
-            </div>
+                    <div className="col pl-1">
+                        <button disabled className="btn btn-outline-bicolor btn-add-cart btn-block px-1" >
+                            <span>SIN STOCK ONLINE </span>
+                        </button>
+                    </div>
             }
 
         </div>
