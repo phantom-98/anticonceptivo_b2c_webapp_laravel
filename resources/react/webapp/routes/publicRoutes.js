@@ -193,7 +193,7 @@ const PUBLIC_ROUTES = {
 
     HOME: {
         path: "/",
-        title: "Venta de Anticonceptivos",
+        title: "Inicio",
         component: Home,
         exact: true,
         layout: props => <BaseTemplate {...props} />,
