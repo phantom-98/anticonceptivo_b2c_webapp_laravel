@@ -10,6 +10,7 @@ import ProductGallery from "./ProductGalery";
 import * as Services from "../../../Services";
 import LazyLoading from "../../../components/LazyLoading";
 import Bioequivalent from "../../../assets/images/icons/bioequivalence.png"
+import {capitalizeFirstLetterOfEachWord} from "../../../helpers/GlobalUtils";
 
 const ProductDetail = ({match}) => {
 
@@ -37,6 +38,8 @@ const ProductDetail = ({match}) => {
                     name: product.name,
                 }
             ]);
+
+            document.title = 'anticonceptivo.cl | ' + capitalizeFirstLetterOfEachWord(product.name, true);
         }
     },[product])
 
