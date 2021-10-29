@@ -3,7 +3,7 @@ import {Route, withRouter} from "react-router-dom";
 
 const PublicMiddleware = ({path: path, component: Component, layout: Layout, title, exact}) => {
 
-    document.title = 'anticonceptivo.cl | ' + (title);
+    document.title = (title) + ' - Anticonceptivo';
 
     return <Route exact={exact} path={path} render={(props) => {
         return (

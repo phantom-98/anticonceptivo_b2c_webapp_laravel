@@ -39,7 +39,7 @@ const ProductDetail = ({match}) => {
                 }
             ]);
 
-            document.title = 'anticonceptivo.cl | ' + capitalizeFirstLetterOfEachWord(product.name, true);
+            document.title = capitalizeFirstLetterOfEachWord(product.name, true) + ' - Anticonceptivo';
         }
     },[product])
 
