@@ -169,16 +169,22 @@ class ProfileController extends Controller
 
             if ($request->product_count > 0 && $request->prescription_radio == 'true') {
 
-                $isFile = false;
+                $rules = [
+                    'attachments' => 'required',
+                    'attachments.*' => 'mimes:jpg,jpeg,png,pdf,doc,docx|max:5000'
+                ];
 
-                foreach ($request->files as $file) {
-                    $isFile = true;
-                }
-                
-                if (!$isFile) {
-                    return ApiResponse::JsonError(null,'Por favor, ingresar al menos una receta.');
-                }
+                $messages = [
+                    'attachments.required' => 'Por favor, ingresar al menos una receta.',
+                    'attachments.*.mimes' => 'Las extensiones .jpg, .jpeg, .png, .pdf, .doc y .docx están permitidos.',
+                    'attachments.*.max' => 'El archivo no puede superar los 5MB.',
+                ];
 
+                $validator = Validator::make($request->all(), $rules, $messages);
+
+                if (!$validator->passes()) {
+                    return ApiResponse::JsonFieldValidation($validator->errors());
+                }
             }
 
             $addresses = CustomerAddress::where('customer_id', $customer->id)->get();

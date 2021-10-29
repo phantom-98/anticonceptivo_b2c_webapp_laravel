@@ -200,7 +200,7 @@ const CheckOut = () => {
             let fileList = [...files]
 
             for(let i=0; i < fileList.length; i++){
-                formData.append('files[]', fileList[i]);
+                formData.append('attachments[]', fileList[i]);
             }
 
             const config = {
@@ -225,6 +225,11 @@ const CheckOut = () => {
                 warning: () => {
                     toastr.warning(response.message);
                 },
+                validate: () => {
+                    if (response.data.attachments) {
+                        toastr.error(response.data.attachments[0]);
+                    }
+                }
                 });
             }).catch(error => {
                 Services.ErrorCatch(error)
@@ -251,7 +256,7 @@ const CheckOut = () => {
         let fileList = [...files]
 
         for(let i=0; i < fileList.length; i++){
-            formData.append('files[]', fileList[i]);
+            formData.append('attachments[]', fileList[i]);
         }
 
         const config = {
@@ -277,6 +282,11 @@ const CheckOut = () => {
                 warning: () => {
                     toastr.warning(response.message);
                 },
+                validate: () => {
+                    if (response.data.attachments) {
+                        toastr.error(response.data.attachments[0]);
+                    }
+                }
             });
         }).catch(error => {
             Services.ErrorCatch(error)
