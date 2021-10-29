@@ -134,7 +134,7 @@ class CategoryController extends GlobalController
 
         if ($validator->passes()) {
 
-            $object->update($request->except(['image']));
+            $object->update(array_merge($request->except('image', 'banner_image'), ['slug' => \Str::slug($request->name)]));
 
             $object->save();
 
