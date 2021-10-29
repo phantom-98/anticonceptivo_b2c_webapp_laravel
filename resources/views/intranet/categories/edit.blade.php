@@ -135,7 +135,7 @@
 @endsection
 
 @section('styles')
-    <link href="/themes/intranet/plugins/switchery/switchery.min.css" rel="stylesheet">
+    <link href="/themes/intranet/plugins/switchery/switchery.min.css" rel="stylesheet"> 
     <link href="/themes/intranet/plugins/select2/css/select2.min.css" rel="stylesheet">
     <link href="/themes/intranet/plugins/summernote/summernote.min.css" rel="stylesheet">
 @endsection

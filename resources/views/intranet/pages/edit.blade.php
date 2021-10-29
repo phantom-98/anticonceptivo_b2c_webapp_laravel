@@ -66,7 +66,7 @@
                             <div class="col-sm-12" id="propia" style="{{ $object->type == "Página Externa" ? "display:none" : ""}}">
                                 <div class="form-group">
                                     <label for="description">Descripción (*)</label>
-                                    <textarea name="description" id="description" rows="3" style="resize: none">{{ old('description') ?? $object->description }}</textarea>
+                                    <textarea name="description" id="description" rows="3" style="resize: none" class="summernote" required>{{ old('description') ?? $object->description }}</textarea>
                                 </div>  
                             </div>
 
@@ -108,7 +108,6 @@
     <!--Bootstrap Select [ OPTIONAL ]-->
     <script src="/themes/intranet/plugins/select2/js/select2.min.js"></script>
 
-    <script src="https://cdn.ckeditor.com/4.11.4/standard/ckeditor.js"></script>
 
     <script>
         function changeType(value){
@@ -124,61 +123,5 @@
                 contentcheck = false;
             }
         }
-    </script>
-
-    <script>
-        var editor = CKEDITOR.replace('description', {
-            language: 'es',
-            entities_latin: false,
-            enterMode : CKEDITOR.ENTER_BR,
-            autoParagraph: false,
-            resize_enabled: false,
-            height: '280px',
-            on: {
-                change: function() {
-                    checkContent(); 
-                }
-            }
-        });
-    </script>
-    <script>
-        $(document).ready(function() {
-            if(CKEDITOR.instances['description'].getData()){
-                contentcheck = true;
-            } else {
-                contentcheck = false;
-            }
-            let object = @json($object);
-            if(object.type == "Página Externa"){
-                contentcheck = true;
-            }
-        });
-
-        function checkContent(){
-            if(CKEDITOR.instances['description'].getData()){
-                contentcheck = true;
-            } else {
-                contentcheck = false;
-            }
-        }
-    </script>
-    <script>
-        $("#form-edit").submit(function(e){
-            if(contentcheck == false){
-                e.preventDefault();
-                swal({
-                    title: 'Debe llenar campo "Descripción"',
-                    html: 'El campo descripción es obligatorio para finalizar el proceso',
-                    type: 'error',
-                    showCancelButton: false,
-                    confirmButtonColor: '#43a047',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Aceptar',
-                    cancelButtonText: 'No, cancelar!'
-                }).then(function (result) {
-                    
-                });
-            } 
-        });
     </script>
 @endsection

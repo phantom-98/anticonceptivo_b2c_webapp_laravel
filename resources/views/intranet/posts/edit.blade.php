@@ -77,7 +77,7 @@
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label for="content">Contenido (*)</label>
-                                    <textarea name="content" id="content" rows="3" style="resize: none">{{ old('content') ?? $object->content }}</textarea>
+                                    <textarea name="content" id="content" rows="3" style="resize: none" class="summernote" required>{{ old('content') ?? $object->content }}</textarea>
                                 </div>  
                             </div>
 
@@ -204,59 +204,6 @@
 
         $("#image").change(function () {
             readURL(this);
-        });
-    </script>
-
-    <script src="https://cdn.ckeditor.com/4.11.4/standard/ckeditor.js"></script>
-    <script>
-        var editor = CKEDITOR.replace('content', {
-            language: 'es',
-            entities_latin: false,
-            enterMode : CKEDITOR.ENTER_BR,
-            autoParagraph: false,
-            resize_enabled: false,
-            height: '280px',
-            on: {
-                change: function() {
-                    checkContent(); 
-                }
-            }
-        });
-    </script>
-    <script>
-        $(document).ready(function() {
-            if(CKEDITOR.instances['content'].getData()){
-                contentcheck = true;
-            } else {
-                contentcheck = false;
-            }
-        });
-
-        function checkContent(){
-            if(CKEDITOR.instances['content'].getData()){
-                contentcheck = true;
-            } else {
-                contentcheck = false;
-            }
-        }
-    </script>
-    <script>
-        $("#form-edit").submit(function(e){
-            if(contentcheck == false){
-                e.preventDefault();
-                swal({
-                    title: 'Debe llenar campo "Contenido"',
-                    html: 'El campo contenido es obligatorio para finalizar el proceso',
-                    type: 'error',
-                    showCancelButton: false,
-                    confirmButtonColor: '#43a047',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Aceptar',
-                    cancelButtonText: 'No, cancelar!'
-                }).then(function (result) {
-                    
-                });
-            } 
         });
     </script>
 @endsection

@@ -48,7 +48,7 @@
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label for="answer">Respuesta (*)</label>
-                                    <textarea name="answer" id="answer" rows="3" style="resize: none">{{ old('answer') }}</textarea>
+                                    <textarea name="answer" id="answer" rows="3" style="resize: none" class="summernote" required>{{ old('answer') }}</textarea>
                                 </div>  
                             </div>
                         </div>
@@ -75,56 +75,4 @@
 @endsection
 
 @section('scripts')
-<script src="https://cdn.ckeditor.com/4.11.4/standard/ckeditor.js"></script>
-<script>
-    var editor = CKEDITOR.replace('answer', {
-        language: 'es',
-        entities_latin: false,
-        enterMode : CKEDITOR.ENTER_BR,
-        autoParagraph: false,
-        resize_enabled: false,
-        height: '280px',
-        on: {
-            change: function() {
-                checkContent(); 
-            }
-        }
-    });
-</script>
-<script>
-    $(document).ready(function() {
-        if(CKEDITOR.instances['answer'].getData()){
-            contentcheck = true;
-        } else {
-            contentcheck = false;
-        }
-    });
-
-    function checkContent(){
-        if(CKEDITOR.instances['answer'].getData()){
-            contentcheck = true;
-        } else {
-            contentcheck = false;
-        }
-    }
-</script>
-<script>
-    $("#form-create").submit(function(e){
-        if(contentcheck == false){
-            e.preventDefault();
-            swal({
-                title: 'Debe llenar campo "Respuesta"',
-                html: 'El campo respuesta es obligatorio para finalizar el proceso',
-                type: 'error',
-                showCancelButton: false,
-                confirmButtonColor: '#43a047',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Aceptar',
-                cancelButtonText: 'No, cancelar!'
-            }).then(function (result) {
-                
-            });
-        } 
-    });
-</script>
 @endsection
