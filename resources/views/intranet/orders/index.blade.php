@@ -236,11 +236,11 @@
                                                         </a>
                                                         @endif
                                                     @endif
-                                                    @if($object->status == "PAID" || $object->status == "DISPATCHED" || $object->status == "DELIVERED")
+                                                    @if($object->status == "PAID" || $object->status == "DISPATCHED" || $object->status == "DELIVERED" || $object->status == "CREATED" || $object->status == "CANCELED")
                                                     <a onclick="sendEmail({{$object->id}})"
                                                         class="btn btn-sm btn-default btn-hover-info add-tooltip"
                                                         title="Reenviar correo">
-                                                            <i class="fa fa-envelope"></i>
+                                                            <i class="fa fa-cogs"></i>
                                                     </a>
                                                     @endif
                                                 @endpush
@@ -252,11 +252,11 @@
                                                         <i class="fa fa-retweet"></i>
                                                 </a>
                                                 @endif
-                                                @if($object->status == "PAID" || $object->status == "DISPATCHED" || $object->status == "DELIVERED")
+                                                @if($object->status == "PAID" || $object->status == "DISPATCHED" || $object->status == "DELIVERED" || $object->status == "CREATED" || $object->status == "CANCELED")
                                                 <a onclick="sendEmail({{$object->id}})"
                                                     class="btn btn-sm btn-default btn-hover-info add-tooltip"
                                                     title="Reenviar correo">
-                                                        <i class="fa fa-envelope"></i>
+                                                        <i class="fa fa-cogs"></i>
                                                 </a>
                                                 @endif
                                             @endif
