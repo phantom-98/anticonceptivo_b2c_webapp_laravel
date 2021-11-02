@@ -16,7 +16,6 @@ use Illuminate\Support\Facades\Mail;
 use App\Http\Helpers\CallIntegrationsPay;
 use App\Http\Utils\Enum\PaymentStatus;
 use \App\Models\CustomerAddress;
-use \App\Models\OrderItem;
 use \App\Models\SubscriptionsOrdersItem;
 
 class OrderController extends GlobalController
