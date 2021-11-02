@@ -14,6 +14,10 @@ use App\Exports\OrderExportIndex;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Helpers\CallIntegrationsPay;
+use App\Http\Utils\Enum\PaymentStatus;
+use \App\Models\CustomerAddress;
+use \App\Models\OrderItem;
+use \App\Models\SubscriptionsOrdersItem;
 
 class OrderController extends GlobalController
 {
@@ -227,27 +231,27 @@ class OrderController extends GlobalController
     
         if($order->payment_type == 'webpay'){
             if($order->is_paid == 0){
-                $order->status = App\Http\Utils\Enum\PaymentStatus::PAID;
-                $order->payment_date = \Carbon\Carbon::now();
+                $order->status = PaymentStatus::PAID;
+                $order->payment_date = Carbon::now();
                 $order->payment_type = 'webpay';
                 $order->is_paid = true;
                 $order->save();
 
-                $customerAddress =  \App\Models\CustomerAddress::where('customer_id', $order->customer_id)->latest()->first();
+                $customerAddress =  CustomerAddress::where('customer_id', $order->customer_id)->latest()->first();
         
-                App\Http\Helpers\CallIntegrationsPay::callVoucher($order->id,$customerAddress);
-                App\Http\Helpers\CallIntegrationsPay::callDispatchLlego($order->id,$customerAddress);
-                App\Http\Helpers\CallIntegrationsPay::callUpdateStockProducts($order->id);
+                CallIntegrationsPay::callVoucher($order->id,$customerAddress);
+                CallIntegrationsPay::callDispatchLlego($order->id,$customerAddress);
+                CallIntegrationsPay::callUpdateStockProducts($order->id);
             }
         
-            App\Http\Helpers\CallIntegrationsPay::sendEmailsOrderRepeat($order->id);
+            CallIntegrationsPay::sendEmailsOrderRepeat($order->id);
         } else  {
-            $ordersItems = \App\Models\OrderItem::where('order_id',$order->id)->get();
+            $ordersItems = OrderItem::where('order_id',$order->id)->get();
         
             if($order->is_paid == 0){
 
                 foreach ($ordersItems as $elementOrderItem) {
-                    $subscriptionOrdersItem = \App\Models\SubscriptionsOrdersItem::where('orders_item_id',$elementOrderItem->id)->orderBy('pay_date')->first();
+                    $subscriptionOrdersItem = SubscriptionsOrdersItem::where('orders_item_id',$elementOrderItem->id)->orderBy('pay_date')->first();
                     if($subscriptionOrdersItem){
                         $subscriptionOrdersItem->is_pay = 1;
                         $subscriptionOrdersItem->order_id = $order->id;
@@ -259,20 +263,20 @@ class OrderController extends GlobalController
                     }
                 }
 
-                $order->status = App\Http\Utils\Enum\PaymentStatus::PAID;
-                $order->payment_date = \Carbon\Carbon::now();
+                $order->status = PaymentStatus::PAID;
+                $order->payment_date = Carbon::now();
                 $order->payment_type = 'tarjeta';
                 $order->is_paid = true;
                 $order->save();
 
-                $customerAddress =  \App\Models\CustomerAddress::where('customer_id', $order->customer_id)->latest()->first();
+                $customerAddress =  CustomerAddress::where('customer_id', $order->customer_id)->latest()->first();
         
-                App\Http\Helpers\CallIntegrationsPay::callVoucher($order->id,$customerAddress);
-                App\Http\Helpers\CallIntegrationsPay::callDispatchLlego($order->id,$customerAddress);
-                App\Http\Helpers\CallIntegrationsPay::callUpdateStockProducts($order->id);
+                CallIntegrationsPay::callVoucher($order->id,$customerAddress);
+                CallIntegrationsPay::callDispatchLlego($order->id,$customerAddress);
+                CallIntegrationsPay::callUpdateStockProducts($order->id);
             }
     
-            App\Http\Helpers\CallIntegrationsPay::sendEmailsOrderRepeat($order->id);
+            CallIntegrationsPay::sendEmailsOrderRepeat($order->id);
         }
 
         session()->flash('success', 'Pedido reprocesado exitosamente.');
