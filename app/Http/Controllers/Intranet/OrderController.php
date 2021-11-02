@@ -229,55 +229,21 @@ class OrderController extends GlobalController
     public function sendEmail(Request $request){
         $order = Order::find($request->id);
     
-        if($order->payment_type == 'webpay'){
-            if($order->is_paid == 0){
-                $order->status = PaymentStatus::PAID;
-                $order->payment_date = Carbon::now();
-                $order->payment_type = 'webpay';
-                $order->is_paid = true;
-                $order->save();
+        if($order->is_paid == 0){
+            $order->status = PaymentStatus::PAID;
+            $order->payment_date = Carbon::now();
+            $order->payment_type = 'webpay';
+            $order->is_paid = true;
+            $order->save();
 
-                $customerAddress =  CustomerAddress::where('customer_id', $order->customer_id)->latest()->first();
-        
-                CallIntegrationsPay::callVoucher($order->id,$customerAddress);
-                CallIntegrationsPay::callDispatchLlego($order->id,$customerAddress);
-                CallIntegrationsPay::callUpdateStockProducts($order->id);
-            }
-        
-            CallIntegrationsPay::sendEmailsOrderRepeat($order->id);
-        } else  {
-            $ordersItems = OrderItem::where('order_id',$order->id)->get();
-        
-            if($order->is_paid == 0){
-
-                foreach ($ordersItems as $elementOrderItem) {
-                    $subscriptionOrdersItem = SubscriptionsOrdersItem::where('orders_item_id',$elementOrderItem->id)->orderBy('pay_date')->first();
-                    if($subscriptionOrdersItem){
-                        $subscriptionOrdersItem->is_pay = 1;
-                        $subscriptionOrdersItem->order_id = $order->id;
-                        $subscriptionOrdersItem->status = 'PAID';
-                        $subscriptionOrdersItem->save();
-                    }else{
-                        $subscriptionOrdersItem->orders_item_id = $order->id;
-                        $subscriptionOrdersItem->save();
-                    }
-                }
-
-                $order->status = PaymentStatus::PAID;
-                $order->payment_date = Carbon::now();
-                $order->payment_type = 'tarjeta';
-                $order->is_paid = true;
-                $order->save();
-
-                $customerAddress =  CustomerAddress::where('customer_id', $order->customer_id)->latest()->first();
-        
-                CallIntegrationsPay::callVoucher($order->id,$customerAddress);
-                CallIntegrationsPay::callDispatchLlego($order->id,$customerAddress);
-                CallIntegrationsPay::callUpdateStockProducts($order->id);
-            }
+            $customerAddress =  CustomerAddress::where('customer_id', $order->customer_id)->latest()->first();
     
-            CallIntegrationsPay::sendEmailsOrderRepeat($order->id);
+            CallIntegrationsPay::callVoucher($order->id,$customerAddress);
+            CallIntegrationsPay::callDispatchLlego($order->id,$customerAddress);
+            CallIntegrationsPay::callUpdateStockProducts($order->id);
         }
+    
+        CallIntegrationsPay::sendEmailsOrderRepeat($order->id);
 
         session()->flash('success', 'Pedido reprocesado exitosamente.');
         return redirect()->route($this->route . 'index');
