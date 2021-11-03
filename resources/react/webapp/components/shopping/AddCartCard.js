@@ -50,7 +50,7 @@ const AddCartCard = ({quantity, setQuantity, product,subscription}) =>{
             {
                 subscription != null 
                     ? null
-                : <QuantityInput quantity={quantity} setQuantity={setQuantity} maxQuantity={product.subcategory.category.quantity_limit}/>
+                        : <QuantityInput quantity={quantity} setQuantity={setQuantity} maxQuantity={product.stock >= product.subcategory.category.quantity_limit ? product.subcategory.category.quantity_limit : product.stock }/>
             }
             </div>
 
