@@ -59,7 +59,21 @@ export default (state, action) => {
             //Se debe refactorizar
             if (cartItems.length > 0 && cartItems[found] ) {
 
-                if((cartItems[found].quantity + item.quantity)> (item.product.subcategory.category.quantity_limit ?? 1)){
+                console.log(cartItems[found].quantity + item.quantity);
+                console.log(item.product.stock);
+
+                if ((cartItems[found].quantity + item.quantity) > item.product.stock) {
+                    toastr.error(`<div>
+                        <div>El produto no cuenta con más stock</div>
+                    </div>`)
+
+                    return {
+                        ...state,
+                        cartItems: [...cartItems]
+                    };
+                }
+
+                if((cartItems[found].quantity + item.quantity) > (item.product.subcategory.category.quantity_limit ?? 1)){
                     toastr.error(`<div>
                         <div>El limite de la categoría  <b>${item.product.subcategory.category.name}</b> es de ${item.product.subcategory.category.quantity_limit ?? 1} unidad</div>
                     </div>`)

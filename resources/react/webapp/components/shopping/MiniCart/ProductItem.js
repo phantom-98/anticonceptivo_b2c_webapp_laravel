@@ -47,7 +47,7 @@ const ProductItem = ({item}) => {
                         <div className="col pt-2">
                             {item.subscription != null
                             ? null
-                            : <QuantityInput quantity={item.quantity} setQuantity={setQuantity} maxQuantity={item.product.subcategory.category.quantity_limit}/>
+                                : <QuantityInput quantity={item.quantity} setQuantity={setQuantity} maxQuantity={item.product.stock >= item.product.subcategory.category.quantity_limit ? item.product.subcategory.category.quantity_limit : item.product.stock}/>
                             }
                         </div>
                         <div className="col-auto pt-1 text-center pointer" onClick={() => removeFromCart(item)}>
