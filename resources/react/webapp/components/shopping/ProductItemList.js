@@ -49,7 +49,7 @@ const ProductItemList = ({item}) => {
 
                             {item.subscription != null
                             ? null
-                                : <QuantityInput quantity={item.quantity} setQuantity={setQuantity} maxQuantity={item.product.subcategory.category.quantity_limit}/>
+                                : <QuantityInput quantity={item.quantity} setQuantity={setQuantity} maxQuantity={item.product.stock >= item.product.subcategory.category.quantity_limit ? item.product.subcategory.category.quantity_limit : item.product.stock}/>
                             }
                             
                         </div>
