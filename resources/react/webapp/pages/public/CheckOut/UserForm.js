@@ -123,9 +123,9 @@ const UserForm = ({setView, data, setData, setFiles, files, editable, setProduct
 
     return (
         <Fragment>
-            <Accordion defaultActiveKey={'#'}>
-                <Card className="panel panel-cart my-4">
-                    <Accordion.Toggle as={Card.Header} eventKey={'#'} style={{backgroundColor: 'white'}}>
+            <Accordion defaultActiveKey={'#'} id="reason_focus">
+                <Card className="panel panel-cart my-4" id="attachments_focus">
+                    <Accordion.Toggle as={Card.Header} eventKey={'#'} id={'attachments'} style={{backgroundColor: 'white'}}>
                         <h3 className="my-auto font-poppins font-16 bold color-033F5D mb-0" style={{backgroundColor: 'white'}}>
                             Subir receta
                         </h3>
@@ -165,7 +165,7 @@ const UserForm = ({setView, data, setData, setFiles, files, editable, setProduct
                                         cartItems.map((item, index) => {
                                             let prescriptionKey = uuidv4();
                                             return item.product.recipe_type != 'Venta Directa'  ? (
-                                                <div className="col-12 product-item mt-4" key={prescriptionKey}>
+                                                <div className="col-12 product-item mt-4" key={prescriptionKey} id="first_name_focus">
                                                     <div className="row">
                                                         <div className="col-md-3">
                                                             <img src={item.product.images ? item.product.images[0].public_file : null} alt={CONFIG.APP_NAME} style={{width: '77px'}}/>
@@ -188,7 +188,7 @@ const UserForm = ({setView, data, setData, setFiles, files, editable, setProduct
 
                                                             </div>
                                                         </div>
-                                                        <div className="col-md-12 mt-2">
+                                                        <div className="col-md-12 mt-2" id='last_name_focus'>
                                                             <div
                                                                 className="custom-file"
                                                                 style={{ height: "43px" }}
@@ -225,7 +225,7 @@ const UserForm = ({setView, data, setData, setFiles, files, editable, setProduct
                                         })
                                     :                    
                                     <>
-                                        <div className="form-group">
+                                        <div className="form-group" id="first_name_focus">
                                             <h3 className="my-auto font-poppins font-14 bold color-033F5D" style={{backgroundColor: 'white'}}>
                                                 Motivo
                                             </h3>
@@ -255,7 +255,7 @@ const UserForm = ({setView, data, setData, setFiles, files, editable, setProduct
                                             </div>
                                         </div>
 
-                                        <div className="form-group">
+                                            <div className="form-group" id="last_name_focus">
                                             <div className="col-md-12 col-12 mt-4 py-2 prescription-format-style font-poppins regular color-6C6B6B">
                                                 (*) Opciones validadas por el Farmaceútico, sólo son excepcionales y no reemplazan por ningún motivo la atención con un médico o matrona.
                                             </div>

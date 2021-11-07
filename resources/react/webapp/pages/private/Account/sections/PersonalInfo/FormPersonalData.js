@@ -21,7 +21,7 @@ const FormPersonalData = ({handleData,
     return (
         <div className="row">
             <div className="col-md-12">
-                <div className="form-group">
+                <div className="form-group" id="email_focus">
                     <label htmlFor="first_name">Nombres</label>
                     <input type="text"
                             className="form-control form-control-custom"
@@ -37,7 +37,7 @@ const FormPersonalData = ({handleData,
                 </div>
             </div>
             <div className="col-md-12">
-                <div className="form-group">
+                <div className="form-group" id="id_number_focus">
                     <label htmlFor="last_name">Apellidos</label>
                     <input type="text"
                            className="form-control form-control-custom"
@@ -53,7 +53,7 @@ const FormPersonalData = ({handleData,
                 </div>
             </div>
             <div className="col-md-12">
-                <div className="form-group">
+                <div className="form-group" id="phone_focus">
                     <label htmlFor="email">E-Mail</label>
                     <input type="email"
                            className="form-control form-control-custom"
@@ -113,7 +113,7 @@ const FormPersonalData = ({handleData,
      <div className="col-md-12">
          <div className="row">
              <div className="col-md-auto pr-3 pr-md-0">
-                 <div className="form-group">
+                    <div className="form-group">
                      <label htmlFor="phone_code">Código</label>
                      <select
                          className="form-control form-control-custom pl-2"
@@ -129,7 +129,7 @@ const FormPersonalData = ({handleData,
                  </div>
              </div>
              <div className="col-md">
-                 <div className="form-group">
+                    <div className="form-group">
                      <label htmlFor="phone">Teléfono</label>
                      <input type="text"
                             className="form-control form-control-custom"

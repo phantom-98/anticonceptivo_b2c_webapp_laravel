@@ -6,7 +6,7 @@ export default function UseWindowDimensions() {
   // how two use it
   // import and declare 
   // import UseWindowDimensions from "./UseWindowDimensions";
-  // const { height, width } = useWindowDimensions();
+  // const { height, width } = UseWindowDimensions();
 
   const hasWindow = typeof window !== 'undefined';
 
