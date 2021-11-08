@@ -1067,7 +1067,7 @@ input.my-auto.file-input {
 
 .card-faq .card-header {
   cursor: pointer;
-  background: white;
+  background: #EDF8FE;
   color: #033F5D;
   padding: 20px;
   border: 1px solid #DEDEDE !important;
@@ -1085,7 +1085,7 @@ input.my-auto.file-input {
 .card-faq .card-header:hover,
 .card-faq .collapsing + .card-header,
 .card-faq .collapse.show + .card-header {
-  background: #009BE8 !important;
+  background: #63DCAE !important;
   color: white !important;
 }
 

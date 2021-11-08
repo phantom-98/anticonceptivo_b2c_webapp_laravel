@@ -6,15 +6,13 @@ import UserForm from "./UserForm";
 import AddAddress from "./AddAddress";
 import Addresses from "./Addresses";
 import Subscriptions from "./Subscriptions";
-import Installments from "./Installments";
+// import Installments from "./Installments";
 import Header from "./Header";
 import {AuthContext} from "../../../context/AuthProvider";
 import * as Services from "../../../Services";
 import HandleResponse from "./HandleResponse";
 import {CartContext} from "../../../context/CartProvider";
 import toastr from "toastr";
-// import PUBLIC_ROUTES from "../../../routes/publicRoutes";
-// import { useHistory } from "react-router-dom";
 
 const CheckOut = () => {
 
@@ -180,6 +178,9 @@ const CheckOut = () => {
 
             if (productCount > 0 && prescriptionRadio == false && withoutPrescriptionAnswer == null) {
                 toastr.warning('Debes seleccionar un motivo.');
+                document.getElementById(`reason_focus`).scrollIntoView({
+                    behavior: 'smooth'
+                });
                 return null;
             }
 
@@ -226,8 +227,26 @@ const CheckOut = () => {
                     toastr.warning(response.message);
                 },
                 validate: () => {
+                    let errorKey = Object.keys(response.data)[0];
+
+                    if (errorKey.includes('.')) {
+                        toastr.error('Formato de archivo invalido.');
+                        document.getElementById(`attachments_focus`).scrollIntoView({
+                            behavior: 'smooth'
+                        });
+
+                        return null;
+                    }
                     if (response.data.attachments) {
                         toastr.error(response.data.attachments[0]);
+                        document.getElementById(`${errorKey}_focus`).scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    } else {
+                        toastr.error('Por favor, complete todos los campos.');
+                        document.getElementById(`${errorKey}_focus`).scrollIntoView({
+                            behavior: 'smooth'
+                        });
                     }
                 }
                 });
@@ -243,6 +262,9 @@ const CheckOut = () => {
 
         if (productCount > 0 && prescriptionRadio == false && withoutPrescriptionAnswer == null) {
             toastr.warning('Debes seleccionar un motivo.');
+            document.getElementById(`reason_focus`).scrollIntoView({
+                behavior: 'smooth'
+            });
             return null;
         }
 
@@ -283,8 +305,26 @@ const CheckOut = () => {
                     toastr.warning(response.message);
                 },
                 validate: () => {
+                    let errorKey = Object.keys(response.data)[0];
+
+                    if (errorKey.includes('.')) {
+                        toastr.error('Formato de archivo invalido.');
+                        document.getElementById(`attachments_focus`).scrollIntoView({
+                            behavior: 'smooth'
+                        });
+
+                        return null;
+                    }
                     if (response.data.attachments) {
                         toastr.error(response.data.attachments[0]);
+                        document.getElementById(`${errorKey}_focus`).scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    } else {
+                        toastr.error('Por favor, complete todos los campos.');
+                        document.getElementById(`${errorKey}_focus`).scrollIntoView({
+                            behavior: 'smooth'
+                        });
                     }
                 }
             });
