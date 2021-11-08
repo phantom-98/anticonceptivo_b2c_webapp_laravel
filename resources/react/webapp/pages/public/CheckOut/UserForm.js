@@ -123,150 +123,154 @@ const UserForm = ({setView, data, setData, setFiles, files, editable, setProduct
 
     return (
         <Fragment>
-            <Accordion defaultActiveKey={'#'} id="reason_focus">
-                <Card className="panel panel-cart my-4" id="attachments_focus">
-                    <Accordion.Toggle as={Card.Header} eventKey={'#'} id={'attachments'} style={{backgroundColor: 'white'}}>
-                        <h3 className="my-auto font-poppins font-16 bold color-033F5D mb-0" style={{backgroundColor: 'white'}}>
-                            Subir receta
-                        </h3>
-                    </Accordion.Toggle>
-                    <Accordion.Collapse eventKey={'#'}>
-                        <Card.Body>
-                            <h3 className="my-auto font-poppins font-14 bold color-033F5D" style={{backgroundColor: 'white'}}>
-                                ¿Cuentas con una receta?
-                            </h3>
-                            <div className="form-group">
-                                <div className="mt-1">
-                                    <Form.Check
-                                        custom
-                                        label="Si"
-                                        type="radio"
-                                        className="my-2"
-                                        name="prescription_radio"
-                                        id={`with_prescription`}
-                                        onClick={() => handlePrescriptionRadio(true)}
-                                        checked={prescriptionRadio == true ? true : false}
-                                    />
-                                    <Form.Check
-                                        custom
-                                        label="No"
-                                        type="radio"
-                                        className="my-2"
-                                        name="prescription_radio"
-                                        id={`without_prescription`}
-                                        onClick={() => handlePrescriptionRadio(false)}
-                                        checked={prescriptionRadio == true ? false : true}
-                                    />
-                                </div>
-                            </div>
-                            {
-                                cartItems.filter((item) => item.product.recipe_type != 'Venta Directa').length ?
-                                    prescriptionRadio ? 
-                                        cartItems.map((item, index) => {
-                                            let prescriptionKey = uuidv4();
-                                            return item.product.recipe_type != 'Venta Directa'  ? (
-                                                <div className="col-12 product-item mt-4" key={prescriptionKey} id="first_name_focus">
-                                                    <div className="row">
-                                                        <div className="col-md-3">
-                                                            <img src={item.product.images ? item.product.images[0].public_file : null} alt={CONFIG.APP_NAME} style={{width: '77px'}}/>
+            {
+                cartItems.filter((item) => item.product.recipe_type != 'Venta Directa').length ?
+                    <Accordion defaultActiveKey={'#'} id="reason_focus">
+                        <Card className="panel panel-cart my-4" id="attachments_focus">
+                            <Accordion.Toggle as={Card.Header} eventKey={'#'} id={'attachments'} style={{ backgroundColor: 'white' }}>
+                                <h3 className="my-auto font-poppins font-16 bold color-033F5D mb-0" style={{ backgroundColor: 'white' }}>
+                                    Subir receta
+                                </h3>
+                            </Accordion.Toggle>
+                            <Accordion.Collapse eventKey={'#'}>
+                                <Card.Body>
+                                    <h3 className="my-auto font-poppins font-14 bold color-033F5D" style={{ backgroundColor: 'white' }}>
+                                        ¿Cuentas con una receta?
+                                    </h3>
+                                    <div className="form-group">
+                                        <div className="mt-1">
+                                            <Form.Check
+                                                custom
+                                                label="Si"
+                                                type="radio"
+                                                className="my-2"
+                                                name="prescription_radio"
+                                                id={`with_prescription`}
+                                                onClick={() => handlePrescriptionRadio(true)}
+                                                checked={prescriptionRadio == true ? true : false}
+                                            />
+                                            <Form.Check
+                                                custom
+                                                label="No"
+                                                type="radio"
+                                                className="my-2"
+                                                name="prescription_radio"
+                                                id={`without_prescription`}
+                                                onClick={() => handlePrescriptionRadio(false)}
+                                                checked={prescriptionRadio == true ? false : true}
+                                            />
+                                        </div>
+                                    </div>
+                                    {
+                                        cartItems.filter((item) => item.product.recipe_type != 'Venta Directa').length ?
+                                            prescriptionRadio ?
+                                                cartItems.map((item, index) => {
+                                                    let prescriptionKey = uuidv4();
+                                                    return item.product.recipe_type != 'Venta Directa' ? (
+                                                        <div className="col-12 product-item mt-4" key={prescriptionKey} id="first_name_focus">
+                                                            <div className="row">
+                                                                <div className="col-md-3">
+                                                                    <img src={item.product.images ? item.product.images[0].public_file : null} alt={CONFIG.APP_NAME} style={{ width: '77px' }} />
+                                                                </div>
+                                                                <div className="col-md-9 mb-3">
+
+                                                                    <div className="font-poppins font-12 color-009BE8">{item.product.sku}</div>
+                                                                    <div className="font-poppins font-14 bold text-black">
+
+                                                                        {
+                                                                            item.subscription == null ? item.product.name : item.product.name + ' (' + 'suscripción' + ')'
+                                                                        }
+
+                                                                    </div>
+                                                                    <div className="font-poppins font-16 bold color-009BE8">
+
+                                                                        {
+                                                                            item.subscription == null ? formatMoney(item.quantity * (item.product.is_offer ? item.product.offer_price : item.product.price)) : formatMoney(item.subscription.price * item.subscription.quantity * item.quantity) + ' (' + formatMoney(item.subscription.price) + ' c/u)'
+                                                                        }
+
+                                                                    </div>
+                                                                </div>
+                                                                <div className="col-md-12 mt-2" id='last_name_focus'>
+                                                                    <div
+                                                                        className="custom-file"
+                                                                        style={{ height: "43px" }}
+                                                                    >
+                                                                        <input
+                                                                            type="file"
+                                                                            className="my-auto custom-file-input"
+                                                                            id={item.product.id}
+                                                                            name={index}
+                                                                            onChange={handleFile}
+                                                                            // onFocus={setCleanInputErrorById(`files.${index}`)}
+                                                                            accept=".jpg, .jpeg, .png, .pdf, .doc, .docx"
+                                                                        />
+                                                                        <div id={`attachments.${index}`} />
+                                                                        <div className="invalid-feedback" />
+                                                                        <label
+                                                                            className="custom-file-label ml-0 pb-0 input-file-register"
+                                                                            htmlFor={item.product.id}
+                                                                        >
+                                                                            {
+                                                                                files.map((file) => {
+                                                                                    return file.name_id == index ?
+                                                                                        <span className="font-14 font-poppins regular">{file.name}</span>
+                                                                                        : null
+                                                                                })
+                                                                            }
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div className="line" />
                                                         </div>
-                                                        <div className="col-md-9 mb-3">
-
-                                                            <div className="font-poppins font-12 color-009BE8">{item.product.sku}</div>
-                                                            <div className="font-poppins font-14 bold text-black">
-
-                                                            {
-                                                                item.subscription == null ? item.product.name : item.product.name + ' ('+ 'suscripción' +')'
-                                                            }
-
-                                                            </div>
-                                                            <div className="font-poppins font-16 bold color-009BE8">
-
-                                                                {
-                                                                    item.subscription == null ? formatMoney( item.quantity * (item.product.is_offer ? item.product.offer_price : item.product.price)) : formatMoney(item.subscription.price*item.subscription.quantity * item.quantity) + ' ('+ formatMoney(item.subscription.price)+' c/u)'
-                                                                }
-
-                                                            </div>
-                                                        </div>
-                                                        <div className="col-md-12 mt-2" id='last_name_focus'>
-                                                            <div
-                                                                className="custom-file"
-                                                                style={{ height: "43px" }}
-                                                            >
-                                                                <input
-                                                                    type="file"
-                                                                    className="my-auto custom-file-input"
-                                                                    id={item.product.id}
-                                                                    name={index}
-                                                                    onChange={handleFile}
-                                                                    // onFocus={setCleanInputErrorById(`files.${index}`)}
-                                                                    accept=".jpg, .jpeg, .png, .pdf, .doc, .docx"
-                                                                />
-                                                                <div id={`attachments.${index}`}/>
-                                                                <div className="invalid-feedback" />
-                                                                <label
-                                                                    className="custom-file-label ml-0 pb-0 input-file-register"
-                                                                    htmlFor={item.product.id}
-                                                                >
-                                                                    {
-                                                                        files.map((file) => {
-                                                                            return file.name_id == index ?
-                                                                                <span className="font-14 font-poppins regular">{file.name}</span>
-                                                                            :  null
-                                                                        })
-                                                                    }
-                                                                </label>
-                                                            </div>
+                                                    ) : null
+                                                })
+                                                :
+                                                <>
+                                                    <div className="form-group" id="first_name_focus">
+                                                        <h3 className="my-auto font-poppins font-14 bold color-033F5D" style={{ backgroundColor: 'white' }}>
+                                                            Motivo
+                                                        </h3>
+                                                        <div className="mt-1">
+                                                            <Form.Check
+                                                                custom
+                                                                // inline
+                                                                label="Mi doctor me dijo que siguiera con este, pero no me renovó la receta."
+                                                                type="radio"
+                                                                className="my-2"
+                                                                name="without_prescription_answer"
+                                                                id={`without_prescription_answer_one`}
+                                                                onClick={() => setWithoutPrescriptionAnswer(1)}
+                                                                checked={withoutPrescriptionAnswer === 1 ? true : false}
+                                                            />
+                                                            <Form.Check
+                                                                custom
+                                                                // inline
+                                                                label="Es el que me recetaron y he tomado, pero ya no cuento con la receta."
+                                                                type="radio"
+                                                                className="my-2"
+                                                                name="without_prescription_answer"
+                                                                id={`without_prescription_answer_two`}
+                                                                onClick={() => setWithoutPrescriptionAnswer(2)}
+                                                                checked={withoutPrescriptionAnswer === 2 ? true : false}
+                                                            />
                                                         </div>
                                                     </div>
-                                                    <div className="line" />
-                                                </div>
-                                            ) : null
-                                        })
-                                    :                    
-                                    <>
-                                        <div className="form-group" id="first_name_focus">
-                                            <h3 className="my-auto font-poppins font-14 bold color-033F5D" style={{backgroundColor: 'white'}}>
-                                                Motivo
-                                            </h3>
-                                            <div className="mt-1">
-                                                <Form.Check
-                                                    custom
-                                                    // inline
-                                                    label="Mi doctor me dijo que siguiera con este, pero no me renovó la receta."
-                                                    type="radio"
-                                                    className="my-2"
-                                                    name="without_prescription_answer"
-                                                    id={`without_prescription_answer_one`}
-                                                    onClick={() => setWithoutPrescriptionAnswer(1)}
-                                                    checked={withoutPrescriptionAnswer === 1 ? true : false}
-                                                />
-                                                <Form.Check
-                                                    custom
-                                                    // inline
-                                                    label="Es el que me recetaron y he tomado, pero ya no cuento con la receta."
-                                                    type="radio"
-                                                    className="my-2"
-                                                    name="without_prescription_answer"
-                                                    id={`without_prescription_answer_two`}
-                                                    onClick={() => setWithoutPrescriptionAnswer(2)}
-                                                    checked={withoutPrescriptionAnswer === 2 ? true : false}
-                                                />
-                                            </div>
-                                        </div>
 
-                                            <div className="form-group" id="last_name_focus">
-                                            <div className="col-md-12 col-12 mt-4 py-2 prescription-format-style font-poppins regular color-6C6B6B">
-                                                (*) Opciones validadas por el Farmacéutico, sólo son excepcionales y no reemplazan por ningún motivo la atención con un médico o matrona.
-                                            </div>
-                                        </div>
-                                    </>
-                                : null
-                            }
-                        </Card.Body>
-                    </Accordion.Collapse>
-                </Card>
-            </Accordion>
+                                                    <div className="form-group" id="last_name_focus">
+                                                        <div className="col-md-12 col-12 mt-4 py-2 prescription-format-style font-poppins regular color-6C6B6B">
+                                                            (*) Opciones validadas por el Farmaceútico, sólo son excepcionales y no reemplazan por ningún motivo la atención con un médico o matrona.
+                                                        </div>
+                                                    </div>
+                                                </>
+                                            : null
+                                    }
+                                </Card.Body>
+                            </Accordion.Collapse>
+                        </Card>
+                    </Accordion>
+                : null
+            }
 
             <div className="panel panel-cart mb-3">
                 <div className="panel-body">
