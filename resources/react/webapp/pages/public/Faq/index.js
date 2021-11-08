@@ -5,7 +5,7 @@ import {Accordion, Card} from "react-bootstrap";
 import * as Services from "../../../Services";
 import { v4 as uuidv4 } from 'uuid';
 import FaqAnswers from './FaqAnswers';
-
+import { capitalizeFirstLetterOfEachWord } from "../../../helpers/GlobalUtils";
 
 const Faq = () => {
 
@@ -50,7 +50,7 @@ const Faq = () => {
                 <div className="px-3">
                     <div className="row pb-5 mb-5">
                         <div className="col-md-12">
-                            <h1 className="base-panel-one-title">{PUBLIC_ROUTES.FAQ.title}</h1>
+                            <h1 className="base-panel-one-without-upper">{PUBLIC_ROUTES.FAQ.title}</h1>
 
                             <Accordion defaultActiveKey={'#'}>
                                 {
