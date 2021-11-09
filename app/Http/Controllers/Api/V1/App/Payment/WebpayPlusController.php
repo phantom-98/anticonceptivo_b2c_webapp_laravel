@@ -78,7 +78,7 @@ class WebpayPlusController
                         "username" => $request->customer_id
                     ]);
                 } catch(\Exception $ex){
-                    
+
                 }
 
 
@@ -325,7 +325,6 @@ class WebpayPlusController
                 ];
 
                 $response = $this->oneclick->authorize($request->customer_id , $request->subscription['transbank_token'],$order->id,$details);
-
                 try{
                     Log::info('OneClick',
                     [
@@ -334,7 +333,7 @@ class WebpayPlusController
                         "username" => $request->customer_id
                     ]);
                 } catch(\Exception $ex){
-            
+
                 }
 
                 if($response['status'] == "success"){
@@ -346,7 +345,6 @@ class WebpayPlusController
                         $order->save();
                         return ApiResponse::JsonError([], 'Pago Rechazado');
                     }
-
                     $ordersItems = OrderItem::where('order_id',$order->id)->get();
 
                     foreach ($ordersItems as $elementOrderItem) {
@@ -355,9 +353,6 @@ class WebpayPlusController
                             $subscriptionOrdersItem->is_pay = 1;
                             $subscriptionOrdersItem->order_id = $order->id;
                             $subscriptionOrdersItem->status = 'PAID';
-                            $subscriptionOrdersItem->save();
-                        }else{
-                            $subscriptionOrdersItem->orders_item_id = $order->id;
                             $subscriptionOrdersItem->save();
                         }
                     }
@@ -556,7 +551,7 @@ class WebpayPlusController
                     "username" => $subscription->customer_id
                 ]);
             } catch(\Exception $ex){
-        
+
             }
 
             if($response['status'] != 'success'){

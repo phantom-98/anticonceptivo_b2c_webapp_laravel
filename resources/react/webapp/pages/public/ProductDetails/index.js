@@ -100,7 +100,7 @@ const ProductDetail = ({match}) => {
                         product.is_bioequivalent ?
                         <div className="row">
                             <div className="col-1">
-                            
+
                             </div>
                             <div className="custom-col-responsive">
                                 <div className="font-beneficy" style={{backgroundColor: '#FFEA17', borderRadius: '10px', height:'50px', lineHeight:'50px'}}>

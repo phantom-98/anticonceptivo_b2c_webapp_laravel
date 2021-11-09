@@ -15,8 +15,8 @@ const WebPayProccess = ({
     total,
     subtotal,
     dispatch,
-    discount, 
-    discountType, 
+    discount,
+    discountType,
     discountCode,
     installment,
     customerId
@@ -62,8 +62,6 @@ const WebPayProccess = ({
         //     toastr.warning('Debes agregar una dirección para proceder al pago.')
         // }
 
-        let win = window.open(window.location.href + '?attempt-payment-webpay=true', '_blank');
-
 
         let selectedSubscription = null;
         subscription.map(element => {
@@ -104,6 +102,8 @@ const WebPayProccess = ({
                             setFinishWebpayProccess(1);
                             clearInterval(interval)
                         } else {
+                            // let win = window.open(window.location.href + '?attempt-payment-webpay=true', '_blank');
+
                             runVerify(response.data.order.id, response.data.order.customer_id)
                             setOrderId(response.data.order.id)
                             setToken(response.data.token)
@@ -112,9 +112,10 @@ const WebPayProccess = ({
                             // const urlWebpay = response.data.webpay_data.url + '?token_ws=' + response.data.webpay_data.token
                             // window.open(urlWebpay, '_blank');
 
-                            // var win = window.open();
+                            var win = window.open();
                             // win.document.open();
                             win.document.write(response.data.webpay);
+                            win.document.close();
                             // win.document.focus();
                         }
 

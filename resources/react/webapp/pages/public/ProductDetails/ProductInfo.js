@@ -58,7 +58,7 @@ const ProductInfo = ({ product, setImageSubscription }) => {
             </div>
             <div className="col-md-12">
                 <span className="font-poppins font-36 bold color-009BE8">
-                    {subscription == null ? 
+                    {subscription == null ?
                             [
                                 formatMoney(product.is_offer ? product.offer_price  : product.price),
                                 <span className="font-poppins font-16 bold color-009BE8 ml-2">
@@ -70,7 +70,7 @@ const ProductInfo = ({ product, setImageSubscription }) => {
                                     }
                                 </span>
                             ]
-                        : 
+                        :
                             [
                                 formatMoney(subscription.price),
                                 <span className="font-poppins font-16 bold color-009BE8 ml-2">
