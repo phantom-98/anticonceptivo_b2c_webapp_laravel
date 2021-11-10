@@ -9,6 +9,7 @@ use App\Models\Laboratory;
 use App\Models\Price;
 use App\Models\ProductImage;
 use App\Models\ProductSubscriptionPlan;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -132,7 +133,8 @@ class ProductController extends GlobalController
                 foreach ($request->file('image') as $key => $item_file) {
 
                     $image = new ProductImage();
-                    $image->file = $item_file->store('public/products' . $product->id);
+                    $ext = $item_file->getClientOriginalExtension();
+                    $image->file = $item_file->storeAs('public/products/' . $product->id, $product->id . rand(1000, 999999) . '.' . $ext);
                     $image->position = $key + 1;
                     $image->product_id = $product->id;
                     $image->save();
@@ -246,12 +248,12 @@ class ProductController extends GlobalController
             $product->save();
 
             if ($request->hasFile('image')) {
-                \Storage::deleteDirectory('public/products' . $product->id);
+                \Storage::deleteDirectory('public/products/' . $product->id);
                 ProductImage::where('product_id', $product->id)->delete();
                 foreach ($request->file('image') as $key => $item_file) {
                     $image = new ProductImage();
                     $ext = $item_file->getClientOriginalExtension();
-                    $image->file = $item_file->storeAs('public/products', $product->id . rand(1000, 999999) . '.' . $ext);
+                    $image->file = $item_file->storeAs('public/products/' . $product->id, $product->id . rand(1000, 999999) . '.' . $ext);
                     $image->position = $key + 1;
                     $image->product_id = $product->id;
                     $image->save();
