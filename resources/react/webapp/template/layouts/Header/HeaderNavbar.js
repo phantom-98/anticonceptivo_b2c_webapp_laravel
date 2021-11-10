@@ -33,10 +33,12 @@ const HeaderNavbar = () => {
 
 
     useEffect(() => {
-        console.log('cambio.');
+        console.log('cambio rows');
         doSliceCategories();
     }, [rows, categories])
-
+    useEffect(() => {
+        console.log('cambio', spliceCategories);
+    }, [spliceCategories])
 
 
     const setView = (width) => {
@@ -51,7 +53,7 @@ const HeaderNavbar = () => {
 
         let limit = Math.round(categories.length / rows);
         console.log(limit);
-        if(limit){
+        if (limit) {
             let finalData = chunkArrayInGroups(categories, limit);
             setSpliceCategories(finalData);
         }
@@ -116,10 +118,10 @@ const HeaderNavbar = () => {
         url = url.replace(":category", category.slug);
 
         return (<div className="col-auto">
-            <Dropdown key={category.categoryId}
+            <Dropdown key={'category-' + category.categoryId}
                       show={show[category.categoryId]}
-                      onMouseEnter={() => showDropdown(category.categoryId)}
-                      onMouseLeave={() => hideDropdown(category.categoryId)}
+                      // onMouseEnter={() => showDropdown(category.categoryId)}
+                      // onMouseLeave={() => hideDropdown(category.categoryId)}
                       drop={'down'}
             >
                 <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
@@ -167,13 +169,13 @@ const HeaderNavbar = () => {
             </Dropdown>
         </div>)
     }
-
+    console.log('return');
     return (
         <div className="header-navbar bg-0869A6">
             <div className="container px-0 max-header-navbar">
                 {
                     spliceCategories.map((cat, i) => {
-                        console.log(cat);
+
                         return <div className="row no-gutters justify-content-center">
                             {
                                 cat.map((category, index) => (

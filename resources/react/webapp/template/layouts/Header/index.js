@@ -70,7 +70,7 @@ const Header = () => {
 
     useEffect(() => {
         function onScroll() {
-            if (window.pageYOffset >= 1) {
+            if (window.pageYOffset == 1) {
                 setTopFixed({
                     top: 0,
                     boxShadow: '0px 1px 4px rgb(0 0 0 / 20%)'
@@ -79,7 +79,9 @@ const Header = () => {
                     top: 108,
                     boxShadow: '0px 1px 4px rgb(0 0 0 / 20%)'
                 })
-            } else {
+            }
+
+            if (window.pageYOffset == 0) {
                 setTopFixed({
                     top: 34,
                     boxShadow: '0px 1px 4px rgb(0 0 0 / 0%)'
@@ -218,19 +220,19 @@ const Header = () => {
                                     />
                                 </div> */}
 
-                                
+
                                 <div className="my-auto">
-                                    <Link to={PUBLIC_ROUTES.CART.path} >
+                                    <Link to={PUBLIC_ROUTES.CART.path}>
                                         <div className="cart-badge-quantity"><TotalCartItems/></div>
                                         <img src={cartBlue}
-                                            alt=""
-                                            title="Anticonceptivo"
-                                            rel="nofollow"
-                                            height="25px"
+                                             alt=""
+                                             title="Anticonceptivo"
+                                             rel="nofollow"
+                                             height="25px"
                                         />
                                     </Link>
                                 </div>
-                                
+
                             </div>
                         </div>
                     </div>
