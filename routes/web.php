@@ -210,7 +210,7 @@ Route::get('remove-images', function () {
     }
 
     foreach (\App\Models\ProductImage::all() as $img){
-        $img->file = str_replace('//', '9/', $img->file);
+        $img->file = str_replace('//', '/', $img->file);
         $img->save();
     }
 });
