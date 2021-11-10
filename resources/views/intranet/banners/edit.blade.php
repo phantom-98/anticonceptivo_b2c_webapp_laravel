@@ -36,13 +36,13 @@
                                             {!! csrf_field() !!}
                                         </form>
                                         <button type="button" onclick="confirmDelete('{{$slider->id}}')"
-                                                class="btn btn-sm btn-default btn-hover-danger add-tooltip pull-right"
+                                                class="btn btn-sm btn-default btn-hover-danger pull-right" data-toggle="tooltip"
                                                 title="Eliminar"
                                                 style="float: left;">
                                             <i class="fa fa-remove"></i>
                                         </button>
                                         <button type="button" onclick="confirmEdit('{{$slider->id}}')"
-                                                class="btn btn-sm btn-default btn-hover-warning add-tooltip pull-right"
+                                                class="btn btn-sm btn-default btn-hover-warning pull-right" data-toggle="tooltip"
                                                 title="Editar"
                                                 style="float: left; margin-right: 5px">
                                             <i class="fa fa-edit"></i>

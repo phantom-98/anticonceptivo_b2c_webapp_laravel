@@ -217,12 +217,12 @@
                                                 @push('prepend_actions_buttons' .  $object->id)
                                                     @if($object->prescription_validation == 0 && $object->status == "PAID")
                                                         <a onclick="prescriptionSuccess({{$object->id}})"
-                                                        class="btn btn-sm btn-default btn-hover-success add-tooltip"
+                                                        class="btn btn-sm btn-default btn-hover-success" data-toggle="tooltip"
                                                         title="Validar Recetas">
                                                             <i class="fa fa-check"></i>
                                                         </a>
                                                         <a onclick="prescriptionRejected({{$object->id}})"
-                                                            class="btn btn-sm btn-default btn-hover-danger add-tooltip"
+                                                            class="btn btn-sm btn-default btn-hover-danger" data-toggle="tooltip"
                                                             title="Rechazar Recetas">
                                                                 <i class="fa fa-times"></i>
                                                         </a>
@@ -230,7 +230,7 @@
                                                     @if($object->prescription_validation == 1)
                                                         @if($object->status == "PAID" || $object->status == "DISPATCHED")
                                                         <a onclick="change_status({{$object->id}}, '{{$object->status}}')"
-                                                            class="btn btn-sm btn-default btn-hover-info add-tooltip"
+                                                            class="btn btn-sm btn-default btn-hover-info" data-toggle="tooltip"
                                                             title="Cambiar estado">
                                                                 <i class="fa fa-retweet"></i>
                                                         </a>
@@ -238,8 +238,8 @@
                                                     @endif
                                                     @if($object->status == "PAID" || $object->status == "DISPATCHED" || $object->status == "DELIVERED" || $object->status == "CREATED" || $object->status == "CANCELED")
                                                     <a onclick="sendEmail({{$object->id}})"
-                                                        class="btn btn-sm btn-default btn-hover-info add-tooltip"
-                                                        title="Reenviar correo">
+                                                        class="btn btn-sm btn-default btn-hover-info" data-toggle="tooltip"
+                                                        title="Ajustar pago del pedido">
                                                             <i class="fa fa-cogs"></i>
                                                     </a>
                                                     @endif
@@ -247,15 +247,15 @@
                                             @else
                                                 @if($object->status == "PAID" || $object->status == "DISPATCHED")
                                                 <a onclick="change_status({{$object->id}}, '{{$object->status}}')"
-                                                    class="btn btn-sm btn-default btn-hover-info add-tooltip"
+                                                    class="btn btn-sm btn-default btn-hover-info" data-toggle="tooltip"
                                                     title="Cambiar estado">
                                                         <i class="fa fa-retweet"></i>
                                                 </a>
                                                 @endif
                                                 @if($object->status == "PAID" || $object->status == "DISPATCHED" || $object->status == "DELIVERED" || $object->status == "CREATED" || $object->status == "CANCELED")
                                                 <a onclick="sendEmail({{$object->id}})"
-                                                    class="btn btn-sm btn-default btn-hover-info add-tooltip"
-                                                    title="Reenviar correo">
+                                                    class="btn btn-sm btn-default btn-hover-info" data-toggle="tooltip"
+                                                    title="Ajustar pago del pedido">
                                                         <i class="fa fa-cogs"></i>
                                                 </a>
                                                 @endif

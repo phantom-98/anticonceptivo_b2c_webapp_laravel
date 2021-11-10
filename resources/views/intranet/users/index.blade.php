@@ -89,7 +89,7 @@
                                             @push('prepend_actions_buttons' .  $object->id)
                                                 @if($config['action']['permissionsEdit'])
                                                 <a href="{{ route($config['route'] . 'permissionsEdit',$object->id) }}"
-                                                   class="btn btn-sm btn-default btn-hover-info add-tooltip"
+                                                   class="btn btn-sm btn-default btn-hover-info" data-toggle="tooltip"
                                                    title="Permisos del usuario">
                                                     <i class="fa fa-lock"></i>
                                                 </a>

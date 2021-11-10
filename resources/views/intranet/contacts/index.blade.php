@@ -309,7 +309,7 @@
                     formatter: function(value, row, index) {
                         return "<div class='btn-group' style='width: max-content;'>" +
                             "<a onclick='openModalContenido(" + row.id + ")' " +
-                            "class='btn btn-sm btn-default btn-hover-success add-tooltip' title='Ver contenido'><i class='fa fa-search'></i></a></div>";
+                            "class='btn btn-sm btn-default btn-hover-success' data-toggle='tooltip' title='Ver contenido'><i class='fa fa-search'></i></a></div>";
                     }
                 },
                 {
@@ -339,7 +339,7 @@
                 //         if (row.reply) {
                 //             return "<div class='btn-group' style='width: max-content;'><a onclick='openModalRespuesta(&quot;" +
                 //                 row.reply.replace(/(?:\r\n|\r|\n)/g, '<br>') +
-                //                 "&quot;)' class='btn btn-sm btn-default btn-hover-success add-tooltip' title='Ver respuesta'><i class='fa fa-search'></i></a></div>";
+                //                 "&quot;)' class='btn btn-sm btn-default btn-hover-success' data-toggle="tooltip" title='Ver respuesta'><i class='fa fa-search'></i></a></div>";
                 //         } else {
                 //             return "Sin respuesta";
                 //         }
@@ -361,7 +361,7 @@
                     if (row.is_reply == 0) {
                         var functionV = 'changestatus(' + row.id + ')';
                         prepend = "<a onclick='" + functionV +
-                            "' class='btn btn-sm btn-default btn-hover-info add-tooltip' title='Cambiar estado'><i class='fa fa-retweet'></i></a>";
+                            "' class='btn btn-sm btn-default btn-hover-info' data-toggle='tooltip' title='Cambiar estado'><i class='fa fa-retweet'></i></a>";
                     } else {
                         prepend = "-";
                     }

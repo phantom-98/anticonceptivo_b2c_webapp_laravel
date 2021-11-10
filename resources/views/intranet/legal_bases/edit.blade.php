@@ -50,7 +50,7 @@
                                 <input type="file" id="file" name="file" class="form-control" accept=".pdf">
                                 <br/>
                                 @if ($object->file)
-                                <a href="{{ Storage::url($object->file) }}" target="_blank" class='btn btn-sm btn-default btn-hover-success add-tooltip' title="Descargar archivo"><i class="ti-file"></i></a>
+                                <a href="{{ Storage::url($object->file) }}" target="_blank" class='btn btn-sm btn-default btn-hover-success' data-toggle="tooltip" title="Descargar archivo"><i class="ti-file"></i></a>
                                 @endif
                             </div>  
 

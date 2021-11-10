@@ -14,7 +14,7 @@
         </a>
 
         <button type="button" onclick="confirmDelete('{{$nested_field['id']}}')"
-                class="btn btn-sm btn-default btn-hover-danger add-tooltip"
+                class="btn btn-sm btn-default btn-hover-danger" data-toggle="tooltip"
                 title="Eliminar"
                 style="float: left;">
             <i class="fa fa-remove"></i>
