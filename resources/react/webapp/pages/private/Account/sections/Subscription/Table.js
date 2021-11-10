@@ -527,7 +527,7 @@ const Table = ({
             headerClasses: "",
             formatter: (cell, row) => {
                 let address = '';
-
+                console.log(row)
                 if(row.delivery_address != null){
                     address = row.delivery_address
                 }else if(row.customer_address){

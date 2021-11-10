@@ -98,6 +98,11 @@
                                     <td class="bold w-25">DIRECCIÓN ENTREGA</td>
                                     <td>{{ $object->delivery_address }}</td>
                                 </tr>
+                                </tr>
+                                <tr>
+                                    <td class="bold w-25">COMENTARIO DE DIRECCIÓN</td>
+                                    <td>{{ $object->comments ??  'Sin comentario' }}</td>
+                                </tr>
                                 <tr>
                                     <td class="bold w-25">FECHA ENTREGA</td>
                                     <td>{{ date('d-m-Y', strtotime($object->delivery_date)) }}</td>
@@ -190,29 +195,29 @@
                                 <tr>
                                     <td colspan="2" style="border:none"></td>
                                     <td class="text-right">SUBTOTAL</td>
-     
+
                                     <td class="bold w-25"> $<span class="right"> {{ number_format($object->subtotal, 0, ',','.')}}</span></td>
- 
+
                                 </tr>
                                 <tr>
                                     <td colspan="2" style="border:none"></td>
                                     <td class="text-right">DESPACHO</td>
-                                  
+
                                     <td class="bold w-25"> $<span class="right"> {{ number_format($object->dispatch, 0, ',','.')}}</span></td>
-                 
+
                                 </tr>
                                 <tr>
                                     <td colspan="2" style="border:none"></td>
                                     <td class="text-right">DESCUENTO</td>
-                                  
+
                                     <td class="bold w-25"> $<span class="right"> {{ number_format($object->discount, 0, ',','.')}}</span></td>
-                 
+
                                 </tr>
                                 <tr>
                                     <td colspan="2" style="border:none"></td>
                                     <td class="text-right">TOTAL</td>
                                     <td class="bold w-25"> $<span class="right"> {{ number_format($object->total, 0, ',','.')}}</span></td>
-                                  
+
                                 </tr>
                                 </tbody>
                             </table>

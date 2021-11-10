@@ -67,6 +67,10 @@
                     <td class="bold w-25">DIRECCIÓN</td>
                     <td colspan="4">{{ $order->delivery_address ??  'Dirección no registrada' }}</td>
                 </tr>
+                <tr>
+                    <td class="bold w-25">COMENTARIO DE DIRECCIÓN</td>
+                    <td colspan="4">{{ $order->comments ??  'Sin comentario' }}</td>
+                </tr>
                 {{-- @if($order->dispatch_type == 'delivery')
                 <tr>
                     <td class="bold w-25">FECHA ESTIMADA DE ENTREGA</td>

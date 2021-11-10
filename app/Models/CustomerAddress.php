@@ -8,12 +8,12 @@ class CustomerAddress extends Model
 {
     protected $fillable = [
         'id',
-        
+
         'name',
         'address',
         'default_address',
         'extra_info',
-
+        'comment',
         'customer_id',
         'region_id',
         'commune_id',

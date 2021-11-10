@@ -125,6 +125,7 @@ class WebpayPlusController
             $customerAddress->region_id = $request->region_id;
             $customerAddress->commune_id = intVal($request->commune_id);
             $customerAddress->extra_info = $request->extra_info;
+            $customerAddress->comment = $request->comment;
             $customerAddress->customer_id = $customer->id;
             $customerAddress->default_address = 1;
 
@@ -149,6 +150,8 @@ class WebpayPlusController
                 $customerAddress->region_id = $request->region_id;
                 $customerAddress->commune_id = intVal($request->commune_id);
                 $customerAddress->extra_info = $request->extra_info;
+                $customerAddress->comment = $request->comment;
+
 
                 $customerAddress->save();
             }else{
@@ -182,6 +185,7 @@ class WebpayPlusController
         $commune = Commune::find($customerAddress->commune_id);
 
         $order->delivery_address = $customerAddress->address .', '. $commune->name . ', ' . $region->name. ' N° de casa / Depto: ' . $customerAddress->extra_info ?? '-';
+        $order->comments = $customerAddress->comment;
 
         $subtotal = 0;
         $isSubscription = 0;
