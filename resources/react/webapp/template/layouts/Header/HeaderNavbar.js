@@ -140,7 +140,6 @@ const HeaderNavbar = () => {
                             </div>
                         </Dropdown.Menu>
                         :
-
                         <Dropdown.Menu align="right" bsPrefix="dropdown-menu-custom">
                             {
                                 category.subcategories.map((subCategory) => {
@@ -169,13 +168,15 @@ const HeaderNavbar = () => {
             <div className="container px-0 max-header-navbar">
                 {
                     spliceCategories.map((cat, i) => {
-                        console.log(cat);
-                        return <div className="row no-gutters justify-content-center">
-                            {
-                                cat.map((category, index) => (
-                                    <RenderMenuBlock key={index} category={category}/>))
-                            }
-                        </div>
+                        if(cat.length){
+                            console.log(cat);
+                            return <div key={uuidv4()} className="row no-gutters justify-content-center">
+                                {
+                                    cat.map((category, index) => (
+                                        <RenderMenuBlock key={index} category={category}/>))
+                                }
+                            </div>
+                        }
                     })
                 }
             </div>

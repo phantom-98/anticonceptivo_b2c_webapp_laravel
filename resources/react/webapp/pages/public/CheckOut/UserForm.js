@@ -20,7 +20,7 @@ const UserForm = ({setView, data, setData, setFiles, files, editable, setProduct
             if (e.target.value.match("^$|^[0-9]+$")) {
                 setData({...data,
                     [e.target.id]: e.target.value
-                }) 
+                })
             }
         }
 
@@ -28,7 +28,7 @@ const UserForm = ({setView, data, setData, setFiles, files, editable, setProduct
             if (e.target.value.match('^$|^[a-zA-Z ]+$')) {
                 setData({...data,
                     [e.target.id]: e.target.value
-                })   
+                })
             }
         }
 
@@ -213,7 +213,7 @@ const UserForm = ({setView, data, setData, setFiles, files, editable, setProduct
                                                                             {
                                                                                 files.map((file) => {
                                                                                     return file.name_id == index ?
-                                                                                        <span className="font-14 font-poppins regular">{file.name}</span>
+                                                                                        <span key={uuidv4} className="font-14 font-poppins regular">{file.name}</span>
                                                                                         : null
                                                                                 })
                                                                             }
