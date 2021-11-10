@@ -13,15 +13,53 @@ import * as Services from "../../../Services";
 import {v4 as uuidv4} from 'uuid';
 import {Link} from "react-router-dom";
 import PillsDropDown from "../../components/PillsDropDown";
+import UseWindowDimensions from "../../../components/customHooks/UseWindowDimensions";
 
 const HeaderNavbar = () => {
 
-    const size = useWindowSize();
+    const {width} = UseWindowDimensions();
+
     const [categories, setCategories] = useState([]);
+    const [spliceCategories, setSpliceCategories] = useState([]);
     const [show, setShow] = useState({});
     const [laboratories, setLaboratories] = useState([]);
     const [formats, setFormats] = useState([]);
     const [subscriptions, setSubscriptions] = useState([]);
+    const [rows, setRows] = useState(1);
+
+    useEffect(() => {
+        setView(width)
+    }, [width])
+
+    useEffect(() => {
+        doSliceCategories();
+    }, [rows, categories])
+
+    const setView = (width) => {
+        if (width < 1385) {
+            setRows(2)
+        } else {
+            setRows(1);
+        }
+    }
+
+    const doSliceCategories = () => {
+
+        let limit = Math.round(categories.length / rows);
+        console.log(limit);
+        if (limit) {
+            let finalData = chunkArrayInGroups(categories, limit);
+            setSpliceCategories(finalData);
+        }
+    }
+
+    const chunkArrayInGroups = (arr, size) => {
+        let chunk = [], i;
+        for (i = 0; i <= arr.length; i += size)
+            chunk.push(arr.slice(i, i + size));
+        return chunk;
+    }
+
 
     const showDropdown = (categoryId) => {
         let listShow = {}
@@ -69,235 +107,80 @@ const HeaderNavbar = () => {
         </div>
     ));
 
+    const RenderMenuBlock = ({category}) => {
+        let url = PUBLIC_ROUTES.SHOP.path;
+        url = url.replace(":category", category.slug);
+
+        return (<div className="col-auto">
+            <Dropdown key={'category-' + category.categoryId}
+                      show={show[category.categoryId]}
+                // onMouseEnter={() => showDropdown(category.categoryId)}
+                // onMouseLeave={() => hideDropdown(category.categoryId)}
+                      drop={'down'}
+            >
+                <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
+                    <HeaderNavbarItem
+                        linkTo={url}
+                        icon={category.public_image}
+                        text={category.name}
+                    />
+                </Dropdown.Toggle>
+
+                {
+                    category.id === 1 ?
+                        <Dropdown.Menu align="right" bsPrefix="dropdown-menu-custom with-pills">
+                            <div className="custom-dropdown-item"
+                                 style={{cursor: 'default'}}>
+                                <PillsDropDown
+                                    laboratories={laboratories}
+                                    formats={formats}
+                                    subscriptions={subscriptions}
+                                    categorySlug={category.slug}
+                                />
+                            </div>
+                        </Dropdown.Menu>
+                        :
+
+                        <Dropdown.Menu align="right" bsPrefix="dropdown-menu-custom">
+                            {
+                                category.subcategories.map((subCategory) => {
+                                    let childUrl = PUBLIC_ROUTES.SHOP_SUBCATEGORY.path;
+                                    childUrl = childUrl.replace(":category?", category.slug);
+                                    childUrl = childUrl.replace(":subcategory?", subCategory.slug);
+                                    return (
+                                        <Dropdown.Item key={uuidv4()}>
+                                            <Link to={childUrl}
+                                                  style={{textDecoration: 'none'}}>
+                                                                        <span
+                                                                            className="header-navbar-subitem">{subCategory.name}</span>
+                                            </Link>
+                                        </Dropdown.Item>
+                                    )
+                                })
+                            }
+                        </Dropdown.Menu>
+                }
+            </Dropdown>
+        </div>)
+    }
+    console.log('return');
     return (
         <div className="header-navbar bg-0869A6">
             <div className="container px-0 max-header-navbar">
-                <div>
-                    <div className="row justify-content-center">
-
-                        {
-
-                            categories.map((category, index) => {
-
-                                let url = PUBLIC_ROUTES.SHOP.path;
-                                url = url.replace(":category", category.slug);
-
-                                if (size.width <= 1351 && index <= 3) {
-
-                                    return <Dropdown key={category.categoryId}
-                                                     show={show[category.categoryId]}
-                                                     onMouseEnter={() => showDropdown(category.categoryId)}
-                                                     onMouseLeave={() => hideDropdown(category.categoryId)}
-                                                     drop={'down'}>
-                                        <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
-                                            <HeaderNavbarItem
-                                                linkTo={url}
-                                                icon={category.public_image}
-                                                text={category.name}
-                                            />
-                                        </Dropdown.Toggle>
-
-                                        {
-                                            category.id === 1 ?
-                                                <Dropdown.Menu align="right" bsPrefix="dropdown-menu-custom with-pills">
-                                                    <div className="custom-dropdown-item" style={{cursor: 'default'}}>
-                                                        {
-                                                            show[category.categoryId] ?
-                                                                <PillsDropDown
-                                                                    laboratories={laboratories}
-                                                                    formats={formats}
-                                                                    subscriptions={subscriptions}
-                                                                    categorySlug={category.slug}
-                                                                />
-                                                            : null
-                                                        }
-                                                    </div>
-                                                </Dropdown.Menu>
-
-                                                :
-
-                                                <Dropdown.Menu align="right" bsPrefix="dropdown-menu-custom">
-                                                    {
-                                                        category.subcategories.map((subCategory) => {
-                                                            let childUrl = PUBLIC_ROUTES.SHOP_SUBCATEGORY.path;
-                                                            childUrl = childUrl.replace(":category?", category.slug);
-                                                            childUrl = childUrl.replace(":subcategory?", subCategory.slug);
-                                                            return (
-                                                                <Dropdown.Item key={uuidv4()}>
-                                                                    <Link to={childUrl}
-                                                                          style={{textDecoration: 'none'}}>
-                                                                        <span
-                                                                            className="header-navbar-subitem">{subCategory.name}</span>
-                                                                    </Link>
-                                                                </Dropdown.Item>
-                                                            )
-                                                        })
-                                                    }
-                                                </Dropdown.Menu>
-                                            
-                                        }
-                                    </Dropdown>
-
-                                } else if (size.width > 1351) {
-
-                                    return <Dropdown key={category.categoryId}
-                                                     show={show[category.categoryId]}
-                                                     onMouseEnter={() => showDropdown(category.categoryId)}
-                                                     onMouseLeave={() => hideDropdown(category.categoryId)}
-                                                     drop={'down'}>
-
-                                        <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
-                                            <HeaderNavbarItem
-                                                linkTo={url}
-                                                icon={category.public_image}
-                                                text={category.name}
-                                            />
-                                        </Dropdown.Toggle>
-
-                                        {
-                                            category.id === 1 ?
-                                                <Dropdown.Menu align="right" bsPrefix="dropdown-menu-custom with-pills">
-                                                    <div className="custom-dropdown-item"
-                                                         style={{cursor: 'default'}}>
-                                                        {
-                                                            show[category.categoryId] ?
-                                                                <PillsDropDown
-                                                                    laboratories={laboratories}
-                                                                    formats={formats}
-                                                                    subscriptions={subscriptions}
-                                                                    categorySlug={category.slug}
-                                                                />
-                                                                : null
-                                                        }
-                                                    </div>
-                                                </Dropdown.Menu>
-                                                :
-
-                                                <Dropdown.Menu align="right" bsPrefix="dropdown-menu-custom">
-                                                    {
-                                                        category.subcategories.map((subCategory) => {
-                                                            let childUrl = PUBLIC_ROUTES.SHOP_SUBCATEGORY.path;
-                                                            childUrl = childUrl.replace(":category?", category.slug);
-                                                            childUrl = childUrl.replace(":subcategory?", subCategory.slug);
-                                                            return (
-                                                                <Dropdown.Item key={uuidv4()}>
-                                                                    <Link to={childUrl}
-                                                                          style={{textDecoration: 'none'}}>
-                                                                        <span
-                                                                            className="header-navbar-subitem">{subCategory.name}</span>
-                                                                    </Link>
-                                                                </Dropdown.Item>
-                                                            )
-                                                        })
-                                                    }
-                                                </Dropdown.Menu>
-
-                                        }
-                                    </Dropdown>
-                                }
-
-                            })
-                        }
-
-                    </div>
-                    <div className="row justify-content-center">
-
-                        {
-
-                            categories.map((category, index) => {
-                                let url = PUBLIC_ROUTES.SHOP.path;
-                                url = url.replace(":category", category.slug);
-
-                                if (size.width <= 1351 && index > 3) {
-                                    return (
-
-                                        <Dropdown key={category.categoryId}
-                                                  show={show[category.categoryId]}
-                                                  onMouseEnter={() => showDropdown(category.categoryId)}
-                                                  onMouseLeave={() => hideDropdown(category.categoryId)}
-                                                  drop={'down'}
-                                        >
-                                            <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
-                                                <HeaderNavbarItem
-                                                    linkTo={url}
-                                                    icon={category.public_image}
-                                                    text={category.name}
-                                                />
-                                            </Dropdown.Toggle>
-
-                                            {
-                                                category.id === 1 ?
-                                                    <Dropdown.Menu align="right" bsPrefix="dropdown-menu-custom with-pills">
-                                                        <div className="custom-dropdown-item"
-                                                             style={{cursor: 'default'}}>
-                                                            <PillsDropDown
-                                                                laboratories={laboratories}
-                                                                formats={formats}
-                                                                subscriptions={subscriptions}
-                                                                categorySlug={category.slug}
-                                                            />
-                                                        </div>
-                                                    </Dropdown.Menu>
-                                                    :
-
-                                                    <Dropdown.Menu align="right" bsPrefix="dropdown-menu-custom">
-                                                        {
-                                                            category.subcategories.map((subCategory) => {
-                                                                let childUrl = PUBLIC_ROUTES.SHOP_SUBCATEGORY.path;
-                                                                childUrl = childUrl.replace(":category?", category.slug);
-                                                                childUrl = childUrl.replace(":subcategory?", subCategory.slug);
-                                                                return (
-                                                                    <Dropdown.Item key={uuidv4()}>
-                                                                        <Link to={childUrl}
-                                                                              style={{textDecoration: 'none'}}>
-                                                                        <span
-                                                                            className="header-navbar-subitem">{subCategory.name}</span>
-                                                                        </Link>
-                                                                    </Dropdown.Item>
-                                                                )
-                                                            })
-                                                        }
-                                                    </Dropdown.Menu>
-                                            }
-                                        </Dropdown>
-
-                                    )
-                                }
-
-                            })
-                        }
-                    </div>
-                </div>
+                {
+                    spliceCategories.map((cat, i) => {
+                        console.log(cat);
+                        return <div className="row no-gutters justify-content-center">
+                            {
+                                cat.map((category, index) => (
+                                    <RenderMenuBlock key={index} category={category}/>))
+                            }
+                        </div>
+                    })
+                }
             </div>
         </div>
     );
 };
-
-function useWindowSize() {
-    // Initialize state with undefined width/height so server and client renders match
-    // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
-    const [windowSize, setWindowSize] = useState({
-        width: undefined,
-        height: undefined,
-    });
-    useEffect(() => {
-        // Handler to call on window resize
-        function handleResize() {
-            // Set window width/height to state
-            setWindowSize({
-                width: window.innerWidth,
-                height: window.innerHeight,
-            });
-        }
-
-        // Add event listener
-        window.addEventListener("resize", handleResize);
-        // Call handler right away so state gets updated with initial window size
-        handleResize();
-        // Remove event listener on cleanup
-        return () => window.removeEventListener("resize", handleResize);
-    }, []); // Empty array ensures that effect is only run on mount
-    return windowSize;
-}
 
 export default HeaderNavbar
