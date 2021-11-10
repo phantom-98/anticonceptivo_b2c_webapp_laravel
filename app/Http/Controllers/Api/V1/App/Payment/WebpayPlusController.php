@@ -409,47 +409,51 @@ class WebpayPlusController
     }
 
     private function isStockProducts($orderItems){
-        $arrayProductsQuantity = [];
-        foreach ($orderItems as $key => $orderItem) {
-            $quantityFinal = 0;
-            if(isset($orderItem->subscription_plan)){
-                $quantityFinal = $orderItem->subscription_plan->months;
-            }else{
-                $quantityFinal = $orderItem->quantity;
-            }
-            $arrayProductsQuantity[$orderItem->product_id] = ($arrayProductsQuantity[$orderItem->product_id] ?? 0) + $quantityFinal;
-        }
 
-        foreach ($arrayProductsQuantity as $id => $quantity) {
-            $product = Product::find($id);
-            $get_data = ApiHelper::callAPI('GET', 'https://api.ailoo.cl/v1/inventory/barCode/'.$product->barcode, null, 'ailoo');
-            $response = json_decode($get_data, true);
-            if($response != null && array_key_exists('inventoryItems',$response)){
-                $isWeb = false;
-                foreach ($response['inventoryItems'] as $key => $inventory) {
-                    if($inventory['facilityName'] == 'Web'){
-                        $product->stock = $inventory['quantity'];
-                        $isWeb = true;
-                    }
+        if (env('APP_ENV') == 'production') {
+            $arrayProductsQuantity = [];
+            foreach ($orderItems as $key => $orderItem) {
+                $quantityFinal = 0;
+                if(isset($orderItem->subscription_plan)){
+                    $quantityFinal = $orderItem->subscription_plan->months;
+                }else{
+                    $quantityFinal = $orderItem->quantity;
                 }
+                $arrayProductsQuantity[$orderItem->product_id] = ($arrayProductsQuantity[$orderItem->product_id] ?? 0) + $quantityFinal;
+            }
 
-                if(!$isWeb){
+            foreach ($arrayProductsQuantity as $id => $quantity) {
+                $product = Product::find($id);
+                $get_data = ApiHelper::callAPI('GET', 'https://api.ailoo.cl/v1/inventory/barCode/'.$product->barcode, null, 'ailoo');
+                $response = json_decode($get_data, true);
+                if($response != null && array_key_exists('inventoryItems',$response)){
+                    $isWeb = false;
+                    foreach ($response['inventoryItems'] as $key => $inventory) {
+                        if($inventory['facilityName'] == 'Web'){
+                            $product->stock = $inventory['quantity'];
+                            $isWeb = true;
+                        }
+                    }
+
+                    if(!$isWeb){
+                        $product->stock = 0;
+                    }
+
+                }else{
                     $product->stock = 0;
                 }
 
-            }else{
-                $product->stock = 0;
-            }
+                if($product->stock < $quantity ){
+                    return array(
+                        'status'=>false,
+                        'product' => $product,
+                        'quantity' => $quantity
+                    );
+                }
 
-            if($product->stock < $quantity ){
-                return array(
-                    'status'=>false,
-                    'product' => $product,
-                    'quantity' => $quantity
-                );
             }
-
         }
+
         return array(
             'status'=>true,
             'product' => null,
