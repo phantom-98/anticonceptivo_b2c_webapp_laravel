@@ -51,13 +51,13 @@ const AddAddress = ({setView, regions, address, setAddress}) => {
             setCommunes(orderCommunes);
         }
     }, [selectedRegion]);
-    
+
     useEffect(() => {
         if (googleAddress.length > 0) {
             setAddress({
                 ...address,
                 ['address']: googleAddress,
-            })  
+            })
         }
     },[googleAddress]);
 
@@ -77,7 +77,7 @@ const AddAddress = ({setView, regions, address, setAddress}) => {
                 setAddress({
                     ...address,
                     [e.target.name]: e.target.value
-                })  
+                })
             }
         }
 
@@ -86,7 +86,7 @@ const AddAddress = ({setView, regions, address, setAddress}) => {
                 setAddress({
                     ...address,
                     [e.target.name]: e.target.value
-                })  
+                })
             }
         }
 
@@ -95,7 +95,7 @@ const AddAddress = ({setView, regions, address, setAddress}) => {
                 setAddress({
                     ...address,
                     [e.target.name]: e.target.value
-                })  
+                })
             }
         }
 
@@ -147,6 +147,7 @@ const AddAddress = ({setView, regions, address, setAddress}) => {
             commune_id: parseInt(address.commune_id),
             address: address.address,
             extra_info: address.extra_info,
+            comment: address.comment
         }
 
         Services.DoPost(url,data).then(response => {
@@ -167,7 +168,7 @@ const AddAddress = ({setView, regions, address, setAddress}) => {
         setAddress({
             ...address,
             ['address']: place,
-        })   
+        })
     }
 
     return (
@@ -311,6 +312,23 @@ const AddAddress = ({setView, regions, address, setAddress}) => {
                                 <div className="invalid-feedback" />
                             </div>
                         </div>
+
+                        <div className="col-md-12">
+                            <div className="form-group">
+                                <label htmlFor="name">Comentario</label>
+                                <input type="text"
+                                       className="form-control form-control-custom"
+                                       id="comment"
+                                       name="comment"
+                                       placeholder="Comentario"
+                                       value={address.comment}
+                                       onChange={(e) => handleAddress(e, false, false, true)}
+                                       onFocus={setCleanInputError}
+                                />
+                                <div className="invalid-feedback" />
+                            </div>
+                        </div>
+
 
                     </div>
                 </div>

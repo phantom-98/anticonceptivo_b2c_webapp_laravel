@@ -67,7 +67,7 @@ const Form = ({addressSelected, goBack, formMode, customerId = null, regions, se
             setAddress({
                 ...address,
                 ['address']: googleAddress
-            })  
+            })
         }
     },[googleAddress])
 
@@ -77,7 +77,7 @@ const Form = ({addressSelected, goBack, formMode, customerId = null, regions, se
                 setAddress({
                     ...address,
                     [e.target.name]: e.target.value
-                })  
+                })
             }
         }
 
@@ -86,7 +86,7 @@ const Form = ({addressSelected, goBack, formMode, customerId = null, regions, se
                 setAddress({
                     ...address,
                     [e.target.name]: e.target.value
-                })  
+                })
             }
         }
 
@@ -95,7 +95,7 @@ const Form = ({addressSelected, goBack, formMode, customerId = null, regions, se
                 setAddress({
                     ...address,
                     [e.target.name]: e.target.value
-                })  
+                })
             }
         }
 
@@ -124,6 +124,7 @@ const Form = ({addressSelected, goBack, formMode, customerId = null, regions, se
             commune_id: parseInt(address.commune_id),
             address: address.address,
             extra_info: address.extra_info,
+            comment: address.comment
         }
 
         Services.DoPost(url,data).then(response => {
@@ -155,7 +156,7 @@ const Form = ({addressSelected, goBack, formMode, customerId = null, regions, se
             setInputError('address','Por favor, ingrese una dirección valida.');
             return null;
         }
-        
+
         setAddresses(address);
         goBack();
     }
@@ -166,7 +167,7 @@ const Form = ({addressSelected, goBack, formMode, customerId = null, regions, se
         setAddress({
             ...address,
             ['address']: place,
-        })   
+        })
     }
 
     return (
@@ -297,6 +298,22 @@ const Form = ({addressSelected, goBack, formMode, customerId = null, regions, se
                            placeholder="Número casa o departamento"
                            value={address.extra_info}
                            onChange={(e) => handleAddress(e)}
+                           onFocus={setCleanInputError}
+                    />
+                    <div className="invalid-feedback" />
+                </div>
+            </div>
+
+            <div className="col-md-12">
+                <div className="form-group">
+                    <label htmlFor="name">Comentario</label>
+                    <input type="text"
+                           className="form-control form-control-custom"
+                           id="comment"
+                           name="comment"
+                           placeholder="Comentario"
+                           value={address.comment}
+                           onChange={(e) => handleAddress(e, false, false, true)}
                            onFocus={setCleanInputError}
                     />
                     <div className="invalid-feedback" />
