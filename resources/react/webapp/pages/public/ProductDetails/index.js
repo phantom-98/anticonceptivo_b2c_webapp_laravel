@@ -31,7 +31,8 @@ const ProductDetail = ({match}) => {
                 },
                 {
                     url: PUBLIC_ROUTES.SHOP.path,
-                    name: 'Productos'
+                    name: product.subcategory.category.name,
+                    slug:  product.subcategory.category.slug
                 },
                 {
                     url: (PUBLIC_ROUTES.PRODUCT_DETAIL.path).replace(':slug', match.params.slug),

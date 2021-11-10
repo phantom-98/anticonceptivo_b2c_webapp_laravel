@@ -93,7 +93,9 @@ const ShopSearch = ({match}) => {
                     //         ['subcategories']: [response.data.subcat.id]
                     //     });
                     // }
-
+                    if(response.data.products.length == 1){
+                        window.location.href = (PUBLIC_ROUTES.PRODUCT_DETAIL.path).replace(':slug', response.data.products[0].slug);
+                    }
 
                     setLoading(true);
                 },

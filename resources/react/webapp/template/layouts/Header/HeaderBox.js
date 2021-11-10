@@ -42,7 +42,12 @@ const HeaderBox = () => {
         if(search.trim() != ''){
             let url = PUBLIC_ROUTES.SHOP_SEARCH.path;
             url = url.replace(":search", search);
-            window.location.href = url;
+            if(productsWithFilter.length == 1){
+                window.location.href = (PUBLIC_ROUTES.PRODUCT_DETAIL.path).replace(':slug', productsWithFilter[0].slug);
+            }else{
+                window.location.href = url;
+
+            }
         }
 
     }

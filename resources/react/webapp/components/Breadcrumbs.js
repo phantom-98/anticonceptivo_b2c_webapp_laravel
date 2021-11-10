@@ -7,11 +7,15 @@ const Breadcrumbs = ({items}) => {
         <div className="pb-3">
             {
                 items.map((item, index) => {
-
+                    console.log(item)
                     let url = item.url;
 
                     if (url.includes(':category?')) {
-                        url = url.replace(':category?', 'pastillas')
+                        if(item.slug){
+                            url = url.replace(':category?', item.slug)
+                        }else{
+                            url = url.replace(':category?', 'pastillas')
+                        }
                     }
 
                     return <Fragment key={index}>
