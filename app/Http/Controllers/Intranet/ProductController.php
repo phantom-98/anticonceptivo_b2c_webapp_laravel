@@ -37,7 +37,7 @@ class ProductController extends GlobalController
 
     public function index()
     {
-        $objects = Product::with('images', 'subcategory', 'laboratory')->get();
+        $objects = Product::with('product_images', 'subcategory', 'laboratory')->get();
         return view($this->folder . 'index', compact('objects'));
     }
 
@@ -62,7 +62,7 @@ class ProductController extends GlobalController
 
     public function show_images($id)
     {
-        $objects = Product::with('images')->find($id)->images;
+        $objects = Product::with('product_images')->find($id)->images;
         return view($this->folder . 'product_images', compact('objects'));
     }
 
@@ -190,7 +190,7 @@ class ProductController extends GlobalController
      */
     public function edit($id)
     {
-        $object = Product::with('images', 'plans')->find($id);
+        $object = Product::with('product_images', 'plans')->find($id);
 
         if (!$object) {
             session()->flash('warning', 'Producto no encontrado.');
@@ -290,7 +290,7 @@ class ProductController extends GlobalController
                     $new_plan = new ProductSubscriptionPlan();
                     $new_plan->subscription_plan_id = $plan[0];
                     $new_plan->warnings = $request->warnings[$key][0];
-                    $new_plan->price = $request->price_plan[$key][0];                        
+                    $new_plan->price = $request->price_plan[$key][0];
                     $new_plan->days = $request->days[$key][0];
                     $new_plan->product_id = $product->id;
                     $new_plan->save();

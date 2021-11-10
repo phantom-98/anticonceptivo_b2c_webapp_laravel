@@ -100,7 +100,7 @@ const ProductCard = ({product, className = '', subscriptionFilter = []}) => {
         if (!prod.plans) {
             return null;
         }
-        
+
         if (!prod.plans.length) {
             return null;
         }
@@ -140,12 +140,12 @@ const ProductCard = ({product, className = '', subscriptionFilter = []}) => {
                     <div className="product-card-price">
                         {
                             formatMoney(
-                                subscriptionFilter.length ? 
-                                    handlePrice(product) : product.is_offer 
+                                subscriptionFilter.length ?
+                                    handlePrice(product) : product.is_offer
                                 ? product.offer_price : product.price)
                         }
                         {
-                            subscriptionFilter.length ? 
+                            subscriptionFilter.length ?
                                 handleText(product)
                             :
                                 product.is_offer ?
@@ -183,8 +183,8 @@ const ProductCard = ({product, className = '', subscriptionFilter = []}) => {
                         </div>
                         <div className="product-card-price">
                             {/* {
-                                formatMoney(product.is_offer ? 
-                                    product.offer_price : 
+                                formatMoney(product.is_offer ?
+                                    product.offer_price :
                                 product.price)}
                             {
                                 product.is_offer ?
@@ -194,14 +194,14 @@ const ProductCard = ({product, className = '', subscriptionFilter = []}) => {
 
                             {
                                 formatMoney(
-                                    subscriptionFilter.length ? 
-                                        handlePrice(product) 
-                                    : product.is_offer ? 
-                                        product.offer_price 
+                                    subscriptionFilter.length ?
+                                        handlePrice(product)
+                                    : product.is_offer ?
+                                        product.offer_price
                                         : product.price)
                             }
                             {
-                                subscriptionFilter.length ? 
+                                subscriptionFilter.length ?
                                     handleText(product, true)
                                 :
                                     product.is_offer ?

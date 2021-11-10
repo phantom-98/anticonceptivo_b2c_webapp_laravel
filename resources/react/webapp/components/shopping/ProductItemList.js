@@ -25,7 +25,7 @@ const ProductItemList = ({item}) => {
                 <div className="col d-flex">
                     <div className="my-auto">
                         <div className="font-poppins font-12 color-009BE8 mb-1"> {item.product.sku}</div>
-                        <div className="font-poppins font-14 bold text-black"> 
+                        <div className="font-poppins font-14 bold text-black">
                         {
                         item.subscription == null ? item.product.name : item.product.name + ' ('+ 'suscripción' +')'
                         }
@@ -36,8 +36,8 @@ const ProductItemList = ({item}) => {
                     <div className="my-auto font-poppins font-16 bold color-009BE8">
 
                     {
-                        item.subscription == null ? 
-                            formatMoney(item.quantity * (item.product.is_offer ? item.product.offer_price : item.product.price)) 
+                        item.subscription == null ?
+                            formatMoney(item.quantity * (item.product.is_offer ? item.product.offer_price : item.product.price))
                         : formatMoney(item.subscription.price*item.subscription.quantity * item.quantity) + ' ('+ formatMoney(item.subscription.price)+' c/u)'
                     }
 
@@ -51,7 +51,7 @@ const ProductItemList = ({item}) => {
                             ? null
                                 : <QuantityInput quantity={item.quantity} setQuantity={setQuantity} maxQuantity={item.product.stock >= item.product.subcategory.category.quantity_limit ? item.product.subcategory.category.quantity_limit : item.product.stock}/>
                             }
-                            
+
                         </div>
                         <div className="col-auto pt-1 text-center pointer" onClick={() => removeFromCart(item)}>
                             <div><Icon path={iconRemove}/></div>
