@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "31588586bfa3b262a07bf202ac7f39a6",
+    "content-hash": "9bcef546ed6294976a59b2106f932a47",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -8032,16 +8032,16 @@
         },
         {
             "name": "willywes/apiresponse",
-            "version": "v0.3.0",
+            "version": "v1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Willywes/ApiResponse.git",
-                "reference": "439d4b8e8057f2e0d06e778479c35f3db264e6f5"
+                "reference": "28081b53da04094793be911735a20f29f9089f34"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Willywes/ApiResponse/zipball/439d4b8e8057f2e0d06e778479c35f3db264e6f5",
-                "reference": "439d4b8e8057f2e0d06e778479c35f3db264e6f5",
+                "url": "https://api.github.com/repos/Willywes/ApiResponse/zipball/28081b53da04094793be911735a20f29f9089f34",
+                "reference": "28081b53da04094793be911735a20f29f9089f34",
                 "shasum": ""
             },
             "require": {
@@ -8076,6 +8076,11 @@
                     "name": "Alejandro Isla",
                     "email": "alejandro.isla.c@gmail.com",
                     "homepage": "http://alejandroisla.cl"
+                },
+                {
+                    "name": "Franco Castelli",
+                    "email": "f.castelli1999@gmail.com",
+                    "homepage": "https://github.com/FrancoCastelli99"
                 }
             ],
             "description": "Class to generate a standard structure for api json responses",
@@ -8090,9 +8095,9 @@
             ],
             "support": {
                 "issues": "https://github.com/Willywes/ApiResponse/issues",
-                "source": "https://github.com/Willywes/ApiResponse/tree/v0.3.0"
+                "source": "https://github.com/Willywes/ApiResponse/tree/v1.4.0"
             },
-            "time": "2020-11-18T00:50:36+00:00"
+            "time": "2021-11-08T23:04:08+00:00"
         }
     ],
     "packages-dev": [
@@ -10541,5 +10546,5 @@
         "ext-json": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.1.0"
+    "plugin-api-version": "2.0.0"
 }
