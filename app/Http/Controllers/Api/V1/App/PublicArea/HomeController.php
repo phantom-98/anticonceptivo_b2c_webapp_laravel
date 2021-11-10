@@ -125,10 +125,10 @@ class HomeController extends Controller
             $bottomBanners = Banner::where('location','Home (Inferior)')->where('active',true)->orderBy('position')->get();
 
             $outstandings = Product::where('outstanding', true)->where('active',true)->where('recipe_type','Venta Directa')
-                ->with(['subcategory.category','images','laboratory'])->get();
+                ->with(['subcategory.category','product_images','laboratory'])->get();
 
             if (!$outstandings->count()) {
-                $outstandings = Product::where('active',true)->where('recipe_type','Venta Directa')->with(['subcategory.category','images','laboratory'])->take(10)->get();
+                $outstandings = Product::where('active',true)->where('recipe_type','Venta Directa')->with(['subcategory.category','product_images','laboratory'])->take(10)->get();
             }
 
             $productsId = OrderItem::with(['order','product'])->whereHas('order', function($q){
@@ -136,7 +136,7 @@ class HomeController extends Controller
             })->select('product_id', DB::raw('sum(quantity) as total'))->groupBy('product_id')->orderBy('total', 'desc')->get();
 
             $bestSellers = Product::where('recipe_type','Venta Directa')->whereIn('id',$productsId->pluck('product_id'))
-                ->with(['subcategory.category','images','laboratory'])->get();
+                ->with(['subcategory.category','product_images','laboratory'])->get();
 
             $brands = Brand::where('active',true)->orderBy('position')->get();
 

@@ -38,6 +38,8 @@ class Product extends Model
         'state_of_matter'
     ];
 
+    protected $appends = ['images'];
+
     public function subcategory(){
         return $this->belongsTo(Subcategory::class);
     }
@@ -46,8 +48,20 @@ class Product extends Model
         return $this->belongsTo(Laboratory::class);
     }
 
-    public function images(){
+    public function product_images(){
         return $this->hasMany(ProductImage::class)->orderBy('position');
+    }
+
+    public function getImagesAttribute(){
+        $_images = $this->product_images;
+        if(count($this->product_images) < 6){
+            for ($i= count($this->product_images); $i<6; $i++){
+                $image = new ProductImage(['file' => asset('images/producto-default.png')]);
+                $_images->push($image);
+            }
+        }
+
+        return $_images;
     }
 
     public function plans(){
@@ -61,9 +75,9 @@ class Product extends Model
     public static function getEnumColumnValues($table, $column) {
 
         $type = DB::select(DB::raw("SHOW COLUMNS FROM $table WHERE Field = '{$column}'"))[0]->Type ;
-  
+
         preg_match('/^enum\((.*)\)$/', $type, $matches);
-  
+
         $enum_values = array();
         foreach( explode(',', $matches[1]) as $value )
         {
