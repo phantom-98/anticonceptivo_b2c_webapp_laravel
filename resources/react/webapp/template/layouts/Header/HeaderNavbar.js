@@ -21,7 +21,7 @@ const HeaderNavbar = () => {
 
     const [categories, setCategories] = useState([]);
     const [spliceCategories, setSpliceCategories] = useState([]);
-    const [show, setShow] = useState({});
+    const [showDropdown, setShowDropdown] = useState(null);
     const [laboratories, setLaboratories] = useState([]);
     const [formats, setFormats] = useState([]);
     const [subscriptions, setSubscriptions] = useState([]);
@@ -34,6 +34,10 @@ const HeaderNavbar = () => {
     useEffect(() => {
         doSliceCategories();
     }, [rows, categories])
+
+    useEffect(() => {
+        console.log('showDropdown');
+    }, [showDropdown])
 
     const setView = (width) => {
         if (width < 1385) {
@@ -61,16 +65,6 @@ const HeaderNavbar = () => {
     }
 
 
-    const showDropdown = (categoryId) => {
-        let listShow = {}
-        Object.keys(show).map((key, index) => (listShow = {...listShow, [key]: key == categoryId ? true : false}))
-        setShow(listShow);
-    }
-
-    const hideDropdown = (categoryId) => {
-        setShow({...show, [categoryId]: false});
-    }
-
     useEffect(() => {
         getResources();
     }, [])
@@ -83,17 +77,15 @@ const HeaderNavbar = () => {
                 response: response,
                 success: () => {
                     let list = [];
-                    let listShow = {};
                     response.data.categories.map((category) => {
                         let categoryId = uuidv4();
-                        list = [...list, {...category, ["categoryId"]: categoryId}]
-                        listShow = {...listShow, [categoryId]: false}
+                        list = [...list, {...category, categoryId: categoryId}]
                     })
+
                     setLaboratories(response.data.laboratories);
                     setFormats(Object.values(response.data.formats));
                     setSubscriptions(response.data.subscriptions);
                     setCategories(list);
-                    setShow(listShow);
                 },
             });
         }).catch(error => {
@@ -113,9 +105,9 @@ const HeaderNavbar = () => {
 
         return (<div className="col-auto">
             <Dropdown key={'category-' + category.categoryId}
-                      show={show[category.categoryId]}
-                      onMouseEnter={() => showDropdown(category.categoryId)}
-                      onMouseLeave={() => hideDropdown(category.categoryId)}
+                      show={showDropdown === category.categoryId}
+                      onMouseEnter={() => setShowDropdown(category.categoryId)}
+                      onMouseLeave={() => setShowDropdown(null)}
                       drop={'down'}
             >
                 <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
@@ -140,6 +132,7 @@ const HeaderNavbar = () => {
                             </div>
                         </Dropdown.Menu>
                         :
+
                         <Dropdown.Menu align="right" bsPrefix="dropdown-menu-custom">
                             {
                                 category.subcategories.map((subCategory) => {
@@ -162,13 +155,14 @@ const HeaderNavbar = () => {
             </Dropdown>
         </div>)
     }
-    console.log('return');
+
+
     return (
         <div className="header-navbar bg-0869A6">
             <div className="container px-0 max-header-navbar">
                 {
                     spliceCategories.map((cat, i) => {
-                        if(cat.length){
+                        if (cat.length) {
                             console.log(cat);
                             return <div key={uuidv4()} className="row no-gutters justify-content-center">
                                 {

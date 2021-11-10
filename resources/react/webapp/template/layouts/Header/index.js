@@ -53,20 +53,21 @@ const Header = () => {
     ];
 
     useEffect(() => {
-        function onScroll() {
-            if (window.pageYOffset == 1) {
-                setFixedTop(true)
-            }
 
-            if (window.pageYOffset == 0) {
-                setFixedTop(false)
-            }
-        }
 
         window.addEventListener("scroll", onScroll);
-        return () => window.removeEventListener("scroll", onScroll);
+        // return () => window.removeEventListener("scroll", onScroll);
     }, []);
 
+    function onScroll() {
+        if (window.pageYOffset == 1) {
+            setFixedTop(true)
+        }
+
+        if (window.pageYOffset == 0) {
+            setFixedTop(false)
+        }
+    }
 
     let url = PRIVATE_ROUTES.ACCOUNT.path;
     url = url.replace(':section', 'informacion-personal')
@@ -188,15 +189,15 @@ const Header = () => {
                         </div>
                     </div>
                 </div>
-                <div className="d-md-none d-block">
-                    <OffCanvas showCanvas={showingMenu} closeCanvas={hideMenu}>
-                        <div className="row menu-mobile-issue">
-                            <CategoryMenuMobile
-                                hideMenu={hideMenu}
-                            />
-                        </div>
-                    </OffCanvas>
-                </div>
+                {/*<div className="d-md-none d-block">*/}
+                {/*    <OffCanvas showCanvas={showingMenu} closeCanvas={hideMenu}>*/}
+                {/*        <div className="row menu-mobile-issue">*/}
+                {/*            <CategoryMenuMobile*/}
+                {/*                hideMenu={hideMenu}*/}
+                {/*            />*/}
+                {/*        </div>*/}
+                {/*    </OffCanvas>*/}
+                {/*</div>*/}
                 <div className="d-md-none d-block">
                     <SearchModal
                         showingSearch={showingSearch}
