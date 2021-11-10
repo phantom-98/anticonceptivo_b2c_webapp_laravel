@@ -30,7 +30,7 @@
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Cómo comprar</h3>
+                        <h3 class="panel-title"></h3>
                     </div>
                     <div class="panel-body">
                         <div class="row">

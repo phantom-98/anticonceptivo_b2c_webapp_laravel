@@ -89,7 +89,7 @@ const GrantUser = ({setView}) =>{
                         </p>
                         <div className="py-3">
                             <button className="btn btn-bicolor btn-block" onClick={() => setView('user-form')}>
-                                <span>CONTINUAR CÓMO INVITADO</span>
+                                <span>CONTINUAR COMO INVITADO</span>
                             </button>
                         </div>
                     </div>
