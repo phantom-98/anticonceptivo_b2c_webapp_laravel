@@ -49,8 +49,8 @@ const HeaderBox = () => {
 
             }
         }
-
     }
+
     useEffect(() => {
         getProducts();
     },[])

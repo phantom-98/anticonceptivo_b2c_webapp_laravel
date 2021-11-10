@@ -41,17 +41,18 @@ class ProductController extends GlobalController
         return view($this->folder . 'index', compact('objects'));
     }
 
-    public function position(Request $request){
+    public function position(Request $request)
+    {
 
-        try{
-            foreach($request->data as $data){
+        try {
+            foreach ($request->data as $data) {
                 $object = ProductImage::find($data['id']);
                 $object->update(['position' => $data['position']]);
             }
             return response()->json([
                 'status' => 1
             ]);
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             return response()->json([
                 'status' => 0
             ]);
@@ -66,27 +67,16 @@ class ProductController extends GlobalController
         return view($this->folder . 'product_images', compact('objects'));
     }
 
-     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $subcategories = Subcategory::where('active', 1)->get();
         $plans = SubscriptionPlan::get();
         $laboratories = Laboratory::get();
-        $consumptions = Product::getEnumColumnValues('products','consumption_typology');
+        $consumptions = Product::getEnumColumnValues('products', 'consumption_typology');
 
         return view($this->folder . 'create', compact('subcategories', 'plans', 'laboratories', 'consumptions'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         // dd($request->all());
@@ -137,23 +127,23 @@ class ProductController extends GlobalController
             $product->state_of_matter = $request->state_of_matter;
             $product->save();
 
-
             if ($request->hasFile('image')) {
 
-                foreach($request->file('image') as $key=>$item_file)
-                {
+                foreach ($request->file('image') as $key => $item_file) {
 
                     $image = new ProductImage();
-                    $image->file = $item_file->store('public/products/'.$product->id);
-                    $image->position = $key+1;
+                    $image->file = $item_file->store('public/products' . $product->id);
+                    $image->position = $key + 1;
                     $image->product_id = $product->id;
                     $image->save();
                 }
             }
 
-            foreach($request->plan_id as $key => $plan){
-                $plan = array_filter($plan, function($value) { return !is_null($value) && $value !== ''; });
-                if($plan){
+            foreach ($request->plan_id as $key => $plan) {
+                $plan = array_filter($plan, function ($value) {
+                    return !is_null($value) && $value !== '';
+                });
+                if ($plan) {
                     $new_plan = new ProductSubscriptionPlan();
                     $new_plan->subscription_plan_id = $plan[0];
                     $new_plan->warnings = $request->warnings[$key][0];
@@ -182,12 +172,7 @@ class ProductController extends GlobalController
 
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit($id)
     {
         $object = Product::with('images', 'plans')->find($id);
@@ -200,18 +185,11 @@ class ProductController extends GlobalController
         $subcategories = Subcategory::where('active', 1)->get();
         $plans = SubscriptionPlan::get();
         $laboratories = Laboratory::get();
-        $consumptions = Product::getEnumColumnValues('products','consumption_typology');
+        $consumptions = Product::getEnumColumnValues('products', 'consumption_typology');
 
         return view($this->folder . 'edit', compact('object', 'subcategories', 'plans', 'laboratories', 'consumptions'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         // dd($request->all());
@@ -223,7 +201,7 @@ class ProductController extends GlobalController
 
         $rules = [
             'name' => 'required',
-            'sku' => 'required|unique:products,sku,'. $id,
+            'sku' => 'required|unique:products,sku,' . $id,
             'price' => 'required|numeric',
             'subcategory_id' => 'required',
             'laboratory_id' => 'required',
@@ -268,15 +246,13 @@ class ProductController extends GlobalController
             $product->save();
 
             if ($request->hasFile('image')) {
-                \Storage::deleteDirectory('public/products/'.$product->id);
+                \Storage::deleteDirectory('public/products' . $product->id);
                 ProductImage::where('product_id', $product->id)->delete();
-                foreach($request->file('image') as $key=>$item_file)
-                {
-
+                foreach ($request->file('image') as $key => $item_file) {
                     $image = new ProductImage();
                     $ext = $item_file->getClientOriginalExtension();
-                    $image->file = $item_file->storeAs('public/products/', $product->id . rand(1000,999999) . '.' . $ext);
-                    $image->position = $key+1;
+                    $image->file = $item_file->storeAs('public/products', $product->id . rand(1000, 999999) . '.' . $ext);
+                    $image->position = $key + 1;
                     $image->product_id = $product->id;
                     $image->save();
                 }
@@ -284,20 +260,22 @@ class ProductController extends GlobalController
 
             ProductSubscriptionPlan::where('product_id', $product->id)->delete();
 
-            foreach($request->plan_id as $key => $plan){
-                $plan = array_filter($plan, function($value) { return !is_null($value) && $value !== ''; });
-                if($plan){
+            foreach ($request->plan_id as $key => $plan) {
+                $plan = array_filter($plan, function ($value) {
+                    return !is_null($value) && $value !== '';
+                });
+                if ($plan) {
                     $new_plan = new ProductSubscriptionPlan();
                     $new_plan->subscription_plan_id = $plan[0];
                     $new_plan->warnings = $request->warnings[$key][0];
-                    $new_plan->price = $request->price_plan[$key][0];                        
+                    $new_plan->price = $request->price_plan[$key][0];
                     $new_plan->days = $request->days[$key][0];
                     $new_plan->product_id = $product->id;
                     $new_plan->save();
 
 
-                    $lastPrice = Price::where('product_id', $product->id)->where('subscription_plan_id',$plan[0])->latest()->first();
-                    if($lastPrice){
+                    $lastPrice = Price::where('product_id', $product->id)->where('subscription_plan_id', $plan[0])->latest()->first();
+                    if ($lastPrice) {
                         $lastPrice->until = Carbon::now()->format('Y-m-d');
                         $lastPrice->save();
                     }
@@ -365,7 +343,7 @@ class ProductController extends GlobalController
             'file' => 'required'
         ]);
 
-            Excel::import(new ProductImport,request()->file('file'));
+        Excel::import(new ProductImport, request()->file('file'));
 
 
         session()->flash('success', 'Producto(s) importado(s) con éxito.');

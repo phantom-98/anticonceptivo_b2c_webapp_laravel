@@ -35,10 +35,6 @@ const HeaderNavbar = () => {
         doSliceCategories();
     }, [rows, categories])
 
-    useEffect(() => {
-        console.log('showDropdown');
-    }, [showDropdown])
-
     const setView = (width) => {
         if (width < 1385) {
             setRows(2)
@@ -48,7 +44,6 @@ const HeaderNavbar = () => {
     }
 
     const doSliceCategories = () => {
-
         let limit = Math.round(categories.length / rows);
         console.log(limit);
         if (limit) {
@@ -163,7 +158,6 @@ const HeaderNavbar = () => {
                 {
                     spliceCategories.map((cat, i) => {
                         if (cat.length) {
-                            console.log(cat);
                             return <div key={uuidv4()} className="row no-gutters justify-content-center">
                                 {
                                     cat.map((category, index) => (
