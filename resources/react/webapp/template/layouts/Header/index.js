@@ -31,23 +31,6 @@ const Header = () => {
 
     const {auth, logout} = useContext(AuthContext)
 
-    const styleProps = {
-        position: 'fixed',
-        right: 0,
-        left: 0,
-        zIndex: 1031,
-        backgroundColor: 'white',
-    }
-
-    const stylePropsMenu = {
-        position: 'fixed',
-        right: 0,
-        left: 0,
-        zIndex: 1030,
-        backgroundColor: 'white',
-    }
-
-    const {showMiniCart} = useContext(CartContext);
     const {showModalAuth} = useContext(AppContext);
 
     const [showingMenu, setShowingMenu] = useState(false);
@@ -58,44 +41,7 @@ const Header = () => {
     const showSearch = () => setShowingSearch(true);
     const hideSearch = () => setShowingSearch(false);
 
-    const [topFixed, setTopFixed] = useState({
-        top: 34,
-        boxShadow: '0px 1px 4px rgb(0 0 0 / 0%)'
-    });
-
-    const [topFixedMenu, setTopFixedMenu] = useState({
-        top: 142,
-        boxShadow: '0px 1px 4px rgb(0 0 0 / 0%)'
-    });
-
-    useEffect(() => {
-        function onScroll() {
-            if (window.pageYOffset == 1) {
-                setTopFixed({
-                    top: 0,
-                    boxShadow: '0px 1px 4px rgb(0 0 0 / 20%)'
-                })
-                setTopFixedMenu({
-                    top: 108,
-                    boxShadow: '0px 1px 4px rgb(0 0 0 / 20%)'
-                })
-            }
-
-            if (window.pageYOffset == 0) {
-                setTopFixed({
-                    top: 34,
-                    boxShadow: '0px 1px 4px rgb(0 0 0 / 0%)'
-                })
-                setTopFixedMenu({
-                    top: 142,
-                    boxShadow: '0px 1px 4px rgb(0 0 0 / 0%)'
-                })
-            }
-        }
-
-        window.addEventListener("scroll", onScroll);
-        return () => window.removeEventListener("scroll", onScroll);
-    }, []);
+    const [fixedTop, setFixedTop] = useState(false);
 
     const carrousels = [
         {
@@ -106,35 +52,40 @@ const Header = () => {
         }
     ];
 
-    // const settings = {
-    //     dots: false,
-    //     infinite: false,
-    //     slidesToShow: 1,
-    //     slidesToScroll: 1,
-    //     // autoplay: true,
-    //     // speed: 2000,
-    //     // autoplaySpeed: 2000,
-    //     // cssEase: "linear"
-    // };
-    var url = PRIVATE_ROUTES.ACCOUNT.path;
+    useEffect(() => {
+        function onScroll() {
+            if (window.pageYOffset == 1) {
+                setFixedTop(true)
+            }
+
+            if (window.pageYOffset == 0) {
+                setFixedTop(false)
+            }
+        }
+
+        window.addEventListener("scroll", onScroll);
+        return () => window.removeEventListener("scroll", onScroll);
+    }, []);
+
+
+    let url = PRIVATE_ROUTES.ACCOUNT.path;
     url = url.replace(':section', 'informacion-personal')
 
     return (
         <Fragment>
             <section id="header" className="header">
-                {/* Desktop */}
 
-                <div className="d-md-block d-none">
+                 <div className="d-md-block d-none">
                     <HeaderTop/>
                 </div>
 
                 <div className="d-md-block d-none">
-                    <div style={{...styleProps, ...topFixed}}>
+                    <div className={`style-props ${fixedTop ? 'style-props-fixed-top' : ''}`}>
                         <HeaderBox/>
                     </div>
                 </div>
                 <div className="d-md-block d-none">
-                    <div style={{...stylePropsMenu, ...topFixedMenu}}>
+                    <div className={`style-props-menu ${fixedTop ? 'style-props-menu-fixed-top' : ''}`}>
                         <HeaderNavbar/>
                     </div>
                 </div>
@@ -151,7 +102,7 @@ const Header = () => {
                             <div className="col-2 d-flex" style={{justifyContent: 'center'}}>
                                 <div className="my-auto" onClick={showMenu}>
                                     <img src={menu}
-                                         alt=""
+                                         alt="anticonceptivo.cl"
                                          title="Anticonceptivo"
                                          rel="nofollow"
                                          height="34px"
@@ -162,7 +113,7 @@ const Header = () => {
                             <div className="col-2 d-flex" style={{justifyContent: 'center'}}>
                                 <div className="my-auto" onClick={showSearch}>
                                     <img src={search}
-                                         alt=""
+                                         alt="anticonceptivo.cl"
                                          title="Anticonceptivo"
                                          rel="nofollow"
                                          height="25px"
@@ -175,7 +126,7 @@ const Header = () => {
                                     <Link to="/">
                                         <img
                                             src={anticonceptivo}
-                                            alt=""
+                                            alt="anticonceptivo.cl"
                                             title="Anticonceptivo"
                                         />
                                     </Link>
@@ -188,7 +139,7 @@ const Header = () => {
                                     auth ?
                                         <Link className="my-auto" to={url}>
                                             <img src={userBlue}
-                                                 alt=""
+                                                 alt="anticonceptivo.cl"
                                                  title="Anticonceptivo"
                                                  rel="nofollow"
                                                  height="25px"
@@ -198,7 +149,7 @@ const Header = () => {
 
                                         <div className="my-auto" onClick={() => showModalAuth(ModalAuthMode.LOGIN)}>
                                             <img src={userBlue}
-                                                 alt=""
+                                                 alt="anticonceptivo.cl"
                                                  title="Anticonceptivo"
                                                  rel="nofollow"
                                                  height="25px"
@@ -213,7 +164,7 @@ const Header = () => {
                                 {/* <div className="my-auto" onClick={showMiniCart}>
                                     <div className="cart-badge-quantity"><TotalCartItems/></div>
                                     <img src={cartBlue}
-                                         alt=""
+                                         alt="anticonceptivo.cl"
                                          title="Anticonceptivo"
                                          rel="nofollow"
                                          height="25px"
@@ -225,7 +176,7 @@ const Header = () => {
                                     <Link to={PUBLIC_ROUTES.CART.path}>
                                         <div className="cart-badge-quantity"><TotalCartItems/></div>
                                         <img src={cartBlue}
-                                             alt=""
+                                             alt="anticonceptivo.cl"
                                              title="Anticonceptivo"
                                              rel="nofollow"
                                              height="25px"

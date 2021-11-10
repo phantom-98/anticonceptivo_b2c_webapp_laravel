@@ -10,26 +10,26 @@ import HeaderDropDown from "../../components/HeaderDropDown";
 
 const HeaderTop = () => {
 
-    const [postTypes, setPostTypes] = useState([]);
-
-    useEffect(() => {
-        getData();
-    },[]);
-
-    const getData = () => {
-        let url = Services.ENDPOINT.PUBLIC_AREA.HEADER;
-        let data = {}
-        Services.DoGet(url,data).then(response => {
-            Services.Response({
-                response: response,
-                success: () => {
-                    setPostTypes(response.data.post_types);
-                },
-            });
-        }).catch(error => {
-            Services.ErrorCatch(error)
-        });
-    }
+    // const [postTypes, setPostTypes] = useState([]);
+    //
+    // useEffect(() => {
+    //     getData();
+    // },[]);
+    //
+    // const getData = () => {
+    //     let url = Services.ENDPOINT.PUBLIC_AREA.HEADER;
+    //     let data = {}
+    //     Services.DoGet(url,data).then(response => {
+    //         Services.Response({
+    //             response: response,
+    //             success: () => {
+    //                 setPostTypes(response.data.post_types);
+    //             },
+    //         });
+    //     }).catch(error => {
+    //         Services.ErrorCatch(error)
+    //     });
+    // }
 
     return (
         <div className="top-header bg-033F5D">

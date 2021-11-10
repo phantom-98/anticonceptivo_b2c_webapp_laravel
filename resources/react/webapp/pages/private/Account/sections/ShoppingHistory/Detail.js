@@ -4,6 +4,7 @@ import RowCol from "../../../../../components/general/RowCol";
 import * as Services from "../../../../../Services";
 import PUBLIC_ROUTES from "../../../../../routes/publicRoutes";
 import {CartContext} from "../../../../../context/CartProvider";
+import { v4 as uuidv4 } from 'uuid';
 
 const Detail = ({order, goBack}) => {
 
@@ -60,7 +61,7 @@ const Detail = ({order, goBack}) => {
                 {
                     order.order_items.map((item) => {
                         return(
-                            <RowCol name={item.name} value={'Cantidad ' + item.quantity} firstColSize="8"/>
+                            <RowCol key={uuidv4} name={item.name} value={'Cantidad ' + item.quantity} firstColSize="8"/>
                         )
                     })
                 }

@@ -6,15 +6,11 @@ import {Link} from "react-router-dom";
 const Page404 = () => {
     return (
         <Fragment>
-
             <div className="p-5">
-                {/* <div style={{ height : '40px'}}>
-                    <img id="logo-navbar" src="/themes/web/assets/images/logo.svg" rel="nofollow"/>
-                </div> */}
                 <div className="container d-flex" style={{ height : 'calc(100vh - 136px)'}}>
                     <div className="row my-auto">
                         <div className="col-12  text-center">
-                            <img src={LogoSvg} rel="nofollow"/>
+                            <img src={LogoSvg} rel="nofollow" alt="anticonceptivo.cl"/>
                         </div>
                         <div className="col-12 text-center mt-4">
                             <h1 className="font-32 text-primary black">

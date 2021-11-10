@@ -114,8 +114,8 @@ const HeaderNavbar = () => {
         return (<div className="col-auto">
             <Dropdown key={'category-' + category.categoryId}
                       show={show[category.categoryId]}
-                // onMouseEnter={() => showDropdown(category.categoryId)}
-                // onMouseLeave={() => hideDropdown(category.categoryId)}
+                      onMouseEnter={() => showDropdown(category.categoryId)}
+                      onMouseLeave={() => hideDropdown(category.categoryId)}
                       drop={'down'}
             >
                 <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
