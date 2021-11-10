@@ -40,6 +40,15 @@ Route::get('fix-orders-payment/{id}', function ($id) {
     App\Http\Helpers\CallIntegrationsPay::sendEmailsOrder($order->id);
 });
 
+Route::get('fix-boleta/{id}', function ($id) {
+    $order = \App\Models\Order::find($id);
+
+    $customerAddress =  \App\Models\CustomerAddress::where('customer_id', $order->customer_id)->latest()->first();
+
+    return App\Http\Helpers\CallIntegrationsPay::callVoucher($order->id,$customerAddress);
+});
+
+
 Route::get('fix-orders-payment-subscription/{id}', function ($id) {
     $order = \App\Models\Order::find($id);
 

@@ -176,7 +176,7 @@
                                 </td>
                                 <td>{{ $object->customer->id_number ?? '-'}}</td>
                                 <td>{{ mb_strtoupper($object->customer->full_name ?? '-', 'UTF-8') }}</td>
-                                <td>{{ strtoupper($object->delivery_address ?? '-') }}</td>
+                                <td>{{ mb_strtoupper($object->delivery_address ?? '-', 'UTF-8') }}</td>
                                 <td>{{ date('d-m-Y', strtotime($object->delivery_date)) }}</td>
                                 <td>${{ number_format($object->subtotal, 0, ',','.')}}</td>
                                 <td>${{ number_format($object->dispatch, 0, ',','.')}}</td>
@@ -236,11 +236,11 @@
                                                         </a>
                                                         @endif
                                                     @endif
-                                                    @if($object->status == "PAID" || $object->status == "DISPATCHED" || $object->status == "DELIVERED")
+                                                    @if($object->status == "PAID" || $object->status == "DISPATCHED" || $object->status == "DELIVERED" || $object->status == "CREATED" || $object->status == "CANCELED")
                                                     <a onclick="sendEmail({{$object->id}})"
                                                         class="btn btn-sm btn-default btn-hover-info add-tooltip"
                                                         title="Reenviar correo">
-                                                            <i class="fa fa-envelope"></i>
+                                                            <i class="fa fa-cogs"></i>
                                                     </a>
                                                     @endif
                                                 @endpush
@@ -252,11 +252,11 @@
                                                         <i class="fa fa-retweet"></i>
                                                 </a>
                                                 @endif
-                                                @if($object->status == "PAID" || $object->status == "DISPATCHED" || $object->status == "DELIVERED")
+                                                @if($object->status == "PAID" || $object->status == "DISPATCHED" || $object->status == "DELIVERED" || $object->status == "CREATED" || $object->status == "CANCELED")
                                                 <a onclick="sendEmail({{$object->id}})"
                                                     class="btn btn-sm btn-default btn-hover-info add-tooltip"
                                                     title="Reenviar correo">
-                                                        <i class="fa fa-envelope"></i>
+                                                        <i class="fa fa-cogs"></i>
                                                 </a>
                                                 @endif
                                             @endif

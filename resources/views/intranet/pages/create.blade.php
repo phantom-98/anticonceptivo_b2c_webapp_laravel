@@ -63,7 +63,7 @@
                             <div class="col-sm-12" id="propia" style="display:none">
                                 <div class="form-group">
                                     <label for="description">Descripción (*)</label>
-                                    <textarea name="description" id="description" rows="3" style="resize: none">{{ old('description') }}</textarea>
+                                    <textarea name="description" id="description" rows="3" style="resize: none" class="summernote" required>{{ old('description') }}</textarea>
                                 </div>  
                             </div>
 
@@ -121,56 +121,4 @@
         }
     </script>
 
-    <script src="https://cdn.ckeditor.com/4.11.4/standard/ckeditor.js"></script>
-    <script>
-        var editor = CKEDITOR.replace('description', {
-            language: 'es',
-            entities_latin: false,
-            enterMode : CKEDITOR.ENTER_BR,
-            autoParagraph: false,
-            resize_enabled: false,
-            height: '280px',
-            on: {
-                change: function() {
-                    checkContent(); 
-                }
-            }
-        });
-    </script>
-    <script>
-        $(document).ready(function() {
-            if(CKEDITOR.instances['description'].getData()){
-                contentcheck = true;
-            } else {
-                contentcheck = false;
-            }
-        });
-
-        function checkContent(){
-            if(CKEDITOR.instances['description'].getData()){
-                contentcheck = true;
-            } else {
-                contentcheck = false;
-            }
-        }
-    </script>
-    <script>
-        $("#form-create").submit(function(e){
-            if(contentcheck == false){
-                e.preventDefault();
-                swal({
-                    title: 'Debe llenar campo "Descripción"',
-                    html: 'El campo descripción es obligatorio para finalizar el proceso',
-                    type: 'error',
-                    showCancelButton: false,
-                    confirmButtonColor: '#43a047',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Aceptar',
-                    cancelButtonText: 'No, cancelar!'
-                }).then(function (result) {
-                    
-                });
-            } 
-        });
-    </script>
 @endsection

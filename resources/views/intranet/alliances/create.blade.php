@@ -52,7 +52,7 @@
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label for="description">Descripción (*)</label>
-                                    <textarea name="description" id="description" rows="3" style="resize: none">{{ old('description') }}</textarea>
+                                    <textarea name="description" id="description" rows="3" class="summernote" style="resize: none">{{ old('description') }}</textarea>
                                 </div>  
                             </div>                          
                         </div>
@@ -88,17 +88,6 @@
         elems.forEach(function (html) {
             let switchery = new Switchery(html);
         });
-    });
-</script>
-<script src="https://cdn.ckeditor.com/4.11.4/standard/ckeditor.js"></script>
-<script>
-    var editor = CKEDITOR.replace('description', {
-        language: 'es',
-        entities_latin: false,
-        enterMode : CKEDITOR.ENTER_BR,
-        autoParagraph: false,
-        resize_enabled: false,
-        height: '280px'
     });
 </script>
 @endsection

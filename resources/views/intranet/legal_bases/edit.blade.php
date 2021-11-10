@@ -182,16 +182,4 @@
             readURL2(this);
         });
     </script>
-
-    <script src="https://cdn.ckeditor.com/4.11.4/standard/ckeditor.js"></script>
-    <script>
-        var editor = CKEDITOR.replace('description', {
-            language: 'es',
-            entities_latin: false,
-            enterMode : CKEDITOR.ENTER_BR,
-            autoParagraph: false,
-            resize_enabled: false,
-            height: '280px'
-        });
-    </script>
 @endsection

@@ -29,7 +29,7 @@
                 <td>{{ $object->formated_status }}</td>
                 <td>{{ $object->customer->id_number ?? '-' }}</td>
                 <td>{{ mb_strtoupper($object->customer->full_name ?? '-', 'UTF-8') }}</td>
-                <td>{{ strtoupper($object->delivery_address ?? '-') }}</td>
+                <td>{{ mb_strtoupper($object->delivery_address ?? '-', 'UTF-8') }}</td>
                 <td>{{ date('d-m-Y', strtotime($object->delivery_date)) }}</td>
                 <td>{{ $object->subtotal }}</td>
                 <td>{{ $object->dispatch }}</td>

@@ -41,21 +41,21 @@
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label for="review">Reseña (*)</label>
-                                    <textarea name="review" id="review" rows="3" style="resize: none">{{ old('review') }}</textarea>
+                                    <textarea name="review" id="review" class="summernote" rows="3" style="resize: none" required>{{ old('review') }}</textarea>
                                 </div>  
                             </div>
 
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label for="view">Visión (*)</label>
-                                    <textarea name="view" id="view" rows="3" style="resize: none">{{ old('view') }}</textarea>
+                                    <textarea name="view" id="view" class="summernote" rows="3" style="resize: none" required>{{ old('view') }}</textarea>
                                 </div>  
                             </div>
 
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label for="mission">Misión (*)</label>
-                                    <textarea name="mission" id="mission" rows="3" style="resize: none">{{ old('mission') }}</textarea>
+                                    <textarea name="mission" id="mission" class="summernote" rows="3" style="resize: none" required>{{ old('mission') }}</textarea>
                                 </div>  
                             </div>
 
@@ -137,150 +137,5 @@
                 $("#image").val("");
             }
         }
-    </script>
-
-    <script src="https://cdn.ckeditor.com/4.11.4/standard/ckeditor.js"></script>
-    <script>
-        var editor = CKEDITOR.replace('review', {
-            language: 'es',
-            entities_latin: false,
-            enterMode : CKEDITOR.ENTER_BR,
-            autoParagraph: false,
-            resize_enabled: false,
-            height: '280px',
-            on: {
-                change: function() {
-                    checkContent(); 
-                }
-            }
-        });
-
-        var editor2 = CKEDITOR.replace('view', {
-            language: 'es',
-            entities_latin: false,
-            enterMode : CKEDITOR.ENTER_BR,
-            autoParagraph: false,
-            resize_enabled: false,
-            height: '280px',
-            on: {
-                change: function() {
-                    checkContent2(); 
-                }
-            }
-        });
-
-        var editor3 = CKEDITOR.replace('mission', {
-            language: 'es',
-            entities_latin: false,
-            enterMode : CKEDITOR.ENTER_BR,
-            autoParagraph: false,
-            resize_enabled: false,
-            height: '280px',
-            on: {
-                change: function() {
-                    checkContent3(); 
-                }
-            }
-        });
-    </script>
-    <script>
-        $(document).ready(function() {
-            if(CKEDITOR.instances['review'].getData()){
-                contentcheck = true;
-            } else {
-                contentcheck = false;
-            }
-        });
-
-        function checkContent(){
-            if(CKEDITOR.instances['review'].getData()){
-                contentcheck = true;
-            } else {
-                contentcheck = false;
-            }
-        }
-
-        $(document).ready(function() {
-            if(CKEDITOR.instances['view'].getData()){
-                contentcheck2 = true;
-            } else {
-                contentcheck2 = false;
-            }
-        });
-
-        function checkContent2(){
-            if(CKEDITOR.instances['view'].getData()){
-                contentcheck2 = true;
-            } else {
-                contentcheck2 = false;
-            }
-        }
-
-        $(document).ready(function() {
-            if(CKEDITOR.instances['mission'].getData()){
-                contentcheck3 = true;
-            } else {
-                contentcheck3 = false;
-            }
-        });
-
-        function checkContent3(){
-            if(CKEDITOR.instances['mission'].getData()){
-                contentcheck3 = true;
-            } else {
-                contentcheck3 = false;
-            }
-        }
-    </script>
-    <script>
-        $("#form-create").submit(function(e){
-            if(contentcheck == false){
-                e.preventDefault();
-                swal({
-                    title: 'Debe llenar campo "Reseña"',
-                    html: 'El campo reseña es obligatorio para finalizar el proceso',
-                    type: 'error',
-                    showCancelButton: false,
-                    confirmButtonColor: '#43a047',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Aceptar',
-                    cancelButtonText: 'No, cancelar!'
-                }).then(function (result) {
-                    
-                });
-            } 
-
-            if(contentcheck2 == false){
-                e.preventDefault();
-                swal({
-                    title: 'Debe llenar campo "Visión"',
-                    html: 'El campo visión es obligatorio para finalizar el proceso',
-                    type: 'error',
-                    showCancelButton: false,
-                    confirmButtonColor: '#43a047',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Aceptar',
-                    cancelButtonText: 'No, cancelar!'
-                }).then(function (result) {
-                    
-                });
-            } 
-
-            if(contentcheck3 == false){
-                e.preventDefault();
-                swal({
-                    title: 'Debe llenar campo "Misión"',
-                    html: 'El campo misión es obligatorio para finalizar el proceso',
-                    type: 'error',
-                    showCancelButton: false,
-                    confirmButtonColor: '#43a047',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Aceptar',
-                    cancelButtonText: 'No, cancelar!'
-                }).then(function (result) {
-                    
-                });
-            } 
-        });
     </script>
 @endsection

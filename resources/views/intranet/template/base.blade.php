@@ -64,6 +64,7 @@
     <link href="/themes/intranet/css/demo/nifty-demo-icons.min.css" rel="stylesheet">
     <link href="/themes/intranet/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
     <link href="/themes/intranet/css/custom.css" rel="stylesheet">
+    <link href="/themes/intranet/plugins/summernote/summernote.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/themes/intranet/plugins/air_datepicker/datepicker.min.css">
 
     @include('intranet.template.components.theme')
@@ -129,7 +130,7 @@
 <script src="/themes/intranet/plugins/bootstrap-table/extensions/export/bootstrap-table-export.js"></script>
 <script src="/themes/intranet/plugins/bootstrap-toggle/bootstrap-toggle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
-
+<script src="/themes/intranet/plugins/summernote/summernote.min.js"></script>
 <script src="/themes/intranet/js/custom.js"></script>
 
 @yield('scripts')
@@ -147,6 +148,22 @@
     });
 </script>
 
+<script>
+    $(document).ready(function() {
+        $('.summernote').summernote({
+
+            height: 150,
+            callbacks: {
+                onFocus: function (contents) {
+                    if($('.summernote').summernote('isEmpty')){
+                        $(".summernote").html('');
+                    }
+                }
+            }
+        });
+
+    });
+</script>
 
 </body>
 </html>

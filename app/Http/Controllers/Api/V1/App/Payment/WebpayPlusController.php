@@ -129,6 +129,7 @@ class WebpayPlusController
             $customerAddress->default_address = 1;
 
             $customerAddress->save();
+            $customerAddress->refresh();
         }else{
             if ($customer->is_guest) {
                 $customer->email = $request->email;
@@ -139,6 +140,7 @@ class WebpayPlusController
                 $customer->phone_code = $request->phone_code;
 
                 $customer->save();
+                $customerAddress->refresh();
 
                 $customerAddress = CustomerAddress::where('customer_id',$customer->id)->first();
 
@@ -176,10 +178,10 @@ class WebpayPlusController
         $order->delivery_date = Carbon::now()->addHours($itemDeliveryCost->deadline_delivery);
         $order->customer_id = $request->customer_id ?? $customer->id;
 
-        $region = Region::find($request->region_id);
-        $commune = Commune::find($request->commune_id);
+        $region = Region::find($customerAddress->region_id);
+        $commune = Commune::find($customerAddress->commune_id);
 
-        $order->delivery_address = $request->address .', '. $commune->name . ', ' . $region->name;
+        $order->delivery_address = $customerAddress->address .', '. $commune->name . ', ' . $region->name. ' N° de casa / Depto: ' . $customerAddress->extra_info ?? '-';
 
         $subtotal = 0;
         $isSubscription = 0;
@@ -362,10 +364,10 @@ class WebpayPlusController
                     $order->payment_type = 'tarjeta';
                     $order->save();
 
-                    //CallIntegrationsPay::callVoucher($order->id,$customerAddress);
-                    //CallIntegrationsPay::callDispatchLlego($order->id,$customerAddress);
-                    //CallIntegrationsPay::callUpdateStockProducts($order->id);
-                    //CallIntegrationsPay::sendEmailsOrder($order->id);
+                    CallIntegrationsPay::callVoucher($order->id,$customerAddress);
+                    CallIntegrationsPay::callDispatchLlego($order->id,$customerAddress);
+                    CallIntegrationsPay::callUpdateStockProducts($order->id);
+                    CallIntegrationsPay::sendEmailsOrder($order->id);
 
                     return ApiResponse::JsonSuccess([
                         'order' => $order
@@ -495,10 +497,10 @@ class WebpayPlusController
                     Log::info('RESPONSE_STOCK_PRODUCT_FOUND', [$responseStockProduct['status']]);
 
                     $customerAddress = CustomerAddress::with('commune')->where('customer_id',$order->customer_id)->where('default_address',1)->get()->first();
-                    //CallIntegrationsPay::callVoucher($order->id,$customerAddress);
-                    //CallIntegrationsPay::callUpdateStockProducts($order->id);
-                    //CallIntegrationsPay::callDispatchLlego($order->id,$customerAddress);
-                    //CallIntegrationsPay::sendEmailsOrder($order->id);
+                    CallIntegrationsPay::callVoucher($order->id,$customerAddress);
+                    CallIntegrationsPay::callUpdateStockProducts($order->id);
+                    CallIntegrationsPay::callDispatchLlego($order->id,$customerAddress);
+                    CallIntegrationsPay::sendEmailsOrder($order->id);
                 }
 
             } else {

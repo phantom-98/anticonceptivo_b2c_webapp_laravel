@@ -14,6 +14,9 @@ use App\Exports\OrderExportIndex;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Helpers\CallIntegrationsPay;
+use App\Http\Utils\Enum\PaymentStatus;
+use \App\Models\CustomerAddress;
+use \App\Models\SubscriptionsOrdersItem;
 
 class OrderController extends GlobalController
 {
@@ -223,8 +226,25 @@ class OrderController extends GlobalController
     }
 
     public function sendEmail(Request $request){
-        CallIntegrationsPay::sendEmailsOrderRepeat($request->id);
-        session()->flash('success', 'Boleta reenviada exitosamente.');
+        $order = Order::find($request->id);
+    
+        if($order->is_paid == 0){
+            $order->status = PaymentStatus::PAID;
+            $order->payment_date = Carbon::now();
+            $order->payment_type = 'webpay';
+            $order->is_paid = true;
+            $order->save();
+
+            $customerAddress =  CustomerAddress::where('customer_id', $order->customer_id)->latest()->first();
+    
+            CallIntegrationsPay::callVoucher($order->id,$customerAddress);
+            CallIntegrationsPay::callDispatchLlego($order->id,$customerAddress);
+            CallIntegrationsPay::callUpdateStockProducts($order->id);
+        }
+    
+        CallIntegrationsPay::sendEmailsOrderRepeat($order->id);
+
+        session()->flash('success', 'Pedido reprocesado exitosamente.');
         return redirect()->route($this->route . 'index');
     }
 
