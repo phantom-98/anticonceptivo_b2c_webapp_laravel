@@ -3,6 +3,7 @@ import Icon from "../general/Icon";
 import boxBlue from '../../assets/images/icons/box-blue.svg';
 import { formatMoney } from "../../helpers/GlobalUtils";
 import {CONFIG} from "../../Config";
+import { v4 as uuidv4 } from 'uuid';
 
 const AccordionBody = ({data}) => {
 
@@ -20,7 +21,7 @@ const AccordionBody = ({data}) => {
                 data.formated_costs.map((cost) => {
                     let comunnes = cost.communes.join(', ');
                     return(
-                        <div className="col-md-12 mb-3">
+                        <div className="col-md-12 mb-3" key={uuidv4}>
                             <h3>
                                 <span style={{
                                     backgroundColor: cost.color,

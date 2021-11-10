@@ -628,6 +628,36 @@ button#dropdown-testing {
   color: #029BE8;
 }
 
+.style-props {
+  position: fixed;
+  right: 0;
+  left: 0;
+  z-index: 1031;
+  background-color: white;
+  top: 34px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0);
+}
+
+.style-props-menu {
+  position: fixed;
+  right: 0;
+  left: 0;
+  z-index: 1030;
+  background-color: white;
+  top: 142px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0);
+}
+
+.style-props-fixed-top {
+  top: 0;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+.style-props-menu-fixed-top {
+  top: 108px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
 .footer-bottom {
   color: white;
   font-family: "Poppins", sans-serif;

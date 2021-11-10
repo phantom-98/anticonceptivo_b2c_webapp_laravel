@@ -40,7 +40,7 @@
     background-color: #0869A6;
 }
 
-.header-navbar-col{
+.header-navbar-col {
     display: flex !important;
     min-height: 44px;
     cursor: pointer;
@@ -51,14 +51,14 @@
     background: transparent;
 }
 
-.header-navbar-col:hover{
+.header-navbar-col:hover {
     background: #009BE8;
     //background: -moz-linear-gradient(90deg, rgba(0,155,232,1) 0%, rgba(0,219,174,1) 100%);
     //background: -webkit-linear-gradient(90deg, rgba(0,155,232,1) 0%, rgba(0,219,174,1) 100%);
     //background: linear-gradient(90deg, rgba(0,155,232,1) 0%, rgba(0,219,174,1) 100%);
 }
 
-.header-navbar-col-custom{
+.header-navbar-col-custom {
     display: flex !important;
     // min-height: 44px;
     cursor: pointer;
@@ -117,11 +117,11 @@ button#dropdown-testing {
     margin-top: 40px;
 }
 
-.dropdown-menu-custom.with-pills{
+.dropdown-menu-custom.with-pills {
     min-width: 400px !important;
 }
 
-.dropdown-menu-custom::before{
+.dropdown-menu-custom::before {
     content: "";
     position: absolute;
     // right: 46%;
@@ -161,14 +161,14 @@ button#dropdown-testing {
     max-height: 248px;
 }
 
-.pills-sub-header-title{
+.pills-sub-header-title {
     font-size: 11px;
     font-family: "Poppins", sans-serif;
     font-weight: 600;
     letter-spacing: 2px;
 }
 
-.custom-dropdown-item{
+.custom-dropdown-item {
     display: block;
     width: 100%;
     padding: .25rem 1.5rem;
@@ -181,7 +181,7 @@ button#dropdown-testing {
     border: 0;
 }
 
-.menu-mobile{
+.menu-mobile {
     width: 100%;
     height: 95px;
     position: fixed;
@@ -202,10 +202,40 @@ button#dropdown-testing {
 }
 
 
-.pills-subscription-color{
+.pills-subscription-color {
     color: black;
 }
 
 .pills-subscription-color:hover {
     color: #029BE8;
+}
+
+.style-props {
+    position: fixed;
+    right: 0;
+    left: 0;
+    z-index: 1031;
+    background-color: white;
+    top: 34px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.0);
+}
+
+.style-props-menu {
+    position: fixed;
+    right: 0;
+    left: 0;
+    z-index: 1030;
+    background-color: white;
+    top: 142px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.0);
+}
+
+.style-props-fixed-top {
+    top: 0;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+.style-props-menu-fixed-top {
+    top: 108px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
 }
