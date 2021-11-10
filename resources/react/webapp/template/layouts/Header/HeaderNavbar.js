@@ -31,15 +31,9 @@ const HeaderNavbar = () => {
         setView(width)
     }, [width])
 
-
     useEffect(() => {
-        console.log('cambio rows');
         doSliceCategories();
     }, [rows, categories])
-    useEffect(() => {
-        console.log('cambio', spliceCategories);
-    }, [spliceCategories])
-
 
     const setView = (width) => {
         if (width < 1385) {
@@ -120,8 +114,8 @@ const HeaderNavbar = () => {
         return (<div className="col-auto">
             <Dropdown key={'category-' + category.categoryId}
                       show={show[category.categoryId]}
-                      // onMouseEnter={() => showDropdown(category.categoryId)}
-                      // onMouseLeave={() => hideDropdown(category.categoryId)}
+                // onMouseEnter={() => showDropdown(category.categoryId)}
+                // onMouseLeave={() => hideDropdown(category.categoryId)}
                       drop={'down'}
             >
                 <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
@@ -175,7 +169,7 @@ const HeaderNavbar = () => {
             <div className="container px-0 max-header-navbar">
                 {
                     spliceCategories.map((cat, i) => {
-
+                        console.log(cat);
                         return <div className="row no-gutters justify-content-center">
                             {
                                 cat.map((category, index) => (
