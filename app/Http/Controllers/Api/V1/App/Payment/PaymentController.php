@@ -32,6 +32,7 @@ class PaymentController
             return ApiResponse::JsonError(null, OutputMessage::EXCEPTION . ' ' . $exception->getMessage());
         }
     }
+
     public function verifySubscription(Request $request)
     {
         try {
@@ -51,9 +52,9 @@ class PaymentController
     public function checkDiscount(Request $request)
     {
 
-        $discountCode = DiscountCode::where('active',1)->where('name',$request->discount_code)->first();
+        $discountCode = DiscountCode::where('active', 1)->where('name', $request->discount_code)->first();
 
-        if(!$discountCode){
+        if (!$discountCode) {
             // $data = (array) session()->get('checkout_data');
             // unset($data['id_code_discount']);
             // session()->put('checkout_data',$data);
@@ -62,7 +63,7 @@ class PaymentController
             // return ['is_valid' => 0,'object' => $discountCode , 'message' => 'Código no valido'];
         }
 
-        if($discountCode->amount_of_use <= 0 && $discountCode->amount_of_use !== null){
+        if ($discountCode->amount_of_use <= 0 && $discountCode->amount_of_use !== null) {
             // $data =(array) session()->get('checkout_data');
             // unset($data['id_code_discount']);
             // session()->put('checkout_data',$data);
@@ -75,8 +76,8 @@ class PaymentController
 
         $dateNow = new DateTime();
 
-        if(!$discountCode->is_forever){
-            if(Carbon::parse($discountCode->expiration_date)->addDays(1)->format('Y-m-d') > Carbon::parse($dateNow)->format('Y-m-d')){
+        if (!$discountCode->is_forever) {
+            if (Carbon::parse($discountCode->expiration_date)->addDays(1)->format('Y-m-d') > Carbon::parse($dateNow)->format('Y-m-d')) {
                 // $data = array_merge((array) session()->get('checkout_data'), array("id_code_discount" => $discountCode->id));
 
                 // if($discount_code_user->discount > $discountCode->discount){
@@ -88,10 +89,10 @@ class PaymentController
                 return ApiResponse::JsonSuccess([
                     'discount' => $discountCode->discount,
                     'discount_type' => $discountCode->is_percentage,
-                ],OutputMessage::DISCOUNT_CODE_VALID);
+                ], OutputMessage::DISCOUNT_CODE_VALID);
 
                 // return ['is_valid' => 1,'object' => $discountCode, 'message' => 'Código correcto'];
-            }else{
+            } else {
                 // $data =(array) session()->get('checkout_data');
                 // unset($data['id_code_discount']);
                 // session()->put('checkout_data',$data);e
@@ -104,7 +105,7 @@ class PaymentController
         return ApiResponse::JsonSuccess([
             'discount' => $discountCode->discount,
             'discount_type' => $discountCode->is_percentage,
-        ],OutputMessage::DISCOUNT_CODE_VALID);
+        ], OutputMessage::DISCOUNT_CODE_VALID);
 
         // $data = array_merge((array) session()->get('checkout_data'), array("id_code_discount" => $discountCode->id));
 
@@ -119,13 +120,13 @@ class PaymentController
 
         $commune = Commune::find($request->commune_id);
         $commune_name = '';
-        if($commune){
+        if ($commune) {
             $commune_name = $commune->name;
-        }else{
+        } else {
             return ApiResponse::JsonWarning(null, OutputMessage::COMMUNE_NOT_FOUND);
         }
 
-        $deliveryCosts = DeliveryCost::where('active',1)->get();
+        $deliveryCosts = DeliveryCost::where('active', 1)->get();
         $itemDeliveryCost = null;
         $itemDeliveryCostArrayCost = null;
 
@@ -135,16 +136,16 @@ class PaymentController
                 $communes = $itemCost->communes;
 
                 $found_key = array_search($commune_name, $communes);
-                if($found_key !== false){
+                if ($found_key !== false) {
                     $itemDeliveryCost = $deliveryCost;
-                    $itemDeliveryCostArrayCost =$itemCost;
+                    $itemDeliveryCostArrayCost = $itemCost;
                 }
             }
         }
 
         $dispatch = $itemDeliveryCostArrayCost != null ? intVal($itemDeliveryCostArrayCost->price[0]) : 0;
 
-        $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+        $meses = array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
         $fecha = Carbon::now()->addHours($itemDeliveryCost->deadline_delivery);
         $mes = $meses[($fecha->format('n')) - 1];
         return ApiResponse::JsonSuccess([
