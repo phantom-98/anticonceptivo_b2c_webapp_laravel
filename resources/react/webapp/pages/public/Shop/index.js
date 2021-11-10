@@ -177,7 +177,9 @@ const Shop = ({match}) => {
         },
         {
             url: PUBLIC_ROUTES.SHOP.path,
-            name: PUBLIC_ROUTES.SHOP.title,
+            name: category.name,
+            slug:  category.slug
+
         },
     ];
 

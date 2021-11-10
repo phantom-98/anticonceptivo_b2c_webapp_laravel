@@ -19,11 +19,11 @@ const BasePanelCorporate = (props) => {
                             {
                                 width < 768 ?
                                 null
-                                : 
+                                :
                                 <div className="col-md-12">
                                     {
-                                        props.title ? 
-                                            <h1 className="base-panel-one-title">{props.title}</h1> 
+                                        props.title ?
+                                            <h1 className="base-panel-one-title">{props.title}</h1>
                                         : null
                                     }
                                 </div>

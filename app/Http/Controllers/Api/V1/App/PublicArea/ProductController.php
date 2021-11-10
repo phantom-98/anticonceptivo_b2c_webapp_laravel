@@ -242,7 +242,7 @@ class ProductController extends Controller
             }
 
             $category = $category->first();
-            $categoryFields = $category->only(['public_banner_image','description','name']);
+            $categoryFields = $category->only(['public_banner_image','description','name','slug']);
 
             $isPills = false;
 

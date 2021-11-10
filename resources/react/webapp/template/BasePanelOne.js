@@ -8,7 +8,7 @@ const BasePanelOne = (props) => {
 
     const { width } = UseWindowDimensions();
     const { logout } = useContext(AuthContext)
-    
+
     let location = useLocation();
     return (
         <div style={{background : '#FAFAFA'}}>
@@ -24,8 +24,8 @@ const BasePanelOne = (props) => {
                                 <>
                                     <div className="col-8">
                                         {
-                                            props.title ? 
-                                                <h1 className="base-panel-one-title">{props.title}</h1> 
+                                            props.title ?
+                                                <h1 className="base-panel-one-title">{props.title}</h1>
                                             : null
                                         }
                                     </div>
@@ -40,12 +40,12 @@ const BasePanelOne = (props) => {
                                         : null
                                     }
                                 </>
-                                : 
+                                :
 
                                 <div className="col-md-12">
                                     {
-                                        props.title ? 
-                                            <h1 className="base-panel-one-title">{props.title}</h1> 
+                                        props.title ?
+                                            <h1 className="base-panel-one-title">{props.title}</h1>
                                         : null
                                     }
                                 </div>
