@@ -8,6 +8,7 @@ import Icon from "../../../../../components/general/Icon";
 import * as Services from "../../../../../Services";
 import {AuthContext} from "../../../../../context/AuthProvider";
 import toastr from "toastr";
+import PUBLIC_ROUTES from "../../../../../routes/publicRoutes";
 
 const Table = () => {
 
@@ -59,6 +60,16 @@ const Table = () => {
     }
 
     const columns = [
+        {
+            text: 'Producto',
+            dataField: 'name',
+            sort: true,
+            classes: '',
+            headerClasses: '',
+            formatter: (cell, row) => {
+                return <a href={(PUBLIC_ROUTES.PRODUCT_DETAIL.path).replace(':slug', row.product.slug)} target="_blank" className="link pointer">{row.product.name}</a>
+            }
+        },
         {
             text: 'RECETA',
             dataField: 'name',

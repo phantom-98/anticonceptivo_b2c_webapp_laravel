@@ -733,7 +733,7 @@ class ProfileController extends Controller
                 return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_NOT_FOUND);
             }
 
-            $prescriptions = Prescription::where('customer_id',$customer->id)->get();
+            $prescriptions = Prescription::with('product')->where('customer_id',$customer->id)->get();
 
             return ApiResponse::JsonSuccess([
                 'prescriptions' => $prescriptions
