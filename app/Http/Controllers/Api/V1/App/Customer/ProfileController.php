@@ -845,6 +845,7 @@ class ProfileController extends Controller
 
             case 'CUSTOMER_SERVICE_DATA_FOR_CONTACT':
                 $nested_field = NestedField::with(['nested_field_questions', 'children'])
+                                        ->where('active',1)
                                         ->whereNull('parent_id')->where('section','campania')
                                         ->where('contact_issue_id', $request->contact_issue_id)
                                         ->get();
@@ -859,9 +860,9 @@ class ProfileController extends Controller
 
         $data['contact_issues'] = ContactIssue::where('active',true)->where('section',ContactIssueTypes::CUSTOMER_SERVICE)
             ->with(['fields','campaign'])->get();
-        $data['nested_fields'] = NestedField::with(['nested_field_questions', 'children'])->
+        $data['nested_fields'] = NestedField::where('active',true)->with(['nested_field_questions', 'children'])->
             whereNull('parent_id')->where('section','campania')->get();
-        $data['list'] = NestedField::with(['nested_field_questions', 'children'])->get();
+        $data['list'] = NestedField::where('active',true)->with(['nested_field_questions', 'children'])->get();
 
         $data['questions'] = DynamicField::get();
 

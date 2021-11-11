@@ -29,7 +29,7 @@ const ProductGallery = ({product, imageSubscription, productImage}) => {
                 </div>
             </div>
             {/* Desktop */}
-            <div className="row repsonsive-d-none-v2" style={{zIndex: 1000}}>
+            <div className="row responsive-d-none-v2" style={{zIndex: 1000}}>
                 <div className="col-auto mr-0 pr-0" style={{width: '118px'}}>
                     {
                         product.images.length ?
