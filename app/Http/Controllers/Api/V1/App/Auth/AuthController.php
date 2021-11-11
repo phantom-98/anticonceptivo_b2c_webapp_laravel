@@ -32,8 +32,8 @@ class AuthController extends Controller
             ->first();
 
             $rules = [
-                'register_first_name' => 'required|regex:/^[a-zA-Z]+$/u',
-                'register_last_name' => 'required|regex:/^[a-zA-Z]+$/u',
+                'register_first_name' => 'required|regex:/^[a-z A-Z]+$/u',
+                'register_last_name' => 'required|regex:/^[a-z A-Z]+$/u',
                 'register_id_type' => 'required',
                 'password' => 'required',
                 'register_phone_code' => 'required',
@@ -71,8 +71,8 @@ class AuthController extends Controller
             }
 
             $validator = Validator::make($request->all(), $rules, $messages);
-            
-            if ($validator->passes()) { 
+
+            if ($validator->passes()) {
                 $customer = Customer::where('id_number',$request->register_id_number)
                 ->where('is_guest',true)
                 ->first();
@@ -92,19 +92,19 @@ class AuthController extends Controller
                     $customer->phone = $request->register_phone;
                     $customer->is_guest = false;
                     $customer->password = bcrypt($request->password);
-                    
+
                     if ($customer->save()) {
 
                         config(['auth.guards.api.provider' => 'customer']);
-    
+
                         $token = Helper::GenerateAuthToken();
                         $auth = AuthGenerator::GenerateAuth($customer, $token, 'customer');
-    
+
                         return ApiResponse::JsonSuccess([
                             'auth' => $auth,
                             'auth_token' => $token,
                         ], OutputMessage::AUTH_GRANTED);
-    
+
                     } else {
                         return ApiResponse::JsonError(null, OutputMessage::CUSTOMER_REGISTER_ERROR);
                     }
@@ -123,7 +123,7 @@ class AuthController extends Controller
                     // $customer->accept_terms = $request->accept_terms;
                     $customer->password = bcrypt($request->password);
                     $customer->last_access = Carbon::now();
-                    
+
                     if ($customer->save()) {
                         config(['auth.guards.api.provider' => 'customer']);
 
