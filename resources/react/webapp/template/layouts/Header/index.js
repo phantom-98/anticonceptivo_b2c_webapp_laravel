@@ -106,7 +106,7 @@ const Header = () => {
                                          alt="anticonceptivo.cl"
                                          title="Anticonceptivo"
                                          rel="nofollow"
-                                         // height="34px"
+                                        // height="34px"
                                     />
                                     <div className="text-icon-navbar-mobile">
                                         MENU
@@ -120,7 +120,7 @@ const Header = () => {
                                          alt="anticonceptivo.cl"
                                          title="Anticonceptivo"
                                          rel="nofollow"
-                                         // height="25px"
+                                        // height="25px"
                                     />
                                     <div className="text-icon-navbar-mobile">
                                         BUSCAR
@@ -157,7 +157,8 @@ const Header = () => {
                                         </Link>
                                         :
 
-                                        <div className="my-auto text-center" onClick={() => showModalAuth(ModalAuthMode.LOGIN)}>
+                                        <div className="my-auto text-center"
+                                             onClick={() => showModalAuth(ModalAuthMode.LOGIN)}>
                                             <img src={userBlue}
                                                  alt="anticonceptivo.cl"
                                                  title="Anticonceptivo"
@@ -204,15 +205,15 @@ const Header = () => {
                         </div>
                     </div>
                 </div>
-                {/*<div className="d-md-none d-block">*/}
-                {/*    <OffCanvas showCanvas={showingMenu} closeCanvas={hideMenu}>*/}
-                {/*        <div className="row menu-mobile-issue">*/}
-                {/*            <CategoryMenuMobile*/}
-                {/*                hideMenu={hideMenu}*/}
-                {/*            />*/}
-                {/*        </div>*/}
-                {/*    </OffCanvas>*/}
-                {/*</div>*/}
+                <div className="d-md-none d-block">
+                    <OffCanvas showCanvas={showingMenu} closeCanvas={hideMenu}>
+                        <div className="row menu-mobile-issue">
+                            <CategoryMenuMobile
+                                hideMenu={hideMenu}
+                            />
+                        </div>
+                    </OffCanvas>
+                </div>
                 <div className="d-md-none d-block">
                     <SearchModal
                         showingSearch={showingSearch}
