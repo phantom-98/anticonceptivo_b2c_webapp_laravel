@@ -130,6 +130,15 @@ const AddAddress = ({setView, regions, address, setAddress}) => {
         });
     }
 
+    const handleAddressComment = (e) => {
+        if(e.target.value.match('^$|^[a-zA-Z\ñ ]+$')){
+            setAddress({
+                ...address,
+                [e.target.name]: e.target.value
+            })
+        }
+    }
+
     const updateData = () => {
         let url = Services.ENDPOINT.CUSTOMER.ADDRESSES.UPDATE;
 
@@ -322,7 +331,7 @@ const AddAddress = ({setView, regions, address, setAddress}) => {
                                        name="comment"
                                        placeholder="Comentario"
                                        value={address.comment}
-                                       onChange={(e) => handleAddress(e, false, false, true)}
+                                       onChange={(e) => handleAddressComment(e)}
                                        onFocus={setCleanInputError}
                                 />
                                 <div className="invalid-feedback" />

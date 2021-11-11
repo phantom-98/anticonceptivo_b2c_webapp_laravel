@@ -107,6 +107,14 @@ const Form = ({addressSelected, goBack, formMode, customerId = null, regions, se
         }
     }
 
+    const handleAddressComment = (e) => {
+        if(e.target.value.match('^$|^[a-zA-Z\ñ ]+$')){
+            setAddress({
+                ...address,
+                [e.target.name]: e.target.value
+            })
+        }
+    }
     const updateData = () => {
 
         if (validAddress === false) {
@@ -313,7 +321,7 @@ const Form = ({addressSelected, goBack, formMode, customerId = null, regions, se
                            name="comment"
                            placeholder="Comentario"
                            value={address.comment}
-                           onChange={(e) => handleAddress(e, false, false, true)}
+                           onChange={(e) => handleAddressComment(e)}
                            onFocus={setCleanInputError}
                     />
                     <div className="invalid-feedback" />
