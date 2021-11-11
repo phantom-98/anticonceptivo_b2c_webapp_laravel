@@ -53,13 +53,13 @@ const Subscriptions = ({setView, subscription, setSubscription}) => {
                 customer_id: auth ? auth.id : null,
                 email: auth ? auth.email : null,
             }
-    
+
             Services.DoPost(url, dataForm)
                 .then(response => {
                     Services.Response({
                         response: response,
                         success: () => {
-                            console.log(response);
+
                             runVerifyPaymentMethod(response.data.id)
                             showWaitingPaymentMethod();
                             var win = window.open();
@@ -105,7 +105,7 @@ const Subscriptions = ({setView, subscription, setSubscription}) => {
                             clearInterval(interval)
                             toastr.success(response.message);
                             getData();
-    
+
                         } else if(response.data.subscription.status == 'REJECTED') {
                             hideWaitingPaymentMethod();
                             clearInterval(interval)
@@ -140,13 +140,13 @@ const Subscriptions = ({setView, subscription, setSubscription}) => {
                 <WaitingPaymentMethod  showingWaitingPaymentMethod={showingWaitingPaymentMethod}/>
 
                     {
-                        view === 'list' ? 
-                            <List 
-                                subscriptions={auth ? subscription : subscription} 
+                        view === 'list' ?
+                            <List
+                                subscriptions={auth ? subscription : subscription}
                                 showCreate={showCreate}
                                 getData={getData}
                                 setSubscription={setSubscription}
-                            /> 
+                            />
                         : null
                     }
 

@@ -33,7 +33,7 @@ const History = () => {
             Services.Response({
                 response: response,
                 success: () => {
-                    console.log(response.data.time_lines);
+
                     setTimelines(response.data.time_lines);
                 },
             });
@@ -57,7 +57,7 @@ const History = () => {
                                         <H2Title text="HISTORIA DE LOS ANTICONCEPTIVOS"/>
                                     </div>
                                     <div className="col-12">
-                                        <TimeLine 
+                                        <TimeLine
                                             timelines={timelines}
                                         />
                                     </div>

@@ -46,7 +46,7 @@ const Table = ({
         getSubscriptionsCards();
         getDataAddress();
         getSubscriptions();
-        console.log(activeSubscription)
+
     }, []);
 
 
@@ -79,7 +79,7 @@ const Table = ({
                     response: response,
                     success: () => {
                         setActiveSubscription(response.data.active_subscriptions);
-                        console.log(activeSubscription)
+
                     }
                 });
             })
@@ -527,7 +527,7 @@ const Table = ({
             headerClasses: "",
             formatter: (cell, row) => {
                 let address = '';
-                console.log(row)
+
                 if(row.delivery_address != null){
                     address = row.delivery_address
                 }else if(row.customer_address){
