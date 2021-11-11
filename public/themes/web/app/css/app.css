@@ -658,6 +658,13 @@ button#dropdown-testing {
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
 }
 
+.text-icon-navbar-mobile {
+  font-size: 9px;
+  color: #009BE8;
+  text-align: center;
+  margin-top: 5px;
+}
+
 .footer-bottom {
   color: white;
   font-family: "Poppins", sans-serif;
@@ -3536,7 +3543,7 @@ h4 {
 }
 
 a:-webkit-any-link:focus-visible {
-  outline-offset: 0px !important;
+  outline-offset: 0 !important;
 }
 
 :focus-visible {
@@ -3584,6 +3591,15 @@ a:-webkit-any-link:focus-visible {
   max-width: 91.66667%;
 }
 
+.pills-span {
+  font-size: 10px;
+}
+
+.pills-span:hover {
+  color: #029BE8 !important;
+  font-weight: 700;
+}
+
 @media (min-width: 768px) {
   .app-margin-top {
     margin-top: 0;
@@ -3600,6 +3616,18 @@ a:-webkit-any-link:focus-visible {
   .responsive-padding-tabs {
     padding: 3rem;
   }
+
+  .app-margin-top {
+    margin-top: 196px;
+    min-height: calc(100vh - 587px);
+  }
+}
+
+@media (min-width: 1335px) {
+  .app-margin-top {
+    margin-top: 153px;
+    min-height: calc(100vh - 520px);
+  }
 }
 
 @media (max-width: 767px) {
@@ -3611,7 +3639,7 @@ a:-webkit-any-link:focus-visible {
     display: none;
   }
 
-  .repsonsive-d-none-v2 {
+  .responsive-d-none-v2 {
     display: none;
   }
 
@@ -3646,28 +3674,35 @@ a:-webkit-any-link:focus-visible {
   .custom-accordion-responsive {
     margin-top: 2.5rem !important;
   }
-}
 
-@media (min-width: 768px) {
-  .app-margin-top {
-    margin-top: 196px;
-    min-height: calc(100vh - 587px);
+  .cart-badge-quantity {
+    font-size: 8px;
+    font-weight: 300;
+    height: 16px;
+    width: 16px;
+    top: 11px;
+    right: 11px;
   }
-}
 
-@media (min-width: 1335px) {
-  .app-margin-top {
-    margin-top: 153px;
-    min-height: calc(100vh - 520px);
+  .checkout-mobile-h3 {
+    font-size: 25px;
+    font-weight: 700;
+    margin-bottom: 0;
+    letter-spacing: 3px !important;
   }
-}
 
-.pills-span {
-  font-size: 10px;
-}
+  .checkout-mobile-h3 span {
+    font-size: 18px;
+    font-weight: 600;
+    margin-top: -5px;
+  }
 
-.pills-span:hover {
-  color: #029BE8 !important;
-  font-weight: 700;
+  .r-cart-items .panel-body {
+    padding: 15px;
+  }
+
+  .quantity-input {
+    border: 1px solid #CECECE;
+  }
 }
 
