@@ -84,8 +84,8 @@ class ProfileController extends Controller
             }
 
             $rules = [
-                'first_name' => 'required|regex:/^[a-zA-Z]+$/u',
-                'last_name' => 'required|regex:/^[a-zA-Z]+$/u',
+                'first_name' => 'required|regex:/^[a-z A-Z]+$/u',
+                'last_name' => 'required|regex:/^[a-z A-Z]+$/u',
                 'email' => 'required|email|unique:customers,email,'. $customer->id,
                 'id_number' => 'required|unique:customers,id_number,'. $customer->id,
                 'id_type' => 'required',
