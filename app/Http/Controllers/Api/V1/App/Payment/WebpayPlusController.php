@@ -141,7 +141,6 @@ class WebpayPlusController
                 $customer->phone_code = $request->phone_code;
 
                 $customer->save();
-                $customerAddress->refresh();
 
                 $customerAddress = CustomerAddress::where('customer_id',$customer->id)->first();
 
@@ -154,6 +153,7 @@ class WebpayPlusController
 
 
                 $customerAddress->save();
+
             }else{
                 $customerAddress = CustomerAddress::find($request->id);
             }
