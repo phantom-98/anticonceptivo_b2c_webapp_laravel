@@ -1,4 +1,4 @@
-import React, {useEffect, useState, Fragment} from 'react';
+import React, {useEffect, useState, Fragment, useRef} from 'react';
 import PUBLIC_ROUTES from "../../../routes/publicRoutes";
 import {Link} from "react-router-dom";
 import * as Services from "../../../Services";
@@ -11,10 +11,27 @@ const Search = () => {
     const [search, setSearch] = useState('');
     const [products, setProducts] = useState([]);
     const [productsWithFilter, setProductsWithFilter] = useState([]);
+    const refInputSearch = useRef(null);
+    const [isVisibilityDropdownSearch, setIsVisibilityDropdownSearch] = useState(false);
 
     const sendSearch = (e) => {
         setSearch((e.target.value).toLowerCase());
     }
+
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (refInputSearch.current && !refInputSearch.current.contains(event.target)) {
+                setIsVisibilityDropdownSearch(false);
+            } else {
+                setIsVisibilityDropdownSearch(true);
+            }
+        }
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [refInputSearch]);
 
     const handleKeyPress = (event) => {
         if(event.key === 'Enter'){
@@ -41,6 +58,7 @@ const Search = () => {
     },[])
 
     useEffect(() =>{
+        setIsVisibilityDropdownSearch(true);
         if (search.length > 0) {
             let productList = products;
             productList = productList.filter(product => {
@@ -104,9 +122,9 @@ const Search = () => {
             </div>
             {
                 search.length ?
-                <div className="modal-search-mobile" style={ productsWithFilter.length && search.length > 0 ? dropdownStyle : null}>
+                <div className="modal-search-mobile" style={ productsWithFilter.length && search.length > 0 && isVisibilityDropdownSearch ? dropdownStyle : null}>
                     {
-                        search.length ?
+                        search.length && isVisibilityDropdownSearch  ?
                             productsWithFilter.map((product, index) => {
                                 return (
                                     <Fragment>
