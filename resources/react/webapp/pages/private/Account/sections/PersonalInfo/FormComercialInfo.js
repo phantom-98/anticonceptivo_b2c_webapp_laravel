@@ -161,6 +161,7 @@ const FormComercialInfo = ({handleData,
                            id="commercial_phone"
                            name="commercial_phone"
                            placeholder="987 654 321"
+                           maxLength="15"
                            onChange={(e) => handleData(e)}
                            value={data.commercial_phone}
                            onFocus={setCleanInputError}
