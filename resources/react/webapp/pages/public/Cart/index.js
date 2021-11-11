@@ -22,13 +22,12 @@ const Cart = () => {
                 <div className="container pt-4">
                     <div className="row pb-5">
                         <div className="col-md-12 mb-3">
-                            <h3 className="font-poppins font-21 bold color-0869A6" style={{letterSpacing: '2px'}}>CARRO
-                                DE COMPRAS <span
-                                    className="font-poppins font-16 regular color-6C6B6B">(<TotalCartItems/>)</span>
+                            <h3 className="font-poppins font-21 bold color-0869A6 checkout-mobile-h3" style={{letterSpacing: '2px'}}>
+                                CARRO DE COMPRAS <span className="font-poppins font-16 regular color-6C6B6B">(<TotalCartItems/>)</span>
                             </h3>
                         </div>
                         <div className="col-md pr-md-2 pb-3">
-                            <div className="panel panel-cart">
+                            <div className="panel panel-cart r-cart-items">
                                 <div className="panel-body">
                                     <div className="row">
 

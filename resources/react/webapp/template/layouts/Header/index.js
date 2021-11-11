@@ -76,7 +76,7 @@ const Header = () => {
         <Fragment>
             <section id="header" className="header">
 
-                 <div className="d-md-block d-none">
+                <div className="d-md-block d-none">
                     <HeaderTop/>
                 </div>
 
@@ -101,24 +101,30 @@ const Header = () => {
                         </div>
                         <div className="row mx-2" style={{height: '70px'}}>
                             <div className="col-2 d-flex" style={{justifyContent: 'center'}}>
-                                <div className="my-auto" onClick={showMenu}>
+                                <div className="my-auto text-center" onClick={showMenu}>
                                     <img src={menu}
                                          alt="anticonceptivo.cl"
                                          title="Anticonceptivo"
                                          rel="nofollow"
-                                         height="34px"
+                                         // height="34px"
                                     />
+                                    <div className="text-icon-navbar-mobile">
+                                        MENU
+                                    </div>
                                 </div>
                             </div>
 
                             <div className="col-2 d-flex" style={{justifyContent: 'center'}}>
-                                <div className="my-auto" onClick={showSearch}>
+                                <div className="my-auto text-center" onClick={showSearch}>
                                     <img src={search}
                                          alt="anticonceptivo.cl"
                                          title="Anticonceptivo"
                                          rel="nofollow"
-                                         height="25px"
+                                         // height="25px"
                                     />
+                                    <div className="text-icon-navbar-mobile">
+                                        BUSCAR
+                                    </div>
                                 </div>
                             </div>
 
@@ -138,23 +144,29 @@ const Header = () => {
 
                                 {
                                     auth ?
-                                        <Link className="my-auto" to={url}>
+                                        <Link className="my-auto text-center" to={url}>
                                             <img src={userBlue}
                                                  alt="anticonceptivo.cl"
                                                  title="Anticonceptivo"
                                                  rel="nofollow"
                                                  height="25px"
                                             />
+                                            <div className="text-icon-navbar-mobile">
+                                                CUENTA
+                                            </div>
                                         </Link>
                                         :
 
-                                        <div className="my-auto" onClick={() => showModalAuth(ModalAuthMode.LOGIN)}>
+                                        <div className="my-auto text-center" onClick={() => showModalAuth(ModalAuthMode.LOGIN)}>
                                             <img src={userBlue}
                                                  alt="anticonceptivo.cl"
                                                  title="Anticonceptivo"
                                                  rel="nofollow"
                                                  height="25px"
                                             />
+                                            <div className="text-icon-navbar-mobile">
+                                                CUENTA
+                                            </div>
                                         </div>
                                 }
 
@@ -173,7 +185,7 @@ const Header = () => {
                                 </div> */}
 
 
-                                <div className="my-auto">
+                                <div className="my-auto text-center">
                                     <Link to={PUBLIC_ROUTES.CART.path}>
                                         <div className="cart-badge-quantity"><TotalCartItems/></div>
                                         <img src={cartBlue}
@@ -183,6 +195,9 @@ const Header = () => {
                                              height="25px"
                                         />
                                     </Link>
+                                    <div className="text-icon-navbar-mobile">
+                                        CARRO
+                                    </div>
                                 </div>
 
                             </div>

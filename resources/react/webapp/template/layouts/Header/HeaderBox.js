@@ -121,7 +121,6 @@ const HeaderBox = () => {
         <div>
             <div className="container py-4">
                 <div className="row">
-
                     <div className="col-md-auto top-do-flex pointer">
                         <div className="my-auto">
                             <div className="d-none d-xl-block">
