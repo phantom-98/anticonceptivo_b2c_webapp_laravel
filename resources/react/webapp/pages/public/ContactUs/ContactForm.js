@@ -49,7 +49,7 @@ const ContactForm = () => {
             Services.Response({
                 response: response,
                 success: () => {
-                    console.log(response.data)
+
                     // setContactIssues(response.data.contact_issues)
                     setNestedFields(response.data.nested_fields)
                     setList(response.data.list)
@@ -177,7 +177,7 @@ const ContactForm = () => {
                         }
                     </select>
                     <div className="invalid-feedback" />
-                </div>    
+                </div>
             </div> */}
             <div className="col-md-6">
                 <div className="form-group">

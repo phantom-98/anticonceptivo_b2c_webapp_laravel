@@ -59,8 +59,7 @@ export default (state, action) => {
             //Se debe refactorizar
             if (cartItems.length > 0 && cartItems[found] ) {
 
-                console.log(cartItems[found].quantity + item.quantity);
-                console.log(item.product.stock);
+
 
                 if ((cartItems[found].quantity + item.quantity) > item.product.stock) {
                     toastr.error(`<div>

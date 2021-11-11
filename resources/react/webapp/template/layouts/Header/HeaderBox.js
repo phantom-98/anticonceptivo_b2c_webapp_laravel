@@ -28,6 +28,7 @@ const HeaderBox = () => {
     const [products, setProducts] = useState([]);
     const [productsWithFilter, setProductsWithFilter] = useState([]);
     const refInputSearch = useRef(null);
+    const refDropdownList = useRef(null);
     const [isVisibilityDropdownSearch, setIsVisibilityDropdownSearch] = useState(false);
 
     const sendSearch = (e) => {
@@ -42,10 +43,11 @@ const HeaderBox = () => {
 
     useEffect(() => {
         function handleClickOutside(event) {
-            if (refInputSearch.current && !refInputSearch.current.contains(event.target)) {
+            if ((refInputSearch.current && !refInputSearch.current.contains(event.target)) && (refDropdownList.current && !refDropdownList.current.contains(event.target)) ) {
                 setIsVisibilityDropdownSearch(false);
             } else {
                 setIsVisibilityDropdownSearch(true);
+
             }
         }
 
@@ -158,6 +160,7 @@ const HeaderBox = () => {
                             </div>
                         </div>
                         <div className="dropdown-content"
+                             ref={refDropdownList}
                              style={productsWithFilter.length && search.length > 0 && isVisibilityDropdownSearch ? dropdownStyle : null}>
                             {
                                 search.length && isVisibilityDropdownSearch ?
