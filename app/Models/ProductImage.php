@@ -16,12 +16,14 @@ class ProductImage extends Model
         'public_file'
     ];
 
-    public function product(){
+    public function product()
+    {
         return $this->belongsTo(Product::class);
     }
 
-    public function getPublicFileAttribute(){
-        if(strpos($this->file,'http') !== false){
+    public function getPublicFileAttribute()
+    {
+        if (strpos($this->file, 'http') !== false) {
             return $this->file;
         }
         return $this->file == null ? null : \Storage::url($this->file);
