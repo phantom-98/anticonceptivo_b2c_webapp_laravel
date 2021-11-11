@@ -176,7 +176,7 @@
                                 </td>
                                 <td>{{ $object->customer->id_number ?? '-'}}</td>
                                 <td>{{ mb_strtoupper($object->customer->full_name ?? '-', 'UTF-8') }}</td>
-                                <td>{{ mb_strtoupper($object->delivery_address ?? '-', 'UTF-8') }} <br> {{ mb_strtoupper($object->comments, 'UTF-8') }}</td>
+                                <td>{{ mb_strtoupper($object->delivery_address ?? '-', 'UTF-8') }} <br> <b>Información Adicional:</b> {{ mb_strtoupper($object->comments, 'UTF-8') }}</td>
                                 <td>{{ date('d-m-Y', strtotime($object->delivery_date)) }}</td>
                                 <td>${{ number_format($object->subtotal, 0, ',','.')}}</td>
                                 <td>${{ number_format($object->dispatch, 0, ',','.')}}</td>

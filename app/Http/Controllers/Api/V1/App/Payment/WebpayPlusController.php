@@ -128,9 +128,10 @@ class WebpayPlusController
             $customerAddress->comment = $request->comment;
             $customerAddress->customer_id = $customer->id;
             $customerAddress->default_address = 1;
-
             $customerAddress->save();
-            $customerAddress->refresh();
+
+            $customer->refresh();
+
         }else{
             if ($customer->is_guest) {
                 $customer->email = $request->email;
@@ -144,6 +145,9 @@ class WebpayPlusController
 
                 $customerAddress = CustomerAddress::where('customer_id',$customer->id)->first();
 
+                if(!$customerAddress){
+                    $customerAddress = new CustomerAddress();
+                }
                 $customerAddress->address = $request->address;
                 $customerAddress->name = $request->name;
                 $customerAddress->region_id = $request->region_id;
@@ -151,8 +155,8 @@ class WebpayPlusController
                 $customerAddress->extra_info = $request->extra_info;
                 $customerAddress->comment = $request->comment;
 
-
                 $customerAddress->save();
+                $customer->refresh();
 
             }else{
                 $customerAddress = CustomerAddress::find($request->id);
