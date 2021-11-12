@@ -39,7 +39,7 @@ const Table = ({
     const [addressSelected, setAddressSelected] = useState(null);
     const [view, setView] = useState("list");
     const [formMode, setFormMode] = useState("create");
-    const [dispatchDate, setDispatchDate] = useState();
+    const [dispatchDate, setDispatchDate] = useState(subscriptionOrderItemSelected.min.date.dispatch);
     const [minDate, setMinDate] = useState(subscriptionOrderItemSelected.min.date.dispatch);
     const [subscriptions, setSubscriptions] = useState([]);
 
