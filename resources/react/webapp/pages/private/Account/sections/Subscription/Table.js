@@ -226,7 +226,9 @@ const Table = ({
     };
 
     const selectedColumnDispatchDate = (subscriptionOrderItem) => {
-        setMinDate(new Date(subscriptionOrderItem.min_date_dispatch))
+        let minDateDispatch = new Date(subscriptionOrderItem.min_date_dispatch + ' 04:00:00')
+        minDateDispatch.setDate(minDateDispatch.getDate() + 1);
+        setMinDate(minDateDispatch)
         setSubscriptionOrderItemSelected(subscriptionOrderItem);
         setDispatchDate(subscriptionOrderItem.dispatch_date)
         setModalDispatchDate(true);

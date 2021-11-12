@@ -403,7 +403,8 @@ class ProfileController extends Controller
                         }
                     }
                     $dispatch = $itemDeliveryCostArrayCost ? $itemDeliveryCostArrayCost->price[0] : 0;
-                    $min_date_dispatch = Carbon::parse($item->pay_date)->addHours($itemDeliveryCost->deadline_delivery)->format('Y-m-d');
+                    $min_date_dispatch = Carbon::parse($prev_item->pay_date)->addHours($itemDeliveryCost->deadline_delivery)->format('Y-m-d');
+
                     $item_tmp = [
                         'customer_address_id' => $prev_item->customer_address_id,
                         'subscription_id' => $prev_item->subscription_id,
