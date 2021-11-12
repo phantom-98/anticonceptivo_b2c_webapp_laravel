@@ -7,7 +7,7 @@ const Breadcrumbs = ({items}) => {
         <div className="pb-3">
             {
                 items.map((item, index) => {
-                    console.log(item)
+
                     let url = item.url;
 
                     if (url.includes(':category?')) {

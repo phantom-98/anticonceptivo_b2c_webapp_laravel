@@ -136,6 +136,7 @@ const FormPersonalData = ({handleData,
                             id="phone"
                             name="phone"
                             placeholder="987654321"
+                            maxLength="15"
                             onChange={(e) => handleData(e, false, true)}
                             value={data.phone}
                             onFocus={setCleanInputError}

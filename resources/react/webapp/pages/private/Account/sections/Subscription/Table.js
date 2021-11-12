@@ -46,7 +46,7 @@ const Table = ({
         getSubscriptionsCards();
         getDataAddress();
         getSubscriptions();
-        console.log(activeSubscription)
+
     }, []);
 
 
@@ -79,7 +79,7 @@ const Table = ({
                     response: response,
                     success: () => {
                         setActiveSubscription(response.data.active_subscriptions);
-                        console.log(activeSubscription)
+
                     }
                 });
             })
@@ -527,7 +527,7 @@ const Table = ({
             headerClasses: "",
             formatter: (cell, row) => {
                 let address = '';
-                console.log(row)
+
                 if(row.delivery_address != null){
                     address = row.delivery_address
                 }else if(row.customer_address){
@@ -627,7 +627,7 @@ const Table = ({
                     <div className="row">
                         <div className="col-12">
                             <h3 className="modal-title text-center lh-34">
-                                Dirección de despacho
+                                Cambiar fecha de pago 
                             </h3>
                         </div>
                         <div className="col-12 mt-3 text-center">
@@ -707,7 +707,7 @@ const Table = ({
                     <div className="row">
                         <div className="col-12">
                             <h3 className="modal-title text-center lh-34">
-                                Direcciones
+                                Cambiar dirección
                             </h3>
                         </div>
                         <div className="col-12 mt-3">
