@@ -320,7 +320,7 @@ class ProfileController extends Controller
                         }
                     }
 
-                    if($subscriptionsOrdersItemElement->pay_date->addHours($itemDeliveryCost->deadline_delivery) >= Carbon::createFromFormat('Y-m-d', $request->dispatch_date)){
+                    if(Carbon::parse($subscriptionsOrdersItemElement->pay_date)->addHours($itemDeliveryCost->deadline_delivery) >= Carbon::createFromFormat('Y-m-d', $request->dispatch_date)){
                         return ApiResponse::JsonError(null, 'No se puede adelantar la fecha de despacho');
                     }
 
@@ -378,7 +378,7 @@ class ProfileController extends Controller
                 $q->where('customer_id',$customer->id);
             })
             ->with(['order_item.product','customer_address.commune','subscription','order_parent.order_items','order_item.subscription_plan'])
-            ->select('id','order_parent_id as order_id','price','quantity','orders_item_id','subscription_id','customer_address_id','pay_date','dispatch_date','status','is_pay','dispatch','period')
+            ->select('id','order_parent_id as order_id','price','delivery_address','quantity','orders_item_id','subscription_id','customer_address_id','pay_date','dispatch_date','status','is_pay','dispatch','period')
                 ->orderBy('order_id', 'desc')->orderBy('pay_date')
             ->get();
 
@@ -397,22 +397,25 @@ class ProfileController extends Controller
                             $communes = $itemCost->communes;
                             $found_key = array_search($prev_item->customer_address->commune->name, $communes);
                             if($found_key !== false){
+                                $itemDeliveryCost = $deliveryCost;
                                 $itemDeliveryCostArrayCost =$itemCost;
                             }
                         }
                     }
                     $dispatch = $itemDeliveryCostArrayCost ? $itemDeliveryCostArrayCost->price[0] : 0;
-
+                    $min_date_dispatch = Carbon::parse($item->pay_date)->addHours($itemDeliveryCost->deadline_delivery)->format('Y-m-d');
                     $item_tmp = [
                         'customer_address_id' => $prev_item->customer_address_id,
                         'subscription_id' => $prev_item->subscription_id,
                         'customer_address' => $prev_item->customer_address,
+                        'delivery_address' => $prev_item->delivery_address,
                         'id' => $prev_item->id,
                         'is_pay' => $prev_item->is_pay,
                         'order_item' => $prev_item->order_item,
                         'pay_date' => $prev_item->pay_date,
                         'dispatch_date' => $prev_item->dispatch_date,
                         'subscription' => $prev_item->subscription,
+                        'min_date_dispatch' =>  $min_date_dispatch,
                         'order' => $prev_item->order,
                         'order_id' => $prev_item->order->id,
                         'status' => $prev_item->status,
@@ -522,7 +525,6 @@ class ProfileController extends Controller
                         $address->default_address = 1;
                         $address->save();
                     }
-
                     $addresses = CustomerAddress::where('customer_id', $customer->id)->get();
 
                     return ApiResponse::JsonSuccess([
@@ -531,6 +533,15 @@ class ProfileController extends Controller
                 }
 
                 if ($address->update($request->except(['address_id']))) {
+
+
+                    $subscriptions_orders_items = SubscriptionsOrdersItem::where('customer_address_id', $address->id)->where('status','!=','PAID')->get();
+
+                    foreach ($subscriptions_orders_items as $key => $subscriptionsOrdersItemElement) {
+                        $subscriptionsOrdersItemElement->delivery_address = $address->address . ' ' .$address->extra_info;;
+                        $subscriptionsOrdersItemElement->save();
+                    }
+
                     $addresses = CustomerAddress::where('customer_id', $customer->id)->get();
 
                     return ApiResponse::JsonSuccess([

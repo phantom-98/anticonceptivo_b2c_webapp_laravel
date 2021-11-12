@@ -6,7 +6,7 @@ import {Form} from "react-bootstrap";
 // import Icon from "../../../../../components/general/Icon";
 // import toastr from "toastr";
 
-const ListItem = ({address, showEdit, saveDefaultAddress, regions, communes, addressChecked
+const ListItem = ({address, showEdit, saveDefaultAddress, regions, communes, addressChecked, isSusbscription = false
     // setAddresses
 }) => {
 
@@ -66,13 +66,16 @@ const ListItem = ({address, showEdit, saveDefaultAddress, regions, communes, add
                     </div>
                 </div>
             </div>
-            <div className="col-auto d-flex">
-                <div className="my-auto">
-                    <span onClick={() => showEdit(address)} className="link pointer font-12 regular">editar</span>
-                </div>
-            </div>
-
-
+            {
+                !isSusbscription ?
+                    <div className="col-auto d-flex">
+                        <div className="my-auto">
+                            <span onClick={() => showEdit(address)} className="link pointer font-12 regular">editar</span>
+                        </div>
+                    </div>
+                    :
+                    null
+            }
             {/* <div className="col-auto d-flex">
                 <div className="my-auto">
                     <span onClick={() => removeData(address.id)} className="link pointer">
