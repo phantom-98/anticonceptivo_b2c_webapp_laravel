@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Http\Helpers\ApiHelper;
+use App\Models\User;
 use Illuminate\Console\Command;
 use Carbon\Carbon;
 use App\Models\Product;
@@ -53,6 +54,7 @@ class UpdateStock extends Command
             Log::error('UpdateStock General', ["response" => $e->getMessage()]);
         }
 
+        $isError = false;
         foreach ($products as $key => $product) {
 
             try {
@@ -75,6 +77,8 @@ class UpdateStock extends Command
 
             } catch (\Exception $exception) {
 
+                $isError = true;
+
                 array_push($errorsEmail , [
                     'product_sku' => $product->sku,
                     'product_name' => $product->name,
@@ -94,6 +98,19 @@ class UpdateStock extends Command
             $product->save();
         }
 
-        // send email
+        $users = User::all();
+        foreach($users as $user){
+            $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
+            $html = view('emails.ailoo-errors', ['user_name' => $user->first_name, 'errors' => $errorsEmail])->render();
+            $email = new \SendGrid\Mail\Mail();
+            $email->setFrom("info@anticonceptivo.cl", 'Anticonceptivo');
+            $email->setSubject('Error Ailo');
+            $email->addTo($user->email, $user->first_name);
+            $email->addContent(
+                "text/html", $html
+            );
+            $sendgrid->send($email);
+        }
+
     }
 }
