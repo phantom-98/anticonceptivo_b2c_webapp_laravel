@@ -155,7 +155,6 @@ const CheckOut = () => {
             Services.Response({
               response: response,
               success: () => {
-
                   if(response.data.subscriptions != null){
                     setSubscription(response.data.subscriptions);
                   }

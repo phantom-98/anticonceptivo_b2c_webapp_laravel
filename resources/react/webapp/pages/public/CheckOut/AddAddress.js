@@ -130,15 +130,6 @@ const AddAddress = ({setView, regions, address, setAddress}) => {
         });
     }
 
-    const handleAddressComment = (e) => {
-        if(e.target.value.match('^$|^[a-zA-Z\ñ ]+$')){
-            setAddress({
-                ...address,
-                [e.target.name]: e.target.value
-            })
-        }
-    }
-
     const updateData = () => {
         let url = Services.ENDPOINT.CUSTOMER.ADDRESSES.UPDATE;
 

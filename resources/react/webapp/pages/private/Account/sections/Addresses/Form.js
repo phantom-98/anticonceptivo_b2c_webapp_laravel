@@ -195,55 +195,6 @@ const Form = ({addressSelected, goBack, formMode, customerId = null, regions, se
                     <div className="invalid-feedback" />
                 </div>
             </div>
-
-            <div className="col-md-6">
-                <div className="form-group">
-                    <label htmlFor="region_id">Región (*)</label>
-                    <select
-                        className="form-control form-control-custom pl-2"
-                        id="region_id"
-                        name="region_id"
-                        value={address.region_id}
-                        onChange={(e) => selectRegion(e)}
-                        onFocus={setCleanInputError}
-                    >
-                        <option value='' disabled selected>Seleccionar</option>
-                        {
-                            regions.map((region) => {
-                                return(
-                                    <option value={region.id} key={region.id}>{region.name}</option>
-                                )
-                            })
-                        }
-                    </select>
-                    <div className="invalid-feedback" />
-                </div>
-            </div>
-
-            <div className="col-md-6">
-                <div className="form-group">
-                    <label htmlFor="commune_id">Comuna (*)</label>
-                    <select
-                        className="form-control form-control-custom pl-2"
-                        id="commune_id"
-                        name="commune_id"
-                        onChange={handleAddress}
-                        onFocus={setCleanInputError}
-                        value={address.commune_id}
-                    >
-                        <option value='' disabled selected>Seleccionar</option>
-                        {
-                            communes.map((commune) => {
-                                return(
-                                    <option value={commune.id} key={commune.id}>{commune.name}</option>
-                                )
-                            })
-                        }
-                    </select>
-                    <div className="invalid-feedback" />
-                </div>
-            </div>
-
             <div className="col-md-8">
                 <div className="form-group">
                     <label htmlFor="address">Calle y Número (*)</label>
@@ -311,6 +262,55 @@ const Form = ({addressSelected, goBack, formMode, customerId = null, regions, se
                     <div className="invalid-feedback" />
                 </div>
             </div>
+            <div className="col-md-6">
+                <div className="form-group">
+                    <label htmlFor="region_id">Región (*)</label>
+                    <select
+                        className="form-control form-control-custom pl-2"
+                        id="region_id"
+                        name="region_id"
+                        value={address.region_id}
+                        onChange={(e) => selectRegion(e)}
+                        onFocus={setCleanInputError}
+                    >
+                        <option value='' disabled selected>Seleccionar</option>
+                        {
+                            regions.map((region) => {
+                                return(
+                                    <option value={region.id} key={region.id}>{region.name}</option>
+                                )
+                            })
+                        }
+                    </select>
+                    <div className="invalid-feedback" />
+                </div>
+            </div>
+
+            <div className="col-md-6">
+                <div className="form-group">
+                    <label htmlFor="commune_id">Comuna (*)</label>
+                    <select
+                        className="form-control form-control-custom pl-2"
+                        id="commune_id"
+                        name="commune_id"
+                        onChange={handleAddress}
+                        onFocus={setCleanInputError}
+                        value={address.commune_id}
+                    >
+                        <option value='' disabled selected>Seleccionar</option>
+                        {
+                            communes.map((commune) => {
+                                return(
+                                    <option value={commune.id} key={commune.id}>{commune.name}</option>
+                                )
+                            })
+                        }
+                    </select>
+                    <div className="invalid-feedback" />
+                </div>
+            </div>
+
+
 
             <div className="col-md-12">
                 <div className="form-group">

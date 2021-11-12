@@ -120,17 +120,15 @@
                     sortable: true,
                     cellStyle: midAling,
                     formatter: function (value, row, index) {
+                        console.log(row)
                         let image = '<div>';
                         if ((row.images).length > 0) {
-                            let url = "{{ Storage::url(':url') }}";
-                            url = url.replace('storage/:url', row.images[0].file);
-                            url = url.replace('public', 'storage');
+                            let url = row.images[0].public_file;
                             image += '<a href="'+url+'" data-toggle="lightbox"><img src="'+url+'" style="max-width: 30px;"/></a>';
                         } else {
-
                             image += '<a href="/img/image-default.png" data-toggle="lightbox"><img src="/img/image-default.png" class="img-md"/></a>';
                             image += '</div>';
-                        } 
+                        }
                         image += '</div>';
 
                         return image;

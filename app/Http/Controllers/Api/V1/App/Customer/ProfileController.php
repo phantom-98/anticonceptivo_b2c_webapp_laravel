@@ -387,7 +387,7 @@ class ProfileController extends Controller
             $prev_item = null;
             $total = 0;
             $deliveryCosts = DeliveryCost::where('active',1)->get();
-
+            $min_date_dispatch = null;
             foreach ($subscriptionsOrdersItem as $key => $item) {
                 if(($prev_order_id != $item->order->id || $prev_pay_date != $item->pay_date) && $prev_item != null){
 
@@ -461,6 +461,7 @@ class ProfileController extends Controller
                     'customer_address_id' => $prev_item->customer_address_id,
                     'subscription_id' => $prev_item->subscription_id,
                     'customer_address' => $prev_item->customer_address,
+                    'min_date_dispatch' =>  $min_date_dispatch,
                     'id' => $prev_item->id,
                     'is_pay' => $prev_item->is_pay,
                     'order_item' => $prev_item->order_item,

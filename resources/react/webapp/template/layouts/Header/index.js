@@ -46,7 +46,7 @@ const Header = () => {
     const carrousels = [
         {
             icon: boxWhite,
-            name: ' Contamos con reparto solo en la Región Metropolitana Horario Despachos: 10:00 - 20:00 hrs Lunes a Sabado',
+            name: ' Despacho inmediato solo en RM de lunes a sábado de 10:00 - 19:00 hrs',
             fontSize: 'font-10',
             isLink: false,
         }

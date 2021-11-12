@@ -37,7 +37,7 @@
                                         <label for="avatar">Imagen</label>
                                         <div class="image-product">
                                             @if(isset($object->images[0]))
-                                            <img id="image-product" src="{{ Storage::url($object->images[0]->file) }}">
+                                            <img id="image-product" src="{{$object->images[0]->public_file }}">
                                             @else
                                             <img id="image-product" src="/images/image-default.jpeg">
                                             @endif

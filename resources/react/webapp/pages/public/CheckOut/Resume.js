@@ -171,7 +171,7 @@ const Resume = ({
                                     <TotalCartPrice/>
                                     </div>
                                     {
-                                        view === 'user-form' ? 
+                                        view === 'user-form' ?
                                             <div className="col-md-12 mt-2">
                                                 <button className="btn btn-bicolor btn-block" disabled={cartItems.length ? false : true} onClick={ auth ? () =>  hasAddress() : () => validateData()}>
                                                     <span className="font-14 px-5">CONTINUAR</span>
@@ -191,6 +191,7 @@ const Resume = ({
                                         setSubtotal={setSubtotal}
                                         dispatch={dispatch}
                                     />
+
                                 </div>
                         }
                         {
