@@ -66,7 +66,7 @@ const ProductItemList = ({item}) => {
 
                                 </div>
                                 <div className="col-12 col-md-auto d-flex">
-                                    <div className="my-auto font-poppins font-16 bold color-009BE8 text-center">
+                                    <div className="my-auto font-poppins font-23 bold color-009BE8 text-right">
                                         {
                                             item.subscription == null ?
                                                 formatMoney(item.quantity * (item.product.is_offer ? item.product.offer_price : item.product.price))
@@ -75,7 +75,7 @@ const ProductItemList = ({item}) => {
                                         <br/>
                                         {
                                             item.product.offer_price ?
-                                                <div style={{color: 'black'}} className="font-poppins font-14 lh-12 regular">normal {formatMoney(item.product.price)} </div>
+                                                <div style={{color: 'black'}} className="font-poppins font-12 lh-12 regular">normal {formatMoney(item.product.price)} </div>
                                                 : null
                                         }
                                     </div>
@@ -93,6 +93,11 @@ const ProductItemList = ({item}) => {
                             flexDirection: 'column',
                             justifyContent: 'space-between'
                         }}>
+                            {
+                                item.product.offer_price ?
+                                    <div style={{color: 'black'}} className="font-poppins font-12 lh-12 regular">Precio normal <s>{formatMoney(item.product.price)}</s> </div>
+                                    : null
+                            }
                             <div className="text-right font-poppins font-16 bold color-009BE8">
                                 {
                                     item.subscription == null ?

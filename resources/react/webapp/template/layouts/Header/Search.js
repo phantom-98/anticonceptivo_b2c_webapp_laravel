@@ -143,7 +143,7 @@ const Search = ({hideModal}) => {
                                                             </div>
                                                             <div className="col-12" style={{alignSelf: 'center'}}>
                                                                 <span className="font-14 font-poppins bold" style={{color: '#009BE8'}}>
-                                                                    {formatMoney(product.price)}
+                                                                    {formatMoney(product.is_offer ? product.offer_price : product.price)}
                                                                 </span>
                                                             </div>
                                                         </div>

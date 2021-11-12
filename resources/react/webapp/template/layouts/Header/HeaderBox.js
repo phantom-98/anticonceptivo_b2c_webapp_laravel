@@ -167,9 +167,8 @@ const HeaderBox = () => {
                                     productsWithFilter.map((product, index) => {
                                         return (
                                             <Fragment>
-
                                                 <Link
-                                                    onClick={() =>  setIsVisibilityDropdownSearch(false) }
+                                                    onClick={() =>  setSearch('') }
                                                     to={(PUBLIC_ROUTES.PRODUCT_DETAIL.path).replace(':slug?', product.slug)}
                                                     style={{textDecoration: 'none', color: '#000000'}}>
                                                     <div className="row mt-2 px-0">
@@ -187,7 +186,7 @@ const HeaderBox = () => {
                                                         <div className="col-2" style={{alignSelf: 'center'}}>
                                                             <span className="font-14 font-poppins bold"
                                                                   style={{color: '#009BE8'}}>
-                                                                {formatMoney(product.price)}
+                                                                {formatMoney(product.is_offer ? product.offer_price : product.price)}
                                                             </span>
                                                         </div>
                                                     </div>
