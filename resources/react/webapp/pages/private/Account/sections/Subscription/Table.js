@@ -527,7 +527,7 @@ const Table = ({
             headerClasses: "",
             formatter: (cell, row) => {
                 let address = '';
-
+                console.log(row)
                 if(row.delivery_address != null){
                     address = row.delivery_address
                 }else if(row.customer_address){
@@ -627,7 +627,7 @@ const Table = ({
                     <div className="row">
                         <div className="col-12">
                             <h3 className="modal-title text-center lh-34">
-                                Cambiar fecha de pago 
+                                Cambiar fecha de pago
                             </h3>
                         </div>
                         <div className="col-12 mt-3 text-center">
@@ -730,6 +730,7 @@ const Table = ({
                                                   ? 1
                                                   : 0)
                                           }
+                                          isSusbscription={true}
                                       />
                                   ))
                                 : null}
