@@ -39,46 +39,52 @@ class UpdateStock extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         try {
             Log::info('Stock iniciado');
 
-            $products = Product::where('active',1)->get();
+            $products = Product::where('active', 1)->get();
 
             foreach ($products as $key => $product) {
-                $get_data = ApiHelper::callAPI('GET', 'https://api.ailoo.cl/v1/inventory/barCode/'.$product->barcode, null, 'ailoo');
+
+                $get_data = ApiHelper::callAPI('GET', 'https://api.ailoo.cl/v1/inventory/barCode/' . $product->barcode, null, 'ailoo');
+
                 $response = json_decode($get_data, true);
 
                 try {
+
                     $isWeb = false;
+
                     foreach ($response['inventoryItems'] as $key => $inventory) {
-                        if($inventory['facilityName'] == 'Web'){
+                        if ($inventory['facilityName'] == 'Web') {
                             $product->stock = $inventory['quantity'];
                             $product->product_item_id_ailoo = $inventory['productItemId'];
                             $isWeb = true;
                         }
                     }
 
-                    if(!$isWeb){
+                    if (!$isWeb) {
                         $product->stock = 0;
                     }
 
-                } catch (\Throwable $th) {
+                } catch (\Exception $exception) {
+
+                    Log::error('UpdateStock Ailoo', [
+                        'product' => $product,
+                        'response' => $e->getMessage(),
+                        'response Ailoo' => $get_data
+                    ]);
+
                     $product->stock = 0;
                 }
+
                 $product->save();
             }
 
             //Log::info('Stock actualizados correctamente');
-        } catch (\Exception $e){
-
-            Log::info('Error catch updateStock',
-                [
-                    "response" => $e->getMessage()
-                ]);
+        } catch (\Exception $e) {
+            Log::error('UpdateStock General', ["response" => $e->getMessage()]);
         }
-
-
     }
 }
