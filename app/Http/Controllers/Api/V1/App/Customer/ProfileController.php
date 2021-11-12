@@ -452,10 +452,13 @@ class ProfileController extends Controller
                         $found_key = array_search($prev_item->customer_address->commune->name, $communes);
                         if($found_key !== false){
                             $itemDeliveryCostArrayCost =$itemCost;
+                            $itemDeliveryCost = $deliveryCost;
+
                         }
                     }
                 }
                 $dispatch = $itemDeliveryCostArrayCost ? $itemDeliveryCostArrayCost->price[0] : 0;
+                $min_date_dispatch = Carbon::parse($prev_item->pay_date)->addHours($itemDeliveryCost->deadline_delivery)->format('Y-m-d');
 
                 $item_tmp = [
                     'customer_address_id' => $prev_item->customer_address_id,
