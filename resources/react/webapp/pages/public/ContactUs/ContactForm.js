@@ -266,6 +266,7 @@ const ContactForm = () => {
                                    id="contact_phone"
                                    name="contact_phone"
                                    placeholder="9 8765 4321"
+                                   maxLength="15"
                                    onChange={handleData}
                                    value={model.contact_phone}
                                    onFocus={setCleanInputError}

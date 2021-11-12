@@ -627,7 +627,7 @@ const Table = ({
                     <div className="row">
                         <div className="col-12">
                             <h3 className="modal-title text-center lh-34">
-                                Dirección de despacho
+                                Cambiar fecha de pago 
                             </h3>
                         </div>
                         <div className="col-12 mt-3 text-center">
@@ -707,7 +707,7 @@ const Table = ({
                     <div className="row">
                         <div className="col-12">
                             <h3 className="modal-title text-center lh-34">
-                                Direcciones
+                                Cambiar dirección
                             </h3>
                         </div>
                         <div className="col-12 mt-3">

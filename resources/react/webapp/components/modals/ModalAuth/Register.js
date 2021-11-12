@@ -236,6 +236,7 @@ const Register = () => {
                                    className="form-control form-control-custom"
                                    id="register_phone"
                                    name="register_phone"
+                                   maxLength="15"
                                    onChange={(e) => handleData(e)}
                                    value={data.register_phone}
                                    placeholder="9 5643 2653"
