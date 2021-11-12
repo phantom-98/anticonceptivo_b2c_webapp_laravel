@@ -36,7 +36,7 @@ const HeaderTop = () => {
             <div className="row mx-2">
                 <div className="col-md-auto py-2">
                     <div className="my-auto">
-                        <Icon path={boxWhite}/> Contamos con reparto solo en la Región Metropolitana
+                        <marquee loop='10'> <Icon path={boxWhite}/> Contamos con reparto solo en la Región Metropolitana Horario Despachos: 10:00 - 20:00 hrs Lunes a Sabado</marquee>
                     </div>
                 </div>
                 <div className="col-md">

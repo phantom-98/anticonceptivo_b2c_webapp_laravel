@@ -62,11 +62,11 @@ const HeaderBox = () => {
         if (search.trim() != '') {
             let url = PUBLIC_ROUTES.SHOP_SEARCH.path;
             url = url.replace(":search", search);
+            setIsVisibilityDropdownSearch(false);
             if (productsWithFilter.length == 1) {
                 window.location.href = (PUBLIC_ROUTES.PRODUCT_DETAIL.path).replace(':slug', productsWithFilter[0].slug);
             } else {
                 window.location.href = url;
-
             }
         }
     }
@@ -169,6 +169,7 @@ const HeaderBox = () => {
                                             <Fragment>
 
                                                 <Link
+                                                    onClick={() =>  setIsVisibilityDropdownSearch(false) }
                                                     to={(PUBLIC_ROUTES.PRODUCT_DETAIL.path).replace(':slug?', product.slug)}
                                                     style={{textDecoration: 'none', color: '#000000'}}>
                                                     <div className="row mt-2 px-0">

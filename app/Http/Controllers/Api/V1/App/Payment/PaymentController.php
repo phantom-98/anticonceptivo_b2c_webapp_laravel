@@ -41,7 +41,7 @@ class PaymentController
 
             return ApiResponse::JsonSuccess([
                 'subscription' => $subscription ?? null,
-            ]);
+            ], 'Tarjeta agregada con éxito');
 
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, OutputMessage::EXCEPTION . ' ' . $exception->getMessage());

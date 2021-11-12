@@ -46,8 +46,11 @@ const CustomerService = () => {
 
     useEffect(() => {
         if (contactIssues.length) {
-
             var temp = contactIssues.find((contact) => contact.id == data.contact_issue_id)
+
+            if(!temp){
+                return
+            }
 
             let url = Services.ENDPOINT.CUSTOMER.CUSTOMER_SERVICE.GET;
             let data_id = {
@@ -110,6 +113,9 @@ const CustomerService = () => {
                 success: () => {
                     setList(response.data.list);
                     setQuestions(response.data.questions);
+                    setData({...data,
+                        ['contact_issue_id']: response.data.contact_issues.length > 0 ? response.data.contact_issues[0].id : 1
+                    })
                     setContactIssues(response.data.contact_issues);
                 },
             });

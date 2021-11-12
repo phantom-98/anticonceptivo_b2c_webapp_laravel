@@ -61,7 +61,7 @@ const Table = () => {
 
     const columns = [
         {
-            text: 'Producto',
+            text: 'PRODUCTO',
             dataField: 'name',
             sort: true,
             classes: '',

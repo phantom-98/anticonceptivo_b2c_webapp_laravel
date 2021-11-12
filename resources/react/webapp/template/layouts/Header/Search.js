@@ -7,7 +7,7 @@ import {formatMoney} from "../../../helpers/GlobalUtils";
 import searchWhite from "../../../assets/images/icons/header/search-white.svg"
 import Icon from "../../../components/general/Icon";
 
-const Search = () => {
+const Search = ({hideModal}) => {
     const [search, setSearch] = useState('');
     const [products, setProducts] = useState([]);
     const [productsWithFilter, setProductsWithFilter] = useState([]);
@@ -43,6 +43,7 @@ const Search = () => {
         if(search.trim() != ''){
             let url = PUBLIC_ROUTES.SHOP_SEARCH.path;
             url = url.replace(":search", search);
+            setIsVisibilityDropdownSearch(false);
             if(productsWithFilter.length == 1){
                 window.location.href = (PUBLIC_ROUTES.PRODUCT_DETAIL.path).replace(':slug', productsWithFilter[0].slug);
             }else{
@@ -129,7 +130,7 @@ const Search = () => {
                                 return (
                                     <Fragment>
 
-                                            <Link to={(PUBLIC_ROUTES.PRODUCT_DETAIL.path).replace(':slug?', product.slug)} style={{textDecoration: 'none', color: '#000000'}}>
+                                            <Link onClick={hideModal} to={(PUBLIC_ROUTES.PRODUCT_DETAIL.path).replace(':slug?', product.slug)} style={{textDecoration: 'none', color: '#000000'}}>
                                                 <div className="row mt-2 px-0">
                                                     <div className="col-3 text-center" style={{alignSelf: 'center'}}>
                                                         <img style={{width:45, height:45}} src={product.images.length ? product.images[0].public_file : null} alt={`${CONFIG.APP_NAME} - ${product.name}`}/>

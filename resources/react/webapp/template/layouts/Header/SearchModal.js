@@ -19,7 +19,7 @@ const SearchModal = ({showingSearch, hideSearch}) => {
 
                 <div className="row">
                     <div className="col-12">
-                        <Search/>
+                        <Search hideModal={hideSearch} />
                     </div>
                 </div>
 

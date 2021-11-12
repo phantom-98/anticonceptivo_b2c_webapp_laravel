@@ -46,7 +46,7 @@ const Header = () => {
     const carrousels = [
         {
             icon: boxWhite,
-            name: 'Contamos con reparto solo en la Región Metropolitana',
+            name: ' Contamos con reparto solo en la Región Metropolitana Horario Despachos: 10:00 - 20:00 hrs Lunes a Sabado',
             fontSize: 'font-10',
             isLink: false,
         }
@@ -96,7 +96,7 @@ const Header = () => {
                     <div className="menu-mobile">
                         <div className="row first-row" style={{height: '25px'}}>
                             <div className="col-auto font-poppins font-10 text-center">
-                                <span><Icon path={carrousels[0].icon}/> {carrousels[0].name}</span>
+                                <marquee loop='10'> <span><Icon path={carrousels[0].icon}/> {carrousels[0].name}</span></marquee>
                             </div>
                         </div>
                         <div className="row mx-2" style={{height: '70px'}}>
