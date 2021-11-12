@@ -41,7 +41,7 @@ const Table = ({
     const [formMode, setFormMode] = useState("create");
     const [subscriptions, setSubscriptions] = useState([]);
     const [dispatchDate, setDispatchDate] = useState(new Date());
-    const [minDate, setMinDate] = useState();
+    const [minDate, setMinDate] = useState(new Date());
     const showEdit = address => {
         setView("form");
         setFormMode("edit");
@@ -55,15 +55,6 @@ const Table = ({
         getSubscriptions();
 
     }, []);
-
-    useEffect(() => {
-        if (subscriptionOrderItemSelected && 'min_date_dispatch' in subscriptionOrderItemSelected) {
-            // setMinDate(subscriptionOrderItemSelected.min_date_dispatch)
-            // setDispatchDate(moment(subscriptionOrderItemSelected.min_date_dispatch).format('YYYY-MM-DD'))
-        }
-
-    }, [subscriptionOrderItemSelected]);
-
 
     const changeMonthToSpanish = (dateString) => {
         dateString = dateString.replace('January', 'Enero')
@@ -119,10 +110,7 @@ const Table = ({
         }
     };
 
-    const handleDispatchDate = (date) => {
-        console.log('handleDispatchDate', date);
-        setDispatchDate(moment(date).format('YYYY-MM-DD'))
-    }
+
 
     const changeVisibleModalDispatchDate = () => {
         if (modalDispatchDate) {
@@ -167,6 +155,7 @@ const Table = ({
                                     setSubscriptionOrderItemSelected(
                                         response.data
                                     );
+
                                     getSubscriptions();
                                     getDataAddress();
                                 }
@@ -237,9 +226,9 @@ const Table = ({
     };
 
     const selectedColumnDispatchDate = (subscriptionOrderItem) => {
+        setMinDate(new Date(subscriptionOrderItem.min_date_dispatch))
         setSubscriptionOrderItemSelected(subscriptionOrderItem);
         setDispatchDate(subscriptionOrderItem.dispatch_date)
-
         setModalDispatchDate(true);
     };
 
@@ -294,7 +283,7 @@ const Table = ({
         let data = {
             customer_id: auth.id,
             subscription_order_item_id: subscriptionOrderItemSelected ? subscriptionOrderItemSelected.id : 0,
-            dispatch_date: dispatchDate
+            dispatch_date: moment(dispatchDate).format('YYYY-MM-DD')
         };
 
         const swalWithBootstrapButtons = Swal.mixin({
@@ -654,19 +643,13 @@ const Table = ({
                             {
                                 dispatchDate ?
                                     <DatePicker
-
+                                        className={"form-control"}
+                                        dateFormat="dd/MM/yyyy"
                                         minDate={minDate}
-                                        dateFormat="DD-MM-YYYY"
                                         locale="es"
                                         name='dispatchDate'
-                                        selected={dispatchDate}
+                                        selected={new Date(dispatchDate)}
                                         onChange={(date) => setDispatchDate(date)}
-                                        // selected={dispatchDate}
-                                        // onChange={(date) => handleDispatchDate(date)}
-                                        className="form-control"
-                                        showYearDropdown
-                                        yearDropdownItemNumber={100}
-                                        scrollableYearDropdown
                                     /> : null
                             }
 
@@ -770,6 +753,7 @@ const Table = ({
                                                 ? 1
                                                 : 0)
                                         }
+                                        isSusbscription={true}
                                     />
                                 ))
                                 : null}
