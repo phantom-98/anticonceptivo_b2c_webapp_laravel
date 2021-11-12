@@ -209,10 +209,24 @@ Route::get('remove-images', function () {
         }
     }
 
-    foreach (\App\Models\ProductImage::all() as $img){
+    foreach (\App\Models\ProductImage::all() as $img) {
         $img->file = str_replace('//', '/', $img->file);
         $img->save();
     }
+});
+
+Route::get('ailoo', function () {
+    $products = \App\Models\Product::all();
+    $errors = [];
+    foreach ($products as $product) {
+        array_push($errors, [
+            'product_sku' => $product->sku,
+            'product_name' => $product->name,
+            'ailoo_error' => \Illuminate\Support\Str::random(16)
+        ]);
+    }
+
+    return view('emails.ailoo-errors', ['user_name' => 'Alejandro Isla', 'errors' => $errors]);
 });
 
 Route::view('/{path?}/{pathTwo?}/{pathThree?}/{pathFour?}/{pathFive?}/{pathSix?}/{pathSeven?}', 'webapp.base_react');
