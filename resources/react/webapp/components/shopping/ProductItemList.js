@@ -52,17 +52,7 @@ const ProductItemList = ({item}) => {
 
                 <div className="col-auto d-flex pl-0">
                     <div className="row d-md-flex d-none">
-                        <div className="col-12 col-md-auto d-flex">
-                            <div className="my-auto font-poppins font-16 bold color-009BE8">
 
-                                {
-                                    item.subscription == null ?
-                                        formatMoney(item.quantity * (item.product.is_offer ? item.product.offer_price : item.product.price))
-                                        : formatMoney(item.subscription.price * item.subscription.quantity * item.quantity) + ' (' + formatMoney(item.subscription.price) + ' c/u)'
-                                }
-
-                            </div>
-                        </div>
                         <div className="col-12 col-md-auto d-flex">
                             <div className="row my-auto">
                                 {/*Quantity Desktop*/}
@@ -74,6 +64,21 @@ const ProductItemList = ({item}) => {
                                                          maxQuantity={item.product.stock >= item.product.subcategory.category.quantity_limit ? item.product.subcategory.category.quantity_limit : item.product.stock}/>
                                     }
 
+                                </div>
+                                <div className="col-12 col-md-auto d-flex">
+                                    <div className="my-auto font-poppins font-16 bold color-009BE8 text-center">
+                                        {
+                                            item.subscription == null ?
+                                                formatMoney(item.quantity * (item.product.is_offer ? item.product.offer_price : item.product.price))
+                                                : formatMoney(item.subscription.price * item.subscription.quantity * item.quantity) + ' (' + formatMoney(item.subscription.price) + ' c/u)'
+                                        }
+                                        <br/>
+                                        {
+                                            item.product.offer_price ?
+                                                <div style={{color: 'black'}} className="font-poppins font-14 lh-12 regular">normal {formatMoney(item.product.price)} </div>
+                                                : null
+                                        }
+                                    </div>
                                 </div>
                                 <div className="col-auto pt-1 text-center pointer" onClick={() => removeFromCart(item)}>
                                     <div><Icon path={iconRemove}/></div>

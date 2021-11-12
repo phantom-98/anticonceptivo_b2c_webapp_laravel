@@ -109,13 +109,13 @@ const WebPayProccess = ({
                             setToken(response.data.token)
 
                             // importante cambiar en oneclick
-                            // const urlWebpay = response.data.webpay_data.url + '?token_ws=' + response.data.webpay_data.token
-                            // window.open(urlWebpay, '_blank');
+                            const urlWebpay = response.data.webpay_data.url + '?token_ws=' + response.data.webpay_data.token
+                            window.open(urlWebpay, '_blank');
 
-                            var win = window.open();
+                            // var win = window.open();
                             // win.document.open();
-                            win.document.write(response.data.webpay);
-                            win.document.close();
+                            // win.document.write(response.data.webpay);
+                            // win.document.close();
                             // win.document.focus();
                         }
 

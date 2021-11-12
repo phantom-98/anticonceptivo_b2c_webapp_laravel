@@ -143,6 +143,7 @@ const ProductCard = ({product, className = '', subscriptionFilter = []}) => {
                                 subscriptionFilter.length ?
                                     handlePrice(product) : product.is_offer
                                 ? product.offer_price : product.price)
+
                         }
                         {
                             subscriptionFilter.length ?
