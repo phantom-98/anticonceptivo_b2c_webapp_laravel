@@ -39,10 +39,9 @@ const Table = ({
     const [addressSelected, setAddressSelected] = useState(null);
     const [view, setView] = useState("list");
     const [formMode, setFormMode] = useState("create");
-    const [dispatchDate, setDispatchDate] = useState(subscriptionOrderItemSelected.min.date.dispatch);
-    const [minDate, setMinDate] = useState(subscriptionOrderItemSelected.min.date.dispatch);
     const [subscriptions, setSubscriptions] = useState([]);
-
+    const [dispatchDate, setDispatchDate] = useState(new Date());
+    const [minDate, setMinDate] = useState();
     const showEdit = address => {
         setView("form");
         setFormMode("edit");
@@ -56,6 +55,14 @@ const Table = ({
         getSubscriptions();
 
     }, []);
+
+    useEffect(() => {
+        if (subscriptionOrderItemSelected && 'min_date_dispatch' in subscriptionOrderItemSelected) {
+            // setMinDate(subscriptionOrderItemSelected.min_date_dispatch)
+            // setDispatchDate(moment(subscriptionOrderItemSelected.min_date_dispatch).format('YYYY-MM-DD'))
+        }
+
+    }, [subscriptionOrderItemSelected]);
 
 
     const changeMonthToSpanish = (dateString) => {
@@ -114,7 +121,7 @@ const Table = ({
 
     const handleDispatchDate = (date) => {
         console.log('handleDispatchDate', date);
-        setDispatchDate(date)
+        setDispatchDate(moment(date).format('YYYY-MM-DD'))
     }
 
     const changeVisibleModalDispatchDate = () => {
@@ -644,20 +651,24 @@ const Table = ({
                         </div>
                         <div className="col-12 mt-3 text-center">
 
-                            <DatePicker
-                                // minDate={minDate}
-                                dateFormat="dd/MM/yyyy"
-                                locale="es"
-                                name='dispatchDate'
-                                selected={dispatchDate}
-                                onChange={(date) => setDispatchDate(date)}
-                                // selected={dispatchDate}
-                                // onChange={(date) => handleDispatchDate(date)}
-                                className="form-control"
-                                showYearDropdown
-                                yearDropdownItemNumber={100}
-                                scrollableYearDropdown
-                            />
+                            {
+                                dispatchDate ?
+                                    <DatePicker
+
+                                        minDate={minDate}
+                                        dateFormat="DD-MM-YYYY"
+                                        locale="es"
+                                        name='dispatchDate'
+                                        selected={dispatchDate}
+                                        onChange={(date) => setDispatchDate(date)}
+                                        // selected={dispatchDate}
+                                        // onChange={(date) => handleDispatchDate(date)}
+                                        className="form-control"
+                                        showYearDropdown
+                                        yearDropdownItemNumber={100}
+                                        scrollableYearDropdown
+                                    /> : null
+                            }
 
                             {/*<input type="date"*/}
                             {/*       onChange={handleDispatchDate}*/}
