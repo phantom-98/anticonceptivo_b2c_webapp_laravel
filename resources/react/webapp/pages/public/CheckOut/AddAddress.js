@@ -69,7 +69,14 @@ const AddAddress = ({setView, regions, address, setAddress,validAddress,setValid
         })
         setSelectedRegion(e.target.value)
     }
-
+    const handleAddressComment = (e) => {
+        if(e.target.value.match('^$|^[a-zA-Z\ñ ]+$')){
+            setAddress({
+                ...address,
+                [e.target.name]: e.target.value
+            })
+        }
+    }
     const handleAddress = (e, direction = false, number = false, text = false) => {
         if (direction) {
             if(e.target.value.match('^$|^[a-zA-Z0-9\ñ ]+$')){
