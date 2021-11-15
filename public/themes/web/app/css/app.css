@@ -3600,6 +3600,10 @@ a:-webkit-any-link:focus-visible {
   font-weight: 700;
 }
 
+.panel-cart-total {
+  width: 408px;
+}
+
 @media (min-width: 768px) {
   .app-margin-top {
     margin-top: 0;
@@ -3703,6 +3707,50 @@ a:-webkit-any-link:focus-visible {
 
   .quantity-input {
     border: 1px solid #CECECE;
+  }
+
+  .panel-cart-total {
+    width: 100%;
+  }
+
+  .circle-step-responsive {
+    width: 24px;
+    height: 24px;
+    background: linear-gradient(90deg, #00dbae, #009be8, #009be8, #00dbae);
+    background-size: 400% 400%;
+    border-radius: 50%;
+    display: flex;
+    z-index: 1;
+    position: relative;
+  }
+
+  .circle-step-responsive span {
+    margin: auto;
+    color: white;
+    font-size: 9px;
+    font-weight: 700;
+  }
+
+  .step-disable .circle-step-responsive {
+    background: #CECECE;
+  }
+
+  .step-back-line {
+    width: 100%;
+    border-bottom: 1px solid #E8E8E8;
+    position: absolute;
+    top: 15px;
+    z-index: 0;
+  }
+
+  .step-back-line-first {
+    width: 50%;
+    right: 0;
+  }
+
+  .step-back-line-last {
+    width: 50%;
+    left: 0;
   }
 }
 
