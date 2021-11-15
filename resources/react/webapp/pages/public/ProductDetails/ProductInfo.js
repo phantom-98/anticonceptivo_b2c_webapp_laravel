@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import { formatMoney } from "../../../helpers/GlobalUtils";
+import React, {useState} from "react";
+import {formatMoney} from "../../../helpers/GlobalUtils";
 import AddCartCard from "../../../components/shopping/AddCartCard";
-import { Accordion, Card } from "react-bootstrap";
+import {Accordion, Card} from "react-bootstrap";
 import Icon from "../../../components/general/Icon";
 import fileSvg from "../../../assets/images/icons/file-alt-regular.svg";
 
-const ProductInfo = ({ product, setImageSubscription }) => {
+const ProductInfo = ({product, setImageSubscription}) => {
     const [quantity, setQuantity] = useState(1);
     const [subscription, setSubscription] = useState(null);
 
@@ -25,12 +25,12 @@ const ProductInfo = ({ product, setImageSubscription }) => {
 
     return (
         <div className="row">
-            <div className="col-md-6">
+            <div className="col-6">
                 <span className="font-poppins font-14 font-italic color-707070">
                     {product.laboratory.name}
                 </span>
             </div>
-            <div className="col-md-6 text-right">
+            <div className="col-6 text-right">
                 <span className="font-poppins font-14 color-009BE8">
                     SKU: {product.sku}
                 </span>
@@ -41,7 +41,7 @@ const ProductInfo = ({ product, setImageSubscription }) => {
                 </h1>
             </div>
             <div className="col-md-12">
-                <p className="font-poppins font-14 regular color-6C6B6B">
+                <p className="font-poppins font-16 regular color-707070">
                     <div
                         dangerouslySetInnerHTML={{
                             __html: product.description
@@ -52,40 +52,40 @@ const ProductInfo = ({ product, setImageSubscription }) => {
             <div className="col-md-12">
                 <h1 className="font-poppins font-12 regular color-6C6B6B">
                     <div
-                        dangerouslySetInnerHTML={{ __html: product.compound }}
+                        dangerouslySetInnerHTML={{__html: product.compound}}
                     />
                 </h1>
             </div>
             <div className="col-md-12">
                 <span className="font-poppins font-36 bold color-009BE8">
                     {subscription == null ?
-                            [
-                                formatMoney(product.is_offer ? product.offer_price  : product.price),
-                                <span className="font-poppins font-16 bold color-009BE8 ml-2">
+                        [
+                            formatMoney(product.is_offer ? product.offer_price : product.price),
+                            <span className="font-poppins font-16 bold color-009BE8 ml-2">
                                     C/U {'  '}
-                                    {
+                                {
                                     product.is_offer ?
                                         <s>{formatMoney(product.price)}</s>
-                                    : null
-                                    }
+                                        : null
+                                }
                                 </span>
-                            ]
+                        ]
                         :
-                            [
-                                formatMoney(subscription.price),
-                                <span className="font-poppins font-16 bold color-009BE8 ml-2">
+                        [
+                            formatMoney(subscription.price),
+                            <span className="font-poppins font-16 bold color-009BE8 ml-2">
                                     Al mes c/u
                                 </span>,
-                                <span className="font-poppins font-16 bold color-78d2ff ml-2">
+                            <span className="font-poppins font-16 bold color-78d2ff ml-2">
                                     (Ahorra un{" "}
-                                    {Math.round(
-                                        ((product.price - subscription.price) /
-                                            product.price) *
-                                            100
-                                    )}
-                                    %)
+                                {Math.round(
+                                    ((product.price - subscription.price) /
+                                        product.price) *
+                                    100
+                                )}
+                                %)
                                 </span>
-                            ]
+                        ]
                     }
                 </span>
             </div>
@@ -98,106 +98,96 @@ const ProductInfo = ({ product, setImageSubscription }) => {
                     subscription={subscription}
                 />
             </div>
+            <div className="col-12">
+                <div className="row mb-0 mb-md-3">
 
-            <div className="offset-md-1 mb-3" />
-            {product.unit_format && product.format != null  ? (
-                <div className="col-md-12 col-6 py-2 product-format-style font-poppins regular color-6C6B6B">
-                    Precio por unidad: $
-                    {product.state_of_matter === "Líquido"
-                        ? Math.round(
-                                (product.price / parseInt(product.format)) *
-                                    100
-                            ) +
-                            " " +
-                            product.unit_format
-                        : Math.round(
-                                product.price / parseInt(product.format)
-                            ) +
-                            " " +
-                            product.unit_format}
+                    {
+                        product.unit_format && product.format != null ?
+                            <div className="col-12 col-md">
+                                <div className="product-format-style font-poppins regular color-6C6B6B">
+                                    Precio por unidad: $
+                                    {
+                                        product.state_of_matter === "Líquido"
+                                            ? Math.round((product.price / parseInt(product.format)) * 100) +
+                                            " " +
+                                            product.unit_format
+                                            : Math.round(product.price / parseInt(product.format)) +
+                                            " " +
+                                            product.unit_format
+                                    }
+                                </div>
+                            </div>
+                            : null
+                    }
+
+                    <div className="col-12 col-md-auto d-flex mt-3 mt-md-0">
+                        <h1 className="font-poppins my-auto font-12 regular color-009BE8">
+                            <Icon className="icon-document"
+                                  path={fileSvg}/> {product.recipe_type ? product.recipe_type : "Venta Directa"}
+                        </h1>
+                    </div>
                 </div>
-            ) : null}
-
-            <div className="col-md-12 col-6 product-recipe-column">
-                <h1 className="font-poppins product-recipe-style regular color-009BE8">
-                    <Icon className="icon-document" path={fileSvg} />{" "}
-                    {product.recipe_type
-                        ? product.recipe_type
-                        : "Venta Directa"}
-                </h1>
-            </div>
-            {product.plans.length > 0 ? (
-                <div className="col-md-12 mt-2 custom-accordion-responsive">
-                    <Accordion
-                        defaultActiveKey={product.id}
-                        className="accordion-faq"
-                    >
-                        <Card
-                            key={product.id}
-                            className="card-faq"
-                            key={product.id}
-                        >
-                            <Accordion.Collapse eventKey={product.id}>
-                                <Card.Body>
-                                    <div className="row">
-                                        <div className="col-12 subscription-buttons">
-                                            {product.plans.map(
-                                                (item, index) => {
-                                                    return subscription == item ? (
-                                                        <button
-                                                            className="btn btn-outline-primary btn-months mr-2 subscription-button-margin focus"
-                                                            onClick={() =>
-                                                                handleSubscription(
-                                                                    {
-                                                                        subscription_plan: item,
-                                                                        position: index
-                                                                    }
-                                                                )
-                                                            }
-                                                        >
-                                                            {item.subscription_plan.months == 13 ? 12 : item.subscription_plan.months}{" "}Meses / {item.subscription_plan.months}{" "}Ciclos
-                                                        </button>
-                                                    ) : (
-                                                        <button
-                                                            className="btn btn-outline-primary btn-months mr-2 subscription-button-margin"
-                                                            onClick={() =>
-                                                                handleSubscription(
-                                                                    {
-                                                                        subscription_plan: item,
-                                                                        position: index
-                                                                    }
-                                                                )
-                                                            }
-                                                        >
-                                                            {item.subscription_plan.months == 13 ? 12 : item.subscription_plan.months}{" "}Meses / {item.subscription_plan.months}{" "}Ciclos
-                                                        </button>
-                                                    );
-                                                }
-                                            )}
-                                        </div>
-                                        <div className="col-md-12">
-                                            <div
-                                                className="mt-3"
-                                                dangerouslySetInnerHTML={{
-                                                    __html: subscription
-                                                        ? subscription.warnings
-                                                        : null
-                                                }}
-                                            />
-                                        </div>
-                                    </div>
-                                </Card.Body>
-                            </Accordion.Collapse>
-                            <Accordion.Toggle
-                                as={Card.Header}
-                                eventKey={product.id}
+                <div className="row">
+                    {
+                        product.plans.length > 0 ? <div className="col-md-12 mt-2 custom-accordion-responsive">
+                            <Accordion
+                                defaultActiveKey={product.id}
+                                className="accordion-faq"
                             >
-                                <h3>Suscríbete a nuestros planes</h3>
-                            </Accordion.Toggle>
-                        </Card>
-                    </Accordion>
+                                <Card
+                                    key={product.id}
+                                    className="card-faq"
+                                    key={product.id}
+                                >
+                                    <Accordion.Collapse eventKey={product.id}>
+                                        <Card.Body>
+                                            <div className="row">
+                                                <div className="col-12 px-0 subscription-buttons">
+                                                    {
+                                                        product.plans.map((item, index) => {
+
+                                                                const isActive = subscription == item;
+                                                                const month = item.subscription_plan.months;
+
+                                                                return <button
+                                                                    className={`btn btn-outline-primary btn-months mr-2 subscription-button-margin ${isActive ? 'focus' : ''}`}
+                                                                    onClick={() =>
+                                                                        handleSubscription({
+                                                                            subscription_plan: item,
+                                                                            position: index
+                                                                        })}>
+                                                                    <span className="font-9">
+                                                                         {month == 13 ? 12 : month} Meses / {month} Ciclos
+                                                                    </span>
+                                                                </button>
+                                                            }
+                                                        )}
+                                                </div>
+                                                <div className="col-md-12">
+                                                    <div
+                                                        className="mt-3"
+                                                        dangerouslySetInnerHTML={{
+                                                            __html: subscription
+                                                                ? subscription.warnings
+                                                                : null
+                                                        }}
+                                                    />
+                                                </div>
+                                            </div>
+                                        </Card.Body>
+                                    </Accordion.Collapse>
+                                    <Accordion.Toggle
+                                        as={Card.Header}
+                                        eventKey={product.id}
+                                    >
+                                        <h3>Suscríbete a nuestros planes</h3>
+                                    </Accordion.Toggle>
+                                </Card>
+                            </Accordion>
+                        </div> : null
+                    }
                 </div>
-            ) : null}
+            </div>
         </div>
     );
 };

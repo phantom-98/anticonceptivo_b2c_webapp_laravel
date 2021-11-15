@@ -352,12 +352,13 @@ a:-webkit-any-link:focus-visible {
     font-family: 'Poppins', sans-serif;
 }
 
-.dropdown-search{
+.dropdown-search {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
     border-radius: 12px;
     width: calc(100% - 30px);
 }
-.box-search-result{
+
+.box-search-result {
     height: 100%;
     max-height: 224px;
     overflow-x: hidden;
@@ -379,5 +380,19 @@ a:-webkit-any-link:focus-visible {
     border-radius: 10px;
     background-color: #F5F5F5;
 }
+
+.product-format-style{
+    background: rgb(250,250,200);
+    border-radius: 10px;
+    border: solid 1px rgb(240,240,140);
+    font-size: 12px;
+    //text-align: center;
+    padding: 10px 15px;
+}
+
+.btn-add-cart {
+    border: 1px solid #CECECE
+}
+
 
 @import 'assets/scss/responsive';
