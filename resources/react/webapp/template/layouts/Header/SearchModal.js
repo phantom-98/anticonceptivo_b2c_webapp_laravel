@@ -7,7 +7,7 @@ const SearchModal = ({showingSearch, hideSearch}) => {
 
     return (
         <Modal show={showingSearch}
-               backdrop="static"
+               // backdrop="static"
                keyboard={false}
                onHide={hideSearch}
                dialogClassName="search-modal modal-search-force">

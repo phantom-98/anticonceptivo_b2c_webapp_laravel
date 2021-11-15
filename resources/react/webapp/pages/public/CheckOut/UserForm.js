@@ -187,8 +187,8 @@ const UserForm = ({
                                     {
                                         prescriptionRadio ? null :
                                             <div className="row">
-                                                <div className="col-12">
-                                                    <p className="font-14 font-poppins regular color-033F5D">
+                                                <div className="col-12 mt-4">
+                                                    <p className="font-14 font-poppins regular color-033F5D mb-2">
                                                         Selecciona una de estas opciones
                                                     </p>
                                                 </div>

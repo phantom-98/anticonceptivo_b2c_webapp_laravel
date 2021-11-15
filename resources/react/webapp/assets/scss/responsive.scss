@@ -158,4 +158,48 @@
         padding: 10px 25px !important;
     }
 
+
+    //modal serach mobil
+    .modal-dialog.search-modal.modal-search-force {
+        position: relative;
+        width: auto;
+        margin: 0;
+        pointer-events: none;
+        top: 95px;
+        height: auto !important;
+    }
+
+    .modal-dialog.search-modal.modal-search-force .modal-content {
+        border: 0 solid #DEDEDE;
+        box-shadow: 0 0 0 rgb(0 0 0 / 0%);
+        border-radius: 0;
+    }
+
+    .modal-dialog.search-modal.modal-search-force .modal-header {
+        display: none;
+    }
+
+    .modal-dialog.search-modal.modal-search-force .modal-body {
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    .modal-dialog.search-modal.modal-search-force .top-do-flex {
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    .modal-search-force .modal-content {
+        height: auto !important;
+    }
+
+    .modal-dialog.search-modal.modal-search-force .form-control-custom,
+    .modal-dialog.search-modal.modal-search-force .search-filter-button .btn {
+        border-radius: 0;
+    }
+
+    #header{
+        z-index: 99999;
+        position: absolute;
+    }
 }
