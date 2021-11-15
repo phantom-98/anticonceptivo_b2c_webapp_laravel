@@ -3713,7 +3713,7 @@ a:-webkit-any-link:focus-visible {
     width: 100%;
   }
 
-  .circle-step {
+  .circle-step-responsive {
     width: 24px;
     height: 24px;
     background: linear-gradient(90deg, #00dbae, #009be8, #009be8, #00dbae);
@@ -3724,14 +3724,14 @@ a:-webkit-any-link:focus-visible {
     position: relative;
   }
 
-  .circle-step span {
+  .circle-step-responsive span {
     margin: auto;
     color: white;
     font-size: 9px;
     font-weight: 700;
   }
 
-  .step-disable .circle-step {
+  .step-disable .circle-step-responsive {
     background: #CECECE;
   }
 

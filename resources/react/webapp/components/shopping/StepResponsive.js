@@ -23,7 +23,7 @@ const Step = ({title, number, disabled = false, isHeader = false, isReady = fals
 
             <div className={`row d-flex d-md-none ${disabled ? 'step-disable' : ''}`}>
                 <div className="col-12 d-flex mb-2">
-                    <div className={`mx-auto circle-step text-center ${isReady ? 'circle-step-ready' : ''}`}>
+                    <div className={`mx-auto circle-step circle-step-responsive text-center ${isReady ? 'circle-step-ready' : ''}`}>
                         {
                             isReady ? <Icon path={stepCheck} title={title} style={{width : '23px'}} /> :  <span className="font-9">{number}</span>
                         }
