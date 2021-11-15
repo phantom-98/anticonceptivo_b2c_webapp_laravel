@@ -160,7 +160,7 @@ const Form = ({addressSelected, goBack, formMode, customerId = null, regions, se
     }
 
     const setAddressNoAuth = () => {
-         if (!address.isAutocomplete) {
+        if (validAddress === false) {
             setInputError('address','Por favor, ingrese una dirección valida.');
             return null;
         }
