@@ -13,6 +13,7 @@ import * as Services from "../../../Services";
 import HandleResponse from "./HandleResponse";
 import {CartContext} from "../../../context/CartProvider";
 import toastr from "toastr";
+import {setInputError} from "../../../helpers/GlobalUtils";
 
 const CheckOut = () => {
 
@@ -60,6 +61,7 @@ const CheckOut = () => {
     const [subtotal, setSubtotal] = useState(0);
     const [containsSubscriptions, setContainsSubscriptions] = useState(false);
     const [productCount, setProductCount] = useState(null);
+    const [validAddress, setValidAddress] = useState(false);
 
     const [address, setAddress] = useState({
         name: '',
@@ -127,6 +129,60 @@ const CheckOut = () => {
         getRegions();
     },[])
 
+    const validateDataAddressInvite = () => {
+        if (validAddress === false) {
+            setInputError('address','Por favor, ingrese una dirección valida.');
+            return null;
+        }
+
+        let url = Services.ENDPOINT.NO_AUTH.CHECKOUT.VALIDATE_STEPS;
+        let dataForm = {
+            ...address,
+            step: 2,
+        }
+        Services.DoPost(url, dataForm).then(response => {
+            Services.Response({
+                response: response,
+                success: () => {
+                    setView('addresses')
+                },
+            });
+        }).catch(error => {
+            Services.ErrorCatch(error)
+        });
+    }
+
+    const updateData = () => {
+        let url = Services.ENDPOINT.CUSTOMER.ADDRESSES.UPDATE;
+
+        if (validAddress === false) {
+            setInputError('address','Por favor, ingrese una dirección valida.');
+            return null;
+        }
+
+        let data = {
+            customer_id: auth.id,
+            address_id: address.id,
+            name: address.name,
+            last_name: address.last_name,
+            region_id: address.region_id,
+            commune_id: parseInt(address.commune_id),
+            address: address.address,
+            extra_info: address.extra_info,
+            comment: address.comment
+        }
+
+        Services.DoPost(url,data).then(response => {
+            Services.Response({
+                response: response,
+                success: () => {
+                    setView('addresses')
+                },
+            });
+        }).catch(error => {
+            Services.ErrorCatch(error)
+        });
+    }
     const getRegions = () => {
         let url = Services.ENDPOINT.NO_AUTH.CHECKOUT.GET_RESOURCES;
         let dataForm = {
@@ -397,6 +453,9 @@ const CheckOut = () => {
                                                         regions={regions}
                                                         address={address}
                                                         setAddress={setAddress}
+                                                        validAddress={validAddress}
+                                                        setValidAddress={setValidAddress}
+                                                        setInputError={setInputError}
                                                     /> : null
                                             }
                                             {
@@ -434,6 +493,8 @@ const CheckOut = () => {
                                                 hasAddress={hasAddress}
                                                 view={view}
                                                 customerId={customerId}
+                                                updateData={updateData}
+                                                validateDataAddressInvite={validateDataAddressInvite}
                                             />
                                         </div>
                                     </div>

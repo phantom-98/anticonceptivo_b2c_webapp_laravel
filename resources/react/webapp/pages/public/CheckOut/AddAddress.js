@@ -8,7 +8,7 @@ import {AuthContext} from "../../../context/AuthProvider";
 import { GOOGLE_MAPS } from '../../../Globals';
 import AutoComplete from "react-google-autocomplete";
 
-const AddAddress = ({setView, regions, address, setAddress}) => {
+const AddAddress = ({setView, regions, address, setAddress,validAddress,setValidAddress,setInputError}) => {
 
     // const [showBilling, setShowBilling] = useState(false);
 
@@ -18,7 +18,6 @@ const AddAddress = ({setView, regions, address, setAddress}) => {
     const [communes, setCommunes] = useState([]);
 
     const [googleAddress, setGoogleAddress] = useState('');
-    const [validAddress, setValidAddress] = useState(false);
 
     useEffect(() => {
         if (regions.length > 0) {
@@ -70,7 +69,14 @@ const AddAddress = ({setView, regions, address, setAddress}) => {
         })
         setSelectedRegion(e.target.value)
     }
-
+    const handleAddressComment = (e) => {
+        if(e.target.value.match('^$|^[a-zA-Z\ñ ]+$')){
+            setAddress({
+                ...address,
+                [e.target.name]: e.target.value
+            })
+        }
+    }
     const handleAddress = (e, direction = false, number = false, text = false) => {
         if (direction) {
             if(e.target.value.match('^$|^[a-zA-Z0-9\ñ ]+$')){
@@ -105,61 +111,6 @@ const AddAddress = ({setView, regions, address, setAddress}) => {
                 [e.target.name]: e.target.value
             })
         }
-    }
-
-    const validateData = () => {
-        if (validAddress === false) {
-            setInputError('address','Por favor, ingrese una dirección valida.');
-            return null;
-        }
-
-        let url = Services.ENDPOINT.NO_AUTH.CHECKOUT.VALIDATE_STEPS;
-        let dataForm = {
-            ...address,
-            step: 2,
-        }
-        Services.DoPost(url, dataForm).then(response => {
-            Services.Response({
-            response: response,
-            success: () => {
-                setView('addresses')
-            },
-            });
-        }).catch(error => {
-            Services.ErrorCatch(error)
-        });
-    }
-
-    const updateData = () => {
-        let url = Services.ENDPOINT.CUSTOMER.ADDRESSES.UPDATE;
-
-        if (validAddress === false) {
-            setInputError('address','Por favor, ingrese una dirección valida.');
-            return null;
-        }
-
-        let data = {
-            customer_id: auth.id,
-            address_id: address.id,
-            name: address.name,
-            last_name: address.last_name,
-            region_id: address.region_id,
-            commune_id: parseInt(address.commune_id),
-            address: address.address,
-            extra_info: address.extra_info,
-            comment: address.comment
-        }
-
-        Services.DoPost(url,data).then(response => {
-            Services.Response({
-            response: response,
-                success: () => {
-                    setView('addresses')
-                },
-            });
-        }).catch(error => {
-            Services.ErrorCatch(error)
-        });
     }
 
     const autoCompleteHandle = (place) => {
@@ -340,11 +291,11 @@ const AddAddress = ({setView, regions, address, setAddress}) => {
                         <span className="font-12">{"< Volver a paso anterior"}</span>
                     </button>
                 </div>
-                <div className="col-md-6 pb-5">
-                    <button className="btn btn-bicolor btn-block" onClick={auth ? () =>  updateData() : () => validateData()}>
-                        <span className="font-14 px-5">CONTINUAR</span>
-                    </button>
-                </div>
+                {/*<div className="col-md-6 pb-5">*/}
+                {/*    <button className="btn btn-bicolor btn-block" onClick={auth ? () =>  updateData() : () => validateData()}>*/}
+                {/*        <span className="font-14 px-5">CONTINUAR</span>*/}
+                {/*    </button>*/}
+                {/*</div>*/}
             </div>
         </Fragment>
     );

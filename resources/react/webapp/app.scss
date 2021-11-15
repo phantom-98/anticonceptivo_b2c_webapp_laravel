@@ -273,5 +273,83 @@ a:-webkit-any-link:focus-visible {
     font-weight: 700;
 }
 
+.panel-cart-total {
+    width: 408px;
+}
+
+.custom-file-label {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1;
+    height: 47px;
+    padding: .375rem .75rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    border: 1px solid #CECECE;
+    border-radius: 12px;
+    content: "Selecciona tu Receta";
+}
+
+.custom-file-label::after {
+    position: absolute;
+    top: 0;
+    right: -1;
+    bottom: 0;
+    z-index: 3;
+    display: block;
+    height: 46px;
+    padding: .675rem 1.75rem;
+    line-height: 1.5;
+    content: "Subir";
+    border-left: inherit;
+    border-radius: 0 12px 12px 0;
+    color: white !important;
+    background: linear-gradient(90deg, rgba(0, 219, 174, 1), rgba(0, 155, 232, 1), rgba(0, 155, 232, 1), rgba(0, 219, 174, 1));
+    background-size: 400% 400%;
+    animation: gradient-in .3s linear;
+}
+
+.custom-file-label::after:hover {
+    animation: gradient-out .3s linear;
+}
+
+.custom-file-input {
+    height: 47px;
+}
+
+.receipt-motive {
+    border-radius: 8px;
+    border: 1px solid #009BE8;
+    filter: grayscale(100%);
+    padding: 10px 15px;
+    -webkit-transition: background .2s;
+    transition: background .2s;
+    opacity: 0.5;
+}
+
+//.receipt-motive:hover {
+//    background: #c7ecff;
+//    filter: inherit;
+//}
+
+.receipt-motive.receipt-motive-active {
+    filter: inherit;
+    border: 2px solid #009BE8;
+    opacity: 1;
+}
+
+.note-receipt {
+    border-radius: 8px;
+    padding: 10px 15px;
+    background: #FAFAC8;
+    border: 1px solid #F0F199;
+    font-size: 12px;
+    font-weight: 400;
+    font-family: 'Poppins', sans-serif;
+}
 
 @import 'assets/scss/responsive';

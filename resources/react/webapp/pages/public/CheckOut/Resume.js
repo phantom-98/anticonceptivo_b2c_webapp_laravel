@@ -10,6 +10,8 @@ import TotalCartPriceFinal from "../../../components/shopping/TotalCartPriceFina
 import WebPayProccess from "./Payment/WebPayProccess";
 import * as Services from "../../../Services";
 import toastr from "toastr";
+import AddAddress from "./AddAddress";
+import {setInputError} from "../../../helpers/GlobalUtils";
 
 const Resume = ({
     showFinal,
@@ -29,7 +31,9 @@ const Resume = ({
     validateData,
     hasAddress,
     view,
-    customerId
+    customerId,
+    updateData,
+    validateDataAddressInvite
     }) => {
 
     const [dispatch , setDispatch] = useState(0);
@@ -179,6 +183,7 @@ const Resume = ({
                                             </div>
                                         : null
                                     }
+
                                 </>
                                 :
                                 <div className="col-md-12">
@@ -191,7 +196,15 @@ const Resume = ({
                                         setSubtotal={setSubtotal}
                                         dispatch={dispatch}
                                     />
-
+                                    {
+                                        view === 'add-address' ?
+                                            <div className="col-md-12 mt-2">
+                                                <button className="btn btn-bicolor btn-block" disabled={cartItems.length ? false : true} onClick={auth ? () =>  updateData() : () => validateDataAddressInvite()}>
+                                                    <span className="font-14 px-5">CONTINUAR</span>
+                                                </button>
+                                            </div>
+                                            : null
+                                    }
                                 </div>
                         }
                         {

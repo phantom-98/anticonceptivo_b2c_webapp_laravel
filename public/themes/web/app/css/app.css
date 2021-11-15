@@ -3600,6 +3600,81 @@ a:-webkit-any-link:focus-visible {
   font-weight: 700;
 }
 
+.panel-cart-total {
+  width: 408px;
+}
+
+.custom-file-label {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1;
+  height: 47px;
+  padding: 0.375rem 0.75rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  border: 1px solid #CECECE;
+  border-radius: 12px;
+  content: "Selecciona tu Receta";
+}
+
+.custom-file-label::after {
+  position: absolute;
+  top: 0;
+  right: -1;
+  bottom: 0;
+  z-index: 3;
+  display: block;
+  height: 46px;
+  padding: 0.675rem 1.75rem;
+  line-height: 1.5;
+  content: "Subir";
+  border-left: inherit;
+  border-radius: 0 12px 12px 0;
+  color: white !important;
+  background: linear-gradient(90deg, #00dbae, #009be8, #009be8, #00dbae);
+  background-size: 400% 400%;
+  -webkit-animation: gradient-in 0.3s linear;
+          animation: gradient-in 0.3s linear;
+}
+
+.custom-file-label::after:hover {
+  -webkit-animation: gradient-out 0.3s linear;
+          animation: gradient-out 0.3s linear;
+}
+
+.custom-file-input {
+  height: 47px;
+}
+
+.receipt-motive {
+  border-radius: 8px;
+  border: 1px solid #009BE8;
+  filter: grayscale(100%);
+  padding: 10px 15px;
+  transition: background 0.2s;
+  opacity: 0.5;
+}
+
+.receipt-motive.receipt-motive-active {
+  filter: inherit;
+  border: 2px solid #009BE8;
+  opacity: 1;
+}
+
+.note-receipt {
+  border-radius: 8px;
+  padding: 10px 15px;
+  background: #FAFAC8;
+  border: 1px solid #F0F199;
+  font-size: 12px;
+  font-weight: 400;
+  font-family: "Poppins", sans-serif;
+}
+
 @media (min-width: 768px) {
   .app-margin-top {
     margin-top: 0;
@@ -3703,6 +3778,54 @@ a:-webkit-any-link:focus-visible {
 
   .quantity-input {
     border: 1px solid #CECECE;
+  }
+
+  .panel-cart-total {
+    width: 100%;
+  }
+
+  .circle-step-responsive {
+    width: 24px;
+    height: 24px;
+    background: linear-gradient(90deg, #00dbae, #009be8, #009be8, #00dbae);
+    background-size: 400% 400%;
+    border-radius: 50%;
+    display: flex;
+    z-index: 1;
+    position: relative;
+  }
+
+  .circle-step-responsive span {
+    margin: auto;
+    color: white;
+    font-size: 9px;
+    font-weight: 700;
+  }
+
+  .step-disable .circle-step-responsive {
+    background: #CECECE;
+  }
+
+  .step-back-line {
+    width: 100%;
+    border-bottom: 1px solid #E8E8E8;
+    position: absolute;
+    top: 15px;
+    z-index: 0;
+  }
+
+  .step-back-line-first {
+    width: 50%;
+    right: 0;
+  }
+
+  .step-back-line-last {
+    width: 50%;
+    left: 0;
+  }
+
+  .mobile-panel-recipe {
+    padding: 10px 25px !important;
   }
 }
 

@@ -46,7 +46,7 @@ const Cart = () => {
                             </div>
                         </div>
 
-                        <div className="col-md-auto pl-md-2" style={{width : '408px'}}>
+                        <div className="col-md-auto pl-md-2 panel-cart-total">
                             <div className="panel panel-cart">
                                 <div className="panel-body">
                                     <div className="row">

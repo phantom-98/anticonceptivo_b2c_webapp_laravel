@@ -24,7 +24,7 @@ const ProductList = ({
 
     useEffect(() => {
         setActivePage(1);
-    },[viewCount])
+    },[viewCount, products])
 
     return (
             <div className="row">
@@ -135,7 +135,7 @@ const ProductList = ({
                                     const finish = init+parseInt(viewCount);
                                     return position > init && position <= finish ?
                                         <div className="col-sm-12 col-md-6 col-lg-4 mb-3" key={index}>
-                                            <ProductCard 
+                                            <ProductCard
                                                 product={product}
                                                 subscriptionFilter={filters.subscriptions}
                                             />
@@ -158,18 +158,21 @@ const ProductList = ({
                     activePage={activePage}
                     itemsCountPerPage={viewCount}
                     totalItemsCount={products.length}
-                    pageRangeDisplayed={pageCount}
+                    pageRangeDisplayed={4}
+                    pageCount={pageCount}
+                    // breakLabel="..."
                     onChange={e => setActivePage(e)}
                     itemClass={'paginator-buttons'}
                     innerClass={'paginator-ul'}
                     // hideNavigation={true}
                     hideDisabled={true}
                     hideFirstLastPages={true}
+                    renderOnZeroPageCount={null}
                 />
                 <label className="font-poppins font-12 regular paginator-label">Páginas</label>
             </div>
         </div>
-        
+
     );
 };
 
