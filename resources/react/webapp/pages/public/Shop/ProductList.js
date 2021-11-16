@@ -3,6 +3,7 @@ import {CONFIG} from "../../../Config";
 import ProductCard from "../../../components/shopping/ProductCard";
 import Pagination from "react-js-pagination";
 import LazyLoading from "../../../components/LazyLoading";
+import filterIcon from '../../../assets/images/icons/filter.svg'
 
 const ProductList = ({
                          category,
@@ -44,8 +45,18 @@ const ProductList = ({
             </div>
             <div className="col-12 d-sm-none">
                 <div className="row pb-3">
-                    <div className="col-12 float-right" onClick={() => showFilter()}>
-                        <div className="font-poppins font-12 semi-bold color-033F5D my-auto float-right">Filtros</div>
+                    <div className="col-12 float-right" >
+                        <div className="filters-mobile">
+                            <div className="row" style={{ minHeight : '40px'}}>
+                                <div className="col"></div>
+                                <div className="col d-flex">
+                                    <div className="pointer font-poppins font-12 semi-bold color-033F5D m-auto" onClick={() => showFilter()}>
+                                        <img src={filterIcon} alt="anticonceptivo.cl"/> Filtrar
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                     <div className="col-12">
                         {filter}

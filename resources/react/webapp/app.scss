@@ -381,10 +381,10 @@ a:-webkit-any-link:focus-visible {
     background-color: #F5F5F5;
 }
 
-.product-format-style{
-    background: rgb(250,250,200);
+.product-format-style {
+    background: rgb(250, 250, 200);
     border-radius: 10px;
-    border: solid 1px rgb(240,240,140);
+    border: solid 1px rgb(240, 240, 140);
     font-size: 12px;
     //text-align: center;
     padding: 10px 15px;
@@ -394,5 +394,11 @@ a:-webkit-any-link:focus-visible {
     border: 1px solid #CECECE
 }
 
+.filters-mobile {
+    background: #EDF8FE;
+    border-radius: 11px;
+    min-height: 40px;
+    box-shadow: 0 0 0px rgba(0, 0, 0, 0.16);
+}
 
 @import 'assets/scss/responsive';
