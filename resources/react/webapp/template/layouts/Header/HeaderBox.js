@@ -159,48 +159,52 @@ const HeaderBox = () => {
 
                             </div>
                         </div>
-                        <div className="dropdown-content"
+                        <div className={`dropdown-content ${productsWithFilter.length && search.length > 0 && isVisibilityDropdownSearch ? 'dropdown-search' : ''} `}
                              ref={refDropdownList}
-                             style={productsWithFilter.length && search.length > 0 && isVisibilityDropdownSearch ? dropdownStyle : null}>
-                            {
-                                search.length && isVisibilityDropdownSearch ?
-                                    productsWithFilter.map((product, index) => {
-                                        return (
-                                            <Fragment>
-                                                <Link
-                                                    onClick={() =>  setSearch('') }
-                                                    to={(PUBLIC_ROUTES.PRODUCT_DETAIL.path).replace(':slug?', product.slug)}
-                                                    style={{textDecoration: 'none', color: '#000000'}}>
-                                                    <div className="row mt-2 px-0">
-                                                        <div className="col-2 text-center">
-                                                            <img style={{width: 50, height: 50}}
-                                                                 src={product.images.length ? product.images[0].public_file : null}
-                                                                 alt={`${CONFIG.APP_NAME} - ${product.name}`}/>
-                                                        </div>
-                                                        <div className="col-8 mr-auto" style={{alignSelf: 'center'}}>
+                             >
+                            <div className="box-search-result"
+                                 style={productsWithFilter.length && search.length > 0 && isVisibilityDropdownSearch ? dropdownStyle : null}>
+                                {
+                                    search.length && isVisibilityDropdownSearch ?
+                                        productsWithFilter.map((product, index) => {
+                                            return (
+                                                <Fragment>
+                                                    <Link
+                                                        onClick={() =>  setSearch('') }
+                                                        to={(PUBLIC_ROUTES.PRODUCT_DETAIL.path).replace(':slug?', product.slug)}
+                                                        style={{textDecoration: 'none', color: '#000000'}}>
+                                                        <div className="row mt-2 px-0 mx-0">
+                                                            <div className="col-2 text-center">
+                                                                <img style={{width: 50, height: 50}}
+                                                                     src={product.images.length ? product.images[0].public_file : null}
+                                                                     alt={`${CONFIG.APP_NAME} - ${product.name}`}/>
+                                                            </div>
+                                                            <div className="col-8 mr-auto" style={{alignSelf: 'center'}}>
                                                             <span
                                                                 className="d-block font-poppins italic font-11 color-707070">{product.laboratory.name}</span>
-                                                            <span
-                                                                className="font-poppins bold font-14">{product.name}</span>
-                                                        </div>
-                                                        <div className="col-2" style={{alignSelf: 'center'}}>
+                                                                <span
+                                                                    className="font-poppins bold font-14">{product.name}</span>
+                                                            </div>
+                                                            <div className="col-2" style={{alignSelf: 'center'}}>
                                                             <span className="font-14 font-poppins bold"
                                                                   style={{color: '#009BE8'}}>
                                                                 {formatMoney(product.is_offer ? product.offer_price : product.price)}
                                                             </span>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </Link>
-                                                {
-                                                    productsWithFilter.length !== index + 1 ?
-                                                        <hr/>
-                                                        : null
-                                                }
-                                            </Fragment>
-                                        );
-                                    })
-                                    : null
-                            }
+                                                    </Link>
+                                                    {
+                                                        productsWithFilter.length !== index + 1 ?
+                                                            <hr/>
+                                                            : null
+                                                    }
+                                                </Fragment>
+                                            );
+                                        })
+                                        : null
+                                }
+                            </div>
+
                         </div>
                     </div>
                     <div className="col-md-auto top-do-flex">

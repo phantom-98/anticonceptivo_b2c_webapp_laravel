@@ -34,7 +34,7 @@ const ProductDetail = ({match}) => {
                 {
                     url: PUBLIC_ROUTES.SHOP.path,
                     name: product.subcategory.category.name,
-                    slug:  product.subcategory.category.slug
+                    slug: product.subcategory.category.slug
                 },
                 {
                     url: (PUBLIC_ROUTES.PRODUCT_DETAIL.path).replace(':slug', match.params.slug),
@@ -44,22 +44,22 @@ const ProductDetail = ({match}) => {
 
             document.title = capitalizeFirstLetterOfEachWord(product.name, true) + ' - Anticonceptivo';
         }
-    },[product])
+    }, [product])
 
     useEffect(() => {
         if (match) {
             getData();
         }
-    },[match])
+    }, [match])
 
     const getData = () => {
         let url = Services.ENDPOINT.NO_AUTH.PRODUCT_BY_SLUG.GET;
         let data = {
             product_slug: match.params.slug
         }
-        Services.DoPost(url,data).then(response => {
+        Services.DoPost(url, data).then(response => {
             Services.Response({
-            response: response,
+                response: response,
                 success: () => {
                     setProduct(response.data.product);
                     setProds(response.data.prods);
@@ -90,11 +90,12 @@ const ProductDetail = ({match}) => {
                     </div>
                 </div>
 
-                <BasePanelTwo breadcrumbs={breadcrumbs} >
+                <BasePanelTwo breadcrumbs={breadcrumbs}>
 
                     <div className="row product-separator">
                         <div className="col-md-6">
-                            <ProductGallery product={product} imageSubscription={imageSubscription} productImage={product.images[0].public_file}/>
+                            <ProductGallery product={product} imageSubscription={imageSubscription}
+                                            productImage={product.images[0].public_file}/>
                         </div>
                         <div className="col-md-6 mt-4">
                             <ProductInfo product={product} setImageSubscription={setImageSubscription}/>
@@ -103,18 +104,17 @@ const ProductDetail = ({match}) => {
 
                     {
                         product.is_bioequivalent ?
-                        <div className="row">
-                            <div className="col-1">
-
-                            </div>
-                            <div className="custom-col-responsive">
-                                <div className="font-beneficy" style={{backgroundColor: '#FFEA17', borderRadius: '10px', height:'50px', lineHeight:'50px'}}>
-                                    <img src={Bioequivalent} className="ml-3 mr-2"/>
-                                    <span className="font-poppins regular bioequivalent-font">Este medicamento es bioequivalente</span>
+                            <div style={{backgroundColor: '#FFEA17', borderRadius: '10px', minHeight : '47px', padding : '5px 10px'}}>
+                                <div className="row">
+                                    <div className="col-auto pr-0">
+                                        <img src={Bioequivalent} alt="anticonceptivo.cl"/>
+                                    </div>
+                                    <div className="col d-flex">
+                                        <p className="font-poppins font-15 regular mb-0 my-auto" style={{color: '#F14821'}}>Este medicamento es bioequivalente</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        : null
+                            : null
                     }
 
                     <ProductTabs product={product} legalWarning={legalWarning} valid={valid}/>
@@ -132,7 +132,7 @@ const ProductDetail = ({match}) => {
 
                 <Subscribe/>
             </Fragment>
-        : <LazyLoading/>
+            : <LazyLoading/>
     );
 };
 

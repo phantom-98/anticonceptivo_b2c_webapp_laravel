@@ -198,8 +198,18 @@
         border-radius: 0;
     }
 
-    #header{
+    .gallery-res-box {
+        border: 1px solid #CECECE;
+        border-radius: 12px;
+        background: white;
+    }
+
+    #header {
         z-index: 99999;
         position: absolute;
+    }
+
+    .card-faq .card-header {
+        background: #009BE8 !important;
     }
 }

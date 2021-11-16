@@ -7,10 +7,7 @@ const ProductTabs = ({product, legalWarning, valid}) =>{
 
     return (
         <div className="row pb-5 mt-5">
-            <div className="col-1">
-                
-            </div>            
-            <div className="custom-col-responsive">
+            <div className="col-12">
                 <Tabs
                     id="tabs"
                     variant="pills"
@@ -20,14 +17,14 @@ const ProductTabs = ({product, legalWarning, valid}) =>{
                 >
                     {
                         valid ?
-                                <Tab eventKey="benefits" title="Beneficios y usos">
-                                    <div className="panel-bordered bg-white padding-responsive-detail">
-                                        <p className="font-poppins font-14 regular">
-                                            <div dangerouslySetInnerHTML={{ __html: product.benefits }} />
-                                        </p>
-                                    </div>
-                                </Tab>                      
-                        : null
+                            <Tab eventKey="benefits" title="Beneficios y usos">
+                                <div className="panel-bordered bg-white padding-responsive-detail">
+                                    <p className="font-poppins font-14 regular">
+                                        <div dangerouslySetInnerHTML={{ __html: product.benefits }} />
+                                    </p>
+                                </div>
+                            </Tab>
+                            : null
                     }
 
                     <Tab eventKey="technical" title="Descriptor">
