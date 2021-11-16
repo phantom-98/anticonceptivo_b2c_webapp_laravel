@@ -54,7 +54,7 @@ const ProductList = ({
                                 <div className="col d-flex">
                                     <div className="pointer font-poppins font-12 semi-bold color-033F5D m-auto"
                                          onClick={() => showFilter()}>
-                                        <img src={filterIcon} alt="anticonceptivo.cl"/> Filtrar
+                                        <img src={filterIcon} alt="anticonceptivo.cl"/> <span className="pt-1">Filtrar</span>
                                     </div>
                                 </div>
                             </div>
@@ -72,8 +72,7 @@ const ProductList = ({
                         {
                             subscriptions.map((subscription) => {
                                 return (
-                                    <div
-                                        className={`btn btn-outline-primary btn-months ${filters.subscriptions.includes(subscription.id) ? 'focus' : ''} mx-3 my-2`}
+                                    <div className={`btn btn-outline-primary btn-months ${filters.subscriptions.includes(subscription.id) ? 'focus' : ''} mx-1 my-2`}
                                         onClick={() => {
                                             updateFilter();
                                             if (filters.subscriptions.includes(subscription.id)) {

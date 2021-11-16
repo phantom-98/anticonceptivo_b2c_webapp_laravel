@@ -116,7 +116,7 @@
     <meta property="og:site_name" content="Anticonceptivo.cl">
     <meta property="og:title" content="Anticonceptivo.cl"/>
     <meta property="og:description"
-          content="¡Aprovecha tu tiempo en lo que más te gusta! Compra en línea y recibe en casa. Conoce nuestros planes de suscripción y cuídate de forma periódica y segura. Opción de suscripción."/>
+          content={{ $seo_description ?? '¡Aprovecha tu tiempo en lo que más te gusta! Compra en línea y recibe en casa. Conoce nuestros planes de suscripción y cuídate de forma periódica y segura. Opción de suscripción.' }}/>
     <meta property="og:image" itemprop="image"
           content="https://www.anticonceptivo.cl/images/logo-full.svg?b3b8df2099e0585f16d824394e200f52">
     <meta property="og:type" content="website"/>
@@ -155,7 +155,9 @@
             </div>
         </div>
     @else
-        <div id="app" style="overflow:hidden;"></div>
+        <div id="app" style="overflow:hidden;">
+            {!! $seo_preloading ?? '' !!}
+        </div>
 
     @endif
 
