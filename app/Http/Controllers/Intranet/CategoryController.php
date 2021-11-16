@@ -46,18 +46,23 @@ class CategoryController extends GlobalController
             'name' => 'required|unique:categories,name',
             'image' => 'required',
             'banner_image' => 'required',
+            'banner_image_responsive' => 'required',
+            'banner_subimage' => 'required',
+            'banner_subimage_responsive' => 'required',
         ];
 
         $messages = [
             'image.required' => 'El campo imagen es obligatorio.',
-            'banner_image.required' => 'El campo imagen banner es obligatorio.'
+            'banner_image.required' => 'El campo imagen banner es obligatorio.',
+            'banner_image_responsive.required' => 'El campo imagen banner home responsivo es obligatorio',
+            'banner_subimage_responsive.required' => 'El campo imagen banner responsivo es obligatorio'
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
 
         if ($validator->passes()) {
 
-            $object = Category::create(array_merge($request->except('image', 'banner_image'), ['slug' => \Str::slug($request->name)]));
+            $object = Category::create(array_merge($request->except('image', 'banner_image','banner_image_responsive','banner_subimage','banner_subimage_responsive'), ['slug' => \Str::slug($request->name)]));
 
             if ($request->image) {
                 $image = $request->file('image');
@@ -70,6 +75,20 @@ class CategoryController extends GlobalController
                 $banner_image = $request->file('banner_image');
                 $filename = 'banner-category-' . $object->id  .'.'. $banner_image->getClientOriginalExtension();
                 $object->banner_image = $banner_image->storeAs('public/categories', $filename);
+                $object->save();
+            }
+
+            if ($request->banner_image_responsive) {
+                $banner_image_responsive = $request->file('banner_image_responsive');
+                $filename = 'banner-category-responsive-' . $object->id  .'.'. $banner_image_responsive->getClientOriginalExtension();
+                $object->banner_image_responsive = $banner_image_responsive->storeAs('public/categories', $filename);
+                $object->save();
+            }
+
+            if ($request->banner_subimage_responsive) {
+                $banner_subimage_responsive = $request->file('banner_subimage_responsive');
+                $filename = 'subbanner-category-responsive-' . $object->id  .'.'. $banner_subimage_responsive->getClientOriginalExtension();
+                $object->banner_subimage_responsive = $banner_subimage_responsive->storeAs('public/categories', $filename);
                 $object->save();
             }
 
@@ -134,7 +153,7 @@ class CategoryController extends GlobalController
 
         if ($validator->passes()) {
 
-            $object->update(array_merge($request->except('image', 'banner_image'), ['slug' => \Str::slug($request->name)]));
+            $object->update(array_merge($request->except('image', 'banner_image','banner_image_responsive'), ['slug' => \Str::slug($request->name)]));
 
             $object->save();
 
@@ -152,6 +171,26 @@ class CategoryController extends GlobalController
                 $object->refresh();
 
                 Log::info('Cambio de foto', [
+                    'date' => date('Y-m-d H:i:s'),
+                    'old_name' => $name,
+                    'new_name' => $filename,
+                    'user' => auth('intranet')->user()->full_name
+                ]);
+            }
+
+            if ($request->banner_image_responsive) {
+                $name = "";
+                if($object->banner_image_responsive){
+                    $name = $object->banner_image_responsive;
+                    Storage::delete($object->banner_image_responsive);
+                }
+                $banner_image_responsive = $request->file('banner_image_responsive');
+                $filename = 'banner-category-responsive-' . $object->id  .'.'. $banner_image_responsive->getClientOriginalExtension();
+                $object->banner_image_responsive = $banner_image_responsive->storeAs('public/categories', $filename);
+                $object->save();
+                $object->refresh();
+
+                Log::info('Cambio de foto banner responsive', [
                     'date' => date('Y-m-d H:i:s'),
                     'old_name' => $name,
                     'new_name' => $filename,
@@ -200,6 +239,28 @@ class CategoryController extends GlobalController
                     'user' => auth('intranet')->user()->full_name
                 ]);
             }
+
+            if ($request->banner_subimage_responsive) {
+                $name = "";
+                if($object->banner_subimage_responsive){
+                    $name = $object->banner_subimage_responsive;
+                    Storage::delete($object->banner_subimage_responsive);
+                }
+                $banner_subimage_responsive = $request->file('banner_subimage_responsive');
+                $filename = 'subbanner-category-responsive' . $object->id  .'.'. $banner_subimage_responsive->getClientOriginalExtension();
+                $object->banner_subimage_responsive = $banner_subimage_responsive->storeAs('public/categories', $filename);
+                $object->save();
+
+                $object->refresh();
+
+                Log::info('Cambio de foto subbanner responsive', [
+                    'date' => date('Y-m-d H:i:s'),
+                    'old_name' => $name,
+                    'new_name' => $filename,
+                    'user' => auth('intranet')->user()->full_name
+                ]);
+            }
+
             $object->unit_format = strtolower($request->unit_format);
             $object->banner_image_size = $request->banner_image_size;
             $object->subbanner_image_size =  $request->subbanner_image_size;

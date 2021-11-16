@@ -3,8 +3,12 @@ import { v4 as uuidv4 } from "uuid";
 import { CONFIG } from "../../Config";
 import { Link } from "react-router-dom";
 import PUBLIC_ROUTES from "../../routes/publicRoutes";
+import UseWindowDimensions from "../../helpers/UseWindowDimensions";
 
 const BannerCategories = ({ bannerCategories }) => {
+    const { width } = UseWindowDimensions();
+
+
     return (
         <div className="container">
             <div className="row">
@@ -29,9 +33,7 @@ const BannerCategories = ({ bannerCategories }) => {
                                             }}
                                         >
                                             <img
-                                                src={
-                                                    bannerCategory.public_subbanner_image
-                                                }
+                                                src={width > 750 ? bannerCategory.public_subbanner_image : bannerCategory.public_banner_subimage_responsive ?? bannerCategory.public_subbanner_image}
                                                 alt={CONFIG.APP_NAME}
                                                 style={{ width: "100%" }}
                                             />

@@ -11,6 +11,7 @@ import * as Services from "../../../Services";
 import LazyLoading from "../../../components/LazyLoading";
 import Bioequivalent from "../../../assets/images/icons/bioequivalence.png"
 import {capitalizeFirstLetterOfEachWord} from "../../../helpers/GlobalUtils";
+import UseWindowDimensions from "../../../helpers/UseWindowDimensions";
 
 const ProductDetail = ({match}) => {
 
@@ -21,6 +22,7 @@ const ProductDetail = ({match}) => {
     const [breadcrumbs, setBreadcrumbs] = useState([]);
     const [imageSubscription, setImageSubscription] = useState(null);
     const [loading, setLoading] = useState(true);
+    const { width } = UseWindowDimensions();
 
     useEffect(() => {
         if (product) {
@@ -81,7 +83,9 @@ const ProductDetail = ({match}) => {
                     <div className="container">
                         {/*<div className={product.subcategory.category.banner_image_size +" pt-4"}>*/}
                         <div className="w-100 pt-4">
-                            <img width="100%" style={{objectFit:'cover', height:'110px'}} src={product.subcategory.category.public_banner_image} alt={CONFIG.APP_NAME}/>
+                            <img width="100%" style={{objectFit:'cover', height:'110px'}}
+                                 src={width > 750 ? product.subcategory.category.public_banner_image : product.subcategory.category.public_banner_image_responsive ?? product.subcategory.category.public_banner_image}
+                                 alt={CONFIG.APP_NAME}/>
                         </div>
                     </div>
                 </div>

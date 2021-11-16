@@ -46,6 +46,8 @@
                             <th data-sortable="true" data-cell-style="cellStyle"  data-valign="middle">Imagen</th>
                             <th data-sortable="true" data-cell-style="cellStyle"  data-valign="middle">Banner</th>
                             <th data-sortable="true" data-cell-style="cellStyle"  data-valign="middle">Banner Home</th>
+                            <th data-sortable="true" data-cell-style="cellStyle"  data-valign="middle">Banner Responsivo</th>
+                            <th data-sortable="true" data-cell-style="cellStyle"  data-valign="middle">Banner Responsivo Home</th>
                             <th data-sortable="true" data-valign="middle">Descripción</th>
                             @if($config['action']['changeStatus'])
                             <th data-cell-style="cellStyle" data-sortable="true">Estado</th>
@@ -69,6 +71,8 @@
                                         <td><img src="{{ Storage::url($object->image) }}" style="max-width: 100px;"/></td>
                                         <td><img src="{{ Storage::url($object->banner_image) }}" style="max-width: 200px;"/></td>
                                         <td><img src="{{ Storage::url($object->subbanner_image) }}" style="max-width: 200px;"/></td>
+                                        <td><img src="{{ Storage::url($object->banner_image_responsive) }}" style="max-width: 200px;"/></td>
+                                        <td><img src="{{ Storage::url($object->banner_subimage_responsive) }}" style="max-width: 200px;"/></td>
                                         <td>{!! $object->description !!}</td>
                                         @if($config['action']['changeStatus'])
                                         @include('intranet.template.components._crud_html_change_status')
