@@ -34,6 +34,19 @@
 
 
 @media (max-width: 767px) {
+
+    @for $i from 1 through 150 {
+        .font-md-#{$i} {
+            font-size: #{$i}px;
+        }
+    }
+
+    @for $i from 1 through 150 {
+        .lh-md-#{$i} {
+            line-height: #{$i}px;
+        }
+    }
+
     .app-margin-top {
         //margin-top: 85px;
         margin-top: 95px;
@@ -212,4 +225,24 @@
     .card-faq .card-header {
         background: #009BE8 !important;
     }
+
+    .card-products-gutters {
+        margin-right: -5px;
+        margin-left: -5px;
+    }
+
+    .card-products-gutters > .col, .card-products-gutters > [class*="col-"] {
+        padding-right: 5px;
+        padding-left: 5px;
+    }
+
+    .mobile-shop .btn-add-cart {
+        font-size: 7px;
+    }
+    .mobile-shop .product-card {
+        padding: 14px;
+    }
+    //.mobile-shop .w-breadcrumb{
+    //    padding-bottom: 0 !important;
+    //}
 }

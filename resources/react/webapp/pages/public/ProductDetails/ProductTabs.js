@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {Tabs, Tab} from 'react-bootstrap';
 
-const ProductTabs = ({product, legalWarning, valid}) =>{
+const ProductTabs = ({product, legalWarning, valid}) => {
 
     const [key, setKey] = useState(valid ? 'benefits' : 'technical');
 
@@ -13,14 +13,13 @@ const ProductTabs = ({product, legalWarning, valid}) =>{
                     variant="pills"
                     className="tabs-about-us pr-2 col-12"
                     activeKey={key}
-                    onSelect={(k) => setKey(k)}
-                >
+                    onSelect={(k) => setKey(k)}>
                     {
                         valid ?
                             <Tab eventKey="benefits" title="Beneficios y usos">
                                 <div className="panel-bordered bg-white padding-responsive-detail">
                                     <p className="font-poppins font-14 regular">
-                                        <div dangerouslySetInnerHTML={{ __html: product.benefits }} />
+                                        <div dangerouslySetInnerHTML={{__html: product.benefits}}/>
                                     </p>
                                 </div>
                             </Tab>
@@ -30,7 +29,7 @@ const ProductTabs = ({product, legalWarning, valid}) =>{
                     <Tab eventKey="technical" title="Descriptor">
                         <div className="panel-bordered bg-white padding-responsive-detail">
                             <p className="font-poppins font-14 regular">
-                                <div dangerouslySetInnerHTML={{ __html: product.data_sheet }} />
+                                <div dangerouslySetInnerHTML={{__html: product.data_sheet}}/>
                             </p>
                         </div>
                     </Tab>
@@ -38,7 +37,7 @@ const ProductTabs = ({product, legalWarning, valid}) =>{
                     <Tab eventKey="legal" title="Aviso Legal">
                         <div className="panel-bordered bg-white padding-responsive-detail">
                             <p className="font-poppins font-14 regular">
-                                <div dangerouslySetInnerHTML={{ __html: legalWarning.description }} />
+                                <div dangerouslySetInnerHTML={{__html: legalWarning.description}}/>
                             </p>
                         </div>
                     </Tab>
