@@ -155,8 +155,6 @@ const HeaderBox = () => {
                                     className="btn btn-bicolor" style={{height: '60px'}}>
                                     <span className="px-3"><Icon path={searchWhite}/></span>
                                 </button>
-
-
                             </div>
                         </div>
                         <div className={`dropdown-content ${productsWithFilter.length && search.length > 0 && isVisibilityDropdownSearch ? 'dropdown-search' : ''} `}
