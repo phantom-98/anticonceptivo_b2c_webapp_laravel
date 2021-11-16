@@ -4,6 +4,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Models\Category;
 use App\Models\Product;
 use App\Packages\InnovaSEO;
 use Illuminate\Http\Request;
@@ -37,12 +38,41 @@ class SEOController extends Controller
 
         if (strpos($url, 'producto') !== false) {
             $this->buildProduct($url);
+        }elseif (strpos($url, 'tienda') !== false){
+            $this->buildCategory($url);
+        }elseif (strpos($url, 'contactanos') !== false){
+            $this->buildContact($url);
         }
 
         return view('webapp.base_react_seo')->with([
             'metas' => $this->seo->getFullMeta(),
             'preload' => $this->seo->getPreload()
         ]);
+    }
+
+    private function buildContact($url){
+        $this->seo->setTitle('Contactanos');
+        $this->seo->setDescription('Contacte con nosotros para poder obtener toda la información que necesites');
+        $this->seo->setUrl($url);
+    }
+
+    private function buildCategory($url){
+        $explode = explode('/', $url);
+
+        $slug = $explode[count($explode) - 1];
+        if (!$slug) {
+            $slug = $explode[count($explode) - 2];
+        }
+
+        $category = Category::where('slug', $slug)->first();
+
+        if ($category) {
+            $image = env('APP_URL') . Storage::url($category->banner_image);
+            $this->seo->setTitle($category->name);
+            $this->seo->setDescription(strip_tags($category->description));
+            $this->seo->setUrl($url);
+            $this->seo->setImage($image);
+        }
     }
 
     private function buildProduct($url)
