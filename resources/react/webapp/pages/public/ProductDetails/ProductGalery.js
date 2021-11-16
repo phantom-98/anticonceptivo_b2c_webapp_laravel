@@ -75,13 +75,17 @@ const ProductGallery = ({product, imageSubscription, productImage}) => {
 
             {/* Mobile */}
             <div className="row responsive-d-display">
-                <ProductGaleryMobile
-                    images={
-                        !imageSubscription ?
-                        product.images.slice(0,3) :
-                        [product.images.slice(3,product.images.length)[imageSubscription-1]]
-                    }
-                />
+               <div className="col-12">
+                   <div className="gallery-res-box">
+                       <ProductGaleryMobile
+                           images={
+                               !imageSubscription ?
+                                   product.images.slice(0,3) :
+                                   [product.images.slice(3,product.images.length)[imageSubscription-1]]
+                           }
+                       />
+                   </div>
+               </div>
             </div>
         </Fragment>
     );

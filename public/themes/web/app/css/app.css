@@ -823,13 +823,6 @@ input.my-auto.file-input {
   box-shadow: none;
 }
 
-.focus {
-  background-color: #009be8 !important;
-  color: white;
-  outline: 0;
-  box-shadow: none;
-}
-
 .btn-auth {
   height: 50px;
   text-transform: uppercase;
@@ -881,14 +874,6 @@ input.my-auto.file-input {
 .btn-add-cart:hover {
   height: 31px !important;
   font-size: 10px;
-}
-
-.btn-months {
-  height: 31px !important;
-  font-size: 12px;
-  background: transparent;
-  border-radius: 11px;
-  border: 1px solid #707070 !important;
 }
 
 @-webkit-keyframes gradient-in {
@@ -987,6 +972,33 @@ input.my-auto.file-input {
   display: flex;
   padding-right: 25px;
   line-height: 34px;
+}
+
+.btn-months {
+  height: 26px !important;
+  font-size: 9px;
+  background: transparent;
+  border-radius: 12px;
+  border: 1px solid #CECECE !important;
+  color: #6C6B6B !important;
+  font-weight: bold;
+  text-transform: uppercase;
+  box-shadow: unset;
+  outline: 0;
+}
+
+.focus {
+  background-color: #009be8 !important;
+  color: white !important;
+  outline: 0;
+  box-shadow: none;
+}
+
+.btn-months.focus {
+  background-color: #009be8 !important;
+  color: white !important;
+  outline: 0;
+  box-shadow: none;
 }
 
 .suscribe {
@@ -1122,8 +1134,8 @@ input.my-auto.file-input {
 .card-faq .card-header:hover,
 .card-faq .collapsing + .card-header,
 .card-faq .collapse.show + .card-header {
-  background: #63DCAE !important;
-  color: white !important;
+  background: #63DCAE;
+  color: white;
 }
 
 .card-faq .card-header::after {
@@ -1919,15 +1931,6 @@ input[type=number] {
     padding-bottom: 2rem !important;
   }
 
-  .product-format-style {
-    background: #fafac8;
-    border-radius: 10px;
-    border: solid 1px;
-    border-color: #f0f08c;
-    margin-left: 0.8rem !important;
-    font-size: 14px;
-  }
-
   .product-recipe-style {
     font-size: 12px;
     margin-top: 1.5rem !important;
@@ -1961,15 +1964,6 @@ input[type=number] {
 
   .product-separator {
     margin-bottom: 1rem !important;
-  }
-
-  .product-format-style {
-    background: #fafac8;
-    border-radius: 10px;
-    border: solid 1px;
-    border-color: #f0f08c;
-    font-size: 12px;
-    text-align: center;
   }
 
   .product-recipe-style {
@@ -3675,6 +3669,47 @@ a:-webkit-any-link:focus-visible {
   font-family: "Poppins", sans-serif;
 }
 
+.dropdown-search {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+  width: calc(100% - 30px);
+}
+
+.box-search-result {
+  height: 100%;
+  max-height: 224px;
+  overflow-x: hidden;
+}
+
+.box-search-result::-webkit-scrollbar {
+  width: 7px;
+  background-color: #F5F5F5;
+}
+
+.box-search-result::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #38DACD;
+  border: 2px solid #38DACD;
+}
+
+.box-search-result::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(46, 62, 74, 0);
+  border-radius: 10px;
+  background-color: #F5F5F5;
+}
+
+.product-format-style {
+  background: #fafac8;
+  border-radius: 10px;
+  border: solid 1px #f0f08c;
+  font-size: 12px;
+  padding: 10px 15px;
+}
+
+.btn-add-cart {
+  border: 1px solid #CECECE;
+}
+
 @media (min-width: 768px) {
   .app-margin-top {
     margin-top: 0;
@@ -3826,6 +3861,59 @@ a:-webkit-any-link:focus-visible {
 
   .mobile-panel-recipe {
     padding: 10px 25px !important;
+  }
+
+  .modal-dialog.search-modal.modal-search-force {
+    position: relative;
+    width: auto;
+    margin: 0;
+    pointer-events: none;
+    top: 95px;
+    height: auto !important;
+  }
+
+  .modal-dialog.search-modal.modal-search-force .modal-content {
+    border: 0 solid #DEDEDE;
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+    border-radius: 0;
+  }
+
+  .modal-dialog.search-modal.modal-search-force .modal-header {
+    display: none;
+  }
+
+  .modal-dialog.search-modal.modal-search-force .modal-body {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .modal-dialog.search-modal.modal-search-force .top-do-flex {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .modal-search-force .modal-content {
+    height: auto !important;
+  }
+
+  .modal-dialog.search-modal.modal-search-force .form-control-custom,
+  .modal-dialog.search-modal.modal-search-force .search-filter-button .btn {
+    border-radius: 0;
+  }
+
+  .gallery-res-box {
+    border: 1px solid #CECECE;
+    border-radius: 12px;
+    background: white;
+  }
+
+  #header {
+    z-index: 99999;
+    position: absolute;
+  }
+
+  .card-faq .card-header {
+    background: #009BE8 !important;
   }
 }
 
