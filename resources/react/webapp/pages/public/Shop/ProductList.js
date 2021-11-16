@@ -45,12 +45,15 @@ const ProductList = ({
             </div>
             <div className="col-12 d-sm-none">
                 <div className="row pb-3">
-                    <div className="col-12 float-right" >
+                    <div className="col-12 float-right">
                         <div className="filters-mobile">
-                            <div className="row" style={{ minHeight : '40px'}}>
-                                <div className="col"></div>
+                            <div className="row" style={{minHeight: '40px'}}>
+                                <div className="col" style={{
+                                    borderRight: '1px solid rgba(0,155,232,0.11)'
+                                }} />
                                 <div className="col d-flex">
-                                    <div className="pointer font-poppins font-12 semi-bold color-033F5D m-auto" onClick={() => showFilter()}>
+                                    <div className="pointer font-poppins font-12 semi-bold color-033F5D m-auto"
+                                         onClick={() => showFilter()}>
                                         <img src={filterIcon} alt="anticonceptivo.cl"/> Filtrar
                                     </div>
                                 </div>
