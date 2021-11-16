@@ -30,9 +30,9 @@ class InnovaSEO
      */
     public function __construct(string $name, string $title, string $description, string $url, string $image, string $keywords, string $author, string $rights)
     {
-        $this->name = $name;
-        $this->title = $title;
-        $this->description = $description;
+        $this->name = substr($name, 0, 75);
+        $this->title = substr($title, 0, 75);
+        $this->description = substr($description, 0, 255);
         $this->url = $url;
         $this->image = $image;
         $this->keywords = $keywords;
@@ -199,7 +199,6 @@ class InnovaSEO
     {
         $this->robots = $robots;
     }
-
 
 
     public function getSiteMeta(): string

@@ -117,8 +117,6 @@ const Search = ({hideModal}) => {
                         className="btn btn-bicolor" style={{height: '60px'}}>
                         <span className="px-3"><Icon path={searchWhite}/></span>
                     </button>
-
-
                 </div>
             </div>
             {

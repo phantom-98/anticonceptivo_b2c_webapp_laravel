@@ -3561,7 +3561,7 @@ a:-webkit-any-link:focus-visible {
 }
 
 .margin-menu-bottom {
-  border-bottom: 1px solid #0869a699 !important;
+  border-bottom: 1px solid #E8E8E8 !important;
   padding-bottom: 5px;
 }
 
@@ -3715,6 +3715,39 @@ a:-webkit-any-link:focus-visible {
   border-radius: 11px;
   min-height: 40px;
   box-shadow: 0 0 0px rgba(0, 0, 0, 0.16);
+}
+
+#bg-offcanvas {
+  width: 100vw;
+  height: 100vh;
+  background: rgba(3, 63, 93, 0.41);
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  top: -95px;
+  left: 0;
+  z-index: 99;
+}
+
+.item-menu-cat-first {
+  font-family: "Poppins", serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: #033F5D;
+}
+
+.item-menu-cat-second {
+  font-family: "Poppins", serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #0869A6;
+}
+
+.item-menu-cat-third {
+  font-family: "Poppins", serif;
+  font-size: 12px;
+  font-weight: 300;
+  color: #6C6B6B;
 }
 
 @media (min-width: 768px) {

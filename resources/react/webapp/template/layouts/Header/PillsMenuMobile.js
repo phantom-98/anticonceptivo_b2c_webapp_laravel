@@ -13,12 +13,12 @@ const PillsMenuMobile = ({laboratories, subscriptions, formats, categorySlug, hi
             <li>
                 <Accordion>
                     <Accordion.Toggle as={Card.Header} eventKey={1}>
-                        <div className="margin-menu-bottom">
-                            <span className="font-poppins font-14" style={{color: '#0869A6'}}>Formato</span>
+                        <div className="margin-menu-bottom-deprecated">
+                            <span className="item-menu-cat-second">Formato</span>
                         </div>
                     </Accordion.Toggle>
                     <Accordion.Collapse eventKey={1}>
-                        <ul style={{listStyleType: 'none'}}>
+                        <ul style={{listStyleType: 'none', marginLeft: '-20px'}}>
                             {
                                 formats.map((format) => {
                                     let formatKey = uuidv4();
@@ -28,7 +28,7 @@ const PillsMenuMobile = ({laboratories, subscriptions, formats, categorySlug, hi
                                         <li className="my-2" key={formatKey}>
                                             <Link onClick={hideMenu} to={formatUrl} style={{textDecoration: 'none'}}>
                                                 <span
-                                                    className="font-poppins py-1 font-12 text-black my-auto d-block">{format} Pastillas</span>
+                                                    className="item-menu-cat-third my-1 text-black my-auto d-block">{format} Pastillas</span>
                                             </Link>
                                         </li>
                                     )
@@ -41,12 +41,12 @@ const PillsMenuMobile = ({laboratories, subscriptions, formats, categorySlug, hi
             <li>
                 <Accordion>
                     <Accordion.Toggle as={Card.Header} eventKey={2}>
-                        <div className="margin-menu-bottom">
-                            <span className="font-poppins font-14" style={{color: '#0869A6'}}>Suscripción</span>
+                        <div className="margin-menu-bottom-deprecated">
+                            <span className="item-menu-cat-second">Suscripción</span>
                         </div>
                     </Accordion.Toggle>
                     <Accordion.Collapse eventKey={2}>
-                        <ul style={{listStyleType: 'none'}}>
+                        <ul style={{listStyleType: 'none', marginLeft: '-20px'}}>
                             {
                                 subscriptions.map((subscription) => {
                                     let subscriptionKey = uuidv4();
@@ -57,7 +57,7 @@ const PillsMenuMobile = ({laboratories, subscriptions, formats, categorySlug, hi
                                             <Link onClick={hideMenu} to={subscriptionUrl}
                                                   style={{textDecoration: 'none'}}>
                                                 <span
-                                                    className="font-poppins py-1 font-12 text-black my-auto d-block">{subscription.months == 13 ? 12 : subscription.months} Meses / {subscription.months} Ciclos</span>
+                                                    className="item-menu-cat-third my-1 text-black my-auto d-block">{subscription.months == 13 ? 12 : subscription.months} Meses / {subscription.months} Ciclos</span>
                                             </Link>
                                         </li>
 
@@ -71,12 +71,12 @@ const PillsMenuMobile = ({laboratories, subscriptions, formats, categorySlug, hi
             <li>
                 <Accordion>
                     <Accordion.Toggle as={Card.Header} eventKey={3}>
-                        <div className="margin-menu-bottom">
-                            <span className="font-poppins font-14" style={{color: '#0869A6'}}>Laboratorio</span>
+                        <div className="margin-menu-bottom-deprecated">
+                            <span className="item-menu-cat-second">Laboratorio</span>
                         </div>
                     </Accordion.Toggle>
                     <Accordion.Collapse eventKey={3}>
-                        <ul style={{listStyleType: 'none'}}>
+                        <ul style={{listStyleType: 'none', marginLeft: '-20px'}}>
                             {
                                 laboratories.map((laboratory) => {
                                     let laboratoryKey = uuidv4();
@@ -88,7 +88,7 @@ const PillsMenuMobile = ({laboratories, subscriptions, formats, categorySlug, hi
                                             <Link onClick={hideMenu} to={laboratoryUrl}
                                                   style={{textDecoration: 'none', pointerEvents: 'auto'}}>
                                                 <span key={laboratoryKey}
-                                                      className="font-poppins py-1 font-12 text-black my-auto d-block">{laboratory.name}</span>
+                                                      className="item-menu-cat-third my-1 text-black my-auto d-block">{laboratory.name}</span>
                                             </Link>
                                         </li>
                                     )
