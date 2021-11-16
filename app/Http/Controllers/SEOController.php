@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Subcategory;
 use App\Packages\InnovaSEO;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -72,6 +73,16 @@ class SEOController extends Controller
             $this->seo->setDescription(strip_tags($category->description));
             $this->seo->setUrl($url);
             $this->seo->setImage($image);
+        }else{
+            $subCategory = Subcategory::with('category')->where('slug', $slug)->first();
+            if($subCategory){
+                $category = $subCategory->category;
+                $image = env('APP_URL') . Storage::url($category->banner_image);
+                $this->seo->setTitle($subCategory->name);
+                $this->seo->setDescription(strip_tags($category->description));
+                $this->seo->setUrl($url);
+                $this->seo->setImage($image);
+            }
         }
     }
 

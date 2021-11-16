@@ -45,7 +45,6 @@ const HeaderNavbar = () => {
 
     const doSliceCategories = () => {
         let limit = Math.round(categories.length / rows);
-        console.log(limit);
         if (limit) {
             let finalData = chunkArrayInGroups(categories, limit);
             setSpliceCategories(finalData);
