@@ -12,9 +12,11 @@ const Receipts = () =>{
 
     return (
         <div className="row" style={{marginTop: width<=980 ? '0px' :'-50px'}}>
-            <H3Panel title="Mis recetas"/>
+            {
+                width>=980  ? <H3Panel title="Mis recetas"/> : null
+            }
             <div className="col-md-12">
-                <Table />
+                <Table width={width}/>
             </div>
         </div>
     );
