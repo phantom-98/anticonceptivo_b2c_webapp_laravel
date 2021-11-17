@@ -37,7 +37,7 @@ const ListItem = ({address, showEdit, saveDefaultAddress, regions, communes, add
 
     return (
         <div className="row">
-            <div className="col-auto d-flex pr-0">
+            <div className="col-auto d-flex pr-0 pb-3">
                 <div className="my-auto">
                     <Form.Check
                         custom
@@ -52,7 +52,7 @@ const ListItem = ({address, showEdit, saveDefaultAddress, regions, communes, add
                     />
                 </div>
             </div>
-            <div className="col pl-0">
+            <div className="col pl-0 pb-3">
                 <div className="row">
                     <div className="col-12">
                         <span className="font-poppins font-10 regular color-8E8E8E">
@@ -60,16 +60,16 @@ const ListItem = ({address, showEdit, saveDefaultAddress, regions, communes, add
                         </span>
                     </div>
                     <div className="col-12">
-                        <span className="font-poppins font-16 regular color-484848">
-                            {address.address} , {address.extra_info ? address.extra_info+ ' , ' : ''} {commune ? commune.name : null} , {region ? region.name : null}
-                        </span>
+                        <div className="font-poppins font-14 lh-18 regular color-484848">
+                            {address.address}, {address.extra_info ? address.extra_info+ ', ' : ''} {commune ? commune.name : null}, {region ? region.name : null}
+                        </div>
                     </div>
                 </div>
             </div>
             {
                 !isSusbscription ?
                     <div className="col-auto d-flex">
-                        <div className="my-auto">
+                        <div className="mt-auto">
                             <span onClick={() => showEdit(address)} className="link pointer font-12 regular">editar</span>
                         </div>
                     </div>

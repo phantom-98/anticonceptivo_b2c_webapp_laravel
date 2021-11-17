@@ -1,6 +1,6 @@
 import React, {Fragment, useState, useContext, useEffect} from 'react';
 import menu from "../../../assets/images/icons/header/menu.svg";
-import anticonceptivo from "../../../assets/images/logo-responsive.png";
+import anticonceptivo from "../../../assets/images/logo-mobile.svg";
 import cartBlue from "../../../assets/images/icons/header/cart-blue.svg";
 import userBlue from "../../../assets/images/icons/header/user-blue.svg";
 import search from "../../../assets/images/icons/header/search-blue.svg";
@@ -105,7 +105,8 @@ const Header = () => {
                                             <Icon className="my-auto" path={carrousels[0].icon}/>
                                         </div>
                                         <div className="col d-flex">
-                                            <span className="my-auto"> {carrousels[0].name}</span>
+                                            <span className="my-auto "
+                                                  style={{fontWeight: 500}}> {carrousels[0].name}</span>
                                         </div>
                                     </div>
                                 </marquee>
@@ -140,7 +141,7 @@ const Header = () => {
                                 </div>
                             </div>
 
-                            <div className="col d-flex" style={{justifyContent: 'center', padding : '0 30px'}}>
+                            <div className="col d-flex" style={{justifyContent: 'center', padding: '0 30px'}}>
                                 <div className="m-auto">
                                     <Link to="/">
                                         <img

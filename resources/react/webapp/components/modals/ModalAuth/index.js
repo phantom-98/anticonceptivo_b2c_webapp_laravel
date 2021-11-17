@@ -37,11 +37,11 @@ const ModalAuth = () => {
                backdrop="static"
                keyboard={false}
                onHide={hideModalAuth}
-               dialogClassName="modal-auth">
+               dialogClassName="modal-auth modal-fixed-pad">
             <Modal.Header>
-                <CloseModal hideModal={hideModalAuth} />
+                <CloseModal hideModal={hideModalAuth}/>
             </Modal.Header>
-            <Modal.Body className="px-5">
+            <Modal.Body style={{paddingLeft: '38px', paddingRight: '38px'}}>
 
                 <div className="row">
                     <div className="col-12">

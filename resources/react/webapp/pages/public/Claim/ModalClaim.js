@@ -107,7 +107,7 @@ const ModalClaim = ({show, hide, saveClaim, data, handleData}) => {
                         </div>
                     </div> */}
 
-                    <div className="col-md-12">                        
+                    <div className="col-md-12">
                         <div className="form-group">
                             <label htmlFor="message">Mensaje</label>
                                 <textarea

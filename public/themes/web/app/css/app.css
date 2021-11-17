@@ -668,10 +668,12 @@ button#dropdown-testing {
 }
 
 .footer-bottom {
+  height: 36px;
   color: white;
   font-family: "Poppins", sans-serif;
   font-size: 14px;
   font-weight: 400;
+  background: #013D5A !important;
 }
 
 .bottom-to-flex {
@@ -682,13 +684,13 @@ button#dropdown-testing {
 .footer {
   height: 100%;
   min-height: 263px;
-  background: #005A86;
+  background: #005B86;
 }
 
 .footer .nav a {
   color: #ffffff;
   font-size: 12px;
-  font-weight: 400;
+  font-weight: 500;
   font-family: "Poppins", sans-serif;
 }
 
@@ -3913,6 +3915,16 @@ a:-webkit-any-link:focus-visible {
   top: 0;
 }
 
+.float-whatsapp img {
+  width: 31px !important;
+  height: 31px !important;
+}
+
+.modal-fixed-pad {
+  padding-left: 22px;
+  padding-right: 22px;
+}
+
 @media (min-width: 768px) {
   .app-margin-top {
     margin-top: 0;
@@ -5332,6 +5344,31 @@ a:-webkit-any-link:focus-visible {
 
   .mobile-shop .product-card {
     padding: 14px;
+  }
+
+  .footer-bottom .bottom-to-flex {
+    text-align: center;
+  }
+
+  .footer-bottom {
+    height: 82px;
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  .logo-footer {
+    width: 309px;
+  }
+
+  .float-whatsapp > div:first-child {
+    bottom: 50px !important;
+    color: white;
+  }
+
+  .button-nav-checkout {
+    position: absolute;
+    top: -20px;
+    left: 36px;
   }
 
   .subscription-card {
