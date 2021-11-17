@@ -687,7 +687,7 @@ const Table = ({
                 objects.map((item, index) => {
                     console.log(item)
                     return (
-                        <div className="col-12 m-0 mt-3">
+                        <div className="col-12 m-0 mt-3 p-0">
                             <div key={uuidv4()} className="subscription-card">
                                 <div className="subscription-card-header">
                                     {item.products.map((product, index) => {
@@ -695,7 +695,7 @@ const Table = ({
                                             <div className="row mr-1 ml-1">
                                                 <div className="col-10 d-flex flex-row">
                                                     <img height={37} src={product.images[0].public_file} alt={`${CONFIG.APP_NAME} - ${product.name}`}/>
-                                                    <h1 className="ml-3 product-card-name text-truncate p-0 product-card-name mt-2" style={{fontSize: 15}}>{product.name}</h1>
+                                                    <h1 className="ml-3 product-card-name text-truncate p-0 product-card-name" style={{fontSize: 15, marginTop: 10}}>{product.name}</h1>
                                                 </div>
                                                 <div className="col-2 d-flex flex-row">
 

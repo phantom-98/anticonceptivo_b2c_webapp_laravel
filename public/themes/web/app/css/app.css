@@ -5346,6 +5346,10 @@ a:-webkit-any-link:focus-visible {
     padding: 14px;
   }
 
+  .subscription-card {
+    padding: 10px 0px;
+  }
+
   .footer-bottom .bottom-to-flex {
     text-align: center;
   }
@@ -5369,10 +5373,6 @@ a:-webkit-any-link:focus-visible {
     position: absolute;
     top: -20px;
     left: 36px;
-  }
-
-  .subscription-card {
-    padding: 10px 0px;
   }
 }
 
