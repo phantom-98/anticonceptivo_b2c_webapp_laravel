@@ -248,5 +248,22 @@
     //    padding-bottom: 0 !important;
     //}
 
+    .footer-bottom .bottom-to-flex {
+        text-align: center;
+    }
 
+    .footer-bottom {
+        height: 82px;
+        font-size: 13px;
+        font-weight: 500;
+    }
+
+    .logo-footer{
+        width: 309px;
+    }
+
+    .float-whatsapp > div:first-child{
+        bottom: 50px !important;
+        color: white;
+    }
 }

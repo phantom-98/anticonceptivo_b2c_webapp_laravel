@@ -92,6 +92,7 @@ h1, h2, h3, h4, h4 {
 
 .regular {
     font-weight: 400;
+    //font-weight: 500;
 }
 
 .medium {
@@ -433,9 +434,15 @@ a:-webkit-any-link:focus-visible {
     color: #6C6B6B;
 
 }
+
 .order-list .custom-control-label::before,
 .order-list .custom-control-label::after {
     top: 0;
+}
+
+.float-whatsapp img {
+    width: 31px !important;
+    height: 31px !important;
 }
 
 @import 'assets/scss/responsive';
