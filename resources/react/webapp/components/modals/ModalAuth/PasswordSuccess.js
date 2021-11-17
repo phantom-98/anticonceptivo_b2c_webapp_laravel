@@ -38,7 +38,7 @@ const PasswordSuccess = () => {
                                                 Tu contraseña fue modificada exitosamente<br/>ahora puedes seguir haciendo tus compras.
                                             </div>
                                         </div>
-                                    </div> 
+                                    </div>
                                 </div>
                             </div>
 

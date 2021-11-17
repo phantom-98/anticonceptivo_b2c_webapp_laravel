@@ -3884,6 +3884,11 @@ a:-webkit-any-link:focus-visible {
   height: 31px !important;
 }
 
+.modal-fixed-pad {
+  padding-left: 22px;
+  padding-right: 22px;
+}
+
 @media (min-width: 768px) {
   .app-margin-top {
     margin-top: 0;

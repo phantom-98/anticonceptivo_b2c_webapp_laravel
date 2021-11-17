@@ -38,7 +38,7 @@ const ModalSuccess = () => {
                                                 Te enviaremos la información necesaria<br/>para recuperar tu contraseña.
                                             </div>
                                         </div>
-                                    </div> 
+                                    </div>
                                 </div>
                             </div>
 

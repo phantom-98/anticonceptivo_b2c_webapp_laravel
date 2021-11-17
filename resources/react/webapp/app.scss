@@ -445,4 +445,9 @@ a:-webkit-any-link:focus-visible {
     height: 31px !important;
 }
 
+.modal-fixed-pad {
+    padding-left: 22px;
+    padding-right: 22px;
+}
+
 @import 'assets/scss/responsive';
