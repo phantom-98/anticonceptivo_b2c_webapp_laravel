@@ -177,8 +177,8 @@ const Claim = () => {
                             }
                         </div>
                         {
-                            claims.length ? 
-                            
+                            claims.length ?
+
                             <div className="row">
                                 <div className="col-12 mt-5">
                                     <Pagination
@@ -193,7 +193,7 @@ const Claim = () => {
                                         hideDisabled={true}
                                         hideFirstLastPages={true}
                                     />
-                                    <label className="font-poppins font-12 regular paginator-label">Páginas</label>
+                                    {totalItemsCount ? <label className="font-poppins font-12 regular paginator-label">Páginas</label> : null}
                                 </div>
                             </div>
 

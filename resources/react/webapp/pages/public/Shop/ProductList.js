@@ -77,42 +77,44 @@ const ProductList = ({
                             <div className="col-12 mt-2">
                                 <Card className="card-filter">
                                     <Card.Body bsPrefix="card-body">
-                                        <Form.Check
-                                            custom
-                                            label="Nombre: A-Z"
-                                            type="radio"
-                                            className="font-12"
-                                            name="radio_orders"
-                                            id="name_asc"
-                                            onClick={() => handleProductOrderBy(1)}
-                                        />
-                                        <Form.Check
-                                            custom
-                                            label="Nombre: Z-A"
-                                            type="radio"
-                                            className="font-12"
-                                            name="radio_orders"
-                                            id="name_desc"
-                                            onClick={() => handleProductOrderBy(2)}
-                                        />
-                                        <Form.Check
-                                            custom
-                                            label="Precio: Menor A Mayor"
-                                            type="radio"
-                                            className="font-12"
-                                            name="radio_orders"
-                                            id="price_asc"
-                                            onClick={() => handleProductOrderBy(3)}
-                                        />
-                                        <Form.Check
-                                            custom
-                                            label="Precio: Mayor A Menor"
-                                            type="radio"
-                                            className="font-12"
-                                            name="radio_orders"
-                                            id="price_desc"
-                                            onClick={() => handleProductOrderBy(4)}
-                                        />
+                                       <div className="order-list">
+                                           <Form.Check
+                                               custom
+                                               label="Nombre: A-Z"
+                                               type="radio"
+                                               className="font-12"
+                                               name="radio_orders"
+                                               id="name_asc"
+                                               onClick={() => handleProductOrderBy(1)}
+                                           />
+                                           <Form.Check
+                                               custom
+                                               label="Nombre: Z-A"
+                                               type="radio"
+                                               className="font-12"
+                                               name="radio_orders"
+                                               id="name_desc"
+                                               onClick={() => handleProductOrderBy(2)}
+                                           />
+                                           <Form.Check
+                                               custom
+                                               label="Precio: Menor A Mayor"
+                                               type="radio"
+                                               className="font-12"
+                                               name="radio_orders"
+                                               id="price_asc"
+                                               onClick={() => handleProductOrderBy(3)}
+                                           />
+                                           <Form.Check
+                                               custom
+                                               label="Precio: Mayor A Menor"
+                                               type="radio"
+                                               className="font-12"
+                                               name="radio_orders"
+                                               id="price_desc"
+                                               onClick={() => handleProductOrderBy(4)}
+                                           />
+                                       </div>
                                     </Card.Body>
                                 </Card>
                             </div>
@@ -247,7 +249,7 @@ const ProductList = ({
                     hideFirstLastPages={true}
                     renderOnZeroPageCount={null}
                 />
-                <label className="font-poppins font-12 regular paginator-label">Páginas</label>
+                {products.length ? <label className="font-poppins font-12 regular paginator-label">Páginas</label> : null}
             </div>
         </div>
 
