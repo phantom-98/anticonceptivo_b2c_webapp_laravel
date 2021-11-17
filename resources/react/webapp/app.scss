@@ -355,7 +355,9 @@ a:-webkit-any-link:focus-visible {
 .dropdown-search {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
     border-radius: 12px;
-    width: calc(100% - 30px);
+    //width: calc(100% - 30px);
+    top: 44px !important;
+    right: 17px;
 }
 
 .box-search-result {
@@ -417,21 +419,21 @@ a:-webkit-any-link:focus-visible {
     font-family: 'Poppins', serif;
     font-size: 16px;
     font-weight: 700;
-    color : #033F5D;
+    color: #033F5D;
 }
 
 .item-menu-cat-second {
     font-family: 'Poppins', serif;
     font-size: 14px;
     font-weight: 700;
-    color : #0869A6;
+    color: #0869A6;
 }
 
 .item-menu-cat-third {
     font-family: 'Poppins', serif;
     font-size: 12px;
     font-weight: 300;
-    color : #6C6B6B;
+    color: #6C6B6B;
 
 }
 

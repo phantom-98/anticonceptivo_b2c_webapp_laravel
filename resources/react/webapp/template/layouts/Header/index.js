@@ -54,17 +54,24 @@ const Header = () => {
 
     useEffect(() => {
 
-
+        onScroll(true)
         window.addEventListener("scroll", onScroll);
-        // return () => window.removeEventListener("scroll", onScroll);
+
     }, []);
 
+    useEffect(() => {
+        console.log(fixedTop, 'DDD');
+    }, [fixedTop]);
+
     function onScroll() {
-        if (window.pageYOffset == 1) {
-            setFixedTop(true)
+        const _fixed = fixedTop;
+        if (window.pageYOffset > 1) {
+            if(!_fixed){
+                setFixedTop(true)
+            }
         }
 
-        if (window.pageYOffset == 0) {
+        if (window.pageYOffset == 0){
             setFixedTop(false)
         }
     }

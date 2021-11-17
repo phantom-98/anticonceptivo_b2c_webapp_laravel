@@ -98,3 +98,20 @@ input.my-auto.file-input {
     font-family: 'Poppins', sans-serif;
     color: #595959;
 }
+
+.form-control-custom::placeholder {
+    color: #CECECE;
+    font-style: italic;
+    font-size: 14px;
+}
+
+.search-top-desktop .form-control-custom::placeholder {
+    color: #CECECE;
+    font-style: italic;
+    font-size: 11px;
+}
+
+.search-top-desktop button{
+    width: 67px;
+    padding: 0;
+}

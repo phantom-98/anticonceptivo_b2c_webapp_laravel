@@ -101,7 +101,7 @@ const Search = ({hideModal}) => {
 
     return(
         <div className="col top-do-flex">
-            <div className="input-group search-filter-button">
+            <div className="input-group search-filter-button search-top-mobile">
                 <input type="text"
                     className="form-control form-control-custom form-control-custom-60"
                     placeholder="Buscar medicamentos, laboratorios o principio activo"
