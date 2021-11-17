@@ -202,26 +202,22 @@ const Shop = ({match}) => {
     }
 
     const handleProductOrderBy = (e) => {
-        let _value = parseInt(e.target.value);
+        let _value = e.target ? parseInt(e.target.value) : e
         setProductOrderBy(_value);
 
         let _products = [...products];
 
         switch (_value) {
             case 1:
-                // 1 == ordena por nombre a-z
                 sortByNameAsc(_products);
                 break;
             case 2:
-                // 2 == ordena por nombre z-a
                 sortByNameDesc(_products);
                 break;
             case 3:
-                // 3 == ordena por menor a mayor
                 sortByPriceAsc(_products);
                 break;
             case 4:
-                // 4 == ordena por mayor a menor
                 sortByPriceDesc(_products);
                 break;
         
