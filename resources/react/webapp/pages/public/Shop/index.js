@@ -206,13 +206,78 @@ const Shop = ({match}) => {
         setProductOrderBy(_value);
 
         let _products = [...products];
-        console.log(_products);
-        // 1 == ordena por nombre a-z
-        // 2 == ordena por nombre z-a
-        // 3 == ordena por menor a mayor
-        // 4 == ordena por mayor a menor
+
+        switch (_value) {
+            case 1:
+                // 1 == ordena por nombre a-z
+                sortByNameAsc(_products);
+                break;
+            case 2:
+                // 2 == ordena por nombre z-a
+                sortByNameDesc(_products);
+                break;
+            case 3:
+                // 3 == ordena por menor a mayor
+                sortByPriceAsc(_products);
+                break;
+            case 4:
+                // 4 == ordena por mayor a menor
+                sortByPriceDesc(_products);
+                break;
+        
+            default:
+                break;
+        }
         
         setProducts(_products);
+    }
+
+    const sortByNameAsc = (items) => {
+        items.sort((a, b) => {
+            if (a.name > b.name) {
+                return 1;
+            }
+            if (a.name < b.name) {
+                return -1;
+            }
+            return 0;
+        });
+    }
+
+    const sortByNameDesc = (items) => {
+        items.sort((a, b) => {
+            if (a.name < b.name) {
+                return 1;
+            }
+            if (a.name > b.name) {
+                return -1;
+            }
+            return 0;
+        });
+    }
+
+    const sortByPriceAsc = (items) => {
+        items.sort((a, b) => {
+            if ((a.is_offer == 0 ? a.price : a.offer_price) > (b.is_offer == 0 ? b.price : b.offer_price)) {
+                return 1;
+            }
+            if ((a.is_offer == 0 ? a.price : a.offer_price) < (b.is_offer == 0 ? b.price : b.offer_price)) {
+                return -1;
+            }
+            return 0;
+        });
+    }
+
+    const sortByPriceDesc = (items) => {
+        items.sort((a, b) => {
+            if ((a.is_offer == 0 ? a.price : a.offer_price) < (b.is_offer == 0 ? b.price : b.offer_price)) {
+                return 1;
+            }
+            if ((a.is_offer == 0 ? a.price : a.offer_price) > (b.is_offer == 0 ? b.price : b.offer_price)) {
+                return -1;
+            }
+            return 0;
+        });
     }
 
     return (
