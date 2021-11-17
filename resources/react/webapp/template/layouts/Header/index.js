@@ -97,9 +97,18 @@ const Header = () => {
                 {/* Mobile */}
                 <div className="d-md-none d-block">
                     <div className="menu-mobile">
-                        <div className="row first-row" style={{height: '25px'}}>
-                            <div className="col-auto font-poppins font-10 text-center">
-                                <marquee loop='10'><span><Icon path={carrousels[0].icon}/> {carrousels[0].name}</span>
+                        <div className="row first-row">
+                            <div className="col-auto font-poppins font-12 text-center">
+                                <marquee loop='10'>
+                                    <div className="row no-gutters" style={{marginTop: '4px', height: '28px'}}>
+                                        <div className="col-auto d-flex mr-2">
+                                            <Icon className="my-auto" path={carrousels[0].icon}/>
+                                        </div>
+                                        <div className="col d-flex">
+                                            <span className="my-auto"> {carrousels[0].name}</span>
+                                        </div>
+                                    </div>
+
                                 </marquee>
                             </div>
                         </div>
