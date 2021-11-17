@@ -8,7 +8,6 @@ import NoRegisterExits from "./NoRegisterExists";
 
 const TablePanel = ({objects, columns, tableLoaded, expandRow = false, pagination = true, bordered = false, striped = true, showTextPriceDispatch = false }) => {
     return (
-
            tableLoaded ? objects.length > 0 ?
                [<BootstrapTable
                     bootstrap4
