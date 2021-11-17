@@ -22,6 +22,7 @@ const Shop = ({match}) => {
     const [formats, setFormats] = useState([]);
     const [unitFormat, setUnitFormat] = useState('');
     const [showFilterResponsive, setShowFilterResponsive] = useState(false);
+    const [productOrderBy, setProductOrderBy] = useState(1);
 
     const [loading, setLoading] = useState(false);
     const [isPills, setIsPills] = useState(false);
@@ -200,6 +201,81 @@ const Shop = ({match}) => {
         setFiltersUpdate(count);
     }
 
+    const handleProductOrderBy = (e) => {
+        let _value = e.target ? parseInt(e.target.value) : e
+        setProductOrderBy(_value);
+
+        let _products = [...products];
+
+        switch (_value) {
+            case 1:
+                sortByNameAsc(_products);
+                break;
+            case 2:
+                sortByNameDesc(_products);
+                break;
+            case 3:
+                sortByPriceAsc(_products);
+                break;
+            case 4:
+                sortByPriceDesc(_products);
+                break;
+        
+            default:
+                break;
+        }
+        
+        setProducts(_products);
+    }
+
+    const sortByNameAsc = (items) => {
+        items.sort((a, b) => {
+            if (a.name > b.name) {
+                return 1;
+            }
+            if (a.name < b.name) {
+                return -1;
+            }
+            return 0;
+        });
+    }
+
+    const sortByNameDesc = (items) => {
+        items.sort((a, b) => {
+            if (a.name < b.name) {
+                return 1;
+            }
+            if (a.name > b.name) {
+                return -1;
+            }
+            return 0;
+        });
+    }
+
+    const sortByPriceAsc = (items) => {
+        items.sort((a, b) => {
+            if ((a.is_offer == 0 ? a.price : a.offer_price) > (b.is_offer == 0 ? b.price : b.offer_price)) {
+                return 1;
+            }
+            if ((a.is_offer == 0 ? a.price : a.offer_price) < (b.is_offer == 0 ? b.price : b.offer_price)) {
+                return -1;
+            }
+            return 0;
+        });
+    }
+
+    const sortByPriceDesc = (items) => {
+        items.sort((a, b) => {
+            if ((a.is_offer == 0 ? a.price : a.offer_price) < (b.is_offer == 0 ? b.price : b.offer_price)) {
+                return 1;
+            }
+            if ((a.is_offer == 0 ? a.price : a.offer_price) > (b.is_offer == 0 ? b.price : b.offer_price)) {
+                return -1;
+            }
+            return 0;
+        });
+    }
+
     return (
         <Fragment>
             <BasePanelTwo
@@ -248,6 +324,7 @@ const Shop = ({match}) => {
                                     setFilters={setFilters}
                                     updateFilter={updateFilter}
                                     filterLoading={filterLoading}
+                                    handleProductOrderBy={handleProductOrderBy}
                                     filter={<div className="d-block d-sm-none" style={{marginTop: '10px'}}>
                                         {showFilterResponsive ?
                                             <Filter

@@ -3878,7 +3878,7 @@ a:-webkit-any-link:focus-visible {
   }
 
   .responsive-d-display {
-    display: none;
+    display: none !important;
   }
 
   .responsive-d-none {
@@ -5108,7 +5108,7 @@ a:-webkit-any-link:focus-visible {
   }
 
   .responsive-d-none {
-    display: none;
+    display: none !important;
   }
 
   .responsive-d-none-v2 {
