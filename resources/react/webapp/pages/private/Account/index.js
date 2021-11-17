@@ -12,13 +12,18 @@ import CustomerService from "./sections/CustomerService";
 import {Redirect} from "react-router-dom";
 import PUBLIC_ROUTES from "../../../routes/publicRoutes";
 import LateralMenu from "../../../components/general/LateralMenu";
+import UseWindowDimensions from "../../../components/customHooks/UseWindowDimensions";
+import MobileDisplay from "./MobileDisplay";
 
 const Account = ({match}) => {
 
     const {auth} = useContext(AuthContext);
 
+    const { height, width } = UseWindowDimensions();
+
     const [breadcrumbs, setBreadcrumbs] = useState([]);
     const [sectionSelected, setSectionSelected] = useState('');
+    const [mobileSelected, setMobileSelected] = useState(0);
 
     const [loaded, setLoaded] = useState(false);
 
@@ -51,7 +56,6 @@ const Account = ({match}) => {
         }
     }
 
-
     useEffect(() => {
         if (match && match.params && 'section' in match.params) {
             const section = match.params.section;
@@ -77,8 +81,6 @@ const Account = ({match}) => {
 
 
     const processRoute = () => {
-
-
         switch (sectionSelected) {
             case sections.PERSONAL_INFO.url:
                 return <PersonalInfo/>
@@ -102,13 +104,34 @@ const Account = ({match}) => {
                 let url = PRIVATE_ROUTES.ACCOUNT.path;
                 url = url.replace(':section', sections.PERSONAL_INFO.url)
                 return <Redirect to={url} />
-
         }
     }
 
     const handleSection = (section) => {
         let url = PRIVATE_ROUTES.ACCOUNT.path;
         return url.replace(':section', section);
+    }
+
+    const processRouteMobile = () => {
+        switch (mobileSelected) {
+            case 0:
+                return <PersonalInfo />
+
+            case 1:
+                return <Addresses />;
+
+            case 2:
+                return <ShoppingHistory />;
+
+            case 3:
+                return <Subscription />;
+
+            case 4:
+                return <Receipts />;
+
+            case 5:
+                return <CustomerService />;
+        }
     }
 
     return (
@@ -119,18 +142,24 @@ const Account = ({match}) => {
             <div className="row">
                 {
                     loaded ?
-                        <Fragment>
-                            <div className="col-md-3">
-                                <LateralMenu sections={sections} sectionSelected={sectionSelected} handleSection={handleSection}/>
-                            </div>
-                            <div className="col-md-9">
-
-                                {
-                                    processRoute()
-                                }
-
-                            </div>
-                        </Fragment> : null
+                        width >= 768 ?
+                                <Fragment>
+                                    <div className="col-md-3">
+                                        <LateralMenu sections={sections} sectionSelected={sectionSelected} handleSection={handleSection} />
+                                    </div>
+                                    <div className="col-md-9">
+                                        {
+                                            processRoute()
+                                        }
+                                    </div>
+                                </Fragment>
+                            :
+                                <MobileDisplay 
+                                    sections={sections}
+                                    processRouteMobile={processRouteMobile}
+                                    setMobileSelected={setMobileSelected}
+                                />
+                    : null
                 }
             </div>
         </BasePanelOne>
