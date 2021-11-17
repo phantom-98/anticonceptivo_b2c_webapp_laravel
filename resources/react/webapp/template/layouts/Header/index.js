@@ -108,12 +108,11 @@ const Header = () => {
                                             <span className="my-auto"> {carrousels[0].name}</span>
                                         </div>
                                     </div>
-
                                 </marquee>
                             </div>
                         </div>
                         <div className="row mx-2" style={{height: '70px'}}>
-                            <div className="col-2 d-flex" style={{justifyContent: 'center'}}>
+                            <div className="col d-flex" style={{justifyContent: 'center'}}>
                                 <div className="my-auto text-center" onClick={showMenu}>
                                     <img src={menu}
                                          alt="anticonceptivo.cl"
@@ -127,7 +126,7 @@ const Header = () => {
                                 </div>
                             </div>
 
-                            <div className="col-2 d-flex" style={{justifyContent: 'center'}}>
+                            <div className="col d-flex" style={{justifyContent: 'center'}}>
                                 <div className="my-auto text-center" onClick={showSearch}>
                                     <img src={search}
                                          alt="anticonceptivo.cl"
@@ -141,7 +140,7 @@ const Header = () => {
                                 </div>
                             </div>
 
-                            <div className="col-4 d-flex" style={{justifyContent: 'center'}}>
+                            <div className="col d-flex" style={{justifyContent: 'center', padding : '0 30px'}}>
                                 <div className="m-auto">
                                     <Link to="/">
                                         <img
@@ -153,7 +152,7 @@ const Header = () => {
                                 </div>
                             </div>
 
-                            <div className="col-2 d-flex" style={{justifyContent: 'center'}}>
+                            <div className="col d-flex" style={{justifyContent: 'center'}}>
 
                                 {
                                     auth ?
@@ -187,7 +186,7 @@ const Header = () => {
 
                             </div>
 
-                            <div className="col-2 d-flex" style={{justifyContent: 'center'}}>
+                            <div className="col d-flex" style={{justifyContent: 'center'}}>
                                 {/* <div className="my-auto" onClick={showMiniCart}>
                                     <div className="cart-badge-quantity"><TotalCartItems/></div>
                                     <img src={cartBlue}

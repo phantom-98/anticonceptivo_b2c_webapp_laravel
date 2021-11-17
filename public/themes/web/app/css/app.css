@@ -3872,13 +3872,18 @@ a:-webkit-any-link:focus-visible {
   color: #6C6B6B;
 }
 
+.order-list .custom-control-label::before,
+.order-list .custom-control-label::after {
+  top: 0;
+}
+
 @media (min-width: 768px) {
   .app-margin-top {
     margin-top: 0;
   }
 
   .responsive-d-display {
-    display: none;
+    display: none !important;
   }
 
   .responsive-d-none {
@@ -5108,7 +5113,7 @@ a:-webkit-any-link:focus-visible {
   }
 
   .responsive-d-none {
-    display: none;
+    display: none !important;
   }
 
   .responsive-d-none-v2 {

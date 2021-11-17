@@ -5,7 +5,7 @@
     }
 
     .responsive-d-display {
-        display: none;
+        display: none !important;
     }
 
     .responsive-d-none {
@@ -53,7 +53,7 @@
     }
 
     .responsive-d-none {
-        display: none;
+        display: none !important;
     }
 
     .responsive-d-none-v2 {
@@ -243,6 +243,7 @@
     .mobile-shop .product-card {
         padding: 14px;
     }
+
     //.mobile-shop .w-breadcrumb{
     //    padding-bottom: 0 !important;
     //}
