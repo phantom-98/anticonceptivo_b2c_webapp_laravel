@@ -4,8 +4,9 @@ import moment from "moment";
 import {formatMoney} from "../../../../../helpers/GlobalUtils";
 import * as Services from "../../../../../Services";
 import {AuthContext} from "../../../../../context/AuthProvider";
+import H3Panel from "../../../../../components/general/H3Panel";
 
-const Table = ({showDetail}) => {
+const Table = ({showDetail, width}) => {
 
     const {auth} = useContext(AuthContext);
 
@@ -54,7 +55,7 @@ const Table = ({showDetail}) => {
 
     const columns = [
         {
-            text: 'FECHA DE COMPRA',
+            text: 'FECHA',
             dataField: 'created_at',
             sort: true,
             classes: '',
@@ -64,7 +65,7 @@ const Table = ({showDetail}) => {
             }
         },
         {
-            text: 'NÚMERO PEDIDO',
+            text: width>=980  ? 'NÚMERO PEDIDO' : 'Nº PEDIDO',
             dataField: 'id',
             sort: true,
             classes: 'text-left',
