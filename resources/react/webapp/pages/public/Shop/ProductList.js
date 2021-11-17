@@ -6,18 +6,19 @@ import LazyLoading from "../../../components/LazyLoading";
 import filterIcon from '../../../assets/images/icons/filter.svg'
 
 const ProductList = ({
-                         category,
-                         products,
-                         subcatNames,
-                         filter,
-                         showFilter,
-                         subscriptions,
-                         filters,
-                         setFilters,
-                         updateFilter,
-                         filterLoading,
-                         search = null
-                     }) => {
+    category,
+    products,
+    subcatNames,
+    filter,
+    showFilter,
+    subscriptions,
+    filters,
+    setFilters,
+    updateFilter,
+    filterLoading,
+    search = null,
+    handleProductOrderBy
+}) => {
 
     const [viewCount, setViewCount] = useState(9);
     const [activePage, setActivePage] = useState(1);
@@ -123,19 +124,23 @@ const ProductList = ({
                                     <option value="42">42</option>
                                 </select>
                             </div>
-                            {/* <div className="col-auto px-2 font-poppins font-12 semi-bold color-033F5D d-flex">
+                            <div className="col-auto px-2 font-poppins font-12 semi-bold color-033F5D d-flex">
                                 <div className="my-auto">
                                     Ordenar por
                                 </div>
                             </div>
                             <div className="col-auto pl-2">
-                                <select className="form-control form-control-custom w-auto select-product-list" name=""
-                                        id="">
-                                    <option value="9">Popular</option>
-                                    <option value="12">Menor a Mayor</option>
-                                    <option value="21">Mayor a Menor</option>
+                                <select className="form-control form-control-custom w-auto select-product-list"
+                                    id=''
+                                    name=''
+                                    onChange={handleProductOrderBy}
+                                >
+                                    <option value={1}>De A-Z</option>
+                                    <option value={2}>De Z-A</option>
+                                    <option value={3}>Menor a Mayor</option>
+                                    <option value={4}>Mayor a Menor</option>
                                 </select>
-                            </div> */}
+                            </div>
                         </div>
                     </div>
                 </div>

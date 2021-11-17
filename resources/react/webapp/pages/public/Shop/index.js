@@ -22,6 +22,7 @@ const Shop = ({match}) => {
     const [formats, setFormats] = useState([]);
     const [unitFormat, setUnitFormat] = useState('');
     const [showFilterResponsive, setShowFilterResponsive] = useState(false);
+    const [productOrderBy, setProductOrderBy] = useState(1);
 
     const [loading, setLoading] = useState(false);
     const [isPills, setIsPills] = useState(false);
@@ -200,6 +201,20 @@ const Shop = ({match}) => {
         setFiltersUpdate(count);
     }
 
+    const handleProductOrderBy = (e) => {
+        let _value = parseInt(e.target.value);
+        setProductOrderBy(_value);
+
+        let _products = [...products];
+        console.log(_products);
+        // 1 == ordena por nombre a-z
+        // 2 == ordena por nombre z-a
+        // 3 == ordena por menor a mayor
+        // 4 == ordena por mayor a menor
+        
+        setProducts(_products);
+    }
+
     return (
         <Fragment>
             <BasePanelTwo
@@ -248,6 +263,7 @@ const Shop = ({match}) => {
                                     setFilters={setFilters}
                                     updateFilter={updateFilter}
                                     filterLoading={filterLoading}
+                                    handleProductOrderBy={handleProductOrderBy}
                                     filter={<div className="d-block d-sm-none" style={{marginTop: '10px'}}>
                                         {showFilterResponsive ?
                                             <Filter

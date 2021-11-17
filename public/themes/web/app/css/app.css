@@ -5152,10 +5152,6 @@ a:-webkit-any-link:focus-visible {
     position: absolute;
   }
 
-  .card-faq .card-header {
-    background: #009BE8 !important;
-  }
-
   .card-products-gutters {
     margin-right: -5px;
     margin-left: -5px;
