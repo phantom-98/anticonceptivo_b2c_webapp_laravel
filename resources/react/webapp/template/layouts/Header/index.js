@@ -59,19 +59,15 @@ const Header = () => {
 
     }, []);
 
-    useEffect(() => {
-        console.log(fixedTop, 'DDD');
-    }, [fixedTop]);
-
     function onScroll() {
-        const _fixed = fixedTop;
+        const _fixed = fixedTop; // is not redundate, becase te state uts slow on change
         if (window.pageYOffset > 1) {
-            if(!_fixed){
+            if (!_fixed) {
                 setFixedTop(true)
             }
         }
 
-        if (window.pageYOffset == 0){
+        if (window.pageYOffset == 0) {
             setFixedTop(false)
         }
     }
@@ -103,7 +99,8 @@ const Header = () => {
                     <div className="menu-mobile">
                         <div className="row first-row" style={{height: '25px'}}>
                             <div className="col-auto font-poppins font-10 text-center">
-                                <marquee loop='10'> <span><Icon path={carrousels[0].icon}/> {carrousels[0].name}</span></marquee>
+                                <marquee loop='10'><span><Icon path={carrousels[0].icon}/> {carrousels[0].name}</span>
+                                </marquee>
                             </div>
                         </div>
                         <div className="row mx-2" style={{height: '70px'}}>

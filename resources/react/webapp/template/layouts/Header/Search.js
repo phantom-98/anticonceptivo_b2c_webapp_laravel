@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 import * as Services from "../../../Services";
 import {CONFIG} from "../../../Config";
 import {formatMoney} from "../../../helpers/GlobalUtils";
-import searchWhite from "../../../assets/images/icons/header/search-white.svg"
+import searchWhiteThin from "../../../assets/images/icons/header/search-white-thin.svg"
 import Icon from "../../../components/general/Icon";
 
 const Search = ({hideModal}) => {
@@ -104,7 +104,7 @@ const Search = ({hideModal}) => {
             <div className="input-group search-filter-button search-top-mobile">
                 <input type="text"
                     className="form-control form-control-custom form-control-custom-60"
-                    placeholder="Buscar medicamentos, laboratorios o principio activo"
+                    placeholder="¿Qué estás buscando?"
                     value={search}
                     onChange={e => sendSearch(e)}
                     onKeyPress={handleKeyPress}
@@ -114,8 +114,8 @@ const Search = ({hideModal}) => {
                 <button
                         onClick={() => getSearch()}
                         type="button"
-                        className="btn btn-bicolor" style={{height: '60px'}}>
-                        <span className="px-3"><Icon path={searchWhite}/></span>
+                        className="btn btn-bicolor">
+                        <span className="px-3"><Icon path={searchWhiteThin}/></span>
                     </button>
                 </div>
             </div>

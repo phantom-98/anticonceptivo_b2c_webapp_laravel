@@ -1,8 +1,8 @@
-.form-group label{
+.form-group label {
     font-size: 12px;
     font-family: 'Poppins', sans-serif;
     font-weight: 400;
-    color : #8E8E8E;
+    color: #8E8E8E;
     height: 2px;
     padding-top: 3px;
 }
@@ -111,7 +111,35 @@ input.my-auto.file-input {
     font-size: 11px;
 }
 
-.search-top-desktop button{
+.search-top-desktop button {
     width: 67px;
     padding: 0;
 }
+
+
+.search-top-mobile,
+.search-top-mobile .form-control-custom {
+    height: 49px;
+}
+
+.search-top-mobile button {
+    height: 49px;
+    width: 89px !important;
+}
+
+.search-top-mobile button img {
+    height: 20.8px;
+}
+
+.search-top-mobile .form-control-custom::placeholder {
+    color: #A2A2A2;
+    font-style: italic;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.search-top-mobile button {
+    width: 67px;
+    padding: 0;
+}
+

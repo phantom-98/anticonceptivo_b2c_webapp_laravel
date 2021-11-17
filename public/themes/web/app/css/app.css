@@ -841,6 +841,46 @@ input.my-auto.file-input {
   padding: 0;
 }
 
+.search-top-mobile,
+.search-top-mobile .form-control-custom {
+  height: 49px;
+}
+
+.search-top-mobile button {
+  height: 49px;
+  width: 89px !important;
+}
+
+.search-top-mobile button img {
+  height: 20.8px;
+}
+
+.search-top-mobile .form-control-custom::-moz-placeholder {
+  color: #A2A2A2;
+  font-style: italic;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.search-top-mobile .form-control-custom:-ms-input-placeholder {
+  color: #A2A2A2;
+  font-style: italic;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.search-top-mobile .form-control-custom::placeholder {
+  color: #A2A2A2;
+  font-style: italic;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.search-top-mobile button {
+  width: 67px;
+  padding: 0;
+}
+
 .search-filter-button input:focus {
   color: #495057;
   background-color: #fff;
@@ -1449,8 +1489,9 @@ input.my-auto.file-input {
   min-width: 180px;
   padding: 12px 15px;
   z-index: 11;
-  top: 60px;
-  left: 1px;
+  top: 49px;
+  left: 0px;
+  border: 0;
 }
 
 .modal-title {
