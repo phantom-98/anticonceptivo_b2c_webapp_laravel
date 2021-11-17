@@ -54,14 +54,17 @@ const Header = () => {
 
     useEffect(() => {
 
-
+        onScroll(true)
         window.addEventListener("scroll", onScroll);
-        // return () => window.removeEventListener("scroll", onScroll);
+
     }, []);
 
     function onScroll() {
-        if (window.pageYOffset == 1) {
-            setFixedTop(true)
+        const _fixed = fixedTop; // is not redundate, becase te state uts slow on change
+        if (window.pageYOffset > 1) {
+            if (!_fixed) {
+                setFixedTop(true)
+            }
         }
 
         if (window.pageYOffset == 0) {
@@ -94,9 +97,19 @@ const Header = () => {
                 {/* Mobile */}
                 <div className="d-md-none d-block">
                     <div className="menu-mobile">
-                        <div className="row first-row" style={{height: '25px'}}>
-                            <div className="col-auto font-poppins font-10 text-center">
-                                <marquee loop='10'> <span><Icon path={carrousels[0].icon}/> {carrousels[0].name}</span></marquee>
+                        <div className="row first-row">
+                            <div className="col-auto font-poppins font-12 text-center">
+                                <marquee loop='10'>
+                                    <div className="row no-gutters" style={{marginTop: '4px', height: '28px'}}>
+                                        <div className="col-auto d-flex mr-2">
+                                            <Icon className="my-auto" path={carrousels[0].icon}/>
+                                        </div>
+                                        <div className="col d-flex">
+                                            <span className="my-auto"> {carrousels[0].name}</span>
+                                        </div>
+                                    </div>
+
+                                </marquee>
                             </div>
                         </div>
                         <div className="row mx-2" style={{height: '70px'}}>
@@ -109,7 +122,7 @@ const Header = () => {
                                         // height="34px"
                                     />
                                     <div className="text-icon-navbar-mobile">
-                                        MENU
+                                        MENÚ
                                     </div>
                                 </div>
                             </div>
