@@ -5,7 +5,7 @@
     }
 
     .responsive-d-display {
-        display: none;
+        display: none !important;
     }
 
     .responsive-d-none {
@@ -49,11 +49,11 @@
 
     .app-margin-top {
         //margin-top: 85px;
-        margin-top: 95px;
+        margin-top: 108px;
     }
 
     .responsive-d-none {
-        display: none;
+        display: none !important;
     }
 
     .responsive-d-none-v2 {
@@ -178,7 +178,7 @@
         width: auto;
         margin: 0;
         pointer-events: none;
-        top: 95px;
+        top: 108px;
         height: auto !important;
     }
 
@@ -243,6 +243,7 @@
     .mobile-shop .product-card {
         padding: 14px;
     }
+
     //.mobile-shop .w-breadcrumb{
     //    padding-bottom: 0 !important;
     //}

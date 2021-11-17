@@ -18,6 +18,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import {registerLocale} from "react-datepicker";
 import es from 'date-fns/locale/es';
+import ModalDispatchDate from "./ModalDispatchDate";
 
 registerLocale('es', es)
 
@@ -25,7 +26,6 @@ const Table = ({
                    setSubscriptionOrderItemSelected,
                    subscriptionOrderItemSelected
                }) => {
-
     const {auth} = useContext(AuthContext);
     const [tableLoaded, setTableLoaded] = useState(false);
     const [modalAddress, setModalAddress] = useState(false);
@@ -111,15 +111,6 @@ const Table = ({
         }
     };
 
-
-
-    const changeVisibleModalDispatchDate = () => {
-        if (modalDispatchDate) {
-            setModalDispatchDate(false);
-        } else {
-            setModalDispatchDate(true);
-        }
-    };
 
     const saveDefaultAddress = (addressId, customerId) => {
         let url =
@@ -281,57 +272,6 @@ const Table = ({
             });
     };
 
-    const updateDispatchDate = () => {
-        let url = Services.ENDPOINT.CUSTOMER.SUBSCRIPTIONS.SET_DISPATCH_DATE_SUBSCRIPTION;
-        let data = {
-            customer_id: auth.id,
-            subscription_order_item_id: subscriptionOrderItemSelected ? subscriptionOrderItemSelected.id : 0,
-            dispatch_date: moment(dispatchDate).format('YYYY-MM-DD')
-        };
-
-        const swalWithBootstrapButtons = Swal.mixin({
-            customClass: {
-                confirmButton: "col-6 btn btn-bicolor btn-block",
-                title: "mt-4"
-            },
-            buttonsStyling: false
-        });
-
-        swalWithBootstrapButtons
-            .fire({
-                title:
-                    '<span style="color: #0869A6;">¿Está seguro de cambiar la fecha de despacho?</span>',
-                confirmButtonText: "Confirmar",
-                reverseButtons: true
-            })
-            .then(result => {
-                if (result.isConfirmed) {
-                    Services.DoPost(url, data)
-                        .then(response => {
-                            Services.Response({
-                                response: response,
-                                success: () => {
-                                    getSubscriptions();
-                                    getDataAddress();
-                                    setModalDispatchDate(false);
-
-                                },
-                                error: () => {
-                                    toastr.error(response.message);
-
-
-                                }
-                            });
-                        })
-                        .catch(error => {
-                            Services.ErrorCatch(error);
-
-                        });
-                }
-            });
-
-
-    };
 
     const getSubscriptionsCards = () => {
         let url = Services.ENDPOINT.CUSTOMER.SUBSCRIPTIONS.GET;
@@ -624,57 +564,17 @@ const Table = ({
     return (
         <>
 
-            <Modal
-                show={modalDispatchDate}
-                centered
-                backdrop="static"
-                keyboard={false}
-                onHide={modalDispatchDate}
-            >
-                <Modal.Header>
-                    <CloseModal hideModal={changeVisibleModalDispatchDate}/>
-                </Modal.Header>
-                <Modal.Body className="px-5">
-                    <div className="row">
-                        <div className="col-12">
-                            <h3 className="modal-title text-center lh-34">
-                                Cambiar fecha de pago
-                            </h3>
-                        </div>
-                        <div className="col-12 mt-3 text-center">
-
-                            {
-                                dispatchDate ?
-                                    <DatePicker
-                                        className={"form-control"}
-                                        dateFormat="dd/MM/yyyy"
-                                        minDate={minDate}
-                                        locale="es"
-                                        name='dispatchDate'
-                                        selected={new Date(dispatchDate)}
-                                        onChange={(date) => setDispatchDate(date)}
-                                    /> : null
-                            }
-
-                            {/*<input type="date"*/}
-                            {/*       onChange={handleDispatchDate}*/}
-
-                            {/*       placeholder="dd/mm/yyyy"*/}
-                            {/*       value={moment(dispatchDate).format("YYYY-MM-DD")} />*/}
-
-
-                            <div className="col-md-12 mt-4 text-center">
-                                <button type="button" className="btn btn-bicolor px-5"
-                                        onClick={() => updateDispatchDate()}
-                                >
-                                    <span>GUARDAR</span>
-                                </button>
-                            </div>
-
-                        </div>
-                    </div>
-                </Modal.Body>
-            </Modal>
+            <ModalDispatchDate
+                modalDispatchDate={modalDispatchDate}
+                setModalDispatchDate={setModalDispatchDate}
+                subscriptionOrderItemSelected={subscriptionOrderItemSelected}
+                dispatchDate={dispatchDate}
+                setDispatchDate={setDispatchDate}
+                minDate={minDate}
+                auth={auth}
+                getSubscriptions={getSubscriptions}
+                getDataAddress={getDataAddress}
+            />
 
             <Modal
                 show={modalSubscriptionCard}

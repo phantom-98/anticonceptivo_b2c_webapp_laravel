@@ -7,6 +7,12 @@ import LazyLoading from "./LazyLoading";
 import NoRegisterExits from "./NoRegisterExists";
 
 const TablePanel = ({objects, columns, tableLoaded, expandRow = false, pagination = true, bordered = false, striped = true, showTextPriceDispatch = false }) => {
+    const options = {
+        // pageStartIndex: 0,
+        sizePerPage: 10,
+        hideSizePerPage: true,
+        hidePageListOnlyOnePage: true
+    };
     return (
            tableLoaded ? objects.length > 0 ?
                [<BootstrapTable
@@ -15,11 +21,12 @@ const TablePanel = ({objects, columns, tableLoaded, expandRow = false, paginatio
                     data={objects}
                     columns={columns}
                     expandRow={ expandRow }
-                    pagination={pagination ? paginationFactory() : false}
+                    pagination={pagination ? paginationFactory(options) : false}
                     // filter={filterFactory()}
                     bordered={bordered}
                     striped={striped}
                     classes="table-panel"
+                    wrapperClasses="table-responsive"
                 />,
                    showTextPriceDispatch ?
                    <div

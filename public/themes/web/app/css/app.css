@@ -1,3 +1,5 @@
+@charset "UTF-8";
+
 .row.no-gutters {
   margin-right: 0;
   margin-left: 0;
@@ -602,7 +604,7 @@ button#dropdown-testing {
 
 .menu-mobile {
   width: 100%;
-  height: 95px;
+  height: 108px;
   position: fixed;
   background: white !important;
   box-shadow: 0 1px 12px rgba(0, 0, 0, 0.15);
@@ -1490,7 +1492,7 @@ input.my-auto.file-input {
   padding: 12px 15px;
   z-index: 11;
   top: 49px;
-  left: 0px;
+  left: 0;
   border: 0;
 }
 
@@ -1527,6 +1529,7 @@ input.my-auto.file-input {
   font-weight: 400;
   border-collapse: separate;
   border-spacing: 0;
+  padding: 0;
 }
 
 .table thead th {
@@ -1569,6 +1572,37 @@ tbody tr td {
 .react-bootstrap-table-pagination-list {
   justify-content: flex-end;
   display: flex;
+}
+
+.react-bootstrap-table-page-btns-ul li {
+  margin-right: 9px;
+}
+
+.react-bootstrap-table-page-btns-ul li.page-item .page-link {
+  color: #000000;
+  border-color: #E6E6E6;
+  border-radius: 0;
+  font-size: 13px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  height: 43px;
+  width: 40px;
+  text-align: center;
+  padding-top: 12.5px;
+}
+
+.react-bootstrap-table-page-btns-ul:before {
+  content: "P\E1ginas:";
+  margin-right: 19px;
+  padding-top: 12.5px;
+  font-family: "Poppins", sans-serif;
+  font-size: 13px;
+}
+
+.react-bootstrap-table-page-btns-ul li.page-item.active .page-link {
+  color: #fff;
+  background-color: #009BE8;
+  border-color: #009BE8;
 }
 
 .cart-badge-quantity {
@@ -3838,6 +3872,11 @@ a:-webkit-any-link:focus-visible {
   color: #6C6B6B;
 }
 
+.order-list .custom-control-label::before,
+.order-list .custom-control-label::after {
+  top: 0;
+}
+
 .link-address-checkout {
   font-weight: 900;
 }
@@ -3848,7 +3887,7 @@ a:-webkit-any-link:focus-visible {
   }
 
   .responsive-d-display {
-    display: none;
+    display: none !important;
   }
 
   .responsive-d-none {
@@ -5074,11 +5113,11 @@ a:-webkit-any-link:focus-visible {
   }
 
   .app-margin-top {
-    margin-top: 95px;
+    margin-top: 108px;
   }
 
   .responsive-d-none {
-    display: none;
+    display: none !important;
   }
 
   .responsive-d-none-v2 {
@@ -5200,7 +5239,7 @@ a:-webkit-any-link:focus-visible {
     width: auto;
     margin: 0;
     pointer-events: none;
-    top: 95px;
+    top: 108px;
     height: auto !important;
   }
 
