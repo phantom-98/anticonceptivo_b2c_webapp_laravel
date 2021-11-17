@@ -65,7 +65,9 @@ const Index = () => {
 
     return (
         <div className="row" style={{marginTop: width<=980 ? '0px' :'-50px'}}>
-            <H3Panel title="EDITAR DIRECCIONES"/>
+            {
+                width < 768 ? null : <H3Panel title="EDITAR DIRECCIONES" />
+            }
             <div className="col-md-12 ">
                 <div className="panel-bordered px-4 pt-4 pb-5">
                     <div className="row">

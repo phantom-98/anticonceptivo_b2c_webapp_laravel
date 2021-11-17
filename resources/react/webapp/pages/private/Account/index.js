@@ -23,6 +23,7 @@ const Account = ({match}) => {
 
     const [breadcrumbs, setBreadcrumbs] = useState([]);
     const [sectionSelected, setSectionSelected] = useState('');
+    const [mobileSelected, setMobileSelected] = useState(0);
 
     const [loaded, setLoaded] = useState(false);
 
@@ -112,7 +113,7 @@ const Account = ({match}) => {
     }
 
     const processRouteMobile = () => {
-        switch (sectionSelected) {
+        switch (mobileSelected) {
             case 0:
                 return <PersonalInfo />
 
@@ -142,22 +143,22 @@ const Account = ({match}) => {
                 {
                     loaded ?
                         width >= 768 ?
-                            <Fragment>
-                                <div className="col-md-3">
-                                    <LateralMenu sections={sections} sectionSelected={sectionSelected} handleSection={handleSection} />
-                                </div>
-                                <div className="col-md-9">
-                                    {
-                                        processRoute()
-                                    }
-                                </div>
-                            </Fragment>
-                            : <MobileDisplay 
-                                sections={sections} 
-                                sectionSelected={sectionSelected} 
-                                handleSection={handleSection}
-                                processRouteMobile={processRouteMobile}
-                              />
+                                <Fragment>
+                                    <div className="col-md-3">
+                                        <LateralMenu sections={sections} sectionSelected={sectionSelected} handleSection={handleSection} />
+                                    </div>
+                                    <div className="col-md-9">
+                                        {
+                                            processRoute()
+                                        }
+                                    </div>
+                                </Fragment>
+                            :
+                                <MobileDisplay 
+                                    sections={sections}
+                                    processRouteMobile={processRouteMobile}
+                                    setMobileSelected={setMobileSelected}
+                                />
                     : null
                 }
             </div>
