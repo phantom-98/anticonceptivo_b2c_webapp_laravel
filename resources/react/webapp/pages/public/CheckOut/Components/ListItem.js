@@ -42,9 +42,9 @@ const ListItem = ({address, showEdit, saveDefaultAddress, regions, communes}) =>
                     <span onClick={() => showEdit(address)} className="link pointer font-12 regular">editar</span>
                 </div>
             </div>
-            <div className="col-md-12">
+            {/* <div className="col-md-12">
                 <hr/>
-            </div>
+            </div> */}
         </div>
     );
 };

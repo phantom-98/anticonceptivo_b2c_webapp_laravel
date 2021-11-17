@@ -3838,6 +3838,10 @@ a:-webkit-any-link:focus-visible {
   color: #6C6B6B;
 }
 
+.link-address-checkout {
+  font-weight: 900;
+}
+
 @media (min-width: 768px) {
   .app-margin-top {
     margin-top: 0;
@@ -5257,6 +5261,14 @@ a:-webkit-any-link:focus-visible {
 
   .mobile-shop .product-card {
     padding: 14px;
+  }
+
+  .link-address-profile {
+    font-weight: 900;
+  }
+
+  .link-address-checkout {
+    font-weight: 900;
   }
 }
 

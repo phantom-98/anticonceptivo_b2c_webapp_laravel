@@ -67,9 +67,9 @@ const Index = () => {
         <div className="row" style={{marginTop: width<=980 ? '0px' :'-50px'}}>
             <H3Panel title="EDITAR DIRECCIONES"/>
             <div className="col-md-12 ">
-                <div className="panel-bordered px-4 pt-4 pb-5">
+                <div className="panel-bordered px-4 pt-4 pb-4">
                     <div className="row">
-                        <div className="col-md-12 mb-3">
+                        <div className="col-md-12 mb-1">
                             <h3 className="font-poppins font-16 bold color-033F5D">
                                 Confirma tu dirección de despacho o agrega una nueva
                             </h3>
