@@ -1,16 +1,15 @@
-import React, {useEffect, useState, useContext} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import TablePanel from "../../../../../components/TablePanel";
 import moment from "moment";
 // import {formatMoney} from "../../../../../helpers/GlobalUtils";
-import iconReceipt from '../../../../../assets/images/icons/receipt.svg';
-import iconTrash from '../../../../../assets/images/icons/trash.svg';
+import iconReceipt from '../../../../../assets/images/icons/recipe-blue.svg';
 import Icon from "../../../../../components/general/Icon";
 import * as Services from "../../../../../Services";
 import {AuthContext} from "../../../../../context/AuthProvider";
 import toastr from "toastr";
 import PUBLIC_ROUTES from "../../../../../routes/publicRoutes";
 
-const Table = () => {
+const Table = ({width}) => {
 
     const {auth} = useContext(AuthContext);
 
@@ -71,13 +70,13 @@ const Table = () => {
             }
         },
         {
-            text: 'RECETA',
+            text: 'RECETAS',
             dataField: 'name',
             sort: true,
             classes: '',
             headerClasses: '',
             formatter: (cell, row) => {
-                return <span><Icon path={iconReceipt} /> {cell}</span>
+                return <span style={{whiteSpace:'nowrap'}} ><Icon style={{height: 18, marginRight: 5 }} path={iconReceipt} /> {cell}</span>
             }
         },
         {
@@ -87,17 +86,17 @@ const Table = () => {
             classes: '',
             headerClasses: '',
             formatter: (cell, row) => {
-                return <span className="uppercase">{moment(cell).lang('es').format('DD MMMM YYYY')}</span>
+                return <span className="uppercase">{moment(cell).lang('es').format(width<=980  ? 'DD/mm/yyyy' : 'DD MMMM YYYY'  )}</span>
             }
         },
         {
-            text: 'VER RECETA',
+            text:  width>=980  ? 'VER RECETA' : 'VER' ,
             dataField: 'id',
             sort: true,
             classes: 'text-left',
             headerClasses: '',
             formatter: (cell, row) => {
-                return <a href={row.file_public} target="_blank" className="link pointer">Ver Receta</a>
+                return <a href={row.file_public} target="_blank" className="link pointer">{width >= 980 ? 'Ver Receta' : 'Ver'}</a>
             }
         }
         // {

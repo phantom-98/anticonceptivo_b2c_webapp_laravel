@@ -8,8 +8,7 @@
     font-weight: 400;
     border-collapse: separate;
     border-spacing: 0;
-
-
+    padding: 0;
 }
 
 .table thead th {
@@ -52,3 +51,37 @@ tbody tr td{
     justify-content: flex-end;
     display: flex;
 }
+
+.react-bootstrap-table-page-btns-ul li {
+    margin-right: 9px;
+}
+
+.react-bootstrap-table-page-btns-ul li.page-item .page-link{
+    color: #000000;
+    border-color: #E6E6E6;
+    border-radius: 0;
+    font-size: 13px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    height: 43px;
+    width: 40px;
+    text-align: center;
+    padding-top: 12.5px;
+}
+
+.react-bootstrap-table-page-btns-ul:before{
+    content: "Páginas:";
+    margin-right: 19px;
+    padding-top: 12.5px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+}
+
+.react-bootstrap-table-page-btns-ul li.page-item.active .page-link{
+    color: #fff;
+    background-color: #009BE8;
+    border-color: #009BE8;
+
+}
+
+
