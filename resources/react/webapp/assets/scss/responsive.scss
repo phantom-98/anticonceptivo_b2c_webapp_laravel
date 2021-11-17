@@ -258,12 +258,18 @@
         font-weight: 500;
     }
 
-    .logo-footer{
+    .logo-footer {
         width: 309px;
     }
 
-    .float-whatsapp > div:first-child{
+    .float-whatsapp > div:first-child {
         bottom: 50px !important;
         color: white;
+    }
+
+    .button-nav-checkout {
+        position: absolute;
+        top: -20px;
+        left: 36px;
     }
 }

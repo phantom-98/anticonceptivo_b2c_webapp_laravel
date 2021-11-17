@@ -29,14 +29,14 @@ const Addresses = ({setView, regions, communes, address, setAddress, dispatchDat
             customer_id: auth.id
         }
 
-        Services.DoPost(url,data).then(response => {
+        Services.DoPost(url, data).then(response => {
             Services.Response({
-            response: response,
+                response: response,
                 success: () => {
                     setAddresses(response.data.addresses);
-                    if(response.data.addresses != null){
+                    if (response.data.addresses != null) {
                         response.data.addresses.forEach(elementAddress => {
-                            if(elementAddress.default_address){
+                            if (elementAddress.default_address) {
                                 setAddress(elementAddress);
                             }
                         });
@@ -85,7 +85,7 @@ const Addresses = ({setView, regions, communes, address, setAddress, dispatchDat
                                 setAddress={setAddress}
                                 // setAddresses={setAddresses}
                             />
-                        : null
+                            : null
                     }
 
                     {
@@ -98,7 +98,7 @@ const Addresses = ({setView, regions, communes, address, setAddress, dispatchDat
                                 goBack={goBack}
                                 setAddresses={auth ? setAddresses : setAddress}
                             />
-                        : null
+                            : null
                     }
                 </div>
             </div>
@@ -106,33 +106,62 @@ const Addresses = ({setView, regions, communes, address, setAddress, dispatchDat
             <div className="panel panel-cart mb-3">
                 <div className="panel-body">
 
-                    <h3 className="font-poppins font-16 bold color-033F5D">
+                    <h3 className="font-poppins font-16 bold color-033F5D mb-3">
                         Fecha estimada de entrega
                     </h3>
 
                     <div className="row">
                         <div className="col-12 col-md pb-2">
-                            <Icon path={calendarBlue} />
-                            {' '} <span className="font-poppins font-12 regular col-12 color-8E8E8E">Fecha de entrega</span>
-                            {'    '}<span className="font-poppins font-16 regular color-484848">{dispatchDate}</span>
+                            <div className="row no-gutters">
+                                <div className="col-auto" style={{width: '27px'}}>
+                                    <Icon path={calendarBlue}/>
+                                </div>
+                                <div className="col-auto mx-2 d-flex">
+                                    <span className="my-auto font-poppins font-12 regular color-8E8E8E">
+                                        Fecha de entrega
+                                    </span>
+                                </div>
+                                <div className="col-auto d-flex">
+                                    <span className="my-auto font-poppins font-14 regular color-484848">
+                                        {dispatchDate}
+                                    </span>
+                                </div>
+                            </div>
                         </div>
-                        <div className="col-12 col-md-auto pb-2">
-                            <Icon path={clockBlue} />
-                            {' '} <span className="font-poppins font-12 regular color-8E8E8E">Fecha de entrega</span>
-                            {'    '}<span className="font-poppins font-16 regular color-484848">09:00 a 21:00</span>
+                        <div className="col-12 col-md-auto">
+                            <div className="row no-gutters">
+                                <div className="col-auto" style={{width: '27px'}}>
+                                    <Icon path={clockBlue}/>
+                                </div>
+                                <div className="col-auto mx-2 d-flex">
+                                    <span className="my-auto font-poppins font-12 regular color-8E8E8E">
+                                       Hora de entrega
+                                    </span>
+                                </div>
+                                <div className="col-auto d-flex">
+                                    <span className="my-auto font-poppins font-14 regular color-484848">
+                                         09:00 a 21:00
+                                    </span>
+                                </div>
+                            </div>
                         </div>
                     </div>
-
                 </div>
             </div>
 
-            <div className="row">
-                <div className="col-md-6 pb-5">
+            <div className="row button-nav-checkout">
+                <div className="col pb-0 pb-md-5">
                     <button onClick={() => setView('user-form')} className="link" style={{textDecoration: 'none'}}>
-                        <span className="font-12">{"< Volver a paso anterior"}</span>
+                        <span className="font-12"><svg
+                            xmlns="http://www.w3.org/2000/svg" width="8.405" height="14.545"
+                            viewBox="0 0 8.405 14.545">
+                              <path id="Trazado_3290" data-name="Trazado 3290" d="M0,0,7.344,6.768.288,13.824"
+                                    transform="translate(8.066 14.177) rotate(-180)" fill="none" stroke="#009be8"
+                                    stroke-width="1"/>
+                            </svg> {" Volver a paso anterior"}</span>
                     </button>
                 </div>
-                {/*<div className="col-md-6 pb-5">*/}
+                {/*<div className="col-auto pb-5">*/}
                 {/*    <button className="btn btn-bicolor btn-block" onClick={() => setViewAd('user-form')}>*/}
                 {/*        <span className="font-14 px-5">CONTINUAR</span>*/}
                 {/*    </button>*/}

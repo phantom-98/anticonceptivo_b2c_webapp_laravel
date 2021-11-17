@@ -5323,5 +5323,11 @@ a:-webkit-any-link:focus-visible {
     bottom: 50px !important;
     color: white;
   }
+
+  .button-nav-checkout {
+    position: absolute;
+    top: -20px;
+    left: 36px;
+  }
 }
 
