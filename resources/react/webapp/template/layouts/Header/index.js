@@ -122,7 +122,7 @@ const Header = () => {
                                         // height="34px"
                                     />
                                     <div className="text-icon-navbar-mobile">
-                                        MENU
+                                        MENÚ
                                     </div>
                                 </div>
                             </div>
