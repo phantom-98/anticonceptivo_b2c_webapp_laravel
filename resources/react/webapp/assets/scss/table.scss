@@ -1,39 +1,54 @@
+
 .table {
     width: 100%;
     margin-bottom: 1rem;
     color: #484848;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     font-size: 12px;
     font-weight: 400;
+    border-collapse: separate;
+    border-spacing: 0;
+
+
 }
 
 .table thead th {
     vertical-align: bottom;
-    border-bottom: 0 solid #dee2e6;
     color: #033F5D;
     font-size: 16px;
     font-weight: 700;
+    border-top: 1px solid #e8e8e8;
+    border-bottom: 1px solid #e8e8e8;
+}
+.table thead th:first-child {
+    border-radius: 10px 0 0 10px !important;
+    border-left: 1px solid #e8e8e8 !important;
+}
+.table thead th:last-child {
+    border-radius: 0 10px 10px 0 !important;
+    border-right: 1px solid #e8e8e8 !important;
 }
 
-.table td, .table th {
-    padding: .75rem;
+
+.table td,
+.table th {
+    padding: 0.75rem;
     vertical-align: top;
-    border-top: 0 solid #dee2e6;
 }
 
-.table thead {
-    border : 1px solid #EBEBEB;
+tbody tr td{
+    border: 0 !important;
 }
 
 .table-striped tbody tr:nth-of-type(odd) {
-    background-color: rgba(255,255,255,1);
+    background-color: white;
 }
 
 .table-striped tbody tr:nth-of-type(even) {
     background-color: #EDF8FE;
 }
 
-.react-bootstrap-table-pagination-list{
+.react-bootstrap-table-pagination-list {
     justify-content: flex-end;
     display: flex;
 }

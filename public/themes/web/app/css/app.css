@@ -1447,25 +1447,37 @@ input.my-auto.file-input {
   font-family: "Poppins", sans-serif;
   font-size: 12px;
   font-weight: 400;
+  border-collapse: separate;
+  border-spacing: 0;
 }
 
 .table thead th {
   vertical-align: bottom;
-  border-bottom: 0 solid #dee2e6;
   color: #033F5D;
   font-size: 16px;
   font-weight: 700;
+  border-top: 1px solid #e8e8e8;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.table thead th:first-child {
+  border-radius: 10px 0 0 10px !important;
+  border-left: 1px solid #e8e8e8 !important;
+}
+
+.table thead th:last-child {
+  border-radius: 0 10px 10px 0 !important;
+  border-right: 1px solid #e8e8e8 !important;
 }
 
 .table td,
 .table th {
   padding: 0.75rem;
   vertical-align: top;
-  border-top: 0 solid #dee2e6;
 }
 
-.table thead {
-  border: 1px solid #EBEBEB;
+tbody tr td {
+  border: 0 !important;
 }
 
 .table-striped tbody tr:nth-of-type(odd) {
@@ -2076,13 +2088,10 @@ table {
 table,
 th,
 td {
-  border: 1px solid #e8e8e8;
   padding: 5px 10px;
 }
 
 table th {
-  background-color: #0869A6;
-  color: #ffffff !important;
   padding: 5px;
 }
 
@@ -5150,10 +5159,6 @@ a:-webkit-any-link:focus-visible {
   #header {
     z-index: 99999;
     position: absolute;
-  }
-
-  .card-faq .card-header {
-    background: #009BE8 !important;
   }
 
   .card-products-gutters {

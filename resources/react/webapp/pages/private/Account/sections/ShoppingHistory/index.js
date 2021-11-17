@@ -23,10 +23,12 @@ const Index = () => {
 
     return (
         <div className="row" style={{marginTop: width<=980 ? '0px' :'-50px'}}>
-            <H3Panel title="MIS COMPRAS"/>
+            {
+                width>=980  ? <H3Panel title="MIS COMPRAS"/> : null
+            }
             <div className="col-md-12">
                 {
-                    view === 'table' ? <Table showDetail={showDetail}/> : null
+                    view === 'table' ? <Table showDetail={showDetail} width={width}/> : null
                 }
 
                 {
