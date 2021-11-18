@@ -481,21 +481,21 @@ const Table = ({
                 </Modal.Body>
             </Modal>
 
-            {
-                activeSubscription.map((item, index) => {
+            {/*{*/}
+            {/*    activeSubscription.map((item, index) => {*/}
 
-                    return item.days > 0 ? (
+            {/*        return item.days > 0 ? (*/}
 
-                        <p>
-                            {/*#{item.order_parent_id} {item.name}  Le quedan  {item.days} días de protección*/}
-                            #{item.order_parent_id} {item.name} le quedan {item.days} días o hasta
-                            el {changeMonthToSpanish(item.max_date)} de proteccion
+            {/*            <p>*/}
+            {/*                /!*#{item.order_parent_id} {item.name}  Le quedan  {item.days} días de protección*!/*/}
+            {/*                #{item.order_parent_id} {item.name} le quedan {item.days} días o hasta*/}
+            {/*                el {changeMonthToSpanish(item.max_date)} de proteccion*/}
 
-                        </p>
-                    ) : null
+            {/*            </p>*/}
+            {/*        ) : null*/}
 
-                })
-            }
+            {/*    })*/}
+            {/*}*/}
 
 
             {objects.length ?
@@ -527,7 +527,6 @@ const Table = ({
                                                         style={{fontSize: 15, marginTop: 15}}>{product.name}</div>
                                                 </div>
                                                 <div className="col-2 d-flex flex-row">
-
                                                 </div>
                                             </div>
                                         )
