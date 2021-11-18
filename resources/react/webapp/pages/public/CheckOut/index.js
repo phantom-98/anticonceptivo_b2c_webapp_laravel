@@ -90,6 +90,10 @@ const CheckOut = () => {
     },[auth])
 
     useEffect(() => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth',
+        })
         switch (view) {
             case "grant-user":
             case "user-form":
