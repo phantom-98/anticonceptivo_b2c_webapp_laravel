@@ -76,7 +76,7 @@ const Blog = ({match}) => {
                 breadcrumbs={breadcrumbs}
             >
                 {
-                    !loading ? 
+                    !loading ?
                         <Fragment>
                             <div className="row">
                                 <div className="col">
@@ -91,11 +91,11 @@ const Blog = ({match}) => {
                                                 </div>
                                             </div>
                                             <div className="col-auto px-2">
-                                                <select className="form-control form-control-custom w-auto select-product-list" 
+                                                <select className="form-control form-control-custom w-auto select-product-list"
                                                     name=""
                                                     id=""
                                                     onChange={(e) => setItemsCountPerPage(e.target.value)}
-                                                    value={itemsCountPerPage}    
+                                                    value={itemsCountPerPage}
                                                 >
                                                     <option value="10">10</option>
                                                     <option value="20">20</option>
@@ -129,7 +129,7 @@ const Blog = ({match}) => {
                                         const finish = init+parseInt(itemsCountPerPage);
                                         let postUrl = PUBLIC_ROUTES.POST.path.replace(':post_slug?', post.slug);
                                         postUrl = postUrl.replace(':post_type_slug?', match.params.post_type_slug);
-                                        
+
                                         return position > init && position <= finish ?
                                             <div className="col-md-6 mb-3" key={postKey}>
                                                 <div className="panel" style={{borderRadius: '12px'}}>
@@ -167,7 +167,7 @@ const Blog = ({match}) => {
                                 }
                             </div>
                             {
-                                posts.length ? 
+                                posts.length ?
                                 <div className="row">
                                     <div className="col-12 mt-5">
                                         <Pagination
@@ -182,7 +182,7 @@ const Blog = ({match}) => {
                                             hideDisabled={true}
                                             hideFirstLastPages={true}
                                         />
-                                        <label className="font-poppins font-12 regular paginator-label">Páginas</label>
+                                        {totalItemsCount ? <label className="font-poppins font-12 regular paginator-label">Páginas</label> : null}
                                     </div>
                                 </div>
 

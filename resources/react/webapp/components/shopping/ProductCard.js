@@ -164,20 +164,19 @@ const ProductCard = ({product, className = '', subscriptionFilter = []}) => {
 
             <div className={`d-md-none d-block product-card ${className}`}>
                 <div className="row">
-                    <div className="col-auto">
+                    <div className="col-12 text-center">
                         <Link to={(PUBLIC_ROUTES.PRODUCT_DETAIL.path).replace(':slug?', product.slug)}
                               style={{textDecoration: 'none', color: '#000000'}}>
-                            <img className="mobile-producto-img" src={subscriptionFilter.length ? handleSubscriptionImage(product) : product.images[0].public_file} alt={`${CONFIG.APP_NAME} - ${product.name}`}/>
+                            <img className="mobile-producto-img mb-2" src={subscriptionFilter.length ? handleSubscriptionImage(product) : product.images[0].public_file} alt={`${CONFIG.APP_NAME} - ${product.name}`}/>
                         </Link>
                     </div>
-                    <div className="col">
+                    <div className="col-12">
                         <div className="product-card-brand">{product.laboratory.name}</div>
                         <div className="product-card-name">
                             <Link  to={(PUBLIC_ROUTES.PRODUCT_DETAIL.path).replace(':slug?', product.slug)}
                                    style={{textDecoration: 'none', color: '#000000'}}>
                                 <div className="col-md-12 text-truncate p-0">
                                     {product.name}
-
                                 </div>
                                 {/*{String(product.name).length >= 23 ? product.name.substring(0, 23) + '...' : product.name }*/}
                             </Link>

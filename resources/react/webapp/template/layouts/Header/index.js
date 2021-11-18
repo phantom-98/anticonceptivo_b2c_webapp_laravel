@@ -1,6 +1,6 @@
 import React, {Fragment, useState, useContext, useEffect} from 'react';
 import menu from "../../../assets/images/icons/header/menu.svg";
-import anticonceptivo from "../../../assets/images/logo-responsive.png";
+import anticonceptivo from "../../../assets/images/logo-mobile.svg";
 import cartBlue from "../../../assets/images/icons/header/cart-blue.svg";
 import userBlue from "../../../assets/images/icons/header/user-blue.svg";
 import search from "../../../assets/images/icons/header/search-blue.svg";
@@ -54,14 +54,17 @@ const Header = () => {
 
     useEffect(() => {
 
-
+        onScroll(true)
         window.addEventListener("scroll", onScroll);
-        // return () => window.removeEventListener("scroll", onScroll);
+
     }, []);
 
     function onScroll() {
-        if (window.pageYOffset == 1) {
-            setFixedTop(true)
+        const _fixed = fixedTop; // is not redundate, becase te state uts slow on change
+        if (window.pageYOffset > 1) {
+            if (!_fixed) {
+                setFixedTop(true)
+            }
         }
 
         if (window.pageYOffset == 0) {
@@ -94,13 +97,23 @@ const Header = () => {
                 {/* Mobile */}
                 <div className="d-md-none d-block">
                     <div className="menu-mobile">
-                        <div className="row first-row" style={{height: '25px'}}>
-                            <div className="col-auto font-poppins font-10 text-center">
-                                <marquee loop='10'> <span><Icon path={carrousels[0].icon}/> {carrousels[0].name}</span></marquee>
+                        <div className="row first-row">
+                            <div className="col-auto font-poppins font-12 text-center">
+                                <marquee loop='10'>
+                                    <div className="row no-gutters" style={{marginTop: '4px', height: '28px'}}>
+                                        <div className="col-auto d-flex mr-2">
+                                            <Icon className="my-auto" path={carrousels[0].icon}/>
+                                        </div>
+                                        <div className="col d-flex">
+                                            <span className="my-auto "
+                                                  style={{fontWeight: 500}}> {carrousels[0].name}</span>
+                                        </div>
+                                    </div>
+                                </marquee>
                             </div>
                         </div>
                         <div className="row mx-2" style={{height: '70px'}}>
-                            <div className="col-2 d-flex" style={{justifyContent: 'center'}}>
+                            <div className="col d-flex" style={{justifyContent: 'center'}}>
                                 <div className="my-auto text-center" onClick={showMenu}>
                                     <img src={menu}
                                          alt="anticonceptivo.cl"
@@ -109,12 +122,12 @@ const Header = () => {
                                         // height="34px"
                                     />
                                     <div className="text-icon-navbar-mobile">
-                                        MENU
+                                        MENÚ
                                     </div>
                                 </div>
                             </div>
 
-                            <div className="col-2 d-flex" style={{justifyContent: 'center'}}>
+                            <div className="col d-flex" style={{justifyContent: 'center'}}>
                                 <div className="my-auto text-center" onClick={showSearch}>
                                     <img src={search}
                                          alt="anticonceptivo.cl"
@@ -128,7 +141,7 @@ const Header = () => {
                                 </div>
                             </div>
 
-                            <div className="col-4 d-flex" style={{justifyContent: 'center'}}>
+                            <div className="col d-flex" style={{justifyContent: 'center', padding: '0 30px'}}>
                                 <div className="m-auto">
                                     <Link to="/">
                                         <img
@@ -140,7 +153,7 @@ const Header = () => {
                                 </div>
                             </div>
 
-                            <div className="col-2 d-flex" style={{justifyContent: 'center'}}>
+                            <div className="col d-flex" style={{justifyContent: 'center'}}>
 
                                 {
                                     auth ?
@@ -174,7 +187,7 @@ const Header = () => {
 
                             </div>
 
-                            <div className="col-2 d-flex" style={{justifyContent: 'center'}}>
+                            <div className="col d-flex" style={{justifyContent: 'center'}}>
                                 {/* <div className="my-auto" onClick={showMiniCart}>
                                     <div className="cart-badge-quantity"><TotalCartItems/></div>
                                     <img src={cartBlue}

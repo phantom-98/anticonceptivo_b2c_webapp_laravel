@@ -127,23 +127,24 @@ const HeaderBox = () => {
                         <div className="my-auto">
                             <div className="d-none d-xl-block">
                                 <Link to={PUBLIC_ROUTES.HOME.path}>
-                                    <Icon path={logoFull} style={{height: 46}}/>
+                                    <Icon path={logoFull} style={{height: 47}}/>
                                 </Link>
                             </div>
                             <div className="d-block d-xl-none">
                                 <Link to={PUBLIC_ROUTES.HOME.path}>
-                                    <Icon path={logoShort} style={{height: 46}}/>
+                                    <Icon path={logoShort} style={{height: 47}}/>
                                 </Link>
                             </div>
                         </div>
                     </div>
-                    <div className="col top-do-flex">
-                        <div className="input-group search-filter-button">
+                    <div className="col top-do-flex" >
+                        <div className="input-group search-filter-button ml-auto search-top-desktop" style={{maxWidth : '540px'}}>
                             <input type="text"
                                    ref={refInputSearch}
-                                   className="form-control form-control-custom form-control-custom-60"
+                                   className="form-control form-control-custom"
                                    placeholder="Buscar medicamentos, laboratorios o principio activo"
                                    value={search}
+                                   style={{height: '45px'}}
                                    onChange={e => sendSearch(e)}
                                    onKeyPress={handleKeyPress}
 
@@ -152,14 +153,12 @@ const HeaderBox = () => {
                                 <button
                                     onClick={() => getSearch()}
                                     type="button"
-                                    className="btn btn-bicolor" style={{height: '60px'}}>
+                                    className="btn btn-bicolor" style={{height: '45px'}}>
                                     <span className="px-3"><Icon path={searchWhite}/></span>
                                 </button>
-
-
                             </div>
                         </div>
-                        <div className={`dropdown-content ${productsWithFilter.length && search.length > 0 && isVisibilityDropdownSearch ? 'dropdown-search' : ''} `}
+                        <div className={`dropdown-content ${productsWithFilter.length && search.length > 0 && isVisibilityDropdownSearch ? 'dropdown-search' : 'd-none'} `}
                              ref={refDropdownList}
                              >
                             <div className="box-search-result"

@@ -5,7 +5,7 @@
     }
 
     .responsive-d-display {
-        display: none;
+        display: none !important;
     }
 
     .responsive-d-none {
@@ -19,7 +19,7 @@
     .app-margin-top {
         //margin-top: 230px;
         // margin-top: 0px;
-        margin-top: 196px;
+        margin-top: 182px;
         min-height: calc(100vh - 587px);
     }
 }
@@ -27,20 +27,33 @@
 @media (min-width: 1335px) {
     .app-margin-top {
         // margin-top: 185px;
-        margin-top: 153px;
+        margin-top: 138px;
         min-height: calc(100vh - 520px);
     }
 }
 
 
 @media (max-width: 767px) {
+
+    @for $i from 1 through 150 {
+        .font-md-#{$i} {
+            font-size: #{$i}px;
+        }
+    }
+
+    @for $i from 1 through 150 {
+        .lh-md-#{$i} {
+            line-height: #{$i}px;
+        }
+    }
+
     .app-margin-top {
         //margin-top: 85px;
-        margin-top: 95px;
+        margin-top: 108px;
     }
 
     .responsive-d-none {
-        display: none;
+        display: none !important;
     }
 
     .responsive-d-none-v2 {
@@ -165,7 +178,7 @@
         width: auto;
         margin: 0;
         pointer-events: none;
-        top: 95px;
+        top: 108px;
         height: auto !important;
     }
 
@@ -205,11 +218,61 @@
     }
 
     #header {
-        z-index: 99999;
+        z-index: 9;
         position: absolute;
     }
 
     .card-faq .card-header {
-        background: #009BE8 !important;
+        //background: #009BE8 !important;
+    }
+
+    .card-products-gutters {
+        margin-right: -5px;
+        margin-left: -5px;
+    }
+
+    .card-products-gutters > .col, .card-products-gutters > [class*="col-"] {
+        padding-right: 5px;
+        padding-left: 5px;
+    }
+
+    .mobile-shop .btn-add-cart {
+        font-size: 7px;
+    }
+
+    .mobile-shop .product-card {
+        padding: 14px;
+    }
+
+    //.mobile-shop .w-breadcrumb{
+    //    padding-bottom: 0 !important;
+    //}
+
+    .subscription-card {
+        padding: 10px 0px;
+    }
+    .footer-bottom .bottom-to-flex {
+        text-align: center;
+    }
+
+    .footer-bottom {
+        height: 82px;
+        font-size: 13px;
+        font-weight: 500;
+    }
+
+    .logo-footer {
+        width: 309px;
+    }
+
+    .float-whatsapp > div:first-child {
+        bottom: 50px !important;
+        color: white;
+    }
+
+    .button-nav-checkout {
+        position: absolute;
+        top: -20px;
+        left: 36px;
     }
 }

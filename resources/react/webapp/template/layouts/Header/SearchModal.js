@@ -1,9 +1,18 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Modal} from "react-bootstrap";
 import CloseModal from "../../../components/general/CloseModal";
 import Search from "./Search";
 
 const SearchModal = ({showingSearch, hideSearch}) => {
+
+    useEffect(() =>{
+        if(showingSearch){
+            document.getElementById('header').style.zIndex = 99999;
+        }
+        else{
+            document.getElementById('header').style.zIndex = 9;
+        }
+    }, [showingSearch])
 
     return (
         <Modal show={showingSearch}

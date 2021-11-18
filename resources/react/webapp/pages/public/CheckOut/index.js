@@ -90,6 +90,10 @@ const CheckOut = () => {
     },[auth])
 
     useEffect(() => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth',
+        })
         switch (view) {
             case "grant-user":
             case "user-form":
@@ -398,7 +402,8 @@ const CheckOut = () => {
                                 <Header showFinal={showFinal} />
                                     <div className="row pb-5">
                                         <div className="col-md pr-md-2">
-                                            <div className="panel panel-cart mb-3">
+
+                                            <div className={`panel panel-cart mb-3 ${view != 'user-form'? 'mt-3' : ''}`}>
                                                 <div className="panel-body" style={{paddingTop: '11px', paddingBottom: '10px'}}>
                                                     <Step title={step.title} number={step.number} disabled={false}/>
                                                 </div>

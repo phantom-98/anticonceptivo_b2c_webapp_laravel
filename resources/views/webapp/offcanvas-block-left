@@ -7,16 +7,41 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <!-- Fonts -->
+    <!-- Metas -->
 
+{!! $metas ?? '' !!}
+
+<!-- Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
         rel="stylesheet">
 
+    <!-- CSS -->
     <link rel="stylesheet" href="/themes/web/assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="/themes/web/assets/plugins/toastr/toastr.min.css">
     <link rel="stylesheet" href="/themes/web/app/css/app.css">
+
+    <!-- Favicons -->
+    <link rel="shortcut icon" href="/themes/web/favicon/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/themes/web/favicon/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="57x57" href="/themes/web/favicon/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/themes/web/favicon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/themes/web/favicon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/themes/web/favicon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/themes/web/favicon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/themes/web/favicon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/themes/web/favicon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/themes/web/favicon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/themes/web/favicon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/themes/web/favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/themes/web/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/themes/web/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/themes/web/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/themes/web/favicon/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/themes/web/favicon/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
 
     <!-- Google Tag Manager -->
     <script>(function (w, d, s, l, i) {
@@ -76,54 +101,8 @@
         /></noscript>
     <!-- End Facebook Pixel Code -->
 
-
     @yield('styles')
 
-    <link rel="shortcut icon" href="/themes/web/favicon/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="/themes/web/favicon/favicon.ico" type="image/x-icon">
-
-    <link rel="apple-touch-icon" sizes="57x57" href="/themes/web/favicon/apple-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="/themes/web/favicon/apple-icon-60x60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="/themes/web/favicon/apple-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="/themes/web/favicon/apple-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="/themes/web/favicon/apple-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="/themes/web/favicon/apple-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="/themes/web/favicon/apple-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="/themes/web/favicon/apple-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/themes/web/favicon/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="/themes/web/favicon/android-icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/themes/web/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="/themes/web/favicon/favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/themes/web/favicon/favicon-16x16.png">
-    <link rel="manifest" href="/themes/web/favicon/manifest.json">
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="/themes/web/favicon/ms-icon-144x144.png">
-    <meta name="theme-color" content="#ffffff">
-
-    <meta name="apple-mobile-web-app-title" content="Anticonceptivo">
-    <meta name="application-name" content="Anticonceptivo">
-
-    <meta name="title" content="Anticonceptivo.cl">
-    <meta name="description" content="¡Aprovecha tu tiempo en lo que más te gusta! Compra en línea y recibe en casa. Conoce nuestros planes de suscripción y cuídate de forma periódica y segura. Opción de suscripción.">
-    <meta name="keywords"
-          content="anticonceptivos, ecommerce, tienda, pastillas, nora, condones, durex">
-    <meta name="robots" content="index, follow">
-    <meta name="language" content="Spanish">
-    <meta name="revisit-after" content="4000 days">
-    <meta name="author" content="Anticonceptivo">
-    <meta name="rights" content="Anticonceptivo"/>
-
-    <meta property="og:site_name" content="Anticonceptivo.cl">
-    <meta property="og:title" content="Anticonceptivo.cl"/>
-    <meta property="og:description"
-          content={{ $seo_description ?? '¡Aprovecha tu tiempo en lo que más te gusta! Compra en línea y recibe en casa. Conoce nuestros planes de suscripción y cuídate de forma periódica y segura. Opción de suscripción.' }}/>
-    <meta property="og:image" itemprop="image"
-          content="https://www.anticonceptivo.cl/images/logo-full.svg?b3b8df2099e0585f16d824394e200f52">
-    <meta property="og:type" content="website"/>
-    <meta property="og:updated_time" content="1440432930"/>
-    <meta property="og:url" content="https://www.anticonceptivo.cl/"/>
-
-    <title>Anticonceptivo | @yield('page-title')</title>
 
 </head>
 <body>
@@ -156,7 +135,9 @@
         </div>
     @else
         <div id="app" style="overflow:hidden;">
-            {!! $seo_preloading ?? '' !!}
+            <div style="opacity: 0">
+                {!! $preload?? '' !!}
+            </div>
         </div>
 
     @endif

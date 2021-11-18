@@ -1,5 +1,5 @@
 import React, {Fragment, useEffect, useState} from 'react';
-import { Switch, Route, withRouter } from 'react-router-dom';
+import {Switch, Route, withRouter} from 'react-router-dom';
 import PUBLIC_ROUTES from "../../../routes/publicRoutes";
 import BasePanelTwo from "../../../template/BasePanelTwo";
 import Subscribe from "../../../components/sections/Subscribe";
@@ -10,6 +10,7 @@ import * as Services from "../../../Services";
 import {propsLength} from "../../../helpers/ShopHelper";
 import toastr from "toastr";
 import {capitalizeFirstLetterOfEachWord} from "../../../helpers/GlobalUtils";
+import {CONFIG} from "../../../Config";
 
 const Shop = ({match}) => {
 
@@ -21,6 +22,7 @@ const Shop = ({match}) => {
     const [formats, setFormats] = useState([]);
     const [unitFormat, setUnitFormat] = useState('');
     const [showFilterResponsive, setShowFilterResponsive] = useState(false);
+    const [productOrderBy, setProductOrderBy] = useState(1);
 
     const [loading, setLoading] = useState(false);
     const [isPills, setIsPills] = useState(false);
@@ -30,11 +32,11 @@ const Shop = ({match}) => {
 
     const defaultFilters = {
         subcategories: [],
-        laboratories:[],
+        laboratories: [],
         isBioequivalent: null,
-        subscriptions: [],
+        subscriptions: [],
         formats: [],
-        price: null
+        price: null
     };
 
     const [filters, setFilters] = useState(defaultFilters);
@@ -54,13 +56,13 @@ const Shop = ({match}) => {
             default:
                 break;
         }
-    },[match.params]);
+    }, [match.params]);
 
     useEffect(() => {
         if (filtersUpdate > 1) {
             getProductsFiltered();
         }
-    },[filtersUpdate])
+    }, [filtersUpdate])
 
     const getProducts = (_category, _subcategory = null, _type = null, _filter = null) => {
         let url = Services.ENDPOINT.PUBLIC_AREA.SHOP.PRODUCTS.CATEGORY;
@@ -86,14 +88,14 @@ const Shop = ({match}) => {
                     setIsPills(response.data.is_pills);
                     setUnitFormat(response.data.unit_format)
 
-                    if (response.data.subcat){
+                    if (response.data.subcat) {
                         setSubcatNames(response.data.subcat.name);
                         document.title = capitalizeFirstLetterOfEachWord(response.data.subcat.name) + ' - Anticonceptivo';
                         setFilters({
                             ...filters,
                             ['subcategories']: [response.data.subcat.id]
                         });
-                    }else{
+                    } else {
                         document.title = capitalizeFirstLetterOfEachWord(response.data.category.name) + ' - Anticonceptivo';
                     }
 
@@ -149,14 +151,14 @@ const Shop = ({match}) => {
             category_slug: match.params.category,
             subcats: filters.subcategories,
             labs: filters.laboratories,
-            bioequivalent :filters.isBioequivalent,
-            subscription :filters.subscriptions,
-            format :filters.formats,
-            price : filters.price,
+            bioequivalent: filters.isBioequivalent,
+            subscription: filters.subscriptions,
+            format: filters.formats,
+            price: filters.price,
         }
-        Services.DoPost(url,data).then(response => {
+        Services.DoPost(url, data).then(response => {
             Services.Response({
-            response: response,
+                response: response,
                 success: () => {
                     setProducts(response.data.products);
                     setLaboratories(response.data.laboratories);
@@ -178,7 +180,7 @@ const Shop = ({match}) => {
         {
             url: PUBLIC_ROUTES.SHOP.path,
             name: category.name,
-            slug:  category.slug
+            slug: category.slug
 
         },
     ];
@@ -186,36 +188,118 @@ const Shop = ({match}) => {
     const showFilter = () => {
         // document.body.scrollTop = 0; // For Safari
         // document.documentElement.scrollTop = 0;
-        if(showFilterResponsive){
+        if (showFilterResponsive) {
             setShowFilterResponsive(false)
-        }else{
+        } else {
             setShowFilterResponsive(true)
         }
     }
 
     const updateFilter = () => {
-        let count = filtersUpdate+1;
+        let count = filtersUpdate + 1;
 
         setFiltersUpdate(count);
+    }
+
+    const handleProductOrderBy = (e) => {
+        let _value = e.target ? parseInt(e.target.value) : e
+        setProductOrderBy(_value);
+
+        let _products = [...products];
+
+        switch (_value) {
+            case 1:
+                sortByNameAsc(_products);
+                break;
+            case 2:
+                sortByNameDesc(_products);
+                break;
+            case 3:
+                sortByPriceAsc(_products);
+                break;
+            case 4:
+                sortByPriceDesc(_products);
+                break;
+        
+            default:
+                break;
+        }
+        
+        setProducts(_products);
+    }
+
+    const sortByNameAsc = (items) => {
+        items.sort((a, b) => {
+            if (a.name > b.name) {
+                return 1;
+            }
+            if (a.name < b.name) {
+                return -1;
+            }
+            return 0;
+        });
+    }
+
+    const sortByNameDesc = (items) => {
+        items.sort((a, b) => {
+            if (a.name < b.name) {
+                return 1;
+            }
+            if (a.name > b.name) {
+                return -1;
+            }
+            return 0;
+        });
+    }
+
+    const sortByPriceAsc = (items) => {
+        items.sort((a, b) => {
+            if ((a.is_offer == 0 ? a.price : a.offer_price) > (b.is_offer == 0 ? b.price : b.offer_price)) {
+                return 1;
+            }
+            if ((a.is_offer == 0 ? a.price : a.offer_price) < (b.is_offer == 0 ? b.price : b.offer_price)) {
+                return -1;
+            }
+            return 0;
+        });
+    }
+
+    const sortByPriceDesc = (items) => {
+        items.sort((a, b) => {
+            if ((a.is_offer == 0 ? a.price : a.offer_price) < (b.is_offer == 0 ? b.price : b.offer_price)) {
+                return 1;
+            }
+            if ((a.is_offer == 0 ? a.price : a.offer_price) > (b.is_offer == 0 ? b.price : b.offer_price)) {
+                return -1;
+            }
+            return 0;
+        });
     }
 
     return (
         <Fragment>
             <BasePanelTwo
+                classContainer="mobile-shop"
                 breadcrumbs={breadcrumbs}
+                prepend={loading ?
+                    <div className={`d-md-none d-block px-0 ${category.banner_image_size ? category.banner_image_size : 'w-100'}`}>
+                        <img width="100%" src={category.public_banner_image} alt={CONFIG.APP_NAME}/>
+                    </div>
+                    : null
+                }
             >
                 {
                     loading ?
                         <div className="row pb-5 mb-5">
-                            <div className="col-auto" style={{ minWidth : '230px'}}>
-                                <div className='mb-3 d-block d-sm-none'>
+                            <div className="col-auto" style={{minWidth: '230px'}}>
+                                <div className='d-block d-sm-none'>
                                     {/*<button className="btn btn-outline-bicolor w-50 px-1" onClick={() => handleAddToCart()}>*/}
 
                                     {/*</button>*/}
                                 </div>
 
 
-                                <div className="d-none d-md-block d-md-block">
+                                <div className="d-none d-md-block">
                                     <Filter
                                         isPills={isPills}
                                         laboratories={laboratories}
@@ -240,8 +324,9 @@ const Shop = ({match}) => {
                                     setFilters={setFilters}
                                     updateFilter={updateFilter}
                                     filterLoading={filterLoading}
+                                    handleProductOrderBy={handleProductOrderBy}
                                     filter={<div className="d-block d-sm-none" style={{marginTop: '10px'}}>
-                                        { showFilterResponsive ?
+                                        {showFilterResponsive ?
                                             <Filter
                                                 isPills={isPills}
                                                 laboratories={laboratories}
@@ -260,7 +345,7 @@ const Shop = ({match}) => {
                                 />
                             </div>
                         </div>
-                    : <LazyLoading/>
+                        : <LazyLoading/>
                 }
 
             </BasePanelTwo>

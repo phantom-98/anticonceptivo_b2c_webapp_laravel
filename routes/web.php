@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SEOController;
 use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 
@@ -229,4 +230,5 @@ Route::get('ailoo', function () {
     return view('emails.ailoo-errors', ['user_name' => 'Alejandro Isla', 'errors' => $errors]);
 });
 
-Route::view('/{path?}/{pathTwo?}/{pathThree?}/{pathFour?}/{pathFive?}/{pathSix?}/{pathSeven?}', 'webapp.base_react');
+Route::get('/{path?}/{pathTwo?}/{pathThree?}/{pathFour?}/{pathFive?}/{pathSix?}/{pathSeven?}', [SEOController::class, 'index']);
+//Route::view('/{path?}/{pathTwo?}/{pathThree?}/{pathFour?}/{pathFive?}/{pathSix?}/{pathSeven?}', 'webapp.base_react');

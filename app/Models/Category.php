@@ -14,6 +14,8 @@ class Category extends Model
         'active',
         'banner_image',
         'subbanner_image',
+        'banner_image_responsive',
+        'banner_subimage_responsive',
         'banner_image_size',
         'subbanner_image_size',
         'position',
@@ -27,6 +29,8 @@ class Category extends Model
         'public_image',
         'public_banner_image',
         'public_subbanner_image',
+        'public_banner_image_responsive',
+        'public_banner_subimage_responsive',
     ];
 
     public function getPublicImageAttribute()
@@ -42,6 +46,16 @@ class Category extends Model
     public function getPublicSubbannerImageAttribute()
     {
         return $this->subbanner_image ? \Storage::url($this->subbanner_image) : $this->subbanner_image;
+    }
+
+    public function getPublicBannerImageResponsiveAttribute()
+    {
+        return $this->banner_image_responsive ? \Storage::url($this->banner_image_responsive) : $this->banner_image_responsive;
+    }
+
+    public function getPublicBannerSubimageResponsiveAttribute()
+    {
+        return $this->banner_subimage_responsive ? \Storage::url($this->banner_subimage_responsive) : $this->banner_subimage_responsive;
     }
 
     public function subcategories(){

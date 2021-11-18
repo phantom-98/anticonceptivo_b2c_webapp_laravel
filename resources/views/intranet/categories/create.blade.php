@@ -82,7 +82,18 @@
                                 {!! Form::label('banner_subimage', 'Imagen Banner Home (850 x 200 px)(*)') !!}
                                 <input type='file' name='banner_subimage' class='form-control' accept=".jpg, .png, .jpeg">
                             </div>
-                            <div class="clearfix"></div>
+
+
+                            <div class="form-group col-sm-6">
+                                {!! Form::label('banner_image_responsive', 'Imagen Banner Responsivo') !!}
+                                <input type='file' name='banner_image_responsive' class='form-control' accept=".jpg, .png, .jpeg">
+                            </div>
+
+                            <div class="form-group col-sm-6">
+                                {!! Form::label('banner_subimage_responsive', 'Imagen Banner Home Responsivo') !!}
+                                <input type='file' name='banner_subimage_responsive' class='form-control' accept=".jpg, .png, .jpeg">
+                            </div>
+
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="unit_format">Formato unidad </label>
@@ -90,6 +101,7 @@
                                             value="{{ old('unit_format') }}">
                                 </div>
                             </div>
+
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="description">Descripción</label>

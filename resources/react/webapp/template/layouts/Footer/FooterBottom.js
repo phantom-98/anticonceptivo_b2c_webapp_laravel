@@ -4,16 +4,16 @@ import moment from "moment";
 const FooterBottom = () => {
 
     return (
-        <div className="footer-bottom bg-033F5D">
-            <div className="container">
-                <div className="row">
-                    <div className="col-md-8 bottom-to-flex">
-                        <div className="my-auto">
+        <div className="footer-bottom d-flex">
+            <div className="container my-auto">
+                <div className="row ">
+                    <div className="col-md-8">
+                        <div className="text-center text-md-left">
                             © {moment().format('YYYY')} Todos los derechos reservados
                         </div>
                     </div>
-                    <div className="col-md-4 bottom-to-flex">
-                        <div className="my-auto font-12">
+                    <div className="col-md-4">
+                        <div className="text-center text-md-right font-12">
                             Autorizado por ISP: Res. Ex. 4003 del 31.08.2021
                         </div>
                     </div>

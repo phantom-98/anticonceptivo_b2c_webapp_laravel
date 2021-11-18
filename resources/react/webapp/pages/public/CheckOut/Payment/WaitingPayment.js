@@ -18,18 +18,18 @@ const WaitingPayment = ({showingWaitingPayment}) => {
                 <div className="row">
                      <div className="col-md-12 text-center mt-4">
                         <h3 className="modal-title">Procesando pago</h3>
-                    </div> 
+                    </div>
                     <div className="col-md-12 text-center font-poppins font-14 regular color-6C6B6B pt-2">
                         Espere un momento por favor ...
-                    </div> 
+                    </div>
 
                     <div className="col-md-12 my-5">
-                        <WaveTopBottomLoading 
+                        <WaveTopBottomLoading
                             color={'#0869A6'}
                             speed={2}
                             size={'small'}
                         />
-                    </div> 
+                    </div>
                 </div>
 
             </Modal.Body>

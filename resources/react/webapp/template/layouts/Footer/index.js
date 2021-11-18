@@ -53,7 +53,7 @@ const Footer = () => {
                     <div className="row" style={{marginLeft: '-25px !important'}}>
                         <div className="col-lg-auto text-center flex-footer-column">
                             <div className="mb-3">
-                                <img src={logoFooter} alt={CONFIG.APP_NAME}/>
+                                <img className="logo-footer" src={logoFooter} alt={CONFIG.APP_NAME}/>
                             </div>
                             <div className="font-10 regular text-white">Una alianza con</div>
                             {

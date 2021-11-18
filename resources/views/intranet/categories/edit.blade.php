@@ -99,7 +99,25 @@
                             </div>
 
                             <div class="clearfix"></div>
+                            <div class="row">
+                                <div class="form-group col-sm-6">
+                                    {!! Form::label('banner_image_responsive', 'Imagen Banner Responsivo') !!}
+                                    <input id="file-image-4" type='file' name='banner_image_responsive' class='form-control' accept=".jpg, .png, .jpeg">
+                                    <br/>
+                                    @if ($object->banner_image_responsive)
+                                        <img id="image-edit-4" src="{{ Storage::url($object->banner_image_responsive) }}" style="max-width: 200px;"/>
+                                    @endif
+                                </div>
 
+                                <div class="form-group col-sm-6">
+                                    {!! Form::label('banner_subimage_responsive', 'Imagen Banner Home Responsivo') !!}
+                                    <input id="file-image-5" type='file' name='banner_subimage_responsive' class='form-control' accept=".jpg, .png, .jpeg">
+                                    <br/>
+                                    @if ($object->banner_subimage_responsive)
+                                        <img id="image-edit-5" src="{{ Storage::url($object->banner_subimage_responsive) }}" style="max-width: 200px;"/>
+                                    @endif
+                                </div>
+                            </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="unit_format">Formato unidad </label>
@@ -135,7 +153,7 @@
 @endsection
 
 @section('styles')
-    <link href="/themes/intranet/plugins/switchery/switchery.min.css" rel="stylesheet"> 
+    <link href="/themes/intranet/plugins/switchery/switchery.min.css" rel="stylesheet">
     <link href="/themes/intranet/plugins/select2/css/select2.min.css" rel="stylesheet">
     <link href="/themes/intranet/plugins/summernote/summernote.min.css" rel="stylesheet">
 @endsection
@@ -275,6 +293,33 @@
             readURL3(this);
         });
 
+        function readURL4(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#image-edit-4').attr('src', e.target.result);
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#file-image-4").change(function () {
+            readURL4(this);
+        });
+
+        function readURL5(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#image-edit-5').attr('src', e.target.result);
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#file-image-5").change(function () {
+            readURL5(this);
+        });
 
     </script>
     <script>

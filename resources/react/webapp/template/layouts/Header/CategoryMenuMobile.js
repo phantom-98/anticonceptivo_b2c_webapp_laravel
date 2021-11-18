@@ -46,11 +46,17 @@ const CategoryMenuMobile = ({hideMenu}) => {
         categories.map(category => {
             let url = PUBLIC_ROUTES.SHOP.path;
             url = url.replace(":category", category.slug);
+
             return(
                 <div className="col-12" key={category.categoryId}>
                     <div className="margin-menu-bottom">
-                        <Link to={url} onClick={hideMenu} className='link-no-style-blue font-16'>
-                            {category.public_image ? <div className="left" style={{width : '25px'}}> <Icon path={category.public_image}/></div> : null}{'  '}{category.name}
+                        <Link to={url} onClick={hideMenu} className='item-menu-cat-first'>
+                            {
+                                category.public_image ?
+                                    <div className="left" style={{width : '25px'}}>
+                                        <Icon path={category.public_image}/>
+                                    </div> : null
+                            }{'  '}{category.name}
                         </Link>
                     </div>
                 {
@@ -76,7 +82,7 @@ const CategoryMenuMobile = ({hideMenu}) => {
                                 let subcatId = uuidv4();
                                 return(
                                     <li className="my-2" key={subcatId}>
-                                        <Link to={childUrl} onClick={hideMenu} className='link-no-style font-12'>
+                                        <Link to={childUrl} onClick={hideMenu} className='item-menu-cat-third'>
                                             {subCategory.name}
                                         </Link>
                                     </li>

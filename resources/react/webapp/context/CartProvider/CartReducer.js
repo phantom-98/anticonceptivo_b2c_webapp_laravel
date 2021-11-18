@@ -25,23 +25,23 @@ export default (state, action) => {
                 showingMiniCart: false
             };
         case ADD_TO_CART:
-            toastr.options = {
-                "closeButton": false,
-                "debug": false,
-                "newestOnTop": false,
-                "progressBar": true,
-                "positionClass": "toast-top-right",
-                "preventDuplicates": true,
-                "onclick": null,
-                "showDuration": "2500",
-                "hideDuration": "1000",
-                "timeOut": "2500",
-                "extendedTimeOut": "1000",
-                "showEasing": "swing",
-                "hideEasing": "linear",
-                "showMethod": "fadeIn",
-                "hideMethod": "fadeOut"
-            }
+            // toastr.options = {
+            //     "closeButton": false,
+            //     "debug": false,
+            //     "newestOnTop": false,
+            //     "progressBar": true,
+            //     "positionClass": "toast-top-right",
+            //     "preventDuplicates": true,
+            //     "onclick": null,
+            //     "showDuration": "2500",
+            //     "hideDuration": "1000",
+            //     "timeOut": "2500",
+            //     "extendedTimeOut": "1000",
+            //     "showEasing": "swing",
+            //     "hideEasing": "linear",
+            //     "showMethod": "fadeIn",
+            //     "hideMethod": "fadeOut"
+            // }
 
             let cartItems = state.cartItems;
 
@@ -118,23 +118,23 @@ export default (state, action) => {
                 cartItems: [...cartItems]
             };
         case REPEAT_ORDER:
-            toastr.options = {
-                "closeButton": false,
-                "debug": false,
-                "newestOnTop": false,
-                "progressBar": true,
-                "positionClass": "toast-top-right",
-                "preventDuplicates": true,
-                "onclick": null,
-                "showDuration": "2500",
-                "hideDuration": "1000",
-                "timeOut": "2500",
-                "extendedTimeOut": "1000",
-                "showEasing": "swing",
-                "hideEasing": "linear",
-                "showMethod": "fadeIn",
-                "hideMethod": "fadeOut"
-            }
+            // toastr.options = {
+            //     "closeButton": false,
+            //     "debug": false,
+            //     "newestOnTop": false,
+            //     "progressBar": true,
+            //     "positionClass": "toast-top-right",
+            //     "preventDuplicates": true,
+            //     "onclick": null,
+            //     "showDuration": "2500",
+            //     "hideDuration": "1000",
+            //     "timeOut": "2500",
+            //     "extendedTimeOut": "1000",
+            //     "showEasing": "swing",
+            //     "hideEasing": "linear",
+            //     "showMethod": "fadeIn",
+            //     "hideMethod": "fadeOut"
+            // }
             let cartItemsRepeatOrder = []
 
             const orderItems = action.payload.orderItem;

@@ -49,13 +49,10 @@ table {
 }
 
 table, th, td {
-    border: 1px solid #e8e8e8;
     padding: 5px 10px;
 }
 
 table th {
-    background-color: #0869A6;
-    color: #ffffff !important;
     padding: 5px;
 }
 
@@ -95,6 +92,7 @@ h1, h2, h3, h4, h4 {
 
 .regular {
     font-weight: 400;
+    //font-weight: 500;
 }
 
 .medium {
@@ -241,7 +239,7 @@ a:-webkit-any-link:focus-visible {
 }
 
 .margin-menu-bottom {
-    border-bottom: 1px solid #0869a699 !important;
+    border-bottom: 1px solid #E8E8E8 !important;
     padding-bottom: 5px;
 }
 
@@ -255,7 +253,7 @@ a:-webkit-any-link:focus-visible {
 
 .mobile-producto-img {
     width: 100px;
-    height: 100px;
+    height: 120px;
     object-fit: cover;
 }
 
@@ -355,7 +353,9 @@ a:-webkit-any-link:focus-visible {
 .dropdown-search {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
     border-radius: 12px;
-    width: calc(100% - 30px);
+    //width: calc(100% - 30px);
+    top: 44px !important;
+    right: 17px;
 }
 
 .box-search-result {
@@ -381,10 +381,10 @@ a:-webkit-any-link:focus-visible {
     background-color: #F5F5F5;
 }
 
-.product-format-style{
-    background: rgb(250,250,200);
+.product-format-style {
+    background: rgb(250, 250, 200);
     border-radius: 10px;
-    border: solid 1px rgb(240,240,140);
+    border: solid 1px rgb(240, 240, 140);
     font-size: 12px;
     //text-align: center;
     padding: 10px 15px;
@@ -394,5 +394,64 @@ a:-webkit-any-link:focus-visible {
     border: 1px solid #CECECE
 }
 
+.filters-mobile {
+    background: #EDF8FE;
+    border-radius: 11px;
+    min-height: 40px;
+    box-shadow: 0 0 0px rgba(0, 0, 0, 0.16);
+}
+
+#bg-offcanvas {
+    width: 100vw;
+    height: 100vh;
+    background: rgba(3, 63, 93, 0.41);
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    top: -95px;
+    left: 0;
+    z-index: 99;
+}
+
+.item-menu-cat-first {
+    font-family: 'Poppins', serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #033F5D;
+}
+
+.item-menu-cat-second {
+    font-family: 'Poppins', serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: #0869A6;
+}
+
+.item-menu-cat-third {
+    font-family: 'Poppins', serif;
+    font-size: 12px;
+    font-weight: 300;
+    color: #6C6B6B;
+
+}
+
+.order-list .custom-control-label::before,
+.order-list .custom-control-label::after {
+    top: 0;
+}
+
+.float-whatsapp img {
+    width: 31px !important;
+    height: 31px !important;
+}
+
+.modal-fixed-pad {
+    padding-left: 22px;
+    padding-right: 22px;
+}
+
+.toastr-options {
+    margin-bottom: 0;
+}
 
 @import 'assets/scss/responsive';

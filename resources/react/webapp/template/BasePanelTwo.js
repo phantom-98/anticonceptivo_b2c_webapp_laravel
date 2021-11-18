@@ -5,8 +5,10 @@ const BasePanelTwo = (props) => {
 
     return (
         <div style={{background : '#FAFAFA'}}>
-
-            <div className="container py-4">
+            {
+                props.prepend
+            }
+            <div className={`container py-4 ${props.classContainer}`}>
 
                 <Breadcrumbs items={props.breadcrumbs}/>
 

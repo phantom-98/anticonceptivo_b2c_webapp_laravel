@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 const Breadcrumbs = ({items}) => {
 //category?
     return (
-        <div className="pb-3">
+        <div className="pb-3 w-breadcrumb">
             {
                 items.map((item, index) => {
 
