@@ -31,9 +31,9 @@ const ListItem = ({address, showEdit, saveDefaultAddress, regions, communes}) =>
                         </span>
                     </div>
                     <div className="col-12">
-                        <span className="font-poppins font-16 regular color-484848">
+                        <div className="font-poppins font-16 lh-18 regular color-484848">
                             {address.address} , {address.extra_info ? address.extra_info+ ' , ' : ''} {commune ? commune.name : null} , {region ? region.name : null}
-                        </span>
+                        </div>
                     </div>
                 </div>
             </div>
