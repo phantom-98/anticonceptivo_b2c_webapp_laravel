@@ -3925,6 +3925,10 @@ a:-webkit-any-link:focus-visible {
   padding-right: 22px;
 }
 
+.toastr-options {
+  margin-bottom: 0;
+}
+
 @media (min-width: 768px) {
   .app-margin-top {
     margin-top: 0;
@@ -5323,7 +5327,7 @@ a:-webkit-any-link:focus-visible {
   }
 
   #header {
-    z-index: 99999;
+    z-index: 9;
     position: absolute;
   }
 

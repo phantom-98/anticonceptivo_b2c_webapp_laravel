@@ -18,9 +18,10 @@
         rel="stylesheet">
 
     <!-- CSS -->
-    <link rel="stylesheet" href="/themes/web/assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/themes/web/assets/plugins/toastr/toastr.min.css">
-    <link rel="stylesheet" href="/themes/web/app/css/app.css">
+
+    <link rel="stylesheet" href="{{ asset('themes/web/assets/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('themes/web/app/css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('themes/web/assets/plugins/toastr/toastr.min.css') }}">
 
     <!-- Favicons -->
     <link rel="shortcut icon" href="/themes/web/favicon/favicon.ico" type="image/x-icon">
@@ -145,8 +146,9 @@
 
 </div>
 
-<script src="/themes/web/app/js/app.js"></script>
-<script src="/themes/web/assets/js/custom.js"></script>
+<script src="{{ asset('themes/web/app/js/app.js') }}"></script>
+<script src="{{ asset('themes/web/assets/js/custom.js') }}"></script>
+<script src="{{ asset('themes/react/plugins/toastr/toastr.min.js') }}"></script>
 
 <script>
 

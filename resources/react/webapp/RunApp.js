@@ -16,6 +16,7 @@ import TitleApp from "./TitleApp";
 import PUBLIC_ROUTES from "./routes/publicRoutes";
 import PRIVATE_ROUTES from "./routes/privateRoutes";
 import CartProvider from "./context/CartProvider";
+import toastr from 'toastr';
 
 const ProcessTemplate = (template) => {
 
@@ -46,6 +47,25 @@ const renderRoute = (route, index) => {
 
 
 const RunApp = () => {
+
+    toastr.options = {
+        "closeButton": true,
+        "debug": false,
+        "newestOnTop": true,
+        "progressBar": true,
+        "positionClass": "toast-bottom-right",
+        "preventDuplicates": true,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    }
+
     return (
         <AuthProvider>
             <AppProvider>
