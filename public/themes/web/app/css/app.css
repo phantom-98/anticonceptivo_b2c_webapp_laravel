@@ -636,7 +636,7 @@ button#dropdown-testing {
   left: 0;
   z-index: 1031;
   background-color: white;
-  top: 34px;
+  top: 32px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0);
 }
 
@@ -646,7 +646,7 @@ button#dropdown-testing {
   left: 0;
   z-index: 1030;
   background-color: white;
-  top: 142px;
+  top: 127px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0);
 }
 
@@ -1645,7 +1645,7 @@ tbody tr td {
 .subscription-card-label {
   font-family: "Poppins", sans-serif;
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 750;
   color: #033F5D !important;
   margin-bottom: 0.5rem;
 }
@@ -3943,14 +3943,14 @@ a:-webkit-any-link:focus-visible {
   }
 
   .app-margin-top {
-    margin-top: 196px;
+    margin-top: 182px;
     min-height: calc(100vh - 587px);
   }
 }
 
 @media (min-width: 1335px) {
   .app-margin-top {
-    margin-top: 153px;
+    margin-top: 138px;
     min-height: calc(100vh - 520px);
   }
 }
