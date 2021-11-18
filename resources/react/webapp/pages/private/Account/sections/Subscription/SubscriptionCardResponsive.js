@@ -36,7 +36,7 @@ const Table = ({
     const [modalAddress, setModalAddress] = useState(false);
     const [modalSubscriptionCard, setModalSubscriptionCard] = useState(false);
     const [activeSubscription, setActiveSubscription] = useState([]);
-
+    const [showSubscriptionCard, setShowSubscriptionCard] = useState(null);
     const [modalDispatchDate, setModalDispatchDate] = useState(false);
     const [objects, setObjects] = useState([]);
     const [addresses, setAddresses] = useState([]);
@@ -48,6 +48,8 @@ const Table = ({
     const [subscriptions, setSubscriptions] = useState([]);
     const [dispatchDate, setDispatchDate] = useState(new Date());
     const [minDate, setMinDate] = useState(new Date());
+    const [maxDate, setMaxDate] = useState(new Date());
+
     const showEdit = address => {
         setView("form");
         setFormMode("edit");
@@ -226,6 +228,8 @@ const Table = ({
         let minDateDispatch = new Date(subscriptionOrderItem.min_date_dispatch + ' 04:00:00')
         minDateDispatch.setDate(minDateDispatch.getDate() + 1);
         setMinDate(minDateDispatch)
+        setMaxDate(minDateDispatch.getDate() + 7)
+
         setSubscriptionOrderItemSelected(subscriptionOrderItem);
         setDispatchDate(subscriptionOrderItem.dispatch_date)
         setModalDispatchDate(true);
@@ -362,198 +366,10 @@ const Table = ({
         setAddressSelected(null);
     };
 
-    const formattedData = (row) => {
-        let htmlExpandRow = '';
-        row.products.forEach(function (element, i) {
-            htmlExpandRow += "<div class='row ml-3'><div className='col-md-8'>" + element.name + "</div>" + "<div class='col-md-4'> Corresponde al periodo" + " " + row.period + "  </div></div>"
-        });
-        return htmlExpandRow;
-    }
 
-    const expandRow = {
-        renderer: (row, rowIndex) => (
-            <div dangerouslySetInnerHTML={{__html: formattedData(row)}}>
-            </div>
-        )
-    };
-
-    const columns = [
-        {
-            text: "NÚMERO DE PEDIDO",
-            dataField: "pay_date",
-            sort: true,
-            classes: "",
-            headerClasses: "",
-            formatter: (cell, row) => {
-                return '#' + row.order_id;
-            }
-        },
-        {
-            text: "TARJETA",
-            dataField: "pay_date",
-            sort: true,
-            classes: "",
-            headerClasses: "",
-            formatter: (cell, row) => {
-
-                if (row.subscription == null) {
-                    return (
-                        <span
-                            onClick={() => selectedColumnsSubscriptionCard(row)}
-                            className="link pointer"
-                            style={{color: "#484848"}}
-                        >
-                            Tarjeta No Encontrada
-                        </span>
-                    );
-                }
-
-                if (row.status != 'CREATED' && row.status != 'REJECTED') {
-                    return row.subscription.card_number;
-                }
-
-                return (
-                    <span
-                        onClick={() => selectedColumnsSubscriptionCard(row)}
-                        className="link pointer"
-                        style={{color: "#484848"}}
-                    >
-                        {row.subscription.card_number}
-                    </span>
-                );
-
-            }
-        },
-
-        {
-            text: "FECHA DE PAGO",
-            dataField: "pay_date",
-            sort: true,
-            classes: "",
-            headerClasses: "",
-            formatter: (cell, row) => {
-                return moment(cell).format("DD/MM/YYYY");
-            }
-        },
-        {
-            text: "FECHA DE DESPACHO",
-            dataField: "dispatch_date",
-            sort: true,
-            classes: "",
-            headerClasses: "",
-            formatter: (cell, row) => {
-
-                if (row.status != 'CREATED' && row.status != 'REJECTED') {
-                    return moment(cell).format("DD/MM/YYYY")
-                }
-
-                return (
-                    <span
-                        onClick={() => selectedColumnDispatchDate(row)}
-                        className="link pointer"
-                        style={{color: "#484848"}}
-                    >
-                        {moment(cell).format("DD/MM/YYYY")}
-                    </span>
-                );
-            }
-        },
-        {
-            text: "ESTADO DE DESPACHO",
-            dataField: "subtotal",
-            sort: true,
-            classes: "",
-            headerClasses: "",
-            formatter: (cell, row) => {
-                if (row.dispatch_status != null) {
-                    return row.dispatch_status
-
-                } else if (row.order.dispatch_status != null) {
-                    return row.order.dispatch_status
-                } else {
-                    return 'Sin Despachar';
-                }
-            }
-        },
-        {
-            text: "DIRECCIÓN",
-            dataField: "subtotal",
-            sort: true,
-            classes: "",
-            headerClasses: "",
-            formatter: (cell, row) => {
-                let address = '';
-
-                if (row.delivery_address != null) {
-                    address = row.delivery_address
-                } else if (row.customer_address) {
-                    address = row.customer_address.address + ' ' + row.customer_address.extra_info
-                }
-
-                if (row.status != 'CREATED' && row.status != 'REJECTED') {
-                    return address;
-                }
-                return (
-                    <span
-                        onClick={() => selectedColumnAddress(row)}
-                        className="link pointer"
-                        style={{color: "#484848"}}
-                    >
-                        {address}
-                    </span>
-                );
-            }
-        },
-        {
-            text: "ESTADO",
-            dataField: "subtotal",
-            sort: true,
-            classes: "",
-            headerClasses: "",
-            formatter: (cell, row) => {
-                if (row.status == 'CREATED') {
-                    return 'CREADO'
-                } else if (row.status == 'REJECTED') {
-                    return (
-                        <span
-                            onClick={() => selectedSubscriptionOrderItemStatusRejected(row)}
-                            className="link pointer"
-                            style={{color: "#484848"}}
-                        >
-                            RECHAZADO
-                        </span>
-                    );
-                } else if (row.status == 'DISPATCHED') {
-                    return 'DESPACHADO'
-                } else if (row.status == 'DELIVERED') {
-                    return 'DELIVERED'
-                } else if (row.status == 'PAID') {
-                    return 'PAGADO'
-                }
-                return row.status
-            }
-        },
-        {
-            text: [<span className="img-in-input" data-tip data-for="password_tooltip">TOTAL</span>,],
-            dataField: 'total',
-            sort: true,
-            classes: '',
-            headerClasses: '',
-            formatter: (cell, row) => {
-
-                if (row.status !== 'PAID') {
-                    return formatMoney(cell) + '(*)'
-
-                }
-                return formatMoney(cell)
-
-            }
-        },
-    ];
 
     return (
         <>
-
             <ModalDispatchDate
                 modalDispatchDate={modalDispatchDate}
                 setModalDispatchDate={setModalDispatchDate}
@@ -565,7 +381,6 @@ const Table = ({
                 getSubscriptions={getSubscriptions}
                 getDataAddress={getDataAddress}
             />
-
             <Modal
                 show={modalSubscriptionCard}
                 centered
@@ -598,8 +413,8 @@ const Table = ({
                                                 ? 0
                                                 : (subscriptionOrderItemSelected.subscription_id ==
                                                 subscription.id
-                                                ? 1
-                                                : 0)
+                                                    ? 1
+                                                    : 0)
                                         }
                                     />))
                             }
@@ -643,8 +458,8 @@ const Table = ({
                                                 ? 0
                                                 : (subscriptionOrderItemSelected.customer_address_id ==
                                                 address.id
-                                                ? 1
-                                                : 0)
+                                                    ? 1
+                                                    : 0)
                                         }
                                         isSusbscription={true}
                                     />
@@ -685,7 +500,18 @@ const Table = ({
 
             {objects.length ?
                 objects.map((item, index) => {
-                    console.log(item)
+                    let address = '';
+                    let isOnClickAddress = true;
+                    if (item.delivery_address != null) {
+                        address = item.delivery_address
+                    } else if (item.customer_address) {
+                        address = item.customer_address.address + ' ' + item.customer_address.extra_info
+                    }
+
+                    if (item.status != 'CREATED' && item.status != 'REJECTED') {
+                        isOnClickAddress = false;
+                    }
+
                     return (
                         <div className="col-12 m-0 mt-3 p-0">
                             <div key={uuidv4()} className="subscription-card">
@@ -694,11 +520,13 @@ const Table = ({
                                         return (
                                             <div className="row mr-1 ml-1">
                                                 <div className="col-10 d-flex flex-row">
-                                                    <img height={37} src={product.images[0].public_file} alt={`${CONFIG.APP_NAME} - ${product.name}`}/>
-                                                    <h1 className="ml-3 product-card-name text-truncate p-0 product-card-name" style={{fontSize: 15, marginTop: 10}}>{product.name}</h1>
+                                                    <img height={48} src={product.images[0].public_file}
+                                                         alt={`${CONFIG.APP_NAME} - ${product.name}`}/>
+                                                    <div
+                                                        className="ml-3 product-card-name text-truncate p-0 product-card-name"
+                                                        style={{fontSize: 15, marginTop: 15}}>{product.name}</div>
                                                 </div>
                                                 <div className="col-2 d-flex flex-row">
-
                                                 </div>
                                             </div>
                                         )
@@ -710,9 +538,66 @@ const Table = ({
                                         <h1 className="ml-2 text-truncate p-0 subscription-card-value">{item.order_id}</h1>
                                     </div>
                                     <div className="col-12 d-flex flex-row">
-                                        <h1 className="text-truncate p-0 subscription-card-label">Fecha de despacho</h1>
-                                        <h1 className="ml-2 text-truncate p-0 subscription-card-value">{moment(item.dispatch_date).format("DD/MM/YYYY")}</h1>
+                                        <div className="col p-0">
+                                            <div className="d-flex flex-row">
+                                                <div className="mr-1 p-0 subscription-card-label">F Despacho</div>
+                                                <div
+                                                    className="ml-1 p-0 subscription-card-value">{moment(item.dispatch_date).format("DD/MM/YYYY")}</div>
+                                            </div>
+                                        </div>
+                                        <div className="col-auto d-flex flex-row p-0 text-right">
+                                            <div className="link pointer text-truncate ml-2 p-0 subscription-card-value"
+                                                 style={{textAlign: 'right'}}>Cambiar fecha
+                                            </div>
+                                        </div>
                                     </div>
+
+                                    <div className="col-12 d-flex flex-row">
+                                        <h1 className="text-truncate p-0 subscription-card-label">Tarjeta</h1>
+                                        {
+                                            item.subscription == null ?
+                                                <h1
+                                                    onClick={() => selectedColumnsSubscriptionCard(item)}
+                                                    className="ml-2 text-truncate p-0 subscription-card-value link pointer"
+                                                    style={{color: "#484848"}}
+                                                >
+                                                    No Encontrada
+                                                </h1>
+                                                : item.status !== 'CREATED' && item.status !== 'REJECTED' ?
+                                                    <h1 className="ml-2 text-truncate p-0 subscription-card-value">{item.subscription.card_number}</h1> :
+                                                    <h1 className="ml-2 text-truncate p-0 subscription-card-value link pointer"
+                                                        onClick={() => selectedColumnsSubscriptionCard(item)}
+                                                        style={{color: "#484848"}}
+                                                    >
+                                                        {item.subscription.card_number}
+                                                    </h1>
+
+                                        }
+                                    </div>
+
+                                    <div className="col-12 d-flex flex-row">
+                                        <h1 className="text-truncate p-0 subscription-card-label">Estado Despacho</h1>
+                                        {
+                                            item.dispatch_status != null ?
+                                                <h1 className="ml-2 text-truncate p-0 subscription-card-value">{item.dispatch_status}</h1> :
+                                                item.order.dispatch_status != null ?
+                                                    <h1 className="ml-2 text-truncate p-0 subscription-card-value">{item.dispatch_status}</h1> :
+                                                    <h1 className="ml-2 text-truncate p-0 subscription-card-value">Sin Despachar</h1>
+                                        }
+                                    </div>
+                                    <div className="col-12 d-flex flex-row">
+                                        <h1 className="text-truncate p-0 subscription-card-label">Dirección</h1>
+                                        {
+                                            isOnClickAddress ?
+                                                <h1 onClick={() => selectedColumnAddress(item)} style={{ color: 'black'}} className="ml-2 text-truncate p-0 subscription-card-value link pointer">{address}</h1> :
+                                                    <h1 className="ml-2 text-truncate p-0 subscription-card-value">{address}</h1>
+                                        }
+                                    </div>
+                                    <div className="col-12 d-flex flex-row">
+                                        <h1 className="text-truncate p-0 subscription-card-label">Total</h1>
+                                        <h1 className="ml-2 text-truncate p-0 subscription-card-value">{item.status !== 'PAID' ? formatMoney(item.total) + '(*)' : formatMoney(item.total)}</h1>
+                                    </div>
+
                                 </div>
                                 <div className="subscription-card-footer">
 
@@ -727,7 +612,6 @@ const Table = ({
                     </div>
                 </div>
             }
-
 
 
         </>
