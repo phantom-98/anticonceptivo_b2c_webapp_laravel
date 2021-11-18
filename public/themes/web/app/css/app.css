@@ -5323,7 +5323,7 @@ a:-webkit-any-link:focus-visible {
   }
 
   #header {
-    z-index: 99999;
+    z-index: 9;
     position: absolute;
   }
 
