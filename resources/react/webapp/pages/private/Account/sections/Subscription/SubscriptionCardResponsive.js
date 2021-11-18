@@ -19,6 +19,11 @@ import "react-datepicker/dist/react-datepicker.css";
 import {registerLocale} from "react-datepicker";
 import es from 'date-fns/locale/es';
 import ModalDispatchDate from "./ModalDispatchDate";
+import {Link} from "react-router-dom";
+import PUBLIC_ROUTES from "../../../../../routes/publicRoutes";
+import {CONFIG} from "../../../../../Config";
+import AddCartCard from "../../../../../components/shopping/AddCartCard";
+import ProductCard from "../../../../../components/shopping/ProductCard";
 
 registerLocale('es', es)
 
@@ -529,22 +534,7 @@ const Table = ({
             }
         },
         {
-            text: [<span className="img-in-input" data-tip data-for="password_tooltip">TOTAL</span>,
-                // <ReactTooltip
-                //     place="right"
-                //     type="light"
-                //     effect="solid"
-                //     id="password_tooltip"
-                //     multiline={true}
-                //     className="tooltip-box-shadow"
-                // >
-                //     <div className="text-left">
-                // <span className="bold color-707070">
-                //      Tarifas del despacho pueden variar
-                // </span>
-                //     </div>
-                // </ReactTooltip>
-            ],
+            text: [<span className="img-in-input" data-tip data-for="password_tooltip">TOTAL</span>,],
             dataField: 'total',
             sort: true,
             classes: '',
@@ -676,28 +666,70 @@ const Table = ({
                 </Modal.Body>
             </Modal>
 
-            {
-                activeSubscription.map((item, index) => {
+            {/*{*/}
+            {/*    activeSubscription.map((item, index) => {*/}
 
-                    return item.days > 0 ? (
+            {/*        return item.days > 0 ? (*/}
 
-                        <p>
-                            {/*#{item.order_parent_id} {item.name}  Le quedan  {item.days} días de protección*/}
-                            #{item.order_parent_id} {item.name} le quedan {item.days} días o hasta
-                            el {changeMonthToSpanish(item.max_date)} de proteccion
+            {/*            <p>*/}
+            {/*                /!*#{item.order_parent_id} {item.name}  Le quedan  {item.days} días de protección*!/*/}
+            {/*                #{item.order_parent_id} {item.name} le quedan {item.days} días o hasta*/}
+            {/*                el {changeMonthToSpanish(item.max_date)} de proteccion*/}
 
-                        </p>
-                    ) : null
+            {/*            </p>*/}
+            {/*        ) : null*/}
 
+            {/*    })*/}
+            {/*}*/}
+
+
+            {objects.length ?
+                objects.map((item, index) => {
+                    console.log(item)
+                    return (
+                        <div className="col-12 m-0 mt-3 p-0">
+                            <div key={uuidv4()} className="subscription-card">
+                                <div className="subscription-card-header">
+                                    {item.products.map((product, index) => {
+                                        return (
+                                            <div className="row mr-1 ml-1">
+                                                <div className="col-10 d-flex flex-row">
+                                                    <img height={37} src={product.images[0].public_file} alt={`${CONFIG.APP_NAME} - ${product.name}`}/>
+                                                    <h1 className="ml-3 product-card-name text-truncate p-0 product-card-name" style={{fontSize: 15, marginTop: 10}}>{product.name}</h1>
+                                                </div>
+                                                <div className="col-2 d-flex flex-row">
+
+                                                </div>
+                                            </div>
+                                        )
+                                    })}
+                                </div>
+                                <div className="subscription-card-body mr-1 ml-1 mt-2">
+                                    <div className="col-12 d-flex flex-row">
+                                        <h1 className="text-truncate p-0 subscription-card-label">Nº Pedido</h1>
+                                        <h1 className="ml-2 text-truncate p-0 subscription-card-value">{item.order_id}</h1>
+                                    </div>
+                                    <div className="col-12 d-flex flex-row">
+                                        <h1 className="text-truncate p-0 subscription-card-label">Fecha de despacho</h1>
+                                        <h1 className="ml-2 text-truncate p-0 subscription-card-value">{moment(item.dispatch_date).format("DD/MM/YYYY")}</h1>
+                                    </div>
+                                </div>
+                                <div className="subscription-card-footer">
+
+                                </div>
+                            </div>
+                        </div>
+                    )
                 })
+                : <div className="col-md-12 mt-5">
+                    <div className="product-no-stock-alert font-12 font-poppins">
+                        Actualmente no tiene subscripciones.
+                    </div>
+                </div>
             }
-            <TablePanel
-                expandRow={expandRow}
-                objects={objects}
-                columns={columns}
-                tableLoaded={tableLoaded}
-                showTextPriceDispatch={true}
-            />
+
+
+
         </>
     );
 };
