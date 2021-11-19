@@ -1230,8 +1230,8 @@ input.my-auto.file-input {
 .card-faq .card-header:hover,
 .card-faq .collapsing + .card-header,
 .card-faq .collapse.show + .card-header {
-  background: #63DCAE;
-  border-color: #63DCAE;
+  background: #00DBAD;
+  border-color: #00DBAD;
   color: white;
 }
 
