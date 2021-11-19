@@ -636,7 +636,7 @@ button#dropdown-testing {
   left: 0;
   z-index: 1031;
   background-color: white;
-  top: 32px;
+  top: 34px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0);
 }
 
@@ -646,7 +646,7 @@ button#dropdown-testing {
   left: 0;
   z-index: 1030;
   background-color: white;
-  top: 127px;
+  top: 142px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0);
 }
 
@@ -668,12 +668,10 @@ button#dropdown-testing {
 }
 
 .footer-bottom {
-  height: 36px;
   color: white;
   font-family: "Poppins", sans-serif;
   font-size: 14px;
   font-weight: 400;
-  background: #013D5A !important;
 }
 
 .bottom-to-flex {
@@ -684,13 +682,13 @@ button#dropdown-testing {
 .footer {
   height: 100%;
   min-height: 263px;
-  background: #005B86;
+  background: #005A86;
 }
 
 .footer .nav a {
   color: #ffffff;
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 400;
   font-family: "Poppins", sans-serif;
 }
 
@@ -1199,10 +1197,25 @@ input.my-auto.file-input {
   cursor: pointer;
   background: #EDF8FE;
   color: #033F5D;
-  padding: 20px;
-  border: 1px solid #DEDEDE !important;
+  border: 1px solid #EDF8FE !important;
   border-radius: 12px !important;
   transition: 0.4s;
+  min-height: 60px;
+  display: flex;
+}
+
+.card-faq .card-header h1,
+.card-faq .card-header h2,
+.card-faq .card-header h3,
+.card-faq .card-header h4,
+.card-faq .card-header h5,
+.card-faq .card-header p,
+.card-faq .card-header span {
+  margin: 0;
+}
+
+.card-faq .card-header > * {
+  margin: auto 0 !important;
 }
 
 .card-faq .card-header h3 {
@@ -1216,23 +1229,32 @@ input.my-auto.file-input {
 .card-faq .collapsing + .card-header,
 .card-faq .collapse.show + .card-header {
   background: #63DCAE;
+  border-color: #63DCAE;
   color: white;
 }
 
 .card-faq .card-header::after {
-  content: "+";
+  content: "";
   font-weight: 700 !important;
   font-size: 16px !important;
   font-family: "Poppins", sans-serif !important;
-  color: #033F5D;
   position: absolute;
   right: 20px;
   top: 20px;
+  background-image: url("/themes/web/assets/images/icons/accordion-plus-blue.png");
+  background-size: contain;
+  background-position: center center;
+  width: 20px;
+  height: 20px;
 }
 
 .card-faq .collapse.show + .card-header::after {
-  content: "-";
+  content: "";
   color: white !important;
+  background-image: url("/themes/web/assets/images/icons/accordion-minus-white.png");
+  width: 18px;
+  height: 2px;
+  top: 29px;
 }
 
 .card-claim {
@@ -1503,7 +1525,7 @@ input.my-auto.file-input {
   text-transform: uppercase;
   color: #0869A6;
   letter-spacing: 2px;
-  font-size: 26px;
+  font-size: 30px;
   font-weight: 700;
   margin-bottom: 1rem;
 }
@@ -1620,42 +1642,6 @@ tbody tr td {
   position: absolute;
   top: 4px;
   right: 4px;
-}
-
-.subscription-card {
-  background-color: #FFFFFF;
-  border-radius: 12px;
-  padding: 28px 14px;
-  border: 1px solid #E8E8E8;
-  transition: 0.2s;
-}
-
-.subscription-card-header {
-  border-bottom: 1px solid #E8E8E8;
-}
-
-.subscription-card-body {
-  border-bottom: 1px solid #E8E8E8;
-}
-
-.subscription-card-footer {
-  border-top: 1px solid #E8E8E8;
-}
-
-.subscription-card-label {
-  font-family: "Poppins", sans-serif;
-  font-size: 12px;
-  font-weight: 750;
-  color: #033F5D !important;
-  margin-bottom: 0.5rem;
-}
-
-.subscription-card-value {
-  font-family: "Poppins", sans-serif;
-  font-size: 12px;
-  font-weight: 400;
-  color: black;
-  margin-bottom: 0.5rem;
 }
 
 .product-card {
@@ -3915,18 +3901,8 @@ a:-webkit-any-link:focus-visible {
   top: 0;
 }
 
-.float-whatsapp img {
-  width: 31px !important;
-  height: 31px !important;
-}
-
-.modal-fixed-pad {
-  padding-left: 22px;
-  padding-right: 22px;
-}
-
-.toastr-options {
-  margin-bottom: 0;
+.link-address-checkout {
+  font-weight: 900;
 }
 
 @media (min-width: 768px) {
@@ -3947,14 +3923,14 @@ a:-webkit-any-link:focus-visible {
   }
 
   .app-margin-top {
-    margin-top: 182px;
+    margin-top: 196px;
     min-height: calc(100vh - 587px);
   }
 }
 
 @media (min-width: 1335px) {
   .app-margin-top {
-    margin-top: 138px;
+    margin-top: 153px;
     min-height: calc(100vh - 520px);
   }
 }
@@ -5327,7 +5303,7 @@ a:-webkit-any-link:focus-visible {
   }
 
   #header {
-    z-index: 9;
+    z-index: 99999;
     position: absolute;
   }
 
@@ -5350,33 +5326,12 @@ a:-webkit-any-link:focus-visible {
     padding: 14px;
   }
 
-  .subscription-card {
-    padding: 10px 0px;
+  .link-address-profile {
+    font-weight: 900;
   }
 
-  .footer-bottom .bottom-to-flex {
-    text-align: center;
-  }
-
-  .footer-bottom {
-    height: 82px;
-    font-size: 13px;
-    font-weight: 500;
-  }
-
-  .logo-footer {
-    width: 309px;
-  }
-
-  .float-whatsapp > div:first-child {
-    bottom: 50px !important;
-    color: white;
-  }
-
-  .button-nav-checkout {
-    position: absolute;
-    top: -20px;
-    left: 36px;
+  .link-address-checkout {
+    font-weight: 900;
   }
 }
 

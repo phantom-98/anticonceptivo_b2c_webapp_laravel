@@ -31,9 +31,9 @@ const Index = () => {
             customer_id: auth.id
         }
 
-        Services.DoPost(url,data).then(response => {
+        Services.DoPost(url, data).then(response => {
             Services.Response({
-            response: response,
+                response: response,
                 success: () => {
                     setAddresses(response.data.addresses);
                     setRegions(response.data.regions);
@@ -61,15 +61,17 @@ const Index = () => {
         setFormMode('create')
         setAddressSelected(null)
     }
-    const { height, width } = UseWindowDimensions();
+    const {height, width} = UseWindowDimensions();
 
     return (
-        <div className="row" style={{marginTop: width<=980 ? '0px' :'-50px'}}>
-            <H3Panel title="EDITAR DIRECCIONES"/>
+        <div className="row" style={{marginTop: width <= 980 ? '0px' : '-50px'}}>
+            {
+                width < 768 ? null : <H3Panel title="EDITAR DIRECCIONES"/>
+            }
             <div className="col-md-12 ">
-                <div className="panel-bordered px-4 pt-4 pb-5">
+                <div className="panel-bordered px-4 pt-4 pb-4">
                     <div className="row">
-                        <div className="col-md-12 mb-3">
+                        <div className="col-md-12 mb-1">
                             <h3 className="font-poppins font-16 bold color-033F5D">
                                 Confirma tu dirección de despacho o agrega una nueva
                             </h3>
@@ -100,7 +102,7 @@ const Index = () => {
                                 regions={regions}
                                 setAddresses={setAddresses}
                             />
-                        : null
+                            : null
                     }
                 </div>
             </div>
