@@ -1,6 +1,6 @@
 import React, {Fragment, useState, useContext, useEffect} from 'react';
 import menu from "../../../assets/images/icons/header/menu.svg";
-import anticonceptivo from "../../../assets/images/logo-mobile.svg";
+import anticonceptivo from "../../../assets/images/logo_responsive.png";
 import cartBlue from "../../../assets/images/icons/header/cart-blue.svg";
 import userBlue from "../../../assets/images/icons/header/user-blue.svg";
 import search from "../../../assets/images/icons/header/search-blue.svg";
