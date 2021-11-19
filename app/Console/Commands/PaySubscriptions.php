@@ -72,6 +72,7 @@ class PaySubscriptions extends Command
             $subscriptionsOrdersItems = SubscriptionsOrdersItem::whereHas('order_parent', function ($q) use ($customer) {
                 $q->whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED'])->where('customer_id', $customer->id);
             })
+                ->where('active',1)
                 ->whereIn('status', ['CREATED', 'REJECTED'])
                 ->whereDate('pay_date', $datePayment)
                 ->with(['order_item.product', 'subscription', 'order.order_items', 'order_item.subscription_plan', 'order.customer', 'customer_address.commune'])

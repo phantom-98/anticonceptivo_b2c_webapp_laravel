@@ -288,6 +288,28 @@ class ProfileController extends Controller
         }
     }
 
+    public function cancelSubscriptionItem(Request $request)
+    {
+        try {
+            $subscription = Subscription::find($request->subscription_id);
+
+            $subscriptionsOrdersItem = SubscriptionsOrdersItem::find($request->subscription_order_item_id);
+
+            if (!$subscriptionsOrdersItem) {
+                return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_SUBSCRIPTION_NOT_FOUND);
+            }
+
+            $subscriptionsOrdersItem->active = 0;
+            $subscriptionsOrdersItem->save();
+
+            return ApiResponse::JsonSuccess($subscriptionsOrdersItem, OutputMessage::SUCCESS);
+
+        } catch (\Exception $exception) {
+            return ApiResponse::JsonError(null, $exception->getMessage());
+        }
+    }
+
+
     public function setDispatchDateSubscription(Request $request)
     {
         try {

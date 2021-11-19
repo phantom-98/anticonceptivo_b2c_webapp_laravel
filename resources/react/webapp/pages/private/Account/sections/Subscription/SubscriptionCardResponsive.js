@@ -194,6 +194,52 @@ const Table = ({
         setModalAddress(true);
     };
 
+    const cancelSubscriptionItem = (subscriptionOrderItem) => {
+
+        let url =
+            Services.ENDPOINT.CUSTOMER.SUBSCRIPTIONS.SET_CANCEL_SUBSCRIPTION;
+
+        let data = {
+            subscription_order_item_id: subscriptionOrderItem.id
+        };
+
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: "col-6 btn btn-bicolor btn-block",
+                title: "mt-4"
+            },
+            buttonsStyling: false
+        });
+
+        swalWithBootstrapButtons
+            .fire({
+                title:
+                    '<span style="color: #0869A6;">Al cancelar esta suscripción implica cancelar todos los productos relacionados al número de pedido '+subscriptionOrderItem.order_parent_id+'</br> ¿Está seguro de aun asi de cancelar?</span>',
+                confirmButtonText: "Confirmar",
+                reverseButtons: true
+            })
+            .then(result => {
+                if (result.isConfirmed) {
+                    Services.DoPost(url, data)
+                        .then(response => {
+                            Services.Response({
+                                response: response,
+                                success: () => {
+                                    setSubscriptionOrderItemSelected(
+                                        response.data
+                                    );
+                                    getSubscriptions();
+                                    getDataAddress();
+                                }
+                            });
+                        })
+                        .catch(error => {
+                            Services.ErrorCatch(error);
+                        });
+                }
+            });
+    };
+
     const selectedColumnsSubscriptionCard = (subscriptionOrderItem) => {
         setSubscriptionOrderItemSelected(subscriptionOrderItem);
         setModalSubscriptionCard(true);
@@ -316,8 +362,6 @@ const Table = ({
         setView("list");
         setAddressSelected(null);
     };
-
-
 
     return (
         <>
@@ -463,15 +507,24 @@ const Table = ({
                                                         style={{fontSize: 15, marginTop: 15}}>{item.subscription_item.order_item.product.name}</div>
 
                                                 </div>
+
+
+
                                                 {
-                                                    item.current_advance -2 == item.advance_end ?
+                                                    item.subscription_item.active == 0 ?
+                                                        <div className="col-auto d-flex flex-row">
+                                                            <div className="subscription-card-label-cancel mt-2">Cancelado</div>
+                                                        </div>
+                                                        :
+
+                                                    (item.current_advance -2 == item.advance_end ?
                                                         <div className="col-auto d-flex flex-row">
                                                             <div className="subscription-card-label-inactive mt-2">Inactivo</div>
                                                         </div>
                                                         :
                                                         <div className="col-auto d-flex flex-row">
                                                             <div className="subscription-card-label-active mt-2">Activo</div>
-                                                        </div>
+                                                        </div>)
                                                 }
 
                                             </div>
@@ -583,10 +636,21 @@ const Table = ({
                                         <h1 style={{lineHeight : 1.5}} className="mr-1 mb-0 p-0 subscription-card-value">Le quedan
                                             <span className=" p-0 subscription-card-label"> {item.cycle.days} días </span>
                                             o hasta el
-                                            <span className=" p-0 subscription-card-label"> {changeMonthToSpanish(item.cycle.max_date)} días </span>
+                                            <span className=" p-0 subscription-card-label"> {changeMonthToSpanish(item.cycle.max_date)} </span>
                                             de protección
                                         </h1>
                                     </div>
+                                    {
+                                        item.subscription_item.active == 1 ?
+                                            <div className="col-12 mt-2 mr-1 ml-1 text-center">
+                                                <h1 onClick={() => cancelSubscriptionItem(item.subscription_item)} style={{color: "red"}} className="mr-1 mb-0 p-0 subscription-card-value link pointer">
+                                                    Cancelar Suscripción
+                                                </h1>
+                                            </div>
+                                            :
+                                            null
+                                    }
+
                                 </div>
                             </div>
                         </div>
