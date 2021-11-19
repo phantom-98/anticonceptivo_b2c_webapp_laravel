@@ -195,10 +195,12 @@ const PersonalInfo = () => {
     return (
         <div className="row" style={{marginTop: width<=980 ? '0px' :'-50px'}}>
 
-            <H3Panel title="EDITAR PERFIL"/>
+            {
+                width < 768 ? null : <H3Panel title="EDITAR PERFIL" />
+            }
 
             <div className="col-md-12 mb-5">
-                <div className="panel-bordered">
+                <div className={width < 768 ? '' : 'panel-bordered'}>
                     <FormPersonalData
                         handleData={handleData}
                         handleCheckBox={handleCheckBox}
@@ -231,7 +233,7 @@ const PersonalInfo = () => {
             </div>
             <div className="col-md-12 text-center d-block d-sm-none">
                 <button type="button" className="btn btn-bicolor px-5"
-                        onClick={() => updateData()}>
+                    onClick={() => updateData()} style={{ width: '100%' }}>
                     <span>GUARDAR CAMBIOS</span>
                 </button>
             </div>

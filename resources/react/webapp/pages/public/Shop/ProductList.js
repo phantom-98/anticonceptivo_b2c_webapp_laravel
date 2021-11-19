@@ -127,11 +127,11 @@ const ProductList = ({
             </div>
             <div className="col-12 pb-3">
                 <div className="row mb-3">
-                    <div className="col-12 text-center">
+                    <div className="col-12 px-0 subscription-buttons">
                         {
                             subscriptions.map((subscription) => {
                                 return (
-                                    <div className={`btn btn-outline-primary btn-months ${filters.subscriptions.includes(subscription.id) ? 'focus' : ''} mx-1 my-2`}
+                                    <div className={`btn btn-outline-primary btn-months mr-2 subscription-button-margin ${filters.subscriptions.includes(subscription.id) ? 'focus' : ''} `}
                                         onClick={() => {
                                             updateFilter();
                                             if (filters.subscriptions.includes(subscription.id)) {

@@ -52,7 +52,7 @@ const Faq = () => {
                 breadcrumbs={breadcrumbs}
             >
                 {
-                    width >= 768 ? 
+                    width >= 768 ?
                         <div className="px-3">
                             <div className="row pb-5 mb-5">
                                 <div className="col-md-3">
@@ -110,8 +110,8 @@ const Faq = () => {
                                 </div>
                             </div>
                         </div>
-                    : 
-                        <div className="px-3">
+                    :
+                        <div className="">
                             <div className="row pb-5 mb-5">
                                 <div className="col-md-12">
                                     <h1 className="base-panel-one-without-upper">{PUBLIC_ROUTES.FAQ.title}</h1>

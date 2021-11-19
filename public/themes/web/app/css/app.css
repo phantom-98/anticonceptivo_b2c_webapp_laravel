@@ -1057,7 +1057,7 @@ input.my-auto.file-input {
 
 .btn-months {
   height: 26px !important;
-  font-size: 9px;
+  font-size: 8px;
   background: transparent;
   border-radius: 12px;
   border: 1px solid #CECECE !important;
@@ -1199,10 +1199,25 @@ input.my-auto.file-input {
   cursor: pointer;
   background: #EDF8FE;
   color: #033F5D;
-  padding: 20px;
-  border: 1px solid #DEDEDE !important;
+  border: 1px solid #EDF8FE !important;
   border-radius: 12px !important;
   transition: 0.4s;
+  min-height: 60px;
+  display: flex;
+}
+
+.card-faq .card-header h1,
+.card-faq .card-header h2,
+.card-faq .card-header h3,
+.card-faq .card-header h4,
+.card-faq .card-header h5,
+.card-faq .card-header p,
+.card-faq .card-header span {
+  margin: 0;
+}
+
+.card-faq .card-header > * {
+  margin: auto 0 !important;
 }
 
 .card-faq .card-header h3 {
@@ -1216,23 +1231,32 @@ input.my-auto.file-input {
 .card-faq .collapsing + .card-header,
 .card-faq .collapse.show + .card-header {
   background: #63DCAE;
+  border-color: #63DCAE;
   color: white;
 }
 
 .card-faq .card-header::after {
-  content: "+";
+  content: "";
   font-weight: 700 !important;
   font-size: 16px !important;
   font-family: "Poppins", sans-serif !important;
-  color: #033F5D;
   position: absolute;
   right: 20px;
   top: 20px;
+  background-image: url("/themes/web/assets/images/icons/accordion-plus-blue.svg");
+  background-size: contain;
+  background-position: center center;
+  width: 20px;
+  height: 20px;
 }
 
 .card-faq .collapse.show + .card-header::after {
-  content: "-";
+  content: "";
   color: white !important;
+  background-image: url("/themes/web/assets/images/icons/accordion-minus-white.svg");
+  width: 18px;
+  height: 2px;
+  top: 29px;
 }
 
 .card-claim {
@@ -1503,7 +1527,7 @@ input.my-auto.file-input {
   text-transform: uppercase;
   color: #0869A6;
   letter-spacing: 2px;
-  font-size: 30px;
+  font-size: 26px;
   font-weight: 700;
   margin-bottom: 1rem;
 }
@@ -3966,18 +3990,8 @@ a:-webkit-any-link:focus-visible {
   top: 0;
 }
 
-.float-whatsapp img {
-  width: 31px !important;
-  height: 31px !important;
-}
-
-.modal-fixed-pad {
-  padding-left: 22px;
-  padding-right: 22px;
-}
-
-.toastr-options {
-  margin-bottom: 0;
+.link-address-checkout {
+  font-weight: 900;
 }
 
 @media (min-width: 768px) {
@@ -5401,6 +5415,14 @@ a:-webkit-any-link:focus-visible {
     padding: 14px;
   }
 
+  .link-address-profile {
+    font-weight: 900;
+  }
+
+  .link-address-checkout {
+    font-weight: 900;
+  }
+
   .subscription-card {
     padding: 10px 0px;
   }
@@ -5422,6 +5444,11 @@ a:-webkit-any-link:focus-visible {
   .float-whatsapp > div:first-child {
     bottom: 50px !important;
     color: white;
+  }
+
+  .float-whatsapp img {
+    width: 32px !important;
+    height: 32px !important;
   }
 
   .button-nav-checkout {

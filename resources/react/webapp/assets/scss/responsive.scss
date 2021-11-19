@@ -248,6 +248,13 @@
     //    padding-bottom: 0 !important;
     //}
 
+    .link-address-profile {
+        font-weight: 900;
+    }
+
+    .link-address-checkout {
+        font-weight: 900;
+    }
     .subscription-card {
         padding: 10px 0px;
     }
@@ -268,6 +275,11 @@
     .float-whatsapp > div:first-child {
         bottom: 50px !important;
         color: white;
+    }
+
+    .float-whatsapp img{
+        width: 32px !important;
+        height: 32px !important;
     }
 
     .button-nav-checkout {
