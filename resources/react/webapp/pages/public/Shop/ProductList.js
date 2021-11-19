@@ -126,6 +126,11 @@ const ProductList = ({
                 </div>
             </div>
             <div className="col-12 pb-3">
+                <div className="row">
+                    <div className="col-12">
+                        <h3 className="font-14 bold color-033F5D">Selecciona una opción de suscripción</h3>
+                    </div>
+                </div>
                 <div className="row mb-3">
                     <div className="col-12 px-0 subscription-buttons">
                         {
