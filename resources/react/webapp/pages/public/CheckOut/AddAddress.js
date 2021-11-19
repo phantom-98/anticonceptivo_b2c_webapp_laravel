@@ -285,7 +285,7 @@ const AddAddress = ({setView, regions, address, setAddress,validAddress,setValid
                 </div>
             </div>
 
-            <div className="row">
+            <div className="row button-nav-checkout">
                 <div className="col-md-6 pb-5">
                     <button onClick={() => setView('user-form')} className="link" style={{textDecoration: 'none'}}>
                         <span className="font-12">{"< Volver a paso anterior"}</span>
