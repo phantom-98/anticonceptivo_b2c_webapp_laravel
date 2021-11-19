@@ -123,6 +123,8 @@
     <meta property="og:updated_time" content="1440432930"/>
     <meta property="og:url" content="https://www.anticonceptivo.cl/"/>
 
+    <meta name="facebook-domain-verification" content="p5y4cx1icpybbv81clkkw87cdw4qit" />
+
     <title>Anticonceptivo | @yield('page-title')</title>
 
 </head>
