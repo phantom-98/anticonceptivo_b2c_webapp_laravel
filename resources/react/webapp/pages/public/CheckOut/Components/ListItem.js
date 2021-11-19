@@ -19,7 +19,7 @@ const ListItem = ({address, showEdit, saveDefaultAddress, regions, communes}) =>
                         checked={true}
                         disabled={true}
                         className="mr-1"
-                        id={`custom-inline-radio-address-${address.id}`}
+                        id={`custom-inline-radio-address-${address.id}`}ddd
                     />
                 </div>
             </div>
@@ -32,7 +32,7 @@ const ListItem = ({address, showEdit, saveDefaultAddress, regions, communes}) =>
                     </div>
                     <div className="col-12">
                         <div className="font-poppins font-16 lh-18 regular color-484848">
-                            {address.address} , {address.extra_info ? address.extra_info+ ' , ' : ''} {commune ? commune.name : null} , {region ? region.name : null}
+                            {address.address}, {address.extra_info ? address.extra_info + ', ' : ''} {commune ? commune.name : null}, {region ? region.name : null}
                         </div>
                     </div>
                 </div>

@@ -7,11 +7,12 @@ import {Form} from "react-bootstrap";
 // import toastr from "toastr";
 import UseWindowDimensions from "../../../../../helpers/UseWindowDimensions";
 
-const ListItem = ({address, showEdit, saveDefaultAddress, regions, communes, addressChecked, isSusbscription = false
-    // setAddresses
-}) => {
+const ListItem = ({
+                      address, showEdit, saveDefaultAddress, regions, communes, addressChecked, isSusbscription = false
+                      // setAddresses
+                  }) => {
 
-    const { height, width } = UseWindowDimensions();
+    const {height, width} = UseWindowDimensions();
     // const {auth} = useContext(AuthContext);
 
     let region = regions.find(x => x.id === address.region_id)
@@ -63,7 +64,7 @@ const ListItem = ({address, showEdit, saveDefaultAddress, regions, communes, add
                     </div>
                     <div className="col-12">
                         <div className="font-poppins font-14 lh-18 regular color-484848">
-                            {address.address} , {address.extra_info ? address.extra_info+ ' , ' : ''} {commune ? commune.name : null} , {region ? region.name : null}
+                            {address.address}, {address.extra_info ? address.extra_info + ', ' : ''} {commune ? commune.name : null}, {region ? region.name : null}
                         </div>
                     </div>
                 </div>
@@ -71,16 +72,17 @@ const ListItem = ({address, showEdit, saveDefaultAddress, regions, communes, add
             {
                 width > 768 ?
 
-                !isSusbscription ?
-                    <div className="col-auto d-flex">
-                        <div className="mt-4">
-                            <span onClick={() => showEdit(address)} className="link pointer font-12 regular">editar</span>
+                    !isSusbscription ?
+                        <div className="col-auto d-flex">
+                            <div className="mt-4">
+                                <span onClick={() => showEdit(address)}
+                                      className="link pointer font-12 regular">editar</span>
+                            </div>
                         </div>
-                    </div>
+                        :
+                        null
                     :
                     null
-                :
-                null
             }
             {/* <div className="col-auto d-flex">
                 <div className="my-auto">
@@ -90,25 +92,26 @@ const ListItem = ({address, showEdit, saveDefaultAddress, regions, communes, add
                 </div>
             </div> */}
 
-            
+
             {
                 width < 768 ?
-                
-                <div className="col-md-12 text-right">
-                    {
-                        !isSusbscription ?
+
+                    <div className="col-md-12 text-right">
+                        {
+                            !isSusbscription ?
                                 <div className="mb-auto">
-                                    <span onClick={() => showEdit(address)} className="link pointer font-12 regular">editar</span>
+                                    <span onClick={() => showEdit(address)}
+                                          className="link pointer font-12 regular">editar</span>
                                 </div>
-                            :
-                            null
-                    }
-                    <hr/>
-                </div>
+                                :
+                                null
+                        }
+                        <hr/>
+                    </div>
 
-                :
+                    :
 
-                null
+                    null
 
             }
         </div>

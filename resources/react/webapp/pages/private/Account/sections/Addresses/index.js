@@ -31,9 +31,9 @@ const Index = () => {
             customer_id: auth.id
         }
 
-        Services.DoPost(url,data).then(response => {
+        Services.DoPost(url, data).then(response => {
             Services.Response({
-            response: response,
+                response: response,
                 success: () => {
                     setAddresses(response.data.addresses);
                     setRegions(response.data.regions);
@@ -61,12 +61,12 @@ const Index = () => {
         setFormMode('create')
         setAddressSelected(null)
     }
-    const { height, width } = UseWindowDimensions();
+    const {height, width} = UseWindowDimensions();
 
     return (
-        <div className="row" style={{marginTop: width<=980 ? '0px' :'-50px'}}>
+        <div className="row" style={{marginTop: width <= 980 ? '0px' : '-50px'}}>
             {
-                width < 768 ? null : <H3Panel title="EDITAR DIRECCIONES" />
+                width < 768 ? null : <H3Panel title="EDITAR DIRECCIONES"/>
             }
             <div className="col-md-12 ">
                 <div className="panel-bordered px-4 pt-4 pb-4">
@@ -102,7 +102,7 @@ const Index = () => {
                                 regions={regions}
                                 setAddresses={setAddresses}
                             />
-                        : null
+                            : null
                     }
                 </div>
             </div>

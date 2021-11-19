@@ -29,14 +29,14 @@ const Addresses = ({setView, regions, communes, address, setAddress, dispatchDat
             customer_id: auth.id
         }
 
-        Services.DoPost(url,data).then(response => {
+        Services.DoPost(url, data).then(response => {
             Services.Response({
-            response: response,
+                response: response,
                 success: () => {
                     setAddresses(response.data.addresses);
-                    if(response.data.addresses != null){
+                    if (response.data.addresses != null) {
                         response.data.addresses.forEach(elementAddress => {
-                            if(elementAddress.default_address){
+                            if (elementAddress.default_address) {
                                 setAddress(elementAddress);
                             }
                         });
@@ -85,7 +85,7 @@ const Addresses = ({setView, regions, communes, address, setAddress, dispatchDat
                                 setAddress={setAddress}
                                 // setAddresses={setAddresses}
                             />
-                        : null
+                            : null
                     }
 
                     {
@@ -98,7 +98,7 @@ const Addresses = ({setView, regions, communes, address, setAddress, dispatchDat
                                 goBack={goBack}
                                 setAddresses={auth ? setAddresses : setAddress}
                             />
-                        : null
+                            : null
                     }
                 </div>
             </div>
@@ -112,12 +112,13 @@ const Addresses = ({setView, regions, communes, address, setAddress, dispatchDat
 
                     <div className="row">
                         <div className="col-12 col-md pb-2">
-                            <Icon path={calendarBlue} />
-                            {' '} <span className="font-poppins font-12 regular col-12 color-8E8E8E">Fecha de entrega</span>
+                            <Icon path={calendarBlue}/>
+                            {' '} <span
+                            className="font-poppins font-12 regular col-12 color-8E8E8E">Fecha de entrega</span>
                             {'    '}<span className="font-poppins font-16 regular color-484848">{dispatchDate}</span>
                         </div>
                         <div className="col-12 col-md-auto pb-2">
-                            <Icon path={clockBlue} />
+                            <Icon path={clockBlue}/>
                             {' '} <span className="font-poppins font-12 regular color-8E8E8E">Fecha de entrega</span>
                             {'    '}<span className="font-poppins font-16 regular color-484848">09:00 a 21:00</span>
                         </div>
