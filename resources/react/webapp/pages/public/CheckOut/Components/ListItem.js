@@ -19,7 +19,7 @@ const ListItem = ({address, showEdit, saveDefaultAddress, regions, communes}) =>
                         checked={true}
                         disabled={true}
                         className="mr-1"
-                        id={`custom-inline-radio-address-${address.id}`}ddd
+                        id={`custom-inline-radio-address-${address.id}`}
                     />
                 </div>
             </div>

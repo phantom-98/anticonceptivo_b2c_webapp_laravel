@@ -5,15 +5,14 @@ import plusIcon from '../../../../../assets/images/icons/plus-green.svg'
 import * as Services from "../../../../../Services";
 import UseWindowDimensions from "../../../../../helpers/UseWindowDimensions";
 
-const List = ({
-                  addresses, showEdit, showCreate, getData, regions, communes,
-                  // setAddresses
-              }) => {
+const List = ({addresses, showEdit, showCreate, getData, regions, communes}) => {
 
-    const {height, width} = UseWindowDimensions();
+    const {width} = UseWindowDimensions();
 
     const saveDefaultAddress = (addressId, customerId) => {
+
         let url = Services.ENDPOINT.CUSTOMER.ADDRESSES.SET_DEFAULT_ADDRESS;
+
         let data = {
             address_id: addressId,
             customer_id: customerId

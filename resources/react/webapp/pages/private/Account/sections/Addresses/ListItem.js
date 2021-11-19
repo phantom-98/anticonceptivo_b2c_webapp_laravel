@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Form} from "react-bootstrap";
 // import {AuthContext} from "../../../../../context/AuthProvider";
 // import * as Services from "../../../../../Services";
@@ -8,15 +8,24 @@ import {Form} from "react-bootstrap";
 import UseWindowDimensions from "../../../../../helpers/UseWindowDimensions";
 
 const ListItem = ({
-                      address, showEdit, saveDefaultAddress, regions, communes, addressChecked, isSusbscription = false
-                      // setAddresses
+                      address,
+                      showEdit,
+                      saveDefaultAddress,
+                      regions,
+                      communes,
+                      addressChecked,
+                      isSusbscription = false
                   }) => {
 
-    const {height, width} = UseWindowDimensions();
+    const {width} = UseWindowDimensions();
     // const {auth} = useContext(AuthContext);
 
     let region = regions.find(x => x.id === address.region_id)
     let commune = communes.find(x => x.id === address.commune_id)
+
+    useEffect(() => {
+        console.log(address);
+    }, [address])
 
     // const removeData = (addresId) => {
     //     let url = Services.ENDPOINT.CUSTOMER.ADDRESSES.REMOVE;
@@ -48,7 +57,7 @@ const ListItem = ({
                         label=""
                         type="radio"
                         name="default_address"
-                        checked={(addressChecked ?? address.default_address) == 1 ? true : false}
+                        checked={address.default_address ? true : false}
                         className="mr-1"
                         onClick={() => saveDefaultAddress(address.id, address.customer_id)}
                         id={`custom-inline-radio-address-${address.id}`}

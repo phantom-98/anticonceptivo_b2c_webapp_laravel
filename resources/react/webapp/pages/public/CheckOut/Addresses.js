@@ -106,26 +106,49 @@ const Addresses = ({setView, regions, communes, address, setAddress, dispatchDat
             <div className="panel panel-cart mb-3">
                 <div className="panel-body">
 
-                    <h3 className="font-poppins font-16 bold color-033F5D">
+                    <h3 className="font-poppins font-16 bold color-033F5D mb-3">
                         Fecha estimada de entrega
                     </h3>
 
                     <div className="row">
                         <div className="col-12 col-md pb-2">
-                            <Icon path={calendarBlue}/>
-                            {' '} <span
-                            className="font-poppins font-12 regular col-12 color-8E8E8E">Fecha de entrega</span>
-                            {'    '}<span className="font-poppins font-16 regular color-484848">{dispatchDate}</span>
+                            <div className="row no-gutters">
+                                <div className="col-auto" style={{width: '27px'}}>
+                                    <Icon path={calendarBlue}/>
+                                </div>
+                                <div className="col-auto mx-2 d-flex">
+                                    <span className="my-auto font-poppins font-12 regular color-8E8E8E">
+                                        Fecha de entrega
+                                    </span>
+                                </div>
+                                <div className="col-auto d-flex">
+                                    <span className="my-auto font-poppins font-14 regular color-484848">
+                                        {dispatchDate}
+                                    </span>
+                                </div>
+                            </div>
                         </div>
-                        <div className="col-12 col-md-auto pb-2">
-                            <Icon path={clockBlue}/>
-                            {' '} <span className="font-poppins font-12 regular color-8E8E8E">Fecha de entrega</span>
-                            {'    '}<span className="font-poppins font-16 regular color-484848">09:00 a 21:00</span>
+                        <div className="col-12 col-md-auto">
+                            <div className="row no-gutters">
+                                <div className="col-auto" style={{width: '27px'}}>
+                                    <Icon path={clockBlue}/>
+                                </div>
+                                <div className="col-auto mx-2 d-flex">
+                                    <span className="my-auto font-poppins font-12 regular color-8E8E8E">
+                                       Hora de entrega
+                                    </span>
+                                </div>
+                                <div className="col-auto d-flex">
+                                    <span className="my-auto font-poppins font-14 regular color-484848">
+                                         09:00 a 21:00
+                                    </span>
+                                </div>
+                            </div>
                         </div>
                     </div>
-
                 </div>
             </div>
+
 
             <div className="row">
                 <div className="col-md-6 pb-5">
