@@ -252,7 +252,7 @@ const CustomerService = () => {
 
     return (
         <div className="row" style={{marginTop: width<=980 ? '0px' :'-50px'}}>
-            <H3Panel title="SERVICIO AL CLIENTE"/>
+            <H3Panel title="SERVICIO AL CLIENTE" className="mb-3 d-none d-md-block"/>
             <div className="col-md-12">
                 <div className="row">
                     <div className="col-md-12">
