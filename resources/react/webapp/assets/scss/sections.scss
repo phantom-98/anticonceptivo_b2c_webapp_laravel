@@ -168,7 +168,7 @@
     right: 20px;
     top: 20px;
 
-    background-image: url('/themes/web/assets/images/icons/accordion-plus-blue.png');
+    background-image: url('/themes/web/assets/images/icons/accordion-plus-blue.svg');
     background-size: contain;
     background-position: center center;
 
@@ -179,7 +179,7 @@
 .card-faq .collapse.show + .card-header::after {
     content: "";
     color: white !important;
-    background-image: url('/themes/web/assets/images/icons/accordion-minus-white.png');
+    background-image: url('/themes/web/assets/images/icons/accordion-minus-white.svg');
     width: 18px;
     height: 2px;
     top : 29px

@@ -636,7 +636,7 @@ button#dropdown-testing {
   left: 0;
   z-index: 1031;
   background-color: white;
-  top: 34px;
+  top: 32px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0);
 }
 
@@ -646,7 +646,7 @@ button#dropdown-testing {
   left: 0;
   z-index: 1030;
   background-color: white;
-  top: 142px;
+  top: 127px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0);
 }
 
@@ -668,10 +668,12 @@ button#dropdown-testing {
 }
 
 .footer-bottom {
+  height: 36px;
   color: white;
   font-family: "Poppins", sans-serif;
   font-size: 14px;
   font-weight: 400;
+  background: #013D5A !important;
 }
 
 .bottom-to-flex {
@@ -682,13 +684,13 @@ button#dropdown-testing {
 .footer {
   height: 100%;
   min-height: 263px;
-  background: #005A86;
+  background: #005B86;
 }
 
 .footer .nav a {
   color: #ffffff;
   font-size: 12px;
-  font-weight: 400;
+  font-weight: 500;
   font-family: "Poppins", sans-serif;
 }
 
@@ -1055,7 +1057,7 @@ input.my-auto.file-input {
 
 .btn-months {
   height: 26px !important;
-  font-size: 9px;
+  font-size: 8px;
   background: transparent;
   border-radius: 12px;
   border: 1px solid #CECECE !important;
@@ -1241,7 +1243,7 @@ input.my-auto.file-input {
   position: absolute;
   right: 20px;
   top: 20px;
-  background-image: url("/themes/web/assets/images/icons/accordion-plus-blue.png");
+  background-image: url("/themes/web/assets/images/icons/accordion-plus-blue.svg");
   background-size: contain;
   background-position: center center;
   width: 20px;
@@ -1251,7 +1253,7 @@ input.my-auto.file-input {
 .card-faq .collapse.show + .card-header::after {
   content: "";
   color: white !important;
-  background-image: url("/themes/web/assets/images/icons/accordion-minus-white.png");
+  background-image: url("/themes/web/assets/images/icons/accordion-minus-white.svg");
   width: 18px;
   height: 2px;
   top: 29px;
@@ -1525,7 +1527,7 @@ input.my-auto.file-input {
   text-transform: uppercase;
   color: #0869A6;
   letter-spacing: 2px;
-  font-size: 30px;
+  font-size: 26px;
   font-weight: 700;
   margin-bottom: 1rem;
 }
@@ -1642,6 +1644,42 @@ tbody tr td {
   position: absolute;
   top: 4px;
   right: 4px;
+}
+
+.subscription-card {
+  background-color: #FFFFFF;
+  border-radius: 12px;
+  padding: 28px 14px;
+  border: 1px solid #E8E8E8;
+  transition: 0.2s;
+}
+
+.subscription-card-header {
+  border-bottom: 1px solid #E8E8E8;
+}
+
+.subscription-card-body {
+  border-bottom: 1px solid #E8E8E8;
+}
+
+.subscription-card-footer {
+  border-top: 1px solid #E8E8E8;
+}
+
+.subscription-card-label {
+  font-family: "Poppins", sans-serif;
+  font-size: 12px;
+  font-weight: 750;
+  color: #033F5D !important;
+  margin-bottom: 0.5rem;
+}
+
+.subscription-card-value {
+  font-family: "Poppins", sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  color: black;
+  margin-bottom: 0.5rem;
 }
 
 .product-card {
@@ -3923,14 +3961,14 @@ a:-webkit-any-link:focus-visible {
   }
 
   .app-margin-top {
-    margin-top: 196px;
+    margin-top: 182px;
     min-height: calc(100vh - 587px);
   }
 }
 
 @media (min-width: 1335px) {
   .app-margin-top {
-    margin-top: 153px;
+    margin-top: 138px;
     min-height: calc(100vh - 520px);
   }
 }
@@ -5303,7 +5341,7 @@ a:-webkit-any-link:focus-visible {
   }
 
   #header {
-    z-index: 99999;
+    z-index: 9;
     position: absolute;
   }
 
@@ -5332,6 +5370,35 @@ a:-webkit-any-link:focus-visible {
 
   .link-address-checkout {
     font-weight: 900;
+  }
+
+  .subscription-card {
+    padding: 10px 0px;
+  }
+
+  .footer-bottom .bottom-to-flex {
+    text-align: center;
+  }
+
+  .footer-bottom {
+    height: 82px;
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  .logo-footer {
+    width: 309px;
+  }
+
+  .float-whatsapp > div:first-child {
+    bottom: 50px !important;
+    color: white;
+  }
+
+  .button-nav-checkout {
+    position: absolute;
+    top: -20px;
+    left: 36px;
   }
 }
 
