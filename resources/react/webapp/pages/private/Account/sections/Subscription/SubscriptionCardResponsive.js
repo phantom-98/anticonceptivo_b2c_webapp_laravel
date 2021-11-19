@@ -637,7 +637,7 @@ const Table = ({
                                             <span className=" p-0 subscription-card-label"> {item.cycle.days} días </span>
                                             o hasta el
                                             <span className=" p-0 subscription-card-label"> {changeMonthToSpanish(item.cycle.max_date)} </span>
-                                            de protección
+                                            de protección.
                                         </h1>
                                     </div>
                                     {
