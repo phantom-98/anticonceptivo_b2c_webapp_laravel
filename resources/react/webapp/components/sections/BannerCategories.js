@@ -14,7 +14,7 @@ const BannerCategories = ({ bannerCategories }) => {
         <div className="container">
             <div className="row d-block d-md-none py-2">
                 <div className="col-12 text-center">
-                    <h3 className="font-21 color-0869A6 font-poppins" style={{ letterSpacing: "2px" }}>CATEGORÍAS</h3>
+                    <h3 className="font-21 color-0869A6 font-poppins bold" style={{ letterSpacing: "2px" }}>CATEGORÍAS</h3>
                 </div>
             </div>
             <div className="row">
