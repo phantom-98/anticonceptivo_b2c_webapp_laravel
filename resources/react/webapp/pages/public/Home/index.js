@@ -78,7 +78,7 @@ const Home = ({match}) => {
 
             {/* <BestSeller bestSellers={bestSellers}/> */}
 
-             <BlogCarousel title="BLOG" showButton={true} buttonTitle="VER MÁS NOTICIAS" />
+             {/* <BlogCarousel title="BLOG" showButton={true} buttonTitle="VER MÁS NOTICIAS" />*/}
 
             <BannerStatic banners={bottomBanners}/>
 

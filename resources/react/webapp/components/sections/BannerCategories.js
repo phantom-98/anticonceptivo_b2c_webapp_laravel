@@ -4,6 +4,7 @@ import { CONFIG } from "../../Config";
 import { Link } from "react-router-dom";
 import PUBLIC_ROUTES from "../../routes/publicRoutes";
 import UseWindowDimensions from "../../helpers/UseWindowDimensions";
+import H3Panel from "../general/H3Panel";
 
 const BannerCategories = ({ bannerCategories }) => {
     const { width } = UseWindowDimensions();
@@ -11,6 +12,11 @@ const BannerCategories = ({ bannerCategories }) => {
 
     return (
         <div className="container">
+            <div className="row d-block d-md-none py-3">
+                <div className="col-12 text-center">
+                    <H3Panel title="CATEGORÍAS"/>
+                </div>
+            </div>
             <div className="row">
             {bannerCategories.length
                 ? bannerCategories.map((bannerCategory, key) => {
