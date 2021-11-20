@@ -213,8 +213,8 @@ const Table = ({
 
         swalWithBootstrapButtons
             .fire({
-                title:
-                    '<span style="color: #0869A6;">Al cancelar esta suscripción implica cancelar todos los productos relacionados al número de pedido '+subscriptionOrderItem.order_parent_id+'</br> ¿Está seguro de aun asi de cancelar?</span>',
+                html:
+                    '<h3 class="font-21 bold font-poppins color-0869A6">¿Estás seguro de que quieres cancelar?</h3><p class="font-14 font-poppins regular">Al cancelar esta suscripción implica cancelar todos los productos relacionados al número de pedido '+subscriptionOrderItem.order_parent_id+'</br></p>',
                 confirmButtonText: "Confirmar",
                 reverseButtons: true
             })
