@@ -12,9 +12,9 @@ const BannerCategories = ({ bannerCategories }) => {
 
     return (
         <div className="container">
-            <div className="row d-block d-md-none py-3">
+            <div className="row d-block d-md-none py-2">
                 <div className="col-12 text-center">
-                    <H3Panel title="CATEGORÍAS"/>
+                    <h3 className="font-21 color-0869A6 font-poppins" style={{ letterSpacing: "2px" }}>CATEGORÍAS</h3>
                 </div>
             </div>
             <div className="row">
