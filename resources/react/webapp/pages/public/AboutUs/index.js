@@ -4,13 +4,17 @@ import BasePanelOne from "../../../template/BasePanelOne";
 import Subscribe from "../../../components/sections/Subscribe";
 import {CONFIG} from "../../../Config";
 import H2Title from "../../../components/general/H2Title";
-import {Tabs, Tab} from 'react-bootstrap';
+import {Tabs, Tab, Card, Accordion} from 'react-bootstrap';
 import BannerCarousel from "../../../components/sections/BannerCarousel";
 import * as Services from "../../../Services";
 import {v4 as uuidv4} from 'uuid';
 import logoFull from "../../../assets/images/logo-full.svg";
+import UseWindowDimensions from "../../../components/customHooks/UseWindowDimensions";
+import AccordionBody from "../../../components/sections/AccordionBody";
 
 const AboutUs = () => {
+
+    const {width} = UseWindowDimensions();
 
     const [key, setKey] = useState('mission');
     const [banners, setBanners] = useState([]);
@@ -53,7 +57,9 @@ const AboutUs = () => {
 
     return (
         <div>
-            <BannerCarousel topBanners={banners}/>
+            <div className="d-none d-md-block">
+                <BannerCarousel topBanners={banners}/>
+            </div>
 
             <BasePanelOne
                 breadcrumbs={breadcrumbs}
@@ -80,24 +86,57 @@ const AboutUs = () => {
 
                     <div className="row pb-5 mb-5">
                         <div className="col">
-                            <Tabs
-                                id="vision-mission"
-                                variant="pills"
-                                className="tabs-about-us"
-                                activeKey={key}
-                                onSelect={(k) => setKey(k)}
-                            >
-                                <Tab eventKey="mission" title="Misión">
-                                    <div className="panel-bordered responsive-padding-tabs">
-                                        <div dangerouslySetInnerHTML={{__html: aboutUs.mission}}/>
-                                    </div>
-                                </Tab>
-                                <Tab eventKey="vision" title="Visión">
-                                    <div className="panel-bordered responsive-padding-tabs">
-                                        <div dangerouslySetInnerHTML={{__html: aboutUs.view}}/>
-                                    </div>
-                                </Tab>
-                            </Tabs>
+
+                            {
+                                width > 768 ?
+                                    <Tabs
+                                        id="vision-mission"
+                                        variant="pills"
+                                        className="tabs-about-us"
+                                        activeKey={key}
+                                        onSelect={(k) => setKey(k)}
+                                    >
+                                        <Tab eventKey="mission" title="Misión">
+                                            <div className="panel-bordered responsive-padding-tabs">
+                                                <div dangerouslySetInnerHTML={{__html: aboutUs.mission}}/>
+                                            </div>
+                                        </Tab>
+                                        <Tab eventKey="vision" title="Visión">
+                                            <div className="panel-bordered responsive-padding-tabs">
+                                                <div dangerouslySetInnerHTML={{__html: aboutUs.view}}/>
+                                            </div>
+                                        </Tab>
+                                    </Tabs>
+                                    :
+                                    <Accordion defaultActiveKey={'0'}>
+                                        <Card className="card-faq card-delivery-cost">
+                                            <Accordion.Collapse eventKey={'0'}>
+                                                <Card.Body className="mt-1" style={{ border : 0}}>
+                                                    <div className="font-14 medium color-484848"
+                                                         dangerouslySetInnerHTML={{__html: aboutUs.mission}}/>
+                                                </Card.Body>
+                                            </Accordion.Collapse>
+                                            <Accordion.Toggle as={Card.Header} eventKey={'0'}>
+                                                <span className="font-16 font-poppins bold">Misión</span>
+                                            </Accordion.Toggle>
+                                        </Card>
+
+                                        <Card className="card-faq card-delivery-cost">
+                                            <Accordion.Collapse eventKey={'1'}>
+                                                <Card.Body className="mt-1" style={{ border : 0}}>
+                                                    <div className="font-14 medium color-484848"
+                                                         dangerouslySetInnerHTML={{__html: aboutUs.view}}/>
+                                                </Card.Body>
+                                            </Accordion.Collapse>
+                                            <Accordion.Toggle as={Card.Header} eventKey={'1'}>
+                                                <span className="font-16 font-poppins bold">Visión</span>
+                                            </Accordion.Toggle>
+                                        </Card>
+
+                                    </Accordion>
+
+                            }
+
                         </div>
                     </div>
 
@@ -152,7 +191,8 @@ const AboutUs = () => {
                                             </div> */}
 
                                             <div className="col-12">
-                                                <div className="about-us-description" dangerouslySetInnerHTML={{__html: alliance.description}}/>
+                                                <div className="about-us-description"
+                                                     dangerouslySetInnerHTML={{__html: alliance.description}}/>
                                             </div>
                                         </div>
                                     </div>
