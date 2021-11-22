@@ -18,13 +18,13 @@ const BaseTemplate = (props) => {
                 <div className="d-block d-sm-none float-whatsapp">
                     <FloatingWhatsApp backgroundColor={'#00DE39'} size={'65px'}
                                       popupMessage={'¿En qué podemos ayudarte?'}
-                                      autoOpenTimeout={9999999999999} phone={'+56975423779'} zIndex={999} />
+                                      autoOpenTimeout={9999999999999} phone={'+56987380541'} zIndex={999} />
                 </div>
                 <div className="d-none d-md-block float-whatsapp">
                     <FloatingWhatsApp backgroundColor={'#00DE39'} size={'65px'}
                                       popupMessage={'¿En qué podemos ayudarte?'}
                                       autoOpenTimeout={9999999999999}
-                                      phone={'+56975423779'} zIndex={999}/>
+                                      phone={'+56987380541'} zIndex={999}/>
                 </div>
             </div>
             <Footer/>
