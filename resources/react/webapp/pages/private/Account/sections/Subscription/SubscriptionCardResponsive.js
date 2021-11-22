@@ -1,5 +1,4 @@
 import React, {useEffect, useState, useContext} from "react";
-import TablePanel from "../../../../../components/TablePanel";
 import moment from "moment";
 import {formatMoney} from "../../../../../helpers/GlobalUtils";
 import * as Services from "../../../../../Services";
@@ -7,27 +6,18 @@ import {AuthContext} from "../../../../../context/AuthProvider";
 import {Modal} from "react-bootstrap";
 import ListItemAddresses from "../Addresses/ListItem";
 import ListItemSubscriptions from "../Subscriptions/ListItem";
-import ReactTooltip from 'react-tooltip';
 import Form from "../Addresses/Form";
 import CloseModal from "../../../../../components/general/CloseModal";
 import Swal from "sweetalert2";
-import toastr from "toastr";
 import {v4 as uuidv4} from "uuid";
-
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import {registerLocale} from "react-datepicker";
 import es from 'date-fns/locale/es';
 import ModalDispatchDate from "./ModalDispatchDate";
-import {Link} from "react-router-dom";
-import PUBLIC_ROUTES from "../../../../../routes/publicRoutes";
 import {CONFIG} from "../../../../../Config";
-import AddCartCard from "../../../../../components/shopping/AddCartCard";
-import ProductCard from "../../../../../components/shopping/ProductCard";
-
 registerLocale('es', es)
 
-const Table = ({
+const SubscriptionCardResponsive = ({
                    setSubscriptionOrderItemSelected,
                    subscriptionOrderItemSelected
                }) => {
@@ -94,9 +84,9 @@ const Table = ({
     };
 
 
-    const saveDefaultAddress = (addressId, customerId) => {
-        console.log(232323)
-        return
+    const saveDefaultAddressSubscription = (addressId, customerId) => {
+        // console.log(232323)
+        // return
         let url =
             Services.ENDPOINT.CUSTOMER.SUBSCRIPTIONS.SET_ADDRESS_SUBSCRIPTION;
 
@@ -446,7 +436,7 @@ const Table = ({
                                         address={address}
                                         showEdit={showEdit}
                                         saveDefaultAddress={
-                                            saveDefaultAddress
+                                            saveDefaultAddressSubscription
                                         }
                                         regions={regions}
                                         communes={communes}
@@ -665,9 +655,20 @@ const Table = ({
                 </div>
             }
 
-
+            <div className="col-md-12 py-2 pl-0 pr-0 mt-2 mb-0 pb-0">
+                <div className="note-receipt">
+                    <div className="row">
+                        <div className="col d-flex">
+                            <span
+                                className="my-auto font-13 font-poppins regular color-033F5D">
+                                (*) Tarifas de despacho pueden variar.
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </>
     );
 };
 
-export default Table;
+export default SubscriptionCardResponsive;

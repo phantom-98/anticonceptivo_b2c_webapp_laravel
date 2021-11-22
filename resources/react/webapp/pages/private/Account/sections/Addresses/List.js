@@ -10,7 +10,8 @@ const List = ({addresses, showEdit, showCreate, getData, regions, communes}) => 
     const {width} = UseWindowDimensions();
 
     const saveDefaultAddress = (addressId, customerId) => {
-
+        // console.log(2)
+        // return
         let url = Services.ENDPOINT.CUSTOMER.ADDRESSES.SET_DEFAULT_ADDRESS;
 
         let data = {

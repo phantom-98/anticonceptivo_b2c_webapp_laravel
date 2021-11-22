@@ -1,10 +1,5 @@
 import React, {useEffect} from 'react';
 import {Form} from "react-bootstrap";
-// import {AuthContext} from "../../../../../context/AuthProvider";
-// import * as Services from "../../../../../Services";
-// import iconTrash from '../../../../../assets/images/icons/trash.svg';
-// import Icon from "../../../../../components/general/Icon";
-// import toastr from "toastr";
 import UseWindowDimensions from "../../../../../helpers/UseWindowDimensions";
 
 const ListItem = ({
