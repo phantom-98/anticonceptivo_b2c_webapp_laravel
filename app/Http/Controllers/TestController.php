@@ -234,6 +234,7 @@ class TestController extends Controller
 
                 $get_data = ApiHelper::callAPI('POST', 'https://api.bsale.cl/v1/documents.json', json_encode($data_voucher), true);
                 $response = json_decode($get_data, true);
+                echo($response);
                 $dayPayment = new DayPayment();
                 $dayPayment->url_pdf = $response['urlPdf'];
                 $dayPayment->date_payment = $datePayment;
