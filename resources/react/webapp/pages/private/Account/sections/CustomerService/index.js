@@ -425,7 +425,7 @@ const CustomerService = () => {
                             <div className="col-md-12 text-center d-block d-sm-none">
                                 <button type="button" className="btn btn-bicolor px-5 w-100"
                                         onClick={() => sendToCustomerService()}>
-                                    <span className="font-18 mt-2 mb-2">ENVIAR</span>
+                                    <span className="font-18">ENVIAR</span>
                                 </button>
                             </div>
 
