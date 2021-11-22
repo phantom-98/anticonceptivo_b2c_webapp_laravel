@@ -26,22 +26,22 @@ const ProductInfo = ({product, setImageSubscription}) => {
     return (
         <div className="row">
             <div className="col-6">
-                <span className="font-poppins font-14 font-italic color-707070">
+                <span className="font-poppins font-14 medium font-italic color-585858">
                     {product.laboratory.name}
                 </span>
             </div>
             <div className="col-6 text-right">
-                <span className="font-poppins font-14 color-009BE8">
+                <span className="font-poppins font-16 color-009BE8">
                     SKU: {product.sku}
                 </span>
             </div>
             <div className="col-md-12 responsive-d-none">
-                <h1 className="font-poppins font-27 bold text-black">
+                <h1 className="font-poppins medium font-27 bold text-black">
                     {product.name}
                 </h1>
             </div>
             <div className="col-md-12">
-                <p className="font-poppins font-16 regular color-707070">
+                <p className="font-poppins font-16 regular color-585858">
                     <div
                         dangerouslySetInnerHTML={{
                             __html: product.description
@@ -50,11 +50,9 @@ const ProductInfo = ({product, setImageSubscription}) => {
                 </p>
             </div>
             <div className="col-md-12">
-                <h1 className="font-poppins font-12 regular color-6C6B6B">
-                    <div
-                        dangerouslySetInnerHTML={{__html: product.compound}}
-                    />
-                </h1>
+                <div className="font-poppins font-12 regular color-6C6B6B"
+                     dangerouslySetInnerHTML={{__html: product.compound}}
+                />
             </div>
             <div className="col-md-12">
                 <span className="font-poppins font-36 bold color-009BE8">
@@ -96,6 +94,7 @@ const ProductInfo = ({product, setImageSubscription}) => {
                     setQuantity={setQuantity}
                     product={product}
                     subscription={subscription}
+                    classModule="single-product"
                 />
             </div>
             <div className="col-12">
@@ -135,8 +134,7 @@ const ProductInfo = ({product, setImageSubscription}) => {
                                 className="accordion-faq"
                             >
                                 <Card
-                                    key={product.id}
-                                    className="card-faq"
+                                    className="card-faq card-plans"
                                     key={product.id}
                                 >
                                     <Accordion.Collapse eventKey={product.id}>
@@ -163,16 +161,17 @@ const ProductInfo = ({product, setImageSubscription}) => {
                                                             }
                                                         )}
                                                 </div>
-                                                <div className="col-md-12">
-                                                    <div
-                                                        className="mt-3"
-                                                        dangerouslySetInnerHTML={{
-                                                            __html: subscription
-                                                                ? subscription.warnings
-                                                                : null
-                                                        }}
-                                                    />
-                                                </div>
+                                                {
+                                                    subscription ? <div className="col-md-12">
+                                                        <div className="mt-3"
+                                                             dangerouslySetInnerHTML={{
+                                                                 __html: subscription
+                                                                     ? subscription.warnings
+                                                                     : null
+                                                             }}
+                                                        />
+                                                    </div> : null
+                                                }
                                             </div>
                                         </Card.Body>
                                     </Accordion.Collapse>
