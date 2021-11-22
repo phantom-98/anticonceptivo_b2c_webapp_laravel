@@ -176,7 +176,7 @@ const AboutUs = () => {
                         alliances.map((alliance, index) => {
                             let allianceKey = uuidv4();
                             return (
-                                <div key={allianceKey} className="row pb-5 mb-5">
+                                <div key={allianceKey} className="row">
                                     <div className="col-md-9 offset-md-3">
                                         <div className="row">
                                             <div className="col-12 mb-3 mb-md-0">

@@ -2284,13 +2284,13 @@ input[type=number] {
   }
 
   .subscribe-btn-font {
-    font-size: 12px;
+    font-size: 14px;
   }
 
   .form-control-custom-subscribe {
     border: 1px solid #D6D6D6;
     border-radius: 12px;
-    font-size: 10px;
+    font-size: 13px;
     color: #3C3C3E;
     padding-left: 1.25rem !important;
   }
