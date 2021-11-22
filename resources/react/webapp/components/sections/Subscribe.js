@@ -41,11 +41,11 @@ const Subscribe = () => {
     const { height, width } = UseWindowDimensions();
 
     return (
-        <div className="suscribe" style={{backgroundImage: width >= 620 ? `url(${bgSubscribe})` : `url(${bgSubscribeMobile})`}}>
+        <div className="suscribe" style={{backgroundImage: width >= 620 ? `url(${bgSubscribe})` : `url(${bgSubscribeMobile})`, height: 318}}>
             <div className="py-5">
                 <div className="container py-3">
                     <div className="row">
-                        <div className="col-12">
+                        <div className="col-12 mt-2 mb-4">
                             <h3 className="font-poppins subscribe-font text-white bold mb-3">
                                 Mantente informado con nuestras promociones y <br/>
                                 novedades pensadas para tu bienestar.

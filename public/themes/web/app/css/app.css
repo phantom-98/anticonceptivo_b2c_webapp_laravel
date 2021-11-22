@@ -2280,7 +2280,7 @@ input[type=number] {
 
 @media (max-width: 767px) {
   .subscribe-font {
-    font-size: 18px;
+    font-size: 25px;
   }
 
   .subscribe-btn-font {
