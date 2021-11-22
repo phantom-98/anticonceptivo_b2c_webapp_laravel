@@ -53,7 +53,9 @@ const AboutUs = () => {
 
     return (
         <div>
-            <BannerCarousel topBanners={banners}/>
+            <div className="d-none d-md-block">
+                <BannerCarousel topBanners={banners}/>
+            </div>
 
             <BasePanelOne
                 breadcrumbs={breadcrumbs}
