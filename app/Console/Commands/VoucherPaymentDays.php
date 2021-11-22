@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Http\Helpers\ApiHelper;
 use App\Models\DayPayment;
 use App\Models\Order;
+use App\Models\ProductSubscriptionPlan;
 use Illuminate\Console\Command;
 use App\Models\Subscription;
 use Carbon\Carbon;
@@ -58,6 +59,12 @@ class VoucherPaymentDays extends Command
         try{
             Log::info('Paso 1');
             $datePayment = Carbon::now()->subDay();
+
+            $dayPaymentExists = DayPayment::whereDate('created_at', $datePayment)->get();
+
+            if($dayPaymentExists){
+                continue;
+            }
 
             $orders = Order::whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED'])->whereDate('created_at',$datePayment)
             // ->with('subscriptions_orders_items.order_item','order_items')
@@ -148,7 +155,7 @@ class VoucherPaymentDays extends Command
             );
             if($total == 0){
                 Log::info('No hay nada que facturar');
-                return false;
+                continue;
             }
             $get_data = ApiHelper::callAPI('POST', 'https://api.bsale.cl/v1/documents.json', json_encode($data_voucher), true);
             $response = json_decode($get_data, true);
