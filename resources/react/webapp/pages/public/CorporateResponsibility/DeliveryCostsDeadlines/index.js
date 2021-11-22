@@ -8,30 +8,33 @@ const DeliveryCostsDeadlines = ({deliveryCosts}) => {
     return (
         <div className="row">
 
-            <H3Panel title="PLAZOS Y COSTOS DE ENTREGA"/>
+            <div className="col-12">
+                <h3 className="font-poppins font-35 bold color-0A68A6">Plazos y costos de entrega </h3>
+            </div>
+            <div className="col-12">
+                <Accordion defaultActiveKey={'0'}>
+                    {
+                        deliveryCosts.map((data, index) => {
 
-            <Accordion defaultActiveKey={'0'} className="col-md-12">
-            {
-                deliveryCosts.map((data, index) => {
-                    let deliveryCostyKey = uuidv4();
-                    return(
-                        <Card key={deliveryCostyKey} className="card-faq my-4">
-                            <Accordion.Collapse eventKey={index.toString()}>
-                                <Card.Body>
-                                    <AccordionBody 
-                                        data={data}
-                                    />
-                                </Card.Body>
-                            </Accordion.Collapse>
-                            <Accordion.Toggle as={Card.Header} eventKey={index.toString()}>
-                                <span className="font-16 font-poppins bold">{data.name}</span>
-                            </Accordion.Toggle>
-                        </Card>
-                    )
-                })
-            }
+                            return(
+                                <Card key={uuidv4()} className="card-faq card-delivery-cost" >
+                                    <Accordion.Collapse eventKey={index.toString()}>
+                                        <Card.Body>
+                                            <AccordionBody
+                                                data={data}
+                                            />
+                                        </Card.Body>
+                                    </Accordion.Collapse>
+                                    <Accordion.Toggle as={Card.Header} eventKey={index.toString()} >
+                                        <span className="font-16 font-poppins bold">{data.name}</span>
+                                    </Accordion.Toggle>
+                                </Card>
+                            )
+                        })
+                    }
 
-            </Accordion>
+                </Accordion>
+            </div>
         </div>
     );
 };

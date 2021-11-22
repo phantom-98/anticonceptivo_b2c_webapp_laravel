@@ -3757,6 +3757,14 @@ h4 {
   background-color: #2A317F;
 }
 
+.color-0A68A6 {
+  color: #0A68A6;
+}
+
+.bg-0A68A6 {
+  background-color: #0A68A6;
+}
+
 @media (min-width: 1200px) {
   .container,
   .container-lg,
@@ -5467,6 +5475,32 @@ a:-webkit-any-link:focus-visible {
     position: absolute;
     top: -20px;
     left: 36px;
+  }
+
+  .card-delivery-cost .card-header {
+    min-height: 45px;
+  }
+
+  .card-delivery-cost .card-header::after {
+    top: 15px;
+  }
+
+  .card-delivery-cost .collapse.show + .card-header::after {
+    top: 24px;
+  }
+
+  .card-delivery-cost .card-body {
+    border-radius: 12px;
+    border: 1px solid #CECECE;
+    padding: 15px;
+    margin-top: 15px;
+  }
+
+  .card-delivery-cost-title {
+    font-size: 14px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    line-height: 15px;
   }
 }
 
