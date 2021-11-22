@@ -298,6 +298,26 @@
         top: 24px
     }
 
+    .card-plans .card-header:hover,
+    .card-plans .collapsing + .card-header,
+    .card-plans .collapse.show + .card-header {
+        font-size: 16px;
+        background: #009BE8 !important;
+        border-color: #009BE8 !important;
+    }
+    .card-plans .card-header h3 {
+        font-size: 16px !important;
+    }
+
+    .card-plans .card-header::after {
+
+    }
+
+    .card-plans .collapse.show + .card-header::after {
+
+    }
+
+
     .card-delivery-cost .card-body {
         border-radius: 12px;
         border: 1px solid #CECECE;
@@ -313,8 +333,50 @@
     }
     .about-us-description li,
     .about-us-description p,
-    .about-us-description{
+    .about-us-description {
         font-size: 14px;
         font-weight: 500;
+    }
+
+    .product-format-style {
+        background: #fafac8;
+        border-radius: 10px;
+        border: solid 1px #f0f08c;
+        font-size: 16px;
+        padding: 10px 15px;
+        color: #484848;
+        font-weight: 500;
+    }
+
+    .single-product .btn {
+        font-size: 13px;
+        font-weight: bold;
+        height: 43px !important;
+        letter-spacing: 0;
+        color: #000000 !important;
+    }
+
+    .single-product .quantity-input {
+        height: 43px;
+        width: 99px;
+        margin-right: 0.75rem;
+    }
+
+    .single-product .quantity-input div {
+        float: left;
+        padding-top: 10px;
+        height: 43px !important;
+    }
+
+    .single-product .quantity-input-button {
+        width: 30px;
+    }
+    .single-product .quantity-input-field,
+    .single-product .quantity-input-field input {
+        width: 39px;
+        text-align: center;
+        font-size: 18px;
+        font-weight: 500;
+        padding-top: 3px !important;
     }
 }
