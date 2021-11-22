@@ -95,6 +95,8 @@ const Table = ({
 
 
     const saveDefaultAddress = (addressId, customerId) => {
+        console.log(232323)
+        return
         let url =
             Services.ENDPOINT.CUSTOMER.SUBSCRIPTIONS.SET_ADDRESS_SUBSCRIPTION;
 
