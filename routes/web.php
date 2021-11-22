@@ -23,6 +23,9 @@ Route::get('test-ailoo', [TestController::class, 'AiloTest']);
 
 Route::get('PaySubscription-test/{id?}', [TestController::class, 'PaySubscription']);
 
+Route::get('Generate-Voucher-Test/{start}/{end}', [TestController::class, 'GenerateVoucher']);
+
+
 Route::get('fix-orders-payment/{id}', function ($id) {
     $order = \App\Models\Order::find($id);
     if ($order->is_paid == 0) {
