@@ -15,12 +15,13 @@ import {registerLocale} from "react-datepicker";
 import es from 'date-fns/locale/es';
 import ModalDispatchDate from "./ModalDispatchDate";
 import {CONFIG} from "../../../../../Config";
+
 registerLocale('es', es)
 
 const SubscriptionCardResponsive = ({
-                   setSubscriptionOrderItemSelected,
-                   subscriptionOrderItemSelected
-               }) => {
+                                        setSubscriptionOrderItemSelected,
+                                        subscriptionOrderItemSelected
+                                    }) => {
     const {auth} = useContext(AuthContext);
     const [tableLoaded, setTableLoaded] = useState(false);
     const [modalAddress, setModalAddress] = useState(false);
@@ -50,6 +51,10 @@ const SubscriptionCardResponsive = ({
         getSubscriptions();
 
     }, []);
+
+    useEffect(() => {
+        console.log('subscriptionOrderItemSelected', subscriptionOrderItemSelected);
+    }, [subscriptionOrderItemSelected])
 
     const changeMonthToSpanish = (dateString) => {
         dateString = dateString.replace('January', 'Enero')
@@ -121,7 +126,6 @@ const SubscriptionCardResponsive = ({
                                     setSubscriptionOrderItemSelected(
                                         response.data
                                     );
-
                                     getSubscriptions();
                                     getDataAddress();
                                 }
@@ -206,7 +210,7 @@ const SubscriptionCardResponsive = ({
         swalWithBootstrapButtons
             .fire({
                 html:
-                    '<h3 class="font-21 bold font-poppins color-0869A6">¿Estás seguro de que quieres cancelar?</h3><p class="font-14 font-poppins regular pt-3">Al cancelar esta suscripción implica cancelar todos los productos relacionados al número de pedido <b>'+subscriptionOrderItem.order_parent_id+'</b></br></p>',
+                    '<h3 class="font-21 bold font-poppins color-0869A6">¿Estás seguro de que quieres cancelar?</h3><p class="font-14 font-poppins regular pt-3">Al cancelar esta suscripción implica cancelar todos los productos relacionados al número de pedido <b>' + subscriptionOrderItem.order_parent_id + '</b></br></p>',
                 confirmButtonText: "Confirmar",
                 reverseButtons: true
             })
@@ -400,8 +404,8 @@ const SubscriptionCardResponsive = ({
                                                 ? 0
                                                 : (subscriptionOrderItemSelected.subscription_id ==
                                                 subscription.id
-                                                    ? 1
-                                                    : 0)
+                                                ? 1
+                                                : 0)
                                         }
                                     />))
                             }
@@ -432,23 +436,17 @@ const SubscriptionCardResponsive = ({
                             {view === "list"
                                 ? addresses.map((address, index) => (
                                     <ListItemAddresses
-                                        key={index}
+                                        key={uuidv4()}
                                         address={address}
                                         showEdit={showEdit}
-                                        saveDefaultAddress={
-                                            saveDefaultAddressSubscription
-                                        }
+                                        saveDefaultAddress={saveDefaultAddressSubscription}
                                         regions={regions}
                                         communes={communes}
                                         addressChecked={
-                                            subscriptionOrderItemSelected == null
-                                                ? 0
-                                                : (subscriptionOrderItemSelected.customer_address_id ==
-                                                address.id
-                                                    ? 1
-                                                    : 0)
+                                            subscriptionOrderItemSelected && subscriptionOrderItemSelected.customer_address_id === address.id ? 1 : 0
                                         }
                                         isSusbscription={true}
+                                        name={'address_sub'}
                                     />
                                 ))
                                 : null}
@@ -481,7 +479,7 @@ const SubscriptionCardResponsive = ({
                         isOnClickAddress = false;
                     }
 
-                    if (!item.active){
+                    if (!item.active) {
                         return null
                     }
 
@@ -490,36 +488,42 @@ const SubscriptionCardResponsive = ({
                             <div key={uuidv4()} className="subscription-card">
                                 <div className="subscription-card-header">
 
-                                            <div className="row mr-1 ml-1">
-                                                <div className="col d-flex flex-row pr-0">
-                                                    <img height={48} src={item.subscription_item.order_item.product.images[0].public_file}
-                                                         alt={`${CONFIG.APP_NAME} - ${item.subscription_item.order_item.product.name}`}/>
-                                                    <div
-                                                        className="ml-3 product-card-name text-truncate p-0"
-                                                        style={{fontSize: 15, marginTop: 15}}>{item.subscription_item.order_item.product.name}</div>
+                                    <div className="row mr-1 ml-1">
+                                        <div className="col d-flex flex-row pr-0">
+                                            <img height={48}
+                                                 src={item.subscription_item.order_item.product.images[0].public_file}
+                                                 alt={`${CONFIG.APP_NAME} - ${item.subscription_item.order_item.product.name}`}/>
+                                            <div
+                                                className="ml-3 product-card-name text-truncate p-0"
+                                                style={{
+                                                    fontSize: 15,
+                                                    marginTop: 15
+                                                }}>{item.subscription_item.order_item.product.name}</div>
 
+                                        </div>
+
+
+                                        {
+                                            item.subscription_item.active == 0 ?
+                                                <div className="col-auto d-flex flex-row">
+                                                    <div className="subscription-card-label-cancel mt-2">Cancelado</div>
                                                 </div>
+                                                :
 
-
-
-                                                {
-                                                    item.subscription_item.active == 0 ?
-                                                        <div className="col-auto d-flex flex-row">
-                                                            <div className="subscription-card-label-cancel mt-2">Cancelado</div>
+                                                (item.current_advance - 2 == item.advance_end ?
+                                                    <div className="col-auto d-flex flex-row">
+                                                        <div
+                                                            className="subscription-card-label-inactive mt-2">Inactivo
                                                         </div>
-                                                        :
-
-                                                    (item.current_advance -2 == item.advance_end ?
-                                                        <div className="col-auto d-flex flex-row">
-                                                            <div className="subscription-card-label-inactive mt-2">Inactivo</div>
+                                                    </div>
+                                                    :
+                                                    <div className="col-auto d-flex flex-row">
+                                                        <div className="subscription-card-label-active mt-2">Activo
                                                         </div>
-                                                        :
-                                                        <div className="col-auto d-flex flex-row">
-                                                            <div className="subscription-card-label-active mt-2">Activo</div>
-                                                        </div>)
-                                                }
+                                                    </div>)
+                                        }
 
-                                            </div>
+                                    </div>
 
                                 </div>
                                 <div className="subscription-card-body mr-1 ml-1 mt-2">
@@ -527,25 +531,26 @@ const SubscriptionCardResponsive = ({
                                         <div className="col p-0">
                                             <h1 className="p-0 subscription-card-label">Avance Suscripción</h1>
                                         </div>
-                                        <div className="col-auto p-0" style={{ marginTop: -6}}>
+                                        <div className="col-auto p-0" style={{marginTop: -6}}>
                                             {
                                                 Array.from({length: item.advance_end}, (_, i) => i + 1).map((itemNumber) => {
-                                                    if(item.current_advance < itemNumber){
+                                                    if (item.current_advance < itemNumber) {
                                                         return (
                                                             <span className="dot-incoming"/>
                                                         )
-                                                    }else if(item.current_advance === itemNumber || item.current_advance -1 === itemNumber){
+                                                    } else if (item.current_advance === itemNumber || item.current_advance - 1 === itemNumber) {
                                                         return (
                                                             <span className="dot-process"/>
                                                         )
-                                                    }else{
+                                                    } else {
                                                         return (
                                                             <span className="dot-finish"/>
                                                         )
                                                     }
                                                 })
                                             }
-                                            <span className="ml-2 p-0 subscription-card-label">{item.current_advance -2}/{item.advance_end}</span>
+                                            <span
+                                                className="ml-2 p-0 subscription-card-label">{item.current_advance - 2}/{item.advance_end}</span>
                                         </div>
                                     </div>
                                     <div className="col-12 d-flex flex-row">
@@ -557,7 +562,8 @@ const SubscriptionCardResponsive = ({
                                         <div className="col p-0">
                                             <div className="d-flex flex-row">
                                                 <div className="mr-1 p-0 subscription-card-label">Fecha De Pago</div>
-                                                <div className="ml-1 p-0 subscription-card-value">{moment(item.subscription_item.pay_date).format("DD/MM/YYYY")}</div>
+                                                <div
+                                                    className="ml-1 p-0 subscription-card-value">{moment(item.subscription_item.pay_date).format("DD/MM/YYYY")}</div>
                                             </div>
                                         </div>
                                     </div>
@@ -568,9 +574,13 @@ const SubscriptionCardResponsive = ({
 
                                                 {
                                                     item.subscription_item.status != 'CREATED' && item.subscription_item.status != 'REJECTED' ?
-                                                        <div className="ml-1 p-0 subscription-card-value">{moment(item.subscription_item.dispatch_date).format("DD/MM/YYYY")}</div>
-                                                    :
-                                                        <div onClick={() => selectedColumnDispatchDate(item.subscription_item)} style={{ color: 'black'}} className="link pointer ml-1 p-0 subscription-card-value">{moment(item.subscription_item.dispatch_date).format("DD/MM/YYYY")}</div>
+                                                        <div
+                                                            className="ml-1 p-0 subscription-card-value">{moment(item.subscription_item.dispatch_date).format("DD/MM/YYYY")}</div>
+                                                        :
+                                                        <div
+                                                            onClick={() => selectedColumnDispatchDate(item.subscription_item)}
+                                                            style={{color: 'black'}}
+                                                            className="link pointer ml-1 p-0 subscription-card-value">{moment(item.subscription_item.dispatch_date).format("DD/MM/YYYY")}</div>
                                                 }
 
                                             </div>
@@ -589,13 +599,13 @@ const SubscriptionCardResponsive = ({
                                                     No Encontrada
                                                 </h1>
                                                 : item.subscription_item.status !== 'CREATED' && item.subscription_item.status !== 'REJECTED' ?
-                                                    <h1 className="ml-2 text-truncate p-0 subscription-card-value">{item.subscription_item.subscription.card_number}</h1> :
-                                                    <h1 className="ml-2 text-truncate p-0 subscription-card-value link pointer"
-                                                        onClick={() => selectedColumnsSubscriptionCard(item.subscription_item)}
-                                                        style={{color: "#484848"}}
-                                                    >
-                                                        {item.subscription_item.subscription.card_number}
-                                                    </h1>
+                                                <h1 className="ml-2 text-truncate p-0 subscription-card-value">{item.subscription_item.subscription.card_number}</h1> :
+                                                <h1 className="ml-2 text-truncate p-0 subscription-card-value link pointer"
+                                                    onClick={() => selectedColumnsSubscriptionCard(item.subscription_item)}
+                                                    style={{color: "#484848"}}
+                                                >
+                                                    {item.subscription_item.subscription.card_number}
+                                                </h1>
 
                                         }
                                     </div>
@@ -607,15 +617,18 @@ const SubscriptionCardResponsive = ({
                                                 <h1 className="ml-2 text-truncate p-0 subscription-card-value">{item.subscription_item.dispatch_status}</h1> :
                                                 item.subscription_item.order_parent.dispatch_status != null ?
                                                     <h1 className="ml-2 text-truncate p-0 subscription-card-value">{item.subscription_item.dispatch_status}</h1> :
-                                                    <h1 className="ml-2 text-truncate p-0 subscription-card-value">Sin Despachar</h1>
+                                                    <h1 className="ml-2 text-truncate p-0 subscription-card-value">Sin
+                                                        Despachar</h1>
                                         }
                                     </div>
                                     <div className="col-12 d-flex flex-row">
                                         <h1 className="text-truncate p-0 subscription-card-label">Dirección</h1>
                                         {
                                             isOnClickAddress ?
-                                                <h1 onClick={() => selectedColumnAddress(item.subscription_item)} style={{ color: 'black'}} className="ml-2 text-truncate p-0 subscription-card-value link pointer">{address}</h1> :
-                                                    <h1 className="ml-2 text-truncate p-0 subscription-card-value">{address}</h1>
+                                                <h1 onClick={() => selectedColumnAddress(item.subscription_item)}
+                                                    style={{color: 'black'}}
+                                                    className="ml-2 text-truncate p-0 subscription-card-value link pointer">{address}</h1> :
+                                                <h1 className="ml-2 text-truncate p-0 subscription-card-value">{address}</h1>
                                         }
                                     </div>
                                     <div className="col-12 d-flex flex-row">
@@ -625,17 +638,22 @@ const SubscriptionCardResponsive = ({
                                 </div>
                                 <div className="subscription-card-footer">
                                     <div className="col-12 d-flex flex-row mt-2 mr-1 ml-1">
-                                        <h1 style={{lineHeight : 1.5}} className="mr-1 mb-0 p-0 subscription-card-value">Le quedan
-                                            <span className=" p-0 subscription-card-label"> {item.cycle.days} días </span>
+                                        <h1 style={{lineHeight: 1.5}}
+                                            className="mr-1 mb-0 p-0 subscription-card-value">Le quedan
+                                            <span
+                                                className=" p-0 subscription-card-label"> {item.cycle.days} días </span>
                                             o hasta el
-                                            <span className=" p-0 subscription-card-label"> {changeMonthToSpanish(item.cycle.max_date)} </span>
+                                            <span
+                                                className=" p-0 subscription-card-label"> {changeMonthToSpanish(item.cycle.max_date)} </span>
                                             de protección.
                                         </h1>
                                     </div>
                                     {
                                         item.subscription_item.active == 1 ?
                                             <div className="col-12 mt-2 mr-1 ml-1 text-center">
-                                                <h1 onClick={() => cancelSubscriptionItem(item.subscription_item)} style={{color: "red"}} className="mr-1 mb-0 p-0 subscription-card-value link pointer">
+                                                <h1 onClick={() => cancelSubscriptionItem(item.subscription_item)}
+                                                    style={{color: "red"}}
+                                                    className="mr-1 mb-0 p-0 subscription-card-value link pointer">
                                                     Cancelar Suscripción
                                                 </h1>
                                             </div>

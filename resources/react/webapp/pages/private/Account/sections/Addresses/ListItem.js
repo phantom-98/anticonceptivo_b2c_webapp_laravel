@@ -9,7 +9,8 @@ const ListItem = ({
                       regions,
                       communes,
                       addressChecked,
-                      isSusbscription = false
+                      isSusbscription = false,
+                      name = 'default_address'
                   }) => {
 
     const {width} = UseWindowDimensions();
@@ -47,11 +48,11 @@ const ListItem = ({
                         inline
                         label=""
                         type="radio"
-                        name="default_address"
-                        checked={address.default_address ? true : false}
+                        name={name}
+                        checked={addressChecked ? addressChecked : (address.default_address ? true : false)}
                         className="mr-1"
                         onClick={() => saveDefaultAddress(address.id, address.customer_id)}
-                        id={`custom-inline-radio-address-${address.id}`}
+                        id={`custom-inline-radio-address-${address.id}-${name}`}
                     />
                 </div>
             </div>
