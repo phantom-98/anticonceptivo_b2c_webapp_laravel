@@ -57,7 +57,7 @@ const List = ({addresses, showEdit, showCreate, getData, regions, communes}) => 
 
             <div className="col-md-12">
                 <Icon path={plusIcon}/> <span onClick={() => showCreate()}
-                                              className="link pointer font-12 bold link-address-profile">Agregar nueva dirección</span>
+                                              className="link pointer font-14 bold link-address-profile">Agregar nueva dirección</span>
             </div>
         </div>
     );

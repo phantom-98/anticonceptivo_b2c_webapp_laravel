@@ -83,7 +83,7 @@ const List = ({
                 auth ?
                     <div className="col-md-12">
                         <Icon path={plusIcon}/> <span onClick={() => showCreate()}
-                                                      className="link pointer font-12 bold link-address-checkout">Agregar nueva dirección</span>
+                                                      className="link pointer font-14 bold link-address-checkout">Agregar nueva dirección</span>
                     </div>
                     : null
             }

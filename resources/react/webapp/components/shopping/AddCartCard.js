@@ -6,13 +6,13 @@ import {AppContext} from "../../context/AppProvider";
 import {ModalAuthMode} from "../../Globals"
 import Swal from 'sweetalert2';
 
-const AddCartCard = ({quantity, setQuantity, product,subscription}) =>{
+const AddCartCard = ({quantity, setQuantity, product, subscription, classModule = ''}) => {
 
     const {addToCart} = useContext(CartContext);
     const {auth} = useContext(AuthContext);
     const {showModalAuth} = useContext(AppContext)
 
-    const handleAddToCart = () =>{
+    const handleAddToCart = () => {
 
         if (subscription && !auth) {
             const swalWithBootstrapButtons = Swal.mixin({
@@ -23,7 +23,7 @@ const AddCartCard = ({quantity, setQuantity, product,subscription}) =>{
                 },
                 buttonsStyling: false
             })
-            
+
             swalWithBootstrapButtons.fire({
                 title: '<span style="color: #0869A6;">Para agregar este producto debes acceder a tu cuenta</span>',
                 confirmButtonText: 'Acceder',
@@ -45,25 +45,31 @@ const AddCartCard = ({quantity, setQuantity, product,subscription}) =>{
     }
 
     return (
-        <div className="row">
+        <div className={`row ${classModule}`}>
             <div className="col-auto pr-1">
-            {
-                subscription != null 
-                    ? null
-                        : <QuantityInput quantity={quantity} setQuantity={setQuantity} maxQuantity={product.stock >= product.subcategory.category.quantity_limit ? product.subcategory.category.quantity_limit : product.stock }/>
-            }
+                
+                {
+                    subscription != null
+                        ? null
+                        : <QuantityInput
+                            quantity={quantity}
+                            setQuantity={setQuantity}
+                            maxQuantity={product.stock >= product.subcategory.category.quantity_limit ? product.subcategory.category.quantity_limit : product.stock}/>
+                }
+
             </div>
 
             {
-                product.stock != 0 ? 
+                product.stock != 0 ?
                     <div className="col pl-1">
-                        <button className="btn btn-outline-bicolor btn-add-cart btn-block px-1" onClick={() => handleAddToCart()}>
+                        <button className="btn btn-outline-bicolor btn-add-cart btn-block px-1"
+                                onClick={() => handleAddToCart()}>
                             <span>AGREGAR AL CARRO</span>
                         </button>
                     </div>
-                :
+                    :
                     <div className="col pl-1">
-                        <button disabled className="btn btn-outline-bicolor btn-add-cart btn-block px-1" >
+                        <button disabled className="btn btn-outline-bicolor btn-add-cart btn-block px-1">
                             <span>SIN STOCK ONLINE </span>
                         </button>
                     </div>

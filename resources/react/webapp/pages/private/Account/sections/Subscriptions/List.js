@@ -79,7 +79,7 @@ const List = ({subscriptions, showCreate, getData}) => {
                 }
             </div>
             <div className="col-md-12">
-                <Icon path={plusIcon} />  <span onClick={() => showCreate()} className="link pointer font-12 regular">Agregar nuevo método de pago</span>
+                <Icon path={plusIcon} />  <span onClick={() => showCreate()} className="link pointer font-14 bold link-address-checkout">Agregar nuevo método de pago</span>
             </div>
         </div>
     );

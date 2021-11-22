@@ -2280,17 +2280,17 @@ input[type=number] {
 
 @media (max-width: 767px) {
   .subscribe-font {
-    font-size: 18px;
+    font-size: 25px;
   }
 
   .subscribe-btn-font {
-    font-size: 12px;
+    font-size: 14px;
   }
 
   .form-control-custom-subscribe {
     border: 1px solid #D6D6D6;
     border-radius: 12px;
-    font-size: 10px;
+    font-size: 13px;
     color: #3C3C3E;
     padding-left: 1.25rem !important;
   }
@@ -3755,6 +3755,22 @@ h4 {
 
 .bg-2A317F {
   background-color: #2A317F;
+}
+
+.color-0A68A6 {
+  color: #0A68A6;
+}
+
+.bg-0A68A6 {
+  background-color: #0A68A6;
+}
+
+.color-585858 {
+  color: #585858;
+}
+
+.bg-585858 {
+  background-color: #585858;
 }
 
 @media (min-width: 1200px) {
@@ -5467,6 +5483,94 @@ a:-webkit-any-link:focus-visible {
     position: absolute;
     top: -20px;
     left: 36px;
+  }
+
+  .card-delivery-cost .card-header {
+    min-height: 45px;
+  }
+
+  .card-delivery-cost .card-header::after {
+    top: 15px;
+  }
+
+  .card-delivery-cost .collapse.show + .card-header::after {
+    top: 24px;
+  }
+
+  .card-plans .card-header:hover,
+  .card-plans .collapsing + .card-header,
+  .card-plans .collapse.show + .card-header {
+    font-size: 16px;
+    background: #009BE8 !important;
+    border-color: #009BE8 !important;
+  }
+
+  .card-plans .card-header h3 {
+    font-size: 16px !important;
+  }
+
+  .card-delivery-cost .card-body {
+    border-radius: 12px;
+    border: 1px solid #CECECE;
+    padding: 15px;
+    margin-top: 15px;
+  }
+
+  .card-delivery-cost-title {
+    font-size: 14px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    line-height: 15px;
+  }
+
+  .about-us-description li,
+  .about-us-description p,
+  .about-us-description {
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .product-format-style {
+    background: #fafac8;
+    border-radius: 10px;
+    border: solid 1px #f0f08c;
+    font-size: 16px;
+    padding: 10px 15px;
+    color: #484848;
+    font-weight: 500;
+  }
+
+  .single-product .btn {
+    font-size: 13px;
+    font-weight: bold;
+    height: 43px !important;
+    letter-spacing: 0;
+    color: #000000 !important;
+  }
+
+  .single-product .quantity-input {
+    height: 43px;
+    width: 99px;
+    margin-right: 0.75rem;
+  }
+
+  .single-product .quantity-input div {
+    float: left;
+    padding-top: 10px;
+    height: 43px !important;
+  }
+
+  .single-product .quantity-input-button {
+    width: 30px;
+  }
+
+  .single-product .quantity-input-field,
+  .single-product .quantity-input-field input {
+    width: 39px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 500;
+    padding-top: 3px !important;
   }
 }
 

@@ -23,10 +23,6 @@ const ListItem = ({
     let region = regions.find(x => x.id === address.region_id)
     let commune = communes.find(x => x.id === address.commune_id)
 
-    useEffect(() => {
-        console.log(address);
-    }, [address])
-
     // const removeData = (addresId) => {
     //     let url = Services.ENDPOINT.CUSTOMER.ADDRESSES.REMOVE;
 
