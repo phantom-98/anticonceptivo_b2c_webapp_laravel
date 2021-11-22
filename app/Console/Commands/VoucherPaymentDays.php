@@ -63,7 +63,7 @@ class VoucherPaymentDays extends Command
             $dayPaymentExists = DayPayment::whereDate('created_at', $datePayment)->get()->first();
 
             if($dayPaymentExists){
-                continue;
+                return;
             }
 
             $orders = Order::whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED'])->whereDate('created_at',$datePayment)
@@ -155,7 +155,7 @@ class VoucherPaymentDays extends Command
             );
             if($total == 0){
                 Log::info('No hay nada que facturar');
-                continue;
+                return;
             }
             $get_data = ApiHelper::callAPI('POST', 'https://api.bsale.cl/v1/documents.json', json_encode($data_voucher), true);
             $response = json_decode($get_data, true);
