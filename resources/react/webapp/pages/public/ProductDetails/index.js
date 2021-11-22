@@ -22,7 +22,7 @@ const ProductDetail = ({match}) => {
     const [breadcrumbs, setBreadcrumbs] = useState([]);
     const [imageSubscription, setImageSubscription] = useState(null);
     const [loading, setLoading] = useState(true);
-    const { width } = UseWindowDimensions();
+    const {width} = UseWindowDimensions();
 
     useEffect(() => {
         if (product) {
@@ -79,18 +79,24 @@ const ProductDetail = ({match}) => {
     return (
         !loading ?
             <Fragment>
-                <div style={{background: '#FAFAFA'}}>
-                    <div className="container">
-                        {/*<div className={product.subcategory.category.banner_image_size +" pt-4"}>*/}
-                        <div className="w-100 pt-4">
-                            <img width="100%" style={{objectFit:'cover', height:'110px'}}
-                                 src={width > 750 ? product.subcategory.category.public_banner_image : product.subcategory.category.public_banner_image_responsive ?? product.subcategory.category.public_banner_image}
-                                 alt={CONFIG.APP_NAME}/>
-                        </div>
-                    </div>
-                </div>
+                {/*<div style={{background: '#FAFAFA'}}>*/}
+                {/*    <div className="container">*/}
+                {/*        /!*<div className={product.subcategory.category.banner_image_size +" pt-4"}>*!/*/}
+                {/*        <div className="w-100 pt-4">*/}
+                {/*            <img width="100%" style={{objectFit:'cover', height:'110px'}}*/}
+                {/*                 src={width > 750 ? product.subcategory.category.public_banner_image : product.subcategory.category.public_banner_image_responsive ?? product.subcategory.category.public_banner_image}*/}
+                {/*                 alt={CONFIG.APP_NAME}/>*/}
+                {/*        </div>*/}
+                {/*    </div>*/}
+                {/*</div>*/}
 
-                <BasePanelTwo breadcrumbs={breadcrumbs}>
+                <BasePanelTwo
+                    classContainer="mobile-shop"
+                    breadcrumbs={breadcrumbs}
+                    prepend={<img width="100%" style={{objectFit: 'cover', height: '110px'}}
+                                  src={width > 750 ? product.subcategory.category.public_banner_image : product.subcategory.category.public_banner_image_responsive ?? product.subcategory.category.public_banner_image}
+                                  alt={CONFIG.APP_NAME}/>}
+                >
 
                     <div className="row product-separator">
                         <div className="col-md-6">
@@ -104,13 +110,19 @@ const ProductDetail = ({match}) => {
 
                     {
                         product.is_bioequivalent ?
-                            <div style={{backgroundColor: '#FFEA17', borderRadius: '10px', minHeight : '47px', padding : '5px 10px'}}>
+                            <div style={{
+                                backgroundColor: '#FFEA17',
+                                borderRadius: '10px',
+                                minHeight: '47px',
+                                padding: '5px 10px'
+                            }}>
                                 <div className="row">
                                     <div className="col-auto pr-0">
                                         <img src={Bioequivalent} alt="anticonceptivo.cl"/>
                                     </div>
                                     <div className="col d-flex">
-                                        <p className="font-poppins font-15 regular mb-0 my-auto" style={{color: '#F14821'}}>Este medicamento es bioequivalente</p>
+                                        <p className="font-poppins font-15 regular mb-0 my-auto"
+                                           style={{color: '#F14821'}}>Este medicamento es bioequivalente</p>
                                     </div>
                                 </div>
                             </div>
@@ -122,12 +134,13 @@ const ProductDetail = ({match}) => {
                 </BasePanelTwo>
 
                 {
-                    // prods.length ?
-                    <ProductsCarousel
-                        prods={prods}
-                        title="Te podría interesar"
-                    />
-                    // : null
+                    prods.length ?
+                        <ProductsCarousel
+                            prods={prods}
+                            title="Te podría interesar"
+                        />
+                        :
+                        null
                 }
 
                 <Subscribe/>
