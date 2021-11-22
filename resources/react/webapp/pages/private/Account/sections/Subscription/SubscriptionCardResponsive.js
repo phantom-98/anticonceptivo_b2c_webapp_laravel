@@ -35,8 +35,6 @@ const Table = ({
     const [tableLoaded, setTableLoaded] = useState(false);
     const [modalAddress, setModalAddress] = useState(false);
     const [modalSubscriptionCard, setModalSubscriptionCard] = useState(false);
-    const [activeSubscription, setActiveSubscription] = useState([]);
-
     const [modalDispatchDate, setModalDispatchDate] = useState(false);
     const [objects, setObjects] = useState([]);
     const [addresses, setAddresses] = useState([]);
@@ -48,6 +46,8 @@ const Table = ({
     const [subscriptions, setSubscriptions] = useState([]);
     const [dispatchDate, setDispatchDate] = useState(new Date());
     const [minDate, setMinDate] = useState(new Date());
+    const [maxDate, setMaxDate] = useState(new Date());
+
     const showEdit = address => {
         setView("form");
         setFormMode("edit");
@@ -55,7 +55,6 @@ const Table = ({
     };
 
     useEffect(() => {
-        getActiveSubscriptions();
         getSubscriptionsCards();
         getDataAddress();
         getSubscriptions();
@@ -76,28 +75,6 @@ const Table = ({
         dateString = dateString.replace('November', 'Noviembre')
         dateString = dateString.replace('December', 'Diciembre')
         return dateString;
-    }
-
-    const getActiveSubscriptions = () => {
-        let url =
-            Services.ENDPOINT.CUSTOMER.SUBSCRIPTIONS
-                .GET_ACTIVE_SUBSCRIPTIONS_ORDERS_ITEMS;
-        let data = {
-            customer_id: auth.id
-        };
-        Services.DoPost(url, data)
-            .then(response => {
-                Services.Response({
-                    response: response,
-                    success: () => {
-                        setActiveSubscription(response.data.active_subscriptions);
-
-                    }
-                });
-            })
-            .catch(error => {
-                Services.ErrorCatch(error);
-            });
     }
 
     const changeVisibleModalAddress = () => {
@@ -217,21 +194,15 @@ const Table = ({
         setModalAddress(true);
     };
 
-    const selectedColumnsSubscriptionCard = (subscriptionOrderItem) => {
-        setSubscriptionOrderItemSelected(subscriptionOrderItem);
-        setModalSubscriptionCard(true);
-    };
+    const cancelSubscriptionItem = (subscriptionOrderItem) => {
 
-    const selectedColumnDispatchDate = (subscriptionOrderItem) => {
-        let minDateDispatch = new Date(subscriptionOrderItem.min_date_dispatch + ' 04:00:00')
-        minDateDispatch.setDate(minDateDispatch.getDate() + 1);
-        setMinDate(minDateDispatch)
-        setSubscriptionOrderItemSelected(subscriptionOrderItem);
-        setDispatchDate(subscriptionOrderItem.dispatch_date)
-        setModalDispatchDate(true);
-    };
+        let url =
+            Services.ENDPOINT.CUSTOMER.SUBSCRIPTIONS.SET_CANCEL_SUBSCRIPTION;
 
-    const selectedSubscriptionOrderItemStatusRejected = (subscriptionOrderItem) => {
+        let data = {
+            subscription_order_item_id: subscriptionOrderItem.id
+        };
+
         const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
                 confirmButton: "col-6 btn btn-bicolor btn-block",
@@ -242,18 +213,47 @@ const Table = ({
 
         swalWithBootstrapButtons
             .fire({
-                title:
-                    '<span style="color: #0869A6;">¿Está seguro de reintentar el pago?</span>',
+                html:
+                    '<h3 class="font-21 bold font-poppins color-0869A6">¿Estás seguro de que quieres cancelar?</h3><p class="font-14 font-poppins regular pt-3">Al cancelar esta suscripción implica cancelar todos los productos relacionados al número de pedido <b>'+subscriptionOrderItem.order_parent_id+'</b></br></p>',
                 confirmButtonText: "Confirmar",
                 reverseButtons: true
             })
             .then(result => {
                 if (result.isConfirmed) {
-
+                    Services.DoPost(url, data)
+                        .then(response => {
+                            Services.Response({
+                                response: response,
+                                success: () => {
+                                    setSubscriptionOrderItemSelected(
+                                        response.data
+                                    );
+                                    getSubscriptions();
+                                    getDataAddress();
+                                }
+                            });
+                        })
+                        .catch(error => {
+                            Services.ErrorCatch(error);
+                        });
                 }
             });
+    };
+
+    const selectedColumnsSubscriptionCard = (subscriptionOrderItem) => {
+        setSubscriptionOrderItemSelected(subscriptionOrderItem);
+        setModalSubscriptionCard(true);
+    };
+
+    const selectedColumnDispatchDate = (subscriptionOrderItem) => {
+        let minDateDispatch = new Date(subscriptionOrderItem.min_date_dispatch + ' 04:00:00')
+        minDateDispatch.setDate(minDateDispatch.getDate() + 1);
+        setMinDate(minDateDispatch)
+        setMaxDate(minDateDispatch.getDate() + 7)
 
         setSubscriptionOrderItemSelected(subscriptionOrderItem);
+        setDispatchDate(subscriptionOrderItem.dispatch_date)
+        setModalDispatchDate(true);
     };
 
     const getDataAddress = () => {
@@ -338,7 +338,8 @@ const Table = ({
             Services.ENDPOINT.CUSTOMER.SUBSCRIPTIONS
                 .GET_SUBSCRIPTIONS_ORDERS_ITEMS;
         let data = {
-            customer_id: auth.id
+            customer_id: auth.id,
+            isMobile: 1,
         };
         Services.DoPost(url, data)
             .then(response => {
@@ -362,198 +363,8 @@ const Table = ({
         setAddressSelected(null);
     };
 
-    const formattedData = (row) => {
-        let htmlExpandRow = '';
-        row.products.forEach(function (element, i) {
-            htmlExpandRow += "<div class='row ml-3'><div className='col-md-8'>" + element.name + "</div>" + "<div class='col-md-4'> Corresponde al periodo" + " " + row.period + "  </div></div>"
-        });
-        return htmlExpandRow;
-    }
-
-    const expandRow = {
-        renderer: (row, rowIndex) => (
-            <div dangerouslySetInnerHTML={{__html: formattedData(row)}}>
-            </div>
-        )
-    };
-
-    const columns = [
-        {
-            text: "NÚMERO DE PEDIDO",
-            dataField: "pay_date",
-            sort: true,
-            classes: "",
-            headerClasses: "",
-            formatter: (cell, row) => {
-                return '#' + row.order_id;
-            }
-        },
-        {
-            text: "TARJETA",
-            dataField: "pay_date",
-            sort: true,
-            classes: "",
-            headerClasses: "",
-            formatter: (cell, row) => {
-
-                if (row.subscription == null) {
-                    return (
-                        <span
-                            onClick={() => selectedColumnsSubscriptionCard(row)}
-                            className="link pointer"
-                            style={{color: "#484848"}}
-                        >
-                            Tarjeta No Encontrada
-                        </span>
-                    );
-                }
-
-                if (row.status != 'CREATED' && row.status != 'REJECTED') {
-                    return row.subscription.card_number;
-                }
-
-                return (
-                    <span
-                        onClick={() => selectedColumnsSubscriptionCard(row)}
-                        className="link pointer"
-                        style={{color: "#484848"}}
-                    >
-                        {row.subscription.card_number}
-                    </span>
-                );
-
-            }
-        },
-
-        {
-            text: "FECHA DE PAGO",
-            dataField: "pay_date",
-            sort: true,
-            classes: "",
-            headerClasses: "",
-            formatter: (cell, row) => {
-                return moment(cell).format("DD/MM/YYYY");
-            }
-        },
-        {
-            text: "FECHA DE DESPACHO",
-            dataField: "dispatch_date",
-            sort: true,
-            classes: "",
-            headerClasses: "",
-            formatter: (cell, row) => {
-
-                if (row.status != 'CREATED' && row.status != 'REJECTED') {
-                    return moment(cell).format("DD/MM/YYYY")
-                }
-
-                return (
-                    <span
-                        onClick={() => selectedColumnDispatchDate(row)}
-                        className="link pointer"
-                        style={{color: "#484848"}}
-                    >
-                        {moment(cell).format("DD/MM/YYYY")}
-                    </span>
-                );
-            }
-        },
-        {
-            text: "ESTADO DE DESPACHO",
-            dataField: "subtotal",
-            sort: true,
-            classes: "",
-            headerClasses: "",
-            formatter: (cell, row) => {
-                if (row.dispatch_status != null) {
-                    return row.dispatch_status
-
-                } else if (row.order.dispatch_status != null) {
-                    return row.order.dispatch_status
-                } else {
-                    return 'Sin Despachar';
-                }
-            }
-        },
-        {
-            text: "DIRECCIÓN",
-            dataField: "subtotal",
-            sort: true,
-            classes: "",
-            headerClasses: "",
-            formatter: (cell, row) => {
-                let address = '';
-
-                if (row.delivery_address != null) {
-                    address = row.delivery_address
-                } else if (row.customer_address) {
-                    address = row.customer_address.address + ' ' + row.customer_address.extra_info
-                }
-
-                if (row.status != 'CREATED' && row.status != 'REJECTED') {
-                    return address;
-                }
-                return (
-                    <span
-                        onClick={() => selectedColumnAddress(row)}
-                        className="link pointer"
-                        style={{color: "#484848"}}
-                    >
-                        {address}
-                    </span>
-                );
-            }
-        },
-        {
-            text: "ESTADO",
-            dataField: "subtotal",
-            sort: true,
-            classes: "",
-            headerClasses: "",
-            formatter: (cell, row) => {
-                if (row.status == 'CREATED') {
-                    return 'CREADO'
-                } else if (row.status == 'REJECTED') {
-                    return (
-                        <span
-                            onClick={() => selectedSubscriptionOrderItemStatusRejected(row)}
-                            className="link pointer"
-                            style={{color: "#484848"}}
-                        >
-                            RECHAZADO
-                        </span>
-                    );
-                } else if (row.status == 'DISPATCHED') {
-                    return 'DESPACHADO'
-                } else if (row.status == 'DELIVERED') {
-                    return 'DELIVERED'
-                } else if (row.status == 'PAID') {
-                    return 'PAGADO'
-                }
-                return row.status
-            }
-        },
-        {
-            text: [<span className="img-in-input" data-tip data-for="password_tooltip">TOTAL</span>,],
-            dataField: 'total',
-            sort: true,
-            classes: '',
-            headerClasses: '',
-            formatter: (cell, row) => {
-
-                if (row.status !== 'PAID') {
-                    return formatMoney(cell) + '(*)'
-
-                }
-                return formatMoney(cell)
-
-            }
-        },
-    ];
-
     return (
         <>
-
             <ModalDispatchDate
                 modalDispatchDate={modalDispatchDate}
                 setModalDispatchDate={setModalDispatchDate}
@@ -565,7 +376,6 @@ const Table = ({
                 getSubscriptions={getSubscriptions}
                 getDataAddress={getDataAddress}
             />
-
             <Modal
                 show={modalSubscriptionCard}
                 centered
@@ -598,8 +408,8 @@ const Table = ({
                                                 ? 0
                                                 : (subscriptionOrderItemSelected.subscription_id ==
                                                 subscription.id
-                                                ? 1
-                                                : 0)
+                                                    ? 1
+                                                    : 0)
                                         }
                                     />))
                             }
@@ -643,8 +453,8 @@ const Table = ({
                                                 ? 0
                                                 : (subscriptionOrderItemSelected.customer_address_id ==
                                                 address.id
-                                                ? 1
-                                                : 0)
+                                                    ? 1
+                                                    : 0)
                                         }
                                         isSusbscription={true}
                                     />
@@ -666,55 +476,180 @@ const Table = ({
                 </Modal.Body>
             </Modal>
 
-            {/*{*/}
-            {/*    activeSubscription.map((item, index) => {*/}
-
-            {/*        return item.days > 0 ? (*/}
-
-            {/*            <p>*/}
-            {/*                /!*#{item.order_parent_id} {item.name}  Le quedan  {item.days} días de protección*!/*/}
-            {/*                #{item.order_parent_id} {item.name} le quedan {item.days} días o hasta*/}
-            {/*                el {changeMonthToSpanish(item.max_date)} de proteccion*/}
-
-            {/*            </p>*/}
-            {/*        ) : null*/}
-
-            {/*    })*/}
-            {/*}*/}
-
-
             {objects.length ?
                 objects.map((item, index) => {
-                    console.log(item)
+                    let address = '';
+                    let isOnClickAddress = true;
+                    if (item.subscription_item.delivery_address != null) {
+                        address = item.subscription_item.delivery_address
+                    } else if (item.customer_address) {
+                        address = item.subscription_item.customer_address.address + ' ' + item.subscription_item.customer_address.extra_info
+                    }
+                    if (item.subscription_item.status != 'CREATED' && item.subscription_item.status != 'REJECTED') {
+                        isOnClickAddress = false;
+                    }
+
+                    if (!item.active){
+                        return null
+                    }
+
                     return (
                         <div className="col-12 m-0 mt-3 p-0">
                             <div key={uuidv4()} className="subscription-card">
                                 <div className="subscription-card-header">
-                                    {item.products.map((product, index) => {
-                                        return (
+
                                             <div className="row mr-1 ml-1">
-                                                <div className="col-10 d-flex flex-row">
-                                                    <img height={37} src={product.images[0].public_file} alt={`${CONFIG.APP_NAME} - ${product.name}`}/>
-                                                    <h1 className="ml-3 product-card-name text-truncate p-0 product-card-name" style={{fontSize: 15, marginTop: 10}}>{product.name}</h1>
-                                                </div>
-                                                <div className="col-2 d-flex flex-row">
+                                                <div className="col d-flex flex-row pr-0">
+                                                    <img height={48} src={item.subscription_item.order_item.product.images[0].public_file}
+                                                         alt={`${CONFIG.APP_NAME} - ${item.subscription_item.order_item.product.name}`}/>
+                                                    <div
+                                                        className="ml-3 product-card-name text-truncate p-0"
+                                                        style={{fontSize: 15, marginTop: 15}}>{item.subscription_item.order_item.product.name}</div>
 
                                                 </div>
+
+
+
+                                                {
+                                                    item.subscription_item.active == 0 ?
+                                                        <div className="col-auto d-flex flex-row">
+                                                            <div className="subscription-card-label-cancel mt-2">Cancelado</div>
+                                                        </div>
+                                                        :
+
+                                                    (item.current_advance -2 == item.advance_end ?
+                                                        <div className="col-auto d-flex flex-row">
+                                                            <div className="subscription-card-label-inactive mt-2">Inactivo</div>
+                                                        </div>
+                                                        :
+                                                        <div className="col-auto d-flex flex-row">
+                                                            <div className="subscription-card-label-active mt-2">Activo</div>
+                                                        </div>)
+                                                }
+
                                             </div>
-                                        )
-                                    })}
+
                                 </div>
                                 <div className="subscription-card-body mr-1 ml-1 mt-2">
                                     <div className="col-12 d-flex flex-row">
-                                        <h1 className="text-truncate p-0 subscription-card-label">Nº Pedido</h1>
-                                        <h1 className="ml-2 text-truncate p-0 subscription-card-value">{item.order_id}</h1>
+                                        <div className="col p-0">
+                                            <h1 className="p-0 subscription-card-label">Avance Suscripción</h1>
+                                        </div>
+                                        <div className="col-auto p-0" style={{ marginTop: -6}}>
+                                            {
+                                                Array.from({length: item.advance_end}, (_, i) => i + 1).map((itemNumber) => {
+                                                    if(item.current_advance < itemNumber){
+                                                        return (
+                                                            <span className="dot-incoming"/>
+                                                        )
+                                                    }else if(item.current_advance === itemNumber || item.current_advance -1 === itemNumber){
+                                                        return (
+                                                            <span className="dot-process"/>
+                                                        )
+                                                    }else{
+                                                        return (
+                                                            <span className="dot-finish"/>
+                                                        )
+                                                    }
+                                                })
+                                            }
+                                            <span className="ml-2 p-0 subscription-card-label">{item.current_advance -2}/{item.advance_end}</span>
+                                        </div>
                                     </div>
                                     <div className="col-12 d-flex flex-row">
-                                        <h1 className="text-truncate p-0 subscription-card-label">Fecha de despacho</h1>
-                                        <h1 className="ml-2 text-truncate p-0 subscription-card-value">{moment(item.dispatch_date).format("DD/MM/YYYY")}</h1>
+                                        <h1 className="text-truncate p-0 subscription-card-label">Nº Pedido</h1>
+                                        <h1 className="ml-2 text-truncate p-0 subscription-card-value">{item.subscription_item.order_parent_id}</h1>
+                                    </div>
+
+                                    <div className="col-12 d-flex flex-row">
+                                        <div className="col p-0">
+                                            <div className="d-flex flex-row">
+                                                <div className="mr-1 p-0 subscription-card-label">Fecha De Pago</div>
+                                                <div className="ml-1 p-0 subscription-card-value">{moment(item.subscription_item.pay_date).format("DD/MM/YYYY")}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="col-12 d-flex flex-row">
+                                        <div className="col p-0">
+                                            <div className="d-flex flex-row">
+                                                <div className="mr-1 p-0 subscription-card-label">Fecha Despacho</div>
+
+                                                {
+                                                    item.subscription_item.status != 'CREATED' && item.subscription_item.status != 'REJECTED' ?
+                                                        <div className="ml-1 p-0 subscription-card-value">{moment(item.subscription_item.dispatch_date).format("DD/MM/YYYY")}</div>
+                                                    :
+                                                        <div onClick={() => selectedColumnDispatchDate(item.subscription_item)} style={{ color: 'black'}} className="link pointer ml-1 p-0 subscription-card-value">{moment(item.subscription_item.dispatch_date).format("DD/MM/YYYY")}</div>
+                                                }
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="col-12 d-flex flex-row">
+                                        <h1 className="text-truncate p-0 subscription-card-label">Tarjeta</h1>
+                                        {
+                                            item.subscription_item.subscription == null ?
+                                                <h1
+                                                    onClick={() => selectedColumnsSubscriptionCard(item.subscription_item)}
+                                                    className="ml-2 text-truncate p-0 subscription-card-value link pointer"
+                                                    style={{color: "#484848"}}
+                                                >
+                                                    No Encontrada
+                                                </h1>
+                                                : item.subscription_item.status !== 'CREATED' && item.subscription_item.status !== 'REJECTED' ?
+                                                    <h1 className="ml-2 text-truncate p-0 subscription-card-value">{item.subscription_item.subscription.card_number}</h1> :
+                                                    <h1 className="ml-2 text-truncate p-0 subscription-card-value link pointer"
+                                                        onClick={() => selectedColumnsSubscriptionCard(item.subscription_item)}
+                                                        style={{color: "#484848"}}
+                                                    >
+                                                        {item.subscription_item.subscription.card_number}
+                                                    </h1>
+
+                                        }
+                                    </div>
+
+                                    <div className="col-12 d-flex flex-row">
+                                        <h1 className="text-truncate p-0 subscription-card-label">Estado Despacho</h1>
+                                        {
+                                            item.subscription_item.dispatch_status != null ?
+                                                <h1 className="ml-2 text-truncate p-0 subscription-card-value">{item.subscription_item.dispatch_status}</h1> :
+                                                item.subscription_item.order_parent.dispatch_status != null ?
+                                                    <h1 className="ml-2 text-truncate p-0 subscription-card-value">{item.subscription_item.dispatch_status}</h1> :
+                                                    <h1 className="ml-2 text-truncate p-0 subscription-card-value">Sin Despachar</h1>
+                                        }
+                                    </div>
+                                    <div className="col-12 d-flex flex-row">
+                                        <h1 className="text-truncate p-0 subscription-card-label">Dirección</h1>
+                                        {
+                                            isOnClickAddress ?
+                                                <h1 onClick={() => selectedColumnAddress(item.subscription_item)} style={{ color: 'black'}} className="ml-2 text-truncate p-0 subscription-card-value link pointer">{address}</h1> :
+                                                    <h1 className="ml-2 text-truncate p-0 subscription-card-value">{address}</h1>
+                                        }
+                                    </div>
+                                    <div className="col-12 d-flex flex-row">
+                                        <h1 className="text-truncate p-0 subscription-card-label">Total</h1>
+                                        <h1 className="ml-2 text-truncate p-0 subscription-card-value">{item.subscription_item.status !== 'PAID' ? formatMoney(item.total) + '(*)' : formatMoney(item.total)}</h1>
                                     </div>
                                 </div>
                                 <div className="subscription-card-footer">
+                                    <div className="col-12 d-flex flex-row mt-2 mr-1 ml-1">
+                                        <h1 style={{lineHeight : 1.5}} className="mr-1 mb-0 p-0 subscription-card-value">Le quedan
+                                            <span className=" p-0 subscription-card-label"> {item.cycle.days} días </span>
+                                            o hasta el
+                                            <span className=" p-0 subscription-card-label"> {changeMonthToSpanish(item.cycle.max_date)} </span>
+                                            de protección.
+                                        </h1>
+                                    </div>
+                                    {
+                                        item.subscription_item.active == 1 ?
+                                            <div className="col-12 mt-2 mr-1 ml-1 text-center">
+                                                <h1 onClick={() => cancelSubscriptionItem(item.subscription_item)} style={{color: "red"}} className="mr-1 mb-0 p-0 subscription-card-value link pointer">
+                                                    Cancelar Suscripción
+                                                </h1>
+                                            </div>
+                                            :
+                                            null
+                                    }
 
                                 </div>
                             </div>
@@ -727,7 +662,6 @@ const Table = ({
                     </div>
                 </div>
             }
-
 
 
         </>

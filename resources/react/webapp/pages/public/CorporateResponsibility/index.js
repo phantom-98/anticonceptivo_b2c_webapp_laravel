@@ -8,6 +8,7 @@ import DeliveryCostsDeadlines from "./DeliveryCostsDeadlines";
 import BasePanelCorporate from "../../../template/BasePanelCorporate";
 import LateralMenu from "../../../components/general/LateralMenu";
 import * as Services from "../../../Services";
+import Subscribe from "../../../components/sections/Subscribe";
 
 const CorporateResponsibility = ({match}) => {
 
@@ -100,6 +101,7 @@ const CorporateResponsibility = ({match}) => {
     }
 
     return (
+        <>
         <BasePanelCorporate
             breadcrumbs={breadcrumbs}
             title="RESPONSABILIDAD EMPRESARIAL"
@@ -121,8 +123,11 @@ const CorporateResponsibility = ({match}) => {
                         </Fragment> : null
                 }
             </div>
+
         </BasePanelCorporate>
-    );
+            <Subscribe></Subscribe>
+        </>
+);
 };
 
 export default CorporateResponsibility

@@ -248,6 +248,13 @@
     //    padding-bottom: 0 !important;
     //}
 
+    .link-address-profile {
+        font-weight: 900;
+    }
+
+    .link-address-checkout {
+        font-weight: 900;
+    }
     .subscription-card {
         padding: 10px 0px;
     }
@@ -270,9 +277,44 @@
         color: white;
     }
 
+    .float-whatsapp img {
+        width: 32px !important;
+        height: 32px !important;
+    }
+
     .button-nav-checkout {
         position: absolute;
         top: -20px;
         left: 36px;
+    }
+
+    .card-delivery-cost .card-header {
+        min-height: 45px;
+    }
+    .card-delivery-cost .card-header::after {
+        top: 15px
+    }
+    .card-delivery-cost .collapse.show + .card-header::after {
+        top: 24px
+    }
+
+    .card-delivery-cost .card-body {
+        border-radius: 12px;
+        border: 1px solid #CECECE;
+        padding: 15px;
+        margin-top: 15px;
+    }
+
+    .card-delivery-cost-title {
+        font-size: 14px;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 700;
+        line-height: 15px;
+    }
+    .about-us-description li,
+    .about-us-description p,
+    .about-us-description{
+        font-size: 14px;
+        font-weight: 500;
     }
 }

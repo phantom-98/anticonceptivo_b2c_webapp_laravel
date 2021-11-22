@@ -6,12 +6,12 @@ import {AuthContext} from "../context/AuthProvider";
 
 const BasePanelOne = (props) => {
 
-    const { width } = UseWindowDimensions();
-    const { logout } = useContext(AuthContext)
+    const {width} = UseWindowDimensions();
+    const {logout} = useContext(AuthContext)
 
     let location = useLocation();
     return (
-        <div style={{background : '#FAFAFA'}}>
+        <div style={{background: '#FAFAFA'}}>
             <div className="container py-4">
 
                 <Breadcrumbs items={props.breadcrumbs}/>
@@ -21,34 +21,38 @@ const BasePanelOne = (props) => {
                         <div className="row">
                             {
                                 width < 768 ?
-                                <>
-                                    <div className="col-8">
+                                    <>
+                                        <div className="col">
+                                            {
+                                                props.title ?
+                                                    <h1 className="base-panel-one-title"
+                                                        style={{marginBottom: 0}}>{props.title}</h1>
+                                                    : null
+                                            }
+                                        </div>
+
+                                        {
+                                            location.pathname.includes('/mi-cuenta/') ?
+                                                <div className="col-auto d-flex  px-0">
+                                                    <Link to="#" onClick={() => logout()}
+                                                          className="my-auto font-poppins font-14 lh-12 bold pointer text-danger">
+                                                        <div className="text-right">
+                                                            Cerrar
+                                                        </div>
+                                                    </Link>
+                                                </div>
+                                                : null
+                                        }
+                                    </>
+                                    :
+
+                                    <div className="col-md-12">
                                         {
                                             props.title ?
                                                 <h1 className="base-panel-one-title">{props.title}</h1>
-                                            : null
+                                                : null
                                         }
                                     </div>
-
-                                    {
-                                         location.pathname.includes('/mi-cuenta/') ?
-                                            <div className="col-4">
-                                                <Link to="#" onClick={() => logout()} className="font-poppins font-16 lh-12 regular pointer text-danger">
-                                                    <div className="text-right mt-2">Cerrar</div>
-                                                </Link>
-                                            </div>
-                                        : null
-                                    }
-                                </>
-                                :
-
-                                <div className="col-md-12">
-                                    {
-                                        props.title ?
-                                            <h1 className="base-panel-one-title">{props.title}</h1>
-                                        : null
-                                    }
-                                </div>
                             }
                             <div className="col-md-12">
                                 {

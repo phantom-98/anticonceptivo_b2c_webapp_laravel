@@ -83,6 +83,7 @@ const ProductGallery = ({product, imageSubscription, productImage}) => {
                                    product.images.slice(0,3) :
                                    [product.images.slice(3,product.images.length)[imageSubscription-1]]
                            }
+
                        />
                    </div>
                </div>

@@ -1,18 +1,24 @@
-import React from 'react'
+import React, {useEffect, useRef}  from 'react'
 import Slider from "react-slick";
 
 const ProductGaleryMobile = ({images}) => {
+
+    const slider = useRef(null);
+
+    useEffect(() => {
+        slider.current.slickGoTo(0)
+    },[images])
 
     const settings = {
       dots: true,
       infinite: true,
       speed: 500,
       slidesToShow: 1,
-      slidesToScroll: 1
+      slidesToScroll: 1,
     };
 
     return (
-        <Slider {...settings}>
+        <Slider {...settings} ref={slider}>
             {
                 images.map(image => {
                     return(

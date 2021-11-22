@@ -283,7 +283,7 @@ const Shop = ({match}) => {
                 breadcrumbs={breadcrumbs}
                 prepend={loading ?
                     <div className={`d-md-none d-block px-0 ${category.banner_image_size ? category.banner_image_size : 'w-100'}`}>
-                        <img width="100%" src={category.public_banner_image} alt={CONFIG.APP_NAME}/>
+                        <img width="100%" src={category.public_banner_image_responsive} alt={CONFIG.APP_NAME}/>
                     </div>
                     : null
                 }

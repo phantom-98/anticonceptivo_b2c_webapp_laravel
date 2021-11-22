@@ -393,7 +393,8 @@ const Table = ({
             Services.ENDPOINT.CUSTOMER.SUBSCRIPTIONS
                 .GET_SUBSCRIPTIONS_ORDERS_ITEMS;
         let data = {
-            customer_id: auth.id
+            customer_id: auth.id,
+            isMobile: 0,
         };
         Services.DoPost(url, data)
             .then(response => {

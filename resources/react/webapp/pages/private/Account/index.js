@@ -12,10 +12,14 @@ import CustomerService from "./sections/CustomerService";
 import {Redirect} from "react-router-dom";
 import PUBLIC_ROUTES from "../../../routes/publicRoutes";
 import LateralMenu from "../../../components/general/LateralMenu";
+import UseWindowDimensions from "../../../components/customHooks/UseWindowDimensions";
+import MobileDisplay from "./MobileDisplay";
 
 const Account = ({match}) => {
 
     const {auth} = useContext(AuthContext);
+
+    const {height, width} = UseWindowDimensions();
 
     const [breadcrumbs, setBreadcrumbs] = useState([]);
     const [sectionSelected, setSectionSelected] = useState('');
@@ -39,7 +43,7 @@ const Account = ({match}) => {
         },
         SUBSCRIPTION: {
             url: 'suscripcion',
-            name: 'Historial de Suscripciones'
+            name: 'Suscripciones'
         },
         RECEIPTS: {
             url: 'mis-recetas',
@@ -50,7 +54,6 @@ const Account = ({match}) => {
             name: 'Servicio al Cliente'
         }
     }
-
 
     useEffect(() => {
         if (match && match.params && 'section' in match.params) {
@@ -77,8 +80,6 @@ const Account = ({match}) => {
 
 
     const processRoute = () => {
-
-
         switch (sectionSelected) {
             case sections.PERSONAL_INFO.url:
                 return <PersonalInfo/>
@@ -101,8 +102,7 @@ const Account = ({match}) => {
             default:
                 let url = PRIVATE_ROUTES.ACCOUNT.path;
                 url = url.replace(':section', sections.PERSONAL_INFO.url)
-                return <Redirect to={url} />
-
+                return <Redirect to={url}/>
         }
     }
 
@@ -110,6 +110,8 @@ const Account = ({match}) => {
         let url = PRIVATE_ROUTES.ACCOUNT.path;
         return url.replace(':section', section);
     }
+
+
 
     return (
         <BasePanelOne
@@ -119,18 +121,24 @@ const Account = ({match}) => {
             <div className="row">
                 {
                     loaded ?
-                        <Fragment>
-                            <div className="col-md-3">
-                                <LateralMenu sections={sections} sectionSelected={sectionSelected} handleSection={handleSection}/>
-                            </div>
-                            <div className="col-md-9">
-
-                                {
-                                    processRoute()
-                                }
-
-                            </div>
-                        </Fragment> : null
+                        width >= 768 ?
+                            <Fragment>
+                                <div className="col-md-3">
+                                    <LateralMenu sections={sections} sectionSelected={sectionSelected}
+                                                 handleSection={handleSection}/>
+                                </div>
+                                <div className="col-md-9">
+                                    {
+                                        processRoute()
+                                    }
+                                </div>
+                            </Fragment>
+                            :
+                            <MobileDisplay
+                                sections={sections}
+                                // setMobileSelected={setMobileSelected}
+                            />
+                        : null
                 }
             </div>
         </BasePanelOne>

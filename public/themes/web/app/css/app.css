@@ -1057,7 +1057,7 @@ input.my-auto.file-input {
 
 .btn-months {
   height: 26px !important;
-  font-size: 9px;
+  font-size: 8px;
   background: transparent;
   border-radius: 12px;
   border: 1px solid #CECECE !important;
@@ -1199,15 +1199,30 @@ input.my-auto.file-input {
   cursor: pointer;
   background: #EDF8FE;
   color: #033F5D;
-  padding: 20px;
-  border: 1px solid #DEDEDE !important;
+  border: 1px solid #EDF8FE !important;
   border-radius: 12px !important;
   transition: 0.4s;
+  min-height: 62px;
+  display: flex;
+}
+
+.card-faq .card-header h1,
+.card-faq .card-header h2,
+.card-faq .card-header h3,
+.card-faq .card-header h4,
+.card-faq .card-header h5,
+.card-faq .card-header p,
+.card-faq .card-header span {
+  margin: 0;
+}
+
+.card-faq .card-header > * {
+  margin: auto 0 !important;
 }
 
 .card-faq .card-header h3 {
   font-weight: 700 !important;
-  font-size: 16px !important;
+  font-size: 21px !important;
   font-family: "Poppins", sans-serif !important;
   margin-bottom: 0;
 }
@@ -1215,24 +1230,33 @@ input.my-auto.file-input {
 .card-faq .card-header:hover,
 .card-faq .collapsing + .card-header,
 .card-faq .collapse.show + .card-header {
-  background: #63DCAE;
+  background: #00DBAD;
+  border-color: #00DBAD;
   color: white;
 }
 
 .card-faq .card-header::after {
-  content: "+";
+  content: "";
   font-weight: 700 !important;
   font-size: 16px !important;
   font-family: "Poppins", sans-serif !important;
-  color: #033F5D;
   position: absolute;
   right: 20px;
-  top: 20px;
+  top: 21px;
+  background-image: url("/themes/web/assets/images/icons/accordion-plus-blue.svg");
+  background-size: contain;
+  background-position: center center;
+  width: 20px;
+  height: 20px;
 }
 
 .card-faq .collapse.show + .card-header::after {
-  content: "-";
+  content: "";
   color: white !important;
+  background-image: url("/themes/web/assets/images/icons/accordion-minus-white.svg");
+  width: 18px;
+  height: 2px;
+  top: 30px;
 }
 
 .card-claim {
@@ -1503,7 +1527,7 @@ input.my-auto.file-input {
   text-transform: uppercase;
   color: #0869A6;
   letter-spacing: 2px;
-  font-size: 30px;
+  font-size: 26px;
   font-weight: 700;
   margin-bottom: 1rem;
 }
@@ -1642,10 +1666,46 @@ tbody tr td {
   border-top: 1px solid #E8E8E8;
 }
 
+.subscription-card-label-active {
+  font-family: "Poppins", sans-serif;
+  font-size: 12px;
+  font-weight: 650;
+  color: #FFFFFF !important;
+  padding: 15px;
+  padding-top: 5px;
+  height: 28px;
+  background-color: #95EA18;
+  border-radius: 15px;
+}
+
+.subscription-card-label-inactive {
+  font-family: "Poppins", sans-serif;
+  font-size: 12px;
+  font-weight: 750;
+  color: #FFFFFF !important;
+  padding: 15px;
+  padding-top: 5px;
+  height: 28px;
+  background-color: #CECECE;
+  border-radius: 15px;
+}
+
+.subscription-card-label-cancel {
+  font-family: "Poppins", sans-serif;
+  font-size: 12px;
+  font-weight: 750;
+  color: #FFFFFF !important;
+  padding: 15px;
+  padding-top: 5px;
+  height: 28px;
+  background-color: #da7e7e;
+  border-radius: 15px;
+}
+
 .subscription-card-label {
   font-family: "Poppins", sans-serif;
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 750;
   color: #033F5D !important;
   margin-bottom: 0.5rem;
 }
@@ -1656,6 +1716,33 @@ tbody tr td {
   font-weight: 400;
   color: black;
   margin-bottom: 0.5rem;
+}
+
+.dot-incoming {
+  height: 8px;
+  width: 8px;
+  margin-left: 3px;
+  background-color: #E8E8E8;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.dot-process {
+  height: 8px;
+  width: 8px;
+  margin-left: 3px;
+  background-color: #E8E8E8;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.dot-finish {
+  height: 8px;
+  width: 8px;
+  margin-left: 3px;
+  background-color: #95EA18;
+  border-radius: 50%;
+  display: inline-block;
 }
 
 .product-card {
@@ -2193,7 +2280,7 @@ input[type=number] {
 
 @media (max-width: 767px) {
   .subscribe-font {
-    font-size: 18px;
+    font-size: 25px;
   }
 
   .subscribe-btn-font {
@@ -3670,6 +3757,14 @@ h4 {
   background-color: #2A317F;
 }
 
+.color-0A68A6 {
+  color: #0A68A6;
+}
+
+.bg-0A68A6 {
+  background-color: #0A68A6;
+}
+
 @media (min-width: 1200px) {
   .container,
   .container-lg,
@@ -3915,18 +4010,8 @@ a:-webkit-any-link:focus-visible {
   top: 0;
 }
 
-.float-whatsapp img {
-  width: 31px !important;
-  height: 31px !important;
-}
-
-.modal-fixed-pad {
-  padding-left: 22px;
-  padding-right: 22px;
-}
-
-.toastr-options {
-  margin-bottom: 0;
+.link-address-checkout {
+  font-weight: 900;
 }
 
 @media (min-width: 768px) {
@@ -5350,6 +5435,14 @@ a:-webkit-any-link:focus-visible {
     padding: 14px;
   }
 
+  .link-address-profile {
+    font-weight: 900;
+  }
+
+  .link-address-checkout {
+    font-weight: 900;
+  }
+
   .subscription-card {
     padding: 10px 0px;
   }
@@ -5373,10 +5466,48 @@ a:-webkit-any-link:focus-visible {
     color: white;
   }
 
+  .float-whatsapp img {
+    width: 32px !important;
+    height: 32px !important;
+  }
+
   .button-nav-checkout {
     position: absolute;
     top: -20px;
     left: 36px;
+  }
+
+  .card-delivery-cost .card-header {
+    min-height: 45px;
+  }
+
+  .card-delivery-cost .card-header::after {
+    top: 15px;
+  }
+
+  .card-delivery-cost .collapse.show + .card-header::after {
+    top: 24px;
+  }
+
+  .card-delivery-cost .card-body {
+    border-radius: 12px;
+    border: 1px solid #CECECE;
+    padding: 15px;
+    margin-top: 15px;
+  }
+
+  .card-delivery-cost-title {
+    font-size: 14px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    line-height: 15px;
+  }
+
+  .about-us-description li,
+  .about-us-description p,
+  .about-us-description {
+    font-size: 14px;
+    font-weight: 500;
   }
 }
 

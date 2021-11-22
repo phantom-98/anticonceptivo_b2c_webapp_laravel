@@ -11,6 +11,7 @@ class SubscriptionsOrdersItem extends Model
         'dispatch_date',
         'pay_date',
         'is_pay',
+        'active',
         'customer_address_id',
         'subscription_id',
         'delivery_address',

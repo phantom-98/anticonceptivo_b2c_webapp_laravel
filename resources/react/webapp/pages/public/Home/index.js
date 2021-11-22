@@ -4,7 +4,7 @@ import Subscribe from "../../../components/sections/Subscribe";
 // import BestSeller from "../../../components/sections/BestSellers";
 // import OutstandingCarousel from "../../../components/sections/OutstandingCarousel";
 import BannerCategories from "../../../components/sections/BannerCategories";
-// import BlogCarousel from "../../../components/sections/BlogCarousel";
+import BlogCarousel from "../../../components/sections/BlogCarousel";
 import {ModalAuthMode} from "../../../Globals";
 import {AppContext} from "../../../context/AppProvider";
 import BannerCarousel from "../../../components/sections/BannerCarousel";
@@ -78,7 +78,7 @@ const Home = ({match}) => {
 
             {/* <BestSeller bestSellers={bestSellers}/> */}
 
-            {/* <BlogCarousel title="BLOG" showButton={true} buttonTitle="VER MÁS NOTICIAS" /> */}
+             {/* <BlogCarousel title="BLOG" showButton={true} buttonTitle="VER MÁS NOTICIAS" />*/}
 
             <BannerStatic banners={bottomBanners}/>
 

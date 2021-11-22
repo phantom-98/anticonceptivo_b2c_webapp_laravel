@@ -5,22 +5,22 @@ import Pagination from "react-js-pagination";
 import LazyLoading from "../../../components/LazyLoading";
 import filterIcon from '../../../assets/images/icons/filter.svg';
 import arrowIcon from '../../../assets/images/icons/arrow-up-and-down.svg';
-import { Card, Form } from "react-bootstrap";
+import {Card, Form} from "react-bootstrap";
 
 const ProductList = ({
-    category,
-    products,
-    subcatNames,
-    filter,
-    showFilter,
-    subscriptions,
-    filters,
-    setFilters,
-    updateFilter,
-    filterLoading,
-    search = null,
-    handleProductOrderBy
-}) => {
+                         category,
+                         products,
+                         subcatNames,
+                         filter,
+                         showFilter,
+                         subscriptions,
+                         filters,
+                         setFilters,
+                         updateFilter,
+                         filterLoading,
+                         search = null,
+                         handleProductOrderBy
+                     }) => {
 
     const [viewCount, setViewCount] = useState(9);
     const [activePage, setActivePage] = useState(1);
@@ -56,8 +56,9 @@ const ProductList = ({
                                     borderRight: '0.1px solid rgba(0,155,232,0.11)'
                                 }}>
                                     <div className="pointer font-poppins font-12 semi-bold color-033F5D m-auto"
-                                        onClick={() => setShowOrderByMobile(showOrderByMobile == true ? false : true)} >
-                                        <img src={arrowIcon} alt="anticonceptivo.cl" /> <span className="pt-1">Ordenar</span>
+                                         onClick={() => setShowOrderByMobile(showOrderByMobile == true ? false : true)}>
+                                        <img src={arrowIcon} alt="anticonceptivo.cl"/> <span
+                                        className="pt-1">Ordenar</span>
                                     </div>
                                 </div>
                                 <div className="col d-flex" style={{
@@ -65,7 +66,8 @@ const ProductList = ({
                                 }}>
                                     <div className="pointer font-poppins font-12 semi-bold color-033F5D m-auto"
                                          onClick={() => showFilter()}>
-                                        <img src={filterIcon} alt="anticonceptivo.cl"/> <span className="pt-1">Filtrar</span>
+                                        <img src={filterIcon} alt="anticonceptivo.cl"/> <span
+                                        className="pt-1">Filtrar</span>
                                     </div>
                                 </div>
                             </div>
@@ -77,44 +79,44 @@ const ProductList = ({
                             <div className="col-12 mt-2">
                                 <Card className="card-filter">
                                     <Card.Body bsPrefix="card-body">
-                                       <div className="order-list">
-                                           <Form.Check
-                                               custom
-                                               label="Nombre: A-Z"
-                                               type="radio"
-                                               className="font-12"
-                                               name="radio_orders"
-                                               id="name_asc"
-                                               onClick={() => handleProductOrderBy(1)}
-                                           />
-                                           <Form.Check
-                                               custom
-                                               label="Nombre: Z-A"
-                                               type="radio"
-                                               className="font-12"
-                                               name="radio_orders"
-                                               id="name_desc"
-                                               onClick={() => handleProductOrderBy(2)}
-                                           />
-                                           <Form.Check
-                                               custom
-                                               label="Precio: Menor A Mayor"
-                                               type="radio"
-                                               className="font-12"
-                                               name="radio_orders"
-                                               id="price_asc"
-                                               onClick={() => handleProductOrderBy(3)}
-                                           />
-                                           <Form.Check
-                                               custom
-                                               label="Precio: Mayor A Menor"
-                                               type="radio"
-                                               className="font-12"
-                                               name="radio_orders"
-                                               id="price_desc"
-                                               onClick={() => handleProductOrderBy(4)}
-                                           />
-                                       </div>
+                                        <div className="order-list">
+                                            <Form.Check
+                                                custom
+                                                label="Nombre: A-Z"
+                                                type="radio"
+                                                className="font-12"
+                                                name="radio_orders"
+                                                id="name_asc"
+                                                onClick={() => handleProductOrderBy(1)}
+                                            />
+                                            <Form.Check
+                                                custom
+                                                label="Nombre: Z-A"
+                                                type="radio"
+                                                className="font-12"
+                                                name="radio_orders"
+                                                id="name_desc"
+                                                onClick={() => handleProductOrderBy(2)}
+                                            />
+                                            <Form.Check
+                                                custom
+                                                label="Precio: Menor A Mayor"
+                                                type="radio"
+                                                className="font-12"
+                                                name="radio_orders"
+                                                id="price_asc"
+                                                onClick={() => handleProductOrderBy(3)}
+                                            />
+                                            <Form.Check
+                                                custom
+                                                label="Precio: Mayor A Menor"
+                                                type="radio"
+                                                className="font-12"
+                                                name="radio_orders"
+                                                id="price_desc"
+                                                onClick={() => handleProductOrderBy(4)}
+                                            />
+                                        </div>
                                     </Card.Body>
                                 </Card>
                             </div>
@@ -126,12 +128,18 @@ const ProductList = ({
                 </div>
             </div>
             <div className="col-12 pb-3">
+                <div className="row">
+                    <div className="col-12">
+                        <h3 className="font-14 bold color-033F5D">Selecciona una opción de suscripción</h3>
+                    </div>
+                </div>
                 <div className="row mb-3">
-                    <div className="col-12 text-center">
+                    <div className="col-12 subscription-buttons text-left">
                         {
                             subscriptions.map((subscription) => {
                                 return (
-                                    <div className={`btn btn-outline-primary btn-months ${filters.subscriptions.includes(subscription.id) ? 'focus' : ''} mx-1 my-2`}
+                                    <div
+                                        className={`btn btn-outline-primary btn-months mr-2 subscription-button-margin ${filters.subscriptions.includes(subscription.id) ? 'focus' : ''} `}
                                         onClick={() => {
                                             updateFilter();
                                             if (filters.subscriptions.includes(subscription.id)) {
@@ -182,16 +190,17 @@ const ProductList = ({
                                     <option value="42">42</option>
                                 </select>
                             </div>
-                            <div className="col-auto px-2 font-poppins font-12 semi-bold color-033F5D d-flex responsive-d-none">
+                            <div
+                                className="col-auto px-2 font-poppins font-12 semi-bold color-033F5D d-flex responsive-d-none">
                                 <div className="my-auto">
                                     Ordenar por
                                 </div>
                             </div>
                             <div className="col-auto pl-2 responsive-d-none">
                                 <select className="form-control form-control-custom w-auto select-product-list"
-                                    id=''
-                                    name=''
-                                    onChange={handleProductOrderBy}
+                                        id=''
+                                        name=''
+                                        onChange={handleProductOrderBy}
                                 >
                                     <option value={1}>Nombre: A-Z</option>
                                     <option value={2}>Nombre: Z-A</option>
@@ -249,7 +258,8 @@ const ProductList = ({
                     hideFirstLastPages={true}
                     renderOnZeroPageCount={null}
                 />
-                {products.length ? <label className="font-poppins font-12 regular paginator-label">Páginas</label> : null}
+                {products.length ?
+                    <label className="font-poppins font-12 regular paginator-label">Páginas</label> : null}
             </div>
         </div>
 

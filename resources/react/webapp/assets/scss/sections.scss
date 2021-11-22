@@ -119,40 +119,70 @@
     cursor: pointer;
     background: #EDF8FE;
     color: #033F5D;
-    padding: 20px;
-    border: 1px solid #DEDEDE !important;
+    //padding: 20px;
+    border: 1px solid #EDF8FE !important;
     border-radius: 12px !important;
     transition: .4s;
+    min-height: 62px;
+    display: flex;
+}
+
+.card-faq .card-header h1,
+.card-faq .card-header h2,
+.card-faq .card-header h3,
+.card-faq .card-header h4,
+.card-faq .card-header h5,
+.card-faq .card-header p,
+.card-faq .card-header span,
+{
+    margin: 0;
+}
+
+.card-faq .card-header  > * {
+    margin: auto 0 !important;
 }
 
 .card-faq .card-header h3 {
     font-weight: 700 !important;
-    font-size: 16px !important;
+    font-size: 21px !important;
     font-family: 'Poppins', sans-serif !important;
     margin-bottom: 0;
 }
 
+
+
 .card-faq .card-header:hover,
 .card-faq .collapsing + .card-header,
 .card-faq .collapse.show + .card-header {
-    background: #63DCAE;
+    background: #00DBAD;
+    border-color : #00DBAD;
     color: white;
 }
 
 .card-faq .card-header::after {
-    content: "+";
+    content: "";
     font-weight: 700 !important;
     font-size: 16px !important;
     font-family: 'Poppins', sans-serif !important;
-    color: #033F5D;
     position: absolute;
     right: 20px;
-    top: 20px;
+    top: 21px;
+
+    background-image: url('/themes/web/assets/images/icons/accordion-plus-blue.svg');
+    background-size: contain;
+    background-position: center center;
+
+    width: 20px;
+    height: 20px;
 }
 
 .card-faq .collapse.show + .card-header::after {
-    content: "-";
+    content: "";
     color: white !important;
+    background-image: url('/themes/web/assets/images/icons/accordion-minus-white.svg');
+    width: 18px;
+    height: 2px;
+    top : 30px
 }
 
 .card-claim{

@@ -150,7 +150,7 @@ class PaymentController
         $mes = $meses[($fecha->format('n')) - 1];
         return ApiResponse::JsonSuccess([
             'dispatch' => $dispatch,
-            'date_dispatch' => $fecha->format('d') . ' de ' . $mes . ' de ' . $fecha->format('Y'),
+            'date_dispatch' => $fecha->format('d') . ' de ' . $mes,
 
         ]);
 

@@ -28,6 +28,7 @@ Route::prefix('customer')
         Route::post('delete-subscription', [ProfileController::class, 'deleteSubscription'])->name('deleteSubscription');
         Route::post('set-address-subscription', [ProfileController::class, 'setAddressSubscription'])->name('setAddressSubscription');
         Route::post('set-card-subscription', [ProfileController::class, 'setCardSubscription'])->name('setCardSubscription');
+        Route::post('cancel-subscription-item', [ProfileController::class, 'cancelSubscriptionItem'])->name('cancelSubscriptionItem');
 
         Route::post('set-dispatch-date-subscription', [ProfileController::class, 'setDispatchDateSubscription'])->name('setDispatchDateSubscription');
 
