@@ -3,37 +3,62 @@ import {CONFIG} from "../../../Config";
 import moment from "moment";
 import noImage from "../../../assets/images/producto-default.png";
 
-const Article = ({post}) =>{
+const Article = ({post}) => {
 
     return (
-        <Fragment>
-            <div className="row pb-5">
-                <div className="col-md-2 d-flex">
+        <div className="post-single">
+            <div className="row pb-5 post-single-header">
+                <div className="col-md-2 d-none d-md-flex post-author-box">
                     <div className="mt-auto">
-                        <div><img width="110px"  src={post.author.avatar_public ? post.author.avatar_public :noImage } alt={CONFIG.APP_NAME}/></div>
+                        <div className="blog-author mb-3">
+                            <img width="110px"
+                                 src={post.author.avatar_public ? post.author.avatar_public : noImage}
+                                 alt={CONFIG.APP_NAME}/></div>
                         <div className="font-inter font-18 bold text-black">{post.author.full_name}</div>
-                        <div className="font-inter font-16 bold text-black">{moment(post.published_at).lang('es').format('DD MMM YYYY')}</div>
+                        <div
+                            className="font-inter font-16 regular text-black text-uppercase">{(moment(post.published_at).lang('es').format('DD MMM YYYY')).replace('.', '')}</div>
                     </div>
                 </div>
                 <div className="col">
-                    <div className="font-poppins font-20 regular text-black">
+                    <div className="font-poppins font-20 medium text-black">
                         {post.post_type.name}
                     </div>
                     <h1 className="font-poppins font-46 bold color-033F5D">
                         {post.title}
                     </h1>
                 </div>
+
+                <div className="col-12 d-block d-md-none">
+                    <hr/>
+                    <div className="row">
+                        <div className="col-auto pr-0">
+                            <img width="40px"
+                                 src={post.author.avatar_public ? post.author.avatar_public : noImage}
+                                 alt={CONFIG.APP_NAME}/>
+                        </div>
+                        <div className="col">
+                            <div className="font-inter font-16 bold text-black"
+                                 style={{marginBottom: '-3px'}}>{post.author.full_name}</div>
+                            <div className="font-inter font-14 regular text-black text-uppercase">
+                                {(moment(post.published_at).lang('es').format('DD MMM YYYY')).replace('.', '')}
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
 
             <div className="row pb-5">
                 <div className="col-12">
-                    <div><img src={post.public_principal_image} alt={CONFIG.APP_NAME} className="w-100"/></div>
+                    <img src={post.public_principal_image}
+                         alt={CONFIG.APP_NAME}
+                         className="w-100 blog-main-img"/>
                 </div>
             </div>
 
             <div className="row  mb-5">
                 <div className="col-md-9 offset-md-3">
-                    <div dangerouslySetInnerHTML={{ __html:post.content}}/>
+                    <div className="font-poppins font-18 medium color-6C6B6B" dangerouslySetInnerHTML={{__html: post.content}}/>
                     {/* <h3 className="font-poppins font-22 bold color-033F5D mb-3">
                         Wireframes can be pencil drawings or sketches on a whiteboard
                     </h3>
@@ -84,7 +109,7 @@ const Article = ({post}) =>{
                 </div>
             </div>
 
-        </Fragment>
+        </div>
     );
 };
 

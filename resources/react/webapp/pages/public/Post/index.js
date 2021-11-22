@@ -8,14 +8,14 @@ import Article from "./Article";
 import * as Services from "../../../Services";
 import LazyLoading from "../../../components/LazyLoading";
 
-const Post = ({match}) =>{
+const Post = ({match}) => {
 
     const [post, setPost] = useState({});
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         getData(match.params.post_type_slug, match.params.post_slug);
-    },[match.params.post_slug])
+    }, [match.params.post_slug])
 
     const getData = (post_type_slug, post_slug) => {
         let url = Services.ENDPOINT.PUBLIC_AREA.BLOG.POST;
@@ -23,7 +23,7 @@ const Post = ({match}) =>{
             post_type_slug: post_type_slug,
             post_slug: post_slug
         }
-        Services.DoPost(url,data).then(response => {
+        Services.DoPost(url, data).then(response => {
             Services.Response({
                 response: response,
                 success: () => {
@@ -67,11 +67,11 @@ const Post = ({match}) =>{
                 <div className="row mb-5">
                     <div className="col-md-12">
                         <div className="panel">
-                            <div className="panel-body">
+                            <div className="panel-body p-4 p-md-5">
                                 {
-                                    !loading ? 
+                                    !loading ?
                                         <Article post={post}/>
-                                    : <LazyLoading/>
+                                        : <LazyLoading/>
                                 }
                             </div>
                         </div>

@@ -7,16 +7,16 @@ import {v4 as uuidv4} from 'uuid';
 const HeaderDropDown = ({postTypes}) =>{
 
     return (
-        <div className="col-md-auto top-do-flex">
+        <div className="col-md-auto top-do-flex" style={{zIndex: 1032}}>
             <div className="my-auto">
-                <Dropdown className="display-none-work">
-                    <Dropdown.Toggle id="dropdown-testing" className='header-navbar-col-custom'>
+                <Dropdown className="display-none-work" >
+                    <Dropdown.Toggle id="dropdown-testing" className='header-navbar-col-custom' >
                         <div className="my-auto">
                             <span className="top-link header-navbar-item font-regular" style={{fontWeight:500}}>Blog</span>
                         </div>
                     </Dropdown.Toggle>
 
-                    <Dropdown.Menu align="right" bsPrefix="dropdown-menu-custom">
+                    <Dropdown.Menu align="right" bsPrefix="dropdown-menu-custom" >
                         {
                             postTypes.map((postType) => {
                                 let postTypeKey = uuidv4();
