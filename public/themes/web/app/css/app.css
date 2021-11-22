@@ -5502,5 +5502,12 @@ a:-webkit-any-link:focus-visible {
     font-weight: 700;
     line-height: 15px;
   }
+
+  .about-us-description li,
+  .about-us-description p,
+  .about-us-description {
+    font-size: 14px;
+    font-weight: 500;
+  }
 }
 
