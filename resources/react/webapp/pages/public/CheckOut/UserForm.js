@@ -296,12 +296,12 @@ const UserForm = ({
                                                                             <label htmlFor={item.product.id}
                                                                                    className="custom-file-label ml-0 pb-0 input-file-register d-flex">
                                                                                 {
-                                                                                    files.map((file) => {
+                                                                                    files.length > 0 ? files.map((file) => {
                                                                                         return file.name_id == index ?
                                                                                             <span key={uuidv4}
                                                                                                   className="font-14 font-poppins regular my-auto">{file.name}</span>
                                                                                             : null
-                                                                                    })
+                                                                                    }) : 'Carga tu receta'
                                                                                 }
                                                                             </label>
                                                                         </div>
