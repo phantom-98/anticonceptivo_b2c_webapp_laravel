@@ -8,6 +8,10 @@ import { v4 as uuidv4 } from "uuid";
 import DynamicField from "./DynamicField"
 import DynamicPath from "../../../../public/ContactUs/DynamicPath";
 import UseWindowDimensions from "../../../../../helpers/UseWindowDimensions";
+import {Form, Modal} from "react-bootstrap";
+import CloseModal from "../../../../../components/general/CloseModal";
+import Terms from "../../../../public/TermsAndConditions/Terms";
+import PrivacyPolice from "../../../../public/CorporateResponsibility/PrivacyPolicies";
 
 const CustomerService = () => {
 
@@ -19,6 +23,7 @@ const CustomerService = () => {
         name: auth.full_name,
         contact_issue_id: "1",
         message: '',
+        contact_accept_terms: '0'
     }
 
     const defaultModel = {
@@ -32,6 +37,16 @@ const CustomerService = () => {
     const [dynamicFields, setDynamicFields] = useState([]);
     const [description, setDescription] = useState('');
     const { height, width } = UseWindowDimensions();
+    const [privacyPolicy, setPrivacyPolicy] = useState({});
+
+    const [handleTermsModal, setHandleTermsModal] = useState(false);
+    const [handlePrivacyPoliceModal, setHandlePrivacyPoliceModal] = useState(false);
+
+    const showTermsModal = () => setHandleTermsModal(true);
+    const hideTermsModal = () => setHandleTermsModal(false);
+
+    const showPrivacyPoliceModal = () => setHandlePrivacyPoliceModal(true);
+    const hidePrivacyPoliceModal = () => setHandlePrivacyPoliceModal(false);
 
     const [nestedFields, setNestedFields] = useState([]);
     const [list, setList] = useState([]);
@@ -62,6 +77,7 @@ const CustomerService = () => {
                     response: response,
                     success: () => {
                         setNestedFields(response.data.nested_field);
+                        setPrivacyPolicy(response.data.privacy_policy)
                         setLoading(false);
 
                     },
@@ -179,12 +195,21 @@ const CustomerService = () => {
         });
     }
 
-    const handleData = (e) => {
-        setData({...data,
-            [e.target.name]: e.target.value
-        })
-    }
 
+    const handleData = (e, isRadio = false) => {
+        if (isRadio) {
+            console.log(e.target.value)
+            setData({
+                ...data,
+                ['contact_accept_terms']: e.target.value == '0' ? '1' : '0'
+            })
+        }else{
+            setData({
+                ...data,
+                [e.target.name]: e.target.value
+            })
+        }
+    }
 
     const handleParent = (e, index) => {
         let found = list.find(x => x.id == e.target.value)
@@ -254,6 +279,52 @@ const CustomerService = () => {
         <div className="row" style={{marginTop: width<=980 ? '0px' :'-50px'}}>
             <H3Panel title="SERVICIO AL CLIENTE" className="mb-3 d-none d-md-block"/>
             <div className="col-md-12">
+                <Modal
+                    show={handleTermsModal}
+                    centered
+                    backdrop="static"
+                    keyboard={false}
+                    onHide={hideTermsModal}
+                    dialogClassName="modal-new-claim"
+                >
+                    <Modal.Header>
+                        <CloseModal hideModal={hideTermsModal} />
+                    </Modal.Header>
+                    <Modal.Body className="px-5">
+
+                        <div className="row">
+                            <div className="col-12">
+                                <Terms/>
+                            </div>
+                        </div>
+
+                    </Modal.Body>
+
+                </Modal>
+                <Modal
+                    show={handlePrivacyPoliceModal}
+                    centered
+                    backdrop="static"
+                    keyboard={false}
+                    onHide={hidePrivacyPoliceModal}
+                    dialogClassName="modal-new-claim"
+                >
+                    <Modal.Header>
+                        <CloseModal hideModal={hidePrivacyPoliceModal} />
+                    </Modal.Header>
+                    <Modal.Body className="px-5">
+
+                        <div className="row">
+                            <div className="col-12">
+                                <PrivacyPolice
+                                    privacyPolicy={privacyPolicy}
+                                />
+                            </div>
+                        </div>
+
+                    </Modal.Body>
+
+                </Modal>
                 <div className="row">
                     <div className="col-md-12">
                         <div className="form-group">
@@ -329,18 +400,32 @@ const CustomerService = () => {
                             <div className="invalid-feedback" />
                         </div>
                     </div>
-                    <div className="col-md-12 mt-3">
+                    <div className="col-md-12">
                         <div className="row">
+                            <div className="col mb-3">
+                                <Form.Check
+                                    custom
+                                    type="checkbox"
+                                    id="contact_accept_terms"
+                                    value={data.contact_accept_terms}
+                                    onFocus={setCleanInputError}
+                                    onChange={(e) => handleData(e, true)}
+                                    label={<span className="font-inter font-11 regular color-707070">Aceptar <span
+                                        className="link pointer" onClick={() => showTermsModal()}>Términos y condiciones</span> y <span
+                                        className="link pointer" onClick={() => showPrivacyPoliceModal()}>Políticas de privacidad</span></span>}
+                                />
+                                <div className="invalid-feedback" />
+                            </div>
                             <div className="col-md-12 text-right d-none d-sm-block">
                                 <button type="button" className="btn btn-bicolor px-5"
                                         onClick={() => sendToCustomerService()}>
-                                    <span>ENVIAR</span>
+                                    <span className="font-18">ENVIAR</span>
                                 </button>
                             </div>
                             <div className="col-md-12 text-center d-block d-sm-none">
-                                <button type="button" className="btn btn-bicolor px-5"
+                                <button type="button" className="btn btn-bicolor px-5 w-100"
                                         onClick={() => sendToCustomerService()}>
-                                    <span>ENVIAR</span>
+                                    <span className="font-18 mt-2 mb-2">ENVIAR</span>
                                 </button>
                             </div>
 

@@ -301,7 +301,8 @@ const UserForm = ({
                                                                                             <span key={uuidv4}
                                                                                                   className="font-14 font-poppins regular my-auto">{file.name}</span>
                                                                                             : null
-                                                                                    }) : 'Carga tu receta'
+                                                                                    }) : <span key={uuidv4}
+                                                                                               className="font-14 font-poppins regular my-auto">Carga tu receta</span>
                                                                                 }
                                                                             </label>
                                                                         </div>
