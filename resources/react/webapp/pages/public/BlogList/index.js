@@ -24,12 +24,13 @@ const BlogList = () => {
     ];
 
     const [blogs, setBlogs] = useState([
-        1,2,3,4,5,6,7,8, 9,10
+        1, 2, 3, 4, 5, 6, 7, 8, 9, 10
     ]);
 
 
     return (
         <Fragment>
+
             <BasePanelTwo
                 breadcrumbs={breadcrumbs}
             >
@@ -77,7 +78,7 @@ const BlogList = () => {
                 <div className="row  mb-5">
                     {
                         blogs.map((blog, index) => {
-                            return <BlogItem key={index*300} blog={blog} image={`/themes/web/blog/list/${blog}.png`}/>
+                            return <BlogItem key={index * 300} blog={blog} image={`/themes/web/blog/list/${blog}.png`}/>
                         })
                     }
 
