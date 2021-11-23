@@ -55,7 +55,7 @@ const ProductTabs = ({product, legalWarning, valid}) => {
                                 <Card className="card-faq">
                                     <Accordion.Collapse eventKey={'0'}>
                                         <Card.Body className="mt-1" style={{ border : 0}}>
-                                            <div className="font-14 medium color-484848"
+                                            <div className="font-14 regular color-484848"
                                                     dangerouslySetInnerHTML={{__html: product.benefits}}/>
                                         </Card.Body>
                                     </Accordion.Collapse>
@@ -68,7 +68,7 @@ const ProductTabs = ({product, legalWarning, valid}) => {
                             <Card className="card-faq">
                                 <Accordion.Collapse eventKey={'1'}>
                                     <Card.Body className="mt-1" style={{ border : 0}}>
-                                        <div className="font-14 medium color-484848"
+                                        <div className="font-14 regular color-484848"
                                              dangerouslySetInnerHTML={{__html: product.data_sheet}}/>
                                     </Card.Body>
                                 </Accordion.Collapse>
@@ -80,7 +80,7 @@ const ProductTabs = ({product, legalWarning, valid}) => {
                             <Card className="card-faq">
                                 <Accordion.Collapse eventKey={'2'}>
                                     <Card.Body className="mt-1" style={{ border : 0}}>
-                                        <div className="font-14 medium color-484848"
+                                        <div className="font-14 regular color-484848"
                                              dangerouslySetInnerHTML={{__html: legalWarning.description}}/>
                                     </Card.Body>
                                 </Accordion.Collapse>
