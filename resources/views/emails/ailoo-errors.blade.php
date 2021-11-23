@@ -12,7 +12,7 @@
                 <thead>
                 <tr>
                     <th colspan="1" class="bold" style="margin-bottom: 20px;">
-                        SKU
+                        CÓDIGO DE BARRAS
                     </th>
                     <th colspan="1" class="bold" style="margin-bottom: 20px;">
                         NOMBRE
