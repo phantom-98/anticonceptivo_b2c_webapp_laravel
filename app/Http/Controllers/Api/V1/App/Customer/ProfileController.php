@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1\App\Customer;
 
 use App\Http\Controllers\Controller;
+use App\Models\Page;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
@@ -952,6 +953,8 @@ class ProfileController extends Controller
     }
 
     public function getAction(Request $request){
+        $privacyPolicy = Page::where('active',true)->where('name','Política de Privacidad')->first();
+
         switch ($request->action) {
             case 'CUSTOMER_SERVICE_DATA':
                 $data = self::getCustomerService();
@@ -960,6 +963,8 @@ class ProfileController extends Controller
                     'nested_fields' => $data['nested_fields'],
                     'list' => $data['list'],
                     'questions' => $data['questions'],
+                    'privacy_policy' => $privacyPolicy,
+
                 ],OutputMessage::SUCCESS);
 
             case 'CUSTOMER_SERVICE_DATA_FOR_CONTACT':
@@ -970,7 +975,9 @@ class ProfileController extends Controller
                                         ->get();
 
                 return  ApiResponse::JsonSuccess([
-                    'nested_field' => $nested_field
+                    'nested_field' => $nested_field,
+                    'privacy_policy' => $privacyPolicy,
+
                 ],OutputMessage::SUCCESS);
         }
     }
@@ -1006,12 +1013,14 @@ class ProfileController extends Controller
 
             $rules = [
                 'message' => 'required|string|min:10|max:255',
+                'contact_accept_terms' => 'required|boolean|ends_with:'.true,
             ];
 
             $messages = [
                 'message.required' => 'El campo mensaje es requerido.',
                 'message.min' => 'El campo mensaje debe contener al menos 10 caracteres.',
                 'message.max' => 'El campo mensaje debe contener menos de 255 caracteres.',
+                'contact_accept_terms.ends_with' => 'Debe aceptar nuestros Términos y condiciones y Políticas de privacidad.',
             ];
 
             $validator = Validator::make($request->all(), $rules, $messages);

@@ -1,10 +1,5 @@
 import React, {useEffect} from 'react';
 import {Form} from "react-bootstrap";
-// import {AuthContext} from "../../../../../context/AuthProvider";
-// import * as Services from "../../../../../Services";
-// import iconTrash from '../../../../../assets/images/icons/trash.svg';
-// import Icon from "../../../../../components/general/Icon";
-// import toastr from "toastr";
 import UseWindowDimensions from "../../../../../helpers/UseWindowDimensions";
 
 const ListItem = ({
@@ -14,7 +9,8 @@ const ListItem = ({
                       regions,
                       communes,
                       addressChecked,
-                      isSusbscription = false
+                      isSusbscription = false,
+                      name = 'default_address'
                   }) => {
 
     const {width} = UseWindowDimensions();
@@ -52,11 +48,11 @@ const ListItem = ({
                         inline
                         label=""
                         type="radio"
-                        name="default_address"
-                        checked={address.default_address ? true : false}
+                        name={name}
+                        checked={addressChecked ? addressChecked : (address.default_address ? true : false)}
                         className="mr-1"
                         onClick={() => saveDefaultAddress(address.id, address.customer_id)}
-                        id={`custom-inline-radio-address-${address.id}`}
+                        id={`custom-inline-radio-address-${address.id}-${name}`}
                     />
                 </div>
             </div>

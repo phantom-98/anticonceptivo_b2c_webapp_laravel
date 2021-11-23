@@ -4,13 +4,15 @@ import Icon from "../../../../../components/general/Icon";
 import plusIcon from '../../../../../assets/images/icons/plus-green.svg'
 import * as Services from "../../../../../Services";
 import UseWindowDimensions from "../../../../../helpers/UseWindowDimensions";
+import {v4 as uuidv4} from "uuid";
 
 const List = ({addresses, showEdit, showCreate, getData, regions, communes}) => {
 
     const {width} = UseWindowDimensions();
 
     const saveDefaultAddress = (addressId, customerId) => {
-
+        // console.log(2)
+        // return
         let url = Services.ENDPOINT.CUSTOMER.ADDRESSES.SET_DEFAULT_ADDRESS;
 
         let data = {
@@ -36,7 +38,7 @@ const List = ({addresses, showEdit, showCreate, getData, regions, communes}) => 
                 {
                     addresses.map((address, index) => (
                         <ListItem
-                            key={index}
+                            key={uuidv4()}
                             address={address}
                             showEdit={showEdit}
                             saveDefaultAddress={saveDefaultAddress}

@@ -149,11 +149,7 @@
 
 <script src="{{ asset('themes/web/app/js/app.js') }}"></script>
 <script src="{{ asset('themes/web/assets/js/custom.js') }}"></script>
-<script src="{{ asset('themes/react/plugins/toastr/toastr.min.js') }}"></script>
-
-<script>
-
-</script>
+<script src="{{ asset('themes/web/assets/plugins/toastr/toastr.min.js') }}"></script>
 
 @yield('scripts')
 

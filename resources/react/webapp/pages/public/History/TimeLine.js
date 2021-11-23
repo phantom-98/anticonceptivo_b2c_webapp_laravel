@@ -34,7 +34,7 @@ const TimeLine = ({timelines}) => {
                                 </div>
                             </div>
                         :
-                            <div className="col-md-2 timeline-item">
+                            <div className="col-md-2 timeline-item" style={{marginBottom: "50px"}}>
                                 <div key={timelineKey}>
                                     <div className="timeline-box">
                                         <div className="timeline-resume">

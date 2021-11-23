@@ -4022,6 +4022,19 @@ a:-webkit-any-link:focus-visible {
   font-weight: 900;
 }
 
+.blog-author img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.blog-main-img {
+  max-height: 355px;
+  -o-object-fit: contain;
+     object-fit: contain;
+  border-radius: 12px;
+}
+
 @media (min-width: 768px) {
   .app-margin-top {
     margin-top: 0;
@@ -5571,6 +5584,14 @@ a:-webkit-any-link:focus-visible {
     font-size: 18px;
     font-weight: 500;
     padding-top: 3px !important;
+  }
+
+  .post-single h1 {
+    font-size: 30px;
+  }
+
+  .blog-list-img {
+    width: 100%;
   }
 }
 
