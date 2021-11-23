@@ -98,7 +98,7 @@ class UpdateStock extends Command
             $product->save();
         }
 
-        /*try {
+        try {
             $users = User::all();
             foreach($users as $user){
                 $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
@@ -114,7 +114,7 @@ class UpdateStock extends Command
             }
         } catch (\Exception $e) {
             Log::error('UpdateStock Email', ["response" => $e->getMessage()]);
-        }*/
+        }
 
 
 
