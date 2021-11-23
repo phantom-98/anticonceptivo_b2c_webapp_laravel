@@ -85,6 +85,17 @@
     }
 }
 
+@media (max-width: 375px) {
+    .circle-about-us {
+        width: 130px !important;
+        height: 130px !important;
+    }
+    .circle-about-us img{
+        width: 130px !important;
+    }
+}
+
+
 .tabs-about-us .nav-item {
     border-radius: 12px 12px 0 0;
     font-size: 16px;
@@ -133,7 +144,7 @@
 .card-faq .card-header h4,
 .card-faq .card-header h5,
 .card-faq .card-header p,
-.card-faq .card-header span,
+.card-faq .card-header span
 {
     margin: 0;
 }

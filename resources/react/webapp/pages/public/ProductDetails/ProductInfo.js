@@ -50,7 +50,7 @@ const ProductInfo = ({product, setImageSubscription}) => {
                 </p>
             </div>
             <div className="col-md-12">
-                <div className="font-poppins font-12 regular color-6C6B6B"
+                <div className="font-poppins font-12 regular color-6C6B6B compoundProduct"
                      dangerouslySetInnerHTML={{__html: product.compound}}
                 />
             </div>
@@ -120,7 +120,7 @@ const ProductInfo = ({product, setImageSubscription}) => {
                     }
 
                     <div className="col-12 col-md-auto d-flex mt-3 mt-md-0">
-                        <h1 className="font-poppins my-auto font-12 regular color-009BE8">
+                        <h1 className="font-poppins my-auto font-16 regular color-009BE8">
                             <Icon className="icon-document"
                                   path={fileSvg}/> {product.recipe_type ? product.recipe_type : "Venta Directa"}
                         </h1>
