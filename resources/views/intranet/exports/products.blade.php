@@ -44,10 +44,10 @@
                 <td>{{ $object->unit_format ?? '' }}</td>
                 <td>{{ $object->recipe_type ?? 'Venta Directa' }}</td>
                 <td>{{ $object->state_of_matter ?? 'Sólido' }}</td>
-                <td>{!! $object->data_sheet !!}</td>
+                <td>{!! strip_tags($object->data_sheet) !!}</td>
                 <td>{!! strip_tags($object->benefits) !!}</td>
-                <td>{!! $object->description !!}</td>
-                <td>{!! $object->compound !!}</td>
+                <td>{!! strip_tags( $object->description) !!}</td>
+                <td>{!! strip_tags($object->compound) !!}</td>
             </tr>
         @endforeach
     </tbody>
