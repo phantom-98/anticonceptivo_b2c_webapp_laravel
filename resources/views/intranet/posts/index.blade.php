@@ -69,7 +69,7 @@
                             <tr data-position="{{$object->position}}" data-id="{{$object->id}}">
                                 <td>{{ $object->title }}</td>
                                 <td>{{ ( $object->author ? $object->author->getFullNameAttribute() : null)}}</td>
-                                <td>{{ $object->post_type->name }}</td>
+                                <td>{{ $object->post_type->name ?? 'Sin categoría asignada' }}</td>
                                 @if($object->link)
                                 <td><iframe src="{{ $object->link }}" width="300" height="240" frameborder="0"
                                     allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
