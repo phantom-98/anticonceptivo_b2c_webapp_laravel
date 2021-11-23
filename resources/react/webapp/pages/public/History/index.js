@@ -53,7 +53,7 @@ const History = () => {
                         <div className="panel">
                             <div className="panel-body">
                                 <div className="row">
-                                    <div className="col-12 pt-4">
+                                    <div className="col-12 pt-4 mb-4">
                                         <H2Title text="HISTORIA DE LOS ANTICONCEPTIVOS"/>
                                     </div>
                                     <div className="col-12">
