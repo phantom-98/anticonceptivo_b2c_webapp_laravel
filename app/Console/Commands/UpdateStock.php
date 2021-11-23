@@ -80,7 +80,7 @@ class UpdateStock extends Command
                 $isError = true;
 
                 array_push($errorsEmail , [
-                    'product_sku' => $product->sku,
+                    'product_sku' => $product->barcode,
                     'product_name' => $product->name,
                     'ailoo_error' => $get_data
                 ]);
@@ -105,7 +105,7 @@ class UpdateStock extends Command
                 $html = view('emails.ailoo-errors', ['user_name' => $user->first_name, 'errors' => $errorsEmail])->render();
                 $email = new \SendGrid\Mail\Mail();
                 $email->setFrom("info@anticonceptivo.cl", 'Anticonceptivo');
-                $email->setSubject('Error Ailo');
+                $email->setSubject('Error de Stock - Ailoo');
                 $email->addTo($user->email, $user->first_name);
                 $email->addContent(
                     "text/html", $html
