@@ -101,7 +101,8 @@
     }
 
     .btn-months{
-        font-size: 8px;
+        font-size: 8px !important;
+        margin-bottom: 10px !important;
     }
 }
 
@@ -115,6 +116,7 @@
 
 .btn-months{
     font-size: 10px;
+    margin-bottom: 20px;
 }
 
 .icon-document{
