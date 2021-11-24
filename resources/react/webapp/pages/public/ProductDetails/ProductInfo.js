@@ -102,7 +102,7 @@ const ProductInfo = ({product, setImageSubscription}) => {
 
                     {
                         product.unit_format && product.format != null ?
-                            <div className="col-12 col-md">
+                            <div className="col-12 col-md-12">
                                 <div className="product-format-style font-poppins regular color-6C6B6B">
                                     Precio por unidad: $
                                     {
@@ -119,7 +119,7 @@ const ProductInfo = ({product, setImageSubscription}) => {
                             : null
                     }
 
-                    <div className="col-12 col-md-auto d-flex mt-3 mt-md-0">
+                    <div className="col-12 col-md-auto d-flex mt-3 mt-md-3">
                         <h1 className="font-poppins my-auto font-16 regular color-009BE8">
                             <Icon className="icon-document"
                                   path={fileSvg}/> {product.recipe_type ? product.recipe_type : "Venta Directa"}

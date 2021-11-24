@@ -1167,6 +1167,17 @@ input.my-auto.file-input {
   }
 }
 
+@media (max-width: 420px) {
+  .circle-about-us {
+    width: 130px !important;
+    height: 130px !important;
+  }
+
+  .circle-about-us img {
+    width: 130px !important;
+  }
+}
+
 .tabs-about-us .nav-item {
   border-radius: 12px 12px 0 0;
   font-size: 16px;
@@ -2109,6 +2120,7 @@ input[type=number] {
 
 .circle-timeline img {
   margin: auto;
+  max-width: 50px;
 }
 
 .timeline-line-vertical {
@@ -2203,6 +2215,20 @@ input[type=number] {
     text-align: center !important;
   }
 
+  ul {
+    font-size: 14px !important;
+    font-family: "Poppins" !important;
+  }
+
+  .compoundProduct {
+    border-color: #E8E8E8 !important;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 11px;
+    padding: 8px;
+    padding-bottom: 0;
+  }
+
   .padding-responsive-detail {
     padding: 3rem 2rem 3rem 2rem !important;
   }
@@ -2226,13 +2252,21 @@ input[type=number] {
     justify-content: center;
   }
 
-  .subscription-buttons {
-    text-align: center;
+  .subscription-content {
+    text-align: left !important;
   }
 
   .subscription-button-margin {
     margin-bottom: 0.5rem !important;
   }
+}
+
+.subscription-content {
+  text-align: center;
+}
+
+.btn-months {
+  font-size: 10px !important;
 }
 
 .icon-document {
