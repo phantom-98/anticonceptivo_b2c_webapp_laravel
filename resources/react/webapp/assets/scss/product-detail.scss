@@ -95,9 +95,21 @@
         height: 31px !important;
         font-size: 7px !important;
     }
+    
+    .subscription-title{
+        text-align: left;
+    }
+
+    .btn-months{
+        font-size: 8px !important;
+    }
 }
 
 .subscription-content{
+    text-align: center;
+}
+
+.subscription-title{
     text-align: center;
 }
 
