@@ -78,13 +78,21 @@
         justify-content: center;
     }
 
-    .subscription-buttons{
-        text-align: center;
+    .subscription-content{
+        text-align: left !important;
     }
 
     .subscription-button-margin{
         margin-bottom: .5rem!important;
     }
+}
+
+.subscription-content{
+    text-align: center;
+}
+
+.btn-months{
+    font-size: 10px !important;
 }
 
 .icon-document{

@@ -8,17 +8,20 @@ import LazyLoading from "../LazyLoading";
 import ProductCard from "../shopping/ProductCard";
 import H2Title from "../general/H2Title";
 import { v4 as uuidv4 } from 'uuid';
+import UseWindowDimensions from "../../helpers/UseWindowDimensions";
 
 const ProductsCarouselV2 = ({title, prods}) => {
+
+    const { width } = UseWindowDimensions();
 
     const settings = {
         className: "slider variable-width",
         dots: true,
         infinite: false,
         speed: 500,
-        slidesToShow: prods.length > 4 ? 4 : prods.length,
-        slidesToScroll: 4,
-        variableWidth: true
+        slidesToShow: width > 768 ? (prods.length > 4 ? 4 : prods.length) : 1,
+        slidesToScroll: width > 768 ? 4 : 1,
+        variableWidth: false
     };
 
     const [products, setProducts] = useState([]);
