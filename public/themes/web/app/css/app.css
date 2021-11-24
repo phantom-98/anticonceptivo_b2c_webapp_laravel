@@ -2264,6 +2264,12 @@ input[type=number] {
     margin-left: auto;
     margin-right: auto;
   }
+
+  .btn-add-cart,
+  .btn-add-cart:hover {
+    height: 31px !important;
+    font-size: 7px !important;
+  }
 }
 
 .subscription-content {
