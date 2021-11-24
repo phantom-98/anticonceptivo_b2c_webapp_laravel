@@ -19,8 +19,8 @@ const ProductsCarouselV2 = ({title, prods}) => {
         dots: true,
         infinite: false,
         speed: 500,
-        slidesToShow: width > 768 ? (prods.length > 4 ? 4 : prods.length) : 1,
-        slidesToScroll: width > 768 ? 4 : 1,
+        slidesToShow: width > 768 ? (prods.length > 4 ? 4 : prods.length) : 2,
+        slidesToScroll: width > 768 ? 4 : 2,
         variableWidth: false
     };
 
@@ -52,9 +52,15 @@ const ProductsCarouselV2 = ({title, prods}) => {
                                     products.map((product) => {
                                         let uuid = uuidv4();
                                         return (
+                                            width > 768 ?
                                             <div key={uuid} className="px-3 mb-3" style={{ width: 285 }}>
                                                 <ProductCard product={product}/>
                                             </div>
+                                            : 
+                                            <div key={uuid} className="px-1 mb-1" style={{ width: 285 }}>
+                                                <ProductCard product={product}/>
+                                            </div>
+
                                         )
                                     })
                                     : <LazyLoading/>
