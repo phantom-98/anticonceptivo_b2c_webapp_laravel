@@ -37,7 +37,7 @@ const ProductsCarouselV2 = ({title, prods}) => {
     return (
         <div style={{background: '#FFFFFF'}}>
             <div className="container">
-                <div className="row pt-5 pb-5 mb-5 ">
+                <div className="row pb-5 mb-5 ">
                     {products.length > 0 ?
                         <div className="col-12 py-4">
                             <H2Title text={title}/>
