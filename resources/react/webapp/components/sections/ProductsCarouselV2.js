@@ -15,7 +15,7 @@ const ProductsCarouselV2 = ({title, prods}) => {
     const { width } = UseWindowDimensions();
 
     const settings = {
-        className: "slider variable-width",
+        className: "slider variable-width product-carousel",
         dots: true,
         infinite: false,
         speed: 500,
