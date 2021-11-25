@@ -2306,8 +2306,10 @@ input[type=number] {
   padding-right: 10px;
 }
 
-.slick-slide {
-  max-width: 300px;
+@media (min-width: 1260px) {
+  .slick-slide {
+    max-width: 300px;
+  }
 }
 
 @media (min-width: 768px) {
