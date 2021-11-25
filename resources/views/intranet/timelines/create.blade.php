@@ -41,7 +41,7 @@
                             </div>
                             <div class="form-group col-sm-4">
                                 {!! Form::label('image', 'Ícono (*)') !!}
-                                <input type='file' name='icon' class='form-control' accept=".jpg, .png, .jpeg">
+                                <input type='file' name='icon' class='form-control' accept=".jpg, .png, .jpeg, .svg">
                             </div>  
                             <div class="col-md-4">
                                 <div class="form-group">
