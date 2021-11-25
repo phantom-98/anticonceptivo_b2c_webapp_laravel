@@ -2286,15 +2286,6 @@ input[type=number] {
     font-size: 8px !important;
     margin-bottom: 10px !important;
   }
-
-  .slick-slide {
-    outline: none !important;
-    width: 70% !important;
-    justify-content: center !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-    float: unset !important;
-  }
 }
 
 .subscription-content {
@@ -2316,7 +2307,7 @@ input[type=number] {
 }
 
 .slick-slide {
-  width: 300px;
+  max-width: 300px;
 }
 
 @media (min-width: 768px) {
