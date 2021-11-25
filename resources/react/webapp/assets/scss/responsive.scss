@@ -32,6 +32,11 @@
     }
 }
 
+@media (min-width: 1260px) {
+    .product-carousel{
+        max-width: 300px;
+    }
+}
 
 @media (max-width: 767px) {
 
