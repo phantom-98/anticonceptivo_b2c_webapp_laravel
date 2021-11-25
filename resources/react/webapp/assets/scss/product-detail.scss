@@ -106,12 +106,11 @@
     }
 
     .slick-slide{
-        outline: none !important;
-        width: 70% !important;
+        max-width: 70% !important;
         justify-content: center !important;
         margin-left: auto !important;
         margin-right: auto !important;
-        float:unset !important;
+        float: center;
     }
 }
 
@@ -135,5 +134,5 @@
 
 .slick-slide{
     width: 300px;
-
+    float:center;
 }
