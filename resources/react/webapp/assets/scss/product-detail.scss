@@ -105,13 +105,6 @@
         margin-bottom: 10px !important;
     }
 
-    .slick-slide{
-        max-width: 70% !important;
-        justify-content: center !important;
-        margin-left: auto !important;
-        margin-right: auto !important;
-        float: center;
-    }
 }
 
 .subscription-content{
@@ -133,6 +126,5 @@
 }
 
 .slick-slide{
-    width: 300px;
-    float:center;
+    max-width: 300px;
 }
