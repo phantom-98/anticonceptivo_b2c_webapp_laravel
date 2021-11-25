@@ -1479,6 +1479,13 @@ input.my-auto.file-input {
   margin-bottom: 1rem;
 }
 
+.timeline-resume {
+  font-family: "Poppins";
+  font-size: 11px;
+  font-weight: 400;
+  color: #6C6B6B;
+}
+
 .modal-backdrop {
   background-color: #033F5D !important;
 }
@@ -2272,11 +2279,21 @@ input[type=number] {
   }
 
   .subscription-title {
-    text-align: left;
+    text-align: left !important;
   }
 
   .btn-months {
     font-size: 8px !important;
+    margin-bottom: 10px !important;
+  }
+
+  .slick-slide {
+    outline: none !important;
+    width: 70% !important;
+    justify-content: center !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    float: unset !important;
   }
 }
 
@@ -2289,12 +2306,17 @@ input[type=number] {
 }
 
 .btn-months {
-  font-size: 10px !important;
+  font-size: 10px;
+  margin-bottom: 20px;
 }
 
 .icon-document {
   height: 15px;
   padding-right: 10px;
+}
+
+.slick-slide {
+  width: 300px;
 }
 
 @media (min-width: 768px) {

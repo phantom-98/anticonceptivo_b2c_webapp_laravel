@@ -27,29 +27,23 @@
                 <div class="panel">
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-md-8">
+                            <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="description">Descripción (*)</label>
-                                    <input type="text" id="description" name="description" class="form-control"
-                                           value="{{ old('description') }}">
+                                    <textarea name="description" id="description" rows="3" style="resize: none" class="summernote">{{ old('description') }}</textarea>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="year">Año (*)</label>
-                                    <input type="text"
-                                        name="year"
-                                        class="date2 form-control"
-                                        data-min-view="years"
-                                        data-view="years"
-                                        data-date-format="yyyy"/>
+                                    <input type="text" name="year" class="form-control"/>
                                 </div>
                             </div>
-                            <div class="form-group col-sm-6">
+                            <div class="form-group col-sm-4">
                                 {!! Form::label('image', 'Ícono (*)') !!}
                                 <input type='file' name='icon' class='form-control' accept=".jpg, .png, .jpeg">
                             </div>  
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="post_id">Blog relacionado</label>
                                     <select id="post_id" name="post_id" class="form-control select2" data-width="100%">

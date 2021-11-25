@@ -40,16 +40,16 @@ class Post extends Model
         'nice_date',
         'month',
         'public_principal_image',
-        // 'public_content_image',
+        'url'
     ];
 
     public function getPublicPrincipalImageAttribute(){
         return $this->principal_image == null ? null : \Storage::url($this->principal_image);
     }
 
-    // public function getPublicContentImageAttribute(){
-    //     return $this->content_image == null ? null : \Storage::url($this->content_image);
-    // }
+    public function getUrlAttribute(){
+        return env('APP_URL').'/blog/'.$this->post_type->slug.'/post/'.$this->slug;
+    }
 
     public function getFormatedDateAttribute(){
         return Carbon::parse($this->created_at)->format('d-m-Y');

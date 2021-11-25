@@ -62,7 +62,7 @@
 
                             @foreach($objects as $object)
                                 <tr data-position="{{$object->position}}" data-id="{{$object->id}}">
-                                    <td>{{ $object->description ?? '-' }}</td>
+                                    <td>{!! $object->description ?? '-' !!}</td>
                                     <td>{{ $object->year }}</td>
                                     <td>{{ $object->post->title ?? '-' }}</td>
                                     <td><img src="{{ Storage::url($object->icon) }}" style="max-width: 100px;"/></td>

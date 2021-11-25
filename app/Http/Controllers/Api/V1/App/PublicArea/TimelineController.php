@@ -14,7 +14,7 @@ class TimelineController extends Controller
     public function getTimeline()
     {
         try {
-            $timeLines = Timeline::where('active',true)->orderBy('position')->get();
+            $timeLines = Timeline::with('post.post_type')->where('active',true)->orderBy('position')->get();
 
             return ApiResponse::JsonSuccess([
                 'time_lines' => $timeLines,
