@@ -3,7 +3,7 @@ import BasePanelTwo from "../../../template/BasePanelTwo";
 import Subscribe from "../../../components/sections/Subscribe";
 import PUBLIC_ROUTES from "../../../routes/publicRoutes";
 import BlogCarousel from "../../../components/sections/BlogCarousel";
-import {Link} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import * as Services from "../../../Services";
 import {CONFIG} from "../../../Config";
 import {v4 as uuidv4} from 'uuid';
@@ -22,10 +22,11 @@ const Blog = ({match}) => {
     const [pageRangeDisplayed, setPageRangeDisplayed] = useState(1);
     const [itemsCountPerPage, setItemsCountPerPage] = useState(10);
     const [totalItemsCount, setTotalItemsCount] = useState(0);
+    const {post_type_slug} = useParams();
 
     useEffect(() => {
-        getData(match.params.post_type_slug);
-    }, [match.params.post_type_slug])
+        getData(post_type_slug);
+    }, [post_type_slug])
 
     useEffect(() => {
         setActivePage(1);
@@ -205,7 +206,7 @@ const Blog = ({match}) => {
             <BlogCarousel title="Contenidos relacionados"
                           showButton={true}
                           showOutstanding={true}
-                          type={match.params.post_type_slug}/>
+                          type={post_type_slug}/>
             <Subscribe/>
         </Fragment>
     );

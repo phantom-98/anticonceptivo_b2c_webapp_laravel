@@ -17,13 +17,14 @@ const BlogCarousel = ({title, showButton = true, buttonTitle = ' VER MÁS', show
     const [outstandings, setOutstandings] = useState([]);
 
     useEffect(() => {
-
+        
         getData();
 
-    }, [])
+    }, [type])
 
 
     const getData = () => {
+        setReady(false);
         let url = Services.ENDPOINT.PUBLIC_AREA.BLOG.CAROUSEL;
         let data = {
             show_outstanding: showOutstanding,
@@ -108,9 +109,13 @@ const BlogCarousel = ({title, showButton = true, buttonTitle = ' VER MÁS', show
                                     null
                             }
 
-                            <div className={`col-12  ${showOutstanding ? 'py-5' : 'py-4'}`}>
-                                <H2Title text={title}/>
-                            </div>
+                            {
+                                posts.length ?
+                                    <div className={`col-12  ${showOutstanding ? 'py-5' : 'py-4'}`}>
+                                        <H2Title text={title}/>
+                                    </div>
+                                : null
+                            }
 
                             <div className="col-12">
                                 <div className="row">
