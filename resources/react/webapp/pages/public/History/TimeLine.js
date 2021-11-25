@@ -23,10 +23,11 @@ const TimeLine = ({timelines}) => {
                                     </div>
                                     <div className="timeline-box">
                                         <div className="timeline-resume">
-                                            dangerouslySetInnerHTML={{
-                                                __html: data.description
-                                            }}
-                                            
+                                            <div
+                                                dangerouslySetInnerHTML={{
+                                                    __html: data.description
+                                                }}
+                                            />
                                             { data.post 
                                                 ? 
                                                     <p className="font-poppins font-12 bold pointer color-033F5D">
