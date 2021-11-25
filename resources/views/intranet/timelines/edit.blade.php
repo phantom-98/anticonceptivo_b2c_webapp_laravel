@@ -44,7 +44,7 @@
                             </div>
                             <div class="form-group col-sm-4">
                                 {!! Form::label('image', 'Ícono ') !!}
-                                <input id="file-image" type='file' name='icon' class='form-control' accept=".jpg, .png, .jpeg">
+                                <input id="file-image" type='file' name='icon' class='form-control' accept=".jpg, .png, .jpeg, .svg">
                                 <br/>
                                 @if ($object->icon)
                                 <img id="image-edit" src="{{ Storage::url($object->icon) }}" style="max-width: 100px;"/>
