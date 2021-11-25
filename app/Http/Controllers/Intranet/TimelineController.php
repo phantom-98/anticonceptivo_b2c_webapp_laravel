@@ -32,7 +32,7 @@ class TimelineController extends GlobalController
 
     public function index()
     {
-        $objects = Timeline::orderBy('position')->get();
+        $objects = Timeline::with('post')->orderBy('position')->get();
         return view($this->folder . 'index', compact('objects'));
     }
 

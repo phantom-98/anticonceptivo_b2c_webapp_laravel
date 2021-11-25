@@ -23,12 +23,18 @@ const TimeLine = ({timelines}) => {
                                     </div>
                                     <div className="timeline-box">
                                         <div className="timeline-resume">
-                                            <p className="font-poppins font-11 regular color-6C6B6B">
-                                                {data.description}
-                                            </p>
-                                            <p className="font-poppins font-12 bold pointer color-033F5D">
-                                                <a href={'#'}>LEER MÁS</a>
-                                            </p>
+                                            dangerouslySetInnerHTML={{
+                                                __html: data.description
+                                            }}
+                                            
+                                            { data.post 
+                                                ? 
+                                                    <p className="font-poppins font-12 bold pointer color-033F5D">
+                                                        <a href={data.post.url}>LEER MÁS</a>
+                                                    </p>
+                                                :
+                                                    null
+                                            }
                                         </div>
                                     </div>
                                 </div>
