@@ -38,7 +38,7 @@ class Product extends Model
         'state_of_matter'
     ];
 
-    protected $appends = ['images'];
+    protected $appends = ['images', 'format_compound'];
 
     public function subcategory(){
         return $this->belongsTo(Subcategory::class);
@@ -50,6 +50,10 @@ class Product extends Model
 
     public function product_images(){
         return $this->hasMany(ProductImage::class)->orderBy('position');
+    }
+
+    public function getFormatCompoundAttribute(){
+        return strip_tags($this->compound);
     }
 
     public function getImagesAttribute(){

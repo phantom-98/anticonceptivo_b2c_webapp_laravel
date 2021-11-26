@@ -170,7 +170,7 @@ const ProductCard = ({product, className = '', subscriptionFilter = []}) => {
                             <img className="mobile-producto-img mb-2" src={subscriptionFilter.length ? handleSubscriptionImage(product) : product.images[0].public_file} alt={`${CONFIG.APP_NAME} - ${product.name}`}/>
                         </Link>
                     </div>
-                    <div className="col-12 text-center">
+                    <div className="col-12">
                         <div className="product-card-brand">{product.laboratory.name}</div>
                         <div className="product-card-name">
                             <Link  to={(PUBLIC_ROUTES.PRODUCT_DETAIL.path).replace(':slug?', product.slug)}

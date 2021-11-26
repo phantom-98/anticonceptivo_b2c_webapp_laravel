@@ -121,7 +121,7 @@ const ProductDetail = ({match}) => {
                                         <img src={Bioequivalent} alt="anticonceptivo.cl"/>
                                     </div>
                                     <div className="col d-flex">
-                                        <p className="font-poppins font-15 regular mb-0 my-auto"
+                                        <p className="font-poppins font-14 regular mb-0 my-auto"
                                            style={{color: '#F14821'}}>Este medicamento es bioequivalente</p>
                                     </div>
                                 </div>

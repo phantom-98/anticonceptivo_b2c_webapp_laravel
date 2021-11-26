@@ -50,8 +50,8 @@ const ProductInfo = ({product, setImageSubscription}) => {
                 </p>
             </div>
             <div className="col-md-12">
-                <div className="font-poppins font-12 regular color-6C6B6B compoundProduct"
-                     dangerouslySetInnerHTML={{__html: product.compound}}
+                <div className="font-poppins font-12 compoundProduct"
+                     dangerouslySetInnerHTML={{__html: product.format_compound}}
                 />
             </div>
             <div className="col-md-12">
@@ -120,8 +120,8 @@ const ProductInfo = ({product, setImageSubscription}) => {
                     }
 
                     <div className="col-12 col-md-auto d-flex mt-3 mt-md-3">
-                        <h1 className="font-poppins my-auto font-16 regular color-009BE8">
-                            <Icon className="icon-document"
+                        <h1 className="font-poppins my-auto font-16 regular color-009BE8 h1Recipe">
+                            <Icon className="icon-document iconRecipe"
                                   path={fileSvg}/> {product.recipe_type ? product.recipe_type : "Venta Directa"}
                         </h1>
                     </div>
@@ -148,13 +148,13 @@ const ProductInfo = ({product, setImageSubscription}) => {
                                                                 const month = item.subscription_plan.months;
 
                                                                 return <button
-                                                                    className={`btn btn-outline-primary btn-months mr-2 subscription-button-margin ${isActive ? 'focus' : ''}`}
+                                                                    className={`btn btn-outline-primary btn-months mr-1 subscription-button-margin ${isActive ? 'focus' : ''}`}
                                                                     onClick={() =>
                                                                         handleSubscription({
                                                                             subscription_plan: item,
                                                                             position: index
                                                                         })}>
-                                                                    <span className="font-9">
+                                                                    <span className="textPlansProduct">
                                                                          {month == 13 ? 12 : month} Meses / {month} Ciclos
                                                                     </span>
                                                                 </button>
