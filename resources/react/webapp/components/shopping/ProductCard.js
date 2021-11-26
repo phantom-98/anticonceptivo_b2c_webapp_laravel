@@ -170,7 +170,7 @@ const ProductCard = ({product, className = '', subscriptionFilter = []}) => {
                             <img className="mobile-producto-img mb-2" src={subscriptionFilter.length ? handleSubscriptionImage(product) : product.images[0].public_file} alt={`${CONFIG.APP_NAME} - ${product.name}`}/>
                         </Link>
                     </div>
-                    <div className="col-12 text-center">
+                    <div className="col-12">
                         <div className="product-card-brand">{product.laboratory.name}</div>
                         <div className="product-card-name">
                             <Link  to={(PUBLIC_ROUTES.PRODUCT_DETAIL.path).replace(':slug?', product.slug)}
@@ -199,14 +199,6 @@ const ProductCard = ({product, className = '', subscriptionFilter = []}) => {
                                     : product.is_offer ?
                                         product.offer_price
                                         : product.price)
-                            }
-                            {
-                                subscriptionFilter.length ?
-                                    handleText(product, true)
-                                :
-                                    product.is_offer ?
-                                        <span className="font-poppins font-16 bold color-009BE8"><s>{' '}{formatMoney(product.price)}</s></span>
-                                    : null
                             }
                         </div>
                     </div>

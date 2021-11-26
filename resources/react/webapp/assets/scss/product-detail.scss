@@ -52,7 +52,6 @@
         border-style: solid;
         border-radius: 11px;
         padding: 8px;
-        padding-bottom: 0;
     }
 
     .padding-responsive-detail{
@@ -93,7 +92,7 @@
 
     .btn-add-cart, .btn-add-cart:hover {
         height: 31px !important;
-        font-size: 7px !important;
+        font-size: 7px;
     }
 
     .subscription-title{
@@ -103,6 +102,21 @@
     .btn-months{
         font-size: 8px !important;
         margin-bottom: 10px !important;
+    }
+
+    .h1Recipe{
+        margin-left: 10px !important;
+        margin-top: 4px !important;
+    }
+
+    .iconRecipe{
+        font-size: 16px !important;
+        margin-top: -8px !important;
+        height: 20px !important;
+    }
+
+    .textPlansProduct{
+        font-size: 8px !important;
     }
 
 }
@@ -123,4 +137,13 @@
 .icon-document{
     height: 15px;
     padding-right: 10px;
+}
+
+.compoundProduct{
+    color: #A3A3A3;
+    font-weight: 400;
+}
+
+.textPlansProduct{
+    font-size: 10px;
 }

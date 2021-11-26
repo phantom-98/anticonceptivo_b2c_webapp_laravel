@@ -329,13 +329,13 @@ const Form = ({addressSelected, goBack, formMode, customerId = null, regions, se
             </div>
 
             <div className="col-md-6 mt-4 text-center text-md-left">
-                <button type="button" className="btn btn-bicolor px-5"
+                <button type="button" className="btn btn-bicolor px-5 btn-adress"
                         onClick={() => goBack()}>
                     <span>VOLVER</span>
                 </button>
             </div>
             <div className="col-md-6 mt-4 text-center text-md-right">
-                <button type="button" className="btn btn-bicolor px-5"
+                <button type="button" className="btn btn-bicolor px-5 btn-save-address"
                         onClick={customerId ? () => updateData() : () => setAddressNoAuth()}>
                     <span>GUARDAR DIRECCIÓN</span>
                 </button>

@@ -57,6 +57,18 @@
         margin-top: 108px;
     }
 
+    .btn-adress{
+        width: 100%;
+    }
+
+    .btn-save-address {
+        width: 100%;
+    }
+
+    .add-underline-responsive{
+        text-decoration: underline;
+    }
+
     .responsive-d-none {
         display: none !important;
     }
@@ -347,7 +359,7 @@
         background: #fafac8;
         border-radius: 10px;
         border: solid 1px #f0f08c;
-        font-size: 16px;
+        font-size: 12px;
         padding: 10px 15px;
         color: #484848;
         font-weight: 500;
