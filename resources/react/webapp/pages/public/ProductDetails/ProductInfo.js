@@ -120,7 +120,7 @@ const ProductInfo = ({product, setImageSubscription}) => {
                     }
 
                     <div className="col-12 col-md-auto d-flex mt-3 mt-md-3">
-                        <h1 className="font-poppins my-auto font-16 regular color-009BE8 h1Recipe">
+                        <h1 className="font-poppins my-auto font-16 color-009BE8 h1Recipe">
                             <Icon className="icon-document iconRecipe"
                                   path={fileSvg}/> {product.recipe_type ? product.recipe_type : "Venta Directa"}
                         </h1>
