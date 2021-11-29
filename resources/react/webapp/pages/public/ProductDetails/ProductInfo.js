@@ -49,11 +49,15 @@ const ProductInfo = ({product, setImageSubscription}) => {
                     />
                 </p>
             </div>
-            <div className="col-md-12">
-                <div className="font-poppins font-12 compoundProduct"
-                     dangerouslySetInnerHTML={{__html: product.format_compound}}
-                />
-            </div>
+            {product.compound ?
+                <div className="col-md-12">
+                    <div className="font-poppins font-12 compoundProduct"
+                            dangerouslySetInnerHTML={{__html: product.format_compound}}
+                    />
+                </div>
+            
+            : null
+            }
             <div className="col-md-12">
                 <span className="font-poppins font-36 bold color-009BE8">
                     {subscription == null ?
