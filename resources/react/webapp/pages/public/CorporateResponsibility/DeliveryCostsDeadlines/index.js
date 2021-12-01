@@ -10,7 +10,7 @@ const DeliveryCostsDeadlines = ({deliveryCosts}) => {
 
             <div className="col-12">
                 <h3 className="font-poppins font-35 bold color-0A68A6 d-md-none">Plazos y costos de entrega </h3>
-                <h3 className="font-poppins font-20 bold color-033F5D d-none d-md-block">Plazos y costos de entrega </h3>
+                <h3 className="font-poppins font-20 bold color-033F5D d-none d-md-block mb-4">Plazos y costos de entrega </h3>
             </div>
             <div className="col-12">
                 <Accordion defaultActiveKey={'0'}>
