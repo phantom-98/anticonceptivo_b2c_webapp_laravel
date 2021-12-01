@@ -79,8 +79,8 @@ export const ENDPOINT = {
         HEADER: GetBaseURL() + 'public-area/get-header-resources',
         HEADER_MENU: GetBaseURL() + 'public-area/get-header-navbar-resources',
         HEADER_BOX: GetBaseURL() + 'public-area/get-all-available',
-        BANNERS:{
-            HOME:{
+        BANNERS: {
+            HOME: {
                 TOP: GetBaseURL() + 'public-area/get-home-top-banners',
                 MIDDLE: GetBaseURL() + 'public-area/get-home-middle-banners',
                 BOTTOM: GetBaseURL() + 'public-area/get-home-bottom-banners',
@@ -91,12 +91,15 @@ export const ENDPOINT = {
             POSTS: GetBaseURL() + 'public-area/get-posts',
             POST: GetBaseURL() + 'public-area/get-post',
             CAROUSEL: GetBaseURL() + 'public-area/get-carousel-posts',
+            POST_CATEGORIES: GetBaseURL() + 'public-area/get-post-categories',
+            POSTS_RECOMMENDED: GetBaseURL() + 'public-area/get-posts-recommended',
+            GET_POSTS_BY_CATEGORY: GetBaseURL() + 'public-area/get-posts-by-category',
         },
         HISTORY: GetBaseURL() + 'public-area/get-timeline',
         ABOUT_US: GetBaseURL() + 'public-area/get-about-us-resources',
         SUBSCRIBE: GetBaseURL() + 'public-area/subscribe',
-        SHOP:{
-            PRODUCTS:{
+        SHOP: {
+            PRODUCTS: {
                 CATEGORY: GetBaseURL() + 'public-area/get-product-by-categories',
                 SEARCH: GetBaseURL() + 'public-area/get-product-by-search',
                 SUBCATEGORY: GetBaseURL() + 'public-area/get-product-by-subcategories',
@@ -112,37 +115,37 @@ export const ENDPOINT = {
         HOME: {
             GET_CATEGORY: GetBaseURL() + 'public-area/get-categories',
         },
-        SHOP:{
+        SHOP: {
             RESOURCES: GetBaseURL() + 'public-area/get-resources',
             PRODUCTS_FILTERED: GetBaseURL() + 'public-area/get-products-filtered',
             PRODUCTS_SEARCH_FILTER: GetBaseURL() + 'public-area/get-product-by-filtered-search',
         },
-        PRODUCT:{
+        PRODUCT: {
             GET: GetBaseURL() + 'public-area/get-products',
         },
-        PRODUCT_BY_SLUG:{
+        PRODUCT_BY_SLUG: {
             GET: GetBaseURL() + 'public-area/get-product-by-slug',
         },
-        CHECKOUT:{
+        CHECKOUT: {
             GET_RESOURCES: GetBaseURL() + 'public-area/get-checkout-resources',
             VALIDATE_STEPS: GetBaseURL() + 'public-area/validate-steps',
             GET_ORDER: GetBaseURL() + 'public-area/get-order',
             SUBMIT_PRESCRIPTION: GetBaseURL() + 'public-area/submit-prescription',
             UPDATE_DISCOUNTS: GetBaseURL() + 'public-area/update-discounts'
         },
-        TERMS_AND_CONDITIONS:{
+        TERMS_AND_CONDITIONS: {
             GET_DATA: GetBaseURL() + 'public-area/get-terms-and-conditions'
         },
-        FAQS:{
+        FAQS: {
             GET_DATA: GetBaseURL() + 'public-area/get-faqs'
         },
-        CLAIM:{
+        CLAIM: {
             SUBMIT: GetBaseURL() + 'public-area/submit-claim',
             GET_DATA: GetBaseURL() + 'public-area/get-claims'
         }
     },
-    CUSTOMER:{
-        PROFILE:{
+    CUSTOMER: {
+        PROFILE: {
             GET: GetBaseURL() + 'customer/get-profile',
             UPDATE: GetBaseURL() + 'customer/update-profile',
         },
@@ -166,12 +169,12 @@ export const ENDPOINT = {
             SET_CANCEL_SUBSCRIPTION: GetBaseURL() + 'customer/cancel-subscription-item'
 
         },
-        ORDERS:{
+        ORDERS: {
             GET: GetBaseURL() + 'customer/get-orders',
             REPEAT_ORDER: GetBaseURL() + 'customer/repeat-order',
 
         },
-        PRESCRIPTIONS:{
+        PRESCRIPTIONS: {
             GET: GetBaseURL() + 'customer/get-prescriptions',
             REMOVE: GetBaseURL() + 'customer/remove-prescriptions',
         },

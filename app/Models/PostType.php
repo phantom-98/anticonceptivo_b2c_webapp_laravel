@@ -10,10 +10,21 @@ class PostType extends Model
         'id',
         'name',
         'slug',
+        'image',
+        'description',
         'active',
         'created_at',
         'updated_at'
     ];
+
+    public function getImageAttribute()
+    {
+        if (strpos($this->attributes['image'], 'http') !== false) {
+            return $this->attributes['image'];
+        }
+        return $this->attributes['image'] == null ? null : \Storage::url($this->attributes['image']);
+    }
+
 
     public function posts()
     {
