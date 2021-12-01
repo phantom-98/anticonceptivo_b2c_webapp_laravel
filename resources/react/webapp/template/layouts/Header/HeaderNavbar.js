@@ -1,11 +1,4 @@
 import React, {useState, useEffect, useContext} from 'react';
-// import pastillas from '../../../assets/images/icons/navbar/pastillas.svg'
-// import masculino from '../../../assets/images/icons/navbar/masculino.svg'
-// import testEmbarazo from '../../../assets/images/icons/navbar/test-embarazo.svg'
-// import emergencia from '../../../assets/images/icons/navbar/emergencia.svg'
-// import jeringa from '../../../assets/images/icons/navbar/jeringa.svg'
-// import anticonceptivo from '../../../assets/images/icons/navbar/anticonceptivo.svg'
-// import femenino from '../../../assets/images/icons/navbar/femenino.svg'
 import HeaderNavbarItem from "../../components/HeaderNavbarItem";
 import {Dropdown} from 'react-bootstrap'
 import PUBLIC_ROUTES from "../../../routes/publicRoutes";
@@ -20,8 +13,6 @@ const HeaderNavbar = () => {
 
     const {width} = UseWindowDimensions();
     // const {breakpoint} = useContext(AppContext)
-
-
     const [categories, setCategories] = useState([]);
     const [spliceCategories, setSpliceCategories] = useState([]);
     const [showDropdown, setShowDropdown] = useState(null);

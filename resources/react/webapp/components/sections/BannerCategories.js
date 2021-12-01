@@ -1,14 +1,13 @@
-import React from "react";
+import React, {useContext} from "react";
 import { v4 as uuidv4 } from "uuid";
 import { CONFIG } from "../../Config";
 import { Link } from "react-router-dom";
 import PUBLIC_ROUTES from "../../routes/publicRoutes";
-import UseWindowDimensions from "../../helpers/UseWindowDimensions";
-import H3Panel from "../general/H3Panel";
+import { AppContext } from "../../context/AppProvider";
+import {BREAKPOINTS} from "../../helpers/vars";
 
 const BannerCategories = ({ bannerCategories }) => {
-    const { width } = UseWindowDimensions();
-
+    const {breakpoint} = useContext(AppContext)
 
     return (
         <div className="container">
@@ -39,7 +38,7 @@ const BannerCategories = ({ bannerCategories }) => {
                                             }}
                                         >
                                             <img
-                                                src={width > 750 ? bannerCategory.public_subbanner_image : bannerCategory.public_banner_subimage_responsive ?? bannerCategory.public_subbanner_image}
+                                          src={breakpoint === BREAKPOINTS.MEDIUM ||breakpoint === BREAKPOINTS.LARGE || breakpoint === BREAKPOINTS.EXTRA_LARGE || breakpoint === BREAKPOINTS.EXTRA_EXTRA_LARGE ? bannerCategory.public_subbanner_image : bannerCategory.public_banner_subimage_responsive ?? bannerCategory.public_subbanner_image}
                                                 alt={CONFIG.APP_NAME}
                                                 style={{ width: "100%" }}
                                             />

@@ -1,12 +1,12 @@
 import React, {useContext} from 'react';
 import Breadcrumbs from "../components/Breadcrumbs";
-import UseWindowDimensions from "../components/customHooks/UseWindowDimensions";
 import {Link, useLocation} from "react-router-dom";
 import {AuthContext} from "../context/AuthProvider";
+import {AppContext} from "../context/AppProvider";
+import { BREAKPOINTS } from "../helpers/vars";
 
 const BasePanelOne = (props) => {
-
-    const {width} = UseWindowDimensions();
+    const {breakpoint} = useContext(AppContext)
     const {logout} = useContext(AuthContext)
 
     let location = useLocation();
@@ -20,7 +20,15 @@ const BasePanelOne = (props) => {
                     <div className="responsive-base-panel" style={props.style}>
                         <div className="row">
                             {
-                                width < 768 ?
+                                breakpoint === BREAKPOINTS.MEDIUM || breakpoint === BREAKPOINTS.LARGE || breakpoint === BREAKPOINTS.EXTRA_LARGE || breakpoint === BREAKPOINTS.EXTRA_EXTRA_LARGE ?
+                                    <div className="col-md-12">
+                                        {
+                                            props.title ?
+                                                <h1 className="base-panel-one-title">{props.title}</h1>
+                                                : null
+                                        }
+                                    </div>
+                                :
                                     <>
                                         <div className="col">
                                             {
@@ -44,15 +52,6 @@ const BasePanelOne = (props) => {
                                                 : null
                                         }
                                     </>
-                                    :
-
-                                    <div className="col-md-12">
-                                        {
-                                            props.title ?
-                                                <h1 className="base-panel-one-title">{props.title}</h1>
-                                                : null
-                                        }
-                                    </div>
                             }
                             <div className="col-md-12">
                                 {

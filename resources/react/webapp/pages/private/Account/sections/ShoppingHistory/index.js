@@ -1,13 +1,15 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import H3Panel from "../../../../../components/general/H3Panel";
 import Table from "./Table";
 import Detail from "./Detail";
-import UseWindowDimensions from "../../../../../helpers/UseWindowDimensions";
+import { AppContext } from "../../../../../context/AppProvider";
+import { BREAKPOINTS } from "../../../../../helpers/vars";
 
 const Index = () => {
 
     const [view, setView] = useState('table');
     const [orderSelected, setOrderSelected] = useState(null);
+    const { breakpoint } = useContext(AppContext)
 
     const goBack = () => {
         setView('table')
@@ -19,16 +21,16 @@ const Index = () => {
         setOrderSelected(order)
     }
 
-    const { height, width } = UseWindowDimensions();
-
     return (
-        <div className="row" style={{marginTop: width<=980 ? '0px' :'-50px'}}>
+        <div className="row" style={{ marginTop: breakpoint === BREAKPOINTS.LARGE || breakpoint === BREAKPOINTS.EXTRA_LARGE || breakpoint === BREAKPOINTS.EXTRA_EXTRA_LARGE ? '-50px' :'0px'}}>
             {
-                width>=980  ? <H3Panel title="MIS COMPRAS"/> : null
+                breakpoint === BREAKPOINTS.MEDIUM || breakpoint === BREAKPOINTS.LARGE || breakpoint === BREAKPOINTS.EXTRA_LARGE || breakpoint === BREAKPOINTS.EXTRA_EXTRA_LARGE ?
+                    <H3Panel title="MIS COMPRAS"/> 
+                : null
             }
             <div className="col-md-12">
                 {
-                    view === 'table' ? <Table showDetail={showDetail} width={width}/> : null
+                    view === 'table' ? <Table showDetail={showDetail}/> : null
                 }
 
                 {

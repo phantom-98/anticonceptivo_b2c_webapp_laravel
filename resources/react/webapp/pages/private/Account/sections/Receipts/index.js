@@ -1,22 +1,21 @@
-import React from 'react';
+import React, {useContext} from 'react';
 
 import H3Panel from "../../../../../components/general/H3Panel";
 import Table from "./Table";
-import UseWindowDimensions from "../../../../../helpers/UseWindowDimensions";
-
+import { AppContext } from "../../../../../context/AppProvider";
+import { BREAKPOINTS } from "../../../../../helpers/vars";
 
 const Receipts = () =>{
 
-    const { height, width } = UseWindowDimensions();
-
+    const {breakpoint} = useContext(AppContext)
 
     return (
-        <div className="row" style={{marginTop: width<=980 ? '0px' :'-50px'}}>
+        <div className="row" style={{ marginTop: breakpoint === BREAKPOINTS.LARGE || breakpoint === BREAKPOINTS.EXTRA_LARGE || breakpoint === BREAKPOINTS.EXTRA_EXTRA_LARGE ? '-50px' :'0px'}}>
             {
-                width>=980  ? <H3Panel title="Mis recetas"/> : null
+                breakpoint === BREAKPOINTS.MEDIUM || breakpoint === BREAKPOINTS.LARGE || breakpoint === BREAKPOINTS.EXTRA_LARGE || breakpoint === BREAKPOINTS.EXTRA_EXTRA_LARGE ? <H3Panel title="Mis recetas"/> : null
             }
             <div className="col-md-12">
-                <Table width={width}/>
+                <Table/>
             </div>
         </div>
     );

@@ -7,15 +7,17 @@ import toastr from "toastr";
 import { v4 as uuidv4 } from "uuid";
 import DynamicField from "./DynamicField"
 import DynamicPath from "../../../../public/ContactUs/DynamicPath";
-import UseWindowDimensions from "../../../../../helpers/UseWindowDimensions";
 import {Form, Modal} from "react-bootstrap";
 import CloseModal from "../../../../../components/general/CloseModal";
 import Terms from "../../../../public/TermsAndConditions/Terms";
 import PrivacyPolice from "../../../../public/CorporateResponsibility/PrivacyPolicies";
+import { AppContext } from "../../../../../context/AppProvider";
+import { BREAKPOINTS } from "../../../../../helpers/vars";
 
 const CustomerService = () => {
 
     const {auth} = useContext(AuthContext);
+    const { breakpoint } = useContext(AppContext)
 
     const defaultData = {
         customer_id: auth.id,
@@ -36,7 +38,7 @@ const CustomerService = () => {
     const [contactIssues, setContactIssues] = useState([]);
     const [dynamicFields, setDynamicFields] = useState([]);
     const [description, setDescription] = useState('');
-    const { height, width } = UseWindowDimensions();
+    
     const [privacyPolicy, setPrivacyPolicy] = useState({});
 
     const [handleTermsModal, setHandleTermsModal] = useState(false);
@@ -276,7 +278,7 @@ const CustomerService = () => {
     }
 
     return (
-        <div className="row" style={{marginTop: width<=980 ? '0px' :'-50px'}}>
+        <div className="row" style={{marginTop: breakpoint === BREAKPOINTS.LARGE || breakpoint === BREAKPOINTS.EXTRA_LARGE || breakpoint === BREAKPOINTS.EXTRA_EXTRA_LARGE ? '-50px' :'0px'}}>
             <H3Panel title="SERVICIO AL CLIENTE" className="mb-3 d-none d-md-block"/>
             <div className="col-md-12">
                 <Modal

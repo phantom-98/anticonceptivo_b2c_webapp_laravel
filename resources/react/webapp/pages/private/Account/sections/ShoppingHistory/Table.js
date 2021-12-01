@@ -4,34 +4,17 @@ import moment from "moment";
 import {formatMoney} from "../../../../../helpers/GlobalUtils";
 import * as Services from "../../../../../Services";
 import {AuthContext} from "../../../../../context/AuthProvider";
-import H3Panel from "../../../../../components/general/H3Panel";
+import { AppContext } from "../../../../../context/AppProvider";
+import { BREAKPOINTS } from "../../../../../helpers/vars";
 
-const Table = ({showDetail, width}) => {
-
+const Table = ({showDetail}) => {
+    const { breakpoint } = useContext(AppContext)
     const {auth} = useContext(AuthContext);
-
     const [tableLoaded, setTableLoaded] = useState(false);
     const [objects, setObjects] = useState([]);
 
     useEffect(() => {
         getOrders();
-
-        // //emulación
-        // const q = 100;
-        // let _data = [];
-        // for (let i = 0; i < q; i++) {
-        //     _data = [
-        //         ..._data,
-        //         {
-        //             created_at: '2021-05-04 12:13:14',
-        //             id: 1202202345 + i,
-        //             total: Math.floor(Math.random() * 999999) + 10000,
-        //         }
-        //     ]
-        // }
-
-        // setObjects(_data)
-        // setTableLoaded(true)
     }, [])
 
     const getOrders = () => {
@@ -65,7 +48,7 @@ const Table = ({showDetail, width}) => {
             }
         },
         {
-            text: width>=980  ? 'NÚMERO PEDIDO' : 'Nº PEDIDO',
+            text: breakpoint === BREAKPOINTS.LARGE || breakpoint === BREAKPOINTS.EXTRA_LARGE || breakpoint === BREAKPOINTS.EXTRA_EXTRA_LARGE ? 'NÚMERO PEDIDO' : 'Nº PEDIDO',
             dataField: 'id',
             sort: true,
             classes: 'text-left',
