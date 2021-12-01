@@ -6,6 +6,7 @@ import LazyLoading from "../../../components/LazyLoading";
 import filterIcon from '../../../assets/images/icons/filter.svg';
 import arrowIcon from '../../../assets/images/icons/arrow-up-and-down.svg';
 import {Card, Form} from "react-bootstrap";
+import {v4 as uuid} from 'uuid';
 
 const ProductList = ({
                          category,
@@ -130,7 +131,8 @@ const ProductList = ({
             <div className="col-12 pb-3">
                 <div className="row">
                     <div className="col-12">
-                        <h3 className="font-14 bold color-033F5D subscription-title">Selecciona una opción de suscripción</h3>
+                        <h3 className="font-14 bold color-033F5D subscription-title">Selecciona una opción de
+                            suscripción</h3>
                     </div>
                 </div>
                 <div className="row mb-3">
@@ -139,6 +141,7 @@ const ProductList = ({
                             subscriptions.map((subscription) => {
                                 return (
                                     <div
+                                        key={uuid()}
                                         className={`btn btn-outline-primary btn-months mr-2 subscription-button-margin ${filters.subscriptions.includes(subscription.id) ? 'focus' : ''} `}
                                         onClick={() => {
                                             updateFilter();
@@ -223,7 +226,7 @@ const ProductList = ({
                                     const init = activePage === 1 ? 0 : (activePage - 1) * parseInt(viewCount);
                                     const finish = init + parseInt(viewCount);
                                     return position > init && position <= finish ?
-                                        <div className="col-6 col-md-6 col-lg-4 mb-3" key={index}>
+                                        <div key={uuid()} className="col-6 col-md-6 col-lg-4 mb-3">
                                             <ProductCard
                                                 product={product}
                                                 subscriptionFilter={filters.subscriptions}
