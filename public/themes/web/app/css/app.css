@@ -2363,6 +2363,10 @@ input[type=number] {
   .textPlansProduct {
     font-size: 8px !important;
   }
+
+  .imgAccordionBody {
+    max-width: 100% !important;
+  }
 }
 
 .h1Recipe {
@@ -2381,6 +2385,10 @@ input[type=number] {
 
 .subscription-content {
   text-align: center;
+}
+
+.imgAccordionBody {
+  max-width: 300px;
 }
 
 .subscription-title {
@@ -4209,6 +4217,13 @@ a:-webkit-any-link:focus-visible {
 
 .zoom:hover {
   transform: scale(1.02);
+}
+
+.card-timeline {
+  max-width: 280px;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.16);
 }
 
 @media (min-width: 768px) {

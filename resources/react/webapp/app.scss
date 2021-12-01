@@ -468,5 +468,12 @@ a:-webkit-any-link:focus-visible {
     transform: scale(1.02);
 }
 
+.card-timeline {
+    max-width: 280px;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.16);
+}
+
 
 @import 'assets/scss/responsive';

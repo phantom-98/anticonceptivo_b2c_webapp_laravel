@@ -1,14 +1,35 @@
-import React, {useEffect, useState} from 'react';
+import React, {Fragment, useContext, useEffect, useState} from 'react';
 import Icon from "../../../../components/general/Icon";
 import {v4 as uuidv4} from 'uuid';
 import * as Services from "../../../../Services";
 import LazyLoading from "../../../../components/LazyLoading";
 import H2Title from "../../../../components/general/H2Title";
+import {AppContext} from "../../../../context/AppProvider";
+import {BREAKPOINTS} from "../../../../helpers/vars";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
 
 const TimeLine = ({}) => {
 
+    const {breakpoint} = useContext(AppContext)
+
     const [loaded, setLoaded] = useState(false);
     const [timelines, setTimelines] = useState([]);
+
+
+    const settings = {
+        dots: false,
+        fade: true,
+        infinite: true,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        autoplay: true,
+        speed: 1500,
+        autoplaySpeed: 4500,
+        // centerMode: true,
+    };
+
 
     useEffect(() => {
         getData();
@@ -101,44 +122,69 @@ const TimeLine = ({}) => {
         </div>)
     }
 
-    return (
+    const Desktop = () => {
 
-        <div className="row">
+        return <div className="row">
             <div className="col-md-12">
                 <div className="panel">
                     <div className="panel-body">
-
-                        {
-                            !loaded ? <LazyLoading height={200}/> :
-
-                                <div className="row">
-                                    <div className="col-12 pt-4 mb-5">
-                                        <H2Title text="HISTORIA DE LOS ANTICONCEPTIVOS"/>
-                                    </div>
-                                    <div className="col-12">
-                                        <div className="row no-gutters timeline">
-                                            {
-                                                timelines.map((timeline, i) => {
-                                                    return (
-                                                        i % 2 === 0 ?
-                                                            <TimeLineOne timeline={timeline} key={uuidv4()}/>
-                                                            :
-                                                            <TimeLineTwo timeline={timeline} key={uuidv4()}/>
-                                                    )
-                                                })
-                                            }
-
-                                        </div>
-                                    </div>
+                        <div className="row">
+                            <div className="col-12 pt-4 mb-5">
+                                <H2Title text="HISTORIA DE LOS ANTICONCEPTIVOS"/>
+                            </div>
+                            <div className="col-12">
+                                <div className="row no-gutters timeline">
+                                    {
+                                        timelines.map((timeline, i) => {
+                                            return i % 2 === 0 ?
+                                                <TimeLineOne timeline={timeline} key={uuidv4()}/>
+                                                :
+                                                <TimeLineTwo timeline={timeline} key={uuidv4()}/>
+                                        })
+                                    }
                                 </div>
-
-                        }
-
+                            </div>
+                        </div>
 
                     </div>
                 </div>
             </div>
         </div>
+
+    }
+
+    const Mobile = () => {
+
+        return (<div className="row">
+            <div className="col-12 pt-3 mb-3">
+                <H2Title className="text-left" text="HISTORIA DE LOS ANTICONCEPTIVOS"/>
+            </div>
+            <div className="col-12">
+                <div className="row no-gutters timeline">
+                    <div className="col-12">
+                        <Slider {...settings}>
+                            {
+                                timelines.map((timeline) => {
+                                    return <div className="card-timeline my-2 mx-3 py-2 px-3" key={uuidv4()}>
+                                        <TimeLineOne timeline={timeline}/>
+                                    </div>
+                                })
+                            }
+                        </Slider>
+                    </div>
+                </div>
+            </div>
+        </div>)
+    }
+
+
+    if (!loaded) return <LazyLoading height={200}/>
+
+    return (
+        breakpoint === BREAKPOINTS.EXTRA_LARGE || breakpoint === BREAKPOINTS.EXTRA_EXTRA_LARGE ?
+            <Desktop/>
+            :
+            <Mobile/>
 
     );
 };
