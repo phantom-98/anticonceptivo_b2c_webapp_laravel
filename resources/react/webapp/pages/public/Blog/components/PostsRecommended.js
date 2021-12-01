@@ -34,6 +34,8 @@ const PostsRecommended = () => {
         });
     }
 
+    if (!posts.length) return null;
+
     return (
         <div className="row">
             <div className="col-md-12">
@@ -48,8 +50,10 @@ const PostsRecommended = () => {
                             </div>
 
                             {
-                                posts.map(post => <div className="col-md-4 mb-3"><PostMiniCard post={post} key={uuid()}/></div>)
+                                posts.map(post => <div className="col-md-4 mb-3"><PostMiniCard post={post}
+                                                                                               key={uuid()}/></div>)
                             }
+
                         </div>
                 }
             </div>
