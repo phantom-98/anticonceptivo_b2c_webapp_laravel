@@ -1,17 +1,16 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useContext} from 'react';
 import {Tabs, Tab, Accordion, Card} from 'react-bootstrap';
-import UseWindowDimensions from "../../../helpers/UseWindowDimensions";
+import { AppContext } from "../../../context/AppProvider";
+import {BREAKPOINTS} from "../../../helpers/vars";
 
 const ProductTabs = ({product, legalWarning, valid}) => {
-
-    const {width} = UseWindowDimensions();
-
+    const {breakpoint} = useContext(AppContext)
     const [key, setKey] = useState(valid ? 'benefits' : 'technical');
 
     return (
         <div className="row pb-0 pb-md-5 mt-3 mt-md-5">
             {
-                width > 768 ?
+                breakpoint === BREAKPOINTS.MEDIUM || breakpoint === BREAKPOINTS.LARGE || breakpoint === BREAKPOINTS.EXTRA_LARGE || breakpoint === BREAKPOINTS.EXTRA_EXTRA_LARGE ?
                     <div className="col-12">
                         <Tabs
                             id="tabs"

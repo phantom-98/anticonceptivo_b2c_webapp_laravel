@@ -1,15 +1,15 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { Card } from "react-bootstrap";
 import { v4 as uuidv4 } from 'uuid';
 import Collapsible from 'react-collapsible';
-import UseWindowDimensions from "../../../components/customHooks/UseWindowDimensions";
+import { AppContext } from "../../../context/AppProvider";
+import {BREAKPOINTS} from "../../../helpers/vars";
 
 const FaqAnswers = ({faqs}) => {
-
-    const { height, width } = UseWindowDimensions();
+    const {breakpoint} = useContext(AppContext)
 
     const triggerStyle = {
-        fontSize: width >= 768 ? 16 : 14,
+        fontSize: breakpoint === BREAKPOINTS.MEDIUM || breakpoint === BREAKPOINTS.LARGE || breakpoint === BREAKPOINTS.EXTRA_LARGE || breakpoint === BREAKPOINTS.EXTRA_EXTRA_LARGE ? 16 : 14,
         fontFamily: 'Poppins, sans - serif !important',
         textDecoration: 'underline',
         color: '#033F5D',
@@ -27,7 +27,7 @@ const FaqAnswers = ({faqs}) => {
                                 transitionTime={300}
                                 triggerStyle={triggerStyle}
                             >
-                                <div className="mt-3 font-poppins" style={{ fontSize: width >= 768 ? 14 : 12, color: '#6C6B6B'}} dangerouslySetInnerHTML={{ __html: item.answer }} />
+                                <div className="mt-3 font-poppins" style={{ fontSize: breakpoint === BREAKPOINTS.MEDIUM || breakpoint === BREAKPOINTS.LARGE || breakpoint === BREAKPOINTS.EXTRA_LARGE || breakpoint === BREAKPOINTS.EXTRA_EXTRA_LARGE ? 14 : 12, color: '#6C6B6B'}} dangerouslySetInnerHTML={{ __html: item.answer }} />
                             </Collapsible>
                         </Card.Body>
                     </Card>

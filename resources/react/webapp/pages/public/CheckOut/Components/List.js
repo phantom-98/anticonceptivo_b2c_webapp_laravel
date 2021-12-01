@@ -6,17 +6,13 @@ import plusIcon from '../../../../assets/images/icons/plus-green.svg';
 import * as Services from "../../../../Services";
 import {AuthContext} from "../../../../context/AuthProvider";
 import {v4 as uuidv4} from 'uuid';
-import UseWindowDimensions from "../../../../helpers/UseWindowDimensions";
-// import UseWindowDimensions from "../../../../../helpers/UseWindowDimensions";
+import {AppContext} from "../../../../context/AppProvider";
+import {BREAKPOINTS} from "../../../../helpers/vars";
 
-const List = ({
-                  addresses, showEdit, showCreate, getData, regions, communes, setAddress,
-                  // setAddresses
-              }) => {
+const List = ({addresses, showEdit, showCreate, getData, regions, communes, setAddress}) => {
+    const {breakpoint} = useContext(AppContext)
 
     const {auth} = useContext(AuthContext);
-
-    const {height, width} = UseWindowDimensions();
 
     const saveDefaultAddress = (addressId, customerId) => {
         let url = Services.ENDPOINT.CUSTOMER.ADDRESSES.SET_DEFAULT_ADDRESS;
@@ -69,7 +65,7 @@ const List = ({
                 }
             </div>
             {
-                width > 768 ?
+                breakpoint === BREAKPOINTS.MEDIUM || breakpoint === BREAKPOINTS.LARGE || breakpoint === BREAKPOINTS.EXTRA_LARGE || breakpoint === BREAKPOINTS.EXTRA_EXTRA_LARGE ?
                     auth ?
                         <div className="col-md-12 py-2">
                             <hr/>

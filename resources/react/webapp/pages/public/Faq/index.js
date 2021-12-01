@@ -1,16 +1,15 @@
-import React, {useState, useEffect, Fragment} from 'react';
+import React, {useState, useEffect, Fragment, useContext} from 'react';
 import PUBLIC_ROUTES from "../../../routes/publicRoutes";
 import BasePanelOne from "../../../template/BasePanelOne";
 import {Accordion, Card} from "react-bootstrap";
 import * as Services from "../../../Services";
 import {v4 as uuidv4} from 'uuid';
 import FaqAnswers from './FaqAnswers';
-import {capitalizeFirstLetterOfEachWord} from "../../../helpers/GlobalUtils";
-import UseWindowDimensions from '../../../helpers/UseWindowDimensions';
+import { AppContext } from "../../../context/AppProvider";
+import {BREAKPOINTS} from "../../../helpers/vars";
 
 const Faq = () => {
-
-    const {height, width} = UseWindowDimensions();
+    const {breakpoint} = useContext(AppContext)
 
     const [categoryFaqs, setCategoryFaqs] = useState([]);
     const [categorySelected, setCategorySelected] = useState(0);
@@ -52,7 +51,7 @@ const Faq = () => {
                 breadcrumbs={breadcrumbs}
             >
                 {
-                    width >= 768 ?
+                    breakpoint === BREAKPOINTS.LARGE || breakpoint === BREAKPOINTS.EXTRA_LARGE || breakpoint === BREAKPOINTS.EXTRA_EXTRA_LARGE ?
                         <div className="px-3">
                             <div className="row pb-5 mb-5">
                                 <div className="col-md-3">
