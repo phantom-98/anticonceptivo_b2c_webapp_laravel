@@ -107,20 +107,20 @@ class BlogController extends Controller
     /// NEW
     ////////////////////
 
-    public function getPostsCategories()
+    public function getPostCategories()
     {
         $post_categories = PostType::where('active', true)->get();
 
-        return ApiResponse::Ok([
+        return ApiResponse::JsonSuccess([
             'post_categories' => $post_categories
         ]);
     }
 
     public function getPostsRecommended()
     {
-        $posts = Post::where('active', true)->inRandomOrder()->limit(3)->get();
+        $posts = Post::with(['post_type'])->where('active', true)->inRandomOrder()->limit(3)->get();
 
-        return ApiResponse::Ok([
+        return ApiResponse::JsonSuccess([
             'posts' => $posts
         ]);
     }

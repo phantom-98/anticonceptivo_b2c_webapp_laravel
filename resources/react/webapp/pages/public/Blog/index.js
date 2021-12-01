@@ -3,8 +3,9 @@ import {useParams} from "react-router-dom";
 import PUBLIC_ROUTES from "../../../routes/publicRoutes";
 import BasePanelTwo from "../../../template/BasePanelTwo";
 import Subscribe from "../../../components/sections/Subscribe";
-import H2Title from "../../../components/general/H2Title";
 import TimeLine from "./components/TimeLine";
+import PostCategories from "./components/PostCategories";
+import PostsRecommended from "./components/PostsRecommended";
 
 const Blog = () => {
 
@@ -23,20 +24,23 @@ const Blog = () => {
 
     return (
         <Fragment>
-            <BasePanelTwo
-                breadcrumbs={breadcrumbs}
-            >
 
-                <TimeLine />
+            <BasePanelTwo breadcrumbs={breadcrumbs}>
 
+                <TimeLine/>
 
+                <div className="my-5"/>
+
+                <PostCategories/>
+
+                <div className="my-5"/>
+
+                <PostsRecommended/>
 
             </BasePanelTwo>
-            {/*<BlogCarousel title="Contenidos relacionados"*/}
-            {/*              showButton={true}*/}
-            {/*              showOutstanding={true}*/}
-            {/*              type={post_type_slug}/>*/}
+
             <Subscribe/>
+
         </Fragment>
     );
 };

@@ -2103,6 +2103,7 @@ input[type=number] {
   background-size: cover;
   border-radius: 12px;
   overflow: hidden;
+  position: relative;
 }
 
 .blog-card-context {
@@ -2115,7 +2116,7 @@ input[type=number] {
 .blog-card-veil {
   background: #033f5d;
   background: linear-gradient(0deg, #033f5d 0%, rgba(0, 0, 0, 0) 100%);
-  position: relative;
+  position: absolute;
   width: 100%;
   height: 100%;
   z-index: 0;
@@ -2187,6 +2188,51 @@ input[type=number] {
   height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
+}
+
+.blog-card-content {
+  height: 100%;
+  position: relative;
+  display: flex;
+}
+
+.blog-h2-title-box {
+  font-family: "Poppins", sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: #0869A6;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.post-mini-card {
+  min-height: 493px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #E8E8E8;
+}
+
+.post-mini-card img {
+  height: 225px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+}
+
+.post-mini-card h5,
+.post-mini-card .card-title {
+  font-family: "Poppins", sans-serif;
+  font-size: 20px;
+  color: #033F5D;
+}
+
+.post-mini-card p,
+.post-mini-card .card-text {
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  color: #6C6B6B;
 }
 
 @media (min-width: 768px) {
@@ -4148,6 +4194,14 @@ a:-webkit-any-link:focus-visible {
   border-radius: 12px;
 }
 
+.zoom {
+  transition: transform 250ms;
+}
+
+.zoom:hover {
+  transform: scale(1.05);
+}
+
 @media (min-width: 768px) {
   .app-margin-top {
     margin-top: 0;
@@ -5723,6 +5777,11 @@ a:-webkit-any-link:focus-visible {
 
   .blog-list-img {
     width: 100%;
+  }
+
+  .post-mini-card h5,
+  .post-mini-card .card-title {
+    font-size: 16px;
   }
 }
 

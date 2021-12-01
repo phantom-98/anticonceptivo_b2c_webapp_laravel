@@ -33,10 +33,6 @@ const TimeLine = ({}) => {
         });
     }
 
-    if (!loaded) {
-        return <LazyLoading height={200}/>
-    }
-
     const TimeLineOne = ({timeline}) => {
         return (
             <div className="col-md-2 timeline-item">

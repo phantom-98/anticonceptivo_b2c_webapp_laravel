@@ -33,7 +33,7 @@
 }
 
 @media (min-width: 1260px) {
-    .product-carousel .slick-slide{
+    .product-carousel .slick-slide {
         max-width: 300px;
     }
 }
@@ -57,7 +57,7 @@
         margin-top: 108px;
     }
 
-    .btn-adress{
+    .btn-adress {
         width: 100%;
     }
 
@@ -65,7 +65,7 @@
         width: 100%;
     }
 
-    .add-underline-responsive{
+    .add-underline-responsive {
         text-decoration: underline;
     }
 
@@ -405,9 +405,13 @@
 
     }
 
-    .blog-list-img{
+    .blog-list-img {
         width: 100%;
+    }
 
+    .post-mini-card h5,
+    .post-mini-card .card-title {
+        font-size: 16px;
     }
 
 }
