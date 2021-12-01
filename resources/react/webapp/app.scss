@@ -459,4 +459,14 @@ a:-webkit-any-link:focus-visible {
     //border: 1px solid #cecece;
 }
 
+
+.zoom {
+    transition: transform 250ms;
+}
+
+.zoom:hover {
+    transform: scale(1.02);
+}
+
+
 @import 'assets/scss/responsive';
