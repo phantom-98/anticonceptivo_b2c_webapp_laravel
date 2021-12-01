@@ -2,8 +2,9 @@ import React, {Fragment} from 'react';
 import {useParams} from "react-router-dom";
 import PUBLIC_ROUTES from "../../../routes/publicRoutes";
 import BasePanelTwo from "../../../template/BasePanelTwo";
-import BlogCarousel from "../../../components/sections/BlogCarousel";
 import Subscribe from "../../../components/sections/Subscribe";
+import H2Title from "../../../components/general/H2Title";
+import TimeLine from "./components/TimeLine";
 
 const Blog = () => {
 
@@ -25,12 +26,17 @@ const Blog = () => {
             <BasePanelTwo
                 breadcrumbs={breadcrumbs}
             >
-                <BlogCarousel title="Contenidos relacionados"
-                              showButton={true}
-                              showOutstanding={true}
-                              type={post_type_slug}/>
-                <Subscribe/>
+
+                <TimeLine />
+
+
+
             </BasePanelTwo>
+            {/*<BlogCarousel title="Contenidos relacionados"*/}
+            {/*              showButton={true}*/}
+            {/*              showOutstanding={true}*/}
+            {/*              type={post_type_slug}/>*/}
+            <Subscribe/>
         </Fragment>
     );
 };

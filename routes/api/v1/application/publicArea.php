@@ -53,10 +53,13 @@ Route::prefix('public-area')
         Route::get('get-about-us-resources', [AboutUsController::class, 'index'])->name('index');
 
         Route::post('subscribe', [SubscribeController::class, 'subscribe'])->name('subscribe');
-        
+
         Route::post('get-posts', [BlogController::class, 'getPosts'])->name('getPosts');
         Route::post('get-post', [BlogController::class, 'getPost'])->name('getPost');
         Route::post('get-carousel-posts', [BlogController::class, 'getCarouselPosts'])->name('getCarouselPosts');
+
+        Route::post('get-posts-categories', [BlogController::class, 'getPostsCategories'])->name('getPostsCategories');
+        Route::post('get-posts-recommended', [BlogController::class, 'getPostsRecommended'])->name('getPostsRecommended');
 
         Route::get('get-timeline', [TimelineController::class, 'getTimeline'])->name('getTimeline');
 

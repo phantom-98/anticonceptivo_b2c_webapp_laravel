@@ -18,11 +18,12 @@ class PostType extends Model
 
     public function getImageAttribute()
     {
-        if (strpos($this->image, 'http') !== false) {
-            return $this->image;
+        if (strpos($this->attributes['image'], 'http') !== false) {
+            return $this->attributes['image'];
         }
-        return $this->image == null ? null : \Storage::url($this->image);
+        return $this->attributes['image'] == null ? null : \Storage::url($this->attributes['image']);
     }
+
 
     public function posts()
     {

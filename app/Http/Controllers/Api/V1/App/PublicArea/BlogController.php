@@ -107,7 +107,7 @@ class BlogController extends Controller
     /// NEW
     ////////////////////
 
-    public function getCategories()
+    public function getPostsCategories()
     {
         $post_categories = PostType::where('active', true)->get();
 
@@ -116,7 +116,7 @@ class BlogController extends Controller
         ]);
     }
 
-    public function getRecommendedPosts()
+    public function getPostsRecommended()
     {
         $posts = Post::where('active', true)->inRandomOrder()->limit(3)->get();
 
@@ -124,6 +124,5 @@ class BlogController extends Controller
             'posts' => $posts
         ]);
     }
-
 
 }
