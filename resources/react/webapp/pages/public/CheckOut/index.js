@@ -401,7 +401,7 @@ const CheckOut = () => {
                             <Fragment>
                                 <Header showFinal={showFinal} />
                                     <div className="row pb-5">
-                                        <div className="col-md pr-md-2">
+                                        <div className="col-12 col-lg pr-md-2">
 
                                             <div className={`panel panel-cart mb-3 ${view != 'user-form'? 'mt-3' : ''}`}>
                                                 <div className="panel-body" style={{paddingTop: '11px', paddingBottom: '10px'}}>
@@ -477,7 +477,7 @@ const CheckOut = () => {
 
 
                                         </div>
-                                        <div className="col-md-auto pl-md-2" style={{width: '408px'}}>
+                                        <div className="col-12 col-lg-auto pl-md-2" style={{width: '408px'}}>
                                             <Resume
                                                 installment={installment}
                                                 showFinal={showFinal}

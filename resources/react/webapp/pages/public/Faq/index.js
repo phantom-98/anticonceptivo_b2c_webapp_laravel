@@ -51,7 +51,7 @@ const Faq = () => {
                 breadcrumbs={breadcrumbs}
             >
                 {
-                    breakpoint === BREAKPOINTS.MEDIUM || breakpoint === BREAKPOINTS.LARGE || breakpoint === BREAKPOINTS.EXTRA_LARGE || breakpoint === BREAKPOINTS.EXTRA_EXTRA_LARGE ?
+                    breakpoint === BREAKPOINTS.LARGE || breakpoint === BREAKPOINTS.EXTRA_LARGE || breakpoint === BREAKPOINTS.EXTRA_EXTRA_LARGE ?
                         <div className="px-3">
                             <div className="row pb-5 mb-5">
                                 <div className="col-md-3">
