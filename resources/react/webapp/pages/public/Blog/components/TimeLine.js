@@ -17,7 +17,6 @@ const TimeLine = ({}) => {
     const [loaded, setLoaded] = useState(false);
     const [timelines, setTimelines] = useState([]);
 
-
     const settings = {
         dots: true,
         fade: true,
@@ -29,8 +28,7 @@ const TimeLine = ({}) => {
         autoplaySpeed: 4500,
         centerMode: true,
     };
-
-
+    
     useEffect(() => {
         getData();
     }, [])

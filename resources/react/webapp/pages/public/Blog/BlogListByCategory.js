@@ -88,6 +88,21 @@ const BlogListByCategory = () => {
                     {
                         posts.map(post => <div className="col-md-4 mb-3"><PostMiniCard post={post} key={uuid()}/></div>)
                     }
+
+                    {
+                        !posts.length ?
+                            <div className="col">
+                                <div className="card w-100 post-mini-card " style={{minHeight: 'unset'}}>
+                                    <div className="card-body py-3 py-md-4"
+                                         style={{paddingLeft: '2.5rem', paddingRight: '2.5rem'}}>
+                                        <p className="card-text">
+                                            No existen contenido para la categoría seleccionada, por favor vuelva en
+                                            otro momento.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div> : null
+                    }
                 </div>
 
                 <PostsRecommended/>
