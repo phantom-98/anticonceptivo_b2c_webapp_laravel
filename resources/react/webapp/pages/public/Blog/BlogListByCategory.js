@@ -69,11 +69,9 @@ const BlogListByCategory = () => {
 
     return (
         <Fragment>
-
             <BasePanelTwo
                 breadcrumbs={breadcrumbs}
             >
-
                 <div className="row">
                     <div className="col">
                         <h3 className="font-poppins font-46 font-md-36 bold color-009BE8"
