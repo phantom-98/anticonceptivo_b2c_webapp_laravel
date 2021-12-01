@@ -71,7 +71,7 @@ const useDimension = () => {
         }
     }, [getWindowDimensions, hasWindow]);
 
-    return { breakpoint, orientation };
+    return {breakpoint, orientation};
 };
 
 export default useDimension

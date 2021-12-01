@@ -1,2 +1,9 @@
-<svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="file-alt" class="svg-inline--fa fa-file-alt fa-w-12" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
-<path fill="#009BE8" d="M288 248v28c0 6.6-5.4 12-12 12H108c-6.6 0-12-5.4-12-12v-28c0-6.6 5.4-12 12-12h168c6.6 0 12 5.4 12 12zm-12 72H108c-6.6 0-12 5.4-12 12v28c0 6.6 5.4 12 12 12h168c6.6 0 12-5.4 12-12v-28c0-6.6-5.4-12-12-12zm108-188.1V464c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V48C0 21.5 21.5 0 48 0h204.1C264.8 0 277 5.1 286 14.1L369.9 98c9 8.9 14.1 21.2 14.1 33.9zm-128-80V128h76.1L256 51.9zM336 464V176H232c-13.3 0-24-10.7-24-24V48H48v416h288z"></path></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="18.4" height="22.75" viewBox="0 0 18.4 22.75">
+  <g id="Icon_feather-file-text" data-name="Icon feather-file-text" transform="translate(0.5 0.5)">
+    <path id="Trazado_3279" data-name="Trazado 3279" d="M16.875,3h-8.7A2.175,2.175,0,0,0,6,5.175v17.4A2.175,2.175,0,0,0,8.175,24.75h13.05A2.175,2.175,0,0,0,23.4,22.575V9.525Z" transform="translate(-6 -3)" fill="none" stroke="#009be8" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+    <path id="Trazado_3280" data-name="Trazado 3280" d="M21,3V9.525h6.525" transform="translate(-10.125 -3)" fill="none" stroke="#009be8" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+    <path id="Trazado_3281" data-name="Trazado 3281" d="M20.7,19.5H12" transform="translate(-7.65 -7.537)" fill="none" stroke="#009be8" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+    <path id="Trazado_3282" data-name="Trazado 3282" d="M20.7,25.5H12" transform="translate(-7.65 -9.188)" fill="none" stroke="#009be8" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+    <path id="Trazado_3283" data-name="Trazado 3283" d="M14.175,13.5H12" transform="translate(-7.65 -5.887)" fill="none" stroke="#009be8" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+  </g>
+</svg>
