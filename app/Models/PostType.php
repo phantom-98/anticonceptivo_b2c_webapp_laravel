@@ -11,6 +11,7 @@ class PostType extends Model
         'name',
         'slug',
         'image',
+        'description',
         'active',
         'created_at',
         'updated_at'
