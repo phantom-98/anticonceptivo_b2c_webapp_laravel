@@ -42,7 +42,8 @@
                         <thead>
                         <tr>
                             <th data-sortable="true" data-cell-style="cellStyle"  data-valign="middle">Nombre</th>
-
+                            <th data-sortable="true" data-valign="middle">Descripción</th>
+                            <th data-sortable="true" data-cell-style="cellStyle"  data-valign="middle">Imagen</th>
                             @if($config['action']['changeStatus'])
                             <th data-cell-style="cellStyle" data-sortable="true">Estado</th>
                             @endif
@@ -60,6 +61,8 @@
                         @foreach($objects as $object)
                             <tr>
                                 <td>{{ $object->name }}</td>
+                                <td>{!! $object->description !!}</td>
+                                <td><img src="{{$object->image}}" style="max-width: 100px;"/></td>
                                 @if($config['action']['changeStatus'])
                                    @include('intranet.template.components._crud_html_change_status')
                                 @endif

@@ -15,6 +15,7 @@ class AddImageToPostTypes extends Migration
     {
         Schema::table('post_types', function (Blueprint $table) {
             $table->text('image')->after('slug')->nullable();
+            $table->text('description')->after('name')->nullable();
         });
     }
 
@@ -27,6 +28,7 @@ class AddImageToPostTypes extends Migration
     {
         Schema::table('post_types', function (Blueprint $table) {
             $table->dropColumn('image');
+            $table->dropColumn('description');
         });
     }
 }
