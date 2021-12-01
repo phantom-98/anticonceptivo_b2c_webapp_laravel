@@ -19,7 +19,7 @@ const TimeLine = ({}) => {
 
 
     const settings = {
-        dots: false,
+        dots: true,
         fade: true,
         infinite: true,
         slidesToShow: 1,
@@ -27,7 +27,7 @@ const TimeLine = ({}) => {
         autoplay: true,
         speed: 1500,
         autoplaySpeed: 4500,
-        // centerMode: true,
+        centerMode: true,
     };
 
 
@@ -165,7 +165,7 @@ const TimeLine = ({}) => {
                         <Slider {...settings}>
                             {
                                 timelines.map((timeline) => {
-                                    return <div className="card-timeline my-2 mx-3 py-2 px-3" key={uuidv4()}>
+                                    return <div className="card-timeline mt-2 py-4 px-4" key={uuidv4()}>
                                         <TimeLineOne timeline={timeline}/>
                                     </div>
                                 })
