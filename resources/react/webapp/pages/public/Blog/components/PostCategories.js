@@ -1,9 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import * as Services from "../../../../Services";
-import LazyLoading from "../../../../components/LazyLoading";
 import {v4 as uuid} from 'uuid';
 import {Link} from "react-router-dom";
-import moment from "moment";
 import PUBLIC_ROUTES from "../../../../routes/publicRoutes";
 
 const PostCategories = () => {
@@ -33,10 +31,10 @@ const PostCategories = () => {
         });
     }
 
-
     const ItemCategory = ({category}) => {
 
-        let url = category.slug;
+        let url = PUBLIC_ROUTES.BLOG_LIST_BY_CATEGORY.path;
+        url = url.replace(':post_type_slug', category.slug);
 
         return (<div className="col-md-6 mb-3">
                 <Link to={url} style={{textDecoration: 'none'}}>
@@ -47,10 +45,10 @@ const PostCategories = () => {
                         <div className="blog-card-veil"/>
                         <div className="blog-card-content">
                             <div className="px-3 px-md-5 py-3 py-md-4 mt-auto">
-                                <div className="font-poppins font-44 lh-44 bold text-white mb-2">
+                                <div className="font-poppins font-44 font-md-34 lh-44 lh-md-34 bold text-white mb-2">
                                     {category.name}
                                 </div>
-                                <div className="font-poppins font-18 lh-22 regular text-white mb-2">
+                                <div className="font-poppins font-18 font-md-16 lh-22 lh-md-20 regular text-white mb-2">
                                     {category.description}
                                 </div>
                                 <div className="pt-4">

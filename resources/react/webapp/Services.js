@@ -93,6 +93,7 @@ export const ENDPOINT = {
             CAROUSEL: GetBaseURL() + 'public-area/get-carousel-posts',
             POST_CATEGORIES: GetBaseURL() + 'public-area/get-post-categories',
             POSTS_RECOMMENDED: GetBaseURL() + 'public-area/get-posts-recommended',
+            GET_POSTS_BY_CATEGORY: GetBaseURL() + 'public-area/get-posts-by-category',
         },
         HISTORY: GetBaseURL() + 'public-area/get-timeline',
         ABOUT_US: GetBaseURL() + 'public-area/get-about-us-resources',

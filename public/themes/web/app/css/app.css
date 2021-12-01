@@ -2235,6 +2235,15 @@ input[type=number] {
   color: #6C6B6B;
 }
 
+.mini-card-date {
+  position: absolute;
+  font-size: 14px;
+  font-weight: 500;
+  color: white;
+  left: 3rem;
+  top: 186px;
+}
+
 @media (min-width: 768px) {
   .product-detail-tabs {
     margin-left: 118px;
@@ -4199,7 +4208,7 @@ a:-webkit-any-link:focus-visible {
 }
 
 .zoom:hover {
-  transform: scale(1.05);
+  transform: scale(1.02);
 }
 
 @media (min-width: 768px) {
@@ -5777,11 +5786,6 @@ a:-webkit-any-link:focus-visible {
 
   .blog-list-img {
     width: 100%;
-  }
-
-  .post-mini-card h5,
-  .post-mini-card .card-title {
-    font-size: 16px;
   }
 }
 

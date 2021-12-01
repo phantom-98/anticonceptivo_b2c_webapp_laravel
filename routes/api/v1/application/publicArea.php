@@ -60,6 +60,7 @@ Route::prefix('public-area')
 
         Route::get('get-post-categories', [BlogController::class, 'getPostCategories'])->name('getPostCategories');
         Route::get('get-posts-recommended', [BlogController::class, 'getPostsRecommended'])->name('getPostsRecommended');
+        Route::post('get-posts-by-category', [BlogController::class, 'getPostsByCategory'])->name('getPostsByCategory');
 
         Route::get('get-timeline', [TimelineController::class, 'getTimeline'])->name('getTimeline');
 

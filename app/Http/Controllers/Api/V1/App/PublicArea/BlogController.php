@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Api\V1\App\PublicArea;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Psy\Util\Json;
 use Willywes\ApiResponse\ApiResponse;
 use App\Http\Utils\OutputMessage\OutputMessage;
 use App\Models\Post;
@@ -107,7 +109,7 @@ class BlogController extends Controller
     /// NEW
     ////////////////////
 
-    public function getPostCategories()
+    public function getPostCategories(): JsonResponse
     {
         $post_categories = PostType::where('active', true)->get();
 
@@ -116,11 +118,36 @@ class BlogController extends Controller
         ]);
     }
 
-    public function getPostsRecommended()
+    public function getPostsRecommended(): JsonResponse
     {
         $posts = Post::with(['post_type'])->where('active', true)->inRandomOrder()->limit(3)->get();
 
+        $posts = $posts->map(function ($post) {
+            $post->content = substr_replace(strip_tags($post->content), '...', 150);
+            return $post;
+        });
+
         return ApiResponse::JsonSuccess([
+            'posts' => $posts
+        ]);
+    }
+
+    public function getPostsByCategory(Request $request): JsonResponse
+    {
+        $post_category = PostType::where('slug', $request->post_type_slug)->first();
+
+        $posts = Post::with(['post_type'])
+            ->where('post_type_id', $post_category->id)
+            ->where('active', true)
+            ->get();
+
+        $posts = $posts->map(function ($post) {
+            $post->content = substr_replace(strip_tags($post->content), '...', 150);
+            return $post;
+        });
+
+        return ApiResponse::JsonSuccess([
+            'post_category' => $post_category,
             'posts' => $posts
         ]);
     }
