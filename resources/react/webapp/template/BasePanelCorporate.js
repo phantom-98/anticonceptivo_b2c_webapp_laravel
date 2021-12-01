@@ -1,11 +1,10 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import Breadcrumbs from "../components/Breadcrumbs";
-import UseWindowDimensions from "../components/customHooks/UseWindowDimensions";
-
+import { AppContext } from "../context/AppProvider";
+import {BREAKPOINTS} from "../helpers/vars";
 
 const BasePanelCorporate = (props) => {
-
-    const { width } = UseWindowDimensions();
+    const {breakpoint} = useContext(AppContext)
 
     return (
         <div style={{background : '#FAFAFA'}}>
@@ -17,16 +16,17 @@ const BasePanelCorporate = (props) => {
                     <div className="responsive-base-panel" style={props.style}>
                         <div className="row">
                             {
-                                width < 768 ?
-                                null
+                                breakpoint === BREAKPOINTS.MEDIUM || breakpoint === BREAKPOINTS.LARGE || breakpoint === BREAKPOINTS.EXTRA_LARGE || breakpoint === BREAKPOINTS.EXTRA_EXTRA_LARGE ?
+                                    <div className="col-md-12">
+                                        {
+                                            props.title ?
+                                                <h1 className="base-panel-one-title">{props.title}</h1>
+                                                : null
+                                        }
+                                    </div>
                                 :
-                                <div className="col-md-12">
-                                    {
-                                        props.title ?
-                                            <h1 className="base-panel-one-title">{props.title}</h1>
-                                        : null
-                                    }
-                                </div>
+                                    null
+                                
                             }
                             <div className="col-md-12">
                                 {

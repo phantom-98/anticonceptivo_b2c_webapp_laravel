@@ -1,17 +1,17 @@
 import React, {useContext, useEffect, useState} from 'react';
 import FormPersonalData from "./FormPersonalData";
 import H3Panel from "../../../../../components/general/H3Panel";
-// import FormComercialInfo from "./FormComercialInfo";
 import {AuthContext} from "../../../../../context/AuthProvider";
 import * as Services from "../../../../../Services";
 import RutValidator from "w2-rut-validator";
 import {setInputError, setCleanInputErrorById} from "../../../../../helpers/GlobalUtils";
 import toastr from "toastr";
-import UseWindowDimensions from "../../../../../helpers/UseWindowDimensions";
-
+import { AppContext } from "../../../../../context/AppProvider";
+import { BREAKPOINTS } from "../../../../../helpers/vars";
 const PersonalInfo = () => {
 
     const {auth, updateAuth} = useContext(AuthContext);
+    const { breakpoint } = useContext(AppContext)
 
     const defaultData = {
         first_name: '',
@@ -23,75 +23,16 @@ const PersonalInfo = () => {
         phone: '',
         password: '',
         new_password: '',
-        // business_name: '',
-        // business_id_number: '',
-        // commercial_business: '',
-        // commercial_email: '',
-        // commercial_address: '',
-        // commercial_additional_address:'',
-        // commercial_phone: '',
-        // commercial_phone_code: '',
-        // commercial_region_id: '',
-        // commercial_commune_id: '',
     }
 
     const [data, setData] = useState(defaultData);
-
-    // const [selectedRegion, setSelectedRegion] = useState(0);
-    // const [regions, setRegions] = useState([]);
-    // const [communes, setCommunes] = useState([]);
-
     const [rutFlag, setRutFlag] = useState(false);
 
     useEffect(() => {
         if (auth) {
             setData(auth);
-            // getData();
         }
     },[auth])
-
-    // useEffect(() => {
-    //     if (regions.length > 0) {
-    //         setSelectedRegion(data.commercial_region_id)
-    //     }
-    // },[regions])
-
-    // useEffect(() => {
-    //     if (selectedRegion) {
-    //         const region = regions.find(r => r.id == selectedRegion)
-    //         let tempCommunes = [];
-    //         region.provinces.map((province) =>{
-    //             province.communes.map((commune) =>{
-    //                 tempCommunes.push(commune);
-    //             })
-    //         })
-    //         let orderCommunes =  tempCommunes.sort((a, b)  => {
-    //             const commA = a.name.toLowerCase();
-    //             const commB = b.name.toLowerCase();
-
-    //             let comparison = 0;
-    //             if (commA > commB) {
-    //                 comparison = 1;
-    //             } else if (commA < commB) {
-    //                 comparison = -1;
-    //             }
-    //             return comparison;
-    //         })
-
-    //         setCommunes(orderCommunes);
-
-    //     }
-    // }, [selectedRegion]);
-
-    // const selectRegion = (e) => {
-    //     const region = regions.find(r => r.id == e.target.value)
-    //     setData({
-    //         ...data,
-    //         commercial_region_id : region.id,
-    //         commercial_commune_id: null
-    //     })
-    //     setSelectedRegion(e.target.value)
-    // }
 
     const handleData = (e) => {
         setData({...data,
@@ -129,25 +70,6 @@ const PersonalInfo = () => {
         }
     }
 
-    // const getData = () => {
-    //     let url = Services.ENDPOINT.CUSTOMER.PROFILE.GET;
-    //     let dataForm = {
-    //         customer_id: auth.id
-    //     }
-
-    //     Services.DoPost(url, dataForm).then(response => {
-    //         Services.Response({
-    //         response: response,
-    //         success: () => {
-    //             // setData(response.data.customer);
-    //             // setRegions(response.data.regions);
-    //         },
-    //         });
-    //     }).catch(error => {
-    //         Services.ErrorCatch(error)
-    //     });
-    // }
-
     const updateData = () => {
         if (rutFlag) {
             toastr.warning('El formato del rut es incorrecto.','Perfil no actualizado.');
@@ -179,7 +101,6 @@ const PersonalInfo = () => {
             });
         }
     }
-
     const RutValidate = e => {
         if ((e.target.value).length > 0) {
             if (!RutValidator.validate(e.target.value)) {
@@ -190,17 +111,16 @@ const PersonalInfo = () => {
             }
         }
     }
-    const { height, width } = UseWindowDimensions();
-
+    
     return (
-        <div className="row" style={{marginTop: width<=980 ? '0px' :'-50px'}}>
+        <div className="row" style={{marginTop: breakpoint === BREAKPOINTS.LARGE || breakpoint === BREAKPOINTS.EXTRA_LARGE || breakpoint === BREAKPOINTS.EXTRA_EXTRA_LARGE ? '-50px' :'0px'}}>
 
             {
-                width < 768 ? null : <H3Panel title="EDITAR PERFIL" />
+                breakpoint === BREAKPOINTS.MEDIUM || breakpoint === BREAKPOINTS.LARGE || breakpoint === BREAKPOINTS.EXTRA_LARGE || breakpoint === BREAKPOINTS.EXTRA_EXTRA_LARGE ? <H3Panel title="EDITAR PERFIL" /> : null
             }
 
             <div className="col-md-12 mb-5">
-                <div className={width < 768 ? '' : 'panel-bordered'}>
+                <div className={breakpoint === BREAKPOINTS.MEDIUM || breakpoint === BREAKPOINTS.LARGE || breakpoint === BREAKPOINTS.EXTRA_LARGE || breakpoint === BREAKPOINTS.EXTRA_EXTRA_LARGE ? 'panel-bordered' : ''}>
                     <FormPersonalData
                         handleData={handleData}
                         handleCheckBox={handleCheckBox}
@@ -210,20 +130,6 @@ const PersonalInfo = () => {
                     />
                 </div>
             </div>
-
-            {/* <div className="col-md-12 mb-5">
-                <div className="panel-bordered">
-                    <FormComercialInfo
-                        handleData={handleData}
-                        rutFormat={RutFormat}
-                        rutValidate={RutValidate}
-                        regions={regions}
-                        communes={communes}
-                        selectRegion={selectRegion}
-                        data={data}
-                    />
-                </div>
-            </div> */}
 
             <div className="col-md-12 text-right d-none d-sm-block">
                 <button type="button" className="btn btn-bicolor px-5"

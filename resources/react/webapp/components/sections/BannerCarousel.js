@@ -1,18 +1,16 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import { v4 as uuidv4 } from 'uuid';
 import {CONFIG} from "../../Config";
-import SliderArrow from '../general/SliderArrow';
 import SliderArrowRight from '../../assets/images/icons/slider-arrow-right.png';
 import SliderArrowLeft from '../../assets/images/icons/slider-arrow-left.png';
-import Icon from '../general/Icon';
-import UseWindowDimensions from "../../helpers/UseWindowDimensions";
+import { AppContext } from "../../context/AppProvider";
+import {BREAKPOINTS} from "../../helpers/vars";
 
 const BannerCarousel = ({topBanners}) => {
-
-    const { height, width } = UseWindowDimensions();
+    const {breakpoint} = useContext(AppContext)
 
     function Arrow(props) {
 
@@ -66,7 +64,7 @@ const BannerCarousel = ({topBanners}) => {
                         return (
                             banner.button_title ?
                                 <div key={topBannerKey}>
-                                    <img src={width > 750 ? banner.public_file : banner.public_file_responsive ?? banner.public_file} alt={CONFIG.APP_NAME} style={{ width:'100%'}}/>
+                                    <img src={breakpoint === BREAKPOINTS.MEDIUM || breakpoint === BREAKPOINTS.LARGE || breakpoint === BREAKPOINTS.EXTRA_LARGE || breakpoint === BREAKPOINTS.EXTRA_EXTRA_LARGE ? banner.public_file : banner.public_file_responsive ?? banner.public_file} alt={CONFIG.APP_NAME} style={{ width:'100%'}}/>
                                     <div className="banner-buttons font-poppins font-35 bold color-033F5D">
                                         <span style={{backgroundColor: 'white'}}>{banner.title}</span>
                                     </div>
@@ -79,7 +77,7 @@ const BannerCarousel = ({topBanners}) => {
                             :
                                 <div key={topBannerKey}>
                                     <a href={banner.button_link} target={banner.button_target}>
-                                        <img  src={width > 750 ? banner.public_file : banner.public_file_responsive ?? banner.public_file} alt={CONFIG.APP_NAME} style={{ width:'100%'}}/>
+                                        <img  src={breakpoint === BREAKPOINTS.MEDIUM || breakpoint === BREAKPOINTS.LARGE || breakpoint === BREAKPOINTS.EXTRA_LARGE || breakpoint === BREAKPOINTS.EXTRA_EXTRA_LARGE ? banner.public_file : banner.public_file_responsive ?? banner.public_file} alt={CONFIG.APP_NAME} style={{ width:'100%'}}/>
                                         <div className="banner-buttons font-poppins font-35 bold color-033F5D">
                                             <span style={{backgroundColor: 'white'}}>{banner.title}</span>
                                         </div>

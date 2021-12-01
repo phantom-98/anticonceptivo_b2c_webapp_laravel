@@ -1,20 +1,20 @@
-import React, {useEffect} from 'react';
+import React, {useContext} from 'react';
 import {Form} from "react-bootstrap";
-import UseWindowDimensions from "../../../../../helpers/UseWindowDimensions";
+import { AppContext } from "../../../../../context/AppProvider";
+import { BREAKPOINTS } from "../../../../../helpers/vars";
 
 const ListItem = ({
-                      address,
-                      showEdit,
-                      saveDefaultAddress,
-                      regions,
-                      communes,
-                      addressChecked,
-                      isSusbscription = false,
-                      name = 'default_address'
-                  }) => {
+    address,
+    showEdit,
+    saveDefaultAddress,
+    regions,
+    communes,
+    addressChecked,
+    isSusbscription = false,
+    name = 'default_address'
+}) => {
 
-    const {width} = UseWindowDimensions();
-    // const {auth} = useContext(AuthContext);
+    const { breakpoint } = useContext(AppContext);
 
     let region = regions.find(x => x.id === address.region_id)
     let commune = communes.find(x => x.id === address.commune_id)
@@ -71,8 +71,7 @@ const ListItem = ({
                 </div>
             </div>
             {
-                width > 768 ?
-
+                breakpoint === BREAKPOINTS.MEDIUM || breakpoint === BREAKPOINTS.LARGE || breakpoint === BREAKPOINTS.EXTRA_LARGE || breakpoint === BREAKPOINTS.EXTRA_EXTRA_LARGE ?
                     !isSusbscription ?
                         <div className="col-auto d-flex">
                             <div className="mt-4">
@@ -80,40 +79,21 @@ const ListItem = ({
                                       className="link pointer font-12 regular">editar</span>
                             </div>
                         </div>
-                        :
-                        null
                     :
-                    null
-            }
-            {/* <div className="col-auto d-flex">
-                <div className="my-auto">
-                    <span onClick={() => removeData(address.id)} className="link pointer">
-                    <Icon path={iconTrash} />
-                </span>
-                </div>
-            </div> */}
-
-
-            {
-                width < 768 ?
-
+                        null
+                :
                     <div className="col-md-12 text-right">
                         {
                             !isSusbscription ?
                                 <div className="mb-auto">
                                     <span onClick={() => showEdit(address)}
-                                          className="link pointer font-12 regular">editar</span>
+                                        className="link pointer font-12 regular">editar</span>
                                 </div>
-                                :
+                            :
                                 null
                         }
-                        <hr/>
+                        <hr />
                     </div>
-
-                    :
-
-                    null
-
             }
         </div>
 

@@ -1,11 +1,10 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import {CONFIG} from "../../Config";
-import UseWindowDimensions from "../../helpers/UseWindowDimensions";
-
+import {AppContext} from "../../context/AppProvider";
+import {BREAKPOINTS} from "../../helpers/vars";
 const BannerStatic = ({banners}) => {
-
-    const { height, width } = UseWindowDimensions();
+    const {breakpoint} = useContext(AppContext)
 
     return (
         <div className="container mt-4 pt-2">
@@ -18,7 +17,7 @@ const BannerStatic = ({banners}) => {
 
                                 <div key={bannerStaticKey} className={`pb-4 ${banner.size}`}>
                                     <a href={banner.button_link} target={banner.button_target}>
-                                        <img src={width > 750 ? banner.public_file : banner.public_file_responsive ?? banner.public_file} alt={CONFIG.APP_NAME} style={{ width : '100%'}}/>
+                                        <img src={breakpoint === BREAKPOINTS.MEDIUM ||breakpoint === BREAKPOINTS.LARGE || breakpoint === BREAKPOINTS.EXTRA_LARGE || breakpoint === BREAKPOINTS.EXTRA_EXTRA_LARGE ? banner.public_file : banner.public_file_responsive ?? banner.public_file} alt={CONFIG.APP_NAME} style={{ width : '100%'}}/>
                                     </a>
                                 </div>
                             )

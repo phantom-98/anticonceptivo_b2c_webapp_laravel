@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import PUBLIC_ROUTES from "../../../routes/publicRoutes";
 import BasePanelOne from "../../../template/BasePanelOne";
 import Subscribe from "../../../components/sections/Subscribe";
@@ -9,12 +9,11 @@ import BannerCarousel from "../../../components/sections/BannerCarousel";
 import * as Services from "../../../Services";
 import {v4 as uuidv4} from 'uuid';
 import logoFull from "../../../assets/images/logo-full.svg";
-import UseWindowDimensions from "../../../components/customHooks/UseWindowDimensions";
-import AccordionBody from "../../../components/sections/AccordionBody";
+import {AppContext} from "../../../context/AppProvider";
+import {BREAKPOINTS} from "../../../helpers/vars";
 
 const AboutUs = () => {
-
-    const {width} = UseWindowDimensions();
+    const {breakpoint} = useContext(AppContext)
 
     const [key, setKey] = useState('mission');
     const [banners, setBanners] = useState([]);
@@ -74,10 +73,6 @@ const AboutUs = () => {
 
                         </div>
                         <div className="col-md-9 offset-md-3 col-xs-12">
-                            {/* <h3 className="font-poppins font-22 bold color-033F5D mb-3 responsive-d-none">
-                                {aboutUs.title_review}
-                            </h3> */}
-
                             <img className="responsive-d-display w-100 my-0 my-md-3" src={logoFull}
                                  alt={CONFIG.APP_NAME}/>
                             <div className="about-us-description" dangerouslySetInnerHTML={{__html: aboutUs.review}}/>
@@ -88,7 +83,7 @@ const AboutUs = () => {
                         <div className="col">
 
                             {
-                                width > 768 ?
+                                breakpoint === BREAKPOINTS.MEDIUM || breakpoint === BREAKPOINTS.LARGE || breakpoint === BREAKPOINTS.EXTRA_LARGE || breakpoint === BREAKPOINTS.EXTRA_EXTRA_LARGE ?
                                     <Tabs
                                         id="vision-mission"
                                         variant="pills"
@@ -107,7 +102,7 @@ const AboutUs = () => {
                                             </div>
                                         </Tab>
                                     </Tabs>
-                                    :
+                                :
                                     <Accordion defaultActiveKey={'0'}>
                                         <Card className="card-faq card-delivery-cost">
                                             <Accordion.Collapse eventKey={'0'}>
@@ -134,7 +129,6 @@ const AboutUs = () => {
                                         </Card>
 
                                     </Accordion>
-
                             }
 
                         </div>
@@ -185,10 +179,6 @@ const AboutUs = () => {
                                                          alt={CONFIG.APP_NAME}/>
                                                 </a>
                                             </div>
-
-                                            {/* <div className="col-12 font-poppins font-22 bold color-033F5D mb-3">
-                                                {alliance.name}
-                                            </div> */}
 
                                             <div className="col-12">
                                                 <div className="about-us-description"

@@ -1,11 +1,16 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import bgSubscribe from '../../assets/images/sections/subscribe.jpeg'
 import bgSubscribeMobile from '../../assets/images/sections/subscribe-mobile.jpeg'
 import UseWindowDimensions from "../customHooks/UseWindowDimensions";
 import * as Services from "../../Services";
 import toastr from "toastr";
-
+// import { AppContext } from "../../context/AppProvider";
+// import {BREAKPOINTS} from "../../helpers/vars";
 const Subscribe = () => {
+
+    // const {breakpoint} = useContext(AppContext)
+    const { height, width } = UseWindowDimensions();
+    // especific breakpoint
 
     const defaultData = {
         subscribe_email: ''
@@ -37,8 +42,6 @@ const Subscribe = () => {
             toastr.error(response.message);
         });
     }
-
-    const { height, width } = UseWindowDimensions();
 
     return (
         <div className="suscribe" style={{backgroundImage: width >= 620 ? `url(${bgSubscribe})` : `url(${bgSubscribeMobile})`, height: 318}}>

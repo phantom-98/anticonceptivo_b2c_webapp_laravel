@@ -1,18 +1,16 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import ListItem from "./ListItem";
 import Icon from "../../../../../components/general/Icon";
 import plusIcon from '../../../../../assets/images/icons/plus-green.svg'
 import * as Services from "../../../../../Services";
-import UseWindowDimensions from "../../../../../helpers/UseWindowDimensions";
 import {v4 as uuidv4} from "uuid";
-
+import { AppContext } from "../../../../../context/AppProvider";
+import { BREAKPOINTS } from "../../../../../helpers/vars";
 const List = ({addresses, showEdit, showCreate, getData, regions, communes}) => {
 
-    const {width} = UseWindowDimensions();
+    const { breakpoint } = useContext(AppContext);
 
     const saveDefaultAddress = (addressId, customerId) => {
-        // console.log(2)
-        // return
         let url = Services.ENDPOINT.CUSTOMER.ADDRESSES.SET_DEFAULT_ADDRESS;
 
         let data = {
@@ -48,18 +46,18 @@ const List = ({addresses, showEdit, showCreate, getData, regions, communes}) => 
                         />))
                 }
             </div>
+
             {
-                width > 768 ?
+                breakpoint === BREAKPOINTS.MEDIUM || breakpoint === BREAKPOINTS.LARGE || breakpoint === BREAKPOINTS.EXTRA_LARGE || breakpoint === BREAKPOINTS.EXTRA_EXTRA_LARGE ?
                     <div className="col-md-12 py-2">
                         <hr/>
                     </div>
-                    :
+                :
                     null
             }
 
             <div className="col-md-12">
-                <Icon path={plusIcon}/> <span onClick={() => showCreate()}
-                                              className="link pointer font-14 bold link-address-profile">Agregar nueva dirección</span>
+                <Icon path={plusIcon}/> <span onClick={() => showCreate()} className="link pointer font-14 bold link-address-profile">Agregar nueva dirección</span>
             </div>
         </div>
     );
