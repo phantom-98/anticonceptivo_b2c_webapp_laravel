@@ -398,17 +398,17 @@ class ProfileController extends Controller
                     $q->where('customer_id',$customer->id);
                 })
                     ->with(['order_item.product','customer_address.commune','subscription','order_parent.order_items','order_item.subscription_plan'])
-                    ->orderBy('order_parent_id', 'asc')->orderBy('pay_date', 'asc')
+                    ->orderBy('order_parent_id', 'asc')->orderBy('orders_item_id','asc')->orderBy('pay_date', 'asc')
                     ->get();
 
                 $deliveryCosts = DeliveryCost::where('active',1)->get();
 
                 $subscriptionsOrdersItem = $subscriptionsOrdersItem->map(function ($item) use ($deliveryCosts) {
 
-                    $subItemActive = SubscriptionsOrdersItem::where('order_parent_id',$item->order_parent_id)->whereDate('dispatch_date','>=',Carbon::now())->orderBy('dispatch_date','asc')->get();
+                    $subItemActive = SubscriptionsOrdersItem::where('orders_item_id',$item->orders_item_id)->whereDate('dispatch_date','>=',Carbon::now())->orderBy('dispatch_date','asc')->get();
 
                     if(!$subItemActive){
-                        $subItemActive = SubscriptionsOrdersItem::where('order_parent_id',$item->order_parent_id)->orderBy('dispatch_date','desc')->get();
+                        $subItemActive = SubscriptionsOrdersItem::where('orders_item_id',$item->orders_item_id)->orderBy('dispatch_date','desc')->get();
                     }
 
                     preg_match_all('!\d+!', $item->period, $current_advance); ;
