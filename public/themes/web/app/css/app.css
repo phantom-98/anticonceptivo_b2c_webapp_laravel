@@ -122,6 +122,11 @@
   padding-left: 15px;
 }
 
+.btn-save-address {
+  padding-left: 3rem;
+  padding-right: 3rem;
+}
+
 @media (min-width: 768px) {
   .col-sm-5th-1,
   .col-sm-5th-2,
@@ -2058,7 +2063,7 @@ input[type=number] {
 }
 
 .circle-step-ready {
-  background: white;
+  background: white !important;
 }
 
 .circle-step-ready img {
@@ -2127,7 +2132,6 @@ input[type=number] {
 
 .circle-timeline img {
   margin: auto;
-  max-width: 50px;
 }
 
 .timeline-line-vertical {
@@ -2228,12 +2232,15 @@ input[type=number] {
   }
 
   .compoundProduct {
-    border-color: #E8E8E8 !important;
+    border: 1px solid #cecece;
     border-width: 1px;
     border-style: solid;
     border-radius: 11px;
     padding: 8px;
-    padding-bottom: 0;
+  }
+
+  .divRecipe {
+    background-color: white !important;
   }
 
   .padding-responsive-detail {
@@ -2275,7 +2282,7 @@ input[type=number] {
   .btn-add-cart,
   .btn-add-cart:hover {
     height: 31px !important;
-    font-size: 7px !important;
+    font-size: 7px;
   }
 
   .subscription-title {
@@ -2286,6 +2293,35 @@ input[type=number] {
     font-size: 8px !important;
     margin-bottom: 10px !important;
   }
+
+  .h1Recipe {
+    font-weight: 300 !important;
+    background-color: white !important;
+  }
+
+  .iconRecipe {
+    font-size: 16px !important;
+    margin-top: -8px !important;
+    height: 20px !important;
+  }
+
+  .textPlansProduct {
+    font-size: 8px !important;
+  }
+}
+
+.h1Recipe {
+  font-weight: 400;
+  background-color: white !important;
+  padding: 10px;
+}
+
+.compoundProduct {
+  border: 1px solid #cecece;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 11px;
+  padding: 8px;
 }
 
 .subscription-content {
@@ -2306,10 +2342,14 @@ input[type=number] {
   padding-right: 10px;
 }
 
-@media (min-width: 1260px) {
-  .slick-slide {
-    max-width: 300px;
-  }
+.compoundProduct {
+  color: #A3A3A3;
+  font-weight: 300;
+  background-color: white !important;
+}
+
+.textPlansProduct {
+  font-size: 10px;
 }
 
 @media (min-width: 768px) {
@@ -4069,6 +4109,7 @@ a:-webkit-any-link:focus-visible {
   font-size: 16px;
   font-weight: 700;
   color: #033F5D;
+  margin-left: 7px;
 }
 
 .item-menu-cat-second {
@@ -4134,6 +4175,12 @@ a:-webkit-any-link:focus-visible {
   .app-margin-top {
     margin-top: 138px;
     min-height: calc(100vh - 520px);
+  }
+}
+
+@media (min-width: 1260px) {
+  .product-carousel .slick-slide {
+    max-width: 300px;
   }
 }
 
@@ -5342,6 +5389,18 @@ a:-webkit-any-link:focus-visible {
     margin-top: 108px;
   }
 
+  .btn-adress {
+    width: 100%;
+  }
+
+  .btn-save-address {
+    width: 100%;
+  }
+
+  .add-underline-responsive {
+    text-decoration: underline;
+  }
+
   .responsive-d-none {
     display: none !important;
   }
@@ -5619,7 +5678,7 @@ a:-webkit-any-link:focus-visible {
     background: #fafac8;
     border-radius: 10px;
     border: solid 1px #f0f08c;
-    font-size: 16px;
+    font-size: 12px;
     padding: 10px 15px;
     color: #484848;
     font-weight: 500;

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 // import pastillas from '../../../assets/images/icons/navbar/pastillas.svg'
 // import masculino from '../../../assets/images/icons/navbar/masculino.svg'
 // import testEmbarazo from '../../../assets/images/icons/navbar/test-embarazo.svg'
@@ -14,10 +14,13 @@ import {v4 as uuidv4} from 'uuid';
 import {Link} from "react-router-dom";
 import PillsDropDown from "../../components/PillsDropDown";
 import UseWindowDimensions from "../../../components/customHooks/UseWindowDimensions";
+import {AppContext} from "../../../context/AppProvider";
 
 const HeaderNavbar = () => {
 
     const {width} = UseWindowDimensions();
+    // const {breakpoint} = useContext(AppContext)
+
 
     const [categories, setCategories] = useState([]);
     const [spliceCategories, setSpliceCategories] = useState([]);
@@ -36,10 +39,16 @@ const HeaderNavbar = () => {
     }, [rows, categories])
 
     const setView = (width) => {
+
+
         if (width < 1385) {
-            setRows(2)
+            if (rows != 2) {
+                setRows(2)
+            }
         } else {
-            setRows(1);
+            if (rows != 1) {
+                setRows(1)
+            }
         }
     }
 
@@ -134,13 +143,13 @@ const HeaderNavbar = () => {
                                     childUrl = childUrl.replace(":category?", category.slug);
                                     childUrl = childUrl.replace(":subcategory?", subCategory.slug);
                                     return (
-                                        <Dropdown.Item key={uuidv4()}>
-                                            <Link to={childUrl}
-                                                  style={{textDecoration: 'none'}}>
+                                        <Link key={uuidv4()}
+                                              to={childUrl}
+                                              className="dropdown-item"
+                                              style={{textDecoration: 'none'}}>
                                                                         <span
                                                                             className="header-navbar-subitem">{subCategory.name}</span>
-                                            </Link>
-                                        </Dropdown.Item>
+                                        </Link>
                                     )
                                 })
                             }

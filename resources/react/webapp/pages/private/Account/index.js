@@ -12,14 +12,16 @@ import CustomerService from "./sections/CustomerService";
 import {Redirect} from "react-router-dom";
 import PUBLIC_ROUTES from "../../../routes/publicRoutes";
 import LateralMenu from "../../../components/general/LateralMenu";
-import UseWindowDimensions from "../../../components/customHooks/UseWindowDimensions";
+// import UseWindowDimensions from "../../../components/customHooks/UseWindowDimensions";
 import MobileDisplay from "./MobileDisplay";
+import {AppContext} from "../../../context/AppProvider";
+import {BREAKPOINTS} from "../../../helpers/vars";
 
 const Account = ({match}) => {
 
-    const {auth} = useContext(AuthContext);
+    // const {height, width} = UseWindowDimensions();
 
-    const {height, width} = UseWindowDimensions();
+    const {breakpoint} = useContext(AppContext)
 
     const [breadcrumbs, setBreadcrumbs] = useState([]);
     const [sectionSelected, setSectionSelected] = useState('');
@@ -112,7 +114,6 @@ const Account = ({match}) => {
     }
 
 
-
     return (
         <BasePanelOne
             breadcrumbs={breadcrumbs}
@@ -121,7 +122,7 @@ const Account = ({match}) => {
             <div className="row">
                 {
                     loaded ?
-                        width >= 768 ?
+                        breakpoint === BREAKPOINTS.LARGE || breakpoint === BREAKPOINTS.EXTRA_LARGE || breakpoint === BREAKPOINTS.EXTRA_EXTRA_LARGE ?
                             <Fragment>
                                 <div className="col-md-3">
                                     <LateralMenu sections={sections} sectionSelected={sectionSelected}
