@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import ReactGA from "react-ga";
 
 export default function useGoogleAnalyticsEcommerce() {
@@ -39,7 +39,6 @@ export default function useGoogleAnalyticsEcommerce() {
     const [items, setItems] = useState([]);
 
     function addTransaction(obj){
-        // add transaction in state
         setTransaction({
             ...transaction,
             'id': obj.id,
@@ -49,14 +48,9 @@ export default function useGoogleAnalyticsEcommerce() {
             'tax': obj.tax ? obj.tax : null,
             'currency': obj.currency ? obj.currency : null,
         })
-
-        // or use the command directly
-        // ga('ecommerce:addTransaction', obj); 
     }
 
     function addItems(objs) {
-        // add item in state
-
         let newItems = [];
 
         newItems = objs.map(obj => {
@@ -72,48 +66,17 @@ export default function useGoogleAnalyticsEcommerce() {
         });
 
         setItems(newItems);
-
-        // or use the command directly
-        // ga('ecommerce:addItem', obj);
     }
 
     function send(){
-        ReactGA.initialize({
-            trackingId: "UA-209380285-1",
-            debug: true,
-            gaOptions: {
-                cookieDomain: "none"
-            }
-        });
-
-        if (!transaction.id) {
-            console.log('add transaction error, no id found.');
-            return null;
-        }
-
-        if (!items.length) {
-            console.log('add item error, no items found');
-            return null;
-        }
-
+        console.log('send to Google Analytics');
+        ReactGA.initialize("UA-209380285-1"); // app.js? en nuestro caso RunApp.js -> esta corriendo en base_react_seo.blade.php para el google tag manager
         ReactGA.plugin.execute('ec', 'addTransaction', transaction);
         items.forEach(item => {
             ReactGA.plugin.execute('ec', 'addItem', item);
         });
         ReactGA.plugin.execute('ec', 'send');
-        ReactGA.plugin.execute('ec', 'clear');
-
-        // recursive ecommerce:commands
-        // ga('ecommerce:addTransaction', transaction);
-
-        // items.forEach(item => {
-        //     ga('ecommerce:addItem', item);
-        // });
-
-        // ga('ecommerce:send');
-
-        // or use the command directly
-        // ga('ecommerce:send');
+        // ReactGA.plugin.execute('ec', 'clear'); // ? necesario
     }
 
     function clear(){
