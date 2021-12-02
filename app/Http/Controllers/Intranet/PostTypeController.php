@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class PostTypeController extends GlobalController
 {
@@ -38,6 +39,8 @@ class PostTypeController extends GlobalController
     {
         $rules = [
             'name' => 'required|unique:post_types,name',
+            'image' => 'required',
+            'description' => 'required'
         ];
 
         $messages = [
@@ -47,9 +50,16 @@ class PostTypeController extends GlobalController
 
         if ($validator->passes()) {
 
-            $object = PostType::create(array_merge($request->all(), [
+            $object = PostType::create(array_merge($request->except('image'), [
                 'slug' => Str::slug($request->name, '-')
             ]));
+
+            if ($request->image) {
+                $image = $request->file('image');
+                $filename = 'post-type-' . $object->id  .'.'. $image->getClientOriginalExtension();
+                $object->image = $image->storeAs('public/post-types', $filename);
+                $object->save();
+            }  
 
             if ($object) {
                 session()->flash('success', 'Tipo de Blog creado correctamente.');
@@ -89,7 +99,8 @@ class PostTypeController extends GlobalController
         }
 
         $rules = [
-            'name' => 'required|unique:post_types,name,' . $id
+            'name' => 'required|unique:post_types,name,' . $id,
+            'description' => 'required'
         ];
 
         $messages = [
@@ -99,11 +110,23 @@ class PostTypeController extends GlobalController
 
         if ($validator->passes()) {
 
-            $object->update(array_merge($request->all(), [
+            $object->update(array_merge($request->except('image'), [
                 'slug' => Str::slug($request->name, '-')
             ]));
 
             $object->save();
+
+            if ($request->image) {
+                if($object->image){
+                    Storage::delete($object->image);
+                }
+                $image = $request->file('image');
+                $filename = 'post-type-' . $object->id  .'.'. $image->getClientOriginalExtension();
+                $object->image = $image->storeAs('public/post-types', $filename);
+                $object->save();
+
+                $object->refresh();
+            }
 
             if ($object) {
                 session()->flash('success', 'Tipo de Blog modificado correctamente.');
@@ -130,6 +153,8 @@ class PostTypeController extends GlobalController
             session()->flash('warning', 'Tipo de Blog no encontrado.');
             return redirect()->route($this->route . 'index');
         }
+
+        Storage::delete($object->image);
 
         if ($object->delete()) {
             session()->flash('success', 'Tipo de Blog eliminado correctamente.');

@@ -11,10 +11,11 @@ import * as Services from "../../../Services";
 import LazyLoading from "../../../components/LazyLoading";
 import Bioequivalent from "../../../assets/images/icons/bioequivalence.png"
 import {capitalizeFirstLetterOfEachWord} from "../../../helpers/GlobalUtils";
-import UseWindowDimensions from "../../../helpers/UseWindowDimensions";
+import { AppContext } from "../../../context/AppProvider";
+import {BREAKPOINTS} from "../../../helpers/vars";
 
 const ProductDetail = ({match}) => {
-
+    const {breakpoint} = useContext(AppContext)
     const [product, setProduct] = useState(null);
     const [valid, setValid] = useState(null);
     const [prods, setProds] = useState([]);
@@ -22,7 +23,6 @@ const ProductDetail = ({match}) => {
     const [breadcrumbs, setBreadcrumbs] = useState([]);
     const [imageSubscription, setImageSubscription] = useState(null);
     const [loading, setLoading] = useState(true);
-    const {width} = UseWindowDimensions();
 
     useEffect(() => {
         if (product) {
@@ -79,22 +79,11 @@ const ProductDetail = ({match}) => {
     return (
         !loading ?
             <Fragment>
-                {/*<div style={{background: '#FAFAFA'}}>*/}
-                {/*    <div className="container">*/}
-                {/*        /!*<div className={product.subcategory.category.banner_image_size +" pt-4"}>*!/*/}
-                {/*        <div className="w-100 pt-4">*/}
-                {/*            <img width="100%" style={{objectFit:'cover', height:'110px'}}*/}
-                {/*                 src={width > 750 ? product.subcategory.category.public_banner_image : product.subcategory.category.public_banner_image_responsive ?? product.subcategory.category.public_banner_image}*/}
-                {/*                 alt={CONFIG.APP_NAME}/>*/}
-                {/*        </div>*/}
-                {/*    </div>*/}
-                {/*</div>*/}
-
                 <BasePanelTwo
                     classContainer="mobile-shop"
                     breadcrumbs={breadcrumbs}
                     prepend={<img width="100%" style={{objectFit: 'cover', height: '110px'}}
-                                  src={width > 750 ? product.subcategory.category.public_banner_image : product.subcategory.category.public_banner_image_responsive ?? product.subcategory.category.public_banner_image}
+                        src={breakpoint === BREAKPOINTS.MEDIUM || breakpoint === BREAKPOINTS.LARGE || breakpoint === BREAKPOINTS.EXTRA_LARGE || breakpoint === BREAKPOINTS.EXTRA_EXTRA_LARGE ? product.subcategory.category.public_banner_image : product.subcategory.category.public_banner_image_responsive ?? product.subcategory.category.public_banner_image}
                                   alt={CONFIG.APP_NAME}/>}
                 >
 

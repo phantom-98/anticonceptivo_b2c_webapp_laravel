@@ -6,11 +6,11 @@ import Icon from "../../../components/general/Icon";
 import fileSvg from "../../../assets/images/icons/file-alt-regular.svg";
 
 const ProductInfo = ({product, setImageSubscription}) => {
+
     const [quantity, setQuantity] = useState(1);
     const [subscription, setSubscription] = useState(null);
 
     const handleSubscription = subscription_plan => {
-        // console.log(subscription_plan.subscription_plan)
         if (subscription == null) {
             setSubscription(subscription_plan.subscription_plan);
             setImageSubscription(subscription_plan.position + 1);
@@ -42,21 +42,20 @@ const ProductInfo = ({product, setImageSubscription}) => {
             </div>
             <div className="col-md-12">
                 <p className="font-poppins font-16 regular color-585858">
-                    <div
-                        dangerouslySetInnerHTML={{
-                            __html: product.description
-                        }}
+                    <div dangerouslySetInnerHTML={{
+                        __html: product.description
+                    }}
                     />
                 </p>
             </div>
-            {product.compound ?
-                <div className="col-md-12">
-                    <div className="font-poppins font-12 compoundProduct"
-                            dangerouslySetInnerHTML={{__html: product.format_compound}}
-                    />
-                </div>
-            
-            : null
+            {
+                product.compound ?
+                    <div className="col-md-12">
+                        <div className="font-poppins font-12 compoundProduct"
+                             dangerouslySetInnerHTML={{__html: product.format_compound}}
+                        />
+                    </div>
+                    : null
             }
             <div className="col-md-12">
                 <span className="font-poppins font-36 bold color-009BE8">
@@ -84,8 +83,7 @@ const ProductInfo = ({product, setImageSubscription}) => {
                                     ((product.price - subscription.price) /
                                         product.price) *
                                     100
-                                )}
-                                %)
+                                )} %)
                                 </span>
                         ]
                     }

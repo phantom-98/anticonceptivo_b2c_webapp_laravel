@@ -47,13 +47,18 @@ class PaySubscriptions extends Command
      * @return void
      */
     private $oneclick;
+    private $commerce_code;
+
+
     public function __construct()
     {
+
         if (env('APP_ENV') == 'production') {
             $this->oneclick = new OneClickMall(env('TBK_CC_ONECLICK'), env('TBK_API_KEY_ONECLICK'), WebpayPlus::PRODUCTION);
-
+            $this->commerce_code = env('TBK_ONECLICK_MALL');
         } else {
             $this->oneclick = new OneClickMall();
+            $this->commerce_code = '597055555543';
         }
         parent::__construct();
 
@@ -68,13 +73,15 @@ class PaySubscriptions extends Command
     {
         $datePayment = Carbon::now();
         $customers = Customer::all();
+
+
         foreach ($customers as $customer) {
             $subscriptionsOrdersItems = SubscriptionsOrdersItem::whereHas('order_parent', function ($q) use ($customer) {
                 $q->whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED'])->where('customer_id', $customer->id);
             })
                 ->where('active',1)
                 ->whereIn('status', ['CREATED', 'REJECTED'])
-                ->whereDate('pay_date', $datePayment)
+                ->whereDate('pay_date','<=',$datePayment)
                 ->with(['order_item.product', 'subscription', 'order.order_items', 'order_item.subscription_plan', 'order.customer', 'customer_address.commune'])
                 ->select('id', 'order_parent_id as order_id','subtotal','name', 'orders_item_id','price','quantity', 'subscription_id','delivery_address', 'customer_address_id', 'pay_date', 'dispatch_date', 'status', 'is_pay')
                 ->orderBy('order_parent_id')->orderBy('pay_date')
@@ -84,7 +91,6 @@ class PaySubscriptions extends Command
             $prev_item = null;
             $total = 0;
             $array_item = [];
-
             foreach ($subscriptionsOrdersItems as $item) {
                 if (($prev_order_id != $item->order->id || $prev_pay_date != $item->pay_date) && $prev_item != null) {
 
@@ -108,10 +114,21 @@ class PaySubscriptions extends Command
                 $dispatch = $this->getDeliveryCost($prev_item->customer_address->commune->name)['price_dispatch'];
                 $total = $total + $dispatch;
 
-                $response = $this->oneclick->authorize($customer->id, $prev_item->subscription->transbank_token, $prev_item->id, $total);
+                $details = [
+                    [
+                        "commerce_code" => $this->commerce_code,
+                        "buy_order" => $prev_item->id,
+                        "amount" =>  $total,
+                        "installments_number" => 1
+                    ]
+                ];
+
+                $response = $this->oneclick->authorize($customer->id , $prev_item->subscription->transbank_token,$prev_item->id,$details);
+
                 if($response['status'] == "success") {
                     $this->sendCallIntegration(collect($array_item));
                 }
+
                 $array_item = [];
 
             }
@@ -151,9 +168,8 @@ class PaySubscriptions extends Command
         $items = [];
 
         foreach ($array_subscription_order_items as $elementOrderItem) {
-
             $item = array(
-                'productItemId' => $elementOrderItem->product->product_item_id_ailoo,
+                'productItemId' => $elementOrderItem->order_item->product->product_item_id_ailoo,
                 'price' => $elementOrderItem->price,
                 'quantity' => $elementOrderItem->quantity,
                 "taxable"=> true,
@@ -169,6 +185,8 @@ class PaySubscriptions extends Command
             "taxable"=> true,
             "type"=> "PRODUCT"
         );
+
+        array_push($items,$item);
 
         $customer = $first_subcription_order_item->order->customer;
 
@@ -187,44 +205,52 @@ class PaySubscriptions extends Command
             "cashRegisterId"=> env('CASH_REGISTER'),
             "saleTypeId"=> env('SALE_TYPE_ID'),
             "comment"=> "Venta API",
-            "items"=> $items->toArray(),
+            "items"=> $items,
             "user"=> "anticonceptivo"
         );
 
-        $get_data = ApiHelper::callAPI('POST', 'https://api.ailoo.cl/v2/sale/boleta/print_type/1', json_encode($data), 'ailoo');
-        $response = json_decode($get_data, true);
 
-        if($response['error']['code'] != 0){
-            //Envió de email de reposición de stock
-        }else{
-            //Guardamos la boleta
-            foreach ($array_subscription_order_items as $item){
-                $item->voucher_pdf = $response['pdfUrl'];
-            }
-            $order->voucher_pdf = $response['pdfUrl'];
-        }
 
-        $product = $first_subcription_order_item->order_item->product;
-        $get_data = ApiHelper::callAPI('GET', 'https://api.ailoo.cl/v1/inventory/barCode/'.$product->barcode, null, 'ailoo');
-        $response = json_decode($get_data, true);
-        try {
+        if (env('APP_ENV') == 'production') {
+            $get_data = ApiHelper::callAPI('POST', 'https://api.ailoo.cl/v2/sale/boleta/print_type/1', json_encode($data), 'ailoo');
+            $response = json_decode($get_data, true);
 
-            $isWeb = false;
-            foreach ($response['inventoryItems'] as $key => $inventory) {
-                if($inventory['facilityName'] == 'Web'){
-                    $product->stock = $inventory['quantity'];
-                    $isWeb = true;
+            if($response['error']['code'] != 0){
+                //Envió de email de reposición de stock
+            }else{
+                //Guardamos la boleta
+                foreach ($array_subscription_order_items as $item){
+                    $item->voucher_pdf = $response['pdfUrl'];
                 }
+                $order->voucher_pdf = $response['pdfUrl'];
             }
-
-            if(!$isWeb){
-                $product->stock = 0;
-            }
-        } catch (\Throwable $th) {
-            $product->stock = 0;
-            //No se encontro stock suficiente
         }
-        $product->save();
+
+
+        if (env('APP_ENV') == 'production') {
+
+            $product = $first_subcription_order_item->order_item->product;
+            $get_data = ApiHelper::callAPI('GET', 'https://api.ailoo.cl/v1/inventory/barCode/'.$product->barcode, null, 'ailoo');
+            $response = json_decode($get_data, true);
+            try {
+
+                $isWeb = false;
+                foreach ($response['inventoryItems'] as $key => $inventory) {
+                    if($inventory['facilityName'] == 'Web'){
+                        $product->stock = $inventory['quantity'];
+                        $isWeb = true;
+                    }
+                }
+
+                if(!$isWeb){
+                    $product->stock = 0;
+                }
+            } catch (\Throwable $th) {
+                $product->stock = 0;
+                //No se encontro stock suficiente
+            }
+            $product->save();
+        }
 
         $data_llego_products = $array_subscription_order_items->map(function ($item) {
             return array (
@@ -234,12 +260,11 @@ class PaySubscriptions extends Command
                 'valor' => $item->price,
             );
         });
-
         $data_llego = array (
             'identificador' => $order->id,
             'linea_negocio' => 'ANTICONCEPTIVO',
             'fecha_pactada_cliente' => Carbon::now()->addHours($this->getDeliveryCost($first_subcription_order_item->customer_address->commune->name)['deadline_delivery_llego'])->format('d-m-Y'),
-            'cliente_nombres' => $first_subcription_order_item->order->customer->first_name . ' ' . $item->order->customer->last_name,
+            'cliente_nombres' => $first_subcription_order_item->order->customer->first_name . ' ' . $first_subcription_order_item->order->customer->last_name,
             'cliente_direccion1' => $first_subcription_order_item->customer_address->address,
             'cliente_direccion2' =>  $first_subcription_order_item->customer_address->extra_info ,
             'cliente_direccion3' =>  $first_subcription_order_item->customer_address->name ,
@@ -256,15 +281,18 @@ class PaySubscriptions extends Command
                 ),
         );
 
-        $get_data = ApiHelper::callAPI('POST', 'https://qa-integracion.llego.cl/api/100/Anticonceptivo/carga/Pedido', json_encode($data_llego), 'llego');
-        $response = json_decode($get_data, true);
+
+
+        if (env('APP_ENV') == 'production') {
+            $get_data = ApiHelper::callAPI('POST', 'https://qa-integracion.llego.cl/api/100/Anticonceptivo/carga/Pedido', json_encode($data_llego), 'llego');
+            $response = json_decode($get_data, true);
+        }
 
         $order->is_paid = 1;
         $order->status = 'PAID';
         $order->save();
-
         foreach ($array_subscription_order_items as $item){
-            if($response['codigo'] == 200){
+            if(env('APP_ENV') !== 'production' || $response['codigo'] == 200){
                 $item->dispatch_status = 'Procesando';
             }else{
                 $item->dispatch_status = 'Error';
@@ -277,7 +305,10 @@ class PaySubscriptions extends Command
             $tmp_subscription_order->order_id = $order->id;
             $tmp_subscription_order->save();
         }
-        CallIntegrationsPay::sendEmailsOrder($order->id,'subscription');
+
+        if (env('APP_ENV') == 'production') {
+            CallIntegrationsPay::sendEmailsOrder($order->id,'subscription');
+        }
     }
 
     private function getDeliveryCost($commune_name){

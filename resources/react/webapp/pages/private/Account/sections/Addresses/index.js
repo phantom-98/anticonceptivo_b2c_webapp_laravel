@@ -3,11 +3,15 @@ import H3Panel from "../../../../../components/general/H3Panel";
 import List from "./List";
 import Form from "./Form";
 import {AuthContext} from "../../../../../context/AuthProvider";
+import {AppContext} from "../../../../../context/AppProvider";
 import * as Services from "../../../../../Services";
-import UseWindowDimensions from "../../../../../helpers/UseWindowDimensions";
+import { BREAKPOINTS } from "../../../../../helpers/vars";
 
 const Index = () => {
+
     const {auth} = useContext(AuthContext)
+
+    const { breakpoint } = useContext(AppContext)
 
     const [addresses, setAddresses] = useState([]);
 
@@ -61,12 +65,14 @@ const Index = () => {
         setFormMode('create')
         setAddressSelected(null)
     }
-    const {height, width} = UseWindowDimensions();
+    
 
     return (
-        <div className="row" style={{marginTop: width <= 980 ? '0px' : '-50px'}}>
+        <div className="row" style={{marginTop: breakpoint === BREAKPOINTS.LARGE || breakpoint === BREAKPOINTS.EXTRA_LARGE || breakpoint === BREAKPOINTS.EXTRA_EXTRA_LARGE ? '-50px' : '0px'}}>
             {
-                width < 768 ? null : <H3Panel title="EDITAR DIRECCIONES"/>
+                breakpoint === BREAKPOINTS.MEDIUM ||breakpoint === BREAKPOINTS.LARGE || breakpoint === BREAKPOINTS.EXTRA_LARGE || breakpoint === BREAKPOINTS.EXTRA_EXTRA_LARGE ?
+                    <H3Panel title="EDITAR DIRECCIONES" /> 
+                : null
             }
             <div className="col-md-12 ">
                 <div className="panel-bordered px-4 pt-4 pb-4">

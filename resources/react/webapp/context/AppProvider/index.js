@@ -1,4 +1,4 @@
-import React, {createContext, useReducer} from 'react';
+import React, {createContext, useEffect, useReducer} from 'react';
 import {PUSHER} from "../../Globals";
 import Pusher from 'pusher-js';
 import ModalAuth from "../../components/modals/ModalAuth";
@@ -12,12 +12,15 @@ import {
     MODAL_AUTH_SHOW_SUCCESS_HIDE,
     MODAL_PASSWORD_UPDATE_SUCCESS_SHOW,
     MODAL_PASSWORD_UPDATE_SUCCESS_HIDE,
-    SET_TOKEN_MODAL_AUTH,
+    SET_TOKEN_MODAL_AUTH, SET_DIMENSION,
 } from "./types";
+import useDimension from "../../hooks/useDimension";
 
 export const AppContext = createContext(null);
 
 const AppProvider = (props) => {
+
+    const {breakpoint} = useDimension();
 
     const pusher = new Pusher(PUSHER.APP_KEY, {
         cluster: PUSHER.APP_CLUSTER
@@ -26,6 +29,7 @@ const AppProvider = (props) => {
     const pusherNotifyChannel = pusher.subscribe('notify');
 
     const initialState = {
+        breakpoint: '',
         showingModalAuth: false,
         modalAuthType: '', // GLOBALS ModalAuthMode
 
@@ -37,7 +41,13 @@ const AppProvider = (props) => {
         token: '',
     };
 
+
     const [state, dispatch] = useReducer(AppReducer, initialState);
+
+    useEffect(() => {
+        setDimension(breakpoint);
+        console.log(breakpoint);
+    }, [breakpoint]);
 
     const showModalAuth = (mode) => {
         dispatch({
@@ -45,6 +55,15 @@ const AppProvider = (props) => {
             payload: mode
         })
     }
+
+    const setDimension = (breakpoint) => {
+        if (state.breakpoint != breakpoint) {
+            dispatch({
+                type: SET_DIMENSION,
+                payload: breakpoint,
+            });
+        }
+    };
 
     const hideModalAuth = () => {
         dispatch({
@@ -93,24 +112,26 @@ const AppProvider = (props) => {
 
     return (
         <AppContext.Provider value={{
+
+            breakpoint: state.breakpoint,
             pusherNotifyChannel,
 
-            showingModalAuth : state.showingModalAuth,
-            modalAuthType : state.modalAuthType,
-            showingModalAuthSuccess : state.showingModalAuthSuccess,
-            modalAuthSuccessType : state.modalAuthSuccessType,
-            showingModalPasswordUpdate : state.showingModalPasswordUpdate,
+            showingModalAuth: state.showingModalAuth,
+            modalAuthType: state.modalAuthType,
+            showingModalAuthSuccess: state.showingModalAuthSuccess,
+            modalAuthSuccessType: state.modalAuthSuccessType,
+            showingModalPasswordUpdate: state.showingModalPasswordUpdate,
 
-            showModalAuth : showModalAuth,
-            hideModalAuth : hideModalAuth,
+            showModalAuth: showModalAuth,
+            hideModalAuth: hideModalAuth,
 
-            showModalAuthSuccess : showModalAuthSuccess,
-            hideModalAuthSuccess : hideModalAuthSuccess,
+            showModalAuthSuccess: showModalAuthSuccess,
+            hideModalAuthSuccess: hideModalAuthSuccess,
 
-            showModalPasswordSuccess : showModalPasswordSuccess,
-            hideModalPasswordSuccess : hideModalPasswordSuccess,
+            showModalPasswordSuccess: showModalPasswordSuccess,
+            hideModalPasswordSuccess: hideModalPasswordSuccess,
 
-            setTokenModalAuth : setTokenModalAuth,
+            setTokenModalAuth: setTokenModalAuth,
             getTokenModalAuth: getTokenModalAuth
 
         }}>

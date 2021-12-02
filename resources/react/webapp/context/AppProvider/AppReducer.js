@@ -5,7 +5,7 @@ import {
     MODAL_AUTH_SHOW_SUCCESS_HIDE,
     MODAL_PASSWORD_UPDATE_SUCCESS_SHOW,
     MODAL_PASSWORD_UPDATE_SUCCESS_HIDE,
-    SET_TOKEN_MODAL_AUTH,
+    SET_TOKEN_MODAL_AUTH, SET_DIMENSION,
 } from "./types";
 
 export default (state, action) => {
@@ -54,6 +54,12 @@ export default (state, action) => {
             return {
                 ...state,
                 token: action.payload
+            }
+
+        case SET_DIMENSION:
+            return {
+                ...state,
+                breakpoint: action.payload
             }
         default:
             return state;

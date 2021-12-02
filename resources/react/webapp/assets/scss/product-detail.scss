@@ -119,6 +119,9 @@
         font-size: 8px !important;
     }
 
+    .imgAccordionBody{
+        max-width: 100% !important;
+    }
 }
 
 .h1Recipe{
@@ -137,6 +140,10 @@
 
 .subscription-content{
     text-align: center;
+}
+
+.imgAccordionBody{
+    max-width: 300px;
 }
 
 .subscription-title{

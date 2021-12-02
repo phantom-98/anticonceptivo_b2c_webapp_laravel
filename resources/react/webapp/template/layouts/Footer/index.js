@@ -13,7 +13,7 @@ import PUBLIC_ROUTES from "../../../routes/publicRoutes";
 import Icon from "../../../components/general/Icon";
 import {Link} from "react-router-dom";
 import * as Services from "../../../Services";
-import { v4 as uuidv4 } from 'uuid';
+import {v4 as uuidv4} from 'uuid';
 
 const Footer = () => {
 
@@ -59,7 +59,7 @@ const Footer = () => {
                             {
                                 alliances.map((alliance, index) => {
                                     return (
-                                        <div className="mb-3" key={index*7777}>
+                                        <div className="mb-3" key={index * 7777}>
                                             <img src={alliance.public_footer_image} alt={CONFIG.APP_NAME}/>
                                         </div>
                                     )
@@ -74,16 +74,19 @@ const Footer = () => {
                                     <Link className="nav-link" to={PUBLIC_ROUTES.ABOUT_US.path}>Sobre nosotros</Link>
                                 </li>
                                 <li className="nav-item text-center text-lg-left">
-                                    <Link className="nav-link" to={PUBLIC_ROUTES.FAQ.path}>Preguntas Frecuentes FAQ</Link>
+                                    <Link className="nav-link" to={PUBLIC_ROUTES.FAQ.path}>Preguntas Frecuentes
+                                        FAQ</Link>
                                 </li>
                                 <li className="nav-item text-center text-lg-left footer-nav-item">
-                                    <Link className="nav-link" to={PUBLIC_ROUTES.TERMS_AND_CONDITIONS.path}>Términos y Condiciones</Link>
+                                    <Link className="nav-link" to={PUBLIC_ROUTES.TERMS_AND_CONDITIONS.path}>Términos y
+                                        Condiciones</Link>
                                 </li>
                                 {
                                     sections.map((section) => {
                                         let sectionKey = uuidv4();
-                                        return(
-                                            <li className="nav-item text-center text-lg-left footer-nav-item" key={sectionKey}>
+                                        return (
+                                            <li className="nav-item text-center text-lg-left footer-nav-item"
+                                                key={sectionKey}>
                                                 <a className="nav-link" href={section.link} target="_blank">
                                                     {section.name}
                                                 </a>
@@ -107,18 +110,21 @@ const Footer = () => {
                                 </li>
                                 <li className="nav-item text-center text-lg-left footer-nav-item">
                                     <Link className="nav-link"
-                                          to={(PUBLIC_ROUTES.CORPORATE_RESPONSIBILITY.path).replace(':section', 'carta-de-desabastecimiento')}>Carta de Desabastecimiento</Link>
+                                          to={(PUBLIC_ROUTES.CORPORATE_RESPONSIBILITY.path).replace(':section', 'carta-de-desabastecimiento')}>Carta
+                                        de Desabastecimiento</Link>
                                 </li>
                                 <li className="nav-item text-center text-lg-left">
                                     <Link className="nav-link"
                                           to={(PUBLIC_ROUTES.CORPORATE_RESPONSIBILITY.path).replace(':section', 'plazos-y-costos-entrega')}>Plazos
                                         y costos de entrega</Link>
                                 </li>
-                                {/* <li className="nav-item text-center text-lg-left">
-                                    <Link className="nav-link" to={PUBLIC_ROUTES.BLOG.path}>Blog</Link>
-                                </li> */}
+
                                 <li className="nav-item text-center text-lg-left footer-nav-item">
                                     <Link className="nav-link" to={PUBLIC_ROUTES.CLAIM.path}>Libro de Reclamos</Link>
+                                </li>
+
+                                <li className="nav-item text-center text-lg-left">
+                                    <Link className="nav-link" to={PUBLIC_ROUTES.BLOG.path}>Blog</Link>
                                 </li>
                             </ul>
                         </div>
