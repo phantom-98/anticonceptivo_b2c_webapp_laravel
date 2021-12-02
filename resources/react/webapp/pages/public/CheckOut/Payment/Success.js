@@ -8,16 +8,36 @@ import checkCircle from "../../../../assets/images/icons/checkmark-circle-outlin
 import * as Services from "../../../../Services";
 import {formatMoney} from "../../../../helpers/GlobalUtils";
 import moment from "moment";
+import useGoogleAnalyticsEcommerce from '../../../../components/customHooks/useGoogleAnalyticsEcommerce';
 
 const Success = ({orderId, files, productCount, prescriptionRadio, withoutPrescriptionAnswer}) => {
 
-    const [order, setOrder] = useState();
+    const { addTransaction, addItems, transaction, items, send } = useGoogleAnalyticsEcommerce();
+    
+    const [order, setOrder] = useState({});
     const [load, setLoad] = useState(true);
-
 
     useEffect(() => {
         getData();
-    }, [])
+    }, []);
+
+    // useEffect(() => {
+    //     if (order) {
+    //         // GA EC
+    //         addTransaction({
+    //             'id': order.id,
+    //             'affiliation': 'Anticonceptivo',
+    //             'revenue': order.total,
+    //             'shipping': order.dispatch,
+    //             // 'tax': 2490,
+    //             'currency': 'CLP',
+    //         })
+
+    //         addItems(order.order_items);
+
+
+    //     }
+    // }, [order])
 
     const getData = () => {
         let url = Services.ENDPOINT.NO_AUTH.CHECKOUT.GET_ORDER;

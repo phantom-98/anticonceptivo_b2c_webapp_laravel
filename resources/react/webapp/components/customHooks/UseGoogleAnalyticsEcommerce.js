@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import ReactGA from "react-ga";
 
-export default function UseGoogleAnalyticsEcommerce() {
+export default function useGoogleAnalyticsEcommerce() {
 
     // ga('require', 'ecommerce'); (?)
     // instanciar ga (?)
@@ -28,12 +29,12 @@ export default function UseGoogleAnalyticsEcommerce() {
     };
 
     const [transaction, setTransaction] = useState({
-        id:'',
-        affiliation: null,
-        revenue: null,
-        shipping: null,
-        tax: null,
-        currency: null,
+        'id':'',
+        'affiliation': null,
+        'revenue': null,
+        'shipping': null,
+        'tax': null,
+        'currency': null,
     })
     const [items, setItems] = useState([]);
 
@@ -41,12 +42,12 @@ export default function UseGoogleAnalyticsEcommerce() {
         // add transaction in state
         setTransaction({
             ...transaction,
-            id: obj.id,
-            affiliation: obj.affiliation ? obj.affiliation : null,
-            revenue: obj.revenue ? obj.revenue : null,
-            shipping: obj.shipping ? obj.shipping : null,
-            tax: obj.tax ? obj.tax : null,
-            currency: obj.currency ? obj.currency : null,
+            'id': obj.id,
+            'affiliation': obj.affiliation ? obj.affiliation : null,
+            'revenue': obj.revenue ? obj.revenue : null,
+            'shipping': obj.shipping ? obj.shipping : null,
+            'tax': obj.tax ? obj.tax : null,
+            'currency': obj.currency ? obj.currency : null,
         })
 
         // or use the command directly
@@ -60,13 +61,13 @@ export default function UseGoogleAnalyticsEcommerce() {
 
         newItems = objs.map(obj => {
             return {
-                id: obj.id,
-                name: obj.name,
-                sku: obj.sku ? obj.sku : null,
-                category: obj.category ? obj.category : null,
-                price: obj.price ? obj.price : null,
-                quantity: obj.quantity ? obj.quantity : null,
-                currency: obj.currency ? obj.currency : null,
+                'id': obj.id,
+                'name': obj.name,
+                // 'sku': obj.sku ? obj.sku : null,
+                // 'category': obj.category ? obj.category : null,
+                // 'price': obj.price ? obj.price : null,
+                // 'quantity': obj.quantity ? obj.quantity : null,
+                // 'currency': obj.currency ? obj.currency : null,
             } 
         });
 
@@ -77,15 +78,39 @@ export default function UseGoogleAnalyticsEcommerce() {
     }
 
     function send(){
-        return null;
-        // recursive ecommerce:commands
-        ga('ecommerce:addTransaction', transaction);
-
-        items.forEach(item => {
-            ga('ecommerce:addItem', item);
+        ReactGA.initialize({
+            trackingId: "UA-209380285-1",
+            debug: true,
+            gaOptions: {
+                cookieDomain: "none"
+            }
         });
 
-        ga('ecommerce:send');
+        if (!transaction.id) {
+            console.log('add transaction error, no id found.');
+            return null;
+        }
+
+        if (!items.length) {
+            console.log('add item error, no items found');
+            return null;
+        }
+
+        ReactGA.plugin.execute('ec', 'addTransaction', transaction);
+        items.forEach(item => {
+            ReactGA.plugin.execute('ec', 'addItem', item);
+        });
+        ReactGA.plugin.execute('ec', 'send');
+        ReactGA.plugin.execute('ec', 'clear');
+
+        // recursive ecommerce:commands
+        // ga('ecommerce:addTransaction', transaction);
+
+        // items.forEach(item => {
+        //     ga('ecommerce:addItem', item);
+        // });
+
+        // ga('ecommerce:send');
 
         // or use the command directly
         // ga('ecommerce:send');

@@ -1,15 +1,15 @@
 import React, {useEffect} from 'react'
 // import { GOOGLE_MAPS } from '../../../Globals';
 // import AutoComplete from "react-google-autocomplete";
-import UseGoogleAnalyticsEcommerce from '../../../components/customHooks/UseGoogleAnalyticsEcommerce';
+import useGoogleAnalyticsEcommerce from '../../../components/customHooks/useGoogleAnalyticsEcommerce';
 
 const Test = () => {
 
-    const { addTransaction, addItems, transaction, items } = UseGoogleAnalyticsEcommerce();
+    const { addTransaction, addItems, transaction, items, send } = useGoogleAnalyticsEcommerce();
 
     useEffect(() => {
         addTransaction({
-            id: 1,
+            id: 100,
             affiliation: 'Anticonceptivo',
             revenue: 14000,
             shipping: 3990,
@@ -19,15 +19,15 @@ const Test = () => {
 
         let testItems = [
             {
-                id: 1,
+                id: 101,
                 name: 'temporal 1',
             },
             {
-                id: 2,
+                id: 201,
                 name: 'temporal 2',
             },
             {
-                id: 3,
+                id: 301,
                 name: 'temporal 3',
             },
         ];
@@ -35,11 +35,9 @@ const Test = () => {
         addItems(testItems);
     },[]);
 
-
     useEffect(() => {
         if (transaction.id && items.length) {
-            console.log(transaction);
-            console.log(items);
+            send();
         }
     },[items])
 
