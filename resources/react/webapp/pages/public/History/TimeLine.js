@@ -30,7 +30,7 @@ const TimeLine = ({timelines}) => {
                                             />
                                             { data.post
                                                 ? 
-                                                    <p className="font-poppins font-12 bold pointer color-033F5D">
+                                                    <p className="font-poppins font-12 bold pointer color-033F5D readMoreHistory">
                                                         <a href={data.post.url}>LEER MÁS</a>
                                                     </p>
                                                 :
