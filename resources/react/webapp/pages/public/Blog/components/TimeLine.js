@@ -74,7 +74,7 @@ const TimeLine = ({}) => {
                             />
                             {timeline.post
                                 ?
-                                <p className="font-poppins font-12 bold pointer color-033F5D">
+                                <p className="font-poppins font-12 bold pointer color-033F5D readMoreHistory">
                                     <a href={timeline.post.url}>LEER MÁS</a>
                                 </p>
                                 :
@@ -99,7 +99,7 @@ const TimeLine = ({}) => {
                         />
                         {timeline.post
                             ?
-                            <p className="font-poppins font-12 bold pointer color-033F5D">
+                            <p className="font-poppins font-12 bold pointer color-033F5D readMoreHistory">
                                 <a href={timeline.post.url}>LEER MÁS</a>
                             </p>
                             :
