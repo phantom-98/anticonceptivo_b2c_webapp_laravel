@@ -123,9 +123,9 @@ const Footer = () => {
                                     <Link className="nav-link" to={PUBLIC_ROUTES.CLAIM.path}>Libro de Reclamos</Link>
                                 </li>
 
-                                {/*<li className="nav-item text-center text-lg-left">
+                                <li className="nav-item text-center text-lg-left">
                                     <Link className="nav-link" to={PUBLIC_ROUTES.BLOG.path}>Blog</Link>
-                                </li>*/}
+                                </li>
                             </ul>
                         </div>
                         <div className="col-lg-auto">
