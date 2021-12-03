@@ -1,23 +1,32 @@
 import React, {useEffect, useState, Fragment} from 'react';
 import PUBLIC_ROUTES from "../../../../routes/publicRoutes";
 import {Link} from "react-router-dom";
-import H3Panel from "../../../../components/general/H3Panel";
-import RowCol from "../../../../components/general/RowCol";
 import Icon from "../../../../components/general/Icon";
 import checkCircle from "../../../../assets/images/icons/checkmark-circle-outline.svg";
 import * as Services from "../../../../Services";
 import {formatMoney} from "../../../../helpers/GlobalUtils";
 import moment from "moment";
+import useGoogleAnalyticsEcommerce from '../../../../components/customHooks/useGoogleAnalyticsEcommerce';
 
 const Success = ({orderId, files, productCount, prescriptionRadio, withoutPrescriptionAnswer}) => {
 
-    const [order, setOrder] = useState();
+    const { addTransaction, addItems, transaction, items, send } = useGoogleAnalyticsEcommerce();
+    
+    const [order, setOrder] = useState({
+        id: '',
+    });
     const [load, setLoad] = useState(true);
-
 
     useEffect(() => {
         getData();
-    }, [])
+    }, []);
+
+    useEffect(() => {
+        if (transaction.id && items.length) {
+            // console.log('useEffect send GA !');
+            send();
+        }
+    }),[items, transaction]
 
     const getData = () => {
         let url = Services.ENDPOINT.NO_AUTH.CHECKOUT.GET_ORDER;
@@ -48,6 +57,16 @@ const Success = ({orderId, files, productCount, prescriptionRadio, withoutPrescr
                 success: () => {
                     setOrder(response.data.order);
                     setLoad(false);
+
+                    addTransaction({
+                        'id': response.data.order.id,
+                        'affiliation': 'Anticonceptivo',
+                        'revenue': response.data.order.subtotal,
+                        'shipping': response.data.order.dispatch,
+                        'tax': response.data.order.subtotal*0.19,
+                    })
+
+                    addItems(response.data.order.order_items);
                 },
             });
         }).catch(error => {
