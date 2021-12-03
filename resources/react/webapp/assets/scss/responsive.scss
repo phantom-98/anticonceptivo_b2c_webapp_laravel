@@ -33,8 +33,24 @@
 }
 
 @media (min-width: 1260px) {
-    .product-carousel .slick-slide{
+    .product-carousel .slick-slide {
         max-width: 300px;
+    }
+
+    .readMoreHistory{
+        text-align: center!important;
+    }
+
+    .timeline-line-vertical {
+        height: 95px !important;
+    }
+
+    .timeline-box{
+        height: 170px !important;
+    }
+
+    .timeline-resume{
+        padding: 15px !important;
     }
 }
 
@@ -57,7 +73,16 @@
         margin-top: 108px;
     }
 
-    .btn-adress{
+    .timeline-box {
+        height: 100% !important;
+    }
+
+    .readMoreHistory{
+        text-align: center!important;
+        margin-top: 1.5rem!important;
+    }
+
+    .btn-adress {
         width: 100%;
     }
 
@@ -65,7 +90,7 @@
         width: 100%;
     }
 
-    .add-underline-responsive{
+    .add-underline-responsive {
         text-decoration: underline;
     }
 
@@ -405,9 +430,8 @@
 
     }
 
-    .blog-list-img{
+    .blog-list-img {
         width: 100%;
-
     }
 
 }

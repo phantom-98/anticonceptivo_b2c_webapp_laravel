@@ -34,6 +34,16 @@
                                             value="{{ old('name') }}">
                                 </div>
                             </div>
+                            <div class="form-group col-sm-6">
+                                {!! Form::label('image', 'Imagen (*)') !!}
+                                <input type='file' name='image' class='form-control' accept=".jpg, .png, .jpeg">
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="description">Descripción (*)</label>
+                                    <textarea name="description" id="description" rows="3" style="resize: none" class="form-control">{{ old('description') }}</textarea>
+                                </div>  
+                            </div>        
                         </div>
                     </div>
                     <div class="panel-footer">

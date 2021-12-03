@@ -45,8 +45,9 @@ const AppProvider = (props) => {
     const [state, dispatch] = useReducer(AppReducer, initialState);
 
     useEffect(() => {
-        setDimension();
-    });
+        setDimension(breakpoint);
+        console.log(breakpoint);
+    }, [breakpoint]);
 
     const showModalAuth = (mode) => {
         dispatch({
@@ -55,7 +56,7 @@ const AppProvider = (props) => {
         })
     }
 
-    const setDimension = () => {
+    const setDimension = (breakpoint) => {
         if (state.breakpoint != breakpoint) {
             dispatch({
                 type: SET_DIMENSION,

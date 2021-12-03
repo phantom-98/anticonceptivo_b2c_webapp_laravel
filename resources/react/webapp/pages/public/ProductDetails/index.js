@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState, useContext} from 'react';
+import React, {Fragment, useEffect, useState, useContext} from 'react';
 import PUBLIC_ROUTES from "../../../routes/publicRoutes";
 import BasePanelTwo from "../../../template/BasePanelTwo";
 import Subscribe from "../../../components/sections/Subscribe";

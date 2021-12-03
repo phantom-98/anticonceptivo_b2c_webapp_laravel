@@ -5,8 +5,8 @@ const useDimension = () => {
 
     const hasWindow = typeof window !== 'undefined';
 
-    const [breakpoint, setBreakpoint] = useState('');
-    const [orientation, setOrientation] = useState('');
+    const [breakpoint, setBreakpoint] = useState(null);
+    const [orientation, setOrientation] = useState(null);
     const [device, setDevice] = useState('');
 
     const handleBreakpoint = useCallback(
@@ -60,6 +60,12 @@ const useDimension = () => {
         handleBreakpoint(width);
         handleDirection(width, height);
     }, [handleBreakpoint, handleDirection, hasWindow]);
+
+    useEffect(() => {
+        if (hasWindow) {
+            getWindowDimensions()
+        }
+    }, []);
 
     useEffect(() => {
         if (hasWindow) {

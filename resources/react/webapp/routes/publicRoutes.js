@@ -6,14 +6,14 @@ import AboutUs from "../pages/public/AboutUs";
 import ContactUs from "../pages/public/ContactUs";
 import Faq from "../pages/public/Faq";
 import History from "../pages/public/History";
-import Blog from "../pages/public/Blog";
 import TermsAndConditions from "../pages/public/TermsAndConditions";
 import CorporateResponsibility from "../pages/public/CorporateResponsibility";
 import Shop from "../pages/public/Shop";
 import ProductDetail from "../pages/public/ProductDetails";
 import Cart from "../pages/public/Cart";
 import CheckOut from "../pages/public/CheckOut";
-import BlogList from "../pages/public/BlogList";
+import Blog from "../pages/public/Blog/Blog";
+import BlogListByCategory from "../pages/public/Blog/BlogListByCategory";
 import Claim from "../pages/public/Claim";
 import Post from "../pages/public/Post";
 import ShopSearch from '../pages/public/Shop/indexSearch';
@@ -146,7 +146,7 @@ const PUBLIC_ROUTES = {
         middleware: props => <PublicMiddleware {...props} />
     },
 
-    HISTORY:{
+    HISTORY: {
         path: "/historia-anticonceptivo",
         title: "Historia de los Anticonceptivos",
         component: History,
@@ -164,8 +164,17 @@ const PUBLIC_ROUTES = {
         middleware: props => <PublicMiddleware {...props} />
     },
 
+    BLOG_LIST_BY_CATEGORY: {
+        path: "/blog/:post_type_slug",
+        title: "Blog",
+        component: BlogListByCategory,
+        exact: true,
+        layout: props => <BaseTemplate {...props} />,
+        middleware: props => <PublicMiddleware {...props} />
+    },
+
     BLOG: {
-        path: "/blog/:post_type_slug?",
+        path: "/blog",
         title: "Blog",
         component: Blog,
         exact: true,
@@ -173,14 +182,16 @@ const PUBLIC_ROUTES = {
         middleware: props => <PublicMiddleware {...props} />
     },
 
-    BLOG_LIST: {
-        path: "/blog/lista",
-        title: "Blog Lista",
-        component: BlogList,
-        exact: true,
-        layout: props => <BaseTemplate {...props} />,
-        middleware: props => <PublicMiddleware {...props} />
-    },
+
+
+    // BLOG_LIST: {
+    //     path: "/blog/lista",
+    //     title: "Blog Lista",
+    //     component: BlogList,
+    //     exact: true,
+    //     layout: props => <BaseTemplate {...props} />,
+    //     middleware: props => <PublicMiddleware {...props} />
+    // },
 
     RECOVERY: {
         path: "/recuperar-contrasena/:token?",

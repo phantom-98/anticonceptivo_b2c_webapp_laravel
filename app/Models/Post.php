@@ -43,57 +43,66 @@ class Post extends Model
         'url'
     ];
 
-    public function getPublicPrincipalImageAttribute(){
-        return $this->principal_image == null ? null : \Storage::url($this->principal_image);
+    public function getPublicPrincipalImageAttribute()
+    {
+
+        if (strpos($this->attributes['principal_image'], 'http') !== false) {
+            return $this->attributes['principal_image'];
+        }
+        return $this->attributes['principal_image'] == null ? null : \Storage::url($this->attributes['principal_image']);
     }
 
-    public function getUrlAttribute(){
-        return env('APP_URL').'/blog/'.$this->post_type->slug.'/post/'.$this->slug;
+    public function getUrlAttribute()
+    {
+        return env('APP_URL') . '/blog/' . $this->post_type->slug . '/post/' . $this->slug;
     }
 
-    public function getFormatedDateAttribute(){
+    public function getFormatedDateAttribute()
+    {
         return Carbon::parse($this->created_at)->format('d-m-Y');
     }
 
-    public function getNiceDateAttribute(){
+    public function getNiceDateAttribute()
+    {
         return Carbon::parse($this->created_at) ?? null;
     }
 
-    public function getMonthAttribute(){
-        if(Carbon::parse($this->created_at)->format('n') == 1){
+    public function getMonthAttribute()
+    {
+        if (Carbon::parse($this->created_at)->format('n') == 1) {
             return "Enero";
         }
-        if(Carbon::parse($this->created_at)->format('n') == 2){
+        if (Carbon::parse($this->created_at)->format('n') == 2) {
             return "Febrero";
         }
-        if(Carbon::parse($this->created_at)->format('n') == 3){
+        if (Carbon::parse($this->created_at)->format('n') == 3) {
             return "Marzo";
         }
-        if(Carbon::parse($this->created_at)->format('n') == 4){
+        if (Carbon::parse($this->created_at)->format('n') == 4) {
             return "Abril";
         }
-        if(Carbon::parse($this->created_at)->format('n') == 5){
+        if (Carbon::parse($this->created_at)->format('n') == 5) {
             return "Mayo";
         }
-        if(Carbon::parse($this->created_at)->format('n') == 6){
+        if (Carbon::parse($this->created_at)->format('n') == 6) {
             return "Junio";
         }
-        if(Carbon::parse($this->created_at)->format('n') == 7){
+        if (Carbon::parse($this->created_at)->format('n') == 7) {
             return "Julio";
         }
-        if(Carbon::parse($this->created_at)->format('n') == 8){
+        if (Carbon::parse($this->created_at)->format('n') == 8) {
             return "Agosto";
         }
-        if(Carbon::parse($this->created_at)->format('n') == 9){
+        if (Carbon::parse($this->created_at)->format('n') == 9) {
             return "Septiembre";
         }
-        if(Carbon::parse($this->created_at)->format('n') == 10){
+        if (Carbon::parse($this->created_at)->format('n') == 10) {
             return "Octubre";
         }
-        if(Carbon::parse($this->created_at)->format('n') == 11){
+        if (Carbon::parse($this->created_at)->format('n') == 11) {
             return "Noviembre";
         }
-        if(Carbon::parse($this->created_at)->format('n') == 12){
+        if (Carbon::parse($this->created_at)->format('n') == 12) {
             return "Diciembre";
         }
     }

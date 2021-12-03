@@ -37,6 +37,21 @@
                                            value="{{ old('name') ?? $object->name }}">
                                 </div>
                             </div>
+                            <div class="form-group col-sm-6">
+                                {!! Form::label('image', 'Imagen') !!}
+                                <input id="file-image" type='file' name='image' class='form-control' accept=".jpg, .png, .jpeg">
+                                <br/>
+                                @if ($object->image)
+                                <img id="image-edit" src="{{ Storage::url($object->image) }}" style="max-width: 100px;"/>
+                                @endif
+                            </div>   
+                            <div class="clearfix"></div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="description">Descripción (*)</label>
+                                    <textarea name="description" id="description" rows="3" style="resize: none" class="form-control">{{ old('description') ?? $object->description }}</textarea>
+                                </div>  
+                            </div>
                         </div>
                     </div>
                     <div class="panel-footer">
