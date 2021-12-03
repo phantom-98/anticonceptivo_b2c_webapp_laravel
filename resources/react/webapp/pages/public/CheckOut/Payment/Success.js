@@ -6,7 +6,7 @@ import checkCircle from "../../../../assets/images/icons/checkmark-circle-outlin
 import * as Services from "../../../../Services";
 import {formatMoney} from "../../../../helpers/GlobalUtils";
 import moment from "moment";
-import useGoogleAnalyticsEcommerce from '../../../../components/customHooks/useGoogleAnalyticsEcommerce';
+import useGoogleAnalyticsEcommerce from '../../../../components/customHooks/UseGoogleAnalyticsEcommerce';
 
 const Success = ({orderId, files, productCount, prescriptionRadio, withoutPrescriptionAnswer}) => {
 
