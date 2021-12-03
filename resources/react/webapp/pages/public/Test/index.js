@@ -5,55 +5,46 @@ import useGoogleAnalyticsEcommerce from '../../../components/customHooks/useGoog
 
 const Test = () => {
 
-    const { addTransaction, addItems, transaction, items, send } = useGoogleAnalyticsEcommerce();
+    // const { addTransaction, addItems, transaction, items, send } = useGoogleAnalyticsEcommerce();
 
-    useEffect(() => {
-        addTransaction({
-            id: 100,
-            affiliation: 'Anticonceptivo',
-            revenue: 14000,
-            shipping: 3990,
-            tax: 2490,
-            currency: 'CLP',
-        })
+    // const testingButton = () => {
+    //     addTransaction({
+    //         'id': 400,
+    //         'affiliation': 'Anticonceptivo',
+    //         'revenue': 0,
+    //         'shipping': 0,
+    //         'tax': 0,
+    //     })
 
-        let testItems = [
-            {
-                id: 101,
-                name: 'temporal 1',
-            },
-            {
-                id: 201,
-                name: 'temporal 2',
-            },
-            {
-                id: 301,
-                name: 'temporal 3',
-            },
-        ];
+    //     let order_items = [
+    //         {
+    //             'id': 400,
+    //         }
+    //     ];
 
-        addItems(testItems);
-    },[]);
+    //     addItems(order_items);
+    //     console.log('testing button finish operation!');
+    // }
 
-    useEffect(() => {
-        if (transaction.id && items.length) {
-            send();
-        }
-    },[items])
+    // useEffect(() => {
+    //     if (transaction.id && items.length) {
+    //         console.log('useEffect after send!')
+    //         send();
+    //     }
+    // },[items])
 
     return (
         <div className="container" style={{marginTop: '50px', marginBottom: '50px'}}>
             <div className="row my-4 py-4">
-                <div className="col-12">
-                    {/* <AutoComplete
-                        apiKey={GOOGLE_MAPS.API_KEY}
-                        onPlaceSelected={(place) => console.log(place)}
-                        options={{
-                            types: ["address"],
-                            componentRestrictions: { country: "cl" },
-                        }}
-                    /> */}
-                </div>
+                {/* <div className="col-4 offset-4">
+                    <div className="btn btn-bicolor btn-block" style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                    }} onClick={() => testingButton()}>
+                        Touch Me!
+                    </div>
+                </div> */}
             </div>
         </div>
   )

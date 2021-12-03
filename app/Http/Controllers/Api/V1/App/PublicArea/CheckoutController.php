@@ -38,7 +38,7 @@ class CheckoutController extends Controller
     {
         try {
 
-            $order = Order::with(['customer','order_items.subscription_plan.product_subscription_plan'])->find($request->order_id);
+            $order = Order::with(['customer','order_items.subscription_plan.product_subscription_plan','order_items.product.subcategory'])->find($request->order_id);
 
             if (isset($request->attachments) && $request->prescription_radio == 'true') {
                 

@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import ReactGA from "react-ga";
+ReactGA.pageview(window.location.pathname + window.location.search);
+ReactGA.initialize('UA-209380285-1', {
+    standardImplementation: true
+});
+ReactGA.plugin.require('ecommerce');
+
 
 export default function useGoogleAnalyticsEcommerce() {
-
-    // ga('require', 'ecommerce'); (?)
-    // instanciar ga (?)
-    // key de ga (?) -> humberto (?)
-    // queda en memoria (?)
-    // usar solo una función send / close (?)
 
     const defaultTransaction = {
         'id': '1234',                     // Transaction ID. Required.
@@ -34,50 +34,72 @@ export default function useGoogleAnalyticsEcommerce() {
         'revenue': null,
         'shipping': null,
         'tax': null,
-        'currency': null,
+        'currency': 'CLP',
     })
     const [items, setItems] = useState([]);
 
     function addTransaction(obj){
+        // console.log('add transaction', {'id': obj.id});
         setTransaction({
             ...transaction,
             'id': obj.id,
-            'affiliation': obj.affiliation ? obj.affiliation : null,
-            'revenue': obj.revenue ? obj.revenue : null,
-            'shipping': obj.shipping ? obj.shipping : null,
-            'tax': obj.tax ? obj.tax : null,
-            'currency': obj.currency ? obj.currency : null,
+            'affiliation': obj.affiliation,
+            'revenue': obj.revenue,
+            'shipping': obj.shipping,
+            'tax': obj.tax,
+            'currency': 'CLP',
         })
     }
 
     function addItems(objs) {
         let newItems = [];
 
+        // console.log('order items: ', objs);
+
         newItems = objs.map(obj => {
+            // console.log('order item iteration',obj);
             return {
-                'id': obj.id,
+                'id': obj.order_id,
                 'name': obj.name,
-                // 'sku': obj.sku ? obj.sku : null,
-                // 'category': obj.category ? obj.category : null,
-                // 'price': obj.price ? obj.price : null,
-                // 'quantity': obj.quantity ? obj.quantity : null,
-                // 'currency': obj.currency ? obj.currency : null,
+                'sku': obj.product.sku,
+                'category': obj.product.subcategory.name,
+                'price': obj.price,
+                'quantity': obj.quantity,
+                'currency': 'CLP',
             } 
         });
-
+        // console.log('new items',newItems);
         setItems(newItems);
     }
 
     function send(){
-        console.log('send to Google Analytics');
-        ReactGA.initialize("UA-209380285-1"); // app.js? en nuestro caso RunApp.js -> esta corriendo en base_react_seo.blade.php para el google tag manager
-        ReactGA.plugin.execute('ec', 'addTransaction', transaction);
+        // console.log('send to Google Analytics');
+        
+        ReactGA.plugin.execute('ecommerce', 'addTransaction', transaction);
+
         items.forEach(item => {
-            ReactGA.plugin.execute('ec', 'addItem', item);
+            // console.log('adding item to transaction ', transaction.id);
+            // console.log(item);
+            ReactGA.plugin.execute('ecommerce', 'addItem', item);
         });
-        ReactGA.plugin.execute('ec', 'send');
-        // ReactGA.plugin.execute('ec', 'clear'); // ? necesario
+
+        ReactGA.plugin.execute('ecommerce', 'send');
+        ReactGA.plugin.execute('ecommerce', 'clear');
+
+        clearTransaction();
     }
+
+    const clearTransaction = () => {
+        setTransaction({
+            'id': '',
+            'affiliation': null,
+            'revenue': null,
+            'shipping': null,
+            'tax': null,
+            'currency': 'CLP',
+        });
+        setItems([]);
+    } 
 
     function clear(){
         // just clear in case of error (?)

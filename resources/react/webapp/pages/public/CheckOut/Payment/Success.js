@@ -23,6 +23,7 @@ const Success = ({orderId, files, productCount, prescriptionRadio, withoutPrescr
 
     useEffect(() => {
         if (transaction.id && items.length) {
+            // console.log('useEffect send GA !');
             send();
         }
     }),[items, transaction]
@@ -60,10 +61,9 @@ const Success = ({orderId, files, productCount, prescriptionRadio, withoutPrescr
                     addTransaction({
                         'id': response.data.order.id,
                         'affiliation': 'Anticonceptivo',
-                        'revenue': response.data.order.total,
+                        'revenue': response.data.order.subtotal,
                         'shipping': response.data.order.dispatch,
-                        // 'tax': 2490,
-                        'currency': 'CLP',
+                        'tax': response.data.order.subtotal*0.19,
                     })
 
                     addItems(response.data.order.order_items);

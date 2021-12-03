@@ -384,7 +384,6 @@ class WebpayPlusController
                     ], 'Compra OneClick');
 
                 }else{
-
                     return ApiResponse::JsonError([], 'Error con la tarjeta');
                 }
             }else{
