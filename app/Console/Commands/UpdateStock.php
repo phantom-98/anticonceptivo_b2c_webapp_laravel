@@ -85,13 +85,6 @@ class UpdateStock extends Command
                     'ailoo_error' => $get_data
                 ]);
 
-
-                Log::error('UpdateStock Ailoo', [
-                    'product' => $product,
-                    'response' => $exception->getMessage(),
-                    'response Ailoo' => $get_data
-                ]);
-
                 $product->stock = 0;
             }
 
