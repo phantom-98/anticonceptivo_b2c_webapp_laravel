@@ -22,16 +22,16 @@ const OurBrands = ({brands}) => {
 
         let right = {
             position: 'absolute',
-            height: '45px',
-            top: '0%',
+            height: '25px',
+            top: '15%',
             right: '0px',
             zIndex: 1,
         }
 
         let left = {
             position: 'absolute',
-            height: '45px',
-            top: '0%',
+            height: '25px',
+            top: '15%',
             left: '0px',
             zIndex: 1,
         }

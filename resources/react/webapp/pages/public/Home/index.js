@@ -11,6 +11,7 @@ import BannerCarousel from "../../../components/sections/BannerCarousel";
 import BannerStatic from "../../../components/sections/BannerStatic";
 import * as Services from "../../../Services";
 import LazyLoading from '../../../components/LazyLoading';
+import BlogPosts from './BlogPosts';
 
 const Home = ({match}) => {
 
@@ -20,6 +21,7 @@ const Home = ({match}) => {
 
     const [topBanners, setTopBanners] = useState([]);
     const [bannerCategories, setBannerCategories] = useState([]);
+    const [blogPosts, setBlogPosts] = useState([]);
     const [isLoaded, setIsLoaded] = useState(false);
 
     const [middleBanners, setMiddleBanners] = useState([]);
@@ -49,10 +51,9 @@ const Home = ({match}) => {
                     setTopBanners(response.data.top_banners);
                     setMiddleBanners(response.data.middle_banners);
                     setBottomBanners(response.data.bottom_banners);
-                    // setOutstandings(response.data.outstandings);
-                    // setBestSellers(response.data.best_sellers);
                     setBrands(response.data.brands);
                     setBannerCategories(response.data.bannerCategories);
+                    setBlogPosts(response.data.blog_posts);
                     setIsLoaded(true);
                 },
             });
@@ -81,6 +82,8 @@ const Home = ({match}) => {
             {/* <BlogCarousel title="BLOG" showButton={true} buttonTitle="VER MÁS NOTICIAS" /> */}
 
             <BannerStatic banners={bottomBanners}/>
+
+            <BlogPosts blogPosts={blogPosts} isLoaded={isLoaded}/>
 
             <OurBrands brands={brands}/>
 
