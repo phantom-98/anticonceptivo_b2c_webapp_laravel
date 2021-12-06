@@ -1,7 +1,7 @@
 import React, {useRef, useContext, useState, useEffect, Fragment} from 'react';
 import Icon from "../../../components/general/Icon";
 import logoFull from "../../../assets/images/logo-full.svg";
-import logoShort from "../../../assets/images/logo.svg";
+import logoShort from "../../../assets/images/logo_responsive.png";
 
 import userBlue from "../../../assets/images/icons/header/user-blue.svg"
 import cartBlue from "../../../assets/images/icons/header/cart-blue.svg"
