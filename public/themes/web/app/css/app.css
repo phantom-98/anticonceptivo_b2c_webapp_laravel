@@ -4259,6 +4259,22 @@ a:-webkit-any-link:focus-visible {
   .product-carousel .slick-slide {
     max-width: 300px;
   }
+
+  .readMoreHistory {
+    text-align: center !important;
+  }
+
+  .timeline-line-vertical {
+    height: 95px !important;
+  }
+
+  .timeline-box {
+    height: 170px !important;
+  }
+
+  .timeline-resume {
+    padding: 15px !important;
+  }
 }
 
 @media (max-width: 767px) {
@@ -5464,6 +5480,15 @@ a:-webkit-any-link:focus-visible {
 
   .app-margin-top {
     margin-top: 108px;
+  }
+
+  .timeline-box {
+    height: 100% !important;
+  }
+
+  .readMoreHistory {
+    text-align: center !important;
+    margin-top: 1.5rem !important;
   }
 
   .btn-adress {
