@@ -19,6 +19,7 @@ import {Modal} from "react-bootstrap";
 import {formatMoney} from "../../../../../helpers/GlobalUtils";
 import moment from "moment";
 import es from 'date-fns/locale/es';
+import LazyLoading from "../../../../../components/LazyLoading";
 
 registerLocale('es', es)
 
@@ -63,9 +64,9 @@ const SubscriptionCardResponsive = ({
         getSubscriptions();
     }, []);
 
-    useEffect(() => {
-        console.log('subscriptionOrderItemSelected', subscriptionOrderItemSelected);
-    }, [subscriptionOrderItemSelected])
+    // useEffect(() => {
+    //     console.log('subscriptionOrderItemSelected', subscriptionOrderItemSelected);
+    // }, [subscriptionOrderItemSelected])
 
     const changeMonthToSpanish = (dateString) => {
         dateString = dateString.replace('January', 'Enero')
@@ -100,8 +101,6 @@ const SubscriptionCardResponsive = ({
     };
 
     const saveDefaultAddressSubscription = (addressId, customerId) => {
-        // console.log(232323)
-        // return
         let url =
             Services.ENDPOINT.CUSTOMER.SUBSCRIPTIONS.SET_ADDRESS_SUBSCRIPTION;
 
@@ -368,6 +367,10 @@ const SubscriptionCardResponsive = ({
         setAddressSelected(null);
     };
 
+    if (!tableLoaded) {
+        return <LazyLoading/>
+    }
+
     return (
         <>
             <ModalDispatchDate
@@ -434,7 +437,7 @@ const SubscriptionCardResponsive = ({
                 <Modal.Header>
                     {view === "list" ? <CloseModal hideModal={changeVisibleModalAddress}/> : null}
                 </Modal.Header>
-                <Modal.Body className={`${breakpoint === BREAKPOINTS.EXTRA_EXTRA_SMALL ? 'px-0' : 'px-5'}`}>
+                <Modal.Body className={`${breakpoint === BREAKPOINTS.EXTRA_EXTRA_SMALL ? 'px-2' : 'px-5'}`}>
                     <div className="row">
                         <div className="col-12">
                             <h3 className="modal-title text-center lh-34">

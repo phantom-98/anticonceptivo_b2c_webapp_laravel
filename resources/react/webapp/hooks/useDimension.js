@@ -24,7 +24,7 @@ const useDimension = () => {
                     _breakpoint = BREAKPOINTS.MEDIUM;
                 } else if (width >= 576) {
                     _breakpoint = BREAKPOINTS.SMALL;
-                } else if (width < 576) {
+                } else if (width > 375 && width < 576) {
                     _breakpoint = BREAKPOINTS.EXTRA_SMALL;
                 } else if (width <= 375) {
                     _breakpoint = BREAKPOINTS.EXTRA_EXTRA_SMALL;
