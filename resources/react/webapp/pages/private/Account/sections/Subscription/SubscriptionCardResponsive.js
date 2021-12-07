@@ -64,9 +64,9 @@ const SubscriptionCardResponsive = ({
         getSubscriptions();
     }, []);
 
-    // useEffect(() => {
-    //     console.log('subscriptionOrderItemSelected', subscriptionOrderItemSelected);
-    // }, [subscriptionOrderItemSelected])
+    useEffect(() => {
+        console.log('subscriptionOrderItemSelected', subscriptionOrderItemSelected);
+    }, [subscriptionOrderItemSelected])
 
     const changeMonthToSpanish = (dateString) => {
         dateString = dateString.replace('January', 'Enero')
@@ -84,10 +84,12 @@ const SubscriptionCardResponsive = ({
         return dateString;
     }
 
-    const changeVisibleModalAddress = () => {
+    const changeVisibleModalAddress = (subscriptionOrderItem = null) => {
         if (modalAddress) {
+            setSubscriptionOrderItemSelected(subscriptionOrderItem);
             setModalAddress(false);
         } else {
+            setSubscriptionOrderItemSelected(subscriptionOrderItem);
             setModalAddress(true);
         }
     };
@@ -684,7 +686,7 @@ const SubscriptionCardResponsive = ({
                                         item.subscription_item.active == 1 ?
                                             <div className="row">
                                                 <div className="col-12 col-sm-6 text-center">
-                                                    <span onClick={() => changeVisibleModalAddress()}
+                                                    <span onClick={() => changeVisibleModalAddress(item.subscription_item)}
                                                         className="mr-1 mb-0 p-0 subscription-card-value link pointer">
                                                         Cambiar dirección
                                                     </span>
