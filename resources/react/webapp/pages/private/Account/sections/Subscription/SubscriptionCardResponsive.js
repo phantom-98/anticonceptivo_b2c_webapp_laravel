@@ -434,7 +434,7 @@ const SubscriptionCardResponsive = ({
                 <Modal.Header>
                     {view === "list" ? <CloseModal hideModal={changeVisibleModalAddress}/> : null}
                 </Modal.Header>
-                <Modal.Body className="px-5">
+                <Modal.Body className={`${breakpoint === BREAKPOINTS.EXTRA_EXTRA_SMALL ? 'px-0' : 'px-5'}`}>
                     <div className="row">
                         <div className="col-12">
                             <h3 className="modal-title text-center lh-34">
@@ -471,7 +471,7 @@ const SubscriptionCardResponsive = ({
                                                 null
                                         }
 
-                                        <div className="col-md-12">
+                                        <div className="col-md-12 text-center mb-3">
                                             <Icon path={plusIcon} /> <span onClick={() => showCreate()} className="link pointer font-14 bold link-address-profile">Agregar nueva dirección</span>
                                         </div>
                                     </>
