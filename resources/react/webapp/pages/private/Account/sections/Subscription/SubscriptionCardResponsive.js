@@ -1,9 +1,8 @@
 import React, {useEffect, useState, useContext} from "react";
-import moment from "moment";
-import {formatMoney} from "../../../../../helpers/GlobalUtils";
-import * as Services from "../../../../../Services";
+import {CONFIG} from "../../../../../Config";
+import { AppContext } from "../../../../../context/AppProvider";
 import {AuthContext} from "../../../../../context/AuthProvider";
-import {Modal} from "react-bootstrap";
+import * as Services from "../../../../../Services";
 import ListItemAddresses from "../Addresses/ListItem";
 import ListItemSubscriptions from "../Subscriptions/ListItem";
 import Form from "../Addresses/Form";
@@ -12,17 +11,24 @@ import Swal from "sweetalert2";
 import {v4 as uuidv4} from "uuid";
 import "react-datepicker/dist/react-datepicker.css";
 import {registerLocale} from "react-datepicker";
-import es from 'date-fns/locale/es';
 import ModalDispatchDate from "./ModalDispatchDate";
-import {CONFIG} from "../../../../../Config";
+import Icon from "../../../../../components/general/Icon";
+import plusIcon from '../../../../../assets/images/icons/plus-green.svg'
+import { BREAKPOINTS } from "../../../../../helpers/vars";
+import {Modal} from "react-bootstrap";
+import {formatMoney} from "../../../../../helpers/GlobalUtils";
+import moment from "moment";
+import es from 'date-fns/locale/es';
 
 registerLocale('es', es)
 
 const SubscriptionCardResponsive = ({
-                                        setSubscriptionOrderItemSelected,
-                                        subscriptionOrderItemSelected
-                                    }) => {
+    setSubscriptionOrderItemSelected,
+    subscriptionOrderItemSelected
+}) => {
     const {auth} = useContext(AuthContext);
+    const { breakpoint } = useContext(AppContext)
+
     const [tableLoaded, setTableLoaded] = useState(false);
     const [modalAddress, setModalAddress] = useState(false);
     const [modalSubscriptionCard, setModalSubscriptionCard] = useState(false);
@@ -45,11 +51,16 @@ const SubscriptionCardResponsive = ({
         setAddressSelected(address);
     };
 
+    const showCreate = () => {
+        setView('form')
+        setFormMode('create')
+        setAddressSelected(null)
+    }
+
     useEffect(() => {
         getSubscriptionsCards();
         getDataAddress();
         getSubscriptions();
-
     }, []);
 
     useEffect(() => {
@@ -87,7 +98,6 @@ const SubscriptionCardResponsive = ({
             setModalSubscriptionCard(true);
         }
     };
-
 
     const saveDefaultAddressSubscription = (addressId, customerId) => {
         // console.log(232323)
@@ -273,7 +283,6 @@ const SubscriptionCardResponsive = ({
             });
     };
 
-
     const getSubscriptionsCards = () => {
         let url = Services.ENDPOINT.CUSTOMER.SUBSCRIPTIONS.GET;
         let data = {
@@ -423,7 +432,7 @@ const SubscriptionCardResponsive = ({
                 onHide={modalAddress}
             >
                 <Modal.Header>
-                    <CloseModal hideModal={changeVisibleModalAddress}/>
+                    {view === "list" ? <CloseModal hideModal={changeVisibleModalAddress}/> : null}
                 </Modal.Header>
                 <Modal.Body className="px-5">
                     <div className="row">
@@ -433,34 +442,54 @@ const SubscriptionCardResponsive = ({
                             </h3>
                         </div>
                         <div className="col-12 mt-3">
-                            {view === "list"
-                                ? addresses.map((address, index) => (
-                                    <ListItemAddresses
-                                        key={uuidv4()}
-                                        address={address}
-                                        showEdit={showEdit}
-                                        saveDefaultAddress={saveDefaultAddressSubscription}
-                                        regions={regions}
-                                        communes={communes}
-                                        addressChecked={
-                                            subscriptionOrderItemSelected && subscriptionOrderItemSelected.customer_address_id === address.id ? 1 : 0
+                            {
+                                view === "list" ? 
+                                    <>
+                                        {
+                                            addresses.map((address, index) => (
+                                                <ListItemAddresses
+                                                    key={uuidv4()}
+                                                    address={address}
+                                                    showEdit={showEdit}
+                                                    saveDefaultAddress={saveDefaultAddressSubscription}
+                                                    regions={regions}
+                                                    communes={communes}
+                                                    addressChecked={
+                                                        subscriptionOrderItemSelected && subscriptionOrderItemSelected.customer_address_id === address.id ? 1 : 0
+                                                    }
+                                                    isSusbscription={true}
+                                                    name={'address_sub'}
+                                                />
+                                            ))
                                         }
-                                        isSusbscription={true}
-                                        name={'address_sub'}
+                                        {
+                                            breakpoint === BREAKPOINTS.MEDIUM || breakpoint === BREAKPOINTS.LARGE || breakpoint === BREAKPOINTS.EXTRA_LARGE || breakpoint === BREAKPOINTS.EXTRA_EXTRA_LARGE ?
+                                                <div className="col-md-12 py-2">
+                                                    <hr />
+                                                </div>
+                                                :
+                                                null
+                                        }
+
+                                        <div className="col-md-12">
+                                            <Icon path={plusIcon} /> <span onClick={() => showCreate()} className="link pointer font-14 bold link-address-profile">Agregar nueva dirección</span>
+                                        </div>
+                                    </>
+                                : null
+                            }
+                            {
+                                view === "form" ?
+                                    <Form
+                                        formMode={formMode}
+                                        addressSelected={addressSelected}
+                                        goBack={goBack}
+                                        getData={addresses}
+                                        customerId={auth.id}
+                                        regions={regions}
+                                        setAddresses={setAddresses}
                                     />
-                                ))
-                                : null}
-                            {view === "form" ? (
-                                <Form
-                                    formMode={formMode}
-                                    addressSelected={addressSelected}
-                                    goBack={goBack}
-                                    getData={addresses}
-                                    customerId={auth.id}
-                                    regions={regions}
-                                    setAddresses={setAddresses}
-                                />
-                            ) : null}
+                                : null
+                            }
                         </div>
                     </div>
                 </Modal.Body>
@@ -650,12 +679,20 @@ const SubscriptionCardResponsive = ({
                                     </div>
                                     {
                                         item.subscription_item.active == 1 ?
-                                            <div className="col-12 mt-2 mr-1 ml-1 text-center">
-                                                <h1 onClick={() => cancelSubscriptionItem(item.subscription_item)}
-                                                    style={{color: "red"}}
-                                                    className="mr-1 mb-0 p-0 subscription-card-value link pointer">
-                                                    Cancelar Suscripción
-                                                </h1>
+                                            <div className="row">
+                                                <div className="col-12 col-sm-6 text-center">
+                                                    <span onClick={() => changeVisibleModalAddress()}
+                                                        className="mr-1 mb-0 p-0 subscription-card-value link pointer">
+                                                        Cambiar dirección
+                                                    </span>
+                                                </div>
+                                                <div className="col-12 col-sm-6 text-center">
+                                                    <span onClick={() => cancelSubscriptionItem(item.subscription_item)}
+                                                        style={{ color: "red" }}
+                                                        className="mr-1 mb-0 p-0 subscription-card-value link pointer">
+                                                        Cancelar Suscripción
+                                                    </span>
+                                                </div>
                                             </div>
                                             :
                                             null

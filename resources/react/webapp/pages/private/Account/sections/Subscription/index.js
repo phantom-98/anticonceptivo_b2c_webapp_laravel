@@ -8,6 +8,7 @@ const Subscription = () => {
     const {breakpoint} = useContext(AppContext);
     const [view, setView] = useState('table');
     const [subscriptionOrderItemSelected, setSubscriptionOrderItemSelected] = useState(null);
+    const formMode = 'create';
 
     return (
         <>
@@ -20,19 +21,12 @@ const Subscription = () => {
                 }
 
                 <div className="col-md-12">
-
                     {
                         view === 'table' ? 
-                            breakpoint === BREAKPOINTS.MEDIUM || breakpoint === BREAKPOINTS.LARGE || breakpoint === BREAKPOINTS.EXTRA_LARGE || breakpoint === BREAKPOINTS.EXTRA_EXTRA_LARGE ?
-                                <Table 
-                                    setSubscriptionOrderItemSelected={setSubscriptionOrderItemSelected} 
-                                    subscriptionOrderItemSelected={subscriptionOrderItemSelected}
-                                /> 
-                            :
-                                <SubscriptionCardResponsive 
-                                    setSubscriptionOrderItemSelected={setSubscriptionOrderItemSelected} 
-                                    subscriptionOrderItemSelected={subscriptionOrderItemSelected}
-                                /> 
+                            <SubscriptionCardResponsive 
+                                setSubscriptionOrderItemSelected={setSubscriptionOrderItemSelected} 
+                                subscriptionOrderItemSelected={subscriptionOrderItemSelected}
+                            /> 
                         : null
                     }
                 </div>
