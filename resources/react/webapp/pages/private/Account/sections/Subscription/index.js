@@ -8,7 +8,6 @@ const Subscription = () => {
     const {breakpoint} = useContext(AppContext);
     const [view, setView] = useState('table');
     const [subscriptionOrderItemSelected, setSubscriptionOrderItemSelected] = useState(null);
-    const formMode = 'create';
 
     return (
         <>
