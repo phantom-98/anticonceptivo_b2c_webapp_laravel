@@ -500,7 +500,8 @@ class ProductController extends Controller
             ->whereHas('subcategory.category', function($q){
                 $q->whereIn('id',[2,3]);
             })
-            ->take(7)->get();
+            ->inRandomOrder()
+            ->limit(12)->get();
 
             return ApiResponse::JsonSuccess([
                 'products' => $products
