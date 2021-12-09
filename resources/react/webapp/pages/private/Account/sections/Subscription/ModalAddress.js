@@ -1,4 +1,4 @@
-import React, { useState, useContext} from 'react';
+import React, { useState, useContext, useEffect} from 'react';
 import { Modal } from "react-bootstrap";
 import CloseModal from "../../../../../components/general/CloseModal";
 import { AppContext } from "../../../../../context/AppProvider";
@@ -26,7 +26,6 @@ const ModalAddress = ({
 }) => {
 
     const { breakpoint } = useContext(AppContext)
-
     const [view, setView] = useState("list");
     const [formMode, setFormMode] = useState("create");
     const [addressSelected, setAddressSelected] = useState(null);
@@ -94,6 +93,10 @@ const ModalAddress = ({
             });
     };
 
+    useEffect(() => {
+        console.log(subscriptionOrderItemSelected);
+    }, [subscriptionOrderItemSelected])
+
     return (
         <Modal
             show={modals.address}
@@ -126,9 +129,7 @@ const ModalAddress = ({
                                                 saveDefaultAddress={saveDefaultAddressSubscription}
                                                 regions={regions}
                                                 communes={communes}
-                                                addressChecked={
-                                                    subscriptionOrderItemSelected && subscriptionOrderItemSelected.customer_address_id === address.id ? 1 : 0
-                                                }
+                                                addressChecked={subscriptionOrderItemSelected && subscriptionOrderItemSelected.customer_address_id === address.id ? 1 : 0}
                                                 isSusbscription={true}
                                                 name={'address_sub'}
                                             />
