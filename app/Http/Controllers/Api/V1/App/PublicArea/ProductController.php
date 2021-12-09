@@ -484,4 +484,29 @@ class ProductController extends Controller
             return ApiResponse::JsonError(null, $exception->getMessage());
         }
     }
+
+    public function getProductsForBlog(Request $request)
+    {
+        try {
+            $products = Product::where('active',true)->where('recipe_type','Venta Directa')->with([
+                'subcategory.category' => function($c){
+                    $c->where('active',true);
+                },
+                'product_images',
+                'laboratory' => function($l){
+                    $l->where('active',true);
+                }
+            ])
+            ->whereHas('subcategory.category', function($q){
+                $q->whereIn('id',[2,3]);
+            })
+            ->take(7)->get();
+
+            return ApiResponse::JsonSuccess([
+                'products' => $products
+            ]);
+        } catch (\Exception $exception) {
+            return ApiResponse::JsonError(null, $exception->getMessage());
+        }
+    }
 }
