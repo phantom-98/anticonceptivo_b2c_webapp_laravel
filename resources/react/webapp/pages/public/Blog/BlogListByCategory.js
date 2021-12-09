@@ -87,7 +87,7 @@ const BlogListByCategory = () => {
 
                 <div className="row mt-3 mt-md-5 mb-5">
                     {
-                        posts.map(post => <div className="col-md-4 mb-3"><PostMiniCard post={post} key={uuid()}/></div>)
+                        posts.map(post => <div key={uuid()} className="col-md-4 mb-3"><PostMiniCard post={post}/></div>)
                     }
 
                     {
