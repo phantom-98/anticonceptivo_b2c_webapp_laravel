@@ -1,13 +1,16 @@
-import React, {Fragment, useEffect, useState} from 'react';
+import React, {Fragment, useContext, useEffect, useState} from 'react';
 import Waiting from "./Waiting";
 import {useParams} from "react-router-dom";
 import * as Services from "../../../../Services";
 import Error from "./Error";
 import Success from "./Success";
+import {CartContext} from "../../../../context/CartProvider";
 
 const FinishPaymentTransaction = () => {
 
     const {token} = useParams();
+
+    const {clearCart} = useContext(CartContext)
 
     const [waiting, setWaiting] = useState(true);
     const [showFinish, setShowFinish] = useState('NONE');
@@ -35,6 +38,7 @@ const FinishPaymentTransaction = () => {
                         setWaiting(false)
                         setShowFinish('SUCCESS')
                         setOrder(response.data.order)
+                        clearCart()
                     }else {
                         setWaiting(false)
                         setShowFinish('ERROR')
