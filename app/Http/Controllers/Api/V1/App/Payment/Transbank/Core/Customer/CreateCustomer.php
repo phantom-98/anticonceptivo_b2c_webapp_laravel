@@ -34,14 +34,4 @@ class CreateCustomer
 
     }
 
-    public function createAddress($address, $name, $region_id, $commune_id, $extra_info, $comment): CreateCustomerAddress
-    {
-        return new CreateCustomerAddress($address,
-            $name,
-            $region_id,
-            $commune_id,
-            $extra_info,
-            $comment,
-            $this->customer);
-    }
 }

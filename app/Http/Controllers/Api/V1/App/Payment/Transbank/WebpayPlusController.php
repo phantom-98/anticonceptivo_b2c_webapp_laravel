@@ -4,6 +4,7 @@
 namespace App\Http\Controllers\Api\V1\App\Payment\Transbank;
 
 
+use Illuminate\Http\Request;
 use Innovaweb\Transbank\WebpayPlus;
 
 class WebpayPlusController
@@ -19,4 +20,8 @@ class WebpayPlusController
         }
     }
 
+    public function createSubscription(Request $request)
+    {
+
+    }
 }
