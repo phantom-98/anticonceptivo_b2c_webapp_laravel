@@ -9,6 +9,7 @@ import plusIcon from '../../../../../assets/images/icons/plus-green.svg'
 import WaitingPaymentMethod from "../../../../public/CheckOut/Payment/WaitingPaymentMethod";
 import { AppContext } from "../../../../../context/AppProvider";
 import { BREAKPOINTS } from "../../../../../helpers/vars";
+import toastr from "toastr";
 
 const ModalSubscription = ({ 
     subscriptionOrderItemSelected,
@@ -102,6 +103,9 @@ const ModalSubscription = ({
                         success: () => {
                             getSubscriptionsCards();
                         },
+                        error: () => {
+                            toastr.error(response.message);
+                        }
                     });
                 }).catch(error => {
                     Services.ErrorCatch(error)
@@ -229,6 +233,7 @@ const ModalSubscription = ({
                                                     ? 1
                                                     : 0)
                                         }
+                                        isModal={true}
                                     />))
                             }
                         </div>

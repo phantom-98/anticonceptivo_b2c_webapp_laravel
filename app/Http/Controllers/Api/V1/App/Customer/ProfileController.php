@@ -605,7 +605,17 @@ class ProfileController extends Controller
     {
         try {
             $is_default = false;
-            $subscription = Subscription::find($request->subscription_id);
+            $subscription = Subscription::with(['subscription_orders_items'])->find($request->subscription_id);
+
+            if ($subscription->subscription_orders_items->count()) {
+                $orderItems = SubscriptionsOrdersItem::where('order_parent_id', $subscription->subscription_orders_items[0]->order_parent_id)
+                ->where('status','CREATED')->whereNull('subscription_id')
+                ->get();
+
+                if ($orderItems->count()) {
+                    return ApiResponse::JsonError(null, 'No puede dejar suscripciones activas sin una tarjeta asociada.');
+                }
+            }
 
             if($subscription->default_subscription){
                 $is_default = true;
@@ -623,7 +633,7 @@ class ProfileController extends Controller
             }
             return ApiResponse::JsonSuccess([
                 'subscription' => $subscription
-            ], OutputMessage::CUSTOMER_SUBSCRIPTIONS_CREATE);
+            ], OutputMessage::CUSTOMER_SUBSCRIPTION_CARD_DELETE);
 
 
         } catch (\Exception $exception) {
