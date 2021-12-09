@@ -18,7 +18,7 @@ import LazyLoading from "../../../../../components/LazyLoading";
 
 registerLocale('es', es)
 
-const SubscriptionCardResponsive = ({
+const SubscriptionCard = ({
     setSubscriptionOrderItemSelected,
     subscriptionOrderItemSelected
 }) => {
@@ -36,6 +36,12 @@ const SubscriptionCardResponsive = ({
     const [addresses, setAddresses] = useState([]);
     const [regions, setRegions] = useState([]);
     const [communes, setCommunes] = useState([]);
+
+    useEffect(() => {
+        getSubscriptionsCards();
+        getDataAddress();
+        getSubscriptions();
+    }, []);
 
     // modals state
     const [modals, setModals] = useState({
@@ -93,11 +99,7 @@ const SubscriptionCardResponsive = ({
         }
     };
 
-    useEffect(() => {
-        getSubscriptionsCards();
-        getDataAddress();
-        getSubscriptions();
-    }, []);
+    // selectors
 
     const selectedColumnAddress = (subscriptionOrderItem) => {
         setSubscriptionOrderItemSelected(subscriptionOrderItem);
@@ -106,6 +108,30 @@ const SubscriptionCardResponsive = ({
             address: true
         })
     };
+
+    const selectedColumnsSubscriptionCard = (subscriptionOrderItem) => {
+        setSubscriptionOrderItemSelected(subscriptionOrderItem);
+        setModals({
+            ...modals,
+            subscription: true
+        })
+    };
+
+    const selectedColumnDispatchDate = (subscriptionOrderItem) => {
+        let minDateDispatch = new Date(subscriptionOrderItem.min_date_dispatch + ' 04:00:00')
+        minDateDispatch.setDate(minDateDispatch.getDate() + 1);
+        setMinDate(minDateDispatch)
+        setMaxDate(minDateDispatch.getDate() + 7)
+
+        setSubscriptionOrderItemSelected(subscriptionOrderItem);
+        setDispatchDate(subscriptionOrderItem.dispatch_date)
+        setModals({
+            ...modals,
+            dispatch_date: true
+        })
+    };
+
+    // actions
 
     const cancelSubscriptionItem = (subscriptionOrderItem) => {
 
@@ -153,27 +179,7 @@ const SubscriptionCardResponsive = ({
             });
     };
 
-    const selectedColumnsSubscriptionCard = (subscriptionOrderItem) => {
-        setSubscriptionOrderItemSelected(subscriptionOrderItem);
-        setModals({
-            ...modals,
-            subscription: true
-        })
-    };
-
-    const selectedColumnDispatchDate = (subscriptionOrderItem) => {
-        let minDateDispatch = new Date(subscriptionOrderItem.min_date_dispatch + ' 04:00:00')
-        minDateDispatch.setDate(minDateDispatch.getDate() + 1);
-        setMinDate(minDateDispatch)
-        setMaxDate(minDateDispatch.getDate() + 7)
-
-        setSubscriptionOrderItemSelected(subscriptionOrderItem);
-        setDispatchDate(subscriptionOrderItem.dispatch_date)
-        setModals({
-            ...modals,
-            dispatch_date: true
-        })
-    };
+    // axios
 
     const getDataAddress = () => {
         let url = Services.ENDPOINT.CUSTOMER.ADDRESSES.GET;
@@ -216,11 +222,9 @@ const SubscriptionCardResponsive = ({
 
     const getSubscriptions = () => {
         let url =
-            Services.ENDPOINT.CUSTOMER.SUBSCRIPTIONS
-                .GET_SUBSCRIPTIONS_ORDERS_ITEMS;
+            Services.ENDPOINT.CUSTOMER.SUBSCRIPTIONS.GET_SUBSCRIPTIONS_ORDERS_ITEMS;
         let data = {
-            customer_id: auth.id,
-            isMobile: 1,
+            customer_id: auth.id
         };
         Services.DoPost(url, data)
             .then(response => {
@@ -259,9 +263,15 @@ const SubscriptionCardResponsive = ({
 
             <ModalSubscription
                 subscriptionOrderItemSelected={subscriptionOrderItemSelected}
+                setSubscriptionOrderItemSelected={setSubscriptionOrderItemSelected}
                 modals={modals}
                 subscriptions={subscriptions}
                 changeVisibleModalSubscriptionCard={changeVisibleModalSubscriptionCard}
+                getSubscriptionsCards={getSubscriptionsCards}
+                customerId={auth.id}
+                customerEmail={auth.email}
+                getDataAddress={getDataAddress}
+                getSubscriptions={getSubscriptions}
             />
 
             <ModalAddress
@@ -340,113 +350,119 @@ const SubscriptionCardResponsive = ({
 
                                     </div>
                                     <div className="subscription-card-body mr-1 ml-1 mt-2">
-                                        <div className="col-12 d-flex flex-row">
-                                            <div className="col p-0">
-                                                <h1 className="p-0 subscription-card-label">Avance Suscripción</h1>
-                                            </div>
-                                            <div className="col-auto p-0" style={{marginTop: -6}}>
-                                                {
-                                                    Array.from({length: item.advance_end}, (_, i) => i + 1).map((itemNumber) => {
-                                                        if (item.current_advance < itemNumber) {
-                                                            return (
-                                                                <span className="dot-incoming"/>
-                                                            )
-                                                        } else if (item.current_advance === itemNumber || item.current_advance - 1 === itemNumber) {
-                                                            return (
-                                                                <span className="dot-process"/>
-                                                            )
-                                                        } else {
-                                                            return (
-                                                                <span className="dot-finish"/>
-                                                            )
-                                                        }
-                                                    })
-                                                }
-                                                <span
-                                                    className="ml-2 p-0 subscription-card-label">{item.current_advance - 2}/{item.advance_end}</span>
-                                            </div>
-                                        </div>
-                                        <div className="col-12 d-flex flex-row">
-                                            <h1 className="text-truncate p-0 subscription-card-label">Nº Pedido</h1>
-                                            <h1 className="ml-2 text-truncate p-0 subscription-card-value">{item.subscription_item.order_parent_id}</h1>
-                                        </div>
-
-                                        <div className="col-12 d-flex flex-row">
-                                            <div className="col p-0">
-                                                <div className="d-flex flex-row">
-                                                    <div className="mr-1 p-0 subscription-card-label">Fecha De Pago</div>
-                                                    <div
-                                                        className="ml-1 p-0 subscription-card-value">{moment(item.subscription_item.pay_date).format("DD/MM/YYYY")}</div>
+                                        <div className="row px-3">
+                                            <div className="col-12 d-flex flex-row">
+                                                <div className="col p-0">
+                                                    <h1 className="p-0 subscription-card-label">Avance Suscripción</h1>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div className="col-12 d-flex flex-row">
-                                            <div className="col p-0">
-                                                <div className="d-flex flex-row">
-                                                    <div className="mr-1 p-0 subscription-card-label">Fecha Despacho</div>
-
+                                                <div className="col-auto p-0" style={{ marginTop: -6 }}>
                                                     {
-                                                        item.subscription_item.status != 'CREATED' && item.subscription_item.status != 'REJECTED' ?
-                                                            <div
-                                                                className="ml-1 p-0 subscription-card-value">{moment(item.subscription_item.dispatch_date).format("DD/MM/YYYY")}</div>
-                                                            :
-                                                            <div
-                                                                onClick={() => selectedColumnDispatchDate(item.subscription_item)}
-                                                                style={{color: 'black'}}
-                                                                className="link pointer ml-1 p-0 subscription-card-value">{moment(item.subscription_item.dispatch_date).format("DD/MM/YYYY")}</div>
+                                                        Array.from({ length: item.advance_end }, (_, i) => i + 1).map((itemNumber) => {
+                                                            if (item.current_advance < itemNumber) {
+                                                                return (
+                                                                    <span className="dot-incoming" />
+                                                                )
+                                                            } else if (item.current_advance === itemNumber || item.current_advance - 1 === itemNumber) {
+                                                                return (
+                                                                    <span className="dot-process" />
+                                                                )
+                                                            } else {
+                                                                return (
+                                                                    <span className="dot-finish" />
+                                                                )
+                                                            }
+                                                        })
                                                     }
-
+                                                    <span
+                                                        className="ml-2 p-0 subscription-card-label">{item.current_advance - 2}/{item.advance_end}</span>
                                                 </div>
                                             </div>
-                                        </div>
 
-                                        <div className="col-12 d-flex flex-row">
-                                            <h1 className="text-truncate p-0 subscription-card-label">Tarjeta</h1>
-                                            {
-                                                item.subscription_item.subscription == null ?
-                                                    <h1
-                                                        onClick={() => selectedColumnsSubscriptionCard(item.subscription_item)}
-                                                        className="ml-2 text-truncate p-0 subscription-card-value link pointer"
-                                                        style={{color: "#484848"}}
-                                                    >
-                                                        No Encontrada
-                                                    </h1>
-                                                    : item.subscription_item.status !== 'CREATED' && item.subscription_item.status !== 'REJECTED' ?
-                                                    <h1 className="ml-2 text-truncate p-0 subscription-card-value">{item.subscription_item.subscription.card_number}</h1> :
-                                                    <h1 className="ml-2 text-truncate p-0 subscription-card-value link pointer"
-                                                        onClick={() => selectedColumnsSubscriptionCard(item.subscription_item)}
-                                                        style={{color: "#484848"}}
-                                                    >
-                                                        {item.subscription_item.subscription.card_number}
-                                                    </h1>
+                                            <div className="col-12 d-flex flex-row">
+                                                <h1 className="text-truncate p-0 subscription-card-label">Nº Pedido</h1>
+                                                <h1 className="ml-2 text-truncate p-0 subscription-card-value">{item.subscription_item.order_parent_id}</h1>
+                                            </div>
 
-                                            }
-                                        </div>
+                                            <div className="col-12 col-sm-6 col-xl-4 d-flex flex-row">
+                                                <div className="col p-0">
+                                                    <div className="d-flex flex-row">
+                                                        <div className="mr-1 p-0 subscription-card-label">Fecha De Pago</div>
+                                                        <div
+                                                            className="ml-1 p-0 subscription-card-value">{moment(item.subscription_item.pay_date).format("DD/MM/YYYY")}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
 
-                                        <div className="col-12 d-flex flex-row">
-                                            <h1 className="text-truncate p-0 subscription-card-label">Estado Despacho</h1>
-                                            {
-                                                item.subscription_item.dispatch_status != null ?
-                                                    <h1 className="ml-2 text-truncate p-0 subscription-card-value">{item.subscription_item.dispatch_status}</h1> :
-                                                    item.subscription_item.order_parent.dispatch_status != null ?
+                                            <div className="col-12 col-sm-6 col-xl-4 d-flex flex-row">
+                                                <div className="col p-0">
+                                                    <div className="d-flex flex-row">
+                                                        <div className="mr-1 p-0 subscription-card-label">Fecha Despacho</div>
+
+                                                        {
+                                                            item.subscription_item.status != 'CREATED' && item.subscription_item.status != 'REJECTED' ?
+                                                                <div
+                                                                    className="ml-1 p-0 subscription-card-value">{moment(item.subscription_item.dispatch_date).format("DD/MM/YYYY")}</div>
+                                                                :
+                                                                <div
+                                                                    onClick={() => selectedColumnDispatchDate(item.subscription_item)}
+                                                                    style={{ color: 'black' }}
+                                                                    className="link pointer ml-1 p-0 subscription-card-value">{moment(item.subscription_item.dispatch_date).format("DD/MM/YYYY")}</div>
+                                                        }
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div className="col-12 col-sm-6 col-md-6 col-xl-4 d-flex flex-row">
+                                                <h1 className="text-truncate p-0 subscription-card-label">Tarjeta</h1>
+                                                {
+                                                    item.subscription_item.subscription == null ?
+                                                        <h1
+                                                            onClick={() => selectedColumnsSubscriptionCard(item.subscription_item)}
+                                                            className="ml-2 text-truncate p-0 subscription-card-value link pointer"
+                                                            style={{ color: "#484848" }}
+                                                        >
+                                                            No Encontrada
+                                                        </h1>
+                                                        : item.subscription_item.status !== 'CREATED' && item.subscription_item.status !== 'REJECTED' ?
+                                                            <h1 className="ml-2 text-truncate p-0 subscription-card-value">{item.subscription_item.subscription.card_number}</h1> :
+                                                            <h1 className="ml-2 text-truncate p-0 subscription-card-value link pointer"
+                                                                onClick={() => selectedColumnsSubscriptionCard(item.subscription_item)}
+                                                                style={{ color: "#484848" }}
+                                                            >
+                                                                {item.subscription_item.subscription.card_number}
+                                                            </h1>
+
+                                                }
+                                            </div>
+
+                                            <div className="col-12 col-sm-6 col-md-6 col-xl-4 d-flex flex-row">
+                                                <h1 className="text-truncate p-0 subscription-card-label">Estado Despacho</h1>
+                                                {
+                                                    item.subscription_item.dispatch_status != null ?
                                                         <h1 className="ml-2 text-truncate p-0 subscription-card-value">{item.subscription_item.dispatch_status}</h1> :
-                                                        <h1 className="ml-2 text-truncate p-0 subscription-card-value">Sin
-                                                            Despachar</h1>
-                                            }
-                                        </div>
-                                        <div className="col-12 d-flex flex-row">
-                                            <h1 className="text-truncate p-0 subscription-card-label">Dirección</h1>
-                                            {
-                                                isOnClickAddress ?
-                                                    <h1 onClick={() => selectedColumnAddress(item.subscription_item)}
-                                                        style={{color: 'black'}}
-                                                        className="ml-2 text-truncate p-0 subscription-card-value link pointer">{address}</h1> :
-                                                    <h1 className="ml-2 text-truncate p-0 subscription-card-value">{address}</h1>
-                                            }
-                                        </div>
-                                        <div className="col-12 d-flex flex-row">
-                                            <h1 className="text-truncate p-0 subscription-card-label">Total</h1>
-                                            <h1 className="ml-2 text-truncate p-0 subscription-card-value">{item.subscription_item.status !== 'PAID' ? formatMoney(item.total) + '(*)' : formatMoney(item.total)}</h1>
+                                                        item.subscription_item.order_parent.dispatch_status != null ?
+                                                            <h1 className="ml-2 text-truncate p-0 subscription-card-value">{item.subscription_item.dispatch_status}</h1> :
+                                                            <h1 className="ml-2 text-truncate p-0 subscription-card-value">Sin
+                                                                Despachar</h1>
+                                                }
+                                            </div>
+
+                                            <div className="col-12 col-sm-6 col-md-8 col-lg-6 col-xl-4 d-flex flex-row">
+                                                <h1 className="text-truncate p-0 subscription-card-label">Dirección</h1>
+                                                {
+                                                    isOnClickAddress ?
+                                                        <h1 onClick={() => selectedColumnAddress(item.subscription_item)}
+                                                            style={{ color: 'black' }}
+                                                            className="ml-2 text-truncate p-0 subscription-card-value link pointer">{address}</h1> :
+                                                        <h1 className="ml-2 text-truncate p-0 subscription-card-value">{address}</h1>
+                                                }
+                                            </div>
+
+                                            <div className="col-12 col-sm-6 col-md-4 col-lg-6  col-xl-4 d-flex flex-row">
+                                                <h1 className="text-truncate p-0 subscription-card-label">Total</h1>
+                                                <h1 className="ml-2 text-truncate p-0 subscription-card-value">{item.subscription_item.status !== 'PAID' ? formatMoney(item.total) + '(*)' : formatMoney(item.total)}</h1>
+                                            </div>
                                         </div>
                                     </div>
                                     <div className="subscription-card-footer">
@@ -464,25 +480,25 @@ const SubscriptionCardResponsive = ({
                                         {
                                             item.subscription_item.active == 1 ?
                                                 <div className="row mt-2">
-                                                    <div className="col-12 col-sm-6 col-xl-3 text-center">
+                                                    <div className="col-12 col-sm-6 col-xl-3 my-2 text-center">
                                                         <span onClick={() => changeVisibleModalDispatchDate(item.subscription_item)}
                                                             className="mr-1 mb-0 p-0 subscription-card-value link pointer">
                                                             Cambiar Fecha Despacho
                                                         </span>
                                                     </div>
-                                                    <div className="col-12 col-sm-6 col-xl-3 text-center">
+                                                    <div className="col-12 col-sm-6 col-xl-3 my-2 text-center">
                                                         <span onClick={() => changeVisibleModalSubscriptionCard(item.subscription_item)}
                                                             className="mr-1 mb-0 p-0 subscription-card-value link pointer">
                                                             Cambiar Tarjeta Asociada
                                                         </span>
                                                     </div>
-                                                    <div className="col-12 col-sm-6 col-xl-3 text-center">
+                                                    <div className="col-12 col-sm-6 col-xl-3 my-2 text-center">
                                                         <span onClick={() => changeVisibleModalAddress(item.subscription_item)}
                                                             className="mr-1 mb-0 p-0 subscription-card-value link pointer">
                                                             Cambiar dirección
                                                         </span>
                                                     </div>
-                                                    <div className="col-12 col-sm-6 col-xl-3 text-center">
+                                                    <div className="col-12 col-sm-6 col-xl-3 my-2 text-center">
                                                         <span onClick={() => cancelSubscriptionItem(item.subscription_item)}
                                                             style={{ color: "red" }}
                                                             className="mr-1 mb-0 p-0 subscription-card-value link pointer">
@@ -522,4 +538,4 @@ const SubscriptionCardResponsive = ({
     );
 };
 
-export default SubscriptionCardResponsive;
+export default SubscriptionCard;

@@ -107,7 +107,7 @@ const ModalAddress = ({
             <Modal.Header>
                 {view === "list" ? <CloseModal hideModal={changeVisibleModalAddress} /> : null}
             </Modal.Header>
-            <Modal.Body className={`${breakpoint === BREAKPOINTS.EXTRA_EXTRA_SMALL ? 'px-2' : 'px-5'}`}>
+            <Modal.Body className={`${breakpoint === BREAKPOINTS.EXTRA_EXTRA_SMALL ? 'px-3' : 'px-5'}`}>
                 <div className="row">
                     <div className="col-12">
                         <h3 className="modal-title text-center lh-34">
