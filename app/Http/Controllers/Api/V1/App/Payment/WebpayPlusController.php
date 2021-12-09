@@ -98,7 +98,6 @@ class WebpayPlusController
 
     public function createTransaction(Request $request)
     {
-        session()->put('urlFinish', $request->urlFinish);
 
         $order = new Order();
         $customerAddress = null;
