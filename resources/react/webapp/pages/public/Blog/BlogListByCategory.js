@@ -5,7 +5,6 @@ import PUBLIC_ROUTES from "../../../routes/publicRoutes";
 import {useParams} from "react-router-dom";
 import * as Services from "../../../Services";
 import PostsRecommended from "./components/PostsRecommended";
-import FilterBlogList from "./components/FilterBlogList";
 import PostMiniCard from "./components/PostMiniCard";
 import {v4 as uuid} from "uuid";
 import LazyLoading from "../../../components/LazyLoading";

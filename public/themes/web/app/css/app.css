@@ -2294,10 +2294,6 @@ input[type=number] {
     padding: 8px;
   }
 
-  .divRecipe {
-    background-color: white !important;
-  }
-
   .padding-responsive-detail {
     padding: 3rem 2rem 3rem 2rem !important;
   }
@@ -4259,6 +4255,22 @@ a:-webkit-any-link:focus-visible {
   .product-carousel .slick-slide {
     max-width: 300px;
   }
+
+  .readMoreHistory {
+    text-align: center !important;
+  }
+
+  .timeline-line-vertical {
+    height: 95px !important;
+  }
+
+  .timeline-box {
+    height: 170px !important;
+  }
+
+  .timeline-resume {
+    padding: 15px !important;
+  }
 }
 
 @media (max-width: 767px) {
@@ -5466,6 +5478,15 @@ a:-webkit-any-link:focus-visible {
     margin-top: 108px;
   }
 
+  .timeline-box {
+    height: 100% !important;
+  }
+
+  .readMoreHistory {
+    text-align: center !important;
+    margin-top: 1.5rem !important;
+  }
+
   .btn-adress {
     width: 100%;
   }
@@ -5528,7 +5549,7 @@ a:-webkit-any-link:focus-visible {
   }
 
   .checkout-mobile-h3 {
-    font-size: 25px;
+    font-size: 22px;
     font-weight: 700;
     margin-bottom: 0;
     letter-spacing: 3px !important;

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1\App\Payment;
 
 // use App\Models\WebpayLog;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Willywes\ApiResponse\ApiResponse;
 use App\Http\Utils\OutputMessage\OutputMessage;
@@ -22,7 +23,15 @@ class PaymentController
     {
         try {
 
-            $order = Order::find($request->order_id);
+            $order = new Order();
+
+            if ($request->order_id) {
+                $order = Order::with(['customer','order_items.subscription_plan.product_subscription_plan','order_items.product.subcategory'])->find($request->order_id);
+            }
+
+            if ($request->token) {
+                $order = Order::with(['customer','order_items.subscription_plan.product_subscription_plan','order_items.product.subcategory'])->where('payment_token', 'LIKE', $request->token)->first();
+            }
 
             return ApiResponse::JsonSuccess([
                 'order' => $order,

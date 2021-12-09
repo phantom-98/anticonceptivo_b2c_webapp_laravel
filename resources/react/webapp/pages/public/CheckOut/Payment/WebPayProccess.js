@@ -4,6 +4,7 @@ import {AuthContext} from "../../../../context/AuthProvider";
 import {CartContext} from "../../../../context/CartProvider";
 import WaitingPayment from "./WaitingPayment";
 import Swal from 'sweetalert2'
+import PUBLIC_ROUTES from "../../../../routes/publicRoutes";
 
 const WebPayProccess = ({
     data,
@@ -82,9 +83,9 @@ const WebPayProccess = ({
             subtotal: subtotal,
             discount: discount,
             dispatch: dispatch,
-
             installment: installment,
-            cartItems: cartItems
+            cartItems: cartItems,
+            urlFinish : window.location.href + PUBLIC_ROUTES.CHECKOUT_VERIFY.path
         }
 
         Services.DoPost(url, dataForm)
@@ -110,7 +111,7 @@ const WebPayProccess = ({
 
                             // importante cambiar en oneclick
                             const urlWebpay = response.data.webpay_data.url + '?token_ws=' + response.data.webpay_data.token
-                            window.open(urlWebpay, '_blank');
+                            window.location.href = urlWebpay;
 
                             // var win = window.open();
                             // win.document.open();
