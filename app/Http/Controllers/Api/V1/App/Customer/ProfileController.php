@@ -393,204 +393,76 @@ class ProfileController extends Controller
             if (!$customer) {
                 return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_NOT_FOUND);
             }
-            if($request->isMobile == 1){
-                $subscriptionsOrdersItem = SubscriptionsOrdersItem::whereHas('order_parent',function($q) use ($customer){
+            
+            $subscriptionsOrdersItem = SubscriptionsOrdersItem::whereHas('order_parent',function($q) use ($customer){
                     $q->where('customer_id',$customer->id);
                 })
-                    ->with(['order_item.product','customer_address.commune','subscription','order_parent.order_items','order_item.subscription_plan'])
-                    ->orderBy('order_parent_id', 'asc')->orderBy('orders_item_id','asc')->orderBy('pay_date', 'asc')
-                    ->get();
+                ->with(['order_item.product','customer_address.commune','subscription','order_parent.order_items','order_item.subscription_plan'])
+                ->orderBy('order_parent_id', 'asc')->orderBy('orders_item_id','asc')->orderBy('pay_date', 'asc')
+                ->get();
 
-                $deliveryCosts = DeliveryCost::where('active',1)->get();
+            $deliveryCosts = DeliveryCost::where('active',1)->get();
 
-                $subscriptionsOrdersItem = $subscriptionsOrdersItem->map(function ($item) use ($deliveryCosts) {
+            $subscriptionsOrdersItem = $subscriptionsOrdersItem->map(function ($item) use ($deliveryCosts) {
+                $subItemActive = SubscriptionsOrdersItem::where('orders_item_id',$item->orders_item_id)->whereDate('dispatch_date','>=',Carbon::now())->orderBy('dispatch_date','asc')->get();
 
-                    $subItemActive = SubscriptionsOrdersItem::where('orders_item_id',$item->orders_item_id)->whereDate('dispatch_date','>=',Carbon::now())->orderBy('dispatch_date','asc')->get();
-
-                    if(!$subItemActive){
-                        $subItemActive = SubscriptionsOrdersItem::where('orders_item_id',$item->orders_item_id)->orderBy('dispatch_date','desc')->get();
-                    }
-
-                    preg_match_all('!\d+!', $item->period, $current_advance); ;
-                    preg_match_all('!\d+!', $subItemActive->sortByDesc('pay_date')->first()->period, $advance_end); ;
-                    $current_advance = collect($current_advance[0])->last();
-                    $advance_end = collect($advance_end[0])->last();
-
-                    $subActive = false;
-                    if($subItemActive->first()->id == $item->id){
-                        $subActive = true;
-                    }
-
-                    foreach ($deliveryCosts as $deliveryCost) {
-                        $costs = json_decode($deliveryCost->costs);
-                        foreach ($costs as $itemCost) {
-                            $communes = $itemCost->communes;
-                            $found_key = array_search($item->customer_address->commune->name, $communes);
-                            if($found_key !== false){
-                                $itemDeliveryCost = $deliveryCost;
-                                $itemDeliveryCostArrayCost =$itemCost;
-                            }
-                        }
-                    }
-
-                    $dispatch = $itemDeliveryCostArrayCost ? $itemDeliveryCostArrayCost->price[0] : 0;
-                    $total = $item->price * $item->quantity;
-
-                    $min_date_dispatch = Carbon::parse($item->pay_date)->addHours($itemDeliveryCost->deadline_delivery)->format('Y-m-d');
-
-                    $productSubscriptionPlan = ProductSubscriptionPlan::with('subscription_plan')->where('subscription_plan_id',$item->order_item->subscription_plan->id)
-                        ->where('product_id',$item->order_item->product->id)->get()->first();
-
-                    $cycle = SubscriptionsOrdersItem::where('order_parent_id',$item->order_parent_id)->where('name',$item->name)
-                        ->select('order_parent_id',
-                            DB::raw('TIMESTAMPDIFF(DAY, NOW(), DATE_ADD(max(pay_date),INTERVAL max(days)+4 DAY)) AS days'),
-                            DB::raw('DATE_FORMAT(DATE_ADD(max(pay_date),INTERVAL max(days) DAY),"%d de %M %Y")  as max_date'))
-                        ->groupBy('order_parent_id')
-                        ->get()->first();
-
-                    return  [
-                        'min_date_dispatch' =>  $min_date_dispatch,
-                        'subscription_item' => $item,
-                        'total' => $total + $dispatch,
-                        'plans' => $productSubscriptionPlan->subscription_plan,
-                        'active' => $subActive,
-                        'cycle' => $cycle,
-                        'current_advance' => intval($current_advance),
-                        'advance_end' => intval($advance_end),
-                    ];
-                });
-
-                return ApiResponse::JsonSuccess([
-                    'subscriptions' => $subscriptionsOrdersItem,
-                ], OutputMessage::SUCCESS);
-            }else{
-
-                $arraySubscriptionsOrdersItem = [];
-                $arrayProducts = [];
-                $arrayPlan = [];
-                //Se reasigna el nombre de order a order_parent para evitar picar mucho codigo
-                $subscriptionsOrdersItem = SubscriptionsOrdersItem::whereHas('order_parent',function($q) use ($customer){
-                    $q->where('customer_id',$customer->id);
-                })
-                    ->with(['order_item.product','customer_address.commune','subscription','order_parent.order_items','order_item.subscription_plan'])
-                    ->select('id','order_parent_id as order_id','price','delivery_address','quantity','orders_item_id','subscription_id','customer_address_id','pay_date','dispatch_date','status','is_pay','dispatch','period')
-                    ->orderBy('order_id', 'desc')->orderBy('pay_date')
-                    ->get();
-
-                $prev_order_id = null;
-                $prev_pay_date = null;
-                $prev_item = null;
-                $total = 0;
-                $deliveryCosts = DeliveryCost::where('active',1)->get();
-                $min_date_dispatch = null;
-                foreach ($subscriptionsOrdersItem as $key => $item) {
-                    if(($prev_order_id != $item->order->id || $prev_pay_date != $item->pay_date) && $prev_item != null){
-
-                        foreach ($deliveryCosts as $key => $deliveryCost) {
-                            $costs = json_decode($deliveryCost->costs);
-                            foreach ($costs as $key => $itemCost) {
-                                $communes = $itemCost->communes;
-                                $found_key = array_search($prev_item->customer_address->commune->name, $communes);
-                                if($found_key !== false){
-                                    $itemDeliveryCost = $deliveryCost;
-                                    $itemDeliveryCostArrayCost =$itemCost;
-                                }
-                            }
-                        }
-                        $dispatch = $itemDeliveryCostArrayCost ? $itemDeliveryCostArrayCost->price[0] : 0;
-                        $min_date_dispatch = Carbon::parse($prev_item->pay_date)->addHours($itemDeliveryCost->deadline_delivery)->format('Y-m-d');
-
-                        $active = 0;
-                        if($prev_item->order_id != $item->order_id){
-                            $active = 1;
-                        }
-
-                        $item_tmp = [
-                            'customer_address_id' => $prev_item->customer_address_id,
-                            'subscription_id' => $prev_item->subscription_id,
-                            'customer_address' => $prev_item->customer_address,
-                            'delivery_address' => $prev_item->delivery_address,
-                            'id' => $prev_item->id,
-                            'is_pay' => $prev_item->is_pay,
-                            'order_item' => $prev_item->order_item,
-                            'pay_date' => $prev_item->pay_date,
-                            'dispatch_date' => $prev_item->dispatch_date,
-                            'subscription' => $prev_item->subscription,
-                            'min_date_dispatch' =>  $min_date_dispatch,
-                            'order' => $prev_item->order,
-                            'order_id' => $prev_item->order->id,
-                            'order_parent_id' => $prev_item->order_id,
-                            'status' => $prev_item->status,
-                            'total' => $total + $dispatch,
-                            'products' => $arrayProducts,
-                            'period' => $prev_item->period,
-                            'plans' => $arrayPlan
-                        ];
-                        $total = 0;
-                        $arrayProducts = [];
-                        $arrayPlan = [];
-
-                        array_push($arraySubscriptionsOrdersItem,$item_tmp);
-
-                    }
-                    $productSubscriptionPlan = ProductSubscriptionPlan::with('subscription_plan')->where('subscription_plan_id',$item->order_item->subscription_plan->id)
-                        ->where('product_id',$item->order_item->product->id)->get()->first();
-                    $total += $item->price * $item->quantity;
-                    $prev_order_id = $item->order->id;
-                    $prev_pay_date = $item->pay_date;
-                    $prev_item = $item;
-                    array_push($arrayProducts,$item->order_item->product);
-                    array_push($arrayPlan,$productSubscriptionPlan->subscription_plan);
-
-                }
-                if(count($subscriptionsOrdersItem) > 0){
-
-                    foreach ($deliveryCosts as $key => $deliveryCost) {
-                        $costs = json_decode($deliveryCost->costs);
-                        foreach ($costs as $key => $itemCost) {
-                            $communes = $itemCost->communes;
-
-                            $found_key = array_search($prev_item->customer_address->commune->name, $communes);
-                            if($found_key !== false){
-                                $itemDeliveryCostArrayCost =$itemCost;
-                                $itemDeliveryCost = $deliveryCost;
-
-                            }
-                        }
-                    }
-                    $dispatch = $itemDeliveryCostArrayCost ? $itemDeliveryCostArrayCost->price[0] : 0;
-                    $min_date_dispatch = Carbon::parse($prev_item->pay_date)->addHours($itemDeliveryCost->deadline_delivery)->format('Y-m-d');
-
-                    $item_tmp = [
-                        'customer_address_id' => $prev_item->customer_address_id,
-                        'subscription_id' => $prev_item->subscription_id,
-                        'customer_address' => $prev_item->customer_address,
-                        'min_date_dispatch' =>  $min_date_dispatch,
-                        'id' => $prev_item->id,
-                        'is_pay' => $prev_item->is_pay,
-                        'order_item' => $prev_item->order_item,
-                        'pay_date' => $prev_item->pay_date,
-                        'dispatch_date' => $prev_item->dispatch_date,
-                        'subscription' => $prev_item->subscription,
-                        'order' => $prev_item->order,
-                        'order_id' => $prev_item->order->id,
-                        'order_parent_id' => $prev_item->order_id,
-                        'status' => $prev_item->status,
-                        'total' => $total + $dispatch,
-                        'products' => $arrayProducts,
-                        'period' => $prev_item->period,
-                        'plans' => $arrayPlan
-
-                    ];
-                    array_push($arraySubscriptionsOrdersItem,$item_tmp);
-
+                if(!$subItemActive){
+                    $subItemActive = SubscriptionsOrdersItem::where('orders_item_id',$item->orders_item_id)->orderBy('dispatch_date','desc')->get();
                 }
 
-                return ApiResponse::JsonSuccess([
-                    'subscriptions' => $arraySubscriptionsOrdersItem,
-                ], OutputMessage::SUCCESS);
+                preg_match_all('!\d+!', $item->period, $current_advance); ;
+                preg_match_all('!\d+!', $subItemActive->sortByDesc('pay_date')->first()->period, $advance_end); ;
+                $current_advance = collect($current_advance[0])->last();
+                $advance_end = collect($advance_end[0])->last();
 
-            }
+                $subActive = false;
+                if($subItemActive->first()->id == $item->id){
+                    $subActive = true;
+                }
+
+                foreach ($deliveryCosts as $deliveryCost) {
+                    $costs = json_decode($deliveryCost->costs);
+                    foreach ($costs as $itemCost) {
+                        $communes = $itemCost->communes;
+                        $found_key = array_search($item->customer_address->commune->name, $communes);
+                        if($found_key !== false){
+                            $itemDeliveryCost = $deliveryCost;
+                            $itemDeliveryCostArrayCost =$itemCost;
+                        }
+                    }
+                }
+
+                $dispatch = $itemDeliveryCostArrayCost ? $itemDeliveryCostArrayCost->price[0] : 0;
+                $total = $item->price * $item->quantity;
+
+                $min_date_dispatch = Carbon::parse($item->pay_date)->addHours($itemDeliveryCost->deadline_delivery)->format('Y-m-d');
+
+                $productSubscriptionPlan = ProductSubscriptionPlan::with('subscription_plan')->where('subscription_plan_id',$item->order_item->subscription_plan->id)
+                    ->where('product_id',$item->order_item->product->id)->get()->first();
+
+                $cycle = SubscriptionsOrdersItem::where('order_parent_id',$item->order_parent_id)->where('name',$item->name)
+                    ->select('order_parent_id',
+                        DB::raw('TIMESTAMPDIFF(DAY, NOW(), DATE_ADD(max(pay_date),INTERVAL max(days)+4 DAY)) AS days'),
+                        DB::raw('DATE_FORMAT(DATE_ADD(max(pay_date),INTERVAL max(days) DAY),"%d de %M %Y")  as max_date'))
+                    ->groupBy('order_parent_id')
+                    ->get()->first();
+                
+                return  [
+                    'min_date_dispatch' =>  $min_date_dispatch,
+                    'subscription_item' => $item,
+                    'total' => $total + $dispatch,
+                    'plans' => $productSubscriptionPlan->subscription_plan,
+                    'active' => $subActive,
+                    'cycle' => $cycle,
+                    'current_advance' => intval($current_advance),
+                    'advance_end' => intval($advance_end),
+                ];
+            });
+
+            return ApiResponse::JsonSuccess([
+                'subscriptions' => $subscriptionsOrdersItem,
+            ], OutputMessage::SUCCESS);
+            
 
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, $exception->getMessage());

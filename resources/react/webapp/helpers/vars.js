@@ -1,4 +1,5 @@
 export const BREAKPOINTS = {
+    EXTRA_EXTRA_SMALL: 'xxs',
     EXTRA_SMALL: 'xs',
     SMALL: 'sm',
     MEDIUM: 'md',

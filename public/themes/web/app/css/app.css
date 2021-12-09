@@ -4248,7 +4248,7 @@ a:-webkit-any-link:focus-visible {
   }
 }
 
-@media (min-width: 1335px) {
+@media (min-width: 1400px) {
   .app-margin-top {
     margin-top: 138px;
     min-height: calc(100vh - 520px);
