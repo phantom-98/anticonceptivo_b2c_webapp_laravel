@@ -413,7 +413,7 @@ const SubscriptionCard = ({
                                                 </div>
                                             </div>
 
-                                            <div className="col-12 col-sm-6 col-md-6 col-xl-4 d-flex flex-row">
+                                            <div className="col-12 col-sm-6 col-xl-4 d-flex flex-row">
                                                 <h1 className="text-truncate p-0 subscription-card-label">Tarjeta</h1>
                                                 {
                                                     item.subscription_item.subscription == null ?
@@ -436,7 +436,7 @@ const SubscriptionCard = ({
                                                 }
                                             </div>
 
-                                            <div className="col-12 col-sm-6 col-md-6 col-xl-4 d-flex flex-row">
+                                            <div className="col-12 col-sm-6 col-xl-4 d-flex flex-row">
                                                 <h1 className="text-truncate p-0 subscription-card-label">Estado Despacho</h1>
                                                 {
                                                     item.subscription_item.dispatch_status != null ?
@@ -459,7 +459,7 @@ const SubscriptionCard = ({
                                                 }
                                             </div>
 
-                                            <div className="col-12 col-sm-6 col-md-4 col-lg-6  col-xl-4 d-flex flex-row">
+                                            <div className="col-12 col-sm-6 col-md-4 col-lg-6 col-xl-4 d-flex flex-row">
                                                 <h1 className="text-truncate p-0 subscription-card-label">Total</h1>
                                                 <h1 className="ml-2 text-truncate p-0 subscription-card-value">{item.subscription_item.status !== 'PAID' ? formatMoney(item.total) + '(*)' : formatMoney(item.total)}</h1>
                                             </div>
