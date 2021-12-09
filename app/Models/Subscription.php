@@ -21,4 +21,8 @@ class Subscription extends Model
         return $this->belongsTo(Customer::class);
     }
 
+    public function subscription_orders_items(){
+        return $this->hasMany(SubscriptionsOrdersItem::class);
+    }
+
 }

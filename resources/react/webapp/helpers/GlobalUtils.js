@@ -150,3 +150,19 @@ export const reactSelectAdapter = (array) => {
     });
     return data;
 }
+
+export const changeMonthToSpanish = (dateString) => {
+    dateString = dateString.replace('January', 'Enero')
+    dateString = dateString.replace('February', 'Enero')
+    dateString = dateString.replace('March', 'Febrero')
+    dateString = dateString.replace('April', 'Abril')
+    dateString = dateString.replace('May', 'Mayo')
+    dateString = dateString.replace('June', 'Junio')
+    dateString = dateString.replace('July', 'Julio')
+    dateString = dateString.replace('August', 'Agosto')
+    dateString = dateString.replace('September', 'Septiembre')
+    dateString = dateString.replace('October', 'Octubre')
+    dateString = dateString.replace('November', 'Noviembre')
+    dateString = dateString.replace('December', 'Diciembre')
+    return dateString;
+}

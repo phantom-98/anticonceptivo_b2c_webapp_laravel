@@ -199,7 +199,8 @@ const Form = ({addressSelected, goBack, formMode, customerId = null, regions, se
                 <div className="form-group">
                     <label htmlFor="address">Calle y Número (*)</label>
                     <AutoComplete
-                        className="form-control form-control-custom"
+                        className="form-control form-control-custom pac-container"
+                        style={{width: '95%'}}
                         placeholder="Calle y Número"
                         id={'address'}
                         value={address.address}

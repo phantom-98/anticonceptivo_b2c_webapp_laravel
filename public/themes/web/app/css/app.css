@@ -4225,6 +4225,11 @@ a:-webkit-any-link:focus-visible {
   box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.16);
 }
 
+.pac-container {
+  z-index: 1051 !important;
+  box-shadow: none !important;
+}
+
 @media (min-width: 768px) {
   .app-margin-top {
     margin-top: 0;
@@ -4248,7 +4253,7 @@ a:-webkit-any-link:focus-visible {
   }
 }
 
-@media (min-width: 1335px) {
+@media (min-width: 1400px) {
   .app-margin-top {
     margin-top: 138px;
     min-height: calc(100vh - 520px);
@@ -4258,6 +4263,22 @@ a:-webkit-any-link:focus-visible {
 @media (min-width: 1260px) {
   .product-carousel .slick-slide {
     max-width: 300px;
+  }
+
+  .readMoreHistory {
+    text-align: center !important;
+  }
+
+  .timeline-line-vertical {
+    height: 95px !important;
+  }
+
+  .timeline-box {
+    height: 170px !important;
+  }
+
+  .timeline-resume {
+    padding: 15px !important;
   }
 }
 
@@ -5464,6 +5485,15 @@ a:-webkit-any-link:focus-visible {
 
   .app-margin-top {
     margin-top: 108px;
+  }
+
+  .timeline-box {
+    height: 100% !important;
+  }
+
+  .readMoreHistory {
+    text-align: center !important;
+    margin-top: 1.5rem !important;
   }
 
   .btn-adress {
