@@ -49,8 +49,7 @@ const ModalAddress = ({
     };
 
     const saveDefaultAddressSubscription = (addressId, customerId) => {
-        let url =
-            Services.ENDPOINT.CUSTOMER.SUBSCRIPTIONS.SET_ADDRESS_SUBSCRIPTION;
+        let url = Services.ENDPOINT.CUSTOMER.SUBSCRIPTIONS.SET_ADDRESS_SUBSCRIPTION;
 
         let data = {
             address_id: addressId,
