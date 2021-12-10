@@ -79,7 +79,7 @@ const Success = ({orderId, files, productCount, prescriptionRadio, withoutPrescr
                                         </div>
                                     </div>
                                     <div style={{marginBottom: "20px"}}>
-                                        <table className="table">
+                                        <table className="table table-responsive">
                                             <thead>
                                             <tr>
                                                 <th colSpan="2" className="bold text-center"
@@ -108,7 +108,7 @@ const Success = ({orderId, files, productCount, prescriptionRadio, withoutPrescr
                                         </table>
                                     </div>
                                     <div style={{marginBottom: "20px"}}>
-                                        <table className="table" style={{marginBottom: "20px"}}>
+                                        <table className="table table-responsive" style={{marginBottom: "20px"}}>
                                             <thead>
                                             <tr>
                                                 <th colSpan="5" className="bold text-center">
@@ -152,7 +152,7 @@ const Success = ({orderId, files, productCount, prescriptionRadio, withoutPrescr
                                         </table>
                                     </div>
                                     <div style={{marginBottom: "20px"}}>
-                                        <table className="table">
+                                        <table className="table table-responsive">
                                             <thead>
                                             <tr>
                                                 <th colSpan="5" className="bold text-center"
