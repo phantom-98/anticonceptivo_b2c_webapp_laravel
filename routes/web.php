@@ -226,7 +226,7 @@ Route::get('fix-invoices-by-date/{date}', function ($date){
         $dayPaymentExists = App\Models\DayPayment::whereDate('created_at', Carbon\Carbon::parse($datePayment)->format('Y-m-d'))->first();
 
         if($dayPaymentExists){
-            return;
+            return 1;
         }
 
         $orders = App\Models\Order::whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED'])->whereDate('created_at',$datePayment)
