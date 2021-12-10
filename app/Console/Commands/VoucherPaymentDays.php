@@ -163,7 +163,7 @@ class VoucherPaymentDays extends Command
             Log::info($response);
             $dayPayment = new DayPayment();
             $dayPayment->url_pdf = $response['urlPdf'];
-            $dayPayment->date_payment = Carbon::parse($datePayment)->format('d-m-Y');
+            $dayPayment->date_payment = Carbon::parse($datePayment)->format('Y-m-d');
             $dayPayment->total = $total;
             $dayPayment->save();
 
