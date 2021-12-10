@@ -5,7 +5,7 @@ import * as Services from "../../../../../Services";
 import { GOOGLE_MAPS } from '../../../../../Globals';
 import AutoComplete from "react-google-autocomplete";
 
-const Form = ({addressSelected, goBack, formMode, customerId = null, regions, setAddresses}) => {
+const FormModal = ({addressSelected, goBack, formMode, customerId = null, regions, setAddresses}) => {
 
     const [address, setAddress] = useState({
         id: '',
@@ -199,7 +199,8 @@ const Form = ({addressSelected, goBack, formMode, customerId = null, regions, se
                 <div className="form-group">
                     <label htmlFor="address">Calle y Número (*)</label>
                     <AutoComplete
-                        className="form-control form-control-custom"
+                        className="form-control form-control-custom pac-container"
+                        style={{width: '95%'}}
                         placeholder="Calle y Número"
                         id={'address'}
                         value={address.address}
@@ -345,4 +346,4 @@ const Form = ({addressSelected, goBack, formMode, customerId = null, regions, se
     );
 };
 
-export default Form
+export default FormModal
