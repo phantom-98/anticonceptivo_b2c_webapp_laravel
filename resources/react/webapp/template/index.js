@@ -15,7 +15,7 @@ const BaseTemplate = (props) => {
                 {
                     props.children
                 }
-                <div className="d-block d-sm-none float-whatsapp">
+                {/* <div className="d-block d-sm-none float-whatsapp">
                     <FloatingWhatsApp backgroundColor={'#00DE39'} size={'65px'}
                                       popupMessage={'¿En qué podemos ayudarte?'}
                                       autoOpenTimeout={9999999999999} phone={'+56975423779'} zIndex={999} />
@@ -25,7 +25,7 @@ const BaseTemplate = (props) => {
                                       popupMessage={'¿En qué podemos ayudarte?'}
                                       autoOpenTimeout={9999999999999}
                                       phone={'+56975423779'} zIndex={999}/>
-                </div>
+                </div> */}
             </div>
             <Footer/>
         </div>
