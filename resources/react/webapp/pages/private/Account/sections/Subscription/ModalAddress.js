@@ -113,7 +113,7 @@ const ModalAddress = ({
                 <div className="row">
                     <div className="col-12">
                         <h3 className="modal-title text-center lh-34">
-                            Cambiar dirección
+                            Cambiar Dirección
                         </h3>
                     </div>
                     <div className="col-12 mt-3">
