@@ -1,11 +1,15 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import toastr from "toastr";
 import {setCleanInputError, setInputError} from "../../../../../helpers/GlobalUtils";
 import * as Services from "../../../../../Services";
 import { GOOGLE_MAPS } from '../../../../../Globals';
 import AutoComplete from "react-google-autocomplete";
+import { AppContext } from "../../../../../context/AppProvider";
+import { BREAKPOINTS } from "../../../../../helpers/vars";
 
-const Form = ({addressSelected, goBack, formMode, customerId = null, regions, setAddresses}) => {
+const FormModal = ({addressSelected, goBack, formMode, customerId = null, regions, setAddresses}) => {
+
+    const { breakpoint } = useContext(AppContext);
 
     const [address, setAddress] = useState({
         id: '',
@@ -19,6 +23,7 @@ const Form = ({addressSelected, goBack, formMode, customerId = null, regions, se
 
     const [googleAddress, setGoogleAddress] = useState('')
     const [validAddress, setValidAddress] = useState(true)
+    const [responsiveValidate, setResponsiveValidate] = useState(true);
     const [selectedRegion, setSelectedRegion] = useState(0)
     const [communes, setCommunes] = useState([])
 
@@ -172,6 +177,7 @@ const Form = ({addressSelected, goBack, formMode, customerId = null, regions, se
     const autoCompleteHandle = (place) => {
         setGoogleAddress('');
         setValidAddress(false);
+        setResponsiveValidate(true);
         setAddress({
             ...address,
             ['address']: place,
@@ -196,10 +202,16 @@ const Form = ({addressSelected, goBack, formMode, customerId = null, regions, se
                 </div>
             </div>
             <div className="col-md-8">
-                <div className="form-group">
+                <div className="form-group" style={
+                    breakpoint === BREAKPOINTS.LARGE || breakpoint === BREAKPOINTS.EXTRA_LARGE || breakpoint === BREAKPOINTS.EXTRA_EXTRA_LARGE ?
+                    {} : {
+                            height: '74px',
+                        }
+                }>
                     <label htmlFor="address">Calle y Número (*)</label>
                     <AutoComplete
-                        className="form-control form-control-custom"
+                        className="form-control form-control-custom pac-container"
+                        style={{width: '90%'}}
                         placeholder="Calle y Número"
                         id={'address'}
                         value={address.address}
@@ -228,12 +240,15 @@ const Form = ({addressSelected, goBack, formMode, customerId = null, regions, se
                             if (flag) {
                                 if (street_number.length > 0 && route.length > 0) {
                                     setValidAddress(true);
+                                    setResponsiveValidate(true);
                                 }else{
                                     setValidAddress(false);
+                                    setResponsiveValidate(false)
                                     setInputError('address','Formato de la dirección incorrecta, por favor ingrese el nombre de la calle y el número.');
                                 }
                             }else{
                                 setValidAddress(false);
+                                setResponsiveValidate(false)
                                 setInputError('address','La dirección ingresada no esta en nuestro rango de cobertura, por favor intente con otra.');
                             }
                         }}
@@ -242,12 +257,16 @@ const Form = ({addressSelected, goBack, formMode, customerId = null, regions, se
                             types: ["address"],
                             componentRestrictions: { country: "cl" },
                         }}
-                        onFocus={setCleanInputError}
+                        onFocus={(e) => {
+                            setCleanInputError(e);
+                            setResponsiveValidate(true);
+                        }}
                     />
-                    <div className="invalid-feedback" />
+                    <div className={`invalid-feedback ${breakpoint !== BREAKPOINTS.LARGE || breakpoint !== BREAKPOINTS.EXTRA_LARGE || breakpoint !== BREAKPOINTS.EXTRA_EXTRA_LARGE ? 'mt-5' : ''}`}/>
                 </div>
             </div>
-            <div className="col-md-4">
+
+            <div className={`col-md-4 ${(breakpoint !== BREAKPOINTS.LARGE || breakpoint !== BREAKPOINTS.EXTRA_LARGE || breakpoint !== BREAKPOINTS.EXTRA_EXTRA_LARGE) && !responsiveValidate ? 'mt-5' : ''}`}>
                 <div className="form-group">
                     <label htmlFor="extra_info">Número casa o departamento</label>
                     <input type="text"
@@ -262,6 +281,7 @@ const Form = ({addressSelected, goBack, formMode, customerId = null, regions, se
                     <div className="invalid-feedback" />
                 </div>
             </div>
+
             <div className="col-md-6">
                 <div className="form-group">
                     <label htmlFor="region_id">Región (*)</label>
@@ -345,4 +365,4 @@ const Form = ({addressSelected, goBack, formMode, customerId = null, regions, se
     );
 };
 
-export default Form
+export default FormModal

@@ -4,7 +4,7 @@ import CloseModal from "../../../../../components/general/CloseModal";
 import { AppContext } from "../../../../../context/AppProvider";
 import { BREAKPOINTS } from "../../../../../helpers/vars";
 import ListItemAddresses from "../Addresses/ListItem";
-import Form from "../Addresses/Form";
+import FormModal from "../Addresses/FormModal";
 import Icon from "../../../../../components/general/Icon";
 import plusIcon from '../../../../../assets/images/icons/plus-green.svg'
 import { v4 as uuidv4 } from "uuid";
@@ -93,9 +93,9 @@ const ModalAddress = ({
             });
     };
 
-    useEffect(() => {
-        console.log(subscriptionOrderItemSelected);
-    }, [subscriptionOrderItemSelected])
+    // useEffect(() => {
+    //     console.log(subscriptionOrderItemSelected);
+    // }, [subscriptionOrderItemSelected])
 
     return (
         <Modal
@@ -152,7 +152,7 @@ const ModalAddress = ({
                         }
                         {
                             view === "form" ?
-                                <Form
+                                <FormModal
                                     addressSelected={addressSelected}
                                     goBack={goBack}
                                     formMode={formMode}
