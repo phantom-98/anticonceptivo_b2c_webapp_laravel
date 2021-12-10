@@ -29,8 +29,8 @@ class DayPaymentController extends GlobalController
     public function index(Request $request)
     {
         $date = $request->date;
-        $end = Carbon::now()->format('Y-m-d');
-        $start = Carbon::now()->subMonth(1)->format('Y-m-d');
+        $end = Carbon::now()->startOfMonth()->format('Y-m-d');
+        $start = Carbon::now()->endOfMonth()->format('Y-m-d');
         if ($date) {
             if (strpos($date, "-")) {
                 $start = substr($date, 0, strpos($date, "-"));
