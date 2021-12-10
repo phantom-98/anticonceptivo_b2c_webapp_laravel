@@ -223,7 +223,7 @@ Route::get('fix-invoices-by-date/{date}', function ($date){
     try{
         $datePayment = Carbon\Carbon::parse($date);
 
-        $dayPaymentExists = App\Models\DayPayment::whereDate('created_at', Carbon\Carbon::parse($datePayment)->format('Y-m-d'))->first();
+        $dayPaymentExists = App\Models\DayPayment::whereDate('date_payment', Carbon\Carbon::parse($datePayment)->format('Y-m-d'))->first();
 
         if(isset($dayPaymentExists)){
             return $dayPaymentExists;

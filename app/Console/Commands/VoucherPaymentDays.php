@@ -60,7 +60,7 @@ class VoucherPaymentDays extends Command
             Log::info('Paso 1');
             $datePayment = Carbon::now()->subDay();
 
-            $dayPaymentExists = DayPayment::whereDate('created_at', Carbon::parse($datePayment)->format('Y-m-d'))->first();
+            $dayPaymentExists = DayPayment::whereDate('date_payment', Carbon::parse($datePayment)->format('Y-m-d'))->first();
 
             if($dayPaymentExists){
                 Log::info('Existe proceso de facturación en dia '.$datePayment);
