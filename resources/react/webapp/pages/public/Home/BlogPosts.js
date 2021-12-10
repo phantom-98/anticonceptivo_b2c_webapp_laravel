@@ -6,6 +6,8 @@ import Slider from "react-slick";
 import PostMiniCard from "../Blog/components/PostMiniCard";
 import { AppContext } from "../../../context/AppProvider";
 import { BREAKPOINTS } from "../../../helpers/vars";
+import { Link } from "react-router-dom";
+import PUBLIC_ROUTES from "../../../routes/publicRoutes";
 
 const BlogPosts = ({blogPosts, isLoaded}) => {
 
@@ -23,6 +25,12 @@ const BlogPosts = ({blogPosts, isLoaded}) => {
         slidesToScroll: 1,
         variableWidth: false
     };
+
+    const rowStyle = {
+        display: 'flex!important',
+        flexDirection: 'column',
+        alignItems: 'center',
+    }
 
     return (
         <div className="container mt-4 pt-2">
@@ -58,6 +66,14 @@ const BlogPosts = ({blogPosts, isLoaded}) => {
                                 }
                             </div>
                     }
+                </div>
+            </div>
+            <div className="row mt-2" style={rowStyle}>
+                <div style={{width: '205px'}}>
+                    <Link to={PUBLIC_ROUTES.BLOG.path}
+                        className="btn btn-bicolor btn-block d-flex my-2">
+                        <span className="m-auto font-poppins font-14 bold">VER MÁS NOTICIAS</span>
+                    </Link>
                 </div>
             </div>
         </div>
