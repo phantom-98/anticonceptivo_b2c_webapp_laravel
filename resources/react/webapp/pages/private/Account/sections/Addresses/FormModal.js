@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useContext} from 'react';
+import React, {useEffect, useState, useContext, Fragment} from 'react';
 import toastr from "toastr";
 import {setCleanInputError, setInputError} from "../../../../../helpers/GlobalUtils";
 import * as Services from "../../../../../Services";
@@ -203,7 +203,7 @@ const FormModal = ({addressSelected, goBack, formMode, customerId = null, region
             </div>
             <div className="col-md-8">
                 <div className="form-group" style={
-                    breakpoint === BREAKPOINTS.LARGE || breakpoint === BREAKPOINTS.EXTRA_LARGE || breakpoint === BREAKPOINTS.EXTRA_EXTRA_LARGE ?
+                    breakpoint === BREAKPOINTS.MEDIUM || breakpoint === BREAKPOINTS.LARGE || breakpoint === BREAKPOINTS.EXTRA_LARGE || breakpoint === BREAKPOINTS.EXTRA_EXTRA_LARGE ?
                     {} : {
                             height: '74px',
                         }
@@ -262,11 +262,11 @@ const FormModal = ({addressSelected, goBack, formMode, customerId = null, region
                             setResponsiveValidate(true);
                         }}
                     />
-                    <div className={`invalid-feedback ${breakpoint !== BREAKPOINTS.LARGE || breakpoint !== BREAKPOINTS.EXTRA_LARGE || breakpoint !== BREAKPOINTS.EXTRA_EXTRA_LARGE ? 'mt-5' : ''}`}/>
+                    <div className={`invalid-feedback ${breakpoint !== BREAKPOINTS.MEDIUM || breakpoint !== BREAKPOINTS.LARGE || breakpoint !== BREAKPOINTS.EXTRA_LARGE || breakpoint !== BREAKPOINTS.EXTRA_EXTRA_LARGE ? 'mt-5' : ''}`}/>
                 </div>
             </div>
 
-            <div className={`col-md-4 ${(breakpoint !== BREAKPOINTS.LARGE || breakpoint !== BREAKPOINTS.EXTRA_LARGE || breakpoint !== BREAKPOINTS.EXTRA_EXTRA_LARGE) && !responsiveValidate ? 'mt-5' : ''}`}>
+            <div className={`col-md-4 ${(breakpoint !== BREAKPOINTS.MEDIUM || breakpoint !== BREAKPOINTS.LARGE || breakpoint !== BREAKPOINTS.EXTRA_LARGE || breakpoint !== BREAKPOINTS.EXTRA_EXTRA_LARGE) && !responsiveValidate ? 'mt-5' : ''}`}>
                 <div className="form-group">
                     <label htmlFor="extra_info">Número casa o departamento</label>
                     <input type="text"
@@ -348,19 +348,40 @@ const FormModal = ({addressSelected, goBack, formMode, customerId = null, region
                 </div>
             </div>
 
-            <div className="col-md-6 mt-4 text-center text-md-left">
-                <button type="button" className="btn btn-bicolor px-5 btn-adress"
-                        onClick={() => goBack()}>
-                    <span>VOLVER</span>
-                </button>
-            </div>
-            <div className="col-md-6 mt-4 text-center text-md-right">
-                <button type="button" className="btn btn-bicolor px-3 btn-save-address"
-                        onClick={customerId ? () => updateData() : () => setAddressNoAuth()}>
-                    <span>GUARDAR DIRECCIÓN</span>
-                </button>
-            </div>
+            {
+                breakpoint === BREAKPOINTS.MEDIUM || breakpoint === BREAKPOINTS.LARGE || breakpoint === BREAKPOINTS.EXTRA_LARGE || breakpoint === BREAKPOINTS.EXTRA_EXTRA_LARGE ?
+                    <Fragment>
+                        <div className="col-md-6 mt-4 text-center text-md-left">
+                            <button type="button" className="btn btn-bicolor px-5 btn-adress"
+                                onClick={() => goBack()}>
+                                <span>VOLVER</span>
+                            </button>
+                        </div>
 
+                        <div className="col-md-6 mt-4 text-center text-md-right">
+                            <button type="button" className="btn btn-bicolor px-3 btn-save-address"
+                                onClick={customerId ? () => updateData() : () => setAddressNoAuth()}>
+                                <span>GUARDAR DIRECCIÓN</span>
+                            </button>
+                        </div>
+                     </Fragment>
+                        :
+                    <Fragment>
+                        <div className="col-md-6 mt-4 text-center text-md-right">
+                            <button type="button" className="btn btn-bicolor px-3 btn-save-address"
+                                onClick={customerId ? () => updateData() : () => setAddressNoAuth()}>
+                                <span>GUARDAR DIRECCIÓN</span>
+                            </button>
+                        </div>
+
+                        <div className="col-md-6 mt-4 text-center text-md-left">
+                            <button type="button" className="btn btn-bicolor px-5 btn-adress"
+                                onClick={() => goBack()}>
+                                <span>VOLVER</span>
+                            </button>
+                        </div>
+                    </Fragment>
+            }
         </div>
     );
 };
