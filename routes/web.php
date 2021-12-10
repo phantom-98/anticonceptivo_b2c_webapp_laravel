@@ -221,7 +221,7 @@ Route::get('remove-images', function () {
 
 Route::get('fix-invoices-by-date/{date}', function ($date){
     try{
-        $datePayment = App\Models\Carbon::now()->subDay();
+        $datePayment = App\Models\Carbon::parse($date);
 
         $dayPaymentExists = App\Models\DayPayment::whereDate('created_at', Carbon\Carbon::parse($datePayment)->format('Y-m-d'))->first();
 
