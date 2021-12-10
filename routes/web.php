@@ -336,7 +336,7 @@ Route::get('fix-invoices-by-date/{date}', function ($date){
 
         $sendgrid->send($email);
 
-        $this->info('Pagos ejecutados correctamente');
+        return "Facturación exitosa";
 
 
     } catch (\Exception $e){
