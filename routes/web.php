@@ -219,6 +219,133 @@ Route::get('remove-images', function () {
     }
 });
 
+Route::get('fix-invoices-by-date/{date}', function ($date){
+    try{
+        $datePayment = App\Models\Carbon::now()->subDay();
+
+        $dayPaymentExists = App\Models\DayPayment::whereDate('created_at', Carbon\Carbon::parse($datePayment)->format('Y-m-d'))->first();
+
+        if($dayPaymentExists){
+            return;
+        }
+
+        $orders = App\Models\Order::whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED'])->whereDate('created_at',$datePayment)
+        ->get();
+        $details = [];
+        $total = 0;
+
+        $paymentCommission = App\Models\PaymentCommission::where('active',1)
+        ->latest()->first();
+
+
+        if($paymentCommission == null){
+            return false;
+        }
+
+        $commission = $paymentCommission->commission;
+
+        foreach ($orders as $key => $order) {
+            $total_order = round($order->total * ($commission/100));
+            $detail = [
+                "netUnitValue"=> $total_order / 1.19,
+                "quantity"=> 1,
+                "taxes"=> array([
+                    "code" => 14,
+                    "percentage" => 19
+                ]),
+                "comment"=> "Pedido número ".$order->id
+            ];
+            array_push($details, $detail);
+            $total += round($order->total * ($commission/100));
+
+        }
+
+        $subscriptions_orders_items = App\Models\SubscriptionsOrdersItem::with('order_item.subscription_plan','order_item.product')
+        ->where('status','PAID')->whereDate('pay_date',$datePayment)
+        ->orderBy('order_id')->orderBy('pay_date')
+        ->get();
+
+        $prev_order_id = null;
+        $prev_pay_date = null;
+
+        foreach ($subscriptions_orders_items as $key => $subscription_order_item) {
+            $order = App\Models\Order::where('id',$subscription_order_item->order_id)
+            ->whereDate('created_at','>=',Carbon\Carbon::parse( $subscription_order_item->pay_date)->subDay())->get()->first();
+
+            if($order){
+                continue;
+            }
+            $productSubscriptionPlan = App\Models\ProductSubscriptionPlan::where('subscription_plan_id',$subscription_order_item->order_item->subscription_plan->id)
+            ->where('product_id',$subscription_order_item->order_item->product->id)->get()->first();
+            $total_order = round(($productSubscriptionPlan->price*$productSubscriptionPlan->quantity*$subscription_order_item->order_item->quantity) * ($commission/100));
+            $detail = [
+                "netUnitValue"=> $total_order / 1.19,
+                "quantity"=> 1,
+                "taxes"=> array([
+                    "code" => 14,
+                    "percentage" => 19
+                ]),
+                "comment"=> "Suscripción del pedido número ".$subscription_order_item->$order->id . " "
+            ];
+            array_push($details, $detail);
+            $total += round($subscription_order_item->order_item->price * ($commission/100));
+        }
+        $data_voucher = array(
+            "codeSii"=> 33,
+            "officeId"=> 1,
+            "declareSii" => 1,
+            "emissionDate"=> Carbon\Carbon::now()->timestamp,
+            "client"=> [
+              "code"=> "76.736.577-2",
+              "company"=> "ASOCIACIÓN DE FARMACÉUTICOS SPA",
+              "activity"=> "Giro Informática",
+              "municipality"=> "Ñuñoa",
+              "city"=> "Santiago",
+              "address"=> "General Gorostiaga Nº57",
+            //   "email"=> "api@bsale.cl"
+            ],
+            "details"=> $details,
+            "payments"=> array([
+                "paymentTypeId"=> 4,
+                "amount"=> $total
+            ])
+        );
+        if($total == 0){
+            return;
+        }
+        $get_data = App\Http\Helpers\ApiHelper::callAPI('POST', 'https://api.bsale.cl/v1/documents.json', json_encode($data_voucher), true);
+        $response = json_decode($get_data, true);
+        $dayPayment = new App\Models\DayPayment();
+        $dayPayment->url_pdf = $response['urlPdf'];
+        $dayPayment->date_payment = Carbon\Carbon::parse($datePayment)->format('Y-m-d');
+        $dayPayment->total = $total;
+        $dayPayment->save();
+
+        $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
+        $html = view('emails.send-voucher', ['url_pdf' => $dayPayment->url_pdf, 'name' => 'Equipo Anticonceptivo'])->render();
+
+        $email = new \SendGrid\Mail\Mail();
+        $email->setFrom("info@anticonceptivo.cl", 'Anticonceptivo');
+        $email->setSubject('Factura Eureka ' . Carbon\Carbon::parse($datePayment)->format('d-m-Y'));
+        $email->addTo("contacto@anticonceptivo.cl", 'Anticonceptivo');
+
+        $email->addContent(
+            "text/html", $html
+        );
+
+        $sendgrid->send($email);
+
+        $this->info('Pagos ejecutados correctamente');
+
+
+    } catch (\Exception $e){
+        Log::info('Error catch boleta Farmacia',
+            [
+                "response" => $e->getMessage()
+            ]);
+    }
+});
+
 Route::get('ailoo', function () {
     $products = \App\Models\Product::all();
     $errors = [];

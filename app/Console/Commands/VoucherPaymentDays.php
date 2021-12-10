@@ -68,7 +68,6 @@ class VoucherPaymentDays extends Command
             }
 
             $orders = Order::whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED'])->whereDate('created_at',$datePayment)
-            // ->with('subscriptions_orders_items.order_item','order_items')
             ->get();
             $details = [];
             $total = 0;
@@ -79,8 +78,6 @@ class VoucherPaymentDays extends Command
 
             if($paymentCommission == null){
                 return false;
-//                $paymentCommission = PaymentCommission::where('active',1)
-//                    ->get()->last();
             }
 
             $commission = $paymentCommission->commission;
@@ -187,7 +184,6 @@ class VoucherPaymentDays extends Command
 
 
         } catch (\Exception $e){
-
             Log::info('Error catch boleta Farmacia',
                 [
                     "response" => $e->getMessage()
