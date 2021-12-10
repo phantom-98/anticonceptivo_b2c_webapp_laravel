@@ -93,9 +93,9 @@ const ModalAddress = ({
             });
     };
 
-    useEffect(() => {
-        console.log(subscriptionOrderItemSelected);
-    }, [subscriptionOrderItemSelected])
+    // useEffect(() => {
+    //     console.log(subscriptionOrderItemSelected);
+    // }, [subscriptionOrderItemSelected])
 
     return (
         <Modal
