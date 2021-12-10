@@ -56,10 +56,17 @@ const OurBrands = ({brands}) => {
         nextArrow: <Arrow type="next" />,
     };
 
+    const containerStyle = {
+        height: '284px',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+    }
+
     return (
-        <div style={{ backgroundColor: 'white' }}>
-            <div className="container mb-3">
-                <div className="row py-3">
+        <div className="mt-5" style={{ backgroundColor: 'white' }}>
+            <div className="container" style={containerStyle}>
+                <div className="row mb-4">
                     <div className="col-12">
                         <H2Title text="nuestras marcas" className="text-black" />
                     </div>

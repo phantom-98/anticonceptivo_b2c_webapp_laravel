@@ -495,7 +495,7 @@ const SubscriptionCard = ({
                                                     <div className="col-12 col-sm-6 col-xl-3 my-2 text-center">
                                                         <span onClick={() => changeVisibleModalAddress(item.subscription_item)}
                                                             className="mr-1 mb-0 p-0 subscription-card-value link pointer">
-                                                            Cambiar dirección
+                                                            Cambiar Dirección
                                                         </span>
                                                     </div>
                                                     <div className="col-12 col-sm-6 col-xl-3 my-2 text-center">
