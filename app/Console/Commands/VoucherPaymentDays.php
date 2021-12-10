@@ -63,6 +63,7 @@ class VoucherPaymentDays extends Command
             $dayPaymentExists = DayPayment::whereDate('created_at', $datePayment)->get()->first();
 
             if($dayPaymentExists){
+                Log::info('Existe proceso de facturación en dia '.$datePayment);
                 return;
             }
 
