@@ -1,11 +1,15 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import toastr from "toastr";
 import {setCleanInputError, setInputError} from "../../../../../helpers/GlobalUtils";
 import * as Services from "../../../../../Services";
 import { GOOGLE_MAPS } from '../../../../../Globals';
 import AutoComplete from "react-google-autocomplete";
+import {AppContext} from "../../../../../context/AppProvider";
+import {BREAKPOINTS} from "../../../../../helpers/vars";
 
 const Form = ({addressSelected, goBack, formMode, customerId = null, regions, setAddresses}) => {
+
+    const { breakpoint } = useContext(AppContext);
 
     const [address, setAddress] = useState({
         id: '',
@@ -328,18 +332,40 @@ const Form = ({addressSelected, goBack, formMode, customerId = null, regions, se
                 </div>
             </div>
 
-            <div className="col-md-6 mt-4 text-center text-md-left">
-                <button type="button" className="btn btn-bicolor px-5 btn-adress"
-                        onClick={() => goBack()}>
-                    <span>VOLVER</span>
-                </button>
-            </div>
-            <div className="col-md-6 mt-4 text-center text-md-right">
-                <button type="button" className="btn btn-bicolor px-3 btn-save-address"
-                        onClick={customerId ? () => updateData() : () => setAddressNoAuth()}>
-                    <span>GUARDAR DIRECCIÓN</span>
-                </button>
-            </div>
+            {
+                breakpoint === BREAKPOINTS.MEDIUM || breakpoint === BREAKPOINTS.LARGE || breakpoint === BREAKPOINTS.EXTRA_LARGE || breakpoint === BREAKPOINTS.EXTRA_EXTRA_LARGE ?
+                    <>
+                        <div className="col-md-6 mt-4 text-center text-md-left">
+                            <button type="button" className="btn btn-bicolor px-5 btn-adress"
+                                onClick={() => goBack()}>
+                                <span>VOLVER</span>
+                            </button>
+                        </div>
+                        <div className="col-md-6 mt-4 text-center text-md-right">
+                            <button type="button" className="btn btn-bicolor px-3 btn-save-address"
+                                onClick={customerId ? () => updateData() : () => setAddressNoAuth()}>
+                                <span>GUARDAR DIRECCIÓN</span>
+                            </button>
+                        </div>
+                    </>
+                : 
+                    <>
+                        <div className="col-md-6 mt-4 text-center text-md-right">
+                            <button type="button" className="btn btn-bicolor px-3 btn-save-address"
+                                onClick={customerId ? () => updateData() : () => setAddressNoAuth()}>
+                                <span>GUARDAR DIRECCIÓN</span>
+                            </button>
+                        </div>
+                        <div className="col-md-6 mt-4 text-center text-md-left">
+                            <button type="button" className="btn btn-bicolor px-5 btn-adress"
+                                onClick={() => goBack()}>
+                                <span>VOLVER</span>
+                            </button>
+                        </div>
+                    </>
+            }
+
+            
 
         </div>
     );
