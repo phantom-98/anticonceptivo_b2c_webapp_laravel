@@ -225,7 +225,7 @@ Route::get('fix-invoices-by-date/{date}', function ($date){
 
         $dayPaymentExists = App\Models\DayPayment::whereDate('created_at', Carbon\Carbon::parse($datePayment)->format('Y-m-d'))->first();
 
-        if($dayPaymentExists){
+        if(isset($dayPaymentExists)){
             return 'Existe proceso de facturación en dia '.$datePayment;
         }
 
