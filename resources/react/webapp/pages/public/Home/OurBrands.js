@@ -94,14 +94,12 @@ const OurBrands = ({brands}) => {
                             {
                                 brands.map(brand => (
                                     <div  key={uuidv4()}>
-                                        <a href={brand.url} target="_blank">
-                                            <img
-                                                src={brand.public_image}
-                                                alt={CONFIG.APP_NAME}
-                                                className="mx-auto"
-                                                style={{ maxHeight: '40px', objectFit: 'contain' }}
-                                            />
-                                        </a>
+                                        <img
+                                            src={brand.public_image}
+                                            alt={CONFIG.APP_NAME}
+                                            className="mx-auto"
+                                            style={{ maxHeight: '40px', objectFit: 'contain' }}
+                                        />
                                     </div>
                                 ))
                             }
