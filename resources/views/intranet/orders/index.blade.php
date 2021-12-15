@@ -342,17 +342,31 @@
         }
 
         function sendEmail(id){
-            $('<input>').attr({
-                type: 'hidden',
-                name: 'id',
-                value: id
-            }).appendTo('#send-email-form');
-            $('<input>').attr({
-                type: 'hidden',
-                name: 'prescription',
-                value: 1
-            }).appendTo('#send-email-form');
-            $('#send-email-form').submit();
+            swal({
+                title: 'Advertencia',
+                html: '¿Está seguro de querer ajustar el pedido? El pedido en caso de no estar pagado se pagará, además de enviar correo a cliente / administrador y generar boleta en Ailoo',
+                customClass: "swal-wide-2",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#43a047',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Confirmar',
+                cancelButtonText: 'Cancelar'
+            }).then(function (result) {
+                if (result.value) {
+                    $('<input>').attr({
+                        type: 'hidden',
+                        name: 'id',
+                        value: id
+                    }).appendTo('#send-email-form');
+                    $('<input>').attr({
+                        type: 'hidden',
+                        name: 'prescription',
+                        value: 1
+                    }).appendTo('#send-email-form');
+                    $('#send-email-form').submit();
+                }
+            });
         }
     </script>
 

@@ -17,6 +17,7 @@ use App\Http\Helpers\CallIntegrationsPay;
 use App\Http\Utils\Enum\PaymentStatus;
 use \App\Models\CustomerAddress;
 use \App\Models\SubscriptionsOrdersItem;
+use Illuminate\Support\Facades\Log;
 
 class OrderController extends GlobalController
 {
@@ -243,6 +244,12 @@ class OrderController extends GlobalController
         }
     
         CallIntegrationsPay::sendEmailsOrderRepeat($order->id);
+
+        Log::info('Pedido ajustado', [
+            'date' => date('Y-m-d H:i:s'),
+            'order' => $order->id,
+            'user' => auth('intranet')->user()->full_name
+        ]);
 
         session()->flash('success', 'Pedido reprocesado exitosamente.');
         return redirect()->route($this->route . 'index');
