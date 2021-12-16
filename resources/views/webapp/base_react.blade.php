@@ -76,7 +76,6 @@
         /></noscript>
     <!-- End Facebook Pixel Code -->
 
-
     @yield('styles')
 
     <link rel="shortcut icon" href="/themes/web/favicon/favicon.ico" type="image/x-icon">
@@ -160,21 +159,15 @@
         <div id="app" style="overflow:hidden;">
             {!! $seo_preloading ?? '' !!}
         </div>
-
     @endif
 
-
+        
 </div>
 
 <script src="/themes/web/app/js/app.js"></script>
 <script src="/themes/web/assets/js/custom.js"></script>
 
-<script>
-
-</script>
-
 @yield('scripts')
 
 </body>
 </html>
-

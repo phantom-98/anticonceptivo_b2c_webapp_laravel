@@ -123,6 +123,7 @@ export const ENDPOINT = {
         PRODUCT: {
             GET: GetBaseURL() + 'public-area/get-products',
         },
+        PRODUCTS_FOR_BLOG: GetBaseURL() + 'public-area/get-products-for-blog',
         PRODUCT_BY_SLUG: {
             GET: GetBaseURL() + 'public-area/get-product-by-slug',
         },

@@ -46,7 +46,6 @@ const AppProvider = (props) => {
 
     useEffect(() => {
         setDimension(breakpoint);
-        // console.log(breakpoint);
     }, [breakpoint]);
 
     const showModalAuth = (mode) => {

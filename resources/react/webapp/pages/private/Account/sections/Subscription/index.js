@@ -1,7 +1,7 @@
 import React, {useContext, useState} from 'react';
 import H3Panel from "../../../../../components/general/H3Panel";
 import Table from "./Table";
-import SubscriptionCardResponsive from "./SubscriptionCardResponsive";
+import SubscriptionCard from "./SubscriptionCard";
 import {AppContext} from "../../../../../context/AppProvider";
 import {BREAKPOINTS} from "../../../../../helpers/vars";
 const Subscription = () => {
@@ -20,19 +20,12 @@ const Subscription = () => {
                 }
 
                 <div className="col-md-12">
-
                     {
                         view === 'table' ? 
-                            breakpoint === BREAKPOINTS.MEDIUM || breakpoint === BREAKPOINTS.LARGE || breakpoint === BREAKPOINTS.EXTRA_LARGE || breakpoint === BREAKPOINTS.EXTRA_EXTRA_LARGE ?
-                                <Table 
-                                    setSubscriptionOrderItemSelected={setSubscriptionOrderItemSelected} 
-                                    subscriptionOrderItemSelected={subscriptionOrderItemSelected}
-                                /> 
-                            :
-                                <SubscriptionCardResponsive 
-                                    setSubscriptionOrderItemSelected={setSubscriptionOrderItemSelected} 
-                                    subscriptionOrderItemSelected={subscriptionOrderItemSelected}
-                                /> 
+                            <SubscriptionCard 
+                                setSubscriptionOrderItemSelected={setSubscriptionOrderItemSelected} 
+                                subscriptionOrderItemSelected={subscriptionOrderItemSelected}
+                            /> 
                         : null
                     }
                 </div>

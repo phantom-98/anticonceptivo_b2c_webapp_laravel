@@ -475,5 +475,9 @@ a:-webkit-any-link:focus-visible {
     box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.16);
 }
 
+.pac-container{
+    z-index: 1051 !important;
+    box-shadow: none !important;
+}
 
 @import 'assets/scss/responsive';

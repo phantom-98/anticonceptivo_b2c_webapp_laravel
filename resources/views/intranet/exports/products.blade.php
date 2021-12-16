@@ -7,6 +7,7 @@
             <th>Laboratorio</th>
             <th>Precio</th>
             <th>Precio Oferta</th>
+            <th>Stock</th>
             <th>Subcategoría</th>
             <th>Formato</th>
             <th>Ancho</th>
@@ -33,6 +34,7 @@
                 <td>{{ $object->laboratory->name }}</td>
                 <td>{{ $object->price }}</td>
                 <td>{{ $object->offer_price ?? '' }}</td>
+                <td>{{ $object->stock ?? 0 }}</td>
                 <td>{{ $object->subcategory->name ?? '' }}</td>
                 <td>{{ $object->format }}</td>
                 <td>{{ $object->width ?? '' }}</td>

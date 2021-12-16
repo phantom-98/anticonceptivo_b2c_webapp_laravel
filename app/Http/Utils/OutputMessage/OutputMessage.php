@@ -48,6 +48,7 @@ class OutputMessage implements iValidationField, iException, iAuth
     const RECOVERY_PASSWORD = 'Se ha envíado un correo para recuperar la contraseña.';
 
     const CUSTOMER_SUBSCRIPTIONS_CREATE = 'Se ha creado la suscripción exitosamente.';
+    const CUSTOMER_SUBSCRIPTION_CARD_DELETE = 'Se ha eliminado la tarjeta exitosamente.';
     const CUSTOMER_SUBSCRIPTIONS_UPDATE_ERROR = 'No se ha podido actualizar la suscripción.';
     const CUSTOMER_SUBSCRIPTION_NOT_FOUND = 'No se ha podido encontrar la suscripción.';
     const CUSTOMER_SUBSCRIPTION_CREATE_DEFAULT_ERROR = 'No se ha podido crear la suscripción.';

@@ -7,6 +7,7 @@ import BlogCarousel from "../../../components/sections/BlogCarousel";
 import Article from "./Article";
 import * as Services from "../../../Services";
 import LazyLoading from "../../../components/LazyLoading";
+import ProductsForBlog from "../Blog/components/ProductsForBlog";
 
 const Post = ({match}) => {
 
@@ -79,6 +80,8 @@ const Post = ({match}) => {
                 </div>
             </BasePanelTwo>
             <BlogCarousel title="Contenidos relacionados" showButton={false} type={match.params.post_type_slug}/>
+
+            <ProductsForBlog title={'TE PODRÍA INTERESAR'} />
             <Subscribe/>
         </Fragment>
     );

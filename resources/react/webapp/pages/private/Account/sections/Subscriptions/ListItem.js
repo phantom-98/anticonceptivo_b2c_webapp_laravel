@@ -3,7 +3,7 @@ import {Form} from "react-bootstrap";
 import Icon from "../../../../../components/general/Icon";
 import iconRemove from "../../../../../assets/images/icons/remove-mini-cart.svg";
 
-const ListItem = ({subscription, saveDefaultSubscription,deleteSubscription,subscriptionChecked}) => {
+const ListItem = ({subscription, saveDefaultSubscription, deleteSubscription, subscriptionChecked, isModal=false}) => {
 
 
 
@@ -34,12 +34,16 @@ const ListItem = ({subscription, saveDefaultSubscription,deleteSubscription,subs
                     </div>
                 </div>
             </div>
-            {/* <div className="col-auto text-center d-flex">
-                <div onClick={() => deleteSubscription(subscription.id)} className="my-auto pointer" >
-                    <div><Icon path={iconRemove}/></div>
+            {/* {
+                isModal ?
+                    <div className="col-auto text-center d-flex">
+                        <div onClick={() => deleteSubscription(subscription.id)} className="my-auto pointer" >
+                            <div><Icon path={iconRemove} /></div>
 
-                </div>
-            </div> */}
+                        </div>
+                    </div>
+                : null
+            } */}
 
             <div className="col-md-12">
                 <hr/>

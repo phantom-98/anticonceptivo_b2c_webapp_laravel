@@ -6,6 +6,7 @@ import Subscribe from "../../../components/sections/Subscribe";
 import TimeLine from "./components/TimeLine";
 import PostCategories from "./components/PostCategories";
 import PostsRecommended from "./components/PostsRecommended";
+import ProductsForBlog from "./components/ProductsForBlog";
 
 const Blog = () => {
 
@@ -36,6 +37,8 @@ const Blog = () => {
                 <div className="my-5"/>
 
                 <PostsRecommended/>
+
+                <ProductsForBlog title={'TE PODRÍA INTERESAR'}/>
 
             </BasePanelTwo>
 
