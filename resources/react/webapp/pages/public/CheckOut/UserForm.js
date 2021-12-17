@@ -127,12 +127,7 @@ const UserForm = ({
             } else {
                 list.push(e.target.files[0]);
             }
-
             setFiles(list);
-            console.log(list)
-            console.log(JSON.stringify(list))
-            console.log(JSON.parse(list))
-            localStorage.setItem('files_checkout', JSON.parse(JSON.stringify(list)));
         }
 
         const handlePrescriptionRadio = (status) => {
