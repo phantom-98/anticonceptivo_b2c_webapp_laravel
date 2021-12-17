@@ -20,7 +20,7 @@ class UpdateProductStockJob implements ShouldQueue
      *
      * @return void
      */
-    public function __construct($order, $customerAddress)
+    public function __construct($order)
     {
         $this->order = $order;
         $this->onQueue('high');

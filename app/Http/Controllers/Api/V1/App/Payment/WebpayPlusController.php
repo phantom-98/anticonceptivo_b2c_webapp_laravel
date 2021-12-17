@@ -85,7 +85,8 @@ class WebpayPlusController
 
 
                 return ApiResponse::JsonSuccess([
-                    'webpay' => $this->oneclick->redirectHTML(),
+                    'oneclick' => $this->oneclick->redirectHTML(),
+                    'oneclick_data' => $this->oneclick,
                     'id' => $subscription->id,
                     'token' => $response['response']->token,
                 ], 'Iniciado OneClick');
