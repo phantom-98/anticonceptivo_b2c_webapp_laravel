@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Http\Helpers\CallIntegrationsPay;
+use App\Models\CustomerAddress;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -16,15 +17,17 @@ class FinishPaymentJob implements ShouldQueue
 
     private $order;
     private $customerAddress;
+
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($order, $customerAddress)
+    public function __construct($order)
     {
         $this->order = $order;
-        $this->customerAddress = $customerAddress;
+        $this->customerAddress = null;
+        $this->onQueue('low');
     }
 
     /**
@@ -35,9 +38,14 @@ class FinishPaymentJob implements ShouldQueue
     public function handle()
     {
         if (env('APP_ENV') == 'production') {
-            CallIntegrationsPay::callVoucher($this->order->id, $this->customerAddress);
-            CallIntegrationsPay::callDispatchLlego($this->order->id, $this->customerAddress);
-            CallIntegrationsPay::callUpdateStockProducts($this->order->id);
+
+            $this->customerAddress = CustomerAddress::with('commune')->where('customer_id', $this->order->customer_id)->where('default_address', 1)->get()->first();
+
+            if ($this->customerAddress) {
+                CallIntegrationsPay::callVoucher($this->order->id, $this->customerAddress);
+                CallIntegrationsPay::callDispatchLlego($this->order->id, $this->customerAddress);
+            }
+
             CallIntegrationsPay::sendEmailsOrder($this->order->id);
         }
     }
