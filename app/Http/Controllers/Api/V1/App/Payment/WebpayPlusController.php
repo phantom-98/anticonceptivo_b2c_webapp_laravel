@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1\App\Payment;
 
 // use App\Models\WebpayLog;
+use App\Jobs\FinishPaymentJob;
 use App\Models\ProductSubscriptionPlan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -513,12 +514,15 @@ class WebpayPlusController
                     Log::info('RESPONSE_STOCK_PRODUCT_FOUND', [$responseStockProduct['status']]);
 
                     $customerAddress = CustomerAddress::with('commune')->where('customer_id', $order->customer_id)->where('default_address', 1)->get()->first();
+
                     if (env('APP_ENV') == 'production') {
                         CallIntegrationsPay::callVoucher($order->id, $customerAddress);
                         CallIntegrationsPay::callDispatchLlego($order->id, $customerAddress);
                         CallIntegrationsPay::callUpdateStockProducts($order->id);
                         CallIntegrationsPay::sendEmailsOrder($order->id);
                     }
+
+//                    FinishPaymentJob::dispatch($order, $customerAddress);
                 }
 
             } else {

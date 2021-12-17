@@ -8,7 +8,9 @@ import moment from "moment";
 import useGoogleAnalyticsEcommerce from '../../../../components/customHooks/UseGoogleAnalyticsEcommerce';
 
 const Success = ({order}) => {
+
     console.log('Success', order);
+
     const {addTransaction, addItems, transaction, items, send} = useGoogleAnalyticsEcommerce();
 
     // const [order, setOrder] = useState({
