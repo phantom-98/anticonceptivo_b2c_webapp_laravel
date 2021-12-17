@@ -77,9 +77,9 @@ const Detail = ({order, goBack}) => {
 
             <div className="row py-4">
                 <div className="col-md-12 ">
-                    <button type="button" className="btn btn-bicolor  px-5"
+                    <button type="button" className="btn btn-bicolor btn-buy-again"
                             onClick={() => repeatOrderCart()}>
-                        <span className="px-5">VOLVER A COMPRAR</span>
+                        <span className="span-buy-again">VOLVER A COMPRAR</span>
                     </button>
                 </div>
             </div>

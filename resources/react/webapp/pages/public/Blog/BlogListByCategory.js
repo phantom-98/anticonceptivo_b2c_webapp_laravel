@@ -5,10 +5,11 @@ import PUBLIC_ROUTES from "../../../routes/publicRoutes";
 import {useParams} from "react-router-dom";
 import * as Services from "../../../Services";
 import PostsRecommended from "./components/PostsRecommended";
-import FilterBlogList from "./components/FilterBlogList";
+// import FilterBlogList from "./components/FilterBlogList";
 import PostMiniCard from "./components/PostMiniCard";
 import {v4 as uuid} from "uuid";
 import LazyLoading from "../../../components/LazyLoading";
+import ProductsForBlog from "./components/ProductsForBlog";
 
 const BlogListByCategory = () => {
 
@@ -86,7 +87,7 @@ const BlogListByCategory = () => {
 
                 <div className="row mt-3 mt-md-5 mb-5">
                     {
-                        posts.map(post => <div className="col-md-4 mb-3"><PostMiniCard post={post} key={uuid()}/></div>)
+                        posts.map(post => <div key={uuid()} className="col-md-4 mb-3"><PostMiniCard post={post}/></div>)
                     }
 
                     {
@@ -106,6 +107,8 @@ const BlogListByCategory = () => {
                 </div>
 
                 <PostsRecommended/>
+
+                <ProductsForBlog title={'TE PODRÍA INTERESAR'} />
 
             </BasePanelTwo>
 

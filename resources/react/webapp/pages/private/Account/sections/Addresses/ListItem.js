@@ -49,7 +49,10 @@ const ListItem = ({
                         label=""
                         type="radio"
                         name={name}
-                        checked={addressChecked ? addressChecked : (address.default_address ? true : false)}
+                        checked={
+                            isSusbscription ? addressChecked :
+                            address.default_address ? true : false
+                        }
                         className="mr-1"
                         onClick={() => saveDefaultAddress(address.id, address.customer_id)}
                         id={`custom-inline-radio-address-${address.id}-${name}`}

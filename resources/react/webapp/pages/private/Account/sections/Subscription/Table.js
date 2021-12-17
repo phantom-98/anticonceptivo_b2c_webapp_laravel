@@ -7,12 +7,10 @@ import {AuthContext} from "../../../../../context/AuthProvider";
 import {Modal} from "react-bootstrap";
 import ListItemAddresses from "../Addresses/ListItem";
 import ListItemSubscriptions from "../Subscriptions/ListItem";
-import ReactTooltip from 'react-tooltip';
 import Form from "../Addresses/Form";
 import CloseModal from "../../../../../components/general/CloseModal";
 import Swal from "sweetalert2";
 import toastr from "toastr";
-import {v4 as uuidv4} from "uuid";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -22,9 +20,9 @@ import es from 'date-fns/locale/es';
 registerLocale('es', es)
 
 const Table = ({
-                   setSubscriptionOrderItemSelected,
-                   subscriptionOrderItemSelected
-               }) => {
+    setSubscriptionOrderItemSelected,
+    subscriptionOrderItemSelected
+}) => {
 
     const {auth} = useContext(AuthContext);
     const [tableLoaded, setTableLoaded] = useState(false);
@@ -110,8 +108,6 @@ const Table = ({
             setModalSubscriptionCard(true);
         }
     };
-
-
 
     const changeVisibleModalDispatchDate = () => {
         if (modalDispatchDate) {
@@ -734,7 +730,7 @@ const Table = ({
                     <div className="row">
                         <div className="col-12">
                             <h3 className="modal-title text-center lh-34">
-                                Cambiar dirección
+                            Cambiar Dirección
                             </h3>
                         </div>
                         <div className="col-12 mt-3">

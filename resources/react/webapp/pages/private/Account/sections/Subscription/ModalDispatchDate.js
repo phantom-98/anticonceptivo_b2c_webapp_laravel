@@ -1,13 +1,10 @@
-import React, {useEffect, useState, useContext} from "react";
+import React from "react";
 import moment from "moment";
 import * as Services from "../../../../../Services";
 import {Modal} from "react-bootstrap";
-
 import CloseModal from "../../../../../components/general/CloseModal";
 import Swal from "sweetalert2";
 import toastr from "toastr";
-import {v4 as uuidv4} from "uuid";
-
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import {registerLocale} from "react-datepicker";
@@ -16,17 +13,16 @@ import es from 'date-fns/locale/es';
 registerLocale('es', es)
 
 const ModalDispatchDate = ({
-                               modalDispatchDate,
-                               setModalDispatchDate,
-                               subscriptionOrderItemSelected,
-                               dispatchDate,
-                               setDispatchDate,
-                               minDate,
-                               auth,
-                               getSubscriptions,
-                               getDataAddress
-                           }) => {
-
+    modals,
+    subscriptionOrderItemSelected,
+    dispatchDate,
+    setDispatchDate,
+    minDate,
+    auth,
+    getSubscriptions,
+    getDataAddress,
+    changeVisibleModalDispatchDate
+}) => {
 
     const updateDispatchDate = () => {
         let url = Services.ENDPOINT.CUSTOMER.SUBSCRIPTIONS.SET_DISPATCH_DATE_SUBSCRIPTION;
@@ -60,8 +56,7 @@ const ModalDispatchDate = ({
                                 success: () => {
                                     getSubscriptions();
                                     getDataAddress();
-                                    setModalDispatchDate(false);
-
+                                    changeVisibleModalDispatchDate();
                                 },
                                 error: () => {
                                     toastr.error(response.message);
@@ -80,22 +75,13 @@ const ModalDispatchDate = ({
 
     };
 
-    const changeVisibleModalDispatchDate = () => {
-        if (modalDispatchDate) {
-            setModalDispatchDate(false);
-        } else {
-            setModalDispatchDate(true);
-        }
-    };
-
-
     return (
         <Modal
-            show={modalDispatchDate}
+            show={modals.dispatch_date}
             centered
             backdrop="static"
             keyboard={false}
-            onHide={modalDispatchDate}
+            onHide={modals.dispatch_date}
         >
             <Modal.Header>
                 <CloseModal hideModal={changeVisibleModalDispatchDate}/>
@@ -104,7 +90,7 @@ const ModalDispatchDate = ({
                 <div className="row">
                     <div className="col-12">
                         <h3 className="modal-title text-center lh-34">
-                            Cambiar fecha de pago
+                            Cambiar fecha de despacho
                         </h3>
                     </div>
                     <div className="col-12 mt-3 text-center">
