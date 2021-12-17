@@ -393,7 +393,7 @@ class ProfileController extends Controller
             if (!$customer) {
                 return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_NOT_FOUND);
             }
-            
+
             $subscriptionsOrdersItem = SubscriptionsOrdersItem::whereHas('order_parent',function($q) use ($customer){
                     $q->where('customer_id',$customer->id);
                 })
@@ -406,7 +406,7 @@ class ProfileController extends Controller
             $subscriptionsOrdersItem = $subscriptionsOrdersItem->map(function ($item) use ($deliveryCosts) {
                 $subItemActive = SubscriptionsOrdersItem::where('orders_item_id',$item->orders_item_id)->whereDate('dispatch_date','>=',Carbon::now())->orderBy('dispatch_date','asc')->get();
 
-                if(!$subItemActive){
+                if(!$subItemActive || count($subItemActive) == 0){
                     $subItemActive = SubscriptionsOrdersItem::where('orders_item_id',$item->orders_item_id)->orderBy('dispatch_date','desc')->get();
                 }
 
@@ -446,7 +446,7 @@ class ProfileController extends Controller
                         DB::raw('DATE_FORMAT(DATE_ADD(max(pay_date),INTERVAL max(days) DAY),"%d de %M %Y")  as max_date'))
                     ->groupBy('order_parent_id')
                     ->get()->first();
-                
+
                 return  [
                     'min_date_dispatch' =>  $min_date_dispatch,
                     'subscription_item' => $item,
@@ -462,7 +462,7 @@ class ProfileController extends Controller
             return ApiResponse::JsonSuccess([
                 'subscriptions' => $subscriptionsOrdersItem,
             ], OutputMessage::SUCCESS);
-            
+
 
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, $exception->getMessage());
