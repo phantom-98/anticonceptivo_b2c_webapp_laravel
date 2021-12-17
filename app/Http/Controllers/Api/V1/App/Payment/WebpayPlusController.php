@@ -590,7 +590,8 @@ class WebpayPlusController
             if ($response['status'] != 'success') {
                 $subscription->status = PaymentMethodStatus::CANCELED;
                 $subscription->save();
-                return view('webapp.payment.webpay-finish');
+                return redirect('checkout');
+//                return view('webapp.payment.webpay-finish');
 
             }
             $response = $response['response'];
@@ -619,7 +620,8 @@ class WebpayPlusController
             }
         }
 
-        return view('webapp.payment.webpay-finish');
+        return redirect('checkout');
+//        return view('webapp.payment.webpay-finish');
     }
 
     public function verify(Request $request)
