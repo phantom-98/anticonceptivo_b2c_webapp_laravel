@@ -2294,10 +2294,6 @@ input[type=number] {
     padding: 8px;
   }
 
-  .divRecipe {
-    background-color: white !important;
-  }
-
   .padding-responsive-detail {
     padding: 3rem 2rem 3rem 2rem !important;
   }
@@ -5579,7 +5575,7 @@ a:-webkit-any-link:focus-visible {
   }
 
   .checkout-mobile-h3 {
-    font-size: 25px;
+    font-size: 22px;
     font-weight: 700;
     margin-bottom: 0;
     letter-spacing: 3px !important;
