@@ -194,17 +194,7 @@ const WebPayProccess = ({
                         setWebpayProccessSuccess(true);
                         setFinishWebpayProccess(1);
                         clearInterval(interval)
-                    } else if (response.data.order && response.data.order.status == 'REJECTED') {
-                        setWebpayProccessSuccess(false);
-                        hideWaitingPayment();
-                        setFinishWebpayProccess(1);
-                        clearInterval(interval)
-                    } else if (response.data.order && response.data.order.status == 'CANCELED') {
-                        setWebpayProccessSuccess(false);
-                        hideWaitingPayment();
-                        setFinishWebpayProccess(1);
-                        clearInterval(interval)
-                    } else if (response.data.order && response.data.order.status == 'WAITING') {
+                    } else {
                         setWebpayProccessSuccess(false);
                         hideWaitingPayment();
                         setFinishWebpayProccess(1);

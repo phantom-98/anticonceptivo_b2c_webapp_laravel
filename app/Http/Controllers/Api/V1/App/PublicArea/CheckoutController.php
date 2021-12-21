@@ -28,7 +28,7 @@ class CheckoutController extends Controller
                 'communes' => $communes,
                 'regions' => $regions,
             ], OutputMessage::SUCCESS);
-            
+
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, $exception->getMessage());
         }
@@ -41,7 +41,7 @@ class CheckoutController extends Controller
             $order = Order::with(['customer','order_items.subscription_plan.product_subscription_plan','order_items.product.subcategory'])->find($request->order_id);
 
             if (isset($request->attachments) && $request->prescription_radio == 'true') {
-                
+
                 $rules = [
                     'attachments' => 'required',
                     'attachments.*' => 'mimes:jpg,jpeg,png,pdf,doc,docx|max:5000'
@@ -87,7 +87,7 @@ class CheckoutController extends Controller
             return ApiResponse::JsonSuccess([
                 'order' => $order,
             ], OutputMessage::SUCCESS);
-            
+
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, $exception->getMessage());
         }
@@ -109,7 +109,7 @@ class CheckoutController extends Controller
                     return ApiResponse::JsonFieldValidation($validation_one['errors']);
                 }else{
                     if ($request->product_count > 0 && $request->prescription_radio == 'true') {
-                        
+
                         $rules = [
                             'attachments' => 'required',
                             'attachments.*' => 'mimes:jpg,jpeg,png,pdf,doc,docx|max:5000'
@@ -154,12 +154,12 @@ class CheckoutController extends Controller
     }
 
     private static function ValidateStepOne($request){
-        
+
         try {
             $customer = Customer::where('id_number',$request->id_number)
             // ->where('is_guest', true)
             ->first();
-            
+
             if ($customer && $customer->is_guest == false) {
                 return [
                     'status' => false,
@@ -178,7 +178,7 @@ class CheckoutController extends Controller
                 'id_type' => 'required',
                 'phone_code' => 'required',
             ];
-    
+
             $messages = [
                 'first_name.required' => OutputMessage::FIELD_FIRST_NAME_REQUIRED,
                 'last_name.required' => OutputMessage::FIELD_LAST_NAME_REQUIRED,
@@ -189,8 +189,8 @@ class CheckoutController extends Controller
                 'phone.required' => OutputMessage::FIELD_PHONE_REQUIRED,
                 'email.unique' => OutputMessage::FIELD_EMAIL_UNIQUE,
                 'phone.unique' => OutputMessage::FIELD_PHONE_UNIQUE,
-            ];    
-    
+            ];
+
             if ($customer && $customer->is_guest) {
 
                 $rules += [
@@ -208,9 +208,9 @@ class CheckoutController extends Controller
                 ];
 
             }
-            
+
             $validator = Validator::make($request->all(), $rules, $messages);
-    
+
             if ($validator->passes()) {
                 return [
                     'status' => true
@@ -228,7 +228,7 @@ class CheckoutController extends Controller
             ];
         }
 
-        
+
     }
 
     private static function ValidateStepTwo($request){
@@ -255,26 +255,6 @@ class CheckoutController extends Controller
             return true;
         } else {
             return $validator->errors();
-        }
-    }
-
-    public function submitPrescription(Request $request){
-        try {
-            $prescription = new Prescription();
-
-            if ($request->file != "null") {
-                $prescription->name = $request->file->getClientOriginalName();
-                // $prescription->date = $request->date;
-                $prescription->file = $request->file->storeAs('public/customer/prescriptions/prescription-'.rand(500,1000).'-'.rand(0,500).'-'.$request->order_id, $request->file->getClientOriginalName());
-                $prescription->order_id = $request->order_id;
-                $prescription->customer_id = $request->customer_id;
-
-                $prescription->save();
-            }
-            
-            return ApiResponse::JsonSuccess(null, OutputMessage::SUCCESS);
-        } catch (\Exception $exception) {
-            return ApiResponse::JsonError(null, OutputMessage::REQUEST_EXCEPTION . ' ' . $exception->getMessage());
         }
     }
 
