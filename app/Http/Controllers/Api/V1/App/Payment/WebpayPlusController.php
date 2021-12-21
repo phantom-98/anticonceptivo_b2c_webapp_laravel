@@ -277,6 +277,7 @@ class WebpayPlusController
                     $subscriptionOrdersItem->commune_id = $customerAddress->commune_id;
                     $subscriptionOrdersItem->delivery_address = $customerAddress->address . ' ' . $customerAddress->extra_info;
                     $subscriptionOrdersItem->status = 'CREATED';
+
                     $subscriptionOrdersItem->save();
                     $isSubscriptionOrderItemPrev = $subscriptionOrdersItem->id;
 
@@ -383,17 +384,22 @@ class WebpayPlusController
                         CallIntegrationsPay::sendEmailsOrder($order->id);
                     }
 
-                    return ApiResponse::JsonSuccess([
-                        'order' => $order
-                    ], 'Compra OneClick');
+//                    return ApiResponse::JsonSuccess([
+//                        'order' => $order
+//                    ], 'Compra OneClick');
 
                 } else {
-                    return ApiResponse::JsonError([], 'Error con la tarjeta');
+//                    return ApiResponse::JsonError([], 'Error con la tarjeta');
                 }
             } else {
-                return ApiResponse::JsonError([], 'Seleccione un método de pago');
+//                return ApiResponse::JsonError([], 'Seleccione un método de pago');
             }
 
+            $url = session()->has('urlFinish') ? session('urlFinish') : (env('APP_URL')) . '/checkout-verify/:token';
+            $url = str_replace(':token', $order->id, $url);
+            return ApiResponse::JsonSuccess([
+                                    'url' => $url
+                    ], 'Compra OneClick');
         } else {
             // name('webpay-response') usar esta si se bloquea por verifyToken
             $response = $this->webpay_plus->createTransaction(

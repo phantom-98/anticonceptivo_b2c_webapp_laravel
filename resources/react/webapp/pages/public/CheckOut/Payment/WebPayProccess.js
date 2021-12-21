@@ -94,14 +94,15 @@ const WebPayProccess = ({
                     response: response,
                     success: () => {
                         if (response.message == "Compra OneClick") {
-                            clearCart();
-                            // submitPrescription(response.data.order.id, response.data.order.customer_id);
-                            updateDiscountCode(discountCode)
-                            setOrderId(response.data.order.id)
-                            hideWaitingPayment();
-                            setWebpayProccessSuccess(true);
-                            setFinishWebpayProccess(1);
-                            clearInterval(interval)
+                            window.location.href = response.data.url;
+                            // clearCart();
+                            // // submitPrescription(response.data.order.id, response.data.order.customer_id);
+                            // updateDiscountCode(discountCode)
+                            // setOrderId(response.data.order.id)
+                            // hideWaitingPayment();
+                            // setWebpayProccessSuccess(true);
+                            // setFinishWebpayProccess(1);
+                            // clearInterval(interval)
                         } else {
                             // let win = window.open(window.location.href + '?attempt-payment-webpay=true', '_blank');
 
