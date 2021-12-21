@@ -92,7 +92,7 @@ class UpdateStock extends Command
         }
 
         try {
-            $users = User::whereIn('id', [2,9]);
+            $users = User::whereIn('id', [2,9])->get();
             foreach($users as $user){
                 $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
                 $html = view('emails.ailoo-errors', ['user_name' => $user->first_name, 'errors' => $errorsEmail])->render();
