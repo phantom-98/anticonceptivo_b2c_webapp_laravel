@@ -68,7 +68,7 @@ const BlogPosts = ({blogPosts, isLoaded}) => {
                     }
                 </div>
             </div>
-            <div className="row mt-2" style={rowStyle}>
+            <div className="row mt-2 mb-5" style={rowStyle}>
                 <div style={{width: '205px'}}>
                     <Link to={PUBLIC_ROUTES.BLOG.path}
                         className="btn btn-bicolor btn-block d-flex my-2">
