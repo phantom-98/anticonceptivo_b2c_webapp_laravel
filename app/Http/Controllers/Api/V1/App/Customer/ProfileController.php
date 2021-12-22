@@ -388,6 +388,7 @@ class ProfileController extends Controller
 
     public function getSubscriptionsOrdersItems(Request $request)
     {
+        try {
             $customer = Customer::find($request->customer_id);
             if (!$customer) {
                 return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_NOT_FOUND);
@@ -408,6 +409,7 @@ class ProfileController extends Controller
                 if(!$subItemActive || count($subItemActive) == 0){
                     $subItemActive = SubscriptionsOrdersItem::where('orders_item_id',$item->orders_item_id)->orderBy('dispatch_date','desc')->get();
                 }
+
                 preg_match_all('!\d+!', $item->period, $current_advance); ;
                 preg_match_all('!\d+!', $subItemActive->sortByDesc('pay_date')->first()->period, $advance_end); ;
                 $current_advance = collect($current_advance[0])->last();
@@ -462,6 +464,9 @@ class ProfileController extends Controller
             ], OutputMessage::SUCCESS);
 
 
+        } catch (\Exception $exception) {
+            return ApiResponse::JsonError(null, $exception->getMessage());
+        }
     }
 
     public function updateAddresses(Request $request)
