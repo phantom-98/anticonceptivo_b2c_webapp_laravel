@@ -41,8 +41,6 @@ Route::prefix('public-area')
         Route::post('get-checkout-resources', [CheckoutController::class, 'getCheckoutResources'])->name('getCheckoutResources');
         Route::post('validate-steps', [CheckoutController::class, 'validateSteps'])->name('validateSteps');
 
-        Route::post('get-order', [CheckoutController::class, 'getOrder'])->name('getOrder');
-
         Route::post('submit-prescription', [CheckoutController::class, 'submitPrescription'])->name('submitPrescription');
         Route::post('update-discounts', [CheckoutController::class, 'updateDiscounts'])->name('updateDiscounts');
 

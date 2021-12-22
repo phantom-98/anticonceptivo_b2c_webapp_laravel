@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React, {Fragment, useEffect} from 'react';
 import PUBLIC_ROUTES from "../../../../routes/publicRoutes";
 import {Link} from "react-router-dom";
 import Icon from "../../../../components/general/Icon";
@@ -13,67 +13,29 @@ const Success = ({order}) => {
 
     const {addTransaction, addItems, transaction, items, send} = useGoogleAnalyticsEcommerce();
 
-    // const [order, setOrder] = useState({
-    //     id: '',
-    // });
-    // const [load, setLoad] = useState(true);
-    //
-    // useEffect(() => {
-    //     getData();
-    // }, []);
+    useEffect(() => {
+        if(order){
+            addItems(order.order_items);
+            addTransaction({
+                'id': 433,
+                'affiliation': 'Anticonceptivo',
+                'revenue': order.subtotal,
+                'shipping': order.dispatch,
+                'tax': order.subtotal*0.19,
+            })
 
-    // useEffect(() => {
-    //     if (transaction.id && items.length) {
-    //         // console.log('useEffect send GA !');
-    //         send();
-    //     }
-    // }),[items, transaction]
-    //
-    // const getData = () => {
-    //     let url = Services.ENDPOINT.NO_AUTH.CHECKOUT.GET_ORDER;
-    //
-    //     const formData = new FormData();
-    //
-    //     formData.append('product_count', productCount);
-    //     formData.append('order_id', orderId);
-    //     formData.append('prescription_radio', productCount > 0 ? prescriptionRadio : null);
-    //     formData.append('without_prescription_answer', withoutPrescriptionAnswer);
-    //
-    //     let fileList = [...files]
-    //
-    //     for (let i = 0; i < fileList.length; i++) {
-    //         formData.append('attachments[]', fileList[i]);
-    //         formData.append('productIds[]', fileList[i].product_id);
-    //     }
-    //
-    //     const config = {
-    //         headers: {
-    //             'content-type': 'multipart/form-data'
-    //         }
-    //     }
-    //
-    //     Services.DoPost(url, formData, config).then(response => {
-    //         Services.Response({
-    //             response: response,
-    //             success: () => {
-    //                 setOrder(response.data.order);
-    //                 setLoad(false);
-    //
-    //                 addTransaction({
-    //                     'id': response.data.order.id,
-    //                     'affiliation': 'Anticonceptivo',
-    //                     'revenue': response.data.order.subtotal,
-    //                     'shipping': response.data.order.dispatch,
-    //                     'tax': response.data.order.subtotal*0.19,
-    //                 })
-    //
-    //                 addItems(response.data.order.order_items);
-    //             },
-    //         });
-    //     }).catch(error => {
-    //         Services.ErrorCatch(error)
-    //     });
-    // }
+        }
+
+
+
+    },[order])
+
+    useEffect(() => {
+        if (transaction.id && items.length) {
+            console.log('useEffect send GA !');
+            send();
+        }
+    }),[items, transaction]
 
     if (!order) return null;
     return (

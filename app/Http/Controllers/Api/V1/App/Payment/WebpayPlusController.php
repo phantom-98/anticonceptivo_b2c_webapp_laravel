@@ -5,9 +5,12 @@ namespace App\Http\Controllers\Api\V1\App\Payment;
 // use App\Models\WebpayLog;
 use App\Jobs\FinishPaymentJob;
 use App\Jobs\UpdateProductStockJob;
+use App\Models\Prescription;
 use App\Models\ProductSubscriptionPlan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 use Innovaweb\Transbank\WebpayPlus;
 use Innovaweb\Transbank\OneClickMall;
 use Willywes\ApiResponse\ApiResponse;
@@ -202,31 +205,32 @@ class WebpayPlusController
         $order->save();
         $arrayProductsQuantity = [];
 
-        foreach ($request->cartItems as $key => $item) {
+        foreach (json_decode($request->cartItems) as $item) {
             $orderItem = new OrderItem;
             $orderItem->order_id = $order->id;
-            $orderItem->product_id = $item['product_id'];
+            $orderItem->product_id = $item->product_id;
 
-            $orderItem->name = $item['product']['name'];
-            $orderItem->quantity = $item['quantity'];
+            $orderItem->name = $item->product->name;
+            $orderItem->quantity = $item->quantity;
 
-            if ($item['product']['is_offer'] == true) {
-                $orderItem->price = $item['product']['offer_price'];
+            if ($item->product->is_offer == true) {
+                $orderItem->price = $item->product->offer_price;
             } else {
-                $orderItem->price = $item['product']['price'];
+                $orderItem->price = $item->product->price;
             }
 
             $quantityFinal = 0;
 
             // Suscripción
-            if (isset($item['subscription'])) {
+            if (isset($item->subscription)) {
+                $_subscription = json_decode($request->subscription);
                 $isSubscription = 1;
                 $orderItem->quantity = 2;
-                $subtotal = $subtotal + ($item['subscription']['quantity'] * $item['subscription']['price']);
-                $orderItem->subtotal = ($item['subscription']['quantity'] * $item['subscription']['price']);
-                $orderItem->price = $item['subscription']['price'];
-                $orderItem->subscription_plan_id = $item['subscription']['subscription_plan_id'];
-                $subscriptionPlan = SubscriptionPlan::find($item['subscription']['subscription_plan_id']);
+                $subtotal = $subtotal + ($item->subscription->quantity * $item->subscription->price);
+                $orderItem->subtotal = ($item->subscription->quantity * $item->subscription->price);
+                $orderItem->price = $item->subscription->price;
+                $orderItem->subscription_plan_id = $item->subscription->subscription_plan_id;
+                $subscriptionPlan = SubscriptionPlan::find($item->subscription->subscription_plan_id);
                 $orderItem->save();
                 $quantityFinal = $subscriptionPlan->months;
                 $period = 0;
@@ -271,7 +275,7 @@ class WebpayPlusController
                     $subscriptionOrdersItem->save();
                     $subscriptionOrdersItem->dispatch = $itemDeliveryCostArrayCost ? $itemDeliveryCostArrayCost->price[0] : 0;
                     $subscriptionOrdersItem->dispatch_date = $dispatch_date->addHours($itemDeliveryCost->deadline_delivery);
-                    $subscriptionOrdersItem->subscription_id = $request->subscription['id'];
+                    $subscriptionOrdersItem->subscription_id = $_subscription->id;
                     $subscriptionOrdersItem->customer_address_id = $customerAddress->id;
                     $subscriptionOrdersItem->quantity = $quantity;
                     $subscriptionOrdersItem->commune_id = $customerAddress->commune_id;
@@ -283,14 +287,14 @@ class WebpayPlusController
 
                 }
             } else {
-                $quantityFinal = $item['quantity'];
+                $quantityFinal = $item->quantity;
 
-                if ($item['product']['is_offer'] == true) {
-                    $subtotal = $subtotal + ($item['quantity'] * $item['product']['offer_price']);
-                    $orderItem->subtotal = ($item['quantity'] * $item['product']['offer_price']);
+                if ($item->product->is_offer == true) {
+                    $subtotal = $subtotal + ($item->quantity * $item->product->offer_price);
+                    $orderItem->subtotal = ($item->quantity * $item->product->offer_price);
                 } else {
-                    $subtotal = $subtotal + ($item['quantity'] * $item['product']['price']);
-                    $orderItem->subtotal = ($item['quantity'] * $item['product']['price']);
+                    $subtotal = $subtotal + ($item->quantity * $item->product->price);
+                    $orderItem->subtotal = ($item->quantity * $item->product->price);
                 }
 
                 $orderItem->subscription_plan_id = null;
@@ -316,7 +320,62 @@ class WebpayPlusController
 
         $order->total = $order->subtotal + $order->dispatch - $order->discount;
 
+        if($request->discountCode){
+            $discountCode = DiscountCode::where('active',1)->where('name',$request->discountCode)->first();
+
+            if ($discountCode) {
+                $order->discount_code_id = $discountCode->id;
+            }
+        }
+
+
+
         $order->save();
+
+
+        if (isset($request->attachments) && $request->prescription_radio == 'true') {
+
+            $rules = [
+                'attachments' => 'required',
+                'attachments.*' => 'mimes:jpg,jpeg,png,pdf,doc,docx|max:5000'
+            ];
+
+            $messages = [
+                'attachments.required' => 'Por favor, ingresar al menos una receta.',
+                'attachments.*.mimes' => 'Las extensiones .jpg, .jpeg, .png, .pdf, .doc y .docx están permitidos.',
+                'attachments.*.max' => 'El archivo no puede superar los 5MB.',
+            ];
+
+            $validator = Validator::make($request->all(), $rules, $messages);
+
+            if (!$validator->passes()) {
+                return ApiResponse::JsonFieldValidation($validator->errors());
+            }
+
+            foreach ($request->attachments as $key =>  $file) {
+                $prescription = new Prescription();
+                $prescription->customer_id = $order->customer_id;
+                $prescription->order_id = $order->id;
+                $prescription->product_id = $request->productIds[$key];
+                $prescription->name = $file->getClientOriginalName();
+                $prescription->file = $file->storeAs('public/customer/prescriptions/prescription-' . $order->customer_id .'-' . $order->id . '-' . Str::random(6), $file->getClientOriginalName());
+                $prescription->save();
+            }
+        }
+
+        if (isset($request->prescription_radio) && $request->prescription_radio == 'false') {
+            $text = '';
+            if ($request->without_prescription_answer == 1) {
+                $text = 'Mi doctor me dijo que siguiera con este, pero no me renovó la receta.';
+            }
+
+            if ($request->without_prescription_answer == 2) {
+                $text = 'Es el que me recetaron y he tomado, pero ya no cuento con la receta.';
+            }
+
+            $order->prescription_answer = $text;
+            $order->save();
+        }
 
         $responseStockProduct = $this->isStockProducts($order->order_items);
         if (!$responseStockProduct['status']) {
@@ -328,7 +387,7 @@ class WebpayPlusController
             }
         }
         if ($isSubscription) {
-            if ($request->subscription) {
+            if ($_subscription) {
 
                 $details = [
                     [
@@ -339,12 +398,12 @@ class WebpayPlusController
                     ]
                 ];
 
-                $response = $this->oneclick->authorize($request->customer_id, $request->subscription['transbank_token'], $order->id, $details);
+                $response = $this->oneclick->authorize($request->customer_id, $_subscription->transbank_token, $order->id, $details);
                 try {
                     Log::info('OneClick',
                         [
                             "response" => $response,
-                            "tbk_user" => $request->subscription['transbank_token'],
+                            "tbk_user" => $_subscription->transbank_token,
                             "username" => $request->customer_id
                         ]);
                 } catch (\Exception $ex) {
@@ -360,6 +419,7 @@ class WebpayPlusController
                         $order->save();
                         return ApiResponse::JsonError([], 'Pago Rechazado');
                     }
+
                     $ordersItems = OrderItem::where('order_id', $order->id)->get();
 
                     foreach ($ordersItems as $elementOrderItem) {
@@ -377,13 +437,18 @@ class WebpayPlusController
                     $order->payment_type = 'tarjeta';
                     $order->save();
 
-                    if (env('APP_ENV') == 'production') {
-                        CallIntegrationsPay::callVoucher($order->id, $customerAddress);
-                        CallIntegrationsPay::callDispatchLlego($order->id, $customerAddress);
-                        CallIntegrationsPay::callUpdateStockProducts($order->id);
-                        CallIntegrationsPay::sendEmailsOrder($order->id);
+                    if($order->discount_code_id){
+                        $this->updateDiscountCode($request->discountCode);
                     }
 
+//                    if (env('APP_ENV') == 'production') {
+//                        CallIntegrationsPay::callVoucher($order->id, $customerAddress);
+//                        CallIntegrationsPay::callDispatchLlego($order->id, $customerAddress);
+//                        CallIntegrationsPay::callUpdateStockProducts($order->id);
+//                        CallIntegrationsPay::sendEmailsOrder($order->id);
+//                    }
+                    UpdateProductStockJob::dispatch($order);
+                    FinishPaymentJob::dispatch($order);
 //                    return ApiResponse::JsonSuccess([
 //                        'order' => $order
 //                    ], 'Compra OneClick');
@@ -430,13 +495,12 @@ class WebpayPlusController
 
         if (env('APP_ENV') == 'production') {
             $arrayProductsQuantity = [];
-            foreach ($orderItems as $key => $orderItem) {
-                $quantityFinal = 0;
+            foreach ($orderItems as $orderItem) {
+                $quantityFinal = $orderItem->quantity;
                 if (isset($orderItem->subscription_plan)) {
                     $quantityFinal = $orderItem->subscription_plan->months;
-                } else {
-                    $quantityFinal = $orderItem->quantity;
                 }
+
                 $arrayProductsQuantity[$orderItem->product_id] = ($arrayProductsQuantity[$orderItem->product_id] ?? 0) + $quantityFinal;
             }
 
@@ -496,7 +560,7 @@ class WebpayPlusController
                 Log::info('WEBPAY_PLUS_CONTROLLER_COMMIT_ERROR', [$ex]);
             }
 
-            $order = Order::with('order_items.subscription_plan', 'customer', 'order_items.product')->find($response->buyOrder);
+            $order = Order::with('order_items.subscription_plan', 'customer', 'order_items.product','discount_code')->find($response->buyOrder);
 
             Log::info('ORDER', [$order]);
             Log::info('RESPONSE_CODE', [$response->responseCode]);
@@ -508,7 +572,7 @@ class WebpayPlusController
                 $order->payment_type = 'webpay';
                 $order->is_paid = true;
                 $order->save();
-
+                $this->updateDiscountCode($order->discount_code->name);
                 $responseStockProduct = $this->isStockProducts($order->order_items);
 
                 if (!$responseStockProduct['status']) {
@@ -572,6 +636,19 @@ class WebpayPlusController
         $url = str_replace(':token', $order->payment_token, $url);
         return redirect($url);
 //        return view('webapp.payment.webpay-finish');
+    }
+
+    private function updateDiscountCode($discount_code){
+        try {
+            $discountCode = DiscountCode::where('active',1)->where('name',$discount_code)->first();
+
+            if ($discountCode) {
+                $discountCode->amount_of_use = $discountCode->amount_of_use-1;
+                $discountCode->save();
+            }
+
+        } catch (\Exception $exception) {
+        }
     }
 
     public function responsePaymentMethod(Request $request)

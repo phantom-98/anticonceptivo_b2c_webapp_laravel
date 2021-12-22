@@ -396,8 +396,6 @@ const CheckOut = () => {
         <Fragment>
             <div className="pb-5" style={{background: '#FAFAFA'}}>
                 <div className="container pt-4">
-                    {
-                        !finishWebpayProccess ?
                             <Fragment>
                                 <Header showFinal={showFinal} />
                                     <div className="row pb-5">
@@ -500,20 +498,12 @@ const CheckOut = () => {
                                                 customerId={customerId}
                                                 updateData={updateData}
                                                 validateDataAddressInvite={validateDataAddressInvite}
+                                                prescriptionRadio={prescriptionRadio}
+                                                withoutPrescriptionAnswer={withoutPrescriptionAnswer}
                                             />
                                         </div>
                                     </div>
                             </Fragment>
-                        :
-                        <HandleResponse
-                            webpayProccessSuccess={webpayProccessSuccess}
-                            orderId={orderId}
-                            productCount={productCount}
-                            files={files}
-                            prescriptionRadio={prescriptionRadio}
-                            withoutPrescriptionAnswer={withoutPrescriptionAnswer}
-                        />
-                    }
                 </div>
             </div>
         </Fragment>

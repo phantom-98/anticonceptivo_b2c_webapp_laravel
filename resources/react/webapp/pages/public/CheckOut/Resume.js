@@ -16,7 +16,7 @@ import {setInputError} from "../../../helpers/GlobalUtils";
 const Resume = ({
     showFinal,
     data,
-    file,
+    files,
     address,
     subscription,
     setFinishWebpayProccess,
@@ -33,7 +33,8 @@ const Resume = ({
     view,
     customerId,
     updateData,
-    validateDataAddressInvite
+    validateDataAddressInvite, prescriptionRadio,
+                    withoutPrescriptionAnswer
     }) => {
 
     const [dispatch , setDispatch] = useState(0);
@@ -238,7 +239,7 @@ const Resume = ({
                             showFinal === 3 ?
                                 <WebPayProccess
                                     data={data}
-                                    file={file}
+                                    files={files}
                                     address={address}
                                     subscription={subscription}
                                     setFinishWebpayProccess={setFinishWebpayProccess}
@@ -252,6 +253,8 @@ const Resume = ({
                                     discountCode={discountCode}
                                     installment={installment}
                                     customerId={customerId}
+                                    prescriptionRadio={prescriptionRadio}
+                                    withoutPrescriptionAnswer={withoutPrescriptionAnswer}
                                 />
                             : null
                         }
