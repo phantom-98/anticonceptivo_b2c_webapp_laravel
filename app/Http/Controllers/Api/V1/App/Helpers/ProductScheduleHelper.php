@@ -37,8 +37,8 @@ class ProductScheduleHelper
                     'label' => LabelDispatch::TOMORROW,
                     'delivery_date' => $date_order->addDays(1),
                     'is_immediate' => $is_immediate,
-                    'schedule' => $schedule
-
+                    'schedule' => $schedule,
+                    'label_status' => 'TOMORROW',
                 );
             }
 
@@ -46,19 +46,32 @@ class ProductScheduleHelper
                 'label' => LabelDispatch::AFTER_TOMORROW,
                 'delivery_date' => $date_order->addDays(2),
                 'is_immediate' => $is_immediate,
-                'schedule' => $schedule
-
-
+                'schedule' => $schedule,
+                'label_status' => 'AFTER_TOMORROW',
             );
         }
         return array(
             'label' => $label,
             'delivery_date' => $date_order,
             'is_immediate' => $is_immediate,
-            'schedule' => $schedule
+            'schedule' => $schedule,
+            'label_status' => self::getLabelStatusByLabel($label),
 
 
         );
+    }
+
+    public static function getLabelStatusByLabel($label){
+        if($label == LabelDispatch::AFTER_TOMORROW){
+            return 'AFTER_TOMORROW';
+        }
+        if($label == LabelDispatch::TOMORROW){
+            return 'TOMORROW';
+        }
+        if($label == LabelDispatch::TODAY){
+            return 'TODAY';
+        }
+        return 'IMMEDIATE';
     }
 
     public static function labelDateDeliveryInOrder($products, $date): array
@@ -130,7 +143,9 @@ class ProductScheduleHelper
                     'label' => LabelDispatch::IMMEDIATE,
                     'delivery_date' => $date,
                     'schedule' => $schedules->first() ?? '',
-                    'label_status' => 'TODAY'
+                    'label_status' => 'IMMEDIATE',
+                    'is_immediate' => true
+
                 );
             }
         }
@@ -143,7 +158,8 @@ class ProductScheduleHelper
                 'label' => LabelDispatch::TOMORROW,
                 'delivery_date' => $date->addDays(1),
                 'schedule' => $schedules->first() ?? '',
-                'label_status' => 'TOMORROW'
+                'label_status' => 'TOMORROW',
+                'is_immediate' => false
             );
         }
 
@@ -151,8 +167,8 @@ class ProductScheduleHelper
             'label' => LabelDispatch::TODAY,
             'delivery_date' => $date,
             'schedule' => $schedules->first() ?? '',
-            'label_status' => 'TODAY'
-
+            'label_status' => 'TODAY',
+            'is_immediate' => false
         );
 
 
