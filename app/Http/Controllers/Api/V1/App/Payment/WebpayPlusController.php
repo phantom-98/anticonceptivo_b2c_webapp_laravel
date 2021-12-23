@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Api\V1\App\Payment;
 
 // use App\Models\WebpayLog;
+use App\Http\Controllers\Api\V1\App\Helpers\ProductScheduleHelper;
 use App\Jobs\FinishPaymentJob;
 use App\Jobs\UpdateProductStockJob;
 use App\Models\Prescription;
 use App\Models\ProductSubscriptionPlan;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
@@ -102,6 +104,9 @@ class WebpayPlusController
         }
     }
 
+
+
+
     public function createTransaction(Request $request)
     {
 
@@ -170,26 +175,34 @@ class WebpayPlusController
             }
         }
 
-        $deliveryCosts = DeliveryCost::where('active', 1)->get();
-        $itemDeliveryCost = null;
-        $itemDeliveryCostArrayCost = null;
-        $commune_name = Commune::find($customerAddress->commune_id)->name;
+//        $deliveryCosts = DeliveryCost::where('active', 1)->get();
+//        $itemDeliveryCost = null;
+//        $itemDeliveryCostArrayCost = null;
+//        $commune_name = Commune::find($customerAddress->commune_id)->name;
+//
+//        foreach ($deliveryCosts as $key => $deliveryCost) {
+//            $costs = json_decode($deliveryCost->costs);
+//
+//            foreach ($costs as $key => $itemCost) {
+//                $communes = $itemCost->communes;
+//
+//                $found_key = array_search($commune_name, $communes);
+//                if ($found_key !== false) {
+//                    $itemDeliveryCost = $deliveryCost;
+//                    $itemDeliveryCostArrayCost = $itemCost;
+//                }
+//            }
+//        }
 
-        foreach ($deliveryCosts as $key => $deliveryCost) {
-            $costs = json_decode($deliveryCost->costs);
+//        $delivery_date =Carbon::now()->addHours($itemDeliveryCost->deadline_delivery);
+        $delivery_date =Carbon::now();
 
-            foreach ($costs as $key => $itemCost) {
-                $communes = $itemCost->communes;
+        $dataDeliveryOrder = ProductScheduleHelper::labelDateDeliveryInOrder(array_column(json_decode($request->cartItems),$delivery_date));
+        $dataDeliveryOrder = ProductScheduleHelper::deadlineDeliveryMaxOrder($dataDeliveryOrder['delivery_date'], $dataDeliveryOrder['label'], $dataDeliveryOrder['is_immediate']);
 
-                $found_key = array_search($commune_name, $communes);
-                if ($found_key !== false) {
-                    $itemDeliveryCost = $deliveryCost;
-                    $itemDeliveryCostArrayCost = $itemCost;
-                }
-            }
-        }
+        $order->is_immediate = $dataDeliveryOrder['is_immediate'];
 
-        $order->delivery_date = Carbon::now()->addHours($itemDeliveryCost->deadline_delivery);
+        $order->delivery_date = $dataDeliveryOrder['delivery_date'];
         $order->customer_id = $request->customer_id ?? $customer->id;
 
         $region = Region::find($customerAddress->region_id);

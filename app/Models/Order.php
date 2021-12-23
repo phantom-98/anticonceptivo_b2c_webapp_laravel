@@ -14,6 +14,7 @@ class Order extends Model
         'discount',
         'dispatch',
         'total',
+        'is_immediate',
         'document_type',
         'shipping_type',
         'payment_type',
