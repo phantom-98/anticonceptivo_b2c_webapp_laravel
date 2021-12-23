@@ -5,6 +5,7 @@ import PUBLIC_ROUTES from "../../routes/publicRoutes";
 import {Link} from "react-router-dom";
 import AddCartCard from "./AddCartCard";
 import noImage from "../../assets/images/producto-default.png";
+import IsImmediateLabel from "./IsImmediateLabel";
 
 const ProductCard = ({product, className = '', subscriptionFilter = []}) => {
 
@@ -121,6 +122,7 @@ const ProductCard = ({product, className = '', subscriptionFilter = []}) => {
     return (
         <Fragment>
             <div className={`d-none d-md-block product-card ${className}`}>
+                <IsImmediateLabel product={product} />
                 <div className="product-card-image">
                     <Link to={(PUBLIC_ROUTES.PRODUCT_DETAIL.path).replace(':slug?', product.slug)}
                           style={{textDecoration: 'none', color: '#000000'}}>
@@ -164,6 +166,7 @@ const ProductCard = ({product, className = '', subscriptionFilter = []}) => {
 
             <div className={`d-md-none d-block product-card ${className}`}>
                 <div className="row">
+                    <IsImmediateLabel product={product} />
                     <div className="col-12 text-center">
                         <Link to={(PUBLIC_ROUTES.PRODUCT_DETAIL.path).replace(':slug?', product.slug)}
                               style={{textDecoration: 'none', color: '#000000'}}>

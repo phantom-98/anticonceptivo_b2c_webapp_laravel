@@ -4,6 +4,7 @@ import AddCartCard from "../../../components/shopping/AddCartCard";
 import {Accordion, Card} from "react-bootstrap";
 import Icon from "../../../components/general/Icon";
 import fileSvg from "../../../assets/images/icons/file-alt-regular.svg";
+import IsImmediateLabel from "../../../components/shopping/IsImmediateLabel";
 
 const ProductInfo = ({product, setImageSubscription}) => {
 
@@ -48,6 +49,9 @@ const ProductInfo = ({product, setImageSubscription}) => {
                     />
                 </p>
             </div>
+
+
+
             {
                 product.compound ?
                     <div className="col-md-12">
@@ -57,6 +61,15 @@ const ProductInfo = ({product, setImageSubscription}) => {
                     </div>
                     : null
             }
+
+            <div className="col-12">
+                <div className="row">
+                    <div className="col-auto my-2">
+                        <IsImmediateLabel product={product} />
+                    </div>
+                </div>
+            </div>
+
             <div className="col-md-12">
                 <span className="font-poppins font-36 bold color-009BE8">
                     {subscription == null ?

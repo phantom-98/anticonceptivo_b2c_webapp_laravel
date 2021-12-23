@@ -1672,7 +1672,7 @@ tbody tr td {
 .subscription-card {
   background-color: #FFFFFF;
   border-radius: 12px;
-  padding: 28px 14px;
+  padding: 14px 14px 28px;
   border: 1px solid #E8E8E8;
   transition: 0.2s;
 }
@@ -1771,7 +1771,7 @@ tbody tr td {
 .product-card {
   background-color: #FFFFFF;
   border-radius: 12px;
-  padding: 28px 14px;
+  padding: 14px 14px 28px;
   border: 1px solid #E8E8E8;
   transition: 0.2s;
 }
@@ -2292,6 +2292,9 @@ input[type=number] {
     border-style: solid;
     border-radius: 11px;
     padding: 8px;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
   }
 
   .padding-responsive-detail {
@@ -4276,6 +4279,35 @@ a:-webkit-any-link:focus-visible {
 
 .box-immediate .custom-switch .custom-control-input:checked ~ .custom-control-label::after {
   transform: translateX(18px);
+}
+
+.is-immediate-label,
+.is-today-label,
+.is-tomorrow-label {
+  font-size: 11px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  padding: 5px 10px;
+  border-radius: 6px;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin-left: auto;
+}
+
+.is-immediate-label {
+  background: #009BE8;
+  color: #FFFFFF;
+}
+
+.is-today-label {
+  background: #EDF8FE;
+  color: #009BE8;
+}
+
+.is-tomorrow-label {
+  background: rgba(0, 219, 174, 0.18);
+  color: #00DBAE;
 }
 
 @media (min-width: 768px) {
