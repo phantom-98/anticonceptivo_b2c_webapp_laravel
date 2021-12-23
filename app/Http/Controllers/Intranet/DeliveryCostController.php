@@ -68,7 +68,7 @@ class DeliveryCostController extends GlobalController
                     array_push($json_save, ['price' => $price, 'communes' => $request->communes[$key], 'color' => $request->color[$key]]);
                 }
             }
-            $json_save = json_encode($json_save);    
+            $json_save = json_encode($json_save);
 
             $object = DeliveryCost::create(array_merge($request->except(['image']), ['costs' => $json_save]));
 
@@ -77,7 +77,7 @@ class DeliveryCostController extends GlobalController
                 $filename = 'delivery-cost-' . $object->id  .'.'. $image->getClientOriginalExtension();
                 $object->image = $image->storeAs('public/delivery-costs', $filename);
                 $object->save();
-            }  
+            }
 
             if ($object) {
                 session()->flash('success', 'Costo Delivery creado correctamente.');
@@ -105,7 +105,7 @@ class DeliveryCostController extends GlobalController
         }
 
         $communes = Commune::get();
-        
+
         return view($this->folder . 'edit', compact('object', 'communes'));
     }
 
@@ -143,7 +143,7 @@ class DeliveryCostController extends GlobalController
                     array_push($json_save, ['price' => $price, 'communes' => $request->communes[$key], 'color' => $request->color[$key]]);
                 }
             }
-            $json_save = json_encode($json_save);    
+            $json_save = json_encode($json_save);
 
             $object->update(array_merge($request->except(['image']), ['costs' => $json_save]));
 
@@ -209,7 +209,7 @@ class DeliveryCostController extends GlobalController
 
             return response()->json([
                 'status' => 'error',
-                'message' => 'Ha ocurrido un error inesperado, inténtelo denuevo más tarde.' . $e->getMessage()
+                'message' => 'Ha ocurrido un error inesperado, inténtelo de nuevo más tarde.' . $e->getMessage()
             ]);
         }
 

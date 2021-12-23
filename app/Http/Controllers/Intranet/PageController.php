@@ -157,7 +157,7 @@ class PageController extends GlobalController
 
             return response()->json([
                 'status' => 'error',
-                'message' => 'Ha ocurrido un error inesperado, inténtelo denuevo más tarde.' . $e->getMessage()
+                'message' => 'Ha ocurrido un error inesperado, inténtelo de nuevo más tarde.' . $e->getMessage()
             ]);
         }
 
@@ -188,7 +188,7 @@ class PageController extends GlobalController
 
     }
 
-    
+
     public function position(Request $request){
 
         try{
@@ -205,7 +205,7 @@ class PageController extends GlobalController
             ]);
         }
 
-        
+
     }
 
 }

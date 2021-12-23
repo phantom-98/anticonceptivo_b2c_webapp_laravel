@@ -170,6 +170,7 @@ if (env('SHOW_INTRANET', 'TRUE') == 'TRUE') {
                 Route::post('productos/position', 'ProductController@position')->name('products.position');
                 Route::get('productos/export', 'ProductController@export')->name('products.export');
                 Route::post('productos/active', 'ProductController@active')->name('products.active');
+                Route::post('productos/is-immediate', 'ProductController@is_immediate')->name('products.is_immediate');
                 Route::post('productos/import', 'ProductController@import')->name('products.import');
                 Route::resource('productos', 'ProductController', ['names' => getResourceRoutesForNameHelper('products')]);
 

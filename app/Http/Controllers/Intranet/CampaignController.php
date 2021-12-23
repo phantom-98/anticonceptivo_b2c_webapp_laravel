@@ -99,7 +99,7 @@ class CampaignController extends GlobalController
         ];
 
         $messages = [
-   
+
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
@@ -149,11 +149,11 @@ class CampaignController extends GlobalController
 
             return response()->json([
                 'status' => 'error',
-                'message' => 'Ha ocurrido un error inesperado, inténtelo denuevo más tarde.' . $e->getMessage()
+                'message' => 'Ha ocurrido un error inesperado, inténtelo de nuevo más tarde.' . $e->getMessage()
             ]);
         }
 
     }
 
-   
+
 }

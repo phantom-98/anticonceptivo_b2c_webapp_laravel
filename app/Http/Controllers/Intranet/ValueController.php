@@ -60,7 +60,7 @@ class ValueController extends GlobalController
                 $filename = 'value-' . $object->id  .'.'. $image->getClientOriginalExtension();
                 $object->image = $image->storeAs('public/values', $filename);
                 $object->save();
-            }  
+            }
 
             if ($object) {
                 session()->flash('success', 'Valor creado correctamente.');
@@ -104,7 +104,7 @@ class ValueController extends GlobalController
         ];
 
         $messages = [
-       
+
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
@@ -177,7 +177,7 @@ class ValueController extends GlobalController
 
             return response()->json([
                 'status' => 'error',
-                'message' => 'Ha ocurrido un error inesperado, inténtelo denuevo más tarde.' . $e->getMessage()
+                'message' => 'Ha ocurrido un error inesperado, inténtelo de nuevo más tarde.' . $e->getMessage()
             ]);
         }
 

@@ -64,14 +64,14 @@ class LegalBaseController extends GlobalController
                 $filename = 'legal-base-' . $object->id  .'.'. $icon->getClientOriginalExtension();
                 $object->icon = $icon->storeAs('public/legal-bases', $filename);
                 $object->save();
-            }  
+            }
 
             if ($request->file) {
                 $file = $request->file('file');
                 $filename = 'legal-base-' . $object->id  .'.'. $file->getClientOriginalExtension();
                 $object->file = $file->storeAs('public/legal-bases', $filename);
                 $object->save();
-            }  
+            }
 
             if ($object) {
                 session()->flash('success', 'Base legal creada correctamente.');
@@ -209,7 +209,7 @@ class LegalBaseController extends GlobalController
 
             return response()->json([
                 'status' => 'error',
-                'message' => 'Ha ocurrido un error inesperado, inténtelo denuevo más tarde.' . $e->getMessage()
+                'message' => 'Ha ocurrido un error inesperado, inténtelo de nuevo más tarde.' . $e->getMessage()
             ]);
         }
 
