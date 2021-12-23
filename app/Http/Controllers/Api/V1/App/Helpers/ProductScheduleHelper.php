@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\ProductSchedule;
 use App\Models\Setting;
 use Carbon\Carbon;
+use Illuminate\Console\Scheduling\Schedule;
 
 abstract class LabelDispatch
 {
@@ -20,17 +21,18 @@ abstract class LabelDispatch
 class ProductScheduleHelper
 {
 
-    public static function deadlineDeliveryMaxOrder($date_order, $label, $is_immediate, $schedule){
+    public static function deadlineDeliveryMaxOrder($date_order, $label, $is_immediate, $schedule)
+    {
 
         $max_order = Order::whereDate('delivery_date', $date_order)->count();
-        $setting_max_order = Setting::where('key','MAX_ORDERS_BY_DAY')->first();
+        $setting_max_order = Setting::where('key', 'MAX_ORDERS_BY_DAY')->first();
         $setting_max_order_value = 0;
-        if($setting_max_order){
+        if ($setting_max_order) {
             $setting_max_order_value = $setting_max_order->value;
         }
 
-        if($setting_max_order_value < $max_order && !$is_immediate){
-            if($label == LabelDispatch::TODAY){
+        if ($setting_max_order_value < $max_order && !$is_immediate) {
+            if ($label == LabelDispatch::TODAY) {
                 return array(
                     'label' => LabelDispatch::TOMORROW,
                     'delivery_date' => $date_order->addDays(1),
@@ -61,21 +63,24 @@ class ProductScheduleHelper
 
     public static function labelDateDeliveryInOrder($products, $date): array
     {
-        $dataLabelDelivery =  array(
+        $dataLabelDelivery = array(
             'label' => LabelDispatch::TODAY,
             'delivery_date' => $date,
             'is_immediate' => false
         );
+
+        $product_schedules = ProductSchedule::get();
+
         foreach ($products as $product) {
-            $_dataLabelDelivery = self::labelDateDeliveryProduct(new Product($product),$date);
-            if($_dataLabelDelivery['label'] == LabelDispatch::IMMEDIATE){
+            $_dataLabelDelivery = self::labelDateDeliveryProduct(new Product($product), $product_schedules, $date);
+            if ($_dataLabelDelivery['label'] == LabelDispatch::IMMEDIATE) {
                 $dataLabelDelivery['label'] = $_dataLabelDelivery['label'];
                 $dataLabelDelivery['delivery_date'] = $_dataLabelDelivery['delivery_date'];
                 $dataLabelDelivery['schedule'] = $_dataLabelDelivery['schedule'];
                 $dataLabelDelivery['is_immediate'] = true;
             }
 
-            if(!$dataLabelDelivery['is_immediate'] && $_dataLabelDelivery['delivery_date'] <= $dataLabelDelivery['delivery_date']){
+            if (!$dataLabelDelivery['is_immediate'] && $_dataLabelDelivery['delivery_date'] <= $dataLabelDelivery['delivery_date']) {
                 $dataLabelDelivery['label'] = $_dataLabelDelivery['label'];
                 $dataLabelDelivery['delivery_date'] = $_dataLabelDelivery['delivery_date'];
                 $dataLabelDelivery['schedule'] = $_dataLabelDelivery['schedule'];
@@ -86,8 +91,7 @@ class ProductScheduleHelper
     }
 
 
-
-    public static function isInSchedule($schedules, $date , $is_immediate =false): bool
+    public static function isInSchedule($schedules, $date, $is_immediate = false): bool
     {
         $inRange = false;
         foreach ($schedules as $schedule) {
@@ -99,7 +103,7 @@ class ProductScheduleHelper
             if ($isTrue) {
                 $inRange = true;
             }
-            if(!$is_immediate){
+            if (!$is_immediate) {
                 $isTrue = $date->between($initial_day, $start_time);
                 if ($isTrue) {
                     $inRange = true;
@@ -112,33 +116,34 @@ class ProductScheduleHelper
         return $inRange;
     }
 
-    public static function labelDateDeliveryProduct($product, $schedules_immediate, $schedules_normal,$date = null): array
+    public static function labelDateDeliveryProduct($product, $schedules, $date = null): array
     {
 
-        $date = $date ? Carbon::parse($date): Carbon::now();
+        $date = $date ? Carbon::parse($date) : Carbon::now();
         $day_of_week = Carbon::parse($date)->dayOfWeek;
-        if ($product->is_immediate) {
-//            $schedules_immediate = ProductSchedule::where('type', 'IMMEDIATE')->where('day_of_week', $day_of_week)->get();
-            $inRangeImmediate = self::isInSchedule($schedules_immediate, $date, true);
 
-            if($inRangeImmediate){
+        if ($product->is_immediate) {
+            $schedules = $schedules->where('type', 'IMMEDIATE')->where('day_of_week', $day_of_week);
+            $inRangeImmediate = self::isInSchedule($schedules, $date, true);
+
+            if ($inRangeImmediate) {
                 return array(
                     'label' => LabelDispatch::IMMEDIATE,
                     'delivery_date' => $date,
-                    'schedule' => $schedules_immediate->first() ?? '',
+                    'schedule' => $schedules->first() ?? '',
                     'label_status' => 'TODAY'
                 );
             }
         }
 
-//        $schedules_normal = ProductSchedule::where('type', 'NORMAL')->where('day_of_week', $day_of_week)->get();
-        $inRangeNormal = self::isInSchedule($schedules_normal, $date);
+        $schedules = $schedules->where('type', 'NORMAL')->where('day_of_week', $day_of_week);
+        $inRangeNormal = self::isInSchedule($schedules, $date);
 
-        if(!$inRangeNormal){
+        if (!$inRangeNormal) {
             return array(
                 'label' => LabelDispatch::TOMORROW,
                 'delivery_date' => $date->addDays(1),
-                'schedule' => $schedules_normal->first() ?? '',
+                'schedule' => $schedules->first() ?? '',
                 'label_status' => 'TOMORROW'
             );
         }

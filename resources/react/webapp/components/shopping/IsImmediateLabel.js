@@ -28,6 +28,7 @@ const IsImmediateLabel = ({product}) =>{
             </div>
         )
     }
+
     return (
        <div className="row">
            <div className="col-12 justify-content-end">
