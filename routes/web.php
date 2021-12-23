@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('test-contact', function () {
     return \App\Models\Contact::all();
 });
+Route::get('settings', [TestController::class, 'settings'])->name('settings');
 Route::get('email-test', [TestController::class, 'index'])->name('test');
 Route::get('VoucherPaymentDays-test', [TestController::class, 'VoucherPaymentDays']);
 Route::get('test-ailoo', [TestController::class, 'AiloTest']);
