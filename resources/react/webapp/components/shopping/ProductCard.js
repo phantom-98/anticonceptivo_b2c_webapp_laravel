@@ -166,7 +166,9 @@ const ProductCard = ({product, className = '', subscriptionFilter = []}) => {
 
             <div className={`d-md-none d-block product-card ${className}`}>
                 <div className="row">
-                    <IsImmediateLabel product={product} />
+                    <div className="col-12">
+                        <IsImmediateLabel product={product} />
+                    </div>
                     <div className="col-12 text-center">
                         <Link to={(PUBLIC_ROUTES.PRODUCT_DETAIL.path).replace(':slug?', product.slug)}
                               style={{textDecoration: 'none', color: '#000000'}}>
