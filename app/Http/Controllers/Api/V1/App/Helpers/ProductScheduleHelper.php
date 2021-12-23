@@ -21,7 +21,6 @@ class ProductScheduleHelper
         return $isImmediate;
     }
 
-
     public static function isProductOnRange($isImmediate, $date = null): bool
     {
 

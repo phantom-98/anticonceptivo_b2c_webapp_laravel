@@ -7,26 +7,29 @@ import FormatFilter from "./Filters/FormatFilter";
 import LaboratoryFilter from "./Filters/LaboratoryFilter";
 import PriceFilter from "./Filters/PriceFilter";
 import SubscriptionFilter from "./Filters/SubscriptionFilter";
+import ImmediateDelivery from "./Filters/ImmediateDelivery";
 
 const Filter = ({
-    isPills,
-    laboratories,
-    subcategories,
-    subscriptions,
-    formats,
-    filters,
-    setFilters,
-    filtersUpdate,
-    setFiltersUpdate,
-    unitFormat
-    // setLaboratories,
-    // subscriptions,
-    // filtersCat,
-    // setProductsFiltered,
-    // setLoading,
-    // subCategoriesSelected,
-    // setSubcategoriesSelected
-}) => {
+                    isPills,
+                    laboratories,
+                    subcategories,
+                    subscriptions,
+                    formats,
+                    filters,
+                    setFilters,
+                    filtersUpdate,
+                    setFiltersUpdate,
+                    unitFormat,
+                    // setLaboratories,
+                    // subscriptions,
+                    // filtersCat,
+                    // setProductsFiltered,
+                    // setLoading,
+                    // subCategoriesSelected,
+                    // setSubcategoriesSelected
+                    immediate,
+                    setImmediate
+                }) => {
 
     const _filters = [
         {
@@ -60,11 +63,15 @@ const Filter = ({
 
     return (
         <div className="row">
+
             <div className="col-md-12 mb-3 filter-width">
+
+                <ImmediateDelivery immediate={immediate} setImmediate={setImmediate}/>
+
                 <Accordion defaultActiveKey={!isPills ? _filters[0].id : _filters[1].id} className="accordion-filter">
                     {
                         !isPills ?
-                             <Card key={_filters[0].id} className="card-filter">
+                            <Card key={_filters[0].id} className="card-filter">
                                 <Accordion.Collapse eventKey={_filters[0].id}>
                                     <Card.Body bsPrefix="card-body pt-0">
                                         <CategoryFilter
@@ -80,7 +87,7 @@ const Filter = ({
                                     <h3>{_filters[0].name}</h3>
                                 </Accordion.Toggle>
                             </Card>
-                        : null
+                            : null
                     }
 
                     <Card key={_filters[1].id} className="card-filter">
@@ -165,7 +172,7 @@ const Filter = ({
                                     <h3>{_filters[4].name}</h3>
                                 </Accordion.Toggle>
                             </Card>
-                        : null
+                            : null
                     }
 
                     {
@@ -187,7 +194,7 @@ const Filter = ({
                                     <h3>{_filters[5].name}</h3>
                                 </Accordion.Toggle>
                             </Card>
-                        : null
+                            : null
                     }
 
                 </Accordion>
