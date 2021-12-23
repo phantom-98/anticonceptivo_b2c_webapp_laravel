@@ -15,7 +15,7 @@ abstract class LabelDispatch
     const IMMEDIATE = 'Entrega inmediata';
     const TODAY = 'Llega hoy';
     const TOMORROW = 'Llega mañana';
-    const  AFTER_TOMORROW = 'Llega en 48H';
+    const AFTER_TOMORROW = 'Llega en 48H';
 }
 
 class ProductScheduleHelper
