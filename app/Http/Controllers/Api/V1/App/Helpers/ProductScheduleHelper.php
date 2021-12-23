@@ -70,17 +70,18 @@ class ProductScheduleHelper
         );
 
         $product_schedules = ProductSchedule::get();
-
         foreach ($products as $product) {
-            $_dataLabelDelivery = self::labelDateDeliveryProduct(new Product($product), $product_schedules, $date);
+            $product = new Product((array)$product);
+            $_dataLabelDelivery = self::labelDateDeliveryProduct($product, $product_schedules, $date);
             if ($_dataLabelDelivery['label'] == LabelDispatch::IMMEDIATE) {
+
                 $dataLabelDelivery['label'] = $_dataLabelDelivery['label'];
                 $dataLabelDelivery['delivery_date'] = $_dataLabelDelivery['delivery_date'];
                 $dataLabelDelivery['schedule'] = $_dataLabelDelivery['schedule'];
                 $dataLabelDelivery['is_immediate'] = true;
             }
 
-            if (!$dataLabelDelivery['is_immediate'] && $_dataLabelDelivery['delivery_date'] <= $dataLabelDelivery['delivery_date']) {
+            if ($_dataLabelDelivery['label'] != LabelDispatch::IMMEDIATE && $_dataLabelDelivery['delivery_date'] <= $dataLabelDelivery['delivery_date']) {
                 $dataLabelDelivery['label'] = $_dataLabelDelivery['label'];
                 $dataLabelDelivery['delivery_date'] = $_dataLabelDelivery['delivery_date'];
                 $dataLabelDelivery['schedule'] = $_dataLabelDelivery['schedule'];
@@ -118,14 +119,12 @@ class ProductScheduleHelper
 
     public static function labelDateDeliveryProduct($product, $schedules, $date = null): array
     {
-
         $date = $date ? Carbon::parse($date) : Carbon::now();
         $day_of_week = Carbon::parse($date)->dayOfWeek;
 
         if ($product->is_immediate) {
             $schedules = $schedules->where('type', 'IMMEDIATE')->where('day_of_week', $day_of_week);
             $inRangeImmediate = self::isInSchedule($schedules, $date, true);
-
             if ($inRangeImmediate) {
                 return array(
                     'label' => LabelDispatch::IMMEDIATE,
