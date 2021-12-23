@@ -67,7 +67,7 @@ class ProductScheduleHelper
             'is_immediate' => false
         );
         foreach ($products as $product) {
-            $_dataLabelDelivery = self::labelDateDelivery(new Product($product),$date);
+            $_dataLabelDelivery = self::labelDateDeliveryProduct(new Product($product),$date);
             if($_dataLabelDelivery['label'] == LabelDispatch::IMMEDIATE){
                 $dataLabelDelivery['label'] = $_dataLabelDelivery['label'];
                 $dataLabelDelivery['delivery_date'] = $_dataLabelDelivery['delivery_date'];
@@ -112,7 +112,7 @@ class ProductScheduleHelper
         return $inRange;
     }
 
-    public static function labelDateDelivery($product, $date = null): array
+    public static function labelDateDeliveryProduct($product, $date = null): array
     {
 
         $date = $date ? Carbon::parse($date): Carbon::now();
