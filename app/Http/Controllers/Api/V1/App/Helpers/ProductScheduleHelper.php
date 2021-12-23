@@ -112,39 +112,43 @@ class ProductScheduleHelper
         return $inRange;
     }
 
-    public static function labelDateDeliveryProduct($product, $date = null): array
+    public static function labelDateDeliveryProduct($product, $schedules_immediate, $schedules_normal,$date = null): array
     {
 
         $date = $date ? Carbon::parse($date): Carbon::now();
         $day_of_week = Carbon::parse($date)->dayOfWeek;
         if ($product->is_immediate) {
-            $schedules = ProductSchedule::where('type', 'IMMEDIATE')->where('day_of_week', $day_of_week)->get();
-            $inRangeImmediate = self::isInSchedule($schedules, $date, true);
+//            $schedules_immediate = ProductSchedule::where('type', 'IMMEDIATE')->where('day_of_week', $day_of_week)->get();
+            $inRangeImmediate = self::isInSchedule($schedules_immediate, $date, true);
 
             if($inRangeImmediate){
                 return array(
                     'label' => LabelDispatch::IMMEDIATE,
                     'delivery_date' => $date,
-                    'schedule' => $schedules->first() ?? ''
+                    'schedule' => $schedules_immediate->first() ?? '',
+                    'label_status' => 'TODAY'
                 );
             }
         }
 
-        $schedules = ProductSchedule::where('type', 'NORMAL')->where('day_of_week', $day_of_week)->get();
-        $inRangeNormal = self::isInSchedule($schedules, $date);
+//        $schedules_normal = ProductSchedule::where('type', 'NORMAL')->where('day_of_week', $day_of_week)->get();
+        $inRangeNormal = self::isInSchedule($schedules_normal, $date);
 
         if(!$inRangeNormal){
             return array(
                 'label' => LabelDispatch::TOMORROW,
                 'delivery_date' => $date->addDays(1),
-                'schedule' => $schedules->first() ?? ''
+                'schedule' => $schedules_normal->first() ?? '',
+                'label_status' => 'TOMORROW'
             );
         }
 
         return array(
             'label' => LabelDispatch::TODAY,
             'delivery_date' => $date,
-            'schedule' => $schedules->first() ?? ''
+            'schedule' => $schedules->first() ?? '',
+            'label_status' => 'TODAY'
+
         );
 
 
