@@ -26,7 +26,7 @@ const Resume = ({
     subtotal,
     setSubtotal,
     setTotal,
-    setDispatchDate,
+    setDispatchDateObject,
     installment,
     validateData,
     hasAddress,
@@ -49,9 +49,9 @@ const Resume = ({
     useEffect(() => {
         // console.log(address)
         let url = Services.ENDPOINT.PAYMENTS.GET_DISPATCH;
-
         let data = {
-            commune_id: address.commune_id
+            commune_id: address.commune_id,
+            cartItems: cartItems
         }
 
         Services.DoPost(url, data).then(response => {
@@ -59,7 +59,8 @@ const Resume = ({
               response: response,
               success: () => {
                 setDispatch(response.data.dispatch)
-                setDispatchDate(response.data.date_dispatch)
+                  console.log(response.data.date_dispatch)
+                setDispatchDateObject(response.data.dateDeliveryOrder)
               },
 
             });

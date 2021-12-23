@@ -20,7 +20,8 @@ const CheckOut = () => {
     const {auth} = useContext(AuthContext);
     const {cartItems} = useContext(CartContext);
     // const {isCartReady, checkCart} = useContext(CartContext);
-    const [dispatchDate, setDispatchDate] = useState([]);
+
+    const [dispatchDateObject, setDispatchDateObject] = useState(null);
     const [installment, setInstallment] = useState(1);
     const [showFinal, setShowFinal] = useState(1);
     const [finishWebpayProccess, setFinishWebpayProccess] = useState(0);
@@ -466,7 +467,7 @@ const CheckOut = () => {
                                                     <Addresses
                                                         setView={setView}
                                                         regions={regions}
-                                                        dispatchDate={dispatchDate}
+                                                        dispatchDateObject={dispatchDateObject}
                                                         communes={communes}
                                                         address={address}
                                                         setAddress={setAddress}
@@ -482,7 +483,7 @@ const CheckOut = () => {
                                                 data={data}
                                                 files={files}
                                                 address={address}
-                                                setDispatchDate={setDispatchDate}
+                                                setDispatchDateObject={setDispatchDateObject}
                                                 subscription={subscription}
                                                 setFinishWebpayProccess={setFinishWebpayProccess}
                                                 setWebpayProccessSuccess={setWebpayProccessSuccess}
