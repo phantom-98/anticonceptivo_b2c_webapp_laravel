@@ -513,4 +513,31 @@ a:-webkit-any-link:focus-visible {
     transform: translateX(18px);
 }
 
+.is-immediate-label,
+.is-today-label,
+.is-tomorrow-label{
+    font-size: 11px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    padding: 5px 10px;
+    border-radius: 6px;
+    width: fit-content;
+    margin-left: auto;
+}
+
+.is-immediate-label {
+    background: #009BE8;
+    color: #FFFFFF;
+}
+
+.is-today-label {
+    background: #EDF8FE;
+    color: #009BE8;
+}
+
+.is-tomorrow-label {
+    background: rgba(0, 219, 174, 0.18);
+    color: #00DBAE;
+}
+
 @import 'assets/scss/responsive';
