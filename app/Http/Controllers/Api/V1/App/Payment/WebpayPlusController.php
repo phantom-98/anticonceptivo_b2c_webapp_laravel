@@ -196,12 +196,11 @@ class WebpayPlusController
 
 //        $delivery_date =Carbon::now()->addHours($itemDeliveryCost->deadline_delivery);
         $delivery_date =Carbon::now();
-
-        $dataDeliveryOrder = ProductScheduleHelper::labelDateDeliveryInOrder(array_column(json_decode($request->cartItems),$delivery_date));
-        $dataDeliveryOrder = ProductScheduleHelper::deadlineDeliveryMaxOrder($dataDeliveryOrder['delivery_date'], $dataDeliveryOrder['label'], $dataDeliveryOrder['is_immediate']);
+        $dataDeliveryOrder = ProductScheduleHelper::labelDateDeliveryInOrder(array_column(json_decode($request->cartItems),'product'),$delivery_date);
+        $dataDeliveryOrder = ProductScheduleHelper::deadlineDeliveryMaxOrder($dataDeliveryOrder['delivery_date'], $dataDeliveryOrder['label'], $dataDeliveryOrder['is_immediate'], $dataDeliveryOrder['schedule']);
 
         $order->is_immediate = $dataDeliveryOrder['is_immediate'];
-
+        $order->label_dispatch = $dataDeliveryOrder['label'];
         $order->delivery_date = $dataDeliveryOrder['delivery_date'];
         $order->customer_id = $request->customer_id ?? $customer->id;
 

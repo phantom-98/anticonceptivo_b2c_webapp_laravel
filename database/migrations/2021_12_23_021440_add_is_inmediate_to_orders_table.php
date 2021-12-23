@@ -16,6 +16,7 @@ class AddIsInmediateToOrdersTable extends Migration
         Schema::table('orders', function (Blueprint $table) {
             //
             $table->boolean('is_immediate')->default(false);
+            $table->string('label_dispatch')->nullable();
 
         });
     }
@@ -30,6 +31,7 @@ class AddIsInmediateToOrdersTable extends Migration
         Schema::table('orders', function (Blueprint $table) {
             //
             $table->dropColumn('is_immediate');
+            $table->dropColumn('label_dispatch');
 
         });
     }
