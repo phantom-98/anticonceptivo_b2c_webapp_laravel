@@ -4283,7 +4283,8 @@ a:-webkit-any-link:focus-visible {
 
 .is-immediate-label,
 .is-today-label,
-.is-tomorrow-label {
+.is-tomorrow-label,
+.is-after-tomorrow-label {
   font-size: 11px;
   font-family: "Poppins", sans-serif;
   font-weight: 500;
@@ -4308,6 +4309,11 @@ a:-webkit-any-link:focus-visible {
 .is-tomorrow-label {
   background: rgba(0, 219, 174, 0.18);
   color: #00DBAE;
+}
+
+.is-after-tomorrow-label {
+  background: rgba(219, 0, 0, 0.18);
+  color: #db0000;
 }
 
 @media (min-width: 768px) {

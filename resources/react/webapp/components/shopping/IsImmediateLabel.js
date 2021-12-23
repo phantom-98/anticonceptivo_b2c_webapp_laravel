@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import isImmediateSvgWhite  from '../../assets/images/icons/immediate-white.svg'
 import arrivesTodayBlue  from '../../assets/images/icons/arrives-today-blue.svg'
 import arrivesTomorrowGreen  from '../../assets/images/icons/arrives-tomorrow-green.svg'
+import arrivesAfterTomorrowRed  from '../../assets/images/icons/arrives-after-tomorrow-red.svg'
 
 const IsImmediateLabel = ({product}) =>{
 
@@ -44,7 +45,7 @@ const IsImmediateLabel = ({product}) =>{
     const AfterTomorrow = () => {
         return (
             <div className="is-after-tomorrow-label">
-                <img src={arrivesTomorrowGreen} alt="anticonceptivo.cl"/> <span>{label}</span>
+                <img src={arrivesAfterTomorrowRed} alt="anticonceptivo.cl"/> <span>{label}</span>
             </div>
         )
     }
