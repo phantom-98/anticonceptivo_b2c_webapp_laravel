@@ -4247,6 +4247,37 @@ a:-webkit-any-link:focus-visible {
   box-shadow: none !important;
 }
 
+.box-immediate {
+  border: 1px solid #E6E6E6;
+  padding: 10px 15px;
+}
+
+.box-immediate input,
+.box-immediate .custom-control-input:focus ~ .custom-control-label::before {
+  box-shadow: none;
+  outline: none;
+}
+
+.box-immediate .custom-control-label::before {
+  background-color: #fff;
+  border: #E8E8E8 solid 1px;
+  height: 21px;
+  border-radius: 50px;
+  width: 38px;
+}
+
+.box-immediate .custom-switch .custom-control-label::after {
+  background-color: #fafafa;
+  border: 1px solid #E8E8E8;
+  width: 17px;
+  height: 17px;
+  border-radius: 50px;
+}
+
+.box-immediate .custom-switch .custom-control-input:checked ~ .custom-control-label::after {
+  transform: translateX(18px);
+}
+
 @media (min-width: 768px) {
   .app-margin-top {
     margin-top: 0;
