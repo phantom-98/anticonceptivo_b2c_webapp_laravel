@@ -18,21 +18,25 @@
                     <h3 class="panel-title">Calendario productos Inmediato</h3>
                 </div>
                 <div class="panel-body">
+                    <select id="selectTypeId" class="form-control mb-3 w-25">
+                        <option value="NORMAL">Normal</option>
+                        <option value="IMMEDIATE">Immediate</option>
+                    </select>
                     <div id='calendar-immediate'></div>
                 </div>
             </div>
         </div>
 
-        <div class="col-md-12">
-            <div class="panel">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Calendario productos no inmediatos</h3>
-                </div>
-                <div class="panel-body">
-                    ddd
-                </div>
-            </div>
-        </div>
+{{--        <div class="col-md-12">--}}
+{{--            <div class="panel">--}}
+{{--                <div class="panel-heading">--}}
+{{--                    <h3 class="panel-title">Calendario productos no inmediatos</h3>--}}
+{{--                </div>--}}
+{{--                <div class="panel-body">--}}
+{{--                    ddd--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
     </div>
 @endsection
 
@@ -108,6 +112,19 @@
                     center: '',
                     right: ''
                 },
+                select: function (start, end, JsEvent, view){
+                    _event = {
+                        title: '',
+                        start: moment(start).format('YYYY-MM-DD HH:mm:ss'),
+                        end: moment(end).format('YYYY-MM-DD HH:mm:ss'),
+                        className: 'event-product-schedule-'+($( "#selectTypeId option:selected" ).val()).toLowerCase() // immediate
+                    }
+                    events.push(_event)
+                    console.log(events)
+                    $('#calendar-immediate').fullCalendar('renderEvent',
+                        _event,true)
+                },
+                selectable: true,
                 defaultDate: moment().format('YYYY-MM-DD'),
                 eventLimit: false, // allow "more" link when too many events
                 firstDay: 1,
