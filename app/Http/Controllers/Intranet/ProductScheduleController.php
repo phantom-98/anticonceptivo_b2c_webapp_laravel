@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Intranet;
 
 use App\Models\ProductSchedule;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Willywes\ApiResponse\ApiResponse;
 
 class ProductScheduleController extends GlobalController
 {
@@ -28,16 +31,30 @@ class ProductScheduleController extends GlobalController
         return view($this->folder . 'index', compact('objects'));
     }
 
-    public function store(Request $request)
+    public function update(Request $request): JsonResponse
     {
-        $productSchedule = new ProductSchedule();
-        $productSchedule->start_time = $request->start_time;
-        $productSchedule->end_time = $request->end_time;
-        $productSchedule->day_of_week = $request->day_of_week;
-        $productSchedule->type = $request->type;
-        $productSchedule->save();
 
-        return redirect()->route($this->route . 'index');
+        try {
+
+            $events = $request->input('events') ?? [];
+
+            $productSchedules = ProductSchedule::all();
+            $productSchedules->delete();
+
+            foreach ($events as $event) {
+                $productSchedule = new ProductSchedule();
+                $productSchedule->start_time = $event['start_time'];
+                $productSchedule->end_time = $event['end_time'];
+                $productSchedule->day_of_week = $event['day_of_week'];
+                $productSchedule->type = $event['type'];
+                $productSchedule->save();
+            }
+
+            return ApiResponse::Ok();
+
+        } catch (\Exception $ex) {
+            return ApiResponse::InternalServerError();
+        }
     }
 
 }
