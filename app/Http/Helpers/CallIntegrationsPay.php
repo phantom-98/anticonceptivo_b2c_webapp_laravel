@@ -197,6 +197,7 @@ class CallIntegrationsPay extends CoreHelper
             "text/html", $html
         );
 
+
         $sendgrid->send($email);
 
         // Envio al admin

@@ -534,7 +534,9 @@ class ProductController extends Controller
 
     private function addScheduleLabel($product)
     {
-        $product->delivery_label = ProductScheduleHelper::labelDateDeliveryProduct($product, $this->product_schedules);
+        $dataDeliveryOrder = ProductScheduleHelper::labelDateDeliveryProduct($product, $this->product_schedules);
+        $product->delivery_label = ProductScheduleHelper::deadlineDeliveryMaxOrder($dataDeliveryOrder['delivery_date'], $dataDeliveryOrder['label'], $dataDeliveryOrder['is_immediate'], $dataDeliveryOrder['schedule']);
+
         return $product;
     }
 }
