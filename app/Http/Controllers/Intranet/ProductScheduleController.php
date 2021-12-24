@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Intranet;
 
 use App\Models\ProductSchedule;
+use Illuminate\Http\Request;
 
 class ProductScheduleController extends GlobalController
 {
@@ -26,4 +27,17 @@ class ProductScheduleController extends GlobalController
         $objects = ProductSchedule::orderBy('type')->get();
         return view($this->folder . 'index', compact('objects'));
     }
+
+    public function store(Request $request)
+    {
+        $productSchedule = new ProductSchedule();
+        $productSchedule->start_time = $request->start_time;
+        $productSchedule->end_time = $request->end_time;
+        $productSchedule->day_of_week = $request->day_of_week;
+        $productSchedule->type = $request->type;
+        $productSchedule->save();
+
+        return redirect()->route($this->route . 'index');
+    }
+
 }

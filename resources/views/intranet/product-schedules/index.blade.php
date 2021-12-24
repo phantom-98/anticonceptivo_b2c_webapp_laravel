@@ -46,6 +46,12 @@
         .fc-time-grid-container{
             max-height: auto;
         }
+        .event-product-schedule-normal{
+            background-color: #00c3c3 !important;
+        }
+        .event-product-schedule-immediate{
+            background-color: #fc4848 !important;
+        }
     </style>
 
 @endsection
@@ -68,7 +74,7 @@
             },
             {
                 title: '',
-                start: '2021-12-24 12:00:00',
+                start: '2021-12-24 10:00:00',
                 end: '2021-12-25 00:00:00',
                 className: 'red' // normal
             },
@@ -78,6 +84,21 @@
 
     <script>
         $(document).ready(() => {
+
+            let events = @json($objects);
+            console.log(events)
+
+            events = events.map((item) => {
+                let day = moment().day(item.day_of_week).format('YYYY-MM-DD')
+                return {
+                    title: '',
+                        start: day + ' ' + item.start_time,
+                    end: day + ' ' + item.end_time,
+                    className: 'event-product-schedule-'+(item.type).toLowerCase() // immediate
+                }
+            });
+
+
             $('#calendar-immediate').fullCalendar({
                 defaultView: 'agendaWeek',
                 scrollTime: '08:00:00',
@@ -90,7 +111,7 @@
                 defaultDate: moment().format('YYYY-MM-DD'),
                 eventLimit: false, // allow "more" link when too many events
                 firstDay: 1,
-                events: schedules
+                events: events
             });
 
         })
