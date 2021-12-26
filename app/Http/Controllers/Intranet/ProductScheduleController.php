@@ -35,7 +35,7 @@ class ProductScheduleController extends GlobalController
 
     public function update(Request $request): JsonResponse
     {
-//        try {
+        try {
 
             $events = $request->events ?? [];
             ProductSchedule::truncate();
@@ -71,21 +71,14 @@ class ProductScheduleController extends GlobalController
                     if($productSchedule->start_time != $productSchedule->end_time){
                         $productSchedule->save();
                     }
-
-//                    if($start_time->format('Y-m-d') != $end_time->format('Y-m-d') && $end_time->format('H:i:s') != '00:00:00'){
-//                        $productSchedule->start_time = '00:00:00';
-//                        $productSchedule->end_time = $end_time->format('H:i:s');
-//                        $productSchedule->day_of_week = $date->dayOfWeek + 1;
-//                    }
-
                 }
             }
 
             return ApiResponse::Ok();
 
-//        } catch (\Exception $ex) {
-//            return ApiResponse::InternalServerError();
-//        }
+        } catch (\Exception $ex) {
+            return ApiResponse::InternalServerError();
+        }
     }
 
 }

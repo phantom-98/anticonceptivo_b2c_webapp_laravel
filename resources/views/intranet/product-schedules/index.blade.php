@@ -78,10 +78,10 @@
                 url: "{{ route('intranet.product-schedules.update') }}",
                 data:formData,
                 success: function () {
-                    toastr.success('Se ha reordenado correctamente la lista de banners');
+                    toastr.success('Horario actualizado');
                 },
                 error: function () {
-                    toastr.error('No se ha podido reordenar la lista de banners');
+                    toastr.error('No se pudo actualizar el horario');
                 }
             })
         }
@@ -133,10 +133,6 @@
                 },
                 select: function (start, end, JsEvent, view){
                     let selectTypeProductSchedule = $( "#selectTypeId option:selected" ).val()
-
-                    // start =  moment(start).day() == 0 ? moment(start).add(7, 'days') : moment(start);
-                    // end =  moment(end).day() == 0 ? moment(end).add(7, 'days') : moment(end);
-                    // console.log(start)
                     _event = {
                         id: Math.round(Math.random() * 10000),
                         title: '',
