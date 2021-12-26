@@ -92,12 +92,24 @@
             let events = @json($objects);
 
             events = events.map((item) => {
-                let day = moment().day(item.day_of_week).format('YYYY-MM-DD')
+
+
+                let day_start = moment().day(item.day_of_week).day() === 0 ? moment().day(item.day_of_week).add(7, 'days').format('YYYY-MM-DD') :moment().day(item.day_of_week).format('YYYY-MM-DD')
+                let day_end = moment().day(item.day_of_week).day() === 0 ? moment().day(item.day_of_week).add(7, 'days').format('YYYY-MM-DD') :moment().day(item.day_of_week).format('YYYY-MM-DD')
+
+                let start_time = item.start_time
+                let end_time = item.end_time
+
+                if(end_time == '23:59:59'){
+                    day_end = moment().day(item.day_of_week).add(1, 'days').format('YYYY-MM-DD')
+                    end_time = '00:00:00'
+                }
+
                 return {
                     id: Math.round(Math.random() * 10000),
                     title: '',
-                    start: day + ' ' + item.start_time,
-                    end: day + ' ' + item.end_time,
+                    start: day_start + ' ' + start_time,
+                    end: day_end + ' ' + end_time,
                     className: 'event-product-schedule-'+(item.type).toLowerCase(),
                     type: item.type
                 }
@@ -121,11 +133,15 @@
                 },
                 select: function (start, end, JsEvent, view){
                     let selectTypeProductSchedule = $( "#selectTypeId option:selected" ).val()
+
+                    // start =  moment(start).day() == 0 ? moment(start).add(7, 'days') : moment(start);
+                    // end =  moment(end).day() == 0 ? moment(end).add(7, 'days') : moment(end);
+                    // console.log(start)
                     _event = {
                         id: Math.round(Math.random() * 10000),
                         title: '',
-                        start: moment(start).format('YYYY-MM-DD HH:mm:ss'),
-                        end: moment(end).format('YYYY-MM-DD HH:mm:ss'),
+                        start: start.format('YYYY-MM-DD HH:mm:ss'),
+                        end: end.format('YYYY-MM-DD HH:mm:ss'),
                         className: 'event-product-schedule-'+(selectTypeProductSchedule).toLowerCase(),
                         type: selectTypeProductSchedule
                     }
