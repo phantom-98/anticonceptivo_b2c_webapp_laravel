@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Intranet;
 
 use App\Models\ProductSchedule;
+use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -33,28 +35,41 @@ class ProductScheduleController extends GlobalController
 
     public function update(Request $request): JsonResponse
     {
+//        try {
 
-        try {
-
-            $events = $request->input('events') ?? [];
-
-            $productSchedules = ProductSchedule::all();
-            $productSchedules->delete();
+            $events = $request->events ?? [];
+            ProductSchedule::truncate();
 
             foreach ($events as $event) {
                 $productSchedule = new ProductSchedule();
-                $productSchedule->start_time = $event['start_time'];
-                $productSchedule->end_time = $event['end_time'];
-                $productSchedule->day_of_week = $event['day_of_week'];
-                $productSchedule->type = $event['type'];
-                $productSchedule->save();
+                $start_time = Carbon::parse($event['start']);
+                $end_time = Carbon::parse($event['end']);
+                $period = CarbonPeriod::create($start_time->format('Y-m-d'), $end_time->format('Y-m-d'));
+
+                foreach ($period as $key => $date) {
+                    if($key == 0){
+                        $productSchedule->start_time = $start_time->format('H:i:s');
+                        $productSchedule->end_time = '23:59:59';
+                        $productSchedule->day_of_week = $date->dayOfWeek;
+                    }elseif ($key == count($period) - 1){
+                        $productSchedule->start_time = '00:00:00';
+                        $productSchedule->end_time = $end_time->format('H:i:s');
+                        $productSchedule->day_of_week = $date->dayOfWeek;
+                    }else{
+                        $productSchedule->start_time = '00:00:00';
+                        $productSchedule->end_time = '23:59:59';
+                        $productSchedule->day_of_week = $date->dayOfWeek;
+                    }
+                    $productSchedule->type = $event['type'];
+                    $productSchedule->save();
+                }
             }
 
             return ApiResponse::Ok();
 
-        } catch (\Exception $ex) {
-            return ApiResponse::InternalServerError();
-        }
+//        } catch (\Exception $ex) {
+//            return ApiResponse::InternalServerError();
+//        }
     }
 
 }

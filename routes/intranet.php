@@ -175,7 +175,7 @@ if (env('SHOW_INTRANET', 'TRUE') == 'TRUE') {
                 Route::resource('productos', 'ProductController', ['names' => getResourceRoutesForNameHelper('products')]);
 
                 Route::get('calendario-de-productos', 'ProductScheduleController@index')->name('product-schedules.index');
-                Route::get('calendario-de-productos/update', 'ProductScheduleController@update')->name('product-schedules.update');
+                Route::post('calendario-de-productos/update', 'ProductScheduleController@update')->name('product-schedules.update');
 
                 Route::post('paginas/active', 'PageController@active')->name('pages.active');
                 Route::resource('paginas', 'PageController', ['names' => getResourceRoutesForNameHelper('pages')]);

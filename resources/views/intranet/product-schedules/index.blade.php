@@ -67,38 +67,39 @@
     <script src="/themes/intranet/plugins/fullcalendar/fullcalendar.min.js"></script>
     <script src="/themes/intranet/plugins/fullcalendar/lang/es.js"></script>
 
-
     <script>
-        let schedules = [
-            {
-                title: '',
-                start: '2021-12-24 00:00:00',
-                end: '2021-12-24 12:00:00',
-                className: 'purple' // immediate
-            },
-            {
-                title: '',
-                start: '2021-12-24 10:00:00',
-                end: '2021-12-25 00:00:00',
-                className: 'red' // normal
-            },
-        ];
-        let schedulesNormal = [];
-    </script>
 
-    <script>
+        function updateEvents(events){
+            let formData = {events:events, _token: '{{ csrf_token() }}'};
+
+            $.ajax({
+                type: "post",
+                dataType: 'json',
+                url: "{{ route('intranet.product-schedules.update') }}",
+                data:formData,
+                success: function () {
+                    toastr.success('Se ha reordenado correctamente la lista de banners');
+                },
+                error: function () {
+                    toastr.error('No se ha podido reordenar la lista de banners');
+                }
+            })
+        }
+
+
         $(document).ready(() => {
 
             let events = @json($objects);
-            console.log(events)
 
             events = events.map((item) => {
                 let day = moment().day(item.day_of_week).format('YYYY-MM-DD')
                 return {
+                    id: Math.round(Math.random() * 10000),
                     title: '',
-                        start: day + ' ' + item.start_time,
+                    start: day + ' ' + item.start_time,
                     end: day + ' ' + item.end_time,
-                    className: 'event-product-schedule-'+(item.type).toLowerCase() // immediate
+                    className: 'event-product-schedule-'+(item.type).toLowerCase(),
+                    type: item.type
                 }
             });
 
@@ -112,17 +113,27 @@
                     center: '',
                     right: ''
                 },
+                eventClick: function (e){
+                    events = events.filter(s => s.id != e.id)
+                    $('#calendar-immediate').fullCalendar('removeEvents',
+                        e.id)
+                    updateEvents(events)
+                },
                 select: function (start, end, JsEvent, view){
+                    let selectTypeProductSchedule = $( "#selectTypeId option:selected" ).val()
                     _event = {
+                        id: Math.round(Math.random() * 10000),
                         title: '',
                         start: moment(start).format('YYYY-MM-DD HH:mm:ss'),
                         end: moment(end).format('YYYY-MM-DD HH:mm:ss'),
-                        className: 'event-product-schedule-'+($( "#selectTypeId option:selected" ).val()).toLowerCase() // immediate
+                        className: 'event-product-schedule-'+(selectTypeProductSchedule).toLowerCase(),
+                        type: selectTypeProductSchedule
                     }
                     events.push(_event)
-                    console.log(events)
                     $('#calendar-immediate').fullCalendar('renderEvent',
                         _event,true)
+                    updateEvents(events)
+
                 },
                 selectable: true,
                 defaultDate: moment().format('YYYY-MM-DD'),
