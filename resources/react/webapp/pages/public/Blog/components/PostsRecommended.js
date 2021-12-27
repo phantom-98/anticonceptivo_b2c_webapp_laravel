@@ -1,9 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import * as Services from "../../../../Services";
-import {Link} from "react-router-dom";
-import moment from "moment";
-import LazyLoading from "../../../../components/LazyLoading";
-import {v4 as uuidv4, v4 as uuid} from "uuid";
+import {v4 as uuid} from "uuid";
 import PostMiniCard from "./PostMiniCard";
 
 const PostsRecommended = () => {
@@ -50,8 +47,9 @@ const PostsRecommended = () => {
                             </div>
 
                             {
-                                posts.map(post => <div className="col-md-4 mb-3"><PostMiniCard post={post}
-                                                                                               key={uuid()}/></div>)
+                                posts.map(post => <div className="col-md-4 mb-3">
+                                    <PostMiniCard post={post} key={uuid()}/>
+                                </div>)
                             }
 
                         </div>

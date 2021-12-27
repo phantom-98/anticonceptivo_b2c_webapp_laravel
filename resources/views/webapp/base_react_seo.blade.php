@@ -43,6 +43,7 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/themes/web/favicon/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
+    <meta name="facebook-domain-verification" content="p5y4cx1icpybbv81clkkw87cdw4qit" />
 
     <!-- Google Tag Manager -->
     <script>(function (w, d, s, l, i) {

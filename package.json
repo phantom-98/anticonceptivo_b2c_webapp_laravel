@@ -52,6 +52,7 @@
         "react-collapsible": "^2.8.4",
         "react-datepicker": "^4.3.0",
         "react-floating-whatsapp-button": "^1.0.3",
+        "react-ga": "^3.3.0",
         "react-google-autocomplete": "^2.4.3",
         "react-image-magnifiers": "^1.4.0",
         "react-js-pagination": "^3.0.3",

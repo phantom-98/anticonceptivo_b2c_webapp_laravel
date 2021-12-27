@@ -1,4 +1,4 @@
-import React, {Fragment, useContext, useEffect, useState} from 'react';
+import React, { useContext, useEffect, useState} from 'react';
 import Icon from "../../../../components/general/Icon";
 import {v4 as uuidv4} from 'uuid';
 import * as Services from "../../../../Services";
@@ -28,7 +28,7 @@ const TimeLine = ({}) => {
         autoplaySpeed: 4500,
         centerMode: true,
     };
-    
+
     useEffect(() => {
         getData();
     }, [])

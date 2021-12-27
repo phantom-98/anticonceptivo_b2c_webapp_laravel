@@ -48,7 +48,7 @@ class PostController extends GlobalController
         ]);
 
         $object = new Post();
-        
+
         if($request->type == "Imagen"){
             $object->title = $request->title;
             $object->slug = \Str::slug($request->title);
@@ -59,7 +59,7 @@ class PostController extends GlobalController
             $object->published_at = Carbon::now()->format('Y-m-d');
             $object->post_type_id = $request->post_type_id;
             $object->save();
-            
+
             $image = $request->file('image');
             $filename = 'post-' . $object->id  .'.'. $image->getClientOriginalExtension();
             $object->principal_image = $image->storeAs('public/posts', $filename);
@@ -72,7 +72,7 @@ class PostController extends GlobalController
                 'new_name' => $filename,
                 'user' => auth('intranet')->user()->full_name
             ]);
-            
+
         } else {
             $object->title = $request->title;
             $object->slug = \Str::slug($request->title);
@@ -117,7 +117,7 @@ class PostController extends GlobalController
             'type' => 'required',
             'post_type_id' => 'required'
         ]);
-        
+
         if($request->type == "Imagen"){
             $object->title = $request->title;
             $object->slug = \Str::slug($request->title);
@@ -128,7 +128,7 @@ class PostController extends GlobalController
             $object->published_at = Carbon::now()->format('Y-m-d');
             $object->post_type_id = $request->post_type_id;
             $object->save();
-            
+
             if ($request->image) {
                 if($object->image){
                     \Storage::delete($object->image);
@@ -146,7 +146,7 @@ class PostController extends GlobalController
                     'user' => auth('intranet')->user()->full_name
                 ]);
             }
-            
+
         } else {
             $object->title = $request->title;
             $object->slug = \Str::slug($request->title);
@@ -201,7 +201,7 @@ class PostController extends GlobalController
             ]);
         }
 
-        
+
     }
     public function active(Request $request)
     {
@@ -232,7 +232,7 @@ class PostController extends GlobalController
 
             return response()->json([
                 'status' => 'error',
-                'message' => 'Ha ocurrido un error inesperado, inténtelo denuevo más tarde.' . $e->getMessage()
+                'message' => 'Ha ocurrido un error inesperado, inténtelo de nuevo más tarde.' . $e->getMessage()
             ]);
         }
     }

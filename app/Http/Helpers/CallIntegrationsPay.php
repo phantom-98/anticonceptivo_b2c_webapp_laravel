@@ -197,6 +197,7 @@ class CallIntegrationsPay extends CoreHelper
             "text/html", $html
         );
 
+
         $sendgrid->send($email);
 
         // Envio al admin
@@ -214,6 +215,23 @@ class CallIntegrationsPay extends CoreHelper
         );
 
         $sendgrid->send($email2);
+
+
+        // Envio copia felipe
+        $html3 = view('emails.orders_admin', ['order' => $order, 'type' => $type, 'nombre' => 'Felipe'])->render();
+
+        $email3 = new \SendGrid\Mail\Mail();
+
+        $email3->setFrom("info@anticonceptivo.cl", 'Anticonceptivo');
+        $email3->setSubject('Nuevo pedido recibido #' . $order->id);
+//        $email3->addTo("victor.araya.del@gmail.com", 'Pedido');
+            $email3->addTo("fpenailillo@innovaweb.cl", 'Pedido');
+
+        $email3->addContent(
+            "text/html", $html3
+        );
+
+        $sendgrid->send($email3);
    }
 
    public static function sendEmailsOrderRepeat($order_id, $type = 'compra')

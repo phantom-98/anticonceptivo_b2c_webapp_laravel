@@ -64,7 +64,7 @@ class BrandController extends GlobalController
                 $filename = 'brand-' . $object->id  .'.'. $image->getClientOriginalExtension();
                 $object->image = $image->storeAs('public/brands', $filename);
                 $object->save();
-            }  
+            }
 
             if ($object) {
                 session()->flash('success', 'Marca creada correctamente.');
@@ -167,7 +167,7 @@ class BrandController extends GlobalController
             ]);
         }
 
-        
+
     }
     /**
      * Remove the specified resource from storage.
@@ -206,7 +206,7 @@ class BrandController extends GlobalController
 
             return response()->json([
                 'status' => 'error',
-                'message' => 'Ha ocurrido un error inesperado, inténtelo denuevo más tarde.' . $e->getMessage()
+                'message' => 'Ha ocurrido un error inesperado, inténtelo de nuevo más tarde.' . $e->getMessage()
             ]);
         }
 

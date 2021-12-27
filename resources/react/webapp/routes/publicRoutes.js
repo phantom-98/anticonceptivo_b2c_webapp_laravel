@@ -17,6 +17,7 @@ import BlogListByCategory from "../pages/public/Blog/BlogListByCategory";
 import Claim from "../pages/public/Claim";
 import Post from "../pages/public/Post";
 import ShopSearch from '../pages/public/Shop/indexSearch';
+import FinishPaymentTransaction from "../pages/public/CheckOut/FinishPaymentTransaction";
 // import Test from '../pages/public/Test';
 
 const PUBLIC_ROUTES = {
@@ -123,6 +124,15 @@ const PUBLIC_ROUTES = {
         path: "/carrito/",
         title: "Carrito",
         component: Cart,
+        exact: true,
+        layout: props => <BaseTemplate {...props} />,
+        middleware: props => <PublicMiddleware {...props} />
+    },
+
+    CHECKOUT_VERIFY: {
+        path: "/checkout-verify/:token",
+        title: "Checkout",
+        component: FinishPaymentTransaction,
         exact: true,
         layout: props => <BaseTemplate {...props} />,
         middleware: props => <PublicMiddleware {...props} />

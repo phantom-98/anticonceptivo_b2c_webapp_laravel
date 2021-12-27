@@ -145,11 +145,11 @@ class DiscountCodeController extends GlobalController
 
 
         ];
-        
+
         $validator = Validator::make($request->all(), $rules);
 
         if ($validator->passes()) {
-        
+
 
             $discountCode->name = $request->name;
             $discountCode->discount = $request->discount;
@@ -219,7 +219,7 @@ class DiscountCodeController extends GlobalController
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Ha ocurrido un error inesperado, inténtelo denuevo más tarde.' . $e->getMessage()
+                'message' => 'Ha ocurrido un error inesperado, inténtelo de nuevo más tarde.' . $e->getMessage()
             ]);
         }
 

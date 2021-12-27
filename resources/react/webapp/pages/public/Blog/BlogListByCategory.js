@@ -97,7 +97,7 @@ const BlogListByCategory = () => {
                                     <div className="card-body py-3 py-md-4"
                                          style={{paddingLeft: '2.5rem', paddingRight: '2.5rem'}}>
                                         <p className="card-text">
-                                            No existen contenido para la categoría seleccionada, por favor vuelva en
+                                            No existe contenido para la categoría seleccionada, por favor vuelva en
                                             otro momento.
                                         </p>
                                     </div>

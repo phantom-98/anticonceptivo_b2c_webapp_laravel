@@ -7,7 +7,7 @@ import clockBlue from '../../../assets/images/icons/clock-blue.svg'
 import {AuthContext} from "../../../context/AuthProvider";
 import * as Services from "../../../Services";
 
-const Addresses = ({setView, regions, communes, address, setAddress, dispatchDate}) => {
+const Addresses = ({setView, regions, communes, address, setAddress, dispatchDateObject}) => {
 
     const {auth} = useContext(AuthContext);
 
@@ -18,6 +18,7 @@ const Addresses = ({setView, regions, communes, address, setAddress, dispatchDat
     const [addressSelected, setAddressSelected] = useState(null);
 
     useEffect(() => {
+        console.log(dispatchDateObject)
         if (auth) {
             getData();
         }
@@ -118,14 +119,14 @@ const Addresses = ({setView, regions, communes, address, setAddress, dispatchDat
                                 </div>
                                 <div className="col-auto mx-2 d-flex">
                                     <span className="my-auto font-poppins font-12 regular color-8E8E8E">
-                                        Fecha de entrega
+                                        {dispatchDateObject?.label}
                                     </span>
                                 </div>
-                                <div className="col-auto d-flex">
-                                    <span className="my-auto font-poppins font-14 regular color-484848">
-                                        {dispatchDate}
-                                    </span>
-                                </div>
+                                {/*<div className="col-auto d-flex">*/}
+                                {/*    <span className="my-auto font-poppins font-14 regular color-484848">*/}
+                                {/*        {dispatchDateObject?.label}*/}
+                                {/*    </span>*/}
+                                {/*</div>*/}
                             </div>
                         </div>
                         <div className="col-12 col-md-auto">
@@ -140,7 +141,7 @@ const Addresses = ({setView, regions, communes, address, setAddress, dispatchDat
                                 </div>
                                 <div className="col-auto d-flex">
                                     <span className="my-auto font-poppins font-14 regular color-484848">
-                                         09:00 a 21:00
+                                         {dispatchDateObject ?  (dispatchDateObject?.is_immediate ? '30 minutos' : dispatchDateObject?.schedule.start_time + ' a ' + dispatchDateObject?.schedule.end_time) : ''}
                                     </span>
                                 </div>
                             </div>

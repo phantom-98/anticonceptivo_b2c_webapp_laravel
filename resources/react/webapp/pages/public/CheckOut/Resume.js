@@ -16,7 +16,7 @@ import {setInputError} from "../../../helpers/GlobalUtils";
 const Resume = ({
     showFinal,
     data,
-    file,
+    files,
     address,
     subscription,
     setFinishWebpayProccess,
@@ -26,14 +26,15 @@ const Resume = ({
     subtotal,
     setSubtotal,
     setTotal,
-    setDispatchDate,
+    setDispatchDateObject,
     installment,
     validateData,
     hasAddress,
     view,
     customerId,
     updateData,
-    validateDataAddressInvite
+    validateDataAddressInvite, prescriptionRadio,
+                    withoutPrescriptionAnswer
     }) => {
 
     const [dispatch , setDispatch] = useState(0);
@@ -48,9 +49,9 @@ const Resume = ({
     useEffect(() => {
         // console.log(address)
         let url = Services.ENDPOINT.PAYMENTS.GET_DISPATCH;
-
         let data = {
-            commune_id: address.commune_id
+            commune_id: address.commune_id,
+            cartItems: cartItems
         }
 
         Services.DoPost(url, data).then(response => {
@@ -58,7 +59,8 @@ const Resume = ({
               response: response,
               success: () => {
                 setDispatch(response.data.dispatch)
-                setDispatchDate(response.data.date_dispatch)
+                  console.log(response.data.date_dispatch)
+                setDispatchDateObject(response.data.dateDeliveryOrder)
               },
 
             });
@@ -238,7 +240,7 @@ const Resume = ({
                             showFinal === 3 ?
                                 <WebPayProccess
                                     data={data}
-                                    file={file}
+                                    files={files}
                                     address={address}
                                     subscription={subscription}
                                     setFinishWebpayProccess={setFinishWebpayProccess}
@@ -252,6 +254,8 @@ const Resume = ({
                                     discountCode={discountCode}
                                     installment={installment}
                                     customerId={customerId}
+                                    prescriptionRadio={prescriptionRadio}
+                                    withoutPrescriptionAnswer={withoutPrescriptionAnswer}
                                 />
                             : null
                         }

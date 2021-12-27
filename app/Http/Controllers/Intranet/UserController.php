@@ -78,7 +78,7 @@ class UserController extends GlobalController
                 $object->save();
 
             }
-    
+
 
             if ($object) {
                 session()->flash('success', 'Usuario creado correctamente.');
@@ -151,7 +151,7 @@ class UserController extends GlobalController
                 $object->password = bcrypt($request->password);
             }
             $object->save();
-            
+
             if($request->imagen){
                 if(file_exists(storage_path('app/public/perfil/'.$object->id.'.jpg')) || file_exists(storage_path('app/public/perfil/'.$object->id.'.png'))){
                     if(file_exists(storage_path('app/public/perfil/'.$object->id.'.jpg'))){
@@ -166,7 +166,7 @@ class UserController extends GlobalController
                 $object->save();
 
             }
-    
+
 
             if ($object) {
                 session()->flash('success', 'Usuario actualizado correctamente.');
@@ -233,7 +233,7 @@ class UserController extends GlobalController
 
             return response()->json([
                 'status' => 'error',
-                'message' => 'Ha ocurrido un error inesperado, inténtelo denuevo más tarde.' . $e->getMessage()
+                'message' => 'Ha ocurrido un error inesperado, inténtelo de nuevo más tarde.' . $e->getMessage()
             ]);
         }
 

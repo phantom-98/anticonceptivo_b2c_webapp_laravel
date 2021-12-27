@@ -60,14 +60,14 @@ class VoucherPaymentDays extends Command
             Log::info('Paso 1');
             $datePayment = Carbon::now()->subDay();
 
-            $dayPaymentExists = DayPayment::whereDate('created_at', $datePayment)->get()->first();
+            $dayPaymentExists = DayPayment::whereDate('date_payment', Carbon::parse($datePayment)->format('Y-m-d'))->first();
 
             if($dayPaymentExists){
+                Log::info('Existe proceso de facturación en dia '.$datePayment);
                 return;
             }
 
             $orders = Order::whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED'])->whereDate('created_at',$datePayment)
-            // ->with('subscriptions_orders_items.order_item','order_items')
             ->get();
             $details = [];
             $total = 0;
@@ -78,8 +78,6 @@ class VoucherPaymentDays extends Command
 
             if($paymentCommission == null){
                 return false;
-//                $paymentCommission = PaymentCommission::where('active',1)
-//                    ->get()->last();
             }
 
             $commission = $paymentCommission->commission;
@@ -162,7 +160,7 @@ class VoucherPaymentDays extends Command
             Log::info($response);
             $dayPayment = new DayPayment();
             $dayPayment->url_pdf = $response['urlPdf'];
-            $dayPayment->date_payment = $datePayment;
+            $dayPayment->date_payment = Carbon::parse($datePayment)->format('Y-m-d');
             $dayPayment->total = $total;
             $dayPayment->save();
 
@@ -186,7 +184,6 @@ class VoucherPaymentDays extends Command
 
 
         } catch (\Exception $e){
-
             Log::info('Error catch boleta Farmacia',
                 [
                     "response" => $e->getMessage()

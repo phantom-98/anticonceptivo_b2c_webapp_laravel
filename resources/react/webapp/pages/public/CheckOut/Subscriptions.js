@@ -60,12 +60,15 @@ const Subscriptions = ({setView, subscription, setSubscription}) => {
                         response: response,
                         success: () => {
 
-                            runVerifyPaymentMethod(response.data.id)
-                            showWaitingPaymentMethod();
-                            var win = window.open();
-                            win.document.open();
-                            win.document.write(response.data.webpay);
-                            win.document.close();
+                            // runVerifyPaymentMethod(response.data.id)
+                            // showWaitingPaymentMethod();
+                            console.log(response.data.oneclick_data)
+                            const urlOneClick = response.data.oneclick_data.url + '?TBK_TOKEN=' + response.data.oneclick_data.token
+                            window.location.href = urlOneClick;
+                            // var win = window.open();
+                            // win.document.open();
+                            // win.document.write(response.data.webpay);
+                            // win.document.close();
                         },
                     });
                 })

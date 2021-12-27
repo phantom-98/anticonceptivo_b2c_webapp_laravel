@@ -85,13 +85,6 @@ class UpdateStock extends Command
                     'ailoo_error' => $get_data
                 ]);
 
-
-                Log::error('UpdateStock Ailoo', [
-                    'product' => $product,
-                    'response' => $exception->getMessage(),
-                    'response Ailoo' => $get_data
-                ]);
-
                 $product->stock = 0;
             }
 
@@ -99,7 +92,7 @@ class UpdateStock extends Command
         }
 
         try {
-            $users = User::all();
+            $users = User::whereIn('id', [2,9]);
             foreach($users as $user){
                 $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
                 $html = view('emails.ailoo-errors', ['user_name' => $user->first_name, 'errors' => $errorsEmail])->render();

@@ -36,7 +36,8 @@ const Shop = ({match}) => {
         isBioequivalent: null,
         subscriptions: [],
         formats: [],
-        price: null
+        price: null,
+        immediate: false
     };
 
     const [filters, setFilters] = useState(defaultFilters);
@@ -155,6 +156,7 @@ const Shop = ({match}) => {
             subscription: filters.subscriptions,
             format: filters.formats,
             price: filters.price,
+            is_immediate: filters.immediate,
         }
         Services.DoPost(url, data).then(response => {
             Services.Response({
@@ -220,11 +222,11 @@ const Shop = ({match}) => {
             case 4:
                 sortByPriceDesc(_products);
                 break;
-        
+
             default:
                 break;
         }
-        
+
         setProducts(_products);
     }
 
@@ -276,13 +278,27 @@ const Shop = ({match}) => {
         });
     }
 
+    const handleImmediate = (value) => {
+        setFilters({
+            ...filters,
+            immediate: value
+        });
+        if (value) {
+            const _products = products.filter(p => p.is_immediate == value);
+            setProducts(_products)
+        } else {
+            getProductsFiltered();
+        }
+    }
+
     return (
         <Fragment>
             <BasePanelTwo
                 classContainer="mobile-shop"
                 breadcrumbs={breadcrumbs}
                 prepend={loading ?
-                    <div className={`d-md-none d-block px-0 ${category.banner_image_size ? category.banner_image_size : 'w-100'}`}>
+                    <div
+                        className={`d-md-none d-block px-0 ${category.banner_image_size ? category.banner_image_size : 'w-100'}`}>
                         <img width="100%" src={category.public_banner_image_responsive} alt={CONFIG.APP_NAME}/>
                     </div>
                     : null
@@ -311,6 +327,8 @@ const Shop = ({match}) => {
                                         filtersUpdate={filtersUpdate}
                                         setFiltersUpdate={setFiltersUpdate}
                                         unitFormat={unitFormat}
+                                        immediate={filters.immediate}
+                                        setImmediate={handleImmediate}
                                     />
                                 </div>
                             </div>
@@ -338,6 +356,8 @@ const Shop = ({match}) => {
                                                 filtersUpdate={filtersUpdate}
                                                 setFiltersUpdate={setFiltersUpdate}
                                                 unitFormat={unitFormat}
+                                                immediate={filters.immediate}
+                                                setImmediate={handleImmediate}
                                             /> : null
                                         }
                                     </div>}

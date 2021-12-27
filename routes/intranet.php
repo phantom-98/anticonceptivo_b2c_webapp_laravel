@@ -170,8 +170,15 @@ if (env('SHOW_INTRANET', 'TRUE') == 'TRUE') {
                 Route::post('productos/position', 'ProductController@position')->name('products.position');
                 Route::get('productos/export', 'ProductController@export')->name('products.export');
                 Route::post('productos/active', 'ProductController@active')->name('products.active');
+                Route::post('productos/is-immediate', 'ProductController@is_immediate')->name('products.is_immediate');
                 Route::post('productos/import', 'ProductController@import')->name('products.import');
                 Route::resource('productos', 'ProductController', ['names' => getResourceRoutesForNameHelper('products')]);
+
+                Route::get('calendario-de-productos', 'ProductScheduleController@index')->name('product-schedules.index');
+                Route::post('calendario-de-productos/update', 'ProductScheduleController@update')->name('product-schedules.update');
+
+                Route::get('limite-productos-por-dia', 'LimitOrderByDayController@index')->name('limit-order-by-day.index');
+                Route::post('limite-productos-por-dia/update', 'LimitOrderByDayController@update')->name('limit-order-by-day.update');
 
                 Route::post('paginas/active', 'PageController@active')->name('pages.active');
                 Route::resource('paginas', 'PageController', ['names' => getResourceRoutesForNameHelper('pages')]);

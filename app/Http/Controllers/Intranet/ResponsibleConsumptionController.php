@@ -62,14 +62,14 @@ class ResponsibleConsumptionController extends GlobalController
                 $filename = 'responsible-consumption-' . $object->id  .'.'. $image->getClientOriginalExtension();
                 $object->image = $image->storeAs('public/responsible-consumptions', $filename);
                 $object->save();
-            }  
+            }
 
             if ($request->file) {
                 $file = $request->file('file');
                 $filename = 'responsible-consumption-' . $object->id  .'.'. $file->getClientOriginalExtension();
                 $object->file = $file->storeAs('public/responsible-consumptions', $filename);
                 $object->save();
-            }  
+            }
 
             if ($object) {
                 session()->flash('success', 'Consumo Responsable creado correctamente.');
@@ -207,7 +207,7 @@ class ResponsibleConsumptionController extends GlobalController
 
             return response()->json([
                 'status' => 'error',
-                'message' => 'Ha ocurrido un error inesperado, inténtelo denuevo más tarde.' . $e->getMessage()
+                'message' => 'Ha ocurrido un error inesperado, inténtelo de nuevo más tarde.' . $e->getMessage()
             ]);
         }
 

@@ -1672,7 +1672,7 @@ tbody tr td {
 .subscription-card {
   background-color: #FFFFFF;
   border-radius: 12px;
-  padding: 28px 14px;
+  padding: 14px 14px 28px;
   border: 1px solid #E8E8E8;
   transition: 0.2s;
 }
@@ -1771,7 +1771,7 @@ tbody tr td {
 .product-card {
   background-color: #FFFFFF;
   border-radius: 12px;
-  padding: 28px 14px;
+  padding: 14px 14px 28px;
   border: 1px solid #E8E8E8;
   transition: 0.2s;
 }
@@ -2292,10 +2292,9 @@ input[type=number] {
     border-style: solid;
     border-radius: 11px;
     padding: 8px;
-  }
-
-  .divRecipe {
-    background-color: white !important;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
   }
 
   .padding-responsive-detail {
@@ -4251,6 +4250,72 @@ a:-webkit-any-link:focus-visible {
   box-shadow: none !important;
 }
 
+.box-immediate {
+  border: 1px solid #E6E6E6;
+  padding: 10px 15px;
+}
+
+.box-immediate input,
+.box-immediate .custom-control-input:focus ~ .custom-control-label::before {
+  box-shadow: none;
+  outline: none;
+}
+
+.box-immediate .custom-control-label::before {
+  background-color: #fff;
+  border: #E8E8E8 solid 1px;
+  height: 21px;
+  border-radius: 50px;
+  width: 38px;
+}
+
+.box-immediate .custom-switch .custom-control-label::after {
+  background-color: #fafafa;
+  border: 1px solid #E8E8E8;
+  width: 17px;
+  height: 17px;
+  border-radius: 50px;
+}
+
+.box-immediate .custom-switch .custom-control-input:checked ~ .custom-control-label::after {
+  transform: translateX(18px);
+}
+
+.is-immediate-label,
+.is-today-label,
+.is-tomorrow-label,
+.is-after-tomorrow-label {
+  font-size: 11px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  padding: 5px 10px;
+  border-radius: 6px;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin-left: auto;
+}
+
+.is-immediate-label {
+  background: #009BE8;
+  color: #FFFFFF;
+}
+
+.is-today-label {
+  background: #EDF8FE;
+  color: #009BE8;
+}
+
+.is-tomorrow-label {
+  background: rgba(0, 219, 174, 0.18);
+  color: #00DBAE;
+}
+
+.is-after-tomorrow-label {
+  background: rgba(219, 0, 0, 0.18);
+  color: #db0000;
+}
+
 @media (min-width: 768px) {
   .app-margin-top {
     margin-top: 0;
@@ -5579,7 +5644,7 @@ a:-webkit-any-link:focus-visible {
   }
 
   .checkout-mobile-h3 {
-    font-size: 25px;
+    font-size: 22px;
     font-weight: 700;
     margin-bottom: 0;
     letter-spacing: 3px !important;

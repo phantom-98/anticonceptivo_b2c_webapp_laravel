@@ -29,8 +29,8 @@ class DayPaymentController extends GlobalController
     public function index(Request $request)
     {
         $date = $request->date;
-        $end = Carbon::now()->format('Y-m-d');
-        $start = Carbon::now()->subMonth(1)->format('Y-m-d');
+        $end = Carbon::now()->endOfMonth()->format('Y-m-d');
+        $start = Carbon::now()->startOfMonth()->format('Y-m-d');
         if ($date) {
             if (strpos($date, "-")) {
                 $start = substr($date, 0, strpos($date, "-"));
@@ -49,7 +49,7 @@ class DayPaymentController extends GlobalController
             }
         }
 
-        $objects = DayPayment::whereBetween('date_payment', [$start.' 00:00:00', $end.' 23:59:59'])->get();
+        $objects = DayPayment::whereBetween('date_payment', [$start.' 00:00:00', $end.' 23:59:59'])->orderBy('date_payment')->get();
         return view($this->folder . 'index', compact('objects','date','start','end'));
     }
 
