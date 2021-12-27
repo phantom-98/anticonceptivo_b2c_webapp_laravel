@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class ProductSchedule extends Model
 {
@@ -15,4 +16,20 @@ class ProductSchedule extends Model
         'day_of_week',
         'type'
     ];
+
+    protected $appends = [
+        'formated_start_time',
+        'formated_end_time',
+    ];
+
+    public function getFormatedStartTimeAttribute()
+    {
+        return Carbon::parse($this->start_time)->format('H:i');
+    }
+
+    public function getFormatedEndTimeAttribute()
+    {
+        return Carbon::parse($this->end_time)->format('H:i');
+    }
+
 }

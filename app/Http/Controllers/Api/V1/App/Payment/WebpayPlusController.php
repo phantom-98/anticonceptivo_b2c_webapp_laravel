@@ -585,7 +585,9 @@ class WebpayPlusController
                 $order->payment_type = 'webpay';
                 $order->is_paid = true;
                 $order->save();
-                $this->updateDiscountCode($order->discount_code->name);
+                if($order->discount_code_id){
+                    $this->updateDiscountCode($order->discount_code->name);
+                }
                 $responseStockProduct = $this->isStockProducts($order->order_items);
 
                 if (!$responseStockProduct['status']) {

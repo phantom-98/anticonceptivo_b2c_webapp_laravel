@@ -141,7 +141,7 @@ const Addresses = ({setView, regions, communes, address, setAddress, dispatchDat
                                 </div>
                                 <div className="col-auto d-flex">
                                     <span className="my-auto font-poppins font-14 regular color-484848">
-                                         {dispatchDateObject ?  (dispatchDateObject?.is_immediate ? '30 minutos' : dispatchDateObject?.schedule.start_time + ' a ' + dispatchDateObject?.schedule.end_time) : ''}
+                                         {dispatchDateObject ?  (dispatchDateObject?.is_immediate ? 'Aprox. 30 minutos' : dispatchDateObject?.schedule.formated_start_time + ' a ' + dispatchDateObject?.schedule.formated_end_time) : ''}
                                     </span>
                                 </div>
                             </div>
