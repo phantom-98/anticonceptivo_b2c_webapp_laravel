@@ -65,7 +65,7 @@
                         </li>
 
                         <li class="treeview {{ is_parent_menu_active(['intranet/categorias', 'intranet/subcategorias', 'intranet/marcas', 'intranet/productos', 'intranet/calendario-de-productos',
-                            'intranet/pedidos', 'intranet/laboratorios', 'intranet/aviso-legal-productos','intranet/precios-productos', 'intranet/planes-suscripcion']) }}">
+                            'intranet/pedidos', 'intranet/laboratorios', 'intranet/aviso-legal-productos','intranet/precios-productos', 'intranet/planes-suscripcion', 'intranet/limite-productos-por-dia']) }}">
                             <a href="#">
                                 <i class="ti-shopping-cart"></i>
                                 <span class="menu-title">Tienda</span>
