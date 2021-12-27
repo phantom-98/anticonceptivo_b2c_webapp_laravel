@@ -177,6 +177,9 @@ if (env('SHOW_INTRANET', 'TRUE') == 'TRUE') {
                 Route::get('calendario-de-productos', 'ProductScheduleController@index')->name('product-schedules.index');
                 Route::post('calendario-de-productos/update', 'ProductScheduleController@update')->name('product-schedules.update');
 
+                Route::get('limite-productos-por-dia', 'LimitOrderByDayController@index')->name('limit-order-by-day.index');
+                Route::post('limite-productos-por-dia/update', 'LimitOrderByDayController@update')->name('limit-order-by-day.update');
+
                 Route::post('paginas/active', 'PageController@active')->name('pages.active');
                 Route::resource('paginas', 'PageController', ['names' => getResourceRoutesForNameHelper('pages')]);
                 Route::post('paginas/position', 'PageController@position')->name('pages.position');

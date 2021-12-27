@@ -47,14 +47,14 @@
     <link href="/themes/intranet/plugins/fullcalendar/nifty-skin/fullcalendar-nifty.min.css" rel="stylesheet">
 
     <style>
-        .fc-time-grid-container{
-            max-height: auto;
-        }
         .event-product-schedule-normal{
             background-color: #00c3c3 !important;
         }
         .event-product-schedule-immediate{
             background-color: #fc4848 !important;
+        }
+        #container .fc-view-container .fc-event {
+            max-width: 100px !important;
         }
     </style>
 
@@ -107,7 +107,7 @@
 
                 return {
                     id: Math.round(Math.random() * 10000),
-                    title: '',
+                    title: item.type,
                     start: day_start + ' ' + start_time,
                     end: day_end + ' ' + end_time,
                     className: 'event-product-schedule-'+(item.type).toLowerCase(),
@@ -117,25 +117,46 @@
 
 
             $('#calendar-immediate').fullCalendar({
-                defaultView: 'agendaWeek',
+                defaultView: 'customAgenda',
                 scrollTime: '08:00:00',
                 allDaySlot: false,
+                height: 'auto',
                 header: {
                     left: '',
                     center: '',
                     right: ''
                 },
+                views: {
+                    customAgenda: {
+                        type: 'agendaWeek',
+                        columnFormat: 'dddd', // Format the day to only show like 'Monday'
+                    }
+                },
                 eventClick: function (e){
-                    events = events.filter(s => s.id != e.id)
-                    $('#calendar-immediate').fullCalendar('removeEvents',
-                        e.id)
-                    updateEvents(events)
+                    swal({
+                        title: '¿Estas Seguro de eliminar este horario?',
+                        type: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#43a047',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Si, eliminar!',
+                        cancelButtonText: 'No, cancelar!'
+                    }).then(function (result) {
+                        if (result.value) {
+                            events = events.filter(s => s.id != e.id)
+                            $('#calendar-immediate').fullCalendar('removeEvents',
+                                e.id)
+                            updateEvents(events)
+                        }
+                    })
+
+
                 },
                 select: function (start, end, JsEvent, view){
                     let selectTypeProductSchedule = $( "#selectTypeId option:selected" ).val()
                     _event = {
                         id: Math.round(Math.random() * 10000),
-                        title: '',
+                        title: selectTypeProductSchedule,
                         start: start.format('YYYY-MM-DD HH:mm:ss'),
                         end: end.format('YYYY-MM-DD HH:mm:ss'),
                         className: 'event-product-schedule-'+(selectTypeProductSchedule).toLowerCase(),

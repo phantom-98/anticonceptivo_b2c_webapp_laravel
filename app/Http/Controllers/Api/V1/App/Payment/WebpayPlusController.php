@@ -159,6 +159,7 @@ class WebpayPlusController
 
                 if (!$customerAddress) {
                     $customerAddress = new CustomerAddress();
+                    $customerAddress->default_address = 1;
                 }
                 $customerAddress->address = $request->address;
                 $customerAddress->name = $request->name;
@@ -175,24 +176,24 @@ class WebpayPlusController
             }
         }
 
-//        $deliveryCosts = DeliveryCost::where('active', 1)->get();
-//        $itemDeliveryCost = null;
-//        $itemDeliveryCostArrayCost = null;
-//        $commune_name = Commune::find($customerAddress->commune_id)->name;
-//
-//        foreach ($deliveryCosts as $key => $deliveryCost) {
-//            $costs = json_decode($deliveryCost->costs);
-//
-//            foreach ($costs as $key => $itemCost) {
-//                $communes = $itemCost->communes;
-//
-//                $found_key = array_search($commune_name, $communes);
-//                if ($found_key !== false) {
-//                    $itemDeliveryCost = $deliveryCost;
-//                    $itemDeliveryCostArrayCost = $itemCost;
-//                }
-//            }
-//        }
+        $deliveryCosts = DeliveryCost::where('active', 1)->get();
+        $itemDeliveryCost = null;
+        $itemDeliveryCostArrayCost = null;
+        $commune_name = Commune::find($customerAddress->commune_id)->name;
+
+        foreach ($deliveryCosts as $key => $deliveryCost) {
+            $costs = json_decode($deliveryCost->costs);
+
+            foreach ($costs as $key => $itemCost) {
+                $communes = $itemCost->communes;
+
+                $found_key = array_search($commune_name, $communes);
+                if ($found_key !== false) {
+                    $itemDeliveryCost = $deliveryCost;
+                    $itemDeliveryCostArrayCost = $itemCost;
+                }
+            }
+        }
 
 //        $delivery_date =Carbon::now()->addHours($itemDeliveryCost->deadline_delivery);
         $delivery_date =Carbon::now();

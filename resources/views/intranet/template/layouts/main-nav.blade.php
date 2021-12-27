@@ -122,6 +122,13 @@
                                         </a>
                                     </li>
                                 @endcan
+                                @can('limit-order-by-day.index')
+                                    <li class="{{ is_menu_active('intranet/limite-productos-por-dia') }}">
+                                        <a href="{{ route('intranet.limit-order-by-day.index') }}">
+                                            <span class="menu-title">Limite de pedidos diarios</span>
+                                        </a>
+                                    </li>
+                                @endcan
                                 @can('intranet.products.index')
                                 <li class="{{ is_menu_active('intranet/productos') }}">
                                     <a href="{{ route('intranet.products.index') }}">
