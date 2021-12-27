@@ -15,12 +15,12 @@
         <div class="col-md-12">
             <div class="panel">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Calendario productos Inmediato</h3>
+                    <h3 class="panel-title">Calendario productos</h3>
                 </div>
                 <div class="panel-body">
                     <select id="selectTypeId" class="form-control mb-3 w-25">
                         <option value="NORMAL">Normal</option>
-                        <option value="IMMEDIATE">Immediate</option>
+                        <option value="IMMEDIATE">Inmediato</option>
                     </select>
                     <div id='calendar-immediate'></div>
                 </div>
