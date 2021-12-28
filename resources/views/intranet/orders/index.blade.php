@@ -186,7 +186,11 @@
                                 <td>${{ number_format($object->discount, 0, ',','.')}}</td>
                                 <td>${{ number_format($object->total, 0, ',','.')}}</td>
                                 <td>{{ $object->billing_date ? date('d-m-Y', strtotime($object->billing_date)) : '-' }}</td>
-                                <td>{{ $object->label_dispatch ? $object->label_dispatch : '-' }}</td>
+                                @if(isset($object->label_dispatch))
+                                <td>{{ $object->label_dispatch == "Entrega inmediata" ? "Entrega Prioritaria" : $object->label_dispatch }}</td>
+                                @else 
+                                <td>-</td>
+                                @endif
                                 @if($object->status != "PAID" && $object->status != "CREATED")
                                     <td>{{ $object->humidity ?? '-'}}</td>
                                     <td>{{ $object->temperature ?? '-'}}</td>
