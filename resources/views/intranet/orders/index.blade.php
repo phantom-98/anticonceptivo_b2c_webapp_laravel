@@ -211,7 +211,7 @@
                                     </td>
                                 @endif
                                 @if(isset($object->voucher_pdf))
-                                <td><a href="{{ Storage::url($object->voucher_pdf) }}" target="_blank" class='btn btn-sm btn-default btn-hover-success' data-toggle="tooltip" title="{{$object->voucher_pdf}}"><i class="ti-file"></i></a></td>
+                                <td><a href="{{ $object->voucher_pdf }}" target="_blank" class='btn btn-sm btn-default btn-hover-success' data-toggle="tooltip"><i class="ti-file"></i></a></td>
                                 @else 
                                 <td>-</td>
                                 @endif
