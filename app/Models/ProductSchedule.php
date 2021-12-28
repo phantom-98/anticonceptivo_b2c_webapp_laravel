@@ -24,12 +24,12 @@ class ProductSchedule extends Model
 
     public function getFormatedStartTimeAttribute()
     {
-        return Carbon::parse($this->start_time)->addMinutes(60)->format('H:i');
+        return Carbon::parse($this->start_time)->format('H:i');
     }
 
     public function getFormatedEndTimeAttribute()
     {
-        return Carbon::parse($this->end_time)->addMinutes(60)->format('H:i');
+        return Carbon::parse($this->end_time)->format('H:i');
     }
 
 }
