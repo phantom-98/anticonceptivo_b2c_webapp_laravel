@@ -11,7 +11,7 @@ import { AppContext } from "../../../../../context/AppProvider";
 import { BREAKPOINTS } from "../../../../../helpers/vars";
 import toastr from "toastr";
 
-const ModalSubscription = ({ 
+const ModalSubscription = ({
     subscriptionOrderItemSelected,
     setSubscriptionOrderItemSelected,
     modals,
@@ -27,7 +27,7 @@ const ModalSubscription = ({
     const [showingWaitingPaymentMethod, setShowingWaitingPaymentMethod] = useState(false);
 
     const changeShowingWaitingPaymentMethod = (status) => setShowingWaitingPaymentMethod(status);
-    
+
     const saveDefaultSubscription = (subscriptionId, customerId) => {
         let url =
             Services.ENDPOINT.CUSTOMER.SUBSCRIPTIONS.SET_CARD_SUBSCRIPTION;
@@ -197,7 +197,7 @@ const ModalSubscription = ({
     return (
         <>
             <WaitingPaymentMethod  showingWaitingPaymentMethod={showingWaitingPaymentMethod}/>
-            
+
             <Modal
                 show={modals.subscription}
                 centered

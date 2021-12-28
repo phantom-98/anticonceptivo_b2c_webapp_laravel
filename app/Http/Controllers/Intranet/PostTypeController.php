@@ -59,7 +59,7 @@ class PostTypeController extends GlobalController
                 $filename = 'post-type-' . $object->id  .'.'. $image->getClientOriginalExtension();
                 $object->image = $image->storeAs('public/post-types', $filename);
                 $object->save();
-            }  
+            }
 
             if ($object) {
                 session()->flash('success', 'Tipo de Blog creado correctamente.');
@@ -195,7 +195,7 @@ class PostTypeController extends GlobalController
 
             return response()->json([
                 'status' => 'error',
-                'message' => 'Ha ocurrido un error inesperado, inténtelo denuevo más tarde.' . $e->getMessage()
+                'message' => 'Ha ocurrido un error inesperado, inténtelo de nuevo más tarde.' . $e->getMessage()
             ]);
         }
 

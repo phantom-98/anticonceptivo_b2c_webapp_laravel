@@ -4,6 +4,7 @@ import {AuthContext} from "../../../../context/AuthProvider";
 import {CartContext} from "../../../../context/CartProvider";
 import WaitingPayment from "./WaitingPayment";
 import Swal from 'sweetalert2'
+import PUBLIC_ROUTES from "../../../../routes/publicRoutes";
 
 const WebPayProccess = ({
     data,
@@ -19,7 +20,7 @@ const WebPayProccess = ({
     discountType,
     discountCode,
     installment,
-    customerId
+    customerId, prescriptionRadio, withoutPrescriptionAnswer,files
 }) => {
 
     const {auth} = useContext(AuthContext);
@@ -32,22 +33,9 @@ const WebPayProccess = ({
     }
 
     const hideWaitingPayment = () => {
-        setShowingWaitingPayment(true);
+        setShowingWaitingPayment(false);
     }
 
-    // useEffect(()=>{
-    //     let _total = 0;
-    //     cartItems.map((item) =>{
-    //         if(item.subscription != null){
-    //             _total = _total + (item.quantity * item.subscription.price)
-
-    //         }else{
-    //             _total = _total + (item.quantity * item.product.price)
-
-    //         }
-    //     })
-    //     setTotalCart(_total);
-    // },[cartItems])
 
     const [token, setToken] = useState('');
 
@@ -75,48 +63,51 @@ const WebPayProccess = ({
         let dataForm = {
             ...data,
             ...address,
-            subscription: selectedSubscription,
+            subscription: JSON.stringify(selectedSubscription),
             customer_id: auth ? auth.id : customerId,
             total: total,
             discountType: discountType,
             subtotal: subtotal,
             discount: discount,
             dispatch: dispatch,
-
+            discountCode: discountCode,
             installment: installment,
-            cartItems: cartItems
+            cartItems: JSON.stringify(cartItems),
+            urlFinish : window.location.href + PUBLIC_ROUTES.CHECKOUT_VERIFY.path
         }
 
-        Services.DoPost(url, dataForm)
+        const formData = new FormData();
+
+        Object.entries(dataForm).forEach(data => {
+            formData.append(data[0], data[1]);
+        })
+        formData.append('prescription_radio', prescriptionRadio);
+        formData.append('without_prescription_answer', withoutPrescriptionAnswer);
+
+        let fileList = [...files]
+
+        for(let i=0; i < fileList.length; i++){
+            formData.append('attachments[]', fileList[i]);
+            formData.append('productIds[]', fileList[i].product_id);
+        }
+
+        const config = {
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
+        }
+
+
+        Services.DoPost(url, formData, config)
             .then(response => {
                 Services.Response({
                     response: response,
                     success: () => {
                         if (response.message == "Compra OneClick") {
-                            clearCart();
-                            // submitPrescription(response.data.order.id, response.data.order.customer_id);
-                            updateDiscountCode(discountCode)
-                            setOrderId(response.data.order.id)
-                            hideWaitingPayment();
-                            setWebpayProccessSuccess(true);
-                            setFinishWebpayProccess(1);
-                            clearInterval(interval)
+                            window.location.href = response.data.url;
                         } else {
-                            // let win = window.open(window.location.href + '?attempt-payment-webpay=true', '_blank');
-
-                            runVerify(response.data.order.id, response.data.order.customer_id)
-                            setOrderId(response.data.order.id)
-                            setToken(response.data.token)
-
-                            // importante cambiar en oneclick
                             const urlWebpay = response.data.webpay_data.url + '?token_ws=' + response.data.webpay_data.token
-                            window.open(urlWebpay, '_blank');
-
-                            // var win = window.open();
-                            // win.document.open();
-                            // win.document.write(response.data.webpay);
-                            // win.document.close();
-                            // win.document.focus();
+                            window.location.href = urlWebpay;
                         }
 
 
@@ -157,61 +148,6 @@ const WebPayProccess = ({
             Services.Response({
                 response: response,
                 success: () => {
-                }
-            });
-        }).catch(error => {
-            Services.ErrorCatch(error)
-        });
-    }
-
-    let interval;
-
-    const runVerify = (orderId, customerId) => {
-        verifyPayment(orderId);
-
-        interval = setInterval(() => {
-            verifyPayment(orderId, customerId);
-        }, 5000);
-    }
-
-    const verifyPayment = (orderId, customerId) => {
-
-        const data = {
-            order_id: orderId,
-        }
-
-        const url = Services.ENDPOINT.PAYMENTS.VERIFY;
-
-        Services.DoPost(url, data).then(response => {
-            Services.Response({
-                response: response,
-                success: () => {
-                    if (response.data.order && response.data.order.status == 'PAID') {
-                        clearCart();
-                        updateDiscountCode(discountCode)
-                        hideWaitingPayment();
-                        setWebpayProccessSuccess(true);
-                        setFinishWebpayProccess(1);
-                        clearInterval(interval)
-                    } else if (response.data.order && response.data.order.status == 'REJECTED') {
-                        setWebpayProccessSuccess(false);
-                        hideWaitingPayment();
-                        setFinishWebpayProccess(1);
-                        clearInterval(interval)
-                    } else if (response.data.order && response.data.order.status == 'CANCELED') {
-                        setWebpayProccessSuccess(false);
-                        hideWaitingPayment();
-                        setFinishWebpayProccess(1);
-                        clearInterval(interval)
-                    } else if (response.data.order && response.data.order.status == 'WAITING') {
-                        setWebpayProccessSuccess(false);
-                        hideWaitingPayment();
-                        setFinishWebpayProccess(1);
-                        clearInterval(interval)
-                    }
-                },
-                error: () => {
-                    console.log(response.message)
                 }
             });
         }).catch(error => {

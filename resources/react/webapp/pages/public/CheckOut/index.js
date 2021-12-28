@@ -20,7 +20,8 @@ const CheckOut = () => {
     const {auth} = useContext(AuthContext);
     const {cartItems} = useContext(CartContext);
     // const {isCartReady, checkCart} = useContext(CartContext);
-    const [dispatchDate, setDispatchDate] = useState([]);
+
+    const [dispatchDateObject, setDispatchDateObject] = useState(null);
     const [installment, setInstallment] = useState(1);
     const [showFinal, setShowFinal] = useState(1);
     const [finishWebpayProccess, setFinishWebpayProccess] = useState(0);
@@ -396,8 +397,6 @@ const CheckOut = () => {
         <Fragment>
             <div className="pb-5" style={{background: '#FAFAFA'}}>
                 <div className="container pt-4">
-                    {
-                        !finishWebpayProccess ?
                             <Fragment>
                                 <Header showFinal={showFinal} />
                                     <div className="row pb-5">
@@ -468,7 +467,7 @@ const CheckOut = () => {
                                                     <Addresses
                                                         setView={setView}
                                                         regions={regions}
-                                                        dispatchDate={dispatchDate}
+                                                        dispatchDateObject={dispatchDateObject}
                                                         communes={communes}
                                                         address={address}
                                                         setAddress={setAddress}
@@ -484,7 +483,7 @@ const CheckOut = () => {
                                                 data={data}
                                                 files={files}
                                                 address={address}
-                                                setDispatchDate={setDispatchDate}
+                                                setDispatchDateObject={setDispatchDateObject}
                                                 subscription={subscription}
                                                 setFinishWebpayProccess={setFinishWebpayProccess}
                                                 setWebpayProccessSuccess={setWebpayProccessSuccess}
@@ -500,20 +499,12 @@ const CheckOut = () => {
                                                 customerId={customerId}
                                                 updateData={updateData}
                                                 validateDataAddressInvite={validateDataAddressInvite}
+                                                prescriptionRadio={prescriptionRadio}
+                                                withoutPrescriptionAnswer={withoutPrescriptionAnswer}
                                             />
                                         </div>
                                     </div>
                             </Fragment>
-                        :
-                        <HandleResponse
-                            webpayProccessSuccess={webpayProccessSuccess}
-                            orderId={orderId}
-                            productCount={productCount}
-                            files={files}
-                            prescriptionRadio={prescriptionRadio}
-                            withoutPrescriptionAnswer={withoutPrescriptionAnswer}
-                        />
-                    }
                 </div>
             </div>
         </Fragment>

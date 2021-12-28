@@ -66,20 +66,20 @@ export default function useGoogleAnalyticsEcommerce() {
                 'price': obj.price,
                 'quantity': obj.quantity,
                 'currency': 'CLP',
-            } 
+            }
         });
         // console.log('new items',newItems);
         setItems(newItems);
     }
 
     function send(){
-        // console.log('send to Google Analytics');
-        
+        console.log('send to Google Analytics', items);
+
         ReactGA.plugin.execute('ecommerce', 'addTransaction', transaction);
 
         items.forEach(item => {
-            // console.log('adding item to transaction ', transaction.id);
-            // console.log(item);
+            console.log('adding item to transaction ', transaction.id);
+            console.log(item);
             ReactGA.plugin.execute('ecommerce', 'addItem', item);
         });
 
@@ -99,7 +99,7 @@ export default function useGoogleAnalyticsEcommerce() {
             'currency': 'CLP',
         });
         setItems([]);
-    } 
+    }
 
     function clear(){
         // just clear in case of error (?)
@@ -107,7 +107,7 @@ export default function useGoogleAnalyticsEcommerce() {
     }
 
     return {
-        addTransaction, 
+        addTransaction,
         addItems,
         send,
         clear,

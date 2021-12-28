@@ -14,6 +14,8 @@ class Order extends Model
         'discount',
         'dispatch',
         'total',
+        'is_immediate',
+        'label_dispatch',
         'document_type',
         'shipping_type',
         'payment_type',
@@ -32,7 +34,10 @@ class Order extends Model
         'prescription_validation',
         'voucher_pdf',
         'humidity',
-        'temperature'
+        'temperature',
+        'dispatch_date',
+        'is_immediate',
+        'label_dispatch'
     ];
 
     protected $appends = ['formated_status', 'formated_background', 'formated_color'];

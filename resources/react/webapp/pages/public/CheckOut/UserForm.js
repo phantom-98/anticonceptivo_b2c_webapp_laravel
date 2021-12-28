@@ -127,7 +127,6 @@ const UserForm = ({
             } else {
                 list.push(e.target.files[0]);
             }
-
             setFiles(list);
         }
 

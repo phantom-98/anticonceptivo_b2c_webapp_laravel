@@ -475,9 +475,74 @@ a:-webkit-any-link:focus-visible {
     box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.16);
 }
 
-.pac-container{
+.pac-container {
     z-index: 1051 !important;
     box-shadow: none !important;
+}
+
+
+.box-immediate {
+    border: 1px solid #E6E6E6;
+    padding: 10px 15px;
+}
+
+.box-immediate input,
+.box-immediate .custom-control-input:focus ~ .custom-control-label::before {
+    box-shadow: none;
+    outline: none;
+}
+
+.box-immediate .custom-control-label::before {
+    background-color: #fff;
+    border: #E8E8E8 solid 1px;
+    height: 21px;
+    border-radius: 50px;
+    width: 38px;
+}
+
+.box-immediate .custom-switch .custom-control-label::after {
+    background-color: #fafafa;
+    border: 1px solid #E8E8E8;
+    width: 17px;
+    height: 17px;
+    border-radius: 50px;
+}
+
+
+.box-immediate .custom-switch .custom-control-input:checked ~ .custom-control-label::after {
+    transform: translateX(18px);
+}
+
+.is-immediate-label,
+.is-today-label,
+.is-tomorrow-label,
+.is-after-tomorrow-label{
+    font-size: 11px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    padding: 5px 10px;
+    border-radius: 6px;
+    width: fit-content;
+    margin-left: auto;
+}
+
+.is-immediate-label {
+    background: #009BE8;
+    color: #FFFFFF;
+}
+
+.is-today-label {
+    background: #EDF8FE;
+    color: #009BE8;
+}
+
+.is-tomorrow-label {
+    background: rgba(0, 219, 174, 0.18);
+    color: #00DBAE;
+}
+.is-after-tomorrow-label {
+    background: rgba(219, 0, 0, 0.18);
+    color: #db0000;
 }
 
 @import 'assets/scss/responsive';

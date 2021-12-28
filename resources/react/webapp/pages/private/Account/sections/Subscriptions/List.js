@@ -13,7 +13,7 @@ const List = ({subscriptions, showCreate, getData}) => {
             subscription_id: subscriptionId,
             customer_id: customerId
         }
-        
+
         Services.DoPost(url,data).then(response => {
             Services.Response({
             response: response,
@@ -35,7 +35,7 @@ const List = ({subscriptions, showCreate, getData}) => {
             },
             buttonsStyling: false
           })
-          
+
           swalWithBootstrapButtons.fire({
             title: '<span style="color: #0869A6;">¿Esta seguro de eliminar esta tarjeta?</span>',
             // icon: 'warning',
@@ -69,10 +69,10 @@ const List = ({subscriptions, showCreate, getData}) => {
             <div className="col-md-12 py-2">
                 {
                     subscriptions.map((subscription, index) => (
-                    
-                        <ListItem 
-                            key={index} 
-                            subscription={subscription} 
+
+                        <ListItem
+                            key={index}
+                            subscription={subscription}
                             saveDefaultSubscription={saveDefaultSubscription}
                             deleteSubscription={deleteSubscription}
                         />))

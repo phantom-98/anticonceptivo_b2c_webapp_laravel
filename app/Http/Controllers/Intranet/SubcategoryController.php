@@ -10,7 +10,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
-use Carbon\Carbon; 
+use Carbon\Carbon;
 
 class SubcategoryController extends GlobalController
 {
@@ -139,7 +139,7 @@ class SubcategoryController extends GlobalController
             ]);
         }
 
-        
+
     }
     /**
      * Remove the specified resource from storage.
@@ -178,7 +178,7 @@ class SubcategoryController extends GlobalController
 
             return response()->json([
                 'status' => 'error',
-                'message' => 'Ha ocurrido un error inesperado, inténtelo denuevo más tarde.' . $e->getMessage()
+                'message' => 'Ha ocurrido un error inesperado, inténtelo de nuevo más tarde.' . $e->getMessage()
             ]);
         }
 

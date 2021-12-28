@@ -11,7 +11,7 @@ import useGoogleAnalyticsEcommerce from '../../../../components/customHooks/UseG
 const Success = ({orderId, files, productCount, prescriptionRadio, withoutPrescriptionAnswer}) => {
 
     const { addTransaction, addItems, transaction, items, send } = useGoogleAnalyticsEcommerce();
-    
+
     const [order, setOrder] = useState({
         id: '',
     });

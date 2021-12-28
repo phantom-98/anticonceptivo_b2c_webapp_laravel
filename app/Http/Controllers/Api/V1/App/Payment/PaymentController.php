@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api\V1\App\Payment;
 
 // use App\Models\WebpayLog;
+use App\Http\Controllers\Api\V1\App\Helpers\ProductScheduleHelper;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Willywes\ApiResponse\ApiResponse;
 use App\Http\Utils\OutputMessage\OutputMessage;
@@ -22,7 +24,15 @@ class PaymentController
     {
         try {
 
-            $order = Order::find($request->order_id);
+            $order = null;
+
+            if ($request->token) {
+                $order = Order::with(['customer','order_items.subscription_plan.product_subscription_plan','order_items.product.subcategory'])->find($request->token);
+            }
+
+            if (!$order && $request->token) {
+                $order = Order::with(['customer','order_items.subscription_plan.product_subscription_plan','order_items.product.subcategory'])->where('payment_token', 'LIKE', $request->token)->first();
+            }
 
             return ApiResponse::JsonSuccess([
                 'order' => $order,
@@ -144,14 +154,17 @@ class PaymentController
         }
 
         $dispatch = $itemDeliveryCostArrayCost != null ? intVal($itemDeliveryCostArrayCost->price[0]) : 0;
+        $delivery_date = Carbon::now();
+        $dataDeliveryOrder = ProductScheduleHelper::labelDateDeliveryInOrder(array_column($request->cartItems,'product' ),$delivery_date);
+        $dataDeliveryOrder = ProductScheduleHelper::deadlineDeliveryMaxOrder($dataDeliveryOrder['delivery_date'], $dataDeliveryOrder['label'], $dataDeliveryOrder['is_immediate'], $dataDeliveryOrder['schedule']);
 
         $meses = array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
-        $fecha = Carbon::now()->addHours($itemDeliveryCost->deadline_delivery);
+        $fecha = Carbon::parse($dataDeliveryOrder['delivery_date']);
         $mes = $meses[($fecha->format('n')) - 1];
         return ApiResponse::JsonSuccess([
             'dispatch' => $dispatch,
             'date_dispatch' => $fecha->format('d') . ' de ' . $mes,
-
+            'dateDeliveryOrder' => $dataDeliveryOrder,
         ]);
 
     }

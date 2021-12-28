@@ -10,7 +10,7 @@ import PUBLIC_ROUTES from "../../../../../routes/publicRoutes";
 import { AppContext } from "../../../../../context/AppProvider";
 import { BREAKPOINTS } from "../../../../../helpers/vars";
 const Table = () => {
-    
+
     const {auth} = useContext(AuthContext);
     const {breakpoint} = useContext(AppContext)
     const [tableLoaded, setTableLoaded] = useState(false);
@@ -86,7 +86,7 @@ const Table = () => {
             classes: '',
             headerClasses: '',
             formatter: (cell, row) => {
-                return <span className="uppercase">{moment(cell).lang('es').format(breakpoint === BREAKPOINTS.LARGE || breakpoint === BREAKPOINTS.EXTRA_LARGE || breakpoint === BREAKPOINTS.EXTRA_EXTRA_LARGE ? 'DD MMMM YYYY' : 'DD/mm/yyyy')}</span>
+                return <span className="uppercase">{moment(cell).lang('es').format(breakpoint === BREAKPOINTS.LARGE || breakpoint === BREAKPOINTS.EXTRA_LARGE || breakpoint === BREAKPOINTS.EXTRA_EXTRA_LARGE ? 'DD MMMM YYYY' : 'DD/MM/YYYY')}</span>
             }
         },
         {

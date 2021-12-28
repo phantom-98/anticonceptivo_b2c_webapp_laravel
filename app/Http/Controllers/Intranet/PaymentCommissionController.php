@@ -108,7 +108,7 @@ class PaymentCommissionController extends GlobalController
             'end_date.required' => 'La fecha de termino es requerida',
             'start_date.required' => 'La fecha de inicio es  requerida',
         ];
-        
+
         $validator = Validator::make($request->all(), $rules);
 
         if ($validator->passes()) {
@@ -176,7 +176,7 @@ class PaymentCommissionController extends GlobalController
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Ha ocurrido un error inesperado, inténtelo denuevo más tarde.' . $e->getMessage()
+                'message' => 'Ha ocurrido un error inesperado, inténtelo de nuevo más tarde.' . $e->getMessage()
             ]);
         }
 

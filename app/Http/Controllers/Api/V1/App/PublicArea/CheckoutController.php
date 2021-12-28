@@ -28,66 +28,7 @@ class CheckoutController extends Controller
                 'communes' => $communes,
                 'regions' => $regions,
             ], OutputMessage::SUCCESS);
-            
-        } catch (\Exception $exception) {
-            return ApiResponse::JsonError(null, $exception->getMessage());
-        }
-    }
 
-    public function getOrder(Request $request)
-    {
-        try {
-
-            $order = Order::with(['customer','order_items.subscription_plan.product_subscription_plan','order_items.product.subcategory'])->find($request->order_id);
-
-            if (isset($request->attachments) && $request->prescription_radio == 'true') {
-                
-                $rules = [
-                    'attachments' => 'required',
-                    'attachments.*' => 'mimes:jpg,jpeg,png,pdf,doc,docx|max:5000'
-                ];
-
-                $messages = [
-                    'attachments.required' => 'Por favor, ingresar al menos una receta.',
-                    'attachments.*.mimes' => 'Las extensiones .jpg, .jpeg, .png, .pdf, .doc y .docx están permitidos.',
-                    'attachments.*.max' => 'El archivo no puede superar los 5MB.',
-                ];
-
-                $validator = Validator::make($request->all(), $rules, $messages);
-
-                if (!$validator->passes()) {
-                    return ApiResponse::JsonFieldValidation($validator->errors());
-                }
-
-                foreach ($request->attachments as $key =>  $file) {
-                    $prescription = new Prescription();
-                    $prescription->customer_id = $order->customer_id;
-                    $prescription->order_id = $order->id;
-                    $prescription->product_id = $request->productIds[$key];
-                    $prescription->name = $file->getClientOriginalName();
-                    $prescription->file = $file->storeAs('public/customer/prescriptions/prescription-' . $order->customer_id .'-' . $order->id . '-' . Str::random(6), $file->getClientOriginalName());
-                    $prescription->save();
-                }
-            }
-
-            if (isset($request->prescription_radio) && $request->prescription_radio == 'false') {
-                $text = '';
-                if ($request->without_prescription_answer == 1) {
-                    $text = 'Mi doctor me dijo que siguiera con este, pero no me renovó la receta.';
-                }
-
-                if ($request->without_prescription_answer == 2) {
-                    $text = 'Es el que me recetaron y he tomado, pero ya no cuento con la receta.';
-                }
-
-                $order->prescription_answer = $text;
-                $order->save();
-            }
-
-            return ApiResponse::JsonSuccess([
-                'order' => $order,
-            ], OutputMessage::SUCCESS);
-            
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, $exception->getMessage());
         }
@@ -109,7 +50,7 @@ class CheckoutController extends Controller
                     return ApiResponse::JsonFieldValidation($validation_one['errors']);
                 }else{
                     if ($request->product_count > 0 && $request->prescription_radio == 'true') {
-                        
+
                         $rules = [
                             'attachments' => 'required',
                             'attachments.*' => 'mimes:jpg,jpeg,png,pdf,doc,docx|max:5000'
@@ -154,12 +95,12 @@ class CheckoutController extends Controller
     }
 
     private static function ValidateStepOne($request){
-        
+
         try {
             $customer = Customer::where('id_number',$request->id_number)
             // ->where('is_guest', true)
             ->first();
-            
+
             if ($customer && $customer->is_guest == false) {
                 return [
                     'status' => false,
@@ -178,7 +119,7 @@ class CheckoutController extends Controller
                 'id_type' => 'required',
                 'phone_code' => 'required',
             ];
-    
+
             $messages = [
                 'first_name.required' => OutputMessage::FIELD_FIRST_NAME_REQUIRED,
                 'last_name.required' => OutputMessage::FIELD_LAST_NAME_REQUIRED,
@@ -189,8 +130,8 @@ class CheckoutController extends Controller
                 'phone.required' => OutputMessage::FIELD_PHONE_REQUIRED,
                 'email.unique' => OutputMessage::FIELD_EMAIL_UNIQUE,
                 'phone.unique' => OutputMessage::FIELD_PHONE_UNIQUE,
-            ];    
-    
+            ];
+
             if ($customer && $customer->is_guest) {
 
                 $rules += [
@@ -208,9 +149,9 @@ class CheckoutController extends Controller
                 ];
 
             }
-            
+
             $validator = Validator::make($request->all(), $rules, $messages);
-    
+
             if ($validator->passes()) {
                 return [
                     'status' => true
@@ -228,7 +169,7 @@ class CheckoutController extends Controller
             ];
         }
 
-        
+
     }
 
     private static function ValidateStepTwo($request){
@@ -258,37 +199,17 @@ class CheckoutController extends Controller
         }
     }
 
-    public function submitPrescription(Request $request){
-        try {
-            $prescription = new Prescription();
-
-            if ($request->file != "null") {
-                $prescription->name = $request->file->getClientOriginalName();
-                // $prescription->date = $request->date;
-                $prescription->file = $request->file->storeAs('public/customer/prescriptions/prescription-'.rand(500,1000).'-'.rand(0,500).'-'.$request->order_id, $request->file->getClientOriginalName());
-                $prescription->order_id = $request->order_id;
-                $prescription->customer_id = $request->customer_id;
-
-                $prescription->save();
-            }
-            
-            return ApiResponse::JsonSuccess(null, OutputMessage::SUCCESS);
-        } catch (\Exception $exception) {
-            return ApiResponse::JsonError(null, OutputMessage::REQUEST_EXCEPTION . ' ' . $exception->getMessage());
-        }
-    }
-
-    public function updateDiscounts(Request $request){
-        try {
-            $discountCode = DiscountCode::where('active',1)->where('name',$request->discount_code)->first();
-
-            if ($discountCode) {
-                $discountCode->amount_of_use = $discountCode->amount_of_use-1;
-                $discountCode->save();
-            }
-            return ApiResponse::JsonSuccess(null, OutputMessage::SUCCESS);
-        } catch (\Exception $exception) {
-            return ApiResponse::JsonError(null, OutputMessage::REQUEST_EXCEPTION . ' ' . $exception->getMessage());
-        }
-    }
+//    public function updateDiscounts(Request $request){
+//        try {
+//            $discountCode = DiscountCode::where('active',1)->where('name',$request->discount_code)->first();
+//
+//            if ($discountCode) {
+//                $discountCode->amount_of_use = $discountCode->amount_of_use-1;
+//                $discountCode->save();
+//            }
+//            return ApiResponse::JsonSuccess(null, OutputMessage::SUCCESS);
+//        } catch (\Exception $exception) {
+//            return ApiResponse::JsonError(null, OutputMessage::REQUEST_EXCEPTION . ' ' . $exception->getMessage());
+//        }
+//    }
 }

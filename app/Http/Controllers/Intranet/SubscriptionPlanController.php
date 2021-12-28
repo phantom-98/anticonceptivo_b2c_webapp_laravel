@@ -97,7 +97,7 @@ class SubscriptionPlanController extends GlobalController
         ];
 
         $messages = [
-   
+
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
@@ -116,7 +116,7 @@ class SubscriptionPlanController extends GlobalController
             return redirect()->back()->withErrors($validator)->withInput();
         }
     }
-    
+
     public function active(Request $request)
     {
 
@@ -147,7 +147,7 @@ class SubscriptionPlanController extends GlobalController
 
             return response()->json([
                 'status' => 'error',
-                'message' => 'Ha ocurrido un error inesperado, inténtelo denuevo más tarde.' . $e->getMessage()
+                'message' => 'Ha ocurrido un error inesperado, inténtelo de nuevo más tarde.' . $e->getMessage()
             ]);
         }
 

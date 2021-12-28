@@ -64,8 +64,8 @@
                             </a>
                         </li>
 
-                        <li class="treeview {{ is_parent_menu_active(['intranet/categorias', 'intranet/subcategorias', 'intranet/marcas', 'intranet/productos',
-                            'intranet/pedidos', 'intranet/laboratorios', 'intranet/aviso-legal-productos','intranet/precios-productos', 'intranet/planes-suscripcion']) }}">
+                        <li class="treeview {{ is_parent_menu_active(['intranet/categorias', 'intranet/subcategorias', 'intranet/marcas', 'intranet/productos', 'intranet/calendario-de-productos',
+                            'intranet/pedidos', 'intranet/laboratorios', 'intranet/aviso-legal-productos','intranet/precios-productos', 'intranet/planes-suscripcion', 'intranet/limite-productos-por-dia']) }}">
                             <a href="#">
                                 <i class="ti-shopping-cart"></i>
                                 <span class="menu-title">Tienda</span>
@@ -114,6 +114,20 @@
                                         <span class="menu-title">Planes suscripción producto</span>
                                     </a>
                                 </li>
+                                @endcan
+                                @can('intranet.product-schedules.index')
+                                    <li class="{{ is_menu_active('intranet/calendario-de-productos') }}">
+                                        <a href="{{ route('intranet.product-schedules.index') }}">
+                                            <span class="menu-title">Calendario de Productos</span>
+                                        </a>
+                                    </li>
+                                @endcan
+                                @can('limit-order-by-day.index')
+                                    <li class="{{ is_menu_active('intranet/limite-productos-por-dia') }}">
+                                        <a href="{{ route('intranet.limit-order-by-day.index') }}">
+                                            <span class="menu-title">Limite de pedidos diarios</span>
+                                        </a>
+                                    </li>
                                 @endcan
                                 @can('intranet.products.index')
                                 <li class="{{ is_menu_active('intranet/productos') }}">

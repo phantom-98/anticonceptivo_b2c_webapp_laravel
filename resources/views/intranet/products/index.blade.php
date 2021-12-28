@@ -27,19 +27,20 @@
                         @endif
 
                         @can('intranet.products.export')
-                        <button type="submit" class="btn btn-success " onclick="export_excel()"
-                                style="margin-left: 20px"><i class="fa fa-file-excel-o"></i> Exportar
-                        </button>
+                            <button type="submit" class="btn btn-success " onclick="export_excel()"
+                                    style="margin-left: 20px"><i class="fa fa-file-excel-o"></i> Exportar
+                            </button>
                         @endcan
 
                         @can('intranet.products.import')
-                        <a class="btn btn-success" data-toggle="modal" data-target="#modal-create" style="margin-left: 20px"><i
-                            class="ti-export"></i>&nbsp;&nbsp;&nbsp;Carga masiva de productos</a>
+                            <a class="btn btn-success" data-toggle="modal" data-target="#modal-create"
+                               style="margin-left: 20px"><i
+                                    class="ti-export"></i>&nbsp;&nbsp;&nbsp;Carga masiva de productos</a>
                         @endcan
 
                         <form id="form-export" target="_BLANK"
-                                action="{{ route($config['route'] . 'export') }}"
-                                enctype="multipart/form-data" method="GET">
+                              action="{{ route($config['route'] . 'export') }}"
+                              enctype="multipart/form-data" method="GET">
                         </form>
 
                         {{--<button id="delete-row" class="btn btn-danger" disabled><i class="demo-pli-cross"></i> Delete</button>--}}
@@ -71,7 +72,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span></button>
+                            <span aria-hidden="true">×</span></button>
                         <h4 class="modal-title">Importar productos</h4>
                     </div>
                     <div class="modal-body">
@@ -79,9 +80,12 @@
                             <div class="col-md-12">
                                 <br/>
                                 {!! Form::open(['route' => 'intranet.products.import', 'class' => 'fileUpload', 'enctype' => 'multipart/form-data', 'files' => 'true']) !!}
-                                    <center><input type="file" class="form-control" style="width: 40%" name="file" accept=".xlsx,.xls,.csv"></center>
-                                    <br/><br/>
-                                    <center><button type="submit" id="button" class="btn btn-success">Importar</button></center>
+                                <center><input type="file" class="form-control" style="width: 40%" name="file"
+                                               accept=".xlsx,.xls,.csv"></center>
+                                <br/><br/>
+                                <center>
+                                    <button type="submit" id="button" class="btn btn-success">Importar</button>
+                                </center>
                                 {!! Form::close() !!}
                             </div>
                         </div>
@@ -124,7 +128,7 @@
                         let image = '<div>';
                         if ((row.images).length > 0) {
                             let url = row.images[0].public_file;
-                            image += '<a href="'+url+'" data-toggle="lightbox"><img src="'+url+'" style="max-width: 30px;"/></a>';
+                            image += '<a href="' + url + '" data-toggle="lightbox"><img src="' + url + '" style="max-width: 30px;"/></a>';
                         } else {
                             image += '<a href="/img/image-default.png" data-toggle="lightbox"><img src="/img/image-default.png" class="img-md"/></a>';
                             image += '</div>';
@@ -171,9 +175,9 @@
                     cellStyle: midAling,
                     formatter: function (value, row, index) {
                         var valor = new Intl.NumberFormat("de-DE").format(row.price);
-                        return '<span class="right">'+
+                        return '<span class="right">' +
                             '$ ' + valor +
-                        '</span>';
+                            '</span>';
                     }
                 },
                 {
@@ -182,15 +186,15 @@
                     sortable: true,
                     cellStyle: midAling,
                     formatter: function (value, row, index) {
-                        if(row.offer_price != null && row.offer_price != 0){
+                        if (row.offer_price != null && row.offer_price != 0) {
                             var valor = new Intl.NumberFormat("de-DE").format(row.offer_price);
-                            return '<span class="right">'+
+                            return '<span class="right">' +
                                 '$ ' + valor +
-                            '</span>';
+                                '</span>';
                         } else {
-                            return '<span class="right">'+
+                            return '<span class="right">' +
                                 ' - ' +
-                            '</span>';
+                                '</span>';
                         }
                     }
                 },
@@ -221,6 +225,15 @@
                         } else {
                             return '<div class="label label-table label-success">SI</div>';
                         }
+                    }
+                },
+                {
+                    title: '¿Es prioritario?',
+                    field: 'is_immediate',
+                    sortable: true,
+                    cellStyle: midAling,
+                    formatter: function (value, row, index) {
+                        return getIsImmediateButton(row.id, row.is_immediate);
                     }
                 }
             ];
@@ -265,13 +278,12 @@
 
                     let urlEdit = '{{ route('intranet.products.show_images', [':id'] ) }}';
                     urlEdit = urlEdit.replace(':id', row.id);
-                    buttons = '<a href="' + urlEdit +'" class="btn btn-sm btn-default btn-hover-info" title="Editar"><i class="fa fa-eye"></i></a>';
+                    buttons = '<a href="' + urlEdit + '" class="btn btn-sm btn-default btn-hover-info" title="Editar"><i class="fa fa-eye"></i></a>';
                     buttons += getShowActionButtons(row, prepend, append)
                     return buttons;
 
                 }
             });
-
 
 
             @endif
@@ -283,9 +295,10 @@
 
             });
 
-           runActiveControl()
+            runActiveControl()
+            preparedChangeStatusImmediate();
 
-          //  run2x1Control();
+            //  run2x1Control();
 
         });
     </script>
@@ -303,10 +316,48 @@
 
     <script>
 
-        $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+        $(document).on('click', '[data-toggle="lightbox"]', function (event) {
             event.preventDefault();
             $(this).ekkoLightbox();
         });
+
+    </script>
+
+
+    <script>function getIsImmediateButton(id, is_immediate) {
+            return '<input type="checkbox" class="toggle-bs" id="chk_is_immediate_' + id + '"  ' + (is_immediate ? ' checked ' : '') + ' data-toggle="toggle"  data-size="small" data-on="Activado" data-off="Desactivado" data-onstyle="success" data-offstyle="danger"/>';
+        }
+    </script>
+
+    <script>
+        // toggle status
+
+        function preparedChangeStatusImmediate() {
+            $('*[id^="chk_is_immediate_"]').change(function () {
+                let id = $(this).prop('id').replace('chk_is_immediate_', '');
+                let status = $(this).prop('checked');
+                changeStatusImmediate(id, status);
+            })
+        }
+
+        function changeStatusImmediate(id, status) {
+            $.ajax({
+                url: '{{ route($config['route'] . 'is_immediate') }}',
+                method: 'post',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    id: id,
+                    is_immediate: status
+                },
+                success: function (result) {
+                    if (result.status == 'success') {
+                        showToastSuccess(result.message);
+                    } else {
+                        showToastError(result.message);
+                    }
+                }
+            });
+        }
 
     </script>
 

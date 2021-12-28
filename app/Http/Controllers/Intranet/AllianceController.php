@@ -64,14 +64,14 @@ class AllianceController extends GlobalController
                 $filename = 'alliance-' . $object->id  .'.'. $image->getClientOriginalExtension();
                 $object->image = $image->storeAs('public/alliances', $filename);
                 $object->save();
-            }  
+            }
 
             if ($request->footer_image) {
                 $footer_image = $request->file('footer_image');
                 $filename = 'alliance-footer-' . $object->id  .'.'. $footer_image->getClientOriginalExtension();
                 $object->footer_image = $footer_image->storeAs('public/alliances', $filename);
                 $object->save();
-            }  
+            }
 
             if ($object) {
                 session()->flash('success', 'Alianza creada correctamente.');
@@ -210,7 +210,7 @@ class AllianceController extends GlobalController
 
             return response()->json([
                 'status' => 'error',
-                'message' => 'Ha ocurrido un error inesperado, inténtelo denuevo más tarde.' . $e->getMessage()
+                'message' => 'Ha ocurrido un error inesperado, inténtelo de nuevo más tarde.' . $e->getMessage()
             ]);
         }
 

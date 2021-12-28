@@ -83,26 +83,26 @@ class NestedFieldController extends GlobalController
         if ($validator->passes()) {
 
             $nested_field_names = NestedField::where('section', $request->section)->orWhere('contact_issue_id', $request->contact_issue_id)->pluck('name')->toArray();
-            
+
             if (in_array($request->name, $nested_field_names) == false) {
-                
+
                 $object = NestedField::create($request->all());
-    
+
                 if ($object) {
                     session()->flash('success', 'Campo creado correctamente.');
                     if ($request->section == 'campania') {
-                        return redirect()->route($this->route . 'index', ['section' => $request->section, 'contact_id' => $request->contact_issue_id]);   
+                        return redirect()->route($this->route . 'index', ['section' => $request->section, 'contact_id' => $request->contact_issue_id]);
                     }
-                    return redirect()->route($this->route . 'index', ['section' => $request->section]);   
-    
+                    return redirect()->route($this->route . 'index', ['section' => $request->section]);
+
                 }
-    
+
                 return redirect()->back()->withErrors(['mensaje' => 'Error inesperado al crear el campo.'])->withInput();
             }else{
 
                 return redirect()->back()->withErrors(['mensaje' => 'El nombre debe ser unico.'])->withInput();
             }
-            
+
         } else {
             return redirect()->back()->withErrors($validator)->withInput();
         }
@@ -169,7 +169,7 @@ class NestedFieldController extends GlobalController
             if ($object) {
                 session()->flash('success', 'Campo modificado correctamente.');
                 if ($object->section && $object->contact_issue_id) {
-                    return redirect()->route('intranet.nested-fields.index', ['section' => $object->section, 'contact_id' => $object->contact_issue_id]);        
+                    return redirect()->route('intranet.nested-fields.index', ['section' => $object->section, 'contact_id' => $object->contact_issue_id]);
                 }
                 return redirect()->route($this->route . 'index', ['section' => 'contacto']);
             }
@@ -301,7 +301,7 @@ class NestedFieldController extends GlobalController
 
             return response()->json([
                 'status' => 'error',
-                'message' => 'Ha ocurrido un error inesperado, inténtelo denuevo más tarde.' . $e->getMessage()
+                'message' => 'Ha ocurrido un error inesperado, inténtelo de nuevo más tarde.' . $e->getMessage()
             ]);
         }
 

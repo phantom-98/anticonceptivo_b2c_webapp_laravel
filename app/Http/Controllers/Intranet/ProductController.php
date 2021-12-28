@@ -28,7 +28,7 @@ class ProductController extends GlobalController
         'pluralName' => 'Productos',
         'singularName' => 'Producto',
         'disableActions' => ['changeStatus'],
-        'enableActions' => ['position']
+        'enableActions' => ['position', 'isImmediate']
     ];
 
     public function __construct()
@@ -120,7 +120,7 @@ class ProductController extends GlobalController
             $product->description = $request->description;
             $product->laboratory_id = $request->laboratory_id;
             $product->is_bioequivalent = $request->is_bioequivalent ?? 0;
-            $product->format = $request->format;
+            $product->format = $request->input('format');
             $product->barcode = $request->barcode;
             $product->unit_price = $request->unit_price;
             $product->unit_format = $request->unit_format;
@@ -239,7 +239,7 @@ class ProductController extends GlobalController
             $product->description = $request->description;
             $product->is_bioequivalent = $request->is_bioequivalent ?? 0;
             $product->laboratory_id = $request->laboratory_id;
-            $product->format = $request->format;
+            $product->format = $request->input('format');
             $product->barcode = $request->barcode;
             $product->unit_price = $request->unit_price;
             $product->unit_format = $request->unit_format;
@@ -329,7 +329,7 @@ class ProductController extends GlobalController
 
             return response()->json([
                 'status' => 'error',
-                'message' => 'Ha ocurrido un error inesperado, inténtelo denuevo más tarde.' . $e->getMessage()
+                'message' => 'Ha ocurrido un error inesperado, inténtelo de nuevo más tarde.' . $e->getMessage()
             ]);
         }
     }
@@ -352,4 +352,37 @@ class ProductController extends GlobalController
         return redirect(route($this->route . 'index'));
     }
 
+    public function is_immediate(Request $request)
+    {
+        try {
+
+            $object = Product::find($request->id);
+
+            if ($object) {
+
+                $object->is_immediate = $request->is_immediate == 'true' ? 1 : 0;
+                $object->save();
+
+                return response()->json([
+                    'status' => 'success',
+                    'message' => $object->active == 1 ? 'Producto marcado como prioritario correctamente.' : 'Producto como no prioritario correctamente.',
+                    'object' => $object
+                ]);
+
+            } else {
+
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Producto no encontrado.'
+                ]);
+            }
+
+        } catch (\Exception $e) {
+
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Ha ocurrido un error inesperado, inténtelo de nuevo más tarde.' . $e->getMessage()
+            ]);
+        }
+    }
 }

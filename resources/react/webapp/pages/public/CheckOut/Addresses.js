@@ -7,7 +7,7 @@ import clockBlue from '../../../assets/images/icons/clock-blue.svg'
 import {AuthContext} from "../../../context/AuthProvider";
 import * as Services from "../../../Services";
 
-const Addresses = ({setView, regions, communes, address, setAddress, dispatchDate}) => {
+const Addresses = ({setView, regions, communes, address, setAddress, dispatchDateObject}) => {
 
     const {auth} = useContext(AuthContext);
 
@@ -118,14 +118,14 @@ const Addresses = ({setView, regions, communes, address, setAddress, dispatchDat
                                 </div>
                                 <div className="col-auto mx-2 d-flex">
                                     <span className="my-auto font-poppins font-12 regular color-8E8E8E">
-                                        Fecha de entrega
+                                        {dispatchDateObject?.label}
                                     </span>
                                 </div>
-                                <div className="col-auto d-flex">
-                                    <span className="my-auto font-poppins font-14 regular color-484848">
-                                        {dispatchDate}
-                                    </span>
-                                </div>
+                                {/*<div className="col-auto d-flex">*/}
+                                {/*    <span className="my-auto font-poppins font-14 regular color-484848">*/}
+                                {/*        {dispatchDateObject?.label}*/}
+                                {/*    </span>*/}
+                                {/*</div>*/}
                             </div>
                         </div>
                         <div className="col-12 col-md-auto">
@@ -140,7 +140,7 @@ const Addresses = ({setView, regions, communes, address, setAddress, dispatchDat
                                 </div>
                                 <div className="col-auto d-flex">
                                     <span className="my-auto font-poppins font-14 regular color-484848">
-                                         09:00 a 21:00
+                                         {dispatchDateObject ?  (dispatchDateObject?.is_immediate ? 'Aprox. 30 minutos' : dispatchDateObject?.schedule.formated_start_time + ' a ' + dispatchDateObject?.schedule.formated_end_time) : ''}
                                     </span>
                                 </div>
                             </div>
