@@ -147,7 +147,7 @@
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Tipo de Entrega</th>
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Humedad Despachador (%)</th>
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Temperatura Despachador (° C)</th>
-                            <th data-cell-style="cellStyle" data-field="dateDispatch" data-sorter="datesSorter" data-sortable="true" data-valign="middle">Fecha Despacho</th>
+                            <th data-cell-style="cellStyle" data-field="dateDispatch" data-sorter="datesSorter" data-sortable="true" data-valign="middle">Fecha Entrega</th>
                             <th data-cell-style="cellStyle" data-sorter="priceSorter" data-sortable="true" data-valign="middle">Receta</th>
                             <th data-cell-style="cellStyle" data-sorter="priceSorter" data-sortable="true" data-valign="middle">Boleta</th>
                             @if($config['blade']['showActions'])

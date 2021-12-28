@@ -18,7 +18,7 @@
             <th>Tipo de Entrega</th>
             <th>Humedad Despachador (%)</th>
             <th>Temperatura Despachador (° C)</th>
-            <th>Fecha Despacho</th>
+            <th>Fecha de Entrega</th>
         </tr>
     </thead>
     <tbody>
