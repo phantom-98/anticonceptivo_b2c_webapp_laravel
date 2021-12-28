@@ -12,7 +12,7 @@ use Illuminate\Console\Scheduling\Schedule;
 
 abstract class LabelDispatch
 {
-    const IMMEDIATE = 'Entrega inmediata';
+    const IMMEDIATE = 'Entrega Prioritaria';
     const TODAY = 'Llega hoy';
     const TOMORROW = 'Llega mañana';
     const AFTER_TOMORROW = 'Llega en 48H';

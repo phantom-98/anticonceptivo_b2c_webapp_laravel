@@ -46,7 +46,7 @@ const Header = () => {
     const carrousels = [
         {
             icon: boxWhite,
-            name: ' Despacho inmediato solo en RM de lunes a sábado de 10:00 - 19:00 hrs',
+            name: ' Despacho prioritario solo en RM de lunes a sábado de 10:00 - 19:00 hrs',
             fontSize: 'font-10',
             isLink: false,
         }

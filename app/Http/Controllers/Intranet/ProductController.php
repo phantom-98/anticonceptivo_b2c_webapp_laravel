@@ -365,7 +365,7 @@ class ProductController extends GlobalController
 
                 return response()->json([
                     'status' => 'success',
-                    'message' => $object->active == 1 ? 'Producto marcado como inmediato correctamente.' : 'Producto como no inmediato correctamente.',
+                    'message' => $object->active == 1 ? 'Producto marcado como prioritario correctamente.' : 'Producto como no prioritario correctamente.',
                     'object' => $object
                 ]);
 

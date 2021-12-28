@@ -228,7 +228,7 @@
                     }
                 },
                 {
-                    title: '¿Es Inmediato?',
+                    title: '¿Es prioritario?',
                     field: 'is_immediate',
                     sortable: true,
                     cellStyle: midAling,

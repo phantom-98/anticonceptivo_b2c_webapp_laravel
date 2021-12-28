@@ -12,10 +12,10 @@ const ImmediateDelivery = ({immediate, setImmediate}) => {
                     <div className="row">
                         <div className="col">
                             <h3 className="font-14 semi-bold font-poppins color-009BE8 mb-2">
-                                <img src={ImmediateSvg} alt="anticonceptivo.cl"/> <span className="mt-1">Entrega inmediata</span>
+                                <img src={ImmediateSvg} alt="anticonceptivo.cl"/> <span className="mt-1">Entrega Prioritaria</span>
                             </h3>
                             <p className="font-11 lh-11 regular font-poppins color-484848 mb-0">
-                                Hasta 30 minutos después de la compra
+                                Hasta 2 horas después de tu compra. Despachos desde 10:00 a 19:00 hrs.
                             </p>
                         </div>
                         <div className="col-auto d-flex">

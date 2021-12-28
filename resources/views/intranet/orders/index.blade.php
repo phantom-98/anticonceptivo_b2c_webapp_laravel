@@ -144,9 +144,12 @@
                             <th data-cell-style="cellStyle" data-sorter="priceSorter" data-sortable="true" data-valign="middle">Descuento</th>
                             <th data-cell-style="cellStyle" data-sorter="priceSorter" data-sortable="true" data-valign="middle">Total</th>
                             <th data-cell-style="cellStyle" data-field="dateBilling" data-sorter="datesSorter" data-sortable="true" data-valign="middle">Fecha Facturación</th>
+                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Tipo de Entrega</th>
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Humedad Despachador (%)</th>
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Temperatura Despachador (° C)</th>
+                            <th data-cell-style="cellStyle" data-field="dateDispatch" data-sorter="datesSorter" data-sortable="true" data-valign="middle">Fecha Despacho</th>
                             <th data-cell-style="cellStyle" data-sorter="priceSorter" data-sortable="true" data-valign="middle">Receta</th>
+                            <th data-cell-style="cellStyle" data-sorter="priceSorter" data-sortable="true" data-valign="middle">Boleta</th>
                             @if($config['blade']['showActions'])
                                 <th data-cell-style="cellStyle" data-valign="middle">Acciones</th>
                             @endif
@@ -183,6 +186,7 @@
                                 <td>${{ number_format($object->discount, 0, ',','.')}}</td>
                                 <td>${{ number_format($object->total, 0, ',','.')}}</td>
                                 <td>{{ $object->billing_date ? date('d-m-Y', strtotime($object->billing_date)) : '-' }}</td>
+                                <td>{{ $object->label_dispatch ? $object->label_dispatch : '-' }}</td>
                                 @if($object->status != "PAID" && $object->status != "CREATED")
                                     <td>{{ $object->humidity ?? '-'}}</td>
                                     <td>{{ $object->temperature ?? '-'}}</td>
@@ -190,6 +194,7 @@
                                     <td>-</td>
                                     <td>-</td>
                                 @endif
+                                <td>{{ $object->dispatch_date ? date('d-m-Y H:i', strtotime($object->dispatch_date)) : '-' }}</td>
                                 @if(count($object->prescriptions) > 0)
                                     <td>
                                         @foreach($object->prescriptions as $prescription)
@@ -200,6 +205,11 @@
                                     <td>
                                         {{ $object->prescription_answer ?? 'Venta Directa'}}
                                     </td>
+                                @endif
+                                @if(isset($object->voucher_pdf))
+                                <td><a href="{{ Storage::url($object->voucher_pdf) }}" target="_blank" class='btn btn-sm btn-default btn-hover-success' data-toggle="tooltip" title="{{$object->voucher_pdf}}"><i class="ti-file"></i></a></td>
+                                @else 
+                                <td>-</td>
                                 @endif
                                 @if($config['action']['changeStatus'])
                                    @include('intranet.template.components._crud_html_change_status')

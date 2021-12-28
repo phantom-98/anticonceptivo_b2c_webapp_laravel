@@ -15,8 +15,10 @@
             <th>Descuento</th>
             <th>Total</th>
             <th>Fecha Facturación</th>
+            <th>Tipo de Entrega</th>
             <th>Humedad Despachador (%)</th>
             <th>Temperatura Despachador (° C)</th>
+            <th>Fecha Despacho</th>
         </tr>
     </thead>
     <tbody>
@@ -36,6 +38,7 @@
                 <td>{{ $object->discount }}</td>
                 <td>{{ $object->total }}</td>
                 <td>{{ $object->billing_date ? date('d-m-Y', strtotime($object->billing_date)) : '-' }}</td>
+                <td>{{ $object->label_dispatch ? $object->label_dispatch : '-' }}</td>
                 @if($object->status != "PAID" && $object->status != "CREATED")
                     <td>{{ $object->humidity ?? '-'}}</td>
                     <td>{{ $object->temperature ?? '-'}}</td>
@@ -43,6 +46,7 @@
                     <td>-</td>
                     <td>-</td>
                 @endif
+                <td>{{ $object->dispatch_date ? date('d-m-Y H:i', strtotime($object->dispatch_date)) : '-' }}</td>
             </tr>
         @endforeach
     </tbody>

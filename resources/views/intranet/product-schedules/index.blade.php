@@ -20,7 +20,7 @@
                 <div class="panel-body">
                     <select id="selectTypeId" class="form-control mb-3 w-25">
                         <option value="NORMAL">Normal</option>
-                        <option value="IMMEDIATE">Inmediato</option>
+                        <option value="IMMEDIATE">Prioritario</option>
                     </select>
                     <div id='calendar-immediate'></div>
                 </div>
