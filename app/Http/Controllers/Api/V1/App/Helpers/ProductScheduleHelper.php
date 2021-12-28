@@ -86,7 +86,6 @@ class ProductScheduleHelper
         foreach ($products as $product) {
             $product = new Product((array)$product);
             $_dataLabelDelivery = self::labelDateDeliveryProduct($product, $product_schedules, $date);
-
             if ($_dataLabelDelivery['label'] == LabelDispatch::IMMEDIATE) {
 
                 $dataLabelDelivery['label'] = $_dataLabelDelivery['label'];
@@ -105,9 +104,10 @@ class ProductScheduleHelper
     }
 
 
-    public static function isInSchedule($schedules, $date, $is_immediate = false): bool
+    public static function inSchedule($schedules, $date, $is_immediate = false): array
     {
         $inRange = false;
+        $_schedule = null;
         foreach ($schedules as $schedule) {
             $initial_day = Carbon::parse($date->format('Y-m-d') . ' ' . '00:00:00');
             $start_time = Carbon::parse($date->format('y-m-d') . ' ' . $schedule->start_time);
@@ -116,18 +116,22 @@ class ProductScheduleHelper
             $isTrue = $date->between($start_time, $end_time);
             if ($isTrue) {
                 $inRange = true;
+                $_schedule = $schedule;
             }
             if (!$is_immediate) {
                 $isTrue = $date->between($initial_day, $start_time);
                 if ($isTrue) {
                     $inRange = true;
+                    $_schedule = $schedule;
                 }
             }
 
 
         }
-
-        return $inRange;
+        return array(
+            'inRange' => $inRange,
+            'scheduleInRange' => $_schedule,
+        );
     }
 
     public static function labelDateDeliveryProduct($product, $schedules, $date = null): array
@@ -142,28 +146,32 @@ class ProductScheduleHelper
         $defaultSchedule->type ='NORMAL';
 
         if ($product->is_immediate) {
+
             $_schedules = $schedules->where('type', 'IMMEDIATE')->where('day_of_week', $day_of_week);
-            $inRangeImmediate = self::isInSchedule($_schedules, $date, true);
-            if ($inRangeImmediate) {
+
+
+
+            $inSchedule = self::inSchedule($_schedules, $date, true);
+            if ($inSchedule['inRange']) {
                 return array(
                     'label' => LabelDispatch::IMMEDIATE,
                     'delivery_date' => $date,
-                    'schedule' => $_schedules->first() ?? $defaultSchedule,
+                    'schedule' => $inSchedule['scheduleInRange'] ?? $defaultSchedule,
                     'label_status' => 'IMMEDIATE',
-                    'is_immediate' => true
+                    'is_immediate' => true,
 
                 );
             }
         }
 
         $_schedules = $schedules->where('type', 'NORMAL')->where('day_of_week', $day_of_week);
-        $inRangeNormal = self::isInSchedule($_schedules, $date);
+        $inSchedule = self::inSchedule($_schedules, $date);
 
-        if (!$inRangeNormal) {
+        if ($inSchedule['inRange']) {
             return array(
                 'label' => LabelDispatch::TOMORROW,
                 'delivery_date' => $date->addDays(1),
-                'schedule' => $_schedules->first() ?? $defaultSchedule,
+                'schedule' => $inSchedule['scheduleInRange'] ?? $defaultSchedule,
                 'label_status' => 'TOMORROW',
                 'is_immediate' => false
             );
@@ -172,7 +180,7 @@ class ProductScheduleHelper
         return array(
             'label' => LabelDispatch::TODAY,
             'delivery_date' => $date,
-            'schedule' => $schedules->first() ?? $defaultSchedule,
+            'schedule' => $inSchedule['scheduleInRange'] ?? $defaultSchedule,
             'label_status' => 'TODAY',
             'is_immediate' => false
         );

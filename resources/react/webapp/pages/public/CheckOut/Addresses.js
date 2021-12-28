@@ -18,7 +18,6 @@ const Addresses = ({setView, regions, communes, address, setAddress, dispatchDat
     const [addressSelected, setAddressSelected] = useState(null);
 
     useEffect(() => {
-        console.log(dispatchDateObject)
         if (auth) {
             getData();
         }

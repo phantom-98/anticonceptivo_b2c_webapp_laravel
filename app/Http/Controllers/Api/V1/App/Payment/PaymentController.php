@@ -159,7 +159,6 @@ class PaymentController
         $dataDeliveryOrder = ProductScheduleHelper::deadlineDeliveryMaxOrder($dataDeliveryOrder['delivery_date'], $dataDeliveryOrder['label'], $dataDeliveryOrder['is_immediate'], $dataDeliveryOrder['schedule']);
 
         $meses = array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
-
         $fecha = Carbon::parse($dataDeliveryOrder['delivery_date']);
         $mes = $meses[($fecha->format('n')) - 1];
         return ApiResponse::JsonSuccess([
