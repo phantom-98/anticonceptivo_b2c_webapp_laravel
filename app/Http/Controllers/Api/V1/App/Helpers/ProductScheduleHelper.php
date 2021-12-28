@@ -146,10 +146,7 @@ class ProductScheduleHelper
         $defaultSchedule->type ='NORMAL';
 
         if ($product->is_immediate) {
-
             $_schedules = $schedules->where('type', 'IMMEDIATE')->where('day_of_week', $day_of_week);
-
-
 
             $inSchedule = self::inSchedule($_schedules, $date, true);
             if ($inSchedule['inRange']) {
@@ -163,11 +160,11 @@ class ProductScheduleHelper
                 );
             }
         }
-
         $_schedules = $schedules->where('type', 'NORMAL')->where('day_of_week', $day_of_week);
         $inSchedule = self::inSchedule($_schedules, $date);
 
-        if ($inSchedule['inRange']) {
+        if (!$inSchedule['inRange']) {
+
             return array(
                 'label' => LabelDispatch::TOMORROW,
                 'delivery_date' => $date->addDays(1),
