@@ -128,7 +128,7 @@ const Addresses = ({setView, regions, communes, address, setAddress, dispatchDat
                                 {/*</div>*/}
                             </div>
                         </div>
-                        <div className="col-12 col-md-auto">
+                        <div className="col-12 col-md">
                             <div className="row no-gutters">
                                 <div className="col-auto" style={{width: '27px'}}>
                                     <Icon path={clockBlue}/>
