@@ -28,12 +28,9 @@ class OrderExportIndex implements FromView, ShouldAutoSize
 
         $status = $this->status;
 
-        if($status == "DELIVERED,DISPATCHED,PAID"){
-            $status = explode(",",$status);
-        }
-
         if($this->status != "Todos"){
-            if(is_array($this->status)){
+            if($status == "DELIVERED,DISPATCHED,PAID"){
+                $status = explode(",",$status);
                 $ordersGet = $ordersGet->whereIn('status', $status);
             } else {
                 $ordersGet = $ordersGet->where('status', $status);
