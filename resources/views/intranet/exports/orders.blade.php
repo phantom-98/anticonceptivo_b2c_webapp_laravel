@@ -18,10 +18,8 @@
             <th>Descuento</th>
             <th>Total</th>
 
-            <th>Receta</th>
-
-            <th>Boleta PDF</th>
             <th>Boleta Número</th>
+
             <th>Fecha Facturación</th>
             <th>Fecha creación</th>
             <th>Hora creación</th>
@@ -36,32 +34,64 @@
         @foreach($ordersGet as $object)
             <tr>
                 <td>#{{ $object->id}}</td>
+                <td>
+                    <div class="label label-table" style="background: {{$object->formated_background}}; color: {{$object->formated_color}}; cursor:default">
+                        {{ $object->formated_status }}
+                    </div>
+                </td>
+
+                @if(isset($object->label_dispatch))
+                    <td>{{ $object->label_dispatch == "Entrega inmediata" ? "Entrega Prioritaria" : $object->label_dispatch }}</td>
+                @else 
+                    <td>-</td>
+                @endif
+
+                <td>{{ mb_strtoupper($object->customer->full_name ?? '-', 'UTF-8') }}</td>
+                <td>{{ $object->customer->id_number ?? '-'}}</td>
+
+                <td>{{ mb_strtoupper($object->delivery_address ?? '-', 'UTF-8') }}</td>
+                <td>{{ mb_strtoupper($object->house_number ?? '-', 'UTF-8') }}</td>
+                <td>{{ mb_strtoupper($object->region ?? '-', 'UTF-8') }}</td>
+                <td>{{ mb_strtoupper($object->comments ?? '-', 'UTF-8') }}</td>
+
+
+                @if($object->payment_type == "webpay")
+                <td>Webpay</td>
+                @elseif($object->payment_type == "tarjeta")
+                <td>Oneclick</td>
+                @else
+                <td>Proceso no terminado</td>
+                @endif
+
+                <td>${{ number_format($object->subtotal, 0, ',','.')}}</td>
+                <td>${{ number_format($object->dispatch, 0, ',','.')}}</td>
+                <td>${{ number_format($object->discount, 0, ',','.')}}</td>
+                <td>${{ number_format($object->total, 0, ',','.')}}</td>
+                
+
+                <td>{{ $object->ballot_number ?? '-'}}</td>
+
+                <td>{{ $object->billing_date ? date('d-m-Y', strtotime($object->billing_date)) : '-' }}</td>
+
                 <td>{{ date('d-m-Y', strtotime($object->created_at)) }}</td>
                 <td>{{ date('H:i:s', strtotime($object->created_at)) }}</td>
-                <td>{{ $object->payment_type == "webpay" ? "Webpay" : "Oneclick" }}</td>
-                <td>{{ $object->formated_status }}</td>
-                <td>{{ $object->customer->id_number ?? '-' }}</td>
-                <td>{{ mb_strtoupper($object->customer->full_name ?? '-', 'UTF-8') }}</td>
-                <td>{{ mb_strtoupper($object->delivery_address ?? '-', 'UTF-8') }}</td>
-                <td>{{ date('d-m-Y', strtotime($object->delivery_date)) }}</td>
-                <td>{{ $object->subtotal }}</td>
-                <td>{{ $object->dispatch }}</td>
-                <td>{{ $object->discount }}</td>
-                <td>{{ $object->total }}</td>
-                <td>{{ $object->billing_date ? date('d-m-Y', strtotime($object->billing_date)) : '-' }}</td>
-                @if(isset($object->label_dispatch))
-                <td>{{ $object->label_dispatch == "Entrega inmediata" ? "Entrega Prioritaria" : $object->label_dispatch }}</td>
+
+                @if($object->dispatch_date)
+                    <td>{{ date('d-m-Y', strtotime($object->dispatch_date)) }}</td>
+                    <td>{{ date('H:i:s', strtotime($object->dispatch_date)) }}</td>
                 @else 
-                <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
                 @endif
+
+      
                 @if($object->status != "PAID" && $object->status != "CREATED")
                     <td>{{ $object->humidity ?? '-'}}</td>
                     <td>{{ $object->temperature ?? '-'}}</td>
-                @else 
+                @else
                     <td>-</td>
                     <td>-</td>
                 @endif
-                <td>{{ $object->dispatch_date ? date('d-m-Y H:i', strtotime($object->dispatch_date)) : '-' }}</td>
             </tr>
         @endforeach
     </tbody>
