@@ -53,6 +53,14 @@ Route::get('fix-boleta/{id}', function ($id) {
     return App\Http\Helpers\CallIntegrationsPay::callVoucher($order->id, $customerAddress);
 });
 
+Route::get('fix-fecha-factura', function(){
+    $orders = \App\Models\Order::where('created_at', '<', '2022-01-03 00:00:00')->get();
+    foreach ($orders as $order){
+        $order->billing_date = Carbon\Carbon::parse($order->created_at)->addDays(1)->startOfDay()->format('Y-m-d H:i:s');
+        $order->save();
+    }
+});
+
 
 Route::get('fix-orders-payment-subscription/{id}', function ($id) {
     $order = \App\Models\Order::find($id);
