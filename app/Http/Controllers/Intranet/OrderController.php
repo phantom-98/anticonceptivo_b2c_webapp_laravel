@@ -41,7 +41,7 @@ class OrderController extends GlobalController
         $clients = Customer::get();
 
         $date = $request->date;
-        $status = explode(",",$request->status);
+        $status = $request->status;
         $client_id = $request->client_id;
         $id = $request->id;
 
@@ -78,9 +78,16 @@ class OrderController extends GlobalController
 
         if ($status) {
             if ($status != 'Todos') {
-
-                $objects = $objects->whereIn('status', $status);
+                if($status == "DELIVERED,DISPATCHED,PAID"){
+                    $objects = $objects->whereIn('status', $status);
+                } else {
+                    $status = explode(",",$request->status);
+                    $objects = $objects->where('status', $status);
+                    $status = "DELIVERED,DISPATCHED,PAID";
+                }
             }          
+        } else {
+            $objects = $objects->whereIn('status', ['DELIVERED,DISPATCHED,PAID']);
         }
 
 
@@ -158,7 +165,11 @@ class OrderController extends GlobalController
 
         $id = $request->id;
 
-        $status = explode(",",$request->status);
+        if($status == "DELIVERED,DISPATCHED,PAID"){
+            $status = explode(",",$request->status);
+        } else {
+            $status = $request->status;
+        }
 
         return Excel::download(new OrderExportIndex($startFilter, $endFilter, $client_id, $id, $status), 'pedidos-' . $start . '-' . ($end ? $end : '') . ($client ? '-' . $client->full_name : '') . ($id ? '-' . 'pedido'.$id : '') . '.xlsx');
     }
