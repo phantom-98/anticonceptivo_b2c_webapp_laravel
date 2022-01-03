@@ -55,6 +55,7 @@
                                             <label for="status">Estado</label>
                                             <select id="status" name="status" class="form-control select2" data-width="100%">
                                                 <option value="Todos">Todos</option>
+                                                <option value="DELIVERED,DISPATCHED,PAID" {{ $status == "DELIVERED,DISPATCHED,PAID" ? "selected" : "" }}>Pagados, Entregados y Despachados</option>
                                                 <option value="CREATED" {{ $status == "CREATED" ? "selected" : "" }}>Creados (Sin terminar Proceso pago)</option>
                                                 <option value="PAID" {{ $status == "PAID" ? "selected" : "" }}>Pagado</option>
                                                 <option value="DISPATCHED" {{ $status == "DISPATCHED" ? "selected" : "" }}>Despachado</option>
@@ -130,29 +131,39 @@
                            data-show-pagination-switch="true">
                         <thead>
                         <tr>
+                            @if($config['blade']['showActions'])
+                                <th data-cell-style="cellStyle" data-valign="middle">Acciones</th>
+                            @endif
                             <th data-cell-style="cellStyle" data-sortable="false" data-valign="middle">Nº Ped.</th>
-                            <th data-cell-style="cellStyle" data-field="date" data-sorter="datesSorter" data-sortable="true" data-valign="middle">Fecha</th>
-                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Hora</th>
-                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Método de Pago</th>
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Estado</th>
-                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">RUT Cliente</th>
+                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Tipo de Entrega</th>
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Nombre Cliente</th>
-                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Dirección Entrega</th>
-                            <th data-cell-style="cellStyle" data-field="dateEntrega" data-sorter="datesSorter" data-sortable="true" data-valign="middle">Fecha de Entrega</th>
+                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">RUT Cliente</th>
+
+                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Dirección</th>
+                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">N° de casa</th>
+                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Región</th>
+                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Información adicional</th>
+
+                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Método de Pago</th>
                             <th data-cell-style="cellStyle" data-sorter="priceSorter" data-sortable="true" data-valign="middle">Subtotal</th>
                             <th data-cell-style="cellStyle" data-sorter="priceSorter" data-sortable="true" data-valign="middle">Despacho</th>
                             <th data-cell-style="cellStyle" data-sorter="priceSorter" data-sortable="true" data-valign="middle">Descuento</th>
                             <th data-cell-style="cellStyle" data-sorter="priceSorter" data-sortable="true" data-valign="middle">Total</th>
+
+                            <th data-cell-style="cellStyle" data-sorter="priceSorter" data-sortable="true" data-valign="middle">Receta</th>
+
+                            <th data-cell-style="cellStyle" data-sortable="false" data-valign="middle">Boleta PDF</th>
+                            <th data-cell-style="cellStyle" data-sortable="false" data-valign="middle">Boleta Número</th>
                             <th data-cell-style="cellStyle" data-field="dateBilling" data-sorter="datesSorter" data-sortable="true" data-valign="middle">Fecha Facturación</th>
-                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Tipo de Entrega</th>
+                            <th data-cell-style="cellStyle" data-field="date" data-sorter="datesSorter" data-sortable="true" data-valign="middle">Fecha creación</th>
+                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Hora creación</th>
+                            <th data-cell-style="cellStyle" data-field="dateDispatch" data-sorter="datesSorter" data-sortable="true" data-valign="middle">Fecha de Entrega</th>
+                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Hora de Entrega</th>
+             
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Humedad Despachador (%)</th>
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Temperatura Despachador (° C)</th>
-                            <th data-cell-style="cellStyle" data-field="dateDispatch" data-sorter="datesSorter" data-sortable="true" data-valign="middle">Fecha Entrega</th>
-                            <th data-cell-style="cellStyle" data-sorter="priceSorter" data-sortable="true" data-valign="middle">Receta</th>
-                            <th data-cell-style="cellStyle" data-sorter="priceSorter" data-sortable="true" data-valign="middle">Boleta</th>
-                            @if($config['blade']['showActions'])
-                                <th data-cell-style="cellStyle" data-valign="middle">Acciones</th>
-                            @endif
+
                         </tr>
                         </thead>
                         <tbody>
@@ -162,67 +173,6 @@
                             @else
                             <tr>
                             @endif
-                                <td>#{{ $object->id}}</td>
-                                <td>{{ date('d-m-Y', strtotime($object->created_at)) }}</td>
-                                <td>{{ date('H:i:s', strtotime($object->created_at)) }}</td>
-                                @if($object->payment_type == "webpay")
-                                <td>Webpay</td>
-                                @elseif($object->payment_type == "tarjeta")
-                                <td>Oneclick</td>
-                                @else
-                                <td>Proceso no terminado</td>
-                                @endif
-                                <td>
-                                    <div class="label label-table" style="background: {{$object->formated_background}}; color: {{$object->formated_color}}; cursor:default">
-                                        {{ $object->formated_status }}
-                                    </div>
-                                </td>
-                                <td>{{ $object->customer->id_number ?? '-'}}</td>
-                                <td>{{ mb_strtoupper($object->customer->full_name ?? '-', 'UTF-8') }}</td>
-                                <td>{{ mb_strtoupper($object->delivery_address ?? '-', 'UTF-8') }} <br> <b>Información Adicional:</b> {{ mb_strtoupper($object->comments, 'UTF-8') }}</td>
-                                <td>{{ date('d-m-Y', strtotime($object->delivery_date)) }}</td>
-                                <td>${{ number_format($object->subtotal, 0, ',','.')}}</td>
-                                <td>${{ number_format($object->dispatch, 0, ',','.')}}</td>
-                                <td>${{ number_format($object->discount, 0, ',','.')}}</td>
-                                <td>${{ number_format($object->total, 0, ',','.')}}</td>
-                                <td>{{ $object->billing_date ? date('d-m-Y', strtotime($object->billing_date)) : '-' }}</td>
-                                @if(isset($object->label_dispatch))
-                                <td>{{ $object->label_dispatch == "Entrega inmediata" ? "Entrega Prioritaria" : $object->label_dispatch }}</td>
-                                @else 
-                                <td>-</td>
-                                @endif
-                                @if($object->status != "PAID" && $object->status != "CREATED")
-                                    <td>{{ $object->humidity ?? '-'}}</td>
-                                    <td>{{ $object->temperature ?? '-'}}</td>
-                                @else
-                                    <td>-</td>
-                                    <td>-</td>
-                                @endif
-                                <td>{{ $object->dispatch_date ? date('d-m-Y H:i', strtotime($object->dispatch_date)) : '-' }}</td>
-                                @if(count($object->prescriptions) > 0)
-                                    <td>
-                                        @foreach($object->prescriptions as $prescription)
-                                        <a href="{{ Storage::url($prescription->file) }}" target="_blank" class='btn btn-sm btn-default btn-hover-success' data-toggle="tooltip" title="{{$prescription->product->name}}"><i class="ti-file"></i></a>
-                                        @endforeach
-                                    </td>
-                                @else
-                                    <td>
-                                        {{ $object->prescription_answer ?? 'Venta Directa'}}
-                                    </td>
-                                @endif
-                                @if(isset($object->voucher_pdf))
-                                <td><a href="{{ $object->voucher_pdf }}" target="_blank" class='btn btn-sm btn-default btn-hover-success' data-toggle="tooltip"><i class="ti-file"></i></a></td>
-                                @else 
-                                <td>-</td>
-                                @endif
-                                @if($config['action']['changeStatus'])
-                                   @include('intranet.template.components._crud_html_change_status')
-                                @endif
-
-                                @if($config['action']['active'])
-                                    @include('intranet.template.components._crud_html_active')
-                                @endif
-
                                 @if($config['blade']['showActions'])
                                     <td>
                                         <div >
@@ -279,6 +229,83 @@
                                         </div>
                                     </td>
                                 @endif
+                                <td>#{{ $object->id}}</td>
+                                <td>
+                                    <div class="label label-table" style="background: {{$object->formated_background}}; color: {{$object->formated_color}}; cursor:default">
+                                        {{ $object->formated_status }}
+                                    </div>
+                                </td>
+
+                                @if(isset($object->label_dispatch))
+                                    <td>{{ $object->label_dispatch == "Entrega inmediata" ? "Entrega Prioritaria" : $object->label_dispatch }}</td>
+                                @else 
+                                    <td>-</td>
+                                @endif
+
+                                <td>{{ mb_strtoupper($object->customer->full_name ?? '-', 'UTF-8') }}</td>
+                                <td>{{ $object->customer->id_number ?? '-'}}</td>
+
+                                <td>{{ mb_strtoupper($object->delivery_address ?? '-', 'UTF-8') }}</td>
+                                <td>{{ mb_strtoupper($object->house_number ?? '-', 'UTF-8') }}</td>
+                                <td>{{ mb_strtoupper($object->region ?? '-', 'UTF-8') }}</td>
+                                <td>{{ mb_strtoupper($object->comments ?? '-', 'UTF-8') }}</td>
+
+
+                                @if($object->payment_type == "webpay")
+                                <td>Webpay</td>
+                                @elseif($object->payment_type == "tarjeta")
+                                <td>Oneclick</td>
+                                @else
+                                <td>Proceso no terminado</td>
+                                @endif
+
+                                <td>${{ number_format($object->subtotal, 0, ',','.')}}</td>
+                                <td>${{ number_format($object->dispatch, 0, ',','.')}}</td>
+                                <td>${{ number_format($object->discount, 0, ',','.')}}</td>
+                                <td>${{ number_format($object->total, 0, ',','.')}}</td>
+                                
+                                @if(count($object->prescriptions) > 0)
+                                    <td>
+                                        @foreach($object->prescriptions as $prescription)
+                                        <a href="{{ Storage::url($prescription->file) }}" target="_blank" class='btn btn-sm btn-default btn-hover-success' data-toggle="tooltip" title="{{$prescription->product->name}}"><i class="ti-file"></i></a>
+                                        @endforeach
+                                    </td>
+                                @else
+                                    <td>
+                                        {{ $object->prescription_answer ?? 'Venta Directa'}}
+                                    </td>
+                                @endif
+
+                                @if(isset($object->voucher_pdf))
+                                <td><a href="{{ $object->voucher_pdf }}" target="_blank" class='btn btn-sm btn-default btn-hover-success' data-toggle="tooltip"><i class="ti-file"></i></a></td>
+                                @else 
+                                <td>-</td>
+                                @endif
+                                <td>{{ $object->ballot_number ?? '-'}}</td>
+
+                                <td>{{ $object->billing_date ? date('d-m-Y', strtotime($object->billing_date)) : '-' }}</td>
+
+                                <td>{{ date('d-m-Y', strtotime($object->created_at)) }}</td>
+                                <td>{{ date('H:i:s', strtotime($object->created_at)) }}</td>
+
+                                @if($object->dispatch_date)
+                                    <td>{{ date('d-m-Y', strtotime($object->dispatch_date)) }}</td>
+                                    <td>{{ date('H:i:s', strtotime($object->dispatch_date)) }}</td>
+                                @else 
+                                    <td>-</td>
+                                    <td>-</td>
+                                @endif
+
+                      
+                                @if($object->status != "PAID" && $object->status != "CREATED")
+                                    <td>{{ $object->humidity ?? '-'}}</td>
+                                    <td>{{ $object->temperature ?? '-'}}</td>
+                                @else
+                                    <td>-</td>
+                                    <td>-</td>
+                                @endif
+
+
                             </tr>
                         @endforeach
                         </tbody>

@@ -2,23 +2,34 @@
     <thead>
         <tr>
             <th>Nº Ped.</th>
-            <th>Fecha</th>
-            <th>Hora</th>
-            <th>Método de Pago</th>
             <th>Estado</th>
-            <th>RUT Cliente</th>
+            <th>Tipo de Entrega</th>
             <th>Nombre Cliente</th>
-            <th>Dirección Entrega</th>
-            <th>Fecha de Entrega</th>
+            <th>RUT Cliente</th>
+
+            <th>Dirección</th>
+            <th>N° de casa</th>
+            <th>Región</th>
+            <th>Información adicional</th>
+
+            <th>Método de Pago</th>
             <th>Subtotal</th>
             <th>Despacho</th>
             <th>Descuento</th>
             <th>Total</th>
+
+            <th>Receta</th>
+
+            <th>Boleta PDF</th>
+            <th>Boleta Número</th>
             <th>Fecha Facturación</th>
-            <th>Tipo de Entrega</th>
+            <th>Fecha creación</th>
+            <th>Hora creación</th>
+            <th>Fecha de Entrega</th>
+            <th>Hora de Entrega</th>
+
             <th>Humedad Despachador (%)</th>
             <th>Temperatura Despachador (° C)</th>
-            <th>Fecha de Entrega</th>
         </tr>
     </thead>
     <tbody>
