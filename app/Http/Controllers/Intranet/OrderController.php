@@ -87,7 +87,7 @@ class OrderController extends GlobalController
                 }
             }          
         } else {
-            $objects = $objects->whereIn('status', ['DELIVERED,DISPATCHED,PAID']);
+            $objects = $objects->whereIn('status', ['DELIVERED','DISPATCHED','PAID']);
         }
 
 
