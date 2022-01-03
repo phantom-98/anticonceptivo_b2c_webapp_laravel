@@ -165,10 +165,10 @@ class OrderController extends GlobalController
 
         $id = $request->id;
 
+        $status = $request->status;
+
         if($status == "DELIVERED,DISPATCHED,PAID"){
             $status = explode(",",$request->status);
-        } else {
-            $status = $request->status;
         }
 
         return Excel::download(new OrderExportIndex($startFilter, $endFilter, $client_id, $id, $status), 'pedidos-' . $start . '-' . ($end ? $end : '') . ($client ? '-' . $client->full_name : '') . ($id ? '-' . 'pedido'.$id : '') . '.xlsx');
