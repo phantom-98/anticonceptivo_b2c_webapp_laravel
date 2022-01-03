@@ -55,7 +55,7 @@
                                             <label for="status">Estado</label>
                                             <select id="status" name="status" class="form-control select2" data-width="100%">
                                                 <option value="DELIVERED,DISPATCHED,PAID" {{ $status == "DELIVERED,DISPATCHED,PAID" ? "selected" : "" }}>Pagados, Entregados y Despachados</option>
-                                                <option value="Todos">Todos</option>
+                                                <option value="Todos" {{ $status == "Todos" ? "selected" : "" }}>Todos</option>
                                                 <option value="CREATED" {{ $status == "CREATED" ? "selected" : "" }}>Creados (Sin terminar Proceso pago)</option>
                                                 <option value="PAID" {{ $status == "PAID" ? "selected" : "" }}>Pagado</option>
                                                 <option value="DISPATCHED" {{ $status == "DISPATCHED" ? "selected" : "" }}>Despachado</option>
