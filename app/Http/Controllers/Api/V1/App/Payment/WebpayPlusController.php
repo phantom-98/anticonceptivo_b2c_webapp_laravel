@@ -208,7 +208,7 @@ class WebpayPlusController
         $region = Region::find($customerAddress->region_id);
         $commune = Commune::find($customerAddress->commune_id);
 
-        $order->delivery_address = $customerAddress->address . ', ' . $commune->name . ', ' . $region->name . ' N° de casa / Depto: ' . $customerAddress->extra_info ?? '-';
+        $order->delivery_address = $customerAddress->address . ', ' . $commune->name;
         $order->house_number = $customerAddress->extra_info ?? '-';
         $order->region = $region->name ?? '-';
         $order->comments = $customerAddress->comment;
