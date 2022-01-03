@@ -24,7 +24,7 @@ class OrderExportIndex implements FromView, ShouldAutoSize
     public function view(): View
     {
         // dd($this->status);
-        $ordersGet = Order::with('order_items', 'customer');
+        $ordersGet = Order::with('order_items', 'customer', 'prescriptions.product');
 
         $status = $this->status;
 

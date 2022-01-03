@@ -17,7 +17,7 @@
             <th>Despacho</th>
             <th>Descuento</th>
             <th>Total</th>
-
+            <th>Receta</th>
             <th>Boleta Número</th>
 
             <th>Fecha Facturación</th>
@@ -68,6 +68,15 @@
                 <td>${{ number_format($object->discount, 0, ',','.')}}</td>
                 <td>${{ number_format($object->total, 0, ',','.')}}</td>
                 
+                @if(count($object->prescriptions) > 0)
+                    <td>
+                        Con receta
+                    </td>
+                @else
+                    <td>
+                        {{ $object->prescription_answer ?? 'Venta Directa'}}
+                    </td>
+                @endif
 
                 <td>{{ $object->ballot_number ?? '-'}}</td>
 
@@ -75,6 +84,7 @@
 
                 <td>{{ date('d-m-Y', strtotime($object->created_at)) }}</td>
                 <td>{{ date('H:i:s', strtotime($object->created_at)) }}</td>
+                
 
                 @if($object->dispatch_date)
                     <td>{{ date('d-m-Y', strtotime($object->dispatch_date)) }}</td>

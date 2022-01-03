@@ -151,7 +151,7 @@
                             <th data-cell-style="cellStyle" data-sorter="priceSorter" data-sortable="true" data-valign="middle">Descuento</th>
                             <th data-cell-style="cellStyle" data-sorter="priceSorter" data-sortable="true" data-valign="middle">Total</th>
 
-                            <th data-cell-style="cellStyle" data-sorter="priceSorter" data-sortable="true" data-valign="middle">Receta</th>
+                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Receta</th>
 
                             <th data-cell-style="cellStyle" data-sortable="false" data-valign="middle">Boleta PDF</th>
                             <th data-cell-style="cellStyle" data-sortable="false" data-valign="middle">Boleta Número</th>
