@@ -29,7 +29,7 @@ class OrderExportIndex implements FromView, ShouldAutoSize
         $status = $this->status;
 
         if($status == "DELIVERED,DISPATCHED,PAID"){
-            $status = explode(",",$request->status);
+            $status = explode(",",$status);
         }
 
         if($this->status != "Todos"){
