@@ -82,7 +82,7 @@ class VoucherPaymentDays extends Command
 
             $commission = $paymentCommission->commission;
 
-            foreach ($orders as $key => $order) {
+            foreach ($orders as $order) {
                 Log::info('Paso 2');
                 $total_order = round($order->total * ($commission/100));
                 $detail = [
@@ -97,6 +97,8 @@ class VoucherPaymentDays extends Command
                 array_push($details, $detail);
                 $total += round($order->total * ($commission/100));
 
+                $order->billing_date = Carbon::now()->format('Y-m-d H:i:s');
+                $order->save();
             }
 
             $subscriptions_orders_items = SubscriptionsOrdersItem::with('order_item.subscription_plan','order_item.product')

@@ -25,8 +25,18 @@ class OrderExportIndex implements FromView, ShouldAutoSize
     {
         // dd($this->status);
         $ordersGet = Order::with('order_items', 'customer');
+
+        $status = $this->status;
+
         if($this->status != "Todos"){
-            $ordersGet = $ordersGet->where('status', $this->status);
+            if($status == "DELIVERED,DISPATCHED,PAID"){
+                $status = explode(",",$status);
+                $ordersGet = $ordersGet->whereIn('status', $status);
+            } else {
+                $ordersGet = $ordersGet->where('status', $status);
+            }
+        } else {
+            $ordersGet = $ordersGet->whereNotNull('status');
         } 
         if($this->client_id != null){
             $ordersGet = $ordersGet->where('customer_id', $this->client_id);

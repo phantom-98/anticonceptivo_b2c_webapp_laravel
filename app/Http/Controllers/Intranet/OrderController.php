@@ -78,9 +78,16 @@ class OrderController extends GlobalController
 
         if ($status) {
             if ($status != 'Todos') {
-
-                $objects = $objects->where('status', $status);
+                if($status == "DELIVERED,DISPATCHED,PAID"){
+                    $status = explode(",",$request->status);
+                    $objects = $objects->whereIn('status', $status);
+                    $status = "DELIVERED,DISPATCHED,PAID";
+                } else {
+                    $objects = $objects->where('status', $status);
+                }
             }          
+        } else {
+            $objects = $objects->whereIn('status', ['DELIVERED','DISPATCHED','PAID']);
         }
 
 

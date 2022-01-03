@@ -71,6 +71,7 @@ class CallIntegrationsPay extends CoreHelper
            ]);
         if($response['error']['code'] == 0){
             $order->voucher_pdf = $response['pdfUrl'];
+            $order->ballot_number = $response['document']['number'] ?? null;
             $order->save();
         }
         return $response;

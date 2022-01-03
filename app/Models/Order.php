@@ -37,7 +37,10 @@ class Order extends Model
         'temperature',
         'dispatch_date',
         'is_immediate',
-        'label_dispatch'
+        'label_dispatch',
+        'house_number',
+        'ballot_number',
+        'region'
     ];
 
     protected $appends = ['formated_status', 'formated_background', 'formated_color'];
