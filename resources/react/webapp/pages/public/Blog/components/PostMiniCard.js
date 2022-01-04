@@ -32,7 +32,7 @@ const PostMiniCard = ({post}) => {
                 <div className="card-body py-3 py-md-4"
                      style={{paddingLeft: '2.5rem', paddingRight: '2.5rem'}}>
                     <h5 className="card-title bold">{post.title}</h5>
-                    <p className="card-text" dangerouslySetInnerHTML={{__html: (post.content).substring(0, 150)}}/>
+                    <p className="card-text" dangerouslySetInnerHTML={{__html: (post.content).substring(0, 160)}}/>
                 </div>
             </div>
 
