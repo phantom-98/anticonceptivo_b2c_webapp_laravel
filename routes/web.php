@@ -53,12 +53,48 @@ Route::get('fix-boleta/{id}', function ($id) {
     return App\Http\Helpers\CallIntegrationsPay::callVoucher($order->id, $customerAddress);
 });
 
-Route::get('fix-fecha-factura', function(){
-    $orders = \App\Models\Order::where('created_at', '<', '2022-01-03 00:00:00')->get();
-    foreach ($orders as $order){
-        $order->billing_date = Carbon\Carbon::parse($order->created_at)->addDays(1)->startOfDay()->format('Y-m-d H:i:s');
-        $order->save();
-    }
+Route::get('fix-temperatura', function(){
+    \App\Models\Order::find(457)->update(['temperature' => 18, 'humidity' => 62, 'ballot_number' =>	43366]);
+    \App\Models\Order::find(465)->update(['temperature' => 18, 'humidity' => 62, 'ballot_number' =>	43369]);
+    \App\Models\Order::find(469)->update(['temperature' => 18, 'humidity' => 62, 'ballot_number' =>	43380]);
+    \App\Models\Order::find(471)->update(['temperature' => 19, 'humidity' => 60, 'ballot_number' =>	43425]);
+    \App\Models\Order::find(472)->update(['temperature' => 19, 'humidity' => 60, 'ballot_number' =>	43444]);
+    \App\Models\Order::find(475)->update(['temperature' => 19, 'humidity' => 64, 'ballot_number' =>	43480]);
+    \App\Models\Order::find(477)->update(['temperature' => 19, 'humidity' => 64, 'ballot_number' =>	43489]);
+    \App\Models\Order::find(479)->update(['temperature' => 19, 'humidity' => 64, 'ballot_number' =>	43522]);
+    \App\Models\Order::find(480)->update(['temperature' => 19, 'humidity' => 64, 'ballot_number' =>	43528]);
+    \App\Models\Order::find(482)->update(['temperature' => 22, 'humidity' => 60, 'ballot_number' =>	43596]);
+    \App\Models\Order::find(483)->update(['temperature' => 22, 'humidity' => 63, 'ballot_number' =>	43597]);
+    \App\Models\Order::find(484)->update(['temperature' => 22, 'humidity' => 63, 'ballot_number' =>	43598]);
+    \App\Models\Order::find(485)->update(['temperature' => 22, 'humidity' => 63, 'ballot_number' =>	43608]);
+    \App\Models\Order::find(486)->update(['temperature' => 22, 'humidity' => 63, 'ballot_number' =>	43624]);
+    \App\Models\Order::find(488)->update(['temperature' => 22, 'humidity' => 63, 'ballot_number' =>	43631]);
+    \App\Models\Order::find(489)->update(['temperature' => 22, 'humidity' => 63, 'ballot_number' =>	43652]);
+    \App\Models\Order::find(490)->update(['temperature' => 19, 'humidity' => 60, 'ballot_number' =>	43653]);
+    \App\Models\Order::find(491)->update(['temperature' => 19, 'humidity' => 60, 'ballot_number' =>	43662]);
+    \App\Models\Order::find(496)->update(['temperature' => 22, 'humidity' => 62, 'ballot_number' =>	43729]);
+    \App\Models\Order::find(497)->update(['temperature' => 22, 'humidity' => 62, 'ballot_number' =>	43732]);
+    \App\Models\Order::find(498)->update(['temperature' => 20, 'humidity' => 60, 'ballot_number' =>	43747]);
+    \App\Models\Order::find(500)->update(['temperature' => 20, 'humidity' => 60, 'ballot_number' =>	43756]);
+    \App\Models\Order::find(502)->update(['temperature' => 21, 'humidity' => 64, 'ballot_number' =>	43772]);
+    \App\Models\Order::find(505)->update(['temperature' => 20, 'humidity' => 62, 'ballot_number' =>	43796]);
+    \App\Models\Order::find(507)->update(['temperature' => 20, 'humidity' => 62, 'ballot_number' =>	43967]);
+    \App\Models\Order::find(508)->update(['temperature' => 20, 'humidity' => 62, 'ballot_number' =>	43815]);
+    \App\Models\Order::find(511)->update(['temperature' => 20, 'humidity' => 62, 'ballot_number' =>	43816]);
+    \App\Models\Order::find(512)->update(['temperature' => 20, 'humidity' => 62, 'ballot_number' =>	43821]);
+    \App\Models\Order::find(513)->update(['temperature' => 20, 'humidity' => 60, 'ballot_number' =>	43881]);
+    \App\Models\Order::find(514)->update(['temperature' => 18, 'humidity' => 60, 'ballot_number' =>	43889]);
+    \App\Models\Order::find(515)->update(['temperature' => 18, 'humidity' => 60, 'ballot_number' =>	43890]);
+    \App\Models\Order::find(516)->update(['temperature' => 18, 'humidity' => 60, 'ballot_number' =>	43891]);
+    \App\Models\Order::find(517)->update(['temperature' => 22, 'humidity' => 64, 'ballot_number' =>	43892]);
+    \App\Models\Order::find(518)->update(['temperature' => 22, 'humidity' => 64, 'ballot_number' =>	43893]);
+    \App\Models\Order::find(520)->update(['temperature' => 21, 'humidity' => 60, 'ballot_number' =>	43894]);
+    \App\Models\Order::find(521)->update(['temperature' => 21, 'humidity' => 60, 'ballot_number' =>	43895]);
+    \App\Models\Order::find(522)->update(['temperature' => 21, 'humidity' => 60, 'ballot_number' =>	43896]);
+    \App\Models\Order::find(524)->update(['temperature' => 18, 'humidity' => 64, 'ballot_number' =>	43919]);
+    \App\Models\Order::find(529)->update(['temperature' => 18, 'humidity' => 60, 'ballot_number' =>	43946]);
+    \App\Models\Order::find(531)->update(['temperature' => 18, 'humidity' => 60, 'ballot_number' =>	43951]);
+    \App\Models\Order::find(532)->update(['temperature' => 18, 'humidity' => 60, 'ballot_number' =>	43952]);
 });
 
 
