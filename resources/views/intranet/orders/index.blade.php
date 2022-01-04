@@ -79,7 +79,7 @@
                                     @can('intranet.orders.export')
                                     <div class="col-md-1" style="margin-bottom: 10px">
                                         <div class="form-group">
-                                            <button type="submit" class="btn btn-success left " onclick="export_excel()"
+                                            <button id="btnExport" type="submit" class="btn btn-success left " onclick="export_excel()"
                                                     style="margin-top: 23px"><i class="fa fa-file-excel-o"></i> Exportar
                                             </button>
                                         </div>
@@ -351,6 +351,24 @@
             background-color: #ffb80f !important;
             color:black;
         }
+
+        @media (max-width: 768px) {
+            #btnExport{
+                margin-top: 7px !important; 
+                margin-left: 25px !important;
+                margin-bottom: 30px !important;
+            }
+
+            .humidityStatus{
+                width: 90% !important;
+            }
+
+            .selectStatus{
+                width: 90% !important;
+                margin-top:20px !important;
+                margin-left:0px !important
+            }
+        }
     </style>
 
 @endsection
@@ -430,7 +448,7 @@
     <script>
         function change_status(id, status){
             var html = '<span>Seleccione un estado</span><br/><br/><div class="form-inline"><center>';
-            html += '<select id="select_order_status_id" name="order_status_id" class="form-control" style="width:30%; font-size: 14px" onclick="changeDispatch(this.value)">';
+            html += '<select id="select_order_status_id" name="order_status_id" class="form-control selectStatus" style="width:30%; font-size: 14px" onchange="changeDispatch(this.value)">';
             html += '<option value="">Seleccione un estado</option>';
             if(status == "PAID"){
                 html += '<option value="DISPATCHED">Despachado</option>';
@@ -439,8 +457,8 @@
                 html += '<option value="DELIVERED">Entregado</option>';
             }
             html += '</select>';
-            html += '<input type="number" step=".01" class="form-control dispatched" id="humidity" name="humidity" onkeyup="validateDispatch()" placeholder="Humedad (%)" style="margin-left:20px; width:25%; font-size: 14px; display:none">';
-            html += '<input type="number" step=".01" class="form-control dispatched" id="temperature" name="temperature" onkeyup="validateDispatch()" placeholder="Temperatura (° C)" style="margin-left:20px; width:25%; font-size: 14px; display:none">';
+            html += '<input type="number" step=".01" class="form-control dispatched humidityStatus" id="humidity" name="humidity" onkeyup="validateDispatch()" placeholder="Humedad (%)" style="margin-left:20px; width:25%; font-size: 14px; display:none">';
+            html += '<input type="number" step=".01" class="form-control dispatched humidityStatus" id="temperature" name="temperature" onkeyup="validateDispatch()" placeholder="Temperatura (° C)" style="margin-left:20px; width:25%; font-size: 14px; display:none">';
             html += '</center></div><br/><br/>';
             swal({
                 title: 'Cambiar estado del pedido',
