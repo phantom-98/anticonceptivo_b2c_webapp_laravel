@@ -68,6 +68,14 @@
                     <td colspan="4">{{ $order->delivery_address ??  'Dirección no registrada' }}</td>
                 </tr>
                 <tr>
+                    <td class="bold w-25">NÚMERO DE CASA / DEPTO</td>
+                    <td colspan="4">{{ $order->house_number ??  'Dirección no registrada' }}</td>
+                </tr>
+                <tr>
+                    <td class="bold w-25">REGIÓN</td>
+                    <td colspan="4">{{ $order->region ??  'Dirección no registrada' }}</td>
+                </tr>
+                <tr>
                     <td class="bold w-25">COMENTARIO DE DIRECCIÓN</td>
                     <td colspan="4">{{ $order->comments ??  'Sin comentario' }}</td>
                 </tr>
