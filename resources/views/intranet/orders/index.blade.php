@@ -361,6 +361,8 @@
 
             .humidityStatus{
                 width: 90% !important;
+                margin-top:20px !important;
+                margin-left:0px !important
             }
 
             .selectStatus{
