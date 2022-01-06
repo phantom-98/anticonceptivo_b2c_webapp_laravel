@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use App\Http\Helpers\ApiHelper;
+use App\Models\SubscriptionsOrdersItem;
 use Carbon\Carbon;
 
 class Product extends Model
@@ -54,7 +55,7 @@ class Product extends Model
     }
 
     public function getSubscriptionsCountAttribute(){
-        return $this->active_subscriptions_items()->pluck('order_parent_id')->unique('order_parent_id')->count();
+        return SubscriptionsOrdersItem::where('active', 1)->where('name', $this->name)->where('dispatch_date', '>', Carbon::now()->format('Y-m-d H:i:s'))->get()->unique('order_parent_id')->count();
     }
 
     public function getSubscriptionsItemsAttribute(){
