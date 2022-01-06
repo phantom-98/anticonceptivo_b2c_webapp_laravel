@@ -23,6 +23,9 @@
             <th>Beneficios</th>
             <th>Descripción</th>
             <th>Composición</th>
+            <th>Precio 4 ciclos</th>
+            <th>Precio 6 ciclos</th>
+            <th>Precio 13 ciclos</th>
         </tr>
     </thead>
     <tbody>        
@@ -50,6 +53,9 @@
                 <td>{!! strip_tags($object->benefits) !!}</td>
                 <td>{!! strip_tags( $object->description) !!}</td>
                 <td>{!! strip_tags($object->compound) !!}</td>
+                <td>{{ $object->plans[0]->price ?? '' }}</td>
+                <td>{{ $object->plans[1]->price ?? '' }}</td>
+                <td>{{ $object->plans[2]->price ?? '' }}</td>
             </tr>
         @endforeach
     </tbody>
