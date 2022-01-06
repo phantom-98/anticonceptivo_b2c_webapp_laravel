@@ -170,7 +170,7 @@
                 },
                 {
                     title: 'Cant. Suscripciones Activas',
-                    field: 'stock',
+                    field: 'subscriptions_count',
                     sortable: true,
                     cellStyle: midAling,
                     formatter: function (value, row, index) {
@@ -179,7 +179,7 @@
                 },
                 {
                     title: 'Cant. Prod. Suscripciones Activas',
-                    field: 'stock',
+                    field: 'subscriptions_items',
                     sortable: true,
                     cellStyle: midAling,
                     formatter: function (value, row, index) {
