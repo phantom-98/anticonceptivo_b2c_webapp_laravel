@@ -170,20 +170,20 @@
                 },
                 {
                     title: 'Cant. Suscripciones Activas',
-                    field: 'subscription_active',
+                    field: 'stock',
                     sortable: true,
                     cellStyle: midAling,
                     formatter: function (value, row, index) {
-                        return row.subscriptions_items;
+                        return row.subscriptions_count;
                     }
                 },
                 {
                     title: 'Cant. Prod. Suscripciones Activas',
-                    field: 'subscription_items',
+                    field: 'stock',
                     sortable: true,
                     cellStyle: midAling,
                     formatter: function (value, row, index) {
-                        return row.active_subscriptions_items_count;
+                        return row.subscriptions_items;
                     }
                 },
                 {

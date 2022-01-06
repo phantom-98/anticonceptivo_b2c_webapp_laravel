@@ -58,8 +58,8 @@
                 <td>{{ $object->plans[0]->price ?? '' }}</td>
                 <td>{{ $object->plans[1]->price ?? '' }}</td>
                 <td>{{ $object->plans[2]->price ?? '' }}</td>
+                <td>{{ $object->subscriptions_count ?? '' }}</td>
                 <td>{{ $object->subscriptions_items ?? '' }}</td>
-                <td>{{ $object->active_subscriptions_items_count ?? '' }}</td>
             </tr>
         @endforeach
     </tbody>
