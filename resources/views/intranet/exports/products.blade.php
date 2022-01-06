@@ -26,6 +26,8 @@
             <th>Precio 4 ciclos</th>
             <th>Precio 6 ciclos</th>
             <th>Precio 13 ciclos</th>
+            <th>Cantidad de Suscripciones Activas</th>
+            <th>Cantidad productos por suscripciones</th>
         </tr>
     </thead>
     <tbody>        
@@ -56,6 +58,8 @@
                 <td>{{ $object->plans[0]->price ?? '' }}</td>
                 <td>{{ $object->plans[1]->price ?? '' }}</td>
                 <td>{{ $object->plans[2]->price ?? '' }}</td>
+                <td>{{ $object->active_subscriptions_count ?? '' }}</td>
+                <td>{{ $object->active_subscriptions_items_count ?? '' }}</td>
             </tr>
         @endforeach
     </tbody>

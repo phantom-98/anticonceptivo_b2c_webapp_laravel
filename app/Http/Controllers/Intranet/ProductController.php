@@ -38,7 +38,7 @@ class ProductController extends GlobalController
 
     public function index()
     {
-        $objects = Product::with('product_images', 'subcategory', 'laboratory')->get();
+        $objects = Product::with('product_images', 'subcategory', 'laboratory')->withCount('active_subscriptions_items', 'active_subscriptions')->get();
         return view($this->folder . 'index', compact('objects'));
     }
 
