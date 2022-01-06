@@ -21,7 +21,7 @@ class ProductExport implements FromView, ShouldAutoSize
     {
         try {
             //code...
-            $products = Product::with('laboratory', 'subcategory', 'plans')->withCount('active_subscriptions_items', 'active_subscriptions')->get();
+            $products = Product::with('laboratory', 'subcategory', 'plans')->withCount('active_subscriptions_items')->get();
     
             // dd($products);
             return view('intranet.exports.products')->with('products', $products);
