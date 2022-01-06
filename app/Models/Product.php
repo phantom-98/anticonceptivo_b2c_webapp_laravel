@@ -39,7 +39,7 @@ class Product extends Model
         'state_of_matter'
     ];
 
-    protected $appends = ['images', 'format_compound'];
+    protected $appends = ['images', 'format_compound', 'subscriptions_count'];
 
     public function subcategory(){
         return $this->belongsTo(Subcategory::class);
@@ -51,6 +51,10 @@ class Product extends Model
 
     public function product_images(){
         return $this->hasMany(ProductImage::class)->orderBy('position');
+    }
+
+    public function getSubscriptionsCountAttribute(){
+        return $this->active_subscriptions_items()->pluck('order_parent_id')->unique('order_parent_id')->count();
     }
 
     public function getFormatCompoundAttribute(){
@@ -79,10 +83,6 @@ class Product extends Model
 
     public function active_subscriptions_items(){
         return $this->hasMany(SubscriptionsOrdersItem::class, 'name', 'name')->where('active', 1)->where('dispatch_date', '>', Carbon::now()->format('Y-m-d H:i:s'));
-    }
-
-    public function active_subscriptions(){
-        return $this->hasMany(SubscriptionsOrdersItem::class, 'name', 'name')->where('active', 1)->where('dispatch_date', '>', Carbon::now()->format('Y-m-d H:i:s'))->groupBy('order_parent_id');
     }
 
     public static function getEnumColumnValues($table, $column) {
