@@ -39,7 +39,7 @@ class Product extends Model
         'state_of_matter'
     ];
 
-    protected $appends = ['images', 'format_compound', 'subscriptions_count'];
+    protected $appends = ['images', 'format_compound', 'subscriptions_count', 'subscriptions_items'];
 
     public function subcategory(){
         return $this->belongsTo(Subcategory::class);
@@ -56,6 +56,11 @@ class Product extends Model
     public function getSubscriptionsCountAttribute(){
         return $this->active_subscriptions_items()->pluck('order_parent_id')->unique('order_parent_id')->count();
     }
+
+    public function getSubscriptionsItemsAttribute(){
+        return $this->active_subscriptions_items()->sum('quantity');
+    }
+
 
     public function getFormatCompoundAttribute(){
         return strip_tags($this->compound);

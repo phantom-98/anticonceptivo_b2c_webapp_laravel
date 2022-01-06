@@ -174,7 +174,7 @@
                     sortable: true,
                     cellStyle: midAling,
                     formatter: function (value, row, index) {
-                        return row.subscriptions_count;
+                        return row.subscriptions_items;
                     }
                 },
                 {
