@@ -169,6 +169,24 @@
                     cellStyle: midAling,
                 },
                 {
+                    title: 'Cant. Suscripciones Activas',
+                    field: 'stock',
+                    sortable: true,
+                    cellStyle: midAling,
+                    formatter: function (value, row, index) {
+                        return row.active_subscriptions_count;
+                    }
+                },
+                {
+                    title: 'Cant. Prod. Suscripciones Activas',
+                    field: 'stock',
+                    sortable: true,
+                    cellStyle: midAling,
+                    formatter: function (value, row, index) {
+                        return row.active_subscriptions_items_count;
+                    }
+                },
+                {
                     title: 'Precio Normal',
                     field: 'description',
                     sortable: true,
