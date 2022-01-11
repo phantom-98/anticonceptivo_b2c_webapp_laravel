@@ -135,6 +135,7 @@
                                 <th data-cell-style="cellStyle" data-valign="middle">Acciones</th>
                             @endif
                             <th data-cell-style="cellStyle" data-sortable="false" data-valign="middle">Nº Ped.</th>
+                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Hora creación</th>
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Estado</th>
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Tipo de Entrega</th>
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Nombre Cliente</th>
@@ -230,6 +231,7 @@
                                     </td>
                                 @endif
                                 <td>#{{ $object->id}}</td>
+                                <td>{{ date('H:i:s', strtotime($object->created_at)) }}</td>
                                 <td>
                                     <div class="label label-table" style="background: {{$object->formated_background}}; color: {{$object->formated_color}}; cursor:default">
                                         {{ $object->formated_status }}
