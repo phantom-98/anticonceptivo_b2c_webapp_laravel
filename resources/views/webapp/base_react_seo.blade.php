@@ -103,6 +103,8 @@
         /></noscript>
     <!-- End Facebook Pixel Code -->
 
+    <script src="//rum-static.pingdom.net/pa-61dda4d39034fb00110005ce.js" async></script>
+
     @yield('styles')
 
 
