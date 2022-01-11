@@ -15,7 +15,7 @@ const ImmediateDelivery = ({immediate, setImmediate}) => {
                                 <img src={ImmediateSvg} alt="anticonceptivo.cl"/> <span className="mt-1">Entrega Prioritaria</span>
                             </h3>
                             <p className="font-11 lh-11 regular font-poppins color-484848 mb-0">
-                                Hasta 2 horas después de tu compra. Despachos desde 10:00 a 19:00 hrs.
+                                Hasta 2 horas después de tu compra. Despachos desde 10:00 a 19:00 hrs de Lunes a Sábado.
                             </p>
                         </div>
                         <div className="col-auto d-flex">

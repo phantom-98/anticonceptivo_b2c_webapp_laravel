@@ -140,7 +140,7 @@ const Addresses = ({setView, regions, communes, address, setAddress, dispatchDat
                                 </div>
                                 <div className="col-auto mx-4 d-flex">
                                     <span className="my-auto font-poppins font-14 regular color-484848" style={{marginLeft: '10px'}}>
-                                         {dispatchDateObject ?  (dispatchDateObject?.is_immediate ? 'Hasta 2 horas después de tu compra. Despachos desde 10:00 a 19:00 hrs.' : dispatchDateObject?.schedule.formated_start_time + ' a ' + dispatchDateObject?.schedule.formated_end_time) : ''}
+                                         {dispatchDateObject ?  (dispatchDateObject?.is_immediate ? 'Hasta 2 horas después de tu compra. Despachos desde 10:00 a 19:00 hrs de Lunes a Sábado' : dispatchDateObject?.schedule.formated_start_time + ' a ' + dispatchDateObject?.schedule.formated_end_time) : ''}
                                     </span>
                                 </div>
                             </div>
