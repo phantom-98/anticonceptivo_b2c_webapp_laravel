@@ -217,7 +217,7 @@
                                                         <i class="fa fa-retweet"></i>
                                                 </a>
                                                 @endif
-                                                @if($object->status == "PAID" || $object->status == "DISPATCHED" || $object->status == "DELIVERED" || $object->status == "CREATED" || $object->status == "CANCELED")
+                                                @if($object->status == "PAID" || $object->status == "DISPATCHED" || $object->status == "DELIVERED" || $object->status == "CREATED" || $object->status == "CANCELED" || $object->status == "REJECTED")
                                                 <a onclick="sendEmail({{$object->id}})"
                                                     class="btn btn-sm btn-default btn-hover-info" data-toggle="tooltip"
                                                     title="Ajustar pago del pedido">
