@@ -237,6 +237,8 @@ class OrderController extends GlobalController
 
     public function sendEmail(Request $request){
         $order = Order::find($request->id);
+
+        $customerAddress =  CustomerAddress::where('customer_id', $order->customer_id)->latest()->first();
     
         if($order->is_paid == 0){
             $order->status = PaymentStatus::PAID;
@@ -244,12 +246,13 @@ class OrderController extends GlobalController
             $order->payment_type = 'webpay';
             $order->is_paid = true;
             $order->save();
-
-            $customerAddress =  CustomerAddress::where('customer_id', $order->customer_id)->latest()->first();
     
-            CallIntegrationsPay::callVoucher($order->id,$customerAddress);
             CallIntegrationsPay::callDispatchLlego($order->id,$customerAddress);
             CallIntegrationsPay::callUpdateStockProducts($order->id);
+        }
+
+        if(!$order->voucher_pdf){
+            CallIntegrationsPay::callVoucher($order->id,$customerAddress);
         }
     
         CallIntegrationsPay::sendEmailsOrderRepeat($order->id);
