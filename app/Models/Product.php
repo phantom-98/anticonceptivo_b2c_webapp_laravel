@@ -57,7 +57,7 @@ class Product extends Model
     public function getSubscriptionsCountAttribute(){
         return SubscriptionsOrdersItem::where('active', 1)->whereHas('order_parent', function($q){
             $q->where('is_paid', 1);
-        })->where('name', $this->name)->where('dispatch_date', '>', Carbon::now()->format('Y-m-d H:i:s'))->get()->unique('orders_item_id')->count();
+        })->where('name', $this->name)->where('dispatch_date', '>', Carbon::now()->format('Y-m-d H:i:s'))->get()->unique('order_parent_id')->count();
     }
 
     public function getSubscriptionsItemsAttribute(){

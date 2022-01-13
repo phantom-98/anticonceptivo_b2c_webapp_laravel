@@ -51,7 +51,7 @@ class DashboardController extends Controller
 
         $subscriptions = SubscriptionsOrdersItem::where('active', 1)->whereHas('order_parent', function($q){
             $q->where('is_paid', 1);
-        })->where('dispatch_date', '>', Carbon::now()->format('Y-m-d H:i:s'))->get()->unique('orders_item_id')->count();
+        })->where('dispatch_date', '>', Carbon::now()->format('Y-m-d H:i:s'))->get()->unique('order_parent_id')->count();
 
         return view($this->folder . 'index', compact('orderTotals', 'orderToday', 'orderThisWeek', 'orderThisMonth', 'sellToday', 'sellWeek', 'sellMonth', 
         'products', 'prescriptions', 'customers', 'contacts', 'contacts_open', 'claims', 'claims_open', 'subscriptions', 'total_products'));
