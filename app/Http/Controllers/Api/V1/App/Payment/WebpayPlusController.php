@@ -9,6 +9,7 @@ use App\Jobs\UpdateProductStockJob;
 use App\Models\Prescription;
 use App\Models\ProductSubscriptionPlan;
 use App\Models\Setting;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
@@ -391,8 +392,13 @@ class WebpayPlusController
             $order->prescription_answer = $text;
             $order->save();
         }
+        try {
+            $responseStockProduct = $this->isStockProducts($order->order_items);
+        } catch (\Exception $ex){
+            $this->sendEmailErrorAiloo();
+            return ApiResponse::JsonError([], 'Error inesperado, intente más tarde');
+        }
 
-        $responseStockProduct = $this->isStockProducts($order->order_items);
         if (!$responseStockProduct['status']) {
             $product = $responseStockProduct['product'];
             if ($product) {
@@ -590,9 +596,17 @@ class WebpayPlusController
                 if($order->discount_code_id){
                     $this->updateDiscountCode($order->discount_code->name);
                 }
-                $responseStockProduct = $this->isStockProducts($order->order_items);
 
-                if (!$responseStockProduct['status']) {
+                $isErrorAiloo = false;
+
+                try {
+                    $responseStockProduct = $this->isStockProducts($order->order_items);
+                } catch (\Exception $ex){
+                    $this->sendEmailErrorAiloo();
+                    $isErrorAiloo = true;
+                }
+
+                if ($isErrorAiloo == true || !$responseStockProduct['status']) {
                     Log::info('RESPONSE_STOCK_PRODUCT_NOT_FOUND', [$responseStockProduct['status']]);
 
                     $this->webpay_plus->refundTransaction($order->payment_token, $order->total);
@@ -654,6 +668,24 @@ class WebpayPlusController
         return redirect($url);
 //        return view('webapp.payment.webpay-finish');
     }
+
+    private function sendEmailErrorAiloo(){
+        $users = User::whereIn('id', [2, 9])->get();
+        foreach($users as $user){
+            $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
+            $html = view('emails.ailoo-general-error', ['user_name' => $user->first_name])->render();
+            $email = new \SendGrid\Mail\Mail();
+            $email->setFrom("info@anticonceptivo.cl", 'Anticonceptivo');
+            $email->setSubject('Error comunicación Ailoo');
+            $email->addTo($user->email, $user->first_name);
+            $email->addContent(
+                "text/html", $html
+            );
+            $sendgrid->send($email);
+        }
+
+    }
+
 
     private function updateDiscountCode($discount_code){
         try {
