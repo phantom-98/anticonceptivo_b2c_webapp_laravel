@@ -22,9 +22,7 @@ const WaitingPayment = ({showingWaitingPayment}) => {
                         <h3 className="modal-title">Proceso de pago</h3>
                     </div>
                     <div className="col-md-12 text-center font-poppins font-14 regular color-6C6B6B pt-2">
-                        Por favor pagar en ventana emergente de webpay, usted retornará al sitio web una vez el pago sea validado.
-                        <br/>
-                        Si tiene mas consulta haga click <Link target="_blank" style={{fontWeight: 500}} to={PUBLIC_ROUTES.FAQ.path}>aquí</Link>
+                        Por favor espere a que se inicie proceso en Webpay.
                     </div>
 
                     <div className="col-md-12 my-5">
