@@ -204,7 +204,7 @@ class WebpayPlusController
         $order->is_immediate = $dataDeliveryOrder['is_immediate'];
         $order->label_dispatch = $dataDeliveryOrder['label'];
         $order->delivery_date = $dataDeliveryOrder['delivery_date'];
-        $order->customer_id = $request->customer_id ?? $customer->id;
+        $order->customer_id =  $customer->id ?? $request->customer_id;
 
         $region = Region::find($customerAddress->region_id);
         $commune = Commune::find($customerAddress->commune_id);
