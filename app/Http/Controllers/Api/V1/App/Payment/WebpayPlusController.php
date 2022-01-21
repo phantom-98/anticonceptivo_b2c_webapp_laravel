@@ -531,6 +531,7 @@ class WebpayPlusController
                 $get_data = ApiHelper::callAPI('GET', 'https://api.ailoo.cl/v1/inventory/barCode/' . $product->barcode, null, 'ailoo');
                 $response = json_decode($get_data, true);
                 Log::info('Prueba caída response', [$response]);
+                Log::info('URL', ['https://api.ailoo.cl/v1/inventory/barCode/' . $product->barcode]);
                 if ($response != null && array_key_exists('inventoryItems', $response)) {
                     $isWeb = false;
                     foreach ($response['inventoryItems'] as $key => $inventory) {
