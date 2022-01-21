@@ -402,6 +402,7 @@ class WebpayPlusController
         if (!$responseStockProduct['status']) {
             $product = $responseStockProduct['product'];
             if ($product) {
+                Log::info('Prueba caída', $responseStockProduct['status']);
                 return ApiResponse::JsonError([], 'Producto ' . $product->name . ' no dispone de stock suficiente (Stock actual ' . $product->stock . ')');
             } else {
                 return ApiResponse::JsonError([], 'Error inesperado');
@@ -529,6 +530,7 @@ class WebpayPlusController
                 $product = Product::find($id);
                 $get_data = ApiHelper::callAPI('GET', 'https://api.ailoo.cl/v1/inventory/barCode/' . $product->barcode, null, 'ailoo');
                 $response = json_decode($get_data, true);
+                Log::info('Prueba caída response', $response);
                 if ($response != null && array_key_exists('inventoryItems', $response)) {
                     $isWeb = false;
                     foreach ($response['inventoryItems'] as $key => $inventory) {
