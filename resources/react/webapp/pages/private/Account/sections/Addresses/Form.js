@@ -121,8 +121,7 @@ const Form = ({addressSelected, goBack, formMode, customerId = null, regions, se
     const updateData = () => {
 
         if (validAddress === false) {
-            setInputError('address','Por favor, ingrese una dirección valida.');
-            return null;
+         
         }
 
         let url = Services.ENDPOINT.CUSTOMER.ADDRESSES.UPDATE;
@@ -164,8 +163,7 @@ const Form = ({addressSelected, goBack, formMode, customerId = null, regions, se
 
     const setAddressNoAuth = () => {
         if (validAddress === false) {
-            setInputError('address','Por favor, ingrese una dirección valida.');
-            return null;
+         
         }
 
         setAddresses(address);
