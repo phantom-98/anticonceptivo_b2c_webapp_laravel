@@ -214,7 +214,7 @@ const FormModal = ({addressSelected, goBack, formMode, customerId = null, region
                            name="address"
                            placeholder="Calle y Número"
                            value={address.address}
-                           onChange={(e) => handleAddress(e, false, false, true)}
+                           onChange={(e) => handleAddress(e)}
                            onFocus={setCleanInputError}
                     />
                     <div className={`invalid-feedback ${breakpoint !== BREAKPOINTS.MEDIUM || breakpoint !== BREAKPOINTS.LARGE || breakpoint !== BREAKPOINTS.EXTRA_LARGE || breakpoint !== BREAKPOINTS.EXTRA_EXTRA_LARGE ? 'mt-5' : ''}`}/>

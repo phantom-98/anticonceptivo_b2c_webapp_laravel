@@ -150,7 +150,7 @@ const AddAddress = ({setView, regions, address, setAddress,validAddress,setValid
                                     name="address"
                                     placeholder="Calle y Número"
                                     value={address.address}
-                                    onChange={(e) => handleAddress(e, false, false, true)}
+                                    onChange={(e) => handleAddress(e)}
                                     onFocus={setCleanInputError}
                                 />
                                 <div className="invalid-feedback" />
