@@ -2,7 +2,6 @@ import React, {useEffect, useState, useContext, Fragment} from 'react';
 import toastr from "toastr";
 import {setCleanInputError, setInputError} from "../../../../../helpers/GlobalUtils";
 import * as Services from "../../../../../Services";
-import { GOOGLE_MAPS } from '../../../../../Globals';
 import AutoComplete from "react-google-autocomplete";
 import { AppContext } from "../../../../../context/AppProvider";
 import { BREAKPOINTS } from "../../../../../helpers/vars";
@@ -209,58 +208,14 @@ const FormModal = ({addressSelected, goBack, formMode, customerId = null, region
                         }
                 }>
                     <label htmlFor="address">Calle y Número (*)</label>
-                    <AutoComplete
-                        className="form-control form-control-custom pac-container"
-                        style={{width: '90%'}}
-                        placeholder="Calle y Número"
-                        id={'address'}
-                        value={address.address}
-                        apiKey={GOOGLE_MAPS.API_KEY}
-                        onPlaceSelected={(place, a, b, c) => {
-                            let flag = false;
-                            let street_number = '';
-                            let route = '';
-
-                            place.address_components.forEach(addComponents => {
-                                if (addComponents.long_name.includes('Región Metropolitana')) {
-                                    flag = true;
-                                }
-
-                                if (addComponents.types.find(x => x == 'route')) {
-                                    route = addComponents.long_name;
-                                }
-
-                                if (addComponents.types.find(x => x == 'street_number')) {
-                                    street_number = addComponents.long_name;
-                                }
-                            });
-
-                            setGoogleAddress(route+' '+street_number)
-
-                            if (flag) {
-                                if (street_number.length > 0 && route.length > 0) {
-                                    setValidAddress(true);
-                                    setResponsiveValidate(true);
-                                }else{
-                                    setValidAddress(false);
-                                    setResponsiveValidate(false)
-                                    setInputError('address','Formato de la dirección incorrecta, por favor ingrese el nombre de la calle y el número.');
-                                }
-                            }else{
-                                setValidAddress(false);
-                                setResponsiveValidate(false)
-                                setInputError('address','La dirección ingresada no esta en nuestro rango de cobertura, por favor intente con otra.');
-                            }
-                        }}
-                        onChange={(e) => autoCompleteHandle(e.target.value)}
-                        options={{
-                            types: ["address"],
-                            componentRestrictions: { country: "cl" },
-                        }}
-                        onFocus={(e) => {
-                            setCleanInputError(e);
-                            setResponsiveValidate(true);
-                        }}
+                    <input type="text"
+                           className="form-control form-control-custom"
+                           id="address"
+                           name="address"
+                           placeholder="Calle y Número"
+                           value={address.address}
+                           onChange={(e) => handleAddress(e)}
+                           onFocus={setCleanInputError}
                     />
                     <div className={`invalid-feedback ${breakpoint !== BREAKPOINTS.MEDIUM || breakpoint !== BREAKPOINTS.LARGE || breakpoint !== BREAKPOINTS.EXTRA_LARGE || breakpoint !== BREAKPOINTS.EXTRA_EXTRA_LARGE ? 'mt-5' : ''}`}/>
                 </div>
