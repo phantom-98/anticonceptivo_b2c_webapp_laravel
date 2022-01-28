@@ -136,8 +136,7 @@ const CheckOut = () => {
 
     const validateDataAddressInvite = () => {
         if (validAddress === false) {
-            setInputError('address','Por favor, ingrese una dirección valida.');
-            return null;
+           
         }
 
         let url = Services.ENDPOINT.NO_AUTH.CHECKOUT.VALIDATE_STEPS;
@@ -161,8 +160,7 @@ const CheckOut = () => {
         let url = Services.ENDPOINT.CUSTOMER.ADDRESSES.UPDATE;
 
         if (validAddress === false) {
-            setInputError('address','Por favor, ingrese una dirección valida.');
-            return null;
+           
         }
 
         let data = {
