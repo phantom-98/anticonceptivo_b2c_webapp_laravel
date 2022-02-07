@@ -28,6 +28,9 @@
 
             <th>Humedad Despachador (%)</th>
             <th>Temperatura Despachador (° C)</th>
+
+            <th>Correo</th>
+            <th>Número Contacto</th>
         </tr>
     </thead>
     <tbody>
@@ -102,6 +105,9 @@
                     <td>-</td>
                     <td>-</td>
                 @endif
+
+                <td>{{ mb_strtoupper($object->customer->email ?? '-', 'UTF-8') }}</td>
+                <td>{{ mb_strtoupper($object->customer->phone ?? '-', 'UTF-8') }}</td>
             </tr>
         @endforeach
     </tbody>

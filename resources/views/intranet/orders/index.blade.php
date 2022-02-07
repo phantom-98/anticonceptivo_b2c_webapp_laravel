@@ -165,6 +165,8 @@
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Humedad Despachador (%)</th>
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Temperatura Despachador (° C)</th>
 
+                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Correo</th>
+                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Número Contacto</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -307,6 +309,8 @@
                                     <td>-</td>
                                 @endif
 
+                                <td>{{ mb_strtoupper($object->customer->email ?? '-', 'UTF-8') }}</td>
+                                <td>{{ mb_strtoupper($object->customer->phone ?? '-', 'UTF-8') }}</td>
 
                             </tr>
                         @endforeach
