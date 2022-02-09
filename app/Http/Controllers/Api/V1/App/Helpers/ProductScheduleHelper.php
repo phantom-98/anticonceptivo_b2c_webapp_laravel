@@ -167,7 +167,7 @@ class ProductScheduleHelper
             $date = Carbon::now()->addDays(1);
             $inSchedule = self::inSchedule($_schedules, $date);
             if (!$inSchedule['inRange']) {
-                if(Carbon::now()->format('w') == 3){
+                if(Carbon::now()->format('w') == 0){
                     $label = "Llega el Lunes";
                     $status = 'AFTER_TOMORROW';
                 } else {
