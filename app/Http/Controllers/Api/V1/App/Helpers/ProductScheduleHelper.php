@@ -45,9 +45,12 @@ class ProductScheduleHelper
 
             if(Carbon::now()->format('w') == 3){
                 $custom_label = LabelDispatch::AFTER_TOMORROW_CUSTOM;
+                $status = 'AFTER_TOMORROW_CUSTOM';
             } else {
                 $custom_label = LabelDispatch::AFTER_TOMORROW;
+                $status = 'AFTER_TOMORROW';
             }
+            
             return array(
                 'label' => $custom_label,
                 'delivery_date' => $date_order->addDays(2),
@@ -70,6 +73,9 @@ class ProductScheduleHelper
     public static function getLabelStatusByLabel($label){
         if($label == LabelDispatch::AFTER_TOMORROW){
             return 'AFTER_TOMORROW';
+        }
+        if($label == LabelDispatch::AFTER_TOMORROW_CUSTOM){
+            return 'AFTER_TOMORROW_CUSTOM';
         }
         if($label == LabelDispatch::TOMORROW){
             return 'TOMORROW';
@@ -175,7 +181,7 @@ class ProductScheduleHelper
             if (!$inSchedule['inRange']) {
                 if(Carbon::now()->format('w') == 3){
                     $label = LabelDispatch::AFTER_TOMORROW_CUSTOM;
-                    $status = 'AFTER_TOMORROW';
+                    $status = 'AFTER_TOMORROW_CUSTOM';
                 } else {
                     $label = LabelDispatch::AFTER_TOMORROW;
                     $status = 'AFTER_TOMORROW';

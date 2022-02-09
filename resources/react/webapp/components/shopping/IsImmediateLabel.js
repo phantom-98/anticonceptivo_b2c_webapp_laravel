@@ -50,6 +50,14 @@ const IsImmediateLabel = ({product}) =>{
         )
     }
 
+    const AfterTomorrowCustom = () => {
+        return (
+            <div className="is-after-tomorrow-label">
+                <img src={arrivesTomorrowGreen} alt="anticonceptivo.cl"/> <span>{label}</span>
+            </div>
+        )
+    }
+
     return (
        <div className="row">
            <div className="col-12 justify-content-end">
@@ -57,7 +65,7 @@ const IsImmediateLabel = ({product}) =>{
                {type == 'TODAY' ? <Today /> : null}
                {type == 'TOMORROW' ? <Tomorrow /> : null}
                {type == 'AFTER_TOMORROW' ? <AfterTomorrow /> : null}
-               {type == 'AFTER_TOMORROW_CUSTOM' ? <AfterTomorrow /> : null}
+               {type == 'AFTER_TOMORROW_CUSTOM' ? <AfterTomorrowCustom /> : null}
            </div>
        </div>
     );
