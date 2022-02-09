@@ -176,8 +176,8 @@ class ProductScheduleHelper
         $inSchedule = self::inSchedule($_schedules, $date);
 
         if (!$inSchedule['inRange']) {
-            $date = Carbon::now()->addDays(1);
-            $_schedules = $schedules->where('type', 'NORMAL')->where('day_of_week', Carbon::now()->addDays(1)->dayOfWeek);
+            $date = Carbon::now()->addDays(1)->startOfDay();
+            $_schedules = $schedules->where('type', 'NORMAL')->where('day_of_week', $date->dayOfWeek);
             $inSchedule = self::inSchedule($_schedules, $date);
             if (!$inSchedule['inRange']) {
                 if(Carbon::now()->format('w') == 0){
