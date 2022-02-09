@@ -42,8 +42,13 @@ class ProductScheduleHelper
                 );
             }
 
+            if(Carbon::now()->format('w') == 3){
+                $label = "Llega el Lunes";
+            } else {
+                $label = LabelDispatch::AFTER_TOMORROW;
+            }
             return array(
-                'label' => LabelDispatch::AFTER_TOMORROW,
+                'label' => $label,
                 'delivery_date' => $date_order->addDays(2),
                 'is_immediate' => $is_immediate,
                 'schedule' => $schedule,
@@ -167,7 +172,7 @@ class ProductScheduleHelper
             $date = Carbon::now()->addDays(1);
             $inSchedule = self::inSchedule($_schedules, $date);
             if (!$inSchedule['inRange']) {
-                if(Carbon::now()->format('w') == 0){
+                if(Carbon::now()->format('w') == 3){
                     $label = "Llega el Lunes";
                     $status = 'AFTER_TOMORROW';
                 } else {
