@@ -45,7 +45,7 @@ const IsImmediateLabel = ({product}) =>{
     const AfterTomorrow = () => {
         return (
             <div className="is-after-tomorrow-label">
-                <img src={arrivesAfterTomorrowRed} alt="anticonceptivo.cl"/> <span>{label}</span>
+                <img src={arrivesTomorrowGreen} alt="anticonceptivo.cl"/> <span>{label}</span>
             </div>
         )
     }
