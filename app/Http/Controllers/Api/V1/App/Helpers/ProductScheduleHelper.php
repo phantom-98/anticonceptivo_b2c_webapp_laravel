@@ -164,14 +164,25 @@ class ProductScheduleHelper
         $inSchedule = self::inSchedule($_schedules, $date);
 
         if (!$inSchedule['inRange']) {
-
-            return array(
-                'label' => LabelDispatch::TOMORROW,
-                'delivery_date' => $date->addDays(1),
-                'schedule' => $inSchedule['scheduleInRange'] ?? $defaultSchedule,
-                'label_status' => 'TOMORROW',
-                'is_immediate' => false
-            );
+            $date = Carbon::now()->addDays(1);
+            $inSchedule = self::inSchedule($_schedules, $date);
+            if (!$inSchedule['inRange']) {
+                return array(
+                    'label' => LabelDispatch::AFTER_TOMORROW,
+                    'delivery_date' => $date->addDays(1),
+                    'schedule' => $inSchedule['scheduleInRange'] ?? $defaultSchedule,
+                    'label_status' => 'AFTER_TOMORROW',
+                    'is_immediate' => false
+                );
+            } else {
+                return array(
+                    'label' => LabelDispatch::TOMORROW,
+                    'delivery_date' => $date,
+                    'schedule' => $inSchedule['scheduleInRange'] ?? $defaultSchedule,
+                    'label_status' => 'TOMORROW',
+                    'is_immediate' => false
+                );
+            }
         }
 
         return array(
