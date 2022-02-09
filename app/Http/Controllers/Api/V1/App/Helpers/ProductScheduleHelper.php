@@ -43,14 +43,14 @@ class ProductScheduleHelper
                 );
             }
 
-            if(Carbon::now()->format('w') == 3){
+            if(Carbon::now()->format('w') == 0){
                 $custom_label = LabelDispatch::AFTER_TOMORROW_CUSTOM;
                 $status = 'AFTER_TOMORROW_CUSTOM';
             } else {
                 $custom_label = LabelDispatch::AFTER_TOMORROW;
                 $status = 'AFTER_TOMORROW';
             }
-            
+
             return array(
                 'label' => $custom_label,
                 'delivery_date' => $date_order->addDays(2),
@@ -179,7 +179,7 @@ class ProductScheduleHelper
             $date = Carbon::now()->addDays(1);
             $inSchedule = self::inSchedule($_schedules, $date);
             if (!$inSchedule['inRange']) {
-                if(Carbon::now()->format('w') == 3){
+                if(Carbon::now()->format('w') == 0){
                     $label = LabelDispatch::AFTER_TOMORROW_CUSTOM;
                     $status = 'AFTER_TOMORROW_CUSTOM';
                 } else {
