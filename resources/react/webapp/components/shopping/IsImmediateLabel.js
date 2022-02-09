@@ -57,6 +57,7 @@ const IsImmediateLabel = ({product}) =>{
                {type == 'TODAY' ? <Today /> : null}
                {type == 'TOMORROW' ? <Tomorrow /> : null}
                {type == 'AFTER_TOMORROW' ? <AfterTomorrow /> : null}
+               {type == 'Llega el Lunes' ? <AfterTomorrow /> : null}
            </div>
        </div>
     );
