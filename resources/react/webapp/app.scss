@@ -541,8 +541,10 @@ a:-webkit-any-link:focus-visible {
     color: #00DBAE;
 }
 .is-after-tomorrow-label {
-    background: rgba(219, 0, 0, 0.18);
-    color: #db0000;
+    //background: rgba(219, 0, 0, 0.18);
+    //color: #db0000;
+    background: rgba(0, 219, 174, 0.18);
+    color: #00DBAE;
 }
 
 @import 'assets/scss/responsive';

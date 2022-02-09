@@ -167,11 +167,18 @@ class ProductScheduleHelper
             $date = Carbon::now()->addDays(1);
             $inSchedule = self::inSchedule($_schedules, $date);
             if (!$inSchedule['inRange']) {
+                if(Carbon::now()->format('w') == 0){
+                    $label = "Llega el Lunes";
+                    $status = 'AFTER_TOMORROW';
+                } else {
+                    $label = LabelDispatch::AFTER_TOMORROW;
+                    $status = 'AFTER_TOMORROW';
+                }
                 return array(
-                    'label' => LabelDispatch::AFTER_TOMORROW,
+                    'label' => $label,
                     'delivery_date' => $date->addDays(1),
                     'schedule' => $inSchedule['scheduleInRange'] ?? $defaultSchedule,
-                    'label_status' => 'AFTER_TOMORROW',
+                    'label_status' => $status,
                     'is_immediate' => false
                 );
             } else {
