@@ -16,6 +16,7 @@ abstract class LabelDispatch
     const TODAY = 'Llega hoy';
     const TOMORROW = 'Llega mañana';
     const AFTER_TOMORROW = 'Llega en 48H';
+    const AFTER_TOMORROW_CUSTOM = 'Llega el Lunes';
 }
 
 class ProductScheduleHelper
@@ -42,8 +43,8 @@ class ProductScheduleHelper
                 );
             }
 
-            if(Carbon::now()->format('w') == 4){
-                $custom_label = "Llega el Lunes";
+            if(Carbon::now()->format('w') == 3){
+                $custom_label = LabelDispatch::AFTER_TOMORROW_CUSTOM;
             } else {
                 $custom_label = LabelDispatch::AFTER_TOMORROW;
             }
@@ -172,8 +173,8 @@ class ProductScheduleHelper
             $date = Carbon::now()->addDays(1);
             $inSchedule = self::inSchedule($_schedules, $date);
             if (!$inSchedule['inRange']) {
-                if(Carbon::now()->format('w') == 4){
-                    $label = "Llega el Lunes";
+                if(Carbon::now()->format('w') == 3){
+                    $label = LabelDispatch::AFTER_TOMORROW_CUSTOM;
                     $status = 'AFTER_TOMORROW';
                 } else {
                     $label = LabelDispatch::AFTER_TOMORROW;
