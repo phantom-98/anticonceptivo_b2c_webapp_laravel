@@ -43,12 +43,12 @@ class ProductScheduleHelper
             }
 
             if(Carbon::now()->format('w') == 3){
-                $label = "Llega el Lunes";
+                $custom_label = "Llega el Lunes";
             } else {
-                $label = LabelDispatch::AFTER_TOMORROW;
+                $custom_label = LabelDispatch::AFTER_TOMORROW;
             }
             return array(
-                'label' => $label,
+                'label' => $custom_label,
                 'delivery_date' => $date_order->addDays(2),
                 'is_immediate' => $is_immediate,
                 'schedule' => $schedule,
