@@ -42,7 +42,7 @@ class ProductScheduleHelper
                 );
             }
 
-            if(Carbon::now()->format('w') == 3){
+            if(Carbon::now()->format('w') == 4){
                 $custom_label = "Llega el Lunes";
             } else {
                 $custom_label = LabelDispatch::AFTER_TOMORROW;
@@ -172,7 +172,7 @@ class ProductScheduleHelper
             $date = Carbon::now()->addDays(1);
             $inSchedule = self::inSchedule($_schedules, $date);
             if (!$inSchedule['inRange']) {
-                if(Carbon::now()->format('w') == 3){
+                if(Carbon::now()->format('w') == 4){
                     $label = "Llega el Lunes";
                     $status = 'AFTER_TOMORROW';
                 } else {
