@@ -43,7 +43,7 @@ class ProductScheduleHelper
                 );
             }
 
-            if(Carbon::now()->format('w') == 0){
+            if(Carbon::now()->format('w') == 6){
                 $custom_label = LabelDispatch::AFTER_TOMORROW_CUSTOM;
                 $status = 'AFTER_TOMORROW_CUSTOM';
             } else {
@@ -180,7 +180,7 @@ class ProductScheduleHelper
             $_schedules = $schedules->where('type', 'NORMAL')->where('day_of_week', $date->dayOfWeek);
             $inSchedule = self::inSchedule($_schedules, $date);
             if (!$inSchedule['inRange']) {
-                if(Carbon::now()->format('w') == 0){
+                if(Carbon::now()->format('w') == 6){
                     $label = LabelDispatch::AFTER_TOMORROW_CUSTOM;
                     $status = 'AFTER_TOMORROW_CUSTOM';
                 } else {
