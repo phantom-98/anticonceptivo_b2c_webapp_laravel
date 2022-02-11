@@ -437,7 +437,11 @@ class ProfileController extends Controller
                 $dispatch = isset($itemDeliveryCostArrayCost) ? $itemDeliveryCostArrayCost->price[0] : 0;
                 $total = $item->price * $item->quantity;
 
-                $min_date_dispatch = Carbon::parse($item->pay_date)->addHours($itemDeliveryCost->deadline_delivery)->format('Y-m-d');
+                if(isset($itemDeliveryCost)){
+                    $min_date_dispatch = Carbon::parse($item->pay_date)->addHours($itemDeliveryCost->deadline_delivery)->format('Y-m-d');
+                } else {
+                    $min_date_dispatch = Carbon::now()->startOfDay()->addHours(48)->format('Y-m-d');
+                }
 
                 $productSubscriptionPlan = ProductSubscriptionPlan::with('subscription_plan')->where('subscription_plan_id',$item->order_item->subscription_plan->id)
                     ->where('product_id',$item->order_item->product->id)->get()->first();
