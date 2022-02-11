@@ -466,17 +466,22 @@ const SubscriptionCard = ({
                                         </div>
                                     </div>
                                     <div className="subscription-card-footer">
-                                        <div className="col-12 d-flex flex-row mt-2 mr-1 ml-1">
-                                            <h1 style={{lineHeight: 1.5}}
-                                                className="mr-1 mb-0 p-0 subscription-card-value">Le quedan
-                                                <span
-                                                    className=" p-0 subscription-card-label"> {item.cycle.days} días </span>
-                                                o hasta el
-                                                <span
-                                                    className=" p-0 subscription-card-label"> {changeMonthToSpanish(item.cycle.max_date)} </span>
-                                                de protección.
-                                            </h1>
-                                        </div>
+                                        {
+                                            item.subscription_item.active == 1 && item.cycle.days > 0 ?
+                                                <div className="col-12 d-flex flex-row mt-2 mr-1 ml-1">
+                                                    <h1 style={{lineHeight: 1.5}}
+                                                        className="mr-1 mb-0 p-0 subscription-card-value">Le quedan
+                                                        <span
+                                                            className=" p-0 subscription-card-label"> {item.cycle.days} días </span>
+                                                        o hasta el
+                                                        <span
+                                                            className=" p-0 subscription-card-label"> {changeMonthToSpanish(item.cycle.max_date)} </span>
+                                                        de protección.
+                                                    </h1>
+                                                </div>
+                                            :
+                                            null
+                                        }
                                         {
                                             item.subscription_item.active == 1 ?
                                                 <div className="row mt-2">
