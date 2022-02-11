@@ -63,7 +63,9 @@ class CallIntegrationsPay extends CoreHelper
                 "items"=> $items,
                 "user"=> "anticonceptivo"
         );
-        $get_data = ApiHelper::callAPI('POST', 'https://api.ailoo.cl/v2/sale/boleta/print_type/1', json_encode($data), 'ailoo');
+        if($order->ballot_number == null){
+            $get_data = ApiHelper::callAPI('POST', 'https://api.ailoo.cl/v2/sale/boleta/print_type/1', json_encode($data), 'ailoo');
+        }
         $response = json_decode($get_data, true);
         Log::info('Voucher',
            [
