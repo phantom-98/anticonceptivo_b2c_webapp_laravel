@@ -424,10 +424,12 @@ class ProfileController extends Controller
                     $costs = json_decode($deliveryCost->costs);
                     foreach ($costs as $itemCost) {
                         $communes = $itemCost->communes;
-                        $found_key = array_search($item->customer_address->commune->name, $communes);
-                        if($found_key !== false){
-                            $itemDeliveryCost = $deliveryCost;
-                            $itemDeliveryCostArrayCost =$itemCost;
+                        if($item->customer_address){
+                            $found_key = array_search($item->customer_address->commune->name, $communes);
+                            if($found_key !== false){
+                                $itemDeliveryCost = $deliveryCost;
+                                $itemDeliveryCostArrayCost =$itemCost;
+                            }
                         }
                     }
                 }
