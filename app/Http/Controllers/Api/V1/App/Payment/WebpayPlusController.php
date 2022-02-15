@@ -582,7 +582,7 @@ class WebpayPlusController
             $order = Order::with('order_items.subscription_plan', 'customer', 'order_items.product','discount_code')->find($response->buyOrder);
 
 
-            if ($response->responseCode == 0) {
+            if ($response->responseCode == 0 && !$order->is_paid) {
                 Log::info('RESPONSE_CODE_0', [$response->responseCode]);
                 $order->status = PaymentStatus::PAID;
                 $order->payment_date = Carbon::now();
@@ -623,9 +623,10 @@ class WebpayPlusController
 //                        CallIntegrationsPay::callDispatchLlego($order->id, $customerAddress);
 //                        CallIntegrationsPay::sendEmailsOrder($order->id);
 //                    }
-
                     UpdateProductStockJob::dispatch($order);
                     FinishPaymentJob::dispatch($order);
+
+
                 }
 
             } else {
