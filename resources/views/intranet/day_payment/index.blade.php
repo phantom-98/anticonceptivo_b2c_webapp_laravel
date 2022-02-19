@@ -56,7 +56,7 @@
                            data-search="true"
                            data-show-refresh="true"
                            data-show-export="false"
-                           data-show-toggle="true"
+                           data-show-toggle="false"
                            data-show-columns="true"
                            data-sort-name="id"
                            data-page-list="[10, 50, 200]"

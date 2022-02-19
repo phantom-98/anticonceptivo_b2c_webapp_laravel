@@ -121,7 +121,7 @@
                     </div>
 
                     <table id="table-bs" data-cookie="true" data-cookie-id-table="{{ $config['tableCookie'] }}"
-                        data-search="true" data-show-refresh="true" data-show-export="false" data-show-toggle="true"
+                        data-search="true" data-show-refresh="true" data-show-export="false" data-show-toggle="false"
                         data-show-columns="true" data-sort-name="id" data-page-list="[10, 50, 200]" data-page-size="50"
                         data-pagination="true" data-show-pagination-switch="true">
                     </table>
