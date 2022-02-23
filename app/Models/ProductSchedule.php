@@ -29,7 +29,7 @@ class ProductSchedule extends Model
 
     public function getFormatedEndTimeAttribute()
     {
-        return Carbon::parse($this->end_time)->addHour(1)->format('H:i');
+        return Carbon::parse($this->end_time)->addHour(3)->format('H:i');
     }
 
 }
