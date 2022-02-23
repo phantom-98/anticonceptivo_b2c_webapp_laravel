@@ -434,10 +434,12 @@ class WebpayPlusController
                 if ($response['status'] == "success") {
 
                     if ($response['response']->details[0]->status != 'AUTHORIZED') {
-                        $order->is_paid = 0;
-                        $order->status = PaymentStatus::REJECTED;
-                        $order->payment_type = 'tarjeta';
-                        $order->save();
+                        if($order->status != 'PAID' && $order->status != 'DELIVERED' && $order->status != 'DISPATCHED'){
+                            $order->is_paid = 0;
+                            $order->status = PaymentStatus::REJECTED;
+                            $order->payment_type = 'tarjeta';
+                            $order->save();
+                        }
                         return ApiResponse::JsonError([], 'Pago Rechazado');
                     }
 
@@ -603,12 +605,14 @@ class WebpayPlusController
                 }
 
                 if ($isErrorAiloo == true || !$responseStockProduct['status']) {
-                    Log::info('RESPONSE_STOCK_PRODUCT_NOT_FOUND', [$responseStockProduct['status']]);
+                    if($order->status != 'PAID' && $order->status != 'DELIVERED' && $order->status != 'DISPATCHED'){
+                        Log::info('RESPONSE_STOCK_PRODUCT_NOT_FOUND', [$responseStockProduct['status']]);
 
-                    $this->webpay_plus->refundTransaction($order->payment_token, $order->total);
-                    $order->status = PaymentStatus::CANCELED;
-                    $order->is_paid = false;
-                    $order->save();
+                        $this->webpay_plus->refundTransaction($order->payment_token, $order->total);
+                        $order->status = PaymentStatus::CANCELED;
+                        $order->is_paid = false;
+                        $order->save();
+                    }
 
                 } else {
                     Log::info('RESPONSE_STOCK_PRODUCT_FOUND', [$responseStockProduct['status']]);
@@ -630,11 +634,13 @@ class WebpayPlusController
                 }
 
             } else {
-                Log::info('RESPONSE_CODE_ELSE', [$response->responseCode]);
+                if($order->status != 'PAID' && $order->status != 'DELIVERED' && $order->status != 'DISPATCHED'){
+                    Log::info('RESPONSE_CODE_ELSE', [$response->responseCode]);
 
-                $order->status = PaymentStatus::REJECTED;
-                $order->is_paid = false;
-                $order->save();
+                    $order->status = PaymentStatus::REJECTED;
+                    $order->is_paid = false;
+                    $order->save();
+                }
             }
 
             try {
