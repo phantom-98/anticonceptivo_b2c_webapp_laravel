@@ -87,7 +87,7 @@ class OrderController extends GlobalController
                 }
             }          
         } else {
-            $objects = $objects->whereIn('status', ['DELIVERED','DISPATCHED','PAID']);
+            $objects = $objects->whereIn('status', ['DELIVERED','DISPATCHED','PAID', 'CANCELED']);
         }
 
 
@@ -211,7 +211,7 @@ class OrderController extends GlobalController
                 if($request->order_status_id == "DISPATCHED"){
                     $object->humidity = $request->humidity;
                     $object->temperature = $request->temperature;
-                } else {
+                } else if ($request->order_status_id == "DELIVERED") {
                     $object->dispatch_date = Carbon::now()->format('Y-m-d H:i:s');
                 }
                 $object->save();
