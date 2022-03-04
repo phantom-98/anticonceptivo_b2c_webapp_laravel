@@ -49,7 +49,7 @@ class UpdateStock extends Command
         $products =[];
 
         try {
-            $products = Product::where('active', 1)->whereNotNull('barcode')->get();
+            $products = Product::whereNotNull('barcode')->get();
         } catch (\Exception $e) {
             Log::error('UpdateStock General', ["response" => $e->getMessage()]);
         }
