@@ -22,7 +22,7 @@ const AccordionBody = ({data}) => {
                     </div>
                     <div className="col card-delivery-cost-title">
                         El costo de nuestros despachos <span
-                        className="regular">(plazos máximos de {data.deadline_delivery} horas)</span>
+                        className="regular">(máximo {data.deadline_delivery} horas hábiles)</span>
                     </div>
                 </div>
             </div>
