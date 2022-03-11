@@ -25,10 +25,10 @@ class PaymentController
         try {
 
             $order = null;
-
-            if ($request->token) {
-                $order = Order::with(['customer','order_items.subscription_plan.product_subscription_plan','order_items.product.subcategory'])->find($request->token);
-            }
+//
+//            if ($request->token) {
+//                $order = Order::with(['customer','order_items.subscription_plan.product_subscription_plan','order_items.product.subcategory'])->find($request->token);
+//            }
 
             if (!$order && $request->token) {
                 $order = Order::with(['customer','order_items.subscription_plan.product_subscription_plan','order_items.product.subcategory'])->where('payment_token', 'LIKE', $request->token)->first();
