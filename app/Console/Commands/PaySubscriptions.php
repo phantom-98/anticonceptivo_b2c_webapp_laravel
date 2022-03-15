@@ -8,6 +8,7 @@ use App\Models\Order;
 use Illuminate\Console\Command;
 use App\Models\Subscription;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 use Innovaweb\Transbank\WebpayPlus;
 use Innovaweb\Transbank\OneClickMall;
 use App\Http\Utils\Enum\PaymentStatus;
@@ -24,6 +25,8 @@ use App\Models\SubscriptionPlan;
 use App\Models\DeliveryCost;
 
 use App\Http\Utils\Enum\PaymentMethodStatus;
+use Willywes\ApiResponse\ApiResponse;
+
 class PaySubscriptions extends Command
 {
 
@@ -77,7 +80,7 @@ class PaySubscriptions extends Command
 
         foreach ($customers as $customer) {
             $subscriptionsOrdersItems = SubscriptionsOrdersItem::whereHas('order_parent', function ($q) use ($customer) {
-                $q->whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED'])->where('customer_id', $customer->id);
+                $q->whereNotIn('status', ['REJECTED', 'CREATED'])->where('customer_id', $customer->id);
             })
                 ->where('active',1)
                 ->whereIn('status', ['CREATED', 'REJECTED'])
@@ -96,10 +99,40 @@ class PaySubscriptions extends Command
 
                     $dispatch = $this->getDeliveryCost($prev_item->customer_address->commune->name)['price_dispatch'];
                     $total = $total + $dispatch;
-                    $response = $this->oneclick->authorize($customer->id, $prev_item->subscription->transbank_token, $prev_item->id, $total);
+                    $details = [
+                        [
+                            "commerce_code" => $this->commerce_code,
+                            "buy_order" => $prev_item->id,
+                            "amount" =>  $total,
+                            "installments_number" => 1
+                        ]
+                    ];
+                    $response = $this->oneclick->authorize($customer->id, $prev_item->subscription->transbank_token, $prev_item->id, $details);
                     $total = 0;
                     if($response['status'] == "success") {
-                        $this->sendCallIntegration($array_item);
+                        if ($response['response']->details[0]->status != 'AUTHORIZED') {
+                            Log::info('OneClick',
+                                [
+                                    "response" => $response,
+                                    "message" => "No se pudo cobrar la subscripcion"
+                                ]);
+
+                            foreach ($array_item as $sub_order_item){
+                                $sub_order_item->status = 'REJECTED';
+                                $sub_order_item->is_pay = 0;
+                                $sub_order_item->save();
+                            }
+
+                        }else{
+                            Log::info('OneClick',
+                                [
+                                    "response" => $response,
+                                    "message" => "Se cobro la orden "
+                                ]);
+
+                            $this->sendCallIntegration(collect($array_item));
+
+                        }
                     }
                     $array_item = [];
                 }
@@ -126,7 +159,29 @@ class PaySubscriptions extends Command
                 $response = $this->oneclick->authorize($customer->id , $prev_item->subscription->transbank_token,$prev_item->id,$details);
 
                 if($response['status'] == "success") {
-                    $this->sendCallIntegration(collect($array_item));
+                    if ($response['response']->details[0]->status != 'AUTHORIZED') {
+                        Log::info('OneClick',
+                            [
+                                "response" => $response,
+                                "message" => "No se pudo cobrar la subscripcion"
+                            ]);
+
+                        foreach ($array_item as $sub_order_item){
+                            $sub_order_item->status = 'REJECTED';
+                            $sub_order_item->is_pay = 0;
+                            $sub_order_item->save();
+                        }
+
+                    }else{
+                        Log::info('OneClick',
+                            [
+                                "response" => $response,
+                                "message" => "Se cobro la orden "
+                            ]);
+
+                        $this->sendCallIntegration(collect($array_item));
+
+                    }
                 }
 
                 $array_item = [];
