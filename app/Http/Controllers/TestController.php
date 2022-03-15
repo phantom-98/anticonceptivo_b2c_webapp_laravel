@@ -208,6 +208,7 @@ class TestController extends Controller
             ];
 
             $response = $this->oneclick->authorize($prev_item->order->customer->id , $prev_item->subscription->transbank_token,$prev_item->id . intval('11111111111111111'),$details);
+            var_dump($response);
             if($response['status'] == "success") {
                 if ($response['response']->details[0]->status != 'AUTHORIZED') {
                     Log::info('OneClick',
@@ -231,7 +232,7 @@ class TestController extends Controller
                         ]);
 
                     $this->sendCallIntegration(collect($array_item));
-                    dd('Pago ejecutado con exito');
+                    dd('Pago ejecutado con éxito');
 
                 }
             }

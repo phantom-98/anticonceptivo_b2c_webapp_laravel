@@ -75,6 +75,20 @@
         gtag('config', 'UA-209380285-1');
     </script>
 
+    <!-- Global site tag (gtag.js) - Google Ads: 10785537269 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-10785537269"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag2(){
+            if(window.location.href.includes("carrito")){
+                dataLayer.push(arguments);
+            }
+        }
+        gtag2('js', new Date());
+
+        gtag2('config', 'AW-10785537269');
+    </script>
+
     <!-- Facebook Pixel Code -->
     <script>
         !function (f, b, e, v, n, t, s) {
@@ -153,9 +167,9 @@
 <script src="{{ asset('themes/web/assets/plugins/toastr/toastr.min.js') }}"></script>
 
 <script>
-  var MessageBirdChatWidgetSettings = { 
-    widgetId: '98cafb52-fed5-4d0c-b382-d8bc49b3ddda', 
-    initializeOnLoad: true, 
+  var MessageBirdChatWidgetSettings = {
+    widgetId: '98cafb52-fed5-4d0c-b382-d8bc49b3ddda',
+    initializeOnLoad: true,
   };
 
   !function(){"use strict";if(Boolean(document.getElementById("live-chat-widget-script")))console.error("MessageBirdChatWidget: Snippet loaded twice on page");else{var e,t;window.MessageBirdChatWidget={},window.MessageBirdChatWidget.queue=[];for(var i=["init","setConfig","toggleChat","identify","hide","on","shutdown"],n=function(){var e=i[d];window.MessageBirdChatWidget[e]=function(){for(var t=arguments.length,i=new Array(t),n=0;n<t;n++)i[n]=arguments[n];window.MessageBirdChatWidget.queue.push([[e,i]])}},d=0;d<i.length;d++)n();var a=(null===(e=window)||void 0===e||null===(t=e.MessageBirdChatWidgetSettings)||void 0===t?void 0:t.widgetId)||"",o=function(){var e,t=document.createElement("script");t.type="text/javascript",t.src="https://livechat.messagebird.com/bootstrap.js?widgetId=".concat(a),t.async=!0,t.id="live-chat-widget-script";var i=document.getElementsByTagName("script")[0];null==i||null===(e=i.parentNode)||void 0===e||e.insertBefore(t,i)};"complete"===document.readyState?o():window.attachEvent?window.attachEvent("onload",o):window.addEventListener("load",o,!1)}}();
