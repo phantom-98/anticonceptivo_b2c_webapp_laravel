@@ -65,7 +65,6 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-209380285-1"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-
         function gtag() {
             dataLayer.push(arguments);
         }
@@ -77,17 +76,6 @@
 
     <!-- Global site tag (gtag.js) - Google Ads: 10785537269 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-10785537269"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag2(){
-            if(window.location.href.includes("carrito")){
-                dataLayer.push(arguments);
-            }
-        }
-        gtag2('js', new Date());
-
-        gtag2('config', 'AW-10785537269');
-    </script>
 
     <!-- Facebook Pixel Code -->
     <script>

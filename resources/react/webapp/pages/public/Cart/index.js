@@ -1,4 +1,4 @@
-import React, {Fragment, useContext} from 'react';
+import React, {Fragment, useContext, useEffect} from 'react';
 import ReactDOM from 'react-dom';
 import ProductItem from "../../../components/shopping/MiniCart/ProductItem";
 import ProductItemList from "../../../components/shopping/ProductItemList";
@@ -11,6 +11,19 @@ import {CONFIG} from "../../../Config";
 import logoWebpay from '../../../assets/images/webpayColor.svg'
 
 const Cart = () => {
+    window.dataLayer = window.dataLayer || [];
+    useEffect(() => {
+        function gtag2(){
+            if(window.location.href.includes("carrito")){
+                dataLayer.push(arguments);
+            }
+        }
+        gtag2('js', new Date());
+
+        gtag2('config', 'AW-10785537269');
+    },[]);
+
+
 
     const {
         cartItems,
