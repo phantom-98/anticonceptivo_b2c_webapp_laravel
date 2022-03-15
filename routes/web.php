@@ -22,7 +22,7 @@ Route::get('email-test', [TestController::class, 'index'])->name('test');
 Route::get('VoucherPaymentDays-test', [TestController::class, 'VoucherPaymentDays']);
 Route::get('test-ailoo', [TestController::class, 'AiloTest']);
 
-Route::get('PaySubscription-test/{id?}', [TestController::class, 'PaySubscription']);
+Route::get('execute-pay-suscription-by-order-id/{id?}', [TestController::class, 'PaySubscription']);
 
 Route::get('Generate-Voucher-Test/{start}/{end}', [TestController::class, 'GenerateVoucher']);
 
