@@ -38,10 +38,7 @@ const List = ({subscriptions, showCreate, getData}) => {
 
           swalWithBootstrapButtons.fire({
             title: '<span style="color: #0869A6;">¿Esta seguro de eliminar esta tarjeta?</span>',
-            // icon: 'warning',
-            // showCancelButton: true,
             confirmButtonText: 'Confirmar',
-            // cancelButtonText: 'No, cancel!',
             reverseButtons: true
           }).then((result) => {
             if (result.isConfirmed) {

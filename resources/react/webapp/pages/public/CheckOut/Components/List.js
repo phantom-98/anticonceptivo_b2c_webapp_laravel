@@ -9,7 +9,7 @@ import {v4 as uuidv4} from 'uuid';
 import {AppContext} from "../../../../context/AppProvider";
 import {BREAKPOINTS} from "../../../../helpers/vars";
 
-const List = ({addresses, showEdit, showCreate, getData, regions, communes, setAddress}) => {
+const List = ({addresses, showEdit, showCreate, getData, regions, communes, setAddress, setAddresses}) => {
     const {breakpoint} = useContext(AppContext)
 
     const {auth} = useContext(AuthContext);
@@ -49,7 +49,7 @@ const List = ({addresses, showEdit, showCreate, getData, regions, communes, setA
                                 saveDefaultAddress={saveDefaultAddress}
                                 regions={regions}
                                 communes={communes}
-                                // setAddresses={setAddresses}
+                                setAddresses={setAddresses}
                             />
                         ))
                         :

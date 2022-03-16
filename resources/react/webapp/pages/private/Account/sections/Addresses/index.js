@@ -65,13 +65,13 @@ const Index = () => {
         setFormMode('create')
         setAddressSelected(null)
     }
-    
+
 
     return (
         <div className="row" style={{marginTop: breakpoint === BREAKPOINTS.LARGE || breakpoint === BREAKPOINTS.EXTRA_LARGE || breakpoint === BREAKPOINTS.EXTRA_EXTRA_LARGE ? '-50px' : '0px'}}>
             {
                 breakpoint === BREAKPOINTS.MEDIUM ||breakpoint === BREAKPOINTS.LARGE || breakpoint === BREAKPOINTS.EXTRA_LARGE || breakpoint === BREAKPOINTS.EXTRA_EXTRA_LARGE ?
-                    <H3Panel title="EDITAR DIRECCIONES" /> 
+                    <H3Panel title="EDITAR DIRECCIONES" />
                 : null
             }
             <div className="col-md-12 ">
@@ -93,7 +93,7 @@ const Index = () => {
                                 showCreate={showCreate}
                                 regions={regions}
                                 communes={communes}
-                                // setAddresses={setAddresses}
+                                setAddresses={setAddresses}
                             /> : null
                     }
 

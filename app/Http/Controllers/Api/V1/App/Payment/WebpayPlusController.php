@@ -177,6 +177,11 @@ class WebpayPlusController
             }
         }
 
+        if(!$customerAddress){
+            return ApiResponse::JsonError([], 'Seleccione una dirección');
+
+        }
+
         $deliveryCosts = DeliveryCost::where('active', 1)->get();
         $itemDeliveryCost = null;
         $itemDeliveryCostArrayCost = null;
@@ -240,6 +245,9 @@ class WebpayPlusController
             // Suscripción
             if (isset($item->subscription)) {
                 $_subscription = json_decode($request->subscription);
+                if(!$_subscription){
+                    return ApiResponse::JsonError([], 'Seleccione un método de pago');
+                }
                 $isSubscription = 1;
                 $orderItem->quantity = 2;
                 $subtotal = $subtotal + ($item->subscription->quantity * $item->subscription->price);

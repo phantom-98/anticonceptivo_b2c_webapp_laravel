@@ -1,43 +1,66 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {Form} from "react-bootstrap";
 import { AppContext } from "../../../../../context/AppProvider";
 import { BREAKPOINTS } from "../../../../../helpers/vars";
-
+import iconRemove from "../../../../../assets/images/icons/remove-mini-cart.svg";
+import Icon from "../../../../../components/general/Icon";
+import * as Services from "../../../../../Services";
+import Swal from "sweetalert2";
+import {AuthContext} from "../../../../../context/AuthProvider";
 const ListItem = ({
     address,
     showEdit,
     saveDefaultAddress,
     regions,
-    communes,
+    communes, setAddresses,
     addressChecked,
     isSusbscription = false,
     name = 'default_address'
 }) => {
-
+    const {auth} = useContext(AuthContext)
     const { breakpoint } = useContext(AppContext);
 
     let region = regions.find(x => x.id === address.region_id)
     let commune = communes.find(x => x.id === address.commune_id)
 
-    // const removeData = (addresId) => {
-    //     let url = Services.ENDPOINT.CUSTOMER.ADDRESSES.REMOVE;
+    const removeData = (addresId) => {
+        let url = Services.ENDPOINT.CUSTOMER.ADDRESSES.REMOVE;
 
-    //     let data = {
-    //         customer_id: auth.id,
-    //         address_id: addresId
-    //     }
-    //     Services.DoPost(url,data).then(response => {
-    //         Services.Response({
-    //             response: response,
-    //             success: () => {
-    //                 setAddresses(response.data.addresses);
-    //                 toastr.success(response.message);
-    //             },
-    //         });
-    //     }).catch(error => {
-    //         Services.ErrorCatch(error)
-    //     });
-    // }
+        let data = {
+            customer_id: auth.id,
+            address_id: addresId
+        }
+
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'col-6 btn btn-bicolor btn-block',
+                title: 'mt-4'
+            },
+            buttonsStyling: false
+        })
+
+        swalWithBootstrapButtons.fire({
+            title: '<span style="color: #0869A6;">¿Está seguro de eliminar esta dirección?</span>',
+            confirmButtonText: 'Confirmar',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Services.DoPost(url,data).then(response => {
+                    Services.Response({
+                        response: response,
+                        success: () => {
+                            setAddresses(response.data.addresses);
+                            toastr.success(response.message);
+                        },
+                    });
+                }).catch(error => {
+                    Services.ErrorCatch(error)
+                });
+            }
+        })
+
+
+    }
 
     return (
         <div className="row">
@@ -76,22 +99,42 @@ const ListItem = ({
             {
                 breakpoint === BREAKPOINTS.MEDIUM || breakpoint === BREAKPOINTS.LARGE || breakpoint === BREAKPOINTS.EXTRA_LARGE || breakpoint === BREAKPOINTS.EXTRA_EXTRA_LARGE ?
                     !isSusbscription ?
-                        <div className="col-auto d-flex">
-                            <div className="mt-4">
-                                <span onClick={() => showEdit(address)}
-                                      className="link pointer font-12 regular">editar</span>
+                        <>
+
+                            <div className="col-auto d-flex">
+                                <div className="mt-4">
+                                    <span onClick={() => showEdit(address)}
+                                          className="link pointer font-12 regular">Editar
+                                    </span>
+                                </div>
                             </div>
-                        </div>
+                            <div className="col-auto d-flex">
+                                <div className="mt-4">
+                                    <span onClick={() => removeData(address.id)} className="my-auto pointer" >
+                                        <div><Icon path={iconRemove} /></div>
+                                    </span>
+
+                                </div>
+                            </div>
+                        </>
+
                     :
                         null
                 :
                     <div className="col-md-12 text-right">
                         {
                             !isSusbscription ?
-                                <div className="mb-auto">
-                                    <span onClick={() => showEdit(address)}
-                                        className="link pointer font-12 regular">editar</span>
-                                </div>
+                                <>
+                                    <div className="mb-auto ">
+                                        <span onClick={() => showEdit(address)}
+                                              className="link pointer font-12 regular">editar</span>
+
+                                            <span onClick={() => removeData(address.id)} className="my-auto pointer" >
+                                            <div><Icon path={iconRemove} /></div>
+                                        </span>
+                                    </div>
+                                </>
+
                             :
                                 null
                         }
