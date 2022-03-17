@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1\App\PublicArea;
 
 use App\Http\Controllers\Api\V1\App\Helpers\ProductScheduleHelper;
 use App\Http\Controllers\Controller;
+use App\Models\DeliveryLabels;
 use App\Models\Image;
 use App\Models\ProductImage;
 use App\Models\ProductSchedule;
@@ -347,6 +348,7 @@ class ProductController extends Controller
                 'products' => $this->processScheduleList($products),
                 'category' => $categoryFields,
                 'subcategories' => $subcategories,
+                'immediate' => DeliveryLabels::where('key','IMMEDIATE')->get()->first()->label_custom ?? 'Entrega Prioritaria',
                 'subcat' => $subcat,
                 'laboratories' => $laboratories,
                 'subscriptions' => $subscriptions,

@@ -15,6 +15,7 @@ import {CONFIG} from "../../../Config";
 const Shop = ({match}) => {
 
     const [products, setProducts] = useState([]);
+    const [textImmediate, setTextImmediate] = useState([]);
     const [category, setCategory] = useState({});
     const [subcategories, setSubcategories] = useState([]);
     const [laboratories, setLaboratories] = useState([]);
@@ -81,6 +82,7 @@ const Shop = ({match}) => {
                 response: response,
                 success: () => {
                     setProducts(response.data.products);
+                    setTextImmediate(response.data.immediate);
                     setCategory(response.data.category);
                     setSubcategories(response.data.subcategories);
                     setLaboratories(response.data.laboratories);
@@ -328,6 +330,7 @@ const Shop = ({match}) => {
                                         setFiltersUpdate={setFiltersUpdate}
                                         unitFormat={unitFormat}
                                         immediate={filters.immediate}
+                                        textImmediate={textImmediate}
                                         setImmediate={handleImmediate}
                                     />
                                 </div>
@@ -357,6 +360,8 @@ const Shop = ({match}) => {
                                                 setFiltersUpdate={setFiltersUpdate}
                                                 unitFormat={unitFormat}
                                                 immediate={filters.immediate}
+                                                textImmediate={textImmediate}
+
                                                 setImmediate={handleImmediate}
                                             /> : null
                                         }

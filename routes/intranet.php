@@ -144,6 +144,8 @@ if (env('SHOW_INTRANET', 'TRUE') == 'TRUE') {
                 Route::post('alianzas/active', 'AllianceController@active')->name('alliances.active');
                 Route::resource('alianzas', 'AllianceController', ['names' => getResourceRoutesForNameHelper('alliances')]);
 
+                Route::resource('textos-despacho', 'DeliveryLabelController', ['names' => getResourceRoutesForNameHelper('delivery_labels')]);
+
                 Route::post('planes-suscripcion/active', 'SubscriptionPlanController@active')->name('subscription_plans.active');
                 Route::resource('planes-suscripcion', 'SubscriptionPlanController', ['names' => getResourceRoutesForNameHelper('subscription_plans')]);
 
