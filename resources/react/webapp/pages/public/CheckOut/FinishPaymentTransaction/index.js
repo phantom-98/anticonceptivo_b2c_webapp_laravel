@@ -20,6 +20,17 @@ const FinishPaymentTransaction = () => {
         verifyPayment(token);
     }, [token])
 
+    window.dataLayer = window.dataLayer || [];
+    useEffect(() => {
+        function gtag2(){
+            if(window.location.href.includes("checkout-verify")){
+                dataLayer.push(arguments);
+            }
+        }
+        gtag2('js', new Date());
+
+        gtag2('config', 'AW-10785537269');
+    },[]);
 
     const verifyPayment = (token, customerId) => {
 
