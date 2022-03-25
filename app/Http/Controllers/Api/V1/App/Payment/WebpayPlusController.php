@@ -395,7 +395,7 @@ class WebpayPlusController
         try {
             $responseStockProduct = $this->isStockProducts($order->order_items);
         } catch (\Exception $ex){
-            $this->sendEmailErrorAiloo();
+            $this->sendEmailErrorAiloo($order);
             return ApiResponse::JsonError([], 'Error inesperado, intente más tarde');
         }
 
@@ -600,7 +600,7 @@ class WebpayPlusController
                 try {
                     $responseStockProduct = $this->isStockProducts($order->order_items);
                 } catch (\Exception $ex){
-                    $this->sendEmailErrorAiloo();
+                    $this->sendEmailErrorAiloo($order);
                     $isErrorAiloo = true;
                 }
 
@@ -667,11 +667,13 @@ class WebpayPlusController
 //        return view('webapp.payment.webpay-finish');
     }
 
-    private function sendEmailErrorAiloo(){
+    private function sendEmailErrorAiloo($order){
         $users = User::whereIn('id', [2, 9])->get();
+        $labelUser= Customer::find($order->customer_id) ? Customer::find($order->customer_id)->id_number : 'invitado';
+        Log::info('Error Ailoo en proceso de pago, usuario con rut ' . $labelUser);
         foreach($users as $user){
             $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
-            $html = view('emails.ailoo-general-error', ['user_name' => $user->first_name])->render();
+            $html = view('emails.ailoo-general-error', ['user_name' => $user->first_name, 'labelUser' => $labelUser])->render();
             $email = new \SendGrid\Mail\Mail();
             $email->setFrom("info@anticonceptivo.cl", 'Anticonceptivo');
             $email->setSubject('Error comunicación Ailoo');
