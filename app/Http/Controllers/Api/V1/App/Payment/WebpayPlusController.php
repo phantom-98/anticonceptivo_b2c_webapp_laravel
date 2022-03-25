@@ -663,15 +663,8 @@ class WebpayPlusController
                 Log::info('WEBPAY_REGISTER_EXCEPTION', [$ex]);
             }
         } else {
-            if($order->status != 'PAID' && $order->status != 'DELIVERED' && $order->status != 'DISPATCHED'){
-                $order = Order::find($request['TBK_ORDEN_COMPRA']);
-                $order->status = PaymentStatus::CANCELED;
-                $order->save();
-
-                Log::info('ORDER_CANCELED_BY_TBK', [
-                    'TBK_ORDEN_COMPRA' => $order->id
-                ]);
-            }
+            $url = (env('APP_URL')) . '/checkout';
+            return redirect($url);
         }
 
         Log::info('ORDER_SUCCESS', ['order_id' => $order->id]);
