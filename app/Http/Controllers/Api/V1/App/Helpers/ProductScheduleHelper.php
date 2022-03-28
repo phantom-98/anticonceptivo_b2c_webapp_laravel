@@ -25,14 +25,13 @@ class ProductScheduleHelper
     public static function deadlineDeliveryMaxOrder($date_order, $label, $is_immediate, $schedule)
     {
 
-        $max_order = Order::whereDate('delivery_date', $date_order)->count();
+        $max_order = Order::whereDate('delivery_date', $date_order)->whereNotIn('status', ['CREATED','REJECTED', 'CANCELED'])->get()->count();
         $setting_max_order = Setting::where('key', 'MAX_ORDERS_BY_DAY')->first();
         $setting_max_order_value = 10;
         if ($setting_max_order) {
             $setting_max_order_value = $setting_max_order->value;
         }
-
-        if ($setting_max_order_value <= $max_order && !$is_immediate) {
+        if (intval($setting_max_order_value )<= intval($max_order) && !$is_immediate) {
             if ($label == LabelDispatch::TODAY) {
                 return array(
                     'label' => LabelDispatch::TOMORROW,
@@ -174,7 +173,6 @@ class ProductScheduleHelper
         }
         $_schedules = $schedules->where('type', 'NORMAL')->where('day_of_week', $day_of_week);
         $inSchedule = self::inSchedule($_schedules, $date);
-
         if (!$inSchedule['inRange']) {
             $date = Carbon::now()->addDays(1)->startOfDay();
             $_schedules = $schedules->where('type', 'NORMAL')->where('day_of_week', $date->dayOfWeek);
