@@ -37,7 +37,7 @@ class OrderController extends GlobalController
 
     public function index(Request $request)
     {
-        $objects = Order::with(['customer', 'prescriptions.product']);
+        $objects = Order::with(['customer', 'prescriptions.product','subscriptions_orders_items.commune']);
         $clients = Customer::get();
 
         $date = $request->date;
@@ -48,7 +48,6 @@ class OrderController extends GlobalController
         if($client_id == 999999999999999){
             $client_id = null;
         }
-
         $appends = [];
 
         $start = Carbon::now()->startOfMonth()->format('Y-m-d');
@@ -85,7 +84,7 @@ class OrderController extends GlobalController
                 } else {
                     $objects = $objects->where('status', $status);
                 }
-            }          
+            }
         } else {
             $objects = $objects->whereIn('status', ['DELIVERED','DISPATCHED','PAID', 'CANCELED']);
         }
@@ -104,7 +103,6 @@ class OrderController extends GlobalController
         $appends['date'] = $date;
 
         $objects = $objects->orderBy('id', 'desc')->get();
-
         return view($this->folder . 'index', compact('objects', 'date', 'start', 'end', 'clients', 'client_id', 'nameClient', 'id', 'status'));
     }
 
@@ -115,7 +113,7 @@ class OrderController extends GlobalController
 
     public function show($id)
     {
-        $object = Order::with(['customer', 'order_items', 'prescriptions.product'])->find($id);
+        $object = Order::with(['customer', 'order_items', 'prescriptions.product','subscriptions_orders_items.commune'])->find($id);
 
         if (!$object) {
             session()->flash('warning', 'Pedido no encontrado.');
@@ -185,13 +183,13 @@ class OrderController extends GlobalController
         }
 
         array_push($clients, ['id' => '999999999999999', 'text' => 'Todos']);
-        
+
         return response()->json($clients, 200);
     }
 
     function prescription_validate(Request $request){
         $object = Order::find($request->id);
-        
+
         if (!$object) {
             session()->flash('warning', 'Pedido no encontrado.');
             return redirect()->route($this->route . 'index');
@@ -239,14 +237,14 @@ class OrderController extends GlobalController
         $order = Order::find($request->id);
 
         $customerAddress =  CustomerAddress::where('customer_id', $order->customer_id)->latest()->first();
-    
+
         if($order->is_paid == 0){
             $order->status = PaymentStatus::PAID;
             $order->payment_date = Carbon::now();
             $order->payment_type = 'webpay';
             $order->is_paid = true;
             $order->save();
-    
+
             CallIntegrationsPay::callDispatchLlego($order->id,$customerAddress);
             CallIntegrationsPay::callUpdateStockProducts($order->id);
         }
@@ -254,7 +252,7 @@ class OrderController extends GlobalController
         if(!$order->voucher_pdf){
             CallIntegrationsPay::callVoucher($order->id,$customerAddress);
         }
-    
+
         CallIntegrationsPay::sendEmailsOrderRepeat($order->id);
 
         Log::info('Pedido ajustado', [

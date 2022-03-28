@@ -162,7 +162,7 @@
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Hora creación</th>
                             <th data-cell-style="cellStyle" data-field="dateDispatch" data-sorter="datesSorter" data-sortable="true" data-valign="middle">Fecha de Entrega</th>
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Hora de Entrega</th>
-             
+
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Humedad Despachador (%)</th>
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Temperatura Despachador (° C)</th>
 
@@ -243,14 +243,19 @@
 
                                 @if(isset($object->label_dispatch))
                                     <td>{{ $object->label_dispatch == "Entrega inmediata" ? "Entrega Prioritaria" : $object->label_dispatch }}</td>
-                                @else 
+                                @else
                                     <td>-</td>
                                 @endif
 
                                 <td>{{ mb_strtoupper($object->customer->full_name ?? '-', 'UTF-8') }}</td>
                                 <td>{{ $object->customer->id_number ?? '-'}}</td>
 
-                                <td>{{ mb_strtoupper($object->delivery_address ?? '-', 'UTF-8') }}</td>
+                                @if(isset($object->subscriptions_orders_items)&& count($object->subscriptions_orders_items) > 0 && isset($object->subscriptions_orders_items[0]->commune))
+                                    <td>{{ mb_strtoupper( ($object->delivery_address ?? '-') . ', '. ($object->subscriptions_orders_items[0]->commune->name ?? '-'), 'UTF-8') }}</td>
+                                @else
+                                    <td>{{ mb_strtoupper($object->delivery_address ?? '-', 'UTF-8') }}</td>
+                                @endif
+
                                 <td>{{ mb_strtoupper($object->house_number ?? '-', 'UTF-8') }}</td>
                                 <td>{{ mb_strtoupper($object->region ?? '-', 'UTF-8') }}</td>
                                 <td>{{ mb_strtoupper($object->comments ?? '-', 'UTF-8') }}</td>
@@ -268,7 +273,7 @@
                                 <td>${{ number_format($object->dispatch, 0, ',','.')}}</td>
                                 <td>${{ number_format($object->discount, 0, ',','.')}}</td>
                                 <td>${{ number_format($object->total, 0, ',','.')}}</td>
-                                
+
                                 @if(count($object->prescriptions) > 0)
                                     <td>
                                         @foreach($object->prescriptions as $prescription)
@@ -283,7 +288,7 @@
 
                                 @if(isset($object->voucher_pdf))
                                 <td><a href="{{ $object->voucher_pdf }}" target="_blank" class='btn btn-sm btn-default btn-hover-success' data-toggle="tooltip"><i class="ti-file"></i></a></td>
-                                @else 
+                                @else
                                 <td>-</td>
                                 @endif
                                 <td>{{ $object->ballot_number ?? '-'}}</td>
@@ -296,12 +301,12 @@
                                 @if($object->dispatch_date)
                                     <td>{{ date('d-m-Y', strtotime($object->dispatch_date)) }}</td>
                                     <td>{{ date('H:i:s', strtotime($object->dispatch_date)) }}</td>
-                                @else 
+                                @else
                                     <td>-</td>
                                     <td>-</td>
                                 @endif
 
-                      
+
                                 @if($object->status != "PAID" && $object->status != "CREATED")
                                     <td>{{ $object->humidity ?? '-'}}</td>
                                     <td>{{ $object->temperature ?? '-'}}</td>
@@ -361,7 +366,7 @@
 
         @media (max-width: 768px) {
             #btnExport{
-                margin-top: 7px !important; 
+                margin-top: 7px !important;
                 margin-left: 25px !important;
                 margin-bottom: 30px !important;
             }
