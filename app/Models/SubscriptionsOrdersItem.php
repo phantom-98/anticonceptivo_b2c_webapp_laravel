@@ -36,6 +36,10 @@ class SubscriptionsOrdersItem extends Model
         return $this->belongsTo(Subscription::class);
     }
 
+    public function commune(){
+        return $this->belongsTo(Commune::class);
+    }
+
     public function customer_address(){
         return $this->belongsTo(CustomerAddress::class,'customer_address_id');
     }

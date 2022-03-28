@@ -194,7 +194,11 @@ class PaySubscriptions extends Command
     private function sendCallIntegration($array_subscription_order_items){
         $first_subcription_order_item = $array_subscription_order_items->first();
         $order = new Order();
-        $order->delivery_address = $first_subcription_order_item->delivery_address;
+        try {
+            $order->delivery_address = $first_subcription_order_item->delivery_address . ', ' . $first_subcription_order_item->customer_address->commune->name;
+        } catch (\Throwable $th) {
+            $order->delivery_address = $first_subcription_order_item->delivery_address;
+        }
         $order->discount = 0;
         $order->dispatch = $this->getDeliveryCost($first_subcription_order_item->customer_address->commune->name)['price_dispatch'];
         $order->save();
