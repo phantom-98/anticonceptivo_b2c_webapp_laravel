@@ -932,7 +932,6 @@ class ProfileController extends Controller
                 $contact->contact_issue_id = $contactIssue->id;
                 $contact->customer_id = $request->customer_id;
                 if ($contact->save()) {
-                    dd($request->customer_id);
 
                     // CORREO AL ADMINISTRADOR
                     $subject = 'Servicio al Cliente';
