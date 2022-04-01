@@ -38,7 +38,7 @@ const CustomerService = () => {
     const [contactIssues, setContactIssues] = useState([]);
     const [dynamicFields, setDynamicFields] = useState([]);
     const [description, setDescription] = useState('');
-    
+
     const [privacyPolicy, setPrivacyPolicy] = useState({});
 
     const [handleTermsModal, setHandleTermsModal] = useState(false);
@@ -122,19 +122,21 @@ const CustomerService = () => {
 
     const getData = () => {
         let url = Services.ENDPOINT.CUSTOMER.CUSTOMER_SERVICE.GET;
-        let data = {
+        let _data = {
             action: 'CUSTOMER_SERVICE_DATA'
         }
-        Services.DoPost(url,data).then(response => {
+        Services.DoPost(url,_data).then(response => {
             Services.Response({
                 response: response,
                 success: () => {
                     setList(response.data.list);
                     setQuestions(response.data.questions);
+
                     setData({...data,
                         ['contact_issue_id']: response.data.contact_issues.length > 0 ? response.data.contact_issues[0].id : 1
                     })
                     setContactIssues(response.data.contact_issues);
+
                 },
             });
         }).catch(error => {
@@ -183,7 +185,6 @@ const CustomerService = () => {
             nested_fields: fields
         }
 
-
         Services.DoPost(url, dataForm).then(response => {
             Services.Response({
                 response: response,
@@ -199,8 +200,9 @@ const CustomerService = () => {
 
 
     const handleData = (e, isRadio = false) => {
+
         if (isRadio) {
-            console.log(e.target.value)
+
             setData({
                 ...data,
                 ['contact_accept_terms']: e.target.value == '0' ? '1' : '0'
