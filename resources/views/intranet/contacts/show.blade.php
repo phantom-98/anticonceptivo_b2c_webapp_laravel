@@ -146,7 +146,6 @@
                         </div>
                     </div>
 
-                    @if ($object->nested_fields || $object->dynamic_fields)
                         <div class="row">
                             <div class="col-md-12">
                                 <table class="table table-bordered">
@@ -192,7 +191,6 @@
                                 </table>
                             </div>
                         </div>
-                    @endif
 
                     <div class="row">
                         <div class="col-md-12">
@@ -221,12 +219,7 @@
                                 </table>
                             </div>
                     @endif
-
-
-
                 </div>
-
-
 
                 <div class="panel-footer">
                     <div class="row">
