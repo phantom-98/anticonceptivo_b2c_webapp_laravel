@@ -2,13 +2,13 @@
 @section('title', $config['blade']['viewTitle'])
 
 @if ($config['blade']['showBreadcrumb'])
-    @section('breadcrumb')
-        @foreach ($config['breadcrumb'] as $key => $data)
-            <li><a href="{{ $data['link'] }}"
-                    class="{{ count($config['breadcrumb']) == $key + 1 ? 'active' : '' }}">{!! $data['name'] !!}</a>
-            </li>
-        @endforeach
-    @endsection
+@section('breadcrumb')
+    @foreach ($config['breadcrumb'] as $key => $data)
+        <li><a href="{{ $data['link'] }}"
+               class="{{ count($config['breadcrumb']) == $key + 1 ? 'active' : '' }}">{!! $data['name'] !!}</a>
+        </li>
+    @endforeach
+@endsection
 @endif
 
 @section('content')
@@ -22,14 +22,14 @@
                         <div class="col-md-12">
                             <div class="row">
                                 <form id="form" action="{{ route($config['route'] . 'index') }}"
-                                    enctype="multipart/form-data" method="GET">
+                                      enctype="multipart/form-data" method="GET">
                                     <div class="col-md-2">
                                         <div class="form-group">
                                             <label for="date">Fecha</label>
                                             <input type="text" id="date" name="date" class="form-control" data-language="es"
-                                                data-date-format="dd/mm/yyyy" data-range="true"
-                                                data-multiple-dates-separator=" - " autocomplete="off"
-                                                value="{{ $date }}" />
+                                                   data-date-format="dd/mm/yyyy" data-range="true"
+                                                   data-multiple-dates-separator=" - " autocomplete="off"
+                                                   value="{{ $date }}" />
                                         </div>
                                     </div>
                                     <div class="col-md-2">
@@ -90,14 +90,14 @@
                                     <div class="col-md-1" style="margin-bottom: 10px">
                                         <div class="form-group">
                                             <button type="submit" class="btn btn-success left " onclick="export_excel()"
-                                                style="margin-top: 23px"><i class="fa fa-file-excel-o"></i> Exportar
+                                                    style="margin-top: 23px"><i class="fa fa-file-excel-o"></i> Exportar
                                             </button>
                                         </div>
                                     </div>
                                 </form>
 
                                 <form id="form-export" target="_BLANK" action="{{ route($config['route'] . 'export') }}"
-                                    enctype="multipart/form-data" method="GET">
+                                      enctype="multipart/form-data" method="GET">
                                 </form>
 
                             </div>
@@ -121,13 +121,13 @@
                     </div>
 
                     <table id="table-bs" data-cookie="true" data-cookie-id-table="{{ $config['tableCookie'] }}"
-                        data-search="true" data-show-refresh="true" data-show-export="false" data-show-toggle="false"
-                        data-show-columns="true" data-sort-name="id" data-page-list="[10, 50, 200]" data-page-size="50"
-                        data-pagination="true" data-show-pagination-switch="true">
+                           data-search="true" data-show-refresh="true" data-show-export="false" data-show-toggle="false"
+                           data-show-columns="true" data-sort-name="id" data-page-list="[10, 50, 200]" data-page-size="50"
+                           data-pagination="true" data-show-pagination-switch="true">
                     </table>
 
                     <form id="changeStatusTicket" action="{{ route('intranet.contacts.reply') }}" method="post"
-                        enctype="multipart/form-data">
+                          enctype="multipart/form-data">
                         @csrf()
                     </form>
                 </div>
@@ -174,7 +174,6 @@
             width: 900px !important;
             height: 600px !important;
         }
-
     </style>
     <link rel="stylesheet" href="/themes/intranet/plugins/air_datepicker/datepicker.min.css">
 @endsection
@@ -187,7 +186,6 @@
     <script>
         var start = {!! json_encode($start) !!};
         var end = {!! json_encode($end) !!};
-
         $('#date').datepicker({
             position: "bottom left",
             autoClose: true,
@@ -215,16 +213,15 @@
 
     <script>
         $(document).ready(function() {
-
             let columns = [{
-                    title: '#',
-                    field: 'id',
-                    sortable: true,
-                    cellStyle: midAling,
-                    formatter: function(value, row, index) {
-                        return '#' + row.id;
-                    }
-                },
+                title: '#',
+                field: 'id',
+                sortable: true,
+                cellStyle: midAling,
+                formatter: function(value, row, index) {
+                    return '#' + row.id;
+                }
+            },
                 {
                     title: 'Fecha',
                     field: 'formated_date',
@@ -237,11 +234,10 @@
                     sortable: true,
                     cellStyle: cellStyle,
                     formatter: function(value, row, index) {
-                        if (value) {
-                            return row.first_name + '' + row.last_name;
+                        if (!row.customer) {
+                            return (row.first_name ?? '-') + '' + (row.last_name ?? '');
                         }else{
                             return row.customer.first_name + ' ' + row.customer.last_name;
-                            
                         }
                     }
                 },
@@ -251,11 +247,10 @@
                     sortable: true,
                     cellStyle: cellStyle,
                     formatter: function(value, row, index) {
-                        if (value) {
+                        if (!row.customer) {
                             return row.email;
                         }else{
                             return row.customer.email;
-                            
                         }
                     }
                 },
@@ -265,12 +260,11 @@
                     sortable: true,
                     cellStyle: cellStyle,
                     formatter: function(value, row, index) {
-                        if (row.phone_code) {
-                            return row.phone_code + '' + row.phone;
+                        if (!row.customer) {
+                            return (row.phone_code ?? '-') + '' + (row.phone ?? '');
                         }else{
-                            return row.customer.phone_code + '' + row.customer.phone;
+                            return (row.customer.phone_code ?? '-') + '' + (row.customer.phone ?? '');
                         }
-                            
                     }
                 },
                 {
@@ -345,9 +339,7 @@
                 //         }
                 //     }
                 // }
-
             ];
-
             columns.push({
                 title: 'Acciones',
                 field: 'active',
@@ -357,7 +349,6 @@
                 formatter: function(value, row, index) {
                     let append = '';
                     let prepend = '';
-
                     if (row.is_reply == 0) {
                         var functionV = 'changestatus(' + row.id + ')';
                         prepend = "<a onclick='" + functionV +
@@ -366,20 +357,15 @@
                         prepend = "-";
                     }
                     return getShowActionButtons(row, prepend, append);
-
                 }
             });
-
             $('#table-bs').bootstrapTable({
                 data: @json($objects),
                 columns: columns,
-
             });
-
             runActiveControl()
         });
     </script>
-
     <script>
         function validarText(element) {
             if ($(element).val() != "") {
@@ -389,14 +375,12 @@
             }
         }
     </script>
-
     <script>
         function answerOption(element) {
             $("#reply").val($(element).find(':selected').data('description'));
             $(".swal2-confirm").attr('disabled', false);
         }
     </script>
-
     <script>
         function export_excel() {
             $('<input>').attr({
@@ -422,42 +406,32 @@
             $('#form-export').submit();
         }
     </script>
-
     <script>
         function openModalRespuesta(reply) {
             $("#replyAnswer").html(reply);
             $("#modalReply").modal("show");
         }
-
         var list = @json($objects);
-
         function openModalContenido(id) {
-
             let $htmlContent = $("#replyContent");
             $htmlContent.html('');
-
             const item = list.find(l => l.id == id);
-
             if (item.dynamic_fields != null && item.dynamic_fields.length) {
                 item.dynamic_fields.forEach(item => {
                     $htmlContent.append('<p><strong>' + item.question + ' : </strong>' + item.answer + '</p>')
                 });
             }
-
             if (item.nested_fields != null && item.nested_fields.length) {
                 item.nested_fields.forEach(item => {
                     $htmlContent.append('<p><strong>' + item.question + ' : </strong>' + item.answer + '</p>')
                 });
             }
-
             $("#modalContent").modal("show");
         }
-
         function changestatus(id) {
             form = $("#changeStatusTicket");
             var html =
                 '<br/><div class="form-inline" style="padding-left: 15px; padding-right: 15px;"><center><textarea id="reply" cols="30" rows="5" class="form-control" style="resize: none; width: 100%; font-size:20px" onkeyup="validarText(this)"></textarea></center></div>';
-
             swal({
                 title: 'Enviar respuesta',
                 type: 'info',
@@ -492,55 +466,46 @@
             });
         };
     </script>
-
     <script>
         function datesSorter(a, b) {
             var aa = new Date(convertDate(a)[2], convertDate(a)[1], convertDate(a)[0])
             var bb = new Date(convertDate(b)[2], convertDate(b)[1], convertDate(b)[0])
             return aa - bb
         }
-
         function convertDate(date) {
             return date.split('/');
         }
-
         function priceSorter(a, b) {
             var aa = a.replace('$', '')
             var bb = b.replace('$', '')
             return aa - bb
         }
-
         function idSorter(a, b) {
             var aa = a.replace('#', '')
             var bb = b.replace('#', '')
             return aa - bb
         }
-
         function numberSorter(a, b) {
             var aa = a
             var bb = b
             return aa - bb
         }
     </script>
-
     <script>
         $('#section').change(function() {
             if (this.value == "Todas" || this.value == "Contáctanos") {
                 $('#type_select').css('display', 'none');
             } else {
                 $('#type_select').css('display', 'block');
-
             }
             // console.log(this.value);
         });
-
         $(document).ready(function() {
             if ($('#section').val() == "Servicio al Cliente") {
                 $('#type_select').css('display', 'block');
             }
         });
     </script>
-
     @include('intranet.template.components.jquery._crud_script_change_status')
     @include('intranet.template.components.jquery._crud_script_active')
     @include('intranet.template.components.jquery._crud_script_delete')

@@ -63,19 +63,17 @@ class ContactController extends GlobalController
             }
         }
 
-
         if($section){
-            if($section == "Todas"){
 
-            }elseif($section == "Contáctanos"){
-          
-                
+            if($section == "Contáctanos"){
+
+
                 $objects = $objects->whereNull('contact_issue_id');
                 $appends['type'] = $type;
-            
-            }else {
-            
-                
+
+            }elseif($section =="Servicio al Cliente"){
+
+
                 $objects = $objects->whereHas('contact_issue', function($q) use($section){
                     $q->where('section', $section);
                 });
@@ -83,7 +81,7 @@ class ContactController extends GlobalController
 
                 if($type){
                     if($type == "Todos"){
-        
+
                     } else {
                         $objects = $objects->whereHas('contact_issue', function($q) use($type){
                             $q->where('type', $type);
@@ -101,6 +99,7 @@ class ContactController extends GlobalController
         }
 
         $objects = $objects->whereBetween('created_at', [$start.' 00:00:00', $end.' 23:59:59']);
+
         $appends['date'] = $date;
 
         $objects = $objects->orderBy('created_at', 'desc')->get();
@@ -186,7 +185,7 @@ class ContactController extends GlobalController
     public function show($id)
     {
         $object = Contact::with('contact_issue','customer','order')->where('id', $id)->first();
-        
+
         if (!$object) {
             session()->flash('warning', $this->responseMessages['notFound']);
             return redirect()->route($this->route . 'index');
