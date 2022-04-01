@@ -237,11 +237,11 @@
                     sortable: true,
                     cellStyle: cellStyle,
                     formatter: function(value, row, index) {
-                        if (value) {
-                            return row.first_name + '' + row.last_name;
+                        if (!row.customer) {
+                            return (row.first_name ?? '-') + '' + (row.last_name ?? '');
                         }else{
                             return row.customer.first_name + ' ' + row.customer.last_name;
-                            
+
                         }
                     }
                 },
@@ -251,11 +251,11 @@
                     sortable: true,
                     cellStyle: cellStyle,
                     formatter: function(value, row, index) {
-                        if (value) {
+                        if (!row.customer) {
                             return row.email;
                         }else{
                             return row.customer.email;
-                            
+
                         }
                     }
                 },
@@ -265,12 +265,12 @@
                     sortable: true,
                     cellStyle: cellStyle,
                     formatter: function(value, row, index) {
-                        if (row.phone_code) {
-                            return row.phone_code + '' + row.phone;
+                        if (!row.customer) {
+                            return (row.phone_code ?? '-') + '' + (row.phone ?? '');
                         }else{
-                            return row.customer.phone_code + '' + row.customer.phone;
+                            return (row.customer.phone_code ?? '-') + '' + (row.customer.phone ?? '');
                         }
-                            
+
                     }
                 },
                 {
