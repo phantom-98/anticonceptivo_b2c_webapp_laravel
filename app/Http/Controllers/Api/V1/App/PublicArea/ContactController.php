@@ -41,7 +41,7 @@ class ContactController extends Controller
             $rules = [
                 'contact_first_name' => 'required',
                 'contact_last_name' => 'required',
-                'contact_order_id' => 'required|integer',
+                //'contact_order_id' => 'required|integer',
                 'contact_email' => 'required|email',
                 'contact_phone_code' => 'required',
                 'contact_phone' => 'required',
@@ -54,7 +54,7 @@ class ContactController extends Controller
             $messages = [
                 'contact_first_name.required' => 'El campo Nombres es requerido.',
                 'contact_last_name.required' => 'El campo Apellidos es requerido.',
-                'contact_order_id.required' => 'El campo Número de orden es requerido.',
+                //'contact_order_id.required' => 'El campo Número de orden es requerido.',
                 'contact_email.required' => 'El campo E-mail es requerido.',
                 'contact_phone_code.required' => 'El campo Código es requerido.',
                 'contact_phone.required' => 'El campo Teléfono es requerido.',
@@ -71,17 +71,19 @@ class ContactController extends Controller
 
             if ($validator->passes()) {
 
-                $order = Order::find($request->contact_order_id);
+                if($request->contact_order_id){
+                    $order = Order::find($request->contact_order_id);
 
-                if (!$order) {
-                    return ApiResponse::JsonError(null,'Orden no encontrada.');
+                    if (!$order) {
+                        return ApiResponse::JsonError(null,'Orden no encontrada.');
+                    }
                 }
 
                 $contact = new Contact();
 
                 $contact->first_name = $request->contact_first_name;
                 $contact->last_name = $request->contact_last_name;
-                $contact->order_id = $order->id;
+                $contact->order_id = $order ? $order->id : null;
                 $contact->email = $request->contact_email;
                 $contact->phone_code = $request->contact_phone_code;
                 $contact->phone = $request->contact_phone;
@@ -91,7 +93,7 @@ class ContactController extends Controller
 
                 if ($contact->save()) {
 
-                    $subject = 'Soporte Anticonceptivo';
+                    $subject = 'Formulario de Contacto';
 
                     $emailBody = view('emails.contact-form', ['data' => [
                         'title' => $subject,

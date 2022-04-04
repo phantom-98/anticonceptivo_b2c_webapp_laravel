@@ -40,7 +40,7 @@ class ProductController extends Controller
                 'laboratory' => function ($l) {
                     $l->where('active', true);
                 }
-            ])->get();
+            ])->orderBy('position')->get();
 
             return ApiResponse::JsonSuccess([
                 'products' => $this->processScheduleList($products)
@@ -88,7 +88,7 @@ class ProductController extends Controller
                         ->orWhereHas('laboratory', function ($query) use ($search) {
                             $query->where('name', 'LIKE', '%' . $search . '%');
                         });
-                })->where('active', true)->get();
+                })->where('active', true)->orderBy('position')->get();
 
             $subcategories = [];
             foreach ($products as $key => $product) {
@@ -164,7 +164,7 @@ class ProductController extends Controller
                         ->orWhereHas('laboratory', function ($query) use ($search) {
                             $query->where('name', 'LIKE', '%' . $search . '%');
                         });
-                })->where('active', true);
+                })->where('active', true)->orderBy('position');
 
             $laboratories = Laboratory::where('active', true)->whereIn('id', $products->pluck('laboratory_id')->unique());
             $subcatNames = null;
@@ -284,7 +284,7 @@ class ProductController extends Controller
             $laboratories = Laboratory::whereIn('id', $laboratoryIds)->where('active', true)->get();
 
             $products = Product::whereIn('id', $productIds)->where('active', true)
-                ->with(['subcategory.category', 'product_images', 'laboratory', 'plans.subscription_plan']);
+                ->with(['subcategory.category', 'product_images', 'laboratory', 'plans.subscription_plan'])->orderBy('position');
 
             $product_subcategory = Product::select('subcategory_id')->whereIn('id', $productIds)->where('active', true)
                 ->where('format', '!=', '')->whereNotNull('subcategory_id')->first();
@@ -378,7 +378,7 @@ class ProductController extends Controller
             }
 
             $prods = Product::where('active', true)->where('id', '!=', $product->id)->with('subcategory.category', 'laboratory', 'product_images')
-                ->where('compound', $product->compound)->whereNotNull('compound')->get();
+                ->where('compound', $product->compound)->whereNotNull('compound')->orderBy('position')->get();
 
             $legalWarnings = LegalWarning::first();
 

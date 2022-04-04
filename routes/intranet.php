@@ -170,6 +170,7 @@ if (env('SHOW_INTRANET', 'TRUE') == 'TRUE') {
 
                 Route::get('productos/{id}/imagenes', 'ProductController@show_images')->name('products.show_images');
                 Route::post('productos/position', 'ProductController@position')->name('products.position');
+                Route::post('productos/position-product', 'ProductController@position_product')->name('products.position_product');
                 Route::get('productos/export', 'ProductController@export')->name('products.export');
                 Route::post('productos/active', 'ProductController@active')->name('products.active');
                 Route::post('productos/is-immediate', 'ProductController@is_immediate')->name('products.is_immediate');
