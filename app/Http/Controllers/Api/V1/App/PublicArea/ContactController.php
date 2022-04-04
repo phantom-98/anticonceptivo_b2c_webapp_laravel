@@ -83,7 +83,7 @@ class ContactController extends Controller
 
                 $contact->first_name = $request->contact_first_name;
                 $contact->last_name = $request->contact_last_name;
-                $contact->order_id = $order ? $order->id : null;
+                $contact->order_id = isset($order) ? $order->id : null;
                 $contact->email = $request->contact_email;
                 $contact->phone_code = $request->contact_phone_code;
                 $contact->phone = $request->contact_phone;
