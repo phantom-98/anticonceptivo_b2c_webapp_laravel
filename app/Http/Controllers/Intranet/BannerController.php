@@ -8,6 +8,7 @@ use App\Models\Banner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Log;
+use Carbon\Carbon;
 
 class BannerController extends GlobalController
 {
@@ -82,12 +83,12 @@ class BannerController extends GlobalController
             $ext = $request->file("file")->getClientOriginalExtension();
             $name = pathinfo($request->file("file")->getClientOriginalName(), PATHINFO_FILENAME);
             $object->file = $request->file("file")
-            ->storeAs('public/sliders', 'slider_'.$name.'.'.$ext);
+            ->storeAs('public/sliders', 'slider-'.$name.'- '.Carbon::now()->format('Y-m-d H:i:s').'.'.$ext);
 
             $ext = $request->file("responsive_file")->getClientOriginalExtension();
             $name = pathinfo($request->file("responsive_file")->getClientOriginalName(), PATHINFO_FILENAME);
             $object->responsive_file = $request->file("responsive_file")
-            ->storeAs('public/sliders', 'responsive_slider_'.$name.'.'.$ext);
+            ->storeAs('public/sliders', 'responsive-slider-'.$name.'- '.Carbon::now()->format('Y-m-d H:i:s').'.'.$ext);
             
             $object->save();
 
@@ -153,7 +154,7 @@ class BannerController extends GlobalController
             $ext = $request->file("file")->getClientOriginalExtension();
             $name = pathinfo($request->file("file")->getClientOriginalName(), PATHINFO_FILENAME);
             $object->file = $request->file("file")
-            ->storeAs('public/sliders', 'slider_'.$name.'.'.$ext);
+            ->storeAs('public/sliders', 'slider-'.$name.'- '.Carbon::now()->format('Y-m-d H:i:s').'.'.$ext);
 
             $object->save();
             $object->refresh();
@@ -171,7 +172,7 @@ class BannerController extends GlobalController
             $ext = $request->file("responsive_file")->getClientOriginalExtension();
             $name = pathinfo($request->file("responsive_file")->getClientOriginalName(), PATHINFO_FILENAME);
             $object->responsive_file = $request->file("responsive_file")
-            ->storeAs('public/sliders', 'responsive_slider_'.$name.'.'.$ext);
+            ->storeAs('public/sliders', 'responsive-slider-'.$name.'- '.Carbon::now()->format('Y-m-d H:i:s').'.'.$ext);
 
             $object->save();
             $object->refresh();
