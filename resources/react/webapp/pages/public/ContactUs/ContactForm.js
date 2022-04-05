@@ -211,21 +211,6 @@ const ContactForm = () => {
             </div>
             <div className="col-md-6">
                 <div className="form-group">
-                    <label htmlFor="contact_order_id">¿Cuál es el número de tu orden?</label>
-                    <input type="text"
-                           className="form-control form-control-custom"
-                           id="contact_order_id"
-                           name="contact_order_id"
-                           placeholder="Nº de orden Ej: 293"
-                           onChange={handleData}
-                           value={model.contact_order_id}
-                           onFocus={setCleanInputError}
-                    />
-                    <div className="invalid-feedback" />
-                </div>
-            </div>
-            <div className="col-md-6">
-                <div className="form-group">
                     <label htmlFor="contact_email">E-Mail</label>
                     <input type="email"
                            className="form-control form-control-custom"
@@ -276,6 +261,21 @@ const ContactForm = () => {
                     </div>
                 </div>
             </div>
+            <div className="col-md-6">
+                <div className="form-group">
+                    <label htmlFor="contact_order_id">¿Cuál es el número de tu orden? (Si es que aplica)</label>
+                    <input type="text"
+                           className="form-control form-control-custom"
+                           id="contact_order_id"
+                           name="contact_order_id"
+                           placeholder="Nº de orden Ej: 293"
+                           onChange={handleData}
+                           value={model.contact_order_id}
+                           onFocus={setCleanInputError}
+                    />
+                    <div className="invalid-feedback" />
+                </div>
+            </div>
             <DynamicPath
                 loading={loading}
                 model={model}
@@ -304,7 +304,7 @@ const ContactForm = () => {
             </div>
             <div className="col-md-12 mt-3">
                 <div className="row">
-                    <div className="col">
+                    <div className="col-md-12">
                         <Form.Check
                             custom
                             type="checkbox"
@@ -318,7 +318,7 @@ const ContactForm = () => {
                         />
                         <div className="invalid-feedback" />
                     </div>
-                    <div className="col-auto">
+                    <div className="col-md-12 mt-4 text-center">
                         <button type="button" className="btn btn-bicolor px-5"
                                 onClick={() => sendData()}>
                             <span className="px-5">ENVIAR</span>
