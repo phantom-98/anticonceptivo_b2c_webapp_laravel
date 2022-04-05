@@ -28,7 +28,7 @@ class ProductController extends GlobalController
         'pluralName' => 'Productos',
         'singularName' => 'Producto',
         'disableActions' => ['changeStatus'],
-        'enableActions' => ['position', 'isImmediate']
+        'enableActions' => ['position', 'isImmediate', 'position_product']
     ];
 
     public function __construct()
@@ -38,8 +38,27 @@ class ProductController extends GlobalController
 
     public function index()
     {
-        $objects = Product::with('product_images', 'subcategory', 'laboratory')->withCount('active_subscriptions_items')->get();
+        $objects = Product::with('product_images', 'subcategory', 'laboratory')->withCount('active_subscriptions_items')->orderBy('position')->get();
         return view($this->folder . 'index', compact('objects'));
+    }
+
+    public function position_product(Request $request){
+
+        try{
+            foreach($request->data as $data){
+                $object = Product::find($data['id']);
+                $object->update(['position' => $data['position']]);
+            }
+            return response()->json([
+                'status' => 1
+            ]);
+        }catch(\Exception $e){
+            return response()->json([
+                'status' => 0
+            ]);
+        }
+
+
     }
 
     public function position(Request $request)
