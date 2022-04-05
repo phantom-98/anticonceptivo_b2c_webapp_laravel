@@ -144,6 +144,8 @@ if (env('SHOW_INTRANET', 'TRUE') == 'TRUE') {
                 Route::post('alianzas/active', 'AllianceController@active')->name('alliances.active');
                 Route::resource('alianzas', 'AllianceController', ['names' => getResourceRoutesForNameHelper('alliances')]);
 
+                Route::resource('textos-despacho', 'DeliveryLabelController', ['names' => getResourceRoutesForNameHelper('delivery_labels')]);
+
                 Route::post('planes-suscripcion/active', 'SubscriptionPlanController@active')->name('subscription_plans.active');
                 Route::resource('planes-suscripcion', 'SubscriptionPlanController', ['names' => getResourceRoutesForNameHelper('subscription_plans')]);
 
@@ -168,6 +170,7 @@ if (env('SHOW_INTRANET', 'TRUE') == 'TRUE') {
 
                 Route::get('productos/{id}/imagenes', 'ProductController@show_images')->name('products.show_images');
                 Route::post('productos/position', 'ProductController@position')->name('products.position');
+                Route::post('productos/position-product', 'ProductController@position_product')->name('products.position_product');
                 Route::get('productos/export', 'ProductController@export')->name('products.export');
                 Route::post('productos/active', 'ProductController@active')->name('products.active');
                 Route::post('productos/is-immediate', 'ProductController@is_immediate')->name('products.is_immediate');
