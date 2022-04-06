@@ -193,10 +193,35 @@ class ProfileController extends Controller
             $regions = Region::where('id',7)->with('provinces.communes')->get();
             $communes = Commune::select('id','name')->get();
 
+            $delivery_cost = DeliveryCost::where('active',true)->pluck('costs');
+
+            $communes_valid = []; // name of all of valid communes
+
+            foreach ($delivery_cost as $key => $dc) {
+                $_dc = json_decode($dc);
+                foreach ($_dc as $key => $value) {
+                    foreach ($value->communes as $key => $_val) {
+                        array_push($communes_valid, $_val);
+                    }
+                }
+            }
+
+            foreach ($regions as $key => $region) {
+                foreach ($region->provinces as $key_2 => $province) {
+                    foreach ($province->communes as $key_3 => $commune) {
+                        if (in_array($commune->name, $communes_valid)) {
+                            $commune->is_valid = true;
+                        }else{
+                            $commune->is_valid = false;
+                        }
+                    }
+                }
+            }
+
             return ApiResponse::JsonSuccess([
                 'addresses' => $addresses,
                 'regions' => $regions,
-                'communes' => $communes
+                'communes' => $communes,
             ], OutputMessage::SUCCESS);
 
         } catch (\Exception $exception) {

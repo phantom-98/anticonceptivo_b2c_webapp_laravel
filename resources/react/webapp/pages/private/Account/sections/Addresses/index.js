@@ -17,6 +17,7 @@ const Index = () => {
 
     const [regions, setRegions] = useState([]);
     const [communes, setCommunes] = useState([]);
+    const [availableCommunes, setAvailableCommunes] = useState([]);
 
     const [addressSelected, setAddressSelected] = useState(null);
 
@@ -42,6 +43,7 @@ const Index = () => {
                     setAddresses(response.data.addresses);
                     setRegions(response.data.regions);
                     setCommunes(response.data.communes);
+                    setAvailableCommunes(response.data.available_regions_provinces_communes);
                 }
             });
         }).catch(error => {

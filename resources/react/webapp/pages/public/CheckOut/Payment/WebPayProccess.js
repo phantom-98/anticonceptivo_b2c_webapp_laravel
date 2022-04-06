@@ -113,6 +113,7 @@ const WebPayProccess = ({
 
                     },
                     error: () => {
+                        hideWaitingPayment();
                         const swalWithBootstrapButtons = Swal.mixin({
                             customClass: {
                                 confirmButton: 'col-6 btn btn-bicolor btn-block',
@@ -125,10 +126,9 @@ const WebPayProccess = ({
                             // icon: 'error',
                             title: '<span style="color: #0869A6;">' + response.message + '</span>',
                         });
-                        setWebpayProccessSuccess(false);
-                        hideWaitingPayment();
-                        setFinishWebpayProccess(1);
-                        clearInterval(interval)
+                        // setWebpayProccessSuccess(false);
+                        // setFinishWebpayProccess(1);
+                        // clearInterval(interval)
                     }
                 });
             })

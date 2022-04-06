@@ -43,11 +43,15 @@ const Form = ({addressSelected, goBack, formMode, customerId = null, regions, se
         if (selectedRegion) {
             const region = regions.find(r => r.id == selectedRegion)
             let tempCommunes = [];
+
             region.provinces.map((province) =>{
                 province.communes.map((commune) =>{
-                    tempCommunes.push(commune);
+                    if (commune.is_valid) {
+                        tempCommunes.push(commune);
+                    }
                 })
             })
+
             let orderCommunes =  tempCommunes.sort((a, b)  => {
                 const commA = a.name.toLowerCase();
                 const commB = b.name.toLowerCase();
@@ -118,6 +122,7 @@ const Form = ({addressSelected, goBack, formMode, customerId = null, regions, se
             })
         }
     }
+
     const updateData = () => {
 
         if (validAddress === false) {
@@ -162,10 +167,6 @@ const Form = ({addressSelected, goBack, formMode, customerId = null, regions, se
     }
 
     const setAddressNoAuth = () => {
-        if (validAddress === false) {
-         
-        }
-
         setAddresses(address);
         goBack();
     }
@@ -196,6 +197,7 @@ const Form = ({addressSelected, goBack, formMode, customerId = null, regions, se
                     <div className="invalid-feedback" />
                 </div>
             </div>
+
             <div className="col-md-8">
                 <div className="form-group">
                     <label htmlFor="address">Calle y Número (*)</label>
@@ -211,6 +213,7 @@ const Form = ({addressSelected, goBack, formMode, customerId = null, regions, se
                     <div className="invalid-feedback" />
                 </div>
             </div>
+
             <div className="col-md-4">
                 <div className="form-group">
                     <label htmlFor="extra_info">Número casa o departamento</label>
@@ -226,6 +229,7 @@ const Form = ({addressSelected, goBack, formMode, customerId = null, regions, se
                     <div className="invalid-feedback" />
                 </div>
             </div>
+
             <div className="col-md-6">
                 <div className="form-group">
                     <label htmlFor="region_id">Región (*)</label>
@@ -273,8 +277,6 @@ const Form = ({addressSelected, goBack, formMode, customerId = null, regions, se
                     <div className="invalid-feedback" />
                 </div>
             </div>
-
-
 
             <div className="col-md-12">
                 <div className="form-group">
