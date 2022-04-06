@@ -240,6 +240,7 @@ class ProfileController extends Controller
             $subscription = Subscription::where('customer_id', $customer->id)->where('status','CREATED')->get();
             return ApiResponse::JsonSuccess([
                 'subscriptions' => $subscription,
+                'test' => 'test'
             ], OutputMessage::SUCCESS);
 
         } catch (\Exception $exception) {
@@ -422,6 +423,7 @@ class ProfileController extends Controller
             $subscriptionsOrdersItem = SubscriptionsOrdersItem::whereHas('order_parent',function($q) use ($customer){
                     $q->where('customer_id',$customer->id);
                 })
+                ->whereNotNull('subscription_id')
                 ->with(['order_item.product','customer_address.commune','subscription','order_parent.order_items','order_item.subscription_plan'])
                 ->orderBy('order_parent_id', 'asc')->orderBy('orders_item_id','asc')->orderBy('pay_date', 'asc')
                 ->get();
