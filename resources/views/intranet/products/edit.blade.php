@@ -344,84 +344,121 @@
                         <div class="clearfix"></div>
                         <br/>
                         @forelse($object->plans as $plan)
-                        <div class="clone">
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label for="price">Plan</label>
-                                    <select name="plan_id[{{$loop->iteration}}][]" class="form-control plan_id" data-width="100%">
-                                        <option value="">Seleccione un plan (periodos)</option>
-                                        @foreach($plans as $c)
-                                            <option value="{{ $c->id }}" {{ $c->id == $plan->subscription_plan_id ? "selected" : ""}}>{{ $c->months }}</option>
-                                        @endforeach
-                                    </select>
+                            <div class="clone">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="price">Plan</label>
+                                        <select name="plan_id[{{$loop->iteration}}][]" class="form-control plan_id" data-width="100%">
+                                            <option value="">Seleccione un plan (periodos)</option>
+                                            @foreach($plans as $c)
+                                                <option value="{{ $c->id }}" {{ $c->id == $plan->subscription_plan_id ? "selected" : ""}}>{{ $c->months }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label for="price">Precio unitario</label>
-                                    <input type="text" name="price_plan[{{$loop->iteration}}][]" class="form-control price" value="{{ $plan->price }}"
-                                    oninput="checkKeyByClass(this)" >
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="price">Precio unitario</label>
+                                        <input type="text" name="price_plan[{{$loop->iteration}}][]" class="form-control price" value="{{ $plan->price }}"
+                                        oninput="checkKeyByClass(this)" >
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label for="price">Días</label>
-                                    <input type="text" name="days[{{$loop->iteration}}][]" class="form-control days" value="{{ $plan->days }}"
-                                    oninput="checkKeyByClass(this)" >
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="price">Días</label>
+                                        <input type="text" name="days[{{$loop->iteration}}][]" class="form-control days" value="{{ $plan->days }}"
+                                        oninput="checkKeyByClass(this)" >
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="warnings">Disclaimer</label>
-                                    <textarea name="warnings[{{$loop->iteration}}][]" class="form-control warnings summernote">{!! $plan->warnings !!}</textarea>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="price">Posición</label>
+                                        <select name="position[{{$loop->iteration}}][]" class="form-control position" data-width="100%">
+                                            <option value="">Seleccione una posición</option>
+                                            @foreach($plans as $key => $c)
+                                                <option value="{{ $key+1 }}" {{ $key+1 == $plan->position ? "selected" : ""}}>{{ $key+1 }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                 </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="warnings">Disclaimer</label>
+                                        <textarea name="warnings[{{$loop->iteration}}][]" class="form-control warnings summernote">{!! $plan->warnings !!}</textarea>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <button class="btn btn-block btn-success" type="button" style="margin-top:22px" onclick="addNewRow()"><i
+                                        class="fa fa-plus"></i> Añadir otro plan</button>
+                                </div>
+                                
+                                <div class="clearfix"></div>
+                                <hr/>
                             </div>
-                            <div class="col-md-2">
-                                <button class="btn btn-success" type="button" style="margin-top:22px" onclick="addNewRow()"><i
-                                    class="fa fa-plus"></i> Añadir otro plan</button>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
                         @empty
-                        <div class="clone">
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label for="price">Plan</label>
-                                    <select name="plan_id[1][]" class="form-control plan_id" data-width="100%">
-                                        <option value="">Seleccione un plan (periodos)</option>
-                                        @foreach($plans as $c)
-                                            <option value="{{ $c->id }}">{{ $c->months }}</option>
-                                        @endforeach
-                                    </select>
+                            <div class="clone">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="price">Plan</label>
+                                        <select name="plan_id[1][]" class="form-control plan_id" data-width="100%">
+                                            <option value="">Seleccione un plan (periodos)</option>
+                                            @foreach($plans as $c)
+                                                <option value="{{ $c->id }}">{{ $c->months }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label for="price">Precio unitario</label>
-                                    <input type="text" name="price_plan[1][]" class="form-control price"
-                                    oninput="checkKeyByClass(this)" >
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="price">Precio unitario</label>
+                                        <input type="text" name="price_plan[1][]" class="form-control price"
+                                        oninput="checkKeyByClass(this)" >
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label for="days">Días</label>
-                                    <input type="number" name="days[1][]" min="7" class="form-control days"
-                                    oninput="checkKeyByClass(this)" >
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="days">Días</label>
+                                        <input type="number" name="days[1][]" min="7" class="form-control days"
+                                        oninput="checkKeyByClass(this)" >
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="warnings">Disclaimer</label>
-                                    <textarea type="text" name="warnings[1][]" class="form-control warnings summernote"></textarea>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="price">Posición</label>
+                                        <select name="position[1][]" class="form-control position" data-width="100%">
+                                            <option value="">Seleccione una Posición</option>
+                                            @foreach($plans as $key => $c)
+                                                <option value="{{ $key+1 }}">{{ $key+1 }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                 </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="warnings">Disclaimer</label>
+                                        <textarea type="text" name="warnings[1][]" class="form-control warnings summernote"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <button class="btn btn-block btn-success" type="button" style="margin-top:22px" onclick="addNewRow()"><i
+                                        class="fa fa-plus"></i> Añadir otro plan</button>
+                                </div>
+
+                                <div class="clearfix"></div>
+                                <hr/>
                             </div>
-                            <div class="col-md-2">
-                                <button class="btn btn-success" type="button" style="margin-top:22px" onclick="addNewRow()"><i
-                                    class="fa fa-plus"></i> Añadir otro plan</button>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
                         @endforelse
+
                         <div class="col-md-12">
                             <div class="row">
                                 <div class="col-md-12" style="font-style: italic;">
@@ -579,6 +616,9 @@
             $(".plan_id").last().val("");
             $(".plan_id").last().attr('name', 'plan_id[' + count + '][]');
             $(".plan_id").last().removeAttr("required");
+            $(".position").last().val("");
+            $(".position").last().attr('name', 'position[' + count + '][]');
+            $(".position").last().removeAttr("required");
             $(".price").last().val("");
             $(".price").last().attr('name', 'price_plan[' + count + '][]');
             $(".days").last().val("");

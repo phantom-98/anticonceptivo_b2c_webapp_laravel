@@ -19,6 +19,7 @@ use Carbon\Carbon;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\ProductExport;
 use App\Imports\ProductImport;
+use Illuminate\Support\Facades\Log;
 
 class ProductController extends GlobalController
 {
@@ -99,7 +100,7 @@ class ProductController extends GlobalController
 
     public function store(Request $request)
     {
-        // dd($request->all());
+
         $rules = [
             'name' => 'required',
             'sku' => 'required|unique:products,sku',
@@ -120,6 +121,35 @@ class ProductController extends GlobalController
 
         $validator = Validator::make($request->all(), $rules, $messages);
         if ($validator->passes()) {
+
+            // validate repeated values
+
+            $validate_plans = [];
+            $validate_positions = [];
+
+            foreach ($request->plan_id as $key => $plan) {
+                if ($plan) {
+                    array_push($validate_plans, $plan[0]);
+                    array_push($validate_positions, $request->position[$key][0]);
+                }
+            }
+
+            $unique = array_unique($validate_plans);
+            $duplicates = array_diff_assoc($validate_plans, $unique);
+
+            if (count($duplicates)) {
+                return redirect()->back()->withErrors(['mensaje' => 'Cuenta con un plan repetido, los planes son únicos por producto.'])->withInput();
+            }
+
+            $unique = array_unique($validate_positions);
+            $duplicates = array_diff_assoc($validate_positions, $unique);
+
+            if (count($duplicates)) {
+                return redirect()->back()->withErrors(['mensaje' => 'Cuenta con una posición repetida, las posiciones de planes son únicos por producto.'])->withInput();
+            }
+
+            // validate repeated values
+
             $product = new Product();
             $product->name = $request->name;
             $product->slug = \Str::slug($request->name);
@@ -169,6 +199,7 @@ class ProductController extends GlobalController
                     $new_plan->subscription_plan_id = $plan[0];
                     $new_plan->warnings = $request->warnings[$key][0];
                     $new_plan->price = $request->price_plan[$key][0];
+                    $new_plan->position = $request->position[$key][0];
                     $new_plan->days = $request->days[$key][0] < 7 ? 7 : $request->days[$key][0];
                     $new_plan->product_id = $product->id;
                     $new_plan->save();
@@ -193,10 +224,12 @@ class ProductController extends GlobalController
 
     }
 
-
     public function edit($id)
     {
-        $object = Product::with('product_images', 'plans')->find($id);
+        $object = Product::with(['product_images', 'plans' => function ($q)
+        {
+            $q->orderBy('position');
+        }])->find($id);
 
         if (!$object) {
             session()->flash('warning', 'Producto no encontrado.');
@@ -240,6 +273,35 @@ class ProductController extends GlobalController
         $validator = Validator::make($request->all(), $rules, $messages);
 
         if ($validator->passes()) {
+
+            // validate repeated values
+
+            $validate_plans = [];
+            $validate_positions = [];
+
+            foreach ($request->plan_id as $key => $plan) {
+                if ($plan) {
+                    array_push($validate_plans, $plan[0]);
+                    array_push($validate_positions, $request->position[$key][0]);
+                }
+            }
+
+            $unique = array_unique($validate_plans);
+            $duplicates = array_diff_assoc($validate_plans, $unique);
+
+            if (count($duplicates)) {
+                return redirect()->back()->withErrors(['mensaje' => 'Cuenta con un plan repetido, los planes son únicos por producto.'])->withInput();
+            }
+
+            $unique = array_unique($validate_positions);
+            $duplicates = array_diff_assoc($validate_positions, $unique);
+
+            if (count($duplicates)) {
+                return redirect()->back()->withErrors(['mensaje' => 'Cuenta con una posición repetida, las posiciones de planes son únicos por producto.'])->withInput();
+            }
+
+            // validate repeated values
+
             $product->name = $request->name;
             $product->slug = \Str::slug($request->name);
             $product->price = $request->price;
@@ -286,10 +348,12 @@ class ProductController extends GlobalController
                     return !is_null($value) && $value !== '';
                 });
                 if ($plan) {
+                    
                     $new_plan = new ProductSubscriptionPlan();
                     $new_plan->subscription_plan_id = $plan[0];
                     $new_plan->warnings = $request->warnings[$key][0];
                     $new_plan->price = $request->price_plan[$key][0];
+                    $new_plan->position = $request->position[$key][0];
                     $new_plan->days = $request->days[$key][0];
                     $new_plan->product_id = $product->id;
                     $new_plan->save();
