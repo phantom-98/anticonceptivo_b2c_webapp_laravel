@@ -3,6 +3,7 @@
 use App\Http\Controllers\SEOController;
 use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Log;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +15,28 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('product-position-plans', function () {
+    $product_subscription_plans = \App\Models\ProductSubscriptionPlan::with(['subscription_plan'])->get();
+
+    $count = 1;
+    $cursor = null;
+
+    foreach ($product_subscription_plans as $key => $psp) {
+
+        if ($cursor != $psp->product_id) {
+            $count = 1;
+        }
+
+        $psp->position = $count;
+        $psp->save();
+
+        $cursor = $psp->product_id;
+        $count = $count +1;
+    }
+
+    return true;
+});
+
 Route::get('test-contact', function () {
     return \App\Models\Contact::all();
 });
