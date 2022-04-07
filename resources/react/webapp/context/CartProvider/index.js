@@ -93,6 +93,7 @@ const CartProvider = (props) => {
         dispatch({
             type: CLEAR_CART,
         })
+        return true;
     }
 
     const checkCart = () => {

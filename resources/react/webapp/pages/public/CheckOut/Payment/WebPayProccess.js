@@ -122,10 +122,25 @@ const WebPayProccess = ({
                             buttonsStyling: false
                         })
 
-                        swalWithBootstrapButtons.fire({
-                            // icon: 'error',
-                            title: '<span style="color: #0869A6;">' + response.message + '</span>',
-                        });
+                        if (response.data == 'PRODUCT_ITEM') {
+                            swalWithBootstrapButtons.fire({
+                                title: '<span style="color: #0869A6;">' + response.message + '</span>',
+                                confirmButtonText: 'Entendido',
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    // limpiar carro y volver al checkout)
+                                    if (clearCart()) {
+                                        window.location.href = PUBLIC_ROUTES.CART.path;
+                                    }
+                                }
+                            })
+                        } else {
+                            swalWithBootstrapButtons.fire({
+                                // icon: 'error',
+                                title: '<span style="color: #0869A6;">' + response.message + '</span>',
+                            });
+                        }
+                        
                         // setWebpayProccessSuccess(false);
                         // setFinishWebpayProccess(1);
                         // clearInterval(interval)

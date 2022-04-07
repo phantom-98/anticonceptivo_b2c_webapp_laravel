@@ -60,6 +60,35 @@ class WebpayPlusController
         }
     }
 
+    private static function validatePrices($product_id, $is_offer, $price)
+    {
+        $product = Product::find($product_id);
+        
+        if ($is_offer == true) {
+            if ($product->offer_price != $price) {
+                // distinto precio de oferta
+                return true;
+            }
+        }else{
+            if ($product->price != $price) {
+                // distinto precio normal
+                return true;
+            }
+        }
+    }
+
+    private static function validateSubscriptionPrices($product_id, $price, $subscription_plan)
+    {
+        $product_subscription_plan = ProductSubscriptionPlan::where('product_id', $product_id)
+            ->where('subscription_plan_id', $subscription_plan->id)->get()->first();
+
+        if ($price > $product_subscription_plan->price) {
+            return $price;
+        }else{
+            return $product_subscription_plan->price;
+        }
+    }
+
 
     public function createSubscription(Request $request)
     {
@@ -224,6 +253,7 @@ class WebpayPlusController
         $isSubscription = 0;
 
         $order->subtotal = $subtotal;
+
         $order->save();
         $arrayProductsQuantity = [];
 
@@ -241,6 +271,10 @@ class WebpayPlusController
                 $orderItem->price = $item->product->price;
             }
 
+            if (self::validatePrices($item->product_id, $item->product->is_offer, $orderItem->price, false)) {
+                return ApiResponse::JsonError('PRODUCT_ITEM','Algunos productos cambiaron de precio');
+            }
+
             $quantityFinal = 0;
 
             // Suscripción
@@ -249,13 +283,14 @@ class WebpayPlusController
                 if(!$_subscription){
                     return ApiResponse::JsonError([], 'Seleccione un método de pago');
                 }
+                $subscriptionPlan = SubscriptionPlan::find($item->subscription->subscription_plan_id);
+                $item_subscription_price = self::validateSubscriptionPrices($item->product_id, $item->subscription->price, $subscriptionPlan);
                 $isSubscription = 1;
                 $orderItem->quantity = 2;
-                $subtotal = $subtotal + ($item->subscription->quantity * $item->subscription->price);
-                $orderItem->subtotal = ($item->subscription->quantity * $item->subscription->price);
-                $orderItem->price = $item->subscription->price;
+                $subtotal = $subtotal + ($item->subscription->quantity * $item_subscription_price);
+                $orderItem->subtotal = ($item->subscription->quantity * $item_subscription_price);
+                $orderItem->price = $item_subscription_price;
                 $orderItem->subscription_plan_id = $item->subscription->subscription_plan_id;
-                $subscriptionPlan = SubscriptionPlan::find($item->subscription->subscription_plan_id);
                 $orderItem->save();
                 $quantityFinal = $subscriptionPlan->months;
                 $period = 0;
@@ -353,10 +388,7 @@ class WebpayPlusController
             }
         }
 
-
-
         $order->save();
-
 
         if (isset($request->attachments) && $request->prescription_radio == 'true') {
 
@@ -401,6 +433,7 @@ class WebpayPlusController
             $order->prescription_answer = $text;
             $order->save();
         }
+
         try {
             $responseStockProduct = $this->isStockProducts($order->order_items);
         } catch (\Exception $ex){
@@ -416,6 +449,7 @@ class WebpayPlusController
                 return ApiResponse::JsonError([], 'Error inesperado');
             }
         }
+
         if ($isSubscription) {
             if ($_subscription) {
 
