@@ -272,7 +272,7 @@ class WebpayPlusController
             }
 
             if (self::validatePrices($item->product_id, $item->product->is_offer, $orderItem->price, false)) {
-                return ApiResponse::JsonError('PRODUCT_ITEM','Algunos productos cambiaron de precio');
+                return ApiResponse::JsonError('PRODUCT_ITEM','Algunos productos cambiaron de precio, por favor rehacer el carro.');
             }
 
             $quantityFinal = 0;
