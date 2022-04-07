@@ -240,7 +240,6 @@ class ProfileController extends Controller
             $subscription = Subscription::where('customer_id', $customer->id)->where('status','CREATED')->get();
             return ApiResponse::JsonSuccess([
                 'subscriptions' => $subscription,
-                'test' => 'test'
             ], OutputMessage::SUCCESS);
 
         } catch (\Exception $exception) {
