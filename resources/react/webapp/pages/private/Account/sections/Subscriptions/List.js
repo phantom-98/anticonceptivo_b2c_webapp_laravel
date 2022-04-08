@@ -4,6 +4,7 @@ import Icon from "../../../../../components/general/Icon";
 import plusIcon from '../../../../../assets/images/icons/plus-green.svg'
 import * as Services from "../../../../../Services";
 import Swal from 'sweetalert2';
+import toastr from "toastr";
 
 const List = ({subscriptions, showCreate, getData}) => {
 
@@ -52,6 +53,9 @@ const List = ({subscriptions, showCreate, getData}) => {
                         success: () => {
                             getData();
                         },
+                        error: () => {
+                            toastr.error(response.message);
+                        }
                     });
                 }).catch(error => {
                     Services.ErrorCatch(error)

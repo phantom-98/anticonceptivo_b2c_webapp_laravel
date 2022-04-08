@@ -5,9 +5,6 @@ import iconRemove from "../../../../../assets/images/icons/remove-mini-cart.svg"
 
 const ListItem = ({subscription, saveDefaultSubscription, deleteSubscription, subscriptionChecked, isModal=false}) => {
 
-
-
-
     return (
         <div className="row">
             <div className="col-auto d-flex pr-0">
@@ -34,16 +31,15 @@ const ListItem = ({subscription, saveDefaultSubscription, deleteSubscription, su
                     </div>
                 </div>
             </div>
-            {/* {
-                isModal ?
-                    <div className="col-auto text-center d-flex">
-                        <div onClick={() => deleteSubscription(subscription.id)} className="my-auto pointer" >
-                            <div><Icon path={iconRemove} /></div>
+            {
+                <div className="col-auto text-center d-flex">
+                    <div onClick={() => deleteSubscription(subscription.id)} className="my-auto pointer" >
+                        <div><Icon path={iconRemove} /></div>
 
-                        </div>
                     </div>
-                : null
-            } */}
+                </div>
+                // isModal ? : null
+            }
 
             <div className="col-md-12">
                 <hr/>

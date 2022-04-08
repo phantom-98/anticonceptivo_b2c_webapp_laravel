@@ -10,4 +10,10 @@ class SubscriptionPlan extends Model
         'months',
         'active'
     ];
+
+    public function product_subscription_plan()
+    {
+        return $this->belongsTo(ProductSubscriptionPlan::class);
+    }
+
 }
