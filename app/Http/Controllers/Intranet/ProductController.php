@@ -91,7 +91,7 @@ class ProductController extends GlobalController
     public function create()
     {
         $subcategories = Subcategory::where('active', 1)->get();
-        $plans = SubscriptionPlan::get();
+        $plans = SubscriptionPlan::orderBy('months')->get();
         $laboratories = Laboratory::get();
         $consumptions = Product::getEnumColumnValues('products', 'consumption_typology');
 
@@ -237,7 +237,7 @@ class ProductController extends GlobalController
         }
 
         $subcategories = Subcategory::where('active', 1)->get();
-        $plans = SubscriptionPlan::get();
+        $plans = SubscriptionPlan::orderBy('months')->get();
         $laboratories = Laboratory::get();
         $consumptions = Product::getEnumColumnValues('products', 'consumption_typology');
 
