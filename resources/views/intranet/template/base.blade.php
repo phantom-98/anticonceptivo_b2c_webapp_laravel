@@ -146,6 +146,11 @@
             }
         }
     });
+
+    $(window).on('pageshow', function(){
+        $('.loader').fadeOut();
+        $('body').removeClass('overflow-hidden');
+    });
 </script>
 
 <script>
