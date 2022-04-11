@@ -37,13 +37,22 @@
 {{--                                           value="{{ old('name') ?? $object->label_original }}">--}}
 {{--                                </div>--}}
 {{--                            </div>--}}
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="label_custom">Texto de despacho</label>
                                     <input type="text" id="label_custom" name="label_custom" class="form-control"
                                             value="{{ old('label_custom') ?? $object->label_custom }}">
                                 </div>
                             </div>
+                            @if($object->id)
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="sub_label">Texto en opción carrito</label>
+                                    <input type="text" id="sub_label" name="sub_label" class="form-control"
+                                            value="{{ old('sub_label') ?? $object->sub_label }}">
+                                </div>
+                            </div>
+                            @endif
                         </div>
                     </div>
                     <div class="panel-footer">

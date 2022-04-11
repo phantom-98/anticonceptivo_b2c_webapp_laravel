@@ -53,6 +53,7 @@ class DeliveryLabelController extends GlobalController
         }
 
         $object->label_custom = $request->label_custom;
+        $object->sub_label = $request->sub_label ?? null;
         $object->save();
 
         session()->flash('success', 'Alianza modificada correctamente.');
