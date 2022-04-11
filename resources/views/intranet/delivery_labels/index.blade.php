@@ -37,6 +37,7 @@
                         <tr>
                             <th data-sortable="true" data-cell-style="cellStyle"  data-valign="middle">Texto</th>
                             <th data-sortable="true" data-cell-style="cellStyle"  data-valign="middle">Texto a mostrar</th>
+                            <th data-sortable="true" data-cell-style="cellStyle"  data-valign="middle">Texto filtro en tienda</th>
                             @if($config['blade']['showActions'])
                                 <th data-cell-style="cellStyle" data-valign="middle">Acciones</th>
                             @endif
