@@ -12,6 +12,7 @@ class DeliveryLabels extends Model
         'id',
         'label_original',
         'label_custom',
+        'sub_label',
         'color',
     ];
 

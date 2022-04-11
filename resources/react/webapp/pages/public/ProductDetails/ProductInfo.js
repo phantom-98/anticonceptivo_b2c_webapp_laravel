@@ -11,13 +11,13 @@ const ProductInfo = ({product, setImageSubscription}) => {
     const [quantity, setQuantity] = useState(1);
     const [subscription, setSubscription] = useState(null);
 
-    const handleSubscription = subscription_plan => {
+    const handleSubscription = (subscription_plan) => {
         if (subscription == null) {
             setSubscription(subscription_plan.subscription_plan);
-            setImageSubscription(subscription_plan.position + 1);
+            setImageSubscription(subscription_plan.subscription_plan.public_image);
         } else if (subscription.id != subscription_plan.subscription_plan.id) {
             setSubscription(subscription_plan.subscription_plan);
-            setImageSubscription(subscription_plan.position + 1);
+            setImageSubscription(subscription_plan.subscription_plan.public_image);
         } else {
             setSubscription(null);
             setImageSubscription(null);

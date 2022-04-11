@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Accordion, Card} from "react-bootstrap";
 import {formatMoney} from "../../../helpers/GlobalUtils";
 import BioequivalentFilter from "./Filters/BioequivalentFilter";
@@ -29,7 +29,8 @@ const Filter = ({
                     // setSubcategoriesSelected
                     immediate,
                     textImmediate,
-                    setImmediate
+                    setImmediate,
+                    subTextImmediate
                 }) => {
 
     const _filters = [
@@ -67,7 +68,7 @@ const Filter = ({
 
             <div className="col-md-12 mb-3 filter-width">
 
-                <ImmediateDelivery immediate={immediate} setImmediate={setImmediate} textImmediate={textImmediate}/>
+                <ImmediateDelivery immediate={immediate} setImmediate={setImmediate} textImmediate={textImmediate} subTextImmediate={subTextImmediate}/>
 
                 <Accordion defaultActiveKey={!isPills ? _filters[0].id : _filters[1].id} className="accordion-filter">
                     {

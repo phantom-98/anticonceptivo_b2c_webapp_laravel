@@ -1,9 +1,8 @@
-import React from 'react';
+import React, {useState} from 'react';
 import ImmediateSvg from '../../../../assets/images/icons/immediate.svg'
 import {Form} from 'react-bootstrap'
 
-const ImmediateDelivery = ({immediate, setImmediate, textImmediate}) => {
-
+const ImmediateDelivery = ({ immediate, setImmediate, textImmediate, subTextImmediate}) => {
 
     return (
         <div className="box-immediate mb-3">
@@ -15,7 +14,7 @@ const ImmediateDelivery = ({immediate, setImmediate, textImmediate}) => {
                                 <img src={ImmediateSvg} alt="anticonceptivo.cl"/> <span className="mt-1">{textImmediate}</span>
                             </h3>
                             <p className="font-11 lh-11 regular font-poppins color-484848 mb-0">
-                                Hasta 2 horas después de tu compra. Despachos desde 10:00 a 19:00 hrs de Lunes a Sábado.
+                                {subTextImmediate}
                             </p>
                         </div>
                         <div className="col-auto d-flex">

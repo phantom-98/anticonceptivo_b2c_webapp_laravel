@@ -16,6 +16,7 @@ const Shop = ({match}) => {
 
     const [products, setProducts] = useState([]);
     const [textImmediate, setTextImmediate] = useState([]);
+    const [subTextImmediate, setSubTextImmediate] = useState([]);
     const [category, setCategory] = useState({});
     const [subcategories, setSubcategories] = useState([]);
     const [laboratories, setLaboratories] = useState([]);
@@ -83,6 +84,7 @@ const Shop = ({match}) => {
                 success: () => {
                     setProducts(response.data.products);
                     setTextImmediate(response.data.immediate);
+                    setSubTextImmediate(response.data.sub_inmediate);
                     setCategory(response.data.category);
                     setSubcategories(response.data.subcategories);
                     setLaboratories(response.data.laboratories);
@@ -330,6 +332,7 @@ const Shop = ({match}) => {
                                         immediate={filters.immediate}
                                         textImmediate={textImmediate}
                                         setImmediate={handleImmediate}
+                                        subTextImmediate={subTextImmediate}
                                     />
                                 </div>
                             </div>
@@ -359,7 +362,7 @@ const Shop = ({match}) => {
                                                 unitFormat={unitFormat}
                                                 immediate={filters.immediate}
                                                 textImmediate={textImmediate}
-
+                                                subTextImmediate={subTextImmediate}
                                                 setImmediate={handleImmediate}
                                             /> : null
                                         }
