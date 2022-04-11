@@ -48,6 +48,7 @@
                                 <tr>
                                     <td>{{ $object->label_original }}</td>
                                     <td>{!! $object->label_custom ?? '' !!}</td>
+                                    <td>{!! $object->id == 1 ? $object->sub_label : '' !!}</td>
                                     @if($config['blade']['showActions'])
                                         <td>
                                             <div >
