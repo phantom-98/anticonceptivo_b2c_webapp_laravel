@@ -48,7 +48,6 @@ class OrderController extends GlobalController
         if($client_id == 999999999999999){
             $client_id = null;
         }
-
         $appends = [];
 
         $start = Carbon::now()->startOfMonth()->format('Y-m-d');
@@ -104,7 +103,6 @@ class OrderController extends GlobalController
         $appends['date'] = $date;
 
         $objects = $objects->orderBy('id', 'desc')->get();
-
         return view($this->folder . 'index', compact('objects', 'date', 'start', 'end', 'clients', 'client_id', 'nameClient', 'id', 'status'));
     }
 

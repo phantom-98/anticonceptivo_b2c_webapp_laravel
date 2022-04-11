@@ -6,7 +6,7 @@ import * as Services from "../../../../../Services";
 import {v4 as uuidv4} from "uuid";
 import { AppContext } from "../../../../../context/AppProvider";
 import { BREAKPOINTS } from "../../../../../helpers/vars";
-const List = ({addresses, showEdit, showCreate, getData, regions, communes}) => {
+const List = ({addresses, showEdit, showCreate, getData, regions, communes, setAddresses}) => {
 
     const { breakpoint } = useContext(AppContext);
 
@@ -42,7 +42,7 @@ const List = ({addresses, showEdit, showCreate, getData, regions, communes}) => 
                             saveDefaultAddress={saveDefaultAddress}
                             regions={regions}
                             communes={communes}
-                            // setAddresses={setAddresses}
+                            setAddresses={setAddresses}
                         />))
                 }
             </div>

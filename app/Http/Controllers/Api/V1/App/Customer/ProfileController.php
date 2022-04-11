@@ -193,10 +193,35 @@ class ProfileController extends Controller
             $regions = Region::where('id',7)->with('provinces.communes')->get();
             $communes = Commune::select('id','name')->get();
 
+            $delivery_cost = DeliveryCost::where('active',true)->pluck('costs');
+
+            $communes_valid = []; // name of all of valid communes
+
+            foreach ($delivery_cost as $key => $dc) {
+                $_dc = json_decode($dc);
+                foreach ($_dc as $key => $value) {
+                    foreach ($value->communes as $key => $_val) {
+                        array_push($communes_valid, $_val);
+                    }
+                }
+            }
+
+            foreach ($regions as $key => $region) {
+                foreach ($region->provinces as $key_2 => $province) {
+                    foreach ($province->communes as $key_3 => $commune) {
+                        if (in_array($commune->name, $communes_valid)) {
+                            $commune->is_valid = true;
+                        }else{
+                            $commune->is_valid = false;
+                        }
+                    }
+                }
+            }
+
             return ApiResponse::JsonSuccess([
                 'addresses' => $addresses,
                 'regions' => $regions,
-                'communes' => $communes
+                'communes' => $communes,
             ], OutputMessage::SUCCESS);
 
         } catch (\Exception $exception) {
@@ -402,6 +427,8 @@ class ProfileController extends Controller
                 ->with(['order_item.product','customer_address.commune','subscription','order_parent.order_items','order_item.subscription_plan'])
                 ->orderBy('order_parent_id', 'asc')->orderBy('orders_item_id','asc')->orderBy('pay_date', 'asc')
                 ->get();
+            
+            // Log::info('test 1',[$subscriptionsOrdersItem]);
 
             $deliveryCosts = DeliveryCost::where('active',1)->get();
 
@@ -455,6 +482,8 @@ class ProfileController extends Controller
                     ->groupBy('order_parent_id')
                     ->get()->first();
 
+                Log::info('test 3',[$productSubscriptionPlan]);
+
                 return  [
                     'min_date_dispatch' =>  $min_date_dispatch,
                     'subscription_item' => $item,
@@ -466,6 +495,8 @@ class ProfileController extends Controller
                     'advance_end' => intval($advance_end),
                 ];
             });
+
+            Log::info('test 2',[]);
 
             return ApiResponse::JsonSuccess([
                 'subscriptions' => $subscriptionsOrdersItem,
@@ -613,32 +644,39 @@ class ProfileController extends Controller
     {
         try {
             $is_default = false;
-            $subscription = Subscription::with(['subscription_orders_items'])->find($request->subscription_id);
+
+            $subscription = Subscription::with(['subscription_orders_items' => function($q){
+                $q->where('is_pay', false);
+            }])->find($request->subscription_id);
 
             if ($subscription->subscription_orders_items->count()) {
                 $orderItems = SubscriptionsOrdersItem::where('order_parent_id', $subscription->subscription_orders_items[0]->order_parent_id)
-                ->where('status','CREATED')->whereNull('subscription_id')
+                ->where('is_pay',false)
                 ->get();
+
 
                 if ($orderItems->count()) {
                     return ApiResponse::JsonError(null, 'No puede dejar suscripciones activas sin una tarjeta asociada.');
                 }
             }
 
-            if($subscription->default_subscription){
+            if($subscription->default_subscription == true){
                 $is_default = true;
             }
+
             $customer_id = $subscription->customer_id;
+
             $subscription->delete();
 
             if($is_default){
-                $subscription = Subscription::where('customer_id', $customer_id)->get()->first();
+                $subscription = Subscription::where('customer_id', $customer_id)->where('status','CREATED')->get()->first();
                 if($subscription){
                     $subscription->default_subscription = true;
                     $subscription->save();
                 }
 
             }
+
             return ApiResponse::JsonSuccess([
                 'subscription' => $subscription
             ], OutputMessage::CUSTOMER_SUBSCRIPTION_CARD_DELETE);

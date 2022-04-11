@@ -15,7 +15,13 @@ class ProductSubscriptionPlan extends Model
         'price',
         'quantity',
         'days',
+        'position',
+        'image',
         'product_id'
+    ];
+
+    protected $appends = [
+        'public_image'
     ];
 
     public function product(){
@@ -24,6 +30,10 @@ class ProductSubscriptionPlan extends Model
 
     public function subscription_plan(){
         return $this->belongsTo(SubscriptionPlan::class);
+    }
+
+    public function getPublicImageAttribute(){
+        return $this->image == null ? null : \Storage::url($this->image);
     }
 
 }

@@ -13,7 +13,7 @@ Route::prefix('customer')
 
         Route::post('get-addresses', [ProfileController::class, 'getAddresses'])->name('getAddresses');
         Route::post('update-addresses', [ProfileController::class, 'updateAddresses'])->name('updateAddresses');
-        // Route::post('remove-address', [ProfileController::class, 'removeAddress'])->name('removeAddress');
+         Route::post('remove-address', [ProfileController::class, 'removeAddress'])->name('removeAddress');
 
         Route::post('update-default-address', [ProfileController::class, 'updateDefaultAddress'])->name('updateDefaultAddress');
 

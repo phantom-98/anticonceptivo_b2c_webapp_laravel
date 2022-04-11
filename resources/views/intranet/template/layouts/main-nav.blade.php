@@ -232,6 +232,13 @@
                                     </a>
                                 </li>
                                 @endcan
+                                @can('intranet.delivery_labels.index')
+                                    <li class="{{ is_menu_active('intranet/textos-despacho') }}">
+                                        <a href="{{ route('intranet.delivery_labels.index') }}">
+                                            <span class="menu-title">Textos despacho</span>
+                                        </a>
+                                    </li>
+                                @endcan
                                 @can('intranet.legal_bases.index')
                                 <li class="{{ is_menu_active('intranet/bases-legales') }}">
                                     <a href="{{ route('intranet.legal_bases.index') }}">

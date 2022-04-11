@@ -24,7 +24,7 @@ const ProductGaleryMobile = ({images}) => {
                 images.map(image => {
                     return (
                         <div key={uuid()} className="col-12">
-                            <img src={image.public_file} style={{width: '100%'}} alt="anticonceptivo.cl"/>
+                            <img src={image ? image.public_file : ''} style={{width: '100%'}} alt="anticonceptivo.cl"/>
                         </div>
                     )
                 })

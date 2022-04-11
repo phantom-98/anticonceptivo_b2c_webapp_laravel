@@ -32,6 +32,7 @@ const FinishPaymentTransaction = () => {
         gtag2('config', 'AW-10785537269');
     },[]);
 
+
     const verifyPayment = (token, customerId) => {
 
         const data = {

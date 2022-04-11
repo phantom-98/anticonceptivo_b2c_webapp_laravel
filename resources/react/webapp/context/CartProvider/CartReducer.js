@@ -219,6 +219,9 @@ export default (state, action) => {
                 cartItems: [...items]
             };
         case CLEAR_CART:
+
+            localStorage.setItem(LOCAL_STORAGE.CART_ITEMS, JSON.stringify([]));
+
             return {
                 ...state,
                 cartItems: []

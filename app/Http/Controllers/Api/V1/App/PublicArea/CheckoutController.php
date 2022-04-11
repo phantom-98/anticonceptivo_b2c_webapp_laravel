@@ -14,6 +14,7 @@ use App\Models\Commune;
 use App\Models\Order;
 use App\Models\Prescription;
 use App\Models\DiscountCode;
+use App\Models\DeliveryCost;
 
 class CheckoutController extends Controller
 {
@@ -22,6 +23,32 @@ class CheckoutController extends Controller
         try {
 
             $regions = Region::where('id',7)->with('provinces.communes')->get();
+
+            $delivery_cost = DeliveryCost::where('active',true)->pluck('costs');
+
+            $communes_valid = []; // name of all of valid communes
+
+            foreach ($delivery_cost as $key => $dc) {
+                $_dc = json_decode($dc);
+                foreach ($_dc as $key => $value) {
+                    foreach ($value->communes as $key => $_val) {
+                        array_push($communes_valid, $_val);
+                    }
+                }
+            }
+
+            foreach ($regions as $key => $region) {
+                foreach ($region->provinces as $key_2 => $province) {
+                    foreach ($province->communes as $key_3 => $commune) {
+                        if (in_array($commune->name, $communes_valid)) {
+                            $commune->is_valid = true;
+                        }else{
+                            $commune->is_valid = false;
+                        }
+                    }
+                }
+            }
+
             $communes = Commune::get();
 
             return ApiResponse::JsonSuccess([

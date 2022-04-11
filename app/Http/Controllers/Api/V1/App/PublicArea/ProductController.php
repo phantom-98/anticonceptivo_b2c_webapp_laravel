@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1\App\PublicArea;
 
 use App\Http\Controllers\Api\V1\App\Helpers\ProductScheduleHelper;
 use App\Http\Controllers\Controller;
+use App\Models\DeliveryLabels;
 use App\Models\Image;
 use App\Models\ProductImage;
 use App\Models\ProductSchedule;
@@ -278,7 +279,7 @@ class ProductController extends Controller
 
             $subscriptions = SubscriptionPlan::whereIn('id', ProductSubscriptionPlan::whereIn('product_id', $productIds)
                 ->get()->unique('subscription_plan_id')->pluck('subscription_plan_id'))
-                ->where('active', true)->select(['id', 'months'])->get();
+                ->where('active', true)->select(['id', 'months'])->orderBy('months')->get();
 
             $laboratories = Laboratory::whereIn('id', $laboratoryIds)->where('active', true)->get();
 
@@ -347,6 +348,7 @@ class ProductController extends Controller
                 'products' => $this->processScheduleList($products),
                 'category' => $categoryFields,
                 'subcategories' => $subcategories,
+                'immediate' => DeliveryLabels::where('key','IMMEDIATE')->get()->first()->label_custom ?? 'Entrega Prioritaria',
                 'subcat' => $subcat,
                 'laboratories' => $laboratories,
                 'subscriptions' => $subscriptions,
@@ -369,7 +371,10 @@ class ProductController extends Controller
             }
 
             $product = Product::where('active', true)->where('slug', $request->product_slug)
-                ->with(['subcategory.category', 'product_images', 'laboratory', 'plans.subscription_plan'])->first();
+                ->with(['subcategory.category', 'product_images', 'laboratory', 'plans' => function ($q)
+                {
+                    $q->orderBy('position');
+                } ,'plans.subscription_plan'])->first();
 
             if (!$product) {
                 return ApiResponse::JsonError(null, OutputMessage::PRODUCT_NOT_FOUND);

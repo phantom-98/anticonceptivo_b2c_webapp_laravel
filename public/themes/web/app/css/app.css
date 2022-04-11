@@ -2096,9 +2096,9 @@ input[type=number] {
 }
 
 .blog-card {
-  height: 379px;
+  height: 500px;
   width: 100%;
-  background-position: center;
+  background-position: 70%;
   background-repeat: no-repeat;
   background-size: cover;
   border-radius: 12px;
@@ -4312,8 +4312,8 @@ a:-webkit-any-link:focus-visible {
 }
 
 .is-after-tomorrow-label {
-  background: rgba(219, 0, 0, 0.18);
-  color: #db0000;
+  background: rgba(0, 219, 174, 0.18);
+  color: #00DBAE;
 }
 
 @media (min-width: 768px) {

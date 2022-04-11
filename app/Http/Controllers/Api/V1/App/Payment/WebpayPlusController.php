@@ -60,6 +60,35 @@ class WebpayPlusController
         }
     }
 
+    private static function validatePrices($product_id, $is_offer, $price)
+    {
+        $product = Product::find($product_id);
+        
+        if ($is_offer == true) {
+            if ($product->offer_price != $price) {
+                // distinto precio de oferta
+                return true;
+            }
+        }else{
+            if ($product->price != $price) {
+                // distinto precio normal
+                return true;
+            }
+        }
+    }
+
+    private static function validateSubscriptionPrices($product_id, $price, $subscription_plan)
+    {
+        $product_subscription_plan = ProductSubscriptionPlan::where('product_id', $product_id)
+            ->where('subscription_plan_id', $subscription_plan->id)->get()->first();
+
+        if ($price > $product_subscription_plan->price) {
+            return $price;
+        }else{
+            return $product_subscription_plan->price;
+        }
+    }
+
 
     public function createSubscription(Request $request)
     {
@@ -104,9 +133,6 @@ class WebpayPlusController
             return ApiResponse::JsonError([], $exception->getMessage());
         }
     }
-
-
-
 
     public function createTransaction(Request $request)
     {
@@ -177,6 +203,11 @@ class WebpayPlusController
             }
         }
 
+        if(!$customerAddress){
+            return ApiResponse::JsonError([], 'Seleccione una dirección');
+
+        }
+
         $deliveryCosts = DeliveryCost::where('active', 1)->get();
         $itemDeliveryCost = null;
         $itemDeliveryCostArrayCost = null;
@@ -196,7 +227,11 @@ class WebpayPlusController
             }
         }
 
-//        $delivery_date =Carbon::now()->addHours($itemDeliveryCost->deadline_delivery);
+        if ($itemDeliveryCost == null && $itemDeliveryCostArrayCost == null) {
+            return ApiResponse::JsonError(null,'La comuna seleccionada no cuenta con reparto.');
+        }
+
+        //        $delivery_date =Carbon::now()->addHours($itemDeliveryCost->deadline_delivery);
         $delivery_date =Carbon::now();
         $dataDeliveryOrder = ProductScheduleHelper::labelDateDeliveryInOrder(array_column(json_decode($request->cartItems),'product'),$delivery_date);
         $dataDeliveryOrder = ProductScheduleHelper::deadlineDeliveryMaxOrder($dataDeliveryOrder['delivery_date'], $dataDeliveryOrder['label'], $dataDeliveryOrder['is_immediate'], $dataDeliveryOrder['schedule']);
@@ -218,6 +253,7 @@ class WebpayPlusController
         $isSubscription = 0;
 
         $order->subtotal = $subtotal;
+
         $order->save();
         $arrayProductsQuantity = [];
 
@@ -235,18 +271,26 @@ class WebpayPlusController
                 $orderItem->price = $item->product->price;
             }
 
+            if (self::validatePrices($item->product_id, $item->product->is_offer, $orderItem->price, false)) {
+                return ApiResponse::JsonError('PRODUCT_ITEM','Algunos productos cambiaron de precio, por favor rehacer el carro.');
+            }
+
             $quantityFinal = 0;
 
             // Suscripción
             if (isset($item->subscription)) {
                 $_subscription = json_decode($request->subscription);
+                if(!$_subscription){
+                    return ApiResponse::JsonError([], 'Seleccione un método de pago');
+                }
+                $subscriptionPlan = SubscriptionPlan::find($item->subscription->subscription_plan_id);
+                $item_subscription_price = self::validateSubscriptionPrices($item->product_id, $item->subscription->price, $subscriptionPlan);
                 $isSubscription = 1;
                 $orderItem->quantity = 2;
-                $subtotal = $subtotal + ($item->subscription->quantity * $item->subscription->price);
-                $orderItem->subtotal = ($item->subscription->quantity * $item->subscription->price);
-                $orderItem->price = $item->subscription->price;
+                $subtotal = $subtotal + ($item->subscription->quantity * $item_subscription_price);
+                $orderItem->subtotal = ($item->subscription->quantity * $item_subscription_price);
+                $orderItem->price = $item_subscription_price;
                 $orderItem->subscription_plan_id = $item->subscription->subscription_plan_id;
-                $subscriptionPlan = SubscriptionPlan::find($item->subscription->subscription_plan_id);
                 $orderItem->save();
                 $quantityFinal = $subscriptionPlan->months;
                 $period = 0;
@@ -344,10 +388,7 @@ class WebpayPlusController
             }
         }
 
-
-
         $order->save();
-
 
         if (isset($request->attachments) && $request->prescription_radio == 'true') {
 
@@ -392,6 +433,7 @@ class WebpayPlusController
             $order->prescription_answer = $text;
             $order->save();
         }
+
         try {
             $responseStockProduct = $this->isStockProducts($order->order_items);
         } catch (\Exception $ex){
@@ -407,6 +449,7 @@ class WebpayPlusController
                 return ApiResponse::JsonError([], 'Error inesperado');
             }
         }
+
         if ($isSubscription) {
             if ($_subscription) {
 
@@ -464,23 +507,23 @@ class WebpayPlusController
                         $this->updateDiscountCode($request->discountCode);
                     }
 
-//                    if (env('APP_ENV') == 'production') {
-//                        CallIntegrationsPay::callVoucher($order->id, $customerAddress);
-//                        CallIntegrationsPay::callDispatchLlego($order->id, $customerAddress);
-//                        CallIntegrationsPay::callUpdateStockProducts($order->id);
-//                        CallIntegrationsPay::sendEmailsOrder($order->id);
-//                    }
+                    //                    if (env('APP_ENV') == 'production') {
+                    //                        CallIntegrationsPay::callVoucher($order->id, $customerAddress);
+                    //                        CallIntegrationsPay::callDispatchLlego($order->id, $customerAddress);
+                    //                        CallIntegrationsPay::callUpdateStockProducts($order->id);
+                    //                        CallIntegrationsPay::sendEmailsOrder($order->id);
+                    //                    }
                     UpdateProductStockJob::dispatch($order);
                     FinishPaymentJob::dispatch($order);
-//                    return ApiResponse::JsonSuccess([
-//                        'order' => $order
-//                    ], 'Compra OneClick');
+                    //                    return ApiResponse::JsonSuccess([
+                    //                        'order' => $order
+                    //                    ], 'Compra OneClick');
 
                 } else {
-//                    return ApiResponse::JsonError([], 'Error con la tarjeta');
+                    //                    return ApiResponse::JsonError([], 'Error con la tarjeta');
                 }
             } else {
-//                return ApiResponse::JsonError([], 'Seleccione un método de pago');
+                    //                return ApiResponse::JsonError([], 'Seleccione un método de pago');
             }
 
             $url = session()->has('urlFinish') ? session('urlFinish') : (env('APP_URL')) . '/checkout-verify/:token';
@@ -619,14 +662,14 @@ class WebpayPlusController
 
 
 
-//                    if (env('APP_ENV') == 'production') {
-//
-//                        CallIntegrationsPay::callUpdateStockProducts($order->id);
-//
-//                        CallIntegrationsPay::callVoucher($order->id, $customerAddress);
-//                        CallIntegrationsPay::callDispatchLlego($order->id, $customerAddress);
-//                        CallIntegrationsPay::sendEmailsOrder($order->id);
-//                    }
+        //                    if (env('APP_ENV') == 'production') {
+        //
+        //                        CallIntegrationsPay::callUpdateStockProducts($order->id);
+        //
+        //                        CallIntegrationsPay::callVoucher($order->id, $customerAddress);
+        //                        CallIntegrationsPay::callDispatchLlego($order->id, $customerAddress);
+        //                        CallIntegrationsPay::sendEmailsOrder($order->id);
+        //                    }
                     UpdateProductStockJob::dispatch($order);
                     FinishPaymentJob::dispatch($order);
 
@@ -664,7 +707,7 @@ class WebpayPlusController
         $url = session()->has('urlFinish') ? session('urlFinish') : (env('APP_URL')) . '/checkout-verify/:token';
         $url = str_replace(':token', $order->payment_token, $url);
         return redirect($url);
-//        return view('webapp.payment.webpay-finish');
+        //        return view('webapp.payment.webpay-finish');
     }
 
     private function sendEmailErrorAiloo($order){
@@ -685,7 +728,6 @@ class WebpayPlusController
         }
 
     }
-
 
     private function updateDiscountCode($discount_code){
         try {
@@ -723,7 +765,7 @@ class WebpayPlusController
                 $subscription->status = PaymentMethodStatus::CANCELED;
                 $subscription->save();
                 return redirect('checkout');
-//                return view('webapp.payment.webpay-finish');
+        //                return view('webapp.payment.webpay-finish');
 
             }
             $response = $response['response'];
@@ -753,7 +795,7 @@ class WebpayPlusController
         }
 
         return redirect('checkout');
-//        return view('webapp.payment.webpay-finish');
+        //        return view('webapp.payment.webpay-finish');
     }
 
     public function verify(Request $request)

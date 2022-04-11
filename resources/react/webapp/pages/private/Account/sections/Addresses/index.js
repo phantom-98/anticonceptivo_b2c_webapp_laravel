@@ -17,6 +17,7 @@ const Index = () => {
 
     const [regions, setRegions] = useState([]);
     const [communes, setCommunes] = useState([]);
+    const [availableCommunes, setAvailableCommunes] = useState([]);
 
     const [addressSelected, setAddressSelected] = useState(null);
 
@@ -42,6 +43,7 @@ const Index = () => {
                     setAddresses(response.data.addresses);
                     setRegions(response.data.regions);
                     setCommunes(response.data.communes);
+                    setAvailableCommunes(response.data.available_regions_provinces_communes);
                 }
             });
         }).catch(error => {
@@ -65,13 +67,13 @@ const Index = () => {
         setFormMode('create')
         setAddressSelected(null)
     }
-    
+
 
     return (
         <div className="row" style={{marginTop: breakpoint === BREAKPOINTS.LARGE || breakpoint === BREAKPOINTS.EXTRA_LARGE || breakpoint === BREAKPOINTS.EXTRA_EXTRA_LARGE ? '-50px' : '0px'}}>
             {
                 breakpoint === BREAKPOINTS.MEDIUM ||breakpoint === BREAKPOINTS.LARGE || breakpoint === BREAKPOINTS.EXTRA_LARGE || breakpoint === BREAKPOINTS.EXTRA_EXTRA_LARGE ?
-                    <H3Panel title="EDITAR DIRECCIONES" /> 
+                    <H3Panel title="EDITAR DIRECCIONES" />
                 : null
             }
             <div className="col-md-12 ">
@@ -93,7 +95,7 @@ const Index = () => {
                                 showCreate={showCreate}
                                 regions={regions}
                                 communes={communes}
-                                // setAddresses={setAddresses}
+                                setAddresses={setAddresses}
                             /> : null
                     }
 

@@ -42,7 +42,7 @@ class HomeController extends Controller
             ->pluck('subscription_plan_id')->unique();
 
             $laboratories = Laboratory::where('active',true)->whereIn('id',$laboratoriesWithPills)->get();
-            $subscriptions = SubscriptionPlan::where('active',true)->whereIn('id',$subscriptionPlanIds)->get();
+            $subscriptions = SubscriptionPlan::where('active',true)->orderBy('months')->whereIn('id',$subscriptionPlanIds)->get();
             $formats = $products->where('format','!=','')->pluck('format')->unique()->sortBy('format');
 
             return ApiResponse::JsonSuccess([

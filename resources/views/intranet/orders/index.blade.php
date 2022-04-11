@@ -255,6 +255,7 @@
                                 @else
                                     <td>{{ mb_strtoupper($object->delivery_address ?? '-', 'UTF-8') }}</td>
                                 @endif
+
                                 <td>{{ mb_strtoupper($object->house_number ?? '-', 'UTF-8') }}</td>
                                 <td>{{ mb_strtoupper($object->region ?? '-', 'UTF-8') }}</td>
                                 <td>{{ mb_strtoupper($object->comments ?? '-', 'UTF-8') }}</td>

@@ -3,6 +3,11 @@ $(window).on('beforeunload', function () {
     $('.loader').fadeIn();
 });
 
+$(window).on('pageshow', function(){
+    $('.loader').fadeOut();
+    $('body').removeClass('overflow-hidden');
+});
+
 $(document).ready(function () {
     $('.loader').fadeOut();
     $('body').removeClass('overflow-hidden');

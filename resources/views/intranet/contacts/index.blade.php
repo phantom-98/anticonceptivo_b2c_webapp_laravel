@@ -426,6 +426,7 @@
                     $htmlContent.append('<p><strong>' + item.question + ' : </strong>' + item.answer + '</p>')
                 });
             }
+
             if (item.message) {
                 $htmlContent.append('<p><strong>' + 'Mensaje'+ ' : </strong>' + item.message + '</p>')
             }

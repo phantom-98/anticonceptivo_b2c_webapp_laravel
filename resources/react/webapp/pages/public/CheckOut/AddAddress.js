@@ -30,7 +30,9 @@ const AddAddress = ({setView, regions, address, setAddress,validAddress,setValid
             let tempCommunes = [];
             region.provinces.map((province) =>{
                 province.communes.map((commune) =>{
-                    tempCommunes.push(commune);
+                    if (commune.is_valid) {
+                        tempCommunes.push(commune);
+                    }
                 })
             })
             let orderCommunes =  tempCommunes.sort((a, b)  => {

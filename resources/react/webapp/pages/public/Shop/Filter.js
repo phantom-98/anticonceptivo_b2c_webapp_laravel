@@ -28,6 +28,7 @@ const Filter = ({
                     // subCategoriesSelected,
                     // setSubcategoriesSelected
                     immediate,
+                    textImmediate,
                     setImmediate
                 }) => {
 
@@ -66,7 +67,7 @@ const Filter = ({
 
             <div className="col-md-12 mb-3 filter-width">
 
-                <ImmediateDelivery immediate={immediate} setImmediate={setImmediate}/>
+                <ImmediateDelivery immediate={immediate} setImmediate={setImmediate} textImmediate={textImmediate}/>
 
                 <Accordion defaultActiveKey={!isPills ? _filters[0].id : _filters[1].id} className="accordion-filter">
                     {

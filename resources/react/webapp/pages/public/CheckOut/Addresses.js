@@ -83,7 +83,7 @@ const Addresses = ({setView, regions, communes, address, setAddress, dispatchDat
                                 communes={communes}
                                 getData={getData}
                                 setAddress={setAddress}
-                                // setAddresses={setAddresses}
+                                setAddresses={setAddresses}
                             />
                             : null
                     }
