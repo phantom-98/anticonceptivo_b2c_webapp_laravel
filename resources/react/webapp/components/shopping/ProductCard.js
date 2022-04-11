@@ -12,111 +12,55 @@ const ProductCard = ({product, className = '', subscriptionFilter = []}) => {
     const [quantity, setQuantity] = useState(1);
 
     const handleSubscriptionImage = (prod) => {
-        if (prod.images.length < 6) {
-            return noImage;
+
+        let plan_img = prod.plans.find(x => x.subscription_plan_id == subscriptionFilter[0]);
+        
+        if (plan_img && plan_img.public_image) {
+            return plan_img.public_image;
         }
 
-        if (subscriptionFilter.includes(1)) {
-            return prod.images[3].public_file
-        }
-
-        if (subscriptionFilter.includes(2)) {
-            return prod.images[4].public_file
-        }
-
-        if (subscriptionFilter.includes(3)) {
-            return prod.images[5].public_file
-        }
+        return noImage;
     }
 
     const handlePrice = (prod) => {
+        let plan_price = prod.plans.find(x => x.subscription_plan_id == subscriptionFilter[0]);
 
-        if (!prod.plans) {
-            return null;
+        if (plan_price) {
+            return plan_price.price;
         }
 
-        if (!prod.plans.length) {
-            return null;
-        }
-
-        if (subscriptionFilter.includes(1)) {
-            return prod.plans[0].price;
-        }
-
-        if (subscriptionFilter.includes(2)) {
-            return prod.plans[1].price;
-        }
-
-        if (subscriptionFilter.includes(3)) {
-            return prod.plans[2].price;
-        }
+        return 0;
     }
 
     const handleText = (prod, mobile = false) => {
-        if (!prod.plans.length) {
-            return null;
-        }
+        let product_plan = prod.plans.find(x => x.subscription_plan_id == subscriptionFilter[0]);
 
-        if (subscriptionFilter.includes(1)) {
-            return(
-                 <>
+        if (product_plan) {
+            return (
+                <>
                     <span className={`font-poppins ${!mobile ? 'font-16' : 'font-12'} ${mobile ? 'd-block' : ''} bold color-009BE8 ${!mobile ? 'ml-2' : ''}`}>
                         Al mes c/u
                     </span>
                     <span className={`font-poppins ${!mobile ? 'font-16' : 'font-12'} ${mobile ? 'd-block' : ''} bold color-78d2ff ${!mobile ? 'ml-2' : ''}`}>
-                        (Ahorra un{" "}{Math.round(((prod.price - prod.plans[0].price) / prod.price) * 100)} %)
+                        (Ahorra un{" "}{Math.round(((prod.price - product_plan.price) / prod.price) * 100)} %)
                     </span>
                 </>
             )
         }
 
-        if (subscriptionFilter.includes(2)) {
-            return(
-                 <>
-                    <span className={`font-poppins ${!mobile ? 'font-16' : 'font-12'} ${mobile ? 'd-block' : ''} bold color-009BE8 ${!mobile ? 'ml-2' : ''}`}>
-                        Al mes c/u
-                    </span>
-                    <span className={`font-poppins ${!mobile ? 'font-16' : 'font-12'} ${mobile ? 'd-block' : ''} bold color-78d2ff ${!mobile ? 'ml-2' : ''}`}>
-                        (Ahorra un{" "}{Math.round(((prod.price - prod.plans[1].price) / prod.price) * 100)} %)
-                    </span>
-                </>
-            )
-        }
-
-        if (subscriptionFilter.includes(3)) {
-            return(
-                 <>
-                    <span className={`font-poppins ${!mobile ? 'font-16' : 'font-12'} ${mobile ? 'd-block' : ''} bold color-009BE8 ${!mobile ? 'ml-2' : ''}`}>
-                        Al mes c/u
-                    </span>
-                    <span className={`font-poppins ${!mobile ? 'font-16' : 'font-12'} ${mobile ? 'd-block' : ''} bold color-78d2ff ${!mobile ? 'ml-2' : ''}`}>
-                        (Ahorra un{" "}{Math.round(((prod.price - prod.plans[2].price) / prod.price) * 100)} %)
-                    </span>
-                </>
-            )
-        }
+        return null;
     }
 
     const handleSubscription = (prod) => {
-        if (!prod.plans) {
-            return null;
+        if (prod.plans) {
+            let product_plan = prod.plans.find(x => x.subscription_plan_id == subscriptionFilter[0]);
+
+            if (product_plan) {
+                return product_plan;
+            }
         }
 
-        if (!prod.plans.length) {
-            return null;
-        }
-
-        if (subscriptionFilter.includes(1)) {
-            return prod.plans[0];
-        }
-
-        if (subscriptionFilter.includes(2)) {
-            return prod.plans[1];
-        }
-
-        if (subscriptionFilter.includes(3)) {
-            return prod.plans[2];
-        }
+        return null;
     }
 
     return (

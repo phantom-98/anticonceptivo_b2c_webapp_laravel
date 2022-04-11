@@ -9,19 +9,19 @@ import {Card, Form} from "react-bootstrap";
 import {v4 as uuid} from 'uuid';
 
 const ProductList = ({
-                         category,
-                         products,
-                         subcatNames,
-                         filter,
-                         showFilter,
-                         subscriptions,
-                         filters,
-                         setFilters,
-                         updateFilter,
-                         filterLoading,
-                         search = null,
-                         handleProductOrderBy
-                     }) => {
+    category,
+    products,
+    subcatNames,
+    filter,
+    showFilter,
+    subscriptions,
+    filters,
+    setFilters,
+    updateFilter,
+    filterLoading,
+    search = null,
+    handleProductOrderBy
+}) => {
 
     const [viewCount, setViewCount] = useState(9);
     const [activePage, setActivePage] = useState(1);

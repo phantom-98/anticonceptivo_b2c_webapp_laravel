@@ -15,6 +15,7 @@ class AddPositionToProductSubscriptionPlan extends Migration
     {
         Schema::table('product_subscription_plan', function (Blueprint $table) {
             $table->integer('position')->default(0);
+            $table->string('image')->nullable();
         });
     }
 
@@ -27,6 +28,7 @@ class AddPositionToProductSubscriptionPlan extends Migration
     {
         Schema::table('product_subscription_plan', function (Blueprint $table) {
             $table->dropColumn('position');
+            $table->dropColumn('image');
         });
     }
 }
