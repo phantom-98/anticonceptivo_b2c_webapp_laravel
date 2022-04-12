@@ -72,12 +72,12 @@ class Product extends Model
 
     public function getImagesAttribute(){
         $_images = $this->product_images;
-        if(count($this->product_images) < 6){
-            for ($i= count($this->product_images); $i<6; $i++){
-                $image = new ProductImage(['file' => asset('images/producto-default.png')]);
-                $_images->push($image);
-            }
-        }
+        // if(count($this->product_images) < 6){
+        //     for ($i= count($this->product_images); $i<6; $i++){
+        //         $image = new ProductImage(['file' => asset('images/producto-default.png')]);
+        //         $_images->push($image);
+        //     }
+        // }
 
         return $_images;
     }

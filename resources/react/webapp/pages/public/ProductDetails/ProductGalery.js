@@ -8,16 +8,24 @@ import ProductGaleryMobile from "./ProductGaleryMobile";
 const ProductGallery = ({product, imageSubscription, productImage}) => {
 
     const [imageSelected, setImageSelected] = useState(productImage)
+    const [productImages, setProductImages] = useState(product ? product.images : [])
 
     useEffect(() => {
         if (imageSubscription == null) {
+            setProductImages(product.images);
             setImageSelected (productImage)
-        }
+        }else{
+            let list = [...product.images];
+            list.push(imageSubscription);
+            setProductImages(list);
+            setImageSelected(imageSubscription)
+        }     
     },[imageSubscription])
 
     useEffect(() => {
         setImageSelected(productImage)
     },[productImage])
+    
 
     return (
         <Fragment>
@@ -30,32 +38,22 @@ const ProductGallery = ({product, imageSubscription, productImage}) => {
             </div>
             {/* Desktop */}
             <div className="row responsive-d-none-v2" style={{zIndex: 1000}}>
-                <div className="col-auto mr-0 pr-0" style={{width: '118px'}}>
+                <div className="col-auto mr-0 pr-0" style={{width: '118px', height: '400px', overflowY:'auto'}}>
                     {
-                        product.images.length ?
-                            product.images.map((img, index) => {
-                                if(index<(imageSubscription ?? 0) + 3){
-                                    if(index <= (imageSubscription ?? 0) + 3 && index >= 3 && index != (imageSubscription ?? 0) + 2){
-                                        return;
-                                    }else if(index == (imageSubscription ?? 0) + 2 && imageSubscription != null){
-                                        if(imageSelected != img.public_file){
-                                            setImageSelected(img.public_file)
-                                        }
-                                    }
-
-                                    return (
-                                        <div key={index}
-                                            className="img-box-product-mini mb-3 pointer"
-                                            style={imageSelected === img.public_file ? {boxShadow:'1px 1px 8px -1px #009BE8'} : {}}>
-                                            <img src={img.public_file}
-                                                onMouseEnter={() => setImageSelected(img.public_file)}
-                                                alt={`${CONFIG.APP_NAME} - ${product.name}`}
-                                            />
-                                        </div>
-                                    )
-                                }
-                            })
-                        : null
+                        productImages.map((img, index) => {
+                            let flag = productImages.length == index+1
+                            return (
+                                <div key={index} id={img}
+                                    className={`img-box-product-mini ${!flag ? 'mb-3' : ''} pointer`}
+                                    style={img == imageSelected ? { boxShadow: '1px 1px 8px -1px #009BE8' } : imageSelected == img.public_file ? { boxShadow: '1px 1px 8px -1px #009BE8' } : {}}>
+                                        <img 
+                                            src={img.public_file ? img.public_file : img}
+                                            onMouseEnter={() => setImageSelected(img.public_file ? img.public_file : img)}
+                                            alt={`${CONFIG.APP_NAME} - ${product.name}`}
+                                        />
+                                </div>
+                            )
+                        })
                     }
                 </div>
                 <div className="col">
@@ -78,12 +76,7 @@ const ProductGallery = ({product, imageSubscription, productImage}) => {
                <div className="col-12">
                    <div className="gallery-res-box">
                        <ProductGaleryMobile
-                           images={
-                               !imageSubscription ?
-                                   product.images.slice(0,3) :
-                                   [product.images.slice(3,product.images.length)[imageSubscription-1]]
-                           }
-
+                           images={!imageSubscription ? product.images : imageSubscription}
                        />
                    </div>
                </div>

@@ -1990,7 +1990,7 @@ input[type=number] {
 
 .img-box-product-mini {
   max-width: 103px;
-  height: 103px;
+  max-height: 103px;
 }
 
 .img-box-product-mini img,

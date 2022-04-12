@@ -397,14 +397,15 @@ class ProductController extends Controller
             } else {
                 $valid = false;
             }
-            if (count($product->images) < 6) {
-                for ($i = count($product->images); $i < 6; $i++) {
-                    $image = new ProductImage();
-                    $image->file = asset('images/producto-default.png');
-                    $product->images->push($image);
-                }
+            
+            // if (count($product->images) < 6) {
+            //     for ($i = count($product->images); $i < 6; $i++) {
+            //         $image = new ProductImage();
+            //         $image->file = asset('images/producto-default.png');
+            //         $product->images->push($image);
+            //     }
 
-            }
+            // }
 
             return ApiResponse::JsonSuccess([
                 'product' => $this->addScheduleLabel($product),
