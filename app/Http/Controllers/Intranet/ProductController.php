@@ -198,7 +198,7 @@ class ProductController extends GlobalController
                     $new_plan = new ProductSubscriptionPlan();
                     $new_plan->subscription_plan_id = $plan[0];
                     $new_plan->warnings = $request->warnings[$key][0];
-                    $new_plan->price = $request->price_plan[$key][0];
+                    $new_plan->price = $request->price_plan[$key][0] ? $request->price_plan[$key][0] : 1000;
                     $new_plan->position = $request->position[$key][0];
                     $new_plan->days = $request->days[$key][0] < 7 ? 7 : $request->days[$key][0];
                     $new_plan->product_id = $product->id;
@@ -216,7 +216,7 @@ class ProductController extends GlobalController
 
                     $price = new Price();
                     $price->product_id = $product->id;
-                    $price->price = $request->price_plan[$key][0];
+                    $price->price = $request->price_plan[$key][0] ? $request->price_plan[$key][0] : 1000;
                     $price->subscription_plan_id = $plan[0];
                     $price->save();
 
@@ -371,9 +371,9 @@ class ProductController extends GlobalController
 
                     $new_plan->subscription_plan_id = $plan[0];
                     $new_plan->warnings = $request->warnings[$key][0];
-                    $new_plan->price = $request->price_plan[$key][0];
+                    $new_plan->price = $request->price_plan[$key][0] ? $request->price_plan[$key][0] : 1000;
                     $new_plan->position = $request->position[$key][0];
-                    $new_plan->days = $request->days[$key][0];
+                    $new_plan->days = $request->days[$key][0] < 7 ? 7 : $request->days[$key][0];
                     $new_plan->product_id = $product->id;
                     
                     if ($request->plan_image) {
@@ -395,7 +395,7 @@ class ProductController extends GlobalController
 
                     $price = new Price();
                     $price->product_id = $product->id;
-                    $price->price = $request->price_plan[$key][0];
+                    $price->price = $request->price_plan[$key][0] ? $request->price_plan[$key][0] : 1000;
                     $price->subscription_plan_id = $plan[0];
                     $price->save();
                 }

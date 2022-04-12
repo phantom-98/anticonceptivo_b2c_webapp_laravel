@@ -14,7 +14,7 @@ class AddPositionToProductSubscriptionPlan extends Migration
     public function up()
     {
         Schema::table('product_subscription_plan', function (Blueprint $table) {
-            $table->integer('position')->default(0);
+            $table->integer('position')->nullable()->default(0);
             $table->string('image')->nullable();
         });
     }
