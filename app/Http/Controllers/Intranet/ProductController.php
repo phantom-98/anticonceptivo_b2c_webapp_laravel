@@ -100,7 +100,6 @@ class ProductController extends GlobalController
 
     public function store(Request $request)
     {
-
         $rules = [
             'name' => 'required',
             'sku' => 'required|unique:products,sku',
@@ -258,8 +257,6 @@ class ProductController extends GlobalController
 
     public function update(Request $request, $id)
     {
-
-        // dd($request->all());
         $product = Product::find($id);
         if (!$product) {
             session()->flash('warning', 'Producto no encontrado.');

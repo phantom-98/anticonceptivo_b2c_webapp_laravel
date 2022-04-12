@@ -325,6 +325,7 @@
                         </div>
                         <div class="clearfix"></div>
                         <br/>
+
                         <div class="clone">
                             <div class="col-md-3">
                                 <div class="form-group">
@@ -363,30 +364,36 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="avatar">Imagen</label>
-                                        <div class="image-product">
-                                            <img id="image-product" src="/images/image-default.jpeg">
-                                        </div>
-                                        <input type="file" name="plan_image[1][]"
-                                            class="inputfile form-control image" id="plan_image" accept="image/x-png,image/gif,image/jpeg" />
-                                        <label for="plan_image">Seleccione una imagen</label>
-                                        <span class="help-block" id="label-error-image"></span>
-                                        <div class="link-del" onclick="alert('a')"></div>
+                                <div class="form-group">
+                                    <label for="avatar">Imagen</label>
+                                    <div class="image-product">
+                                        <img class="image-plan" id="image-plan-1" src="/images/image-default.jpeg">
                                     </div>
+                                    <input type="file" 
+                                        name="plan_image[1][]"
+                                        class="inputfile form-control image file-image-plan"
+                                        id="file-image-plan-1"
+                                        accept="image/x-png,image/gif,image/jpeg"
+                                        onchange="inputFileChange(this)"
+                                    />
+                                    <label class="label" for="file-image-plan-1">Seleccione una imagen</label>
+                                    <span class="help-block" id="label-error-image"></span>
+                                    <div class="link-del" id="link-del-1" onclick="deleteImgLoop(this);"></div>
                                 </div>
+                            </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="warnings">Disclaimer</label>
                                     <textarea name="warnings[1][]" class="form-control warnings summernote"></textarea>
                                 </div>
                             </div>
-                            <div class="col-md-12">
+                            <div class="col-md-12 mb-3">
                                 <button class="btn btn-block btn-success" type="button" style="margin-top:22px" onclick="addNewRow()"><i
                                     class="fa fa-plus"></i> Añadir otro plan</button>
                             </div>
                             <div class="clearfix"></div>
                         </div>
+
                         <div class="col-md-12">
                             <div class="row">
                                 <div class="col-md-12" style="font-style: italic;">
@@ -583,6 +590,7 @@
                 };
                 reader.readAsDataURL(input.files[0]);
             }
+
         }
 
         $("#file-image-product").change(function () {
@@ -590,9 +598,33 @@
         });
 
         function deleteImg() {
-            $('#image-product').attr('src', '/img/image-default.jpeg');
+            $('#image-product').attr('src', '/themes/intranet/img/image-default.jpeg');
             $('.link-del').html('');
             $("#file-image-product").val('');
+        }
+
+        function readPlanURL(input) {
+            let slug = input.id.split('file-').pop();
+            let loop = input.id.split('-').pop();
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#'+slug).attr('src', e.target.result);
+                    $('#link-del-'+loop).html($('<i class="fa fa-trash"></i> <span>Eliminar</span>'));
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function inputFileChange(el){
+            readPlanURL(el);
+        }
+
+        function deleteImgLoop(el) {
+            let loop = el.id.split('-').pop();
+            $('#image-plan-'+loop).attr('src', '/themes/intranet/img/image-default.jpeg');
+            $('#link-del-'+loop).html('');
+            $("#file-image-plan-"+loop).val('');
         }
 
     </script>
@@ -625,6 +657,7 @@
         function addNewRow(){
             $(".clone").last().clone().insertAfter("div.clone:last");
             let count = $('.clone').length;
+            console.log('count',count);
             $(".plan_id").last().val("");
             $(".plan_id").last().attr('name', 'plan_id[' + count + '][]');
             $(".plan_id").last().removeAttr("required");
@@ -635,6 +668,14 @@
             $(".price").last().attr('name', 'price_plan[' + count + '][]');
             $(".days").last().val("");
             $(".days").last().attr('name', 'days[' + count + '][]');
+
+            $(".file-image-plan").last().attr('id', 'file-image-plan-'+count);
+            $(".file-image-plan").last().val('');
+            $(".link-del").last().attr('id', 'link-del-'+count);
+            $(".image-plan").last().attr('id', 'image-plan-'+count);
+            $(".image-plan").last().attr('src', '/themes/intranet/img/image-default.jpeg');
+            $(".label").last().attr('for', 'file-image-plan-'+count);
+
             $(".warnings").last().html('');
             $(".note-editor").last().remove();
             $(".warnings").last().attr('name', 'warnings[' + count + '][]');
