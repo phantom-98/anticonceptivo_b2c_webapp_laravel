@@ -5,19 +5,20 @@ import {Accordion, Card} from "react-bootstrap";
 import Icon from "../../../components/general/Icon";
 import fileSvg from "../../../assets/images/icons/file-alt-regular.svg";
 import IsImmediateLabel from "../../../components/shopping/IsImmediateLabel";
+import noImage from "../../../assets/images/producto-default.png";
 
 const ProductInfo = ({product, setImageSubscription}) => {
 
     const [quantity, setQuantity] = useState(1);
     const [subscription, setSubscription] = useState(null);
 
-    const handleSubscription = subscription_plan => {
+    const handleSubscription = (subscription_plan) => {
         if (subscription == null) {
             setSubscription(subscription_plan.subscription_plan);
-            setImageSubscription(subscription_plan.position + 1);
+            setImageSubscription(subscription_plan.subscription_plan.public_image ? subscription_plan.subscription_plan.public_image : noImage);
         } else if (subscription.id != subscription_plan.subscription_plan.id) {
             setSubscription(subscription_plan.subscription_plan);
-            setImageSubscription(subscription_plan.position + 1);
+            setImageSubscription(subscription_plan.subscription_plan.public_image ? subscription_plan.subscription_plan.public_image : noImage);
         } else {
             setSubscription(null);
             setImageSubscription(null);

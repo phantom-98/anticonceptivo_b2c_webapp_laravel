@@ -24,6 +24,10 @@ class ProductSubscriptionPlan extends Model
         'public_image'
     ];
 
+    public function getPublicImageAttribute(){
+        return $this->image == null ? null : \Storage::url($this->image);
+    }
+
     public function product(){
         return $this->belongsTo(Product::class);
     }
@@ -32,8 +36,5 @@ class ProductSubscriptionPlan extends Model
         return $this->belongsTo(SubscriptionPlan::class);
     }
 
-    public function getPublicImageAttribute(){
-        return $this->image == null ? null : \Storage::url($this->image);
-    }
 
 }

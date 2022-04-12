@@ -120,6 +120,7 @@ const ModalSubscription = ({
         let dataForm = {
             customer_id: customerId,
             email: customerEmail,
+            is_profile: true,
         }
 
         Services.DoPost(url, dataForm)
@@ -127,13 +128,9 @@ const ModalSubscription = ({
                 Services.Response({
                     response: response,
                     success: () => {
-
-                        runVerifyPaymentMethod(response.data.id)
-                        changeShowingWaitingPaymentMethod(true);
-                        var win = window.open();
-                        win.document.open();
-                        win.document.write(response.data.webpay);
-                        win.document.close();
+                        console.log(response);
+                        const urlOneClick = response.data.oneclick_data.url + '?TBK_TOKEN=' + response.data.oneclick_data.token
+                        window.location.href = urlOneClick;
                     },
                 });
             })

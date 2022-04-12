@@ -20,18 +20,31 @@ Route::get('product-position-plans', function () {
 
     $count = 1;
     $cursor = null;
+    $cursor_for_imgs = 0;
 
     foreach ($product_subscription_plans as $key => $psp) {
 
         if ($cursor != $psp->product_id) {
             $count = 1;
+            $cursor_for_imgs = 0;
         }
 
+        $product_images = \App\Models\ProductImage::where('product_id',$psp->product_id)->latest();
+
         $psp->position = $count;
+
+        if ($product_images->count() == 6) {
+            $product_images = $product_images->take(3)->get();
+            $psp->image = $product_images[$cursor_for_imgs]->file;
+        }else{
+            $psp->image = null;
+        }
+
         $psp->save();
 
         $cursor = $psp->product_id;
         $count = $count +1;
+        $cursor_for_imgs = $cursor_for_imgs+1;
     }
 
     return true;

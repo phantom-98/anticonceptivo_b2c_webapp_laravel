@@ -282,6 +282,7 @@ class PaySubscriptions extends Command
                     $item->voucher_pdf = $response['pdfUrl'];
                 }
                 $order->voucher_pdf = $response['pdfUrl'];
+                $order->ballot_number = $response['document']['number'] ?? null;
             }
         }
 

@@ -482,8 +482,6 @@ class ProfileController extends Controller
                     ->groupBy('order_parent_id')
                     ->get()->first();
 
-                Log::info('test 3',[$productSubscriptionPlan]);
-
                 return  [
                     'min_date_dispatch' =>  $min_date_dispatch,
                     'subscription_item' => $item,
@@ -495,8 +493,6 @@ class ProfileController extends Controller
                     'advance_end' => intval($advance_end),
                 ];
             });
-
-            Log::info('test 2',[]);
 
             return ApiResponse::JsonSuccess([
                 'subscriptions' => $subscriptionsOrdersItem,

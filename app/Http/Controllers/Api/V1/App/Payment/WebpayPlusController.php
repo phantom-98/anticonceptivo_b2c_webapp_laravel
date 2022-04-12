@@ -82,18 +82,14 @@ class WebpayPlusController
         $product_subscription_plan = ProductSubscriptionPlan::where('product_id', $product_id)
             ->where('subscription_plan_id', $subscription_plan->id)->get()->first();
 
-        if ($price > $product_subscription_plan->price) {
-            return $price;
-        }else{
-            return $product_subscription_plan->price;
-        }
+        return $product_subscription_plan->price;
     }
 
 
     public function createSubscription(Request $request)
     {
         try {
-
+            
             $response = $this->oneclick->createInscription(
                 $request->customer_id,
                 $request->email,
@@ -795,7 +791,6 @@ class WebpayPlusController
         }
 
         return redirect('checkout');
-        //        return view('webapp.payment.webpay-finish');
     }
 
     public function verify(Request $request)

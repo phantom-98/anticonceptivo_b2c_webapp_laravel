@@ -344,11 +344,14 @@ class ProductController extends Controller
 
             $products = $products->orderBy('name')->get();
 
+            $text_delivery_label = DeliveryLabels::where('key','IMMEDIATE')->get()->first();
+
             return ApiResponse::JsonSuccess([
                 'products' => $this->processScheduleList($products),
                 'category' => $categoryFields,
                 'subcategories' => $subcategories,
-                'immediate' => DeliveryLabels::where('key','IMMEDIATE')->get()->first()->label_custom ?? 'Entrega Prioritaria',
+                'immediate' => $text_delivery_label->label_custom ?? 'Entrega Prioritaria',
+                'sub_inmediate' => $text_delivery_label->id == 1 ? $text_delivery_label->sub_label : '',
                 'subcat' => $subcat,
                 'laboratories' => $laboratories,
                 'subscriptions' => $subscriptions,
@@ -394,14 +397,15 @@ class ProductController extends Controller
             } else {
                 $valid = false;
             }
-            if (count($product->images) < 6) {
-                for ($i = count($product->images); $i < 6; $i++) {
-                    $image = new ProductImage();
-                    $image->file = asset('images/producto-default.png');
-                    $product->images->push($image);
-                }
+            
+            // if (count($product->images) < 6) {
+            //     for ($i = count($product->images); $i < 6; $i++) {
+            //         $image = new ProductImage();
+            //         $image->file = asset('images/producto-default.png');
+            //         $product->images->push($image);
+            //     }
 
-            }
+            // }
 
             return ApiResponse::JsonSuccess([
                 'product' => $this->addScheduleLabel($product),

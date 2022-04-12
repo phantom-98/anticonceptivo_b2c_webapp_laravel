@@ -44,7 +44,7 @@
                                             value="{{ old('label_custom') ?? $object->label_custom }}">
                                 </div>
                             </div>
-                            @if($object->id)
+                            @if($object->id == 1)
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="sub_label">Texto en opción carrito</label>

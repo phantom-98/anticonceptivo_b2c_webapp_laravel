@@ -21,13 +21,18 @@ const ProductGaleryMobile = ({images}) => {
     return (
         <Slider {...settings} ref={slider}>
             {
-                images.map(image => {
-                    return (
-                        <div key={uuid()} className="col-12">
-                            <img src={image ? image.public_file : ''} style={{width: '100%'}} alt="anticonceptivo.cl"/>
-                        </div>
-                    )
-                })
+                Array.isArray(images) ?
+                    images.map(image => {
+                        return (
+                            <div key={uuid()} className="col-12">
+                                <img src={image ? image.public_file : ''} style={{width: '100%'}} alt="anticonceptivo.cl"/>
+                            </div>
+                        )
+                    }) 
+                : 
+                    <div key={uuid()} className="col-12">
+                        <img src={images} style={{ width: '100%' }} alt="anticonceptivo.cl" />
+                    </div>
             }
         </Slider>
     );
