@@ -202,6 +202,16 @@ class ProductController extends GlobalController
                     $new_plan->position = $request->position[$key][0];
                     $new_plan->days = $request->days[$key][0] < 7 ? 7 : $request->days[$key][0];
                     $new_plan->product_id = $product->id;
+
+                    if ($request->plan_image) {
+                        $plan_image = array_key_exists($key,$request->plan_image) ? $request->plan_image[$key][0] : null;
+                        if ($plan_image) {
+                            $ext = $plan_image->getClientOriginalExtension();
+                            $filename = rand(1000, 999999) . '.' . $ext;
+                            $new_plan->image = $plan_image->storeAs('public/products/plans', $filename);
+                        }
+                    }
+                    
                     $new_plan->save();
 
                     $price = new Price();
@@ -241,11 +251,14 @@ class ProductController extends GlobalController
         $laboratories = Laboratory::get();
         $consumptions = Product::getEnumColumnValues('products', 'consumption_typology');
 
+
+
         return view($this->folder . 'edit', compact('object', 'subcategories', 'plans', 'laboratories', 'consumptions'));
     }
 
     public function update(Request $request, $id)
     {
+
         // dd($request->all());
         $product = Product::find($id);
         if (!$product) {
@@ -341,23 +354,38 @@ class ProductController extends GlobalController
                 }
             }
 
-            ProductSubscriptionPlan::where('product_id', $product->id)->delete();
-
             foreach ($request->plan_id as $key => $plan) {
                 $plan = array_filter($plan, function ($value) {
                     return !is_null($value) && $value !== '';
                 });
+
                 if ($plan) {
-                    
-                    $new_plan = new ProductSubscriptionPlan();
+                    $find_plan = ProductSubscriptionPlan::where('product_id',$product->id)
+                        ->where('subscription_plan_id', $plan[0])->get()->first();
+
+                    if ($find_plan) {
+                        $new_plan = $find_plan;
+                    }else{
+                        $new_plan = new ProductSubscriptionPlan();
+                    }
+
                     $new_plan->subscription_plan_id = $plan[0];
                     $new_plan->warnings = $request->warnings[$key][0];
                     $new_plan->price = $request->price_plan[$key][0];
                     $new_plan->position = $request->position[$key][0];
                     $new_plan->days = $request->days[$key][0];
                     $new_plan->product_id = $product->id;
+                    
+                    if ($request->plan_image) {
+                        $plan_image = array_key_exists($key,$request->plan_image) ? $request->plan_image[$key][0] : null;
+                        if ($plan_image) {
+                            $ext = $plan_image->getClientOriginalExtension();
+                            $filename = rand(1000, 999999) . '.' . $ext;
+                            $new_plan->image = $plan_image->storeAs('public/products/plans', $filename);
+                        }
+                    }
+                    
                     $new_plan->save();
-
 
                     $lastPrice = Price::where('product_id', $product->id)->where('subscription_plan_id', $plan[0])->latest()->first();
                     if ($lastPrice) {

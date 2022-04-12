@@ -362,7 +362,20 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-12">
+                            <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="avatar">Imagen</label>
+                                        <div class="image-product">
+                                            <img id="image-product" src="/images/image-default.jpeg">
+                                        </div>
+                                        <input type="file" name="plan_image[1][]"
+                                            class="inputfile form-control image" id="plan_image" accept="image/x-png,image/gif,image/jpeg" />
+                                        <label for="plan_image">Seleccione una imagen</label>
+                                        <span class="help-block" id="label-error-image"></span>
+                                        <div class="link-del" onclick="alert('a')"></div>
+                                    </div>
+                                </div>
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="warnings">Disclaimer</label>
                                     <textarea name="warnings[1][]" class="form-control warnings summernote"></textarea>

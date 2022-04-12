@@ -46,7 +46,7 @@
                                             class="inputfile" accept="image/x-png,image/gif,image/jpeg" multiple />
                                         <label for="file-image-product">Seleccione una imagen o más imagenes</label>
                                         <span class="help-block" id="label-error-image"></span>
-                                        <div class="link-del" onclick="deleteImg();"></div>
+                                        <div class="link-del" id="link-del" onclick="deleteImg();"></div>
                                     </div>
                                 </div>
                             </div>
@@ -385,7 +385,21 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="avatar">Imagen</label>
+                                        <div class="image-product">
+                                            <img class="image-plan" id="image-plan-{{$loop->iteration}}" src="{{ $plan->public_image ? $plan->public_image : '/themes/intranet/img/image-default.jpeg' }}">
+                                        </div>
+                                        <input type="file" name="plan_image[{{$loop->iteration}}][]" id="file-image-plan-{{$loop->iteration}}"
+                                            class="inputfile form-control image file-image-plan" accept="image/x-png,image/gif,image/jpeg" />
+                                        <label for="file-image-plan-{{$loop->iteration}}">Seleccione una imagen</label>
+                                        <span class="help-block" id="label-error-image"></span>
+                                        <div class="link-del" id="link-del-{{$loop->iteration}}" onclick="deleteImgLoop({{$loop->iteration}});"></div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="warnings">Disclaimer</label>
                                         <textarea name="warnings[{{$loop->iteration}}][]" class="form-control warnings summernote">{!! $plan->warnings !!}</textarea>
@@ -442,7 +456,20 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-12">
+                                 <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="avatar">Imagen</label>
+                                        <div class="image-product">
+                                            <img id="image-plan" src="/images/image-default.jpeg">
+                                        </div>
+                                        <input type="file" name="plan_image[1][]" class="inputfile form-control image" id="plan_image" accept="image/x-png,image/gif,image/jpeg" />
+                                        <label for="plan_image">Seleccione una imagen</label>
+                                        <span class="help-block" id="label-error-image"></span>
+                                        <div class="link-del" onclick="deleteImgLoop(1);"></div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="warnings">Disclaimer</label>
                                         <textarea type="text" name="warnings[1][]" class="form-control warnings summernote"></textarea>
@@ -623,6 +650,9 @@
             $(".price").last().attr('name', 'price_plan[' + count + '][]');
             $(".days").last().val("");
             $(".days").last().attr('name', 'days[' + count + '][]');
+            $(".plan_image").last().val("");
+            $(".plan_image").last().attr('name', 'plan_image[' + count + '][]');
+            $(".plan_image").last().removeAttr("required");
             $(".warnings").last().html('');
             $(".note-editor").last().remove();
             $(".warnings").last().attr('name', 'warnings[' + count + '][]');
@@ -685,7 +715,7 @@
                 var reader = new FileReader();
                 reader.onload = function (e) {
                     $('#image-product').attr('src', e.target.result);
-                    $('.link-del').html($('<i class="fa fa-trash"></i> <span>Eliminar</span>'));
+                    $('#link-del').html($('<i class="fa fa-trash"></i> <span>Eliminar</span>'));
                 };
                 reader.readAsDataURL(input.files[0]);
             }
@@ -694,14 +724,49 @@
         $("#file-image-product").change(function () {
             readURL(this);
         });
-
+        
         function deleteImg() {
-            $('#image-product').attr('src', '/img/image-default.jpeg');
-            $('.link-del').html('');
+            $('#image-product').attr('src', '/themes/intranet/img/image-default.jpeg');
+            $('#link-del').html('');
             $("#file-image-product").val('');
         }
 
+        // var img_plans = document.getElementsByClassName("image-plan");
+        // var file_plans = document.getElementsByClassName("file-image-plan");
+
+        // for (var i = 0; i < file_plans.length; i++) {
+            // console.log('img plan',img_plans.item(i));
+            // console.log('file plan',file_plans.item(i));
+
+            // $("#"+file_plans.item(i).id).change(function () {
+            //     Test(this, img_plans.item(i).id);
+            // });
+        // }
+
+        function readPlanURL(input) {
+            let slug = input.id.split('file-').pop();
+            let loop = input.id.split('-').pop();
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#'+slug).attr('src', e.target.result);
+                    $('#link-del-'+loop).html($('<i class="fa fa-trash"></i> <span>Eliminar</span>'));
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $(".file-image-plan").change(function () {
+            readPlanURL(this);
+        });
+
+        function deleteImgLoop(loop) {
+            $('#image-plan-'+loop).attr('src', '/themes/intranet/img/image-default.jpeg');
+            $('#link-del-'+loop).html('');
+            $("#file-image-plan-"+loop).val('');
+        }
     </script>
+
     <script>
         $(document).ready(function(){
             $(".amount").keyup(function () {
