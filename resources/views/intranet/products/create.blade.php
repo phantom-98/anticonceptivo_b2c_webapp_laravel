@@ -671,6 +671,7 @@
 
             $(".file-image-plan").last().attr('id', 'file-image-plan-'+count);
             $(".file-image-plan").last().val('');
+            $(".file-image-plan").last().attr('name','plan_image['+count+'][]');
             $(".link-del").last().attr('id', 'link-del-'+count);
             $(".image-plan").last().attr('id', 'image-plan-'+count);
             $(".image-plan").last().attr('src', '/themes/intranet/img/image-default.jpeg');

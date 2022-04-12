@@ -385,7 +385,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-6">
+                                {{-- <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="avatar">Imagen</label>
                                         <div class="image-product">
@@ -393,9 +393,28 @@
                                         </div>
                                         <input type="file" name="plan_image[{{$loop->iteration}}][]" id="file-image-plan-{{$loop->iteration}}"
                                             class="inputfile form-control image file-image-plan" accept="image/x-png,image/gif,image/jpeg" />
-                                        <label for="file-image-plan-{{$loop->iteration}}">Seleccione una imagen</label>
+                                        <label class="label" for="file-image-plan-{{$loop->iteration}}">Seleccione una imagen</label>
                                         <span class="help-block" id="label-error-image"></span>
                                         <div class="link-del" id="link-del-{{$loop->iteration}}" onclick="deleteImgLoop({{$loop->iteration}});"></div>
+                                    </div>
+                                </div> --}}
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="avatar">Imagen</label>
+                                        <div class="image-product">
+                                            <img class="image-plan" id="image-plan-{{$loop->iteration}}" src="{{ $plan->public_image ? $plan->public_image : '/themes/intranet/img/image-default.jpeg' }}">
+                                        </div>
+                                        <input type="file" 
+                                            name="plan_image[{{$loop->iteration}}][]"
+                                            class="inputfile form-control image file-image-plan"
+                                            id="file-image-plan-{{$loop->iteration}}"
+                                            accept="image/x-png,image/gif,image/jpeg"
+                                            onchange="inputFileChange(this)"
+                                        />
+                                        <label class="label" for="file-image-plan-{{$loop->iteration}}">Seleccione una imagen</label>
+                                        <span class="help-block" id="label-error-image"></span>
+                                        <div class="link-del" id="link-del-{{$loop->iteration}}" onclick="deleteImgLoopStatic(this);"></div>
                                     </div>
                                 </div>
 
@@ -407,7 +426,7 @@
                                 </div>
 
                                 <div class="col-md-12">
-                                    <button class="btn btn-block btn-success" type="button" style="margin-top:22px" onclick="addNewRow()"><i
+                                    <button class="btn btn-block btn-success" type="button" style="margin-top:22px" onclick="addNewRowStatic()"><i
                                         class="fa fa-plus"></i> Añadir otro plan</button>
                                 </div>
                                 
@@ -643,48 +662,9 @@
     </script>
 
     <script>
-        function addNewRow(){
+        function addNewRowStatic(){
             $(".clone").last().clone().insertAfter("div.clone:last");
             let count = $('.clone').length;
-            $(".plan_id").last().val("");
-            $(".plan_id").last().attr('name', 'plan_id[' + count + '][]');
-            $(".plan_id").last().removeAttr("required");
-            $(".position").last().val("");
-            $(".position").last().attr('name', 'position[' + count + '][]');
-            $(".position").last().removeAttr("required");
-            $(".price").last().val("");
-            $(".price").last().attr('name', 'price_plan[' + count + '][]');
-            $(".days").last().val("");
-            $(".days").last().attr('name', 'days[' + count + '][]');
-            $(".image-plan").last().attr('src', '/themes/intranet/img/image-default.jpeg');
-            $(".file-image-plan").last().val('');
-            $(".plan_image").last().val("");
-            $(".plan_image").last().attr('name', 'plan_image[' + count + '][]');
-            $(".plan_image").last().removeAttr("required");
-            $(".warnings").last().html('');
-            $(".note-editor").last().remove();
-            $(".warnings").last().attr('name', 'warnings[' + count + '][]');
-            $(".warnings").last().removeAttr("required");
-            let object = $(".warnings").last();
-            $(object).summernote({
-
-                height: 100,
-                callbacks: {
-                    onFocus: function (contents) {
-                        if($(object).summernote('isEmpty')){
-                            $(object).html('');
-                        }
-                    }
-                }
-            })
-            $(object).summernote('reset');
-
-        }
-
-        function addNewRowStatic(){
-             $(".clone").last().clone().insertAfter("div.clone:last");
-            let count = $('.clone').length;
-            console.log('count',count);
             $(".plan_id").last().val("");
             $(".plan_id").last().attr('name', 'plan_id[' + count + '][]');
             $(".plan_id").last().removeAttr("required");
@@ -698,6 +678,7 @@
 
             $(".file-image-plan").last().attr('id', 'file-image-plan-'+count);
             $(".file-image-plan").last().val('');
+            $(".file-image-plan").last().attr('name','plan_image['+count+'][]');
             $(".link-del").last().attr('id', 'link-del-'+count);
             $(".image-plan").last().attr('id', 'image-plan-'+count);
             $(".image-plan").last().attr('src', '/themes/intranet/img/image-default.jpeg');
