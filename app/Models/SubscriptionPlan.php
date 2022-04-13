@@ -8,6 +8,7 @@ class SubscriptionPlan extends Model
 {
     protected $fillable = [
         'months',
+        'cicles',
         'active'
     ];
 

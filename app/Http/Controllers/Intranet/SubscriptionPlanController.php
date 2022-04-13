@@ -43,10 +43,12 @@ class SubscriptionPlanController extends GlobalController
     {
         $rules = [
             'months' => 'required|unique:subscription_plans,months',
+            'cicles' => 'required|unique:subscription_plans,cicles',
         ];
 
         $messages = [
-            'months.required' => 'El campo cantidad de meses es obligatorio.'
+            'months.required' => 'El campo cantidad de meses es obligatorio.',
+            'cicles.required' => 'El campo cantidad de ciclos es obligatorio.'
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
@@ -93,7 +95,8 @@ class SubscriptionPlanController extends GlobalController
         }
 
         $rules = [
-            'months' => 'required|unique:subscription_plans,months,' . $id
+            'months' => 'required|unique:subscription_plans,months,' . $id,
+            'cicles' => 'required|unique:subscription_plans,cicles,' . $id
         ];
 
         $messages = [

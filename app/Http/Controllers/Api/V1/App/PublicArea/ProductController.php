@@ -132,7 +132,7 @@ class ProductController extends Controller
 
             $subscriptions = SubscriptionPlan::whereIn('id', ProductSubscriptionPlan::whereIn('product_id', $productIds)
                 ->get()->unique('subscription_plan_id')->pluck('subscription_plan_id'))
-                ->where('active', true)->select(['id', 'months'])->get();
+                ->where('active', true)->select(['id', 'months','cicles'])->get();
 
 
             return ApiResponse::JsonSuccess([
@@ -279,7 +279,7 @@ class ProductController extends Controller
 
             $subscriptions = SubscriptionPlan::whereIn('id', ProductSubscriptionPlan::whereIn('product_id', $productIds)
                 ->get()->unique('subscription_plan_id')->pluck('subscription_plan_id'))
-                ->where('active', true)->select(['id', 'months'])->orderBy('months')->get();
+                ->where('active', true)->select(['id', 'months','cicles'])->orderBy('months')->get();
 
             $laboratories = Laboratory::whereIn('id', $laboratoryIds)->where('active', true)->get();
 
