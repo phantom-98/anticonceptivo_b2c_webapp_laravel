@@ -15,6 +15,17 @@ use Illuminate\Support\Facades\Log;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('subscriptions-plans-cicles', function () {
+    $subscription_plans = \App\Models\SubscriptionPlan::get();
+
+    foreach ($subscription_plans as $key => $sp) {
+        $sp->cicles = $sp->months == 13 ? 12 : $sp->months;
+        $sp->save(); 
+    }
+
+    return true;
+});
+
 Route::get('product-position-plans', function () {
     $product_subscription_plans = \App\Models\ProductSubscriptionPlan::with(['subscription_plan'])->get();
 
