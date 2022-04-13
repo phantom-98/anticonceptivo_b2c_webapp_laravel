@@ -42,6 +42,7 @@
                         <thead>
                         <tr>
                             <th data-sortable="true" data-cell-style="cellStyle"  data-valign="middle">Planes</th>
+                            <th data-sortable="true" data-cell-style="cellStyle"  data-valign="middle">Meses</th>
                             @if($config['action']['changeStatus'])
                             <th data-cell-style="cellStyle" data-sortable="true">Estado</th>
                             @endif
@@ -60,6 +61,7 @@
                             @foreach($objects as $object)
                                 <tr>
                                     <td>{{ $object->months }}</td>
+                                    <td>{{ $object->cicles }}</td>
                                     @if($config['action']['changeStatus'])
                                     @include('intranet.template.components._crud_html_change_status')
                                     @endif

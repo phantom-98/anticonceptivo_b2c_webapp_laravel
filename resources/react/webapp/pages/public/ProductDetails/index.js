@@ -13,6 +13,7 @@ import Bioequivalent from "../../../assets/images/icons/bioequivalence.png"
 import {capitalizeFirstLetterOfEachWord} from "../../../helpers/GlobalUtils";
 import { AppContext } from "../../../context/AppProvider";
 import {BREAKPOINTS} from "../../../helpers/vars";
+import noImage from "../../../assets/images/producto-default.png";
 
 const ProductDetail = ({match}) => {
     const {breakpoint} = useContext(AppContext)
@@ -53,6 +54,7 @@ const ProductDetail = ({match}) => {
     }, [match])
 
     const getData = () => {
+        setLoading(true);
         let url = Services.ENDPOINT.NO_AUTH.PRODUCT_BY_SLUG.GET;
         let data = {
             product_slug: match.params.slug
@@ -89,8 +91,12 @@ const ProductDetail = ({match}) => {
 
                     <div className="row product-separator">
                         <div className="col-md-6">
-                            <ProductGallery product={product} imageSubscription={imageSubscription}
-                                            productImage={product.images[0].public_file}/>
+                            <ProductGallery 
+                                product={product} 
+                                imageSubscription={imageSubscription}
+                                productImage={product.images.length ? product.images[0].public_file : noImage} 
+                                hasImages={product.images.length}
+                            />
                         </div>
                         <div className="col-md-6 mt-4">
                             <ProductInfo product={product} setImageSubscription={setImageSubscription}/>

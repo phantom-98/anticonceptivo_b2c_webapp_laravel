@@ -57,7 +57,7 @@ const PillsMenuMobile = ({laboratories, subscriptions, formats, categorySlug, hi
                                             <Link onClick={hideMenu} to={subscriptionUrl}
                                                   style={{textDecoration: 'none'}}>
                                                 <span
-                                                    className="item-menu-cat-third my-1 text-black my-auto d-block">{subscription.months == 13 ? 12 : subscription.months} Meses / {subscription.months} Ciclos</span>
+                                                    className="item-menu-cat-third my-1 text-black my-auto d-block">{subscription.cicles} Meses / {subscription.months} Ciclos</span>
                                             </Link>
                                         </li>
 

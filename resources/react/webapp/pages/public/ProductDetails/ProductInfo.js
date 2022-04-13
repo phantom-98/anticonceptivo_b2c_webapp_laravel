@@ -162,6 +162,7 @@ const ProductInfo = ({product, setImageSubscription}) => {
 
                                                                 const isActive = subscription == item;
                                                                 const month = item.subscription_plan.months;
+                                                                const cicle = item.subscription_plan.cicles;
 
                                                                 return <button
                                                                     className={`btn btn-outline-primary btn-months mr-1 subscription-button-margin ${isActive ? 'focus' : ''}`}
@@ -171,7 +172,7 @@ const ProductInfo = ({product, setImageSubscription}) => {
                                                                             position: index
                                                                         })}>
                                                                     <span className="textPlansProduct">
-                                                                         {month == 13 ? 12 : month} Meses / {month} Ciclos
+                                                                        {cicle} Meses / {month} Ciclos
                                                                     </span>
                                                                 </button>
                                                             }

@@ -158,8 +158,7 @@ const ProductList = ({
                                             }
                                         }}
                                     >
-                                        {subscription.months == 13 ? 12 : subscription.months} Meses
-                                        / {subscription.months} Ciclos
+                                        {subscription.cicles} Meses / {subscription.months} Ciclos
                                     </div>
                                 )
                             })

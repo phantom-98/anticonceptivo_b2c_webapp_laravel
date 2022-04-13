@@ -50,7 +50,7 @@ const SubscriptionFilter = ({subscriptions, filters, setFilters, filtersUpdate, 
 
             return <Form.Check
                 custom
-                label={<span className="font-poppins font-12 text-black my-auto">{subscription.months == 13 ? 12 : subscription.months} Meses / {subscription.months} Ciclos{/* <span className="color-D8D8D8">({subscription.total})</span> */}</span>}
+                label={<span className="font-poppins font-12 text-black my-auto">{subscription.cicles} Meses / {subscription.months} Ciclos</span>}
                 type="checkbox"
                 name={"subscription-custom-checkbox"}
                 checked={filters.subscriptions.includes(subscription.id)}

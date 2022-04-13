@@ -4,15 +4,16 @@ import {
   SideBySideMagnifier
 } from "react-image-magnifiers";
 import ProductGaleryMobile from "./ProductGaleryMobile";
+import noImage from "../../../assets/images/producto-default.png";
 
-const ProductGallery = ({product, imageSubscription, productImage}) => {
+const ProductGallery = ({product, imageSubscription, productImage, hasImages}) => {
 
     const [imageSelected, setImageSelected] = useState(productImage)
-    const [productImages, setProductImages] = useState(product ? product.images : [])
+    const [productImages, setProductImages] = useState(hasImages ? product.images : [noImage]);
 
     useEffect(() => {
         if (imageSubscription == null) {
-            setProductImages(product.images);
+            setProductImages(hasImages ? product.images : [noImage]);
             setImageSelected (productImage)
         }else{
             let list = [...product.images];
@@ -23,9 +24,9 @@ const ProductGallery = ({product, imageSubscription, productImage}) => {
     },[imageSubscription])
 
     useEffect(() => {
+        setProductImages(hasImages ? product.images : [noImage]);
         setImageSelected(productImage)
     },[productImage])
-    
 
     return (
         <Fragment>

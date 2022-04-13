@@ -1,15 +1,13 @@
-import React, {Fragment, useContext, useState} from 'react';
+import React, {Fragment, useContext} from 'react';
 import FormPersonalData from "../../private/Account/sections/PersonalInfo/FormPersonalData";
 import {setInputError, setCleanInputErrorById} from "../../../helpers/GlobalUtils";
 import RutValidator from "w2-rut-validator";
 import {Form} from "react-bootstrap";
-import {AuthContext} from "../../../context/AuthProvider";
-import {Accordion, Card, InputGroup} from "react-bootstrap";
 import {CartContext} from "../../../context/CartProvider";
-import {formatMoney} from "../../../helpers/GlobalUtils";
 import {CONFIG} from "../../../Config";
 import {v4 as uuidv4} from 'uuid';
 import recipeBlue from '../../../assets/images/icons/recipe-blue.svg'
+import noImage from "../../../assets/images/producto-default.png";
 
 const UserForm = ({
                       setView,
@@ -269,7 +267,7 @@ const UserForm = ({
                                                                     <div className="col-auto pr-0">
                                                                         <img alt={CONFIG.APP_NAME}
                                                                              style={{height: '38px'}}
-                                                                             src={item.product.images ? item.product.images[0].public_file : null}/>
+                                                                            src={item.product.images.length ? item.product.images[0].public_file : noImage}/>
                                                                     </div>
                                                                     <div className="col d-flex">
                                                                         <div

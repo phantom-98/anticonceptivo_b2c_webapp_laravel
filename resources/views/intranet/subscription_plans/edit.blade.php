@@ -30,13 +30,20 @@
                 <div class="panel">
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-3">
                                 <div class="form-group">
-                                    <label for="months">Planes (*)</label>
+                                    <label for="months">Plan (*)</label>
                                     <input type="number" id="months" name="months" class="form-control" min="1" max="999999"
                                            value="{{ old('months') ?? $object->months }}" onkeypress="return isNumberKey(event)">
                                 </div>
                             </div>    
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="cicles">Meses (*)</label>
+                                    <input type="number" id="cicles" name="cicles" class="form-control" min="2" max="999999"
+                                           value="{{ old('cicles') ?? $object->cicles }}" onkeypress="return isNumberKey(event)">
+                                </div>
+                            </div> 
                         </div>
                     </div>
                     <div class="panel-footer">

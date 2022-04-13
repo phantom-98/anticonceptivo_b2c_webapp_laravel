@@ -10,6 +10,7 @@ use App\Models\Subcategory;
 use App\Packages\InnovaSEO;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
 
 class SEOController extends Controller
 {
@@ -99,7 +100,9 @@ class SEOController extends Controller
 
         if ($product) {
 
-            $image = env('APP_URL') . Storage::url($product->images[0]->file);
+            $image = ($product->images->count() ? env('APP_URL') . Storage::url($product->images[0]->file) : asset('images/producto-default.png'));
+
+            Log::info('testing',[$image]);
 
             $this->seo->setTitle($product->name);
             $this->seo->setDescription(strip_tags($product->description) . ' ' . strip_tags($product->benefits) . ' ' . strip_tags($product->data_sheet) . ' ' . strip_tags($product->unit_format) . ' ' . strip_tags($product->state_of_matter));
