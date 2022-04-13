@@ -10,11 +10,11 @@ import {registerLocale} from "react-datepicker";
 import ModalDispatchDate from "./ModalDispatchDate";
 import ModalAddress from "./ModalAddress";
 import ModalSubscription from "./ModalSubscription";
-import { BREAKPOINTS } from "../../../../../helpers/vars";
 import { formatMoney, changeMonthToSpanish} from "../../../../../helpers/GlobalUtils";
 import moment from "moment";
 import es from 'date-fns/locale/es';
 import LazyLoading from "../../../../../components/LazyLoading";
+import noImage from "../../../../../assets/images/producto-default.png";
 
 registerLocale('es', es)
 
@@ -314,7 +314,7 @@ const SubscriptionCard = ({
                                         <div className="row mr-1 ml-1">
                                             <div className="col d-flex flex-row pr-0">
                                                 <img height={48}
-                                                    src={item.subscription_item.order_item.product.images[0].public_file}
+                                                    src={item.subscription_item.order_item.product.images.length ? item.subscription_item.order_item.product.images[0].public_file : noImage}
                                                     alt={`${CONFIG.APP_NAME} - ${item.subscription_item.order_item.product.name}`}/>
                                                 <div
                                                     className="ml-3 product-card-name text-truncate p-0"

@@ -70,7 +70,7 @@ const ProductCard = ({product, className = '', subscriptionFilter = []}) => {
                 <div className="product-card-image">
                     <Link to={(PUBLIC_ROUTES.PRODUCT_DETAIL.path).replace(':slug?', product.slug)}
                           style={{textDecoration: 'none', color: '#000000'}}>
-                        <img src={subscriptionFilter.length ? handleSubscriptionImage(product) : product.images[0].public_file} alt={`${CONFIG.APP_NAME} - ${product.name}`}/>
+                        <img src={subscriptionFilter.length ? handleSubscriptionImage(product) : product.images.length ? product.images[0].public_file : noImage} alt={`${CONFIG.APP_NAME} - ${product.name}`}/>
                     </Link>
                 </div>
                 <div className="product-card-body">
@@ -116,7 +116,7 @@ const ProductCard = ({product, className = '', subscriptionFilter = []}) => {
                     <div className="col-12 text-center">
                         <Link to={(PUBLIC_ROUTES.PRODUCT_DETAIL.path).replace(':slug?', product.slug)}
                               style={{textDecoration: 'none', color: '#000000'}}>
-                            <img className="mobile-producto-img mb-2" src={subscriptionFilter.length ? handleSubscriptionImage(product) : product.images[0].public_file} alt={`${CONFIG.APP_NAME} - ${product.name}`}/>
+                            <img className="mobile-producto-img mb-2" src={subscriptionFilter.length ? handleSubscriptionImage(product) : product.images.length ? product.images[0].public_file : noImage} alt={`${CONFIG.APP_NAME} - ${product.name}`}/>
                         </Link>
                     </div>
                     <div className="col-12">

@@ -6,6 +6,7 @@ import {CONFIG} from "../../../Config";
 import {formatMoney} from "../../../helpers/GlobalUtils";
 import searchWhiteThin from "../../../assets/images/icons/header/search-white-thin.svg"
 import Icon from "../../../components/general/Icon";
+import noImage from "../../../assets/images/producto-default.png";
 
 const Search = ({hideModal}) => {
     const [search, setSearch] = useState('');
@@ -131,7 +132,7 @@ const Search = ({hideModal}) => {
                                             <Link onClick={hideModal} to={(PUBLIC_ROUTES.PRODUCT_DETAIL.path).replace(':slug?', product.slug)} style={{textDecoration: 'none', color: '#000000'}}>
                                                 <div className="row mt-2 px-0">
                                                     <div className="col-3 text-center" style={{alignSelf: 'center'}}>
-                                                        <img style={{width:45, height:45}} src={product.images.length ? product.images[0].public_file : null} alt={`${CONFIG.APP_NAME} - ${product.name}`}/>
+                                                        <img style={{width:45, height:45}} src={product.images.length ? product.images[0].public_file : noImage} alt={`${CONFIG.APP_NAME} - ${product.name}`}/>
                                                     </div>
                                                     <div className="col-9">
                                                         <div className="row">

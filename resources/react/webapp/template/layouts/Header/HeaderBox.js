@@ -17,6 +17,7 @@ import TotalCartItems from "../../../components/shopping/TotalCartItems";
 import * as Services from "../../../Services";
 import {CONFIG} from "../../../Config";
 import {formatMoney} from "../../../helpers/GlobalUtils";
+import noImage from "../../../assets/images/producto-default.png";
 
 const HeaderBox = () => {
 
@@ -175,7 +176,7 @@ const HeaderBox = () => {
                                                         <div className="row mt-2 px-0 mx-0">
                                                             <div className="col-2 text-center">
                                                                 <img style={{width: 50, height: 50}}
-                                                                     src={product.images.length ? product.images[0].public_file : null}
+                                                                     src={product.images.length ? product.images[0].public_file : noImage}
                                                                      alt={`${CONFIG.APP_NAME} - ${product.name}`}/>
                                                             </div>
                                                             <div className="col-8 mr-auto" style={{alignSelf: 'center'}}>

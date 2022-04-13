@@ -21,21 +21,25 @@ Route::get('product-position-plans', function () {
     $count = 1;
     $cursor = null;
     $cursor_for_imgs = 0;
+    $p_images = null;
 
     foreach ($product_subscription_plans as $key => $psp) {
-
-        if ($cursor != $psp->product_id) {
+        if ($cursor != $psp->product_id && $key != 0) {
             $count = 1;
             $cursor_for_imgs = 0;
+            if ($p_images) {
+                \App\Models\ProductImage::whereIn('id', $p_images)->delete();
+                $p_images = null;
+            }
         }
 
-        $product_images = \App\Models\ProductImage::where('product_id',$psp->product_id)->latest();
-
+        $product_images = \App\Models\ProductImage::where('product_id',$psp->product_id)->orderBy('position','desc');
         $psp->position = $count;
 
         if ($product_images->count() == 6) {
-            $product_images = $product_images->take(3)->get();
-            $psp->image = $product_images[$cursor_for_imgs]->file;
+            $p_images = $product_images->take(3)->pluck('id');
+            $product_images = array_reverse($product_images->take(3)->get()->toArray());
+            $psp->image = $product_images[$cursor_for_imgs]['file'];
         }else{
             $psp->image = null;
         }
@@ -45,6 +49,10 @@ Route::get('product-position-plans', function () {
         $cursor = $psp->product_id;
         $count = $count +1;
         $cursor_for_imgs = $cursor_for_imgs+1;
+    }
+
+    if ($p_images) {
+        \App\Models\ProductImage::whereIn('id', $p_images->pluck('id'))->delete();
     }
 
     return true;

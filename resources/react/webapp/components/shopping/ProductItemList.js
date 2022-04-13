@@ -5,6 +5,7 @@ import Icon from "../general/Icon";
 import iconRemove from "../../assets/images/icons/remove-mini-cart.svg";
 import {CartContext} from "../../context/CartProvider";
 import QuantityInput from "./QuantityInput";
+import noImage from "../../assets/images/producto-default.png";
 
 const ProductItemList = ({item}) => {
 
@@ -21,7 +22,7 @@ const ProductItemList = ({item}) => {
             <div className="row">
                 <div className="col-auto pr-0 d-flex">
                     <img className="my-auto"
-                         src={item.product.images ? item.product.images[0].public_file : null}
+                         src={item.product.images.length ? item.product.images[0].public_file : noImage}
                          alt={CONFIG.APP_NAME}
                          style={{width: '77px'}}/>
                 </div>
