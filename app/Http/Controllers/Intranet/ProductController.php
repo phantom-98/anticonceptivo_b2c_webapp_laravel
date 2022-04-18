@@ -105,6 +105,7 @@ class ProductController extends GlobalController
             'sku' => 'required|unique:products,sku',
             'price' => 'required|numeric',
             'subcategory_id' => 'required',
+            'barcode' => 'required',
             'laboratory_id' => 'required'
         ];
 
@@ -115,7 +116,8 @@ class ProductController extends GlobalController
             'price.numeric' => 'El precio del producto debe ser un valor númerico',
             'subcategory_id.required' => 'La subcategoría de producto es requerida',
             'laboratory_id.required' => 'El laboratorio de producto es requerido',
-            'image.required' => 'La imagen del producto es requerida'
+            'image.required' => 'La imagen del producto es requerida',
+            'barcode.required' => 'El código de barras es requerido'
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
@@ -266,6 +268,7 @@ class ProductController extends GlobalController
         $rules = [
             'name' => 'required',
             'sku' => 'required|unique:products,sku,' . $id,
+            'barcode' => 'required',
             'price' => 'required|numeric',
             'subcategory_id' => 'required',
             'laboratory_id' => 'required',
@@ -278,6 +281,7 @@ class ProductController extends GlobalController
             'price.numeric' => 'El precio del producto debe ser un valor númerico',
             'laboratory_id.required' => 'El laboratorio de producto es requerido',
             'subcategory_id.required' => 'La subcategoría de producto es requerida',
+            'barcode.required' => 'El código de barras es requerido'
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
