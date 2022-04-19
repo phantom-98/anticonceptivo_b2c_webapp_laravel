@@ -210,6 +210,9 @@ if (env('SHOW_INTRANET', 'TRUE') == 'TRUE') {
                 Route::post('campos-anidados/remove-question', 'NestedFieldController@removeQuestion')->name('nested-fields.removeQuestion');
                 Route::resource('campos-anidados', 'NestedFieldController', ['names' => getResourceRoutesForNameHelper('nested-fields')]);
 
+
+                Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);
+
             });
 
         });

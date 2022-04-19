@@ -20,6 +20,7 @@
         "laravelcollective/html": "^6.2",
         "maatwebsite/excel": "^3.1",
         "pusher/pusher-php-server": "^4.1",
+        "rap2hpoutre/laravel-log-viewer": "^2.2",
         "sendgrid/sendgrid": "^7.9",
         "spatie/laravel-permission": "^4.0",
         "willywes/apiresponse": "^1.4"
