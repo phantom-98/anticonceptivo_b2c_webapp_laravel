@@ -42,9 +42,6 @@ class UpdateStock extends Command
      */
     public function handle(): void
     {
-
-        Log::info('Stock iniciado');
-
         $errorsEmail = [];
         $products =[];
 

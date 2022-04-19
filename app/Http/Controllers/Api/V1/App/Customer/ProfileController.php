@@ -1013,7 +1013,6 @@ class ProfileController extends Controller
 
                     } else {
                         Log::info('SENDGRID CONTACT FORM FALLIDO');
-                        Log::info($response->statusCode());
                         return ApiResponse::JsonError(null, 'Ha ocurrido un error al enviar el mensaje por favor inténtelo de nuevo más tarde.');
                     }
 

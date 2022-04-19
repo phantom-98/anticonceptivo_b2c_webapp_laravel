@@ -57,7 +57,6 @@ class VoucherPaymentDays extends Command
     public function handle()
     {
         try{
-            Log::info('Paso 1');
             $datePayment = Carbon::now()->subDay();
 
             $dayPaymentExists = DayPayment::whereDate('date_payment', Carbon::parse($datePayment)->format('Y-m-d'))->first();
@@ -83,7 +82,6 @@ class VoucherPaymentDays extends Command
             $commission = $paymentCommission->commission;
 
             foreach ($orders as $order) {
-                Log::info('Paso 2');
                 $total_order = round($order->total * ($commission/100));
                 $detail = [
                     "netUnitValue"=> $total_order / 1.19,
@@ -110,7 +108,6 @@ class VoucherPaymentDays extends Command
             $prev_pay_date = null;
 
             foreach ($subscriptions_orders_items as $key => $subscription_order_item) {
-                Log::info('Paso 3');
                 $order = Order::where('id',$subscription_order_item->order_id)
                 ->whereDate('created_at','>=',Carbon::parse( $subscription_order_item->pay_date)->subDay())->get()->first();
 
@@ -132,7 +129,6 @@ class VoucherPaymentDays extends Command
                 array_push($details, $detail);
                 $total += round($subscription_order_item->order_item->price * ($commission/100));
             }
-            Log::info('Paso 4');
             $data_voucher = array(
                 "codeSii"=> 33,
                 "officeId"=> 1,
@@ -159,14 +155,11 @@ class VoucherPaymentDays extends Command
             }
             $get_data = ApiHelper::callAPI('POST', 'https://api.bsale.cl/v1/documents.json', json_encode($data_voucher), true);
             $response = json_decode($get_data, true);
-            Log::info($response);
             $dayPayment = new DayPayment();
             $dayPayment->url_pdf = $response['urlPdf'];
             $dayPayment->date_payment = Carbon::parse($datePayment)->format('Y-m-d');
             $dayPayment->total = $total;
             $dayPayment->save();
-
-            Log::info('Paso 5');
 
             $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
             $html = view('emails.send-voucher', ['url_pdf' => $dayPayment->url_pdf, 'name' => 'Equipo Anticonceptivo'])->render();
