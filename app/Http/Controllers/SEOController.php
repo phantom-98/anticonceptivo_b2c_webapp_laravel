@@ -102,8 +102,6 @@ class SEOController extends Controller
 
             $image = ($product->images->count() ? env('APP_URL') . Storage::url($product->images[0]->file) : asset('images/producto-default.png'));
 
-            Log::info('testing',[$image]);
-
             $this->seo->setTitle($product->name);
             $this->seo->setDescription(strip_tags($product->description) . ' ' . strip_tags($product->benefits) . ' ' . strip_tags($product->data_sheet) . ' ' . strip_tags($product->unit_format) . ' ' . strip_tags($product->state_of_matter));
             $this->seo->setUrl($url);
