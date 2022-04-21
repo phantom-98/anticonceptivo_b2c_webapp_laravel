@@ -59,7 +59,6 @@ const Resume = ({
               response: response,
               success: () => {
                 setDispatch(response.data.dispatch)
-                  console.log(response.data.date_dispatch)
                 setDispatchDateObject(response.data.dateDeliveryOrder)
               },
 
