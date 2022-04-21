@@ -12,35 +12,55 @@ use Carbon\Carbon;
 use Illuminate\Console\Scheduling\Schedule;
 
 
-function IMMEDIATE (): string
+function IMMEDIATE ($type): string
 {
-    return DeliveryLabels::where('key','IMMEDIATE')->get()->first()->label_custom ?? 'Entrega Prioritaria';
+    if ($type == 'label') {
+        return DeliveryLabels::where('key','IMMEDIATE')->get()->first()->label_custom ?? 'Entrega Prioritaria';
+    }else{
+        return DeliveryLabels::where('key','IMMEDIATE')->get()->first()->sub_label ?? '';
+    }
 }
 
-function TODAY (): string
+function TODAY ($type): string
 {
-    return DeliveryLabels::where('key','TODAY')->get()->first()->label_custom ?? 'Llega hoy';
+    if ($type == 'label') {
+        return DeliveryLabels::where('key','TODAY')->get()->first()->label_custom ?? 'Llega hoy';
+    }else{
+        return DeliveryLabels::where('key','IMMEDIATE')->get()->first()->sub_label ?? '';
+    }
 }
 
-function TOMORROW (): string
+function TOMORROW ($type): string
 {
-    return DeliveryLabels::where('key','TOMORROW')->get()->first()->label_custom ?? 'Llega mañana';
+    if ($type == 'label') {
+        return DeliveryLabels::where('key','TOMORROW')->get()->first()->label_custom ?? 'Llega mañana';
+    }else{
+        return DeliveryLabels::where('key','TOMORROW')->get()->first()->sub_label ?? '';
+    }
 }
 
-function AFTER_TOMORROW (): string
+function AFTER_TOMORROW ($type): string
 {
-    return DeliveryLabels::where('key','AFTER_TOMORROW')->get()->first()->label_custom ?? 'Llega en 48H';
+    if ($type == 'label') {
+        return DeliveryLabels::where('key','AFTER_TOMORROW')->get()->first()->label_custom ?? 'Llega en 48H';
+    }else{
+        return DeliveryLabels::where('key','AFTER_TOMORROW')->get()->first()->sub_label ?? '';
+    }
 }
-function AFTER_TOMORROW_CUSTOM (): string
+function AFTER_TOMORROW_CUSTOM ($type): string
 {
-    return DeliveryLabels::where('key','AFTER_TOMORROW_CUSTOM')->get()->first()->label_custom ?? 'Llega el Lunes';
+    if ($type == 'label') {
+        return DeliveryLabels::where('key','AFTER_TOMORROW_CUSTOM')->get()->first()->label_custom ?? 'Llega el Lunes';
+    }else{
+        return DeliveryLabels::where('key','AFTER_TOMORROW_CUSTOM')->get()->first()->sub_label ?? '';
+    }
 }
 
 
 class ProductScheduleHelper
 {
 
-    public static function deadlineDeliveryMaxOrder($date_order, $label, $is_immediate, $schedule)
+    public static function deadlineDeliveryMaxOrder($date_order, $label, $sub_label, $is_immediate, $schedule)
     {
 
         $max_order = Order::whereDate('delivery_date', $date_order)->whereNotIn('status', ['CREATED','REJECTED', 'CANCELED'])->get()->count();
@@ -51,21 +71,24 @@ class ProductScheduleHelper
         }
 
         if (intval($setting_max_order_value )<= intval($max_order) && !$is_immediate) {
-            if ($label == TODAY()) {
+            if ($label == TODAY('label')) {
                 return array(
-                    'label' => TOMORROW(),
+                    'label' => TOMORROW('label'),
                     'delivery_date' => $date_order->addDays(1),
                     'is_immediate' => $is_immediate,
+                    'sub_label' => TOMORROW('sub_label'),
                     'schedule' => $schedule,
                     'label_status' => 'TOMORROW',
                 );
             }
 
             if(Carbon::now()->format('w') == 6){
-                $custom_label = AFTER_TOMORROW_CUSTOM();
+                $custom_label = AFTER_TOMORROW_CUSTOM('label');
+                $custom_sub_label = AFTER_TOMORROW_CUSTOM('sub_label');
                 $status = 'AFTER_TOMORROW_CUSTOM';
             } else {
-                $custom_label = AFTER_TOMORROW();
+                $custom_label = AFTER_TOMORROW('label');
+                $custom_sub_label = AFTER_TOMORROW('sub_label');
                 $status = 'AFTER_TOMORROW';
             }
 
@@ -73,6 +96,7 @@ class ProductScheduleHelper
                 'label' => $custom_label,
                 'delivery_date' => $date_order->addDays(2),
                 'is_immediate' => $is_immediate,
+                'sub_label' => $custom_sub_label,
                 'schedule' => $schedule,
                 'label_status' => 'AFTER_TOMORROW',
             );
@@ -81,24 +105,23 @@ class ProductScheduleHelper
             'label' => $label,
             'delivery_date' => $date_order,
             'is_immediate' => $is_immediate,
+            'sub_label' => $sub_label,
             'schedule' => $schedule,
             'label_status' => self::getLabelStatusByLabel($label),
-
-
         );
     }
 
     public static function getLabelStatusByLabel($label){
-        if($label == AFTER_TOMORROW()){
+        if($label == AFTER_TOMORROW('label')){
             return 'AFTER_TOMORROW';
         }
-        if($label == AFTER_TOMORROW_CUSTOM()){
+        if($label == AFTER_TOMORROW_CUSTOM('label')){
             return 'AFTER_TOMORROW_CUSTOM';
         }
-        if($label == TOMORROW()){
+        if($label == TOMORROW('label')){
             return 'TOMORROW';
         }
-        if($label == TODAY()){
+        if($label == TODAY('label')){
             return 'TODAY';
         }
         return 'IMMEDIATE';
@@ -107,21 +130,23 @@ class ProductScheduleHelper
     public static function labelDateDeliveryInOrder($products, $date): array
     {
         $dataLabelDelivery = array(
-            'label' => TODAY(),
+            'label' => TODAY('label'),
             'delivery_date' => $date,
-            'is_immediate' => false
+            'is_immediate' => false,
+            'sub_label' => TODAY('sub_label'),
         );
 
         $product_schedules = ProductSchedule::get();
         foreach ($products as $product) {
             $product = new Product((array)$product);
             $_dataLabelDelivery = self::labelDateDeliveryProduct($product, $product_schedules, $date);
-            if ($_dataLabelDelivery['label'] == IMMEDIATE()) {
+            if ($_dataLabelDelivery['label'] == IMMEDIATE('label')) {
 
                 $dataLabelDelivery['label'] = $_dataLabelDelivery['label'];
                 $dataLabelDelivery['delivery_date'] = $_dataLabelDelivery['delivery_date'];
                 $dataLabelDelivery['schedule'] = $_dataLabelDelivery['schedule'];
                 $dataLabelDelivery['is_immediate'] = true;
+                $dataLabelDelivery['sub_label'] = $_dataLabelDelivery['sub_label'];
                 break;
             }
 
@@ -129,6 +154,7 @@ class ProductScheduleHelper
             $dataLabelDelivery['delivery_date'] = $_dataLabelDelivery['delivery_date'];
             $dataLabelDelivery['schedule'] = $_dataLabelDelivery['schedule'];
             $dataLabelDelivery['is_immediate'] = false;
+            $dataLabelDelivery['sub_label'] = $_dataLabelDelivery['sub_label'];
         }
         return $dataLabelDelivery;
     }
@@ -181,11 +207,12 @@ class ProductScheduleHelper
             $inSchedule = self::inSchedule($_schedules, $date, true);
             if ($inSchedule['inRange']) {
                 return array(
-                    'label' => IMMEDIATE(),
+                    'label' => IMMEDIATE('label'),
                     'delivery_date' => $date,
                     'schedule' => $inSchedule['scheduleInRange'] ?? $defaultSchedule,
                     'label_status' => 'IMMEDIATE',
                     'is_immediate' => true,
+                    'sub_label' => IMMEDIATE('sub_label'),
 
                 );
             }
@@ -199,10 +226,12 @@ class ProductScheduleHelper
             $inSchedule = self::inSchedule($_schedules, $date);
             if (!$inSchedule['inRange']) {
                 if(Carbon::now()->format('w') == 6){
-                    $label = AFTER_TOMORROW_CUSTOM();
+                    $label = AFTER_TOMORROW_CUSTOM('label');
+                    $sub_label = AFTER_TOMORROW_CUSTOM('sub_label');
                     $status = 'AFTER_TOMORROW_CUSTOM';
                 } else {
-                    $label = AFTER_TOMORROW();
+                    $label = AFTER_TOMORROW('label');
+                    $sub_label = AFTER_TOMORROW('sub_label');
                     $status = 'AFTER_TOMORROW';
                 }
                 return array(
@@ -210,25 +239,28 @@ class ProductScheduleHelper
                     'delivery_date' => $date->addDays(1),
                     'schedule' => $inSchedule['scheduleInRange'] ?? $defaultSchedule,
                     'label_status' => $status,
-                    'is_immediate' => false
+                    'is_immediate' => false,
+                    'sub_label' => '',
                 );
             } else {
                 return array(
-                    'label' => TOMORROW(),
+                    'label' => TOMORROW('label'),
                     'delivery_date' => $date,
                     'schedule' => $inSchedule['scheduleInRange'] ?? $defaultSchedule,
                     'label_status' => 'TOMORROW',
-                    'is_immediate' => false
+                    'is_immediate' => false,
+                    'sub_label' => TOMORROW('sub_label'),
                 );
             }
         }
 
         return array(
-            'label' => TODAY(),
+            'label' => TODAY('label'),
             'delivery_date' => $date,
             'schedule' => $inSchedule['scheduleInRange'] ?? $defaultSchedule,
             'label_status' => 'TODAY',
-            'is_immediate' => false
+            'is_immediate' => false,
+            'sub_label' => TODAY('sub_label'),
         );
 
 
