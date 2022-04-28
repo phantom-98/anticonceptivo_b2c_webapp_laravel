@@ -74,6 +74,8 @@ class UpdateStock extends Command
 
             } catch (\Exception $exception) {
 
+                Log::error('Error actualización stock', ["response" => $exception->getMessage()]);
+
                 $isError = true;
 
                 array_push($errorsEmail , [
