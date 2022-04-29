@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useState , useContext, useEffect} from 'react';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
@@ -13,6 +13,13 @@ import SliderArrowLeft from '../../../assets/images/icons/slider-arrow-left.png'
 const OurBrands = ({brands}) => {
 
     const { breakpoint } = useContext(AppContext);
+    const [newBrands, setNewBrands] = useState([]);
+
+    useEffect(() => {
+        if (brands.length) {
+            brandBySeven()
+        }
+    },[brands])
 
     function Arrow(props) {
 
@@ -48,7 +55,7 @@ const OurBrands = ({brands}) => {
         infinite: true,
         centerMode: true,
         speed: 1500,
-        slidesToShow: 1,
+        slidesToShow: 3,
         slidesToScroll: 1,
         autoplay: true,
         autoplaySpeed: 4500,
@@ -63,6 +70,15 @@ const OurBrands = ({brands}) => {
         justifyContent: 'center',
     }
 
+    const brandBySeven = () => {
+        let _brands = [...brands];
+        let _final_brands = [];
+        while(_brands.length) {
+            _final_brands.push(_brands.splice(0,7));
+        }
+        setNewBrands(_final_brands);
+    }
+
     return (
         <div className="mt-5" style={{ backgroundColor: 'white' }}>
             <div className="container" style={containerStyle}>
@@ -73,22 +89,27 @@ const OurBrands = ({brands}) => {
                 </div>
                 {
                     breakpoint === BREAKPOINTS.MEDIUM || breakpoint === BREAKPOINTS.LARGE || breakpoint === BREAKPOINTS.EXTRA_LARGE || breakpoint === BREAKPOINTS.EXTRA_EXTRA_LARGE ?
-                        <div className="row py-3">
-                            {
-                                brands.map((brand, index) => {
-                                    let brandKey = uuidv4();
-                                    return <div key={brandKey} className="col">
-                                        <a href={brand.url} target="_blank">
-                                            <img src={brand.public_image}
-                                                alt={CONFIG.APP_NAME}
-                                                className="my-auto"
-                                                style={{ width: '100%', maxHeight: '50px', objectFit: 'contain' }} />
-                                        </a>
-                                    </div>
-                                })
-                            }
-                        </div>
-                : 
+                        newBrands.map((_brands, index) => {
+                            return(
+                                <div key={uuidv4()} className="row py-3 justify-content-center">
+                                    {
+                                        _brands.map((brand, indx) => {
+                                            return <div key={uuidv4()} style={{flex: '0 0 8.33333%', maxWidth:'8.33333%'}}>
+                                                <span className='m-auto'>
+                                                <a href={brand.url} target="_blank">
+                                                    <img src={brand.public_image}
+                                                        alt={CONFIG.APP_NAME}
+                                                        className=""
+                                                        style={{ width: '100%', maxHeight: '50px', objectFit: 'contain' }} />
+                                                </a>
+                                                </span>
+                                            </div>
+                                        })
+                                    }
+                                </div>
+                            )
+                        })
+                :
                     <>
                         <Slider {...settings}>
                             {
@@ -98,7 +119,7 @@ const OurBrands = ({brands}) => {
                                             src={brand.public_image}
                                             alt={CONFIG.APP_NAME}
                                             className="mx-auto"
-                                            style={{ maxHeight: '40px', objectFit: 'contain' }}
+                                            style={{ maxHeight: '50px', objectFit: 'contain' }}
                                         />
                                     </div>
                                 ))
