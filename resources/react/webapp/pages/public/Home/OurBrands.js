@@ -68,7 +68,7 @@ const OurBrands = ({brands}) => {
             <div className="container" style={containerStyle}>
                 <div className="row mb-4">
                     <div className="col-12">
-                        <H2Title text="nuestras marcas" className="text-black" />
+                        <H2Title text="nuestros convenios" className="text-black" />
                     </div>
                 </div>
                 {

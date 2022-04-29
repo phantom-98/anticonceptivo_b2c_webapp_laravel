@@ -85,7 +85,7 @@ const Home = ({match}) => {
 
             <BlogPosts blogPosts={blogPosts} isLoaded={isLoaded}/>
 
-            {/*<OurBrands brands={brands}/> */}
+            <OurBrands brands={brands}/>
 
             <Subscribe/>
         </div>
