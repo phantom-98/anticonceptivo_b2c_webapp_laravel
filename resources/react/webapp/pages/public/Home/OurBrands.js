@@ -94,7 +94,7 @@ const OurBrands = ({brands}) => {
                                 <div key={uuidv4()} className="row py-3 justify-content-center">
                                     {
                                         _brands.map((brand, indx) => {
-                                            return <div key={uuidv4()} style={{flex: '0 0 8.33333%', maxWidth:'8.33333%'}}>
+                                            return <div className="mx-2" key={uuidv4()} style={{flex: '0 0 9.33333%', maxWidth:'9.33333%'}}>
                                                 <span className='m-auto'>
                                                 <a href={brand.url} target="_blank">
                                                     <img src={brand.public_image}
