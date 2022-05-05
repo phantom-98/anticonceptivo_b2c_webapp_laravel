@@ -25,7 +25,7 @@ class BlogController extends Controller
             }
 
 
-            $posts = Post::where('active', true)->where('post_type_id', $postType->id)->get();
+            $posts = Post::where('active', true)->where('post_type_id', $postType->id)->orderBy('created_at','desc')->get();
 
             return ApiResponse::JsonSuccess([
                 'posts' => $posts,
