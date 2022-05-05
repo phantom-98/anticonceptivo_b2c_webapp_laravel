@@ -57,7 +57,7 @@ const Article = ({post}) => {
             </div>
 
             <div className="row  mb-5">
-                <div className="col-md-9 offset-md-3">
+                <div className="col-md-12">
                     <div className="font-poppins font-18 medium color-6C6B6B" dangerouslySetInnerHTML={{__html: post.content}}/>
                     {/* <h3 className="font-poppins font-22 bold color-033F5D mb-3">
                         Wireframes can be pencil drawings or sketches on a whiteboard
