@@ -139,6 +139,7 @@ class BlogController extends Controller
         $posts = Post::with(['post_type'])
             ->where('post_type_id', $post_category->id)
             ->where('active', true)
+            ->orderBy('created_at','desc')
             ->get();
 
         $posts = $posts->map(function ($post) {
