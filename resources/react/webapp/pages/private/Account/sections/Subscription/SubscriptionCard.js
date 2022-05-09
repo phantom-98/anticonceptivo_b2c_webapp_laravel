@@ -520,7 +520,7 @@ const SubscriptionCard = ({
                             </div>
                         )
                     })
-                : 
+                :
                     <div className="col-md-12 mt-5">
                         <div className="product-no-stock-alert font-12 font-poppins">
                             Actualmente no tiene subscripciones.

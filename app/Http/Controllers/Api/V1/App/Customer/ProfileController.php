@@ -317,16 +317,17 @@ class ProfileController extends Controller
     public function cancelSubscriptionItem(Request $request)
     {
         try {
-            $subscription = Subscription::find($request->subscription_id);
-
             $subscriptionsOrdersItem = SubscriptionsOrdersItem::find($request->subscription_order_item_id);
 
             if (!$subscriptionsOrdersItem) {
                 return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_SUBSCRIPTION_NOT_FOUND);
             }
 
-            $subscriptionsOrdersItem->active = 0;
-            $subscriptionsOrdersItem->save();
+            $subscriptionsOrdersItems = SubscriptionsOrdersItem::where('order_parent_id', $subscriptionsOrdersItem->order_parent_id)->get();
+            foreach ($subscriptionsOrdersItems as $item) {
+                $item->active = 0;
+                $item->save();
+            }
 
             return ApiResponse::JsonSuccess($subscriptionsOrdersItem, OutputMessage::SUCCESS);
 
@@ -426,7 +427,7 @@ class ProfileController extends Controller
                 ->with(['order_item.product','customer_address.commune','subscription','order_parent.order_items','order_item.subscription_plan'])
                 ->orderBy('order_parent_id', 'asc')->orderBy('orders_item_id','asc')->orderBy('pay_date', 'asc')
                 ->get();
-            
+
             // Log::info('test 1',[$subscriptionsOrdersItem]);
 
             $deliveryCosts = DeliveryCost::where('active',1)->get();
