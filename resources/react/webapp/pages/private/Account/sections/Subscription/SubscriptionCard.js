@@ -291,6 +291,7 @@ const SubscriptionCard = ({
             {
                 objects.length ?
                     objects.map((item, index) => {
+
                         let address = '';
                         let isOnClickAddress = true;
                         if (item.subscription_item.delivery_address != null) {
@@ -301,11 +302,9 @@ const SubscriptionCard = ({
                         if (item.subscription_item.status != 'CREATED' && item.subscription_item.status != 'REJECTED') {
                             isOnClickAddress = false;
                         }
-
                         if (!item.active) {
                             return null
                         }
-
                         return (
                             <div className="col-12 m-0 mt-3 p-0">
                                 <div key={uuidv4()} className="subscription-card">
