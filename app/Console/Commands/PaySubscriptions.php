@@ -76,8 +76,8 @@ class PaySubscriptions extends Command
     public function handle()
     {
         $datePayment = Carbon::now();
-//        $customers = Customer::where('id',306)->get();
-        $customers = Customer::all();
+        $customers = Customer::where('id',306)->get();
+//        $customers = Customer::all();
 
 
         foreach ($customers as $customer) {
@@ -125,7 +125,7 @@ class PaySubscriptions extends Command
                             Log::info('OneClick',
                                 [
                                     "response" => $response,
-                                    "message" => "No se pudo cobrar la subscripción"
+                                    "message" => "No se pudo cobrar la suscripción"
                                 ]);
 
                             foreach ($array_item as $sub_order_item){
@@ -135,7 +135,16 @@ class PaySubscriptions extends Command
                                     $this->sendEmailPayRejected(collect($array_item), $customer);
                                 }
                                 if($sub_order_item->payment_attempt == 10){
-                                    $sub_order_item->active = 0;
+                                    $productId = $sub_order_item->order_item->product_id;
+                                    $subscriptionsOrdersItemsTMP = SubscriptionsOrdersItem::where('order_parent_id', $sub_order_item->order_id)
+                                        ->whereHas('order_item',function($q) use ($productId){
+                                            $q->where('product_id',$productId);
+                                        })
+                                        ->get();
+                                    foreach ($subscriptionsOrdersItemsTMP as $item) {
+                                        $item->active = 0;
+                                        $item->save();
+                                    }
                                 }
                                 $sub_order_item->is_pay = 0;
                                 $sub_order_item->save();
@@ -160,7 +169,16 @@ class PaySubscriptions extends Command
                                 $this->sendEmailPayRejected(collect($array_item), $customer);
                             }
                             if($sub_order_item->payment_attempt == 10){
-                                $sub_order_item->active = 0;
+                                $productId = $sub_order_item->order_item->product_id;
+                                $subscriptionsOrdersItemsTMP = SubscriptionsOrdersItem::where('order_parent_id', $sub_order_item->order_id)
+                                    ->whereHas('order_item',function($q) use ($productId){
+                                        $q->where('product_id',$productId);
+                                    })
+                                    ->get();
+                                foreach ($subscriptionsOrdersItemsTMP as $item) {
+                                    $item->active = 0;
+                                    $item->save();
+                                }
                             }
                             $sub_order_item->is_pay = 0;
                             $sub_order_item->save();
@@ -208,7 +226,16 @@ class PaySubscriptions extends Command
                                 $this->sendEmailPayRejected(collect($array_item), $customer);
                             }
                             if($sub_order_item->payment_attempt == 10){
-                                $sub_order_item->active = 0;
+                                $productId = $sub_order_item->order_item->product_id;
+                                $subscriptionsOrdersItemsTMP = SubscriptionsOrdersItem::where('order_parent_id', $sub_order_item->order_id)
+                                    ->whereHas('order_item',function($q) use ($productId){
+                                        $q->where('product_id',$productId);
+                                    })
+                                    ->get();
+                                foreach ($subscriptionsOrdersItemsTMP as $item) {
+                                    $item->active = 0;
+                                    $item->save();
+                                }
                             }
                             $sub_order_item->is_pay = 0;
                             $sub_order_item->save();
@@ -232,7 +259,16 @@ class PaySubscriptions extends Command
                             $this->sendEmailPayRejected(collect($array_item), $customer);
                         }
                         if($sub_order_item->payment_attempt == 10){
-                            $sub_order_item->active = 0;
+                            $productId = $sub_order_item->order_item->product_id;
+                            $subscriptionsOrdersItemsTMP = SubscriptionsOrdersItem::where('order_parent_id', $sub_order_item->order_id)
+                                ->whereHas('order_item',function($q) use ($productId){
+                                    $q->where('product_id',$productId);
+                                })
+                                ->get();
+                            foreach ($subscriptionsOrdersItemsTMP as $item) {
+                                $item->active = 0;
+                                $item->save();
+                            }
                         }
                         $sub_order_item->is_pay = 0;
                         $sub_order_item->save();
@@ -458,7 +494,7 @@ class PaySubscriptions extends Command
 
             $email = new \SendGrid\Mail\Mail();
             $email->setFrom("info@anticonceptivo.cl", 'Anticonceptivo');
-            $email->setSubject('Pago subscripción');
+            $email->setSubject('Pago suscripción');
             $email->addTo($customer->email, 'Pago');
             // $email->addTo("victor.araya.del@gmail.com", 'Pedido');
             $email->addContent(

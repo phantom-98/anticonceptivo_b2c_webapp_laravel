@@ -302,7 +302,7 @@ class WebpayPlusController
                         ->where('subscription_plan_id', $subscriptionPlan->id)->get()->first();
 
                     if(!$productSubscriptionPlan->active){
-                        return ApiResponse::JsonError([], 'El producto ' . $orderItem->name . ' ya no dispone de ese plan de subscripción');
+                        return ApiResponse::JsonError([], 'El producto ' . $orderItem->name . ' ya no dispone del plan de suscripción seleccionado');
                     }
                     $quantity = 2;
                     if ($i == round($subscriptionPlan->months / 2) - 2 && (round($subscriptionPlan->months / 2) - 1) % 2 == 0 && $subscriptionPlan->months % 2 != 0) {
