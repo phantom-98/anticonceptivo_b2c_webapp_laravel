@@ -163,7 +163,9 @@ const ProductInfo = ({product, setImageSubscription}) => {
                                                                 const isActive = subscription == item;
                                                                 const month = item.subscription_plan.months;
                                                                 const cicle = item.subscription_plan.cicles;
-
+                                                                if(item.active === 0){
+                                                                    return null
+                                                                }
                                                                 return <button
                                                                     className={`btn btn-outline-primary btn-months mr-1 subscription-button-margin ${isActive ? 'focus' : ''}`}
                                                                     onClick={() =>
