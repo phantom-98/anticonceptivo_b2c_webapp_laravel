@@ -134,7 +134,7 @@ const Table = ({subscriptions, getSubscriptionsCards, customerId, customerEmail}
                             deleteSubscription={deleteSubscription}
                             subscriptionChecked={null}
                             isModal={true}
-                        />)) : <LazyLoading height={100}/>
+                        />)) : subscriptions == null ?<LazyLoading height={100}/> : null
                 }
             </div>
             <div className="col-md-12 text-center mb-3 mt-2">
