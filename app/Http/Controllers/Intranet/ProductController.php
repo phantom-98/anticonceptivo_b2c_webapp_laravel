@@ -200,6 +200,7 @@ class ProductController extends GlobalController
                     $new_plan->price = $request->price_plan[$key][0] ? $request->price_plan[$key][0] : 1000;
                     $new_plan->position = $request->position[$key][0];
                     $new_plan->days = $request->days[$key][0] < 7 ? 7 : $request->days[$key][0];
+                    $new_plan->active = $request->is_active_plan[$key][0] ?? 0;
                     $new_plan->product_id = $product->id;
 
                     if ($request->plan_image) {
@@ -257,7 +258,6 @@ class ProductController extends GlobalController
 
     public function update(Request $request, $id)
     {
-        dd($request->all());
         $product = Product::find($id);
         if (!$product) {
             session()->flash('warning', 'Producto no encontrado.');
@@ -372,6 +372,7 @@ class ProductController extends GlobalController
                     $new_plan->price = $request->price_plan[$key][0] ? $request->price_plan[$key][0] : 1000;
                     $new_plan->position = $request->position[$key][0];
                     $new_plan->days = $request->days[$key][0] < 7 ? 7 : $request->days[$key][0];
+                    $new_plan->active = $request->is_active_plan[$key][0] ?? 0;
                     $new_plan->product_id = $product->id;
 
                     if ($request->plan_image) {
