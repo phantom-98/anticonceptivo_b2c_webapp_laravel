@@ -153,7 +153,7 @@ const SubscriptionCard = ({
         swalWithBootstrapButtons
             .fire({
                 html:
-                    '<h3 class="font-21 bold font-poppins color-0869A6">¿Estás seguro de que quieres cancelar?</h3><p class="font-14 font-poppins regular pt-3">Al cancelar esta suscripción implica cancelar todos los productos relacionados al número de pedido <b>' + subscriptionOrderItem.order_parent_id + '</b></br></p>',
+                    '<h3 style="color: #0869A6;" class="swal2-title">¿Estás seguro de que quieres cancelar?</h3><p class="font-18 font-poppins regular pt-3">Al cancelar esta suscripción implica cancelar todos los productos relacionados al número de pedido <b>' + subscriptionOrderItem.order_parent_id + '</b></br></p>',
                 confirmButtonText: "Confirmar",
                 reverseButtons: true
             })
