@@ -76,8 +76,8 @@ class PaySubscriptions extends Command
     public function handle()
     {
         $datePayment = Carbon::now();
-        $customers = Customer::where('id',306)->get();
-//        $customers = Customer::all();
+//        $customers = Customer::where('id',306)->get();
+        $customers = Customer::all();
 
 
         foreach ($customers as $customer) {
