@@ -210,7 +210,7 @@ class ProductController extends GlobalController
                             $new_plan->image = $plan_image->storeAs('public/products/plans', $filename);
                         }
                     }
-                    
+
                     $new_plan->save();
 
                     $price = new Price();
@@ -257,6 +257,7 @@ class ProductController extends GlobalController
 
     public function update(Request $request, $id)
     {
+        dd($request->all());
         $product = Product::find($id);
         if (!$product) {
             session()->flash('warning', 'Producto no encontrado.');
@@ -372,7 +373,7 @@ class ProductController extends GlobalController
                     $new_plan->position = $request->position[$key][0];
                     $new_plan->days = $request->days[$key][0] < 7 ? 7 : $request->days[$key][0];
                     $new_plan->product_id = $product->id;
-                    
+
                     if ($request->plan_image) {
                         $plan_image = array_key_exists($key,$request->plan_image) ? $request->plan_image[$key][0] : null;
                         if ($plan_image) {
@@ -381,7 +382,7 @@ class ProductController extends GlobalController
                             $new_plan->image = $plan_image->storeAs('public/products/plans', $filename);
                         }
                     }
-                    
+
                     $new_plan->save();
 
                     $lastPrice = Price::where('product_id', $product->id)->where('subscription_plan_id', $plan[0])->latest()->first();

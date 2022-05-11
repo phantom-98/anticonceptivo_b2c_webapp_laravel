@@ -304,7 +304,7 @@ class ProfileController extends Controller
                 ->whereHas('order_item',function($q) use ($productId){
                     $q->where('product_id',$productId);
                 })
-            ->where('is_pay',0)->get();
+            ->get();
 
             foreach ($subscriptions_orders_items as $subscriptionsOrdersItemElement) {
                     $subscriptionsOrdersItemElement->subscription_id = $request->subscription_id;
@@ -326,8 +326,12 @@ class ProfileController extends Controller
             if (!$subscriptionsOrdersItem) {
                 return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_SUBSCRIPTION_NOT_FOUND);
             }
-
-            $subscriptionsOrdersItems = SubscriptionsOrdersItem::where('order_parent_id', $subscriptionsOrdersItem->order_parent_id)->where('is_pay',0)->get();
+            $productId = $subscriptionsOrdersItem->order_item->product_id;
+            $subscriptionsOrdersItems = SubscriptionsOrdersItem::where('order_parent_id', $subscriptionsOrdersItem->order_parent_id)
+                ->whereHas('order_item',function($q) use ($productId){
+                    $q->where('product_id',$productId);
+                })
+                ->get();
             foreach ($subscriptionsOrdersItems as $item) {
                 $item->active = 0;
                 $item->save();

@@ -6,7 +6,6 @@ import * as Services from "../../../../../Services";
 import Swal from "sweetalert2";
 import Icon from "../../../../../components/general/Icon";
 import plusIcon from '../../../../../assets/images/icons/plus-green.svg'
-import WaitingPaymentMethod from "../../../../public/CheckOut/Payment/WaitingPaymentMethod";
 import { AppContext } from "../../../../../context/AppProvider";
 import { BREAKPOINTS } from "../../../../../helpers/vars";
 import toastr from "toastr";
@@ -24,9 +23,6 @@ const ModalSubscription = ({
     getSubscriptions
 }) => {
     const { breakpoint } = useContext(AppContext)
-    const [showingWaitingPaymentMethod, setShowingWaitingPaymentMethod] = useState(false);
-
-    const changeShowingWaitingPaymentMethod = (status) => setShowingWaitingPaymentMethod(status);
 
     const saveDefaultSubscription = (subscriptionId, customerId) => {
         let url =
@@ -128,7 +124,6 @@ const ModalSubscription = ({
                 Services.Response({
                     response: response,
                     success: () => {
-                        console.log(response);
                         const urlOneClick = response.data.oneclick_data.url + '?TBK_TOKEN=' + response.data.oneclick_data.token
                         window.location.href = urlOneClick;
                     },
@@ -139,62 +134,8 @@ const ModalSubscription = ({
             });
     }
 
-    let interval;
-
-    const runVerifyPaymentMethod = (id) => {
-        verifyPaymentMethod(id);
-
-        interval = setInterval(() => {
-            verifyPaymentMethod(id);
-        }, 5000);
-    }
-
-    const verifyPaymentMethod = (id) => {
-
-        const data = {
-            id: id,
-        }
-
-        const url = Services.ENDPOINT.PAYMENTS.VERIFY_SUBSCRIPTION;
-
-        Services.DoPost(url, data).then(response => {
-            Services.Response({
-                response: response,
-                success: () => {
-
-                    if (response.data.subscription != null) {
-                        if (response.data.subscription.status == 'CREATED') {
-                            changeShowingWaitingPaymentMethod(false);
-                            clearInterval(interval)
-                            toastr.success(response.message);
-                            getSubscriptionsCards();
-
-                        } else if (response.data.subscription.status == 'REJECTED') {
-                            changeShowingWaitingPaymentMethod(false);
-                            clearInterval(interval)
-                            toastr.error('Tarjeta Rechazada');
-                        } else if (response.data.subscription.status == 'CANCELED') {
-                            changeShowingWaitingPaymentMethod(false);
-                            clearInterval(interval)
-                            toastr.error('Cancelado');
-
-                        }
-                    }
-
-                },
-                error: () => {
-                    console.log(response.message)
-                }
-            });
-        }).catch(error => {
-            Services.ErrorCatch(error)
-        });
-    }
-
     return (
         <>
-            <WaitingPaymentMethod  showingWaitingPaymentMethod={showingWaitingPaymentMethod}/>
-
             <Modal
                 show={modals.subscription}
                 centered

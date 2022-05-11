@@ -6,13 +6,12 @@ import WaitingPaymentMethod from "./Payment/WaitingPaymentMethod";
 import toastr from "toastr";
 
 
-const Subscriptions = ({setView, subscription, setSubscription}) => {
+const Subscriptions = ({setView, subscription, setSubscription, subscriptionId, setSubscriptionId}) => {
 
     const {auth} = useContext(AuthContext);
 
 
     const [view, setViewAd] = useState('list');
-    const [subscriptionSelected, setSubscriptionSelected] = useState(null);
     const [showingWaitingPaymentMethod, setShowingWaitingPaymentMethod] = useState(false);
 
 
@@ -76,7 +75,6 @@ const Subscriptions = ({setView, subscription, setSubscription}) => {
                     Services.ErrorCatch(error);
                 });
 
-        setSubscriptionSelected(null)
     }
 
     let interval;
@@ -149,6 +147,8 @@ const Subscriptions = ({setView, subscription, setSubscription}) => {
                                 showCreate={showCreate}
                                 getData={getData}
                                 setSubscription={setSubscription}
+                                subscriptionId={subscriptionId}
+                                setSubscriptionId={setSubscriptionId}
                             />
                         : null
                     }

@@ -5,6 +5,7 @@ import Addresses from "../sections/Addresses";
 import ShoppingHistory from "../sections/ShoppingHistory";
 import Subscription from "../sections/Subscription";
 import Receipts from "../sections/Receipts";
+import CreditAndDebitCard from "../sections/CreditAndDebitCard";
 import CustomerService from "../sections/CustomerService";
 import {v4 as uuid} from 'uuid';
 
@@ -24,11 +25,12 @@ const MobileDisplay = ({sections}) => {
 
             case 3:
                 return <Subscription/>;
-
             case 4:
                 return <Receipts/>;
-
             case 5:
+                return <CreditAndDebitCard/>;
+
+            case 6:
                 return <CustomerService/>;
         }
     }

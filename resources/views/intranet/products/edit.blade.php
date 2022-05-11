@@ -405,7 +405,7 @@
                                         <div class="image-product">
                                             <img class="image-plan" id="image-plan-{{$loop->iteration}}" src="{{ $plan->public_image ? $plan->public_image : '/themes/intranet/img/image-default.jpeg' }}">
                                         </div>
-                                        <input type="file" 
+                                        <input type="file"
                                             name="plan_image[{{$loop->iteration}}][]"
                                             class="inputfile form-control image file-image-plan"
                                             id="file-image-plan-{{$loop->iteration}}"
@@ -424,12 +424,18 @@
                                         <textarea name="warnings[{{$loop->iteration}}][]" class="form-control warnings summernote">{!! $plan->warnings !!}</textarea>
                                     </div>
                                 </div>
-
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="is_active_plan">¿Esta activo?</label>
+                                        <br/>
+                                        <input class="js-switch" name="is_active_plan[{{$loop->iteration}}][]" id="is_active_plan" type="checkbox" value="1" {{ $plan->is_active_plan == 1 ? 'checked' : '' }}>
+                                    </div>
+                                </div>
                                 <div class="col-md-12">
                                     <button class="btn btn-block btn-success" type="button" style="margin-top:22px" onclick="addNewRowStatic()"><i
                                         class="fa fa-plus"></i> Añadir otro plan</button>
                                 </div>
-                                
+
                                 <div class="clearfix"></div>
                                 <hr/>
                             </div>
@@ -481,7 +487,7 @@
                                         <div class="image-product">
                                             <img class="image-plan" id="image-plan-1" src="/images/image-default.jpeg">
                                         </div>
-                                        <input type="file" 
+                                        <input type="file"
                                             name="plan_image[1][]"
                                             class="inputfile form-control image file-image-plan"
                                             id="file-image-plan-1"
@@ -500,7 +506,13 @@
                                         <textarea type="text" name="warnings[1][]" class="form-control warnings summernote"></textarea>
                                     </div>
                                 </div>
-
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="is_active_plan">¿Esta activo?</label>
+                                        <br/>
+                                        <input class="js-switch" name="is_active_plan[1][]" id="is_active_plan" type="checkbox" value="1" {{ $plan->is_active_plan == 1 ? 'checked' : '' }}>
+                                    </div>
+                                </div>
                                 <div class="col-md-12">
                                     <button class="btn btn-block btn-success" type="button" style="margin-top:22px" onclick="addNewRowStatic()"><i
                                         class="fa fa-plus"></i> Añadir otro plan</button>
@@ -685,9 +697,12 @@
             $(".label").last().attr('for', 'file-image-plan-'+count);
 
             $(".warnings").last().html('');
+            $(".is_active_plan").last().html('');
+
             $(".note-editor").last().remove();
             $(".warnings").last().attr('name', 'warnings[' + count + '][]');
             $(".warnings").last().removeAttr("required");
+
             let object = $(".warnings").last();
             $(object).summernote({
 
@@ -754,7 +769,7 @@
         $("#file-image-product").change(function () {
             readURL(this);
         });
-        
+
         function deleteImg() {
             $('#image-product').attr('src', '/themes/intranet/img/image-default.jpeg');
             $('#link-del').html('');
@@ -787,7 +802,7 @@
         function inputFileChange(el){
             readPlanURL(el);
         }
-        
+
         function deleteImgLoopStatic(el) {
             let loop = el.id.split('-').pop();
             $('#image-plan-'+loop).attr('src', '/themes/intranet/img/image-default.jpeg');

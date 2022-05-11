@@ -9,7 +9,7 @@ import PUBLIC_ROUTES from "../../../../routes/publicRoutes";
 const WebPayProccess = ({
     data,
     address,
-    subscription,
+    subscription, subscriptionId,
     setFinishWebpayProccess,
     setWebpayProccessSuccess,
     setOrderId,
@@ -50,14 +50,16 @@ const WebPayProccess = ({
         //     toastr.warning('Debes agregar una dirección para proceder al pago.')
         // }
 
-
         let selectedSubscription = null;
         subscription.map(element => {
-            if (element.default_subscription) {
+            if(element.id === subscriptionId){
                 selectedSubscription = element;
-                showWaitingPayment();
+            }
+            if (selectedSubscription === null && element.default_subscription) {
+                selectedSubscription = element;
             }
         });
+        showWaitingPayment();
 
         let url = Services.ENDPOINT.PAYMENTS.WEBPAY.CREATE_TRANSACTION;
         let dataForm = {
@@ -140,7 +142,7 @@ const WebPayProccess = ({
                                 title: '<span style="color: #0869A6;">' + response.message + '</span>',
                             });
                         }
-                        
+
                         // setWebpayProccessSuccess(false);
                         // setFinishWebpayProccess(1);
                         // clearInterval(interval)

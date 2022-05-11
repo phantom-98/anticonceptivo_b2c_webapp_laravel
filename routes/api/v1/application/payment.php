@@ -20,5 +20,7 @@ Route::prefix('payment')
 
         Route::match(['get', 'post'], 'webpay/response', [WebpayPlusController::class, 'response'])->name('webpay.response');
         Route::match(['get', 'post'], 'webpay/response-payment-method', [WebpayPlusController::class, 'responsePaymentMethod'])->name('webpay.responsePaymentMethod');
+        Route::match(['get', 'post'], 'webpay/response-payment-method-account', [WebpayPlusController::class, 'responsePaymentMethodAccount'])->name('webpay.responsePaymentMethodAccount');
+        Route::match(['get', 'post'], 'webpay/response-payment-method-account-card', [WebpayPlusController::class, 'responsePaymentMethodAccountCard'])->name('webpay.responsePaymentMethodAccountCard');
 
     });
