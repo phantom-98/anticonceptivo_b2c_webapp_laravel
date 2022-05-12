@@ -485,11 +485,15 @@ class ProfileController extends Controller
 
                 $productSubscriptionPlan = ProductSubscriptionPlan::with('subscription_plan')->where('subscription_plan_id',$item->order_item->subscription_plan->id)
                     ->where('product_id',$item->order_item->product->id)->get()->first();
+                $productId = $item->order_item->product_id;
 
                 $cycle = SubscriptionsOrdersItem::where('order_parent_id',$item->order_parent_id)->where('name',$item->name)
                     ->select('order_parent_id',
                         DB::raw('TIMESTAMPDIFF(DAY, NOW(), DATE_ADD(max(pay_date),INTERVAL max(days)+4 DAY)) AS days'),
                         DB::raw('DATE_FORMAT(DATE_ADD(max(pay_date),INTERVAL max(days) DAY),"%d de %M %Y")  as max_date'))
+                    ->whereHas('order_item',function($q) use ($productId){
+                        $q->where('product_id',$productId);
+                    })
                     ->groupBy('order_parent_id')
                     ->get()->first();
 

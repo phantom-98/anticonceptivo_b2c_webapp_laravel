@@ -306,6 +306,8 @@ class PaySubscriptions extends Command
             $orderItem->subtotal = $subscription_order_item->subtotal;
             $orderItem->save();
             $subscription_order_item->orders_item_id = $orderItem->id;
+            $subscription_order_item->pay_date = Carbon::now();
+            $subscription_order_item->dispatch_date = Carbon::now()->addDay();
             $subscription_order_item->save();
             $subtotal += $orderItem->subtotal;
         }
