@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import ListItem from "./ListItem";
 import Icon from "../../../../../components/general/Icon";
 import plusIcon from '../../../../../assets/images/icons/plus-green.svg'
@@ -6,25 +6,25 @@ import * as Services from "../../../../../Services";
 import Swal from 'sweetalert2';
 import toastr from "toastr";
 
-const List = ({subscriptions, showCreate, getData}) => {
-
+const List = ({subscriptions, showCreate, getData, subscriptionId, setSubscriptionId}) => {
     const saveDefaultSubscription = (subscriptionId, customerId) => {
-        let url = Services.ENDPOINT.CUSTOMER.SUBSCRIPTIONS.SET_DEFAULT_SUBSCRIPTION;
-        let data = {
-            subscription_id: subscriptionId,
-            customer_id: customerId
-        }
-
-        Services.DoPost(url,data).then(response => {
-            Services.Response({
-            response: response,
-                success: () => {
-                    getData();
-                },
-            });
-        }).catch(error => {
-            Services.ErrorCatch(error)
-        });
+        setSubscriptionId(subscriptionId)
+        // let url = Services.ENDPOINT.CUSTOMER.SUBSCRIPTIONS.SET_DEFAULT_SUBSCRIPTION;
+        // let data = {
+        //     subscription_id: subscriptionId,
+        //     customer_id: customerId
+        // }
+        //
+        // Services.DoPost(url,data).then(response => {
+        //     Services.Response({
+        //     response: response,
+        //         success: () => {
+        //             getData();
+        //         },
+        //     });
+        // }).catch(error => {
+        //     Services.ErrorCatch(error)
+        // });
     }
 
 
@@ -76,6 +76,14 @@ const List = ({subscriptions, showCreate, getData}) => {
                             subscription={subscription}
                             saveDefaultSubscription={saveDefaultSubscription}
                             deleteSubscription={deleteSubscription}
+                            subscriptionChecked={
+                                subscriptionId == null
+                                    ? null
+                                    : (subscriptionId ==
+                                    subscription.id
+                                        ? 1
+                                        : 0)
+                            }
                         />))
                 }
             </div>

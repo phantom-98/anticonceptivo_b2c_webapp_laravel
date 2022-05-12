@@ -31,6 +31,7 @@ const CheckOut = () => {
         number: 1,
         title: 'DATOS PERSONALES',
     })
+    const [subscriptionId, setSubscriptionId] = useState(null);
 
     const defaultData = {
         first_name: '',
@@ -136,7 +137,7 @@ const CheckOut = () => {
 
     const validateDataAddressInvite = () => {
         if (validAddress === false) {
-           
+
         }
 
         let url = Services.ENDPOINT.NO_AUTH.CHECKOUT.VALIDATE_STEPS;
@@ -160,7 +161,7 @@ const CheckOut = () => {
         let url = Services.ENDPOINT.CUSTOMER.ADDRESSES.UPDATE;
 
         if (validAddress === false) {
-           
+
         }
 
         let data = {
@@ -435,6 +436,8 @@ const CheckOut = () => {
                                                     setView={setView}
                                                     subscription={subscription}
                                                     setSubscription={setSubscription}
+                                                    subscriptionId={subscriptionId}
+                                                    setSubscriptionId={setSubscriptionId}
                                                 />
                                                 // ,
                                                 // <Installments
@@ -499,6 +502,7 @@ const CheckOut = () => {
                                                 validateDataAddressInvite={validateDataAddressInvite}
                                                 prescriptionRadio={prescriptionRadio}
                                                 withoutPrescriptionAnswer={withoutPrescriptionAnswer}
+                                                subscriptionId={subscriptionId}
                                             />
                                         </div>
                                     </div>

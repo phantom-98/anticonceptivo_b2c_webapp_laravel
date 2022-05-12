@@ -299,11 +299,15 @@ class ProfileController extends Controller
                 return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_SUBSCRIPTION_NOT_FOUND);
             }
 
-            $subscriptionsOrdersItem = SubscriptionsOrdersItem::find($request->subscription_order_item_id);
-            $subscriptions_orders_items = SubscriptionsOrdersItem::where('order_id',$subscriptionsOrdersItem->order_id)
-            ->where('pay_date',$subscriptionsOrdersItem->pay_date)->get();
+            $subscriptionsOrdersItem = SubscriptionsOrdersItem::with('order_item')->find($request->subscription_order_item_id);
+            $productId = $subscriptionsOrdersItem->order_item->product_id;
+            $subscriptions_orders_items = SubscriptionsOrdersItem::where('order_parent_id',$subscriptionsOrdersItem->order_parent_id)
+                ->whereHas('order_item',function($q) use ($productId){
+                    $q->where('product_id',$productId);
+                })
+            ->get();
 
-            foreach ($subscriptions_orders_items as $key => $subscriptionsOrdersItemElement) {
+            foreach ($subscriptions_orders_items as $subscriptionsOrdersItemElement) {
                     $subscriptionsOrdersItemElement->subscription_id = $request->subscription_id;
                     $subscriptionsOrdersItemElement->save();
             }
@@ -318,16 +322,21 @@ class ProfileController extends Controller
     public function cancelSubscriptionItem(Request $request)
     {
         try {
-            $subscription = Subscription::find($request->subscription_id);
-
             $subscriptionsOrdersItem = SubscriptionsOrdersItem::find($request->subscription_order_item_id);
 
             if (!$subscriptionsOrdersItem) {
                 return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_SUBSCRIPTION_NOT_FOUND);
             }
-
-            $subscriptionsOrdersItem->active = 0;
-            $subscriptionsOrdersItem->save();
+            $productId = $subscriptionsOrdersItem->order_item->product_id;
+            $subscriptionsOrdersItems = SubscriptionsOrdersItem::where('order_parent_id', $subscriptionsOrdersItem->order_parent_id)
+                ->whereHas('order_item',function($q) use ($productId){
+                    $q->where('product_id',$productId);
+                })
+                ->get();
+            foreach ($subscriptionsOrdersItems as $item) {
+                $item->active = 0;
+                $item->save();
+            }
 
             return ApiResponse::JsonSuccess($subscriptionsOrdersItem, OutputMessage::SUCCESS);
 
@@ -419,31 +428,34 @@ class ProfileController extends Controller
             if (!$customer) {
                 return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_NOT_FOUND);
             }
-
             $subscriptionsOrdersItem = SubscriptionsOrdersItem::whereHas('order_parent',function($q) use ($customer){
-                    $q->where('customer_id',$customer->id);
+                    $q->where('customer_id',$customer->id)->where('is_paid', 1);
                 })
                 ->whereNotNull('subscription_id')
                 ->with(['order_item.product','customer_address.commune','subscription','order_parent.order_items','order_item.subscription_plan'])
-                ->orderBy('order_parent_id', 'asc')->orderBy('orders_item_id','asc')->orderBy('pay_date', 'asc')
+                ->orderBy('order_parent_id', 'asc')->orderBy('id','asc')->orderBy('pay_date', 'asc')
                 ->get();
-            
+
             // Log::info('test 1',[$subscriptionsOrdersItem]);
-
             $deliveryCosts = DeliveryCost::where('active',1)->get();
-
             $subscriptionsOrdersItem = $subscriptionsOrdersItem->map(function ($item) use ($deliveryCosts) {
-                $subItemActive = SubscriptionsOrdersItem::where('orders_item_id',$item->orders_item_id)->whereDate('dispatch_date','>=',Carbon::now())->orderBy('dispatch_date','asc')->get();
+                $productId = $item->order_item->product_id;
+                $subItemActive = SubscriptionsOrdersItem::where('order_parent_id', $item->order_parent_id)
+                ->whereHas('order_item',function($q) use ($productId){
+                    $q->where('product_id', $productId);
+                })->whereDate('dispatch_date','>=',Carbon::now())->orderBy('dispatch_date','asc')->get();
 
                 if(!$subItemActive || count($subItemActive) == 0){
-                    $subItemActive = SubscriptionsOrdersItem::where('orders_item_id',$item->orders_item_id)->orderBy('dispatch_date','desc')->get();
+                    $subItemActive = SubscriptionsOrdersItem::where('order_parent_id', $item->order_parent_id)
+                    ->whereHas('order_item',function($q) use ($productId){
+                        $q->where('product_id',$productId);
+                    })->orderBy('dispatch_date','desc')->get();
                 }
 
                 preg_match_all('!\d+!', $item->period, $current_advance); ;
                 preg_match_all('!\d+!', $subItemActive->sortByDesc('pay_date')->first()->period, $advance_end); ;
                 $current_advance = collect($current_advance[0])->last();
                 $advance_end = collect($advance_end[0])->last();
-
                 $subActive = false;
                 if($subItemActive->first()->id == $item->id){
                     $subActive = true;
@@ -646,14 +658,20 @@ class ProfileController extends Controller
             }])->find($request->subscription_id);
 
             if ($subscription->subscription_orders_items->count()) {
-                $orderItems = SubscriptionsOrdersItem::where('order_parent_id', $subscription->subscription_orders_items[0]->order_parent_id)
-                ->where('is_pay',false)
-                ->get();
 
+                foreach ($subscription->subscription_orders_items as $subscription_orders_item){
+                    $orderItems = SubscriptionsOrdersItem::where('order_parent_id', $subscription_orders_item->order_parent_id)
+                        ->whereHas('order_parent', function ($q) {
+                            $q->whereNotIn('status', ['REJECTED', 'CREATED']);
+                        })
+                        ->where('is_pay',false)
+                        ->get();
 
-                if ($orderItems->count()) {
-                    return ApiResponse::JsonError(null, 'No puede dejar suscripciones activas sin una tarjeta asociada.');
+                    if ($orderItems->count()) {
+                        return ApiResponse::JsonError(null, 'No puede dejar suscripciones activas sin una tarjeta asociada.');
+                    }
                 }
+
             }
 
             if($subscription->default_subscription == true){

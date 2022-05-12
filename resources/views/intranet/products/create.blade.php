@@ -387,6 +387,13 @@
                                     <textarea name="warnings[1][]" class="form-control warnings summernote"></textarea>
                                 </div>
                             </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="is_active_plan">¿Esta activo?</label>
+                                    <br/>
+                                    <input class="js-switch is_active_plan" name="is_active_plan[1][]" id="is_active_plan1" type="checkbox" value="1" checked>
+                                </div>
+                            </div>
                             <div class="col-md-12 mb-3">
                                 <button class="btn btn-block btn-success" type="button" style="margin-top:22px" onclick="addNewRow()"><i
                                     class="fa fa-plus"></i> Añadir otro plan</button>
@@ -676,6 +683,14 @@
             $(".image-plan").last().attr('id', 'image-plan-'+count);
             $(".image-plan").last().attr('src', '/themes/intranet/img/image-default.jpeg');
             $(".label").last().attr('for', 'file-image-plan-'+count);
+
+            $(".is_active_plan").last().val(1);
+            $(".is_active_plan").last().attr('name', 'is_active_plan[' + count + '][]');
+            $(".is_active_plan").last().attr('id', 'is_active_plan' + count);
+            $(".is_active_plan").last().prop('checked', true);
+            $(".is_active_plan").last().removeData('switchery');
+            $(".switchery").last().remove();
+            active_plan = new Switchery(document.querySelector('input[name="is_active_plan[' + count + '][]"]'));
 
             $(".warnings").last().html('');
             $(".note-editor").last().remove();

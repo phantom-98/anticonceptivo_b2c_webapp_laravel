@@ -117,7 +117,33 @@
     <script>
         $(document).ready(function () {
 
-            let columns = [
+            let columns = [];
+
+            @if($config['blade']['showActions'] and $config['any_action'])
+
+                columns.push({
+                    title: 'Acciones',
+                    field: 'active',
+                    align: 'center',
+                    cellStyle: cellStyle,
+                    clickToSelect: false,
+                    formatter: function (value, row, index) {
+                        let append = '';
+                        let prepend = '';
+
+                        let urlEdit = '{{ route('intranet.products.show_images', [':id'] ) }}';
+                        urlEdit = urlEdit.replace(':id', row.id);
+                        buttons = '<a href="' + urlEdit + '" class="btn btn-sm btn-default btn-hover-info" title="Editar"><i class="fa fa-eye"></i></a>';
+                        buttons += getShowActionButtons(row, prepend, append)
+                        return buttons;
+
+                    }
+                });
+
+
+            @endif
+
+            columns.push(
                 {
                     title: 'Imagen',
                     field: 'image',
@@ -254,7 +280,7 @@
                         return getIsImmediateButton(row.id, row.is_immediate);
                     }
                 }
-            ];
+            );
 
             @if($config['action']['changeStatus'])
             columns.push({
@@ -281,31 +307,6 @@
                 }
             });
             @endif
-
-            @if($config['blade']['showActions'] and $config['any_action'])
-
-            columns.push({
-                title: 'Acciones',
-                field: 'active',
-                align: 'center',
-                cellStyle: cellStyle,
-                clickToSelect: false,
-                formatter: function (value, row, index) {
-                    let append = '';
-                    let prepend = '';
-
-                    let urlEdit = '{{ route('intranet.products.show_images', [':id'] ) }}';
-                    urlEdit = urlEdit.replace(':id', row.id);
-                    buttons = '<a href="' + urlEdit + '" class="btn btn-sm btn-default btn-hover-info" title="Editar"><i class="fa fa-eye"></i></a>';
-                    buttons += getShowActionButtons(row, prepend, append)
-                    return buttons;
-
-                }
-            });
-
-
-            @endif
-
 
             $('#table-bs').bootstrapTable({
                 data: @json($objects),

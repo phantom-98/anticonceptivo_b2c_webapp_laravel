@@ -63,7 +63,7 @@ class WebpayPlusController
     private static function validatePrices($product_id, $is_offer, $price)
     {
         $product = Product::find($product_id);
-        
+
         if ($is_offer == true) {
             if ($product->offer_price != $price) {
                 // distinto precio de oferta
@@ -89,11 +89,12 @@ class WebpayPlusController
     public function createSubscription(Request $request)
     {
         try {
-            
+
             $response = $this->oneclick->createInscription(
                 $request->customer_id,
                 $request->email,
-                route('api.v1.app.payment.webpay.responsePaymentMethod')
+                $request->is_profile ? ($request->is_session_credit ? route('api.v1.app.payment.webpay.responsePaymentMethodAccountCard') : route('api.v1.app.payment.webpay.responsePaymentMethodAccount')) :
+                    route('api.v1.app.payment.webpay.responsePaymentMethod')
             );
 
             if ($response['response']->token) {
@@ -299,6 +300,10 @@ class WebpayPlusController
 
                     $productSubscriptionPlan = ProductSubscriptionPlan::where('product_id', $orderItem->product_id)
                         ->where('subscription_plan_id', $subscriptionPlan->id)->get()->first();
+
+                    if(!$productSubscriptionPlan->active){
+                        return ApiResponse::JsonError([], 'El producto ' . $orderItem->name . ' ya no dispone del plan de suscripción seleccionado');
+                    }
                     $quantity = 2;
                     if ($i == round($subscriptionPlan->months / 2) - 2 && (round($subscriptionPlan->months / 2) - 1) % 2 == 0 && $subscriptionPlan->months % 2 != 0) {
                         $period_string .= ', ' . ($period + 1) . ' y ' . ($period + 2);
@@ -740,6 +745,19 @@ class WebpayPlusController
 
     public function responsePaymentMethod(Request $request)
     {
+        return $this->responsePaymentMethodLogic($request, 'checkout');
+    }
+
+    public function responsePaymentMethodAccount(Request $request)
+    {
+        return $this->responsePaymentMethodLogic($request, 'mi-cuenta/suscripcion');
+    }
+    public function responsePaymentMethodAccountCard(Request $request)
+    {
+        return $this->responsePaymentMethodLogic($request, 'mi-cuenta/tarjetas-de-credito-y-debito');
+    }
+
+    private function responsePaymentMethodLogic($request, $redirect){
         if ($request['TBK_TOKEN']) {
             $response = $this->oneclick->finishInscription(
                 $request['TBK_TOKEN']
@@ -760,8 +778,9 @@ class WebpayPlusController
             if ($response['status'] != 'success') {
                 $subscription->status = PaymentMethodStatus::CANCELED;
                 $subscription->save();
-                return redirect('checkout');
-        //                return view('webapp.payment.webpay-finish');
+
+                return redirect($redirect);
+                //                return view('webapp.payment.webpay-finish');
 
             }
             $response = $response['response'];
@@ -769,7 +788,7 @@ class WebpayPlusController
             if ($response->getResponseCode() == 0) {
 
 
-                $subscriptions = Subscription::where('customer_id', $subscription->customer_id)->get();
+                $subscriptions = Subscription::where('customer_id', $subscription->customer_id)->where('default_subscription',true)->get();
                 foreach ($subscriptions as $key => $item_subscriptions) {
                     if ($item_subscriptions) {
                         $item_subscriptions->update(['default_subscription' => false]);
@@ -781,7 +800,10 @@ class WebpayPlusController
                 $subscription->oneclick_auth_code = $response->getAuthorizationCode();
                 $subscription->transbank_token = $response->getTbkUser();
                 $subscription->status = PaymentMethodStatus::CREATED;
-                $subscription->default_subscription = 1;
+                $subscription->default_subscription = 0;
+                if(count($subscriptions ?? []) == 0){
+                    $subscription->default_subscription = 1;
+                }
                 $subscription->save();
 
             } else {
@@ -790,7 +812,8 @@ class WebpayPlusController
             }
         }
 
-        return redirect('checkout');
+        return redirect($redirect);
+
     }
 
     public function verify(Request $request)

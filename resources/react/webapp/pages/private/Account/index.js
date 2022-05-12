@@ -8,6 +8,7 @@ import Addresses from "./sections/Addresses";
 import ShoppingHistory from "./sections/ShoppingHistory";
 import Subscription from "./sections/Subscription";
 import Receipts from "./sections/Receipts";
+import CreditAndDebitCard from "./sections/CreditAndDebitCard";
 import CustomerService from "./sections/CustomerService";
 import {Redirect} from "react-router-dom";
 import PUBLIC_ROUTES from "../../../routes/publicRoutes";
@@ -44,6 +45,10 @@ const Account = ({match}) => {
         RECEIPTS: {
             url: 'mis-recetas',
             name: 'Mis Recetas'
+        },
+        CREDIT_AND_DEBIT_CARD: {
+            url: 'tarjetas-de-credito-y-debito',
+            name: 'Tarjetas de pago'
         },
         CUSTOMER_SERVICE: {
             url: 'servicio-cliente',
@@ -90,7 +95,8 @@ const Account = ({match}) => {
 
             case sections.RECEIPTS.url:
                 return <Receipts/>;
-
+            case sections.CREDIT_AND_DEBIT_CARD.url:
+                return <CreditAndDebitCard/>;
             case sections.CUSTOMER_SERVICE.url:
                 return <CustomerService/>;
 
