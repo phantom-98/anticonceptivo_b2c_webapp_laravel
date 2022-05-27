@@ -117,7 +117,7 @@ class OrderController extends GlobalController
 
         if (!$object) {
             session()->flash('warning', 'Pedido no encontrado.');
-            return redirect()->route($this->route . 'index');
+            return redirect()->back();
         }
 
         return view($this->folder . 'show', compact('object'));
@@ -192,7 +192,7 @@ class OrderController extends GlobalController
 
         if (!$object) {
             session()->flash('warning', 'Pedido no encontrado.');
-            return redirect()->route($this->route . 'index');
+            return redirect()->back();
         }
 
         if(isset($request->prescription)){
@@ -215,7 +215,7 @@ class OrderController extends GlobalController
                 $object->save();
             } else {
                 session()->flash('danger', 'Debe seleccionar un estado para actualizar el pedido.');
-                return redirect()->route($this->route . 'index');
+                return redirect()->back();
             }
         }
 
@@ -229,7 +229,7 @@ class OrderController extends GlobalController
             } else {
                 session()->flash('success', 'Estado del pedido actualizado correctamente.');
             }
-            return redirect()->route($this->route . 'index');
+            return redirect()->back();
         }
     }
 
@@ -262,7 +262,7 @@ class OrderController extends GlobalController
         ]);
 
         session()->flash('success', 'Pedido reprocesado exitosamente.');
-        return redirect()->route($this->route . 'index');
+        return redirect()->back();
     }
 
 }
