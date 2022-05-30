@@ -514,8 +514,8 @@ class WebpayPlusController
                     //                        CallIntegrationsPay::callUpdateStockProducts($order->id);
                     //                        CallIntegrationsPay::sendEmailsOrder($order->id);
                     //                    }
-                    UpdateProductStockJob::dispatch($order);
                     FinishPaymentJob::dispatch($order);
+                    UpdateProductStockJob::dispatch($order);
                     //                    return ApiResponse::JsonSuccess([
                     //                        'order' => $order
                     //                    ], 'Compra OneClick');

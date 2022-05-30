@@ -146,6 +146,8 @@ class PaySubscriptions extends Command
                                         $item->save();
                                     }
                                 }
+                                $sub_order_item->pay_date = Carbon::now()->addDay();
+                                $sub_order_item->dispatch_date = Carbon::now()->addDays(2);
                                 $sub_order_item->is_pay = 0;
                                 $sub_order_item->save();
                             }
@@ -180,6 +182,8 @@ class PaySubscriptions extends Command
                                     $item->save();
                                 }
                             }
+                            $sub_order_item->pay_date = Carbon::now()->addDay();
+                            $sub_order_item->dispatch_date = Carbon::now()->addDays(2);
                             $sub_order_item->is_pay = 0;
                             $sub_order_item->save();
                         }
@@ -237,6 +241,8 @@ class PaySubscriptions extends Command
                                     $item->save();
                                 }
                             }
+                            $sub_order_item->pay_date = Carbon::now()->addDay();
+                            $sub_order_item->dispatch_date = Carbon::now()->addDays(2);
                             $sub_order_item->is_pay = 0;
                             $sub_order_item->save();
                         }
@@ -270,6 +276,8 @@ class PaySubscriptions extends Command
                                 $item->save();
                             }
                         }
+                        $sub_order_item->pay_date = Carbon::now()->addDay();
+                        $sub_order_item->dispatch_date = Carbon::now()->addDays(2);
                         $sub_order_item->is_pay = 0;
                         $sub_order_item->save();
                     }

@@ -431,10 +431,9 @@ class ProfileController extends Controller
                     $q->where('customer_id',$customer->id)->where('is_paid', 1);
                 })
                 ->whereNotNull('subscription_id')
-                ->with(['order_item.product','customer_address.commune','subscription','order_parent.order_items','order_item.subscription_plan'])
+                ->with(['order','order_item.product','customer_address.commune','subscription','order_parent.order_items','order_item.subscription_plan'])
                 ->orderBy('order_parent_id', 'asc')->orderBy('id','asc')->orderBy('pay_date', 'asc')
                 ->get();
-
             // Log::info('test 1',[$subscriptionsOrdersItem]);
             $deliveryCosts = DeliveryCost::where('active',1)->get();
             $subscriptionsOrdersItem = $subscriptionsOrdersItem->map(function ($item) use ($deliveryCosts) {

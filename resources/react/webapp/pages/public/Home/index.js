@@ -81,11 +81,11 @@ const Home = ({match}) => {
 
             {/* <BlogCarousel title="BLOG" showButton={true} buttonTitle="VER MÁS NOTICIAS" /> */}
 
-            <BannerStatic banners={bottomBanners}/>
+            {/*<BannerStatic banners={bottomBanners}/>*/}
 
-            <BlogPosts blogPosts={blogPosts} isLoaded={isLoaded}/>
+            {/*<BlogPosts blogPosts={blogPosts} isLoaded={isLoaded}/>*/}
 
-            <OurBrands brands={brands}/>
+            {/*<OurBrands brands={brands}/>*/}
 
             <Subscribe/>
         </div>
