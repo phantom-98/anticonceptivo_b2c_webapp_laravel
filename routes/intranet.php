@@ -134,6 +134,9 @@ if (env('SHOW_INTRANET', 'TRUE') == 'TRUE') {
                 Route::post('valores/active', 'ValueController@active')->name('values.active');
                 Route::resource('valores', 'ValueController', ['names' => getResourceRoutesForNameHelper('values')]);
 
+                Route::post('text-superior/active', 'TextHeaderController@active')->name('text_header.active');
+                Route::resource('text-superior', 'TextHeaderController', ['names' => getResourceRoutesForNameHelper('text_header')]);
+
                 Route::post('campanas/active', 'CampaignController@active')->name('campaigns.active');
                 Route::resource('campanas', 'CampaignController', ['names' => getResourceRoutesForNameHelper('campaigns')]);
 

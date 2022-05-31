@@ -1451,9 +1451,8 @@ input.my-auto.file-input {
 .banner-buttons-2 {
   position: absolute;
   top: 70%;
-  left: 62.5%;
+  left: 50%;
   transform: translate(-50%, -50%);
-  width: 20%;
   height: 0%;
   z-index: 10;
 }

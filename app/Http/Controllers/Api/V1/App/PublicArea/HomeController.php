@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1\App\PublicArea;
 
 use App\Http\Controllers\Controller;
+use App\Models\TextHeader;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Willywes\ApiResponse\ApiResponse;
@@ -109,9 +110,11 @@ class HomeController extends Controller
         try {
 
             $postTypes = PostType::where('active',true)->get();
+            $textHeader = TextHeader::where('active',true)->first();
 
             return ApiResponse::JsonSuccess([
-                'post_types' => $postTypes
+                'post_types' => $postTypes,
+                'tex_header' => $textHeader
             ]);
 
         } catch (\Exception $exception) {
