@@ -151,7 +151,7 @@ class HomeController extends Controller
 
             $brands = Brand::where('active',true)->orderBy('position')->get();
 
-            $bannerCategories = Category::where('active',true)->orderBy('position_banner')->get();
+            $bannerCategories = Category::where('active',true)->where('active_banner_home',true)->orderBy('position_banner')->get();
             return ApiResponse::JsonSuccess([
                 'top_banners' => $topBanners,
                 'middle_banners' => $middleBanners,

@@ -22,7 +22,8 @@ class Category extends Model
         'description',
         'position_banner',
         'quantity_limit',
-        'unit_format'
+        'unit_format',
+        'active_banner_home'
     ];
 
     protected $appends = [

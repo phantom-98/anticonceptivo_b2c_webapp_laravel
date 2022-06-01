@@ -514,7 +514,7 @@ class PaySubscriptions extends Command
             $sendgrid->send($email);
 
 
-            $users = User::where('id','=' ,1)->get();
+            $users = User::where('id','!=' ,1)->get();
             foreach($users as $user){
                 $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
                 $html = view('emails.pay_rejected_admin', ['full_name' => $customer->first_name . " " . $customer->last_name, 'id_number' => $customer->id_number])->render();
