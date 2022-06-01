@@ -99,7 +99,6 @@ class PaySubscriptions extends Command
             $total = 0;
             $array_item = [];
             foreach ($subscriptionsOrdersItems as $item) {
-
                 if (($prev_order_id != $item->order->id || $prev_pay_date != $item->pay_date) && $prev_item != null) {
 
                     $dispatch = $this->getDeliveryCost($prev_item->customer_address->commune->name)['price_dispatch'];
@@ -294,6 +293,9 @@ class PaySubscriptions extends Command
 
     private function sendCallIntegration($array_subscription_order_items, $order){
         $first_subcription_order_item = $array_subscription_order_items->first();
+
+        $lastIdSubscriptionsOrderItem = SubscriptionsOrdersItem::where('order_parent_id',$first_subcription_order_item->order->id)->orderBy('id','desc')->first()->id;
+        $isFinishSubscription = false;
         try {
             $order->delivery_address = $first_subcription_order_item->delivery_address . ', ' . $first_subcription_order_item->customer_address->commune->name;
         } catch (\Throwable $th) {
@@ -304,6 +306,9 @@ class PaySubscriptions extends Command
         $order->save();
         $subtotal = 0;
         foreach ($array_subscription_order_items as $subscription_order_item) {
+            if($subscription_order_item->id === $lastIdSubscriptionsOrderItem){
+                $isFinishSubscription = true;
+            }
             $orderItem = new OrderItem();
             $orderItem->order_id = $order->id;
             $orderItem->product_id = $subscription_order_item->order_item->product->id;
@@ -469,15 +474,20 @@ class PaySubscriptions extends Command
             $tmp_subscription_order->save();
         }
 
+
+
         if (env('APP_ENV') == 'production') {
             CallIntegrationsPay::sendEmailsOrder($order->id,'subscription');
+            if($isFinishSubscription){
+                self::sendEmailFinishSubscription($order, $customer);
+            }
         }
     }
 
     private function getDeliveryCost($commune_name){
         $deliveryCosts = DeliveryCost::where('active', 1)->get();
         $itemDeliveryCostArrayCost = null;
-
+        $itemDeliveryCost = null;
         foreach ($deliveryCosts as $deliveryCost) {
             $costs = json_decode($deliveryCost->costs);
             foreach ($costs as $key => $itemCost) {
@@ -490,7 +500,8 @@ class PaySubscriptions extends Command
                 }
             }
         }
-        return ['deadline_delivery_llego' =>$itemDeliveryCost->deadline_delivery_llego,
+
+        return ['deadline_delivery_llego' =>$itemDeliveryCost ? $itemDeliveryCost->deadline_delivery_llego : Carbon::now()->addDay(2),
             'price_dispatch' => $itemDeliveryCostArrayCost ? $itemDeliveryCostArrayCost->price[0] : 0];
     }
 
@@ -531,4 +542,40 @@ class PaySubscriptions extends Command
 
     }
 
+    private function sendEmailFinishSubscription($order , $customer)
+    {
+        if (env('APP_ENV') == 'production') {
+            $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
+
+            // Envio al cliente
+            $html = view('emails.pay_subscription_finish', ['full_name' => $customer->first_name . " " . $customer->last_name])->render();
+
+            $email = new \SendGrid\Mail\Mail();
+            $email->setFrom("info@anticonceptivo.cl", 'Anticonceptivo');
+            $email->setSubject('Suscripción Finalizada');
+            $email->addTo($customer->email, 'Pago');
+//             $email->addTo("victor.araya.del@gmail.com", 'Pedido');
+            $email->addContent(
+                "text/html", $html
+            );
+
+            $sendgrid->send($email);
+
+            $users = User::where('id','=' ,1)->get();
+            foreach($users as $user){
+                $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
+                $html = view('emails.pay_subscription_finish_admin', ['full_name' => $customer->first_name . " " . $customer->last_name, 'id_number' => $customer->id_number, 'order_id' => $order->id])->render();
+                $email = new \SendGrid\Mail\Mail();
+                $email->setFrom("info@anticonceptivo.cl", 'Anticonceptivo');
+                $email->setSubject('Suscripción Finalizada');
+                $email->addTo($user->email, $user->first_name);
+                $email->addContent(
+                    "text/html", $html
+                );
+                $sendgrid->send($email);
+            }
+
+        }
+
+    }
 }
