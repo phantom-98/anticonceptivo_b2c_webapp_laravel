@@ -352,7 +352,7 @@ const SubscriptionCard = ({
                                                     </div>
                                                     :
 
-                                                    (item.current_advance === item.advance_end && item.subscription_item.order && item.subscription_item.order.status === "DELIVERED" ?
+                                                    (item.current_advance === item.advance_end && item.subscription_item.order && (item.subscription_item.order.status === "DELIVERED" || item.subscription_item.order.status ===  "CANCELED") ?
                                                         <div className="col-auto d-flex flex-row">
                                                             <div
                                                                 className="subscription-card-label-finish mt-2">Terminado
@@ -382,7 +382,7 @@ const SubscriptionCard = ({
                                                                 return (
                                                                     <span className="dot-incoming" />
                                                                 )
-                                                            } else if ((item.current_advance === itemNumber || item.current_advance - 1 === itemNumber) && (item.subscription_item.order === null || item.subscription_item.order.status !== "DELIVERED")) {
+                                                            } else if ((item.current_advance === itemNumber || item.current_advance - 1 === itemNumber) && (item.subscription_item.order === null || (item.subscription_item.order.status !== "DELIVERED" || item.subscription_item.order.status === "CANCELED"))) {
                                                                 return (
                                                                     <span className="dot-process" />
                                                                 )
@@ -394,7 +394,7 @@ const SubscriptionCard = ({
                                                         })
                                                     }
                                                     <span
-                                                        className="ml-2 p-0 subscription-card-label">{item.current_advance === item.advance_end && item.subscription_item.order && item.subscription_item.order.status === "DELIVERED" ? item.current_advance : item.subscription_item.order && item.subscription_item.order.status === "DELIVERED" ? item.current_advance : item.current_advance-2}/{item.advance_end}</span>
+                                                        className="ml-2 p-0 subscription-card-label">{item.current_advance === item.advance_end && item.subscription_item.order && (item.subscription_item.order.status === "DELIVERED" || item.subscription_item.order.status === "CANCELED") ? item.current_advance : item.subscription_item.order && (item.subscription_item.order.status === "DELIVERED" || item.subscription_item.order.status === "CANCELED") ? item.current_advance : item.current_advance-2}/{item.advance_end}</span>
                                                 </div>
                                             </div>
 
@@ -507,7 +507,7 @@ const SubscriptionCard = ({
                                             null
                                         }
                                         {
-                                            item.subscription_item.active == 1 && !(item.current_advance === item.advance_end && item.subscription_item.order && item.subscription_item.order.status === "DELIVERED")?
+                                            item.subscription_item.active == 1 && !(item.current_advance === item.advance_end && item.subscription_item.order && (item.subscription_item.order.status === "DELIVERED" || item.subscription_item.order.status ===  "CANCELED"))?
                                                 <div className="row mt-2">
                                                     <div className="col-12 col-sm-6 col-xl-3 my-2 text-center">
                                                         <span onClick={() => changeVisibleModalDispatchDate(item.subscription_item)}
