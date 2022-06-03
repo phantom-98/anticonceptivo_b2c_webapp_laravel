@@ -2,7 +2,7 @@ import React, {useEffect, useState, useContext} from 'react';
 import OurBrands from "./OurBrands";
 import Subscribe from "../../../components/sections/Subscribe";
 // import BestSeller from "../../../components/sections/BestSellers";
-// import OutstandingCarousel from "../../../components/sections/OutstandingCarousel";
+import OutstandingCarousel from "../../../components/sections/OutstandingCarousel";
 import BannerCategories from "../../../components/sections/BannerCategories";
 import BlogCarousel from "../../../components/sections/BlogCarousel";
 import {ModalAuthMode} from "../../../Globals";
