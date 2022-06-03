@@ -33,7 +33,7 @@ const Home = ({match}) => {
     const [middleBanners, setMiddleBanners] = useState([]);
     const [bottomBanners, setBottomBanners] = useState([]);
     const [brands, setBrands] = useState([]);
-    // const [outstandings, setOutstandings] = useState([]);
+    const [outstandings, setOutstandings] = useState([]);
     // const [bestSellers, setBestSellers] = useState([]);
 
     useEffect(() => {
