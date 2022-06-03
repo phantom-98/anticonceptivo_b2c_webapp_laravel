@@ -60,6 +60,7 @@ const Home = ({match}) => {
                     setBrands(response.data.brands);
                     setBannerCategories(response.data.bannerCategories);
                     setBlogPosts(response.data.blog_posts);
+                    setOutstandings(response.data.outstandings);
                     setIsLoaded(true);
                 },
             });
