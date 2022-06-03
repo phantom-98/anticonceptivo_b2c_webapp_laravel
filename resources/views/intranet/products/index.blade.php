@@ -394,8 +394,8 @@
         }
 
         function preparedChangeStatusOutstanding() {
-            $('*[id^="chk_is_outstanding_"]').change(function () {
-                let id = $(this).prop('id').replace('chk_is_outstanding_', '');
+            $('*[id^="chk_outstanding_"]').change(function () {
+                let id = $(this).prop('id').replace('chk_outstanding_', '');
                 let status = $(this).prop('checked');
                 changeStatusOutstanding(id, status);
             })
