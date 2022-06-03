@@ -78,8 +78,6 @@ const Home = ({match}) => {
         <div className="bg-FAFAFA">
             <BannerCarousel topBanners={topBanners}/>
 
-            {/* <OutstandingCarousel title="Destacados" outstandings={outstandings}/> */}
-
             <BannerStatic banners={middleBanners}/>
             <BannerCategories bannerCategories={bannerCategories}/>
 
@@ -91,7 +89,9 @@ const Home = ({match}) => {
 
             {/*<BlogPosts blogPosts={blogPosts} isLoaded={isLoaded}/>*/}
 
-            {/*<OurBrands brands={brands}/>*/}
+            <OutstandingCarousel title="Destacados" outstandings={outstandings}/>
+
+            <OurBrands brands={brands}/>
 
             <Subscribe/>
         </div>
