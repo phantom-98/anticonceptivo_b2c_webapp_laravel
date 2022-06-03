@@ -286,7 +286,7 @@
                     sortable: true,
                     cellStyle: midAling,
                     formatter: function (value, row, index) {
-                        return getIsImmediateButton(row.id, row.outstanding);
+                        return getIsOutstandingButton(row.id, row.outstanding);
                     }
                 }
             );
@@ -356,6 +356,12 @@
             return '<input type="checkbox" class="toggle-bs" id="chk_is_immediate_' + id + '"  ' + (is_immediate ? ' checked ' : '') + ' data-toggle="toggle"  data-size="small" data-on="Activado" data-off="Desactivado" data-onstyle="success" data-offstyle="danger"/>';
         }
     </script>
+
+    <script>function getIsOutstandingButton(id, outstanding) {
+        return '<input type="checkbox" class="toggle-bs" id="chk_outstanding_' + id + '"  ' + (outstanding ? ' checked ' : '') + ' data-toggle="toggle"  data-size="small" data-on="Activado" data-off="Desactivado" data-onstyle="success" data-offstyle="danger"/>';
+    }
+    </script>
+
 
     <script>
         // toggle status
