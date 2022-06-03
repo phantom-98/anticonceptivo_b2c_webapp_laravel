@@ -128,12 +128,12 @@ class HomeController extends Controller
             $middleBanners = Banner::where('location','Home (Centro)')->where('active',true)->orderBy('position')->get();
             $bottomBanners = Banner::where('location','Home (Inferior)')->where('active',true)->orderBy('position')->get();
 
-            // $outstandings = Product::where('outstanding', true)->where('active',true)->where('recipe_type','Venta Directa')
-            //     ->with(['subcategory.category','product_images','laboratory'])->get();
+            $outstandings = Product::where('outstanding', true)->where('active',true)->where('recipe_type','Venta Directa')
+                ->with(['subcategory.category','product_images','laboratory'])->get();
 
-            // if (!$outstandings->count()) {
-            //     $outstandings = Product::where('active',true)->where('recipe_type','Venta Directa')->with(['subcategory.category','product_images','laboratory'])->take(10)->get();
-            // }
+            if (!$outstandings->count()) {
+                $outstandings = Product::where('active',true)->where('recipe_type','Venta Directa')->with(['subcategory.category','product_images','laboratory'])->take(10)->get();
+            }
 
             $productsId = OrderItem::with(['order','product'])->whereHas('order', function($q){
                 $q->where('status','PAID');
@@ -156,7 +156,7 @@ class HomeController extends Controller
                 'top_banners' => $topBanners,
                 'middle_banners' => $middleBanners,
                 'bottom_banners' => $bottomBanners,
-                // 'outstandings' => $outstandings,
+                'outstandings' => $outstandings,
                 // 'best_sellers' => $bestSellers,
                 'brands' => $brands,
                 'bannerCategories' => $bannerCategories,

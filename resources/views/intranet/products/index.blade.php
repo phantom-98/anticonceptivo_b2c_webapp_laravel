@@ -279,6 +279,15 @@
                     formatter: function (value, row, index) {
                         return getIsImmediateButton(row.id, row.is_immediate);
                     }
+                },
+                {
+                    title: '¿Producto Destacado?',
+                    field: 'outstanding',
+                    sortable: true,
+                    cellStyle: midAling,
+                    formatter: function (value, row, index) {
+                        return getIsImmediateButton(row.id, row.outstanding);
+                    }
                 }
             );
 
@@ -316,7 +325,7 @@
 
             runActiveControl()
             preparedChangeStatusImmediate();
-
+            preparedChangeStatusOutstanding();
             //  run2x1Control();
 
         });
@@ -367,6 +376,33 @@
                     _token: '{{ csrf_token() }}',
                     id: id,
                     is_immediate: status
+                },
+                success: function (result) {
+                    if (result.status == 'success') {
+                        showToastSuccess(result.message);
+                    } else {
+                        showToastError(result.message);
+                    }
+                }
+            });
+        }
+
+        function preparedChangeStatusOutstanding() {
+            $('*[id^="chk_is_outstanding_"]').change(function () {
+                let id = $(this).prop('id').replace('chk_is_outstanding_', '');
+                let status = $(this).prop('checked');
+                changeStatusOutstanding(id, status);
+            })
+        }
+
+        function changeStatusOutstanding(id, status) {
+            $.ajax({
+                url: '{{ route($config['route'] . 'is_outstanding') }}',
+                method: 'post',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    id: id,
+                    outstanding: status
                 },
                 success: function (result) {
                     if (result.status == 'success') {
