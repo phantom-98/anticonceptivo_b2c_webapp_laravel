@@ -192,9 +192,15 @@
 
     document.addEventListener('DOMNodeInserted', function () {
         let chatIframe = document.getElementById('live-chat-widget');
+        let currentUrl = window.location.href;
+
         if (!chatIframeModified) {
             if(chatIframe){
-                chatIframe.style = 'display: none';
+                if (currentUrl === 'http://127.0.0.1:8000/' || currentUrl === 'https://dev.anticonceptivo.tienda.innovaweb.cl/' || currentUrl === 'https://anticonceptivo.cl/') {
+                    chatIframe.style = 'display: flex;';
+                } else {
+                    chatIframe.style = 'display: none';
+                }
                 chatIframeModified = true;
             }
         }
