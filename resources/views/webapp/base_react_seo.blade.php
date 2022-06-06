@@ -43,7 +43,7 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/themes/web/favicon/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
-    <meta name="facebook-domain-verification" content="p5y4cx1icpybbv81clkkw87cdw4qit" />
+    <meta name="facebook-domain-verification" content="p5y4cx1icpybbv81clkkw87cdw4qit"/>
 
     <!-- Google Tag Manager -->
     <script>(function (w, d, s, l, i) {
@@ -65,6 +65,7 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-209380285-1"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
+
         function gtag() {
             dataLayer.push(arguments);
         }
@@ -154,16 +155,53 @@
 <script src="{{ asset('themes/web/assets/js/custom.js') }}"></script>
 <script src="{{ asset('themes/web/assets/plugins/toastr/toastr.min.js') }}"></script>
 
-{{--<script>--}}
-{{--  var MessageBirdChatWidgetSettings = {--}}
-{{--    widgetId: '98cafb52-fed5-4d0c-b382-d8bc49b3ddda',--}}
-{{--    initializeOnLoad: true,--}}
-{{--  };--}}
+<script>
+    var MessageBirdChatWidgetSettings = {
+        widgetId: '98cafb52-fed5-4d0c-b382-d8bc49b3ddda',
+        initializeOnLoad: true,
+    };
 
-{{--  !function(){"use strict";if(Boolean(document.getElementById("live-chat-widget-script")))console.error("MessageBirdChatWidget: Snippet loaded twice on page");else{var e,t;window.MessageBirdChatWidget={},window.MessageBirdChatWidget.queue=[];for(var i=["init","setConfig","toggleChat","identify","hide","on","shutdown"],n=function(){var e=i[d];window.MessageBirdChatWidget[e]=function(){for(var t=arguments.length,i=new Array(t),n=0;n<t;n++)i[n]=arguments[n];window.MessageBirdChatWidget.queue.push([[e,i]])}},d=0;d<i.length;d++)n();var a=(null===(e=window)||void 0===e||null===(t=e.MessageBirdChatWidgetSettings)||void 0===t?void 0:t.widgetId)||"",o=function(){var e,t=document.createElement("script");t.type="text/javascript",t.src="https://livechat.messagebird.com/bootstrap.js?widgetId=".concat(a),t.async=!0,t.id="live-chat-widget-script";var i=document.getElementsByTagName("script")[0];null==i||null===(e=i.parentNode)||void 0===e||e.insertBefore(t,i)};"complete"===document.readyState?o():window.attachEvent?window.attachEvent("onload",o):window.addEventListener("load",o,!1)}}();--}}
-{{--</script>--}}
+    !function () {
+        "use strict";
+        if (Boolean(document.getElementById("live-chat-widget-script"))) console.error("MessageBirdChatWidget: Snippet loaded twice on page"); else {
+            var e, t;
+            window.MessageBirdChatWidget = {}, window.MessageBirdChatWidget.queue = [];
+            for (var i = ["init", "setConfig", "toggleChat", "identify", "hide", "on", "shutdown"], n = function () {
+                var e = i[d];
+                window.MessageBirdChatWidget[e] = function () {
+                    for (var t = arguments.length, i = new Array(t), n = 0; n < t; n++) i[n] = arguments[n];
+                    window.MessageBirdChatWidget.queue.push([[e, i]])
+                }
+            }, d = 0; d < i.length; d++) n();
+            var a = (null === (e = window) || void 0 === e || null === (t = e.MessageBirdChatWidgetSettings) || void 0 === t ? void 0 : t.widgetId) || "",
+                o = function () {
+                    var e, t = document.createElement("script");
+                    t.type = "text/javascript", t.src = "https://livechat.messagebird.com/bootstrap.js?widgetId=".concat(a), t.async = !0, t.id = "live-chat-widget-script";
+                    var i = document.getElementsByTagName("script")[0];
+                    null == i || null === (e = i.parentNode) || void 0 === e || e.insertBefore(t, i)
+                };
+            "complete" === document.readyState ? o() : window.attachEvent ? window.attachEvent("onload", o) : window.addEventListener("load", o, !1)
+        }
+    }();
+</script>
 
 @yield('scripts')
+
+<script>
+    let chatIframeModified = false;
+
+    document.addEventListener('DOMNodeInserted', function () {
+        let chatIframe = document.getElementById('live-chat-widget');
+        if (!chatIframeModified) {
+            if(chatIframe){
+                chatIframe.style = 'display: none';
+                chatIframeModified = true;
+            }
+        }
+    });
+
+
+</script>
 
 </body>
 </html>

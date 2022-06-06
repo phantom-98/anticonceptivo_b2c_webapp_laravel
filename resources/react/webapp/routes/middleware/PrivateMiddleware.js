@@ -11,6 +11,27 @@ const PrivateMiddleware = ({path: path, component: Component, layout: Layout, ti
     document.title = (title) + ' - Anticonceptivo';
 
     useEffect(() => {
+
+        let chatIframeModified = false;
+
+        document.addEventListener('DOMNodeInserted', function () {
+            let chatIframe = document.getElementById('live-chat-widget');
+
+            if (!chatIframeModified) {
+                if (chatIframe) {
+                    if (title == 'Inicio') {
+                        chatIframe.style = 'display: flex;';
+                    } else {
+                        chatIframe.style = 'display: none';
+                    }
+                    chatIframeModified = true;
+                }
+            }
+        });
+
+    }, []);
+
+    useEffect(() => {
         setLoad(true)
     }, [])
 
