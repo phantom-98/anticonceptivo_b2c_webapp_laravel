@@ -196,7 +196,7 @@
                                                         </a>
                                                     @endif
                                                     @if($object->prescription_validation == 1)
-                                                        @if($object->status == "PAID" || $object->status == "DISPATCHED" || $object->status == "DELIVERED")
+                                                        @if($object->status == "PAID" || $object->status == "DISPATCHED" || $object->status == "DELIVERED" || $object->status == "CANCELED")
                                                         <a onclick="change_status({{$object->id}}, '{{$object->status}}')"
                                                             class="btn btn-sm btn-default btn-hover-info" data-toggle="tooltip"
                                                             title="Cambiar estado">
@@ -213,7 +213,7 @@
                                                     @endif
                                                 @endpush
                                             @else
-                                                @if($object->status == "PAID" || $object->status == "DISPATCHED" || $object->status == "DELIVERED")
+                                                @if($object->status == "PAID" || $object->status == "DISPATCHED" || $object->status == "DELIVERED" || $object->status == "CANCELED")
                                                 <a onclick="change_status({{$object->id}}, '{{$object->status}}')"
                                                     class="btn btn-sm btn-default btn-hover-info" data-toggle="tooltip"
                                                     title="Cambiar estado">
@@ -471,8 +471,10 @@
             } else if (status == "DISPATCHED") {
                 html += '<option value="DELIVERED">Entregado</option>';
                 html += '<option value="CANCELED">Anulado</option>';
-            } else {
+            } else if (status == "DELIVERED")  {
                 html += '<option value="CANCELED">Anulado</option>';
+            } else {
+                html += '<option value="PAID">Pagado</option>';
             }
             html += '</select>';
             html += '<input type="number" step=".01" class="form-control dispatched humidityStatus" id="humidity" name="humidity" onkeyup="validateDispatch()" placeholder="Humedad (%)" style="margin-left:20px; width:25%; font-size: 14px; display:none">';
