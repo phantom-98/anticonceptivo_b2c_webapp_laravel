@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
@@ -10,6 +10,7 @@ import {BREAKPOINTS} from "../../helpers/vars";
 
 const OutstandingCarousel = ({title, outstandings}) => {
     const {breakpoint} = useContext(AppContext)
+    let contSlider = 0
 
     const settings = {
         dots: true,
@@ -33,12 +34,37 @@ const OutstandingCarousel = ({title, outstandings}) => {
                             {
                                 outstandings.map((product, index) => {
                                         let uuid = uuidv4();
+                                        let cont = 0
+                                        if(outstandings.length -1 === index){
+                                            if(breakpoint === BREAKPOINTS.MEDIUM ||breakpoint === BREAKPOINTS.LARGE || breakpoint === BREAKPOINTS.EXTRA_LARGE || breakpoint === BREAKPOINTS.EXTRA_EXTRA_LARGE){
+                                                while((index+1)%4!==0){
+                                                    cont++
+                                                    index++
+                                                }
+                                            }else{
+                                                while((index+1)%2!==0){
+                                                    cont++
+                                                    index++
+                                                }
+                                            }
+                                            contSlider = cont
+                                        }
                                         return (
                                             <div key={uuid} className="px-2 mb-3">
                                                 <ProductCard product={product}/>
                                             </div>
                                         )
                                     })
+                            }
+                            {
+                                [...Array(contSlider).keys()].map((item, index) => {
+                                    let uuid = uuidv4();
+                                    return (
+                                        <div key={uuid} className="px-2 mb-3">
+                                            <ProductCard product={outstandings[item]}/>
+                                        </div>
+                                    )
+                                })
                             }
                         </Slider>
                     </div>
