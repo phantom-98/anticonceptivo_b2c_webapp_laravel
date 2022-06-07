@@ -349,9 +349,16 @@
 .banner-buttons-2{
     position: absolute;
     top: 70%;
-    left: 62.5%;
+    left: 50%;
     transform: translate(-50%, -50%);
-    width: 20%;
+    height: 0%;
+    z-index: 10;
+}
+.banner-buttons-r-2{
+    position: absolute;
+    top: 82%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     height: 0%;
     z-index: 10;
 }
@@ -384,7 +391,7 @@
 
 .timeline-resume{
     font-family: 'Poppins';
-    font-size: 11px; 
+    font-size: 11px;
     font-weight: 400;
     color: #6C6B6B;
 }

@@ -5,6 +5,8 @@ import logoFooter from '../../../assets/images/icons/footer/logo-footer.svg'
 import webpay from '../../../assets/images/icons/footer/webpay.svg'
 import phone from '../../../assets/images/icons/footer/phone.svg'
 import email from '../../../assets/images/icons/footer/email.svg'
+import bannerBio from '../../../assets/images/icons/footer/slider_slider_banner_bio.jpg'
+import bannerCITUC from '../../../assets/images/icons/footer/slider_slider_banner_cituc.jpg'
 // import twitter from '../../../assets/images/icons/footer/twitter.svg'
 import facebook from '../../../assets/images/icons/footer/facebook.svg'
 import instagram from '../../../assets/images/icons/footer/instagram.svg'
@@ -128,7 +130,7 @@ const Footer = () => {
                                 </li>
                             </ul>
                         </div>
-                        <div className="col-lg-auto">
+                        <div className="col-lg-auto mb-3">
                             <ul className="nav flex-column">
                                 <li className="nav-item d-flex" style={{height: '34px'}}>
                                     <div className="px-3 my-auto mx-auto mx-lg-0 font-15 bold font-poppins text-white">
@@ -166,12 +168,21 @@ const Footer = () => {
                                 </div>
                             </div>
                         </div>
-
-                        <div className="col-lg-auto flex-footer-column footer-nav-item">
-                            <div className="mx-auto mx-lg-0">
+                        <div className="col-lg-auto text-center">
+                            <div className="mb-3 footer-nav-item">
                                 <img src={webpay} alt={CONFIG.APP_NAME}/>
+
+                            </div>
+
+                            <div className="mb-3">
+                                <img width={180} src={bannerBio} alt={CONFIG.APP_NAME}/>
+                            </div>
+
+                            <div className="mb-3">
+                                <img width={180} src={bannerCITUC} alt={CONFIG.APP_NAME}/>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>

@@ -225,6 +225,13 @@
                                     </a>
                                 </li>
                                 @endcan
+                                @can('intranet.text_header.index')
+                                <li class="{{ is_menu_active('intranet/texto-superior') }}">
+                                    <a href="{{ route('intranet.text_header.index') }}">
+                                        <span class="menu-title">Texto Superior</span>
+                                    </a>
+                                </li>
+                                @endcan
                                 @can('intranet.alliances.index')
                                 <li class="{{ is_menu_active('intranet/alianzas') }}">
                                     <a href="{{ route('intranet.alliances.index') }}">

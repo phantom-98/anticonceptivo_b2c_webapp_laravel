@@ -1451,9 +1451,17 @@ input.my-auto.file-input {
 .banner-buttons-2 {
   position: absolute;
   top: 70%;
-  left: 62.5%;
+  left: 50%;
   transform: translate(-50%, -50%);
-  width: 20%;
+  height: 0%;
+  z-index: 10;
+}
+
+.banner-buttons-r-2 {
+  position: absolute;
+  top: 82%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   height: 0%;
   z-index: 10;
 }
@@ -1710,6 +1718,18 @@ tbody tr td {
   padding-top: 5px;
   height: 28px;
   background-color: #CECECE;
+  border-radius: 15px;
+}
+
+.subscription-card-label-finish {
+  font-family: "Poppins", sans-serif;
+  font-size: 12px;
+  font-weight: 750;
+  color: #FFFFFF !important;
+  padding: 15px;
+  padding-top: 5px;
+  height: 28px;
+  background-color: #005B86;
   border-radius: 15px;
 }
 

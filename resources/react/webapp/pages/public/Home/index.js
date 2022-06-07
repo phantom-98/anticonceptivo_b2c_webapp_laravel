@@ -2,7 +2,7 @@ import React, {useEffect, useState, useContext} from 'react';
 import OurBrands from "./OurBrands";
 import Subscribe from "../../../components/sections/Subscribe";
 // import BestSeller from "../../../components/sections/BestSellers";
-// import OutstandingCarousel from "../../../components/sections/OutstandingCarousel";
+import OutstandingCarousel from "../../../components/sections/OutstandingCarousel";
 import BannerCategories from "../../../components/sections/BannerCategories";
 import BlogCarousel from "../../../components/sections/BlogCarousel";
 import {ModalAuthMode} from "../../../Globals";
@@ -14,6 +14,14 @@ import LazyLoading from '../../../components/LazyLoading';
 import BlogPosts from './BlogPosts';
 
 const Home = ({match}) => {
+    // var MessageBirdChatWidgetSettings = {
+    //     widgetId: '98cafb52-fed5-4d0c-b382-d8bc49b3ddda',
+    //     initializeOnLoad: true,
+    // };
+    //
+    // useEffect(() => {
+    //     !function(){"use strict";if(Boolean(document.getElementById("live-chat-widget-script")))console.error("MessageBirdChatWidget: Snippet loaded twice on page");else{var e,t;window.MessageBirdChatWidget={},window.MessageBirdChatWidget.queue=[];for(var i=["init","setConfig","toggleChat","identify","hide","on","shutdown"],n=function(){var e=i[d];window.MessageBirdChatWidget[e]=function(){for(var t=arguments.length,i=new Array(t),n=0;n<t;n++)i[n]=arguments[n];window.MessageBirdChatWidget.queue.push([[e,i]])}},d=0;d<i.length;d++)n();var a=(null===(e=window)||void 0===e||null===(t=e.MessageBirdChatWidgetSettings)||void 0===t?void 0:t.widgetId)||"",o=function(){var e,t=document.createElement("script");t.type="text/javascript",t.src="https://livechat.messagebird.com/bootstrap.js?widgetId=".concat(a),t.async=!0,t.id="live-chat-widget-script";var i=document.getElementsByTagName("script")[0];null==i||null===(e=i.parentNode)||void 0===e||e.insertBefore(t,i)};"complete"===document.readyState?o():window.attachEvent?window.attachEvent("onload",o):window.addEventListener("load",o,!1)}}();
+    // }, []);
 
     const {token} = match.params;
 
@@ -27,7 +35,7 @@ const Home = ({match}) => {
     const [middleBanners, setMiddleBanners] = useState([]);
     const [bottomBanners, setBottomBanners] = useState([]);
     const [brands, setBrands] = useState([]);
-    // const [outstandings, setOutstandings] = useState([]);
+    const [outstandings, setOutstandings] = useState([]);
     // const [bestSellers, setBestSellers] = useState([]);
 
     useEffect(() => {
@@ -54,6 +62,7 @@ const Home = ({match}) => {
                     setBrands(response.data.brands);
                     setBannerCategories(response.data.bannerCategories);
                     setBlogPosts(response.data.blog_posts);
+                    setOutstandings(response.data.outstandings);
                     setIsLoaded(true);
                 },
             });
@@ -72,7 +81,7 @@ const Home = ({match}) => {
         <div className="bg-FAFAFA">
             <BannerCarousel topBanners={topBanners}/>
 
-            {/* <OutstandingCarousel title="Destacados" outstandings={outstandings}/> */}
+            <OutstandingCarousel title="Destacados" outstandings={outstandings}/>
 
             <BannerStatic banners={middleBanners}/>
             <BannerCategories bannerCategories={bannerCategories}/>
@@ -81,11 +90,11 @@ const Home = ({match}) => {
 
             {/* <BlogCarousel title="BLOG" showButton={true} buttonTitle="VER MÁS NOTICIAS" /> */}
 
-            <BannerStatic banners={bottomBanners}/>
+            {/*<BannerStatic banners={bottomBanners}/>*/}
 
-            <BlogPosts blogPosts={blogPosts} isLoaded={isLoaded}/>
+            {/*<BlogPosts blogPosts={blogPosts} isLoaded={isLoaded}/>*/}
 
-            <OurBrands brands={brands}/>
+            {/* <OurBrands brands={brands}/> */}
 
             <Subscribe/>
         </div>

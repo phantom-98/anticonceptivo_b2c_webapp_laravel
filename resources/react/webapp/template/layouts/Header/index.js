@@ -26,6 +26,7 @@ import SearchModal from "./SearchModal";
 import TotalCartItems from "../../../components/shopping/TotalCartItems";
 import PRIVATE_ROUTES from "../../../routes/privateRoutes";
 import {AuthContext} from "../../../context/AuthProvider";
+import * as Services from "../../../Services";
 
 const Header = () => {
 
@@ -42,7 +43,27 @@ const Header = () => {
     const hideSearch = () => setShowingSearch(false);
 
     const [fixedTop, setFixedTop] = useState(false);
+    const [textHeader, setTextHeader] = useState(null);
 
+    useEffect(() => {
+        getData();
+    },[]);
+
+    const getData = () => {
+        let url = Services.ENDPOINT.PUBLIC_AREA.HEADER;
+        let data = {}
+        Services.DoGet(url,data).then(response => {
+            Services.Response({
+                response: response,
+                success: () => {
+                    setTextHeader(response.data.tex_header);
+
+                },
+            });
+        }).catch(error => {
+            Services.ErrorCatch(error)
+        });
+    }
     const carrousels = [
         {
             icon: boxWhite,
@@ -99,17 +120,18 @@ const Header = () => {
                     <div className="menu-mobile">
                         <div className="row first-row">
                             <div className="col-auto font-poppins font-12 text-center">
-                                <marquee loop='10'>
-                                    <div className="row no-gutters" style={{marginTop: '4px', height: '28px'}}>
-                                        <div className="col-auto d-flex mr-2">
-                                            <Icon className="my-auto" path={carrousels[0].icon}/>
-                                        </div>
-                                        <div className="col d-flex">
-                                            <span className="my-auto "
-                                                  style={{fontWeight: 500}}> {carrousels[0].name}</span>
-                                        </div>
-                                    </div>
-                                </marquee>
+                                <div className="row no-gutters" style={{marginTop: '10px', height: '28px'}}>
+                                    {
+                                        textHeader && textHeader.link ?
+
+                                            <a href={textHeader.link } target="_blank" className="text-white">
+                                                {textHeader ? textHeader.text : ''}
+                                            </a>
+                                            :
+                                            textHeader ? textHeader.text : ''
+
+                                    }
+                                </div>
                             </div>
                         </div>
                         <div className="row mx-2" style={{height: '70px'}}>

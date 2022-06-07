@@ -310,12 +310,12 @@ class CategoryController extends GlobalController
 
             if ($object) {
 
-                $object->active = $request->active == 'true' ? 1 : 0;
+                $object->active_banner_home = $request->active == 'true' ? 1 : 0;
                 $object->save();
 
                 return response()->json([
                     'status' => 'success',
-                    'message' => $object->active == 1 ? 'Categoría activada correctamente.' : 'Categoría desactivada correctamente.',
+                    'message' => $object->active_banner_home == 1 ? 'Banner categoría home activada correctamente.' : 'Banner categoría home desactivada correctamente.',
                     'object' => $object
                 ]);
 

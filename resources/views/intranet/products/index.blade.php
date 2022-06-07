@@ -279,6 +279,15 @@
                     formatter: function (value, row, index) {
                         return getIsImmediateButton(row.id, row.is_immediate);
                     }
+                },
+                {
+                    title: '¿Producto Destacado?',
+                    field: 'outstanding',
+                    sortable: true,
+                    cellStyle: midAling,
+                    formatter: function (value, row, index) {
+                        return getIsOutstandingButton(row.id, row.outstanding);
+                    }
                 }
             );
 
@@ -316,7 +325,7 @@
 
             runActiveControl()
             preparedChangeStatusImmediate();
-
+            preparedChangeStatusOutstanding();
             //  run2x1Control();
 
         });
@@ -348,6 +357,12 @@
         }
     </script>
 
+    <script>function getIsOutstandingButton(id, outstanding) {
+        return '<input type="checkbox" class="toggle-bs" id="chk_outstanding_' + id + '"  ' + (outstanding ? ' checked ' : '') + ' data-toggle="toggle"  data-size="small" data-on="Activado" data-off="Desactivado" data-onstyle="success" data-offstyle="danger"/>';
+    }
+    </script>
+
+
     <script>
         // toggle status
 
@@ -367,6 +382,33 @@
                     _token: '{{ csrf_token() }}',
                     id: id,
                     is_immediate: status
+                },
+                success: function (result) {
+                    if (result.status == 'success') {
+                        showToastSuccess(result.message);
+                    } else {
+                        showToastError(result.message);
+                    }
+                }
+            });
+        }
+
+        function preparedChangeStatusOutstanding() {
+            $('*[id^="chk_outstanding_"]').change(function () {
+                let id = $(this).prop('id').replace('chk_outstanding_', '');
+                let status = $(this).prop('checked');
+                changeStatusOutstanding(id, status);
+            })
+        }
+
+        function changeStatusOutstanding(id, status) {
+            $.ajax({
+                url: '{{ route($config['route'] . 'is_outstanding') }}',
+                method: 'post',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    id: id,
+                    outstanding: status
                 },
                 success: function (result) {
                     if (result.status == 'success') {

@@ -134,6 +134,9 @@ if (env('SHOW_INTRANET', 'TRUE') == 'TRUE') {
                 Route::post('valores/active', 'ValueController@active')->name('values.active');
                 Route::resource('valores', 'ValueController', ['names' => getResourceRoutesForNameHelper('values')]);
 
+                Route::post('text-superior/active', 'TextHeaderController@active')->name('text_header.active');
+                Route::resource('text-superior', 'TextHeaderController', ['names' => getResourceRoutesForNameHelper('text_header')]);
+
                 Route::post('campanas/active', 'CampaignController@active')->name('campaigns.active');
                 Route::resource('campanas', 'CampaignController', ['names' => getResourceRoutesForNameHelper('campaigns')]);
 
@@ -174,6 +177,7 @@ if (env('SHOW_INTRANET', 'TRUE') == 'TRUE') {
                 Route::get('productos/export', 'ProductController@export')->name('products.export');
                 Route::post('productos/active', 'ProductController@active')->name('products.active');
                 Route::post('productos/is-immediate', 'ProductController@is_immediate')->name('products.is_immediate');
+                Route::post('productos/is-outstanding', 'ProductController@is_outstanding')->name('products.is_outstanding');
                 Route::post('productos/import', 'ProductController@import')->name('products.import');
                 Route::resource('productos', 'ProductController', ['names' => getResourceRoutesForNameHelper('products')]);
 

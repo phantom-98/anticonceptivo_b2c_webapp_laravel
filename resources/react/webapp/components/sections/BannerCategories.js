@@ -6,8 +6,16 @@ import PUBLIC_ROUTES from "../../routes/publicRoutes";
 import { AppContext } from "../../context/AppProvider";
 import {BREAKPOINTS} from "../../helpers/vars";
 
+
 const BannerCategories = ({ bannerCategories }) => {
     const {breakpoint} = useContext(AppContext)
+
+    const responsiveCol = (col) => {
+        if((col === 'col-3' || col === 'col-9') && !(breakpoint === BREAKPOINTS.MEDIUM ||breakpoint === BREAKPOINTS.LARGE || breakpoint === BREAKPOINTS.EXTRA_LARGE || breakpoint === BREAKPOINTS.EXTRA_EXTRA_LARGE)){
+            return 'col-6';
+        }
+        return col;
+    }
 
     return (
         <div className="container">
@@ -19,8 +27,11 @@ const BannerCategories = ({ bannerCategories }) => {
             <div className="row">
             {bannerCategories.length
                 ? bannerCategories.map((bannerCategory, key) => {
-
                       let bannerCategoryStaticKey = uuidv4();
+                      let isRight = 1;
+                      if((key + 1)%2===0){
+                          isRight = 0;
+                      }
                       return bannerCategory.public_subbanner_image
                           ? [
                                     <div
@@ -37,11 +48,66 @@ const BannerCategories = ({ bannerCategories }) => {
                                                 color: "#000000"
                                             }}
                                         >
-                                            <img
-                                          src={breakpoint === BREAKPOINTS.MEDIUM ||breakpoint === BREAKPOINTS.LARGE || breakpoint === BREAKPOINTS.EXTRA_LARGE || breakpoint === BREAKPOINTS.EXTRA_EXTRA_LARGE ? bannerCategory.public_subbanner_image : bannerCategory.public_banner_subimage_responsive ?? bannerCategory.public_subbanner_image}
-                                                alt={CONFIG.APP_NAME}
-                                                style={{ width: "100%" }}
-                                            />
+                                            <div className="row no-gutters">
+                                                {
+                                                    isRight ?
+                                                        <>
+                                                            <div className={responsiveCol("col-9")}>
+                                                                <img
+                                                                    src={breakpoint === BREAKPOINTS.MEDIUM ||breakpoint === BREAKPOINTS.LARGE || breakpoint === BREAKPOINTS.EXTRA_LARGE || breakpoint === BREAKPOINTS.EXTRA_EXTRA_LARGE ? bannerCategory.public_subbanner_image : bannerCategory.public_banner_subimage_responsive ?? bannerCategory.public_subbanner_image}
+                                                                    alt={CONFIG.APP_NAME}
+                                                                    style={{ width: "100%" }}
+                                                                />
+                                                            </div>
+
+                                                            <div className={responsiveCol("col-3") + " text-center flex-footer-column"} >
+                                                                <div className="w-100 h-100 d-flex "  style={{backgroundColor: '#0869A6'}}>
+                                                                    <div className="m-auto">
+                                                                        <img
+                                                                            style={{ width: 35}}
+                                                                            src={bannerCategory.public_image}
+                                                                            alt={CONFIG.APP_NAME}
+                                                                        />
+                                                                        <h2 className="mt-3 font-15 bold font-poppins text-white">{bannerCategory.name}</h2>
+
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </>
+                                                        :
+                                                        <>
+                                                            <div className={responsiveCol("col-3") + " text-center flex-footer-column"} >
+                                                                <div className="w-100 h-100 d-flex "  style={{backgroundColor: '#0869A6'}}>
+                                                                    <div className="m-auto">
+                                                                        <img
+                                                                            style={{ width: 35}}
+                                                                            src={bannerCategory.public_image}
+                                                                            alt={CONFIG.APP_NAME}
+                                                                        />
+                                                                        <h2 className="mt-3 font-15 bold font-poppins text-white">{bannerCategory.name}</h2>
+
+                                                                    </div>
+
+                                                                </div>
+
+                                                            </div>
+
+                                                            <div className={responsiveCol("col-9")}>
+                                                                <img
+                                                                    src={breakpoint === BREAKPOINTS.MEDIUM ||breakpoint === BREAKPOINTS.LARGE || breakpoint === BREAKPOINTS.EXTRA_LARGE || breakpoint === BREAKPOINTS.EXTRA_EXTRA_LARGE ? bannerCategory.public_subbanner_image : bannerCategory.public_banner_subimage_responsive ?? bannerCategory.public_subbanner_image}
+                                                                    alt={CONFIG.APP_NAME}
+                                                                    style={{ width: "100%" }}
+                                                                />
+                                                            </div>
+
+
+                                                        </>
+
+                                                }
+
+                                            </div>
+
                                         </Link>
 
                                 </div>

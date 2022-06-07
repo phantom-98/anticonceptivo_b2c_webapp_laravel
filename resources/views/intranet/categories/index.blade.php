@@ -54,7 +54,7 @@
                             @endif
 
                             @if($config['action']['active'])
-                                <th data-cell-style="cellStyle" data-valign="middle">Activo</th>
+                                <th data-cell-style="cellStyle" data-valign="middle">Activo Banner Home</th>
                             @endif
 
                             @if($config['blade']['showActions'])
@@ -79,7 +79,7 @@
                                         @endif
 
                                         @if($config['action']['active'])
-                                            @include('intranet.template.components._crud_html_active')
+                                            @include('intranet.template.components._crud_html_active_banner_home')
                                         @endif
 
                                         @if($config['blade']['showActions'])

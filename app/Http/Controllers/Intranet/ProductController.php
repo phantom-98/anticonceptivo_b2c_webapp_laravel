@@ -479,7 +479,41 @@ class ProductController extends GlobalController
 
                 return response()->json([
                     'status' => 'success',
-                    'message' => $object->active == 1 ? 'Producto marcado como prioritario correctamente.' : 'Producto como no prioritario correctamente.',
+                    'message' => $object->is_immediate == 1 ? 'Producto marcado como prioritario correctamente.' : 'Producto como no prioritario correctamente.',
+                    'object' => $object
+                ]);
+
+            } else {
+
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Producto no encontrado.'
+                ]);
+            }
+
+        } catch (\Exception $e) {
+
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Ha ocurrido un error inesperado, inténtelo de nuevo más tarde.' . $e->getMessage()
+            ]);
+        }
+    }
+
+    public function is_outstanding(Request $request)
+    {
+        try {
+
+            $object = Product::find($request->id);
+
+            if ($object) {
+
+                $object->outstanding = $request->outstanding == 'true' ? 1 : 0;
+                $object->save();
+
+                return response()->json([
+                    'status' => 'success',
+                    'message' => $object->outstanding == 1 ? 'Producto marcado como destacado correctamente.' : 'Producto como no destacado correctamente.',
                     'object' => $object
                 ]);
 
