@@ -37,7 +37,7 @@ class OrderController extends GlobalController
 
     public function index(Request $request)
     {
-        $objects = Order::with(['customer', 'prescriptions.product','subscriptions_orders_items.commune']);
+        $objects = Order::with(['customer', 'prescriptions.product','subscriptions_orders_items.commune', 'order_items.product']);
         $clients = Customer::get();
 
         $date = $request->date;
@@ -113,7 +113,7 @@ class OrderController extends GlobalController
 
     public function show($id)
     {
-        $object = Order::with(['customer', 'order_items', 'prescriptions.product','subscriptions_orders_items.commune'])->find($id);
+        $object = Order::with(['customer', 'order_items.product', 'prescriptions.product','subscriptions_orders_items.commune'])->find($id);
 
         if (!$object) {
             session()->flash('warning', 'Pedido no encontrado.');

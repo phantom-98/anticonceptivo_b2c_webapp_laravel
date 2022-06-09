@@ -139,6 +139,7 @@
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Hora creación</th>
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Estado</th>
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Tipo de Entrega</th>
+                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Producto(s)</th>
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Nombre Cliente</th>
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">RUT Cliente</th>
 
@@ -246,6 +247,14 @@
                                 @else
                                     <td>-</td>
                                 @endif
+
+                                <td>
+                                    @forelse ($object->order_items as $item)
+                                       {{ $item->quantity }}x{{ $item->product->name }}<br/>
+                                    @empty
+                                        -
+                                    @endforelse
+                                </td>
 
                                 <td>{{ mb_strtoupper($object->customer->full_name ?? '-', 'UTF-8') }}</td>
                                 <td>{{ $object->customer->id_number ?? '-'}}</td>
