@@ -39,7 +39,7 @@
                                             @if(isset($object->images[0]))
                                             <img id="image-product" src="{{$object->images[0]->public_file }}">
                                             @else
-                                            <img id="image-product" src="/images/image-default.jpeg">
+                                            <img id="image-product" src="/images/producto-default.png">
                                             @endif
                                         </div>
                                         <input type="file" name="image[]" id="file-image-product"
@@ -779,7 +779,7 @@
         });
 
         function deleteImg() {
-            $('#image-product').attr('src', '/themes/intranet/img/image-default.jpeg');
+            $('#image-product').attr('src', '/images/producto-default.png');
             $('#link-del').html('');
             $("#file-image-product").val('');
         }
