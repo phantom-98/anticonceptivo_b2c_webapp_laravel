@@ -156,7 +156,7 @@
                             let url = row.images[0].public_file;
                             image += '<a href="' + url + '" data-toggle="lightbox"><img src="' + url + '" style="max-width: 30px;"/></a>';
                         } else {
-                            image += '<a href="/img/image-default.png" data-toggle="lightbox"><img src="/img/image-default.png" class="img-md"/></a>';
+                            image += '<a href="/images/product-default.png" data-toggle="lightbox"><img src="/images/product-default.png" class="img-md"/></a>';
                             image += '</div>';
                         }
                         image += '</div>';
