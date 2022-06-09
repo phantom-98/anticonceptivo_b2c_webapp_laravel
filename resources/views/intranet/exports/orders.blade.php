@@ -4,6 +4,7 @@
             <th>Nº Ped.</th>
             <th>Estado</th>
             <th>Tipo de Entrega</th>
+            <th>Producto(s)</th>
             <th>Nombre Cliente</th>
             <th>RUT Cliente</th>
 
@@ -48,6 +49,14 @@
                 @else 
                     <td>-</td>
                 @endif
+
+                <td>
+                    @forelse ($object->order_items as $item)
+                       {{ $item->quantity }}x{{ $item->product->name }}<br/>
+                    @empty
+                        -
+                    @endforelse
+                </td>
 
                 <td>{{ mb_strtoupper($object->customer->full_name ?? '-', 'UTF-8') }}</td>
                 <td>{{ $object->customer->id_number ?? '-'}}</td>

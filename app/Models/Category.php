@@ -63,4 +63,8 @@ class Category extends Model
         return $this->hasMany(Subcategory::class)->orderBy('position');
     }
 
+    public function subcategories_active(){
+        return $this->hasMany(Subcategory::class)->where('active',1)->orderBy('position');
+    }
+
 }

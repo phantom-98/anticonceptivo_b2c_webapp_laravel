@@ -285,7 +285,7 @@ const Form = ({addressSelected, goBack, formMode, customerId = null, regions, se
                            className="form-control form-control-custom"
                            id="comment"
                            name="comment"
-                           placeholder="Comentario"
+                           placeholder="Agrega un rango de horario para la entrega, es en oficina o una casa, u cualquier otra información relevante como el detalle de como llegar"
                            value={address.comment}
                            onChange={(e) => handleAddressComment(e)}
                            onFocus={setCleanInputError}
