@@ -29,8 +29,8 @@ class HomeController extends Controller
     public function getHeaderNavbarResources()
     {
         try {
-            $categories = Category::where('active',true)->with(['subcategories_active'])
-            ->whereHas('subcategories_active', function($q){$q->where('active',true)->orderBy('position');})
+            $categories = Category::where('active',true)->with(['subcategories'])
+            ->whereHas('subcategories', function($q){$q->where('active',true)->orderBy('position');})
             ->orderBy('position')->get();
 
             $products = Product::with(['subcategory','plans'])->whereHas('subcategory', function($q){
