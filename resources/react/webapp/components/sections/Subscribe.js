@@ -1,6 +1,6 @@
 import React, {useState, useContext} from 'react';
 import bgSubscribe from '../../assets/images/sections/subscribe.jpeg'
-import bgSubscribeMobile from '../../assets/images/sections/subscribe-mobile.jpeg'
+import bgSubscribeMobile from '../../assets/images/sections/subscribe-mobile-min.jpg'
 import UseWindowDimensions from "../customHooks/UseWindowDimensions";
 import * as Services from "../../Services";
 import toastr from "toastr";
