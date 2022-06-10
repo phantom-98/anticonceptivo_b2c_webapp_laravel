@@ -69,7 +69,7 @@ const BannerCarousel = ({topBanners}) => {
                                         <span style={{backgroundColor: 'white'}}>{banner.title}</span>
                                     </div>
                                     <div className={"font-poppins  color-033F5D " + breakpoint === BREAKPOINTS.MEDIUM || breakpoint === BREAKPOINTS.LARGE || breakpoint === BREAKPOINTS.EXTRA_LARGE || breakpoint === BREAKPOINTS.EXTRA_EXTRA_LARGE ? "banner-buttons-2 " : "banner-buttons-r-2"}>
-                                        <a href={banner.button_link} target={banner.button_target} className="btn btn-bicolor btn-block">
+                                        <a href={banner.button_link} target={banner.button_target} className="btn btn-bicolor btn-block white-space text-nowrap">
                                             <span className={" " + (breakpoint === BREAKPOINTS.MEDIUM || breakpoint === BREAKPOINTS.LARGE || breakpoint === BREAKPOINTS.EXTRA_LARGE || breakpoint === BREAKPOINTS.EXTRA_EXTRA_LARGE ? "font-20 pl-4 pr-4" : "font-15 pl-3 pr-3")} style={{lineHeight:'35px'}}>{banner.button_title}</span>
                                         </a>
                                     </div>
