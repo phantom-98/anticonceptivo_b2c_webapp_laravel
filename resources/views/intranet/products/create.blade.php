@@ -629,7 +629,7 @@
 
         function deleteImgLoop(el) {
             let loop = el.id.split('-').pop();
-            $('#image-plan-'+loop).attr('src', '/themes/intranet/img/image-default.jpeg');
+            $('#image-plan-'+loop).attr('src', '/images/producto-default.png');
             $('#link-del-'+loop).html('');
             $("#file-image-plan-"+loop).val('');
         }
