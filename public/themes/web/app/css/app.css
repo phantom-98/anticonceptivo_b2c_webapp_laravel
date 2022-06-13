@@ -928,6 +928,10 @@ input.my-auto.file-input {
           animation: gradient-in 0.3s linear;
 }
 
+.white-space {
+  white-space: nowrap;
+}
+
 .btn-bicolor:hover {
   -webkit-animation: gradient-out 0.3s linear;
           animation: gradient-out 0.3s linear;
