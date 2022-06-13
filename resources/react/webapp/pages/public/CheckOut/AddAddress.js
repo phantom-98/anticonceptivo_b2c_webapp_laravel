@@ -20,7 +20,17 @@ const AddAddress = ({setView, regions, address, setAddress,validAddress,setValid
 
     useEffect(() => {
         if (regions.length > 0) {
-            setSelectedRegion(address.region_id)
+            if(address && address.region_id != ''){
+                setSelectedRegion(address.region_id)
+
+            }else{
+                setAddress({
+                    ...address,
+                    region_id : 7,
+                    commune_id: null
+                })
+                setSelectedRegion(7)
+            }
         }
     },[regions, address.region_id]);
 
