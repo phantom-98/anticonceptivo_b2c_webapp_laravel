@@ -117,6 +117,7 @@ const ModalSubscription = ({
             customer_id: customerId,
             email: customerEmail,
             is_profile: true,
+            from: 'account'
         }
 
         Services.DoPost(url, dataForm)

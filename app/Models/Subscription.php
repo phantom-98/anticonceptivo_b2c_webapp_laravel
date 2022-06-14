@@ -15,7 +15,8 @@ class Subscription extends Model
         'oneclick_auth_code',
         'token_inscription',
         'default_subscription',
-        'status'
+        'status',
+        'from',
     ];
     public function customer(){
         return $this->belongsTo(Customer::class);
