@@ -224,11 +224,11 @@ const CheckOut = () => {
 
                   if ('card' in response.data) {
                     if (response.data.card == 'approved') {
-                        toastr.success('Se ha suscrito una tarjeta de crédito.','¡Felicidades!');
+                        toastr.success('Tarjeta agregada, ya puedes terminar tu suscripción.','¡Ya casi terminas!');
                     }
 
                     if (response.data.card == 'refused') {
-                        toastr.error('No se ha podido suscribir la tarjeta de crédito.','¡Ups!');
+                        toastr.error('No se ha podido suscribir la tarjeta de crédito, intenta nuevamente.','¡Ups!');
                     }
 
                     localStorage.removeItem('tryingToSubscribeCard');
