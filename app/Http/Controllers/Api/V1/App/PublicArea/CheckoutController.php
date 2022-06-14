@@ -122,23 +122,7 @@ class CheckoutController extends Controller
     }
 
     private static function ValidateStepOne($request){
-
         try {
-            $customer = Customer::where('id_number',$request->id_number)
-            // ->where('is_guest', true)
-            ->first();
-
-            if ($customer && $customer->is_guest == false) {
-                return [
-                    'status' => false,
-                    'errors' => [
-                        'id_number' => [
-                            'Debe iniciar sesion para continuar.'
-                        ]
-                    ]
-                ];
-
-            }
 
             $rules = [
                 'first_name' => 'required',
@@ -159,22 +143,33 @@ class CheckoutController extends Controller
                 'phone.unique' => OutputMessage::FIELD_PHONE_UNIQUE,
             ];
 
-            if ($customer && $customer->is_guest) {
+            if ($request->customer_id != null) {
+                $customer = Customer::where('id_number',$request->id_number)->first();
 
-                $rules += [
-                    'email' => 'required|email|unique:customers,email,'.$customer->id,
-                    'id_number' => 'required|unique:customers,id_number,'.$customer->id,
-                    'phone' => 'required|unique:customers,phone,'.$customer->id,
-                ];
+                if ($customer) {
+                    $rules += [
+                        'email' => 'required|email|unique:customers,email,'.$customer->id,
+                        'id_number' => 'required|unique:customers,id_number,'.$customer->id,
+                        'phone' => 'required|unique:customers,phone,'.$customer->id,
+                    ];
+                }
 
+                // if ($customer && $customer->is_guest == false) {
+                //     return [
+                //         'status' => false,
+                //         'errors' => [
+                //             'id_number' => [
+                //                 'Debe iniciar sesion para continuar.'
+                //             ]
+                //         ]
+                //     ];
+                // }
             }else{
-
                 $rules += [
                     'email' => 'required|email|unique:customers,email',
                     'id_number' => 'required|unique:customers,id_number',
                     'phone' => 'required|unique:customers,phone',
                 ];
-
             }
 
             $validator = Validator::make($request->all(), $rules, $messages);
@@ -195,8 +190,6 @@ class CheckoutController extends Controller
                 'errors' => $ex->getMessage()
             ];
         }
-
-
     }
 
     private static function ValidateStepTwo($request){

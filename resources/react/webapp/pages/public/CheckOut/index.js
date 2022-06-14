@@ -256,6 +256,7 @@ const CheckOut = () => {
             formData.append('phone_code', data.phone_code);
             formData.append('prescription_radio', productCount > 0 ? prescriptionRadio : null);
             formData.append('without_prescription_answer', withoutPrescriptionAnswer);
+            formData.append('customer_id', auth ? auth.id : null);
 
             let fileList = [...files]
 
@@ -277,6 +278,11 @@ const CheckOut = () => {
                     setProductCount(productCount);
                     if (response.data.customer_id) {
                         setCustomerId(response.data.customer_id);
+                    }else{
+                        setAddress(prevModel => ({
+                            ...prevModel,
+                            name: data.first_name + ' ' + data.last_name,
+                        }));
                     }
                 },
                 error: () => {
