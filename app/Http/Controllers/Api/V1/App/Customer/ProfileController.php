@@ -44,16 +44,6 @@ class ProfileController extends Controller
                 'id_type',
                 'phone_code',
                 'phone',
-                // 'business_name',
-                // 'business_id_number',
-                // 'commercial_business',
-                // 'commercial_email',
-                // 'commercial_address',
-                // 'commercial_additional_address',
-                // 'commercial_phone',
-                // 'commercial_phone_code',
-                // 'commercial_region_id',
-                // 'commercial_commune_id',
             ])->find($request->customer_id);
 
             if (!$customer) {
@@ -61,7 +51,6 @@ class ProfileController extends Controller
             }
 
             // CAMBIAR A WHERE IN PARA AGREGAR MÁS REGIONES
-
             $regions = Region::where('id',7)->with('provinces.communes')->get();
 
             return ApiResponse::JsonSuccess([
@@ -233,14 +222,36 @@ class ProfileController extends Controller
     {
         try {
             $customer = Customer::find($request->customer_id);
+
             if (!$customer) {
                 return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_NOT_FOUND);
             }
 
             $subscription = Subscription::where('customer_id', $customer->id)->where('status','CREATED')->get();
+
+            if (isset($request->trying_to_subscribe_card) && $request->trying_to_subscribe_card == true) {
+                $card = Subscription::where('customer_id', $customer->id)->where('from','checkout')->latest()->first();
+                if ($card) {
+                    $now = Carbon::now();
+                    $past = Carbon::now()->subMinutes(10);
+                    if ($card->created_at > $past && $card->created_at < $now) {
+                        if ($card->transbank_token != null) {
+                            return ApiResponse::JsonSuccess([
+                                'subscriptions' => $subscription,
+                                'card' => 'approved',
+                            ], OutputMessage::SUCCESS);
+                        }else{
+                            return ApiResponse::JsonSuccess([
+                                'subscriptions' => $subscription,
+                                'card' => 'refused',
+                            ], OutputMessage::SUCCESS);
+                        }
+                    }
+                }
+            }
+
             return ApiResponse::JsonSuccess([
                 'subscriptions' => $subscription,
-                'test' => 'test'
             ], OutputMessage::SUCCESS);
 
         } catch (\Exception $exception) {

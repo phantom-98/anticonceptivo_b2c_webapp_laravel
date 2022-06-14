@@ -5,7 +5,6 @@ import * as Services from "../../../Services";
 import WaitingPaymentMethod from "./Payment/WaitingPaymentMethod";
 import toastr from "toastr";
 
-
 const Subscriptions = ({setView, subscription, setSubscription, subscriptionId, setSubscriptionId}) => {
 
     const {auth} = useContext(AuthContext);
@@ -51,6 +50,7 @@ const Subscriptions = ({setView, subscription, setSubscription, subscriptionId, 
             let dataForm = {
                 customer_id: auth ? auth.id : null,
                 email: auth ? auth.email : null,
+                from: 'checkout'
             }
 
             Services.DoPost(url, dataForm)
@@ -58,16 +58,9 @@ const Subscriptions = ({setView, subscription, setSubscription, subscriptionId, 
                     Services.Response({
                         response: response,
                         success: () => {
-
-                            // runVerifyPaymentMethod(response.data.id)
-                            // showWaitingPaymentMethod();
-                            console.log(response.data.oneclick_data)
+                            localStorage.setItem('tryingToSubscribeCard', true);
                             const urlOneClick = response.data.oneclick_data.url + '?TBK_TOKEN=' + response.data.oneclick_data.token
                             window.location.href = urlOneClick;
-                            // var win = window.open();
-                            // win.document.open();
-                            // win.document.write(response.data.webpay);
-                            // win.document.close();
                         },
                     });
                 })

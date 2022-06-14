@@ -208,9 +208,12 @@ const CheckOut = () => {
 
     const getSubscriptions = () => {
         let url = Services.ENDPOINT.CUSTOMER.SUBSCRIPTIONS.GET_SUBSCRIPTIONS;
+
         let data = {
-            customer_id: auth.id
+            customer_id: auth.id,
+            trying_to_subscribe_card: localStorage.getItem('tryingToSubscribeCard'),
         }
+
         Services.DoPost(url,data).then(response => {
             Services.Response({
               response: response,
@@ -218,6 +221,19 @@ const CheckOut = () => {
                   if(response.data.subscriptions != null){
                     setSubscription(response.data.subscriptions);
                   }
+
+                  if ('card' in response.data) {
+                    if (response.data.card == 'approved') {
+                        toastr.success('Se ha suscrito una tarjeta de crédito.','¡Felicidades!');
+                    }
+
+                    if (response.data.card == 'refused') {
+                        toastr.error('No se ha podido suscribir la tarjeta de crédito.','¡Ups!');
+                    }
+
+                    localStorage.removeItem('tryingToSubscribeCard');
+                  }
+
               },
             });
         }).catch(error => {
@@ -278,6 +294,12 @@ const CheckOut = () => {
                     setProductCount(productCount);
                     if (response.data.customer_id) {
                         setCustomerId(response.data.customer_id);
+                        if (!auth) {
+                            setAddress(prevModel => ({
+                                ...prevModel,
+                                name: data.first_name + ' ' + data.last_name,
+                            }));
+                        }
                     }else{
                         setAddress(prevModel => ({
                             ...prevModel,
