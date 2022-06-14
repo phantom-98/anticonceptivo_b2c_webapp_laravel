@@ -130,13 +130,13 @@ const ProductList = ({
             </div>
             <div className="col-12 pb-3">
                 {
-                    subscriptions && subscriptions.length && (
+                    subscriptions && subscriptions.length ?
                         <div className="row">
                             <div className="col-12">
                                 <h3 className="font-14 bold color-033F5D subscription-title">Selecciona una opción de suscripción</h3>
                             </div>
                         </div>
-                    )
+                        : null
                 }
                 <div className="row mb-3">
                     <div className="col-12 subscription-buttons subscription-content">
