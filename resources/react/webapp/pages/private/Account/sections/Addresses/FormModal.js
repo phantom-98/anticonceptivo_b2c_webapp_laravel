@@ -13,7 +13,7 @@ const FormModal = ({addressSelected, goBack, formMode, customerId = null, region
     const [address, setAddress] = useState({
         id: '',
         name: '',
-        region_id: '',
+        region_id: 7,
         commune_id: '',
         address: '',
         extra_info: '',
@@ -122,7 +122,7 @@ const FormModal = ({addressSelected, goBack, formMode, customerId = null, region
     const updateData = () => {
 
         if (validAddress === false) {
-         
+
         }
 
         let url = Services.ENDPOINT.CUSTOMER.ADDRESSES.UPDATE;
@@ -164,7 +164,7 @@ const FormModal = ({addressSelected, goBack, formMode, customerId = null, region
 
     const setAddressNoAuth = () => {
         if (validAddress === false) {
-          
+
         }
 
         setAddresses(address);

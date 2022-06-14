@@ -208,9 +208,12 @@ const CheckOut = () => {
 
     const getSubscriptions = () => {
         let url = Services.ENDPOINT.CUSTOMER.SUBSCRIPTIONS.GET_SUBSCRIPTIONS;
+
         let data = {
-            customer_id: auth.id
+            customer_id: auth.id,
+            trying_to_subscribe_card: localStorage.getItem('tryingToSubscribeCard'),
         }
+
         Services.DoPost(url,data).then(response => {
             Services.Response({
               response: response,
@@ -218,6 +221,19 @@ const CheckOut = () => {
                   if(response.data.subscriptions != null){
                     setSubscription(response.data.subscriptions);
                   }
+
+                  if ('card' in response.data) {
+                    if (response.data.card == 'approved') {
+                        toastr.success('Tarjeta agregada, ya puedes terminar tu suscripción.','¡Ya casi terminas!');
+                    }
+
+                    if (response.data.card == 'refused') {
+                        toastr.error('No se ha podido suscribir la tarjeta de crédito, intenta nuevamente.','¡Ups!');
+                    }
+
+                    localStorage.removeItem('tryingToSubscribeCard');
+                  }
+
               },
             });
         }).catch(error => {
@@ -256,6 +272,7 @@ const CheckOut = () => {
             formData.append('phone_code', data.phone_code);
             formData.append('prescription_radio', productCount > 0 ? prescriptionRadio : null);
             formData.append('without_prescription_answer', withoutPrescriptionAnswer);
+            formData.append('customer_id', auth ? auth.id : null);
 
             let fileList = [...files]
 
@@ -277,6 +294,17 @@ const CheckOut = () => {
                     setProductCount(productCount);
                     if (response.data.customer_id) {
                         setCustomerId(response.data.customer_id);
+                        if (!auth) {
+                            setAddress(prevModel => ({
+                                ...prevModel,
+                                name: data.first_name + ' ' + data.last_name,
+                            }));
+                        }
+                    }else{
+                        setAddress(prevModel => ({
+                            ...prevModel,
+                            name: data.first_name + ' ' + data.last_name,
+                        }));
                     }
                 },
                 error: () => {

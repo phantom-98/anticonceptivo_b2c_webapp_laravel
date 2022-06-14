@@ -20,40 +20,40 @@ const IsImmediateLabel = ({product}) =>{
 
     const Immediate = () => {
         return (
-            <div className="is-immediate-label">
-                <img src={isImmediateSvgWhite} alt="anticonceptivo.cl"/> <span>{label}</span>
+            <div className="is-immediate-label  d-flex">
+                <img src={isImmediateSvgWhite} alt="anticonceptivo.cl"/> <span className="ml-1">{label}</span>
             </div>
         )
     }
 
     const Today = () => {
         return (
-            <div className="is-today-label">
-                <img src={arrivesTodayBlue} alt="anticonceptivo.cl"/> <span>{label}</span>
+            <div className="is-today-label d-flex">
+                <img src={arrivesTodayBlue} alt="anticonceptivo.cl"/> <span className="ml-1">{label}</span>
             </div>
         )
     }
 
     const Tomorrow = () => {
         return (
-            <div className="is-tomorrow-label">
-                <img src={arrivesTomorrowGreen} alt="anticonceptivo.cl"/> <span>{label}</span>
+            <div className="is-tomorrow-label  d-flex">
+                <img src={arrivesTomorrowGreen} alt="anticonceptivo.cl"/> <span className="ml-1">{label}</span>
             </div>
         )
     }
 
     const AfterTomorrow = () => {
         return (
-            <div className="is-after-tomorrow-label">
-                <img src={arrivesTomorrowGreen} alt="anticonceptivo.cl"/> <span>{label}</span>
+            <div className="is-after-tomorrow-label  d-flex">
+                <img src={arrivesTomorrowGreen} alt="anticonceptivo.cl"/> <span className="ml-1">{label}</span>
             </div>
         )
     }
 
     const AfterTomorrowCustom = () => {
         return (
-            <div className="is-after-tomorrow-label">
-                <img src={arrivesTomorrowGreen} alt="anticonceptivo.cl"/> <span>{label}</span>
+            <div className="is-after-tomorrow-label  d-flex">
+                <img src={arrivesTomorrowGreen} alt="anticonceptivo.cl"/> <span className="ml-1">{label}</span>
             </div>
         )
     }

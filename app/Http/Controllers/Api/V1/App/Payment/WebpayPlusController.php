@@ -90,7 +90,7 @@ class WebpayPlusController
     {
         try {
 
-            $response = $this->oneclick->createInscription(
+                $response = $this->oneclick->createInscription(
                 $request->customer_id,
                 $request->email,
                 $request->is_profile ? ($request->is_session_credit ? route('api.v1.app.payment.webpay.responsePaymentMethodAccountCard') : route('api.v1.app.payment.webpay.responsePaymentMethodAccount')) :
@@ -102,6 +102,7 @@ class WebpayPlusController
                 $subscription = new Subscription();
                 $subscription->customer_id = $request->customer_id;
                 $subscription->token_inscription = $response['response']->token;
+                $subscription->from = $request->from;
                 $subscription->save();
 
                 try {
@@ -139,32 +140,36 @@ class WebpayPlusController
         $customer = Customer::find($request->customer_id);
 
         if (!$customer) {
-            $customer = new Customer();
+            $customer = Customer::where('id_number',$request->id_number)->first();
+            if (!$customer) {
+                $customer = new Customer();
+                $customer->id_number = $request->id_number;
+                $customer->password = str_replace(".", "", substr($request->id_number, -7, 5));
+                $customer->email = $request->email;
+                $customer->id_type = $request->id_type;
+                $customer->first_name = $request->first_name;
+                $customer->last_name = $request->last_name;
+                $customer->phone = $request->phone;
+                $customer->phone_code = $request->phone_code;
+                $customer->is_guest = true;
+                $customer->save();
+            }
 
-            $customer->id_number = $request->id_number;
-            $customer->password = str_replace(".", "", substr($request->id_number, -7, 5));
-            $customer->email = $request->email;
-            $customer->id_type = $request->id_type;
-            $customer->first_name = $request->first_name;
-            $customer->last_name = $request->last_name;
-            $customer->phone = $request->phone;
-            $customer->phone_code = $request->phone_code;
+            $customerAddress = CustomerAddress::where('address', $request->address)->where('name',$request->name)->first();
 
-            $customer->is_guest = true;
+            if (!$customerAddress) {
+                $customerAddress = new CustomerAddress();
 
-            $customer->save();
-
-            $customerAddress = new CustomerAddress();
-
-            $customerAddress->address = $request->address;
-            $customerAddress->name = $request->name;
-            $customerAddress->region_id = $request->region_id;
-            $customerAddress->commune_id = intVal($request->commune_id);
-            $customerAddress->extra_info = $request->extra_info;
-            $customerAddress->comment = $request->comment;
-            $customerAddress->customer_id = $customer->id;
-            $customerAddress->default_address = 1;
-            $customerAddress->save();
+                $customerAddress->address = $request->address;
+                $customerAddress->name = $request->name;
+                $customerAddress->region_id = $request->region_id;
+                $customerAddress->commune_id = intVal($request->commune_id);
+                $customerAddress->extra_info = $request->extra_info;
+                $customerAddress->comment = $request->comment;
+                $customerAddress->customer_id = $customer->id;
+                $customerAddress->default_address = 1;
+                $customerAddress->save();
+            }
 
             $customer->refresh();
 
@@ -197,12 +202,27 @@ class WebpayPlusController
 
             } else {
                 $customerAddress = CustomerAddress::find($request->id);
+                if (!$customerAddress) {
+                    $customerAddress = CustomerAddress::where('address', $request->address)->where('name',$request->name)->first();
+                    if (!$customerAddress) {
+                        $customerAddress = new CustomerAddress();
+
+                        $customerAddress->address = $request->address;
+                        $customerAddress->name = $request->name;
+                        $customerAddress->region_id = $request->region_id;
+                        $customerAddress->commune_id = intVal($request->commune_id);
+                        $customerAddress->extra_info = $request->extra_info;
+                        $customerAddress->comment = $request->comment;
+                        $customerAddress->customer_id = $customer->id;
+                        $customerAddress->default_address = 1;
+                        $customerAddress->save();
+                    }
+                }
             }
         }
 
         if(!$customerAddress){
             return ApiResponse::JsonError([], 'Seleccione una dirección');
-
         }
 
         $deliveryCosts = DeliveryCost::where('active', 1)->get();

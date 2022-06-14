@@ -13,7 +13,7 @@ const Form = ({addressSelected, goBack, formMode, customerId = null, regions, se
     const [address, setAddress] = useState({
         id: '',
         name: '',
-        region_id: '',
+        region_id: 7,
         commune_id: '',
         address: '',
         extra_info: '',
@@ -126,7 +126,7 @@ const Form = ({addressSelected, goBack, formMode, customerId = null, regions, se
     const updateData = () => {
 
         if (validAddress === false) {
-         
+
         }
 
         let url = Services.ENDPOINT.CUSTOMER.ADDRESSES.UPDATE;
@@ -310,7 +310,7 @@ const Form = ({addressSelected, goBack, formMode, customerId = null, regions, se
                             </button>
                         </div>
                     </>
-                : 
+                :
                     <>
                         <div className="col-md-6 mt-4 text-center text-md-right">
                             <button type="button" className="btn btn-bicolor px-3 btn-save-address"
@@ -327,7 +327,7 @@ const Form = ({addressSelected, goBack, formMode, customerId = null, regions, se
                     </>
             }
 
-            
+
 
         </div>
     );

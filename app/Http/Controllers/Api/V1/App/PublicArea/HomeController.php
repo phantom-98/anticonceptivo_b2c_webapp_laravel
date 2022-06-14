@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1\App\PublicArea;
 
+use App\Http\Controllers\Api\V1\App\Helpers\ProductScheduleHelper;
 use App\Http\Controllers\Controller;
 use App\Models\TextHeader;
 use Illuminate\Support\Facades\DB;
@@ -22,10 +23,18 @@ use App\Models\Brand;
 use App\Models\Alliance;
 use App\Models\PostType;
 use App\Models\Post;
+use App\Models\ProductSchedule;
 
 
 class HomeController extends Controller
 {
+    private $product_schedules;
+
+    public function __construct()
+    {
+        $this->product_schedules = ProductSchedule::get();
+    }
+
     public function getHeaderNavbarResources()
     {
         try {
@@ -156,7 +165,7 @@ class HomeController extends Controller
                 'top_banners' => $topBanners,
                 'middle_banners' => $middleBanners,
                 'bottom_banners' => $bottomBanners,
-                'outstandings' => $outstandings,
+                'outstandings' => $this->processScheduleList($outstandings),
                 // 'best_sellers' => $bestSellers,
                 'brands' => $brands,
                 'bannerCategories' => $bannerCategories,
@@ -166,5 +175,20 @@ class HomeController extends Controller
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, $exception->getMessage());
         }
+    }
+
+    private function processScheduleList($products)
+    {
+        return $products->map(function ($product) {
+            return $this->addScheduleLabel($product);
+        });
+    }
+
+    private function addScheduleLabel($product)
+    {
+        $dataDeliveryOrder = ProductScheduleHelper::labelDateDeliveryProduct($product, $this->product_schedules);
+        $product->delivery_label = ProductScheduleHelper::deadlineDeliveryMaxOrder($dataDeliveryOrder['delivery_date'], $dataDeliveryOrder['label'],$dataDeliveryOrder['sub_label'], $dataDeliveryOrder['is_immediate'], $dataDeliveryOrder['schedule']);
+
+        return $product;
     }
 }
