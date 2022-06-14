@@ -277,6 +277,11 @@ const CheckOut = () => {
                     setProductCount(productCount);
                     if (response.data.customer_id) {
                         setCustomerId(response.data.customer_id);
+                    }else{
+                        setAddress(prevModel => ({
+                            ...prevModel,
+                            name: data.first_name + ' ' + data.last_name,
+                        }));
                     }
                 },
                 error: () => {
