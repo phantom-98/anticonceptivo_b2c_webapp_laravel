@@ -256,6 +256,7 @@ const CheckOut = () => {
             formData.append('phone_code', data.phone_code);
             formData.append('prescription_radio', productCount > 0 ? prescriptionRadio : null);
             formData.append('without_prescription_answer', withoutPrescriptionAnswer);
+            formData.append('customer_id', auth ? auth.id : null);
 
             let fileList = [...files]
 
