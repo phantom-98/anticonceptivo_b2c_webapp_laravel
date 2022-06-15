@@ -281,14 +281,15 @@ const Form = ({addressSelected, goBack, formMode, customerId = null, regions, se
             <div className="col-md-12">
                 <div className="form-group">
                     <label htmlFor="name">Comentario</label>
-                    <input type="text"
-                           className="form-control form-control-custom"
-                           id="comment"
-                           name="comment"
-                           placeholder="Agrega un rango de horario para la entrega, es en oficina o una casa, u cualquier otra información relevante como el detalle de como llegar"
-                           value={address.comment}
-                           onChange={(e) => handleAddressComment(e)}
-                           onFocus={setCleanInputError}
+                    <textarea
+                        className="form-control form-control-custom"
+                        rows={3}
+                        id="comment"
+                        name="comment"
+                        placeholder="Agrega un rango de horario para la entrega, es en oficina o una casa, u cualquier otra información relevante como el detalle de como llegar"
+                        value={address.comment}
+                        onChange={(e) => handleAddressComment(e)}
+                        onFocus={setCleanInputError}
                     />
                     <div className="invalid-feedback" />
                 </div>
