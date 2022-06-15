@@ -756,6 +756,11 @@ button#dropdown-testing {
   padding-left: 1.25rem !important;
 }
 
+textarea {
+  /* for all text* area elements */
+  resize: none;
+}
+
 .form-control-custom-60 {
   height: 60px;
 }
