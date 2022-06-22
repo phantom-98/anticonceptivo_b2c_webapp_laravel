@@ -175,6 +175,7 @@ class ProductController extends GlobalController
             $product->unit_price = $request->unit_price;
             $product->unit_format = $request->unit_format;
             $product->recipe_type = $request->recipe_type;
+            $product->position = 999;
             $product->state_of_matter = $request->state_of_matter;
             $product->save();
 
