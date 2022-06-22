@@ -154,7 +154,7 @@
                         </li>
 
                         <li class="treeview {{ is_parent_menu_active(['intranet/banners', 'intranet/tipos-post-blog', 'intranet/post-blog', 'intranet/faq', 'intranet/configuraciones', 'intranet/paginas', 'intranet/linea-tiempo', 'intranet/categorias-faq',
-                            'intranet/quienes-somos', 'intranet/valores', 'intranet/alianzas', 'intranet/bases-legales', 'intranet/costos-despachos', 'intranet/consumo-responsable']) }}">
+                            'intranet/quienes-somos', 'intranet/telefono-contacto','intranet/valores', 'intranet/alianzas', 'intranet/bases-legales', 'intranet/costos-despachos', 'intranet/consumo-responsable']) }}">
                             <a href="#">
                                 <i class="ti-settings"></i>
                                 <span class="menu-title">Conf. Sitio web</span>
@@ -266,6 +266,13 @@
                                         <span class="menu-title">Consumo Responsable</span>
                                     </a>
                                 </li>
+                                @endcan
+                                @can('phone-contact.index')
+                                    <li class="{{ is_menu_active('intranet/telefono-contacto') }}">
+                                        <a href="{{ route('intranet.phone-contact.index') }}">
+                                            <span class="menu-title">Numero de teléfono</span>
+                                        </a>
+                                    </li>
                                 @endcan
                                 <!--<li class="{{ is_menu_active('intranet/configuraciones') }}">
                                     <a href="{{ route('intranet.settings.index') }}">

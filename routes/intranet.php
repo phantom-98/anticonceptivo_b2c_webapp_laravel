@@ -187,6 +187,9 @@ if (env('SHOW_INTRANET', 'TRUE') == 'TRUE') {
                 Route::get('limite-productos-por-dia', 'LimitOrderByDayController@index')->name('limit-order-by-day.index');
                 Route::post('limite-productos-por-dia/update', 'LimitOrderByDayController@update')->name('limit-order-by-day.update');
 
+                Route::get('telefono-contacto', 'PhoneContactController@index')->name('phone-contact.index');
+                Route::post('telefono-contacto/update', 'PhoneContactController@update')->name('phone-contact.update');
+
                 Route::post('paginas/active', 'PageController@active')->name('pages.active');
                 Route::resource('paginas', 'PageController', ['names' => getResourceRoutesForNameHelper('pages')]);
                 Route::post('paginas/position', 'PageController@position')->name('pages.position');
