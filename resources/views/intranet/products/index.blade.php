@@ -243,6 +243,22 @@
                     }
                 },
                 {
+                    title: 'Categoría',
+                    field: 'category',
+                    sortable: true,
+                    cellStyle: midAling,
+                    formatter: function (value, row, index) {
+                        let category = '';
+                        if (row.subcategory) {
+                            category = row.subcategory.category.name;
+                        } else {
+                            category = '<div class="label label-table label-danger">SIN CATEGORÍA</div>';
+                        }
+
+                        return category;
+                    }
+                },
+                {
                     title: 'Subcategoría',
                     field: 'subcategory',
                     sortable: true,
