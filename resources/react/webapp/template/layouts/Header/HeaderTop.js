@@ -12,6 +12,7 @@ const HeaderTop = () => {
 
     const [postTypes, setPostTypes] = useState([]);
     const [textHeader, setTextHeader] = useState(null);
+    const [phoneContact, setPhoneContact] = useState(null);
 
     useEffect(() => {
         getData();
@@ -26,7 +27,7 @@ const HeaderTop = () => {
                 success: () => {
                     setPostTypes(response.data.post_types);
                     setTextHeader(response.data.tex_header);
-
+                    setPhoneContact(response.data.phone_contact);
                 },
             });
         }).catch(error => {
@@ -53,7 +54,7 @@ const HeaderTop = () => {
                 </div>
                 <div className="col-md">
                     <div className="row justify-content-end">
-                        <HeaderTopLink icon={phoneWhite} flag={true} email={false} linkTo={"tel:232451883"} text={`(2) 3245 1883`}/>
+                        <HeaderTopLink icon={phoneWhite} flag={true} email={false} linkTo={"tel:"+String(phoneContact).replace(/\D/g, "")} text={phoneContact}/>
                         <HeaderTopLink icon={emailWhite} flag={true} email={true} linkTo={"mailto:contacto@anticonceptivo.cl"} text={`contacto@anticonceptivo.cl`}/>
                         {/*<HeaderDropDown postTypes={postTypes} />*/}
                         {/*<HeaderTopLink text={`Historía de los anticonceptivos`} linkTo={PUBLIC_ROUTES.HISTORY.path}/>*/}

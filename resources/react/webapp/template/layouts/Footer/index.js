@@ -24,6 +24,7 @@ const Footer = () => {
     });
 
     const [alliances, setAlliances] = useState([]);
+    const [phoneContact, setPhoneContact] = useState(null);
 
     const [sections, setSections] = useState([]);
 
@@ -41,6 +42,7 @@ const Footer = () => {
                     setResponsibleConsumption(response.data.responsible_consumption);
                     setAlliances(response.data.alliances);
                     setSections(response.data.sectionsFooter);
+                    setPhoneContact(response.data.phone_contact);
                 },
             });
         }).catch(error => {
@@ -138,8 +140,8 @@ const Footer = () => {
                                     </div>
                                 </li>
                                 <li className="nav-item text-center text-lg-left">
-                                    <a className="nav-link" href="tel:232451883"><Icon path={phone}/>
-                                        <span>{' '}(2) 3245 1883</span>
+                                    <a className="nav-link" href={"tel:"+String(phoneContact).replace(/\D/g, "")}><Icon path={phone}/>
+                                        <span>{phoneContact}</span>
                                     </a>
                                 </li>
                                 <li className="nav-item text-center text-lg-left">

@@ -9,14 +9,14 @@ const HeaderTopLink = ({icon, text, linkTo = '#', flag, email}) =>{
                 flag ?
                     email ?
                     <div className="nav-item">
-                        <a className="my-auto top-link pl-1 pr-0" style={{lineHeight: '33px'}} href="mailto:contacto@anticonceptivo.cl"><Icon path={icon}/>
-                            <span className="top-link pl-1">{' '}contacto@anticonceptivo.cl</span>
+                        <a className="my-auto top-link pl-1 pr-0" style={{lineHeight: '33px'}} href={linkTo}><Icon path={icon}/>
+                            <span className="top-link pl-1">{' '}{text}</span>
                         </a>
                     </div>
                     :
                     <div className="nav-item">
-                        <a className="my-auto top-link pl-1 pr-0" style={{lineHeight: '33px'}} href="tel:232451883"><Icon path={icon}/>
-                            <span className="top-link pl-1">{' '}(2) 3245 1883</span>
+                        <a className="my-auto top-link pl-1 pr-0" style={{lineHeight: '33px'}} href={linkTo}><Icon path={icon}/>
+                            <span className="top-link pl-1">{' '}{text}</span>
                         </a>
                     </div>
 
