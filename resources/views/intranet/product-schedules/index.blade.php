@@ -121,6 +121,7 @@
                 scrollTime: '08:00:00',
                 allDaySlot: false,
                 height: 'auto',
+                timeFormat: "HH:mm",
                 header: {
                     left: '',
                     center: '',
@@ -154,6 +155,7 @@
                 },
                 select: function (start, end, JsEvent, view){
                     let selectTypeProductSchedule = $( "#selectTypeId option:selected" ).val()
+                    console.log(end.format('YYYY-MM-DD HH:mm:ss'))
                     _event = {
                         id: Math.round(Math.random() * 10000),
                         title: selectTypeProductSchedule,

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1\App\PublicArea;
 
 use App\Http\Controllers\Api\V1\App\Helpers\ProductScheduleHelper;
 use App\Http\Controllers\Controller;
+use App\Models\Setting;
 use App\Models\TextHeader;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -102,12 +103,14 @@ class HomeController extends Controller
             ->orderBy('position')->get();
             $sectionsFooter = Page::where('section', SectionTypes::TERMS_AND_CONDITIONS)->whereIn('id',[1,2])
                 ->orderBy('position')->get();
+            $phoneContact = Setting::where('key','PHONE_CONTACT')->first()->value;
 
             return ApiResponse::JsonSuccess([
                 'responsible_consumption' => $responsible_consumption,
                 'alliances' => $alliances,
                 'sections' => $sections,
-                'sectionsFooter' => $sectionsFooter
+                'sectionsFooter' => $sectionsFooter,
+                'phone_contact'=>$phoneContact
             ]);
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, $exception->getMessage());
@@ -120,10 +123,11 @@ class HomeController extends Controller
 
             $postTypes = PostType::where('active',true)->get();
             $textHeader = TextHeader::where('active',true)->first();
-
+            $phoneContact = Setting::where('key','PHONE_CONTACT')->first()->value;
             return ApiResponse::JsonSuccess([
                 'post_types' => $postTypes,
-                'tex_header' => $textHeader
+                'tex_header' => $textHeader,
+                'phone_contact'=>$phoneContact
             ]);
 
         } catch (\Exception $exception) {
