@@ -154,6 +154,8 @@ class PaySubscriptions extends Command
 
                                 $order->status = 'REJECTED';
                                 $order->save();
+
+
                             }
 
                         }else{
@@ -193,6 +195,8 @@ class PaySubscriptions extends Command
 
                             $order->status = 'REJECTED';
                             $order->save();
+
+
                         }
                     }
                     $array_item = [];
@@ -207,6 +211,7 @@ class PaySubscriptions extends Command
             if (count($subscriptionsOrdersItems) > 0) {
                 $dispatch = $this->getDeliveryCost($prev_item->customer_address->commune->name)['price_dispatch'];
                 $total = $total + $dispatch;
+                $order = new Order();
                 $order->dispatch = $dispatch;
                 $order->total = $total;
                 $order->save();
@@ -255,6 +260,8 @@ class PaySubscriptions extends Command
 
                             $order->status = 'REJECTED';
                             $order->save();
+
+
                         }
 
                     }else{
@@ -294,6 +301,8 @@ class PaySubscriptions extends Command
 
                         $order->status = 'REJECTED';
                         $order->save();
+
+
                     }
                 }
 
