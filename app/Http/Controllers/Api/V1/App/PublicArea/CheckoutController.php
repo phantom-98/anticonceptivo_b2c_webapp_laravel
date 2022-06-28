@@ -166,7 +166,7 @@ class CheckoutController extends Controller
                 // }
             }else{
                 $rules += [
-                    'email' => 'required|email|unique:customers,email',
+                    'email' => 'required',
                     'id_number' => 'required',
                     'phone' => 'required',
                 ];
