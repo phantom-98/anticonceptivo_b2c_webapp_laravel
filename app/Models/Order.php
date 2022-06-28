@@ -40,10 +40,25 @@ class Order extends Model
         'label_dispatch',
         'house_number',
         'ballot_number',
-        'region'
+        'region',
+        'type'
     ];
 
-    protected $appends = ['formated_status', 'formated_background', 'formated_color'];
+    protected $appends = ['formated_status', 'formated_background', 'formated_color', 'formated_type_webpay'];
+
+    public function getFormatedTypeWebpayAttribute(){
+        if($this->type){
+            if($this->type == "VD"){
+                return "Tarjeta de Débito";
+            } else if($this->type == "VP") {
+                return "Tarjeta de Prepago";
+            } else {
+                return "Tarjeta de Crédito";
+            }
+        } else {
+            return '-';
+        }
+    }
 
     public function getFormatedStatusAttribute()
     {
