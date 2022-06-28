@@ -150,7 +150,7 @@ class CheckoutController extends Controller
                     $rules += [
                         'email' => 'required|email|unique:customers,email,'.$customer->id,
                         'id_number' => 'required|unique:customers,id_number,'.$customer->id,
-                        'phone' => 'required|unique:customers,phone,'.$customer->id,
+                        'phone' => 'required',
                     ];
                 }
 
@@ -168,7 +168,7 @@ class CheckoutController extends Controller
                 $rules += [
                     'email' => 'required|email|unique:customers,email',
                     'id_number' => 'required|unique:customers,id_number',
-                    'phone' => 'required|unique:customers,phone',
+                    'phone' => 'required',
                 ];
             }
 
