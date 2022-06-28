@@ -329,6 +329,10 @@ class PaySubscriptions extends Command
         $order->payment_type = 'tarjeta';
         $order->customer_id = $first_subcription_order_item->order->customer_id;
         $order->delivery_date = $first_subcription_order_item->dispatch_date;
+        $order->payment_date = Carbon::now();
+        $order->house_number = $first_subcription_order_item->customer_address->extra_info;
+        $order->region = $first_subcription_order_item->customer_address->region->name;
+        $order->comments = $first_subcription_order_item->comment;
         $order->save();
 
         $items = [];
