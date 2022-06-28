@@ -60,13 +60,13 @@ class AuthController extends Controller
                 $rules += [
                     'register_email' => 'required|email|unique:customers,email,'.$customer->id,
                     'register_id_number' => 'required|unique:customers,id_number,'.$customer->id,
-                    'register_phone' => 'required|unique:customers,phone,'.$customer->id,
+                    'register_phone' => 'required',
                 ];
             }else{
                 $rules += [
                     'register_email' => 'required|email|unique:customers,email',
                     'register_id_number' => 'required|unique:customers,id_number',
-                    'register_phone' => 'required|unique:customers,phone',
+                    'register_phone' => 'required',
                 ];
             }
 
