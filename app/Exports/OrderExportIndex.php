@@ -48,7 +48,7 @@ class OrderExportIndex implements FromView, ShouldAutoSize
             $ordersGet = $ordersGet->where('id', $this->id);
         }    
         
-        $ordersGet = $ordersGet->get();
+        $ordersGet = $ordersGet->orderBy('id', 'desc')->get();
 
         return view('intranet.exports.orders')->with('ordersGet', $ordersGet);
     }
