@@ -104,6 +104,8 @@ class PaySubscriptions extends Command
                     $dispatch = $this->getDeliveryCost($prev_item->customer_address->commune->name)['price_dispatch'];
                     $total = $total + $dispatch;
                     $order = new Order();
+                    $order->dispatch = $dispatch;
+                    $order->total = $total;
                     $order->save();
                     $details = [
                         [
@@ -119,7 +121,6 @@ class PaySubscriptions extends Command
 
                     if($response['status'] == "success") {
                         if ($response['response']->details[0]->status != 'AUTHORIZED') {
-                            $order->delete();
 
                             Log::info('OneClick',
                                 [
@@ -148,7 +149,14 @@ class PaySubscriptions extends Command
                                 $sub_order_item->pay_date = Carbon::now()->addDay();
                                 $sub_order_item->dispatch_date = Carbon::now()->addDays(2);
                                 $sub_order_item->is_pay = 0;
+                                $sub_order_item->order_id = $order->id;
                                 $sub_order_item->save();
+
+                                $order->status = 'REJECTED';
+                                $order->comments = 'Suscripción Transbank Fallida';
+                                $order->save();
+
+
                             }
 
                         }else{
@@ -162,7 +170,6 @@ class PaySubscriptions extends Command
 
                         }
                     }else{
-                        $order->delete();
                         foreach ($array_item as $sub_order_item){
                             $sub_order_item->status = 'REJECTED';
                             $sub_order_item->payment_attempt = $sub_order_item->payment_attempt + 1;
@@ -184,7 +191,14 @@ class PaySubscriptions extends Command
                             $sub_order_item->pay_date = Carbon::now()->addDay();
                             $sub_order_item->dispatch_date = Carbon::now()->addDays(2);
                             $sub_order_item->is_pay = 0;
+                            $sub_order_item->order_id = $order->id;
                             $sub_order_item->save();
+
+                            $order->status = 'REJECTED';
+                            $order->comments = 'Suscripción Transbank Fallida';
+                            $order->save();
+
+
                         }
                     }
                     $array_item = [];
@@ -200,6 +214,8 @@ class PaySubscriptions extends Command
                 $dispatch = $this->getDeliveryCost($prev_item->customer_address->commune->name)['price_dispatch'];
                 $total = $total + $dispatch;
                 $order = new Order();
+                $order->dispatch = $dispatch;
+                $order->total = $total;
                 $order->save();
                 $details = [
                     [
@@ -214,8 +230,6 @@ class PaySubscriptions extends Command
 
                 if($response['status'] == "success") {
                     if ($response['response']->details[0]->status != 'AUTHORIZED') {
-                        $order->delete();
-
                         Log::info('OneClick',
                             [
                                 "response" => $response,
@@ -243,7 +257,14 @@ class PaySubscriptions extends Command
                             $sub_order_item->pay_date = Carbon::now()->addDay();
                             $sub_order_item->dispatch_date = Carbon::now()->addDays(2);
                             $sub_order_item->is_pay = 0;
+                            $sub_order_item->order_id = $order->id;
                             $sub_order_item->save();
+
+                            $order->status = 'REJECTED';
+                            $order->comments = 'Suscripción Transbank Fallida';
+                            $order->save();
+
+
                         }
 
                     }else{
@@ -278,10 +299,15 @@ class PaySubscriptions extends Command
                         $sub_order_item->pay_date = Carbon::now()->addDay();
                         $sub_order_item->dispatch_date = Carbon::now()->addDays(2);
                         $sub_order_item->is_pay = 0;
+                        $sub_order_item->order_id = $order->id;
                         $sub_order_item->save();
-                    }
-                    $order->delete();
 
+                        $order->status = 'REJECTED';
+                        $order->comments = 'Suscripción Transbank Fallida';
+                        $order->save();
+
+
+                    }
                 }
 
                 $array_item = [];
@@ -460,6 +486,7 @@ class PaySubscriptions extends Command
         }
 
         $order->is_paid = 1;
+        $order->type = 'VN';
         $order->status = 'PAID';
         $order->save();
         foreach ($array_subscription_order_items as $item){
