@@ -115,6 +115,10 @@
                                     <td class="bold w-25">INFORMACIÓN ADICIONAL</td>
                                     <td>{{ $object->extra_data ?? ' - ' }}</td>
                                 </tr>
+                                <tr>
+                                    <td class="bold w-25">TIPO DE PAGO</td>
+                                    <td>{{ $object->formated_type_webpay ?? ' - ' }}</td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>

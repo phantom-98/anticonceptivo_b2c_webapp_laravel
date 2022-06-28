@@ -14,6 +14,7 @@
             <th>Información adicional</th>
 
             <th>Método de Pago</th>
+            <th>Tipo de Pago</th>
             <th>Subtotal</th>
             <th>Despacho</th>
             <th>Descuento</th>
@@ -74,7 +75,7 @@
                 @else
                 <td>Proceso no terminado</td>
                 @endif
-
+                <td>{{ $object->formated_type_webpay }}</td>
                 <td>${{ number_format($object->subtotal, 0, ',','.')}}</td>
                 <td>${{ number_format($object->dispatch, 0, ',','.')}}</td>
                 <td>${{ number_format($object->discount, 0, ',','.')}}</td>

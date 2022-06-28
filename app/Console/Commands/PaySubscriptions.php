@@ -153,6 +153,7 @@ class PaySubscriptions extends Command
                                 $sub_order_item->save();
 
                                 $order->status = 'REJECTED';
+                                $order->comments = 'Suscripción Transbank Fallida';
                                 $order->save();
 
 
@@ -194,6 +195,7 @@ class PaySubscriptions extends Command
                             $sub_order_item->save();
 
                             $order->status = 'REJECTED';
+                            $order->comments = 'Suscripción Transbank Fallida';
                             $order->save();
 
 
@@ -259,6 +261,7 @@ class PaySubscriptions extends Command
                             $sub_order_item->save();
 
                             $order->status = 'REJECTED';
+                            $order->comments = 'Suscripción Transbank Fallida';
                             $order->save();
 
 
@@ -300,6 +303,7 @@ class PaySubscriptions extends Command
                         $sub_order_item->save();
 
                         $order->status = 'REJECTED';
+                        $order->comments = 'Suscripción Transbank Fallida';
                         $order->save();
 
 
@@ -482,6 +486,7 @@ class PaySubscriptions extends Command
         }
 
         $order->is_paid = 1;
+        $order->type = 'VN';
         $order->status = 'PAID';
         $order->save();
         foreach ($array_subscription_order_items as $item){

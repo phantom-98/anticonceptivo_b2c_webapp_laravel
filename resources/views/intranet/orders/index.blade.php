@@ -149,6 +149,7 @@
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Información adicional</th>
 
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Método de Pago</th>
+                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Tipo de Pago</th>
                             <th data-cell-style="cellStyle" data-sorter="priceSorter" data-sortable="true" data-valign="middle">Subtotal</th>
                             <th data-cell-style="cellStyle" data-sorter="priceSorter" data-sortable="true" data-valign="middle">Despacho</th>
                             <th data-cell-style="cellStyle" data-sorter="priceSorter" data-sortable="true" data-valign="middle">Descuento</th>
@@ -277,7 +278,7 @@
                                 @else
                                 <td>Proceso no terminado</td>
                                 @endif
-
+                                <td>{{ $object->formated_type_webpay ?? '-'}}</td>
                                 <td>${{ number_format($object->subtotal, 0, ',','.')}}</td>
                                 <td>${{ number_format($object->dispatch, 0, ',','.')}}</td>
                                 <td>${{ number_format($object->discount, 0, ',','.')}}</td>

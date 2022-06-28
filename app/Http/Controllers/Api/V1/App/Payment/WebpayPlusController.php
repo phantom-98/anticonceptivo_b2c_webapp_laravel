@@ -522,6 +522,7 @@ class WebpayPlusController
                     $order->is_paid = 1;
                     $order->status = PaymentStatus::PAID;
                     $order->payment_type = 'tarjeta';
+                    $order->type = 'VN';
                     $order->save();
 
                     if($order->discount_code_id){
@@ -653,6 +654,7 @@ class WebpayPlusController
                 $order->status = PaymentStatus::PAID;
                 $order->payment_date = Carbon::now();
                 $order->payment_type = 'webpay';
+                $order->type = $response->paymentTypeCode;
                 $order->is_paid = true;
                 $order->save();
                 if($order->discount_code_id){
@@ -702,6 +704,7 @@ class WebpayPlusController
                     Log::info('RESPONSE_CODE_ELSE', [$response->responseCode]);
 
                     $order->status = PaymentStatus::REJECTED;
+                    $order->type = $response->paymentTypeCode;
                     $order->is_paid = false;
                     $order->save();
                 }
