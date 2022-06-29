@@ -52,6 +52,8 @@ class Order extends Model
                 return "Tarjeta de Débito";
             } else if($this->type == "VP") {
                 return "Tarjeta de Prepago";
+            } else if($this->type == "Transferencia") {
+                return "Transferencia";
             } else {
                 return "Tarjeta de Crédito";
             }
