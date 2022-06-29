@@ -231,6 +231,13 @@
                                                 @endif
                                             @endif
                                             @endcan
+                                            @if($object->type != "Transferencia")
+                                            <a onclick="transferMethod({{$object->id}})"
+                                                class="btn btn-sm btn-default btn-hover-success" data-toggle="tooltip"
+                                                title="Cambiar a transferencia">
+                                                    <i class="fa fa-usd"></i>
+                                            </a>
+                                            @endif
                                             @include('intranet.template.components._crud_html_actions_buttons')
                                         </div>
                                     </td>
@@ -339,9 +346,14 @@
                     </form>
 
                     <form id="send-email-form" action="{{ route($config['route'] . 'sendEmail') }}"
-                    enctype="multipart/form-data" method="POST">
-                    @csrf()
-                </form>
+                        enctype="multipart/form-data" method="POST">
+                        @csrf()
+                    </form>
+
+                    <form id="transfer-form" action="{{ route($config['route'] . 'transfer') }}"
+                        enctype="multipart/form-data" method="POST">
+                        @csrf()
+                    </form>
 
                 </div>
             </div>
@@ -422,6 +434,29 @@
                 value: 1
             }).appendTo('#prescription-validate-form');
             $('#prescription-validate-form').submit();
+        }
+
+        function transferMethod(id){
+            swal({
+                title: 'Advertencia',
+                html: '¿Está seguro de querer cambiar el tipo de pago a Transferencia? Esta acción no se puede deshacer.',
+                customClass: "swal-wide-2",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#43a047',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Confirmar',
+                cancelButtonText: 'Cancelar'
+            }).then(function (result) {
+                if (result.value) {
+                    $('<input>').attr({
+                        type: 'hidden',
+                        name: 'id',
+                        value: id
+                    }).appendTo('#transfer-form');
+                    $('#transfer-form').submit();
+                }
+            });
         }
 
         function sendEmail(id){
