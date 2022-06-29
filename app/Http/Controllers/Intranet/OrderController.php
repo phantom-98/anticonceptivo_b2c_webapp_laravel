@@ -275,4 +275,13 @@ class OrderController extends GlobalController
         return redirect()->back();
     }
 
+    public function transfer(Request $request){
+        $order = Order::find($request->id);
+        $order->type = 'Transferencia';
+        $order->save();
+
+        session()->flash('success', 'Pedido cambiado a Transferencia exitosamente.');
+        return redirect()->back();
+    }
+
 }
