@@ -87,7 +87,7 @@
                                         </div>
                                         <div class="row">
         
-                                            <div class="col-md-4">
+                                            <div class="col-md-3">
                                                 <div class="form-group {{ $errors->has('amount_of_use') ? 'has-error':'' }}">
                                                     <label for="name">Cantidad de usos</label>
                                                     <input type="number"
@@ -100,11 +100,11 @@
                                             </div>
 
                                             @if (old('is_forever') == null)
-                                                <div class="col-md-4" id="idContainerDeadLine"
+                                                <div class="col-md-3" id="idContainerDeadLine"
                                                     {{ $object->is_forever ? 'hidden' : '' }}>
 
                                                 @else
-                                                    <div class="col-md-6" id="idContainerDeadLine"
+                                                    <div class="col-md-3" id="idContainerDeadLine"
                                                         {{ old('is_forever') ? 'hidden' : '' }}>
 
                                             @endif
@@ -119,18 +119,30 @@
 
 
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-3">
                                             <div class="form-group {{ $errors->has('customer_id') ? 'has-error':'' }}">
                                                 <label for="customer_id">Cliente</label>
                                                 <select class="form-control"
                                                         name="customer_id"
                                                         id="customer_id">
-                                                    <option value="">Seleccione un producto</option>
+                                                    <option value="">Seleccione un cliente</option>
                                                     @foreach( $customers as $item)
                                                             <option value="{{ $item->id }}" {{ $item->id == $object->customer_id ? 'selected' : ''}}>{{ $item->first_name }} {{ $item->last_name }} | {{ $item->rut }}</option>
                                                     @endforeach
                                                 </select>
                                                 {!! $errors->first('customer_id', '<span class="help-block">:message</span>') !!}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <div class="form-group ">
+                                                <label for="free_shipping">¿Despacho gratis Suscripción? (*)</label>
+                                                <select class="form-control"
+                                                        name="free_shipping"
+                                                        id="free_shipping">
+                                                    <option value="0" {{ $object->free_shipping == 0 ? "selected" : ""}}>No</option>
+                                                    <option value="1" {{ $object->free_shipping == 1 ? "selected" : ""}}>Si</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>

@@ -24,6 +24,7 @@ class SubscriptionsOrdersItem extends Model
         'days',
         'subtotal',
         'payment_attempt',
+        'free_shipping',
         'order_parent_id',
         'quantity',
         'status'

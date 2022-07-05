@@ -100,8 +100,11 @@ class PaySubscriptions extends Command
             $array_item = [];
             foreach ($subscriptionsOrdersItems as $item) {
                 if (($prev_order_id != $item->order->id || $prev_pay_date != $item->pay_date) && $prev_item != null) {
-
-                    $dispatch = $this->getDeliveryCost($prev_item->customer_address->commune->name)['price_dispatch'];
+                    if($item->free_shipping == 0){
+                        $dispatch = $this->getDeliveryCost($prev_item->customer_address->commune->name)['price_dispatch'];
+                    } else {
+                        $dispatch = 0;
+                    }
                     $total = $total + $dispatch;
                     $order = new Order();
                     $order->dispatch = $dispatch;
@@ -211,7 +214,11 @@ class PaySubscriptions extends Command
             }
 
             if (count($subscriptionsOrdersItems) > 0) {
-                $dispatch = $this->getDeliveryCost($prev_item->customer_address->commune->name)['price_dispatch'];
+                if($prev_item->free_shipping == 0){
+                    $dispatch = $this->getDeliveryCost($prev_item->customer_address->commune->name)['price_dispatch'];
+                } else {
+                    $dispatch = 0;
+                }
                 $total = $total + $dispatch;
                 $order = new Order();
                 $order->dispatch = $dispatch;

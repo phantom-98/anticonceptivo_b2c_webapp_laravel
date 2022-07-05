@@ -14,7 +14,8 @@ class DiscountCode extends Model
         'active',
         'expiration_date',
         'is_forever',
-        'customer_id'
+        'customer_id',
+        'free_shipping'
     ];
     protected $appends = ['formated_expiration_date','formated_other_expiration_date'];
 

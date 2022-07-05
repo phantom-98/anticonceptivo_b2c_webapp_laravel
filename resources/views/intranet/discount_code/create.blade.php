@@ -87,7 +87,7 @@
                                 </div>
                                 <div class="row">
 
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <div class="form-group {{ $errors->has('amount_of_use') ? 'has-error':'' }}">
                                             <label for="name">Cantidad de usos</label>
                                             <input type="number"
@@ -98,7 +98,7 @@
                                                 placeholder="Ej: 10">
                                         </div>
                                     </div>
-                                    <div class="col-md-4"  id="idContainerDeadLine" {{ old("is_forever") ? "hidden" : ""}} >
+                                    <div class="col-md-3"  id="idContainerDeadLine" {{ old("is_forever") ? "hidden" : ""}} >
                                         <div class="form-group {{ $errors->has('expiration_date') ? 'has-error':'' }}">
                                             <label for="expiration_date">Fecha Término (*)</label>
                                             <input type="date"
@@ -110,7 +110,7 @@
                                                 placeholder="Fecha de Término">
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <div class="form-group {{ $errors->has('customer_id') ? 'has-error':'' }}">
                                             <label for="customer_id">Cliente</label>
                                             <select class="form-control"
@@ -122,6 +122,17 @@
                                                 @endforeach
                                             </select>
                                             {!! $errors->first('customer_id', '<span class="help-block">:message</span>') !!}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group ">
+                                            <label for="free_shipping">¿Despacho gratis Suscripción? (*)</label>
+                                            <select class="form-control"
+                                                    name="free_shipping"
+                                                    id="free_shipping">
+                                                <option value="0" {{ old("free_shipping") == 0 ? "selected" : ""}}>No</option>
+                                                <option value="1" {{ old("free_shipping") == 1 ? "selected" : ""}}>Si</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
