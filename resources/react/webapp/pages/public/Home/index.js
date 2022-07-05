@@ -84,7 +84,7 @@ const Home = ({match}) => {
 
             <OutstandingCarousel title="Destacados" outstandings={outstandings}/>
 
-            <BestSeller bestSellers={bestSellers}/>
+            <BestSeller title="Más Vendidos" bestSellers={bestSellers}/>
 
             <BannerStatic banners={middleBanners}/>
             <BannerCategories bannerCategories={bannerCategories}/>
