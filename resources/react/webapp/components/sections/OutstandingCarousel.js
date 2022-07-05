@@ -26,7 +26,7 @@ const OutstandingCarousel = ({title, outstandings}) => {
     return (
         <div style={{background: '#FFFFFF'}}>
             <div className="container">
-                <div className="row mb-5 card-products-gutters">
+                <div className="row pb-5 mb-5 card-products-gutters">
 
                     <div className="col-12 py-4">
                         <H2Title text={title}/>
