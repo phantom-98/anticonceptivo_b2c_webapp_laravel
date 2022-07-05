@@ -85,6 +85,7 @@ class DiscountCodeController extends GlobalController
             $discountCode->is_forever = $request->is_forever;
             $discountCode->customer_id = $request->customer_id;
             $discountCode->is_percentage = $request->is_percentage;
+            $discountCode->free_shipping = $request->free_shipping;
             if($request->amount_of_use != null){
                 $discountCode->amount_of_use = $request->amount_of_use;
             }
@@ -157,7 +158,7 @@ class DiscountCodeController extends GlobalController
             $discountCode->customer_id = $request->customer_id;
             $discountCode->is_percentage = $request->is_percentage;
             $discountCode->amount_of_use = $request->amount_of_use;
-
+            $discountCode->free_shipping = $request->free_shipping;
             if($request->is_forever ==0){
                 $discountCode->expiration_date = date('Y-m-d', strtotime($request->expiration_date));
 
