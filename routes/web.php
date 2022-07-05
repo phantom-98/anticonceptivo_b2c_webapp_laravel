@@ -26,11 +26,11 @@ Route::get('subscriptions-plans-cicles', function () {
     return true;
 });
 
-Route::get('/prueba-mas-vendidos', function(){
+/*Route::get('/prueba-mas-vendidos', function(){
     return $productsId = \App\Models\OrderItem::with(['order','product'])->whereHas('order', function($q){
         $q->where('status','PAID');
     })->select('product_id', Illuminate\Support\Facades\DB::raw('sum(quantity) as total'))->groupBy('product_id')->orderBy('total', 'desc')->get();
-});
+});*/
 
 Route::get('product-position-plans', function () {
     $product_subscription_plans = \App\Models\ProductSubscriptionPlan::with(['subscription_plan'])->get();
