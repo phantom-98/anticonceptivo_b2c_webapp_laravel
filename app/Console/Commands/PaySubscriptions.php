@@ -335,7 +335,11 @@ class PaySubscriptions extends Command
             $order->delivery_address = $first_subcription_order_item->delivery_address;
         }
         $order->discount = 0;
-        $order->dispatch = $this->getDeliveryCost($first_subcription_order_item->customer_address->commune->name)['price_dispatch'];
+        if($first_subcription_order_item->free_shipping == 0){
+            $order->dispatch = $this->getDeliveryCost($first_subcription_order_item->customer_address->commune->name)['price_dispatch'];
+        } else {
+            $order->dispatch = 0;
+        }
         $order->save();
         $subtotal = 0;
         foreach ($array_subscription_order_items as $subscription_order_item) {
