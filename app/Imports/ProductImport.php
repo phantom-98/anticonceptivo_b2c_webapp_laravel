@@ -51,6 +51,7 @@ class ProductImport implements ToCollection, WithHeadingRow
                     $product->unit_format = $row['formato_unidad'];
                     $product->recipe_type = $row['tipo_de_receta'];
                     $product->state_of_matter = $row['estado'];
+                    $product->is_medicine = $row['medicamento'] == "Si" ? 1 : 0;
                     $product->position = $row['posicion'];
                     $product->save();
                 } else {
@@ -77,6 +78,7 @@ class ProductImport implements ToCollection, WithHeadingRow
                     $product->unit_format = $row['formato_unidad'];
                     $product->recipe_type = $row['tipo_de_receta'];
                     $product->state_of_matter = $row['estado'];
+                    $product->is_medicine = $row['medicamento'] == "Si" ? 1 : 0;
                     $product->position = $row['posicion'];
                     $product->save();
                 }

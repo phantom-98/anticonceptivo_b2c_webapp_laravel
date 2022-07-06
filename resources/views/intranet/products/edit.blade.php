@@ -297,6 +297,15 @@
                                         </select>
                                     </div>
                                 </div>
+                                <div class="col-md-3">
+                                    <div class="form-group {{ $errors->has('is_medicine') ? 'has-error':'' }}">
+                                        <label for="is_medicine">¿Es medicamento? </label>
+                                        <select id="is_medicine" name="is_medicine" class="form-control">
+                                            <option value="Si" {{$object->is_medicine == "Si" ? "selected" : ""}}>Si</option>
+                                            <option value="No" {{$object->is_medicine == "No" ? "selected" : ""}}>No</option>
+                                        </select>
+                                    </div>
+                                </div>
                                 <div class="clearfix"></div>
 
 

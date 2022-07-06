@@ -288,6 +288,19 @@
                     }
                 },
                 {
+                    title: '¿Es medicamento?',
+                    field: 'is_medicine',
+                    sortable: true,
+                    cellStyle: midAling,
+                    formatter: function (value, row, index) {
+                        if (row.is_medicine == 0) {
+                            return '<div class="label label-table label-danger">NO</div>';
+                        } else {
+                            return '<div class="label label-table label-success">SI</div>';
+                        }
+                    }
+                },
+                {
                     title: '¿Es prioritario?',
                     field: 'is_immediate',
                     sortable: true,
