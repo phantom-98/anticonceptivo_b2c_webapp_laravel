@@ -52,7 +52,7 @@ class ProductImport implements ToCollection, WithHeadingRow
                     $product->recipe_type = $row['tipo_de_receta'];
                     $product->state_of_matter = $row['estado'];
                     $product->is_medicine = $row['medicamento'] == "Si" ? 1 : 0;
-                    $product->position = $row['posicion'];
+                    $product->position = $row['posicion'] ?? 999;
                     $product->save();
                 } else {
                     $product = new Product();
