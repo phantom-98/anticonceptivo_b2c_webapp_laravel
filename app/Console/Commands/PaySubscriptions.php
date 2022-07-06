@@ -89,7 +89,7 @@ class PaySubscriptions extends Command
                 ->where('payment_attempt','<',10)
                 ->whereDate('pay_date','<=',$datePayment)
                 ->with(['order_item.product', 'subscription', 'order.order_items', 'order_item.subscription_plan', 'order.customer', 'customer_address.commune'])
-                ->select('id','payment_attempt' ,'order_parent_id as order_id','subtotal','name', 'orders_item_id','price','quantity', 'subscription_id','delivery_address', 'customer_address_id', 'pay_date', 'dispatch_date', 'status', 'is_pay')
+                ->select('id','payment_attempt' ,'order_parent_id as order_id','subtotal','name', 'orders_item_id','price','quantity', 'subscription_id','delivery_address', 'customer_address_id', 'pay_date', 'dispatch_date', 'status', 'is_pay', 'free_shipping')
                 ->orderBy('order_parent_id')->orderBy('pay_date')
                 ->get();
 
