@@ -284,8 +284,8 @@
                                     <div class="form-group {{ $errors->has('is_medicine') ? 'has-error':'' }}">
                                         <label for="is_medicine">¿Es medicamento? </label>
                                         <select id="is_medicine" name="is_medicine" class="form-control">
-                                            <option value="Si" selected>Si</option>
-                                            <option value="No">No</option>
+                                            <option value="1" selected>Si</option>
+                                            <option value="0">No</option>
                                         </select>
                                     </div>
                                 </div>
