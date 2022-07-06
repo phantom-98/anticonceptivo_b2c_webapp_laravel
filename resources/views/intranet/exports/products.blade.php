@@ -29,6 +29,7 @@
             <th>Cantidad de Suscripciones Activas</th>
             <th>Cantidad productos por suscripciones</th>
             <th>Posición</th>
+            <th>Medicamento</th>
         </tr>
     </thead>
     <tbody>        
@@ -62,6 +63,7 @@
                 <td>{{ $object->subscriptions_count ?? '' }}</td>
                 <td>{{ $object->subscriptions_items ?? '' }}</td>
                 <td>{{ $object->position ?? '' }}</td>
+                <td>{{ $object->is_medicine == 0 ? 'No' : 'Si' }}</td>
             </tr>
         @endforeach
     </tbody>
