@@ -170,7 +170,7 @@ class HomeController extends Controller
                 'middle_banners' => $middleBanners,
                 'bottom_banners' => $bottomBanners,
                 'outstandings' => $this->processScheduleList($outstandings),
-                'best_sellers' => $bestSellers,
+                'best_sellers' => $this->processScheduleList($bestSellers),
                 'brands' => $brands,
                 'bannerCategories' => $bannerCategories,
                 'blog_posts' => $blogPosts,
