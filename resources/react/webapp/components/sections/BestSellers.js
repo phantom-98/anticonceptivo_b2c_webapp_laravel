@@ -8,7 +8,7 @@ import { v4 as uuidv4 } from 'uuid';
 import {AppContext} from "../../context/AppProvider";
 import {BREAKPOINTS} from "../../helpers/vars";
 
-const OutstandingCarousel = ({title, bestSellers}) => {
+const BestSeller = ({title, bestSellers}) => {
     const {breakpoint} = useContext(AppContext)
     let contSlider = 0
 
@@ -79,4 +79,4 @@ const OutstandingCarousel = ({title, bestSellers}) => {
     );
 };
 
-export default OutstandingCarousel
+export default BestSeller
