@@ -152,8 +152,12 @@ class HomeController extends Controller
                 $q->where('status','PAID');
             })->select('product_id', DB::raw('sum(quantity) as total'))->groupBy('product_id')->orderBy('total', 'desc')->get();
 
-            // $bestSellers = Product::where('recipe_type','Venta Directa')->whereIn('id',$productsId->pluck('product_id'))
-            //     ->with(['subcategory.category','product_images','laboratory'])->get();
+            $bestSellers = Product::where('recipe_type','Venta Directa')->where('is_medicine', 0)->whereIn('id',$productsId->pluck('product_id'))
+            ->with(['subcategory.category','product_images','laboratory'])->limit(12)->get();
+
+            $condomProducts = Product::where('recipe_type','Venta Directa')->whereHas('subcategory', function($q){
+                $q->where('category_id', 2);
+            })->with(['subcategory.category','product_images','laboratory'])->inRandomOrder()->limit(4)->get();
 
             $blogPosts = Post::with(['post_type'])->where('active', true)->orderBy('published_at','DESC')->limit(3)->get();
 
@@ -170,7 +174,8 @@ class HomeController extends Controller
                 'middle_banners' => $middleBanners,
                 'bottom_banners' => $bottomBanners,
                 'outstandings' => $this->processScheduleList($outstandings),
-                // 'best_sellers' => $bestSellers,
+                'best_sellers' => $this->processScheduleList($bestSellers),
+                'condom_products' => $this->processScheduleList($condomProducts),
                 'brands' => $brands,
                 'bannerCategories' => $bannerCategories,
                 'blog_posts' => $blogPosts,

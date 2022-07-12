@@ -29,6 +29,7 @@ class Product extends Model
         'unit_format',
         'is_bioequivalent',
         'is_immediate',
+        'is_medicine',
         'format',
         'brand_id',
         'subcategory_id',

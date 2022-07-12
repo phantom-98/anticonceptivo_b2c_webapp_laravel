@@ -266,6 +266,19 @@ class WebpayPlusController
         $order->region = $region->name ?? '-';
         $order->comments = $customerAddress->comment;
 
+        $free_shipping = false;
+
+        if($request->discountCode){
+            $discountCode = DiscountCode::where('active',1)->where('name',$request->discountCode)->first();
+
+            if ($discountCode) {
+                $order->discount_code_id = $discountCode->id;
+                if($discountCode->free_shipping == 1){
+                    $free_shipping = true;
+                }
+            }
+        }
+
         $subtotal = 0;
         $isSubscription = 0;
 
@@ -362,7 +375,7 @@ class WebpayPlusController
                     $subscriptionOrdersItem->commune_id = $customerAddress->commune_id;
                     $subscriptionOrdersItem->delivery_address = $customerAddress->address . ' ' . $customerAddress->extra_info;
                     $subscriptionOrdersItem->status = 'CREATED';
-
+                    $subscriptionOrdersItem->free_shipping = $free_shipping;
                     $subscriptionOrdersItem->save();
                     $isSubscriptionOrderItemPrev = $subscriptionOrdersItem->id;
 
@@ -400,14 +413,6 @@ class WebpayPlusController
         $order->dispatch = $request->dispatch ?? 0;
 
         $order->total = $order->subtotal + $order->dispatch - $order->discount;
-
-        if($request->discountCode){
-            $discountCode = DiscountCode::where('active',1)->where('name',$request->discountCode)->first();
-
-            if ($discountCode) {
-                $order->discount_code_id = $discountCode->id;
-            }
-        }
 
         $order->save();
 

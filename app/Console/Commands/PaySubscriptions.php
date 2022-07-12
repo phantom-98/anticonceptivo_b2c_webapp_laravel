@@ -89,7 +89,7 @@ class PaySubscriptions extends Command
                 ->where('payment_attempt','<',10)
                 ->whereDate('pay_date','<=',$datePayment)
                 ->with(['order_item.product', 'subscription', 'order.order_items', 'order_item.subscription_plan', 'order.customer', 'customer_address.commune'])
-                ->select('id','payment_attempt' ,'order_parent_id as order_id','subtotal','name', 'orders_item_id','price','quantity', 'subscription_id','delivery_address', 'customer_address_id', 'pay_date', 'dispatch_date', 'status', 'is_pay')
+                ->select('id','payment_attempt' ,'order_parent_id as order_id','subtotal','name', 'orders_item_id','price','quantity', 'subscription_id','delivery_address', 'customer_address_id', 'pay_date', 'dispatch_date', 'status', 'is_pay', 'free_shipping')
                 ->orderBy('order_parent_id')->orderBy('pay_date')
                 ->get();
 
@@ -99,9 +99,15 @@ class PaySubscriptions extends Command
             $total = 0;
             $array_item = [];
             foreach ($subscriptionsOrdersItems as $item) {
+                session()->forget('free_dispatch');
                 if (($prev_order_id != $item->order->id || $prev_pay_date != $item->pay_date) && $prev_item != null) {
-
-                    $dispatch = $this->getDeliveryCost($prev_item->customer_address->commune->name)['price_dispatch'];
+                    if($item->free_shipping == 0){
+                        $dispatch = $this->getDeliveryCost($prev_item->customer_address->commune->name)['price_dispatch'];
+                        session()->put('free_dispatch', false);
+                    } else {
+                        $dispatch = 0;
+                        session()->put('free_dispatch', true);
+                    }
                     $total = $total + $dispatch;
                     $order = new Order();
                     $order->dispatch = $dispatch;
@@ -211,7 +217,14 @@ class PaySubscriptions extends Command
             }
 
             if (count($subscriptionsOrdersItems) > 0) {
-                $dispatch = $this->getDeliveryCost($prev_item->customer_address->commune->name)['price_dispatch'];
+                session()->forget('free_dispatch');
+                if($prev_item->free_shipping == 0){
+                    $dispatch = $this->getDeliveryCost($prev_item->customer_address->commune->name)['price_dispatch'];
+                    session()->put('free_dispatch', false);
+                } else {
+                    $dispatch = 0;
+                    session()->put('free_dispatch', true);
+                }
                 $total = $total + $dispatch;
                 $order = new Order();
                 $order->dispatch = $dispatch;
@@ -328,7 +341,11 @@ class PaySubscriptions extends Command
             $order->delivery_address = $first_subcription_order_item->delivery_address;
         }
         $order->discount = 0;
-        $order->dispatch = $this->getDeliveryCost($first_subcription_order_item->customer_address->commune->name)['price_dispatch'];
+        if(session()->get('free_dispatch') == false){
+            $order->dispatch = $this->getDeliveryCost($first_subcription_order_item->customer_address->commune->name)['price_dispatch'];
+        } else {
+            $order->dispatch = 0;
+        }
         $order->save();
         $subtotal = 0;
         foreach ($array_subscription_order_items as $subscription_order_item) {

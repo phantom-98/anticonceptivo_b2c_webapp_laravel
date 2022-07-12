@@ -135,7 +135,21 @@
                             return row.amount_of_use;
                     }
                 },
+                {
+                    title: '¿Despacho gratis suscripción?',
+                    field: 'free_shipping',
+                    sortable: true,
+                    cellStyle: midAling,
+                    formatter: function (value, row, index) {
+                        if(row.free_shipping){
+                            return 'Si';
 
+                        }else{
+                            return 'No';
+
+                        }
+                    }
+                },
             ];
 
             @if($config['action']['active'])
