@@ -24,7 +24,7 @@ const BestSeller = ({title, bestSellers}) => {
     };
 
     return (
-        <div style={{background: '#FFFFFF'}}>
+        <div class="py-5" style={{background: '#FFFFFF'}}>
             <div className="container">
                 <div className="row pb-5 mb-2 card-products-gutters">
 
