@@ -547,4 +547,12 @@ a:-webkit-any-link:focus-visible {
     color: #00DBAE;
 }
 
+.slick-active {
+    z-index: 999;
+}
+
+.slick-current  {
+    z-index: 999;
+}
+
 @import 'assets/scss/responsive';
