@@ -1475,15 +1475,6 @@ input.my-auto.file-input {
   z-index: 10;
 }
 
-.slick-active > div {
-  z-index: 10;
-  display: block !important;
-}
-
-.slick-slide > div {
-  display: none;
-}
-
 .link-no-style {
   color: black !important;
 }
@@ -4343,6 +4334,14 @@ a:-webkit-any-link:focus-visible {
 .is-after-tomorrow-label {
   background: rgba(0, 219, 174, 0.18);
   color: #00DBAE;
+}
+
+.slick-active {
+  z-index: 999;
+}
+
+.slick-current {
+  z-index: 999;
 }
 
 @media (min-width: 768px) {
