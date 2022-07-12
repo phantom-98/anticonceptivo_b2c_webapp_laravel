@@ -155,6 +155,10 @@ class HomeController extends Controller
             $bestSellers = Product::where('recipe_type','Venta Directa')->where('is_medicine', 0)->whereIn('id',$productsId->pluck('product_id'))
             ->with(['subcategory.category','product_images','laboratory'])->limit(12)->get();
 
+            $condomProducts = Product::where('recipe_type','Venta Directa')->whereHas('subcategory', function($q){
+                $q->where('category_id', 2);
+            })->with(['subcategory.category','product_images','laboratory'])->inRandomOrder()->limit(24)->get();
+
             $blogPosts = Post::with(['post_type'])->where('active', true)->orderBy('published_at','DESC')->limit(3)->get();
 
             $blogPosts = $blogPosts->map(function ($post) {
@@ -171,6 +175,7 @@ class HomeController extends Controller
                 'bottom_banners' => $bottomBanners,
                 'outstandings' => $this->processScheduleList($outstandings),
                 'best_sellers' => $this->processScheduleList($bestSellers),
+                'condom_products' => $this->processScheduleList($condomProducts),
                 'brands' => $brands,
                 'bannerCategories' => $bannerCategories,
                 'blog_posts' => $blogPosts,

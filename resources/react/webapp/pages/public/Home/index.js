@@ -2,6 +2,7 @@ import React, {useEffect, useState, useContext} from 'react';
 import OurBrands from "./OurBrands";
 import Subscribe from "../../../components/sections/Subscribe";
 import BestSeller from "../../../components/sections/BestSellers";
+import CondomProduct from "../../../components/sections/CondomProduct";
 import OutstandingCarousel from "../../../components/sections/OutstandingCarousel";
 import BannerCategories from "../../../components/sections/BannerCategories";
 import BlogCarousel from "../../../components/sections/BlogCarousel";
@@ -37,6 +38,7 @@ const Home = ({match}) => {
     const [brands, setBrands] = useState([]);
     const [outstandings, setOutstandings] = useState([]);
     const [bestSellers, setBestSellers] = useState([]);
+    const [condomProducts, setCondomProducts] = useState([]);
 
     useEffect(() => {
         if (token && token.length > 15) {
@@ -65,6 +67,7 @@ const Home = ({match}) => {
                     setOutstandings(response.data.outstandings);
                     setIsLoaded(true);
                     setBestSellers(response.data.best_sellers);
+                    setCondomProducts(response.data.condom_products);
                 },
             });
         }).catch(error => {
@@ -84,7 +87,9 @@ const Home = ({match}) => {
 
             <OutstandingCarousel title="Destacados" outstandings={outstandings}/>
 
-            <BestSeller title="Más Vendidos" bestSellers={bestSellers}/>
+            <CondomProduct title="Preservativos" bestSellers={condomProducts}/>
+
+            <BestSeller title="Más comprados" bestSellers={bestSellers}/>
 
             <BannerStatic banners={middleBanners}/>
             <BannerCategories bannerCategories={bannerCategories}/>
