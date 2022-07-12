@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 const CondomProduct = ({condomProducts}) => {
 
     return (
-        <div className="py-5">
+        <div className="py-5" style={{background: '#FFFFFF'}}>
             <div className="container">
                 <div className="row py-3">
                     <div className="col-12">
@@ -15,14 +15,18 @@ const CondomProduct = ({condomProducts}) => {
                 </div>
 
                 <div className="row py-3">
-                    {
-                        condomProducts.map((product, index) => {
-                            let uuid = uuidv4();
-                            return (<div className="col-md-3 col-sm-6 mb-3" key={uuid}>
-                                <ProductCard product={product}/>
-                            </div>)
-                        })
-                    }
+                    <div className="col-12 pb-3">
+                        <div className="row card-products-gutters">
+                            {
+                                condomProducts.map((product, index) => {
+                                    let uuid = uuidv4();
+                                    return (<div className="col-6 col-md-6 col-lg-3 mb-3" key={uuid}>
+                                        <ProductCard product={product}/>
+                                    </div>)
+                                })
+                            }
+                        </div>
+                    </div>
                 </div>
 
                 <div className="row py-3">
