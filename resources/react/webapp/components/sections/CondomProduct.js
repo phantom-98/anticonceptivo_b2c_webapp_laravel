@@ -18,8 +18,8 @@ const CondomProduct = ({condomProducts}) => {
                     {
                         condomProducts.map((product, index) => {
                             let uuid = uuidv4();
-                            return (<div className="col-md-5th-1 mb-3" key={uuid}>
-                                <ProductCard product={product} className="product-card-small"/>
+                            return (<div className="col-md-3 col-sm-6 mb-3" key={uuid}>
+                                <ProductCard product={product}/>
                             </div>)
                         })
                     }
@@ -27,7 +27,7 @@ const CondomProduct = ({condomProducts}) => {
 
                 <div className="row py-3">
                     <div className="col-12 text-center">
-                        <a href="">Ver más</a>
+                        <a style={{textDecoration:"underline"}} href="https://dev.anticonceptivo.tienda.innovaweb.cl/tienda/preservativos/condones">Ver más</a>
                     </div>
                 </div>
             </div>
