@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 const CondomProduct = ({condomProducts}) => {
 
     return (
-        <div className="py-5" style={{background: '#FFFFFF'}}>
+        <div className="py-3" style={{background: '#FFFFFF'}}>
             <div className="container">
                 <div className="row py-3">
                     <div className="col-12">
@@ -29,7 +29,7 @@ const CondomProduct = ({condomProducts}) => {
                     </div>
                 </div>
 
-                <div className="row py-3">
+                <div className="row">
                     <div className="col-12 text-center">
                         <a style={{textDecoration:"underline"}} href="https://dev.anticonceptivo.tienda.innovaweb.cl/tienda/preservativos/condones">Ver más</a>
                     </div>
