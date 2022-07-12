@@ -157,7 +157,7 @@ class HomeController extends Controller
 
             $condomProducts = Product::where('recipe_type','Venta Directa')->whereHas('subcategory', function($q){
                 $q->where('category_id', 2);
-            })->with(['subcategory.category','product_images','laboratory'])->inRandomOrder()->limit(24)->get();
+            })->with(['subcategory.category','product_images','laboratory'])->inRandomOrder()->limit(4)->get();
 
             $blogPosts = Post::with(['post_type'])->where('active', true)->orderBy('published_at','DESC')->limit(3)->get();
 
