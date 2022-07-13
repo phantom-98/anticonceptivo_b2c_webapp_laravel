@@ -283,6 +283,7 @@
                                         <select id="recipe_type" name="recipe_type" class="form-control">
                                             <option value="Venta Directa" {{$object->recipe_type == "Venta Directa" ? "selected" : ""}}>Venta Directa</option>
                                             <option value="Receta Simple (R)" {{$object->recipe_type == "Receta Simple (R)" ? "selected" : ""}}>Receta Simple (R)</option>
+                                            <option value="Receta Simple Obligatoria (RO)" {{$object->recipe_type == "Receta Simple Obligatoria (RO)" ? "selected" : ""}}>Receta Simple Obligatoria (RO)</option>
                                             <option value="Receta Retenida (RR)" {{$object->recipe_type == "Receta Retenida (RR)" ? "selected" : ""}}>Receta Retenida (RR)</option>
                                             <option value="Receta Cheque (RCH)" {{$object->recipe_type == "Receta Cheque (RCH)" ? "selected" : ""}}>Receta Cheque (RCH)</option>
                                         </select>
