@@ -149,13 +149,13 @@ class HomeController extends Controller
             }
 
             $productsId = OrderItem::with(['order','product'])->whereHas('order', function($q){
-                $q->where('status','PAID');
+                $q->whereIn('status',["DELIVERED","DISPATCHED","PAID"]);
             })->select('product_id', DB::raw('sum(quantity) as total'))->groupBy('product_id')->orderBy('total', 'desc')->get();
 
-            $bestSellers = Product::where('recipe_type','Venta Directa')->where('is_medicine', 0)->whereIn('id',$productsId->pluck('product_id'))
+            $bestSellers = Product::where('recipe_type','Venta Directa')->where('active',true)->where('is_medicine', 0)->whereIn('id',$productsId->pluck('product_id'))
             ->with(['subcategory.category','product_images','laboratory'])->limit(12)->get();
 
-            $condomProducts = Product::where('recipe_type','Venta Directa')->whereHas('subcategory', function($q){
+            $condomProducts = Product::where('recipe_type','Venta Directa')->where('active',true)->whereHas('subcategory', function($q){
                 $q->where('category_id', 2);
             })->with(['subcategory.category','product_images','laboratory'])->inRandomOrder()->limit(4)->get();
 
