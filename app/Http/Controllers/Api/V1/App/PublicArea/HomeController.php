@@ -148,12 +148,18 @@ class HomeController extends Controller
                 $outstandings = Product::where('active',true)->where('recipe_type','Venta Directa')->with(['subcategory.category','product_images','laboratory'])->take(10)->get();
             }
 
-            $productsId = OrderItem::with(['order','product'])->whereHas('order', function($q){
+            $productsBestSellers = OrderItem::with(['order','product.subcategory.category', 'product.product_images','product.laboratory'])->whereHas('order', function($q){
                 $q->whereIn('status',["DELIVERED","DISPATCHED","PAID"]);
-            })->select('product_id', DB::raw('sum(quantity) as total'))->groupBy('product_id')->orderBy('total', 'desc')->get();
+            })->whereHas('product', function($p){
+                $p->where('recipe_type','Venta Directa')->where('active',true)->where('is_medicine', 0);
+            })->select('product_id', DB::raw('sum(quantity) as total'))->groupBy('product_id')->orderBy('total', 'desc')->limit(12)->get();
 
-            $bestSellers = Product::where('recipe_type','Venta Directa')->where('active',true)->where('is_medicine', 0)->whereIn('id',$productsId->pluck('product_id'))
-            ->with(['subcategory.category','product_images','laboratory'])->limit(12)->get();
+            $bestSellers = [];
+            foreach ($productsBestSellers as $productBestSeller) {
+                $bestSellers[] = $productBestSeller->product;
+            }
+
+            $bestSellers = collect($bestSellers);
 
             $condomProducts = Product::where('recipe_type','Venta Directa')->where('active',true)->whereHas('subcategory', function($q){
                 $q->where('category_id', 2);
