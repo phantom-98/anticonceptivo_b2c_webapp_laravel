@@ -278,6 +278,7 @@ class DashboardController extends Controller
         $prescriptions = [
             "Venta Directa",
             "Receta Simple (R)",
+            "Receta Simple Obligatoria (RO)",
             "Receta Retenida (RR)",
             "Receta Cheque (RCH)",
             "Sin receta"    

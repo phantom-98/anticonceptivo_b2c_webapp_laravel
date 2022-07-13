@@ -266,6 +266,7 @@
                                         <select id="recipe_type" name="recipe_type" class="form-control">
                                             <option value="Venta Directa" selected>Venta Directa</option>
                                             <option value="Receta Simple (R)">Receta Simple (R)</option>
+                                            <option value="Receta Simple Obligatoria (RO)">Receta Simple Obligatoria (RO)</option>
                                             <option value="Receta Retenida (RR)">Receta Retenida (RR)</option>
                                             <option value="Receta Cheque (RCH)">Receta Cheque (RCH)</option>
                                         </select>
