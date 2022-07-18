@@ -299,7 +299,7 @@ const UserForm = ({
                                                                                                   className="font-14 font-poppins regular my-auto">{file.name}</span>
                                                                                             : null
                                                                                     }) : <span key={uuidv4}
-                                                                                               className="font-14 font-poppins regular my-auto">Carga tu receta</span>
+                                                                                               className="font-14 font-poppins regular my-auto">Carga tu receta (Formato .jpg, .png, .jpeg, .pdf, .docx. Tamaño máximo 5 mb.)</span>
                                                                                 }
                                                                             </label>
                                                                         </div>
