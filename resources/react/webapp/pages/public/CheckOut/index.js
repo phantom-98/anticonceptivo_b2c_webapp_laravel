@@ -64,6 +64,7 @@ const CheckOut = () => {
     const [containsSubscriptions, setContainsSubscriptions] = useState(false);
     const [productCount, setProductCount] = useState(null);
     const [validAddress, setValidAddress] = useState(false);
+    const [prescriptionsRequiredUploads, setPrescriptionsRequiredUploads] = useState(false);
 
     const [address, setAddress] = useState({
         name: '',
@@ -247,17 +248,29 @@ const CheckOut = () => {
             return null;
         }else{
 
+            console.log('VALIDATE DATA');
+
             let url = Services.ENDPOINT.NO_AUTH.CHECKOUT.VALIDATE_STEPS;
 
             let productCount = cartItems.filter((item) => item.product.recipe_type != 'Venta Directa').length;
 
-            if (productCount > 0 && prescriptionRadio == false && withoutPrescriptionAnswer == null) {
+            let _has_required_items =  cartItems.filter((item) => item.product.recipe_type != 'Venta Directa' && item.product.recipe_type != 'Receta Simple (R)').length;
+
+            if (_has_required_items) {
+                if (!prescriptionsRequiredUploads) {
+                    toastr.warning('Debes subir todas las recetas obligatorias.');
+                    return null
+                }
+            }
+
+            if (productCount > 0 && prescriptionRadio == false && withoutPrescriptionAnswer == null && !_has_required_items) {
                 toastr.warning('Debes seleccionar un motivo.');
                 document.getElementById(`reason_focus`).scrollIntoView({
                     behavior: 'smooth'
                 });
                 return null;
             }
+
 
             const formData = new FormData();
 
@@ -270,7 +283,7 @@ const CheckOut = () => {
             formData.append('last_name', data.last_name);
             formData.append('phone', data.phone);
             formData.append('phone_code', data.phone_code);
-            formData.append('prescription_radio', productCount > 0 ? prescriptionRadio : null);
+            formData.append('prescription_radio', productCount > 0 ? !_has_required_items ? prescriptionRadio : true : null);
             formData.append('without_prescription_answer', withoutPrescriptionAnswer);
             formData.append('customer_id', auth ? auth.id : null);
 
@@ -347,7 +360,16 @@ const CheckOut = () => {
         let url = Services.ENDPOINT.CUSTOMER.ADDRESSES.GET;
         let productCount = cartItems.filter((item) => item.product.recipe_type != 'Venta Directa').length;
 
-        if (productCount > 0 && prescriptionRadio == false && withoutPrescriptionAnswer == null) {
+        let _has_required_items =  cartItems.filter((item) => item.product.recipe_type != 'Venta Directa' && item.product.recipe_type != 'Receta Simple (R)').length;
+
+        if (_has_required_items) {
+            if (!prescriptionsRequiredUploads) {
+                toastr.warning('Debes subir todas las recetas obligatorias.');
+                return null;
+            }
+        }
+
+        if (productCount > 0 && prescriptionRadio == false && withoutPrescriptionAnswer == null && !_has_required_items) {
             toastr.warning('Debes seleccionar un motivo.');
             document.getElementById(`reason_focus`).scrollIntoView({
                 behavior: 'smooth'
@@ -359,7 +381,7 @@ const CheckOut = () => {
 
         formData.append('product_count', productCount);
         formData.append('customer_id', auth.id);
-        formData.append('prescription_radio', productCount > 0 ? prescriptionRadio : null);
+        formData.append('prescription_radio', productCount > 0 ? !_has_required_items ? prescriptionRadio : true : null);
         formData.append('without_prescription_answer', withoutPrescriptionAnswer);
 
         let fileList = [...files]
@@ -455,6 +477,7 @@ const CheckOut = () => {
                                                         setPrescriptionRadio={setPrescriptionRadio}
                                                         withoutPrescriptionAnswer={withoutPrescriptionAnswer}
                                                         setWithoutPrescriptionAnswer={setWithoutPrescriptionAnswer}
+                                                        setPrescriptionsRequiredUploads={setPrescriptionsRequiredUploads}
                                                     /> : null
                                             }
                                             {
