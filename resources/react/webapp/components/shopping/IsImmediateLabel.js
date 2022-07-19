@@ -3,6 +3,8 @@ import isImmediateSvgWhite  from '../../assets/images/icons/immediate-white.svg'
 import arrivesTodayBlue  from '../../assets/images/icons/arrives-today-blue.svg'
 import arrivesTomorrowGreen  from '../../assets/images/icons/arrives-tomorrow-green.svg'
 import arrivesAfterTomorrowRed  from '../../assets/images/icons/arrives-after-tomorrow-red.svg'
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 const IsImmediateLabel = ({product}) =>{
 
