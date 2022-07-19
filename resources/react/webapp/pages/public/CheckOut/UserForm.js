@@ -23,14 +23,11 @@ const UserForm = ({
     setPrescriptionRadio,
     withoutPrescriptionAnswer,
     setWithoutPrescriptionAnswer,
-    setPrescriptionsRequiredUploads
+    setPrescriptionsRequiredUploads,
+    prescriptionsRequiredUploads
 }) => {
 
     const {cartItems} = useContext(CartContext);
-
-    const [prescriptionsUploaded, setPrescrptionsUploaded] = useState(0);
-
-    let xor = 0;
 
     const handleData = (e, onlyText = false, phone = false) => {
         if (phone) {
@@ -153,11 +150,11 @@ const UserForm = ({
         }
 
         if (required && is_new) {
-            setPrescrptionsUploaded(prevModel => prevModel + 1);
-
-            if (prescriptionsUploaded+1 == xor) {
-                setPrescriptionsRequiredUploads(true);
-            }
+            setCleanInputErrorById(file.product_id);
+            let indx = prescriptionsRequiredUploads.findIndex(x => x.id == file.product_id);
+            let list = [...prescriptionsRequiredUploads];
+            list[indx].pending = false;
+            setPrescriptionsRequiredUploads(list);
         }
 
         setFiles(list);
@@ -174,7 +171,6 @@ const UserForm = ({
         const _has_required_items =  cartItems.filter((item) => item.product.recipe_type != 'Venta Directa' && item.product.recipe_type != 'Receta Simple (R)').length;
 
         if (_has_required_items) {
-            xor = _has_required_items;
             return (
                 <div className="panel panel-cart mb-3">
                     <div className="panel-body mobile-panel-recipe">
@@ -188,7 +184,7 @@ const UserForm = ({
                                 cartItems.map((item, index) => {
                                     if (item.product.recipe_type != 'Venta Directa') {
                                         return (
-                                            <div key={uuidv4()} id="first_name_focus" className="col-12 product-item">
+                                            <div key={index} id="first_name_focus" className="col-12 product-item">
                                                 <div className="row">
                                                     <div className="col-auto pr-0">
                                                         <img
@@ -222,12 +218,10 @@ const UserForm = ({
                                                             <div className="invalid-feedback"/>
                                                             <label htmlFor={item.product.id} className="custom-file-label ml-0 pb-0 input-file-register d-flex">
                                                                 {
-                                                                    files.length > 0 ? files.map((file) => {
-                                                                        return file.name_id == index ?
-                                                                            <span key={uuidv4} className="font-14 font-poppins regular my-auto">{file.name}</span>
+                                                                    files.length ? files.map((file) => {
+                                                                        return file.name_id == index ? <span key={index*100} className="font-14 font-poppins regular my-auto">{file.name}</span>
                                                                             : null
-                                                                    }) : <span key={uuidv4}
-                                                                    className="font-14 font-poppins regular my-auto">Carga tu receta</span>
+                                                                    }) : <span key={index*100} className="font-14 font-poppins regular my-auto">Carga tu receta</span>
                                                                 }
                                                             </label>
                                                         </div>
@@ -373,7 +367,7 @@ const UserForm = ({
                                             cartItems.map((item, index) => {
 
                                                 if (item.product.recipe_type != 'Venta Directa') {
-                                                    return <div key={uuidv4()}
+                                                    return <div key={index}
                                                                 id="first_name_focus"
                                                                 className="col-12 product-item">
                                                         <div className="row">
@@ -408,11 +402,10 @@ const UserForm = ({
                                                                         {
                                                                             files.length > 0 ? files.map((file) => {
                                                                                 return file.name_id == index ?
-                                                                                    <span key={uuidv4}
+                                                                                    <span key={index*100}
                                                                                             className="font-14 font-poppins regular my-auto">{file.name}</span>
                                                                                     : null
-                                                                            }) : <span key={uuidv4}
-                                                                            className="font-14 font-poppins regular my-auto">Carga tu receta</span>
+                                                                            }) : <span key={index*100} className="font-14 font-poppins regular my-auto">Carga tu receta</span>
                                                                         }
                                                                     </label>
                                                                 </div>
