@@ -124,7 +124,7 @@ const ProductDetail = ({match}) => {
                             : null
                     }
 
-                    <ProductTabs product={product} legalWarning={legalWarning} valid={valid}/>
+                    <ProductTabs product={product} legalWarning={legalWarning} valid={product.is_medicine ? false : valid}/>
 
                 </BasePanelTwo>
 
