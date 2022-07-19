@@ -64,7 +64,7 @@ const CheckOut = () => {
     const [containsSubscriptions, setContainsSubscriptions] = useState(false);
     const [productCount, setProductCount] = useState(null);
     const [validAddress, setValidAddress] = useState(false);
-    const [prescriptionsRequiredUploads, setPrescriptionsRequiredUploads] = useState(false);
+    const [prescriptionsRequiredUploads, setPrescriptionsRequiredUploads] = useState([]);
 
     const [address, setAddress] = useState({
         name: '',
@@ -129,6 +129,12 @@ const CheckOut = () => {
             if(item.subscription != null){
                 setContainsSubscriptions(true);
             }
+
+            if(!prescriptionsRequiredUploads.length){
+                if (item.product.recipe_type != 'Venta Directa' &&  item.product.recipe_type != 'Receta Simple (R)') {
+                    setPrescriptionsRequiredUploads((prevModel) => [...prevModel, {id: item.product.id, pending: true}]);
+                }
+            }
         })
     },[cartItems])
 
@@ -188,6 +194,7 @@ const CheckOut = () => {
             Services.ErrorCatch(error)
         });
     }
+
     const getRegions = () => {
         let url = Services.ENDPOINT.NO_AUTH.CHECKOUT.GET_RESOURCES;
         let dataForm = {
@@ -257,9 +264,14 @@ const CheckOut = () => {
             let _has_required_items =  cartItems.filter((item) => item.product.recipe_type != 'Venta Directa' && item.product.recipe_type != 'Receta Simple (R)').length;
 
             if (_has_required_items) {
-                if (!prescriptionsRequiredUploads) {
+                if (prescriptionsRequiredUploads.filter((item) => item.pending == true).length) {
                     toastr.warning('Debes subir todas las recetas obligatorias.');
-                    return null
+                    prescriptionsRequiredUploads.forEach(element => {
+                        if (element.pending == true) {
+                            setInputError(element.id, 'Debes subir la receta.');
+                        }
+                    });
+                    return null;
                 }
             }
 
@@ -363,8 +375,13 @@ const CheckOut = () => {
         let _has_required_items =  cartItems.filter((item) => item.product.recipe_type != 'Venta Directa' && item.product.recipe_type != 'Receta Simple (R)').length;
 
         if (_has_required_items) {
-            if (!prescriptionsRequiredUploads) {
+            if (prescriptionsRequiredUploads.filter((item) => item.pending == true).length) {
                 toastr.warning('Debes subir todas las recetas obligatorias.');
+                prescriptionsRequiredUploads.forEach(element => {
+                    if (element.pending == true) {
+                        setInputError(element.id, 'Debes subir la receta.');
+                    }
+                });
                 return null;
             }
         }
@@ -478,6 +495,7 @@ const CheckOut = () => {
                                                         withoutPrescriptionAnswer={withoutPrescriptionAnswer}
                                                         setWithoutPrescriptionAnswer={setWithoutPrescriptionAnswer}
                                                         setPrescriptionsRequiredUploads={setPrescriptionsRequiredUploads}
+                                                        prescriptionsRequiredUploads={prescriptionsRequiredUploads}
                                                     /> : null
                                             }
                                             {
