@@ -91,10 +91,10 @@ const ProductDetail = ({match}) => {
 
                     <div className="row product-separator">
                         <div className="col-md-6">
-                            <ProductGallery 
-                                product={product} 
+                            <ProductGallery
+                                product={product}
                                 imageSubscription={imageSubscription}
-                                productImage={product.images.length ? product.images[0].public_file : noImage} 
+                                productImage={product.images.length ? product.images[0].public_file : noImage}
                                 hasImages={product.images.length}
                             />
                         </div>

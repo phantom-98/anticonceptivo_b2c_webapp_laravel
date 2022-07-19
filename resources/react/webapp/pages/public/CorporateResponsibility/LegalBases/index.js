@@ -1,6 +1,8 @@
 import React from 'react';
 import H3Panel from "../../../../components/general/H3Panel";
 import {CONFIG} from "../../../../Config";
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 const LegalBases = ({legalBases}) => {
 
@@ -20,7 +22,13 @@ const LegalBases = ({legalBases}) => {
                                         <div className="d-flex">
                                             <div className="m-auto py-5">
                                                 <a href={legalBase.public_file} target="_blank">
-                                                    <img src={legalBase.public_icon} alt={CONFIG.APP_NAME}/>
+                                                    <LazyLoadImage
+                                                        alt={CONFIG.APP_NAME}
+                                                        title="Anticonceptivo"
+                                                        rel="nofollow"
+                                                        effect="blur"
+                                                        src={legalBase.public_icon}
+                                                    />
                                                 </a>
                                             </div>
                                         </div>

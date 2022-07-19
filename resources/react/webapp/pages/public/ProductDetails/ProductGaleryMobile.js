@@ -1,6 +1,8 @@
 import React, {useEffect, useRef} from 'react'
 import Slider from "react-slick";
 import {v4 as uuid} from 'uuid';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 const ProductGaleryMobile = ({images}) => {
 
@@ -25,13 +27,27 @@ const ProductGaleryMobile = ({images}) => {
                     images.map(image => {
                         return (
                             <div key={uuid()} className="col-12">
-                                <img src={image ? image.public_file : ''} style={{width: '100%'}} alt="anticonceptivo.cl"/>
+                                <LazyLoadImage
+                                    alt="anticonceptivo.cl"
+                                    title="Anticonceptivo"
+                                    width={'100%'}
+                                    rel="nofollow"
+                                    effect="blur"
+                                    src={image ? image.public_file : ''}
+                                />
                             </div>
                         )
-                    }) 
-                : 
+                    })
+                :
                     <div key={uuid()} className="col-12">
-                        <img src={images} style={{ width: '100%' }} alt="anticonceptivo.cl" />
+                        <LazyLoadImage
+                            alt="anticonceptivo.cl"
+                            title="Anticonceptivo"
+                            width={'100%'}
+                            rel="nofollow"
+                            effect="blur"
+                            src={images}
+                        />
                     </div>
             }
         </Slider>
