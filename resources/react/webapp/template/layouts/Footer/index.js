@@ -201,6 +201,7 @@ const Footer = () => {
                                     rel="nofollow"
                                     effect="blur"
                                     src={bannerBio}
+                                    width={180}
                                 />
                             </div>
 
@@ -211,6 +212,7 @@ const Footer = () => {
                                     rel="nofollow"
                                     effect="blur"
                                     src={bannerCITUC}
+                                    width={180}
                                 />
                             </div>
                         </div>
