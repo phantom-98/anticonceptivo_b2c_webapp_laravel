@@ -175,7 +175,7 @@ const UserForm = ({
                 <div className="panel panel-cart mb-3">
                     <div className="panel-body mobile-panel-recipe">
                         <div className='row mb-3'>
-                            <div className='col-12 font-poppins font-12 light color-A3A3A3'>
+                            <div className='col-12 font-poppins font-12 light'>
                                 Todas las recetas de los productos con (*) son obligatorios.
                             </div>
                         </div>
@@ -234,7 +234,7 @@ const UserForm = ({
                             }
                         </div>
                         <div className='row mt-3'>
-                            <div className='col-12 font-poppins font-12 light color-A3A3A3'>
+                            <div className='col-12 font-poppins font-12 light'>
                                 Carga tu receta (Formato .jpg, .png, .jpeg, .pdf, .docx. Tamaño máximo 5 mb.)
                             </div>
                         </div>
@@ -417,7 +417,7 @@ const UserForm = ({
                                         }
                                     </div>
                                     <div className='row mt-3'>
-                                        <div className='col-12 font-poppins font-12 light color-A3A3A3'>
+                                        <div className='col-12 font-poppins font-12 light'>
                                             Carga tu receta (Formato .jpg, .png, .jpeg, .pdf, .docx. Tamaño máximo 5 mb.)
                                         </div>
                                     </div>
