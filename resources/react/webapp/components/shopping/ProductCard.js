@@ -6,6 +6,9 @@ import {Link} from "react-router-dom";
 import AddCartCard from "./AddCartCard";
 import noImage from "../../assets/images/producto-default.png";
 import IsImmediateLabel from "./IsImmediateLabel";
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
+
 
 const ProductCard = ({product, className = '', subscriptionFilter = []}) => {
 
@@ -14,7 +17,7 @@ const ProductCard = ({product, className = '', subscriptionFilter = []}) => {
     const handleSubscriptionImage = (prod) => {
 
         let plan_img = prod.plans.find(x => x.subscription_plan_id == subscriptionFilter[0]);
-        
+
         if (plan_img && plan_img.public_image) {
             return plan_img.public_image;
         }
@@ -70,7 +73,12 @@ const ProductCard = ({product, className = '', subscriptionFilter = []}) => {
                 <div className="product-card-image">
                     <Link to={(PUBLIC_ROUTES.PRODUCT_DETAIL.path).replace(':slug?', product.slug)}
                           style={{textDecoration: 'none', color: '#000000'}}>
-                        <img src={subscriptionFilter.length ? handleSubscriptionImage(product) : product.images.length ? product.images[0].public_file : noImage} alt={`${CONFIG.APP_NAME} - ${product.name}`}/>
+                        <LazyLoadImage
+                            alt={`${CONFIG.APP_NAME} - ${product.name}`}
+                            placeholderSrc={noImage}
+                            effect="blur"
+                            src={subscriptionFilter.length ? handleSubscriptionImage(product) : product.images.length ? product.images[0].public_file : noImage}
+                        />
                     </Link>
                 </div>
                 <div className="product-card-body">
@@ -116,7 +124,13 @@ const ProductCard = ({product, className = '', subscriptionFilter = []}) => {
                     <div className="col-12 text-center">
                         <Link to={(PUBLIC_ROUTES.PRODUCT_DETAIL.path).replace(':slug?', product.slug)}
                               style={{textDecoration: 'none', color: '#000000'}}>
-                            <img className="mobile-producto-img mb-2" src={subscriptionFilter.length ? handleSubscriptionImage(product) : product.images.length ? product.images[0].public_file : noImage} alt={`${CONFIG.APP_NAME} - ${product.name}`}/>
+                            <LazyLoadImage
+                                alt={`${CONFIG.APP_NAME} - ${product.name}`}
+                                className="mobile-producto-img mb-2"
+                                placeholderSrc={noImage}
+                                effect="blur"
+                                src={subscriptionFilter.length ? handleSubscriptionImage(product) : product.images.length ? product.images[0].public_file : noImage}
+                            />
                         </Link>
                     </div>
                     <div className="col-12">

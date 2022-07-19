@@ -1,7 +1,8 @@
 import React, {Fragment} from 'react';
 import LogoSvg from "../assets/images/logo-full.svg";
-
 import {Link} from "react-router-dom";
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 const Page404 = () => {
     return (
@@ -10,7 +11,13 @@ const Page404 = () => {
                 <div className="container d-flex" style={{ height : 'calc(100vh - 136px)'}}>
                     <div className="row my-auto">
                         <div className="col-12  text-center">
-                            <img src={LogoSvg} rel="nofollow" alt="anticonceptivo.cl"/>
+                            <LazyLoadImage
+                                alt="anticonceptivo.cl"
+                                title="Anticonceptivo"
+                                rel="nofollow"
+                                effect="blur"
+                                src={LogoSvg}
+                            />
                         </div>
                         <div className="col-12 text-center mt-4">
                             <h1 className="font-32 text-primary black">

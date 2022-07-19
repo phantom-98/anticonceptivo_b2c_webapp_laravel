@@ -11,6 +11,8 @@ import {propsLength} from "../../../helpers/ShopHelper";
 import toastr from "toastr";
 import {capitalizeFirstLetterOfEachWord} from "../../../helpers/GlobalUtils";
 import {CONFIG} from "../../../Config";
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 const Shop = ({match}) => {
 
@@ -301,7 +303,14 @@ const Shop = ({match}) => {
                 prepend={loading ?
                     <div
                         className={`d-md-none d-block px-0 ${category.banner_image_size ? category.banner_image_size : 'w-100'}`}>
-                        <img width="100%" src={category.public_banner_image_responsive} alt={CONFIG.APP_NAME}/>
+                        <LazyLoadImage
+                            alt={CONFIG.APP_NAME}
+                            title="Anticonceptivo"
+                            rel="nofollow"
+                            width={'100%'}
+                            effect="blur"
+                            src={category.public_banner_image_responsive}
+                        />
                     </div>
                     : null
                 }

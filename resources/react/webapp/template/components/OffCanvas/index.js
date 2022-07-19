@@ -4,6 +4,8 @@ import PUBLIC_ROUTES from "../../../routes/publicRoutes";
 import Icon from "../../../components/general/Icon";
 import logoFull from "../../../assets/images/logo-full.svg";
 import {Link} from "react-router-dom";
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 const OffCanvas = ({children, showCanvas, closeCanvas}) => {
 
@@ -33,7 +35,13 @@ const OffCanvas = ({children, showCanvas, closeCanvas}) => {
                                 {/*      style={{letterSpacing: '5px'}}>Categorías</span>*/}
                             </div>
                             <div className="col-4 pointer mb-2 text-right" onClick={closeCanvas}>
-                                <img src={CloseSvg} rel="nofollow" alt="anticonceptivo"/>
+                                <LazyLoadImage
+                                    alt="anticonceptivo"
+                                    title="Anticonceptivo"
+                                    rel="nofollow"
+                                    effect="blur"
+                                    src={CloseSvg}
+                                />
                             </div>
                         </div>
                         <div className="canvas-content">

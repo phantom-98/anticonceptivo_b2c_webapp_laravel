@@ -12,18 +12,18 @@ import {Link} from "react-router-dom";
 import {AppContext} from "../../../context/AppProvider";
 import {AuthContext} from "../../../context/AuthProvider";
 import {ModalAuthMode} from "../../../Globals";
-import {CartContext} from "../../../context/CartProvider";
 import TotalCartItems from "../../../components/shopping/TotalCartItems";
 import * as Services from "../../../Services";
 import {CONFIG} from "../../../Config";
 import {formatMoney} from "../../../helpers/GlobalUtils";
 import noImage from "../../../assets/images/producto-default.png";
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 const HeaderBox = () => {
 
     const {showModalAuth} = useContext(AppContext)
     const {auth, logout} = useContext(AuthContext)
-    const {showMiniCart} = useContext(CartContext);
 
     const [search, setSearch] = useState('');
     const [products, setProducts] = useState([]);
@@ -175,9 +175,15 @@ const HeaderBox = () => {
                                                         style={{textDecoration: 'none', color: '#000000'}}>
                                                         <div className="row mt-2 px-0 mx-0">
                                                             <div className="col-2 text-center">
-                                                                <img style={{width: 50, height: 50}}
-                                                                     src={product.images.length ? product.images[0].public_file : noImage}
-                                                                     alt={`${CONFIG.APP_NAME} - ${product.name}`}/>
+                                                                <LazyLoadImage
+                                                                    src={product.images.length ? product.images[0].public_file : noImage}
+                                                                    title="Anticonceptivo"
+                                                                    rel="nofollow"
+                                                                    effect="blur"
+                                                                    width={50}
+                                                                    height={50}
+                                                                    alt={`${CONFIG.APP_NAME} - ${product.name}`}
+                                                                />
                                                             </div>
                                                             <div className="col-8 mr-auto" style={{alignSelf: 'center'}}>
                                                             <span
@@ -240,13 +246,6 @@ const HeaderBox = () => {
                             </div>
                         </div>
                     </div>
-
-                    {/* <div className="col-md-auto top-do-flex pointer" onClick={showMiniCart}>
-                        <div className="my-auto">
-                            <div className="cart-badge-quantity"><TotalCartItems/></div>
-                            <Icon path={cartBlue}/>
-                        </div>
-                    </div> */}
 
                     <div className="col-md-auto top-do-flex pointer">
                         <div className="my-auto">
