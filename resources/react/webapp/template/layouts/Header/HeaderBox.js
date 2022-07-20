@@ -29,16 +29,9 @@ const HeaderBox = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [debouncedSearch, setDebouncedSearch] = useState(search);
     const [products, setProducts] = useState([]);
-    const [productsWithFilter, setProductsWithFilter] = useState([]);
     const refInputSearch = useRef(null);
     const refDropdownList = useRef(null);
     const [isVisibilityDropdownSearch, setIsVisibilityDropdownSearch] = useState(false);
-
-    const handleKeyPress = (event) => {
-        if (event.key === 'Enter') {
-            getSearch()
-        }
-    }
 
     useEffect(() => {
         function handleClickOutside(event) {
@@ -69,6 +62,12 @@ const HeaderBox = () => {
             clearResults();
         }
     }, [search]);
+
+    const handleKeyPress = (event) => {
+        if (event.key === 'Enter') {
+            getSearch()
+        }
+    }
 
     const getSearch = (e) => {
         if (search.trim() != '') {
