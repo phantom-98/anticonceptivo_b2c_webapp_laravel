@@ -44,7 +44,7 @@ const Subscribe = () => {
     }
 
     return (
-        <div className="suscribe" style={{backgroundImage: width >= 620 ? `url(${bgSubscribe})` : `url(${bgSubscribeMobile})`, height: 318}}>
+        <div className="suscribe mt-5" style={{backgroundImage: width >= 620 ? `url(${bgSubscribe})` : `url(${bgSubscribeMobile})`, height: 318}}>
             <div className="py-5">
                 <div className="container py-3">
                     <div className="row">

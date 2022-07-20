@@ -22,16 +22,28 @@ import 'react-lazy-load-image-component/src/effects/blur.css';
 
 const HeaderBox = () => {
 
+<<<<<<
+    const {showModalAuth} = useContext(AppContext)
+    const {auth, logout} = useContext(AuthContext)
+=======
     const {showModalAuth} = useContext(AppContext);
     const {auth, logout} = useContext(AuthContext);
+>>>>>>> c278da8324b36879fd82dcba008ebcc72de48f8a
 
     const [search, setSearch] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [debouncedSearch, setDebouncedSearch] = useState(search);
     const [products, setProducts] = useState([]);
+    const [productsWithFilter, setProductsWithFilter] = useState([]);
     const refInputSearch = useRef(null);
     const refDropdownList = useRef(null);
     const [isVisibilityDropdownSearch, setIsVisibilityDropdownSearch] = useState(false);
+
+    const handleKeyPress = (event) => {
+        if (event.key === 'Enter') {
+            getSearch()
+        }
+    }
 
     useEffect(() => {
         function handleClickOutside(event) {
@@ -62,12 +74,6 @@ const HeaderBox = () => {
             clearResults();
         }
     }, [search]);
-
-    const handleKeyPress = (event) => {
-        if (event.key === 'Enter') {
-            getSearch()
-        }
-    }
 
     const getSearch = (e) => {
         if (search.trim() != '') {
