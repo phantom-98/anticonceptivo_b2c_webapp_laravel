@@ -26,15 +26,13 @@ const HeaderBox = () => {
     const {auth, logout} = useContext(AuthContext)
 
     const [search, setSearch] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
+    const [debouncedSearch, setDebouncedSearch] = useState(search);
     const [products, setProducts] = useState([]);
     const [productsWithFilter, setProductsWithFilter] = useState([]);
     const refInputSearch = useRef(null);
     const refDropdownList = useRef(null);
     const [isVisibilityDropdownSearch, setIsVisibilityDropdownSearch] = useState(false);
-
-    const sendSearch = (e) => {
-        setSearch((e.target.value).toLowerCase());
-    }
 
     const handleKeyPress = (event) => {
         if (event.key === 'Enter') {
@@ -48,7 +46,6 @@ const HeaderBox = () => {
                 setIsVisibilityDropdownSearch(false);
             } else {
                 setIsVisibilityDropdownSearch(true);
-
             }
         }
 
@@ -58,54 +55,70 @@ const HeaderBox = () => {
         };
     }, [refInputSearch]);
 
+    useEffect(() => {
+        const timer = setTimeout(() => setSearch(debouncedSearch), 1000);
+        return () => clearTimeout(timer);
+    }, [debouncedSearch])
+
+    useEffect(() => {
+        if(search !== ''){
+            setIsLoading(true);
+            getProducts();
+        }
+        else{
+            clearResults();
+        }
+    }, [search]);
 
     const getSearch = (e) => {
         if (search.trim() != '') {
             let url = PUBLIC_ROUTES.SHOP_SEARCH.path;
             url = url.replace(":search", search);
             setIsVisibilityDropdownSearch(false);
-            if (productsWithFilter.length == 1) {
-                window.location.href = (PUBLIC_ROUTES.PRODUCT_DETAIL.path).replace(':slug', productsWithFilter[0].slug);
+            if (products.length == 1) {
+                window.location.href = (PUBLIC_ROUTES.PRODUCT_DETAIL.path).replace(':slug', products[0].slug);
             } else {
                 window.location.href = url;
             }
         }
     }
 
-    useEffect(() => {
-        getProducts();
-    }, [])
+    // useEffect(() => {
+    //     setIsVisibilityDropdownSearch(true);
+    //     if (search.length > 0) {
+    //         let productList = products;
+    //         productList = productList.filter(product => {
+    //             const name = (product.name).toLowerCase();
+    //             const sku = product.sku;
+    //             const laboratory = product.laboratory.name.toLowerCase();
+    //             const texCompound = product.compound;
 
-    useEffect(() => {
-        setIsVisibilityDropdownSearch(true);
-        if (search.length > 0) {
-            let productList = products;
-            productList = productList.filter(product => {
-                const name = (product.name).toLowerCase();
-                const sku = product.sku;
-                const laboratory = product.laboratory.name.toLowerCase();
-                const texCompound = product.compound;
+    //             const description = product.description ? (product.description).toLowerCase() : '';
 
-                const description = product.description ? (product.description).toLowerCase() : '';
+    //             if (name.includes(search) || (texCompound !== null ? texCompound.includes(search) : false) || description.includes(search) || sku.includes(search) || laboratory.includes(search)) {
+    //                 return product;
+    //             }
+    //         })
+    //         setProductsWithFilter(productList);
+    //     } else {
+    //         setProductsWithFilter(products);
+    //     }
+    // }, [search])
 
-                if (name.includes(search) || (texCompound !== null ? texCompound.includes(search) : false) || description.includes(search) || sku.includes(search) || laboratory.includes(search)) {
-                    return product;
-                }
-            })
-            setProductsWithFilter(productList);
-        } else {
-            setProductsWithFilter(products);
-        }
-    }, [search])
+    const clearResults = () => setProducts([]);
 
     const getProducts = () => {
         let url = Services.ENDPOINT.PUBLIC_AREA.HEADER_BOX;
-        let data = {}
-        Services.DoGet(url, data).then(response => {
+        let data = {
+            search: search,
+        }
+
+        Services.DoPost(url, data).then(response => {
             Services.Response({
                 response: response,
                 success: () => {
                     setProducts(response.data.products);
+                    setIsLoading(false);
                 },
             });
         }).catch(error => {
@@ -143,12 +156,11 @@ const HeaderBox = () => {
                             <input type="text"
                                    ref={refInputSearch}
                                    className="form-control form-control-custom"
-                                   placeholder="Buscar medicamentos, laboratorios o principio activo"
-                                   value={search}
+                                   placeholder={"Buscar medicamentos, laboratorios o principio activo"}
+                                   value={debouncedSearch}
                                    style={{height: '45px'}}
-                                   onChange={e => sendSearch(e)}
+                                   onChange={e => setDebouncedSearch(e.target.value)}
                                    onKeyPress={handleKeyPress}
-
                             />
                             <div className="input-group-append">
                                 <button
@@ -159,14 +171,19 @@ const HeaderBox = () => {
                                 </button>
                             </div>
                         </div>
-                        <div className={`dropdown-content ${productsWithFilter.length && search.length > 0 && isVisibilityDropdownSearch ? 'dropdown-search' : 'd-none'} `}
+                        <div className={`dropdown-content ${products.length && search.length > 0 && isVisibilityDropdownSearch ? 'dropdown-search' : 'd-none'} `}
                              ref={refDropdownList}
                              >
-                            <div className="box-search-result"
-                                 style={productsWithFilter.length && search.length > 0 && isVisibilityDropdownSearch ? dropdownStyle : null}>
+                            <div className="box-search-result" style={products.length && search.length > 0 && isVisibilityDropdownSearch ? dropdownStyle : null}>
                                 {
+                                    isLoading ?
+                                        <div className="d-flex justify-content-center font-poppins italic font-11 color-707070">
+                                            Cargando...
+                                        </div>
+                                    :
+
                                     search.length && isVisibilityDropdownSearch ?
-                                        productsWithFilter.map((product, index) => {
+                                        products.map((product, index) => {
                                             return (
                                                 <Fragment>
                                                     <Link
@@ -200,17 +217,16 @@ const HeaderBox = () => {
                                                         </div>
                                                     </Link>
                                                     {
-                                                        productsWithFilter.length !== index + 1 ?
+                                                        products.length !== index + 1 ?
                                                             <hr/>
                                                             : null
                                                     }
                                                 </Fragment>
                                             );
                                         })
-                                        : null
+                                    : null
                                 }
                             </div>
-
                         </div>
                     </div>
                     <div className="col-md-auto top-do-flex">

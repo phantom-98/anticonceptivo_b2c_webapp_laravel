@@ -1,18 +1,18 @@
-import React, {useEffect, useState, useContext} from 'react';
-import OurBrands from "./OurBrands";
+import React, {useEffect, useState, useContext, lazy, Suspense} from 'react';
+// import BlogPosts from './BlogPosts';
+// import OurBrands from "./OurBrands";
+// import BlogCarousel from "../../../components/sections/BlogCarousel";
+import {ModalAuthMode} from "../../../Globals";
+import {AppContext} from "../../../context/AppProvider";
+import * as Services from "../../../Services";
 import Subscribe from "../../../components/sections/Subscribe";
 import BestSeller from "../../../components/sections/BestSellers";
 import CondomProduct from "../../../components/sections/CondomProduct";
 import OutstandingCarousel from "../../../components/sections/OutstandingCarousel";
 import BannerCategories from "../../../components/sections/BannerCategories";
-import BlogCarousel from "../../../components/sections/BlogCarousel";
-import {ModalAuthMode} from "../../../Globals";
-import {AppContext} from "../../../context/AppProvider";
 import BannerCarousel from "../../../components/sections/BannerCarousel";
 import BannerStatic from "../../../components/sections/BannerStatic";
-import * as Services from "../../../Services";
 import LazyLoading from '../../../components/LazyLoading';
-import BlogPosts from './BlogPosts';
 
 const Home = ({match}) => {
     // var MessageBirdChatWidgetSettings = {
@@ -30,15 +30,16 @@ const Home = ({match}) => {
 
     const [topBanners, setTopBanners] = useState([]);
     const [bannerCategories, setBannerCategories] = useState([]);
-    const [blogPosts, setBlogPosts] = useState([]);
-    const [isLoaded, setIsLoaded] = useState(false);
-
     const [middleBanners, setMiddleBanners] = useState([]);
-    const [bottomBanners, setBottomBanners] = useState([]);
-    const [brands, setBrands] = useState([]);
     const [outstandings, setOutstandings] = useState([]);
     const [bestSellers, setBestSellers] = useState([]);
     const [condomProducts, setCondomProducts] = useState([]);
+
+    const [isLoaded, setIsLoaded] = useState(false);
+
+    // const [blogPosts, setBlogPosts] = useState([]);
+    // const [bottomBanners, setBottomBanners] = useState([]);
+    // const [brands, setBrands] = useState([]);
 
     useEffect(() => {
         if (token && token.length > 15) {
@@ -60,14 +61,14 @@ const Home = ({match}) => {
                 success: () => {
                     setTopBanners(response.data.top_banners);
                     setMiddleBanners(response.data.middle_banners);
-                    setBottomBanners(response.data.bottom_banners);
-                    setBrands(response.data.brands);
+                    // setBottomBanners(response.data.bottom_banners);
+                    // setBrands(response.data.brands);
                     setBannerCategories(response.data.bannerCategories);
-                    setBlogPosts(response.data.blog_posts);
+                    // setBlogPosts(response.data.blog_posts);
                     setOutstandings(response.data.outstandings);
-                    setIsLoaded(true);
                     setBestSellers(response.data.best_sellers);
                     setCondomProducts(response.data.condom_products);
+                    setIsLoaded(true);
                 },
             });
         }).catch(error => {

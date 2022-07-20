@@ -3,6 +3,7 @@
         Options -MultiViews -Indexes
     </IfModule>
 
+    Modpagespeed Off
     RewriteEngine On
 
     # Handle Authorization Header
