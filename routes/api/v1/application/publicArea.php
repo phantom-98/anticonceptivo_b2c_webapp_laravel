@@ -25,7 +25,7 @@ Route::prefix('public-area')
         Route::post('get-product-by-search', [ProductController::class, 'getProductBySearch'])->name('getProductBySearch');
         Route::post('get-product-by-filtered-search', [ProductController::class, 'getProductsSearchFiltered'])->name('getProductsSearchFiltered');
 
-        Route::get('get-all-available', [ProductController::class, 'getAllAvailable'])->name('getAllAvailable');
+        Route::post('get-all-available', [ProductController::class, 'getAllAvailable'])->name('getAllAvailable');
         Route::get('get-products', [ProductController::class, 'getProducts'])->name('getProducts');
         Route::post('get-products-for-blog', [ProductController::class, 'getProductsForBlog'])->name('getProductsForBlog');
 

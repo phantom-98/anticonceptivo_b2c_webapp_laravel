@@ -29,10 +29,10 @@ class ProductController extends Controller
         $this->product_schedules = ProductSchedule::get();
     }
 
-    public function getAllAvailable(): JsonResponse
+    public function getAllAvailable(Request $request): JsonResponse
     {
         try {
-            $products = Product::where('active', true)->with([
+            $products = Product::where('name', 'LIKE', '%'.$request->search.'%')->where('active', true)->with([
                 'subcategory.category' => function ($c) {
                     $c->where('active', true);
                 },

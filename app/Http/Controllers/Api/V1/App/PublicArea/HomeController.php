@@ -139,7 +139,7 @@ class HomeController extends Controller
         try {
             $topBanners = Banner::where('location','Home (Superior)')->where('active',true)->orderBy('position')->get();
             $middleBanners = Banner::where('location','Home (Centro)')->where('active',true)->orderBy('position')->get();
-            $bottomBanners = Banner::where('location','Home (Inferior)')->where('active',true)->orderBy('position')->get();
+            // $bottomBanners = Banner::where('location','Home (Inferior)')->where('active',true)->orderBy('position')->get();
 
             $outstandings = Product::where('outstanding', true)->where('active',true)->where('recipe_type','Venta Directa')
                 ->with(['subcategory.category','product_images','laboratory'])->get();
@@ -165,26 +165,26 @@ class HomeController extends Controller
                 $q->where('category_id', 2);
             })->with(['subcategory.category','product_images','laboratory'])->inRandomOrder()->limit(4)->get();
 
-            $blogPosts = Post::with(['post_type'])->where('active', true)->orderBy('published_at','DESC')->limit(3)->get();
+            // $blogPosts = Post::with(['post_type'])->where('active', true)->orderBy('published_at','DESC')->limit(3)->get();
 
-            $blogPosts = $blogPosts->map(function ($post) {
-                $post->content = substr_replace(strip_tags($post->content), '...', 150);
-                return $post;
-            });
+            // $blogPosts = $blogPosts->map(function ($post) {
+            //     $post->content = substr_replace(strip_tags($post->content), '...', 150);
+            //     return $post;
+            // });
 
-            $brands = Brand::where('active',true)->orderBy('position')->get();
+            // $brands = Brand::where('active',true)->orderBy('position')->get();
 
             $bannerCategories = Category::where('active',true)->where('active_banner_home',true)->orderBy('position_banner')->get();
             return ApiResponse::JsonSuccess([
                 'top_banners' => $topBanners,
                 'middle_banners' => $middleBanners,
-                'bottom_banners' => $bottomBanners,
+                // 'bottom_banners' => $bottomBanners,
                 'outstandings' => $this->processScheduleList($outstandings),
                 'best_sellers' => $this->processScheduleList($bestSellers),
                 'condom_products' => $this->processScheduleList($condomProducts),
-                'brands' => $brands,
+                // 'brands' => $brands,
                 'bannerCategories' => $bannerCategories,
-                'blog_posts' => $blogPosts,
+                // 'blog_posts' => $blogPosts,
             ]);
 
         } catch (\Exception $exception) {
