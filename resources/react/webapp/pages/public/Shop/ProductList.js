@@ -7,6 +7,8 @@ import filterIcon from '../../../assets/images/icons/filter.svg';
 import arrowIcon from '../../../assets/images/icons/arrow-up-and-down.svg';
 import {Card, Form} from "react-bootstrap";
 import {v4 as uuid} from 'uuid';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 const ProductList = ({
     category,
@@ -38,7 +40,14 @@ const ProductList = ({
                 // <div className="col-12 pb-3">
                 <div
                     className={`d-none d-md-block ${category.banner_image_size ? category.banner_image_size : 'col-12'}`}>
-                    <img width="100%" src={category.public_banner_image} alt={CONFIG.APP_NAME}/>
+                    <LazyLoadImage
+                        alt={CONFIG.APP_NAME}
+                        title="Anticonceptivo"
+                        rel="nofollow"
+                        width={'100%'}
+                        effect="blur"
+                        src={category.public_banner_image}
+                    />
                 </div>
                 : null
             }
@@ -58,17 +67,27 @@ const ProductList = ({
                                 }}>
                                     <div className="pointer font-poppins font-12 semi-bold color-033F5D m-auto"
                                          onClick={() => setShowOrderByMobile(showOrderByMobile == true ? false : true)}>
-                                        <img src={arrowIcon} alt="anticonceptivo.cl"/> <span
-                                        className="pt-1">Ordenar</span>
+                                        <LazyLoadImage
+                                            alt={CONFIG.APP_NAME}
+                                            title="Anticonceptivo"
+                                            rel="nofollow"
+                                            effect="blur"
+                                            src={arrowIcon}
+                                        /> <span className="pt-1">Ordenar</span>
                                     </div>
                                 </div>
                                 <div className="col d-flex" style={{
                                     borderLeft: '0.1px solid rgba(0,155,232,0.11)'
                                 }}>
                                     <div className="pointer font-poppins font-12 semi-bold color-033F5D m-auto"
-                                         onClick={() => showFilter()}>
-                                        <img src={filterIcon} alt="anticonceptivo.cl"/> <span
-                                        className="pt-1">Filtrar</span>
+                                        onClick={() => showFilter()}>
+                                        <LazyLoadImage
+                                            alt={CONFIG.APP_NAME}
+                                            title="Anticonceptivo"
+                                            rel="nofollow"
+                                            effect="blur"
+                                            src={filterIcon}
+                                        /> <span className="pt-1">Filtrar</span>
                                     </div>
                                 </div>
                             </div>

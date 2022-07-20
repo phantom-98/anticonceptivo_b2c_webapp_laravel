@@ -17,6 +17,8 @@ import * as Services from "../../../Services";
 import {CONFIG} from "../../../Config";
 import {formatMoney} from "../../../helpers/GlobalUtils";
 import noImage from "../../../assets/images/producto-default.png";
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 const HeaderBox = () => {
 
@@ -190,9 +192,15 @@ const HeaderBox = () => {
                                                         style={{textDecoration: 'none', color: '#000000'}}>
                                                         <div className="row mt-2 px-0 mx-0">
                                                             <div className="col-2 text-center">
-                                                                <img style={{width: 50, height: 50}}
-                                                                     src={product.images.length ? product.images[0].public_file : noImage}
-                                                                     alt={`${CONFIG.APP_NAME} - ${product.name}`}/>
+                                                                <LazyLoadImage
+                                                                    src={product.images.length ? product.images[0].public_file : noImage}
+                                                                    title="Anticonceptivo"
+                                                                    rel="nofollow"
+                                                                    effect="blur"
+                                                                    width={50}
+                                                                    height={50}
+                                                                    alt={`${CONFIG.APP_NAME} - ${product.name}`}
+                                                                />
                                                             </div>
                                                             <div className="col-8 mr-auto" style={{alignSelf: 'center'}}>
                                                             <span

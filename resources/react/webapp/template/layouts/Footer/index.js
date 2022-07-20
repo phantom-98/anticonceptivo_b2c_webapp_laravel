@@ -1,13 +1,11 @@
 import React, {Fragment, useEffect, useState} from 'react';
 import FooterBottom from "./FooterBottom";
 import logoFooter from '../../../assets/images/icons/footer/logo-footer.svg'
-// import eureka from '../../../assets/images/icons/footer/eureka.svg'
 import webpay from '../../../assets/images/icons/footer/webpay.svg'
 import phone from '../../../assets/images/icons/footer/phone.svg'
 import email from '../../../assets/images/icons/footer/email.svg'
 import bannerBio from '../../../assets/images/icons/footer/slider_slider_banner_bio_min.jpg'
 import bannerCITUC from '../../../assets/images/icons/footer/slider_slider_banner_cituc_min.jpg'
-// import twitter from '../../../assets/images/icons/footer/twitter.svg'
 import facebook from '../../../assets/images/icons/footer/facebook.svg'
 import instagram from '../../../assets/images/icons/footer/instagram.svg'
 import {CONFIG} from "../../../Config";
@@ -16,6 +14,8 @@ import Icon from "../../../components/general/Icon";
 import {Link} from "react-router-dom";
 import * as Services from "../../../Services";
 import {v4 as uuidv4} from 'uuid';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 const Footer = () => {
 
@@ -57,14 +57,27 @@ const Footer = () => {
                     <div className="row" style={{marginLeft: '-25px !important'}}>
                         <div className="col-lg-auto text-center flex-footer-column">
                             <div className="mb-3">
-                                <img className="logo-footer" src={logoFooter} alt={CONFIG.APP_NAME}/>
+                                <LazyLoadImage
+                                    alt={CONFIG.APP_NAME}
+                                    className="logo-footer"
+                                    title="Anticonceptivo"
+                                    rel="nofollow"
+                                    effect="blur"
+                                    src={logoFooter}
+                                />
                             </div>
                             <div className="font-10 regular text-white">Una alianza con</div>
                             {
                                 alliances.map((alliance, index) => {
                                     return (
                                         <div className="mb-3" key={index * 7777}>
-                                            <img src={alliance.public_footer_image} alt={CONFIG.APP_NAME}/>
+                                            <LazyLoadImage
+                                                alt={CONFIG.APP_NAME}
+                                                title="Anticonceptivo"
+                                                rel="nofollow"
+                                                effect="blur"
+                                                src={alliance.public_footer_image}
+                                            />
                                         </div>
                                     )
                                 })
@@ -172,16 +185,35 @@ const Footer = () => {
                         </div>
                         <div className="col-lg-auto text-center">
                             <div className="mb-3 footer-nav-item">
-                                <img src={webpay} alt={CONFIG.APP_NAME}/>
-
+                                <LazyLoadImage
+                                    alt={CONFIG.APP_NAME}
+                                    title="Anticonceptivo"
+                                    rel="nofollow"
+                                    effect="blur"
+                                    src={webpay}
+                                />
                             </div>
 
                             <div className="mb-3">
-                                <img width={180} src={bannerBio} alt={CONFIG.APP_NAME}/>
+                                <LazyLoadImage
+                                    alt={CONFIG.APP_NAME}
+                                    title="Anticonceptivo"
+                                    rel="nofollow"
+                                    effect="blur"
+                                    src={bannerBio}
+                                    width={180}
+                                />
                             </div>
 
                             <div className="mb-3">
-                                <img width={180} src={bannerCITUC} alt={CONFIG.APP_NAME}/>
+                                <LazyLoadImage
+                                    alt={CONFIG.APP_NAME}
+                                    title="Anticonceptivo"
+                                    rel="nofollow"
+                                    effect="blur"
+                                    src={bannerCITUC}
+                                    width={180}
+                                />
                             </div>
                         </div>
 
