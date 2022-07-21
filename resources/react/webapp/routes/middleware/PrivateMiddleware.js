@@ -2,6 +2,7 @@ import React, {useContext, useEffect, useState} from "react";
 import {Route, Redirect, withRouter} from "react-router-dom";
 import {AuthContext} from "../../context/AuthProvider";
 import PUBLIC_ROUTES from "../publicRoutes";
+import LazyLoading from "../../components/LazyLoading";
 
 const PrivateMiddleware = ({path: path, component: Component, layout: Layout, title}) => {
 
@@ -45,9 +46,13 @@ const PrivateMiddleware = ({path: path, component: Component, layout: Layout, ti
                     );
                 }
                 return (
-                    <Layout>
-                        <Component {...props} />
-                    </Layout>
+
+                        <Layout>
+                            <React.Suspense fallback={<LazyLoading/>}>
+                                <Component {...props} />
+                            </React.Suspense>
+                        </Layout>
+
                 );
             }}
             />

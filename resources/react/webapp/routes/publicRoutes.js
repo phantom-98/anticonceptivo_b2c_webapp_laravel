@@ -1,24 +1,37 @@
 import React from 'react';
 import PublicMiddleware from "./middleware/PublicMiddleware";
 import BaseTemplate from "../template";
-import Home from '../pages/public/Home';
-import AboutUs from "../pages/public/AboutUs";
-import ContactUs from "../pages/public/ContactUs";
-import Faq from "../pages/public/Faq";
-import History from "../pages/public/History";
-import TermsAndConditions from "../pages/public/TermsAndConditions";
-import CorporateResponsibility from "../pages/public/CorporateResponsibility";
-import Shop from "../pages/public/Shop";
-import ProductDetail from "../pages/public/ProductDetails";
-import Cart from "../pages/public/Cart";
-import CheckOut from "../pages/public/CheckOut";
-import Blog from "../pages/public/Blog/Blog";
-import BlogListByCategory from "../pages/public/Blog/BlogListByCategory";
-import Claim from "../pages/public/Claim";
-import Post from "../pages/public/Post";
-import ShopSearch from '../pages/public/Shop/indexSearch';
-import FinishPaymentTransaction from "../pages/public/CheckOut/FinishPaymentTransaction";
-// import Test from '../pages/public/Test';
+// import Home from '../pages/public/Home';
+// import AboutUs from "../pages/public/AboutUs";
+// import ContactUs from "../pages/public/ContactUs";
+// import Faq from "../pages/public/Faq";
+// import History from "../pages/public/History";
+// import TermsAndConditions from "../pages/public/TermsAndConditions";
+// import CorporateResponsibility from "../pages/public/CorporateResponsibility";
+// import Cart from "../pages/public/Cart";
+// import Blog from "../pages/public/Blog/Blog";
+// import BlogListByCategory from "../pages/public/Blog/BlogListByCategory";
+// import Post from "../pages/public/Post";
+// import FinishPaymentTransaction from "../pages/public/CheckOut/FinishPaymentTransaction";
+
+// const BaseTemplate = React.lazy(() => import("../template"));
+const Home = React.lazy(() => import('../pages/public/Home'));
+const AboutUs = React.lazy(() => import("../pages/public/AboutUs"));
+const ContactUs = React.lazy(() => import("../pages/public/ContactUs"));
+const Faq = React.lazy(() => import("../pages/public/Faq"));
+const History = React.lazy(() => import("../pages/public/History"));
+const TermsAndConditions = React.lazy(() => import("../pages/public/TermsAndConditions"));
+const CorporateResponsibility = React.lazy(() => import("../pages/public/CorporateResponsibility"));
+const Cart = React.lazy(() => import("../pages/public/Cart"));
+const Blog = React.lazy(() => import("../pages/public/Blog/Blog"));
+const BlogListByCategory = React.lazy(() => import("../pages/public/Blog/BlogListByCategory"));
+const Post = React.lazy(() => import("../pages/public/Post"));
+const FinishPaymentTransaction = React.lazy(() => import("../pages/public/CheckOut/FinishPaymentTransaction"));
+const Shop = React.lazy(() => import("../pages/public/Shop"));
+const ProductDetail = React.lazy(() => import("../pages/public/ProductDetails"));
+const CheckOut = React.lazy(() => import("../pages/public/CheckOut"));
+const Claim = React.lazy(() => import("../pages/public/Claim"));
+const ShopSearch = React.lazy(() => import('../pages/public/Shop/indexSearch'));
 
 const PUBLIC_ROUTES = {
     // TEST: {
