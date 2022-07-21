@@ -1,5 +1,6 @@
 import React, {useEffect} from "react";
 import {Route, withRouter} from "react-router-dom";
+import LazyLoading from "../../components/LazyLoading";
 
 const PublicMiddleware = ({path: path, component: Component, layout: Layout, title, exact}) => {
 
@@ -28,9 +29,13 @@ const PublicMiddleware = ({path: path, component: Component, layout: Layout, tit
 
     return <Route exact={exact} path={path} render={(props) => {
         return (
-            <Layout>
-                <Component {...props} />
-            </Layout>
+
+                <Layout>
+                    <React.Suspense fallback={<LazyLoading/>}>
+                        <Component {...props} />
+                    </React.Suspense>
+                </Layout>
+
         );
     }}
     />
