@@ -775,12 +775,6 @@ textarea {
   font-size: 14px;
 }
 
-.form-control-w2:-ms-input-placeholder, .form-control-custom:-ms-input-placeholder {
-  color: #CECECE;
-  font-style: italic;
-  font-size: 14px;
-}
-
 .form-control-w2::placeholder,
 .form-control-custom::placeholder {
   color: #CECECE;
@@ -820,12 +814,6 @@ input.my-auto.file-input {
   font-size: 14px;
 }
 
-.form-control-custom:-ms-input-placeholder {
-  color: #CECECE;
-  font-style: italic;
-  font-size: 14px;
-}
-
 .form-control-custom::placeholder {
   color: #CECECE;
   font-style: italic;
@@ -833,12 +821,6 @@ input.my-auto.file-input {
 }
 
 .search-top-desktop .form-control-custom::-moz-placeholder {
-  color: #CECECE;
-  font-style: italic;
-  font-size: 11px;
-}
-
-.search-top-desktop .form-control-custom:-ms-input-placeholder {
   color: #CECECE;
   font-style: italic;
   font-size: 11px;
@@ -870,13 +852,6 @@ input.my-auto.file-input {
 }
 
 .search-top-mobile .form-control-custom::-moz-placeholder {
-  color: #A2A2A2;
-  font-style: italic;
-  font-size: 13px;
-  font-weight: 500;
-}
-
-.search-top-mobile .form-control-custom:-ms-input-placeholder {
   color: #A2A2A2;
   font-style: italic;
   font-size: 13px;
@@ -1649,7 +1624,7 @@ tbody tr td {
 }
 
 .react-bootstrap-table-page-btns-ul:before {
-  content: "P\E1ginas:";
+  content: "Páginas:";
   margin-right: 19px;
   padding-top: 12.5px;
   font-family: "Poppins", sans-serif;
@@ -1877,7 +1852,6 @@ input[type=number] {
   cursor: pointer;
   -moz-user-select: none;
   -webkit-user-select: none;
-  -ms-user-select: none;
   user-select: none;
 }
 
@@ -5946,4 +5920,5 @@ a:-webkit-any-link:focus-visible {
     width: 100%;
   }
 }
+
 
