@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Helpers\ImageHelper;
 
 class PostTypeController extends GlobalController
 {
@@ -59,6 +60,8 @@ class PostTypeController extends GlobalController
                 $filename = 'post-type-' . $object->id  .'.'. $image->getClientOriginalExtension();
                 $object->image = $image->storeAs('public/post-types', $filename);
                 $object->save();
+                $object->refresh();
+                ImageHelper::convert_image('PostType', $object->id, 'image');    
             }
 
             if ($object) {
@@ -126,6 +129,7 @@ class PostTypeController extends GlobalController
                 $object->save();
 
                 $object->refresh();
+                ImageHelper::convert_image('PostType', $object->id, 'image');    
             }
 
             if ($object) {
