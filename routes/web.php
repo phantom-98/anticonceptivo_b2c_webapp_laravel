@@ -26,12 +26,9 @@ Route::get('subscriptions-plans-cicles', function () {
     return true;
 });
 
-Route::get('/prueba-mas-vendidos-prueba', function(){
-    return $productsBestSellers = \App\Models\OrderItem::with(['order','product.subcategory.category', 'product.product_images','product.laboratory'])->whereHas('order', function($q){
-        $q->whereIn('status',["DELIVERED","DISPATCHED","PAID"]);
-    })->whereHas('product', function($p){
-        $p->where('recipe_type','Venta Directa')->where('active',true)->where('is_medicine', 0);
-    })->select('product_id', Illuminate\Support\Facades\DB::raw('sum(quantity) as total'))->groupBy('product_id')->orderBy('total', 'desc')->limit(12)->get();
+Route::get('/prueba-images-webp/{class}/{column}', function($class, $column){
+    App\Http\Helpers\ImageHelper::convert_old_images($class, $column);
+    return "Done";
 });
 
 Route::get('product-position-plans', function () {

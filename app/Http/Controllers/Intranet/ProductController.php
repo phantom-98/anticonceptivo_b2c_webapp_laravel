@@ -20,6 +20,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\ProductExport;
 use App\Imports\ProductImport;
 use Illuminate\Support\Facades\Log;
+use App\Http\Helpers\ImageHelper;
 
 class ProductController extends GlobalController
 {
@@ -191,6 +192,9 @@ class ProductController extends GlobalController
                     $image->position = $key + 1;
                     $image->product_id = $product->id;
                     $image->save();
+                    $image->refresh();
+
+                    ImageHelper::convert_image('ProductImage', $image->id, 'file');
                 }
             }
 
@@ -214,6 +218,10 @@ class ProductController extends GlobalController
                             $ext = $plan_image->getClientOriginalExtension();
                             $filename = rand(1000, 999999) . '.' . $ext;
                             $new_plan->image = $plan_image->storeAs('public/products/plans', $filename);
+                            $new_plan->save();
+                            $new_plan->refresh();
+
+                            ImageHelper::convert_image('ProductSubscriptionPlan', $new_plan->id, 'image');
                         }
                     }
 
@@ -357,6 +365,9 @@ class ProductController extends GlobalController
                     $image->position = $key + 1;
                     $image->product_id = $product->id;
                     $image->save();
+                    $image->refresh();
+
+                    ImageHelper::convert_image('ProductImage', $image->id, 'file');
                 }
             }
 
@@ -389,6 +400,10 @@ class ProductController extends GlobalController
                             $ext = $plan_image->getClientOriginalExtension();
                             $filename = rand(1000, 999999) . '.' . $ext;
                             $new_plan->image = $plan_image->storeAs('public/products/plans', $filename);
+                            $new_plan->save();
+                            $new_plan->refresh();
+
+                            ImageHelper::convert_image('ProductSubscriptionPlan', $new_plan->id, 'image');
                         }
                     }
 

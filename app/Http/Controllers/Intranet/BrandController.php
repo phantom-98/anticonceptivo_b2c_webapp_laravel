@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
+use App\Http\Helpers\ImageHelper;
 
 class BrandController extends GlobalController
 {
@@ -64,6 +65,8 @@ class BrandController extends GlobalController
                 $filename = 'brand-' . $object->id  .'.'. $image->getClientOriginalExtension();
                 $object->image = $image->storeAs('public/brands', $filename);
                 $object->save();
+                $object->refresh();
+                ImageHelper::convert_image('Brand', $object->id, 'image');
             }
 
             if ($object) {
@@ -132,6 +135,7 @@ class BrandController extends GlobalController
                 $object->save();
 
                 $object->refresh();
+                ImageHelper::convert_image('Brand', $object->id, 'image');
 
                 Log::info('Cambio de foto', [
                     'date' => date('Y-m-d H:i:s'),

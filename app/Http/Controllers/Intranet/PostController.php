@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
+use App\Http\Helpers\ImageHelper;
 
 class PostController extends GlobalController
 {
@@ -66,6 +67,7 @@ class PostController extends GlobalController
             $object->save();
 
             $object->refresh();
+            ImageHelper::convert_image('Post', $object->id, 'principal_image');
 
             Log::info('Agregar post', [
                 'date' => date('Y-m-d H:i:s'),
@@ -139,6 +141,8 @@ class PostController extends GlobalController
                 $object->save();
 
                 $object->refresh();
+
+                ImageHelper::convert_image('Post', $object->id, 'principal_image');
 
                 Log::info('Editar post', [
                     'date' => date('Y-m-d H:i:s'),

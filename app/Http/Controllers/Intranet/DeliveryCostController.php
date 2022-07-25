@@ -12,6 +12,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
+use App\Http\Helpers\ImageHelper;
 
 class DeliveryCostController extends GlobalController
 {
@@ -77,6 +78,8 @@ class DeliveryCostController extends GlobalController
                 $filename = 'delivery-cost-' . $object->id  .'.'. $image->getClientOriginalExtension();
                 $object->image = $image->storeAs('public/delivery-costs', $filename);
                 $object->save();
+                $object->refresh();
+                ImageHelper::convert_image('DeliveryCost', $object->id, 'image');
             }
 
             if ($object) {
@@ -159,6 +162,7 @@ class DeliveryCostController extends GlobalController
                 $object->save();
 
                 $object->refresh();
+                ImageHelper::convert_image('DeliveryCost', $object->id, 'image');
 
                 Log::info('Cambio de foto', [
                     'date' => date('Y-m-d H:i:s'),

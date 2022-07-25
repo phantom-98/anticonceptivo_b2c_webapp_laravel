@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
+use App\Http\Helpers\ImageHelper;
 
 class CategoryController extends GlobalController
 {
@@ -69,6 +70,8 @@ class CategoryController extends GlobalController
                 $filename = 'category-' . $object->id  .'.'. $image->getClientOriginalExtension();
                 $object->image = $image->storeAs('public/categories', $filename);
                 $object->save();
+                $object->refresh();
+                ImageHelper::convert_image('Category', $object->id, 'image');
             }
 
             if ($request->banner_image) {
@@ -76,6 +79,8 @@ class CategoryController extends GlobalController
                 $filename = 'banner-category-' . $object->id  .'.'. $banner_image->getClientOriginalExtension();
                 $object->banner_image = $banner_image->storeAs('public/categories', $filename);
                 $object->save();
+                $object->refresh();
+                ImageHelper::convert_image('Category', $object->id, 'banner_image');
             }
 
             if ($request->banner_image_responsive) {
@@ -83,6 +88,8 @@ class CategoryController extends GlobalController
                 $filename = 'banner-category-responsive-' . $object->id  .'.'. $banner_image_responsive->getClientOriginalExtension();
                 $object->banner_image_responsive = $banner_image_responsive->storeAs('public/categories', $filename);
                 $object->save();
+                $object->refresh();
+                ImageHelper::convert_image('Category', $object->id, 'banner_image_responsive');
             }
 
             if ($request->banner_subimage_responsive) {
@@ -90,6 +97,8 @@ class CategoryController extends GlobalController
                 $filename = 'subbanner-category-responsive-' . $object->id  .'.'. $banner_subimage_responsive->getClientOriginalExtension();
                 $object->banner_subimage_responsive = $banner_subimage_responsive->storeAs('public/categories', $filename);
                 $object->save();
+                $object->refresh();
+                ImageHelper::convert_image('Category', $object->id, 'banner_subimage_responsive');
             }
 
             if ($request->banner_subimage) {
@@ -97,6 +106,8 @@ class CategoryController extends GlobalController
                 $filename = 'subbanner-category-' . $object->id  .'.'. $banner_subimage->getClientOriginalExtension();
                 $object->subbanner_image = $banner_subimage->storeAs('public/categories', $filename);
                 $object->save();
+                $object->refresh();
+                ImageHelper::convert_image('Category', $object->id, 'subbanner_image');
             }
 
             $object->unit_format = strtolower($request->unit_format);
@@ -169,6 +180,7 @@ class CategoryController extends GlobalController
                 $object->save();
 
                 $object->refresh();
+                ImageHelper::convert_image('Category', $object->id, 'image');
 
                 Log::info('Cambio de foto', [
                     'date' => date('Y-m-d H:i:s'),
@@ -189,6 +201,8 @@ class CategoryController extends GlobalController
                 $object->banner_image_responsive = $banner_image_responsive->storeAs('public/categories', $filename);
                 $object->save();
                 $object->refresh();
+
+                ImageHelper::convert_image('Category', $object->id, 'banner_image_responsive');
 
                 Log::info('Cambio de foto banner responsive', [
                     'date' => date('Y-m-d H:i:s'),
@@ -211,6 +225,8 @@ class CategoryController extends GlobalController
 
                 $object->refresh();
 
+                ImageHelper::convert_image('Category', $object->id, 'banner_image');
+
                 Log::info('Cambio de foto banner', [
                     'date' => date('Y-m-d H:i:s'),
                     'old_name' => $name,
@@ -232,6 +248,8 @@ class CategoryController extends GlobalController
 
                 $object->refresh();
 
+                ImageHelper::convert_image('Category', $object->id, 'subbanner_image');
+
                 Log::info('Cambio de foto subbanner', [
                     'date' => date('Y-m-d H:i:s'),
                     'old_name' => $name,
@@ -252,6 +270,8 @@ class CategoryController extends GlobalController
                 $object->save();
 
                 $object->refresh();
+
+                ImageHelper::convert_image('Category', $object->id, 'banner_subimage_responsive');
 
                 Log::info('Cambio de foto subbanner responsive', [
                     'date' => date('Y-m-d H:i:s'),

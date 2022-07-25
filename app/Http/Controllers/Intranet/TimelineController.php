@@ -12,6 +12,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
+use App\Http\Helpers\ImageHelper;
 
 class TimelineController extends GlobalController
 {
@@ -65,6 +66,8 @@ class TimelineController extends GlobalController
                 $filename = 'timeline-' . $object->id  .'.'. $icon->getClientOriginalExtension();
                 $object->icon = $icon->storeAs('public/timelines', $filename);
                 $object->save();
+                $object->refresh();
+                ImageHelper::convert_image('Timeline', $object->id, 'icon');
             }
 
             if ($object) {
@@ -136,6 +139,8 @@ class TimelineController extends GlobalController
                 $object->save();
 
                 $object->refresh();
+
+                ImageHelper::convert_image('Timeline', $object->id, 'icon');
 
                 Log::info('Cambio de icono', [
                     'date' => date('Y-m-d H:i:s'),

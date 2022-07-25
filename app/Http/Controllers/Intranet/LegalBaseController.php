@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
+use App\Http\Helpers\ImageHelper;
 
 class LegalBaseController extends GlobalController
 {
@@ -64,6 +65,8 @@ class LegalBaseController extends GlobalController
                 $filename = 'legal-base-' . $object->id  .'.'. $icon->getClientOriginalExtension();
                 $object->icon = $icon->storeAs('public/legal-bases', $filename);
                 $object->save();
+                $object->refresh();
+                ImageHelper::convert_image('LegalBase', $object->id, 'icon');
             }
 
             if ($request->file) {
@@ -138,6 +141,8 @@ class LegalBaseController extends GlobalController
                 $object->save();
 
                 $object->refresh();
+
+                ImageHelper::convert_image('LegalBase', $object->id, 'icon');
 
                 Log::info('Cambio de icono', [
                     'date' => date('Y-m-d H:i:s'),
