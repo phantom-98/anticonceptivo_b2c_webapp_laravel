@@ -26,7 +26,7 @@ Route::get('subscriptions-plans-cicles', function () {
     return true;
 });
 
-Route::get('/prueba-images-webp/{class}/{column}', function($class, $column){
+Route::get('/transform-images/{class}/{column}', function($class, $column){
     App\Http\Helpers\ImageHelper::convert_old_images($class, $column);
     return "Done";
 });
