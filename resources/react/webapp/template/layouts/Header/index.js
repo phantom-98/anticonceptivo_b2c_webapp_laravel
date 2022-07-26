@@ -137,7 +137,7 @@ const Header = () => {
                                         rel="nofollow"
                                         effect="blur"
                                         src={menu}
-                                        height={'100%'}
+                                        height={'25px'}
                                         width={'100%'}
                                     />
                                     <div className="text-icon-navbar-mobile">
@@ -154,7 +154,7 @@ const Header = () => {
                                         rel="nofollow"
                                         effect="blur"
                                         src={search}
-                                        height={'auto'}
+                                        height={'25px'}
                                         width={'100%'}
                                     />
                                     <div className="text-icon-navbar-mobile">
@@ -190,7 +190,7 @@ const Header = () => {
                                                 rel="nofollow"
                                                 effect="blur"
                                                 src={userBlue}
-                                                height={'100%'}
+                                                height={'25px'}
                                                 width={'100%'}
                                             />
                                             <div className="text-icon-navbar-mobile">
