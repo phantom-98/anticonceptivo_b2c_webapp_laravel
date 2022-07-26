@@ -6,7 +6,7 @@ const CloseModal = ({hideModal}) => {
     return (
         <div className="row">
             <div className="col text-right">
-                <span className="pointer" onClick={hideModal}><Icon path={closeModal}/></span>
+                <span className="pointer" onClick={hideModal}><Icon path={closeModal} style={{width: '100%', height: '100%'}}/></span>
             </div>
         </div>
     );

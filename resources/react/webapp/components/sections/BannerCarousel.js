@@ -71,6 +71,7 @@ const BannerCarousel = ({topBanners}) => {
                                         effect="blur"
                                         src={breakpoint === BREAKPOINTS.MEDIUM || breakpoint === BREAKPOINTS.LARGE || breakpoint === BREAKPOINTS.EXTRA_LARGE || breakpoint === BREAKPOINTS.EXTRA_EXTRA_LARGE ? banner.public_file : banner.public_file_responsive ?? banner.public_file}
                                         width={'100%'}
+                                        height={'100%'}
                                     />
                                     <div className="banner-buttons font-poppins font-35 bold color-033F5D">
                                         <span style={{backgroundColor: 'white'}}>{banner.title}</span>
@@ -89,6 +90,7 @@ const BannerCarousel = ({topBanners}) => {
                                             effect="blur"
                                             src={breakpoint === BREAKPOINTS.MEDIUM || breakpoint === BREAKPOINTS.LARGE || breakpoint === BREAKPOINTS.EXTRA_LARGE || breakpoint === BREAKPOINTS.EXTRA_EXTRA_LARGE ? banner.public_file : banner.public_file_responsive ?? banner.public_file}
                                             width={'100%'}
+                                            height={'100%'}
                                         />
                                         <div className="banner-buttons font-poppins font-35 bold color-033F5D">
                                             <span style={{backgroundColor: 'white'}}>{banner.title}</span>

@@ -29,7 +29,7 @@ const OffCanvas = ({children, showCanvas, closeCanvas}) => {
                         }}>
                             <div className="col-8">
                                 <Link to={PUBLIC_ROUTES.HOME.path}>
-                                    <Icon path={logoFull} style={{height: 28}}/>
+                                    <Icon path={logoFull} style={{height: '28', width: '100%'}}/>
                                 </Link>
                                 {/*<span className="font-18 bold font-poppins color-0869A6"*/}
                                 {/*      style={{letterSpacing: '5px'}}>Categorías</span>*/}
