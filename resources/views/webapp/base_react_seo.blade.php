@@ -13,14 +13,7 @@
 
 <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
-        rel="stylesheet">
 
-    <!-- CSS -->
-
-    <link rel="stylesheet" href="{{ asset('themes/web/assets/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('themes/web/app/css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('themes/web/assets/plugins/toastr/toastr.min.css') }}">
 
     <!-- Favicons -->
@@ -150,6 +143,15 @@
 
 
 </div>
+
+<link
+href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+rel="stylesheet">
+
+<!-- CSS -->
+
+<link rel="stylesheet" href="{{ asset('themes/web/assets/css/bootstrap.min.css') }}">
+<link rel="stylesheet" href="{{ asset('themes/web/app/css/app.css') }}">
 
 <script src="{{ asset('themes/web/app/js/app.js') }}"></script>
 <script src="{{ asset('themes/web/assets/js/custom.js') }}"></script>

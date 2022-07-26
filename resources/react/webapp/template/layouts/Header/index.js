@@ -137,6 +137,8 @@ const Header = () => {
                                         rel="nofollow"
                                         effect="blur"
                                         src={menu}
+                                        height={'100%'}
+                                        width={'100%'}
                                     />
                                     <div className="text-icon-navbar-mobile">
                                         MENÚ
@@ -152,6 +154,8 @@ const Header = () => {
                                         rel="nofollow"
                                         effect="blur"
                                         src={search}
+                                        height={'auto'}
+                                        width={'100%'}
                                     />
                                     <div className="text-icon-navbar-mobile">
                                         BUSCAR
@@ -168,6 +172,8 @@ const Header = () => {
                                             rel="nofollow"
                                             effect="blur"
                                             src={anticonceptivo}
+                                            height={'100%'}
+                                            width={'auto'}
                                         />
                                     </Link>
                                 </div>
@@ -184,7 +190,8 @@ const Header = () => {
                                                 rel="nofollow"
                                                 effect="blur"
                                                 src={userBlue}
-                                                height={25}
+                                                height={'100%'}
+                                                width={'100%'}
                                             />
                                             <div className="text-icon-navbar-mobile">
                                                 CUENTA
@@ -200,7 +207,8 @@ const Header = () => {
                                                 rel="nofollow"
                                                 effect="blur"
                                                 src={userBlue}
-                                                height={25}
+                                                height={'100%'}
+                                                width={'100%'}
                                             />
                                             <div className="text-icon-navbar-mobile">
                                                 CUENTA
