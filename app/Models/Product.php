@@ -39,7 +39,8 @@ class Product extends Model
         'barcode',
         'recipe_type',
         'state_of_matter',
-        'position'
+        'position',
+        'is_indexable'
     ];
 
     protected $appends = ['images', 'format_compound', 'subscriptions_count', 'subscriptions_items'];

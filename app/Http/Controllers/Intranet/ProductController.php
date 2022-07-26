@@ -169,6 +169,7 @@ class ProductController extends GlobalController
             $product->benefits = $request->benefits;
             $product->data_sheet = $request->data_sheet;
             $product->is_medicine = $request->is_medicine;
+            $product->is_indexable = $request->is_indexable;
             $product->description = $request->description;
             $product->laboratory_id = $request->laboratory_id;
             $product->is_bioequivalent = $request->is_bioequivalent ?? 0;
@@ -344,6 +345,7 @@ class ProductController extends GlobalController
             $product->benefits = $request->benefits;
             $product->data_sheet = $request->data_sheet;
             $product->is_medicine = $request->is_medicine;
+            $product->is_indexable = $request->is_indexable;
             $product->description = $request->description;
             $product->is_bioequivalent = $request->is_bioequivalent ?? 0;
             $product->laboratory_id = $request->laboratory_id;
