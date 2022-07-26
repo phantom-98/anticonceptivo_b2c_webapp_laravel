@@ -45,6 +45,18 @@
             </url>
         @endforeach
         @if($category->slug == "pastillas")
+            @foreach($formats as $format)
+                <url>
+                    <loc>https://www.anticonceptivo.cl/tienda/{{ $category->slug }}/formato/{{ $format }}</loc>
+                    <changefreq>daily</changefreq>
+                </url>
+            @endforeach
+            @foreach($subscriptions as $subscription)
+                <url>
+                    <loc>https://www.anticonceptivo.cl/tienda/{{ $category->slug }}/suscripcion/{{ $subscription->months }}</loc>
+                    <changefreq>daily</changefreq>
+                </url>
+            @endforeach
             @foreach($laboratories as $laboratory)
                 <url>
                     <loc>https://www.anticonceptivo.cl/tienda/{{ $category->slug }}/laboratorio/{{ \Str::slug($laboratory->name) }}</loc>
