@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\SEOController;
 use App\Http\Controllers\TestController;
+use App\Http\Controllers\SitemapController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Log;
 
@@ -30,6 +31,8 @@ Route::get('/transform-images/{class}/{column}', function($class, $column){
     App\Http\Helpers\ImageHelper::convert_old_images($class, $column);
     return "Done";
 });
+
+Route::get('sitemap-dinamico', [SitemapController::class, 'index']);
 
 Route::get('product-position-plans', function () {
     $product_subscription_plans = \App\Models\ProductSubscriptionPlan::with(['subscription_plan'])->get();
