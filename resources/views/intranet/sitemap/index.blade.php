@@ -38,12 +38,14 @@
             <loc>https://www.anticonceptivo.cl/tienda/{{ $category->slug }}</loc>
             <changefreq>daily</changefreq>
         </url>
-        @foreach($category->subcategories as $sub)
-            <url>
-                <loc>https://www.anticonceptivo.cl/tienda/{{ $category->slug }}/{{ $sub->slug }}</loc>
-                <changefreq>daily</changefreq>
-            </url>
-        @endforeach
+        @if($category->slug != "pastillas")
+            @foreach($category->subcategories as $sub)
+                <url>
+                    <loc>https://www.anticonceptivo.cl/tienda/{{ $category->slug }}/{{ $sub->slug }}</loc>
+                    <changefreq>daily</changefreq>
+                </url>
+            @endforeach
+        @endif
         @if($category->slug == "pastillas")
             @foreach($formats as $format)
                 <url>
