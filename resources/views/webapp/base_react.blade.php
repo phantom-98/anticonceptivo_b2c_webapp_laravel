@@ -10,6 +10,7 @@
     <!-- Fonts -->
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="/themes/web/assets/plugins/toastr/toastr.min.css">
     <!-- Google Tag Manager -->
     <script>(function (w, d, s, l, i) {
             w[l] = w[l] || [];
@@ -163,7 +164,6 @@ href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;60
 rel="stylesheet">
 
 <link rel="stylesheet" href="/themes/web/assets/css/bootstrap.min.css">
-<link rel="stylesheet" href="/themes/web/assets/plugins/toastr/toastr.min.css">
 <link rel="stylesheet" href="/themes/web/app/css/app.css">
 
 <script src="/themes/web/app/js/app.js"></script>
