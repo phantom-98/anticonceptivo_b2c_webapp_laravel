@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Artisan;
 
 class LaboratoryController extends GlobalController
 {
@@ -58,6 +59,8 @@ class LaboratoryController extends GlobalController
             $object = Laboratory::create($request->all());
 
             if ($object) {
+                Artisan::call('command:sitemap');
+
                 session()->flash('success', 'Laboratorio creado correctamente.');
                 return redirect()->route($this->route . 'index');
 
@@ -111,6 +114,8 @@ class LaboratoryController extends GlobalController
             $object->update($request->all());
 
             if ($object) {
+                Artisan::call('command:sitemap');
+
                 session()->flash('success', 'Laboratorio modificado correctamente.');
                 return redirect()->route($this->route . 'index');
             }
@@ -132,6 +137,8 @@ class LaboratoryController extends GlobalController
 
                 $object->active = $request->active == 'true' ? 1 : 0;
                 $object->save();
+
+                Artisan::call('command:sitemap');
 
                 return response()->json([
                     'status' => 'success',
