@@ -77,7 +77,7 @@ class Sitemap extends Command
                 'formats' => $formats,
             ])->render();
 
-            file_put_contents(public_path().'/sitemap_dinamico.xml', $content);
+            file_put_contents(public_path().'/sitemap.xml', $content);
 
         } catch (\Exception $e) {
             Log::error('Error al generar sitemap', ["response" => $e->getMessage()]);
