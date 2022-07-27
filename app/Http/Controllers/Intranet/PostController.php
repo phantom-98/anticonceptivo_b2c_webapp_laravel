@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
 use App\Http\Helpers\ImageHelper;
+use Illuminate\Support\Facades\Artisan;
 
 class PostController extends GlobalController
 {
@@ -88,6 +89,7 @@ class PostController extends GlobalController
             $object->save();
         }
 
+        Artisan::call('command:sitemap');
         session()->flash('success', 'Blog creado correctamente.');
 
         return redirect()->route($this->route . 'index');
@@ -164,6 +166,7 @@ class PostController extends GlobalController
             $object->save();
         }
 
+        Artisan::call('command:sitemap');
         session()->flash('success', 'Blog modificado correctamente.');
         return redirect()->route($this->route . 'index');
     }
@@ -183,6 +186,7 @@ class PostController extends GlobalController
         }
 
         if ($object->delete()) {
+            Artisan::call('command:sitemap');
             session()->flash('success', 'Blog eliminado correctamente.');
         }
 
@@ -217,6 +221,8 @@ class PostController extends GlobalController
 
                 $object->active = $request->active == 'true' ? 1 : 0;
                 $object->save();
+
+                Artisan::call('command:sitemap');
 
                 return response()->json([
                     'status' => 'success',

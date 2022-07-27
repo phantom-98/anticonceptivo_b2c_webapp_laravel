@@ -21,6 +21,7 @@ use App\Exports\ProductExport;
 use App\Imports\ProductImport;
 use Illuminate\Support\Facades\Log;
 use App\Http\Helpers\ImageHelper;
+use Illuminate\Support\Facades\Artisan;
 
 class ProductController extends GlobalController
 {
@@ -238,6 +239,8 @@ class ProductController extends GlobalController
             }
 
             if ($product->id) {
+                Artisan::call('command:sitemap');
+
                 session()->flash('success', 'Producto creado correctamente.');
                 return redirect()->route($this->route . 'index');
             }
@@ -426,6 +429,8 @@ class ProductController extends GlobalController
             }
 
             if ($product) {
+                Artisan::call('command:sitemap');
+
                 session()->flash('success', 'Producto actualizado correctamente.');
                 return redirect()->route($this->route . 'index');
             }
@@ -445,6 +450,8 @@ class ProductController extends GlobalController
 
                 $object->active = $request->active == 'true' ? 1 : 0;
                 $object->save();
+
+                Artisan::call('command:sitemap');
 
                 return response()->json([
                     'status' => 'success',

@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 use App\Http\Helpers\ImageHelper;
+use Illuminate\Support\Facades\Artisan;
 
 class CategoryController extends GlobalController
 {
@@ -116,6 +117,8 @@ class CategoryController extends GlobalController
             $object->save();
 
             if ($object) {
+                Artisan::call('command:sitemap');
+                
                 session()->flash('success', 'Categoría creada correctamente.');
                 return redirect()->route($this->route . 'index');
 
@@ -287,6 +290,7 @@ class CategoryController extends GlobalController
             $object->save();
 
             if ($object) {
+                Artisan::call('command:sitemap');
                 session()->flash('success', 'Categoría modificada correctamente.');
                 return redirect()->route($this->route . 'index');
             }

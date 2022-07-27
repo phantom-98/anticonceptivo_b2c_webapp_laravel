@@ -19,7 +19,7 @@ class SitemapController extends Controller
         $products = Product::where('active', 1)->where('is_indexable', 1)->get();
         $post_types = PostType::with('active_posts')->where('active', 1)->get();
       
-        $categories = Category::where('active',true)->with(['subcategories'])
+        return $categories = Category::where('active',true)->with(['subcategories'])
             ->whereHas('subcategories', function($q){$q->where('active',true)->orderBy('position');})
             ->orderBy('position')->get();
 
