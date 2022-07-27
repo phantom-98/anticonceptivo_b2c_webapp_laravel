@@ -22,8 +22,6 @@
     <link rel="stylesheet" href="/themes/web/app/css/app.css">
     <link rel="stylesheet" href="/themes/web/assets/plugins/toastr/toastr.min.css">
 
-    <link rel="stylesheet" href="{{ asset('themes/web/assets/plugins/toastr/toastr.min.css') }}">
-
     <!-- Favicons -->
     <link rel="shortcut icon" href="/themes/web/favicon/favicon.ico" type="image/x-icon">
     <link rel="icon" href="/themes/web/favicon/favicon.ico" type="image/x-icon">
@@ -111,6 +109,11 @@
 
     @yield('styles')
 
+    <style>
+        .slick-dots li button:before {
+            font-size: 9px !important;
+        }
+    </style>
 
 </head>
 <body>
