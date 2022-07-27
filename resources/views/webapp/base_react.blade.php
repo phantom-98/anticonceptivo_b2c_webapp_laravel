@@ -79,6 +79,12 @@
 
     @yield('styles')
 
+    <style>
+        .slick-dots li button:before {
+            font-size: 9px !important;
+        }
+    </style>
+
     <link rel="shortcut icon" href="/themes/web/favicon/favicon.ico" type="image/x-icon">
     <link rel="icon" href="/themes/web/favicon/favicon.ico" type="image/x-icon">
 
