@@ -19,13 +19,13 @@
                 </div>
                 <div class="panel-body">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-3">
                             <label>Minutos Rango inicial</label>
-                            <input class="form-control mb-3 w-25" id="min_hour" value="{{$min_hour}}"/>
+                            <input class="form-control mb-3" id="min_hour" value="{{$min_hour}}"/>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-3">
                             <label>Minutos Rango Final</label>
-                            <input class="form-control mb-3 w-25" id="max_hour" value="{{$max_hour}}"/>
+                            <input class="form-control mb-3" id="max_hour" value="{{$max_hour}}"/>
                         </div>
                         <div class="col-md-12 mt-2">
                             <button onclick="updateLimitOrder()" class="btn btn-primary">Guardar</button>
