@@ -17,8 +17,8 @@ class PhoneContactController extends GlobalController
     protected $options = [
         'route' => 'intranet.phone-contact.',
         'folder' => 'intranet.phone-contact.',
-        'pluralName' => 'numero teléfono',
-        'singularName' => 'numero teléfono',
+        'pluralName' => 'Número teléfono',
+        'singularName' => 'Número teléfono',
         'disableActions' => ['changeStatus', 'create', 'destroy', 'active'],
         'enableActions' => []
     ];

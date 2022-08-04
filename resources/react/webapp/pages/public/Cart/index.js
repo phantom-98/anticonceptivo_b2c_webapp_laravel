@@ -9,6 +9,8 @@ import {Link} from "react-router-dom";
 import PUBLIC_ROUTES from "../../../routes/publicRoutes";
 import {CONFIG} from "../../../Config";
 import logoWebpay from '../../../assets/images/webpayColor.svg'
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 const Cart = () => {
     window.dataLayer = window.dataLayer || [];
@@ -93,8 +95,14 @@ const Cart = () => {
                                                     </h4>
                                                 </div>
                                                 <div className="col-md-6">
-                                                    <img src={logoWebpay} alt={CONFIG.APP_NAME}
-                                                         style={{width: '100%'}}/>
+                                                    <LazyLoadImage
+                                                        alt={CONFIG.APP_NAME}
+                                                        title="Anticonceptivo"
+                                                        width={'100%'}
+                                                        rel="nofollow"
+                                                        effect="blur"
+                                                        src={logoWebpay}
+                                                    />
                                                 </div>
                                             </div>
                                             <hr/>

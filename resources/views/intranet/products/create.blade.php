@@ -290,6 +290,15 @@
                                         </select>
                                     </div>
                                 </div>
+                                <div class="col-md-3">
+                                    <div class="form-group {{ $errors->has('is_indexable') ? 'has-error':'' }}">
+                                        <label for="is_indexable">¿Es Indexable? </label>
+                                        <select id="is_indexable" name="is_indexable" class="form-control">
+                                            <option value="1" selected>Si</option>
+                                            <option value="0">No</option>
+                                        </select>
+                                    </div>
+                                </div>
                                 <div class="clearfix"></div>
 
                             </div>

@@ -16,5 +16,10 @@ const mix = require('laravel-mix');
 //         //
 //     ]);
 
-mix.react('resources/react/webapp/app.js', 'public/themes/web/app/js')
-    .sass('resources/react/webapp/app.scss', 'public/themes/web/app/css');
+mix.webpackConfig({
+    output:{
+        chunkFilename:'js/reactjs_code_split/[name].js',
+    }
+});
+
+mix.js('resources/react/webapp/app.js', 'public/themes/web/app/js').react().sass('resources/react/webapp/app.scss', 'public/themes/web/app/css');

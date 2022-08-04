@@ -4,6 +4,8 @@ import boxBlue from '../../assets/images/icons/box-blue.svg';
 import {formatMoney} from "../../helpers/GlobalUtils";
 import {CONFIG} from "../../Config";
 import {v4 as uuidv4} from 'uuid';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 const AccordionBody = ({data}) => {
 
@@ -11,7 +13,12 @@ const AccordionBody = ({data}) => {
         <div className="row">
             <div className="col-md-12 mb-3 d-flex">
                 <div className="m-auto">
-                    <img src={data.public_image} alt={CONFIG.APP_NAME} className="imgAccordionBody"/>
+                    <LazyLoadImage
+                        alt={CONFIG.APP_NAME}
+                        className="imgAccordionBody"
+                        effect="blur"
+                        src={data.public_image}
+                    />
                 </div>
             </div>
             <div className="col-md-12 mb-3 font-inter font-22 bold color-033F5D">

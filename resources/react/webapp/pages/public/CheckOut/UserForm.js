@@ -1,23 +1,21 @@
-import React, {Fragment, useContext, useState} from 'react';
+import React, {Fragment, useContext} from 'react';
 import FormPersonalData from "../../private/Account/sections/PersonalInfo/FormPersonalData";
 import {setInputError, setCleanInputErrorById} from "../../../helpers/GlobalUtils";
 import RutValidator from "w2-rut-validator";
 import {Form} from "react-bootstrap";
 import {CartContext} from "../../../context/CartProvider";
 import {CONFIG} from "../../../Config";
-import {v4 as uuidv4} from 'uuid';
 import recipeBlue from '../../../assets/images/icons/recipe-blue.svg'
 import noImage from "../../../assets/images/producto-default.png";
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 const UserForm = ({
-    setView,
     data,
     setData,
     setFiles,
     files,
     editable,
-    setProductCount,
-    rutFlag,
     setRutFlag,
     prescriptionRadio,
     setPrescriptionRadio,
@@ -187,9 +185,12 @@ const UserForm = ({
                                             <div key={index} id="first_name_focus" className="col-12 product-item">
                                                 <div className="row">
                                                     <div className="col-auto pr-0">
-                                                        <img
+                                                        <LazyLoadImage
                                                             alt={CONFIG.APP_NAME}
-                                                            style={{height: '38px'}}
+                                                            height={38}
+                                                            title="Anticonceptivo"
+                                                            rel="nofollow"
+                                                            effect="blur"
                                                             src={item.product.images.length ? item.product.images[0].public_file : noImage}
                                                         />
                                                     </div>
@@ -253,7 +254,13 @@ const UserForm = ({
                         <div className="panel-body">
                             <div className="row">
                                 <div className="col-auto">
-                                    <img src={recipeBlue} alt="anticonceptivo.cl" rel="nofollow"/>
+                                    <LazyLoadImage
+                                        alt={CONFIG.APP_NAME}
+                                        title="Anticonceptivo"
+                                        rel="nofollow"
+                                        effect="blur"
+                                        src={recipeBlue}
+                                    />
                                 </div>
                                 <div className="col px-0">
                                     <p className="font-18 lh-18 font-poppins bold color-033F5D mb-0">Receta</p>
@@ -372,9 +379,14 @@ const UserForm = ({
                                                                 className="col-12 product-item">
                                                         <div className="row">
                                                             <div className="col-auto pr-0">
-                                                                <img alt={CONFIG.APP_NAME}
-                                                                        style={{height: '38px'}}
-                                                                    src={item.product.images.length ? item.product.images[0].public_file : noImage}/>
+                                                                <LazyLoadImage
+                                                                    alt={CONFIG.APP_NAME}
+                                                                    title="Anticonceptivo"
+                                                                    height={38}
+                                                                    rel="nofollow"
+                                                                    effect="blur"
+                                                                    src={item.product.images.length ? item.product.images[0].public_file : noImage}
+                                                                />
                                                             </div>
                                                             <div className="col d-flex">
                                                                 <div

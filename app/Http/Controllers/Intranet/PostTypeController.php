@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Helpers\ImageHelper;
+use Illuminate\Support\Facades\Artisan;
 
 class PostTypeController extends GlobalController
 {
@@ -59,9 +61,12 @@ class PostTypeController extends GlobalController
                 $filename = 'post-type-' . $object->id  .'.'. $image->getClientOriginalExtension();
                 $object->image = $image->storeAs('public/post-types', $filename);
                 $object->save();
+                $object->refresh();
+                ImageHelper::convert_image('PostType', $object->id, 'image');    
             }
 
             if ($object) {
+                Artisan::call('command:sitemap');
                 session()->flash('success', 'Tipo de Blog creado correctamente.');
                 return redirect()->route($this->route . 'index');
 
@@ -126,9 +131,11 @@ class PostTypeController extends GlobalController
                 $object->save();
 
                 $object->refresh();
+                ImageHelper::convert_image('PostType', $object->id, 'image');    
             }
 
             if ($object) {
+                Artisan::call('command:sitemap');
                 session()->flash('success', 'Tipo de Blog modificado correctamente.');
                 return redirect()->route($this->route . 'index');
             }
@@ -157,6 +164,7 @@ class PostTypeController extends GlobalController
         Storage::delete($object->image);
 
         if ($object->delete()) {
+            Artisan::call('command:sitemap');
             session()->flash('success', 'Tipo de Blog eliminado correctamente.');
             return redirect()->route($this->route . 'index');
         }
@@ -176,6 +184,8 @@ class PostTypeController extends GlobalController
 
                 $object->active = $request->active == 'true' ? 1 : 0;
                 $object->save();
+
+                Artisan::call('command:sitemap');
 
                 return response()->json([
                     'status' => 'success',

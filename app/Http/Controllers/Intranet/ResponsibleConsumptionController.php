@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
+use App\Http\Helpers\ImageHelper;
 
 class ResponsibleConsumptionController extends GlobalController
 {
@@ -62,6 +63,8 @@ class ResponsibleConsumptionController extends GlobalController
                 $filename = 'responsible-consumption-' . $object->id  .'.'. $image->getClientOriginalExtension();
                 $object->image = $image->storeAs('public/responsible-consumptions', $filename);
                 $object->save();
+                $object->refresh();
+                ImageHelper::convert_image('ResponsibleConsumption', $object->id, 'image');    
             }
 
             if ($request->file) {
@@ -136,6 +139,7 @@ class ResponsibleConsumptionController extends GlobalController
                 $object->save();
 
                 $object->refresh();
+                ImageHelper::convert_image('ResponsibleConsumption', $object->id, 'image');    
 
                 Log::info('Cambio de imagen', [
                     'date' => date('Y-m-d H:i:s'),

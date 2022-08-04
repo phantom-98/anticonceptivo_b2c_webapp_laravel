@@ -3,6 +3,8 @@ import isImmediateSvgWhite  from '../../assets/images/icons/immediate-white.svg'
 import arrivesTodayBlue  from '../../assets/images/icons/arrives-today-blue.svg'
 import arrivesTomorrowGreen  from '../../assets/images/icons/arrives-tomorrow-green.svg'
 import arrivesAfterTomorrowRed  from '../../assets/images/icons/arrives-after-tomorrow-red.svg'
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 const IsImmediateLabel = ({product}) =>{
 
@@ -21,7 +23,13 @@ const IsImmediateLabel = ({product}) =>{
     const Immediate = () => {
         return (
             <div className="is-immediate-label  d-flex">
-                <img src={isImmediateSvgWhite} alt="anticonceptivo.cl"/> <span className="ml-1">{label}</span>
+                <LazyLoadImage
+                    alt="anticonceptivo.cl"
+                    title="Anticonceptivo"
+                    rel="nofollow"
+                    effect="blur"
+                    src={isImmediateSvgWhite}
+                /> <span className="ml-1">{label}</span>
             </div>
         )
     }
@@ -29,7 +37,13 @@ const IsImmediateLabel = ({product}) =>{
     const Today = () => {
         return (
             <div className="is-today-label d-flex">
-                <img src={arrivesTodayBlue} alt="anticonceptivo.cl"/> <span className="ml-1">{label}</span>
+                <LazyLoadImage
+                    alt="anticonceptivo.cl"
+                    title="Anticonceptivo"
+                    rel="nofollow"
+                    effect="blur"
+                    src={arrivesTodayBlue}
+                /> <span className="ml-1">{label}</span>
             </div>
         )
     }
@@ -37,7 +51,13 @@ const IsImmediateLabel = ({product}) =>{
     const Tomorrow = () => {
         return (
             <div className="is-tomorrow-label  d-flex">
-                <img src={arrivesTomorrowGreen} alt="anticonceptivo.cl"/> <span className="ml-1">{label}</span>
+                <LazyLoadImage
+                    alt="anticonceptivo.cl"
+                    title="Anticonceptivo"
+                    rel="nofollow"
+                    effect="blur"
+                    src={arrivesTomorrowGreen}
+                /> <span className="ml-1">{label}</span>
             </div>
         )
     }
@@ -45,7 +65,13 @@ const IsImmediateLabel = ({product}) =>{
     const AfterTomorrow = () => {
         return (
             <div className="is-after-tomorrow-label  d-flex">
-                <img src={arrivesTomorrowGreen} alt="anticonceptivo.cl"/> <span className="ml-1">{label}</span>
+                <LazyLoadImage
+                    alt="anticonceptivo.cl"
+                    title="Anticonceptivo"
+                    rel="nofollow"
+                    effect="blur"
+                    src={arrivesTomorrowGreen}
+                /> <span className="ml-1">{label}</span>
             </div>
         )
     }
@@ -53,7 +79,13 @@ const IsImmediateLabel = ({product}) =>{
     const AfterTomorrowCustom = () => {
         return (
             <div className="is-after-tomorrow-label  d-flex">
-                <img src={arrivesTomorrowGreen} alt="anticonceptivo.cl"/> <span className="ml-1">{label}</span>
+                <LazyLoadImage
+                    alt="anticonceptivo.cl"
+                    title="Anticonceptivo"
+                    rel="nofollow"
+                    effect="blur"
+                    src={arrivesTomorrowGreen}
+                /> <span className="ml-1">{label}</span>
             </div>
         )
     }

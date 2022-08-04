@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Artisan;
 
 class SubcategoryController extends GlobalController
 {
@@ -58,6 +59,7 @@ class SubcategoryController extends GlobalController
             $object = Subcategory::create(array_merge($request->all(), ['slug' => \Str::slug($request->name)]));
 
             if ($object) {
+                Artisan::call('command:sitemap');
                 session()->flash('success', 'Subcategoría creada correctamente.');
                 return redirect()->route($this->route . 'index');
 
@@ -109,11 +111,12 @@ class SubcategoryController extends GlobalController
 
         if ($validator->passes()) {
 
-            $object->update($request->all());
+            $object->update(array_merge($request->all(), ['slug' => \Str::slug($request->name)]));
 
             $object->save();
 
             if ($object) {
+                Artisan::call('command:sitemap');
                 session()->flash('success', 'Subcategoría modificada correctamente.');
                 return redirect()->route($this->route . 'index');
             }
@@ -159,6 +162,8 @@ class SubcategoryController extends GlobalController
 
                 $object->active = $request->active == 'true' ? 1 : 0;
                 $object->save();
+
+                Artisan::call('command:sitemap');
 
                 return response()->json([
                     'status' => 'success',

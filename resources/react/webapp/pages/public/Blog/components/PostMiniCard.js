@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react';
 import {Link} from "react-router-dom";
 import PUBLIC_ROUTES from "../../../../routes/publicRoutes";
 import moment from "moment";
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 const PostMiniCard = ({post}) => {
 
@@ -25,7 +27,14 @@ const PostMiniCard = ({post}) => {
         <Link to={url} style={{textDecoration: 'none'}}>
 
             <div className="card w-100 post-mini-card zoom">
-                <img className="card-img-top" src={post.public_principal_image} alt={post.title}/>
+                <LazyLoadImage
+                    alt={post.title}
+                    className="card-img-top"
+                    title="Anticonceptivo"
+                    rel="nofollow"
+                    effect="blur"
+                    src={post.public_principal_image}
+                />
                 <div className="mini-card-date">
                     {coolDate(post.created_at)}
                 </div>

@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
+use App\Http\Helpers\ImageHelper;
 
 class AllianceController extends GlobalController
 {
@@ -64,6 +65,8 @@ class AllianceController extends GlobalController
                 $filename = 'alliance-' . $object->id  .'.'. $image->getClientOriginalExtension();
                 $object->image = $image->storeAs('public/alliances', $filename);
                 $object->save();
+                $object->refresh();
+                ImageHelper::convert_image('Alliance', $object->id, 'image');
             }
 
             if ($request->footer_image) {
@@ -71,6 +74,8 @@ class AllianceController extends GlobalController
                 $filename = 'alliance-footer-' . $object->id  .'.'. $footer_image->getClientOriginalExtension();
                 $object->footer_image = $footer_image->storeAs('public/alliances', $filename);
                 $object->save();
+                $object->refresh();
+                ImageHelper::convert_image('Alliance', $object->id, 'footer_image');
             }
 
             if ($object) {
@@ -139,6 +144,7 @@ class AllianceController extends GlobalController
                 $object->save();
 
                 $object->refresh();
+                ImageHelper::convert_image('Alliance', $object->id, 'image');
 
                 Log::info('Cambio de foto', [
                     'date' => date('Y-m-d H:i:s'),
@@ -160,6 +166,7 @@ class AllianceController extends GlobalController
                 $object->save();
 
                 $object->refresh();
+                ImageHelper::convert_image('Alliance', $object->id, 'footer_image');
 
                 Log::info('Cambio de footer', [
                     'date' => date('Y-m-d H:i:s'),

@@ -29,10 +29,10 @@ class ProductController extends Controller
         $this->product_schedules = ProductSchedule::get();
     }
 
-    public function getAllAvailable(): JsonResponse
+    public function getAllAvailable(Request $request): JsonResponse
     {
         try {
-            $products = Product::where('active', true)->with([
+            $products = Product::whereLike(['name','compound','laboratory.name'], $request->search)->where('active', true)->with([
                 'subcategory.category' => function ($c) {
                     $c->where('active', true);
                 },
@@ -42,8 +42,14 @@ class ProductController extends Controller
                 }
             ])->orderBy('position')->get();
 
+
+            // a) name -> like 1º
+            // b) compound -> like º2
+            // c) laboratory->name -> like º3
+            // a ? get : b ? get : c ? get : []
+
             return ApiResponse::JsonSuccess([
-                'products' => $this->processScheduleList($products)
+                'products' => $this->processScheduleList($products),
             ]);
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, $exception->getMessage());

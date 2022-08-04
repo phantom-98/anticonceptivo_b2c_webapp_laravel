@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
+use App\Http\Helpers\ImageHelper;
 
 class BannerController extends GlobalController
 {
@@ -83,16 +84,22 @@ class BannerController extends GlobalController
             $ext = $request->file("file")->getClientOriginalExtension();
             $name = pathinfo($request->file("file")->getClientOriginalName(), PATHINFO_FILENAME);
             $object->file = $request->file("file")
-            ->storeAs('public/sliders', 'slider-'.$name.'- '.Carbon::now()->format('Y-m-d H:i:s').'.'.$ext);
+            ->storeAs('public/sliders', 'slider-'.$name.'- '.rand(100000, 999999).'.'.$ext);
+
+            $object->save();
+            $object->refresh();
+            ImageHelper::convert_image('Banner', $object->id, 'file');
 
             $ext = $request->file("responsive_file")->getClientOriginalExtension();
             $name = pathinfo($request->file("responsive_file")->getClientOriginalName(), PATHINFO_FILENAME);
             $object->responsive_file = $request->file("responsive_file")
-            ->storeAs('public/sliders', 'responsive-slider-'.$name.'- '.Carbon::now()->format('Y-m-d H:i:s').'.'.$ext);
+            ->storeAs('public/sliders', 'responsive-slider-'.$name.'- '.rand(100000, 999999).'.'.$ext);
             
             $object->save();
 
             $object->refresh();
+
+            ImageHelper::convert_image('Banner', $object->id, 'responsive_file');
 
             Log::info('Agregar banner', [
                 'date' => date('Y-m-d H:i:s'),
@@ -154,10 +161,12 @@ class BannerController extends GlobalController
             $ext = $request->file("file")->getClientOriginalExtension();
             $name = pathinfo($request->file("file")->getClientOriginalName(), PATHINFO_FILENAME);
             $object->file = $request->file("file")
-            ->storeAs('public/sliders', 'slider-'.$name.'- '.Carbon::now()->format('Y-m-d H:i:s').'.'.$ext);
+            ->storeAs('public/sliders', 'slider-'.$name.'- '.rand(100000, 999999).'.'.$ext);
 
             $object->save();
             $object->refresh();
+
+            ImageHelper::convert_image('Banner', $object->id, 'file');
 
             Log::info('Cambio de foto', [
                 'date' => date('Y-m-d H:i:s'),
@@ -172,10 +181,12 @@ class BannerController extends GlobalController
             $ext = $request->file("responsive_file")->getClientOriginalExtension();
             $name = pathinfo($request->file("responsive_file")->getClientOriginalName(), PATHINFO_FILENAME);
             $object->responsive_file = $request->file("responsive_file")
-            ->storeAs('public/sliders', 'responsive-slider-'.$name.'- '.Carbon::now()->format('Y-m-d H:i:s').'.'.$ext);
+            ->storeAs('public/sliders', 'responsive-slider-'.$name.'- '.rand(100000, 999999).'.'.$ext);
 
             $object->save();
             $object->refresh();
+
+            ImageHelper::convert_image('Banner', $object->id, 'responsive_file');
 
             Log::info('Cambio de foto', [
                 'date' => date('Y-m-d H:i:s'),

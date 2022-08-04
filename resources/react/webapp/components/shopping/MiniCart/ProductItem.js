@@ -6,6 +6,8 @@ import iconRemove from "../../../assets/images/icons/remove-mini-cart.svg";
 import {CartContext} from "../../../context/CartProvider";
 import QuantityInput from "../QuantityInput";
 import noImage from "../../../assets/images/producto-default.png";
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 const ProductItem = ({item}) => {
 
@@ -22,7 +24,14 @@ const ProductItem = ({item}) => {
         <div className="col-12 product-item">
             <div className="row">
                 <div className="col-auto">
-                    <img src={item.product.images.length ? item.product.images[0].public_file : noImage} alt={CONFIG.APP_NAME} style={{width: '77px'}}/>
+                    <LazyLoadImage
+                        alt={CONFIG.APP_NAME}
+                        title="Anticonceptivo"
+                        width={77}
+                        rel="nofollow"
+                        effect="blur"
+                        src={item.product.images.length ? item.product.images[0].public_file : noImage}
+                    />
                 </div>
                 <div className="col">
 

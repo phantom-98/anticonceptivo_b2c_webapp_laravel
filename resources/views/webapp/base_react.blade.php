@@ -11,13 +11,12 @@
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
-        rel="stylesheet">
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
 
     <link rel="stylesheet" href="/themes/web/assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/themes/web/assets/plugins/toastr/toastr.min.css">
     <link rel="stylesheet" href="/themes/web/app/css/app.css">
-
+    <link rel="stylesheet" href="/themes/web/assets/plugins/toastr/toastr.min.css">
     <!-- Google Tag Manager -->
     <script>(function (w, d, s, l, i) {
             w[l] = w[l] || [];
@@ -79,6 +78,12 @@
     <script src="//rum-static.pingdom.net/pa-61dda4d39034fb00110005ce.js" async></script>
 
     @yield('styles')
+
+    <style>
+        .slick-dots li button:before {
+            font-size: 9px !important;
+        }
+    </style>
 
     <link rel="shortcut icon" href="/themes/web/favicon/favicon.ico" type="image/x-icon">
     <link rel="icon" href="/themes/web/favicon/favicon.ico" type="image/x-icon">
@@ -165,6 +170,7 @@
 
         
 </div>
+
 
 <script src="/themes/web/app/js/app.js"></script>
 <script src="/themes/web/assets/js/custom.js"></script>

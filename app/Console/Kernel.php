@@ -17,6 +17,7 @@ class Kernel extends ConsoleKernel
         Commands\UpdateStateDispatch::class,
         Commands\UpdateStock::class,
         Commands\VoucherPaymentDays::class,
+        Commands\Sitemap::class,
     ];
 
     /**
@@ -31,7 +32,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('command:updateStock')->everyThreeMinutes();
         $schedule->command('command:paySubscriptions')->dailyAt('00:30');
         $schedule->command('command:updateStateDispatch')->everyFiveMinutes();
-
+        $schedule->command('command:sitemap')->dailyAt('01:00');
     }
 
     /**

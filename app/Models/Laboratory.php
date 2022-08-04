@@ -12,4 +12,8 @@ class Laboratory extends Model
         'corporate_name',
         'active'
     ];
+
+    public function products(){
+        return $this->hasMany(Product::class)->where('active',1);
+    }
 }

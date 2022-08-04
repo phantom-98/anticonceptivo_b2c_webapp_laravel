@@ -8,6 +8,8 @@ import SliderArrowRight from '../../assets/images/icons/slider-arrow-right.png';
 import SliderArrowLeft from '../../assets/images/icons/slider-arrow-left.png';
 import { AppContext } from "../../context/AppProvider";
 import {BREAKPOINTS} from "../../helpers/vars";
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 const BannerCarousel = ({topBanners}) => {
     const {breakpoint} = useContext(AppContext)
@@ -64,7 +66,13 @@ const BannerCarousel = ({topBanners}) => {
                         return (
                             banner.button_title ?
                                 <div key={topBannerKey}>
-                                    <img src={breakpoint === BREAKPOINTS.MEDIUM || breakpoint === BREAKPOINTS.LARGE || breakpoint === BREAKPOINTS.EXTRA_LARGE || breakpoint === BREAKPOINTS.EXTRA_EXTRA_LARGE ? banner.public_file : banner.public_file_responsive ?? banner.public_file} alt={CONFIG.APP_NAME} style={{ width:'100%'}}/>
+                                    <LazyLoadImage
+                                        alt={CONFIG.APP_NAME}
+                                        effect="blur"
+                                        src={breakpoint === BREAKPOINTS.MEDIUM || breakpoint === BREAKPOINTS.LARGE || breakpoint === BREAKPOINTS.EXTRA_LARGE || breakpoint === BREAKPOINTS.EXTRA_EXTRA_LARGE ? banner.public_file : banner.public_file_responsive ?? banner.public_file}
+                                        width={'100%'}
+                                        height={'100%'}
+                                    />
                                     <div className="banner-buttons font-poppins font-35 bold color-033F5D">
                                         <span style={{backgroundColor: 'white'}}>{banner.title}</span>
                                     </div>
@@ -77,7 +85,13 @@ const BannerCarousel = ({topBanners}) => {
                             :
                                 <div key={topBannerKey}>
                                     <a href={banner.button_link} target={banner.button_target}>
-                                        <img  src={breakpoint === BREAKPOINTS.MEDIUM || breakpoint === BREAKPOINTS.LARGE || breakpoint === BREAKPOINTS.EXTRA_LARGE || breakpoint === BREAKPOINTS.EXTRA_EXTRA_LARGE ? banner.public_file : banner.public_file_responsive ?? banner.public_file} alt={CONFIG.APP_NAME} style={{ width:'100%'}}/>
+                                        <LazyLoadImage
+                                            alt={CONFIG.APP_NAME}
+                                            effect="blur"
+                                            src={breakpoint === BREAKPOINTS.MEDIUM || breakpoint === BREAKPOINTS.LARGE || breakpoint === BREAKPOINTS.EXTRA_LARGE || breakpoint === BREAKPOINTS.EXTRA_EXTRA_LARGE ? banner.public_file : banner.public_file_responsive ?? banner.public_file}
+                                            width={'100%'}
+                                            height={'100%'}
+                                        />
                                         <div className="banner-buttons font-poppins font-35 bold color-033F5D">
                                             <span style={{backgroundColor: 'white'}}>{banner.title}</span>
                                         </div>

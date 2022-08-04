@@ -31,4 +31,9 @@ class PostType extends Model
         return $this->belongsToMany(Post::class, 'post_has_types', 'post_type_id', 'post_id');
     }
 
+    public function active_posts()
+    {
+        return $this->hasMany(Post::class)->where('active', 1);
+    }
+
 }

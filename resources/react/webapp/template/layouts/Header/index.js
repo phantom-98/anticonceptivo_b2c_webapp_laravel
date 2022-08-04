@@ -9,24 +9,18 @@ import HeaderTop from "./HeaderTop";
 import HeaderBox from "./HeaderBox";
 import HeaderNavbar from "./HeaderNavbar";
 import OffCanvas from "../../components/OffCanvas";
-import {CartContext} from "../../../context/CartProvider";
 import {AppContext} from "../../../context/AppProvider";
 import {ModalAuthMode} from "../../../Globals";
 import CategoryMenuMobile from "./CategoryMenuMobile";
-// import "slick-carousel/slick/slick.css";
-// import "slick-carousel/slick/slick-theme.css";
-// import Slider from "react-slick";
-import phoneWhite from "../../../assets/images/icons/header/phone-white.svg"
-import emailWhite from "../../../assets/images/icons/header/email-white.svg"
 import boxWhite from "../../../assets/images/icons/header/box-white.svg"
 import PUBLIC_ROUTES from "../../../routes/publicRoutes";
-import {v4 as uuidv4} from 'uuid';
-import Icon from "../../../components/general/Icon";
 import SearchModal from "./SearchModal";
 import TotalCartItems from "../../../components/shopping/TotalCartItems";
 import PRIVATE_ROUTES from "../../../routes/privateRoutes";
 import {AuthContext} from "../../../context/AuthProvider";
 import * as Services from "../../../Services";
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 const Header = () => {
 
@@ -137,11 +131,14 @@ const Header = () => {
                         <div className="row mx-2" style={{height: '70px'}}>
                             <div className="col d-flex" style={{justifyContent: 'center'}}>
                                 <div className="my-auto text-center" onClick={showMenu}>
-                                    <img src={menu}
-                                         alt="anticonceptivo.cl"
-                                         title="Anticonceptivo"
-                                         rel="nofollow"
-                                        // height="34px"
+                                    <LazyLoadImage
+                                        alt="anticonceptivo.cl"
+                                        title="Anticonceptivo"
+                                        rel="nofollow"
+                                        effect="blur"
+                                        src={menu}
+                                        height={'25px'}
+                                        width={'100%'}
                                     />
                                     <div className="text-icon-navbar-mobile">
                                         MENÚ
@@ -151,11 +148,14 @@ const Header = () => {
 
                             <div className="col d-flex" style={{justifyContent: 'center'}}>
                                 <div className="my-auto text-center" onClick={showSearch}>
-                                    <img src={search}
-                                         alt="anticonceptivo.cl"
-                                         title="Anticonceptivo"
-                                         rel="nofollow"
-                                        // height="25px"
+                                    <LazyLoadImage
+                                        alt="anticonceptivo.cl"
+                                        title="Anticonceptivo"
+                                        rel="nofollow"
+                                        effect="blur"
+                                        src={search}
+                                        height={'25px'}
+                                        width={'100%'}
                                     />
                                     <div className="text-icon-navbar-mobile">
                                         BUSCAR
@@ -166,10 +166,14 @@ const Header = () => {
                             <div className="col d-flex" style={{justifyContent: 'center', padding: '0 30px'}}>
                                 <div className="m-auto">
                                     <Link to="/">
-                                        <img
-                                            src={anticonceptivo}
+                                        <LazyLoadImage
                                             alt="anticonceptivo.cl"
                                             title="Anticonceptivo"
+                                            rel="nofollow"
+                                            effect="blur"
+                                            src={anticonceptivo}
+                                            height={'100%'}
+                                            width={'auto'}
                                         />
                                     </Link>
                                 </div>
@@ -180,11 +184,14 @@ const Header = () => {
                                 {
                                     auth ?
                                         <Link className="my-auto text-center" to={url}>
-                                            <img src={userBlue}
-                                                 alt="anticonceptivo.cl"
-                                                 title="Anticonceptivo"
-                                                 rel="nofollow"
-                                                 height="25px"
+                                            <LazyLoadImage
+                                                alt="anticonceptivo.cl"
+                                                title="Anticonceptivo"
+                                                rel="nofollow"
+                                                effect="blur"
+                                                src={userBlue}
+                                                height={'25px'}
+                                                width={'100%'}
                                             />
                                             <div className="text-icon-navbar-mobile">
                                                 CUENTA
@@ -194,11 +201,14 @@ const Header = () => {
 
                                         <div className="my-auto text-center"
                                              onClick={() => showModalAuth(ModalAuthMode.LOGIN)}>
-                                            <img src={userBlue}
-                                                 alt="anticonceptivo.cl"
-                                                 title="Anticonceptivo"
-                                                 rel="nofollow"
-                                                 height="25px"
+                                            <LazyLoadImage
+                                                alt="anticonceptivo.cl"
+                                                title="Anticonceptivo"
+                                                rel="nofollow"
+                                                effect="blur"
+                                                src={userBlue}
+                                                height={'100%'}
+                                                width={'100%'}
                                             />
                                             <div className="text-icon-navbar-mobile">
                                                 CUENTA
@@ -210,25 +220,16 @@ const Header = () => {
                             </div>
 
                             <div className="col d-flex" style={{justifyContent: 'center'}}>
-                                {/* <div className="my-auto" onClick={showMiniCart}>
-                                    <div className="cart-badge-quantity"><TotalCartItems/></div>
-                                    <img src={cartBlue}
-                                         alt="anticonceptivo.cl"
-                                         title="Anticonceptivo"
-                                         rel="nofollow"
-                                         height="25px"
-                                    />
-                                </div> */}
-
-
                                 <div className="my-auto text-center">
                                     <Link to={PUBLIC_ROUTES.CART.path}>
                                         <div className="cart-badge-quantity"><TotalCartItems/></div>
-                                        <img src={cartBlue}
-                                             alt="anticonceptivo.cl"
-                                             title="Anticonceptivo"
-                                             rel="nofollow"
-                                             height="25px"
+                                        <LazyLoadImage
+                                            alt="anticonceptivo.cl"
+                                            title="Anticonceptivo"
+                                            rel="nofollow"
+                                            effect="blur"
+                                            height={25}
+                                            src={cartBlue}
                                         />
                                     </Link>
                                     <div className="text-icon-navbar-mobile">

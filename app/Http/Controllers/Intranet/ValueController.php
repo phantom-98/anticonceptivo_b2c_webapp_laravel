@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
+use App\Http\Helpers\ImageHelper;
 
 class ValueController extends GlobalController
 {
@@ -60,6 +61,8 @@ class ValueController extends GlobalController
                 $filename = 'value-' . $object->id  .'.'. $image->getClientOriginalExtension();
                 $object->image = $image->storeAs('public/values', $filename);
                 $object->save();
+                $object->refresh();
+                ImageHelper::convert_image('Value', $object->id, 'image');
             }
 
             if ($object) {
@@ -127,6 +130,7 @@ class ValueController extends GlobalController
                 $object->save();
 
                 $object->refresh();
+                ImageHelper::convert_image('Value', $object->id, 'image');
 
                 Log::info('Cambio de foto', [
                     'date' => date('Y-m-d H:i:s'),

@@ -20,7 +20,7 @@ const ProductGallery = ({product, imageSubscription, productImage, hasImages}) =
             list.push(imageSubscription);
             setProductImages(list);
             setImageSelected(imageSubscription)
-        }     
+        }
     },[imageSubscription])
 
     useEffect(() => {
@@ -47,7 +47,7 @@ const ProductGallery = ({product, imageSubscription, productImage, hasImages}) =
                                 <div key={index} id={img}
                                     className={`img-box-product-mini ${!flag ? 'mb-3' : ''} pointer`}
                                     style={img == imageSelected ? { boxShadow: '1px 1px 8px -1px #009BE8' } : imageSelected == img.public_file ? { boxShadow: '1px 1px 8px -1px #009BE8' } : {}}>
-                                        <img 
+                                        <img
                                             src={img.public_file ? img.public_file : img}
                                             onMouseEnter={() => setImageSelected(img.public_file ? img.public_file : img)}
                                             alt={`${CONFIG.APP_NAME} - ${product.name}`}
@@ -59,14 +59,11 @@ const ProductGallery = ({product, imageSubscription, productImage, hasImages}) =
                 </div>
                 <div className="col">
                     <div className="img-box-product">
-                        {/* <img src={imageSelected} alt={`${CONFIG.APP_NAME} - ${product.name}`}/> */}
                         <SideBySideMagnifier
                             imageSrc={imageSelected}
-                            // largeImageSrc={imageSelected}
                             imageAlt={`${CONFIG.APP_NAME}`}
                             fillAlignTop={true}
                             fillAvailableSpace={false}
-                            // alwaysInPlace={true}
                         />
                     </div>
                 </div>

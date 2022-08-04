@@ -4,6 +4,8 @@ import PUBLIC_ROUTES from "../../../routes/publicRoutes";
 import Icon from "../../../components/general/Icon";
 import logoFull from "../../../assets/images/logo-full.svg";
 import {Link} from "react-router-dom";
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 const OffCanvas = ({children, showCanvas, closeCanvas}) => {
 
@@ -27,13 +29,19 @@ const OffCanvas = ({children, showCanvas, closeCanvas}) => {
                         }}>
                             <div className="col-8">
                                 <Link to={PUBLIC_ROUTES.HOME.path}>
-                                    <Icon path={logoFull} style={{height: 28}}/>
+                                    <Icon path={logoFull} style={{height: '28', width: '100%'}}/>
                                 </Link>
                                 {/*<span className="font-18 bold font-poppins color-0869A6"*/}
                                 {/*      style={{letterSpacing: '5px'}}>Categorías</span>*/}
                             </div>
                             <div className="col-4 pointer mb-2 text-right" onClick={closeCanvas}>
-                                <img src={CloseSvg} rel="nofollow" alt="anticonceptivo"/>
+                                <LazyLoadImage
+                                    alt="anticonceptivo"
+                                    title="Anticonceptivo"
+                                    rel="nofollow"
+                                    effect="blur"
+                                    src={CloseSvg}
+                                />
                             </div>
                         </div>
                         <div className="canvas-content">

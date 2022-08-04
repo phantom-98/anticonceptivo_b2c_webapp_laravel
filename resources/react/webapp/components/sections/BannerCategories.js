@@ -5,7 +5,8 @@ import { Link } from "react-router-dom";
 import PUBLIC_ROUTES from "../../routes/publicRoutes";
 import { AppContext } from "../../context/AppProvider";
 import {BREAKPOINTS} from "../../helpers/vars";
-
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 const BannerCategories = ({ bannerCategories }) => {
     const {breakpoint} = useContext(AppContext)
@@ -53,20 +54,22 @@ const BannerCategories = ({ bannerCategories }) => {
                                                     isRight ?
                                                         <>
                                                             <div className={responsiveCol("col-9")}>
-                                                                <img
-                                                                    src={breakpoint === BREAKPOINTS.MEDIUM ||breakpoint === BREAKPOINTS.LARGE || breakpoint === BREAKPOINTS.EXTRA_LARGE || breakpoint === BREAKPOINTS.EXTRA_EXTRA_LARGE ? bannerCategory.public_subbanner_image : bannerCategory.public_banner_subimage_responsive ?? bannerCategory.public_subbanner_image}
+                                                                <LazyLoadImage
                                                                     alt={CONFIG.APP_NAME}
-                                                                    style={{ width: "100%" }}
+                                                                    effect="blur"
+                                                                    src={breakpoint === BREAKPOINTS.MEDIUM ||breakpoint === BREAKPOINTS.LARGE || breakpoint === BREAKPOINTS.EXTRA_LARGE || breakpoint === BREAKPOINTS.EXTRA_EXTRA_LARGE ? bannerCategory.public_subbanner_image : bannerCategory.public_banner_subimage_responsive ?? bannerCategory.public_subbanner_image}
+                                                                    width={'100%'}
                                                                 />
                                                             </div>
 
                                                             <div className={responsiveCol("col-3") + " text-center flex-footer-column"} >
                                                                 <div className="w-100 h-100 d-flex "  style={{backgroundColor: '#0869A6'}}>
                                                                     <div className="m-auto">
-                                                                        <img
-                                                                            style={{ width: 35}}
-                                                                            src={bannerCategory.public_image}
+                                                                        <LazyLoadImage
                                                                             alt={CONFIG.APP_NAME}
+                                                                            effect="blur"
+                                                                            src={bannerCategory.public_image}
+                                                                            width={35}
                                                                         />
                                                                         <h2 className="mt-3 font-15 bold font-poppins text-white">{bannerCategory.name}</h2>
 
@@ -80,10 +83,11 @@ const BannerCategories = ({ bannerCategories }) => {
                                                             <div className={responsiveCol("col-3") + " text-center flex-footer-column"} >
                                                                 <div className="w-100 h-100 d-flex "  style={{backgroundColor: '#0869A6'}}>
                                                                     <div className="m-auto">
-                                                                        <img
-                                                                            style={{ width: 35}}
-                                                                            src={bannerCategory.public_image}
+                                                                        <LazyLoadImage
                                                                             alt={CONFIG.APP_NAME}
+                                                                            effect="blur"
+                                                                            src={bannerCategory.public_image}
+                                                                            width={35}
                                                                         />
                                                                         <h2 className="mt-3 font-15 bold font-poppins text-white">{bannerCategory.name}</h2>
 
@@ -94,10 +98,11 @@ const BannerCategories = ({ bannerCategories }) => {
                                                             </div>
 
                                                             <div className={responsiveCol("col-9")}>
-                                                                <img
-                                                                    src={breakpoint === BREAKPOINTS.MEDIUM ||breakpoint === BREAKPOINTS.LARGE || breakpoint === BREAKPOINTS.EXTRA_LARGE || breakpoint === BREAKPOINTS.EXTRA_EXTRA_LARGE ? bannerCategory.public_subbanner_image : bannerCategory.public_banner_subimage_responsive ?? bannerCategory.public_subbanner_image}
+                                                                <LazyLoadImage
                                                                     alt={CONFIG.APP_NAME}
-                                                                    style={{ width: "100%" }}
+                                                                    effect="blur"
+                                                                    src={breakpoint === BREAKPOINTS.MEDIUM ||breakpoint === BREAKPOINTS.LARGE || breakpoint === BREAKPOINTS.EXTRA_LARGE || breakpoint === BREAKPOINTS.EXTRA_EXTRA_LARGE ? bannerCategory.public_subbanner_image : bannerCategory.public_banner_subimage_responsive ?? bannerCategory.public_subbanner_image}
+                                                                    width={'100%'}
                                                                 />
                                                             </div>
 

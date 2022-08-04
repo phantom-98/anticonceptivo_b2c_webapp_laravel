@@ -10,8 +10,10 @@ import TotalCartPriceFinal from "../../../components/shopping/TotalCartPriceFina
 import WebPayProccess from "./Payment/WebPayProccess";
 import * as Services from "../../../Services";
 import toastr from "toastr";
-import AddAddress from "./AddAddress";
-import {setInputError} from "../../../helpers/GlobalUtils";
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
+import UpSvg from '../../../../../../public/themes/web/assets/images/up.svg';
+import DownSvg from '../../../../../../public/themes/web/assets/images/down.svg';
 
 const Resume = ({
     showFinal,
@@ -118,9 +120,21 @@ const Resume = ({
                         <div className="col-auto">
                             {
                                 showResumenCart ?
-                                    <img src="/themes/web/assets/images/up.svg" alt={CONFIG.APP_NAME}/>
+                                    <LazyLoadImage
+                                        alt={CONFIG.APP_NAME}
+                                        title="Anticonceptivo"
+                                        rel="nofollow"
+                                        effect="blur"
+                                        src={UpSvg}
+                                    />
                                     :
-                                    <img src="/themes/web/assets/images/down.svg" alt={CONFIG.APP_NAME}/>
+                                    <LazyLoadImage
+                                        alt={CONFIG.APP_NAME}
+                                        title="Anticonceptivo"
+                                        rel="nofollow"
+                                        effect="blur"
+                                        src={DownSvg}
+                                    />
                             }
                         </div>
                     </div>
@@ -227,8 +241,14 @@ const Resume = ({
                                                 </h4>
                                             </div>
                                             <div className="col-md-6">
-                                                <img src={logoWebpay} alt={CONFIG.APP_NAME}
-                                                     style={{width: '100%'}}/>
+                                                <LazyLoadImage
+                                                    alt={CONFIG.APP_NAME}
+                                                    title="Anticonceptivo"
+                                                    rel="nofollow"
+                                                    effect="blur"
+                                                    width={'100%'}
+                                                    src={logoWebpay}
+                                                />
                                             </div>
                                         </div>
                                     </div>
