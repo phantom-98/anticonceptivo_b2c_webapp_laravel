@@ -10,6 +10,8 @@
     <link rel="shortcut icon" href="/themes/web/favicon/favicon.ico" type="image/x-icon">
     <link rel="icon" href="/themes/web/favicon/favicon.ico" type="image/x-icon">
 
+    <link rel="canonical" href="https://anticonceptivo.cl/" />
+
     <link rel="apple-touch-icon" sizes="57x57" href="/themes/web/assets/img/favicon/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="/themes/web/assets/img/favicon/apple-icon-60x60.png">
     <link rel="apple-touch-icon" sizes="72x72" href="/themes/web/assets/img/favicon/apple-icon-72x72.png">
