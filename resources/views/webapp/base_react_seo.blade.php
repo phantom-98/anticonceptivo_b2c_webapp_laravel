@@ -12,8 +12,6 @@
 {!! $metas ?? '' !!}
 
 <!-- Fonts -->
-
-    <link rel="canonical" href="https://anticonceptivo.cl/" />
     <link rel="preconnect" href="https://fonts.gstatic.com">
 
     <link
