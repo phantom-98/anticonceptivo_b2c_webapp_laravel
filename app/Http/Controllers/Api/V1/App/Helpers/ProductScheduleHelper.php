@@ -79,6 +79,7 @@ class ProductScheduleHelper
                     'sub_label' => TOMORROW('sub_label'),
                     'schedule' => $schedule,
                     'label_status' => 'TOMORROW',
+                    'label_calendar' => self::getCalendarLabelStatusByLabel('TOMORROW')
                 );
             }
 
@@ -99,6 +100,7 @@ class ProductScheduleHelper
                 'sub_label' => $custom_sub_label,
                 'schedule' => $schedule,
                 'label_status' => 'AFTER_TOMORROW',
+                'label_calendar' => self::getCalendarLabelStatusByLabel('AFTER_TOMORROW')
             );
         }
         return array(
@@ -108,6 +110,7 @@ class ProductScheduleHelper
             'sub_label' => $sub_label,
             'schedule' => $schedule,
             'label_status' => self::getLabelStatusByLabel($label),
+            'label_calendar' => self::getCalendarLabelStatusByLabel($label)
         );
     }
 
@@ -123,6 +126,32 @@ class ProductScheduleHelper
         }
         if($label == TODAY('label')){
             return 'TODAY';
+        }
+        return 'IMMEDIATE';
+    }
+
+    public static function getCalendarLabelStatusByLabel($label){
+        $meses = array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
+
+        if($label == AFTER_TOMORROW('label')){
+            $fecha = Carbon::now()->addDays(2);
+            $mes = $meses[($fecha->format('n')) - 1];
+            return self::getDayAttribute(Carbon::now()->addDays(2)->format('w')).' '.Carbon::now()->addDays(2)->format('d').' de '.$mes;
+        }
+        if($label == AFTER_TOMORROW_CUSTOM('label')){
+            $fecha = Carbon::now()->addDays(2);
+            $mes = $meses[($fecha->format('n')) - 1];
+            return self::getDayAttribute(Carbon::now()->addDays(2)->format('w')).' '.Carbon::now()->addDays(2)->format('d').' de '.$mes;
+        }
+        if($label == TOMORROW('label')){
+            $fecha = Carbon::now()->addDays(1);
+            $mes = $meses[($fecha->format('n')) - 1];
+            return self::getDayAttribute(Carbon::now()->addDays(1)->format('w')).' '.Carbon::now()->addDays(1)->format('d').' de '.$mes;
+        }
+        if($label == TODAY('label')){
+            $fecha = Carbon::now();
+            $mes = $meses[($fecha->format('n')) - 1];
+            return self::getDayAttribute(Carbon::now()->format('w')).' '.Carbon::now()->format('d').' de '.$mes;
         }
         return 'IMMEDIATE';
     }
@@ -265,5 +294,31 @@ class ProductScheduleHelper
 
 
     }
+
+    
+    public static function getDayAttribute($day)
+    {
+        if ($day == 0) {
+            return "Domingo";
+        }
+        if ($day == 1) {
+            return "Lunes";
+        }
+        if ($day == 2) {
+            return "Martes";
+        }
+        if ($day == 3) {
+            return "Miércoles";
+        }
+        if ($day == 4) {
+            return "Jueves";
+        }
+        if ($day == 5) {
+            return "Viernes";
+        }
+        if ($day == 6) {
+            return "Sábado";
+        }
+    } 
 
 }
