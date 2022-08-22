@@ -288,25 +288,25 @@ class ProductScheduleHelper
     
     public static function getDayAttribute($day)
     {
-        if (Carbon::parse($day)->format('w') == 0) {
+        if ($day == 0) {
             return "Domingo";
         }
-        if (Carbon::parse($day)->format('w') == 1) {
+        if ($day == 1) {
             return "Lunes";
         }
-        if (Carbon::parse($day)->format('w') == 2) {
+        if ($day == 2) {
             return "Martes";
         }
-        if (Carbon::parse($day)->format('w') == 3) {
+        if ($day == 3) {
             return "Miércoles";
         }
-        if (Carbon::parse($day)->format('w') == 4) {
+        if ($day == 4) {
             return "Jueves";
         }
-        if (Carbon::parse($day)->format('w') == 5) {
+        if ($day == 5) {
             return "Viernes";
         }
-        if (Carbon::parse($day)->format('w') == 6) {
+        if ($day == 6) {
             return "Sábado";
         }
     } 
