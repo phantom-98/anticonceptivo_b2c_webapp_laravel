@@ -79,6 +79,7 @@ class ProductScheduleHelper
                     'sub_label' => TOMORROW('sub_label'),
                     'schedule' => $schedule,
                     'label_status' => 'TOMORROW',
+                    'label_calendar' => self::getCalendarLabelStatusByLabel('TOMORROW')
                 );
             }
 
@@ -99,6 +100,7 @@ class ProductScheduleHelper
                 'sub_label' => $custom_sub_label,
                 'schedule' => $schedule,
                 'label_status' => 'AFTER_TOMORROW',
+                'label_calendar' => self::getCalendarLabelStatusByLabel('AFTER_TOMORROW')
             );
         }
         return array(
@@ -108,6 +110,7 @@ class ProductScheduleHelper
             'sub_label' => $sub_label,
             'schedule' => $schedule,
             'label_status' => self::getLabelStatusByLabel($label),
+            'label_calendar' => self::getCalendarLabelStatusByLabel($label)
         );
     }
 
@@ -123,6 +126,22 @@ class ProductScheduleHelper
         }
         if($label == TODAY('label')){
             return 'TODAY';
+        }
+        return 'IMMEDIATE';
+    }
+
+    public static function getCalendarLabelStatusByLabel($label){
+        if($label == AFTER_TOMORROW('label')){
+            return $this->getDayAttribute(Carbon::now()->addDays(2)->format('w')).' '.Carbon::now()->addDays(2)->format('d/m');
+        }
+        if($label == AFTER_TOMORROW_CUSTOM('label')){
+            return $this->getDayAttribute(Carbon::now()->addDays(2)->format('w')).' '.Carbon::now()->addDays(2)->format('d/m');
+        }
+        if($label == TOMORROW('label')){
+            return $this->getDayAttribute(Carbon::now()->addDays(1)->format('w')).' '.Carbon::now()->addDays(1)->format('d/m');
+        }
+        if($label == TODAY('label')){
+            return $this->getDayAttribute(Carbon::now()->format('w')).' '.Carbon::now()->format('d/m');
         }
         return 'IMMEDIATE';
     }
@@ -265,5 +284,31 @@ class ProductScheduleHelper
 
 
     }
+
+    
+    public function getDayAttribute($day): string
+    {
+        if (Carbon::parse($day)->format('w') == 0) {
+            return "Domingo";
+        }
+        if (Carbon::parse($day)->format('w') == 1) {
+            return "Lunes";
+        }
+        if (Carbon::parse($day)->format('w') == 2) {
+            return "Martes";
+        }
+        if (Carbon::parse($day)->format('w') == 3) {
+            return "Miércoles";
+        }
+        if (Carbon::parse($day)->format('w') == 4) {
+            return "Jueves";
+        }
+        if (Carbon::parse($day)->format('w') == 5) {
+            return "Viernes";
+        }
+        if (Carbon::parse($day)->format('w') == 6) {
+            return "Sábado";
+        }
+    } 
 
 }
