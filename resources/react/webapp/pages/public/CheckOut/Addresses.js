@@ -118,7 +118,7 @@ const Addresses = ({setView, regions, communes, address, setAddress, dispatchDat
                                 </div>
                                 <div className="col-auto mx-2 d-flex">
                                     <span className="my-auto font-poppins font-12 regular color-8E8E8E">
-                                        {dispatchDateObject?.label}
+                                        {dispatchDateObject?.label_calendar}
                                     </span>
                                 </div>
                             </div>
