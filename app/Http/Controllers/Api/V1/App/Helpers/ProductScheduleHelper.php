@@ -132,16 +132,16 @@ class ProductScheduleHelper
 
     public static function getCalendarLabelStatusByLabel($label){
         if($label == AFTER_TOMORROW('label')){
-            return $this->getDayAttribute(Carbon::now()->addDays(2)->format('w')).' '.Carbon::now()->addDays(2)->format('d/m');
+            return self::getDayAttribute(Carbon::now()->addDays(2)->format('w')).' '.Carbon::now()->addDays(2)->format('d/m');
         }
         if($label == AFTER_TOMORROW_CUSTOM('label')){
-            return $this->getDayAttribute(Carbon::now()->addDays(2)->format('w')).' '.Carbon::now()->addDays(2)->format('d/m');
+            return self::getDayAttribute(Carbon::now()->addDays(2)->format('w')).' '.Carbon::now()->addDays(2)->format('d/m');
         }
         if($label == TOMORROW('label')){
-            return $this->getDayAttribute(Carbon::now()->addDays(1)->format('w')).' '.Carbon::now()->addDays(1)->format('d/m');
+            return self::getDayAttribute(Carbon::now()->addDays(1)->format('w')).' '.Carbon::now()->addDays(1)->format('d/m');
         }
         if($label == TODAY('label')){
-            return $this->getDayAttribute(Carbon::now()->format('w')).' '.Carbon::now()->format('d/m');
+            return self::getDayAttribute(Carbon::now()->format('w')).' '.Carbon::now()->format('d/m');
         }
         return 'IMMEDIATE';
     }
@@ -286,7 +286,7 @@ class ProductScheduleHelper
     }
 
     
-    public function getDayAttribute($day): string
+    public static function getDayAttribute($day)
     {
         if (Carbon::parse($day)->format('w') == 0) {
             return "Domingo";
