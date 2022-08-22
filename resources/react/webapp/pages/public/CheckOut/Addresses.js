@@ -107,7 +107,7 @@ const Addresses = ({setView, regions, communes, address, setAddress, dispatchDat
                 <div className="panel-body">
 
                     <h3 className="font-poppins font-16 bold color-033F5D mb-3">
-                        Fecha estimada de entrega
+                        Fecha estimada de entregaaaaa
                     </h3>
 
                     <div className="row">
