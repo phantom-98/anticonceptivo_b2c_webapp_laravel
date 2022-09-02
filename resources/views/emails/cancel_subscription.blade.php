@@ -5,9 +5,15 @@
     <div class="titulo">Hola {{ $nombre }}:</div>
     <div class="mensaje">
         <p class="text-legal">
-            Informamos que se ha realizado la cancelación de la suscripción #{{$suscripcion}}.
+            Informamos que se ha realizado la cancelación de la suscripción <b>#{{$suscripcion}}.</b>
+            <br/><br/>
+            <b>Nombre Cliente:</b> {{$customer->first_name.' '.$customer->last_name}}
             <br/>
-            Para mayor información de la suscripción consultar Base de datos en tabla 'subscription' y 'subscriptions_orders_items'.
+            <b>RUT Cliente:</b> {{$customer->id_number}}
+            <br/>
+            <b>Teléfono Cliente:</b> {{$customer->phone}}
+            <br/><br/>
+            Para mayor información de la suscripción consultar Base de datos en tabla 'subscriptions' y 'subscriptions_orders_items'.
         </p>
 
 

@@ -352,7 +352,9 @@ class ProfileController extends Controller
             try{
                 $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
 
-                $html2 = view('emails.cancel_subscription', ['suscripcion' => $subscriptionsOrdersItem->subscription_id, 'nombre' => 'Equipo Anticonceptivo'])->render();
+                $subscription = Subscription::with('customer')->find($subscriptionsOrdersItem->subscription_id);
+
+                $html2 = view('emails.cancel_subscription', ['suscripcion' => $subscriptionsOrdersItem->subscription_id, 'nombre' => 'Equipo Anticonceptivo', 'customer' => $subscription->customer])->render();
 
                 $email2 = new \SendGrid\Mail\Mail();
         
@@ -369,7 +371,7 @@ class ProfileController extends Controller
 
                 $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
 
-                $html2 = view('emails.cancel_subscription', ['suscripcion' => $subscriptionsOrdersItem->subscription_id, 'nombre' => 'Equipo Anticonceptivo'])->render();
+                $html2 = view('emails.cancel_subscription', ['suscripcion' => $subscriptionsOrdersItem->subscription_id, 'nombre' => 'Equipo Anticonceptivo', 'customer' => $subscription->customer])->render();
 
                 $email2 = new \SendGrid\Mail\Mail();
         
