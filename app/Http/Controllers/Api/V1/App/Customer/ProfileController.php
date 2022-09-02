@@ -349,6 +349,44 @@ class ProfileController extends Controller
                 $item->save();
             }
 
+            try{
+                $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
+
+                $html2 = view('emails.cancel_subscription', ['suscripcion' => $subscriptionsOrdersItem->subscription_id, 'nombre' => 'Equipo Anticonceptivo'])->render();
+
+                $email2 = new \SendGrid\Mail\Mail();
+        
+                $email2->setFrom("info@anticonceptivo.cl", 'Anticonceptivo');
+                $email2->setSubject('Cancelación Suscripción #' . $subscriptionsOrdersItem->subscription_id);
+                $email2->addTo("contacto@anticonceptivo.cl", 'Anticonceptivo');
+        
+                $email2->addContent(
+                    "text/html", $html2
+                );
+        
+                $sendgrid->send($email2);
+
+
+                $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
+
+                $html2 = view('emails.cancel_subscription', ['suscripcion' => $subscriptionsOrdersItem->subscription_id, 'nombre' => 'Equipo Anticonceptivo'])->render();
+
+                $email2 = new \SendGrid\Mail\Mail();
+        
+                $email2->setFrom("info@anticonceptivo.cl", 'Anticonceptivo');
+                $email2->setSubject('Cancelación Suscripción #' . $subscriptionsOrdersItem->subscription_id);
+                $email2->addTo("fpenailillo@innovaweb.cl", 'Felipe Peñailillo');
+        
+                $email2->addContent(
+                    "text/html", $html2
+                );
+        
+                $sendgrid->send($email2);
+
+            } catch (\Exception $exception) {
+                
+            }
+
             return ApiResponse::JsonSuccess($subscriptionsOrdersItem, OutputMessage::SUCCESS);
 
         } catch (\Exception $exception) {
