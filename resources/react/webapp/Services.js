@@ -86,6 +86,11 @@ export const ENDPOINT = {
                 BOTTOM: GetBaseURL() + 'public-area/get-home-bottom-banners',
             },
         },
+        CARROUSELS:{
+            GET_OUTSTANDING: GetBaseURL() + 'public-area/get-outstandings',
+            GET_CONDOMS: GetBaseURL() + 'public-area/get-condoms',
+            GET_BEST_SELLERS: GetBaseURL() + 'public-area/get-best-sellers',
+        },
         CORPORATE_RESPONSIBILITY: GetBaseURL() + 'public-area/get-corporate-responsabilities',
         BLOG: {
             POSTS: GetBaseURL() + 'public-area/get-posts',
