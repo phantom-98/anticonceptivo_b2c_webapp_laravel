@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.anticonceptivo.cl/sitemap.xml
+Sitemap: https://dev.anticonceptivo.tienda.innovaweb.cl/sitemap.xml

@@ -1,9 +1,40 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import H2Title from "../general/H2Title";
 import ProductCard from "../shopping/ProductCard";
 import { v4 as uuidv4 } from 'uuid';
+import * as Services from "../../Services";
+import LazyLoading from '../LazyLoading';
 
-const CondomProduct = ({condomProducts}) => {
+const CondomProduct = ({}) => {
+
+    const [condoms, setCondoms] = useState([]);
+    const [isLoaded, setIsLoaded] = useState(false);
+
+    useEffect(() => {
+        getData();
+    }, [])
+
+    const getData = () => {
+        let url = Services.ENDPOINT.PUBLIC_AREA.CARROUSELS.GET_CONDOMS;
+        let data = {}
+        Services.DoGet(url, data).then(response => {
+            Services.Response({
+                response: response,
+                success: () => {
+                    setCondoms(response.data);
+                    setIsLoaded(true);
+                },
+            });
+        }).catch(error => {
+            Services.ErrorCatch(error)
+        });
+    }
+
+    if (!isLoaded) {
+        return (
+            <LazyLoading />
+        )
+    }
 
     return (
         <div className="py-3" style={{background: '#FFFFFF'}}>
@@ -18,7 +49,7 @@ const CondomProduct = ({condomProducts}) => {
                     <div className="col-12 pb-3">
                         <div className="row card-products-gutters">
                             {
-                                condomProducts.map((product, index) => {
+                                condoms.map((product, index) => {
                                     let uuid = uuidv4();
                                     return (<div className="col-6 col-md-6 col-lg-3 mb-3" key={uuid}>
                                         <ProductCard product={product}/>
@@ -31,7 +62,7 @@ const CondomProduct = ({condomProducts}) => {
 
                 <div className="row">
                     <div className="col-12 text-center">
-                        <a style={{textDecoration:"underline"}} href="https://dev.anticonceptivo.tienda.innovaweb.cl/tienda/preservativos/condones">Ver más</a>
+                        <a style={{textDecoration:"underline"}} href="https://anticonceptivo.cl/tienda/preservativos/condones">Ver más</a>
                     </div>
                 </div>
             </div>

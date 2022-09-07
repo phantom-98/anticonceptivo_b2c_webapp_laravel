@@ -1,6 +1,6 @@
 import React, {Fragment, useContext, useEffect} from 'react';
-import ReactDOM from 'react-dom';
-import ProductItem from "../../../components/shopping/MiniCart/ProductItem";
+// import ReactDOM from 'react-dom';
+// import ProductItem from "../../../components/shopping/MiniCart/ProductItem";
 import ProductItemList from "../../../components/shopping/ProductItemList";
 import {CartContext} from "../../../context/CartProvider";
 import TotalCartItems from "../../../components/shopping/TotalCartItems";
@@ -11,6 +11,9 @@ import {CONFIG} from "../../../Config";
 import logoWebpay from '../../../assets/images/webpayColor.svg'
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
+import OutstandingCarousel from '../../../components/sections/OutstandingCarousel';
+import CondomProduct from '../../../components/sections/CondomProduct';
+import BestSeller from '../../../components/sections/BestSellers';
 
 const Cart = () => {
     window.dataLayer = window.dataLayer || [];
@@ -122,6 +125,9 @@ const Cart = () => {
                             </div>
                         </div>
                     </div>
+                    <OutstandingCarousel title={'Destacados'}/>
+                    <CondomProduct/>
+                    <BestSeller title="LOS 12 MÁS COMPRADOS"/>
                 </div>
             </div>
         </Fragment>

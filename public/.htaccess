@@ -38,6 +38,7 @@
     ExpiresByType image/jp2 "now plus 1 month"
     ExpiresByType image/pipeg "now plus 1 month"
     ExpiresByType image/png "now plus 1 month"
+    ExpiresByType image/webp "now plus 1 month"
     ExpiresByType image/svg+xml "now plus 1 month"
     ExpiresByType image/tiff "now plus 1 month"
     ExpiresByType image/x-icon "now plus 1 month"
@@ -97,6 +98,7 @@ AddOutputFilterByType DEFLATE text/plain
 AddOutputFilterByType DEFLATE text/html
 AddOutputFilterByType DEFLATE text/xml
 AddOutputFilterByType DEFLATE text/css
+AddOutputFilterByType DEFLATE image/webp
 AddOutputFilterByType DEFLATE application/xml
 AddOutputFilterByType DEFLATE application/xhtml+xml
 AddOutputFilterByType DEFLATE application/rss+xml
@@ -105,6 +107,6 @@ AddOutputFilterByType DEFLATE application/x-javascript
 
 
 ##### 1 Month for most static resources
-<filesMatch ".(css|jpg|jpeg|png|gif|js|ico)$">
+<filesMatch ".(css|jpg|jpeg|png|gif|js|ico|webp)$">
     Header set Cache-Control "max-age=2592000, public"
 </filesMatch>

@@ -31,9 +31,9 @@ const Home = ({match}) => {
     const [topBanners, setTopBanners] = useState([]);
     const [bannerCategories, setBannerCategories] = useState([]);
     const [middleBanners, setMiddleBanners] = useState([]);
-    const [outstandings, setOutstandings] = useState([]);
-    const [bestSellers, setBestSellers] = useState([]);
-    const [condomProducts, setCondomProducts] = useState([]);
+    // const [outstandings, setOutstandings] = useState([]);
+    // const [bestSellers, setBestSellers] = useState([]);
+    // const [condomProducts, setCondomProducts] = useState([]);
 
     const [isLoaded, setIsLoaded] = useState(false);
 
@@ -65,9 +65,9 @@ const Home = ({match}) => {
                     // setBrands(response.data.brands);
                     setBannerCategories(response.data.bannerCategories);
                     // setBlogPosts(response.data.blog_posts);
-                    setOutstandings(response.data.outstandings);
-                    setBestSellers(response.data.best_sellers);
-                    setCondomProducts(response.data.condom_products);
+                    // setOutstandings(response.data.outstandings);
+                    // setBestSellers(response.data.best_sellers);
+                    // setCondomProducts(response.data.condom_products);
                     setIsLoaded(true);
                 },
             });
@@ -86,11 +86,11 @@ const Home = ({match}) => {
         <div className="bg-FAFAFA">
             <BannerCarousel topBanners={topBanners}/>
 
-            <OutstandingCarousel title="Destacados" outstandings={outstandings}/>
+            <OutstandingCarousel title="Destacados"/>
 
-            <CondomProduct condomProducts={condomProducts}/>
+            <CondomProduct/>
 
-            <BestSeller title="LOS 12 MÁS COMPRADOS" bestSellers={bestSellers}/>
+            <BestSeller title="LOS 12 MÁS COMPRADOS"/>
 
             <BannerStatic banners={middleBanners}/>
 
