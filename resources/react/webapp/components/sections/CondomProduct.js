@@ -62,7 +62,7 @@ const CondomProduct = ({}) => {
 
                 <div className="row">
                     <div className="col-12 text-center">
-                        <a style={{textDecoration:"underline"}} href="https://dev.anticonceptivo.tienda.innovaweb.cl/tienda/preservativos/condones">Ver más</a>
+                        <a style={{textDecoration:"underline"}} href="https://anticonceptivo.cl/tienda/preservativos/condones">Ver más</a>
                     </div>
                 </div>
             </div>
