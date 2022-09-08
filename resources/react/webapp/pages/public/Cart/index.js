@@ -142,7 +142,7 @@ const Cart = () => {
 
             <div className="pb-5" style={{background: '#FAFAFA'}}>
                 <div className="container pt-4">
-                    <div className="row pb-5">
+                    <div className="row pb-2">
                         <div className="col-md-12 mb-3">
                             <h3 className="font-poppins font-21 bold color-0869A6 checkout-mobile-h3" style={{letterSpacing: '2px'}}>
                                 CARRO DE COMPRAS <span className="font-poppins font-16 regular color-6C6B6B">(<TotalCartItems/>)</span>
