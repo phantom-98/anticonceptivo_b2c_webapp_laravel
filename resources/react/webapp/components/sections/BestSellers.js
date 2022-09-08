@@ -10,7 +10,10 @@ import {BREAKPOINTS} from "../../helpers/vars";
 import * as Services from "../../Services";
 import LazyLoading from '../LazyLoading';
 
-const BestSeller = ({title}) => {
+const BestSeller = ({
+    title,
+    style='pb-5 mb-2'
+}) => {
     const {breakpoint} = useContext(AppContext)
     const [bestSellers, setBestSellers] = useState([]);
     const [isLoaded, setIsLoaded] = useState(false);
@@ -57,11 +60,15 @@ const BestSeller = ({title}) => {
     return (
         <div className="py-3" style={{background: '#FFFFFF'}}>
             <div className="container">
-                <div className="row pb-5 mb-2 card-products-gutters">
+                <div className={`row card-products-gutters ${style}`}>
 
-                    <div className="col-12 py-4">
-                        <H2Title text={title}/>
-                    </div>
+                    {
+                        title && (
+                            <div className="col-12 py-4">
+                                <H2Title text={title}/>
+                            </div>
+                        )
+                    }
 
                     <div className="col-12">
                         <Slider

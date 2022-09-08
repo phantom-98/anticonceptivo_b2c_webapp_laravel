@@ -38,8 +38,6 @@ const Cart = () => {
     } = useContext(CartContext);
 
     return (
-
-
             breakpoint === BREAKPOINTS.MEDIUM || breakpoint === BREAKPOINTS.LARGE || breakpoint === BREAKPOINTS.EXTRA_LARGE || breakpoint === BREAKPOINTS.EXTRA_EXTRA_LARGE ?
             <div className="pb-5" style={{background: '#FAFAFA'}}>
                 <div className="container pt-4">
@@ -133,13 +131,10 @@ const Cart = () => {
                     </div>
                 </div>
                 <OutstandingCarousel title={'Destacados'}/>
-                <CondomProduct/>
+                <CondomProduct title="Preservativos"/>
                 <BestSeller title="LOS 12 MÁS COMPRADOS"/>
             </div>
-
-
             :
-
             <div className="pb-5" style={{background: '#FAFAFA'}}>
                 <div className="container pt-4">
                     <div className="row pb-2">
@@ -168,9 +163,15 @@ const Cart = () => {
                             </div>
                         </div>
                     </div>
-                        <OutstandingCarousel title={'Destacados'}/>
-                        <CondomProduct/>
-                        <BestSeller title="LOS 12 MÁS COMPRADOS"/>
+                        <OutstandingCarousel
+                            style={'pt-2 pb-2'}
+                        />
+                        <CondomProduct
+                            // style={'pt-5 pb-5'}
+                        />
+                        <BestSeller
+                            style={'pt-2 pb-4'}
+                        />
                     <div className='row pb-5'>
 
                         <div className="col-12 col-lg-auto pl-md-2 panel-cart-total">
@@ -236,8 +237,6 @@ const Cart = () => {
                     </div>
                 </div>
             </div>
-
-
     );
 };
 
