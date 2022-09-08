@@ -195,11 +195,19 @@ class HomeController extends Controller
     public function getOutstandings()
     {
         try {
-            $outstandings = Product::where('outstanding', true)->where('active',true)->where('recipe_type','Venta Directa')
-                ->with(['subcategory.category','product_images','laboratory'])->get();
+            $outstandings = Product::with(['subcategory.category','product_images','laboratory'])
+                ->where('outstanding', true)
+                ->where('stock','>',0)
+                ->where('active',true)
+                ->where('recipe_type','Venta Directa')
+                ->get();
 
             if (!$outstandings->count()) {
-                $outstandings = Product::where('active',true)->where('recipe_type','Venta Directa')->with(['subcategory.category','product_images','laboratory'])->take(10)->get();
+                $outstandings = Product::with(['subcategory.category','product_images','laboratory'])
+                    ->where('active',true)
+                    ->where('recipe_type','Venta Directa')
+                    ->take(10)
+                    ->get();
             }
 
             return ApiResponse::JsonSuccess($this->processScheduleList($outstandings), 'Productos destacados');
@@ -212,9 +220,16 @@ class HomeController extends Controller
     public function getCondoms()
     {
         try {
-            $condomProducts = Product::where('recipe_type','Venta Directa')->where('active',true)->whereHas('subcategory', function($q){
-                $q->where('category_id', 2);
-            })->with(['subcategory.category','product_images','laboratory'])->inRandomOrder()->limit(4)->get();
+            $condomProducts = Product::with(['subcategory.category','product_images','laboratory'])
+                ->where('recipe_type','Venta Directa')
+                ->where('stock','>',0)
+                ->where('active',true)
+                ->whereHas('subcategory', function($q){
+                    $q->where('category_id', 2);
+                })
+                ->inRandomOrder()
+                ->limit(4)
+                ->get();
 
             return ApiResponse::JsonSuccess($this->processScheduleList($condomProducts), 'Productos tipo preservativo');
 
@@ -226,11 +241,17 @@ class HomeController extends Controller
     public function getBestSellers()
     {
         try {
-            $productsBestSellers = OrderItem::with(['order','product.subcategory.category', 'product.product_images','product.laboratory'])->whereHas('order', function($q){
-                $q->whereIn('status',["DELIVERED","DISPATCHED","PAID"]);
-            })->whereHas('product', function($p){
-                $p->where('recipe_type','Venta Directa')->where('active',true)->where('is_medicine', 0);
-            })->select('product_id', DB::raw('sum(quantity) as total'))->groupBy('product_id')->orderBy('total', 'desc')->limit(12)->get();
+            $productsBestSellers = OrderItem::with(['order','product.subcategory.category', 'product.product_images','product.laboratory'])
+                ->whereHas('order', function($q){
+                    $q->whereIn('status',["DELIVERED","DISPATCHED","PAID"]);
+                })->whereHas('product', function($p){
+                    $p->where('recipe_type','Venta Directa')->where('active',true)->where('is_medicine', 0);
+                })
+                ->select('product_id', DB::raw('sum(quantity) as total'))
+                ->groupBy('product_id')
+                ->orderBy('total', 'desc')
+                ->limit(12)
+                ->get();
 
             $bestSellers = [];
             foreach ($productsBestSellers as $productBestSeller) {
