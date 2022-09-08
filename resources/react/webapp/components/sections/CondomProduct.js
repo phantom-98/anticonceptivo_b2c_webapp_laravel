@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import * as Services from "../../Services";
 import LazyLoading from '../LazyLoading';
 
-const CondomProduct = ({}) => {
+const CondomProduct = ({title, style = ''}) => {
 
     const [condoms, setCondoms] = useState([]);
     const [isLoaded, setIsLoaded] = useState(false);
@@ -39,15 +39,19 @@ const CondomProduct = ({}) => {
     return (
         <div className="py-3" style={{background: '#FFFFFF'}}>
             <div className="container">
-                <div className="row py-3">
-                    <div className="col-12">
-                        <H2Title text="Preservativos"/>
-                    </div>
-                </div>
+                {
+                    title && (
+                        <div className="row py-3">
+                            <div className="col-12">
+                                <H2Title text={title}/>
+                            </div>
+                        </div>
+                    )
+                }
 
                 <div className="row py-3">
                     <div className="col-12 pb-3">
-                        <div className="row card-products-gutters">
+                        <div className={`row card-products-gutters ${style}`}>
                             {
                                 condoms.map((product, index) => {
                                     let uuid = uuidv4();

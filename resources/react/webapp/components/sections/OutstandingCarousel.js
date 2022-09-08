@@ -10,7 +10,10 @@ import {BREAKPOINTS} from "../../helpers/vars";
 import * as Services from "../../Services";
 import LazyLoading from '../LazyLoading';
 
-const OutstandingCarousel = ({title}) => {
+const OutstandingCarousel = ({
+    title,
+    style = 'pt-5 pb-5'
+}) => {
     const {breakpoint} = useContext(AppContext)
     const [outstandings, setOutstandings] = useState([]);
     const [isLoaded, setIsLoaded] = useState(false);
@@ -57,11 +60,14 @@ const OutstandingCarousel = ({title}) => {
     return (
         <div style={{background: '#FFFFFF'}}>
             <div className="container">
-                <div className="row pt-5 pb-5 card-products-gutters">
-
-                    <div className="col-12 py-4">
-                        <H2Title text={title}/>
-                    </div>
+                <div className={`row card-products-gutters ${style}`}>
+                    {
+                        title && (
+                            <div className="col-12 py-4">
+                                <H2Title text={title}/>
+                            </div>
+                        )
+                    }
 
                     <div className="col-12">
                         <Slider
