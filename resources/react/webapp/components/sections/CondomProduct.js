@@ -88,7 +88,7 @@ const CondomProduct = ({title, style = ''}) => {
                         )
                     }
 
-                    <div className="row py-3">
+                    <div className="row pt-3">
                         <div className="col-12 pb-3">
                             <div className={`row card-products-gutters ${style}`}>
                                 {
@@ -104,7 +104,7 @@ const CondomProduct = ({title, style = ''}) => {
                         </div>
                     </div>
 
-                    <div className="row">
+                    <div className="row pb-3">
                         <div className="col-12 text-center">
                             <a style={{textDecoration:"underline"}} href="https://anticonceptivo.cl/tienda/preservativos/condones">Ver más</a>
                         </div>
