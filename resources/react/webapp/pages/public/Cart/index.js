@@ -130,7 +130,7 @@ const Cart = () => {
                         </div>
                     </div>
                 </div>
-                <OutstandingCarousel title={'¿Te falto algo?'}/>
+                <OutstandingCarousel title={'¿Te faltó algo?'}/>
                 <CondomProduct/>
                 <BestSeller/>
             </div>
@@ -163,7 +163,7 @@ const Cart = () => {
                             </div>
                         </div>
                     </div>
-                        <OutstandingCarousel title={'¿Te falto algo?'}
+                        <OutstandingCarousel title={'¿Te faltó algo?'}
                             style={'pt-2 pb-2'}
                         />
                         <CondomProduct
