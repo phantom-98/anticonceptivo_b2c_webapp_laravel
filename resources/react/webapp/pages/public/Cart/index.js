@@ -132,7 +132,6 @@ const Cart = () => {
                 </div>
                 <OutstandingCarousel title={'¿Te faltó algo?'}/>
                 <CondomProduct/>
-                <BestSeller/>
             </div>
             :
             <div className="pb-5" style={{background: '#FAFAFA'}}>
@@ -168,9 +167,6 @@ const Cart = () => {
                         />
                         <CondomProduct
                             // style={'pt-5 pb-5'}
-                        />
-                        <BestSeller
-                            style={'pt-2 pb-4'}
                         />
                     <div className='row pb-5'>
 
