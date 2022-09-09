@@ -130,9 +130,9 @@ const Cart = () => {
                         </div>
                     </div>
                 </div>
-                <OutstandingCarousel title={'Destacados'}/>
-                <CondomProduct title="Preservativos"/>
-                <BestSeller title="LOS 12 MÁS COMPRADOS"/>
+                <OutstandingCarousel title={'¿Te falto algo?'}/>
+                <CondomProduct/>
+                <BestSeller/>
             </div>
             :
             <div className="pb-5" style={{background: '#FAFAFA'}}>
@@ -163,7 +163,7 @@ const Cart = () => {
                             </div>
                         </div>
                     </div>
-                        <OutstandingCarousel
+                        <OutstandingCarousel title={'¿Te falto algo?'}
                             style={'pt-2 pb-2'}
                         />
                         <CondomProduct
