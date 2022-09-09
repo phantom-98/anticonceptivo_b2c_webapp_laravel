@@ -202,7 +202,7 @@ class HomeController extends Controller
                 ->where('recipe_type','Venta Directa')
                 ->get();
 
-            if ($outstandings->count() == 0) {
+            if ($outstandings->count() < 10) {
                 $outstandings = Product::with(['subcategory.category','product_images','laboratory'])
                     ->where('active',true)
                     ->where('stock','>',0)
