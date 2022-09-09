@@ -4,8 +4,8 @@ import ProductCard from "../shopping/ProductCard";
 import { v4 as uuidv4 } from 'uuid';
 import * as Services from "../../Services";
 import LazyLoading from '../LazyLoading';
-import {AppContext} from "../../../context/AppProvider";
-import {BREAKPOINTS} from "../../../helpers/vars";
+import {AppContext} from "../../context/AppProvider";
+import {BREAKPOINTS} from "../../helpers/vars";
 
 const CondomProduct = ({title, style = ''}) => {
 
