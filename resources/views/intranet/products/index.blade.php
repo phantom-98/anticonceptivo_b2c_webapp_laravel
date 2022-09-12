@@ -366,8 +366,6 @@
             });
 
             runActiveControl()
-            preparedChangeStatusImmediate();
-            preparedChangeStatusOutstanding();
             //  run2x1Control();
 
         });
