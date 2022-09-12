@@ -49,6 +49,7 @@ $(document).ready(function () {
 $('#table-bs').on('page-change.bs.table', function (d)
 {
     runActiveControl();
+    console.log("page change");
 });
 
 $('#table-bs').on('column-switch.bs.table', function (d) {
