@@ -37,27 +37,11 @@ function midAling(value, row, index, field) {
     };
 }
 
-$('#table-bs').on('page-change.bs.table', function (d)
+$('#table-bs').on('all.bs.table', function (d)
 {
     runActiveControl();
 });
 
-$('#table-bs').on('column-switch.bs.table', function (d) {
-
-    runActiveControl();
-});
-
-$('#table-bs').on('all.bs.table', function (d) {
-    runActiveControl();
-});
-
-$('#table-bs').on('search.bs.table', function (d) {
-    runActiveControl();
-});
-
-$('#table-bs').on('sort.bs.table', function (d) {
-    runActiveControl();
-});
 // $('#table-bs').on('post-body.bs.table', function (d) {
 //
 //     runActiveControl()

@@ -415,7 +415,7 @@
         }
 
         function changeStatusImmediate(id, status) {
-            var xhr = $.ajax({
+            $.ajax({
                 url: '{{ route($config['route'] . 'is_immediate') }}',
                 method: 'post',
                 data: {
@@ -431,7 +431,6 @@
                     }
                 }
             });
-            xhr.abort()
         }
 
         function preparedChangeStatusOutstanding() {
@@ -443,7 +442,7 @@
         }
 
         function changeStatusOutstanding(id, status) {
-            var xhr = $.ajax({
+            $.ajax({
                 url: '{{ route($config['route'] . 'is_outstanding') }}',
                 method: 'post',
                 data: {
@@ -459,7 +458,6 @@
                     }
                 }
             });
-            xhr.abort()
         }
 
     </script>
