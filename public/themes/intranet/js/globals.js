@@ -49,18 +49,26 @@ $(document).ready(function () {
 $('#table-bs').on('page-change.bs.table', function (d)
 {
     runActiveControl();
+    preparedChangeStatusImmediate();
+    preparedChangeStatusOutstanding();
 });
 
 $('#table-bs').on('column-switch.bs.table', function (d) {
     runActiveControl();
+    preparedChangeStatusImmediate();
+    preparedChangeStatusOutstanding();
 });
 
 $('#table-bs').on('sort.bs.table', function (d) {
     runActiveControl();
+    preparedChangeStatusImmediate();
+    preparedChangeStatusOutstanding();
 });
 
 $('#table-bs').on('search.bs.table', function (d) {
     runActiveControl();
+    preparedChangeStatusImmediate();
+    preparedChangeStatusOutstanding();
 });
 
 function runActiveControl(){
