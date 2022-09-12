@@ -57,6 +57,7 @@ $('#table-bs').on('column-switch.bs.table', function (d) {
 
 $('#table-bs').on('sort.bs.table', function (d) {
     runActiveControl();
+    console.log("filter");
 });
 
 $('#table-bs').on('search.bs.table', function (d) {
