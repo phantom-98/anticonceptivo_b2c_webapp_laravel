@@ -15,7 +15,7 @@
         }
 
         function changeStatus(id, status) {
-            $.ajax({
+            var xhr = $.ajax({
                 url: '{{ route($config['route'] . 'active') }}',
                 method: 'post',
                 data: {
@@ -31,6 +31,7 @@
                     }
                 }
             });
+            xhr.abort()
         }
 
     </script>
