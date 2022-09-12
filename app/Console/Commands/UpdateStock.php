@@ -108,7 +108,7 @@ class UpdateStock extends Command
             Log::error('UpdateStock Email', ["response" => $e->getMessage()]);
         }
 
-
+        Log::info('Corrió proceso de stock', []);
 
     }
 }
