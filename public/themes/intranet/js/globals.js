@@ -55,7 +55,13 @@ $('#table-bs').on('column-switch.bs.table', function (d) {
     runActiveControl();
 });
 
+$('#table-bs').on('sort.bs.table', function (d) {
+    runActiveControl();
+});
 
+$('#table-bs').on('search.bs.table', function (d) {
+    runActiveControl();
+});
 
 function runActiveControl(){
     try{
