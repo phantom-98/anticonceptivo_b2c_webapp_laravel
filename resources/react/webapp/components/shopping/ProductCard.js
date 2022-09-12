@@ -66,6 +66,11 @@ const ProductCard = ({product, className = '', subscriptionFilter = []}) => {
         return null;
     }
 
+    // console.group('PRODUCT CARD');
+    // console.log(product);
+    // console.log('slug' in product ? 'TIENE SLUG' : 'NO TIENE SLUG');
+    // console.groupEnd();
+
     return (
         <Fragment>
             <div className={`d-none d-md-block product-card ${className}`}>

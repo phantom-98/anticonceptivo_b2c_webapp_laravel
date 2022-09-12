@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useState, useEffect} from 'react';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -7,9 +7,43 @@ import H2Title from "../general/H2Title";
 import { v4 as uuidv4 } from 'uuid';
 import {AppContext} from "../../context/AppProvider";
 import {BREAKPOINTS} from "../../helpers/vars";
+import * as Services from "../../Services";
+import LazyLoading from '../LazyLoading';
 
-const OutstandingCarousel = ({title, outstandings}) => {
+const OutstandingCarousel = ({
+    title,
+    style = 'pt-5 pb-5'
+}) => {
     const {breakpoint} = useContext(AppContext)
+    const [outstandings, setOutstandings] = useState([]);
+    const [isLoaded, setIsLoaded] = useState(false);
+
+    useEffect(() => {
+        getData();
+    }, [])
+
+    const getData = () => {
+        let url = Services.ENDPOINT.PUBLIC_AREA.CARROUSELS.GET_OUTSTANDING;
+        let data = {}
+        Services.DoGet(url, data).then(response => {
+            Services.Response({
+                response: response,
+                success: () => {
+                    setOutstandings(response.data);
+                    setIsLoaded(true);
+                },
+            });
+        }).catch(error => {
+            Services.ErrorCatch(error)
+        });
+    }
+
+    if (!isLoaded) {
+        return (
+            <LazyLoading />
+        )
+    }
+
     let contSlider = 0
 
     const settings ={
@@ -26,11 +60,14 @@ const OutstandingCarousel = ({title, outstandings}) => {
     return (
         <div style={{background: '#FFFFFF'}}>
             <div className="container">
-                <div className="row pt-5 pb-5 card-products-gutters">
-
-                    <div className="col-12 py-4">
-                        <H2Title text={title}/>
-                    </div>
+                <div className={`row card-products-gutters ${style}`}>
+                    {
+                        title && (
+                            <div className="col-12 py-4">
+                                <H2Title text={title}/>
+                            </div>
+                        )
+                    }
 
                     <div className="col-12">
                         <Slider

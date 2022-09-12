@@ -141,29 +141,29 @@ class HomeController extends Controller
             $middleBanners = Banner::where('location','Home (Centro)')->where('active',true)->orderBy('position')->get();
             // $bottomBanners = Banner::where('location','Home (Inferior)')->where('active',true)->orderBy('position')->get();
 
-            $outstandings = Product::where('outstanding', true)->where('active',true)->where('recipe_type','Venta Directa')
-                ->with(['subcategory.category','product_images','laboratory'])->get();
+            // $outstandings = Product::where('outstanding', true)->where('active',true)->where('recipe_type','Venta Directa')
+            //     ->with(['subcategory.category','product_images','laboratory'])->get();
 
-            if (!$outstandings->count()) {
-                $outstandings = Product::where('active',true)->where('recipe_type','Venta Directa')->with(['subcategory.category','product_images','laboratory'])->take(10)->get();
-            }
+            // if (!$outstandings->count()) {
+            //     $outstandings = Product::where('active',true)->where('recipe_type','Venta Directa')->with(['subcategory.category','product_images','laboratory'])->take(10)->get();
+            // }
 
-            $productsBestSellers = OrderItem::with(['order','product.subcategory.category', 'product.product_images','product.laboratory'])->whereHas('order', function($q){
-                $q->whereIn('status',["DELIVERED","DISPATCHED","PAID"]);
-            })->whereHas('product', function($p){
-                $p->where('recipe_type','Venta Directa')->where('active',true)->where('is_medicine', 0);
-            })->select('product_id', DB::raw('sum(quantity) as total'))->groupBy('product_id')->orderBy('total', 'desc')->limit(12)->get();
+            // $productsBestSellers = OrderItem::with(['order','product.subcategory.category', 'product.product_images','product.laboratory'])->whereHas('order', function($q){
+            //     $q->whereIn('status',["DELIVERED","DISPATCHED","PAID"]);
+            // })->whereHas('product', function($p){
+            //     $p->where('recipe_type','Venta Directa')->where('active',true)->where('is_medicine', 0);
+            // })->select('product_id', DB::raw('sum(quantity) as total'))->groupBy('product_id')->orderBy('total', 'desc')->limit(12)->get();
 
-            $bestSellers = [];
-            foreach ($productsBestSellers as $productBestSeller) {
-                $bestSellers[] = $productBestSeller->product;
-            }
+            // $bestSellers = [];
+            // foreach ($productsBestSellers as $productBestSeller) {
+            //     $bestSellers[] = $productBestSeller->product;
+            // }
 
-            $bestSellers = collect($bestSellers);
+            // $bestSellers = collect($bestSellers);
 
-            $condomProducts = Product::where('recipe_type','Venta Directa')->where('active',true)->whereHas('subcategory', function($q){
-                $q->where('category_id', 2);
-            })->with(['subcategory.category','product_images','laboratory'])->inRandomOrder()->limit(4)->get();
+            // $condomProducts = Product::where('recipe_type','Venta Directa')->where('active',true)->whereHas('subcategory', function($q){
+            //     $q->where('category_id', 2);
+            // })->with(['subcategory.category','product_images','laboratory'])->inRandomOrder()->limit(4)->get();
 
             // $blogPosts = Post::with(['post_type'])->where('active', true)->orderBy('published_at','DESC')->limit(3)->get();
 
@@ -179,13 +179,89 @@ class HomeController extends Controller
                 'top_banners' => $topBanners,
                 'middle_banners' => $middleBanners,
                 // 'bottom_banners' => $bottomBanners,
-                'outstandings' => $this->processScheduleList($outstandings),
-                'best_sellers' => $this->processScheduleList($bestSellers),
-                'condom_products' => $this->processScheduleList($condomProducts),
+                // 'outstandings' => $this->processScheduleList($outstandings),
+                // 'best_sellers' => $this->processScheduleList($bestSellers),
+                // 'condom_products' => $this->processScheduleList($condomProducts),
                 // 'brands' => $brands,
                 'bannerCategories' => $bannerCategories,
                 // 'blog_posts' => $blogPosts,
             ]);
+
+        } catch (\Exception $exception) {
+            return ApiResponse::JsonError(null, $exception->getMessage());
+        }
+    }
+
+    public function getOutstandings()
+    {
+        try {
+            $outstandings = Product::with(['subcategory.category','product_images','laboratory'])
+                ->where('outstanding', true)
+                ->where('stock','>',0)
+                ->where('active',true)
+                ->where('recipe_type','Venta Directa')
+                ->get();
+
+            if ($outstandings->count() < 10) {
+                $outstandings = Product::with(['subcategory.category','product_images','laboratory'])
+                    ->where('active',true)
+                    ->where('stock','>',0)
+                    ->where('recipe_type','Venta Directa')
+                    ->take(10)
+                    ->get();
+            }
+
+            return ApiResponse::JsonSuccess($this->processScheduleList($outstandings), 'Productos destacados');
+
+        } catch (\Exception $exception) {
+            return ApiResponse::JsonError(null, $exception->getMessage());
+        }
+    }
+
+    public function getCondoms()
+    {
+        try {
+            $condomProducts = Product::with(['subcategory.category','product_images','laboratory'])
+                ->where('recipe_type','Venta Directa')
+                ->where('stock','>',0)
+                ->where('active',true)
+                ->whereHas('subcategory', function($q){
+                    $q->where('category_id', 2);
+                })
+                ->inRandomOrder()
+                ->limit(4)
+                ->get();
+
+            return ApiResponse::JsonSuccess($this->processScheduleList($condomProducts), 'Productos tipo preservativo');
+
+        } catch (\Exception $exception) {
+            return ApiResponse::JsonError(null, $exception->getMessage());
+        }
+    }
+
+    public function getBestSellers()
+    {
+        try {
+            $productsBestSellers = OrderItem::with(['order','product.subcategory.category', 'product.product_images','product.laboratory'])
+                ->whereHas('order', function($q){
+                    $q->whereIn('status',["DELIVERED","DISPATCHED","PAID"]);
+                })->whereHas('product', function($p){
+                    $p->where('recipe_type','Venta Directa')->where('active',true)->where('is_medicine', 0);
+                })
+                ->select('product_id', DB::raw('sum(quantity) as total'))
+                ->groupBy('product_id')
+                ->orderBy('total', 'desc')
+                ->limit(12)
+                ->get();
+
+            $bestSellers = [];
+            foreach ($productsBestSellers as $productBestSeller) {
+                $bestSellers[] = $productBestSeller->product;
+            }
+
+            $bestSellers = collect($bestSellers);
+
+            return ApiResponse::JsonSuccess($this->processScheduleList($bestSellers), 'Productos Más Vendidos');
 
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, $exception->getMessage());
