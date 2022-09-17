@@ -21,9 +21,8 @@
 
                     <table id="table-bs"
                            data-toolbar="#toolbar"
-                           data-cookie="true"
-                           data-cookie-id-table="{{$config['tableCookie']}}"
-                           data-search="true"
+                           data-cookie="false"
+                           data-search="false"
                            {{-- data-height="600" --}}
 
                            data-show-refresh="false"

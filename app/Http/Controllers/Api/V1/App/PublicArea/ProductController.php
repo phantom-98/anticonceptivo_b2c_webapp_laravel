@@ -14,7 +14,7 @@ use Willywes\ApiResponse\ApiResponse;
 use App\Http\Utils\OutputMessage\OutputMessage;
 use App\Models\Product;
 use App\Models\Category;
-use App\Models\SubCategory;
+use App\Models\Subcategory;
 use App\Models\LegalWarning;
 use App\Models\Laboratory;
 use App\Models\SubscriptionPlan;
@@ -178,7 +178,7 @@ class ProductController extends Controller
             if (!empty($request->subcats)) {
                 $products = $products->whereIn('subcategory_id', $request->subcats);
                 $laboratories = $laboratories->whereIn('id', $products->pluck('laboratory_id')->unique());
-                $subcats = SubCategory::whereIn('id', $request->subcats)->pluck('name')->toArray();
+                $subcats = Subcategory::whereIn('id', $request->subcats)->pluck('name')->toArray();
                 $subcatNames = implode(", ", $subcats);
             }
 
@@ -298,7 +298,7 @@ class ProductController extends Controller
             $unit_format = '';
 
             if ($product_subcategory) {
-                $subcategory = SubCategory::where('id', $product_subcategory->subcategory_id)->first();
+                $subcategory = Subcategory::where('id', $product_subcategory->subcategory_id)->first();
 
                 if ($subcategory) {
                     $category = Category::where('id', $subcategory->category_id)->first();
@@ -449,7 +449,7 @@ class ProductController extends Controller
                 $products = $products->whereIn('subcategory_id', $request->subcats);
                 $laboratories = $laboratories->whereIn('id', $products->pluck('laboratory_id')->unique());
 
-                $subcats = SubCategory::whereIn('id', $request->subcats)->pluck('name')->toArray();
+                $subcats = Subcategory::whereIn('id', $request->subcats)->pluck('name')->toArray();
                 $subcatNames = implode(", ", $subcats);
             }
 
