@@ -425,7 +425,7 @@
                 },
                 success: function (result) {
                     if (result.status == 'success') {
-                        showToastSuccess(result.message);
+                        //showToastSuccess(result.message);
                     } else {
                         showToastError(result.message);
                     }
@@ -452,7 +452,7 @@
                 },
                 success: function (result) {
                     if (result.status == 'success') {
-                        showToastSuccess(result.message);
+                        //showToastSuccess(result.message);
                     } else {
                         showToastError(result.message);
                     }
