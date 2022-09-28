@@ -34,12 +34,16 @@
     padding-bottom: 30px !important;
 }
 
-.swiper-pagination-fraction, .swiper-pagination-custom, .swiper-horizontal > .swiper-pagination-bullets, .swiper-pagination-bullets.swiper-pagination-horizontal{
+.my-swiper-banner > .swiper-pagination-bullets{
     bottom: 5px !important;
 }
 
 .my-swiper {
     background-color: white;
+}
+
+.my-swiper-container > .swiper-pagination-bullets {
+    bottom: -5px !important;
 }
 
 .swiper-button-prev, .swiper-rtl .swiper-button-next {

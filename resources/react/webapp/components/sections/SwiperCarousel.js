@@ -1,4 +1,4 @@
-import React, { useRef, useState, useContext } from "react";
+import React, { useContext } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import {CONFIG} from "../../Config";
 import { AppContext } from "../../context/AppProvider";
@@ -35,6 +35,7 @@ const SwiperCarousel = ({banners}) => {
                 autoplay={{
                     delay: 4500,
                     disableOnInteraction: false,
+                    pauseOnMouseEnter: true,
                 }}
                 speed={1500}
                 effect={"fade"}
@@ -46,7 +47,7 @@ const SwiperCarousel = ({banners}) => {
                     Autoplay,
                     Lazy,
                 ]}
-                className="my-swiper">
+                className="my-swiper-banner">
                     {
                         banners.map((banner, index) => {
                             return (

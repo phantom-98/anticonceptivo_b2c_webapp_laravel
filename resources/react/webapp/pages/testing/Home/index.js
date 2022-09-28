@@ -3,6 +3,7 @@ import * as Services from "../../../Services";
 import BannerCarousel from "../../../components/sections/BannerCarousel";
 import SwiperCarousel from "../../../components/sections/SwiperCarousel";
 import LazyLoading from '../../../components/LazyLoading';
+import OutstandingCarousel from "../../../components/sections/OutstandingCarousel";
 
 const Home = ({match}) => {
     const [topBanners, setTopBanners] = useState([]);
@@ -36,7 +37,7 @@ const Home = ({match}) => {
 
     return (
         <>
-            <div className="bg-FAFAFA">
+            {/* <div className="bg-FAFAFA">
                 <BannerCarousel topBanners={topBanners}/>
             </div>
             <div className="col-12 py-4">
@@ -47,7 +48,10 @@ const Home = ({match}) => {
             </div>
             <div className="col-12 py-4">
 
-            </div>
+            </div> */}
+
+            <OutstandingCarousel title="Destacados"/>
+
         </>
     );
 };
