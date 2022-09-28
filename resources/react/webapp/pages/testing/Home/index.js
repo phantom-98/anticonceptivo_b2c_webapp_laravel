@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import * as Services from "../../../Services";
 import BannerCarousel from "../../../components/sections/BannerCarousel";
+import SwiperCarousel from "../../../components/sections/SwiperCarousel";
 import LazyLoading from '../../../components/LazyLoading';
 
 const Home = ({match}) => {
@@ -37,6 +38,12 @@ const Home = ({match}) => {
         <>
             <div className="bg-FAFAFA">
                 <BannerCarousel topBanners={topBanners}/>
+            </div>
+            <div className="col-12 py-4">
+
+            </div>
+            <div className="bg-FAFAFA">
+                <SwiperCarousel banners={topBanners}/>
             </div>
             <div className="col-12 py-4">
 

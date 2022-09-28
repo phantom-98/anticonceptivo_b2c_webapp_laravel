@@ -7,7 +7,8 @@ import BestSeller from "../../../components/sections/BestSellers";
 import CondomProduct from "../../../components/sections/CondomProduct";
 import OutstandingCarousel from "../../../components/sections/OutstandingCarousel";
 import BannerCategories from "../../../components/sections/BannerCategories";
-import BannerCarousel from "../../../components/sections/BannerCarousel";
+// import BannerCarousel from "../../../components/sections/BannerCarousel";
+import SwiperCarousel from "../../../components/sections/SwiperCarousel";
 import BannerStatic from "../../../components/sections/BannerStatic";
 import LazyLoading from '../../../components/LazyLoading';
 
@@ -58,7 +59,7 @@ const Home = ({match}) => {
 
     return (
         <div className="bg-FAFAFA">
-            <BannerCarousel topBanners={topBanners}/>
+            <SwiperCarousel banners={topBanners}/>
 
             <OutstandingCarousel title="Destacados"/>
 
