@@ -41,7 +41,8 @@ class Order extends Model
         'house_number',
         'ballot_number',
         'region',
-        'type'
+        'type',
+        'billing_number'
     ];
 
     protected $appends = ['formated_status', 'formated_background', 'formated_color', 'formated_type_webpay'];
