@@ -14,7 +14,7 @@ class AddToDayPayment extends Migration
     public function up()
     {
         Schema::table('day_payments', function (Blueprint $table) {
-            $table->integer('number')->nullable();
+            $table->text('number')->nullable();
             $table->text('orders')->nullable();
         });
     }

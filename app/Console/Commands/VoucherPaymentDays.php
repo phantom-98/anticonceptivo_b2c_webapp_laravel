@@ -140,7 +140,7 @@ class VoucherPaymentDays extends Command
             $data_voucher = array(
                 "codeSii"=> 33,
                 "officeId"=> 1,
-                "declareSii" => 0,
+                "declareSii" => 1,
                 "emissionDate"=> Carbon::now()->timestamp,
                 "client"=> [
                   "code"=> "76.736.577-2",
@@ -165,14 +165,14 @@ class VoucherPaymentDays extends Command
             $response = json_decode($get_data, true);
             $dayPayment = new DayPayment();
             $dayPayment->url_pdf = $response['urlPdf'];
-            $dayPayment->number = $response['id'];
+            $dayPayment->number = $response['number'];
             $dayPayment->orders = implode(",", $array_orders_id);
             $dayPayment->date_payment = Carbon::parse($datePayment)->format('Y-m-d');
             $dayPayment->total = $total;
 
             $dayPayment->save();
 
-            /*$sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
+            $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
             $html = view('emails.send-voucher', ['url_pdf' => $dayPayment->url_pdf, 'name' => 'Equipo Anticonceptivo'])->render();
 
             $email = new \SendGrid\Mail\Mail();
@@ -184,7 +184,7 @@ class VoucherPaymentDays extends Command
                 "text/html", $html
             );
 
-            $sendgrid->send($email);*/
+            $sendgrid->send($email);
 
             $this->info('Pagos ejecutados correctamente');
 
