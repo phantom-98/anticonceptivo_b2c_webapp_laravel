@@ -106,6 +106,16 @@
 
             let columns = [
                 {
+                    title: 'Número de Factura',
+                    field: 'number',
+                    sortable: true,
+                    cellStyle: midAling,
+                    formatter: function (value, row, index) {
+                        var html = row.number ?? '-';
+                        return html;
+                    }
+                },
+                {
                     title: 'Fecha de pago',
                     field: 'date_payment',
                     sortable: true,
@@ -130,18 +140,28 @@
 
             ];
 
+            columns.push({
+                title: 'Factura',
+                field: 'active',
+                align: 'center',
+                cellStyle: cellStyle,
+                clickToSelect: false,
+                formatter: function (value, row, index) {
+                    return '<a target="_BLANK"  href="'+row.url_pdf+'" class="btn btn-success"><i clas="fa fa-print"></i> Ver</a>';
+                }
+            });
 
-                columns.push({
-                    title: 'Factura',
-                    field: 'active',
-                    align: 'center',
-                    cellStyle: cellStyle,
-                    clickToSelect: false,
-                    formatter: function (value, row, index) {
-                        return '<a target="_BLANK"  href="'+row.url_pdf+'" class="btn btn-success"><i clas="fa fa-print"></i> Ver</a>';
-                    }
-                });
-
+            columns.push({
+                title: 'Pedidos',
+                field: 'pedidos',
+                align: 'center',
+                cellStyle: cellStyle,
+                clickToSelect: false,
+                formatter: function (value, row, index) {
+                    var html = row.nice_orders;
+                    return html;
+                }
+            });
 
             $('#table-bs').bootstrapTable({
                 data: @json($objects),
