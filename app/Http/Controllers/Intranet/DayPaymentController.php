@@ -85,7 +85,7 @@ class DayPaymentController extends GlobalController
             }
         }
 
-        return Excel::download(new DayPaymentExport($startFilter, $endFilter), 'facturas-periodo' . $start . '-' . ($end ? $end : '') . '.xlsx');
+        return Excel::download(new DayPaymentExport($startFilter, $endFilter), 'facturas-periodo-' . $start . '-' . ($end ? $end : '') . '.xlsx');
     }
 
 }
