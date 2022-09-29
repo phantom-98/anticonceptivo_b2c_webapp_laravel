@@ -9,7 +9,9 @@ import "swiper/scss/effect-fade";
 import "swiper/scss/autoplay";
 
 // import required modules
-import { Pagination, Autoplay } from "swiper";
+import SwiperCore, {Navigation, Pagination, Autoplay } from 'swiper';
+
+SwiperCore.use([Navigation, Pagination, Autoplay]);
 
 const SwiperCarousel = ({products}) => {
 
@@ -19,10 +21,6 @@ const SwiperCarousel = ({products}) => {
                 slidesPerView={2}
                 slidesPerGroup={2}
                 breakpoints={{
-                    // 1200:{
-                    //     slidesPerView: 5,
-                    //     slidesPerGroup: 5,
-                    // },
                     992: {
                         slidesPerView: 4,
                         slidesPerGroup: 4,
@@ -43,17 +41,6 @@ const SwiperCarousel = ({products}) => {
                 }}
                 style={{
                     "--swiper-pagination-bullet-horizontal-gap": "6px",
-                    /*
-                        --swiper-pagination-color: var(--swiper-theme-color);
-                        --swiper-pagination-bullet-size: 8px;
-                        --swiper-pagination-bullet-width: 8px;
-                        --swiper-pagination-bullet-height: 8px;
-                        --swiper-pagination-bullet-inactive-color: #000;
-                        --swiper-pagination-bullet-inactive-opacity: 0.2;
-                        --swiper-pagination-bullet-opacity: 1;
-                        --swiper-pagination-bullet-horizontal-gap: 4px;
-                        --swiper-pagination-bullet-vertical-gap: 6px;
-                    */
                 }}
                 autoplay={{
                     delay: 4500,
@@ -68,7 +55,7 @@ const SwiperCarousel = ({products}) => {
                 {
                     products.map((product, index) => {
                         return (
-                            <SwiperSlide>
+                            <SwiperSlide key={product.id}>
                                 <div style={{width:'100%', display: 'inline-block'}}>
                                     <ProductCard
                                         key={index}
