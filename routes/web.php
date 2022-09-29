@@ -375,8 +375,6 @@ Route::get('fix-invoices-by-date/{date}', function ($date){
             array_push($array_orders_id, $order->id);
         }
 
-        return implode(",", $array_orders_id);
-
         $subscriptions_orders_items = App\Models\SubscriptionsOrdersItem::with('order_item.subscription_plan','order_item.product')
         ->where('status','PAID')->whereDate('pay_date',$datePayment)
         ->orderBy('order_id')->orderBy('pay_date')
