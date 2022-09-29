@@ -18,7 +18,6 @@ class CreateFreeDispatchProductsTable extends Migration
             $table->text('products')->nullable();
             $table->timestamps();
         });
-        $this->load();
 
     }
 
