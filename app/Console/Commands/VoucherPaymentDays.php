@@ -165,7 +165,7 @@ class VoucherPaymentDays extends Command
             $response = json_decode($get_data, true);
             $dayPayment = new DayPayment();
             $dayPayment->url_pdf = $response['urlPdf'];
-            $dayPayment->number = $response['number'];
+            $dayPayment->number = $response['id'];
             $dayPayment->orders = implode(",", $array_orders_id);
             $dayPayment->date_payment = Carbon::parse($datePayment)->format('Y-m-d');
             $dayPayment->total = $total;

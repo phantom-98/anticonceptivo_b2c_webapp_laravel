@@ -437,7 +437,7 @@ Route::get('fix-invoices-by-date/{date}', function ($date){
         $response = json_decode($get_data, true);
         $dayPayment = new App\Models\DayPayment();
         $dayPayment->url_pdf = $response['urlPdf'];
-        $dayPayment->number = $response['number'];
+        $dayPayment->number = $response['id'];
         $dayPayment->orders = implode(",", $array_orders_id);
         $dayPayment->date_payment = Carbon\Carbon::parse($datePayment)->format('Y-m-d');
         $dayPayment->total = $total;
