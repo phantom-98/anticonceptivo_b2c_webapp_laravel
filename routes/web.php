@@ -343,6 +343,8 @@ Route::get('fix-invoices-by-date/{date}', function ($date){
         $details = [];
         $total = 0;
 
+        $array_orders_id = [];
+
         $paymentCommission = App\Models\PaymentCommission::where('active',1)
         ->latest()->first();
 
@@ -367,6 +369,10 @@ Route::get('fix-invoices-by-date/{date}', function ($date){
             array_push($details, $detail);
             $total += round($order->total * ($commission/100));
 
+            $order->billing_date = Carbon::parse($date)->format('Y-m-d H:i:s');
+            $order->save();
+
+            array_push($array_orders_id, [$order->id]);
         }
 
         $subscriptions_orders_items = App\Models\SubscriptionsOrdersItem::with('order_item.subscription_plan','order_item.product')
@@ -398,11 +404,16 @@ Route::get('fix-invoices-by-date/{date}', function ($date){
             ];
             array_push($details, $detail);
             $total += round($subscription_order_item->order_item->price * ($commission/100));
+
+            $order->billing_date = Carbon::parse($date)->format('Y-m-d H:i:s');
+            $order->save();
+
+            array_push($array_orders_id, [$order->id]);
         }
         $data_voucher = array(
             "codeSii"=> 33,
             "officeId"=> 1,
-            "declareSii" => 1,
+            "declareSii" => 0,
             "emissionDate"=> Carbon\Carbon::now()->timestamp,
             "client"=> [
               "code"=> "76.736.577-2",
@@ -426,11 +437,13 @@ Route::get('fix-invoices-by-date/{date}', function ($date){
         $response = json_decode($get_data, true);
         $dayPayment = new App\Models\DayPayment();
         $dayPayment->url_pdf = $response['urlPdf'];
+        $dayPayment->number = $response['number'];
+        $dayPayment->orders = implode(",", $array_orders_id);
         $dayPayment->date_payment = Carbon\Carbon::parse($datePayment)->format('Y-m-d');
         $dayPayment->total = $total;
         $dayPayment->save();
 
-        $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
+        /*$sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
         $html = view('emails.send-voucher', ['url_pdf' => $dayPayment->url_pdf, 'name' => 'Equipo Anticonceptivo'])->render();
 
         $email = new \SendGrid\Mail\Mail();
@@ -442,7 +455,7 @@ Route::get('fix-invoices-by-date/{date}', function ($date){
             "text/html", $html
         );
 
-        $sendgrid->send($email);
+        $sendgrid->send($email);*/
 
         return "Facturación exitosa";
 
