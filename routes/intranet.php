@@ -117,6 +117,8 @@ if (env('SHOW_INTRANET', 'TRUE') == 'TRUE') {
                 Route::resource('consumo-responsable', 'ResponsibleConsumptionController', ['names' => getResourceRoutesForNameHelper('responsible_consumptions')]);
 
                 Route::resource('clientes', 'CustomerController', ['names' => getResourceRoutesForNameHelper('customers')]);
+
+                Route::get('dia-pago/export', 'DayPaymentController@export')->name('day_payment.export');
                 Route::resource('dia-pago', 'DayPaymentController', ['names' => getResourceRoutesForNameHelper('day_payment')]);
 
                 Route::get('pedidos/search-client', 'OrderController@search_client')->name('orders.search_client');

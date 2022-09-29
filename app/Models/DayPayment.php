@@ -20,7 +20,7 @@ class DayPayment extends Model
     ];
 
     protected $appends = [
-        'nice_date', 'nice_orders'
+        'nice_date', 'nice_orders', 'nice_orders_export'
     ];
 
     public function payment_commission(){
@@ -41,6 +41,23 @@ class DayPayment extends Model
 
             foreach($orders as $order){
                 $info.= '<a target="_BLANK" href="'. route('intranet.orders.show',[$order]) .'" style="text-decoration:underline; color:blue">Pedido #'.$order.'</a><br/>';
+            }
+
+            return $info;
+        } else {
+            return "-";
+        }
+    }
+
+    public function getNiceOrdersExportAttribute()
+    {
+        if($this->orders != null){
+            $orders = explode(",", $this->orders);
+
+            $info = "";
+
+            foreach($orders as $order){
+                $info.= 'Pedido #'.$order.'<br/>';
             }
 
             return $info;
