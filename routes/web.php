@@ -432,6 +432,7 @@ Route::get('fix-invoices-by-date/{date}', function ($date){
                 "amount"=> $total
             ])
         );
+        return $total;
         if($total == 0){
             return;
         }
