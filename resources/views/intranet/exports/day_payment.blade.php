@@ -15,7 +15,7 @@
                 <td>{{ $object->nice_date }}</td>
                 <td>{{ $object->total }}</td>
                 <td>{{ $object->url_pdf }}</td>
-                <td>{{ $object->nice_orders_export }}</td>
+                <td>{!! $object->nice_orders_export !!}</td>
             </tr>
         @endforeach
     </tbody>
