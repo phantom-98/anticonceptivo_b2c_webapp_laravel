@@ -130,8 +130,6 @@ if (env('SHOW_INTRANET', 'TRUE') == 'TRUE') {
 
                 Route::resource('quienes-somos', 'AboutController', ['names' => getResourceRoutesForNameHelper('abouts')]);
 
-                Route::resource('productos-despacho-gratuito', 'FreeDispatchProductController', ['names' => getResourceRoutesForNameHelper('free_dispatch_products')]);
-
                 Route::resource('aviso-legal-productos', 'LegalWarningController', ['names' => getResourceRoutesForNameHelper('legal_warnings')]);
 
                 Route::post('valores/active', 'ValueController@active')->name('values.active');
@@ -192,6 +190,9 @@ if (env('SHOW_INTRANET', 'TRUE') == 'TRUE') {
 
                 Route::get('telefono-contacto', 'PhoneContactController@index')->name('phone-contact.index');
                 Route::post('telefono-contacto/update', 'PhoneContactController@update')->name('phone-contact.update');
+
+                Route::get('productos-despacho-gratuito', 'FreeDispatchProductController@index')->name('free_dispatch_products.index');
+                Route::post('productos-despacho-gratuito/update', 'FreeDispatchProductController@update')->name('free_dispatch_products.update');
 
                 Route::get('parametros-rango-entrega', 'ProductScheduleSettingController@index')->name('product_schedule_settings.index');
                 Route::post('parametros-rango-entrega/update', 'ProductScheduleSettingController@update')->name('product_schedule_settings.update');
