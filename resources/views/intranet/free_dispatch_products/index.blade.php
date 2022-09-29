@@ -19,12 +19,13 @@
                 </div>
                 <div class="panel-body">
                     <label>Productos Despacho Gratuito</label>
+                    <br/>
                     <select class="form-control mb-3 w-25 select2" id="products" name="products" multiple>
                         @foreach($products as $product)
                             <option value="{{$product->id}}" {{in_array($product->id, $productsSelected) ? 'selected' : ''}}>{{$product->name}}</option>
                         @endforeach
                     </select>
-
+                    <br/><br/>
                     <button onclick="updateLimitOrder()" class="btn btn-primary">Guardar</button>
 
                 </div>
@@ -33,6 +34,11 @@
     </div>
 @endsection
 
+<style>
+    .select2{
+        width: 25% !important;
+    }
+</style>
 
 <script>
 
