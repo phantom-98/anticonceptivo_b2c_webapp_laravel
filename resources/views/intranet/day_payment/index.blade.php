@@ -47,7 +47,20 @@
                                         </button>
                                     </div>
                                 </div>
+                                <div class="col-md-1">
+                                    <div class="form-group">
+                                        <button id="btnExport" type="submit" class="btn btn-success left " onclick="export_excel()"
+                                                style="margin-top: 23px"><i class="fa fa-file-excel-o"></i> Exportar
+                                        </button>
+                                    </div>
+                                </div>
                             </form>
+
+                            <form id="form-export" target="_BLANK"
+                                    action="{{ route($config['route'] . 'export') }}"
+                                    enctype="multipart/form-data" method="GET">
+                            </form>
+
                         </div>
                     </div>
                     <table id="table-bs"
@@ -106,6 +119,16 @@
 
             let columns = [
                 {
+                    title: 'Número de Factura',
+                    field: 'number',
+                    sortable: true,
+                    cellStyle: midAling,
+                    formatter: function (value, row, index) {
+                        var html = row.number ?? '-';
+                        return html;
+                    }
+                },
+                {
                     title: 'Fecha de pago',
                     field: 'date_payment',
                     sortable: true,
@@ -130,18 +153,28 @@
 
             ];
 
+            columns.push({
+                title: 'Factura',
+                field: 'active',
+                align: 'center',
+                cellStyle: cellStyle,
+                clickToSelect: false,
+                formatter: function (value, row, index) {
+                    return '<a target="_BLANK"  href="'+row.url_pdf+'" class="btn btn-success"><i clas="fa fa-print"></i> Ver</a>';
+                }
+            });
 
-                columns.push({
-                    title: 'Factura',
-                    field: 'active',
-                    align: 'center',
-                    cellStyle: cellStyle,
-                    clickToSelect: false,
-                    formatter: function (value, row, index) {
-                        return '<a target="_BLANK"  href="'+row.url_pdf+'" class="btn btn-success"><i clas="fa fa-print"></i> Ver</a>';
-                    }
-                });
-
+            columns.push({
+                title: 'Pedidos',
+                field: 'pedidos',
+                align: 'center',
+                cellStyle: midAling,
+                clickToSelect: false,
+                formatter: function (value, row, index) {
+                    var html = row.nice_orders;
+                    return html;
+                }
+            });
 
             $('#table-bs').bootstrapTable({
                 data: @json($objects),
@@ -152,5 +185,15 @@
 
     </script>
 
+    <script>
+        function export_excel() {
+            $('<input>').attr({
+                type: 'hidden',
+                name: 'date',
+                value: $("#date").val()
+            }).appendTo('#form-export');
+            $('#form-export').submit();
+        }
+    </script>
 
 @endsection

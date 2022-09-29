@@ -338,10 +338,12 @@ Route::get('fix-invoices-by-date/{date}', function ($date){
             return 'Existe proceso de facturación en dia '.$datePayment;
         }
 
-        $orders = App\Models\Order::whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED'])->whereDate('created_at',$datePayment)
+        $orders = App\Models\Order::whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED'])->whereBetween('created_at',[Carbon\Carbon::parse($datePayment)->startOfDay(),Carbon\Carbon::parse($datePayment)->endOfDay()]) 
         ->get();
         $details = [];
         $total = 0;
+
+        $array_orders_id = [];
 
         $paymentCommission = App\Models\PaymentCommission::where('active',1)
         ->latest()->first();
@@ -367,6 +369,10 @@ Route::get('fix-invoices-by-date/{date}', function ($date){
             array_push($details, $detail);
             $total += round($order->total * ($commission/100));
 
+            $order->billing_date = Carbon\Carbon::parse($date)->format('Y-m-d H:i:s');
+            $order->save();
+
+            array_push($array_orders_id, $order->id);
         }
 
         $subscriptions_orders_items = App\Models\SubscriptionsOrdersItem::with('order_item.subscription_plan','order_item.product')
@@ -398,6 +404,11 @@ Route::get('fix-invoices-by-date/{date}', function ($date){
             ];
             array_push($details, $detail);
             $total += round($subscription_order_item->order_item->price * ($commission/100));
+
+            $order->billing_date = Carbon\Carbon::parse($date)->format('Y-m-d H:i:s');
+            $order->save();
+
+            array_push($array_orders_id, $order->id);
         }
         $data_voucher = array(
             "codeSii"=> 33,
@@ -426,6 +437,8 @@ Route::get('fix-invoices-by-date/{date}', function ($date){
         $response = json_decode($get_data, true);
         $dayPayment = new App\Models\DayPayment();
         $dayPayment->url_pdf = $response['urlPdf'];
+        $dayPayment->number = $response['number'];
+        $dayPayment->orders = implode(",", $array_orders_id);
         $dayPayment->date_payment = Carbon\Carbon::parse($datePayment)->format('Y-m-d');
         $dayPayment->total = $total;
         $dayPayment->save();

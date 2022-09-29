@@ -67,7 +67,7 @@ class ProductController extends Controller
                 'laboratory' => function ($l) {
                     $l->where('active', true);
                 }
-            ])->take(12)->get();
+            ])->orderBy('stock','desc')->take(12)->get();
 
             return ApiResponse::JsonSuccess([
                 'products' => $this->processScheduleList($products)
@@ -94,7 +94,10 @@ class ProductController extends Controller
                         ->orWhereHas('laboratory', function ($query) use ($search) {
                             $query->where('name', 'LIKE', '%' . $search . '%');
                         });
-                })->where('active', true)->orderBy('position')->get();
+                })->where('active', true)
+                ->orderBy('stock', 'desc')
+                ->orderBy('position')
+                ->get();
 
             $subcategories = [];
             foreach ($products as $key => $product) {
@@ -170,7 +173,9 @@ class ProductController extends Controller
                         ->orWhereHas('laboratory', function ($query) use ($search) {
                             $query->where('name', 'LIKE', '%' . $search . '%');
                         });
-                })->where('active', true)->orderBy('position');
+                })->where('active', true)
+                ->orderBy('stock','desc')
+                ->orderBy('position');
 
             $laboratories = Laboratory::where('active', true)->whereIn('id', $products->pluck('laboratory_id')->unique());
             $subcatNames = null;
@@ -290,7 +295,9 @@ class ProductController extends Controller
             $laboratories = Laboratory::whereIn('id', $laboratoryIds)->where('active', true)->get();
 
             $products = Product::whereIn('id', $productIds)->where('active', true)
-                ->with(['subcategory.category', 'product_images', 'laboratory', 'plans.subscription_plan'])->orderBy('position');
+                ->with(['subcategory.category', 'product_images', 'laboratory', 'plans.subscription_plan'])
+                ->orderBy('stock','desc')
+                ->orderBy('position');
 
             $product_subcategory = Product::select('subcategory_id')->whereIn('id', $productIds)->where('active', true)
                 ->where('format', '!=', '')->whereNotNull('subcategory_id')->first();
@@ -491,13 +498,12 @@ class ProductController extends Controller
                 $products = $products->whereIn('format', $request->input('format'));
             }
 
-            $products = $products->orderBy('name')->get();
+            $products = $products->orderBy('stock','desc')->get();
 
             return ApiResponse::JsonSuccess([
                 'products' => $this->processScheduleList($products),
                 'laboratories' => $laboratories->get(),
                 'subcat_names' => $subcatNames
-                // 'laboratories' => $laboratories
             ], OutputMessage::SUCCESS);
 
         } catch (\Exception $exception) {
@@ -521,6 +527,7 @@ class ProductController extends Controller
                     $q->whereIn('id', [2, 3]);
                 })
                 ->inRandomOrder()
+                ->orderBy('stock','desc')
                 ->limit(12)->get();
 
             return ApiResponse::JsonSuccess([

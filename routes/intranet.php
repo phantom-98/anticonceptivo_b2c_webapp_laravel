@@ -117,6 +117,8 @@ if (env('SHOW_INTRANET', 'TRUE') == 'TRUE') {
                 Route::resource('consumo-responsable', 'ResponsibleConsumptionController', ['names' => getResourceRoutesForNameHelper('responsible_consumptions')]);
 
                 Route::resource('clientes', 'CustomerController', ['names' => getResourceRoutesForNameHelper('customers')]);
+
+                Route::get('dia-pago/export', 'DayPaymentController@export')->name('day_payment.export');
                 Route::resource('dia-pago', 'DayPaymentController', ['names' => getResourceRoutesForNameHelper('day_payment')]);
 
                 Route::get('pedidos/search-client', 'OrderController@search_client')->name('orders.search_client');
@@ -190,6 +192,9 @@ if (env('SHOW_INTRANET', 'TRUE') == 'TRUE') {
 
                 Route::get('telefono-contacto', 'PhoneContactController@index')->name('phone-contact.index');
                 Route::post('telefono-contacto/update', 'PhoneContactController@update')->name('phone-contact.update');
+
+                Route::get('productos-despacho-gratuito', 'FreeDispatchProductController@index')->name('free_dispatch_products.index');
+                Route::post('productos-despacho-gratuito/update', 'FreeDispatchProductController@update')->name('free_dispatch_products.update');
 
                 Route::get('parametros-rango-entrega', 'ProductScheduleSettingController@index')->name('product_schedule_settings.index');
                 Route::post('parametros-rango-entrega/update', 'ProductScheduleSettingController@update')->name('product_schedule_settings.update');

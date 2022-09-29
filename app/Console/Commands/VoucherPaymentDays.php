@@ -71,6 +71,8 @@ class VoucherPaymentDays extends Command
             $details = [];
             $total = 0;
 
+            $array_orders_id = [];
+
             $paymentCommission = PaymentCommission::where('active',1)
             ->latest()->first();
 
@@ -97,6 +99,8 @@ class VoucherPaymentDays extends Command
 
                 $order->billing_date = Carbon::now()->format('Y-m-d H:i:s');
                 $order->save();
+
+                array_push($array_orders_id, $order->id);
             }
 
             $subscriptions_orders_items = SubscriptionsOrdersItem::with('order_item.subscription_plan','order_item.product')
@@ -128,6 +132,10 @@ class VoucherPaymentDays extends Command
                 ];
                 array_push($details, $detail);
                 $total += round($subscription_order_item->order_item->price * ($commission/100));
+
+                $order->billing_date = Carbon::now()->format('Y-m-d H:i:s');
+                $order->save();
+                array_push($array_orders_id, $order->id);
             }
             $data_voucher = array(
                 "codeSii"=> 33,
@@ -157,8 +165,11 @@ class VoucherPaymentDays extends Command
             $response = json_decode($get_data, true);
             $dayPayment = new DayPayment();
             $dayPayment->url_pdf = $response['urlPdf'];
+            $dayPayment->number = $response['number'];
+            $dayPayment->orders = implode(",", $array_orders_id);
             $dayPayment->date_payment = Carbon::parse($datePayment)->format('Y-m-d');
             $dayPayment->total = $total;
+
             $dayPayment->save();
 
             $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
