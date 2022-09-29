@@ -1,23 +1,26 @@
 import React, {useRef, useContext, useState, useEffect, Fragment} from 'react';
+
 import Icon from "../../../../components/general/Icon";
 import logoFull from "../../../../assets/images/logo-full.svg";
 import logoShort from "../../../../assets/images/logo_responsive.png";
 import noImage from "../../../../assets/images/producto-default.png";
-import userBlue from "../../../../assets/images/icons/header/user-blue.svg"
-import cartBlue from "../../../../assets/images/icons/header/cart-blue.svg"
-import searchWhite from "../../../../assets/images/icons/header/search-white.svg"
+import userBlue from "../../../../assets/images/icons/header/user-blue.svg";
+import cartBlue from "../../../../assets/images/icons/header/cart-blue.svg";
+import searchWhite from "../../../../assets/images/icons/header/search-white.svg";
 
 import PUBLIC_ROUTES from "../../../../routes/publicRoutes";
 import PRIVATE_ROUTES from "../../../../routes/privateRoutes";
+
 import {Link} from "react-router-dom";
 import {AppContext} from "../../../../context/AppProvider";
 import {AuthContext} from "../../../../context/AuthProvider";
 import {ModalAuthMode} from "../../../../Globals";
-import TotalCartItems from "../../../../components/shopping/TotalCartItems";
-import * as Services from "../../../../Services";
 import {CONFIG} from "../../../../Config";
 import {formatMoney} from "../../../../helpers/GlobalUtils";
-import { LazyLoadImage } from 'react-lazy-load-image-component';
+import {LazyLoadImage} from 'react-lazy-load-image-component';
+
+import TotalCartItems from "../../../../components/shopping/TotalCartItems";
+import * as Services from "../../../../Services";
 import 'react-lazy-load-image-component/src/effects/blur.css';
 
 const HeaderBox = () => {
@@ -81,28 +84,6 @@ const HeaderBox = () => {
             }
         }
     }
-
-    // useEffect(() => {
-    //     setIsVisibilityDropdownSearch(true);
-    //     if (search.length > 0) {
-    //         let productList = products;
-    //         productList = productList.filter(product => {
-    //             const name = (product.name).toLowerCase();
-    //             const sku = product.sku;
-    //             const laboratory = product.laboratory.name.toLowerCase();
-    //             const texCompound = product.compound;
-
-    //             const description = product.description ? (product.description).toLowerCase() : '';
-
-    //             if (name.includes(search) || (texCompound !== null ? texCompound.includes(search) : false) || description.includes(search) || sku.includes(search) || laboratory.includes(search)) {
-    //                 return product;
-    //             }
-    //         })
-    //         setProductsWithFilter(productList);
-    //     } else {
-    //         setProductsWithFilter(products);
-    //     }
-    // }, [search])
 
     const clearResults = () => setProducts([]);
 

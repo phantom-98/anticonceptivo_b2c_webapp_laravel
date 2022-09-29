@@ -37,13 +37,10 @@ const HeaderTop = () => {
                     <div className="my-auto">
                         {
                             textHeader && textHeader.link ?
-
                                 <a href={textHeader.link } target="_blank" className="text-white">
                                     {textHeader ? textHeader.text : ''}
                                 </a>
-                                :
-                                textHeader ? textHeader.text : ''
-
+                            : textHeader ? textHeader.text : ''
                         }
                     </div>
                 </div>
