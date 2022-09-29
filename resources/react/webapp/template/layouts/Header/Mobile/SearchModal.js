@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {Modal} from "react-bootstrap";
-import CloseModal from "../../../components/general/CloseModal";
+import CloseModal from "../../../../components/general/CloseModal";
 import Search from "./Search";
 
 const SearchModal = ({showingSearch, hideSearch}) => {

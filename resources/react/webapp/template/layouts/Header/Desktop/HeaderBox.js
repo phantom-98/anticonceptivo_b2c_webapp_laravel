@@ -1,22 +1,22 @@
 import React, {useRef, useContext, useState, useEffect, Fragment} from 'react';
-import Icon from "../../../components/general/Icon";
-import logoFull from "../../../assets/images/logo-full.svg";
-import logoShort from "../../../assets/images/logo_responsive.png";
+import Icon from "../../../../components/general/Icon";
+import logoFull from "../../../../assets/images/logo-full.svg";
+import logoShort from "../../../../assets/images/logo_responsive.png";
+import noImage from "../../../../assets/images/producto-default.png";
+import userBlue from "../../../../assets/images/icons/header/user-blue.svg"
+import cartBlue from "../../../../assets/images/icons/header/cart-blue.svg"
+import searchWhite from "../../../../assets/images/icons/header/search-white.svg"
 
-import userBlue from "../../../assets/images/icons/header/user-blue.svg"
-import cartBlue from "../../../assets/images/icons/header/cart-blue.svg"
-import searchWhite from "../../../assets/images/icons/header/search-white.svg"
-import PUBLIC_ROUTES from "../../../routes/publicRoutes";
-import PRIVATE_ROUTES from "../../../routes/privateRoutes";
+import PUBLIC_ROUTES from "../../../../routes/publicRoutes";
+import PRIVATE_ROUTES from "../../../../routes/privateRoutes";
 import {Link} from "react-router-dom";
-import {AppContext} from "../../../context/AppProvider";
-import {AuthContext} from "../../../context/AuthProvider";
-import {ModalAuthMode} from "../../../Globals";
-import TotalCartItems from "../../../components/shopping/TotalCartItems";
-import * as Services from "../../../Services";
-import {CONFIG} from "../../../Config";
-import {formatMoney} from "../../../helpers/GlobalUtils";
-import noImage from "../../../assets/images/producto-default.png";
+import {AppContext} from "../../../../context/AppProvider";
+import {AuthContext} from "../../../../context/AuthProvider";
+import {ModalAuthMode} from "../../../../Globals";
+import TotalCartItems from "../../../../components/shopping/TotalCartItems";
+import * as Services from "../../../../Services";
+import {CONFIG} from "../../../../Config";
+import {formatMoney} from "../../../../helpers/GlobalUtils";
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 
@@ -29,16 +29,9 @@ const HeaderBox = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [debouncedSearch, setDebouncedSearch] = useState(search);
     const [products, setProducts] = useState([]);
-    const [productsWithFilter, setProductsWithFilter] = useState([]);
     const refInputSearch = useRef(null);
     const refDropdownList = useRef(null);
     const [isVisibilityDropdownSearch, setIsVisibilityDropdownSearch] = useState(false);
-
-    const handleKeyPress = (event) => {
-        if (event.key === 'Enter') {
-            getSearch()
-        }
-    }
 
     useEffect(() => {
         function handleClickOutside(event) {
@@ -69,6 +62,12 @@ const HeaderBox = () => {
             clearResults();
         }
     }, [search]);
+
+    const handleKeyPress = (event) => {
+        if (event.key === 'Enter') {
+            getSearch()
+        }
+    }
 
     const getSearch = (e) => {
         if (search.trim() != '') {

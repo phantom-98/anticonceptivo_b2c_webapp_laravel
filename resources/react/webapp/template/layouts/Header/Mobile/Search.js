@@ -1,12 +1,12 @@
 import React, {useEffect, useState, Fragment, useRef} from 'react';
-import PUBLIC_ROUTES from "../../../routes/publicRoutes";
+import PUBLIC_ROUTES from "../../../../routes/publicRoutes";
 import {Link} from "react-router-dom";
-import * as Services from "../../../Services";
-import {CONFIG} from "../../../Config";
-import {formatMoney} from "../../../helpers/GlobalUtils";
-import searchWhiteThin from "../../../assets/images/icons/header/search-white-thin.svg"
-import Icon from "../../../components/general/Icon";
-import noImage from "../../../assets/images/producto-default.png";
+import * as Services from "../../../../Services";
+import {CONFIG} from "../../../../Config";
+import {formatMoney} from "../../../../helpers/GlobalUtils";
+import searchWhiteThin from "../../../../assets/images/icons/header/search-white-thin.svg"
+import Icon from "../../../../components/general/Icon";
+import noImage from "../../../../assets/images/producto-default.png";
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 
