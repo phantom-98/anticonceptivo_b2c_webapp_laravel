@@ -136,6 +136,13 @@
                                     </a>
                                 </li>
                                 @endcan
+                                @can('intranet.free_dispatch_products.index')
+                                <li class="{{ is_menu_active('intranet/productos-despacho-gratuito') }}">
+                                    <a href="{{ route('intranet.free_dispatch_products.index') }}">
+                                        <span class="menu-title">Productos Despacho Gratuito</span>
+                                    </a>
+                                </li>
+                                @endcan
                                 @can('intranet.prices.index')
                                 <li class="{{ is_menu_active('intranet/precios-productos') }}">
                                     <a href="{{ route('intranet.prices.index') }}">

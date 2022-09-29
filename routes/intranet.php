@@ -130,6 +130,8 @@ if (env('SHOW_INTRANET', 'TRUE') == 'TRUE') {
 
                 Route::resource('quienes-somos', 'AboutController', ['names' => getResourceRoutesForNameHelper('abouts')]);
 
+                Route::resource('productos-despacho-gratuito', 'FreeDispatchProductController', ['names' => getResourceRoutesForNameHelper('free_dispatch_products')]);
+
                 Route::resource('aviso-legal-productos', 'LegalWarningController', ['names' => getResourceRoutesForNameHelper('legal_warnings')]);
 
                 Route::post('valores/active', 'ValueController@active')->name('values.active');
