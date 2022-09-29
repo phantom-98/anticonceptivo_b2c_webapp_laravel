@@ -22,7 +22,7 @@ class DayPaymentExport implements FromView, ShouldAutoSize
     public function view(): View
     {
         $objects = DayPayment::whereBetween('date_payment', [$this->startFilter.' 00:00:00', $this->endFilter.' 23:59:59'])->orderBy('date_payment')->get();
-        return view('intranet.exports.day_payments')->with('objects', $objects);
+        return view('intranet.exports.day_payment')->with('objects', $objects);
     }
 
 }
