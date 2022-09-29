@@ -246,7 +246,7 @@ class HomeController extends Controller
                 ->whereHas('order', function($q){
                     $q->whereIn('status',["DELIVERED","DISPATCHED","PAID"]);
                 })->whereHas('product', function($p){
-                    $p->where('recipe_type','Venta Directa')->where('active',true)->where('is_medicine', 0);
+                    $p->where('recipe_type','Venta Directa')->where('active',true)->where('stock','>',0)->where('is_medicine', 0);
                 })
                 ->select('product_id', DB::raw('sum(quantity) as total'))
                 ->groupBy('product_id')
