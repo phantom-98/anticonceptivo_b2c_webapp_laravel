@@ -369,7 +369,7 @@ Route::get('fix-invoices-by-date/{date}', function ($date){
             array_push($details, $detail);
             $total += round($order->total * ($commission/100));
 
-            $order->billing_date = Carbon::parse($date)->format('Y-m-d H:i:s');
+            $order->billing_date = Carbon\Carbon::parse($date)->format('Y-m-d H:i:s');
             $order->save();
 
             array_push($array_orders_id, [$order->id]);
@@ -405,7 +405,7 @@ Route::get('fix-invoices-by-date/{date}', function ($date){
             array_push($details, $detail);
             $total += round($subscription_order_item->order_item->price * ($commission/100));
 
-            $order->billing_date = Carbon::parse($date)->format('Y-m-d H:i:s');
+            $order->billing_date = Carbon\Carbon::parse($date)->format('Y-m-d H:i:s');
             $order->save();
 
             array_push($array_orders_id, [$order->id]);
