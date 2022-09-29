@@ -338,7 +338,7 @@ Route::get('fix-invoices-by-date/{date}', function ($date){
             return 'Existe proceso de facturación en dia '.$datePayment;
         }
 
-        $orders = App\Models\Order::whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED'])->whereDate('created_at',$datePayment)
+        $orders = App\Models\Order::whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED'])->whereBetween('created_at',[Carbon\Carbon::parse($datePayment)->startOfDay(),Carbon\Carbon::parse($datePayment)->endOfDay()]) 
         ->get();
         $details = [];
         $total = 0;
