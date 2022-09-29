@@ -100,7 +100,7 @@ class VoucherPaymentDays extends Command
                 $order->billing_date = Carbon::now()->format('Y-m-d H:i:s');
                 $order->save();
 
-                array_push($array_orders_id, [$order->id]);
+                array_push($array_orders_id, $order->id);
             }
 
             $subscriptions_orders_items = SubscriptionsOrdersItem::with('order_item.subscription_plan','order_item.product')
@@ -135,7 +135,7 @@ class VoucherPaymentDays extends Command
 
                 $order->billing_date = Carbon::now()->format('Y-m-d H:i:s');
                 $order->save();
-                array_push($array_orders_id, [$order->id]);
+                array_push($array_orders_id, $order->id);
             }
             $data_voucher = array(
                 "codeSii"=> 33,

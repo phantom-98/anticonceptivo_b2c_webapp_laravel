@@ -372,7 +372,7 @@ Route::get('fix-invoices-by-date/{date}', function ($date){
             $order->billing_date = Carbon\Carbon::parse($date)->format('Y-m-d H:i:s');
             $order->save();
 
-            array_push($array_orders_id, [$order->id]);
+            array_push($array_orders_id, $order->id);
         }
 
         return implode(",", $array_orders_id);
@@ -410,7 +410,7 @@ Route::get('fix-invoices-by-date/{date}', function ($date){
             $order->billing_date = Carbon\Carbon::parse($date)->format('Y-m-d H:i:s');
             $order->save();
 
-            array_push($array_orders_id, [$order->id]);
+            array_push($array_orders_id, $order->id);
         }
         $data_voucher = array(
             "codeSii"=> 33,
