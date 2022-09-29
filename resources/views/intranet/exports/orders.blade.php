@@ -21,7 +21,7 @@
             <th>Total</th>
             <th>Receta</th>
             <th>Boleta Número</th>
-
+            <th>Número Factura</th>
             <th>Fecha Facturación</th>
             <th>Fecha creación</th>
             <th>Hora creación</th>
@@ -92,7 +92,7 @@
                 @endif
 
                 <td>{{ $object->ballot_number ?? '-'}}</td>
-
+                <td>{{ $object->billing_number ?? '-'}}</td>
                 <td>{{ $object->billing_date ? date('d-m-Y', strtotime($object->billing_date)) : '-' }}</td>
 
                 <td>{{ date('d-m-Y', strtotime($object->created_at)) }}</td>

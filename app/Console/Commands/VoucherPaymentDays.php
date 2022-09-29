@@ -172,6 +172,18 @@ class VoucherPaymentDays extends Command
 
             $dayPayment->save();
 
+            $dayPayment->refresh();
+
+            try{
+                foreach($array_orders_id as $orderTemp){
+                    $order = Order::find($orderTemp);
+                    $order->billing_number = $dayPayment->number;
+                    $order->save();
+                }
+            } catch (\Exception $e){
+
+            }
+
             $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
             $html = view('emails.send-voucher', ['url_pdf' => $dayPayment->url_pdf, 'name' => 'Equipo Anticonceptivo'])->render();
 

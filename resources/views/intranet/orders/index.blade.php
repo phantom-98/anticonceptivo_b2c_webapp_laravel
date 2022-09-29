@@ -159,6 +159,7 @@
 
                             <th data-cell-style="cellStyle" data-sortable="false" data-valign="middle">Boleta PDF</th>
                             <th data-cell-style="cellStyle" data-sortable="false" data-valign="middle">Boleta Número</th>
+                            <th data-cell-style="cellStyle" data-sortable="false" data-valign="middle">Número Factura</th>
                             <th data-cell-style="cellStyle" data-field="dateBilling" data-sorter="datesSorter" data-sortable="true" data-valign="middle">Fecha Facturación</th>
                             <th data-cell-style="cellStyle" data-field="date" data-sorter="datesSorter" data-sortable="true" data-valign="middle">Fecha creación</th>
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Hora creación</th>
@@ -309,7 +310,7 @@
                                 <td>-</td>
                                 @endif
                                 <td>{{ $object->ballot_number ?? '-'}}</td>
-
+                                <td>{{ $object->billing_number ?? '-'}}</td>
                                 <td>{{ $object->billing_date ? date('d-m-Y', strtotime($object->billing_date)) : '-' }}</td>
 
                                 <td>{{ date('d-m-Y', strtotime($object->created_at)) }}</td>
