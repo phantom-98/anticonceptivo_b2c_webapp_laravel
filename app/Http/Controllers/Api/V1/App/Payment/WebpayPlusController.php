@@ -367,7 +367,7 @@ class WebpayPlusController
                     $subscriptionOrdersItem->orders_item_id = $orderItem->id;
                     $subscriptionOrdersItem->pay_date = $pay_date;
                     $subscriptionOrdersItem->save();
-                    $subscriptionOrdersItem->dispatch = $itemDeliveryCostArrayCost ? $itemDeliveryCostArrayCost->price[0] : 0;
+                    $subscriptionOrdersItem->dispatch = $itemDeliveryCostArrayCost ? ($this->hasFreeDispatch($request->cartItems) ? $itemDeliveryCostArrayCost->price[0] : 0 ) : 0;
                     $subscriptionOrdersItem->dispatch_date = $dispatch_date->addHours($itemDeliveryCost->deadline_delivery);
                     $subscriptionOrdersItem->subscription_id = $_subscription->id;
                     $subscriptionOrdersItem->customer_address_id = $customerAddress->id;
@@ -401,6 +401,11 @@ class WebpayPlusController
             $orderItem->extra_description = null;
 
             $orderItem->save();
+        }
+
+
+        if($this->hasFreeDispatch($request->cartItems)){
+            $order->dispatch = 0;
         }
 
         $order->subtotal = $subtotal;
@@ -865,5 +870,20 @@ class WebpayPlusController
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, OutputMessage::EXCEPTION . ' ' . $exception->getMessage());
         }
+    }
+
+    public function hasFreeDispatch($cartItems)
+    {
+        $free_dispatch_products = \App\Models\FreeDispatchProduct::first();
+        $free_dispatch_list = explode(',', (int) $free_dispatch_products->products);
+
+        foreach (json_decode($cartItems) as $item) {
+            Log::info('FREE_DISPATCH', ['item' => $item->product->id]);
+            if (in_array($item->product->id, $free_dispatch_list)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

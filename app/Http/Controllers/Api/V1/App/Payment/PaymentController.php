@@ -135,7 +135,6 @@ class PaymentController
         }
 
         $deliveryCosts = DeliveryCost::where('active', 1)->get();
-        $itemDeliveryCost = null;
         $itemDeliveryCostArrayCost = null;
 
         foreach ($deliveryCosts as $key => $deliveryCost) {
@@ -159,12 +158,32 @@ class PaymentController
         $meses = array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
         $fecha = Carbon::parse($dataDeliveryOrder['delivery_date']);
         $mes = $meses[($fecha->format('n')) - 1];
+
+        if($this->hasFreeDispatch($request->cartItems)){
+            $dispatch = 0;
+        }
+
         return ApiResponse::JsonSuccess([
             'dispatch' => $dispatch,
             'date_dispatch' => $fecha->format('d') . ' de ' . $mes,
             'dateDeliveryOrder' => $dataDeliveryOrder,
         ]);
+    }
 
+
+    // has products in cart that are in the free dispatch list
+    public function hasFreeDispatch($cartItems)
+    {
+        $free_dispatch_products = \App\Models\FreeDispatchProduct::first();
+        $free_dispatch_list = explode(',', (int) $free_dispatch_products->products);
+
+        foreach ($cartItems as $key => $cartItem) {
+            if (in_array($cartItem['product']['id'], $free_dispatch_list)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
 }
