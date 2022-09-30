@@ -538,11 +538,41 @@ class ProductController extends Controller
         }
     }
 
+
+
+
     private function processScheduleList($products)
     {
-        return $products->map(function ($product) {
+        $products->map(function ($product) {
             return $this->addScheduleLabel($product);
         });
+
+        $_products = [];
+        $_products_with_stock = [];
+        $_products_without_stock = [];
+
+        foreach ($products as $key => $product) {
+            if ($product->stock > 0) {
+                array_push($_products_with_stock, $product);
+            } else {
+                array_push($_products_without_stock, $product);
+            }
+        }
+
+
+        // Asc sort
+        usort($_products_with_stock,function($first,$second){
+            return $first->position > $second->position;
+        });
+
+        usort($_products_without_stock,function($first,$second){
+            return $first->position > $second->position;
+        });
+
+
+        $_products = array_merge($_products_with_stock, $_products_without_stock);
+
+        return $_products;
     }
 
     private function addScheduleLabel($product)
