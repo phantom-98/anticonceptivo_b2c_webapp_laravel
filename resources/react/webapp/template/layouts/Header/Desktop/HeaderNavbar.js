@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import HeaderNavbarItem from "../../../components/HeaderNavbarItem";
+import HeaderNavbarItemV2 from "../../../components/HeaderNavbarItemV2";
 import {Dropdown} from 'react-bootstrap'
 import PUBLIC_ROUTES from "../../../../routes/publicRoutes";
 import * as Services from "../../../../Services";
@@ -100,9 +100,9 @@ const HeaderNavbar = () => {
                     drop={'down'}
             >
                 <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
-                    <HeaderNavbarItem
+                    <HeaderNavbarItemV2
+                        icon={category.public_image}
                         linkTo={url}
-                        icon={testing}
                         text={category.name}
                     />
                 </Dropdown.Toggle>
