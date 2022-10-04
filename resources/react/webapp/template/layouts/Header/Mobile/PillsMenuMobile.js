@@ -1,7 +1,7 @@
 import React from 'react';
 import {v4 as uuidv4} from 'uuid';
 import {Link} from "react-router-dom";
-import PUBLIC_ROUTES from "../../../routes/publicRoutes";
+import PUBLIC_ROUTES from "../../../../routes/publicRoutes";
 import {Accordion, Card} from "react-bootstrap";
 
 const PillsMenuMobile = ({laboratories, subscriptions, formats, categorySlug, hideMenu}) => {

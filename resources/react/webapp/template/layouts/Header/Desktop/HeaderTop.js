@@ -1,16 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import Icon from "../../../components/general/Icon";
-import boxWhite from "../../../assets/images/icons/header/box-white.svg"
-import phoneWhite from "../../../assets/images/icons/header/phone-white.svg"
-import emailWhite from "../../../assets/images/icons/header/email-white.svg"
-import HeaderTopLink from "../../components/HeaderTopLink";
-import PUBLIC_ROUTES from "../../../routes/publicRoutes";
-import * as Services from "../../../Services";
-import HeaderDropDown from "../../components/HeaderDropDown";
+import phoneWhite from "../../../../assets/images/icons/header/phone-white.svg"
+import emailWhite from "../../../../assets/images/icons/header/email-white.svg"
+import HeaderTopLink from "../../../components/HeaderTopLink";
+import PUBLIC_ROUTES from "../../../../routes/publicRoutes";
+import * as Services from "../../../../Services";
 
 const HeaderTop = () => {
 
-    const [postTypes, setPostTypes] = useState([]);
     const [textHeader, setTextHeader] = useState(null);
     const [phoneContact, setPhoneContact] = useState(null);
 
@@ -25,7 +21,6 @@ const HeaderTop = () => {
             Services.Response({
                 response: response,
                 success: () => {
-                    setPostTypes(response.data.post_types);
                     setTextHeader(response.data.tex_header);
                     setPhoneContact(response.data.phone_contact);
                 },
@@ -42,13 +37,10 @@ const HeaderTop = () => {
                     <div className="my-auto">
                         {
                             textHeader && textHeader.link ?
-
                                 <a href={textHeader.link } target="_blank" className="text-white">
                                     {textHeader ? textHeader.text : ''}
                                 </a>
-                                :
-                                textHeader ? textHeader.text : ''
-
+                            : textHeader ? textHeader.text : ''
                         }
                     </div>
                 </div>
@@ -56,8 +48,6 @@ const HeaderTop = () => {
                     <div className="row justify-content-end">
                         <HeaderTopLink icon={phoneWhite} flag={true} email={false} linkTo={"tel:"+String(phoneContact).replace(/\D/g, "")} text={phoneContact}/>
                         <HeaderTopLink icon={emailWhite} flag={true} email={true} linkTo={"mailto:contacto@anticonceptivo.cl"} text={`contacto@anticonceptivo.cl`}/>
-                        {/*<HeaderDropDown postTypes={postTypes} />*/}
-                        {/*<HeaderTopLink text={`Historía de los anticonceptivos`} linkTo={PUBLIC_ROUTES.HISTORY.path}/>*/}
                         <HeaderTopLink text={`Blog`} linkTo={PUBLIC_ROUTES.BLOG.path}/>
                         <HeaderTopLink text={`Sobre nosotros`} linkTo={PUBLIC_ROUTES.ABOUT_US.path}/>
                         <HeaderTopLink text={`Contacto`} linkTo={PUBLIC_ROUTES.CONTACT_US.path}/>

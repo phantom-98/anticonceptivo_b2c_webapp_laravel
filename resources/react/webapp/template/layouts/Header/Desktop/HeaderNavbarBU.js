@@ -1,18 +1,16 @@
-import React, {useState, useEffect, useContext} from 'react';
-import HeaderNavbarItem from "../../components/HeaderNavbarItem";
+import React, {useState, useEffect} from 'react';
+import HeaderNavbarItem from "../../../components/HeaderNavbarItem";
 import {Dropdown} from 'react-bootstrap'
-import PUBLIC_ROUTES from "../../../routes/publicRoutes";
-import * as Services from "../../../Services";
+import PUBLIC_ROUTES from "../../../../routes/publicRoutes";
+import * as Services from "../../../../Services";
 import {v4 as uuidv4} from 'uuid';
 import {Link} from "react-router-dom";
-import PillsDropDown from "../../components/PillsDropDown";
-import UseWindowDimensions from "../../../components/customHooks/UseWindowDimensions";
-import {AppContext} from "../../../context/AppProvider";
+import PillsDropDown from "../../../components/PillsDropDown";
+import UseWindowDimensions from "../../../../components/customHooks/UseWindowDimensions";
 
 const HeaderNavbar = () => {
 
     const {width} = UseWindowDimensions();
-    // const {breakpoint} = useContext(AppContext)
     const [categories, setCategories] = useState([]);
     const [spliceCategories, setSpliceCategories] = useState([]);
     const [showDropdown, setShowDropdown] = useState(null);
@@ -23,15 +21,17 @@ const HeaderNavbar = () => {
 
     useEffect(() => {
         setView(width)
-    }, [width])
+    }, [width]);
 
     useEffect(() => {
         doSliceCategories();
-    }, [rows, categories])
+    }, [rows, categories]);
+
+    useEffect(() => {
+        getResources();
+    }, []);
 
     const setView = (width) => {
-
-
         if (width < 1385) {
             if (rows != 2) {
                 setRows(2)
@@ -57,11 +57,6 @@ const HeaderNavbar = () => {
             chunk.push(arr.slice(i, i + size));
         return chunk;
     }
-
-
-    useEffect(() => {
-        getResources();
-    }, [])
 
     const getResources = () => {
         let url = Services.ENDPOINT.PUBLIC_AREA.HEADER_MENU;
@@ -149,7 +144,6 @@ const HeaderNavbar = () => {
             </Dropdown>
         </div>)
     }
-
 
     return (
         <div className="header-navbar bg-0869A6">
