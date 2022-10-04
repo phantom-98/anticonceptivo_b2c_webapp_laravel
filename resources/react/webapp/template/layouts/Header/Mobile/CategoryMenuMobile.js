@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import PUBLIC_ROUTES from "../../../routes/publicRoutes";
-import * as Services from "../../../Services";
+import PUBLIC_ROUTES from "../../../../routes/publicRoutes";
+import * as Services from "../../../../Services";
 import { v4 as uuidv4 } from 'uuid';
 import {Link} from "react-router-dom";
 import PillsMenuMobile from "./PillsMenuMobile";
-import Icon from "../../../components/general/Icon";
+import Icon from "../../../../components/general/Icon";
 
 const CategoryMenuMobile = ({hideMenu}) => {
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import CloseSvg from "../../assets/images/icons/header/close-modal.svg";
+import CloseModal from "../../assets/images/icons/header/close-modal.svg";
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 
@@ -11,7 +11,7 @@ const OffCanvas = ({children, showCanvas, closeCanvas, width= 341 }) => {
                 <LazyLoadImage
                     rel="nofollow"
                     effect="blur"
-                    src={CloseSvg}
+                    src={CloseModal}
                 />
             </div>
             <div className="canvas-content">

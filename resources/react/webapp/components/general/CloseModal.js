@@ -1,6 +1,6 @@
 import React from 'react';
 import Icon from "./Icon";
-import closeModal from "../../assets/images/icons/close-modal.svg";
+import closeModal from "../../assets/images/icons/header/close-modal.svg";
 
 const CloseModal = ({hideModal}) => {
     return (
