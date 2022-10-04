@@ -1,6 +1,7 @@
 import React from 'react';
 import PublicMiddleware from "./middleware/PublicMiddleware";
 import BaseTemplate from "../template";
+import BaseNoLayout from "../template/BaseNoLayout";
 // import Home from '../pages/public/Home';
 // import AboutUs from "../pages/public/AboutUs";
 // import ContactUs from "../pages/public/ContactUs";
@@ -15,6 +16,10 @@ import BaseTemplate from "../template";
 // import FinishPaymentTransaction from "../pages/public/CheckOut/FinishPaymentTransaction";
 
 // const BaseTemplate = React.lazy(() => import("../template"));
+
+// change the above line import route for any testing page
+const Test = React.lazy(() => import('../pages/testing/Home'));
+
 const Home = React.lazy(() => import('../pages/public/Home'));
 const AboutUs = React.lazy(() => import("../pages/public/AboutUs"));
 const ContactUs = React.lazy(() => import("../pages/public/ContactUs"));
@@ -34,15 +39,14 @@ const Claim = React.lazy(() => import("../pages/public/Claim"));
 const ShopSearch = React.lazy(() => import('../pages/public/Shop/indexSearch'));
 
 const PUBLIC_ROUTES = {
-    // TEST: {
-    //     path: "/testing",
-    //     title: "Pruebas",
-    //     component: Test,
-    //     exact: true,
-    //     layout: props => <BaseTemplate {...props} />,
-    //     middleware: props => <PublicMiddleware {...props} />
-    // },
-
+    TEST: {
+        path: "/testing",
+        title: "Testing",
+        component: Test,
+        exact: true,
+        layout: props => <BaseNoLayout {...props} />,
+        middleware: props => <PublicMiddleware {...props} />
+    },
     ABOUT_US: {
         path: "/sobre-nosotros",
         title: "Sobre Nosotros",

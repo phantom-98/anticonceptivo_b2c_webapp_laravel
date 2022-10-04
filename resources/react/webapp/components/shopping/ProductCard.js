@@ -86,7 +86,7 @@ const ProductCard = ({product, className = '', subscriptionFilter = []}) => {
                         />
                     </Link>
                 </div>
-                <div className="product-card-body">
+                <div className="product-card-body text-left">
                     <div className="product-card-brand">{product.laboratory.name}</div>
                     <div className="product-card-name">
                         <Link  to={(PUBLIC_ROUTES.PRODUCT_DETAIL.path).replace(':slug?', product.slug)}
@@ -138,7 +138,7 @@ const ProductCard = ({product, className = '', subscriptionFilter = []}) => {
                             />
                         </Link>
                     </div>
-                    <div className="col-12">
+                    <div className="col-12 text-left">
                         <div className="product-card-brand">{product.laboratory.name}</div>
                         <div className="product-card-name">
                             <Link  to={(PUBLIC_ROUTES.PRODUCT_DETAIL.path).replace(':slug?', product.slug)}
