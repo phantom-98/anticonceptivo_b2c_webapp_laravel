@@ -1,6 +1,4 @@
 import React, {createContext, useEffect, useReducer} from 'react';
-import {PUSHER} from "../../Globals";
-import Pusher from 'pusher-js';
 import ModalAuth from "../../components/modals/ModalAuth";
 import ModalSuccess from "../../components/modals/ModalAuth/ModalSuccess";
 import ModalPasswordSuccess from "../../components/modals/ModalAuth/PasswordSuccess";
@@ -21,12 +19,6 @@ export const AppContext = createContext(null);
 const AppProvider = (props) => {
 
     const {breakpoint} = useDimension();
-
-    const pusher = new Pusher(PUSHER.APP_KEY, {
-        cluster: PUSHER.APP_CLUSTER
-    });
-
-    const pusherNotifyChannel = pusher.subscribe('notify');
 
     const initialState = {
         breakpoint: '',
@@ -113,7 +105,6 @@ const AppProvider = (props) => {
         <AppContext.Provider value={{
 
             breakpoint: state.breakpoint,
-            pusherNotifyChannel,
 
             showingModalAuth: state.showingModalAuth,
             modalAuthType: state.modalAuthType,
