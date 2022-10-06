@@ -16,11 +16,17 @@ class ImageHelper
             $file_name = explode(".", $object->$column);
             $file_name = str_replace('public', 'storage', $file_name[0]);
 
-            $image = Image::make(Storage::get($object->$column))->encode('webp', 90)->save($file_name . '.webp');
-
+            Image::make(Storage::get($object->$column))->encode('webp', 90)->save($file_name.'.webp');
+            // delete the old file
+            Storage::delete($object->$column);
             $file_name = str_replace('storage', 'public', $file_name);
             $object->$column = $file_name . '.webp';
             $object->save();
+
+            return [
+                'file_path' => $object->$column,
+                'file_name' => str_replace('public/sliders/', '', $file_name) . '.webp',
+            ];
         }
     }
 

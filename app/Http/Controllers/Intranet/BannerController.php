@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Intranet;
 
-use App\Http\Controllers\Controller;
 use App\Models\CmsSlider;
 use App\Models\Banner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Log;
-use Carbon\Carbon;
 use App\Http\Helpers\ImageHelper;
+use Illuminate\Support\Facades\Storage;
+use App\Http\Helpers\AWSS3Helper;
 
 class BannerController extends GlobalController
 {
@@ -49,7 +49,7 @@ class BannerController extends GlobalController
     }
 
     public function update(Request $request, $id)
-    { 
+    {
         $rules = [
             'file' => 'required',
             'responsive_file' => 'required',
@@ -94,7 +94,7 @@ class BannerController extends GlobalController
             $name = pathinfo($request->file("responsive_file")->getClientOriginalName(), PATHINFO_FILENAME);
             $object->responsive_file = $request->file("responsive_file")
             ->storeAs('public/sliders', 'responsive-slider-'.$name.'- '.rand(100000, 999999).'.'.$ext);
-            
+
             $object->save();
 
             $object->refresh();
@@ -106,7 +106,7 @@ class BannerController extends GlobalController
                 'new_name' => $name,
                 'user' => auth('intranet')->user()->full_name
             ]);
-            
+
             if ($object) {
                 session()->flash('success', 'Banner creado correctamente.');
                 return redirect()->route($this->route . 'edit', [$slider->slug]);
@@ -134,12 +134,12 @@ class BannerController extends GlobalController
             ]);
         }
 
-        
+
     }
 
     public function edit_item(Request $request, $id){
         $object = Banner::find($id);
- 
+
         if(!$object){
             session()->flash('warning', 'Banner no encontrado.');
             return redirect()->back();
@@ -156,17 +156,40 @@ class BannerController extends GlobalController
         $object->save();
 
         if($request->file("file")){
-            \Storage::delete($object->file);
-            
+
+            // DELETE DE OLD FILE AND THE FILE PREVIUS TO CONVERT TO WEBP
+            // SEARCH IN FILE IF IS A LOCAL FILE OR A AWS FILE
+            if(strpos($object->file, 'https://') !== false){
+                // IS A AWS FILE
+                AWSS3Helper::delete($object->file);
+            }else{
+                // IS A LOCAL FILE
+                // THE CODE BELOW CAN BE ERASED IF THE FILES ALWAYS ARE STORED IN AWS
+                Storage::delete($object->file);
+            }
+
+            // STORE FILE, RESIZE AND CONVERT TO WEBP
             $ext = $request->file("file")->getClientOriginalExtension();
             $name = pathinfo($request->file("file")->getClientOriginalName(), PATHINFO_FILENAME);
-            $object->file = $request->file("file")
-            ->storeAs('public/sliders', 'slider-'.$name.'- '.rand(100000, 999999).'.'.$ext);
-
+            $file_name = 'slider-'.$name.'-'.rand(100000, 999999).'.'.$ext;
+            $object->file = $request->file("file")->storeAs('public/sliders', $file_name);
             $object->save();
-            $object->refresh();
 
-            ImageHelper::convert_image('Banner', $object->id, 'file');
+            $webp_path = ImageHelper::convert_image('Banner', $object->id, 'file');
+
+            // S3 UPLOAD
+            $dir = 'laravel/anticonceptivo/public/sliders/';
+            $aws_path = $dir.$webp_path['file_name'];
+
+            // get webp file from local storage and upload to s3
+            $webp_file = Storage::get($webp_path['file_path']);
+            Storage::disk('s3')->put($aws_path, $webp_file, 'public');
+
+            // delete  webp local file
+            Storage::delete($webp_path['file_path']);
+
+            $object->file = Storage::disk('s3')->url($aws_path);
+            $object->save();
 
             Log::info('Cambio de foto', [
                 'date' => date('Y-m-d H:i:s'),
@@ -176,8 +199,8 @@ class BannerController extends GlobalController
         }
 
         if($request->file("responsive_file")){
-            \Storage::delete($object->responsive_file);
-            
+            Storage::delete($object->responsive_file);
+
             $ext = $request->file("responsive_file")->getClientOriginalExtension();
             $name = pathinfo($request->file("responsive_file")->getClientOriginalName(), PATHINFO_FILENAME);
             $object->responsive_file = $request->file("responsive_file")
@@ -212,8 +235,8 @@ class BannerController extends GlobalController
             return redirect()->back();
         }
 
-        \Storage::delete($object->file);
-        \Storage::delete($object->responsive_file);
+        Storage::delete($object->file);
+        Storage::delete($object->responsive_file);
 
         if($object->delete()){
             session()->flash('success', 'Banner eliminado correctamente.');
