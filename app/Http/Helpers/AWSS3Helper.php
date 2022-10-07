@@ -18,7 +18,8 @@ final class AWSS3Helper
     private $version;
     private $url;
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->bucket = env('AWS_BUCKET');
         $this->region = env('AWS_DEFAULT_REGION');
         $this->key = env('AWS_ACCESS_KEY_ID');
@@ -27,7 +28,8 @@ final class AWSS3Helper
         $this->url = env('AWS_URL');
     }
 
-    public function delete($path){
+    public function delete($path): bool
+    {
         try {
             $path = str_replace($this->url, '', urldecode($path));
 
@@ -42,7 +44,7 @@ final class AWSS3Helper
 
             $result = $s3->deleteObject(['Bucket' => $this->bucket, 'Key' => $path]);
 
-            Log::info('AWS S3 Delete Object: ',[
+            Log::info('AWS S3 Delete Object: ', [
                 'result' => $result,
                 'operation' => $result['@metadata']['statusCode'] == 204 ? 'success' : 'error',
             ]);
@@ -52,7 +54,7 @@ final class AWSS3Helper
             }
 
             return false;
-        }catch (S3Exception $e) {
+        } catch (S3Exception $e) {
             Log::error('Error deleting file from S3: ' . $path, [
                 'error' => $e->getMessage(),
             ]);
@@ -60,7 +62,8 @@ final class AWSS3Helper
         }
     }
 
-    public function store($aws_path, $webp_path, $object){
+    public function store($aws_path, $webp_path, $object): bool
+    {
         try {
             // get webp file from local storage and upload to s3
             $webp_file = Storage::get($webp_path['file_path']);
@@ -72,10 +75,13 @@ final class AWSS3Helper
             // update object with new path to s3
             $object->file = Storage::disk('s3')->url($aws_path);
             $object->save();
-        }catch (S3Exception $e) {
+
+            return true;
+        } catch (S3Exception $e) {
             Log::error('Error store file from S3: ' . $aws_path, [
                 'error' => $e->getMessage(),
             ]);
+            return false;
         }
     }
 }
