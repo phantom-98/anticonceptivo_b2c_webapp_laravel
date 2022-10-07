@@ -157,16 +157,9 @@ class BannerController extends GlobalController
 
         if($request->file("file")){
 
-            // DELETE DE OLD FILE AND THE FILE PREVIUS TO CONVERT TO WEBP
-            // SEARCH IN FILE IF IS A LOCAL FILE OR A AWS FILE
-            if(strpos($object->file, 'https://') !== false){
-                // IS A AWS FILE
-                AWSS3Helper::delete($object->file);
-            }else{
-                // IS A LOCAL FILE
-                // THE CODE BELOW CAN BE ERASED IF THE FILES ALWAYS ARE STORED IN AWS
-                Storage::delete($object->file);
-            }
+            // Instance AWS S3 Helper
+            $aws_s3_helper = new AWSS3Helper();
+            $aws_s3_helper->delete($object->file);
 
             // STORE FILE, RESIZE AND CONVERT TO WEBP
             $ext = $request->file("file")->getClientOriginalExtension();
@@ -177,19 +170,10 @@ class BannerController extends GlobalController
 
             $webp_path = ImageHelper::convert_image('Banner', $object->id, 'file');
 
-            // S3 UPLOAD
+            // UPLOAD FILE TO AWS S3
             $dir = 'laravel/anticonceptivo/public/sliders/';
             $aws_path = $dir.$webp_path['file_name'];
-
-            // get webp file from local storage and upload to s3
-            $webp_file = Storage::get($webp_path['file_path']);
-            Storage::disk('s3')->put($aws_path, $webp_file, 'public');
-
-            // delete  webp local file
-            Storage::delete($webp_path['file_path']);
-
-            $object->file = Storage::disk('s3')->url($aws_path);
-            $object->save();
+            $aws_s3_helper->store($aws_path, $webp_path, $object);
 
             Log::info('Cambio de foto', [
                 'date' => date('Y-m-d H:i:s'),
