@@ -268,7 +268,7 @@
 }
 
 .offcanvas-block.show {
-    right: 0;
+    left: 0;
     animation: appear-right-in .3s;
     transform: translateX(0%);
 }
