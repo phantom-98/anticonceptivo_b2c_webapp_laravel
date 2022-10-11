@@ -123,7 +123,7 @@ const CartProvider = (props) => {
             updateQuantity : updateQuantity,
         }}>
             {props.children}
-            <MiniCart/>
+            {/* <MiniCart/> */}
         </CartContext.Provider>
     );
 };

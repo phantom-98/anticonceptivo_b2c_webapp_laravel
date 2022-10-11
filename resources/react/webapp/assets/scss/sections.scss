@@ -269,7 +269,7 @@
 
 .offcanvas-block.show {
     left: 0;
-    animation: appear-right-in .3s;
+    animation: appear-left-in .3s;
     transform: translateX(0%);
 }
 
@@ -300,29 +300,29 @@
     height: calc(100vh - 0px);
     top: 0;
     left: 0;
-    //z-index: 2;
     background: #FFFFFF;
     padding: 15px;
-    -webkit-animation: appear-left-out .3s;
-    animation: appear-left-out .3s;
-    transform: translateX(-1000%);
     z-index: 1041;
     overflow: auto;
+    transform: translateX(-100%);
 }
 
 .offcanvas-block-left.show {
-    left: 0;
+    -webkit-animation: appear-left-in .3s;
     animation: appear-left-in .3s;
     transform: translateX(0%);
+}
+
+.offcanvas-block-left.hide {
+    -webkit-animation: appear-left-out .3s;
+    animation: appear-left-out .3s;
+    // transform: translateX(-100%);
 }
 
 @keyframes appear-left-in {
     0% {
         transform: translateX(-100%);
     }
-    // 75% {
-    //     transform: translateX(0%);
-    // }
 }
 
 @keyframes appear-left-out {
@@ -330,11 +330,6 @@
     0% {
         transform: translateX(0%);
     }
-
-    // 100% {
-    //     transform: translateX(-100%);
-    // }
-
 }
 
 .banner-buttons{
