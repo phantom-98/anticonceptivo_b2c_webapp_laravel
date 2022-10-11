@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Log;
 use App\Http\Helpers\ImageHelper;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Helpers\AWSS3Helper;
+use App\Http\Helpers\TestingHelper;
 
 class BannerController extends GlobalController
 {
@@ -145,62 +146,8 @@ class BannerController extends GlobalController
             return redirect()->back();
         }
 
-        $object->alt = $request->alt;
-        $object->title = $request->title;
-        $object->description = $request->description;
-        $object->button_title = $request->button_title;
-        $object->button_link = $request->button_link;
-        $object->button_target = $request->button_target;
-        $object->location = $request->location;
-        $object->size = $request->size;
-        $object->save();
-
-        if($request->file("file")){
-
-            // Instance AWS S3 Helper
-            $aws_s3_helper = new AWSS3Helper();
-            $aws_s3_helper->delete($object->file);
-
-            // STORE FILE, RESIZE AND CONVERT TO WEBP
-            $ext = $request->file("file")->getClientOriginalExtension();
-            $name = pathinfo($request->file("file")->getClientOriginalName(), PATHINFO_FILENAME);
-            $file_name = 'slider-'.$name.'-'.rand(100000, 999999).'.'.$ext;
-            $object->file = $request->file("file")->storeAs('public/sliders', $file_name);
-            $object->save();
-
-            $webp_path = ImageHelper::convert_image('Banner', $object->id, 'file');
-
-            // UPLOAD FILE TO AWS S3
-            $dir = 'laravel/anticonceptivo/public/sliders/';
-            $aws_path = $dir.$webp_path['file_name'];
-            $aws_s3_helper->store($aws_path, $webp_path, $object);
-
-            Log::info('Cambio de foto', [
-                'date' => date('Y-m-d H:i:s'),
-                'new_name' => $name,
-                'user' => auth('intranet')->user()->full_name
-            ]);
-        }
-
-        if($request->file("responsive_file")){
-            Storage::delete($object->responsive_file);
-
-            $ext = $request->file("responsive_file")->getClientOriginalExtension();
-            $name = pathinfo($request->file("responsive_file")->getClientOriginalName(), PATHINFO_FILENAME);
-            $object->responsive_file = $request->file("responsive_file")
-            ->storeAs('public/sliders', 'responsive-slider-'.$name.'- '.rand(100000, 999999).'.'.$ext);
-
-            $object->save();
-            $object->refresh();
-
-            ImageHelper::convert_image('Banner', $object->id, 'responsive_file');
-
-            Log::info('Cambio de foto', [
-                'date' => date('Y-m-d H:i:s'),
-                'new_name' => $name,
-                'user' => auth('intranet')->user()->full_name
-            ]);
-        }
+        $testing_helper = new TestingHelper();
+        $testing_helper->store($request->file("file"), 'public/sliders');
 
         if ($object) {
             session()->flash('success', 'Banner modificado correctamente.');
