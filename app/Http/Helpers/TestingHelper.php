@@ -38,6 +38,9 @@ final class TestingHelper
         return false;
     }
 
+
+
+
     public function store($file, $path): bool
     {
         try{
@@ -94,6 +97,7 @@ final class TestingHelper
     private function convertToWebp($entry_path): string
     {
         try{
+            # need to fix: replace file instead of creating a new one
             $old_file = Storage::get($entry_path);
             $path = str_replace('public', 'storage', $this->getDirectory($entry_path)) .'/' . $this->getFileName($entry_path) . '.webp';
             if (Image::make($old_file)->encode('webp', 90)->save($path)) {
