@@ -38,29 +38,11 @@ final class TestingHelper
         return false;
     }
 
-
-    # configuration for store method: default|local|webp|s3
-    # default configuration saves webp on s3 and delete file from local storage
-    # if you want to save on local only without convert image on webp use local
-    # if you want to save on local and convert image on webp use webp
-    # if you want to save on s3 without converting use s3
-
     public function store($file, $path): bool
     {
         try{
-            $local_path = $this->saveOnLocal($file, $path);
-            Log::info('local_path: ' . $local_path);
-
-            Log::info('private functions', [
-                'exists' => $this->exists('local', $local_path),
-                'getUrl' => $this->getUrl('local', $local_path),
-                'getExtension' => $this->getExtension($local_path),
-                'getMimeType' => $this->getMimeType('local', $local_path),
-                'getFileName' => $this->getFileName($local_path),
-                'getFilePath' => $this->getFilePath('local', $local_path),
-            ]);
-
-            $this->convertToWebp($local_path);
+            $entry_path = $this->saveOnLocal($file, $path);
+            $webp_path = $this->convertToWebp($entry_path);
 
             return true;
         }catch(Exception $e){
@@ -108,26 +90,20 @@ final class TestingHelper
             ]);
         }
     }
-    // $file_name = explode(".", $object->$column);
-    // $file_name = str_replace('public', 'storage', $file_name[0]);
 
-    // Image::make(Storage::get($object->$column))->encode('webp', 90)->save($file_name.'.webp');
-    // // delete the old file
-    // Storage::delete($object->$column);
-    // $file_name = str_replace('storage', 'public', $file_name);
-    // $object->$column = $file_name . '.webp';
-    // $object->save();
-    private function convertToWebp($path)
+    private function convertToWebp($entry_path): string
     {
         try{
-
-            throw new \Exception('Error converting file to webp');
-            return false;
+            $old_file = Storage::get($entry_path);
+            $path = str_replace('public', 'storage', $this->getDirectory($entry_path)) .'/' . $this->getFileName($entry_path) . '.webp';
+            if (Image::make($old_file)->encode('webp', 90)->save($path)) {
+                return $path;
+            }
+            throw new Exception('Error converting image to webp from: ' . $entry_path);
         }catch(\Exception $e){
             Log::error('Error converting image to webp: ', [
                 'error' => $e->getMessage(),
             ]);
-            return false;
         }
     }
 
@@ -169,6 +145,11 @@ final class TestingHelper
     private function getFileName($path): string
     {
         return pathinfo($path, PATHINFO_FILENAME);
+    }
+
+    private function getDirectory($path): string
+    {
+        return pathinfo($path, PATHINFO_DIRNAME);
     }
 
     private function getFilePath($where, $path): string
