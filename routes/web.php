@@ -3,6 +3,7 @@
 use App\Http\Controllers\SEOController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\SitemapController;
+use App\Http\Helpers\S3Helper;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Log;
 
@@ -16,12 +17,58 @@ use Illuminate\Support\Facades\Log;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('upload-images-s3/{class}/{column}', function($class, $column){
+    $classname = 'App\\Models\\'.$class;
+    // where column doesnt have the string "https://inw-assets.s3.amazonaws.com/laravel/anticonceptivo/"
+    $objects = $classname::whereNotNull($column)->where($column, 'not like', '%https://inw-assets.s3.amazonaws.com/laravel/anticonceptivo/%')->get();
+
+    // use the S3 helper
+    $S3Helper = new \App\Http\Helpers\S3Helper();
+
+    $counter = 0;
+    $errors = [];
+
+    foreach ($objects as $object) {
+        try{
+            $path = $object->$column;
+            $webp_path = $path;
+
+            if ($S3Helper->getExtension($path) != 'webp') {
+                $webp_path = $S3Helper->convertToWebp($path);
+            }
+
+            if ($webp_path) {
+                $name = $S3Helper->getFileNameWithExt($webp_path);
+                $aws_path = 'laravel/anticonceptivo/' . $S3Helper->getDirectory($webp_path) . '/' . $name;
+                $path_from_aws = $S3Helper->saveOnS3($aws_path, $webp_path);
+
+                $object->$column = $path_from_aws;
+
+                if ($object->save()) {
+                    $counter++;
+                }else{
+                    $errors[] = $object->id;
+                }
+            }
+        }catch(\Exception $e){
+            Log::error('Error migrating file: ', [
+                'error' => $e->getMessage(),
+            ]);
+
+            $errors[] = $object->id . ' - ' . $e->getMessage();
+        }
+    }
+
+    return 'DONE, ' . $counter . ' files migrated';
+});
+
 Route::get('subscriptions-plans-cicles', function () {
     $subscription_plans = \App\Models\SubscriptionPlan::get();
 
     foreach ($subscription_plans as $key => $sp) {
         $sp->cicles = $sp->months == 13 ? 12 : $sp->months;
-        $sp->save(); 
+        $sp->save();
     }
 
     return true;
@@ -338,7 +385,7 @@ Route::get('fix-invoices-by-date/{date}', function ($date){
             return 'Existe proceso de facturación en dia '.$datePayment;
         }
 
-        $orders = App\Models\Order::whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED'])->whereBetween('created_at',[Carbon\Carbon::parse($datePayment)->startOfDay(),Carbon\Carbon::parse($datePayment)->endOfDay()]) 
+        $orders = App\Models\Order::whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED'])->whereBetween('created_at',[Carbon\Carbon::parse($datePayment)->startOfDay(),Carbon\Carbon::parse($datePayment)->endOfDay()])
         ->get();
         $details = [];
         $total = 0;

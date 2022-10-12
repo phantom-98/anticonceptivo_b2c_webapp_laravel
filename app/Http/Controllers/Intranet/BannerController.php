@@ -9,8 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Log;
 use App\Http\Helpers\ImageHelper;
 use Illuminate\Support\Facades\Storage;
-use App\Http\Helpers\AWSS3Helper;
-use App\Http\Helpers\TestingHelper;
+use App\Http\Helpers\S3Helper;
 
 class BannerController extends GlobalController
 {
@@ -146,8 +145,39 @@ class BannerController extends GlobalController
             return redirect()->back();
         }
 
-        $testing_helper = new TestingHelper();
-        $testing_helper->store($request->file("file"), 'public/sliders');
+        $object->alt = $request->alt;
+        $object->title = $request->title;
+        $object->description = $request->description;
+        $object->button_title = $request->button_title;
+        $object->button_link = $request->button_link;
+        $object->button_target = $request->button_target;
+        $object->location = $request->location;
+        $object->size = $request->size;
+
+        if($request->file("file")){
+            $S3Helper = new S3Helper('laravel/anticonceptivo/', 'public/sliders');
+            $S3Helper->delete($object->file);
+            $object->file = $S3Helper->store($request->file("file"));
+        }
+
+        // if($request->file("responsive_file")){
+        //     Storage::delete($object->responsive_file);
+
+        //     $ext = $request->file("responsive_file")->getClientOriginalExtension();
+        //     $name = pathinfo($request->file("responsive_file")->getClientOriginalName(), PATHINFO_FILENAME);
+        //     $object->responsive_file = $request->file("responsive_file")
+        //     ->storeAs('public/sliders', 'responsive-slider-'.$name.'- '.rand(100000, 999999).'.'.$ext);
+
+        //     ImageHelper::convert_image('Banner', $object->id, 'responsive_file');
+
+        //     Log::info('Cambio de foto', [
+        //         'date' => date('Y-m-d H:i:s'),
+        //         'new_name' => $name,
+        //         'user' => auth('intranet')->user()->full_name
+        //     ]);
+        // }
+
+        $object->save();
 
         if ($object) {
             session()->flash('success', 'Banner modificado correctamente.');
