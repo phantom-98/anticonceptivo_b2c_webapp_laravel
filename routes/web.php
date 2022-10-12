@@ -18,6 +18,73 @@ use Illuminate\Support\Facades\Log;
 |
 */
 
+Route::get('fix-location-of-files', function () {
+    $product_images = \App\Models\ProductImage::all();
+    $product_images_with_new_path = [];
+    $product_images_with_null_path = [];
+    $product_subscription_plans_with_new_path = [];
+    $product_subscription_plans_with_null_path = [];
+
+    $product_subscription_plans = \App\Models\ProductSubscriptionPlan::all();
+    // we need to iterate over all product_images and product_subscription_plans and move the files to the correct location
+    foreach ($product_images as $product_image) {
+        $old_path = $product_image->file;
+        // this is the route public/products/1398/1398589264.webp and we need to change to this public/products/product-1398/1398589264.webp
+        $new_path = str_replace('public/products/', 'public/products/product-' . $product_image->product_id . '/', $old_path);
+
+        // verify if the file exists in the old location
+        if (Storage::disk('s3')->exists($old_path)) {
+            // now we need to move the file from the old path to the new path using Storage::move()
+            Storage::move($old_path, $new_path);
+            $product_image->file = $new_path;
+            $product_images_with_new_path [] = $product_image->id;
+        }else{
+            Log::info('File does not exist in the old location: ' . $old_path);
+            // we need put $product_image->file null because the product_image file does not exist on the old location
+            $product_image->file = null;
+            $product_images_with_null_path [] = $product_image->id;
+        }
+
+        $product_image->save();
+    }
+
+    foreach ($product_subscription_plans as $product_subscription_plan) {
+        $old_path = $product_subscription_plan->image;
+        // this is the route public/products/1398/1398589264.webp and we need to change to this public/products/product-1398/1398589264.webp
+        $new_path = str_replace('public/products/', 'public/products/product-' . $product_subscription_plan->product_id . '/plans/', $old_path);
+
+        // verify if the file exists in the old location
+        if (Storage::disk('s3')->exists($old_path)) {
+            // now we need to move the image from the old path to the new path using Storage::move()
+            Storage::move($old_path, $new_path);
+            $product_subscription_plan->image = $new_path;
+            $product_subscription_plans_with_new_path [] = $product_subscription_plan->id;
+        }else{
+            Log::info('File does not exist in the old location: ' . $old_path);
+            // we need put $product_subscription_plan->image null because the product_subscription_plan file does not exist on the old location
+            $product_subscription_plan->image = null;
+            $product_subscription_plans_with_null_path [] = $product_subscription_plan->id;
+        }
+
+        $product_subscription_plan->save();
+    }
+
+    return [
+        'product_images' => [
+            'product_images_with_new_path' => $product_images_with_new_path,
+            'product_images_with_new_path_count' => count($product_images_with_new_path),
+            'product_images_with_null_path' => $product_images_with_null_path,
+            'product_images_with_null_path_count' => count($product_images_with_null_path),
+        ],
+        'product_subscription_plans' => [
+            'product_subscription_plans_with_new_path' => $product_subscription_plans_with_new_path,
+            'product_subscription_plans_with_new_path_count' => count($product_subscription_plans_with_new_path),
+            'product_subscription_plans_with_null_path' => $product_subscription_plans_with_null_path,
+            'product_subscription_plans_with_null_path_count' => count($product_subscription_plans_with_null_path),
+        ]
+    ];
+});
+
 Route::get('upload-images-s3/{class}/{column}', function($class, $column){
     $classname = 'App\\Models\\'.$class;
 
