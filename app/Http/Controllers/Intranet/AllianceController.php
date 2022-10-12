@@ -5,13 +5,9 @@ namespace App\Http\Controllers\Intranet;
 use App\Models\Alliance;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Storage;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
-use App\Http\Helpers\ImageHelper;
+use App\Http\Helpers\S3Helper;
 
 class AllianceController extends GlobalController
 {
@@ -60,28 +56,21 @@ class AllianceController extends GlobalController
 
             $object = Alliance::create($request->except(['image', 'footer_image']));
 
+            $S3Helper = new S3Helper('laravel/anticonceptivo/', 'public/alliances');
+
             if ($request->image) {
-                $image = $request->file('image');
-                $filename = 'alliance-' . $object->id  .'.'. $image->getClientOriginalExtension();
-                $object->image = $image->storeAs('public/alliances', $filename);
-                $object->save();
-                $object->refresh();
-                ImageHelper::convert_image('Alliance', $object->id, 'image');
+                $object->image = $S3Helper->store($request->file("image"));
             }
 
             if ($request->footer_image) {
-                $footer_image = $request->file('footer_image');
-                $filename = 'alliance-footer-' . $object->id  .'.'. $footer_image->getClientOriginalExtension();
-                $object->footer_image = $footer_image->storeAs('public/alliances', $filename);
-                $object->save();
-                $object->refresh();
-                ImageHelper::convert_image('Alliance', $object->id, 'footer_image');
+                $object->footer_image = $S3Helper->store($request->file("footer_image"));
             }
+
+            $object->save();
 
             if ($object) {
                 session()->flash('success', 'Alianza creada correctamente.');
                 return redirect()->route($this->route . 'index');
-
             }
 
             return redirect()->back()->withErrors(['mensaje' => 'Error inesperado al crear la Alianza.'])->withInput();
@@ -130,51 +119,27 @@ class AllianceController extends GlobalController
 
             $object->update($request->except(['image', 'footer_image']));
 
-            $object->save();
+            $S3Helper = new S3Helper('laravel/anticonceptivo/', 'public/alliances');
 
             if ($request->image) {
-                $name = "";
-                if($object->image){
-                    $name = $object->image;
-                    Storage::delete($object->image);
-                }
-                $image = $request->file('image');
-                $filename = 'alliance-' . $object->id  .'.'. $image->getClientOriginalExtension();
-                $object->image = $image->storeAs('public/alliances', $filename);
-                $object->save();
-
-                $object->refresh();
-                ImageHelper::convert_image('Alliance', $object->id, 'image');
-
-                Log::info('Cambio de foto', [
+                $S3Helper->delete($object->image);
+                $object->image = $S3Helper->store($request->file("image"));
+                Log::info('Cambio de imagen', [
                     'date' => date('Y-m-d H:i:s'),
-                    'old_name' => $name,
-                    'new_name' => $filename,
                     'user' => auth('intranet')->user()->full_name
                 ]);
             }
 
             if ($request->footer_image) {
-                $name = "";
-                if($object->footer_image){
-                    $name = $object->footer_image;
-                    Storage::delete($object->footer_image);
-                }
-                $footer_image = $request->file('footer_image');
-                $filename = 'alliance-footer-' . $object->id  .'.'. $footer_image->getClientOriginalExtension();
-                $object->footer_image = $footer_image->storeAs('public/alliances', $filename);
-                $object->save();
-
-                $object->refresh();
-                ImageHelper::convert_image('Alliance', $object->id, 'footer_image');
-
+                $S3Helper->delete($object->footer_image);
+                $object->footer_image = $S3Helper->store($request->file("footer_image"));
                 Log::info('Cambio de footer', [
                     'date' => date('Y-m-d H:i:s'),
-                    'old_name' => $name,
-                    'new_name' => $filename,
                     'user' => auth('intranet')->user()->full_name
                 ]);
             }
+
+            $object->save();
 
             if ($object) {
                 session()->flash('success', 'Alianza modificada correctamente.');
@@ -204,7 +169,6 @@ class AllianceController extends GlobalController
                     'message' => $object->active == 1 ? 'Alianza activada correctamente.' : 'Alianza desactivada correctamente.',
                     'object' => $object
                 ]);
-
             } else {
 
                 return response()->json([
@@ -212,7 +176,6 @@ class AllianceController extends GlobalController
                     'message' => 'Alianza no encontrada.'
                 ]);
             }
-
         } catch (\Exception $e) {
 
             return response()->json([
@@ -220,7 +183,6 @@ class AllianceController extends GlobalController
                 'message' => 'Ha ocurrido un error inesperado, inténtelo de nuevo más tarde.' . $e->getMessage()
             ]);
         }
-
     }
 
     public function destroy($id)
@@ -232,9 +194,14 @@ class AllianceController extends GlobalController
             return redirect()->route($this->route . 'index');
         }
 
-        Storage::delete($object->image);
+        $S3Helper = new S3Helper('laravel/anticonceptivo/', 'public/alliances');
+        $S3Helper->delete($object->footer_image);
+        $S3Helper->delete($object->image);
 
-        $object->delete();
+        Log::info('Eliminar Alianza', [
+            'date' => date('Y-m-d H:i:s'),
+            'user' => auth('intranet')->user()->full_name
+        ]);
 
         if ($object->delete()) {
             session()->flash('success', 'Alianza eliminada correctamente.');
@@ -247,7 +214,5 @@ class AllianceController extends GlobalController
 
     public function changeStatus(Request $request)
     {
-
     }
-
 }

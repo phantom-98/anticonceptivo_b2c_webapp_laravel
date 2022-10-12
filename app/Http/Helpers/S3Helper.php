@@ -171,6 +171,42 @@ final class S3Helper
         }
     }
 
+    public function deleteDirectory($path): bool
+    {
+        try {
+            if ($this->exists('s3', $path)) {
+                $s3 = new S3Client([
+                    'version' => $this->version,
+                    'region'  => $this->region,
+                    'credentials' => [
+                        'key'    => $this->key,
+                        'secret' => $this->secret,
+                    ],
+                ]);
+
+                $result = $s3->deleteMatchingObjects($this->bucket, $this->getDirectory($path));
+
+                if ($result['@metadata']['statusCode'] == 200) {
+                    return true;
+                }
+
+                return false;
+            }
+
+            if ($this->exists('local', $path)) {
+                Storage::deleteDirectory($path);
+                return true;
+            }
+
+            return false;
+        } catch (S3Exception $e) {
+            Log::error('Error deleting directory from S3: ' . $path, [
+                'error' => $e->getMessage(),
+            ]);
+            return false;
+        }
+    }
+
     public function migrate($model, $column)
     {
         // $files = $this->getValidFilesForMigrate();

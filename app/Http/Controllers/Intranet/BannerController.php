@@ -7,7 +7,6 @@ use App\Models\Banner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Log;
-use App\Http\Helpers\ImageHelper;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Helpers\S3Helper;
 
@@ -140,8 +139,9 @@ class BannerController extends GlobalController
         $object->location = $request->location;
         $object->size = $request->size;
 
+        $S3Helper = new S3Helper('laravel/anticonceptivo/', 'public/sliders');
+
         if($request->file("file")){
-            $S3Helper = new S3Helper('laravel/anticonceptivo/', 'public/sliders');
             $S3Helper->delete($object->file);
             $object->file = $S3Helper->store($request->file("file"));
 
@@ -152,7 +152,6 @@ class BannerController extends GlobalController
         }
 
         if($request->file("responsive_file")){
-            $S3Helper = new S3Helper('laravel/anticonceptivo/', 'public/sliders');
             $S3Helper->delete($object->responsive_file);
             $object->responsive_file = $S3Helper->store($request->file("responsive_file"));
 
@@ -184,8 +183,6 @@ class BannerController extends GlobalController
         $S3Helper = new S3Helper('laravel/anticonceptivo/', 'public/sliders');
         $S3Helper->delete($object->file);
         $S3Helper->delete($object->responsive_file);
-        Storage::delete($object->file);
-        Storage::delete($object->responsive_file);
 
         Log::info('Eliminar banner', [
             'date' => date('Y-m-d H:i:s'),

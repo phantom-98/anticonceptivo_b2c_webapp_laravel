@@ -4,12 +4,10 @@ namespace App\Http\Controllers\Intranet;
 
 use App\Models\PostType;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Storage;
-use App\Http\Helpers\ImageHelper;
 use Illuminate\Support\Facades\Artisan;
+use App\Http\Helpers\S3Helper;
 
 class PostTypeController extends GlobalController
 {
@@ -57,13 +55,11 @@ class PostTypeController extends GlobalController
             ]));
 
             if ($request->image) {
-                $image = $request->file('image');
-                $filename = 'post-type-' . $object->id  .'.'. $image->getClientOriginalExtension();
-                $object->image = $image->storeAs('public/post-types', $filename);
-                $object->save();
-                $object->refresh();
-                ImageHelper::convert_image('PostType', $object->id, 'image');    
+                $S3Helper = new S3Helper('laravel/anticonceptivo/', 'public/post-types');
+                $object->image = $S3Helper->store($request->file("image"));
             }
+
+            $object->save();
 
             if ($object) {
                 Artisan::call('command:sitemap');
@@ -119,20 +115,12 @@ class PostTypeController extends GlobalController
                 'slug' => Str::slug($request->name, '-')
             ]));
 
-            $object->save();
-
             if ($request->image) {
-                if($object->image){
-                    Storage::delete($object->image);
-                }
-                $image = $request->file('image');
-                $filename = 'post-type-' . $object->id  .'.'. $image->getClientOriginalExtension();
-                $object->image = $image->storeAs('public/post-types', $filename);
-                $object->save();
-
-                $object->refresh();
-                ImageHelper::convert_image('PostType', $object->id, 'image');    
+                $S3Helper = new S3Helper('laravel/anticonceptivo/', 'public/post-types');
+                $S3Helper->delete($object->image);
+                $object->image = $S3Helper->store($request->file("image"));
             }
+            $object->save();
 
             if ($object) {
                 Artisan::call('command:sitemap');
@@ -161,7 +149,8 @@ class PostTypeController extends GlobalController
             return redirect()->route($this->route . 'index');
         }
 
-        Storage::delete($object->image);
+        $S3Helper = new S3Helper('laravel/anticonceptivo/', 'public/post-types');
+        $S3Helper->delete($object->image);
 
         if ($object->delete()) {
             Artisan::call('command:sitemap');
