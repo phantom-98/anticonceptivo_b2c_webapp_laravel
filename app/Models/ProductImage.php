@@ -26,6 +26,6 @@ class ProductImage extends Model
         if (strpos($this->file, 'http') !== false) {
             return $this->file;
         }
-        return $this->file == null ? null : \Storage::url($this->file);
+        return $this->file;
     }
 }

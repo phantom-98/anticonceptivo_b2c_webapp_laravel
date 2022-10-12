@@ -34,10 +34,10 @@ class Banner extends Model
     }
 
     public function getPublicFileAttribute(){
-        return $this->file ?? null;
+        return $this->file;
     }
     public function getPublicFileResponsiveAttribute(){
-        return $this->responsive_file ?? null;
+        return $this->responsive_file;
     }
 }
 

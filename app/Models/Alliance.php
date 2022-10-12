@@ -13,7 +13,7 @@ class Alliance extends Model
         'description',
         'active',
         'image',
-        'footer_image' 
+        'footer_image'
     ];
 
     protected $appends = [
@@ -22,11 +22,11 @@ class Alliance extends Model
     ];
 
     public function getPublicImageAttribute(){
-        return $this->image == null ? null : \Storage::url($this->image);
+        return $this->image;
     }
 
     public function getPublicFooterImageAttribute(){
-        return $this->footer_image == null ? null : \Storage::url($this->footer_image);
+        return $this->footer_image;
     }
 
 }
