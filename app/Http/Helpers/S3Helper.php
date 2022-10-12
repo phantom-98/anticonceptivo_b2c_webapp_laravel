@@ -115,7 +115,7 @@ final class S3Helper
     public function convertToWebp($entry_path): string
     {
         try{
-            if ($this->exists('local',$entry_path)) {
+            if ($this->exists('local', $entry_path)) {
                 $old_file = Storage::get($entry_path);
                 $path = str_replace('public', 'storage', $this->getDirectory($entry_path)) .'/' . $this->getFileName($entry_path) . '.webp';
 
@@ -125,12 +125,11 @@ final class S3Helper
                     return $public_path;
                 }
             }
-            throw new Exception('Error converting to webp');
+            throw new Exception('Error converting to webp file on local storage path: ' . $entry_path);
         }catch(\Exception $e){
             Log::error('Error converting image to webp: ', [
                 'error' => $e->getMessage(),
             ]);
-
             return '';
         }
     }
@@ -138,11 +137,12 @@ final class S3Helper
     public function saveOnS3($aws_path, $webp_path): string
     {
         try {
-            $webp_file = Storage::get($webp_path);
-
-            Storage::disk('s3')->put($aws_path, $webp_file, 'public');
-
-            return Storage::disk('s3')->url($aws_path);
+            if (!$this->exists('s3', $aws_path)) {
+                $webp_file = Storage::get($webp_path);
+                Storage::disk('s3')->put($aws_path, $webp_file, 'public');
+                return Storage::disk('s3')->url($aws_path);
+            }
+            throw new Exception('Error saving on S3, the file already exists on S3 storage: ' . $aws_path);
         } catch (S3Exception $e) {
             Log::error('Error store file from S3: ' . $aws_path, [
                 'error' => $e->getMessage(),
@@ -152,11 +152,16 @@ final class S3Helper
         }
     }
 
-    public function deleteLocals($entry_path, $webp_path): bool
+    public function deleteLocals($entry_path = null, $webp_path = null): bool
     {
         try{
-            Storage::delete($entry_path);
-            Storage::delete($webp_path);
+            if ($entry_path) {
+                Storage::delete($entry_path);
+            }
+
+            if ($webp_path) {
+                Storage::delete($webp_path);
+            }
             return true;
         }catch(\Exception $e){
             Log::error('Error deleting file from local storage: ', [

@@ -20,10 +20,11 @@ use Illuminate\Support\Facades\Log;
 
 Route::get('upload-images-s3/{class}/{column}', function($class, $column){
     $classname = 'App\\Models\\'.$class;
-    // where column doesnt have the string "https://inw-assets.s3.amazonaws.com/laravel/anticonceptivo/"
+
+    // take off the where if want to iterate over all the records but it will make errors because the aws path is distinct from the local path
     $objects = $classname::whereNotNull($column)->where($column, 'not like', '%https://inw-assets.s3.amazonaws.com/laravel/anticonceptivo/%')->get();
 
-    // use the S3 helper
+
     $S3Helper = new \App\Http\Helpers\S3Helper();
 
     $counter = 0;
@@ -46,6 +47,8 @@ Route::get('upload-images-s3/{class}/{column}', function($class, $column){
                 $object->$column = $path_from_aws;
 
                 if ($object->save()) {
+                    // comment the line below for mantain the local files
+                    $S3Helper->deleteLocals($path, null);
                     $counter++;
                 }else{
                     $errors[] = $object->id;
@@ -60,7 +63,10 @@ Route::get('upload-images-s3/{class}/{column}', function($class, $column){
         }
     }
 
-    return 'DONE, ' . $counter . ' files migrated';
+    return [
+        'DONE, ' . $counter . ' files migrated',
+        'errors' => $errors
+    ];
 });
 
 Route::get('subscriptions-plans-cicles', function () {
