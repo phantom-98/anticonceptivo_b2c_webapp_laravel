@@ -47,7 +47,7 @@ final class S3Helper
     {
         try {
             if ($path) {
-                $path = str_replace($this->url, '', urldecode($path));
+                $path = $this->cleanPath($path);
 
                 $s3 = new S3Client([
                     'version' => $this->version,
@@ -173,56 +173,70 @@ final class S3Helper
         }
     }
 
-    public function deleteDirectory($path): bool
+    public function massiveDelete($paths): bool
     {
         try {
-            if ($this->exists('s3', $path)) {
-                $s3 = new S3Client([
-                    'version' => $this->version,
-                    'region'  => $this->region,
-                    'credentials' => [
-                        'key'    => $this->key,
-                        'secret' => $this->secret,
-                    ],
-                ]);
+            if (empty($paths)) {
+                throw new Exception('Error deleting files from S3, paths is empty');
+            }
 
-                $result = $s3->deleteMatchingObjects($this->bucket, $this->getDirectory($path));
+            $s3 = new S3Client([
+                'version' => $this->version,
+                'region'  => $this->region,
+                'credentials' => [
+                    'key'    => $this->key,
+                    'secret' => $this->secret,
+                ],
+            ]);
 
-                if ($result['@metadata']['statusCode'] == 200) {
-                    return true;
+            $objects = [];
+
+            foreach ($paths as $key => $path) {
+                $clean_path = $this->cleanPath($path);
+                if ($this->exists('s3', $clean_path)) {
+                    $result = $s3->deleteObject(['Bucket' => $this->bucket, 'Key' => $clean_path]);
+
+                    if ($result['@metadata']['statusCode'] == 204) {
+                        $objects[] = $clean_path;
+                        continue;
+                    }
                 }
 
-                return false;
+                if ($this->exists('local', $path)) {
+                    Storage::deleteDirectory($path);
+                    $objects[] = $clean_path;
+                }
             }
 
-            if ($this->exists('local', $path)) {
-                Storage::deleteDirectory($path);
-                return true;
-            }
+            // Log for summary
+            Log::info('Massive delete files from S3: ', [
+                'deleted' => $objects,
+            ]);
 
-            return false;
+            return true;
         } catch (S3Exception $e) {
-            Log::error('Error deleting directory from S3: ' . $path, [
+            Log::error('Error deleting files from S3: ', [
                 'error' => $e->getMessage(),
+                'paths' => $paths,
             ]);
             return false;
         }
     }
 
-    public function migrate($model, $column)
-    {
-        // $files = $this->getValidFilesForMigrate();
+    // public function migrate($model, $column)
+    // {
+    //     // $files = $this->getValidFilesForMigrate();
 
-        // foreach ($files as $key => $file) {
-        //     $webp_path = $this->convertToWebp($file);
-        //     $name = $this->getFileNameWithExt($webp_path);
-        //     $this->saveOnS3('laravel/anticonceptivo/' . pathinfo($file, PATHINFO_DIRNAME) . '/' . $name, $webp_path);
-        // }
+    //     // foreach ($files as $key => $file) {
+    //     //     $webp_path = $this->convertToWebp($file);
+    //     //     $name = $this->getFileNameWithExt($webp_path);
+    //     //     $this->saveOnS3('laravel/anticonceptivo/' . pathinfo($file, PATHINFO_DIRNAME) . '/' . $name, $webp_path);
+    //     // }
 
-        return response()->json([
-            'status' => 200
-        ]);
-    }
+    //     return response()->json([
+    //         'status' => 200
+    //     ]);
+    // }
 
     public function getValidFilesForMigrate(){
         $directories = Storage::directories('public');
@@ -307,6 +321,11 @@ final class S3Helper
         }
 
         return Storage::disk($where)->path($path);
+    }
+
+    public function cleanPath($path): string
+    {
+        return str_replace($this->url, '', urldecode($path));
     }
 
 }

@@ -123,7 +123,6 @@ class PostController extends GlobalController
             $object->author_id = $request->author_id;
             $object->published_at = Carbon::now()->format('Y-m-d');
             $object->post_type_id = $request->post_type_id;
-            $object->save();
 
             if ($request->image) {
                 $S3Helper = new S3Helper('laravel/anticonceptivo/', 'public/posts');
@@ -141,8 +140,9 @@ class PostController extends GlobalController
             $object->author_id = auth()->user()->id;
             $object->published_at = Carbon::now()->format('Y-m-d');
             $object->post_type_id = $request->post_type_id;
-            $object->save();
         }
+
+        $object->save();
 
         Artisan::call('command:sitemap');
         session()->flash('success', 'Blog modificado correctamente.');
