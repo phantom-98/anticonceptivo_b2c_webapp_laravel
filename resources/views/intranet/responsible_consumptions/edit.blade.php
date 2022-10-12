@@ -42,7 +42,7 @@
                                 <input id="file-image" type='file' name='image' class='form-control' accept=".jpg, .png, .jpeg">
                                 <br/>
                                 @if ($object->image)
-                                <img id="image-edit" src="{{ Storage::url($object->image) }}" style="max-width: 100px;"/>
+                                <img id="image-edit" src="{{ $object->image }}" style="max-width: 100px;"/>
                                 @endif
                             </div>     -->
                             <div class="form-group col-md-4">
@@ -50,9 +50,9 @@
                                 <input type="file" id="file" name="file" class="form-control" accept=".pdf">
                                 <br/>
                                 @if ($object->file)
-                                <a href="{{ Storage::url($object->file) }}" target="_blank" class='btn btn-sm btn-default btn-hover-success' data-toggle="tooltip" title="Descargar archivo"><i class="ti-file"></i></a>
+                                <a href="{{ $object->file }}" target="_blank" class='btn btn-sm btn-default btn-hover-success' data-toggle="tooltip" title="Descargar archivo"><i class="ti-file"></i></a>
                                 @endif
-                            </div>  
+                            </div>
 
                         </div>
                     </div>

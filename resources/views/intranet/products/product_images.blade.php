@@ -44,7 +44,7 @@
                             <tbody id="psP">
                             @foreach($objects as $object)
                                 <tr data-position="{{$object->position}}" data-id="{{$object->id}}">
-                                    <td><div><a href="{{ Storage::url($object->file) }}" data-toggle="lightbox"><img src="{{ Storage::url($object->file) }}" style="max-width: 90px;"/></a></div></td>
+                                    <td><div><a href="{{ $object->file }}" data-toggle="lightbox"><img src="{{ $object->file }}" style="max-width: 90px;"/></a></div></td>
 
                                 </tr>
                             @endforeach

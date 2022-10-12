@@ -18,14 +18,14 @@
                 {{--<h3 class="panel-title"></h3>--}}
                 {{--</div>--}}
                 <div class="panel-body">
-                    
+
 
                     <div id="toolbar">
                         @if($config['action']['create'])
                         <a href="{{ route($config['route'] . 'create') }}" class="btn btn-success"><i
                                     class="ti-plus"></i> Nuevo Blog</a>
                         @endif
-                        
+
                     </div>
 
                     <table id="table-bs"
@@ -42,9 +42,9 @@
                            data-page-list="[10, 50, 200]"
                            data-page-size="50"
                            data-pagination="true"
-                           data-show-pagination-switch="true"                           
+                           data-show-pagination-switch="true"
                            data-export-options='{
-                            "fileName": "Blogs", 
+                            "fileName": "Blogs",
                             "ignoreColumn": ["estado", "activo", "acciones", "certificado"]
                             }'
                            data-export-types="['pdf', 'excel', 'csv']"
@@ -75,7 +75,7 @@
                                     allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                                     allowfullscreen></iframe></td>
                                 @else
-                                <td><img style="max-width: 330px; max-height: 250px" src="{{ Storage::url($object->principal_image) }}"/></td>
+                                <td><img style="max-width: 330px; max-height: 250px" src="{{ $object->principal_image }}"/></td>
                                 @endif
                                 @if($config['action']['active'])
                                     @include('intranet.template.components._crud_html_active')
@@ -107,7 +107,7 @@
     @include('intranet.template.components._crud_script_change_status')
     @include('intranet.template.components._crud_script_delete')
     @include('intranet.template.components._crud_script_active')
-    
+
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 
 <script>

@@ -49,7 +49,7 @@
                                 <input id="file-image" type='file' name='image' class='form-control' accept=".jpg, .png, .jpeg">
                                 <br/>
                                 @if ($object->image)
-                                <img id="image-edit" src="{{ Storage::url($object->image) }}" style="max-width: 100px;"/>
+                                <img id="image-edit" src="{{ $object->image }}" style="max-width: 100px;"/>
                                 @endif
                             </div>
                             <div class="col-md-6">
@@ -85,7 +85,7 @@
                                 <input id="file-image-2" type='file' name='banner_image' class='form-control' accept=".jpg, .png, .jpeg">
                                 <br/>
                                 @if ($object->banner_image)
-                                <img id="image-edit-2" src="{{ Storage::url($object->banner_image) }}" style="max-width: 200px;"/>
+                                <img id="image-edit-2" src="{{ $object->banner_image }}" style="max-width: 200px;"/>
                                 @endif
                             </div>
 
@@ -94,7 +94,7 @@
                                 <input id="file-image-3" type='file' name='banner_subimage' class='form-control' accept=".jpg, .png, .jpeg">
                                 <br/>
                                 @if ($object->subbanner_image)
-                                <img id="image-edit-3" src="{{ Storage::url($object->subbanner_image) }}" style="max-width: 200px;"/>
+                                <img id="image-edit-3" src="{{ $object->subbanner_image }}" style="max-width: 200px;"/>
                                 @endif
                             </div>
 
@@ -105,7 +105,7 @@
                                     <input id="file-image-4" type='file' name='banner_image_responsive' class='form-control' accept=".jpg, .png, .jpeg">
                                     <br/>
                                     @if ($object->banner_image_responsive)
-                                        <img id="image-edit-4" src="{{ Storage::url($object->banner_image_responsive) }}" style="max-width: 200px;"/>
+                                        <img id="image-edit-4" src="{{ $object->banner_image_responsive }}" style="max-width: 200px;"/>
                                     @endif
                                 </div>
 
@@ -114,7 +114,7 @@
                                     <input id="file-image-5" type='file' name='banner_subimage_responsive' class='form-control' accept=".jpg, .png, .jpeg">
                                     <br/>
                                     @if ($object->banner_subimage_responsive)
-                                        <img id="image-edit-5" src="{{ Storage::url($object->banner_subimage_responsive) }}" style="max-width: 200px;"/>
+                                        <img id="image-edit-5" src="{{ $object->banner_subimage_responsive }}" style="max-width: 200px;"/>
                                     @endif
                                 </div>
                             </div>
