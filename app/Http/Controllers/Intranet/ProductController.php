@@ -187,7 +187,7 @@ class ProductController extends GlobalController
             $product->save();
 
             if ($request->hasFile('image')) {
-                $S3Helper = new S3Helper('laravel/anticonceptivo/', 'public/products/product-'.$product->id);
+                $S3Helper = new S3Helper('laravel/anticonceptivo/', 'public/products/'.$product->id);
                 foreach ($request->file('image') as $key => $item_file) {
                     $image = new ProductImage();
 
@@ -200,7 +200,7 @@ class ProductController extends GlobalController
                 }
             }
 
-            $S3Helper = new S3Helper('laravel/anticonceptivo/', 'public/products/product-'.$product->id.'/plans');
+            $S3Helper = new S3Helper('laravel/anticonceptivo/', 'public/products/'.$product->id.'/plans');
 
             foreach ($request->plan_id as $key => $plan) {
                 $plan = array_filter($plan, function ($value) {
@@ -360,7 +360,7 @@ class ProductController extends GlobalController
             $product->save();
 
             if ($request->hasFile('image')) {
-                $S3Helper = new S3Helper('laravel/anticonceptivo/', 'public/products/product-'.$product->id);
+                $S3Helper = new S3Helper('laravel/anticonceptivo/', 'public/products/'.$product->id);
                 $prod_image = ProductImage::where('product_id', $product->id)->pluck('file')->toArray();
 
                 if (count($prod_image)) {
@@ -385,7 +385,7 @@ class ProductController extends GlobalController
                 }
             }
 
-            $S3Helper = new S3Helper('laravel/anticonceptivo/', 'public/products/product-'.$product->id.'/plans');
+            $S3Helper = new S3Helper('laravel/anticonceptivo/', 'public/products/'.$product->id.'/plans');
 
             foreach ($request->plan_id as $key => $plan) {
                 $plan = array_filter($plan, function ($value) {
