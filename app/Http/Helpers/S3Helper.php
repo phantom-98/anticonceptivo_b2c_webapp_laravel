@@ -46,21 +46,23 @@ final class S3Helper
     public function delete($path): bool
     {
         try {
-            $path = str_replace($this->url, '', urldecode($path));
+            if ($path) {
+                $path = str_replace($this->url, '', urldecode($path));
 
-            $s3 = new S3Client([
-                'version' => $this->version,
-                'region'  => $this->region,
-                'credentials' => [
-                    'key'    => $this->key,
-                    'secret' => $this->secret,
-                ],
-            ]);
+                $s3 = new S3Client([
+                    'version' => $this->version,
+                    'region'  => $this->region,
+                    'credentials' => [
+                        'key'    => $this->key,
+                        'secret' => $this->secret,
+                    ],
+                ]);
 
-            $result = $s3->deleteObject(['Bucket' => $this->bucket, 'Key' => $path]);
+                $result = $s3->deleteObject(['Bucket' => $this->bucket, 'Key' => $path]);
 
-            if ($result['@metadata']['statusCode'] == 204) {
-                return true;
+                if ($result['@metadata']['statusCode'] == 204) {
+                    return true;
+                }
             }
 
             return false;

@@ -45,7 +45,7 @@ class CategoryController extends GlobalController
             'image' => 'required',
             'banner_image' => 'required',
             'banner_image_responsive' => 'required',
-            'banner_subimage' => 'required',
+            'subbanner_image' => 'required',
             'banner_subimage_responsive' => 'required',
         ];
 
@@ -60,7 +60,7 @@ class CategoryController extends GlobalController
 
         if ($validator->passes()) {
 
-            $object = Category::create(array_merge($request->except('image', 'banner_image', 'banner_image_responsive', 'banner_subimage', 'banner_subimage_responsive'), ['slug' => \Str::slug($request->name)]));
+            $object = Category::create(array_merge($request->except('image', 'banner_image', 'banner_image_responsive', 'subbanner_image', 'banner_subimage_responsive'), ['slug' => \Str::slug($request->name)]));
             $S3Helper = new S3Helper('laravel/anticonceptivo/', 'public/categories');
 
             if ($request->image) {
@@ -79,8 +79,8 @@ class CategoryController extends GlobalController
                 $object->banner_subimage_responsive = $S3Helper->store($request->file("banner_subimage_responsive"));
             }
 
-            if ($request->banner_subimage) {
-                $object->banner_subimage = $S3Helper->store($request->file("banner_subimage"));
+            if ($request->subbanner_image) {
+                $object->subbanner_image = $S3Helper->store($request->file("subbanner_image"));
             }
 
             $object->unit_format = strtolower($request->unit_format);
@@ -137,7 +137,7 @@ class CategoryController extends GlobalController
 
         if ($validator->passes()) {
 
-            $object->update(array_merge($request->except('image', 'banner_image', 'banner_image_responsive'), ['slug' => \Str::slug($request->name)]));
+            $object->update(array_merge($request->except('image', 'banner_image', 'banner_image_responsive', 'subbanner_image', 'banner_subimage_responsive'), ['slug' => \Str::slug($request->name)]));
             $S3Helper = new S3Helper('laravel/anticonceptivo/', 'public/categories');
 
             if ($request->image) {
@@ -150,8 +150,8 @@ class CategoryController extends GlobalController
                 ]);
             }
 
-            if ($request->banner_image_responsive) {
-                $S3Helper->delete($object->banner_image_responsive);
+            if ($request->banner_image) {
+                $S3Helper->delete($object->banner_image);
                 $object->banner_image = $S3Helper->store($request->file("banner_image"));
 
                 Log::info('Cambio de foto banner responsive', [
@@ -160,8 +160,8 @@ class CategoryController extends GlobalController
                 ]);
             }
 
-            if ($request->banner_image) {
-                $S3Helper->delete($object->banner_image);
+            if ($request->banner_image_responsive) {
+                $S3Helper->delete($object->banner_image_responsive);
                 $object->banner_image_responsive = $S3Helper->store($request->file("banner_image_responsive"));
 
                 Log::info('Cambio de foto banner', [
@@ -170,8 +170,8 @@ class CategoryController extends GlobalController
                 ]);
             }
 
-            if ($request->banner_subimage) {
-                $S3Helper->delete($object->banner_subimage);
+            if ($request->banner_subimage_responsive) {
+                $S3Helper->delete($object->banner_subimage_responsive);
                 $object->banner_subimage_responsive = $S3Helper->store($request->file("banner_subimage_responsive"));
 
                 Log::info('Cambio de foto subbanner', [
@@ -180,9 +180,9 @@ class CategoryController extends GlobalController
                 ]);
             }
 
-            if ($request->banner_subimage_responsive) {
-                $S3Helper->delete($object->banner_subimage_responsive);
-                $object->banner_subimage = $S3Helper->store($request->file("banner_subimage"));
+            if ($request->subbanner_image) {
+                $S3Helper->delete($object->subbanner_image);
+                $object->subbanner_image = $S3Helper->store($request->file("subbanner_image"));
 
                 Log::info('Cambio de foto subbanner responsive', [
                     'date' => date('Y-m-d H:i:s'),

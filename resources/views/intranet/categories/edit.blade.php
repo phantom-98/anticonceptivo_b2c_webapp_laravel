@@ -90,8 +90,8 @@
                             </div>
 
                             <div class="form-group col-sm-6">
-                                {!! Form::label('banner_subimage', 'Imagen Banner Home (850 x 200 px)(*)') !!}
-                                <input id="file-image-3" type='file' name='banner_subimage' class='form-control' accept=".jpg, .png, .jpeg">
+                                {!! Form::label('subbanner_image', 'Imagen Banner Home (850 x 200 px)(*)') !!}
+                                <input id="file-image-3" type='file' name='subbanner_image' class='form-control' accept=".jpg, .png, .jpeg">
                                 <br/>
                                 @if ($object->subbanner_image)
                                 <img id="image-edit-3" src="{{ $object->subbanner_image }}" style="max-width: 200px;"/>

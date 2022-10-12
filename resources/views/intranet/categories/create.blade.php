@@ -79,8 +79,8 @@
                                 <input type='file' name='banner_image' class='form-control' accept=".jpg, .png, .jpeg">
                             </div>
                             <div class="form-group col-sm-6">
-                                {!! Form::label('banner_subimage', 'Imagen Banner Home (850 x 200 px)(*)') !!}
-                                <input type='file' name='banner_subimage' class='form-control' accept=".jpg, .png, .jpeg">
+                                {!! Form::label('subbanner_image', 'Imagen Banner Home (850 x 200 px)(*)') !!}
+                                <input type='file' name='subbanner_image' class='form-control' accept=".jpg, .png, .jpeg">
                             </div>
 
 
