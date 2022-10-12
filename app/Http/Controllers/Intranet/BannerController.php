@@ -81,29 +81,15 @@ class BannerController extends GlobalController
             $object->size = $request->size;
             $object->cms_slider_id = $id;
 
-            $ext = $request->file("file")->getClientOriginalExtension();
-            $name = pathinfo($request->file("file")->getClientOriginalName(), PATHINFO_FILENAME);
-            $object->file = $request->file("file")
-            ->storeAs('public/sliders', 'slider-'.$name.'- '.rand(100000, 999999).'.'.$ext);
+            $S3Helper = new S3Helper('laravel/anticonceptivo/', 'public/sliders');
+
+            $object->file = $S3Helper->store($request->file("file"));
+            $object->responsive_file = $S3Helper->store($request->file("responsive_file"));
 
             $object->save();
-            $object->refresh();
-            ImageHelper::convert_image('Banner', $object->id, 'file');
-
-            $ext = $request->file("responsive_file")->getClientOriginalExtension();
-            $name = pathinfo($request->file("responsive_file")->getClientOriginalName(), PATHINFO_FILENAME);
-            $object->responsive_file = $request->file("responsive_file")
-            ->storeAs('public/sliders', 'responsive-slider-'.$name.'- '.rand(100000, 999999).'.'.$ext);
-
-            $object->save();
-
-            $object->refresh();
-
-            ImageHelper::convert_image('Banner', $object->id, 'responsive_file');
 
             Log::info('Agregar banner', [
                 'date' => date('Y-m-d H:i:s'),
-                'new_name' => $name,
                 'user' => auth('intranet')->user()->full_name
             ]);
 
@@ -158,24 +144,23 @@ class BannerController extends GlobalController
             $S3Helper = new S3Helper('laravel/anticonceptivo/', 'public/sliders');
             $S3Helper->delete($object->file);
             $object->file = $S3Helper->store($request->file("file"));
+
+            Log::info('Cambio de foto', [
+                'date' => date('Y-m-d H:i:s'),
+                'user' => auth('intranet')->user()->full_name
+            ]);
         }
 
-        // if($request->file("responsive_file")){
-        //     Storage::delete($object->responsive_file);
+        if($request->file("responsive_file")){
+            $S3Helper = new S3Helper('laravel/anticonceptivo/', 'public/sliders');
+            $S3Helper->delete($object->responsive_file);
+            $object->responsive_file = $S3Helper->store($request->file("responsive_file"));
 
-        //     $ext = $request->file("responsive_file")->getClientOriginalExtension();
-        //     $name = pathinfo($request->file("responsive_file")->getClientOriginalName(), PATHINFO_FILENAME);
-        //     $object->responsive_file = $request->file("responsive_file")
-        //     ->storeAs('public/sliders', 'responsive-slider-'.$name.'- '.rand(100000, 999999).'.'.$ext);
-
-        //     ImageHelper::convert_image('Banner', $object->id, 'responsive_file');
-
-        //     Log::info('Cambio de foto', [
-        //         'date' => date('Y-m-d H:i:s'),
-        //         'new_name' => $name,
-        //         'user' => auth('intranet')->user()->full_name
-        //     ]);
-        // }
+            Log::info('Cambio de foto', [
+                'date' => date('Y-m-d H:i:s'),
+                'user' => auth('intranet')->user()->full_name
+            ]);
+        }
 
         $object->save();
 
@@ -196,8 +181,16 @@ class BannerController extends GlobalController
             return redirect()->back();
         }
 
+        $S3Helper = new S3Helper('laravel/anticonceptivo/', 'public/sliders');
+        $S3Helper->delete($object->file);
+        $S3Helper->delete($object->responsive_file);
         Storage::delete($object->file);
         Storage::delete($object->responsive_file);
+
+        Log::info('Eliminar banner', [
+            'date' => date('Y-m-d H:i:s'),
+            'user' => auth('intranet')->user()->full_name
+        ]);
 
         if($object->delete()){
             session()->flash('success', 'Banner eliminado correctamente.');
@@ -205,16 +198,5 @@ class BannerController extends GlobalController
         }
         session()->flash('error', 'No se ha podido eliminar el banner.');
         return redirect()->back();
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }
