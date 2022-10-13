@@ -216,7 +216,9 @@ Route::get('upload-images-s3/{class}/{column}', function($class, $column){
         try{
             $path = $object->$column;
 
-            if ($S3Helper->getExtension($path) != 'svg') {
+            if ($S3Helper->getExtension($path) == 'svg') {
+                $webp_path = $path;
+            }else{
                 if ($S3Helper->getExtension($path) != 'webp') {
                     $webp_path = $S3Helper->convertToWebp($path);
                 }
