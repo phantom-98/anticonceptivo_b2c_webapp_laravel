@@ -26,14 +26,14 @@ Route::get('clean-paths/{class}/{column}', function($class, $column){
         $old_path = $object->$column;
         $new_path = str_replace(' ', '', $old_path);
 
-        if (Storage::exists($old_path) && !Storage::exists($new_path)) {
+        if (Storage::exists($old_path) && Storage::exists($new_path) && $old_path == $new_path) {
+            $object->$column = $new_path;
+            $object->save();
+        } else if (Storage::exists($old_path) && !Storage::exists($new_path)) {
             if (Storage::rename($old_path, $new_path)) {
                 $object->$column = $new_path;
                 $object->save();
             }
-        }else if (Storage::exists($old_path) && Storage::exists($new_path)) {
-            $object->$column = $new_path;
-            $object->save();
         }
     }
 
