@@ -3,6 +3,7 @@
 use App\Http\Controllers\SEOController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\SitemapController;
+use App\Http\Helpers\S3Helper;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Log;
 
@@ -16,12 +17,229 @@ use Illuminate\Support\Facades\Log;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+// se tira 1 vez para arreglar los path de los registros
+Route::get('fix-fix-files', function () {
+    $product_images = \App\Models\ProductImage::where('file', 'like', '%public/products//%')->get();
+    $product_images_with_new_path = [];
+    $product_images_with_null_path = [];
+
+    $product_subscription_plans = \App\Models\ProductSubscriptionPlan::where('image', 'like', '%public/products/plans/%')->get();
+    $product_subscription_plans_with_new_path = [];
+    $product_subscription_plans_with_null_path = [];
+
+    foreach ($product_images as $product_image) {
+        $old_path = $product_image->file;
+        $new_path = str_replace('public/products//', 'public/products/', $old_path);
+
+        if (Storage::disk('local')->exists($old_path)) {
+            if(Storage::disk('local')->exists($new_path)){
+                $product_image->file = $new_path;
+                $product_images_with_new_path [] = $product_image->id . ' - ' . $new_path . ' - ' . 'already exists';
+            }else{
+                Storage::move($old_path, $new_path);
+                $product_image->file = $new_path;
+                $product_images_with_new_path [] = $product_image->id . ' - ' . $new_path;
+            }
+
+        }else{
+            Log::info('File does not exist in the old location: ' . $old_path);
+            $product_images_with_null_path [] = $product_image->id . ' - ' . $old_path;
+            $product_image->file = null;
+        }
+
+        $product_image->save();
+    }
+
+    foreach ($product_subscription_plans as $product_subscription_plan) {
+        $old_path = $product_subscription_plan->image;
+        // first public/products/plans/
+        // then public/products//
+        $new_path = str_replace('public/products/plans/', 'public/products/', $old_path);
+
+        if (Storage::disk('local')->exists($old_path)) {
+            if(Storage::disk('local')->exists($new_path)){
+                $product_subscription_plan->image = $new_path;
+                $product_subscription_plans_with_new_path [] = $product_subscription_plan->id . ' - ' . $new_path . ' - ' . 'already exists';
+            }else{
+                Storage::move($old_path, $new_path);
+                Storage::delete($old_path);
+                $product_subscription_plan->image = $new_path;
+                $product_subscription_plans_with_new_path [] = $product_subscription_plan->id . ' - ' . $new_path;
+            }
+        }else{
+            Log::info('File does not exist in the old location: ' . $old_path);
+            $product_subscription_plans_with_null_path [] = $product_subscription_plan->id . ' - ' . $old_path;
+            $product_subscription_plan->image = null;
+        }
+
+        $product_subscription_plan->save();
+    }
+
+    $product_subscription_plans = \App\Models\ProductSubscriptionPlan::where('image', 'like', '%public/products//%')->get();
+
+    foreach ($product_subscription_plans as $product_subscription_plan) {
+        $old_path = $product_subscription_plan->image;
+        $new_path = str_replace('public/products//', 'public/products/', $old_path);
+
+        if (Storage::disk('local')->exists($old_path)) {
+            if(Storage::disk('local')->exists($new_path)){
+                $product_subscription_plan->image = $new_path;
+                $product_subscription_plans_with_new_path [] = $product_subscription_plan->id . ' - ' . $new_path . ' - ' . 'already exists';
+            }else{
+                Storage::move($old_path, $new_path);
+                Storage::delete($old_path);
+                $product_subscription_plan->image = $new_path;
+                $product_subscription_plans_with_new_path [] = $product_subscription_plan->id . ' - ' . $new_path;
+            }
+        }else{
+            Log::info('File does not exist in the old location: ' . $old_path);
+            $product_subscription_plans_with_null_path [] = $product_subscription_plan->id . ' - ' . $old_path;
+            $product_subscription_plan->image = null;
+        }
+
+        $product_subscription_plan->save();
+    }
+
+    return response()->json([
+        'product_images_with_new_path' => $product_images_with_new_path,
+        'count_product_images_with_new_path' => count($product_images_with_new_path),
+        'product_images_with_null_path' => $product_images_with_null_path,
+        'count_product_images_with_null_path' => count($product_images_with_null_path),
+        'product_subscription_plans' => [
+            'new_path' => $product_subscription_plans_with_new_path,
+            'count_new_path' => count($product_subscription_plans_with_new_path),
+            'null_path' => $product_subscription_plans_with_null_path,
+            'count_null_path' => count($product_subscription_plans_with_null_path),
+        ]
+    ]);
+
+});
+
+Route::get('fix-location-of-files', function () {
+    $product_images = \App\Models\ProductImage::whereNotNull('file')->get();
+    $product_images_with_new_path = [];
+    $product_images_with_null_path = [];
+
+    $product_subscription_plans = \App\Models\ProductSubscriptionPlan::whereNotNull('image')->get();
+    $product_subscription_plans_with_new_path = [];
+    $product_subscription_plans_with_null_path = [];
+
+    foreach ($product_images as $product_image) {
+        $old_path = $product_image->file;
+        $new_path = str_replace('public/products/', 'public/products/' . $product_image->product_id . '/', $old_path);
+        $new_path = str_replace('public/products/' . $product_image->product_id . '/' . $product_image->product_id . '/', 'public/products/' . $product_image->product_id . '/', $new_path);
+
+
+        if (Storage::disk('local')->exists($old_path)) {
+            if (Storage::disk('local')->exists($new_path)) {
+                $product_image->file = $new_path;
+                $product_images_with_new_path [] = $product_image->id . ' - ' . $new_path . ' - ' . 'already exists';
+            }else{
+                Storage::move($old_path, $new_path);
+                Storage::delete($old_path);
+                $product_image->file = $new_path;
+                $product_images_with_new_path [] = $product_image->id;
+            }
+        }else{
+            Log::info('File does not exist in the old location: ' . $old_path);
+            $product_image->file = null;
+            $product_images_with_null_path [] = $product_image->id;
+        }
+
+        $product_image->save();
+    }
+
+    foreach ($product_subscription_plans as $product_subscription_plan) {
+        $old_path = $product_subscription_plan->image;
+        $new_path = str_replace('public/products/', 'public/products/' . $product_subscription_plan->product_id . '/plans/', $old_path);
+
+        if (Storage::disk('local')->exists($old_path)) {
+            Storage::move($old_path, $new_path);
+            $product_subscription_plan->image = $new_path;
+            $product_subscription_plans_with_new_path [] = $product_subscription_plan->id;
+        }else{
+            Log::info('File does not exist in the old location: ' . $old_path);
+            $product_subscription_plan->image = null;
+            $product_subscription_plans_with_null_path [] = $product_subscription_plan->id;
+        }
+
+        $product_subscription_plan->save();
+    }
+
+    return response()->json([
+        'product_images' => [
+            'product_images_with_new_path' => $product_images_with_new_path,
+            'product_images_with_new_path_count' => count($product_images_with_new_path),
+            'product_images_with_null_path' => $product_images_with_null_path,
+            'product_images_with_null_path_count' => count($product_images_with_null_path),
+        ],
+        'product_subscription_plans' => [
+            'new_path' => $product_subscription_plans_with_new_path,
+            'new_path_count' => count($product_subscription_plans_with_new_path),
+            'null_path' => $product_subscription_plans_with_null_path,
+            'null_path_count' => count($product_subscription_plans_with_null_path),
+        ]
+    ]);
+});
+
+Route::get('upload-images-s3/{class}/{column}', function($class, $column){
+    $classname = 'App\\Models\\'.$class;
+
+    // take off the where if want to iterate over all the records but it will make errors because the aws path is distinct from the local path
+    $objects = $classname::whereNotNull($column)->where($column, 'not like', '%https://inw-assets.s3.amazonaws.com/laravel/anticonceptivo/%')->get();
+
+
+    $S3Helper = new \App\Http\Helpers\S3Helper();
+
+    $counter = 0;
+    $errors = [];
+
+    foreach ($objects as $object) {
+        try{
+            $path = $object->$column;
+            $webp_path = $path;
+
+            if ($S3Helper->getExtension($path) != 'webp') {
+                $webp_path = $S3Helper->convertToWebp($path);
+            }
+
+            if ($webp_path) {
+                $name = $S3Helper->getFileNameWithExt($webp_path);
+                $aws_path = 'laravel/anticonceptivo/' . $S3Helper->getDirectory($webp_path) . '/' . $name;
+                $path_from_aws = $S3Helper->saveOnS3($aws_path, $webp_path);
+
+                $object->$column = $path_from_aws;
+
+                if ($object->save()) {
+                    // comment the line below for mantain the local files
+                    $S3Helper->deleteLocals($path, null);
+                    $counter++;
+                }else{
+                    $errors[] = $object->id;
+                }
+            }
+        }catch(\Exception $e){
+            Log::error('Error migrating file: ', [
+                'error' => $e->getMessage(),
+            ]);
+
+            $errors[] = $object->id . ' - ' . $e->getMessage();
+        }
+    }
+
+    return [
+        'DONE, ' . $counter . ' files migrated',
+        'errors' => $errors
+    ];
+});
+
 Route::get('subscriptions-plans-cicles', function () {
     $subscription_plans = \App\Models\SubscriptionPlan::get();
 
     foreach ($subscription_plans as $key => $sp) {
         $sp->cicles = $sp->months == 13 ? 12 : $sp->months;
-        $sp->save(); 
+        $sp->save();
     }
 
     return true;
@@ -338,7 +556,7 @@ Route::get('fix-invoices-by-date/{date}', function ($date){
             return 'Existe proceso de facturación en dia '.$datePayment;
         }
 
-        $orders = App\Models\Order::whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED'])->whereBetween('created_at',[Carbon\Carbon::parse($datePayment)->startOfDay(),Carbon\Carbon::parse($datePayment)->endOfDay()]) 
+        $orders = App\Models\Order::whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED'])->whereBetween('created_at',[Carbon\Carbon::parse($datePayment)->startOfDay(),Carbon\Carbon::parse($datePayment)->endOfDay()])
         ->get();
         $details = [];
         $total = 0;

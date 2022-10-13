@@ -5,13 +5,10 @@ namespace App\Http\Controllers\Intranet;
 use App\Models\ResponsibleConsumption;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
-use App\Http\Helpers\ImageHelper;
+use App\Http\Helpers\S3Helper;
 
 class ResponsibleConsumptionController extends GlobalController
 {
@@ -59,20 +56,17 @@ class ResponsibleConsumptionController extends GlobalController
             $object = ResponsibleConsumption::create($request->except(['image', 'file']));
 
             if ($request->image) {
-                $image = $request->file('image');
-                $filename = 'responsible-consumption-' . $object->id  .'.'. $image->getClientOriginalExtension();
-                $object->image = $image->storeAs('public/responsible-consumptions', $filename);
-                $object->save();
-                $object->refresh();
-                ImageHelper::convert_image('ResponsibleConsumption', $object->id, 'image');    
+                $S3Helper = new S3Helper('laravel/anticonceptivo/', 'public/responsible-consumptions');
+                $object->image = $S3Helper->store($request->file("image"));
             }
 
             if ($request->file) {
                 $file = $request->file('file');
                 $filename = 'responsible-consumption-' . $object->id  .'.'. $file->getClientOriginalExtension();
                 $object->file = $file->storeAs('public/responsible-consumptions', $filename);
-                $object->save();
             }
+
+            $object->save();
 
             if ($object) {
                 session()->flash('success', 'Consumo Responsable creado correctamente.');
@@ -128,23 +122,12 @@ class ResponsibleConsumptionController extends GlobalController
             $object->save();
 
             if ($request->image) {
-                $name = "";
-                if($object->image){
-                    $name = $object->image;
-                    Storage::delete($object->image);
-                }
-                $image = $request->file('image');
-                $filename = 'responsible-consumption-' . $object->id  .'.'. $image->getClientOriginalExtension();
-                $object->image = $image->storeAs('public/responsible-consumptions', $filename);
-                $object->save();
-
-                $object->refresh();
-                ImageHelper::convert_image('ResponsibleConsumption', $object->id, 'image');    
+                $S3Helper = new S3Helper('laravel/anticonceptivo/', 'public/responsible-consumptions');
+                $S3Helper->delete($object->image);
+                $object->image = $S3Helper->store($request->file("image"));
 
                 Log::info('Cambio de imagen', [
                     'date' => date('Y-m-d H:i:s'),
-                    'old_name' => $name,
-                    'new_name' => $filename,
                     'user' => auth('intranet')->user()->full_name
                 ]);
             }
@@ -226,7 +209,8 @@ class ResponsibleConsumptionController extends GlobalController
             return redirect()->route($this->route . 'index');
         }
 
-        Storage::delete($object->image);
+        $S3Helper = new S3Helper('laravel/anticonceptivo/', 'public/responsible-consumptions');
+        $S3Helper->delete($object->image);
         Storage::delete($object->file);
 
         $object->delete();

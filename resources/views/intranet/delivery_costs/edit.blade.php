@@ -43,22 +43,22 @@
                                     <input type="text" id="deadline_delivery" name="deadline_delivery" class="form-control" required
                                     oninput="checkKey('deadline_delivery')" value="{{ old('deadline_delivery') ?? $object->deadline_delivery }}">
                                 </div>
-                            </div> 
+                            </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="deadline_delivery_llego">Plazo máximo de entrega llego (*)</label>
                                     <input type="text" id="deadline_delivery_llego" name="deadline_delivery_llego" class="form-control" required
                                     oninput="checkKey('deadline_delivery_llego')" value="{{ old('deadline_delivery_llego') ?? $object->deadline_delivery_llego }}">
                                 </div>
-                            </div> 
+                            </div>
                             <div class="form-group col-sm-3">
                                 {!! Form::label('image', 'Imagen (*)') !!}
                                 <input id="file-image" type='file' name='image' class='form-control' accept=".jpg, .png, .jpeg">
                                 <br/>
                                 @if ($object->image)
-                                <img id="image-edit" src="{{ Storage::url($object->image) }}" style="max-width: 100px;"/>
+                                <img id="image-edit" src="{{ $object->image }}" style="max-width: 100px;"/>
                                 @endif
-                            </div>     
+                            </div>
 
                         </div>
                         <br/>
@@ -76,7 +76,7 @@
                                     <input type="text" name="price[{{$loop->iteration}}][]" class="form-control price" value="{{ $cost->price[0] }}"
                                     oninput="checkKeyByClass('price')" >
                                 </div>
-                            </div>    
+                            </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="communes">Comunas (*)</label>
@@ -86,7 +86,7 @@
                                         @endforeach
                                     </select>
                                 </div>
-                            </div>   
+                            </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="color">Color(*)</label>
@@ -96,7 +96,7 @@
                             <div class="col-md-2">
                                 <button class="btn btn-success" type="button" style="margin-top:22px" onclick="addNewRow()"><i
                                     class="fa fa-plus"></i> Añadir otro rango</button>
-                            </div> 
+                            </div>
                         </div>
                         @empty
                         <div class="row clone">
@@ -106,7 +106,7 @@
                                     <input type="text" name="price[1][]" class="form-control price" required
                                     oninput="checkKeyByClass('price')" >
                                 </div>
-                            </div>    
+                            </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="communes">Comunas (*)</label>
@@ -116,7 +116,7 @@
                                         @endforeach
                                     </select>
                                 </div>
-                            </div>   
+                            </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="color">Color(*)</label>
@@ -126,7 +126,7 @@
                             <div class="col-md-2">
                                 <button class="btn btn-success" type="button" style="margin-top:22px" onclick="addNewRow()"><i
                                     class="fa fa-plus"></i> Añadir otro rango</button>
-                            </div> 
+                            </div>
                         </div>
                         @endforelse
                     </div>
@@ -212,7 +212,7 @@
             $(element).select2({
                 language: {
                     noResults: function() {
-                        return "No hay resultado";        
+                        return "No hay resultado";
                     },
                     searching: function() {
                         return "Buscando..";

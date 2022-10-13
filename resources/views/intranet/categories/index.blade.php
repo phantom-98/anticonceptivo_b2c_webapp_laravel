@@ -68,11 +68,11 @@
                                     <tr data-position="{{$object->position}}" data-id="{{$object->id}}">
                                         <td>{{ $object->name }}</td>
                                         <td>{{ $object->quantity_limit }}</td>
-                                        <td><img src="{{ Storage::url($object->image) }}" style="max-width: 100px;"/></td>
-                                        <td><img src="{{ Storage::url($object->banner_image) }}" style="max-width: 200px;"/></td>
-                                        <td><img src="{{ Storage::url($object->subbanner_image) }}" style="max-width: 200px;"/></td>
-                                        <td><img src="{{ Storage::url($object->banner_image_responsive) }}" style="max-width: 200px;"/></td>
-                                        <td><img src="{{ Storage::url($object->banner_subimage_responsive) }}" style="max-width: 200px;"/></td>
+                                        <td><img src="{{ $object->image }}" style="max-width: 100px;"/></td>
+                                        <td><img src="{{ $object->banner_image }}" style="max-width: 200px;"/></td>
+                                        <td><img src="{{ $object->subbanner_image }}" style="max-width: 200px;"/></td>
+                                        <td><img src="{{ $object->banner_image_responsive }}" style="max-width: 200px;"/></td>
+                                        <td><img src="{{ $object->banner_subimage_responsive }}" style="max-width: 200px;"/></td>
                                         <td>{!! $object->description !!}</td>
                                         @if($config['action']['changeStatus'])
                                         @include('intranet.template.components._crud_html_change_status')

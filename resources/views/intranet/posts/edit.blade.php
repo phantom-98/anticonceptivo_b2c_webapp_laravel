@@ -52,7 +52,7 @@
                                         @endforeach
                                     </select>
                                 </div>
-                            </div>    
+                            </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="author_id">Autor</label>
@@ -63,7 +63,7 @@
                                         @endforeach
                                     </select>
                                 </div>
-                            </div>   
+                            </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="question_text">Elemento principal (*)</label>
@@ -78,7 +78,7 @@
                                 <div class="form-group">
                                     <label for="content">Contenido (*)</label>
                                     <textarea name="content" id="content" rows="3" style="resize: none" class="summernote" required>{{ old('content') ?? $object->content }}</textarea>
-                                </div>  
+                                </div>
                             </div>
 
                             @if($object->type == "Imagen")
@@ -87,9 +87,9 @@
                                 <input id="image" type='file' name='image' class='form-control' accept=".jpg, .png, .jpeg">
                                 <br/>
                                 @if ($object->principal_image)
-                                <img id="image-edit" src="{{ Storage::url($object->principal_image) }}" style="max-width: 100px;"/>
+                                <img id="image-edit" src="{{ $object->principal_image }}" style="max-width: 100px;"/>
                                 @endif
-                            </div>      
+                            </div>
                             @else
                             <div id="divImagen" class="form-group col-sm-4" style="display:none">
                                 {!! Form::label('image', 'Imagen:') !!}

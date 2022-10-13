@@ -20,6 +20,6 @@ class Brand extends Model
     ];
 
     public function getPublicImageAttribute(){
-        return $this->image == null ? null : \Storage::url($this->image);
+        return $this->image;
     }
 }

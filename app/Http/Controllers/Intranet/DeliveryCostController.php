@@ -6,13 +6,9 @@ use App\Models\DeliveryCost;
 use App\Models\Commune;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Storage;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
-use App\Http\Helpers\ImageHelper;
+use App\Http\Helpers\S3Helper;
 
 class DeliveryCostController extends GlobalController
 {
@@ -73,14 +69,13 @@ class DeliveryCostController extends GlobalController
 
             $object = DeliveryCost::create(array_merge($request->except(['image']), ['costs' => $json_save]));
 
+
             if ($request->image) {
-                $image = $request->file('image');
-                $filename = 'delivery-cost-' . $object->id  .'.'. $image->getClientOriginalExtension();
-                $object->image = $image->storeAs('public/delivery-costs', $filename);
-                $object->save();
-                $object->refresh();
-                ImageHelper::convert_image('DeliveryCost', $object->id, 'image');
+                $S3Helper = new S3Helper('laravel/anticonceptivo/', 'public/delivery-costs');
+                $object->image = $S3Helper->store($request->file("image"));
             }
+
+            $object->save();
 
             if ($object) {
                 session()->flash('success', 'Costo Delivery creado correctamente.');
@@ -151,26 +146,17 @@ class DeliveryCostController extends GlobalController
             $object->update(array_merge($request->except(['image']), ['costs' => $json_save]));
 
             if ($request->image) {
-                $name = "";
-                if($object->image){
-                    $name = $object->image;
-                    Storage::delete($object->image);
-                }
-                $image = $request->file('image');
-                $filename = 'delivery-cost-' . $object->id  .'.'. $image->getClientOriginalExtension();
-                $object->image = $image->storeAs('public/delivery-costs', $filename);
-                $object->save();
+                $S3Helper = new S3Helper('laravel/anticonceptivo/', 'public/delivery-costs');
 
-                $object->refresh();
-                ImageHelper::convert_image('DeliveryCost', $object->id, 'image');
+                $object->image = $S3Helper->store($request->file("image"));
 
                 Log::info('Cambio de foto', [
                     'date' => date('Y-m-d H:i:s'),
-                    'old_name' => $name,
-                    'new_name' => $filename,
                     'user' => auth('intranet')->user()->full_name
                 ]);
             }
+
+            $object->save();
 
             if ($object) {
                 session()->flash('success', 'Costo Delivery modificado correctamente.');
@@ -228,7 +214,8 @@ class DeliveryCostController extends GlobalController
             return redirect()->route($this->route . 'index');
         }
 
-        Storage::delete($object->image);
+        $S3Helper = new S3Helper('laravel/anticonceptivo/', 'public/delivery-costs');
+        $S3Helper->delete($object->image);
 
         $object->delete();
 

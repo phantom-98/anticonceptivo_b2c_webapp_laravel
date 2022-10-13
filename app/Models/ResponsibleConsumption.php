@@ -18,6 +18,6 @@ class ResponsibleConsumption extends Model
     ];
 
     public function getPublicFileAttribute(){
-        return $this->file == null ? null : \Storage::url($this->file);
+        return $this->file;
     }
 }

@@ -49,23 +49,23 @@
                                 <input id="file-image" type='file' name='image' class='form-control' accept=".jpg, .png, .jpeg">
                                 <br/>
                                 @if ($object->image)
-                                <img id="image-edit" src="{{ Storage::url($object->image) }}" style="max-width: 100px;"/>
+                                <img id="image-edit" src="{{ $object->image }}" style="max-width: 100px;"/>
                                 @endif
-                            </div>   
+                            </div>
                             <div class="form-group col-sm-6">
                                 {!! Form::label('footer_image', 'Imagen Footer (*)') !!}
                                 <input id="file-image-footer" type='file' name='footer_image' class='form-control' accept=".jpg, .png, .jpeg">
                                 <br/>
                                 @if ($object->footer_image)
-                                <img id="image-footer-edit" src="{{ Storage::url($object->footer_image) }}" style="max-width: 100px;"/>
+                                <img id="image-footer-edit" src="{{ $object->footer_image }}" style="max-width: 100px;"/>
                                 @endif
-                            </div>     
+                            </div>
                             <div class="clearfix"></div>
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label for="description">Descripción (*)</label>
                                     <textarea name="description" id="description" rows="3" style="resize: none" class="summernote">{{ old('description') ?? $object->description }}</textarea>
-                                </div>  
+                                </div>
                             </div>
 
                         </div>

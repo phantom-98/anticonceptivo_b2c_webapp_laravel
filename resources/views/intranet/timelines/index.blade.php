@@ -65,7 +65,7 @@
                                     <td>{!! $object->description ?? '-' !!}</td>
                                     <td>{{ $object->year }}</td>
                                     <td>{{ $object->post->title ?? '-' }}</td>
-                                    <td><img src="{{ Storage::url($object->icon) }}" style="max-width: 100px;"/></td>
+                                    <td><img src="{{ $object->icon }}" style="max-width: 100px;"/></td>
                                     @if($config['action']['changeStatus'])
                                     @include('intranet.template.components._crud_html_change_status')
                                     @endif
