@@ -204,7 +204,7 @@ Route::get('upload-images-s3/{class}/{column}', function($class, $column){
     $classname = 'App\\Models\\'.$class;
 
     // take off the where if want to iterate over all the records but it will make errors because the aws path is distinct from the local path
-    $objects = $classname::whereNotNull($column)->where($column, 'not like', '%https://inw-assets.s3.amazonaws.com/laravel/anticonceptivo/%')->get();
+    return $objects = $classname::whereNotNull($column)->where($column, 'not like', '%https://inw-assets.s3.amazonaws.com/laravel/anticonceptivo/%')->get();
 
 
     $S3Helper = new \App\Http\Helpers\S3Helper();
