@@ -28,7 +28,7 @@ Route::get('clean-paths/{class}/{column}', function($class, $column){
 
         // change the name of the file in the Storage
         if (Storage::disk('public')->exists($old_path)) {
-            Storage::disk('public')->move($old_path, $new_path);
+            rename(public_path('storage/'.$old_path), public_path('storage/'.$new_path));
         }
 
         $object->$column = $new_path;
