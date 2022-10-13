@@ -27,7 +27,7 @@ const Mobile = () => {
     const { auth } = useContext(AuthContext)
     const { showModalAuth } = useContext(AppContext);
 
-    const [showingMenu, setShowingMenu] = useState(false);
+    const [showingMenu, setShowingMenu] = useState(null);
     const showMenu = () => setShowingMenu(true);
     const hideMenu = () => setShowingMenu(false);
 

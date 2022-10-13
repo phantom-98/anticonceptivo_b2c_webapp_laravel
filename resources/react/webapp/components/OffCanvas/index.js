@@ -6,7 +6,7 @@ import 'react-lazy-load-image-component/src/effects/blur.css';
 const OffCanvas = ({children, showCanvas, closeCanvas, width= 341 }) => {
 
     return (
-        <div className={`offcanvas-block ${showCanvas ? 'show' : ''}`} style={{maxWidth: width +'px'}}>
+        <div className={`offcanvas-block-left ${showCanvas === null ? '' : showCanvas ? 'show' : 'hide'}`} style={{maxWidth: width +'px'}}>
             <div className="pointer mb-2 text-right" onClick={closeCanvas}>
                 <LazyLoadImage
                     rel="nofollow"
