@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Log;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('upload-images-s3/{class}/{column}', function($class, $column){
+Route::get('clean-paths/{class}/{column}', function($class, $column){
     $classname = 'App\\Models\\'.$class;
     $objects = $classname::whereNotNull($column)->where($column, 'not like', '%https://inw-assets.s3.amazonaws.com/laravel/anticonceptivo/%')->get();
 
