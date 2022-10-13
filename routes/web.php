@@ -31,6 +31,9 @@ Route::get('clean-paths/{class}/{column}', function($class, $column){
                 $object->$column = $new_path;
                 $object->save();
             }
+        }else if (Storage::exists($old_path) && Storage::exists($new_path)) {
+            $object->$column = $new_path;
+            $object->save();
         }
     }
 
