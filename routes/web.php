@@ -17,7 +17,24 @@ use Illuminate\Support\Facades\Log;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('upload-images-s3/{class}/{column}', function($class, $column){
+    $classname = 'App\\Models\\'.$class;
+    $objects = $classname::whereNotNull($column)->where($column, 'not like', '%https://inw-assets.s3.amazonaws.com/laravel/anticonceptivo/%')->get();
 
+    // fix all files and path names cleanning white spaces
+    foreach ($objects as $object) {
+        $old_path = $object->$column;
+        $new_path = str_replace(' ', '', $old_path);
+
+        // change the name of the file in the Storage
+        if (Storage::disk('public')->exists($old_path)) {
+            Storage::disk('public')->move($old_path, $new_path);
+        }
+
+        $object->$column = $new_path;
+        $object->save();
+    }
+});
 // se tira 1 vez para arreglar los path de los registros
 Route::get('fix-fix-files', function () {
     $product_images = \App\Models\ProductImage::where('file', 'like', '%public/products//%')->get();
@@ -198,10 +215,11 @@ Route::get('upload-images-s3/{class}/{column}', function($class, $column){
     foreach ($objects as $object) {
         try{
             $path = $object->$column;
-            $webp_path = $path;
 
-            if ($S3Helper->getExtension($path) != 'webp') {
-                $webp_path = $S3Helper->convertToWebp($path);
+            if ($S3Helper->getExtension($path) != 'svg') {
+                if ($S3Helper->getExtension($path) != 'webp') {
+                    $webp_path = $S3Helper->convertToWebp($path);
+                }
             }
 
             if ($webp_path) {
