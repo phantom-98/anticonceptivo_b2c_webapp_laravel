@@ -34,6 +34,8 @@ Route::get('clean-paths/{class}/{column}', function($class, $column){
         $object->$column = $new_path;
         $object->save();
     }
+
+    return 'Done';
 });
 // se tira 1 vez para arreglar los path de los registros
 Route::get('fix-fix-files', function () {
