@@ -89,7 +89,7 @@ const Mobile = () => {
                                     effect="blur"
                                     src={menu}
                                     height={'25px'}
-                                    width={'100%'}
+                                    width={'25px'}
                                 />
                                 <div className="text-icon-navbar-mobile">
                                     PRODUCTOS
@@ -106,7 +106,7 @@ const Mobile = () => {
                                     effect="blur"
                                     src={search}
                                     height={'25px'}
-                                    width={'100%'}
+                                    width={'25px'}
                                 />
                                 <div className="text-icon-navbar-mobile">
                                     BUSCAR
@@ -142,7 +142,7 @@ const Mobile = () => {
                                             effect="blur"
                                             src={userBlue}
                                             height={'25px'}
-                                            width={'100%'}
+                                            width={'25px'}
                                         />
                                         <div className="text-icon-navbar-mobile">
                                             CUENTA
@@ -158,8 +158,8 @@ const Mobile = () => {
                                             rel="nofollow"
                                             effect="blur"
                                             src={userBlue}
-                                            height={'100%'}
-                                            width={'100%'}
+                                            height={'25px'}
+                                            width={'25px'}
                                         />
                                         <div className="text-icon-navbar-mobile">
                                             CUENTA
@@ -179,7 +179,8 @@ const Mobile = () => {
                                         title="Anticonceptivo"
                                         rel="nofollow"
                                         effect="blur"
-                                        height={25}
+                                        height={'25px'}
+                                        width={'25px'}
                                         src={cartBlue}
                                     />
                                 </Link>
