@@ -22,21 +22,21 @@ const IsImmediateLabel = ({product}) =>{
 
     const Immediate = () => {
         return (
-            <div className="is-immediate-label  d-flex">
+            <div className="is-immediate-label">
                 <LazyLoadImage
                     alt="anticonceptivo.cl"
                     title="Anticonceptivo"
                     rel="nofollow"
                     effect="blur"
                     src={isImmediateSvgWhite}
-                /> <span className="ml-1">{label}</span>
+                /> <span className="ml-1 responsive-font-size-labels">{label}</span>
             </div>
         )
     }
 
     const Today = () => {
         return (
-            <div className="is-today-label d-flex">
+            <div className="is-today-label">
                 <LazyLoadImage
                     alt="anticonceptivo.cl"
                     title="Anticonceptivo"
@@ -50,7 +50,7 @@ const IsImmediateLabel = ({product}) =>{
 
     const Tomorrow = () => {
         return (
-            <div className="is-tomorrow-label  d-flex">
+            <div className="is-tomorrow-label">
                 <LazyLoadImage
                     alt="anticonceptivo.cl"
                     title="Anticonceptivo"
@@ -64,7 +64,7 @@ const IsImmediateLabel = ({product}) =>{
 
     const AfterTomorrow = () => {
         return (
-            <div className="is-after-tomorrow-label  d-flex">
+            <div className="is-after-tomorrow-label">
                 <LazyLoadImage
                     alt="anticonceptivo.cl"
                     title="Anticonceptivo"
@@ -78,7 +78,7 @@ const IsImmediateLabel = ({product}) =>{
 
     const AfterTomorrowCustom = () => {
         return (
-            <div className="is-after-tomorrow-label  d-flex">
+            <div className="is-after-tomorrow-label">
                 <LazyLoadImage
                     alt="anticonceptivo.cl"
                     title="Anticonceptivo"
