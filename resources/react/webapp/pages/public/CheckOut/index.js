@@ -78,7 +78,7 @@ const CheckOut = () => {
     const [rutFlag, setRutFlag] = useState(false);
     const [customerId, setCustomerId] = useState(null);
 
-    const [prescriptionRadio, setPrescriptionRadio] = useState(true);
+    const [prescriptionRadio, setPrescriptionRadio] = useState(false);
     const [withoutPrescriptionAnswer, setWithoutPrescriptionAnswer] = useState(null);
 
 
@@ -387,7 +387,6 @@ const CheckOut = () => {
         }
 
         if (productCount > 0 && prescriptionRadio == false && withoutPrescriptionAnswer == null && !_has_required_items) {
-            toastr.warning('Debes seleccionar un motivo.');
             document.getElementById(`reason_focus`).scrollIntoView({
                 behavior: 'smooth'
             });
