@@ -343,21 +343,27 @@ const CheckOut = () => {
 
                     if (errorKey.includes('.')) {
                         toastr.error('Formato de archivo invalido.');
-                        document.getElementById(`attachments_focus`).scrollIntoView({
-                            behavior: 'smooth'
+                        document.getElementById(`reason_focus`).scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'center',
+                            inline: 'center'
                         });
 
                         return null;
                     }
                     if (response.data.attachments) {
                         toastr.error(response.data.attachments[0]);
-                        document.getElementById(`${errorKey}_focus`).scrollIntoView({
-                            behavior: 'smooth'
+                        document.getElementById(`reason_focus`).scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'center',
+                            inline: 'center'
                         });
                     } else {
                         toastr.error('Por favor, complete todos los campos.');
-                        document.getElementById(`${errorKey}_focus`).scrollIntoView({
-                            behavior: 'smooth'
+                        document.getElementById(`reason_focus`).scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'center',
+                            inline: 'center'
                         });
                     }
                 }
@@ -434,7 +440,7 @@ const CheckOut = () => {
 
                     if (errorKey.includes('.')) {
                         toastr.error('Formato de archivo invalido.');
-                        document.getElementById(`attachments_focus`).scrollIntoView({
+                        document.getElementById(`reason_focus`).scrollIntoView({
                             behavior: 'smooth',
                             block: 'center',
                             inline: 'center'
@@ -444,13 +450,15 @@ const CheckOut = () => {
                     }
                     if (response.data.attachments) {
                         toastr.error(response.data.attachments[0]);
-                        document.getElementById(`${errorKey}_focus`).scrollIntoView({
+                        document.getElementById(`reason_focus`).scrollIntoView({
                             behavior: 'smooth'
                         });
                     } else {
                         toastr.error('Por favor, complete todos los campos.');
-                        document.getElementById(`${errorKey}_focus`).scrollIntoView({
-                            behavior: 'smooth'
+                        document.getElementById(`reason_focus`).scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'center',
+                            inline: 'center'
                         });
                     }
                 }
