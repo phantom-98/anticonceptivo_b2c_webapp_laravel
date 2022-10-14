@@ -54,7 +54,9 @@ const CategoryMenuMobile = ({hideMenu}) => {
                             {
                                 category.public_image ?
                                     <div className="left" style={{width : '25px'}}>
-                                        <Icon path={category.public_image}/>
+                                        <Icon style={{
+                                            width : '20px',
+                                        }} path={category.public_image}/>
                                     </div> : null
                             }{'  '}{category.name}
                         </Link>
