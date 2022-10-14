@@ -435,7 +435,9 @@ const CheckOut = () => {
                     if (errorKey.includes('.')) {
                         toastr.error('Formato de archivo invalido.');
                         document.getElementById(`attachments_focus`).scrollIntoView({
-                            behavior: 'smooth'
+                            behavior: 'smooth',
+                            block: 'center',
+                            inline: 'center'
                         });
 
                         return null;
