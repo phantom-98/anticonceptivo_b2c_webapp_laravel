@@ -6,13 +6,9 @@ use App\Models\Timeline;
 use App\Models\Post;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Storage;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
-use App\Http\Helpers\ImageHelper;
+use App\Http\Helpers\S3Helper;
 
 class TimelineController extends GlobalController
 {
@@ -62,13 +58,10 @@ class TimelineController extends GlobalController
             $object = Timeline::create($request->except(['icon']));
 
             if ($request->icon) {
-                $icon = $request->file('icon');
-                $filename = 'timeline-' . $object->id  .'.'. $icon->getClientOriginalExtension();
-                $object->icon = $icon->storeAs('public/timelines', $filename);
-                $object->save();
-                $object->refresh();
-                ImageHelper::convert_image('Timeline', $object->id, 'icon');
+                $S3Helper = new S3Helper('laravel/anticonceptivo/', 'public/timelines');
+                $object->icon = $S3Helper->store($request->file("icon"));
             }
+            $object->save();
 
             if ($object) {
                 session()->flash('success', 'Elemento creado correctamente.');
@@ -125,30 +118,19 @@ class TimelineController extends GlobalController
 
             $object->update($request->except(['icon']));
 
-            $object->save();
 
             if ($request->icon) {
-                $name = "";
-                if($object->icon){
-                    $name = $object->icon;
-                    Storage::delete($object->icon);
-                }
-                $icon = $request->file('icon');
-                $filename = 'timeline-' . $object->id  .'.'. $icon->getClientOriginalExtension();
-                $object->icon = $icon->storeAs('public/timelines', $filename);
-                $object->save();
-
-                $object->refresh();
-
-                ImageHelper::convert_image('Timeline', $object->id, 'icon');
+                $S3Helper = new S3Helper('laravel/anticonceptivo/', 'public/timelines');
+                $S3Helper->delete($object->icon);
+                $object->icon = $S3Helper->store($request->file("icon"));
 
                 Log::info('Cambio de icono', [
                     'date' => date('Y-m-d H:i:s'),
-                    'old_name' => $name,
-                    'new_name' => $filename,
                     'user' => auth('intranet')->user()->full_name
                 ]);
             }
+
+            $object->save();
 
             if ($object) {
                 session()->flash('success', 'Elemento modificado correctamente.');
@@ -225,7 +207,8 @@ class TimelineController extends GlobalController
             return redirect()->route($this->route . 'index');
         }
 
-        Storage::delete($object->icon);
+        $S3Helper = new S3Helper('laravel/anticonceptivo/', 'public/timelines');
+        $S3Helper->delete($object->icon);
 
         $object->delete();
 

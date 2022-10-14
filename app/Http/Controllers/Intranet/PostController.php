@@ -6,13 +6,10 @@ use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\PostType;
-use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
-use App\Http\Helpers\ImageHelper;
 use Illuminate\Support\Facades\Artisan;
+use App\Http\Helpers\S3Helper;
 
 class PostController extends GlobalController
 {
@@ -62,17 +59,12 @@ class PostController extends GlobalController
             $object->post_type_id = $request->post_type_id;
             $object->save();
 
-            $image = $request->file('image');
-            $filename = 'post-' . $object->id  .'.'. $image->getClientOriginalExtension();
-            $object->principal_image = $image->storeAs('public/posts', $filename);
+            $S3Helper = new S3Helper('laravel/anticonceptivo/', 'public/posts');
+            $object->principal_image = $S3Helper->store($request->file("image"));
             $object->save();
-
-            $object->refresh();
-            ImageHelper::convert_image('Post', $object->id, 'principal_image');
 
             Log::info('Agregar post', [
                 'date' => date('Y-m-d H:i:s'),
-                'new_name' => $filename,
                 'user' => auth('intranet')->user()->full_name
             ]);
 
@@ -131,26 +123,11 @@ class PostController extends GlobalController
             $object->author_id = $request->author_id;
             $object->published_at = Carbon::now()->format('Y-m-d');
             $object->post_type_id = $request->post_type_id;
-            $object->save();
 
             if ($request->image) {
-                if($object->image){
-                    \Storage::delete($object->image);
-                }
-                $image = $request->file('image');
-                $filename = 'post-' . $object->id  .'.'. $image->getClientOriginalExtension();
-                $object->principal_image = $image->storeAs('public/posts', $filename);
-                $object->save();
-
-                $object->refresh();
-
-                ImageHelper::convert_image('Post', $object->id, 'principal_image');
-
-                Log::info('Editar post', [
-                    'date' => date('Y-m-d H:i:s'),
-                    'new_name' => $filename,
-                    'user' => auth('intranet')->user()->full_name
-                ]);
+                $S3Helper = new S3Helper('laravel/anticonceptivo/', 'public/posts');
+                $S3Helper->delete($object->principal_image);
+                $object->principal_image = $S3Helper->store($request->file("image"));
             }
 
         } else {
@@ -163,8 +140,9 @@ class PostController extends GlobalController
             $object->author_id = auth()->user()->id;
             $object->published_at = Carbon::now()->format('Y-m-d');
             $object->post_type_id = $request->post_type_id;
-            $object->save();
         }
+
+        $object->save();
 
         Artisan::call('command:sitemap');
         session()->flash('success', 'Blog modificado correctamente.');
@@ -182,7 +160,8 @@ class PostController extends GlobalController
 
 
         if($object->principal_image){
-            \Storage::delete($object->principal_image);
+            $S3Helper = new S3Helper('laravel/anticonceptivo/', 'public/posts');
+            $S3Helper->delete($object->principal_image);
         }
 
         if ($object->delete()) {

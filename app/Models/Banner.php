@@ -34,10 +34,10 @@ class Banner extends Model
     }
 
     public function getPublicFileAttribute(){
-        return $this->file == null ? null : \Storage::url($this->file);
+        return $this->file;
     }
     public function getPublicFileResponsiveAttribute(){
-        return $this->responsive_file == null ? null : \Storage::url($this->responsive_file);
+        return $this->responsive_file;
     }
 }
 

@@ -5,13 +5,10 @@ namespace App\Http\Controllers\Intranet;
 use App\Models\LegalBase;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
-use App\Http\Helpers\ImageHelper;
+use App\Http\Helpers\S3Helper;
 
 class LegalBaseController extends GlobalController
 {
@@ -61,20 +58,17 @@ class LegalBaseController extends GlobalController
             $object = LegalBase::create($request->except(['icon', 'file']));
 
             if ($request->icon) {
-                $icon = $request->file('icon');
-                $filename = 'legal-base-' . $object->id  .'.'. $icon->getClientOriginalExtension();
-                $object->icon = $icon->storeAs('public/legal-bases', $filename);
-                $object->save();
-                $object->refresh();
-                ImageHelper::convert_image('LegalBase', $object->id, 'icon');
+                $S3Helper = new S3Helper('laravel/anticonceptivo/', 'public/legal-bases');
+                $object->icon = $S3Helper->store($request->file("icon"));
             }
 
             if ($request->file) {
                 $file = $request->file('file');
                 $filename = 'legal-base-' . $object->id  .'.'. $file->getClientOriginalExtension();
                 $object->file = $file->storeAs('public/legal-bases', $filename);
-                $object->save();
             }
+
+            $object->save();
 
             if ($object) {
                 session()->flash('success', 'Base legal creada correctamente.');
@@ -130,24 +124,12 @@ class LegalBaseController extends GlobalController
             $object->save();
 
             if ($request->icon) {
-                $name = "";
-                if($object->icon){
-                    $name = $object->icon;
-                    Storage::delete($object->icon);
-                }
-                $icon = $request->file('icon');
-                $filename = 'legal-base-' . $object->id  .'.'. $icon->getClientOriginalExtension();
-                $object->icon = $icon->storeAs('public/legal-bases', $filename);
-                $object->save();
-
-                $object->refresh();
-
-                ImageHelper::convert_image('LegalBase', $object->id, 'icon');
+                $S3Helper = new S3Helper('laravel/anticonceptivo/', 'public/legal-bases');
+                $S3Helper->delete($object->icon);
+                $object->icon = $S3Helper->store($request->file("icon"));
 
                 Log::info('Cambio de icono', [
                     'date' => date('Y-m-d H:i:s'),
-                    'old_name' => $name,
-                    'new_name' => $filename,
                     'user' => auth('intranet')->user()->full_name
                 ]);
             }
@@ -229,7 +211,9 @@ class LegalBaseController extends GlobalController
             return redirect()->route($this->route . 'index');
         }
 
-        Storage::delete($object->icon);
+        $S3Helper = new S3Helper('laravel/anticonceptivo/', 'public/legal-bases');
+        $S3Helper->delete($object->icon);
+
         Storage::delete($object->file);
 
         $object->delete();

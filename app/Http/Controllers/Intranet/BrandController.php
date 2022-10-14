@@ -5,13 +5,10 @@ namespace App\Http\Controllers\Intranet;
 use App\Models\Brand;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
-use App\Http\Helpers\ImageHelper;
+use App\Http\Helpers\S3Helper;
 
 class BrandController extends GlobalController
 {
@@ -61,18 +58,15 @@ class BrandController extends GlobalController
             $object = Brand::create($request->except(['image']));
 
             if ($request->image) {
-                $image = $request->file('image');
-                $filename = 'brand-' . $object->id  .'.'. $image->getClientOriginalExtension();
-                $object->image = $image->storeAs('public/brands', $filename);
-                $object->save();
-                $object->refresh();
-                ImageHelper::convert_image('Brand', $object->id, 'image');
+                $S3Helper = new S3Helper('laravel/anticonceptivo/', 'public/brands');
+                $object->image = $S3Helper->store($request->file("image"));
             }
+
+            $object->save();
 
             if ($object) {
                 session()->flash('success', 'Marca creada correctamente.');
                 return redirect()->route($this->route . 'index');
-
             }
 
             return redirect()->back()->withErrors(['mensaje' => 'Error inesperado al crear la Marca.'])->withInput();
@@ -121,29 +115,19 @@ class BrandController extends GlobalController
 
             $object->update($request->except(['image']));
 
-            $object->save();
 
             if ($request->image) {
-                $name = "";
-                if($object->image){
-                    $name = $object->image;
-                    Storage::delete($object->image);
-                }
-                $image = $request->file('image');
-                $filename = 'brand-' . $object->id  .'.'. $image->getClientOriginalExtension();
-                $object->image = $image->storeAs('public/brands', $filename);
-                $object->save();
-
-                $object->refresh();
-                ImageHelper::convert_image('Brand', $object->id, 'image');
+                $S3Helper = new S3Helper('laravel/anticonceptivo/', 'public/brands');
+                $S3Helper->delete($object->image);
+                $object->image = $S3Helper->store($request->file("image"));
 
                 Log::info('Cambio de foto', [
                     'date' => date('Y-m-d H:i:s'),
-                    'old_name' => $name,
-                    'new_name' => $filename,
                     'user' => auth('intranet')->user()->full_name
                 ]);
             }
+
+            $object->save();
 
             if ($object) {
                 session()->flash('success', 'Marca modificada correctamente.');
@@ -155,23 +139,23 @@ class BrandController extends GlobalController
             return redirect()->back()->withErrors($validator)->withInput();
         }
     }
-    public function position(Request $request){
 
-        try{
-            foreach($request->data as $data){
+    public function position(Request $request)
+    {
+
+        try {
+            foreach ($request->data as $data) {
                 $object = Brand::find($data['id']);
                 $object->update(['position' => $data['position']]);
             }
             return response()->json([
                 'status' => 1
             ]);
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             return response()->json([
                 'status' => 0
             ]);
         }
-
-
     }
     /**
      * Remove the specified resource from storage.
@@ -197,7 +181,6 @@ class BrandController extends GlobalController
                     'message' => $object->active == 1 ? 'Marca activada correctamente.' : 'Marca desactivada correctamente.',
                     'object' => $object
                 ]);
-
             } else {
 
                 return response()->json([
@@ -205,7 +188,6 @@ class BrandController extends GlobalController
                     'message' => 'Marca no encontrada.'
                 ]);
             }
-
         } catch (\Exception $e) {
 
             return response()->json([
@@ -213,12 +195,9 @@ class BrandController extends GlobalController
                 'message' => 'Ha ocurrido un error inesperado, inténtelo de nuevo más tarde.' . $e->getMessage()
             ]);
         }
-
     }
 
     public function changeStatus(Request $request)
     {
-
     }
-
 }

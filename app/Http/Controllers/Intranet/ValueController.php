@@ -5,13 +5,9 @@ namespace App\Http\Controllers\Intranet;
 use App\Models\Value;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Storage;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
-use App\Http\Helpers\ImageHelper;
+use App\Http\Helpers\S3Helper;
 
 class ValueController extends GlobalController
 {
@@ -57,13 +53,11 @@ class ValueController extends GlobalController
             $object = Value::create($request->except(['image']));
 
             if ($request->image) {
-                $image = $request->file('image');
-                $filename = 'value-' . $object->id  .'.'. $image->getClientOriginalExtension();
-                $object->image = $image->storeAs('public/values', $filename);
-                $object->save();
-                $object->refresh();
-                ImageHelper::convert_image('Value', $object->id, 'image');
+                $S3Helper = new S3Helper('laravel/anticonceptivo/', 'public/values');
+                $object->image = $S3Helper->store($request->file("image"));
             }
+
+            $object->save();
 
             if ($object) {
                 session()->flash('success', 'Valor creado correctamente.');
@@ -119,26 +113,17 @@ class ValueController extends GlobalController
             $object->save();
 
             if ($request->image) {
-                $name = "";
-                if($object->image){
-                    $name = $object->image;
-                    Storage::delete($object->image);
-                }
-                $image = $request->file('image');
-                $filename = 'value-' . $object->id  .'.'. $image->getClientOriginalExtension();
-                $object->image = $image->storeAs('public/values', $filename);
-                $object->save();
-
-                $object->refresh();
-                ImageHelper::convert_image('Value', $object->id, 'image');
+                $S3Helper = new S3Helper('laravel/anticonceptivo/', 'public/values');
+                $S3Helper->delete($object->image);
+                $object->image = $S3Helper->store($request->file("image"));
 
                 Log::info('Cambio de foto', [
                     'date' => date('Y-m-d H:i:s'),
-                    'old_name' => $name,
-                    'new_name' => $filename,
                     'user' => auth('intranet')->user()->full_name
                 ]);
             }
+
+            $object->save();
 
             if ($object) {
                 session()->flash('success', 'Valor modificado correctamente.');
@@ -196,7 +181,8 @@ class ValueController extends GlobalController
             return redirect()->route($this->route . 'index');
         }
 
-        Storage::delete($object->image);
+        $S3Helper = new S3Helper('laravel/anticonceptivo/', 'public/values');
+        $S3Helper->delete($object->image);
 
         $object->delete();
 

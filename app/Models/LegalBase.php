@@ -23,6 +23,6 @@ class LegalBase extends Model
     }
 
     public function getPublicIconAttribute(){
-        return $this->icon == null ? null : \Storage::url($this->icon);
+        return $this->icon;
     }
 }

@@ -27,6 +27,6 @@ class DeliveryCost extends Model
 
     public function getPublicImageAttribute()
     {
-        return $this->image ? \Storage::url($this->image) : $this->image;
+        return $this->image;
     }
 }

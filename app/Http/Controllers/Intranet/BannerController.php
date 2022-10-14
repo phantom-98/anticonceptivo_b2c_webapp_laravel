@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers\Intranet;
 
-use App\Http\Controllers\Controller;
 use App\Models\CmsSlider;
 use App\Models\Banner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Log;
-use Carbon\Carbon;
-use App\Http\Helpers\ImageHelper;
+use Illuminate\Support\Facades\Storage;
+use App\Http\Helpers\S3Helper;
 
 class BannerController extends GlobalController
 {
@@ -49,7 +48,7 @@ class BannerController extends GlobalController
     }
 
     public function update(Request $request, $id)
-    { 
+    {
         $rules = [
             'file' => 'required',
             'responsive_file' => 'required',
@@ -81,32 +80,18 @@ class BannerController extends GlobalController
             $object->size = $request->size;
             $object->cms_slider_id = $id;
 
-            $ext = $request->file("file")->getClientOriginalExtension();
-            $name = pathinfo($request->file("file")->getClientOriginalName(), PATHINFO_FILENAME);
-            $object->file = $request->file("file")
-            ->storeAs('public/sliders', 'slider-'.$name.'- '.rand(100000, 999999).'.'.$ext);
+            $S3Helper = new S3Helper('laravel/anticonceptivo/', 'public/sliders');
+
+            $object->file = $S3Helper->store($request->file("file"));
+            $object->responsive_file = $S3Helper->store($request->file("responsive_file"));
 
             $object->save();
-            $object->refresh();
-            ImageHelper::convert_image('Banner', $object->id, 'file');
-
-            $ext = $request->file("responsive_file")->getClientOriginalExtension();
-            $name = pathinfo($request->file("responsive_file")->getClientOriginalName(), PATHINFO_FILENAME);
-            $object->responsive_file = $request->file("responsive_file")
-            ->storeAs('public/sliders', 'responsive-slider-'.$name.'- '.rand(100000, 999999).'.'.$ext);
-            
-            $object->save();
-
-            $object->refresh();
-
-            ImageHelper::convert_image('Banner', $object->id, 'responsive_file');
 
             Log::info('Agregar banner', [
                 'date' => date('Y-m-d H:i:s'),
-                'new_name' => $name,
                 'user' => auth('intranet')->user()->full_name
             ]);
-            
+
             if ($object) {
                 session()->flash('success', 'Banner creado correctamente.');
                 return redirect()->route($this->route . 'edit', [$slider->slug]);
@@ -134,12 +119,12 @@ class BannerController extends GlobalController
             ]);
         }
 
-        
+
     }
 
     public function edit_item(Request $request, $id){
         $object = Banner::find($id);
- 
+
         if(!$object){
             session()->flash('warning', 'Banner no encontrado.');
             return redirect()->back();
@@ -153,47 +138,30 @@ class BannerController extends GlobalController
         $object->button_target = $request->button_target;
         $object->location = $request->location;
         $object->size = $request->size;
-        $object->save();
+
+        $S3Helper = new S3Helper('laravel/anticonceptivo/', 'public/sliders');
 
         if($request->file("file")){
-            \Storage::delete($object->file);
-            
-            $ext = $request->file("file")->getClientOriginalExtension();
-            $name = pathinfo($request->file("file")->getClientOriginalName(), PATHINFO_FILENAME);
-            $object->file = $request->file("file")
-            ->storeAs('public/sliders', 'slider-'.$name.'- '.rand(100000, 999999).'.'.$ext);
-
-            $object->save();
-            $object->refresh();
-
-            ImageHelper::convert_image('Banner', $object->id, 'file');
+            $S3Helper->delete($object->file);
+            $object->file = $S3Helper->store($request->file("file"));
 
             Log::info('Cambio de foto', [
                 'date' => date('Y-m-d H:i:s'),
-                'new_name' => $name,
                 'user' => auth('intranet')->user()->full_name
             ]);
         }
 
         if($request->file("responsive_file")){
-            \Storage::delete($object->responsive_file);
-            
-            $ext = $request->file("responsive_file")->getClientOriginalExtension();
-            $name = pathinfo($request->file("responsive_file")->getClientOriginalName(), PATHINFO_FILENAME);
-            $object->responsive_file = $request->file("responsive_file")
-            ->storeAs('public/sliders', 'responsive-slider-'.$name.'- '.rand(100000, 999999).'.'.$ext);
-
-            $object->save();
-            $object->refresh();
-
-            ImageHelper::convert_image('Banner', $object->id, 'responsive_file');
+            $S3Helper->delete($object->responsive_file);
+            $object->responsive_file = $S3Helper->store($request->file("responsive_file"));
 
             Log::info('Cambio de foto', [
                 'date' => date('Y-m-d H:i:s'),
-                'new_name' => $name,
                 'user' => auth('intranet')->user()->full_name
             ]);
         }
+
+        $object->save();
 
         if ($object) {
             session()->flash('success', 'Banner modificado correctamente.');
@@ -212,8 +180,14 @@ class BannerController extends GlobalController
             return redirect()->back();
         }
 
-        \Storage::delete($object->file);
-        \Storage::delete($object->responsive_file);
+        $S3Helper = new S3Helper('laravel/anticonceptivo/', 'public/sliders');
+        $S3Helper->delete($object->file);
+        $S3Helper->delete($object->responsive_file);
+
+        Log::info('Eliminar banner', [
+            'date' => date('Y-m-d H:i:s'),
+            'user' => auth('intranet')->user()->full_name
+        ]);
 
         if($object->delete()){
             session()->flash('success', 'Banner eliminado correctamente.');
@@ -221,16 +195,5 @@ class BannerController extends GlobalController
         }
         session()->flash('error', 'No se ha podido eliminar el banner.');
         return redirect()->back();
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

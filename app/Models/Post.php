@@ -49,7 +49,7 @@ class Post extends Model
         if (strpos($this->attributes['principal_image'], 'http') !== false) {
             return $this->attributes['principal_image'];
         }
-        return $this->attributes['principal_image'] == null ? null : \Storage::url($this->attributes['principal_image']);
+        return $this->attributes['principal_image'] == null ? null : $this->attributes['principal_image'];
     }
 
     public function getUrlAttribute()

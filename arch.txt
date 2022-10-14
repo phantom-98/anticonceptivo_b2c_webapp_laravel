@@ -1,0 +1,55 @@
+1.- Guardar archivo en local
+2.- Convertir el archivo a webp
+3.- Eliminar el archivo local
+4.- Subir el archivo webp a s3
+5.- Eliminar el archivo webp local
+6.- Devolver la url del archivo webp
+7.- Guardar la url del archivo webp en la base de datos (en el modelo)
+
+¿Alguna sugerencia? ¿Alguna otra forma de hacerlo?
+
+La clase va a gestionar los archivos locales y del s3
+
+Deberá implementar los siguientes metodos:
+    - upload/store (subir archivo) publica
+    - delete (eliminar archivo) publica
+    - get (obtener archivo) privada/publica (dependiendo de la configuracion)
+
+Deberá validar que el archivo que se está intentado guardar
+es un formato compatible para la conversión a webp
+
+Deberá tener las siguientes funciones:
+    - exists (verificar si existe el archivo)
+    - getURL (obtener la url del archivo)
+    - getExtension (obtener la extension del archivo)
+    - getMimeType (obtener el mime type del archivo)
+    - getFileName (obtener el nombre del archivo)
+    - getFilePath (obtener la ruta del archivo)
+
+Esta dependera de las siguientes librerías:
+    - ImageManagerStatic # para convertir el archivo a webp
+    - Aws\S3\S3Client # para subir el archivo a s3
+    - Aws\Exception\AwsException # para manejar las excepciones de s3
+    - Illuminate\Support\Facades\Storage # para manejar el almacenamiento local
+    - Illuminate\Support\Facades\Log # para manejar los logs
+
+Deberá tener las siguientes variables protegidas para el s3:
+    - bucket
+    - region
+    - key
+    - secret
+    - version
+    - url
+
+Deberá guardar los siguientes registros asociados al log:
+    - operación
+    - resultado
+
+Deberá gestionar los siguientes errores:
+    - no se pudo guardar el archivo local
+    - no se pudo guardar el archivo webp
+    - no se pudo guardar el archivo webp en s3
+    - no se pudo eliminar el archivo local
+    - no se pudo eliminar el archivo webp
+    - no se pudo eliminar el archivo webp en s3
+    - no se pudo realizar la conversión del archivo a webp
