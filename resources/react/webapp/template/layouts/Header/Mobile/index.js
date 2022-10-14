@@ -92,7 +92,7 @@ const Mobile = () => {
                                     width={'100%'}
                                 />
                                 <div className="text-icon-navbar-mobile">
-                                    MENÚ
+                                    PRODUCTOS
                                 </div>
                             </div>
                         </div>
