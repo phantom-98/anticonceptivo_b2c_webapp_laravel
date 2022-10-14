@@ -5,7 +5,7 @@ import Icon from "../general/Icon";
 
 const Step = ({title, number, disabled = false, isHeader = false, isReady = false}) => {
     return (
-        <div className={`row ${disabled ? 'step-disable' : ''}`}>
+        <div id='reason_focus' className={`row ${disabled ? 'step-disable' : ''}`}>
             <div className="col-auto pr-0">
                 <div className={`circle-step ${isReady ? 'circle-step-ready' : ''}`}>
                     {
