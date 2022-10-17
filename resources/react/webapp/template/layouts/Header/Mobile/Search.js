@@ -11,7 +11,7 @@ import noImage from "../../../../assets/images/producto-default.png";
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 
-const Search = ({hideModal}) => {
+const Search = () => {
     const [search, setSearch] = useState('');
     const [products, setProducts] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -117,7 +117,6 @@ const Search = ({hideModal}) => {
                     value={debouncedSearch}
                     onChange={e => setDebouncedSearch(e.target.value)}
                     onKeyPress={handleKeyPress}
-
                 />
                 {
                     search.length > 0 && search.trim() != '' && (
@@ -147,17 +146,17 @@ const Search = ({hideModal}) => {
                     <div className='search-mobile-child'>
                         {
                             isLoading ?
-                                <div className="d-flex justify-content-center font-poppins italic font-11 color-707070">
+                                <div className="d-flex justify-content-center font-poppins italic font-11 color-707070" style={{marginTop:25}}>
                                     Cargando...
                                 </div>
                             :
 
-                            search.length && isVisibilityDropdownSearch  ?
+                            search.length && isVisibilityDropdownSearch && products.length > 0  ?
                                 products.map((product, index) => {
                                     return (
                                         <Fragment>
 
-                                                <Link onClick={hideModal} to={(PUBLIC_ROUTES.PRODUCT_DETAIL.path).replace(':slug?', product.slug)} style={{textDecoration: 'none', color: '#000000'}}>
+                                                <Link onClick={clearText} to={(PUBLIC_ROUTES.PRODUCT_DETAIL.path).replace(':slug?', product.slug)} style={{textDecoration: 'none', color: '#000000'}}>
                                                     <div className="row mt-2 px-0">
                                                         <div className="col-3 text-center" style={{alignSelf: 'center'}}>
                                                             <LazyLoadImage
@@ -191,7 +190,7 @@ const Search = ({hideModal}) => {
                                         </Fragment>
                                     );
                                 })
-                            : null
+                            : <span className="d-flex justify-content-center font-poppins italic font-11 color-707070" style={{marginTop:25}}>No hemos encontrado coincidencias</span>
                         }
                     </div>
                 </div>

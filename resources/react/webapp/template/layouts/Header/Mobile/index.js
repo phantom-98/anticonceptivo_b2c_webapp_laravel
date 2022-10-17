@@ -32,10 +32,6 @@ const Mobile = () => {
     const showMenu = () => setShowingMenu(true);
     const hideMenu = () => setShowingMenu(false);
 
-    const [showingSearch, setShowingSearch] = useState(false);
-    const showSearch = () => setShowingSearch(true);
-    const hideSearch = () => setShowingSearch(false);
-
     const [textHeader, setTextHeader] = useState(null);
 
     useEffect(() => {
@@ -195,7 +191,7 @@ const Mobile = () => {
                         </div>
                     </div>
 
-                    <Search hideModal={hideSearch} />
+                    <Search />
                 </div>
             </div>
 
