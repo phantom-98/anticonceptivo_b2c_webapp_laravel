@@ -28,6 +28,7 @@
 @import 'assets/scss/about-us';
 @import 'assets/scss/subscribe';
 @import 'assets/scss/corporate-responsability';
+@import 'assets/scss/swiper';
 
 .app-content {
     margin-top: 30px;
@@ -516,7 +517,7 @@ a:-webkit-any-link:focus-visible {
 .is-today-label,
 .is-tomorrow-label,
 .is-after-tomorrow-label{
-    font-size: 11px;
+    font-size: 10px;
     font-family: 'Poppins', sans-serif;
     font-weight: 500;
     padding: 5px 10px;

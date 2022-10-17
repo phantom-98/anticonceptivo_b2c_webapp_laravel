@@ -1,5 +1,5 @@
 import React, {Fragment} from 'react';
-import CloseSvg from "../../../assets/images/icons/header/close-modal-blue.svg";
+import CloseModalBlue from "../../../assets/images/icons/header/close-modal-blue.svg";
 import PUBLIC_ROUTES from "../../../routes/publicRoutes";
 import Icon from "../../../components/general/Icon";
 import logoFull from "../../../assets/images/logo-full.svg";
@@ -40,7 +40,7 @@ const OffCanvas = ({children, showCanvas, closeCanvas}) => {
                                     title="Anticonceptivo"
                                     rel="nofollow"
                                     effect="blur"
-                                    src={CloseSvg}
+                                    src={CloseModalBlue}
                                 />
                             </div>
                         </div>

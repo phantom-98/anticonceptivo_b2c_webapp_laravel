@@ -7,6 +7,7 @@
     "require": {
         "php": "^7.3|^8.0",
         "ext-json": "*",
+        "aws/aws-sdk-php": "^3.238",
         "cviebrock/eloquent-sluggable": "^8.0",
         "doctrine/dbal": "^3.1",
         "fakerphp/faker": "^1.14",
@@ -19,6 +20,7 @@
         "laravel/passport": "^10.1",
         "laravel/tinker": "^2.5",
         "laravelcollective/html": "^6.2",
+        "league/flysystem-aws-s3-v3": "^1.0",
         "maatwebsite/excel": "^3.1",
         "pusher/pusher-php-server": "^4.1",
         "rap2hpoutre/laravel-log-viewer": "^2.2",
@@ -27,6 +29,7 @@
         "willywes/apiresponse": "^1.4"
     },
     "require-dev": {
+        "barryvdh/laravel-ide-helper": "^2.12",
         "facade/ignition": "^2.5",
         "laravel/sail": "^1.0.1",
         "mockery/mockery": "^1.4.2",

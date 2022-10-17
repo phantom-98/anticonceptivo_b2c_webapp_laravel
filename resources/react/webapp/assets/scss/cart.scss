@@ -192,8 +192,9 @@
 }
 
 .quantity-input div {
-    float: left;
-    padding-top: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,

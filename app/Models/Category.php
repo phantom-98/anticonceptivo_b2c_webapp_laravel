@@ -36,31 +36,31 @@ class Category extends Model
 
     public function getPublicImageAttribute()
     {
-        return $this->image ? \Storage::url($this->image) : $this->image;
+        return $this->image;
     }
 
     public function getPublicBannerImageAttribute()
     {
-        return $this->banner_image ? \Storage::url($this->banner_image) : $this->banner_image;
+        return $this->banner_image;
     }
 
     public function getPublicSubbannerImageAttribute()
     {
-        return $this->subbanner_image ? \Storage::url($this->subbanner_image) : $this->subbanner_image;
+        return $this->subbanner_image;
     }
 
     public function getPublicBannerImageResponsiveAttribute()
     {
-        return $this->banner_image_responsive ? \Storage::url($this->banner_image_responsive) : $this->banner_image_responsive;
+        return $this->banner_image_responsive;
     }
 
     public function getPublicBannerSubimageResponsiveAttribute()
     {
-        return $this->banner_subimage_responsive ? \Storage::url($this->banner_subimage_responsive) : $this->banner_subimage_responsive;
+        return $this->banner_subimage_responsive;
     }
 
     public function subcategories(){
         return $this->hasMany(Subcategory::class)->orderBy('position')->where('active',1);
     }
-    
+
 }

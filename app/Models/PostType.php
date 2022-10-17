@@ -22,7 +22,7 @@ class PostType extends Model
         if (strpos($this->attributes['image'], 'http') !== false) {
             return $this->attributes['image'];
         }
-        return $this->attributes['image'] == null ? null : \Storage::url($this->attributes['image']);
+        return $this->attributes['image'] == null ? null : $this->attributes['image'];
     }
 
 

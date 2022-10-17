@@ -47,9 +47,9 @@
                                 <input id="file-image" type='file' name='icon' class='form-control' accept=".jpg, .png, .jpeg, .svg">
                                 <br/>
                                 @if ($object->icon)
-                                <img id="image-edit" src="{{ Storage::url($object->icon) }}" style="max-width: 100px;"/>
+                                <img id="image-edit" src="{{ $object->icon }}" style="max-width: 100px;"/>
                                 @endif
-                            </div>    
+                            </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="post_id">Blog relacionado </label>
@@ -60,7 +60,7 @@
                                         @endforeach
                                     </select>
                                 </div>
-                            </div> 
+                            </div>
 
                         </div>
                     </div>
@@ -118,7 +118,7 @@
             });
             $(".date2").keydown(false);
 
-            $(".date2").each(function() {    
+            $(".date2").each(function() {
                 if(year != null){
                     $(this).data('datepicker').selectDate(new Date(year));
                 }

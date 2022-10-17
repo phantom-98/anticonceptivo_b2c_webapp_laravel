@@ -78,7 +78,7 @@ const CheckOut = () => {
     const [rutFlag, setRutFlag] = useState(false);
     const [customerId, setCustomerId] = useState(null);
 
-    const [prescriptionRadio, setPrescriptionRadio] = useState(true);
+    const [prescriptionRadio, setPrescriptionRadio] = useState(false);
     const [withoutPrescriptionAnswer, setWithoutPrescriptionAnswer] = useState(null);
 
 
@@ -343,21 +343,27 @@ const CheckOut = () => {
 
                     if (errorKey.includes('.')) {
                         toastr.error('Formato de archivo invalido.');
-                        document.getElementById(`attachments_focus`).scrollIntoView({
-                            behavior: 'smooth'
+                        document.getElementById(`reason_focus`).scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'center',
+                            inline: 'center'
                         });
 
                         return null;
                     }
                     if (response.data.attachments) {
                         toastr.error(response.data.attachments[0]);
-                        document.getElementById(`${errorKey}_focus`).scrollIntoView({
-                            behavior: 'smooth'
+                        document.getElementById(`reason_focus`).scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'center',
+                            inline: 'center'
                         });
                     } else {
                         toastr.error('Por favor, complete todos los campos.');
-                        document.getElementById(`${errorKey}_focus`).scrollIntoView({
-                            behavior: 'smooth'
+                        document.getElementById(`reason_focus`).scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'center',
+                            inline: 'center'
                         });
                     }
                 }
@@ -387,7 +393,6 @@ const CheckOut = () => {
         }
 
         if (productCount > 0 && prescriptionRadio == false && withoutPrescriptionAnswer == null && !_has_required_items) {
-            toastr.warning('Debes seleccionar un motivo.');
             document.getElementById(`reason_focus`).scrollIntoView({
                 behavior: 'smooth'
             });
@@ -435,21 +440,25 @@ const CheckOut = () => {
 
                     if (errorKey.includes('.')) {
                         toastr.error('Formato de archivo invalido.');
-                        document.getElementById(`attachments_focus`).scrollIntoView({
-                            behavior: 'smooth'
+                        document.getElementById(`reason_focus`).scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'center',
+                            inline: 'center'
                         });
 
                         return null;
                     }
                     if (response.data.attachments) {
                         toastr.error(response.data.attachments[0]);
-                        document.getElementById(`${errorKey}_focus`).scrollIntoView({
+                        document.getElementById(`reason_focus`).scrollIntoView({
                             behavior: 'smooth'
                         });
                     } else {
                         toastr.error('Por favor, complete todos los campos.');
-                        document.getElementById(`${errorKey}_focus`).scrollIntoView({
-                            behavior: 'smooth'
+                        document.getElementById(`reason_focus`).scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'center',
+                            inline: 'center'
                         });
                     }
                 }

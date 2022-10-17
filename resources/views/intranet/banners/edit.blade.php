@@ -50,7 +50,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-3 p-4">
-                                    <img class="w-100 h-100" src="{{ Storage::url($slider->file) }}" alt="{{ $slider->alt }}">
+                                    <img class="w-100 h-100" src="{{ $slider->file }}" alt="{{ $slider->alt }}">
                                 </div>
                                 <div class="col-md-9 p-4">
                                     <div class="row">

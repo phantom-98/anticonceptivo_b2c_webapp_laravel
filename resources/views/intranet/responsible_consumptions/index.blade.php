@@ -64,9 +64,9 @@
                             @foreach($objects as $object)
                                 <tr>
                                     <td>{{ $object->name }}</td>
-                                    <!--<td><img src="{{ Storage::url($object->image) }}" style="max-width: 100px;"/></td>-->
+                                    <!--<td><img src="{{ $object->image }}" style="max-width: 100px;"/></td>-->
                                     <td>
-                                        <a href="{{ Storage::url($object->file) }}" target="_blank" class='btn btn-sm btn-default btn-hover-success' data-toggle="tooltip" title="Ver PDF"><i class="ti-file"></i></a>
+                                        <a href="{{ $object->file }}" target="_blank" class='btn btn-sm btn-default btn-hover-success' data-toggle="tooltip" title="Ver PDF"><i class="ti-file"></i></a>
                                     </td>
                                     @if($config['action']['changeStatus'])
                                     @include('intranet.template.components._crud_html_change_status')

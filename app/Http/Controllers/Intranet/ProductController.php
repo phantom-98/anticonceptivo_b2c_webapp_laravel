@@ -22,6 +22,8 @@ use App\Imports\ProductImport;
 use Illuminate\Support\Facades\Log;
 use App\Http\Helpers\ImageHelper;
 use Illuminate\Support\Facades\Artisan;
+use App\Http\Helpers\S3Helper;
+use DB;
 
 class ProductController extends GlobalController
 {
@@ -185,25 +187,26 @@ class ProductController extends GlobalController
             $product->save();
 
             if ($request->hasFile('image')) {
-
+                $S3Helper = new S3Helper('laravel/anticonceptivo/', 'public/products/'.$product->id);
                 foreach ($request->file('image') as $key => $item_file) {
-
                     $image = new ProductImage();
-                    $ext = $item_file->getClientOriginalExtension();
-                    $image->file = $item_file->storeAs('public/products/' . $product->id, $product->id . rand(1000, 999999) . '.' . $ext);
+
                     $image->position = $key + 1;
                     $image->product_id = $product->id;
-                    $image->save();
-                    $image->refresh();
 
-                    ImageHelper::convert_image('ProductImage', $image->id, 'file');
+                    $image->file = $S3Helper->store($item_file);
+
+                    $image->save();
                 }
             }
+
+            $S3Helper = new S3Helper('laravel/anticonceptivo/', 'public/products/'.$product->id.'/plans');
 
             foreach ($request->plan_id as $key => $plan) {
                 $plan = array_filter($plan, function ($value) {
                     return !is_null($value) && $value !== '';
                 });
+
                 if ($plan) {
                     $new_plan = new ProductSubscriptionPlan();
                     $new_plan->subscription_plan_id = $plan[0];
@@ -217,13 +220,7 @@ class ProductController extends GlobalController
                     if ($request->plan_image) {
                         $plan_image = array_key_exists($key,$request->plan_image) ? $request->plan_image[$key][0] : null;
                         if ($plan_image) {
-                            $ext = $plan_image->getClientOriginalExtension();
-                            $filename = rand(1000, 999999) . '.' . $ext;
-                            $new_plan->image = $plan_image->storeAs('public/products/plans', $filename);
-                            $new_plan->save();
-                            $new_plan->refresh();
-
-                            ImageHelper::convert_image('ProductSubscriptionPlan', $new_plan->id, 'image');
+                            $new_plan->image = $S3Helper->store($plan_image);
                         }
                     }
 
@@ -275,6 +272,8 @@ class ProductController extends GlobalController
 
     public function update(Request $request, $id)
     {
+        // db commit
+        DB::beginTransaction();
         $product = Product::find($id);
         if (!$product) {
             session()->flash('warning', 'Producto no encontrado.');
@@ -361,20 +360,32 @@ class ProductController extends GlobalController
             $product->save();
 
             if ($request->hasFile('image')) {
-                \Storage::deleteDirectory('public/products/' . $product->id);
-                ProductImage::where('product_id', $product->id)->delete();
+                $S3Helper = new S3Helper('laravel/anticonceptivo/', 'public/products/'.$product->id);
+                $prod_image = ProductImage::where('product_id', $product->id)->pluck('file')->toArray();
+
+                if (count($prod_image)) {
+                    if ($S3Helper->massiveDelete($prod_image)) {
+                        ProductImage::where('product_id', $product->id)->delete();
+                    }else{
+                        DB::rollBack();
+                        return redirect()->back()->withErrors(['mensaje' => 'Error inesperado al cambiar las imagenes.'])->withInput();
+                    }
+                }
+
+
                 foreach ($request->file('image') as $key => $item_file) {
                     $image = new ProductImage();
-                    $ext = $item_file->getClientOriginalExtension();
-                    $image->file = $item_file->storeAs('public/products/' . $product->id, $product->id . rand(1000, 999999) . '.' . $ext);
+
                     $image->position = $key + 1;
                     $image->product_id = $product->id;
-                    $image->save();
-                    $image->refresh();
 
-                    ImageHelper::convert_image('ProductImage', $image->id, 'file');
+                    $image->file = $S3Helper->store($item_file);
+
+                    $image->save();
                 }
             }
+
+            $S3Helper = new S3Helper('laravel/anticonceptivo/', 'public/products/'.$product->id.'/plans');
 
             foreach ($request->plan_id as $key => $plan) {
                 $plan = array_filter($plan, function ($value) {
@@ -382,8 +393,7 @@ class ProductController extends GlobalController
                 });
 
                 if ($plan) {
-                    $find_plan = ProductSubscriptionPlan::where('product_id',$product->id)
-                        ->where('subscription_plan_id', $plan[0])->get()->first();
+                    $find_plan = ProductSubscriptionPlan::where('product_id',$product->id)->where('subscription_plan_id', $plan[0])->get()->first();
 
                     if ($find_plan) {
                         $new_plan = $find_plan;
@@ -402,13 +412,10 @@ class ProductController extends GlobalController
                     if ($request->plan_image) {
                         $plan_image = array_key_exists($key,$request->plan_image) ? $request->plan_image[$key][0] : null;
                         if ($plan_image) {
-                            $ext = $plan_image->getClientOriginalExtension();
-                            $filename = rand(1000, 999999) . '.' . $ext;
-                            $new_plan->image = $plan_image->storeAs('public/products/plans', $filename);
-                            $new_plan->save();
-                            $new_plan->refresh();
-
-                            ImageHelper::convert_image('ProductSubscriptionPlan', $new_plan->id, 'image');
+                            if ($find_plan) {
+                                $S3Helper->delete($find_plan->image);
+                            }
+                            $new_plan->image = $S3Helper->store($plan_image);
                         }
                     }
 
@@ -429,6 +436,7 @@ class ProductController extends GlobalController
             }
 
             if ($product) {
+                DB::commit();
                 Artisan::call('command:sitemap');
 
                 session()->flash('success', 'Producto actualizado correctamente.');
@@ -436,6 +444,7 @@ class ProductController extends GlobalController
             }
             return redirect()->back()->withErrors(['mensaje' => 'Error inesperado al editar producto.'])->withInput();
         } else {
+            DB::rollback();
             return redirect()->back()->withErrors($validator)->withInput();
         }
     }
