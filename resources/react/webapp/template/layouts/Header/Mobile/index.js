@@ -10,6 +10,7 @@ import PRIVATE_ROUTES from "../../../../routes/privateRoutes";
 
 import CategoryMenuMobile from "./CategoryMenuMobile";
 import SearchModal from "./SearchModal";
+import Search from "./Search";
 
 import * as Services from "../../../../Services";
 import 'react-lazy-load-image-component/src/effects/blur.css';
@@ -80,24 +81,9 @@ const Mobile = () => {
                     </div>
 
                     <div className="row mx-2" style={{height: '70px'}}>
-                        <div className="col d-flex" style={{justifyContent: 'center'}}>
-                            <div className="my-auto text-center" onClick={showMenu}>
-                                <LazyLoadImage
-                                    alt="anticonceptivo.cl"
-                                    title="Anticonceptivo"
-                                    rel="nofollow"
-                                    effect="blur"
-                                    src={menu}
-                                    height={'25px'}
-                                    width={'25px'}
-                                />
-                                <div className="text-icon-navbar-mobile">
-                                    PRODUCTOS
-                                </div>
-                            </div>
-                        </div>
 
-                        <div className="col d-flex" style={{justifyContent: 'center'}}>
+
+                        {/* <div className="col d-flex" style={{justifyContent: 'center'}}>
                             <div className="my-auto text-center" onClick={showSearch}>
                                 <LazyLoadImage
                                     alt="anticonceptivo.cl"
@@ -112,7 +98,7 @@ const Mobile = () => {
                                     BUSCAR
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
 
                         <div className="col d-flex" style={{justifyContent: 'center', padding: '0 30px'}}>
                             <div className="m-auto">
@@ -127,6 +113,23 @@ const Mobile = () => {
                                         width={'auto'}
                                     />
                                 </Link>
+                            </div>
+                        </div>
+
+                        <div className="col d-flex" style={{justifyContent: 'center'}}>
+                            <div className="my-auto text-center" onClick={showMenu}>
+                                <LazyLoadImage
+                                    alt="anticonceptivo.cl"
+                                    title="Anticonceptivo"
+                                    rel="nofollow"
+                                    effect="blur"
+                                    src={menu}
+                                    height={'25px'}
+                                    width={'25px'}
+                                />
+                                <div className="text-icon-navbar-mobile">
+                                    PRODUCTOS
+                                </div>
                             </div>
                         </div>
 
@@ -191,6 +194,8 @@ const Mobile = () => {
 
                         </div>
                     </div>
+
+                    <Search hideModal={hideSearch} />
                 </div>
             </div>
 
@@ -204,12 +209,12 @@ const Mobile = () => {
                 </OffCanvas>
             </div>
 
-            <div className="d-block">
+            {/* <div className="d-block">
                 <SearchModal
                     showingSearch={showingSearch}
                     hideSearch={hideSearch}
                 />
-            </div>
+            </div> */}
         </>
     )
 }

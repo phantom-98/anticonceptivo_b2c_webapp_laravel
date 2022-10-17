@@ -1,0 +1,24 @@
+.search-mobile{
+    width: 100%;
+    margin: unset;
+    display: block;
+    position: absolute;
+    background-color: white;
+    min-width: 180px;
+    padding: 12px 15px;
+    z-index: 11;
+    top: 50px;
+    left: 0;
+    border: 0;
+}
+
+.search-mobile-child{
+    position: relative;
+    width: 100%;
+    height: auto;
+    min-height: 73px;
+    max-height: 415px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    display: block;
+}

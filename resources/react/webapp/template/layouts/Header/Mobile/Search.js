@@ -5,6 +5,7 @@ import * as Services from "../../../../Services";
 import {CONFIG} from "../../../../Config";
 import {formatMoney} from "../../../../helpers/GlobalUtils";
 import searchWhiteThin from "../../../../assets/images/icons/header/search-white-thin.svg"
+import closeIcon from "../../../../assets/images/icons/header/close-modal.svg"
 import Icon from "../../../../components/general/Icon";
 import noImage from "../../../../assets/images/producto-default.png";
 import { LazyLoadImage } from 'react-lazy-load-image-component';
@@ -48,28 +49,6 @@ const Search = ({hideModal}) => {
         }
     }, [search]);
 
-    // useEffect(() =>{
-    //     setIsVisibilityDropdownSearch(true);
-    //     if (search.length > 0) {
-    //         let productList = products;
-    //         productList = productList.filter(product => {
-    //             const name = (product.name).toLowerCase();
-    //             const sku = product.sku;
-    //             const laboratory = product.laboratory.name.toLowerCase();
-    //             const texCompound = product.compound;
-
-    //             const description = product.description ? (product.description).toLowerCase() : '';
-
-    //             if(name.includes(search) || (texCompound !== null ? texCompound.includes(search) : false) || description.includes(search) || sku.includes(search) || laboratory.includes(search)){
-    //                 return product;
-    //             }
-    //         })
-    //         setProductsWithFilter(productList);
-    //     }else{
-    //         setProductsWithFilter(products);
-    //     }
-    // }, [search])
-
     const clearResults = () => setProducts([]);
 
     const handleKeyPress = (event) => {
@@ -112,21 +91,47 @@ const Search = ({hideModal}) => {
         });
     }
 
-    const dropdownStyle = {
-        overflowY: 'scroll'
+    const bordersStyle = {
+        borderTop: '1px solid #D6D6D6',
+        borderBottom: '1px solid #D6D6D6'
+    }
+
+    const clearText = () => {
+        setSearch('');
+        setDebouncedSearch('');
+        clearResults();
+    }
+
+    const divClearTextStyle = {
+        display: 'flex',
+        alignItems: 'center',
+        marginRight: '15px',
     }
 
     return(
-        <div className="col top-do-flex">
-            <div className="input-group search-filter-button search-top-mobile">
+        <div className="col px-0 top-do-flex" style={bordersStyle}>
+            <div className="input-group search-filter-button-mobile search-top-mobile">
                 <input type="text"
-                    className="form-control form-control-custom form-control-custom-60"
+                    className="form-control form-control-mobile-search"
                     placeholder="¿Qué estás buscando?"
                     value={debouncedSearch}
                     onChange={e => setDebouncedSearch(e.target.value)}
                     onKeyPress={handleKeyPress}
 
                 />
+                {
+                    search.length > 0 && search.trim() != '' && (
+                        <div onClick={clearText} style={divClearTextStyle}>
+                            <Icon
+                                path={closeIcon}
+                                style={{
+                                    width: '15px',
+                                    height: '15px',
+                                }}
+                            />
+                        </div>
+                    )
+                }
                 <div className="input-group-append">
                 <button
                         onClick={() => getSearch()}
@@ -138,55 +143,57 @@ const Search = ({hideModal}) => {
             </div>
             {
                 search.length ?
-                <div className="modal-search-mobile" style={ products.length && search.length > 0 && isVisibilityDropdownSearch ? dropdownStyle : null}>
-                    {
-                        isLoading ?
-                            <div className="d-flex justify-content-center font-poppins italic font-11 color-707070">
-                                Cargando...
-                            </div>
-                        :
+                <div className="search-mobile">
+                    <div className='search-mobile-child'>
+                        {
+                            isLoading ?
+                                <div className="d-flex justify-content-center font-poppins italic font-11 color-707070">
+                                    Cargando...
+                                </div>
+                            :
 
-                        search.length && isVisibilityDropdownSearch  ?
-                            products.map((product, index) => {
-                                return (
-                                    <Fragment>
+                            search.length && isVisibilityDropdownSearch  ?
+                                products.map((product, index) => {
+                                    return (
+                                        <Fragment>
 
-                                            <Link onClick={hideModal} to={(PUBLIC_ROUTES.PRODUCT_DETAIL.path).replace(':slug?', product.slug)} style={{textDecoration: 'none', color: '#000000'}}>
-                                                <div className="row mt-2 px-0">
-                                                    <div className="col-3 text-center" style={{alignSelf: 'center'}}>
-                                                        <LazyLoadImage
-                                                            alt={`${CONFIG.APP_NAME} - ${product.name}`}
-                                                            width={45}
-                                                            height={45}
-                                                            effect="blur"
-                                                            src={product.images.length ? product.images[0].public_file : noImage}
-                                                        />
-                                                    </div>
-                                                    <div className="col-9">
-                                                        <div className="row">
-                                                            <div className="col-12" style={{alignSelf: 'center'}}>
-                                                                <span className="d-block font-poppins italic font-11 color-707070">{product.laboratory.name}</span>
-                                                                <span className="font-poppins bold font-14">{product.name}</span>
-                                                            </div>
-                                                            <div className="col-12" style={{alignSelf: 'center'}}>
-                                                                <span className="font-14 font-poppins bold" style={{color: '#009BE8'}}>
-                                                                    {formatMoney(product.is_offer ? product.offer_price : product.price)}
-                                                                </span>
+                                                <Link onClick={hideModal} to={(PUBLIC_ROUTES.PRODUCT_DETAIL.path).replace(':slug?', product.slug)} style={{textDecoration: 'none', color: '#000000'}}>
+                                                    <div className="row mt-2 px-0">
+                                                        <div className="col-3 text-center" style={{alignSelf: 'center'}}>
+                                                            <LazyLoadImage
+                                                                alt={`${CONFIG.APP_NAME} - ${product.name}`}
+                                                                width={45}
+                                                                height={45}
+                                                                effect="blur"
+                                                                src={product.images.length ? product.images[0].public_file : noImage}
+                                                            />
+                                                        </div>
+                                                        <div className="col-9">
+                                                            <div className="row">
+                                                                <div className="col-12" style={{alignSelf: 'center'}}>
+                                                                    <span className="d-block font-poppins italic font-11 color-707070">{product.laboratory.name}</span>
+                                                                    <span className="font-poppins bold font-14">{product.name}</span>
+                                                                </div>
+                                                                <div className="col-12" style={{alignSelf: 'center'}}>
+                                                                    <span className="font-14 font-poppins bold" style={{color: '#009BE8'}}>
+                                                                        {formatMoney(product.is_offer ? product.offer_price : product.price)}
+                                                                    </span>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </Link>
-                                            {
-                                                products.length !== index+1 ?
-                                                <hr/>
-                                                : null
-                                            }
-                                    </Fragment>
-                                );
-                            })
-                        : null
-                    }
+                                                </Link>
+                                                {
+                                                    products.length !== index+1 ?
+                                                    <hr/>
+                                                    : null
+                                                }
+                                        </Fragment>
+                                    );
+                                })
+                            : null
+                        }
+                    </div>
                 </div>
                 : null
             }
