@@ -90,16 +90,33 @@ const IsImmediateLabel = ({product}) =>{
         )
     }
 
+    const FreeShipping = () => {
+        return (
+            <div className="is-free-shipping mb-1">
+                <LazyLoadImage
+                    alt="anticonceptivo.cl"
+                    title="Anticonceptivo"
+                    rel="nofollow"
+                    effect="blur"
+                    src={isImmediateSvgWhite}
+                /> <span className="ml-1 responsive-font-size-labels">Envío Gratis</span>
+            </div>
+        )
+    }
+
     return (
-       <div className="row">
-           <div className="col-12 justify-content-end">
-               {type == 'IMMEDIATE' ? <Immediate /> : null}
-               {type == 'TODAY' ? <Today /> : null}
-               {type == 'TOMORROW' ? <Tomorrow /> : null}
-               {type == 'AFTER_TOMORROW' ? <AfterTomorrow /> : null}
-               {type == 'AFTER_TOMORROW_CUSTOM' ? <AfterTomorrowCustom /> : null}
-           </div>
-       </div>
+        <div className="row">
+            <div className="col-12 justify-content-end">
+                {
+                    'has_free_shipping' in product && product.has_free_shipping == true ? (<FreeShipping/> ) : null
+                }
+                {type == 'IMMEDIATE' ? <Immediate /> : null}
+                {type == 'TODAY' ? <Today /> : null}
+                {type == 'TOMORROW' ? <Tomorrow /> : null}
+                {type == 'AFTER_TOMORROW' ? <AfterTomorrow /> : null}
+                {type == 'AFTER_TOMORROW_CUSTOM' ? <AfterTomorrowCustom /> : null}
+            </div>
+        </div>
     );
 };
 

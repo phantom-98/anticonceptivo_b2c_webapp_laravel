@@ -19,7 +19,7 @@ use Innovaweb\Transbank\OneClickMall;
 use Willywes\ApiResponse\ApiResponse;
 use App\Http\Utils\OutputMessage\OutputMessage;
 use App\Http\Utils\Enum\PaymentStatus;
-use App\Http\Utils\Enum\PaymentType;
+use App\Models\FreeDispatchProduct;
 use Carbon\Carbon;
 use App\Models\Order;
 use App\Models\DeliveryCost;
@@ -874,8 +874,8 @@ class WebpayPlusController
 
     public function hasFreeDispatch($cartItems)
     {
-        $free_dispatch_products = \App\Models\FreeDispatchProduct::first();
-        $free_dispatch_list = explode(',', (int) $free_dispatch_products->products);
+        $free_dispatch_products = FreeDispatchProduct::first();
+        $free_dispatch_list = explode(',', $free_dispatch_products->products);
 
         foreach (json_decode($cartItems) as $item) {
             Log::info('FREE_DISPATCH', ['item' => $item->product->id]);

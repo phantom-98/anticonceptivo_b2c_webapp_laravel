@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use \Datetime;
 use App\Models\Order;
 use App\Models\Commune;
+use App\Models\FreeDispatchProduct;
 
 use App\Models\Subscription;
 use App\Models\DeliveryCost;
@@ -174,8 +175,8 @@ class PaymentController
     // has products in cart that are in the free dispatch list
     public function hasFreeDispatch($cartItems)
     {
-        $free_dispatch_products = \App\Models\FreeDispatchProduct::first();
-        $free_dispatch_list = explode(',', (int) $free_dispatch_products->products);
+        $free_dispatch_products = FreeDispatchProduct::first();
+        $free_dispatch_list = explode(',', $free_dispatch_products->products);
 
         foreach ($cartItems as $key => $cartItem) {
             if (in_array($cartItem['product']['id'], $free_dispatch_list)) {

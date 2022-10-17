@@ -5,8 +5,6 @@ namespace App\Http\Controllers\Api\V1\App\PublicArea;
 use App\Http\Controllers\Api\V1\App\Helpers\ProductScheduleHelper;
 use App\Http\Controllers\Controller;
 use App\Models\DeliveryLabels;
-use App\Models\Image;
-use App\Models\ProductImage;
 use App\Models\ProductSchedule;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -19,6 +17,8 @@ use App\Models\LegalWarning;
 use App\Models\Laboratory;
 use App\Models\SubscriptionPlan;
 use App\Models\ProductSubscriptionPlan;
+use App\Models\FreeDispatchProduct;
+use Illuminate\Support\Facades\Log;
 
 class ProductController extends Controller
 {
@@ -411,8 +411,11 @@ class ProductController extends Controller
                 $valid = false;
             }
 
+            $free_dispatch_products = FreeDispatchProduct::first();
+            $free_dispatch_list = explode(',', $free_dispatch_products->products);
+
             return ApiResponse::JsonSuccess([
-                'product' => $this->addScheduleLabel($product),
+                'product' => $this->addScheduleLabel($product, $free_dispatch_list),
                 'legal_warnings' => $legalWarnings,
                 'prods' => $this->processScheduleList($prods),
                 'valid' => $valid
@@ -538,13 +541,13 @@ class ProductController extends Controller
         }
     }
 
-
-
-
     private function processScheduleList($products)
     {
-        $products->map(function ($product) {
-            return $this->addScheduleLabel($product);
+        $free_dispatch_products = FreeDispatchProduct::first();
+        $free_dispatch_list = explode(',', $free_dispatch_products->products);
+
+        $products->map(function ($product) use ($free_dispatch_list) {
+            return $this->addScheduleLabel($product, $free_dispatch_list);
         });
 
         $_products = [];
@@ -575,11 +578,12 @@ class ProductController extends Controller
         return $_products;
     }
 
-    private function addScheduleLabel($product)
+    private function addScheduleLabel($product, $free_dispatch_list)
     {
         $dataDeliveryOrder = ProductScheduleHelper::labelDateDeliveryProduct($product, $this->product_schedules);
         $product->delivery_label = ProductScheduleHelper::deadlineDeliveryMaxOrder($dataDeliveryOrder['delivery_date'], $dataDeliveryOrder['label'],$dataDeliveryOrder['sub_label'], $dataDeliveryOrder['is_immediate'], $dataDeliveryOrder['schedule']);
 
+        $product->has_free_shipping = in_array($product->id, $free_dispatch_list);
         return $product;
     }
 }

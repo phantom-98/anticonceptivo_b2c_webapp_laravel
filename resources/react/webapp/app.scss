@@ -512,7 +512,7 @@ a:-webkit-any-link:focus-visible {
 .box-immediate .custom-switch .custom-control-input:checked ~ .custom-control-label::after {
     transform: translateX(18px);
 }
-
+.is-free-shipping,
 .is-immediate-label,
 .is-today-label,
 .is-tomorrow-label,
@@ -524,6 +524,11 @@ a:-webkit-any-link:focus-visible {
     border-radius: 6px;
     width: fit-content;
     margin-left: auto;
+}
+
+.is-free-shipping{
+    background: #F0F199;
+    color: #000000;
 }
 
 .is-immediate-label {
