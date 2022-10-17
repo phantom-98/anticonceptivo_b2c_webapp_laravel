@@ -206,3 +206,10 @@
     outline: 0;
     box-shadow: none;
 }
+
+.sticky-container-go-to-pay{
+    position: fixed;
+    bottom: 0px;
+    right: 10px;
+    z-index: 1;
+}
