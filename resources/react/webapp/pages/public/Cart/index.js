@@ -37,6 +37,13 @@ const Cart = () => {
         cartItems,
     } = useContext(CartContext);
 
+    const moveToPayment = (el) => {
+        document.getElementById(el).scrollIntoView({
+            behavior: 'smooth',
+            block: 'end',
+        });
+    }
+
     return (
             breakpoint === BREAKPOINTS.MEDIUM || breakpoint === BREAKPOINTS.LARGE || breakpoint === BREAKPOINTS.EXTRA_LARGE || breakpoint === BREAKPOINTS.EXTRA_EXTRA_LARGE ?
             <div className="pb-5" style={{background: '#FAFAFA'}}>
@@ -186,7 +193,7 @@ const Cart = () => {
                                             <TotalCartPrice/>
                                         </div>
 
-                                        <div className="col-12 mt-2">
+                                        <div className="col-12 mt-2" id='continue_to_payment'>
                                             <Link to={cartItems.length ? PUBLIC_ROUTES.CHECKOUT.path : '#'}
                                                 className="btn btn-bicolor btn-block d-flex my-2">
                                                 <span className="m-auto font-poppins font-14 bold">CONTINUAR AL PAGO</span>
@@ -231,6 +238,9 @@ const Cart = () => {
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="sticky-container-go-to-pay">
+                    <input type='button' class="btn btn-bicolor btn-block d-flex my-2 font-10" value='PAGAR' onClick={() => moveToPayment('continue_to_payment')}/>
                 </div>
             </div>
     );
