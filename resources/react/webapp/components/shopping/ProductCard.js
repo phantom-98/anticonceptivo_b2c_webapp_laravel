@@ -73,7 +73,9 @@ const ProductCard = ({product, className = '', subscriptionFilter = []}) => {
 
     return (
         <Fragment>
-            <div className={`d-none d-md-block product-card ${className}`}>
+            <div className={`d-md-block product-card ${className}`} style={{
+                position: 'relative',
+            }}>
                 <IsImmediateLabel product={product} />
                 <div className="product-card-image">
                     <Link to={(PUBLIC_ROUTES.PRODUCT_DETAIL.path).replace(':slug?', product.slug)}
