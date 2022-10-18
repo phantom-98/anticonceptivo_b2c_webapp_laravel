@@ -64,11 +64,7 @@ const ProductInfo = ({product, setImageSubscription}) => {
             }
 
             <div className="col-12">
-                <div className="row">
-                    <div className="col-auto my-2">
-                        <IsImmediateLabel product={product} />
-                    </div>
-                </div>
+                <IsImmediateLabel product={product} list={false}/>
             </div>
 
             <div className="col-md-12">

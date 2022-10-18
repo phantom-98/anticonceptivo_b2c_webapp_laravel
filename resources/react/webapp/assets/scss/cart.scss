@@ -134,6 +134,7 @@
     padding: 14px 14px 28px;
     border: 1px solid #E8E8E8;
     transition: .2s;
+    height:100%;
 }
 
 .product-card-small {
@@ -403,4 +404,13 @@ input[type=number] {
     border-bottom: 0px solid #DEDEDE;
     padding-bottom: 0px;
     margin-bottom: 0px;
+}
+
+
+.testing-0{
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+    justify-content: space-around;
 }
