@@ -278,7 +278,8 @@ const CheckOut = () => {
             if (productCount > 0 && prescriptionRadio == false && withoutPrescriptionAnswer == null && !_has_required_items) {
                 toastr.warning('Debes seleccionar un motivo.');
                 document.getElementById(`reason_focus`).scrollIntoView({
-                    behavior: 'smooth'
+                    behavior: 'smooth',
+                    block: 'end',
                 });
                 return null;
             }
@@ -345,8 +346,7 @@ const CheckOut = () => {
                         toastr.error('Formato de archivo invalido.');
                         document.getElementById(`reason_focus`).scrollIntoView({
                             behavior: 'smooth',
-                            block: 'center',
-                            inline: 'center'
+                            block: 'end',
                         });
 
                         return null;
@@ -355,15 +355,13 @@ const CheckOut = () => {
                         toastr.error(response.data.attachments[0]);
                         document.getElementById(`reason_focus`).scrollIntoView({
                             behavior: 'smooth',
-                            block: 'center',
-                            inline: 'center'
+                            block: 'end',
                         });
                     } else {
                         toastr.error('Por favor, complete todos los campos.');
                         document.getElementById(`reason_focus`).scrollIntoView({
                             behavior: 'smooth',
-                            block: 'center',
-                            inline: 'center'
+                            block: 'end',
                         });
                     }
                 }
@@ -393,8 +391,10 @@ const CheckOut = () => {
         }
 
         if (productCount > 0 && prescriptionRadio == false && withoutPrescriptionAnswer == null && !_has_required_items) {
+            toastr.warning('Debes seleccionar un motivo.');
             document.getElementById(`reason_focus`).scrollIntoView({
-                behavior: 'smooth'
+                behavior: 'smooth',
+                block: 'end',
             });
             return null;
         }
@@ -442,8 +442,7 @@ const CheckOut = () => {
                         toastr.error('Formato de archivo invalido.');
                         document.getElementById(`reason_focus`).scrollIntoView({
                             behavior: 'smooth',
-                            block: 'center',
-                            inline: 'center'
+                            block: 'end',
                         });
 
                         return null;
@@ -451,14 +450,14 @@ const CheckOut = () => {
                     if (response.data.attachments) {
                         toastr.error(response.data.attachments[0]);
                         document.getElementById(`reason_focus`).scrollIntoView({
-                            behavior: 'smooth'
+                            behavior: 'smooth',
+                            block: 'end',
                         });
                     } else {
                         toastr.error('Por favor, complete todos los campos.');
                         document.getElementById(`reason_focus`).scrollIntoView({
                             behavior: 'smooth',
-                            block: 'center',
-                            inline: 'center'
+                            block: 'end',
                         });
                     }
                 }
