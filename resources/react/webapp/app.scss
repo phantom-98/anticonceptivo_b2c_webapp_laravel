@@ -564,9 +564,21 @@ a:-webkit-any-link:focus-visible {
     flex-wrap: wrap;
 }
 
+// .product-tags mobile view
+@media (max-width: 1024px) {
+    .product-tags{
+        position: relative;
+        width: 100%;
+    }
+}
+
 .product-info{
     display: flex;
     flex-direction: row;
+}
+
+.product-info > div:nth-child(2){
+    margin-left: 15px !important;
 }
 
 .slick-active {

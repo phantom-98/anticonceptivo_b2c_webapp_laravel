@@ -73,7 +73,7 @@ const ProductCard = ({product, className = '', subscriptionFilter = []}) => {
 
     return (
         <Fragment>
-            <div className={`d-md-block product-card ${className}`} style={{
+            <div className={`d-none d-md-block product-card ${className}`} style={{
                 position: 'relative',
             }}>
                 <IsImmediateLabel product={product} />
@@ -123,7 +123,9 @@ const ProductCard = ({product, className = '', subscriptionFilter = []}) => {
 
             {/* mobile*/}
 
-            <div className={`d-md-none d-block product-card ${className}`}>
+            <div className={`d-md-none d-block product-card ${className}`} style={{
+                position: 'relative',
+            }}>
                 <div className="row">
                     <div className="col-12">
                         <IsImmediateLabel product={product} />
@@ -148,20 +150,9 @@ const ProductCard = ({product, className = '', subscriptionFilter = []}) => {
                                 <div className="col-md-12 text-truncate p-0">
                                     {product.name}
                                 </div>
-                                {/*{String(product.name).length >= 23 ? product.name.substring(0, 23) + '...' : product.name }*/}
                             </Link>
                         </div>
                         <div className="product-card-price">
-                            {/* {
-                                formatMoney(product.is_offer ?
-                                    product.offer_price :
-                                product.price)}
-                            {
-                                product.is_offer ?
-                                    <span className="font-poppins font-16 bold color-009BE8"><s>{' '}{formatMoney(product.price)}</s></span>
-                                    : null
-                            } */}
-
                             {
                                 formatMoney(
                                     subscriptionFilter.length ?
