@@ -176,7 +176,11 @@ class PaymentController
     public function hasFreeDispatch($cartItems)
     {
         $free_dispatch_products = FreeDispatchProduct::first();
-        $free_dispatch_list = explode(',', $free_dispatch_products->products);
+        if ($free_dispatch_products) {
+            $free_dispatch_list = explode(',', $free_dispatch_products->products);
+        }else{
+            $free_dispatch_list = [];
+        }
 
         foreach ($cartItems as $key => $cartItem) {
             if (in_array($cartItem['product']['id'], $free_dispatch_list)) {

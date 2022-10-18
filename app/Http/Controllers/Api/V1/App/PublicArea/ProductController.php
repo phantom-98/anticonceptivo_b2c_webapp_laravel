@@ -411,8 +411,14 @@ class ProductController extends Controller
                 $valid = false;
             }
 
+
             $free_dispatch_products = FreeDispatchProduct::first();
-            $free_dispatch_list = explode(',', $free_dispatch_products->products);
+            if($free_dispatch_products){
+                $free_dispatch_list = explode(',', $free_dispatch_products->products);
+            }else{
+                $free_dispatch_list = [];
+            }
+
 
             return ApiResponse::JsonSuccess([
                 'product' => $this->addScheduleLabel($product, $free_dispatch_list),
@@ -544,7 +550,12 @@ class ProductController extends Controller
     private function processScheduleList($products)
     {
         $free_dispatch_products = FreeDispatchProduct::first();
-        $free_dispatch_list = explode(',', $free_dispatch_products->products);
+
+        if($free_dispatch_products){
+            $free_dispatch_list = explode(',', $free_dispatch_products->products);
+        }else{
+            $free_dispatch_list = [];
+        }
 
         $products->map(function ($product) use ($free_dispatch_list) {
             return $this->addScheduleLabel($product, $free_dispatch_list);

@@ -875,7 +875,13 @@ class WebpayPlusController
     public function hasFreeDispatch($cartItems)
     {
         $free_dispatch_products = FreeDispatchProduct::first();
-        $free_dispatch_list = explode(',', $free_dispatch_products->products);
+
+        if($free_dispatch_products){
+            $free_dispatch_list = explode(',', $free_dispatch_products->products);
+        }else{
+            $free_dispatch_list = [];
+        }
+
 
         foreach (json_decode($cartItems) as $item) {
             Log::info('FREE_DISPATCH', ['item' => $item->product->id]);
