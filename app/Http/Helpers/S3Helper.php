@@ -22,7 +22,7 @@ final class S3Helper
     private $aws_dir;
     private $path;
 
-    const VALID_EXTENSIONS = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+    const VALID_EXTENSIONS = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'JPG', 'PNG'];
 
     /**
      * Remove the specified resource from storage.
