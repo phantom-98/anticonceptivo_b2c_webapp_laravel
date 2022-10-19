@@ -124,7 +124,7 @@ class PostController extends GlobalController
             $object->published_at = Carbon::now()->format('Y-m-d');
             $object->post_type_id = $request->post_type_id;
 
-            if ($request->image) {
+            if (isset($request->image)) {
                 $S3Helper = new S3Helper('laravel/anticonceptivo/', 'public/posts');
                 $S3Helper->delete($object->principal_image);
                 $object->principal_image = $S3Helper->store($request->file("image"));
