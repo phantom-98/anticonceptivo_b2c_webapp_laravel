@@ -42,7 +42,6 @@
                         <thead>
                         <tr>
                             <th data-sortable="true" data-cell-style="cellStyle"  data-valign="middle">Nombre</th>
-                            <th data-sortable="true" data-cell-style="cellStyle"  data-valign="middle">Cantidad Limite</th>
 
                             @if($config['action']['changeStatus'])
                             <th data-cell-style="cellStyle" data-sortable="true">Estado</th>
