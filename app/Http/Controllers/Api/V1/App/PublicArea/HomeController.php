@@ -209,6 +209,7 @@ class HomeController extends Controller
                     ->where('is_medicine', 0)
                     ->where('stock','>',0)
                     ->where('recipe_type','Venta Directa')
+                    ->inRandomOrder()
                     ->take(12)
                     ->get();
             }
