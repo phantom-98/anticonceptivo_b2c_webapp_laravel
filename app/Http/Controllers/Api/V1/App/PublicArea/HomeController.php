@@ -198,16 +198,18 @@ class HomeController extends Controller
             $outstandings = Product::with(['subcategory.category','product_images','laboratory'])
                 ->where('outstanding', true)
                 ->where('stock','>',0)
+                ->where('is_medicine', 0)
                 ->where('active',true)
                 ->where('recipe_type','Venta Directa')
                 ->get();
 
-            if ($outstandings->count() < 10) {
+            if ($outstandings->count() < 4) {
                 $outstandings = Product::with(['subcategory.category','product_images','laboratory'])
                     ->where('active',true)
+                    ->where('is_medicine', 0)
                     ->where('stock','>',0)
                     ->where('recipe_type','Venta Directa')
-                    ->take(10)
+                    ->take(12)
                     ->get();
             }
 
