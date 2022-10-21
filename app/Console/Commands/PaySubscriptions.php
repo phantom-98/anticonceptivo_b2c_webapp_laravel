@@ -219,8 +219,12 @@ class PaySubscriptions extends Command
             if (count($subscriptionsOrdersItems) > 0) {
                 session()->forget('free_dispatch');
                 if($prev_item->free_shipping == 0){
-                    $dispatch = $this->getDeliveryCost($prev_item->customer_address->commune->name)['price_dispatch'];
-                    session()->put('free_dispatch', false);
+                    if($prev_item->customer_address){
+                        $dispatch = $this->getDeliveryCost($prev_item->customer_address->commune->name)['price_dispatch'];
+                        session()->put('free_dispatch', false);
+                    } else {
+                        $dispatch = 0;
+                    }
                 } else {
                     $dispatch = 0;
                     session()->put('free_dispatch', true);
