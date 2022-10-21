@@ -596,7 +596,7 @@ class WebpayPlusController
             foreach ($orderItems as $orderItem) {
                 $quantityFinal = $orderItem->quantity;
                 if (isset($orderItem->subscription_plan)) {
-                    $quantityFinal = $orderItem->subscription_plan->months;
+                    $quantityFinal = 2;
                 }
 
                 $arrayProductsQuantity[$orderItem->product_id] = ($arrayProductsQuantity[$orderItem->product_id] ?? 0) + $quantityFinal;
@@ -638,7 +638,6 @@ class WebpayPlusController
             'status' => true,
             'product' => null,
             'quantity' => null
-
         );
     }
 
