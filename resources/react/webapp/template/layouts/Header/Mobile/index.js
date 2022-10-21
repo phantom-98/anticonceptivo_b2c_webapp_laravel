@@ -26,31 +26,15 @@ import userBlue from "../../../../assets/images/icons/header/user-blue.svg";
 const Mobile = () => {
     const { auth } = useContext(AuthContext)
     const { showModalAuth } = useContext(AppContext);
+    const [showingMenu, setShowingMenu] = useState(null);
 
     const showMenu = () => {
-        console.log('showMenu');
-        document.getElementById('box').className = 'offcanvas-block-left show';
-        document.addEventListener('click', handleClickOutsideBox);
+        setShowingMenu(true);
     };
 
     const hideMenu = () => {
-        console.log('hideMenu');
-        document.getElementById('box').className = 'offcanvas-block-left hide';
+        setShowingMenu(false);
     };
-
-
-    function handleClickOutsideBox(event) {
-        console.log('handleClickOutsideBox');
-
-        const box = document.getElementById('box');
-
-        // if box containts the classname show and the click its outside the box then close the canvas
-        if (box && !box.contains(event.target) && box.className.includes('show')) {
-            hideMenu();
-
-            document.removeEventListener('click', handleClickOutsideBox);
-        }
-    }
 
     const [textHeader, setTextHeader] = useState(null);
 
@@ -217,7 +201,10 @@ const Mobile = () => {
             </div>
 
             <div className="d-block">
-                <OffCanvas>
+                <OffCanvas
+                    showCanvas={showingMenu}
+                    closeCanvas={hideMenu}
+                >
                     <div className="row menu-mobile-issue">
                         <CategoryMenuMobile
                             hideMenu={hideMenu}
