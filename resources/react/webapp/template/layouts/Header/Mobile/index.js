@@ -22,15 +22,35 @@ import menu from "../../../../assets/images/icons/header/menu.svg";
 import anticonceptivo from "../../../../assets/images/logo_responsive.png";
 import cartBlue from "../../../../assets/images/icons/header/cart-blue.svg";
 import userBlue from "../../../../assets/images/icons/header/user-blue.svg";
-import search from "../../../../assets/images/icons/header/search-blue.svg";
 
 const Mobile = () => {
     const { auth } = useContext(AuthContext)
     const { showModalAuth } = useContext(AppContext);
 
-    const [showingMenu, setShowingMenu] = useState(null);
-    const showMenu = () => setShowingMenu(true);
-    const hideMenu = () => setShowingMenu(false);
+    const showMenu = () => {
+        console.log('showMenu');
+        document.getElementById('box').className = 'offcanvas-block-left show';
+        document.addEventListener('click', handleClickOutsideBox);
+    };
+
+    const hideMenu = () => {
+        console.log('hideMenu');
+        document.getElementById('box').className = 'offcanvas-block-left hide';
+    };
+
+
+    function handleClickOutsideBox(event) {
+        console.log('handleClickOutsideBox');
+
+        const box = document.getElementById('box');
+
+        // if box containts the classname show and the click its outside the box then close the canvas
+        if (box && !box.contains(event.target) && box.className.includes('show')) {
+            hideMenu();
+
+            document.removeEventListener('click', handleClickOutsideBox);
+        }
+    }
 
     const [textHeader, setTextHeader] = useState(null);
 
@@ -54,6 +74,7 @@ const Mobile = () => {
 
     let url = PRIVATE_ROUTES.ACCOUNT.path;
     url = url.replace(':section', 'informacion-personal')
+
 
     return(
         <>
@@ -196,7 +217,7 @@ const Mobile = () => {
             </div>
 
             <div className="d-block">
-                <OffCanvas showCanvas={showingMenu} closeCanvas={hideMenu}>
+                <OffCanvas>
                     <div className="row menu-mobile-issue">
                         <CategoryMenuMobile
                             hideMenu={hideMenu}
