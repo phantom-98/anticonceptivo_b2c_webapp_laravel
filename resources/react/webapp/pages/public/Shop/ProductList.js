@@ -25,7 +25,7 @@ const ProductList = ({
     handleProductOrderBy
 }) => {
 
-    const [viewCount, setViewCount] = useState(9);
+    const [viewCount, setViewCount] = useState(12);
     const [activePage, setActivePage] = useState(1);
     const [pageCount, setPageCount] = useState(Math.ceil(products.length / viewCount));
     const [showOrderByMobile, setShowOrderByMobile] = useState(false);
