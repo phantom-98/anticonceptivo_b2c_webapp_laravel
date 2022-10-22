@@ -96,6 +96,10 @@
         fbq('init', '409511283912775');
         fbq('track', 'PageView');
     </script>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6978343504162312"
+     crossorigin="anonymous"></script>
+
     <noscript><img height="1" width="1" style="display:none"
                    src="https://www.facebook.com/tr?id=409511283912775&ev=PageView&noscript=1"
         /></noscript>

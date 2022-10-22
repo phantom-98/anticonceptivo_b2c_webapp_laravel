@@ -107,6 +107,9 @@
 
     <script src="//rum-static.pingdom.net/pa-61dda4d39034fb00110005ce.js" async></script>
 
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6978343504162312"
+     crossorigin="anonymous"></script>
+
     @yield('styles')
 
     <style>
