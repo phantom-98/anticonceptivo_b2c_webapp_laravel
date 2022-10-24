@@ -171,7 +171,12 @@ const HeaderBox = () => {
                                                         to={(PUBLIC_ROUTES.PRODUCT_DETAIL.path).replace(':slug?', product.slug)}
                                                         style={{textDecoration: 'none', color: '#000000'}}>
                                                         <div className="row mt-2 px-0 mx-0">
-                                                            <div className="col-2 text-center">
+                                                            <div className="col-2" style={{
+                                                                display: 'flex',
+                                                                flexDirection: 'column',
+                                                                justifyContent: 'center',
+                                                                alignItems: 'center'
+                                                            }}>
                                                                 <LazyLoadImage
                                                                     src={product.images.length ? product.images[0].public_file : noImage}
                                                                     title="Anticonceptivo"
@@ -182,17 +187,39 @@ const HeaderBox = () => {
                                                                     alt={`${CONFIG.APP_NAME} - ${product.name}`}
                                                                 />
                                                             </div>
-                                                            <div className="col-8 mr-auto" style={{alignSelf: 'center'}}>
+                                                            <div className="col-6 mr-auto" style={{alignSelf: 'center'}}>
                                                             <span
                                                                 className="d-block font-poppins italic font-11 color-707070">{product.laboratory.name}</span>
                                                                 <span
                                                                     className="font-poppins bold font-14">{product.name}</span>
                                                             </div>
-                                                            <div className="col-2" style={{alignSelf: 'center'}}>
-                                                            <span className="font-14 font-poppins bold"
-                                                                  style={{color: '#009BE8'}}>
-                                                                {formatMoney(product.is_offer ? product.offer_price : product.price)}
-                                                            </span>
+                                                            <div className="col-4" style={{
+                                                                display: 'flex',
+                                                                flexDirection: 'column',
+                                                                justifyContent: 'center',
+                                                                alignItems: 'flex-end'
+                                                            }}>
+                                                                {
+                                                                    product.is_offer ? (
+                                                                        <>
+                                                                            <span className="font-14 font-poppins bold" style={{color: '#009BE8'}}>
+                                                                                {formatMoney(product.offer_price)}
+                                                                                <span className="badge badge-pill ml-1 font-10" style={{
+                                                                                    backgroundColor:'#00dbae29',
+                                                                                    color: '#00a785'
+                                                                                    }}>Oferta</span>
+                                                                            </span>
+                                                                            <span className="font-12 font-poppins color-707070" style={{color: '#009BE8'}}>
+                                                                            <del>{formatMoney(product.price)} (Normal)</del>
+                                                                            </span>
+                                                                        </>
+                                                                    ) :
+                                                                    (
+                                                                        <span className="font-14 font-poppins bold" style={{color: '#009BE8'}}>
+                                                                            {formatMoney(product.price)}
+                                                                        </span>
+                                                                    )
+                                                                }
                                                             </div>
                                                         </div>
                                                     </Link>

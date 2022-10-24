@@ -211,14 +211,12 @@ const Success = ({orderId, files, productCount, prescriptionRadio, withoutPrescr
                                             <tr>
                                                 <td colSpan="1"></td>
                                                 <td colSpan="2" className="text-right">SUBTOTAL</td>
-                                                <td className="bold w-25"
-                                                    className="text-right"> {formatMoney(order.subtotal)}</td>
+                                                <td className="text-right"> {formatMoney(order.subtotal)}</td>
                                             </tr>
                                             <tr>
                                                 <td colSpan="1" style={{border: "none"}}></td>
                                                 <td colSpan="2" className="text-right">ENVÍO</td>
-                                                <td className="bold w-25"
-                                                    className="text-right"> {formatMoney(order.dispatch)}</td>
+                                                <td className="bold w-25 text-right"> {formatMoney(order.dispatch)}</td>
                                             </tr>
                                             <tr>
                                                 <td colSpan="1" style={{border: "none"}}></td>
