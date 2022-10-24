@@ -7,21 +7,34 @@ const TotalCartPrice = () =>{
     const {cartItems} = useContext(CartContext);
     const [totalCart, setTotalCart] = useState(0);
     const [totalDiscount, setTotalDiscount] = useState(0);
+    const [subTotal, setSubTotal] = useState(0);
 
     useEffect(()=>{
         let _total = 0;
         let _total_discount = 0;
+        let _sub_total = 0;
         cartItems.map((item) =>{
+            let _temp_total = 0;
+            let _temp_sub_total = 0;
+            let _temp_discount = 0;
+
             if(item.subscription != null){
-                _total = _total + (item.quantity * item.subscription.price * item.subscription.quantity)
-                _total_discount = _total_discount + (item.quantity * (item.product.price - item.subscription.price))
+                _temp_total = item.quantity * item.subscription.price * item.subscription.quantity
+                _temp_sub_total = item.quantity * (item.product.price * item.subscription.quantity)
+                _temp_discount = _temp_sub_total - _temp_total;
             }else{
-                _total = _total + (item.quantity * (item.product.is_offer ? item.product.offer_price : item.product.price))
-                _total_discount = _total_discount + (item.quantity * (item.product.price - (item.product.is_offer ? item.product.offer_price : item.product.price)))
+                _temp_total = item.quantity * (item.product.is_offer ? item.product.offer_price : item.product.price)
+                _temp_sub_total = item.quantity * item.product.price
+                _temp_discount = _temp_sub_total - _temp_total;
             }
+
+            _total += _temp_total;
+            _sub_total += _temp_sub_total;
+            _total_discount += _temp_discount;
         })
-        setTotalCart(_total);
         setTotalDiscount(_total_discount);
+        setSubTotal(_sub_total);
+        setTotalCart(_total);
     },[cartItems])
 
     return (
@@ -31,7 +44,7 @@ const TotalCartPrice = () =>{
                     <span className="font-poppins font-16 regular color-1F1F1F text-uppercase">Sub Total</span>
                 </div>
                 <div className="col text-right">
-                    <span className="font-poppins font-16 regular color-1F1F1F text-uppercase">{formatMoney(totalCart)}</span>
+                    <span className="font-poppins font-16 regular color-1F1F1F text-uppercase">{formatMoney(subTotal)}</span>
                 </div>
             </div>
             <div className="row">
