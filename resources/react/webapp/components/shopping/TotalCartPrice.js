@@ -49,10 +49,10 @@ const TotalCartPrice = () =>{
             </div>
             <div className="row">
                 <div className="col-auto">
-                    <span className="font-poppins font-16 regular color-1F1F1F text-uppercase">Descuento</span>
+                    <span className="font-poppins font-16 bold color-033F5D text-uppercase">Descuento</span>
                 </div>
                 <div className="col text-right">
-                    <span className="font-poppins font-16 regular color-1F1F1F text-uppercase">{formatMoney(totalDiscount)}</span>
+                    <span className="font-poppins font-16 bold color-033F5D text-uppercase">{formatMoney(totalDiscount)}</span>
                 </div>
             </div>
             <div className="row">

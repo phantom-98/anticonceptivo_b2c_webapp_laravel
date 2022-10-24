@@ -67,10 +67,10 @@ const TotalCartPriceFinal = ({discount, discountType, total, setTotal, subtotal,
             </div>
             <div className="row">
                 <div className="col-auto">
-                    <span className="font-poppins font-12 regular color-1F1F1F">Total Descuento</span>
+                    <span className="font-poppins font-12 bold color-033F5D">Total Descuento</span>
                 </div>
                 <div className="col text-right">
-                    <span className="font-poppins font-12 regular color-1F1F1F">
+                    <span className="font-poppins font-12 bold color-033F5D">
                         {
                             formatMoney(totalDiscount)
                         }
