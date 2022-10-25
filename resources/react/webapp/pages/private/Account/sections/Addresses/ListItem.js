@@ -52,6 +52,9 @@ const ListItem = ({
                             setAddresses(response.data.addresses);
                             toastr.success(response.message);
                         },
+                        error: () => {
+                            toastr.error(response.message);
+                        }
                     });
                 }).catch(error => {
                     Services.ErrorCatch(error)
