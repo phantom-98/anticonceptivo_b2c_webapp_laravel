@@ -79,6 +79,8 @@ class Sitemap extends Command
 
             file_put_contents(public_path().'/sitemap.xml', $content);
 
+            Log::info('Se cambió sitemap', ["response" => $e->getMessage()]);
+
         } catch (\Exception $e) {
             Log::error('Error al generar sitemap', ["response" => $e->getMessage()]);
         }
