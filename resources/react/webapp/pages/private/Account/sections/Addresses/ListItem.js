@@ -7,6 +7,8 @@ import Icon from "../../../../../components/general/Icon";
 import * as Services from "../../../../../Services";
 import Swal from "sweetalert2";
 import {AuthContext} from "../../../../../context/AuthProvider";
+import toastr from "toastr";
+
 const ListItem = ({
     address,
     showEdit,
@@ -52,6 +54,9 @@ const ListItem = ({
                             setAddresses(response.data.addresses);
                             toastr.success(response.message);
                         },
+                        error: () => {
+                            toastr.error(response.message);
+                        }
                     });
                 }).catch(error => {
                     Services.ErrorCatch(error)
