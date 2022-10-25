@@ -79,6 +79,11 @@ class PaySubscriptions extends Command
 //        $customers = Customer::where('id',306)->get();
         $customers = Customer::all();
 
+        Log::info('Init Pay subscription',
+        [
+            "message" => "Empezó el cobro"
+        ]);
+
 
         foreach ($customers as $customer) {
             $subscriptionsOrdersItems = SubscriptionsOrdersItem::whereHas('order_parent', function ($q) use ($customer) {
