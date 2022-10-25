@@ -400,6 +400,20 @@ Route::get('fix-temperatura', function(){
     \App\Models\Order::find(532)->update(['temperature' => 18, 'humidity' => 60, 'ballot_number' =>	43952]);
 });
 
+Route::get('fix-addresses-suscripcion', function(){
+    $subscriptions = \App\Models\SubscriptionsOrdersItem::with('order_parent')->whereNull('customer_address_id')->get();
+    foreach ($subscriptions as $sub){
+        $order = \App\Models\Order::find($sub->order_parent_id);
+        if($order){
+            $customer = App\Models\Customer::find($order->customer_id);
+            if($customer){
+                $sub->customer_address_id = \App\Models\CustomerAddress::where('customer_id', $customer->id)->first()->id;
+                $sub->save();
+            }
+        }
+    }
+    return "funcionó brian";
+});
 
 Route::get('fix-orders-payment-subscription/{id}', function ($id) {
     $order = \App\Models\Order::find($id);
