@@ -899,7 +899,7 @@ class ProfileController extends Controller
             $addressValidate = SubscriptionsOrdersItem::where('customer_address_id', $request->address_id)->first();
 
             if ($addressValidate) {
-                return ApiResponse::NotFound(null, 'No puede eliminar la dirección de una suscripción activa, cambie la dirección antes de eliminar.');
+                return ApiResponse::JsonError(null, 'No puede eliminar la dirección de una suscripción activa, cambie la dirección antes de eliminar.');
             }
 
             if ($address->delete()) {
