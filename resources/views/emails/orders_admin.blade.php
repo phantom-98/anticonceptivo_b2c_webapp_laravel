@@ -41,6 +41,9 @@
                 </tbody>
             </table>
         </div>
+        @php
+        $flag = false;
+        @endphp
         <div style="margin-bottom: 20px;">
             <table class="table" style="margin-bottom: 20px;">
                 <thead>
@@ -130,12 +133,17 @@
                         <td style="text-align: right;">
                             ${{ number_format($item->price , 0, ',','.')}}
                         </td>
-                        <td style="text-align: center;">{{ ($item->subscription_plan_id != null ? $item->quantity . ' (Suscripción)': $item->quantity)  }}</td>
+                        <td style="text-align: center;">{{ ($item->subscription_plan_id != null ? '2*' : $item->quantity)  }}</td>
                         <td style="text-align: right;">
                             ${{ number_format(($item->subtotal) , 0, ',','.')}}
 
                         </td>
                     </tr>
+                    @php
+                        if($item->subscription_plan_id != null){
+                            $flag = true;
+                        }
+                    @endphp
                 @endforeach
                 <tr>
                     <td colspan="1" style="border:none"></td>
@@ -161,6 +169,11 @@
                 </tbody>
             </table>
         </div>
+        @if($flag)
+        <p>
+            * Productos de suscripción.
+        </p>
+        @endif
         <p>
             Puedes revisar más información de la orden y cambiar su estado desde el administrador.
         </p>
