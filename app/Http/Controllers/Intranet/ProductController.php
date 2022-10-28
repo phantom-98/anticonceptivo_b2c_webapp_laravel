@@ -300,7 +300,7 @@ class ProductController extends GlobalController
         $validator = Validator::make($request->all(), $rules, $messages);
 
         if ($validator->passes()) {
-            return $request->all();
+            //return $request->all();
             // validate repeated values
 
             $validate_plans = [];
