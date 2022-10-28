@@ -299,8 +299,6 @@ class ProductController extends GlobalController
             'barcode.required' => 'El código de barras es requerido'
         ];
 
-        return $request->all();
-
         $validator = Validator::make($request->all(), $rules, $messages);
 
         if ($validator->passes()) {
