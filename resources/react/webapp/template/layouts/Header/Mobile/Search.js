@@ -213,7 +213,7 @@ const Search = () => {
                                         </Fragment>
                                     );
                                 })
-                            : <span className="d-flex justify-content-center font-poppins italic font-11 color-707070" style={{marginTop:25}}>No hemos encontrado coincidencias</span>
+                            : <span className="d-flex justify-content-center font-poppins italic font-11 color-707070" style={{marginTop:25}}>¿No encontraste lo que buscabas?, Nosotros te asesoramos <a href="https://wa.me/56987380541" target="_BLANK" style="text-decoration:underline; color:white">aquí.</a></span>
                         }
                     </div>
                 </div>
