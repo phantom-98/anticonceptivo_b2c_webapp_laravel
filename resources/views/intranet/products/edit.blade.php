@@ -327,7 +327,7 @@
                                     <div class="form-group">
                                         <label for="description">Descripción</label>
                                         <textarea id="description" name="description" class="form-control summernote"
-                                        >{{ old('description') ?? $object->description }}</textarea>
+                                        >{!! old('description') ?? $object->description !!}</textarea>
                                     </div>
                                 </div>
 
@@ -335,7 +335,7 @@
                                     <div class="form-group">
                                         <label for="compound">Composición</label>
                                         <textarea id="compound" name="compound" class="form-control summernote"
-                                        >{{ old('compound') ?? $object->compound }}</textarea>
+                                        >{!! old('compound') ?? $object->compound !!}</textarea>
                                     </div>
                                 </div>
 
@@ -343,7 +343,7 @@
                                     <div class="form-group">
                                         <label for="benefits">Beneficios</label>
                                         <textarea id="benefits" name="benefits" class="form-control summernote"
-                                        >{{ old('benefits') ?? $object->benefits }}</textarea>
+                                        >{!! old('benefits') ?? $object->benefits !!}</textarea>
                                     </div>
                                 </div>
 
@@ -351,7 +351,7 @@
                                     <div class="form-group">
                                         <label for="data_sheet">Ficha técnica</label>
                                         <textarea id="data_sheet" name="data_sheet" class="form-control summernote"
-                                        >{{ old('data_sheet') ?? $object->data_sheet }}</textarea>
+                                        >{!! old('data_sheet') ?? $object->data_sheet !!}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -749,15 +749,7 @@
     <script>
         $(document).ready(function() {
             $('.summernote').summernote({
-
-                height: 100,
-                callbacks: {
-                    onFocus: function (contents) {
-                        if($('.summernote').summernote('isEmpty')){
-                            $(".summernote").html('');
-                        }
-                    }
-                }
+                height: 200
             });
 
         });
