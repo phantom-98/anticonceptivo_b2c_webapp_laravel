@@ -117,7 +117,7 @@ const ProductCardList = ({product, className = '', subscriptionFilter = []}) => 
                     </div>
                 </div>
                 <div className="product-card-cart">
-                    <AddCartCard quantity={quantity} setQuantity={setQuantity} product={product} subscription={handleSubscription(product)}/>
+                    <AddCartCardProduct quantity={quantity} setQuantity={setQuantity} product={product} subscription={handleSubscription(product)}/>
                 </div>
             </div>
 
