@@ -2,9 +2,9 @@ import React, {useState, useEffect} from 'react';
 import H2Title from "../general/H2Title";
 import * as Services from "../../Services";
 import LazyLoading from '../LazyLoading';
-import SwiperProducts from '../sections/SwiperProductsList';
+import SwiperProductsList from '../sections/SwiperProductsList';
 
-const OutstandingCarousel = ({
+const OutstandingCarouselProducts = ({
     title,
     style = 'pt-5 pb-5'
 }) => {
@@ -51,7 +51,7 @@ const OutstandingCarousel = ({
                         }
 
                         <div className="col-12">
-                            <SwiperProducts
+                            <SwiperProductsList
                                 products={outstandings}
                             />
                         </div>
@@ -62,4 +62,4 @@ const OutstandingCarousel = ({
     );
 };
 
-export default OutstandingCarousel
+export default OutstandingCarouselProducts

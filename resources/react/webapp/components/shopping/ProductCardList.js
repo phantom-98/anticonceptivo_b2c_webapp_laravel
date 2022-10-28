@@ -3,14 +3,14 @@ import {CONFIG} from "../../Config";
 import {formatMoney} from "../../helpers/GlobalUtils";
 import PUBLIC_ROUTES from "../../routes/publicRoutes";
 import {Link} from "react-router-dom";
-import AddCartCard from "./AddCartCardList";
+import AddCartCardProduct from "./AddCartCardProduct";
 import noImage from "../../assets/images/producto-default.png";
 import IsImmediateLabel from "./IsImmediateLabel";
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 
 
-const ProductCard = ({product, className = '', subscriptionFilter = []}) => {
+const ProductCardList = ({product, className = '', subscriptionFilter = []}) => {
 
     const [quantity, setQuantity] = useState(1);
 
@@ -167,7 +167,7 @@ const ProductCard = ({product, className = '', subscriptionFilter = []}) => {
                 <div className="row pt-3">
                     <div className="col">
                         <div className="product-card-cart">
-                            <AddCartCard quantity={quantity} setQuantity={setQuantity} product={product} subscription={handleSubscription(product)}/>
+                            <AddCartCardProduct quantity={quantity} setQuantity={setQuantity} product={product} subscription={handleSubscription(product)}/>
                         </div>
                     </div>
                 </div>
@@ -177,4 +177,4 @@ const ProductCard = ({product, className = '', subscriptionFilter = []}) => {
     );
 };
 
-export default ProductCard
+export default ProductCardList

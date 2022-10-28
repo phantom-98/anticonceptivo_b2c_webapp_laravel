@@ -1,6 +1,6 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import ProductCard from "../shopping/ProductCardList";
+import ProductCardList from "../shopping/ProductCardList";
 
 // Import Swiper styles
 import "swiper/scss";
@@ -13,7 +13,7 @@ import SwiperCore, {Navigation, Pagination, Autoplay } from 'swiper';
 
 SwiperCore.use([Navigation, Pagination, Autoplay]);
 
-const SwiperCarousel = ({products}) => {
+const SwiperProductsList = ({products}) => {
 
     return (
         <>
@@ -57,7 +57,7 @@ const SwiperCarousel = ({products}) => {
                         return (
                             <SwiperSlide key={product.id}>
                                 <div style={{width:'100%', display: 'inline-block'}}>
-                                    <ProductCard
+                                    <ProductCardList
                                         key={index}
                                         product={product}
                                     />
@@ -71,4 +71,4 @@ const SwiperCarousel = ({products}) => {
     );
 }
 
-export default SwiperCarousel;
+export default SwiperProductsList;

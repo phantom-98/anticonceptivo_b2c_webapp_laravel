@@ -6,7 +6,7 @@ import {AppContext} from "../../context/AppProvider";
 import {ModalAuthMode} from "../../Globals"
 import Swal from 'sweetalert2';
 
-const AddCartCard = ({quantity, setQuantity, product, subscription, classModule = ''}) => {
+const AddCartCardProduct = ({quantity, setQuantity, product, subscription, classModule = ''}) => {
 
     const {addToCart} = useContext(CartContext);
     const {auth} = useContext(AuthContext);
@@ -79,4 +79,4 @@ const AddCartCard = ({quantity, setQuantity, product, subscription, classModule 
     );
 };
 
-export default AddCartCard
+export default AddCartCardProduct
