@@ -273,8 +273,6 @@ class ProductController extends GlobalController
 
     public function update(Request $request, $id)
     {
-        // db commit
-        DB::beginTransaction();
         $product = Product::find($id);
         if (!$product) {
             session()->flash('warning', 'Producto no encontrado.');
@@ -304,7 +302,7 @@ class ProductController extends GlobalController
         $validator = Validator::make($request->all(), $rules, $messages);
 
         if ($validator->passes()) {
-
+            //return $request->all();
             // validate repeated values
 
             $validate_plans = [];
@@ -438,7 +436,6 @@ class ProductController extends GlobalController
             }
 
             if ($product) {
-                DB::commit();
                 Artisan::call('command:sitemap');
 
                 session()->flash('success', 'Producto actualizado correctamente.');
@@ -446,7 +443,6 @@ class ProductController extends GlobalController
             }
             return redirect()->back()->withErrors(['mensaje' => 'Error inesperado al editar producto.'])->withInput();
         } else {
-            DB::rollback();
             return redirect()->back()->withErrors($validator)->withInput();
         }
     }

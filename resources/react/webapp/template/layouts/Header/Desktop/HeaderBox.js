@@ -162,7 +162,7 @@ const HeaderBox = () => {
                                         </div>
                                     :
 
-                                    search.length && isVisibilityDropdownSearch ?
+                                    search.length && isVisibilityDropdownSearch && products.length > 0  ?
                                         products.map((product, index) => {
                                             return (
                                                 <Fragment>
@@ -231,7 +231,7 @@ const HeaderBox = () => {
                                                 </Fragment>
                                             );
                                         })
-                                    : null
+                                    : <span className="d-flex justify-content-center font-poppins italic font-11 color-707070" style={{marginTop:25}}>¿No encontraste lo que buscabas?, Nosotros te asesoramos <a href="https://wa.me/56987380541" target="_BLANK" style={{textDecoration:'underline', marginLeft:'5px'}}>  aquí.</a></span>
                                 }
                             </div>
                         </div>

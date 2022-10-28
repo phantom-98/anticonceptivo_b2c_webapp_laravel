@@ -9,6 +9,7 @@ import {Card, Form} from "react-bootstrap";
 import {v4 as uuid} from 'uuid';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
+import OutstandingCarouselProducts from '../../../components/sections/OutstandingCarouselProducts';
 
 const ProductList = ({
     category,
@@ -257,8 +258,11 @@ const ProductList = ({
                                 })
                                 : <div className="col-md-12 mt-5">
                                     <div className="product-no-stock-alert font-12 font-poppins">
-                                        Actualmente no tenemos productos que cumplan los requisitos de búsqueda.
+                                        ¿No encontraste lo que buscabas?, Nosotros te asesoramos <a href="https://wa.me/56987380541" target="_BLANK" style={{textDecoration:'underline', color:'white'}}>aquí.</a>
                                     </div>
+                                    <OutstandingCarouselProducts
+                                        style={'mt-4 pb-2'}
+                                    />
                                 </div>
 
                             : <LazyLoading/>

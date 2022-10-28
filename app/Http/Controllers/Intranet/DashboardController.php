@@ -38,7 +38,9 @@ class DashboardController extends Controller
 
         $products = Product::count();
         $prescriptions = Prescription::count();
-        $customers = Customer::count();
+        $customers = Customer::whereHas('orders', function ($order){
+            $order->whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED']);
+        })->count();
 
         $contacts = Contact::count();
         $contacts_open = Contact::where('is_reply', 0)->count();
