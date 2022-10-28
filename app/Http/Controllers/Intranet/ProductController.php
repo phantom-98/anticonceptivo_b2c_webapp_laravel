@@ -433,6 +433,10 @@ class ProductController extends GlobalController
                 }
             }
 
+            $product->benefits = $request->benefits;
+            $product->data_sheet = $request->data_sheet;
+            $product->save();
+
             if ($product) {
                 Artisan::call('command:sitemap');
 
