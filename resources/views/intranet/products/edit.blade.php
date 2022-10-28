@@ -749,15 +749,7 @@
     <script>
         $(document).ready(function() {
             $('.summernote').summernote({
-
-                height: 100,
-                callbacks: {
-                    onFocus: function (contents) {
-                        if($('.summernote').summernote('isEmpty')){
-                            $(".summernote").html('');
-                        }
-                    }
-                }
+                height: 200
             });
 
         });
