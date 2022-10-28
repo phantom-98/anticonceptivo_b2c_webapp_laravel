@@ -402,7 +402,7 @@ class ProductController extends Controller
             $legalWarnings = LegalWarning::first();
 
             if ($product->recipe_type === 'Venta Directa') {
-                if ($product->subcategory->category_id !== 8) {
+                if ($product->subcategory->category_id !== 8 || $product->is_medicine == 0) {
                     $valid = true;
                 } else {
                     $valid = false;
