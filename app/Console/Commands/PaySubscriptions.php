@@ -19,6 +19,7 @@ use App\Models\Region;
 use App\Models\Commune;
 use App\Models\WebpayLog;
 use App\Models\Customer;
+use App\Models\Prescription;
 use App\Models\CustomerAddress;
 use App\Models\DiscountCode;
 use App\Models\SubscriptionsOrdersItem;
@@ -375,6 +376,22 @@ class PaySubscriptions extends Command
             $subscription_order_item->dispatch_date = Carbon::now()->addDay();
             $subscription_order_item->save();
             $subtotal += $orderItem->subtotal;
+
+            try{
+                $presExist = Prescription::where('order_id', $first_subcription_order_item->order->id)->where('product_id', $subscription_order_item->order_item->product->id)->first();
+                if($presExist){
+                    $prescription = new Prescription();
+                    $prescription->customer_id = $presExist->customer_id;
+                    $prescription->order_id = $presExist->order_id;
+                    $prescription->product_id = $presExist->product_id;
+                    $prescription->name = $presExist->name;
+                    $prescription->file = $presExist->file;
+                    $prescription->save();
+                }
+            } catch (\Exception $ex){
+
+            }
+
         }
         $order->subtotal = $subtotal;
         $order->total = $subtotal + $order->dispatch;
