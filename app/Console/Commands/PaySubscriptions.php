@@ -112,7 +112,8 @@ class PaySubscriptions extends Command
                 [
                     "response" => $stringProduct,
                     "period" => $period,
-                    "period_normal" => $item->period
+                    "period_normal" => $item->period,
+                    "item" => $item
                 ]);
                 $stringProduct = rtrim($stringProduct, ", ");
                 Log::info('Producto',
