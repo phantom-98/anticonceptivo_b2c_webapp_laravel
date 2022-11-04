@@ -1,5 +1,5 @@
 @extends('emails.base')
-@section('header', 'Pago Suscripción')
+@section('header', 'No Pago Suscripción')
 @section('content')
 
     <div class="title">Hola Cliente {{ $id_number }} </div>
