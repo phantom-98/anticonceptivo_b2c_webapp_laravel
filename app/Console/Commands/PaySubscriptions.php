@@ -591,6 +591,10 @@ class PaySubscriptions extends Command
             $stringProduct = rtrim($stringProduct, ", ");
 
 
+            // Envio al cliente
+            $html = view('emails.pay_rejected', ['full_name' => $customer->first_name . " " . $customer->last_name, 'id_number' => $customer->id_number, 'stringProduct' => $stringProduct])->render();
+
+
             $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
             $email = new \SendGrid\Mail\Mail();
             $email->setFrom("info@anticonceptivo.cl", 'Anticonceptivo');
@@ -602,6 +606,20 @@ class PaySubscriptions extends Command
 
             $sendgrid->send($email);
 
+
+            $users = User::where('id','!=' ,1)->get();
+            foreach($users as $user){
+                $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
+                $html = view('emails.pay_rejected', ['full_name' => $customer->first_name . " " . $customer->last_name, 'id_number' => $customer->id_number, 'stringProduct' => $stringProduct])->render();
+                $email = new \SendGrid\Mail\Mail();
+                $email->setFrom("info@anticonceptivo.cl", 'Anticonceptivo');
+                $email->setSubject('No Pago suscripción');
+                $email->addTo($user->email, $user->first_name);
+                $email->addContent(
+                    "text/html", $html
+                );
+                $sendgrid->send($email);
+            }
         }
 
     }
