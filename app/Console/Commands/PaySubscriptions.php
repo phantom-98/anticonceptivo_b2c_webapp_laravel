@@ -105,6 +105,13 @@ class PaySubscriptions extends Command
             $total = 0;
             $array_item = [];
             foreach ($subscriptionsOrdersItems as $item) {
+                $stringProduct = '';
+                foreach($array_subscription_order_items as $ot){
+                    $stringProduct .= $ot->name.' ('.str_replace(' y ', '/',$ot->period).'), ';
+                }
+    
+                return $stringProduct = rtrim($stringProduct, ", ");
+
                 session()->forget('free_dispatch');
                 if (($prev_order_id != $item->order->id || $prev_pay_date != $item->pay_date) && $prev_item != null) {
                     if($item->free_shipping == 0){
