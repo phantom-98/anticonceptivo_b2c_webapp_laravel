@@ -106,7 +106,8 @@ class PaySubscriptions extends Command
             $array_item = [];
             foreach ($subscriptionsOrdersItems as $item) {
                 $stringProduct = '';
-                $stringProduct .= $item->name.' ('.str_replace(' y ', '/',$item->period).'), ';
+                $period = str_replace(' y ', '/',$item->period);
+                $stringProduct .= $item->name.' ('.$period.'), ';
                 Log::info('Producto',
                 [
                     "response" => $stringProduct,
