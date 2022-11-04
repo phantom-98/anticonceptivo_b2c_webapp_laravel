@@ -95,7 +95,7 @@ class PaySubscriptions extends Command
                 ->where('payment_attempt','<',10)
                 ->whereDate('pay_date','<=',$datePayment)
                 ->with(['order_item.product', 'subscription', 'order.order_items', 'order_item.subscription_plan', 'order.customer', 'customer_address.commune'])
-                ->select('id','payment_attempt' ,'order_parent_id as order_id','subtotal','name', 'orders_item_id','price','quantity', 'subscription_id','delivery_address', 'customer_address_id', 'pay_date', 'dispatch_date', 'status', 'is_pay', 'free_shipping')
+                ->select('id','payment_attempt' ,'order_parent_id as order_id','subtotal','name', 'orders_item_id','price','quantity', 'subscription_id','delivery_address', 'customer_address_id', 'pay_date', 'dispatch_date', 'status', 'is_pay', 'free_shipping', 'period')
                 ->orderBy('order_parent_id')->orderBy('pay_date')
                 ->get();
 
@@ -105,23 +105,6 @@ class PaySubscriptions extends Command
             $total = 0;
             $array_item = [];
             foreach ($subscriptionsOrdersItems as $item) {
-                $stringProduct = '';
-                $period = str_replace(' y ', '/',$item->period);
-                $stringProduct .= $item->name.' ('.$period.'), ';
-                Log::info('Producto',
-                [
-                    "response" => $stringProduct,
-                    "period" => $period,
-                    "period_normal" => $item->period,
-                    "item" => $item
-                ]);
-                $stringProduct = rtrim($stringProduct, ", ");
-                Log::info('Producto',
-                [
-                    "response" => $stringProduct,
-                ]);
-                return $stringProduct;
-
                 session()->forget('free_dispatch');
                 if (($prev_order_id != $item->order->id || $prev_pay_date != $item->pay_date) && $prev_item != null) {
                     if($item->free_shipping == 0){
@@ -602,15 +585,26 @@ class PaySubscriptions extends Command
             $stringProduct = "";
 
             foreach($array_subscription_order_items as $ot){
-                $stringProduct .= $ot->name.' ('.str_replace(' y ', '/',$ot->period).'), ';
+                $period = str_replace(' y ', '/',$ot->period);
+                $stringProduct .= $ot->name.' ('.$period.'), ';
             }
 
             $stringProduct = rtrim($stringProduct, ", ");
 
+            $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
 
             // Envio al cliente
             $html = view('emails.pay_rejected', ['full_name' => $customer->first_name . " " . $customer->last_name, 'id_number' => $customer->id_number, 'stringProduct' => $stringProduct])->render();
 
+            $email = new \SendGrid\Mail\Mail();
+            $email->setFrom("info@anticonceptivo.cl", 'Anticonceptivo');
+            $email->setSubject('No Pago suscripción');
+            $email->addTo($customer->email, $customer->first_name . " " . $customer->last_name);
+            $email->addContent(
+                "text/html", $html
+            );
+
+            $sendgrid->send($email);
 
             $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
             $email = new \SendGrid\Mail\Mail();
@@ -622,6 +616,21 @@ class PaySubscriptions extends Command
             );
 
             $sendgrid->send($email);
+
+
+            $users = User::where('id','!=' ,1)->get();
+            foreach($users as $user){
+                $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
+                $html = view('emails.pay_rejected', ['full_name' => $customer->first_name . " " . $customer->last_name, 'id_number' => $customer->id_number, 'stringProduct' => $stringProduct])->render();
+                $email = new \SendGrid\Mail\Mail();
+                $email->setFrom("info@anticonceptivo.cl", 'Anticonceptivo');
+                $email->setSubject('No Pago suscripción');
+                $email->addTo($user->email, $user->first_name);
+                $email->addContent(
+                    "text/html", $html
+                );
+                $sendgrid->send($email);
+            }
         }
 
     }
