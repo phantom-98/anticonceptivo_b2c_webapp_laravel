@@ -106,7 +106,7 @@ class PaySubscriptions extends Command
             $array_item = [];
             foreach ($subscriptionsOrdersItems as $item) {
                 $stringProduct = '';
-                $stringProduct .= $ot->name.' ('.str_replace(' y ', '/',$ot->period).'), ';
+                $stringProduct .= $item->name.' ('.str_replace(' y ', '/',$item->period).'), ';
     
                 return $stringProduct = rtrim($stringProduct, ", ");
 
