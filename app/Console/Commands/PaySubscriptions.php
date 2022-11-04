@@ -107,8 +107,12 @@ class PaySubscriptions extends Command
             foreach ($subscriptionsOrdersItems as $item) {
                 $stringProduct = '';
                 $stringProduct .= $item->name.' ('.str_replace(' y ', '/',$item->period).'), ';
-    
-                return $stringProduct = rtrim($stringProduct, ", ");
+                $stringProduct = rtrim($stringProduct, ", ");
+                Log::info('Producto',
+                [
+                    "response" => $stringProduct,
+                ]);
+                return $stringProduct;
 
                 session()->forget('free_dispatch');
                 if (($prev_order_id != $item->order->id || $prev_pay_date != $item->pay_date) && $prev_item != null) {
