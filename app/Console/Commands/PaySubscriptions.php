@@ -598,7 +598,7 @@ class PaySubscriptions extends Command
 
             $email = new \SendGrid\Mail\Mail();
             $email->setFrom("info@anticonceptivo.cl", 'Anticonceptivo');
-            $email->setSubject('No Pago suscripción');
+            $email->setSubject('Actualizar el método de pago suscripción');
             $email->addTo($customer->email, $customer->first_name);
             $email->addContent(
                 "text/html", $html
@@ -609,7 +609,7 @@ class PaySubscriptions extends Command
             $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
             $email = new \SendGrid\Mail\Mail();
             $email->setFrom("info@anticonceptivo.cl", 'Anticonceptivo');
-            $email->setSubject('No Pago suscripción');
+            $email->setSubject('Actualizar el método de pago suscripción');
             $email->addTo('fpenailillo@innovaweb.cl', 'Felipe');
             $email->addContent(
                 "text/html", $html
@@ -624,7 +624,7 @@ class PaySubscriptions extends Command
                 $html = view('emails.pay_rejected', ['full_name' => $customer->first_name, 'id_number' => $customer->id_number, 'stringProduct' => $stringProduct])->render();
                 $email = new \SendGrid\Mail\Mail();
                 $email->setFrom("info@anticonceptivo.cl", 'Anticonceptivo');
-                $email->setSubject('No Pago suscripción');
+                $email->setSubject('Actualizar el método de pago suscripción');
                 $email->addTo($user->email, $user->first_name);
                 $email->addContent(
                     "text/html", $html
