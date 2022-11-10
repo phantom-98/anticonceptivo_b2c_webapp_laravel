@@ -139,7 +139,7 @@
                         <td style="text-align: right;">
                             ${{ number_format($item->price , 0, ',','.')}}
                         </td>
-                        <td style="text-align: center;">{{ ($item->subscription_plan_id != null ? '2*' : $item->quantity)  }}</td>
+                        <td style="text-align: center;">{{ ($item->subscription_plan_id != null ? $item->quantity.'*' : $item->quantity)  }}</td>
                         <td style="text-align: right;">
                             ${{ number_format(($item->subtotal) , 0, ',','.')}}
                         </td>
