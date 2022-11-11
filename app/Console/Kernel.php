@@ -13,10 +13,10 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        Commands\PaySubscriptions::class,
+        //Commands\PaySubscriptions::class,
         Commands\UpdateStateDispatch::class,
         Commands\UpdateStock::class,
-        Commands\VoucherPaymentDays::class,
+        //Commands\VoucherPaymentDays::class,
         Commands\Sitemap::class,
     ];
 
@@ -28,9 +28,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('command:voucherPaymentDays')->dailyAt('00:01');
+        //$schedule->command('command:voucherPaymentDays')->dailyAt('00:01');
         $schedule->command('command:updateStock')->everyThreeMinutes();
-        $schedule->command('command:paySubscriptions')->dailyAt('00:30');
+        //$schedule->command('command:paySubscriptions')->dailyAt('00:30');
         $schedule->command('command:updateStateDispatch')->everyFiveMinutes();
         $schedule->command('command:sitemap')->dailyAt('01:00');
     }
