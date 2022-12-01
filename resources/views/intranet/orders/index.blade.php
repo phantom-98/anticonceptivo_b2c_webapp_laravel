@@ -140,6 +140,7 @@
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Estado</th>
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Tipo de Entrega</th>
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Producto(s)</th>
+                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Laboratorio(s)</th>
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Nombre Cliente</th>
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">RUT Cliente</th>
 
@@ -260,6 +261,22 @@
                                 <td>
                                     @forelse ($object->order_items as $item)
                                        {{ $item->quantity }}x{{ $item->product->name }}<br/>
+                                    @empty
+                                        -
+                                    @endforelse
+                                </td>
+
+                                <td>
+                                    @php
+                                        $laboratory_array = [];
+                                    @endphp
+                                    @forelse ($object->order_items as $item)
+                                        @if(!in_array($item->product->laboratory->name, $laboratory_array))
+                                            {{ $item->product->laboratory->name }}<br/>
+                                        @endif
+                                        @php
+                                            array_push($laboratory_array, $item->product->laboratory->name);
+                                        @endphp
                                     @empty
                                         -
                                     @endforelse
