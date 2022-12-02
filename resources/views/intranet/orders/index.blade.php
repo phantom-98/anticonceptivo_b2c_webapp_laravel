@@ -141,6 +141,7 @@
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Tipo de Entrega</th>
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Producto(s)</th>
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Laboratorio(s)</th>
+                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Subcategoría(s)</th>
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Nombre Cliente</th>
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">RUT Cliente</th>
 
@@ -276,6 +277,22 @@
                                         @endif
                                         @php
                                             array_push($laboratory_array, $item->product->laboratory->name);
+                                        @endphp
+                                    @empty
+                                        -
+                                    @endforelse
+                                </td>
+
+                                <td>
+                                    @php
+                                        $subcategory_array = [];
+                                    @endphp
+                                    @forelse ($object->order_items as $item)
+                                        @if(!in_array($item->product->subcategory->name, $subcategory_array))
+                                            {{ $item->product->subcategory->name }}<br/>
+                                        @endif
+                                        @php
+                                            array_push($subcategory_array, $item->product->subcategory->name);
                                         @endphp
                                     @empty
                                         -
