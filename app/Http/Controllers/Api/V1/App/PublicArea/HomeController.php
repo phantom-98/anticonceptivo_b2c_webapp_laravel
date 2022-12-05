@@ -52,7 +52,7 @@ class HomeController extends Controller
             $subscriptionPlanIds = ProductSubscriptionPlan::whereIn('product_id',$products->pluck('id'))
             ->pluck('subscription_plan_id')->unique();
 
-            $laboratories = Laboratory::where('active',true)->whereIn('id',$laboratoriesWithPills)->get();
+            $laboratories = Laboratory::where('active',true)->orderBy('name')->whereIn('id',$laboratoriesWithPills)->get();
             $subscriptions = SubscriptionPlan::where('active',true)->orderBy('months')->whereIn('id',$subscriptionPlanIds)->get();
             $formats = $products->where('format','!=','')->pluck('format')->unique()->sortBy('format');
 
