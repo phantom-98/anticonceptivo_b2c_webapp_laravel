@@ -71,12 +71,15 @@ class CallIntegrationsPay extends CoreHelper
            [
                "response" => $response,
            ]);
-        if($response['error']['code'] == 0){
+        if(isset($response) && $response['error']['code'] == 0){
             $order->voucher_pdf = $response['pdfUrl'];
             $order->ballot_number = $response['document']['number'] ?? null;
             $order->save();
+
+            return $response;
+        } else {
+            return null;
         }
-        return $response;
    }
 
    public static function  callUpdateStockProducts($order_id)
