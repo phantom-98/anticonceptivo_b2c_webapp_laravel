@@ -1,85 +1,100 @@
-@extends('emails.base')
-@section('header', 'Confirmación del Pedido '.$order->id)
+@extends('emails.base_new_order')
+@section('header', 'Confirmación del Pedido #'.$order->id)
 
 @section('content')
-    <div class="titulo">Estimado/a {{ $order->customer->first_name }} :</div>
+    <div class="titulo" style="font-size: 14px !important">Estimado/a {{ ucwords(mb_strtolower($order->customer->first_name, 'UTF-8')) }}:
+    </div>
     <div class="mensaje">
         <p>
             Gracias por comprar con nosotros. Te enviaremos un mensaje cuando tus artículos se envíen.
         </p>
         <br/>
         <p>
-            Detalle del pedido
+            <b>DETALLE DEL PEDIDO</b>
         </p>
-        <div style="margin-bottom: 20px; width:49%; float: left;">
-            <p class="bold">Recibirás tu pedido</p>
-            @if($object->label_dispatch == "Entrega inmediata")
-            <p class="is-immediate-label">Entrega inmediata</p>
-            @elseif($object->label_dispatch == "Te llega hoy")
-            <p class="is-today-label">Te llega Hoy</p>
-            @elseif($object->label_dispatch == "Te llega mañana")
-            <p class="is-tomorrow-label">Te llega Mañana</p>
-            @elseif($object->label_dispatch == "Llega en 48H")
-            <p class="is-after-tomorrow-label">En 48 horas</p>
-            @elseif($object->label_dispatch == "Llega el Lunes")
-            <p class="is-after-tomorrow-label">El Lunes</p>
+        <p style="margin-bottom: 20px; width:48%; display:inline-grid">
+            <span class="bold">Recibirás tu pedido</span>
+            @if($order->label_dispatch == "Entrega inmediata")
+            <span style="margin-top:8px" class="is-immediate-label">Entrega inmediata</span>
+            @elseif($order->label_dispatch == "Te llega hoy")
+            <span style="margin-top:8px" class="is-today-label">Te llega Hoy</span>
+            @elseif($order->label_dispatch == "Te llega mañana")
+            <span style="margin-top:8px" class="is-tomorrow-label">Te llega Mañana</span>
+            @elseif($order->label_dispatch == "Llega en 48H")
+            <span style="margin-top:8px" class="is-after-tomorrow-label">En 48 horas</span>
+            @elseif($order->label_dispatch == "Llega el Lunes")
+            <span style="margin-top:8px" class="is-after-tomorrow-label">El Lunes</span>
             @endif
             <br/>
 
-            <p class="bold">SUBTOTAL</p>
-            <p>${{ number_format($order->subtotal, 0, ',','.')}}</p>
-            <br/>
+        </p>
+        <p style="margin-bottom: 20px; width:48%; display:inline-grid">
+            <span class="bold">Enviar a:</span>
+            <span style="margin-top:8px">
+                {{ $order->delivery_address.', Región '.trim($order->region)}}@if($order->comment){!!', <b>Comentario:</b> '.$order->comments !!}@endif
+            </span>
+        </p>
 
-            <p class="bold">ENVÍO</p>
+        <p style="margin-bottom: 5px; width:24%; display:inline-grid">
+            <span class="bold">Subtotal</span>
+            <span style="margin-top:8px">${{ number_format($order->subtotal, 0, ',','.')}}</span>
+            <br/>
+        </p>
+
+        <p style="margin-bottom: 5px; width:24%; display:inline-grid">
+            <span class="bold">Envío</span>
             @if($order->dispatch == -1)
-            <p>Por pagar</p>
+            <span>Por pagar</span>
             @else
-            <p>${{ number_format($order->dispatch, 0, ',','.')}}</p>
+            <span style="margin-top:8px">${{ number_format($order->dispatch, 0, ',','.')}}</span>
             @endif
             <br/>
-
-            @if($order->discount && $order->discount > 0)
-            <p class="bold">DESCUENTO</p>
-            <p>${{ number_format($order->discount, 0, ',','.')}}</p>
-            <br/>
-            @endif
-
-            <p class="bold">TOTAL</p>
-            <p>${{ number_format($order->total, 0, ',','.')}}</p>
-            <br/>
-
-        </div>
-        <div style="margin-bottom: 20px; width:50%; float: left;">
-
-        </div>
-
-        <p>
-            Puedes ver mayor detalle de tu compra <a style="text-decoration: underline" href="https://anticonceptivo.cl/mi-cuenta/historial-compras" target="_BLANK">aquí</a>.
         </p>
 
-        @if($product)
-        <p>
-            Notamos compraste {{$product}} y no era el precio más bajo. Accede a precios bajos en Suscripción hasta "valor más bajo de suscripción". Más información <a style="text-decoration: underline" href="https://anticonceptivo.cl/blog/tendencia/post/como-funciona-una-suscripcion-en-anticonceptivocl" target="_BLANK">aquí</a>.
+        @if($order->discount && $order->discount > 0)
+        <p style="margin-bottom: 5px; width:24%; display:inline-grid">
+            <span class="bold">Descuento</span>
+            <span style="margin-top:8px">${{ number_format($order->discount, 0, ',','.')}}</span>
+            <br/>
         </p>
         @endif
 
-        <p>
-            @if($order->voucher_pdf)
+        @if($order->discount && $order->discount > 0)
+        <p style="margin-bottom: 5px; width:24%; display:inline-grid">
+        @else 
+        <p style="margin-bottom: 5px; width:48%; display:inline-grid">
+        @endif
+            <span class="bold">Total</span>
+            <span style="margin-top:8px">${{ number_format($order->total, 0, ',','.')}}</span>
+            <br/>
+        </p>
 
-                <a href="{{$order->voucher_pdf}}" target="_blank">Descargar boleta</a>
+        <p style="margin-bottom: 5px; width:100%; display:inline-grid">
+            <span style="margin-bottom: 15px;">
+                Puedes encontrar un mayor detalle de tu compra <a style="text-decoration: underline" href="https://anticonceptivo.cl/mi-cuenta/historial-compras" target="_BLANK">aquí</a>.
+            </span>
+            <br/>
+            @if($product)
+            <span style="margin-bottom: 15px;">
+                Notamos compraste {{$product}} y no era el precio más bajo. Accede a precios bajos en suscripción hasta ${{number_format($price, 0, ',','.')}}. Más información <a style="text-decoration: underline" href="https://anticonceptivo.cl/blog/tendencia/post/como-funciona-una-suscripcion-en-anticonceptivocl" target="_BLANK">aquí</a>.
+            </span>
             @endif
-        </p>
+            <br/>
+            <span style="margin-top:10px">
+                @if($order->voucher_pdf)
 
-        <p>
-            Esperamos volver a verte pronto. 
-        </p>
+                    <a href="{{$order->voucher_pdf}}" target="_blank">Descarga tu boleta aquí</a>
+                @endif
+            </span>
+            <br/>
+            <span style="margin-top:30px;margin-bottom: 5px;">
+                Esperamos volver a verte pronto. 
+            </span>
+            <span>
+                Equipo <a style="text-decoration: underline" href="https://anticonceptivo.cl/" target="_BLANK">anticonceptivo.cl</a>
+            </span>
 
-        <p>
-            Equipo <a style="text-decoration: underline" href="https://anticonceptivo.cl/" target="_BLANK">anticonceptivo.cl</a>
+            <br/>
         </p>
-    </div>
-    <div class="text-legal">
-        Este mensaje ha sido enviado automáticamente y no necesita ser respondido.
-        <br><br>
     </div>
 @endsection

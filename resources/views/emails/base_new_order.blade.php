@@ -73,7 +73,7 @@
 
         body {
             display: flex;
-            font-size: 12px;
+            font-size: 14px;
         }
 
         .text-center {
@@ -123,7 +123,7 @@
         }
 
         p {
-            font-size: 12px;
+            font-size: 14px;
         }
 
         .title {
