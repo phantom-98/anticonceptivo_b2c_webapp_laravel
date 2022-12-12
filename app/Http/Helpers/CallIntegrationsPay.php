@@ -253,19 +253,28 @@ class CallIntegrationsPay extends CoreHelper
 
    public static function sendEmailsOrderRepeat($order_id, $type = 'compra')
    {
-        $order =Order::with('customer','order_items.subscription_plan')->where('id',$order_id)->get()->first();
+        $order = Order::with('customer','order_items.subscription_plan', 'order_items.product.plans.subscription_plan')->where('id',$order_id)->get()->first();
         $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
 
+        $product = null;
+        $price = null;
+
+        foreach($order->order_items as $object){
+            if(count($object->product->plans) > 0){
+                $product = $object->product->name;
+                $price = $object->product->plans->min('price');
+                break;
+            }
+        }
+
         // Envio al cliente
-        $html = view('emails.orders', ['order' => $order, 'type' => $type, 'nombre' => 'Equipo Anticonceptivo'])->render();
+        $html = view('emails.orders-new-email', ['order' => $order, 'type' => $type, 'nombre' => 'Equipo Anticonceptivo', 'product' => $product, 'price' => $price])->render();
 
         $email = new \SendGrid\Mail\Mail();
 
         $email->setFrom("info@anticonceptivo.cl", 'anticonceptivo.cl');
-        $email->setSubject('Compra #' . $order->id);
-        $email->addTo($order->customer->email, 'Pedido');
-        // $email->addTo("victor.araya.del@gmail.com", 'Pedido');
-
+        $email->setSubject('Confirmación del Pedido #' . $order->id);
+        $email->addTo($order->customer->email, $order->customer->first_name);
         $email->addContent(
             "text/html", $html
         );
