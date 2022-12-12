@@ -59,9 +59,11 @@ class PostController extends GlobalController
             $object->post_type_id = $request->post_type_id;
             $object->save();
 
-            $S3Helper = new S3Helper('laravel/anticonceptivo/', 'public/posts');
-            $object->principal_image = $S3Helper->store($request->file("image"));
-            $object->save();
+            if (isset($request->image)) {
+                $S3Helper = new S3Helper('laravel/anticonceptivo/', 'public/posts');
+                $object->principal_image = $S3Helper->store($request->file("image"));
+                $object->save();
+            }
 
             Log::info('Agregar post', [
                 'date' => date('Y-m-d H:i:s'),
@@ -124,7 +126,7 @@ class PostController extends GlobalController
             $object->published_at = Carbon::now()->format('Y-m-d');
             $object->post_type_id = $request->post_type_id;
 
-            if ($request->image) {
+            if (isset($request->image)) {
                 $S3Helper = new S3Helper('laravel/anticonceptivo/', 'public/posts');
                 $S3Helper->delete($object->principal_image);
                 $object->principal_image = $S3Helper->store($request->file("image"));

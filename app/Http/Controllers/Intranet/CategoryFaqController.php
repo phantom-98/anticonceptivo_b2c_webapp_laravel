@@ -16,7 +16,7 @@ class CategoryFaqController extends GlobalController
 {
     protected $options = [
         'route' => 'intranet.category_faqs.',
-        'folder' => 'intranet.category_faqs.',
+        'folder' => 'intranet.category_faqs.', 
         'pluralName' => 'Categorías FAQ',
         'singularName' => 'Categoría FAQ',
         'disableActions' => ['show', 'changeStatus'],

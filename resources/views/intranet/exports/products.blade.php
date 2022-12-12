@@ -55,8 +55,8 @@
                 <td>{{ $object->recipe_type ?? 'Venta Directa' }}</td>
                 <td>{{ $object->state_of_matter ?? 'Sólido' }}</td>
                 <td>{!! isset($object->data_sheet) ? 'Si' : 'No' !!}</td>
-                <td>{!! strip_tags($object->benefits) !!}</td>
-                <td>{!! strip_tags( $object->description) !!}</td>
+                <td>{!! isset($object->benefits) ? 'Si' : 'No' !!}</td>
+                <td>{!! isset($object->description) ? 'Si' : 'No' !!}</td>
                 <td>{!! strip_tags($object->compound) !!}</td>
                 <td>{{ $object->plans[0]->price ?? '' }}</td>
                 <td>{{ $object->plans[1]->price ?? '' }}</td>

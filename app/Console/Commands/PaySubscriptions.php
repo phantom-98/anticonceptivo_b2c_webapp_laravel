@@ -19,6 +19,7 @@ use App\Models\Region;
 use App\Models\Commune;
 use App\Models\WebpayLog;
 use App\Models\Customer;
+use App\Models\Prescription;
 use App\Models\CustomerAddress;
 use App\Models\DiscountCode;
 use App\Models\SubscriptionsOrdersItem;
@@ -79,6 +80,11 @@ class PaySubscriptions extends Command
 //        $customers = Customer::where('id',306)->get();
         $customers = Customer::all();
 
+        Log::info('Init Pay subscription',
+        [
+            "message" => "Empezó el cobro"
+        ]);
+
 
         foreach ($customers as $customer) {
             $subscriptionsOrdersItems = SubscriptionsOrdersItem::whereHas('order_parent', function ($q) use ($customer) {
@@ -90,7 +96,7 @@ class PaySubscriptions extends Command
                 ->whereDate('pay_date','<=',$datePayment)
                 ->whereNotNull('subscription_id')
                 ->with(['order_item.product', 'subscription', 'order.order_items', 'order_item.subscription_plan', 'order.customer', 'customer_address.commune'])
-                ->select('id','payment_attempt' ,'order_parent_id as order_id','subtotal','name', 'orders_item_id','price','quantity', 'subscription_id','delivery_address', 'customer_address_id', 'pay_date', 'dispatch_date', 'status', 'is_pay', 'free_shipping')
+                ->select('id','payment_attempt' ,'order_parent_id as order_id','subtotal','name', 'orders_item_id','price','quantity', 'subscription_id','delivery_address', 'customer_address_id', 'pay_date', 'dispatch_date', 'status', 'is_pay', 'free_shipping', 'period')
                 ->orderBy('order_parent_id')->orderBy('pay_date')
                 ->get();
 
@@ -220,8 +226,12 @@ class PaySubscriptions extends Command
             if (count($subscriptionsOrdersItems) > 0) {
                 session()->forget('free_dispatch');
                 if($prev_item->free_shipping == 0){
-                    $dispatch = $this->getDeliveryCost($prev_item->customer_address->commune->name)['price_dispatch'];
-                    session()->put('free_dispatch', false);
+                    if($prev_item->customer_address){
+                        $dispatch = $this->getDeliveryCost($prev_item->customer_address->commune->name)['price_dispatch'];
+                        session()->put('free_dispatch', false);
+                    } else {
+                        $dispatch = 0;
+                    }
                 } else {
                     $dispatch = 0;
                     session()->put('free_dispatch', true);
@@ -367,6 +377,22 @@ class PaySubscriptions extends Command
             $subscription_order_item->dispatch_date = Carbon::now()->addDay();
             $subscription_order_item->save();
             $subtotal += $orderItem->subtotal;
+
+            try{
+                $presExist = Prescription::where('order_id', $first_subcription_order_item->order->id)->where('product_id', $subscription_order_item->order_item->product->id)->first();
+                if($presExist){
+                    $prescription = new Prescription();
+                    $prescription->customer_id = $presExist->customer_id;
+                    $prescription->order_id = $presExist->order_id;
+                    $prescription->product_id = $presExist->product_id;
+                    $prescription->name = $presExist->name;
+                    $prescription->file = $presExist->file;
+                    $prescription->save();
+                }
+            } catch (\Exception $ex){
+
+            }
+
         }
         $order->subtotal = $subtotal;
         $order->total = $subtotal + $order->dispatch;
@@ -557,16 +583,35 @@ class PaySubscriptions extends Command
     private function sendEmailPayRejected(\Illuminate\Support\Collection $array_subscription_order_items, $customer)
     {
         if (env('APP_ENV') == 'production') {
+            $stringProduct = "";
+
+            foreach($array_subscription_order_items as $ot){
+                $period = str_replace(' y ', '/',$ot->period);
+                $stringProduct .= $ot->name.' ('.$period.'), ';
+            }
+
+            $stringProduct = rtrim($stringProduct, ", ");
+
             $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
 
             // Envio al cliente
-            $html = view('emails.pay_rejected', ['full_name' => $customer->first_name . " " . $customer->last_name])->render();
+            $html = view('emails.pay_rejected', ['full_name' => $customer->first_name, 'id_number' => $customer->id_number, 'stringProduct' => $stringProduct])->render();
 
             $email = new \SendGrid\Mail\Mail();
             $email->setFrom("info@anticonceptivo.cl", 'anticonceptivo.cl');
-            $email->setSubject('Pago suscripción');
-            $email->addTo($customer->email, 'Pago');
-            // $email->addTo("victor.araya.del@gmail.com", 'Pedido');
+            $email->setSubject('Actualizar el método de pago suscripción');
+            $email->addTo($customer->email, $customer->first_name);
+            $email->addContent(
+                "text/html", $html
+            );
+
+            $sendgrid->send($email);
+
+            $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
+            $email = new \SendGrid\Mail\Mail();
+            $email->setFrom("info@anticonceptivo.cl", 'anticonceptivo.cl');
+            $email->setSubject('Actualizar el método de pago suscripción');
+            $email->addTo('fpenailillo@innovaweb.cl', 'Felipe');
             $email->addContent(
                 "text/html", $html
             );
@@ -577,10 +622,10 @@ class PaySubscriptions extends Command
             $users = User::where('id','!=' ,1)->get();
             foreach($users as $user){
                 $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
-                $html = view('emails.pay_rejected_admin', ['full_name' => $customer->first_name . " " . $customer->last_name, 'id_number' => $customer->id_number])->render();
+                $html = view('emails.pay_rejected', ['full_name' => $customer->first_name, 'id_number' => $customer->id_number, 'stringProduct' => $stringProduct])->render();
                 $email = new \SendGrid\Mail\Mail();
                 $email->setFrom("info@anticonceptivo.cl", 'anticonceptivo.cl');
-                $email->setSubject('Error pago de suscripción automática');
+                $email->setSubject('Actualizar el método de pago suscripción');
                 $email->addTo($user->email, $user->first_name);
                 $email->addContent(
                     "text/html", $html

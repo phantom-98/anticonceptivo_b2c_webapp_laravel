@@ -105,7 +105,7 @@ class ProductController extends GlobalController
     public function store(Request $request)
     {
         $rules = [
-            'name' => 'required',
+            'name' => 'required|unique:products,name',
             'sku' => 'required|unique:products,sku',
             'price' => 'required|numeric',
             'subcategory_id' => 'required',
@@ -115,6 +115,7 @@ class ProductController extends GlobalController
 
         $messages = [
             'name.required' => 'Nombre del producto es requerido',
+            'name.unique' => 'Nombre del producto ya se encuentra registrado',
             'sku.unique' => 'SKU del producto ya se encuentra registrado',
             'price.required' => 'El precio del producto es requerido',
             'price.numeric' => 'El precio del producto debe ser un valor númerico',
@@ -279,7 +280,7 @@ class ProductController extends GlobalController
         }
 
         $rules = [
-            'name' => 'required',
+            'name' => 'required|unique:products,name,' . $id,
             'sku' => 'required|unique:products,sku,' . $id,
             'barcode' => 'required',
             'price' => 'required|numeric',
@@ -289,6 +290,7 @@ class ProductController extends GlobalController
 
         $messages = [
             'name.required' => 'Nombre del producto es requerido',
+            'name.unique' => 'Nombre del producto ya se encuentra registrado',
             'sku.unique' => 'SKU del producto ya se encuentra registrado',
             'price.required' => 'El precio del producto es requerido',
             'price.numeric' => 'El precio del producto debe ser un valor númerico',

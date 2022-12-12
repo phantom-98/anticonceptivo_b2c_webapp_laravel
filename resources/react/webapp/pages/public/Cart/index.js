@@ -169,12 +169,7 @@ const Cart = () => {
                             </div>
                         </div>
                     </div>
-                        <OutstandingCarousel title={'¿Te faltó algo?'}
-                            style={'pt-2 pb-2'}
-                        />
-                        <CondomProduct
-                            // style={'pt-5 pb-5'}
-                        />
+
                     <div className='row pb-5'>
 
                         <div className="col-12 col-lg-auto pl-md-2 panel-cart-total">
@@ -238,9 +233,6 @@ const Cart = () => {
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="sticky-container-go-to-pay">
-                    <input type='button' class="btn btn-bicolor btn-block d-flex my-2 font-10" value='PAGAR' onClick={() => moveToPayment('continue_to_payment')}/>
                 </div>
             </div>
     );

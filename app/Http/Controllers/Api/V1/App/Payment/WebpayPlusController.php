@@ -421,7 +421,7 @@ class WebpayPlusController
 
         $order->save();
 
-        if (isset($request->attachments) && $request->prescription_radio == 'true') {
+        if (isset($request->attachments)) {
 
             $rules = [
                 'attachments' => 'required',
@@ -638,7 +638,6 @@ class WebpayPlusController
             'status' => true,
             'product' => null,
             'quantity' => null
-
         );
     }
 

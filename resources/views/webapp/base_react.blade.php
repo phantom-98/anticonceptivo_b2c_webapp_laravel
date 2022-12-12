@@ -8,7 +8,6 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Fonts -->
-
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
@@ -30,7 +29,7 @@
             j.src =
                 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
             f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-PH7DZ9Q');</script>
+        })(window, document, 'script', 'dataLayer', 'GTM-5DM9CPF');</script>
     <!-- End Google Tag Manager -->
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -76,6 +75,9 @@
     <!-- End Facebook Pixel Code -->
 
     <script src="//rum-static.pingdom.net/pa-61dda4d39034fb00110005ce.js" async></script>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6978343504162312"
+     crossorigin="anonymous"></script>
 
     @yield('styles')
 
@@ -138,7 +140,7 @@
 
 <!-- Google Tag Manager (noscript) -->
 <noscript>
-    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PH7DZ9Q"
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5DM9CPF"
             height="0" width="0" style="display:none;visibility:hidden"></iframe>
 </noscript>
 <!-- End Google Tag Manager (noscript) -->

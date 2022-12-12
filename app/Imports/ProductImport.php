@@ -32,18 +32,6 @@ class ProductImport implements ToCollection, WithHeadingRow
                     $product->is_offer = $row['precio_oferta'] > 0 ? 1 : 0;
                     $product->subcategory_id = $subcategory->id;
                     $product->consumption_typology = $row['tipologia_consumo'] ?? 'ABA - ORAL S.ORD.GRAGEAS';
-                    if($row['composicion'] != null && $row['composicion'] != ""){
-                        $product->compound = $row['composicion'];
-                    }
-                    if($row['beneficios'] != null && $row['beneficios'] != ""){
-                        $product->benefits = $row['beneficios'];
-                    }
-                    if($row['ficha_tecnica'] != null && $row['ficha_tecnica'] != ""){
-                        $product->data_sheet = $row['ficha_tecnica'];
-                    }
-                    if($row['descripcion'] != null && $row['descripcion'] != ""){
-                        $product->description = $row['descripcion'];
-                    }
                     $product->is_bioequivalent = $row['bioequivalente'] == "Si" ? 1 : 0;
                     $product->laboratory_id = $laboratory->id;
                     $product->format = $row['formato'];

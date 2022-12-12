@@ -57,7 +57,7 @@
             j.src =
                 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
             f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-PH7DZ9Q');</script>
+        })(window, document, 'script', 'dataLayer', 'GTM-5DM9CPF');</script>
     <!-- End Google Tag Manager -->
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -107,6 +107,9 @@
 
     <script src="//rum-static.pingdom.net/pa-61dda4d39034fb00110005ce.js" async></script>
 
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6978343504162312"
+     crossorigin="anonymous"></script>
+
     @yield('styles')
 
     <style>
@@ -120,7 +123,7 @@
 
 <!-- Google Tag Manager (noscript) -->
 <noscript>
-    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PH7DZ9Q"
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5DM9CPF"
             height="0" width="0" style="display:none;visibility:hidden"></iframe>
 </noscript>
 <!-- End Google Tag Manager (noscript) -->

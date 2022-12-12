@@ -109,6 +109,5 @@ class UpdateStock extends Command
         }
 
 
-
     }
 }
