@@ -73,20 +73,19 @@
             <span style="margin-bottom: 15px;">
                 Puedes encontrar un mayor detalle de tu compra <a style="text-decoration: underline" href="https://anticonceptivo.cl/mi-cuenta/historial-compras" target="_BLANK">aquí</a>.
             </span>
-            <br/>
             @if($product)
+            <br/>
             <span style="margin-bottom: 15px;">
                 Notamos compraste {{$product}} y no era el precio más bajo. Accede a precios bajos en suscripción hasta ${{number_format($price, 0, ',','.')}}. Más información <a style="text-decoration: underline" href="https://anticonceptivo.cl/blog/tendencia/post/como-funciona-una-suscripcion-en-anticonceptivocl" target="_BLANK">aquí</a>.
             </span>
             @endif
+            @if($order->voucher_pdf)
             <br/>
             <span style="margin-top:10px">
-                @if($order->voucher_pdf)
-
-                    <a href="{{$order->voucher_pdf}}" target="_blank">Descarga tu boleta aquí</a>
-                @endif
+                <a href="{{$order->voucher_pdf}}" target="_blank">Descarga tu boleta aquí</a>
             </span>
             <br/>
+            @endif
             <span style="margin-top:30px;margin-bottom: 5px;">
                 Esperamos volver a verte pronto. 
             </span>
