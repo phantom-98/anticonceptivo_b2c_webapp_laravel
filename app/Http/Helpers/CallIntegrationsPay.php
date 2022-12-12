@@ -194,9 +194,9 @@ class CallIntegrationsPay extends CoreHelper
 
         $email = new \SendGrid\Mail\Mail();
 
-        $email->setFrom("info@anticonceptivo.cl", 'Anticonceptivo');
-        $email->setSubject('Compra #' . $order->id);
-        $email->addTo($order->customer->email, 'Pedido');
+        $email->setFrom("info@anticonceptivo.cl", 'anticonceptivo.cl');
+        $email->setSubject('Confirmación del Pedido #' . $order->id);
+        $email->addTo($order->customer->email, $order->customer->full_name);
         // $email->addTo("victor.araya.del@gmail.com", 'Pedido');
 
         $email->addContent(
@@ -211,10 +211,10 @@ class CallIntegrationsPay extends CoreHelper
 
         $email2 = new \SendGrid\Mail\Mail();
 
-        $email2->setFrom("info@anticonceptivo.cl", 'Anticonceptivo');
+        $email2->setFrom("info@anticonceptivo.cl", 'anticonceptivo.cl');
         $email2->setSubject('Nuevo pedido recibido #' . $order->id);
 //        $email2->addTo("victor.araya.del@gmail.com", 'Pedido');
-         $email2->addTo("contacto@anticonceptivo.cl", 'Pedido');
+         $email2->addTo("contacto@anticonceptivo.cl", 'Administrado anticonceptivo.cl');
 
         $email2->addContent(
             "text/html", $html2
@@ -228,7 +228,7 @@ class CallIntegrationsPay extends CoreHelper
 
         $email3 = new \SendGrid\Mail\Mail();
 
-        $email3->setFrom("info@anticonceptivo.cl", 'Anticonceptivo');
+        $email3->setFrom("info@anticonceptivo.cl", 'anticonceptivo.cl');
         $email3->setSubject('Nuevo pedido recibido #' . $order->id);
 //        $email3->addTo("victor.araya.del@gmail.com", 'Pedido');
             $email3->addTo("fpenailillo@innovaweb.cl", 'Pedido');
@@ -250,7 +250,7 @@ class CallIntegrationsPay extends CoreHelper
 
         $email = new \SendGrid\Mail\Mail();
 
-        $email->setFrom("info@anticonceptivo.cl", 'Anticonceptivo');
+        $email->setFrom("info@anticonceptivo.cl", 'anticonceptivo.cl');
         $email->setSubject('Compra #' . $order->id);
         $email->addTo($order->customer->email, 'Pedido');
         // $email->addTo("victor.araya.del@gmail.com", 'Pedido');

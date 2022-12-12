@@ -188,7 +188,7 @@ class VoucherPaymentDays extends Command
             $html = view('emails.send-voucher', ['url_pdf' => $dayPayment->url_pdf, 'name' => 'Equipo Anticonceptivo'])->render();
 
             $email = new \SendGrid\Mail\Mail();
-            $email->setFrom("info@anticonceptivo.cl", 'Anticonceptivo');
+            $email->setFrom("info@anticonceptivo.cl", 'anticonceptivo.cl');
             $email->setSubject('Factura Eureka ' . Carbon::parse($datePayment)->format('d-m-Y'));
             $email->addTo("contacto@anticonceptivo.cl", 'Anticonceptivo');
 

@@ -88,6 +88,7 @@ class PaySubscriptions extends Command
                 ->whereIn('status', ['CREATED', 'REJECTED'])
                 ->where('payment_attempt','<',10)
                 ->whereDate('pay_date','<=',$datePayment)
+                ->whereNotNull('subscription_id')
                 ->with(['order_item.product', 'subscription', 'order.order_items', 'order_item.subscription_plan', 'order.customer', 'customer_address.commune'])
                 ->select('id','payment_attempt' ,'order_parent_id as order_id','subtotal','name', 'orders_item_id','price','quantity', 'subscription_id','delivery_address', 'customer_address_id', 'pay_date', 'dispatch_date', 'status', 'is_pay', 'free_shipping')
                 ->orderBy('order_parent_id')->orderBy('pay_date')
@@ -524,12 +525,12 @@ class PaySubscriptions extends Command
 
 
 
-        if (env('APP_ENV') == 'production') {
+        /*if (env('APP_ENV') == 'production') {
             CallIntegrationsPay::sendEmailsOrder($order->id,'subscription');
             if($isFinishSubscription){
                 self::sendEmailFinishSubscription($order, $customer);
             }
-        }
+        }*/
     }
 
     private function getDeliveryCost($commune_name){
@@ -562,7 +563,7 @@ class PaySubscriptions extends Command
             $html = view('emails.pay_rejected', ['full_name' => $customer->first_name . " " . $customer->last_name])->render();
 
             $email = new \SendGrid\Mail\Mail();
-            $email->setFrom("info@anticonceptivo.cl", 'Anticonceptivo');
+            $email->setFrom("info@anticonceptivo.cl", 'anticonceptivo.cl');
             $email->setSubject('Pago suscripción');
             $email->addTo($customer->email, 'Pago');
             // $email->addTo("victor.araya.del@gmail.com", 'Pedido');
@@ -578,7 +579,7 @@ class PaySubscriptions extends Command
                 $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
                 $html = view('emails.pay_rejected_admin', ['full_name' => $customer->first_name . " " . $customer->last_name, 'id_number' => $customer->id_number])->render();
                 $email = new \SendGrid\Mail\Mail();
-                $email->setFrom("info@anticonceptivo.cl", 'Anticonceptivo');
+                $email->setFrom("info@anticonceptivo.cl", 'anticonceptivo.cl');
                 $email->setSubject('Error pago de suscripción automática');
                 $email->addTo($user->email, $user->first_name);
                 $email->addContent(
@@ -599,7 +600,7 @@ class PaySubscriptions extends Command
             $html = view('emails.pay_subscription_finish', ['full_name' => $customer->first_name . " " . $customer->last_name])->render();
 
             $email = new \SendGrid\Mail\Mail();
-            $email->setFrom("info@anticonceptivo.cl", 'Anticonceptivo');
+            $email->setFrom("info@anticonceptivo.cl", 'anticonceptivo.cl');
             $email->setSubject('Suscripción Finalizada');
             $email->addTo($customer->email, 'Pago');
 //             $email->addTo("victor.araya.del@gmail.com", 'Pedido');
@@ -614,7 +615,7 @@ class PaySubscriptions extends Command
                 $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
                 $html = view('emails.pay_subscription_finish_admin', ['full_name' => $customer->first_name . " " . $customer->last_name, 'id_number' => $customer->id_number, 'order_id' => $order->id])->render();
                 $email = new \SendGrid\Mail\Mail();
-                $email->setFrom("info@anticonceptivo.cl", 'Anticonceptivo');
+                $email->setFrom("info@anticonceptivo.cl", 'anticonceptivo.cl');
                 $email->setSubject('Suscripción Finalizada');
                 $email->addTo($user->email, $user->first_name);
                 $email->addContent(

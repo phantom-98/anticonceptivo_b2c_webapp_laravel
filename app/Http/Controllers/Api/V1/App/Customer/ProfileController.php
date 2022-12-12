@@ -358,7 +358,7 @@ class ProfileController extends Controller
 
                 $email2 = new \SendGrid\Mail\Mail();
         
-                $email2->setFrom("info@anticonceptivo.cl", 'Anticonceptivo');
+                $email2->setFrom("info@anticonceptivo.cl", 'anticonceptivo.cl');
                 $email2->setSubject('Cancelación Suscripción #' . $subscriptionsOrdersItem->subscription_id);
                 $email2->addTo("contacto@anticonceptivo.cl", 'Anticonceptivo');
         
@@ -375,7 +375,7 @@ class ProfileController extends Controller
 
                 $email2 = new \SendGrid\Mail\Mail();
         
-                $email2->setFrom("info@anticonceptivo.cl", 'Anticonceptivo');
+                $email2->setFrom("info@anticonceptivo.cl", 'anticonceptivo.cl');
                 $email2->setSubject('Cancelación Suscripción #' . $subscriptionsOrdersItem->subscription_id);
                 $email2->addTo("fpenailillo@innovaweb.cl", 'Felipe Peñailillo');
         

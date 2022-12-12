@@ -130,6 +130,11 @@ if (env('SHOW_INTRANET', 'TRUE') == 'TRUE') {
                 Route::post('pedidos/pedidos/change-order-status', 'OrderController@changeOrderStatus')->name('orders.changeOrderStatus');
                 Route::resource('pedidos', 'OrderController', ['names' => getResourceRoutesForNameHelper('orders')]);
 
+                Route::get('suscripciones/search-client', 'SubscriptionController@search_client')->name('subscriptions.search_client');
+                Route::get('suscripciones/export', 'SubscriptionController@export')->name('subscriptions.export');
+                Route::get('suscripciones/detalle-suscripción/{id}', 'SubscriptionController@index_filter')->name('subscriptions.index_filter');
+                Route::resource('suscripciones', 'SubscriptionController', ['names' => getResourceRoutesForNameHelper('subscriptions')]);
+
                 Route::resource('quienes-somos', 'AboutController', ['names' => getResourceRoutesForNameHelper('abouts')]);
 
                 Route::resource('aviso-legal-productos', 'LegalWarningController', ['names' => getResourceRoutesForNameHelper('legal_warnings')]);

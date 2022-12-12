@@ -64,7 +64,7 @@
                             </a>
                         </li>
 
-                        <li class="treeview {{ is_parent_menu_active(['intranet/categorias', 'intranet/subcategorias', 'intranet/marcas', 'intranet/productos', 'intranet/calendario-de-productos',
+                        <li class="treeview {{ is_parent_menu_active(['intranet/categorias', 'intranet/subcategorias', 'intranet/marcas', 'intranet/productos', 'intranet/calendario-de-productos', 'intranet/suscripciones',
                             'intranet/pedidos', 'intranet/laboratorios', 'intranet/aviso-legal-productos','intranet/precios-productos', 'intranet/planes-suscripcion', 'intranet/limite-productos-por-dia']) }}">
                             <a href="#">
                                 <i class="ti-shopping-cart"></i>
@@ -147,6 +147,13 @@
                                 <li class="{{ is_menu_active('intranet/pedidos') }}">
                                     <a href="{{ route('intranet.orders.index') }}">
                                         <span class="menu-title">Pedidos</span>
+                                    </a>
+                                </li>
+                                @endcan
+                                @can('intranet.subscriptions.index')
+                                <li class="{{ is_menu_active('intranet/suscripciones') }}">
+                                    <a href="{{ route('intranet.subscriptions.index') }}">
+                                        <span class="menu-title">Suscripciones</span>
                                     </a>
                                 </li>
                                 @endcan

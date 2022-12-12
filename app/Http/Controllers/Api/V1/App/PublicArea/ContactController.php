@@ -101,7 +101,7 @@ class ContactController extends Controller
                         'name' => $request->contact_first_name.' '.$request->contact_last_name,
                         'contact_id' => $contact->id,
                         // 'message' => $request->message
-                    ]])->render();;
+                    ]])->render();
                     
                     $body = view('emails.contact-us', ['data' => [
                         'contact_id' => $contact->id,

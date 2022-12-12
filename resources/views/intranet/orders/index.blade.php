@@ -135,7 +135,7 @@
                             @if($config['blade']['showActions'])
                                 <th data-cell-style="cellStyle" data-valign="middle">Acciones</th>
                             @endif
-                            <th data-cell-style="cellStyle" data-sortable="false" data-valign="middle">Nº Ped.</th>
+                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Nº Ped.</th>
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Hora creación</th>
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Estado</th>
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Tipo de Entrega</th>

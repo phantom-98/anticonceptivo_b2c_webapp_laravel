@@ -186,7 +186,8 @@ class OrderController extends GlobalController
                 $query->where('id_number', 'LIKE', '%' . $search . '%')
                     ->orWhere('first_name', 'LIKE', '%' . $search . '%')
                     ->orWhere('last_name', 'LIKE', '%' . $search . '%')
-                    ->orWhere('second_last_name', 'LIKE', '%' . $search . '%');
+                    ->orWhere('second_last_name', 'LIKE', '%' . $search . '%')
+                    ->orWhereRaw('concat(first_name," ",last_name) like ?', "%{$search}%");
             })->get();
 
             $clients = $clients_array->each->append('text')->toArray();

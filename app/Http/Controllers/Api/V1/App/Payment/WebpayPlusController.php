@@ -752,7 +752,7 @@ class WebpayPlusController
             $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
             $html = view('emails.ailoo-general-error', ['user_name' => $user->first_name, 'labelUser' => $labelUser])->render();
             $email = new \SendGrid\Mail\Mail();
-            $email->setFrom("info@anticonceptivo.cl", 'Anticonceptivo');
+            $email->setFrom("info@anticonceptivo.cl", 'anticonceptivo.cl');
             $email->setSubject('Error comunicación Ailoo');
             $email->addTo($user->email, $user->first_name);
             $email->addContent(
