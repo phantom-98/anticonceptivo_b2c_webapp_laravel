@@ -190,7 +190,7 @@ class CallIntegrationsPay extends CoreHelper
         $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
 
         // Envio al cliente
-        $html = view('emails.orders', ['order' => $order, 'type' => $type, 'nombre' => 'Equipo Anticonceptivo'])->render();
+        $html = view('emails.orders-new-email', ['order' => $order, 'type' => $type, 'nombre' => 'Equipo Anticonceptivo'])->render();
 
         $email = new \SendGrid\Mail\Mail();
 

@@ -20,7 +20,7 @@
         h6,
         a {
             color: #3C3C3E;
-            font-family: 'Epilogue', sans-serif;
+            font-family: 'Poppins', sans-serif;
             font-weight: 300;
         }
 
@@ -38,6 +38,21 @@
 
         a.text-secondary:focus, a.text-secondary:hover {
             color: #009BE8 !important
+        }
+
+        .is-immediate-label {
+            background: #009BE8;
+        }
+
+        .is-today-label {
+            background: #EDF8FE;
+        }
+
+        .is-tomorrow-label {
+            color: #00DBAE;
+        }
+        .is-after-tomorrow-label {
+            color: #00DBAE;
         }
 
         .bg-primary {

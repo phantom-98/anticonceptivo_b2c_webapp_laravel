@@ -1,5 +1,5 @@
 @extends('emails.base')
-@section('header', 'Nuevo Pedido')
+@section('header', 'Confirmación del Pedido')
 
 @section('content')
     <div class="titulo">Estimado/a {{ $order->customer->first_name }} :</div>
@@ -8,7 +8,7 @@
 
         <p>
             @if($type == 'subscription')
-                Pago automatico de suscripción, su número es #<b>{{ $order->id }}</b>.
+                Se ha ejecutado un pedido automático por suscripción, su número es #<b>{{ $order->id }}</b>.
 
             @else
                 Hemos recibido tu pedido #<b>{{ $order->id }}</b> exitosamente.
