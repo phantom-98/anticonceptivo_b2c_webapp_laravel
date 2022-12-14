@@ -5,6 +5,7 @@ import * as Services from "../../../Services";
 import Subscribe from "../../../components/sections/Subscribe";
 import BestSeller from "../../../components/sections/BestSellers";
 import CondomProduct from "../../../components/sections/CondomProduct";
+import BeautyProduct from "../../../components/sections/BeautyProduct";
 import OutstandingCarousel from "../../../components/sections/OutstandingCarousel";
 import BannerCategories from "../../../components/sections/BannerCategories";
 // import BannerCarousel from "../../../components/sections/BannerCarousel";
@@ -62,6 +63,8 @@ const Home = ({match}) => {
             <SwiperCarousel banners={topBanners}/>
 
             <OutstandingCarousel title="Destacados"/>
+
+            <BeautyProduct title="Belleza y Cuidado Personal"/>
 
             <CondomProduct title="Bienestar Sexual"/>
 

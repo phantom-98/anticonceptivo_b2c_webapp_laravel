@@ -242,6 +242,27 @@ class HomeController extends Controller
         }
     }
 
+    public function getBeauty()
+    {
+        try {
+            $beautyProducts = Product::with(['subcategory.category','product_images','laboratory'])
+                ->where('recipe_type','Venta Directa')
+                ->where('stock','>',0)
+                ->where('active',true)
+                ->whereHas('subcategory', function($q){
+                    $q->where('category_id', 7);
+                })
+                ->inRandomOrder()
+                ->limit(4)
+                ->get();
+
+            return ApiResponse::JsonSuccess($this->processScheduleList($beautyProducts), 'Productos tipo belleza y cuidado personal');
+
+        } catch (\Exception $exception) {
+            return ApiResponse::JsonError(null, $exception->getMessage());
+        }
+    }
+
     public function getBestSellers()
     {
         try {
