@@ -70,7 +70,7 @@ const CondomProduct = ({title, style = ''}) => {
 
                     <div className="row">
                         <div className="col-12 text-center">
-                            <a style={{textDecoration:"underline"}} href="https://anticonceptivo.cl/tienda/preservativos/condones">Ver más</a>
+                            <a style={{textDecoration:"underline"}} href="https://anticonceptivo.cl/tienda/bienestar-sexual/preservativos">Ver más</a>
                         </div>
                     </div>
                 </div>
@@ -106,7 +106,7 @@ const CondomProduct = ({title, style = ''}) => {
 
                     <div className="row pb-3">
                         <div className="col-12 text-center">
-                            <a style={{textDecoration:"underline"}} href="https://anticonceptivo.cl/tienda/preservativos/condones">Ver más</a>
+                            <a style={{textDecoration:"underline"}} href="https://anticonceptivo.cl/tienda/bienestar-sexual/preservativos">Ver más</a>
                         </div>
                     </div>
                 </div>
