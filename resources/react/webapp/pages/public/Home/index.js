@@ -63,7 +63,7 @@ const Home = ({match}) => {
 
             <OutstandingCarousel title="Destacados"/>
 
-            <CondomProduct title="Preservativos"/>
+            <CondomProduct title="Bienestar Sexual"/>
 
             <BestSeller title="LOS 12 MÁS COMPRADOS"/>
 
