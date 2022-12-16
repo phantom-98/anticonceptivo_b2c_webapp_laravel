@@ -133,7 +133,7 @@ const HeaderNavbar = () => {
                                     childUrl = childUrl.replace(":category?", category.slug);
                                     childUrl = childUrl.replace(":subcategory?", subCategory.slug);
                                     return (
-                                        <Link key={uuidv4()} to={childUrl} className="dropdown-item" style={{textDecoration: 'none'}}>
+                                        <Link key={uuidv4()} to={childUrl} className="dropdown-item font-12" style={{textDecoration: 'none'}}>
                                             <span className="header-navbar-subitem">{subCategory.name}</span>
                                         </Link>
                                     )
