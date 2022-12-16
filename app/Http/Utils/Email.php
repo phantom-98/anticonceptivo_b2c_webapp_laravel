@@ -2,8 +2,8 @@
 
 namespace App\Http\Utils;
 
-use App\Models\Log;
 use SendGrid\Mail\Mail;
+use Illuminate\Support\Facades\Log;
 
 class EMail
 {
@@ -23,12 +23,14 @@ class EMail
             $response = $sendgrid->send($email);
 
             if ($response->statusCode() == 202) {
-                \Illuminate\Support\Facades\Log::info('EMAIL ENVIADO');
+                Log::info('EMAIL ENVIADO');
             } else {
-                \Illuminate\Support\Facades\Log::error('EMAIL NO ENVIADO');
+                Log::error('EMAIL NO ENVIADO');
+                // debug response
+                Log::error($response->body());
             }
         } catch (\Exception $exception) {
-            \Illuminate\Support\Facades\Log::error('SEND EMAIL ' . $exception->getMessage());
+            Log::error('SEND EMAIL ' . $exception->getMessage());
         }
     }
 

@@ -28,6 +28,7 @@ use App\Models\ProductSubscriptionPlan;
 use App\Models\NestedField;
 use App\Models\DynamicField;
 use Carbon\Carbon;
+use App\Http\Utils\Email;
 
 class ProfileController extends Controller
 {
@@ -94,7 +95,7 @@ class ProfileController extends Controller
                 'phone_code.required' => OutputMessage::FIELD_PHONE_CODE_REQUIRED,
                 'phone.required' => OutputMessage::FIELD_PHONE_REQUIRED,
                 'id_number.unique' => OutputMessage::FIELD_PHONE_REQUIRED,
-                'email.unique' => OutputMessage::FIELD_PHONE_REQUIRED,
+                'email.unique' => OutputMessage::FIELD_EMAIL_UNIQUE,
                 'phone.unique' => OutputMessage::FIELD_PHONE_REQUIRED,
             ];
 
@@ -357,15 +358,15 @@ class ProfileController extends Controller
                 $html2 = view('emails.cancel_subscription', ['suscripcion' => $subscriptionsOrdersItem->subscription_id, 'nombre' => 'Equipo Anticonceptivo', 'customer' => $subscription->customer])->render();
 
                 $email2 = new \SendGrid\Mail\Mail();
-        
+
                 $email2->setFrom("info@anticonceptivo.cl", 'anticonceptivo.cl');
                 $email2->setSubject('Cancelación Suscripción #' . $subscriptionsOrdersItem->subscription_id);
                 $email2->addTo("contacto@anticonceptivo.cl", 'Anticonceptivo');
-        
+
                 $email2->addContent(
                     "text/html", $html2
                 );
-        
+
                 $sendgrid->send($email2);
 
 
@@ -374,19 +375,19 @@ class ProfileController extends Controller
                 $html2 = view('emails.cancel_subscription', ['suscripcion' => $subscriptionsOrdersItem->subscription_id, 'nombre' => 'Equipo Anticonceptivo', 'customer' => $subscription->customer])->render();
 
                 $email2 = new \SendGrid\Mail\Mail();
-        
+
                 $email2->setFrom("info@anticonceptivo.cl", 'anticonceptivo.cl');
                 $email2->setSubject('Cancelación Suscripción #' . $subscriptionsOrdersItem->subscription_id);
                 $email2->addTo("fpenailillo@innovaweb.cl", 'Felipe Peñailillo');
-        
+
                 $email2->addContent(
                     "text/html", $html2
                 );
-        
+
                 $sendgrid->send($email2);
 
             } catch (\Exception $exception) {
-                
+
             }
 
             return ApiResponse::JsonSuccess($subscriptionsOrdersItem, OutputMessage::SUCCESS);
@@ -1028,7 +1029,6 @@ class ProfileController extends Controller
             $validator = Validator::make($request->all(), $rules, $messages);
 
             if ($validator->passes()) {
-
                 $contactIssue = ContactIssue::find($request->contact_issue_id);
 
                 if (!$contactIssue) {
@@ -1047,67 +1047,61 @@ class ProfileController extends Controller
                 $contact->customer_id = $request->customer_id;
                 if ($contact->save()) {
 
-                    // CORREO AL ADMINISTRADOR
+                    // // CORREO AL ADMINISTRADOR
                     $subject = 'Servicio al Cliente';
 
-                    $emailSubject = $contactIssue->section;
-                    $subEmailSubject = $contactIssue->name;
+                    // $email_subject = $contactIssue->section;
+                    // $sub_email_subject = $contactIssue->name;
 
-                    $emailBody = view('emails.contact-form', ['data' => [
-                        'title' => $emailSubject,
-                        'title_2' => $subEmailSubject,
-                        'name' => $request->name,
+                    // $emailBody = view('emails.contact-form', ['data' => [
+                    //     'title' => $email_subject,
+                    //     'title_2' => $sub_email_subject,
+                    //     'name' => $request->name,
+                    //     'contact_id' => $contact->id,
+                    // ]])->render();
+
+                    // $email = new Mail();
+
+                    // $email->setFrom(env('SENDGRID_EMAIL_FROM'), env('SENDGRID_EMAIL_NAME'));
+                    // $email->setSubject($subject);
+                    // $email->addTo(env('SENDGRID_EMAIL_TO'), env('SENDGRID_EMAIL_NAME'));
+                    // $email->addContent(
+                    //     "text/html", $emailBody
+                    // );
+
+                    // $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
+                    // $response = $sendgrid->send($email);
+
+                    // customer
+
+                    $customer_body = view('emails.contact-us', ['data' => [
                         'contact_id' => $contact->id,
-                        // 'message' => $request->message
+                        'subject' => $subject,
                     ]])->render();
 
-                    $email = new Mail();
+                    $customer_email = new Email();
+                    $customer_email->send($request->email, $subject, $customer_body);
 
-                    $email->setFrom(env('SENDGRID_EMAIL_FROM'), env('SENDGRID_EMAIL_NAME'));
-                    $email->setSubject($subject);
-                    $email->addTo(env('SENDGRID_EMAIL_TO'), env('SENDGRID_EMAIL_NAME'));
-                    $email->addContent(
-                        "text/html", $emailBody
-                    );
+                    // admin
 
-                    $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
-                    $response = $sendgrid->send($email);
+                    $admin_email = new Email();
+                    $email_subject = $contactIssue->section;
+                    $sub_email_subject = $contactIssue->name;
+                    $admin_body = view('emails.contact-form', ['data' => [
+                        'title' => $email_subject,
+                        'contact_id' => $contact->id,
+                        'name' => $request->name,
+                        'title' => $email_subject,
+                        'title_2' => $sub_email_subject,
+                    ]])->render();
 
-
-
-                    if ($response->statusCode() == 202) {
-
-                        // CORREO AL CLIENTE
-
-                        $body = view('emails.contact-us', ['data' => [
-                            'contact_id' => $contact->id,
-                            'subject' => $subject,
-                        ]])->render();
-
-                        $emailCustomer = new Email();
-                        $emailCustomer->send($request->email, $subject, $body);
-
-                        Log::info('SENDGRID CONTACT FORM ENVIADO');
-
-                    } else {
-                        Log::info('SENDGRID CONTACT FORM FALLIDO');
-                        return ApiResponse::JsonError(null, 'Ha ocurrido un error al enviar el mensaje por favor inténtelo de nuevo más tarde.');
-                    }
-
-
+                    $admin_email->send(env('SENDGRID_EMAIL_TO'), $subject, $admin_body);
 
                     return ApiResponse::JsonSuccess(null, 'Hemos enviado el mensaje correctamente.');
                 }else {
                     Log::info('SENDGRID CONTACT FORM NO SE HA PODIDO GUARDAR EN BD');
                     return ApiResponse::JsonError(null, 'Ha ocurrido un error al enviar el mensaje por favor inténtelo de nuevo más tarde.');
                 }
-
-
-
-
-
-
-
             } else {
                 return ApiResponse::JsonFieldValidation($validator->errors());
             }
