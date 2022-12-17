@@ -39,43 +39,6 @@ class SubscriptionController extends GlobalController
 
     public function index(Request $request)
     {
-        $order = Order::with('customer','order_items.subscription_plan', 'order_items.product.plans.subscription_plan', 'order_items.product.product_images')->where('id',6001)->get()->first();
-        $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
-
-        $product = null;
-        $price = null;
-        $producto_slug = null;
-        $image = null;
-
-        foreach($order->order_items as $object){
-            if(count($object->product->plans) > 0){
-                $product = $object->product->name;
-                $producto_slug = $object->product->slug;
-                $image = $object->product->product_images[0]->file;
-                $price = $object->product->plans->min('price');
-                break;
-            }
-        }
-
-        // Envio al cliente
-        $html = view('emails.orders-new-email', ['order' => $order, 'type' => 'compra', 'nombre' => 'Equipo Anticonceptivo', 'product' => $product, 'image' => $image,
-        'producto_slug' => $producto_slug,'price' => $price])->render();
-
-        $email = new \SendGrid\Mail\Mail();
-
-        $email->setFrom("info@anticonceptivo.cl", 'anticonceptivo.cl');
-        $email->setSubject('Confirmación del Pedido #' . $order->id);
-        $email->addTo('fpenailillo@innovaweb.cl', $order->customer->first_name);
-        // $email->addTo("victor.araya.del@gmail.com", 'Pedido');
-
-        $email->addContent(
-            "text/html", $html
-        );
-
-
-        $sendgrid->send($email);
-
-
         $objects = SubscriptionsOrdersItem::whereHas('order_parent', function ($q) {
             $q->whereNotIn('status', ['REJECTED', 'CREATED']);
         })

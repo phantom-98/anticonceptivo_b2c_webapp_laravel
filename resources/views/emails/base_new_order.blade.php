@@ -167,9 +167,27 @@
             width:50%;
         }
 
+        .row {
+            display: flex;
+            justify-content: space-between;
+            margin: 0px 10px;
+        }
+
+        .flex-top {
+            display: flex;
+            align-items: center;
+        }
+
         @media (max-width: 500px) {
             .tableCss{
                 width:95% !important;
+            }
+            .imgResponsive{
+                margin-top: 12px !important;
+            }
+            .labelResponsive{
+                margin-top: 10px !important;
+                margin-right: 10px !important;
             }
         }
     </style>
@@ -177,16 +195,16 @@
 <body style="width:100%;background:#f5f5f5;overflow-x: hidden;">
 <div class="container">
     <div class="card">
-        <div class="card-header bg-primary" style="width:35%; display:inline-flex">
-            <img style="" style="width:100%" src="https://anticonceptivo.cl/themes/web/assets/images/logo-full.png"/>
-        </div>
-        @if(trim($__env->yieldContent('header')))
-        <div style="width:52%; display:inline-flex">
-            <h3>
+        <div class="row">
+            <div class="flex-top card-header" style="width:40%">
+                <img style="width:100%" src="https://anticonceptivo.cl/themes/web/assets/images/logo-full.png"/>
+            </div>
+            @if(trim($__env->yieldContent('header')))
+            <div class="flex-top" style="font-size: 19px !important;margin:auto">
                 @yield('header')
-            </h3>
+            </div>
+            @endif
         </div>
-        @endif
         <div class="card-body" style="margin-top:-15px">
             <div class="content">
                 @yield('content')

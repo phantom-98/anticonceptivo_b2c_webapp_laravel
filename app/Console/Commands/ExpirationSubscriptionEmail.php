@@ -123,6 +123,26 @@ class ExpirationSubscriptionEmail extends Command
                         );
                         $sendgrid->send($email);
                     }
+
+                    $calc = $object->product->days_protection * $object->quantity;
+                    $date2 = Carbon::parse($object->created_at)->addDays($calc);
+                    if($date2->between(Carbon::today()->startOfDay(), Carbon::today()->endOfDay())){
+                        $product = $object->product->name;
+                        $producto_slug = $object->product->slug;
+                        $price = $object->product->plans->min('price');
+                        $cicles = $object->product->plans->last()->subscription_plan->cicles;
+
+                        $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
+                        $html = view('emails.expiration-buy', ['full_name' => $object->order->customer->full_name, 'price' => $price, 'product' => $product, 'producto_slug' => $producto_slug, 'cicles' => $cicles, 'calc' => $calc])->render();
+                        $email = new \SendGrid\Mail\Mail();
+                        $email->setFrom("info@anticonceptivo.cl", 'anticonceptivo.cl');
+                        $email->setSubject('No te olvides!');
+                        $email->addTo('fpenailillo@innovaweb.cl', $object->order->customer->full_name);
+                        $email->addContent(
+                            "text/html", $html
+                        );
+                        $sendgrid->send($email);
+                    }
                 }
             }
 

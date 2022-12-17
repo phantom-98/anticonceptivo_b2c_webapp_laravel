@@ -1,8 +1,8 @@
 @extends('emails.base_new_order')
-@section('header', 'Confirmación del Pedido #'.$order->id)
+@section('header', 'Confirmación del Pedido')
 
 @section('content')
-    <div class="titulo" style="font-size: 18px !important">Hola {{ ucwords(mb_strtolower($order->customer->first_name, 'UTF-8')) }}:
+    <div class="titulo" style="font-size: 18px !important">Hola {{ ucwords(mb_strtolower($order->customer->first_name, 'UTF-8')) }}
     </div>
     <div class="mensaje">
         <p>
@@ -10,7 +10,7 @@
         </p>
         <br/>
         <p>
-            <b>DETALLE DEL PEDIDO</b>
+            <b>DETALLE DEL PEDIDO #{{$order->id}}</b>
         </p>
         <p style="margin-bottom: 20px; width:48%; display:inline-grid">
             <span class="bold">Recibirás tu pedido</span>
@@ -93,28 +93,36 @@
             <span style="margin-bottom: 15px;">
                 Notamos compraste <b>{{$product}}</b> y no era el precio más bajo. Accede siempre a precios bajos en suscripción a <b>${{number_format($price, 0, ',','.')}}</b>. 
             </span>
-            <span style="margin-bottom: 15px">
-                <img src="{{ $image }}" style="width:35%; display:inline-grid">
-                <center style="margin-top:8px; width:45%; display:inline-grid">
+            <span class="imgResponsive" style="margin-bottom: 15px;width:100%; display:inline-block">
+                <img src="{{ $image }}" style="width:35%; display:inline-block">
+                <label class="labelResponsive" style="margin: auto;width: 50%;display: inline-block;text-align: center;float: right;margin-top: 50px;margin-right: 35px;">
                     Accede al precio rebajado <a style="text-decoration: underline; color: #15c !important;" href="https://anticonceptivo.cl/producto/{{$producto_slug}}" target="_BLANK">aquí</a>.<br/>
                     Más información de planes <a style="text-decoration: underline; color: #15c !important;" href="https://anticonceptivo.cl/blog/tendencia/post/como-funciona-una-suscripcion-en-anticonceptivocl" target="_BLANK">aquí</a>.
-                </center>
+                </label>
             </span>
             @else 
-            <span style="margin-bottom: 15px;">
-                <center>Encuentra precios siempre bajos, más información de planes <a style="text-decoration: underline" href="https://anticonceptivo.cl/blog/tendencia/post/como-funciona-una-suscripcion-en-anticonceptivocl" target="_BLANK">aquí</a>.</center>
+            <span style="margin-bottom: 25px;margin-top:-15px">
+                Encuentra precios siempre bajos, más información de planes <a style="text-decoration: underline" href="https://anticonceptivo.cl/blog/tendencia/post/como-funciona-una-suscripcion-en-anticonceptivocl" target="_BLANK">aquí</a>.
             </span>
             @endif
-            <br/><br/>
+            @if(!$product)
+            <span style="margin-bottom:10px; margin-top:10px">
+                Esperamos volver a verte pronto. 
+            </span>
+            @else
             <span style="margin-bottom:15px; margin-top:20px">
                 Esperamos volver a verte pronto. 
             </span>
+            @endif
             @if($order->voucher_pdf)
-            <br/><br/>
+            <br/>
             <span>
                 <a href="{{$order->voucher_pdf}}" style="text-decoration: underline; color: #15c !important;" target="_blank">Descarga tu boleta aquí</a>
             </span>
-            <br/><br/><br/>
+            <br/>
+            @if(!$product)
+            <br/>
+            @endif
             @endif
             <span style="margin-top:20px;margin-bottom: 5px;">
                 Equipo <a style="text-decoration: underline; color: #15c !important;" href="https://anticonceptivo.cl/" target="_BLANK">anticonceptivo.cl</a>
