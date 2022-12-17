@@ -42,25 +42,20 @@ class ExpirationSubscriptionEmail extends Command
     public function handle(): void
     {
         try {   
-            $objects = Subscription::with('subscription_orders_items_mail.order_item.product.plans', 'customer')->whereHas('subscription_orders_items_mail')->where('status', 'CREATED')->get();
+            $objects = Subscription::with('subscription_orders_items_mail.order_item.product.plans', 'customer')->whereHas('subscription_orders_items_mail')->get();
 
             foreach($objects as $object){
                 $date = Carbon::parse($object->subscription_orders_items_mail->pay_date);
                 $period_order = $object->subscription_orders_items_mail->period;
-                $days_protection = $object->subscription_orders_items_mail->order_item->product->days_protection;
 
                 if($period_order == "3 y 4"){
                     $period = '4 meses';
-                    $quantity = 2;
                 } else if ($period_order == "5 y 6"){
                     $period = '6 meses';
-                    $quantity = 2;
                 } else if ($period_order == "11, 12 y 13") {
                     $period = '12 meses';
-                    $quantity = 3;
                 } else {
                     $period = '12 meses';
-                    $quantity = 3;
                 }
 
 
@@ -74,7 +69,7 @@ class ExpirationSubscriptionEmail extends Command
                     $html = view('emails.expiration-subscription', ['full_name' => $object->customer->full_name, 'price' => $price, 'product' => $product, 'producto_slug' => $producto_slug, 'period' => $period])->render();
                     $email = new \SendGrid\Mail\Mail();
                     $email->setFrom("info@anticonceptivo.cl", 'anticonceptivo.cl');
-                    $email->setSubject('¡Renueva tu suscripción!');
+                    $email->setSubject('¡Término de Suscripción!');
                     $email->addTo('fpenailillo@innovaweb.cl', $object->customer->full_name);
                     $email->addContent(
                         "text/html", $html
@@ -82,7 +77,7 @@ class ExpirationSubscriptionEmail extends Command
                     $sendgrid->send($email);
                 }
 
-                $date2 = $date->addDays(($days_protection * $quantity) - 2);
+                $date2 = $date->addDays($object->subscription_orders_items_mail->days - 2);
 
                 if($date2->between(Carbon::today()->startOfDay(), Carbon::today()->endOfDay())){
                     $product = $object->subscription_orders_items_mail->order_item->product->name;
@@ -94,7 +89,7 @@ class ExpirationSubscriptionEmail extends Command
                     $html = view('emails.expiration-subscription', ['full_name' => $object->customer->full_name, 'price' => $price, 'product' => $product, 'producto_slug' => $producto_slug, 'period' => $period])->render();
                     $email = new \SendGrid\Mail\Mail();
                     $email->setFrom("info@anticonceptivo.cl", 'anticonceptivo.cl');
-                    $email->setSubject('¡Renueva tu suscripción!');
+                    $email->setSubject('¡Término de Suscripción!');
                     $email->addTo('fpenailillo@innovaweb.cl', $object->customer->full_name);
                     $email->addContent(
                         "text/html", $html
@@ -121,7 +116,7 @@ class ExpirationSubscriptionEmail extends Command
                         $html = view('emails.expiration-buy', ['full_name' => $object->order->customer->full_name, 'price' => $price, 'product' => $product, 'producto_slug' => $producto_slug, 'cicles' => $cicles, 'calc' => $calc])->render();
                         $email = new \SendGrid\Mail\Mail();
                         $email->setFrom("info@anticonceptivo.cl", 'anticonceptivo.cl');
-                        $email->setSubject('Realiza tu suscripción en anticonceptivo.cl');
+                        $email->setSubject('No te olvides!');
                         $email->addTo('fpenailillo@innovaweb.cl', $object->order->customer->full_name);
                         $email->addContent(
                             "text/html", $html
