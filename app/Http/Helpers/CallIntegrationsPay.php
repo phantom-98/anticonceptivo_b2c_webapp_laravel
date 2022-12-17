@@ -195,13 +195,14 @@ class CallIntegrationsPay extends CoreHelper
         foreach($order->order_items as $object){
             if(count($object->product->plans) > 0){
                 $product = $object->product->name;
+                $producto_slug = $object->product->slug;
                 $price = $object->product->plans->min('price');
                 break;
             }
         }
 
         // Envio al cliente
-        $html = view('emails.orders-new-email', ['order' => $order, 'type' => $type, 'nombre' => 'Equipo Anticonceptivo', 'product' => $product, 'price' => $price])->render();
+        $html = view('emails.orders-new-email', ['order' => $order, 'type' => $type, 'nombre' => 'Equipo Anticonceptivo', 'product' => $product, 'producto_slug' => $producto_slug,'price' => $price])->render();
 
         $email = new \SendGrid\Mail\Mail();
 

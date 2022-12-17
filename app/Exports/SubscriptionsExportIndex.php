@@ -29,7 +29,7 @@ class SubscriptionsExportIndex implements FromView, ShouldAutoSize
         $objects = SubscriptionsOrdersItem::whereHas('order_parent', function ($q) {
             $q->whereNotIn('status', ['REJECTED', 'CREATED']);
         })
-        ->with(['order', 'order.order_items', 'customer_address.customer', 'subscription', 'order.prescriptions', 'order_parent.order_items']);
+        ->with(['order', 'order.order_items', 'customer_address.customer', 'subscription', 'order.prescriptions', 'order_parent.order_items','order_item.product']);
 
         $status = $this->status;
 
@@ -40,7 +40,7 @@ class SubscriptionsExportIndex implements FromView, ShouldAutoSize
         }
 
         if($this->client_id != null){
-            $address_id = CustomerAddress::where('customer_id', $client->id)->pluck('id')->toArray();
+            $address_id = CustomerAddress::where('customer_id', $this->client_id)->pluck('id')->toArray();
 
             $objects = $objects->whereIn('customer_address_id', $address_id);
         }
@@ -48,11 +48,29 @@ class SubscriptionsExportIndex implements FromView, ShouldAutoSize
         if($this->startFilter != null){
             $objects = $objects->whereBetween('pay_date', [$this->startFilter.' 00:00:00', $this->endFilter.' 23:59:59']);
         }     
+
         if($this->order_id != null){
-            $objects = $objects->where('order_id', $order_id);
+            $objects = $objects->where('order_id', $this->order_id);
+        }    
+
+        if($this->subscription_id != null){
+            $objects = $objects->where('subscription_id', $this->subscription_id);
         }    
         
         $objects = $objects->whereNotNull('subscription_id')->where('active',1)->orderBy('pay_date', 'desc')->get();
+
+        foreach($objects as $object){
+            $last_subscription = SubscriptionsOrdersItem::where('subscription_id', $object->subscription_id)->latest()->orderBy('pay_date', 'desc')->first();
+            if($last_subscription->period == "3 y 4"){
+                $object['month_period'] = "4 meses";
+            } else if ($last_subscription->period == "5 y 6"){
+                $object['month_period'] = "6 meses";
+            } else if ($last_subscription->period == "11, 12 y 13"){
+                $object['month_period'] = "12 meses";
+            } else {
+                $object['month_period'] = "-";
+            }
+        }
 
         return view('intranet.exports.subscriptions')->with('objects', $objects);
     }

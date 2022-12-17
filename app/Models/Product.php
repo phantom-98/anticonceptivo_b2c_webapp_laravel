@@ -40,7 +40,8 @@ class Product extends Model
         'recipe_type',
         'state_of_matter',
         'position',
-        'is_indexable'
+        'is_indexable',
+        'days_protection'
     ];
 
     protected $appends = ['images', 'format_compound', 'subscriptions_count', 'subscriptions_items'];

@@ -163,17 +163,17 @@
 <body style="width:100%;background:#f5f5f5;overflow-x: hidden;">
 <div class="container">
     <div class="card">
-        <div class="card-header bg-primary">
-            <img style="" src="https://anticonceptivo.cl/themes/web/assets/images/logo-full.png"/>
-            
+        <div class="card-header bg-primary" style="width:35%">
+            <img style="" style="width:100%" src="https://anticonceptivo.cl/themes/web/assets/images/logo-full.png"/>
         </div>
+        @if(trim($__env->yieldContent('header')))
+        <div class="card-header bg-primary" style="width:63%">
+            <h3>
+                @yield('header')
+            </h3>
+        </div>
+        @endif
         <div class="card-body">
-            @if(trim($__env->yieldContent('header')))
-                <h2 class="text-primary text-center">
-                    @yield('header')
-                </h2>
-                <div style="border-bottom:1px solid #f5f5f5"></div>
-            @endif
             <div class="content">
                 @yield('content')
             </div>

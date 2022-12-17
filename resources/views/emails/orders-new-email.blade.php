@@ -2,7 +2,7 @@
 @section('header', 'Confirmación del Pedido #'.$order->id)
 
 @section('content')
-    <div class="titulo" style="font-size: 14px !important">Estimado/a {{ ucwords(mb_strtolower($order->customer->first_name, 'UTF-8')) }}:
+    <div class="titulo" style="font-size: 16px !important">Hola {{ ucwords(mb_strtolower($order->customer->first_name, 'UTF-8')) }}:
     </div>
     <div class="mensaje">
         <p>
@@ -15,19 +15,20 @@
         <p style="margin-bottom: 20px; width:48%; display:inline-grid">
             <span class="bold">Recibirás tu pedido</span>
             @if($order->label_dispatch == "Entrega inmediata")
-            <span style="margin-top:8px" class="is-immediate-label">Entrega inmediata</span>
+            <img src="https://anticonceptivo.cl/images/arrives-today-blue.png">&nbsp;&nbsp;<span style="margin-top:8px" class="is-immediate-label">Entrega inmediata</span>
             @elseif($order->label_dispatch == "Te llega hoy")
-            <span style="margin-top:8px" class="is-today-label">Te llega Hoy</span>
+            <img src="https://anticonceptivo.cl/images/arrives-today-blue.png">&nbsp;&nbsp;<span style="margin-top:8px" class="is-today-label">Te llega Hoy</span>
             @elseif($order->label_dispatch == "Te llega mañana")
-            <span style="margin-top:8px" class="is-tomorrow-label">Te llega Mañana</span>
+            <img src="https://anticonceptivo.cl/images/arrives-tomorrow-green.png">&nbsp;&nbsp;<span style="margin-top:8px" class="is-tomorrow-label">Te llega Mañana</span>
             @elseif($order->label_dispatch == "Llega en 48H")
-            <span style="margin-top:8px" class="is-after-tomorrow-label">En 48 horas</span>
+            <img src="https://anticonceptivo.cl/images/arrives-tomorrow-green.png">&nbsp;&nbsp;<span style="margin-top:8px" class="is-after-tomorrow-label">En 48 horas</span>
             @elseif($order->label_dispatch == "Llega el Lunes")
-            <span style="margin-top:8px" class="is-after-tomorrow-label">El Lunes</span>
+            <img src="https://anticonceptivo.cl/images/arrives-tomorrow-green.png">&nbsp;&nbsp;<span style="margin-top:8px" class="is-after-tomorrow-label">El Lunes</span>
             @endif
             <br/>
 
         </p>
+
         <p style="margin-bottom: 20px; width:48%; display:inline-grid">
             <span class="bold">Enviar a:</span>
             <span style="margin-top:8px">
@@ -69,27 +70,47 @@
             <br/>
         </p>
 
+        <table width="100%" cellspacing="0" cellpadding="0" style="margin-bottom: 15px;">
+            <tr>
+                <td>
+                    <table cellspacing="0" cellpadding="0">
+                        <tr>
+                            <td class="button" style="background:#0869a6">
+                                <a class="link" href="https://anticonceptivo.cl/mi-cuenta/historial-compras" target="_blank">
+                                    Ver detalle del pedido             
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <br/>
         <p style="margin-bottom: 5px; width:100%; display:inline-grid">
-            <span style="margin-bottom: 15px;">
-                Puedes encontrar un mayor detalle de tu compra <a style="text-decoration: underline" href="https://anticonceptivo.cl/mi-cuenta/historial-compras" target="_BLANK">aquí</a>.
-            </span>
             @if($product)
-            <br/>
             <span style="margin-bottom: 15px;">
-                Notamos compraste {{$product}} y no era el precio más bajo. Accede a precios bajos en suscripción hasta ${{number_format($price, 0, ',','.')}}. Más información <a style="text-decoration: underline" href="https://anticonceptivo.cl/blog/tendencia/post/como-funciona-una-suscripcion-en-anticonceptivocl" target="_BLANK">aquí</a>.
+                Notamos compraste <b>{{$product}}</b> y no era el precio más bajo. Accede siempre a precios bajos en suscripción a ${{number_format($price, 0, ',','.')}}. 
+                <br/><br/>
+                <center>Accede al precio rebajado <a style="text-decoration: underline" href="https://anticonceptivo.cl/producto/{{$producto_slug}}" target="_BLANK">aquí</a>.</center>
+                <center>Más información de planes <a style="text-decoration: underline" href="https://anticonceptivo.cl/blog/tendencia/post/como-funciona-una-suscripcion-en-anticonceptivocl" target="_BLANK">aquí</a>.</center>
+            </span>
+            @else 
+            <span style="margin-bottom: 15px;">
+                <center>Encuentra precios siempre bajos, más información de planes <a style="text-decoration: underline" href="https://anticonceptivo.cl/blog/tendencia/post/como-funciona-una-suscripcion-en-anticonceptivocl" target="_BLANK">aquí</a>.</center>
             </span>
             @endif
-            @if($order->voucher_pdf)
             <br/>
-            <span style="margin-top:10px">
-                <a href="{{$order->voucher_pdf}}" target="_blank">Descarga tu boleta aquí</a>
-            </span>
-            <br/>
-            @endif
-            <span style="margin-top:30px;margin-bottom: 5px;">
+            <span style="margin-bottom:15px;">
                 Esperamos volver a verte pronto. 
             </span>
+            @if($order->voucher_pdf)
+            <br/><br/>
             <span>
+                <a href="{{$order->voucher_pdf}}" target="_blank">Descarga tu boleta aquí</a>
+            </span>
+            <br/><br/><br/>
+            @endif
+            <span style="margin-top:20px;margin-bottom: 5px;">
                 Equipo <a style="text-decoration: underline" href="https://anticonceptivo.cl/" target="_BLANK">anticonceptivo.cl</a>
             </span>
 

@@ -39,7 +39,7 @@ if (! function_exists('get_suscriptions_tomorrow')) {
     {
         $initial_date = Carbon::today()->format('Y-m-d');
         $end_date = Carbon::today()->addDays(2)->format('Y-m-d');
-        return SubscriptionsOrdersItem::with('order_parent')->whereHas('order_parent', function ($q) {
+        return SubscriptionsOrdersItem::with('order_item.product')->whereHas('order_parent', function ($q) {
             $q->whereNotIn('status', ['REJECTED', 'CREATED']);
         })->whereBetween('pay_date', [$initial_date.' 00:00:00', $end_date.' 23:59:59'])->whereNotNull('subscription_id')->where('active',1)->get();
     }

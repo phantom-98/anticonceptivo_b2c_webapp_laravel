@@ -39,10 +39,43 @@ class SubscriptionController extends GlobalController
 
     public function index(Request $request)
     {
+        $order = Order::with('customer','order_items.subscription_plan', 'order_items.product.plans.subscription_plan')->where('id',6001)->get()->first();
+        $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
+
+        $product = null;
+        $price = null;
+
+        foreach($order->order_items as $object){
+            if(count($object->product->plans) > 0){
+                $product = $object->product->name;
+                $producto_slug = $object->product->slug;
+                $price = $object->product->plans->min('price');
+                break;
+            }
+        }
+
+        // Envio al cliente
+        $html = view('emails.orders-new-email', ['order' => $order, 'type' => 'compra', 'nombre' => 'Equipo Anticonceptivo', 'product' => $product, 'producto_slug' => $producto_slug,'price' => $price])->render();
+
+        $email = new \SendGrid\Mail\Mail();
+
+        $email->setFrom("info@anticonceptivo.cl", 'anticonceptivo.cl');
+        $email->setSubject('Confirmación del Pedido #' . $order->id);
+        $email->addTo('fpenailillo@innovaweb.cl', $order->customer->first_name);
+        // $email->addTo("victor.araya.del@gmail.com", 'Pedido');
+
+        $email->addContent(
+            "text/html", $html
+        );
+
+
+        $sendgrid->send($email);
+
+
         $objects = SubscriptionsOrdersItem::whereHas('order_parent', function ($q) {
             $q->whereNotIn('status', ['REJECTED', 'CREATED']);
         })
-        ->with(['order', 'order.order_items', 'customer_address.customer', 'subscription', 'order.prescriptions', 'order_parent.order_items']);
+        ->with(['order', 'order_item.product', 'order.order_items', 'customer_address.customer', 'subscription', 'order.prescriptions', 'order_parent.order_items']);
 
         $clients = Customer::get();
 
@@ -109,6 +142,19 @@ class SubscriptionController extends GlobalController
         $appends['date'] = $date;
 
         //return $objects;
+
+        foreach($objects as $object){
+            $last_subscription = SubscriptionsOrdersItem::where('subscription_id', $object->subscription_id)->latest()->orderBy('pay_date', 'desc')->first();
+            if($last_subscription->period == "3 y 4"){
+                $object['month_period'] = "4 meses";
+            } else if ($last_subscription->period == "5 y 6"){
+                $object['month_period'] = "6 meses";
+            } else if ($last_subscription->period == "11, 12 y 13"){
+                $object['month_period'] = "12 meses";
+            } else {
+                $object['month_period'] = "-";
+            }
+        }
         
         return view($this->folder . 'index', compact('objects', 'date', 'start', 'end', 'clients', 'client_id', 'nameClient', 'id', 'status', 'subscription_id'));
     }
@@ -134,7 +180,7 @@ class SubscriptionController extends GlobalController
         $appends = [];
 
         $start = Carbon::now()->subYears(1)->startOfMonth()->format('Y-m-d');
-        $end = Carbon::now()->addMonths(3)->endOfMonth()->format('Y-m-d');
+        $end = Carbon::now()->addMonths(12)->endOfMonth()->format('Y-m-d');
 
         if ($date) {
             if (strpos($date, "-")) {
@@ -185,6 +231,19 @@ class SubscriptionController extends GlobalController
 
         $objects = $objects->whereNotNull('subscription_id')->whereBetween('pay_date', [$start.' 00:00:00', $end.' 23:59:59'])->where('active',1)->orderBy('pay_date', 'desc')->get();
         $appends['date'] = $date;
+
+        foreach($objects as $object){
+            $last_subscription = SubscriptionsOrdersItem::where('subscription_id', $object->subscription_id)->latest()->orderBy('pay_date', 'desc')->first();
+            if($last_subscription->period == "3 y 4"){
+                $object['month_period'] = "4 meses";
+            } else if ($last_subscription->period == "5 y 6"){
+                $object['month_period'] = "6 meses";
+            } else if ($last_subscription->period == "11, 12 y 13"){
+                $object['month_period'] = "12 meses";
+            } else {
+                $object['month_period'] = "-";
+            }
+        }
 
         //return $objects;
         

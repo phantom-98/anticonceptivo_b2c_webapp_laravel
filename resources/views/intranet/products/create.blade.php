@@ -299,6 +299,13 @@
                                         </select>
                                     </div>
                                 </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="days_protection">Días de Protección</label>
+                                        <input type="number" name="days_protection" id="days_protection" class="form-control"
+                                        oninput="checkKeyByClass(this)" value="{{ old('days_protection') }}">
+                                    </div>
+                                </div>
                                 <div class="clearfix"></div>
 
                             </div>
