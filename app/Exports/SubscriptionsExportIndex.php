@@ -29,7 +29,7 @@ class SubscriptionsExportIndex implements FromView, ShouldAutoSize
         $objects = SubscriptionsOrdersItem::whereHas('order_parent', function ($q) {
             $q->whereNotIn('status', ['REJECTED', 'CREATED']);
         })
-        ->with(['order', 'order.order_items', 'customer_address.customer', 'subscription', 'order.prescriptions', 'order_parent.order_items','order_item.product']);
+        ->with(['order', 'order.order_items', 'customer_address.customer', 'subscription', 'order.prescriptions', 'order_parent.order_items','order_item.product.subcategory.category']);
 
         $status = $this->status;
 

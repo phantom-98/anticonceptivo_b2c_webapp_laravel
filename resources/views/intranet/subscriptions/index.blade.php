@@ -149,6 +149,7 @@
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Producto(s)</th>
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Producto(s) Suscripción</th>
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Laboratorio(s)</th>
+                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Categoría(s)</th>
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Subcategoría(s)</th>
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Nombre Cliente</th>
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">RUT Cliente</th>
@@ -239,6 +240,26 @@
                                         @endif
                                         @php
                                             array_push($laboratory_array, $item->product->laboratory->name);
+                                        @endphp
+                                    @empty
+                                        -
+                                    @endforelse
+                                </td>
+                                @else 
+                                <td>-</td>
+                                @endif
+
+                                @if($object->order_parent)
+                                <td>
+                                    @php
+                                        $category_array = [];
+                                    @endphp
+                                    @forelse ($object->order_parent->order_items as $item)
+                                        @if(!in_array($item->product->subcategory->category->name, $category_array))
+                                            {{ $item->product->subcategory->category->name }}<br/>
+                                        @endif
+                                        @php
+                                            array_push($category_array, $item->product->subcategory->category->name);
                                         @endphp
                                     @empty
                                         -
