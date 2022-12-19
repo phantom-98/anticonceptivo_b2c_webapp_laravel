@@ -12,6 +12,7 @@
             <th>Producto Suscripción</th>
             <th>Laboratorio Suscripción</th>
             <th>Producto(s)</th>
+            <th>Laboratorio(s)</th>
             <th>Categoría(s)</th>
             <th>Subcategoría(s)</th>
             <th>Nombre Cliente</th>
