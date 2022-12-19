@@ -34,7 +34,6 @@
         <tr>
             <td>{{ $object->order_id != null ? '#'.$object->order_id : 'Pend. Pago'}}</td>
             <td>{{ $object->subscription_id ?? '-'}}</td>
-            <td>{{ $object->month_period }}</td>
             <td>{{ date('d-m-Y', strtotime($object->pay_date)) }}</td>
             <td>
                 <div class="label label-table" style="background: {{$object->formated_background}}; color: {{$object->formated_color}}; cursor:default">
