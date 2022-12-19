@@ -32,7 +32,7 @@
     <tbody>
         @foreach($objects as $object)
         <tr>
-            <td>{{ $object->order_id != null ? '#'.$object->order_id : 'Aún no corresponde pago'}}</td>
+            <td>{{ $object->order_id != null ? '#'.$object->order_id : 'Pend. Pago'}}</td>
             <td>{{ $object->subscription_id ?? '-'}}</td>
             <td>{{ $object->month_period }}</td>
             <td>{{ date('d-m-Y', strtotime($object->pay_date)) }}</td>
@@ -44,9 +44,9 @@
             @if($object->is_pay == 1 && $object->payment_attempt == 0)
             <td>1</td>
             @else
-            <td>{{ $object->payment_attempt == 0 ? 'Aún no corresponde pago' : $object->payment_attempt }}</td>
+            <td>{{ $object->payment_attempt == 0 ? 'Pend. Pago' : $object->payment_attempt }}</td>
             @endif
-            <td>{{ $object->is_pay == 0 ? 'Aún no corresponde pago' : $object->subscription->card_number }}</td>
+            <td>{{ $object->is_pay == 0 ? 'Pend. Pago' : $object->subscription->card_number }}</td>
             <td>{{ $object->period }}</td>
             <td>{{ $object->month_period }}</td>
             @if($object->order_parent)

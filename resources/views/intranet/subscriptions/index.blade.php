@@ -183,7 +183,7 @@
                                         </div>
                                     </td>
                                 @endif
-                                <td>{{ $object->order_id != null ? '#'.$object->order_id : 'Aún no corresponde pago'}}</td>
+                                <td>{{ $object->order_id != null ? '#'.$object->order_id : 'Pend. Pago'}}</td>
                                 <td>{{ $object->subscription_id ?? '-'}}</td>
                                 <td>{{ date('d-m-Y', strtotime($object->pay_date)) }}</td>
                                 <td>
@@ -194,11 +194,11 @@
                                 @if($object->is_pay == 1 && $object->payment_attempt == 0)
                                 <td>1</td>
                                 @elseif($object->is_pay == 0 && $object->payment_attempt == 0)
-                                <td>Aún no corresponde pago</td>
+                                <td>Pend. Pago</td>
                               @else 
                                 <td>{!! $object->payment_attempt == 1 ? $object->payment_attempt : $object->payment_attempt. ' <i style="color:#f44336;margin-left: 10px;" class="ti-alert icon-2x"></i>' !!}</td>
                                 @endif
-                                <td>{{ $object->is_pay == 0 ? 'Aún no corresponde pago' : $object->subscription->card_number }}</td>
+                                <td>{{ $object->is_pay == 0 ? 'Pend. Pago' : $object->subscription->card_number }}</td>
                                 <td>{{ $object->period }}</td>
                                 <td>{{ $object->month_period }}</td>
                                 @if($object->order_parent)
