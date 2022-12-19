@@ -146,8 +146,9 @@
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Tarjeta de Pago</th>
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Período</th>
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Plazo</th>
+                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Producto Suscripción</th>
+                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Laboratorio Suscripción</th>
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Producto(s)</th>
-                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Producto(s) Suscripción</th>
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Laboratorio(s)</th>
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Categoría(s)</th>
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Subcategoría(s)</th>
@@ -201,6 +202,27 @@
                                 <td>{{ $object->is_pay == 0 ? 'Pend. Pago' : $object->subscription->card_number }}</td>
                                 <td>{{ $object->period }}</td>
                                 <td>{{ $object->month_period }}</td>
+
+                                @if($object->order_item)
+                                <td>
+                                    @if($object->order_item->product->stock >= 2 || $object->is_pay == 1)
+                                        <span class="label label-success">{{ $object->quantity }} x {{ $object->order_item->product->name }}</span><br/><br/>
+                                    @else 
+                                        <span class="label label-danger">{{ $object->quantity }} x {{ $object->order_item->product->name }}</span><br/><br/>
+                                    @endif
+                                </td>
+                                @else 
+                                <td>-</td>
+                                @endif
+
+                                @if($object->order_item)
+                                <td>
+                                    {{ $object->order_item->product->laboratory->name }}
+                                </td>
+                                @else 
+                                <td>-</td>
+                                @endif
+
                                 @if($object->order_parent)
                                     <td>
                                         @forelse ($object->order_parent->order_items as $item)
@@ -213,18 +235,6 @@
                                             -
                                         @endforelse
                                     </td>
-                                @else 
-                                <td>-</td>
-                                @endif
-
-                                @if($object->order_item)
-                                <td>
-                                    @if($object->order_item->product->stock >= 2 || $object->is_pay == 1)
-                                        <span class="label label-success">{{ $object->quantity }} x {{ $object->order_item->product->name }}</span><br/><br/>
-                                    @else 
-                                        <span class="label label-danger">{{ $object->quantity }} x {{ $object->order_item->product->name }}</span><br/><br/>
-                                    @endif
-                                </td>
                                 @else 
                                 <td>-</td>
                                 @endif

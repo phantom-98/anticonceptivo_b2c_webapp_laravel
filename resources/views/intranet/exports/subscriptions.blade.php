@@ -9,9 +9,9 @@
             <th>Tarjeta de Pago</th>
             <th>Período</th>
             <th>Plazo</th>
+            <th>Producto Suscripción</th>
+            <th>Laboratorio Suscripción</th>
             <th>Producto(s)</th>
-            <th>Producto(s) Suscripción</th>
-            <th>Laboratorio(s)</th>
             <th>Categoría(s)</th>
             <th>Subcategoría(s)</th>
             <th>Nombre Cliente</th>
@@ -49,6 +49,23 @@
             <td>{{ $object->is_pay == 0 ? 'Pend. Pago' : $object->subscription->card_number }}</td>
             <td>{{ $object->period }}</td>
             <td>{{ $object->month_period }}</td>
+
+            @if($object->order_item)
+            <td>
+                {{ $object->quantity }} x {{ $object->order_item->product->name }}<br/>
+            </td>
+            @else 
+            <td>-</td>
+            @endif
+
+            @if($object->order_item)
+            <td>
+                {{ $object->order_item->product->laboratory->name }}
+            </td>
+            @else 
+            <td>-</td>
+            @endif
+
             @if($object->order_parent)
             <td>
                 @forelse ($object->order_parent->order_items as $item)
@@ -60,14 +77,6 @@
                 @empty
                     -
                 @endforelse
-            </td>
-            @else 
-            <td>-</td>
-            @endif
-
-            @if($object->order_item)
-            <td>
-                {{ $object->quantity }} x {{ $object->order_item->product->name }}<br/>
             </td>
             @else 
             <td>-</td>
