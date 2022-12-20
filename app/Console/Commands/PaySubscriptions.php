@@ -223,6 +223,7 @@ class PaySubscriptions extends Command
             }
             Log::info('PaySubscriptions handle end');
             DB::commit();
+            // DB::rollBack();
         } catch (\Exception $ex) {
             DB::rollBack();
             Log::error('PaySubscriptions handle error: ' . $ex->getMessage());

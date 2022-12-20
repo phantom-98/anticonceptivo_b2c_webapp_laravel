@@ -52,13 +52,12 @@ class ProfileController extends Controller
             }
 
             // CAMBIAR A WHERE IN PARA AGREGAR MÁS REGIONES
-            $regions = Region::where('id',7)->with('provinces.communes')->get();
+            $regions = Region::where('id', 7)->with('provinces.communes')->get();
 
             return ApiResponse::JsonSuccess([
                 'customer' => $customer,
                 'regions' => $regions,
             ], OutputMessage::SUCCESS);
-
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, $exception->getMessage());
         }
@@ -66,9 +65,9 @@ class ProfileController extends Controller
 
     public function updateProfile(Request $request)
     {
-        try{
+        try {
 
-            $customer = Customer::where('id',$request->id)->first();
+            $customer = Customer::where('id', $request->id)->first();
 
             if (!$customer) {
                 return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_NOT_FOUND);
@@ -77,11 +76,11 @@ class ProfileController extends Controller
             $rules = [
                 'first_name' => 'required|regex:/^[a-z A-Z]+$/u',
                 'last_name' => 'required|regex:/^[a-z A-Z]+$/u',
-                'email' => 'required|email|unique:customers,email,'. $customer->id,
-                'id_number' => 'required|unique:customers,id_number,'. $customer->id,
+                'email' => 'required|email|unique:customers,email,' . $customer->id,
+                'id_number' => 'required|unique:customers,id_number,' . $customer->id,
                 'id_type' => 'required',
                 'phone_code' => 'required',
-                'phone' => 'required|unique:customers,phone,'. $customer->id,
+                'phone' => 'required|unique:customers,phone,' . $customer->id,
             ];
 
             $messages = [
@@ -135,12 +134,13 @@ class ProfileController extends Controller
                             'active',
                             'created_at',
                             'updated_at',
-                            'deleted_at'])
+                            'deleted_at'
+                        ])
                     ], OutputMessage::CUSTOMER_PROFILE_UPDATE);
-                }else{
+                } else {
                     return ApiResponse::JsonError(null, OutputMessage::CUSTOMER_PROFILE_UPDATE_ERROR);
                 }
-            }else{
+            } else {
                 return ApiResponse::JsonFieldValidation($validator->errors());
             }
         } catch (\Exception $exception) {
@@ -180,10 +180,10 @@ class ProfileController extends Controller
 
             $addresses = CustomerAddress::where('customer_id', $customer->id)->get();
 
-            $regions = Region::where('id',7)->with('provinces.communes')->get();
-            $communes = Commune::select('id','name')->get();
+            $regions = Region::where('id', 7)->with('provinces.communes')->get();
+            $communes = Commune::select('id', 'name')->get();
 
-            $delivery_cost = DeliveryCost::where('active',true)->pluck('costs');
+            $delivery_cost = DeliveryCost::where('active', true)->pluck('costs');
 
             $communes_valid = []; // name of all of valid communes
 
@@ -201,7 +201,7 @@ class ProfileController extends Controller
                     foreach ($province->communes as $key_3 => $commune) {
                         if (in_array($commune->name, $communes_valid)) {
                             $commune->is_valid = true;
-                        }else{
+                        } else {
                             $commune->is_valid = false;
                         }
                     }
@@ -213,7 +213,6 @@ class ProfileController extends Controller
                 'regions' => $regions,
                 'communes' => $communes,
             ], OutputMessage::SUCCESS);
-
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, $exception->getMessage());
         }
@@ -228,10 +227,10 @@ class ProfileController extends Controller
                 return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_NOT_FOUND);
             }
 
-            $subscription = Subscription::where('customer_id', $customer->id)->where('status','CREATED')->get();
+            $subscription = Subscription::where('customer_id', $customer->id)->where('status', 'CREATED')->get();
 
             if (isset($request->trying_to_subscribe_card) && $request->trying_to_subscribe_card == true) {
-                $card = Subscription::where('customer_id', $customer->id)->where('from','checkout')->latest()->first();
+                $card = Subscription::where('customer_id', $customer->id)->where('from', 'checkout')->latest()->first();
                 if ($card) {
                     $now = Carbon::now();
                     $past = Carbon::now()->subMinutes(10);
@@ -241,7 +240,7 @@ class ProfileController extends Controller
                                 'subscriptions' => $subscription,
                                 'card' => 'approved',
                             ], OutputMessage::SUCCESS);
-                        }else{
+                        } else {
                             return ApiResponse::JsonSuccess([
                                 'subscriptions' => $subscription,
                                 'card' => 'refused',
@@ -254,7 +253,6 @@ class ProfileController extends Controller
             return ApiResponse::JsonSuccess([
                 'subscriptions' => $subscription,
             ], OutputMessage::SUCCESS);
-
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, $exception->getMessage());
         }
@@ -277,20 +275,20 @@ class ProfileController extends Controller
 
             $subscriptionsOrdersItem = SubscriptionsOrdersItem::find($request->subscription_order_item_id);
 
-            $subscriptions_orders_items = SubscriptionsOrdersItem::where('order_id',$subscriptionsOrdersItem->order_id)
-            ->where('pay_date',$subscriptionsOrdersItem->pay_date)->get();
+            $subscriptions_orders_items = SubscriptionsOrdersItem::where('order_parent_id', $subscriptionsOrdersItem->order_parent_id)
+                ->whereDate('pay_date', '>=', Carbon::parse($subscriptionsOrdersItem->pay_date))
+                ->whereIn('status', ['CREATED', 'PAID'])
+                ->get();
 
-
-            foreach ($subscriptions_orders_items as $key => $subscriptionsOrdersItemElement) {
-
-                $subscriptionsOrdersItemElement->customer_address_id = $request->address_id;
-                $subscriptionsOrdersItemElement->commune_id = $address->commune_id;
-                $subscriptionsOrdersItemElement->delivery_address = $address->address . ' ' .$address->extra_info;
-                $subscriptionsOrdersItemElement->save();
+            foreach ($subscriptions_orders_items as $item) {
+                Log::info('item_id: ' . $item->id);
+                $item->customer_address_id = $request->address_id;
+                $item->commune_id = $address->commune_id;
+                $item->delivery_address = $address->address . ' ' . $address->extra_info;
+                $item->save();
             }
 
             return ApiResponse::JsonSuccess($subscriptions_orders_items[0], OutputMessage::SUCCESS);
-
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, $exception->getMessage());
         }
@@ -313,19 +311,18 @@ class ProfileController extends Controller
 
             $subscriptionsOrdersItem = SubscriptionsOrdersItem::with('order_item')->find($request->subscription_order_item_id);
             $productId = $subscriptionsOrdersItem->order_item->product_id;
-            $subscriptions_orders_items = SubscriptionsOrdersItem::where('order_parent_id',$subscriptionsOrdersItem->order_parent_id)
-                ->whereHas('order_item',function($q) use ($productId){
-                    $q->where('product_id',$productId);
+            $subscriptions_orders_items = SubscriptionsOrdersItem::where('order_parent_id', $subscriptionsOrdersItem->order_parent_id)
+                ->whereHas('order_item', function ($q) use ($productId) {
+                    $q->where('product_id', $productId);
                 })
-            ->get();
+                ->get();
 
             foreach ($subscriptions_orders_items as $subscriptionsOrdersItemElement) {
-                    $subscriptionsOrdersItemElement->subscription_id = $request->subscription_id;
-                    $subscriptionsOrdersItemElement->save();
+                $subscriptionsOrdersItemElement->subscription_id = $request->subscription_id;
+                $subscriptionsOrdersItemElement->save();
             }
 
             return ApiResponse::JsonSuccess($subscriptions_orders_items[0], OutputMessage::SUCCESS);
-
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, $exception->getMessage());
         }
@@ -341,8 +338,8 @@ class ProfileController extends Controller
             }
             $productId = $subscriptionsOrdersItem->order_item->product_id;
             $subscriptionsOrdersItems = SubscriptionsOrdersItem::where('order_parent_id', $subscriptionsOrdersItem->order_parent_id)
-                ->whereHas('order_item',function($q) use ($productId){
-                    $q->where('product_id',$productId);
+                ->whereHas('order_item', function ($q) use ($productId) {
+                    $q->where('product_id', $productId);
                 })
                 ->get();
             foreach ($subscriptionsOrdersItems as $item) {
@@ -350,7 +347,7 @@ class ProfileController extends Controller
                 $item->save();
             }
 
-            try{
+            try {
                 $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
 
                 $subscription = Subscription::with('customer')->find($subscriptionsOrdersItem->subscription_id);
@@ -364,7 +361,8 @@ class ProfileController extends Controller
                 $email2->addTo("contacto@anticonceptivo.cl", 'Anticonceptivo');
 
                 $email2->addContent(
-                    "text/html", $html2
+                    "text/html",
+                    $html2
                 );
 
                 $sendgrid->send($email2);
@@ -381,22 +379,19 @@ class ProfileController extends Controller
                 $email2->addTo("fpenailillo@innovaweb.cl", 'Felipe Peñailillo');
 
                 $email2->addContent(
-                    "text/html", $html2
+                    "text/html",
+                    $html2
                 );
 
                 $sendgrid->send($email2);
-
             } catch (\Exception $exception) {
-
             }
 
             return ApiResponse::JsonSuccess($subscriptionsOrdersItem, OutputMessage::SUCCESS);
-
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, $exception->getMessage());
         }
     }
-
 
     public function setDispatchDateSubscription(Request $request)
     {
@@ -409,37 +404,36 @@ class ProfileController extends Controller
 
             $subscriptionsOrdersItem = SubscriptionsOrdersItem::find($request->subscription_order_item_id);
             $subscriptions_orders_items = SubscriptionsOrdersItem::with('customer_address.commune')
-            ->where('order_id',$subscriptionsOrdersItem->order_id)
-            ->where('pay_date',$subscriptionsOrdersItem->pay_date)->get();
+                ->where('order_id', $subscriptionsOrdersItem->order_id)
+                ->where('pay_date', $subscriptionsOrdersItem->pay_date)->get();
 
-            $deliveryCosts = DeliveryCost::where('active',1)->get();
+            $deliveryCosts = DeliveryCost::where('active', 1)->get();
             $itemDeliveryCost = null;
 
             foreach ($subscriptions_orders_items as $key => $subscriptionsOrdersItemElement) {
 
-                    foreach ($deliveryCosts as $key => $deliveryCost) {
-                        $costs = json_decode($deliveryCost->costs);
-                        foreach ($costs as $key => $itemCost) {
-                            $communes = $itemCost->communes;
+                foreach ($deliveryCosts as $key => $deliveryCost) {
+                    $costs = json_decode($deliveryCost->costs);
+                    foreach ($costs as $key => $itemCost) {
+                        $communes = $itemCost->communes;
 
-                            $found_key = array_search($subscriptionsOrdersItemElement->customer_address->commune->name, $communes);
-                            if($found_key !== false){
-                                $itemDeliveryCost = $deliveryCost;
-                                $itemDeliveryCostArrayCost =$itemCost;
-                            }
+                        $found_key = array_search($subscriptionsOrdersItemElement->customer_address->commune->name, $communes);
+                        if ($found_key !== false) {
+                            $itemDeliveryCost = $deliveryCost;
+                            $itemDeliveryCostArrayCost = $itemCost;
                         }
                     }
+                }
 
-                    if(Carbon::parse($subscriptionsOrdersItemElement->pay_date)->addHours($itemDeliveryCost->deadline_delivery) >= Carbon::createFromFormat('Y-m-d', $request->dispatch_date)){
-                        return ApiResponse::JsonError(null, 'No se puede adelantar la fecha de despacho');
-                    }
+                if (Carbon::parse($subscriptionsOrdersItemElement->pay_date)->addHours($itemDeliveryCost->deadline_delivery) >= Carbon::createFromFormat('Y-m-d', $request->dispatch_date)) {
+                    return ApiResponse::JsonError(null, 'No se puede adelantar la fecha de despacho');
+                }
 
-                    $subscriptionsOrdersItemElement->dispatch_date = Carbon::createFromFormat('Y-m-d', $request->dispatch_date);
-                    $subscriptionsOrdersItemElement->save();
+                $subscriptionsOrdersItemElement->dispatch_date = Carbon::createFromFormat('Y-m-d', $request->dispatch_date);
+                $subscriptionsOrdersItemElement->save();
             }
 
             return ApiResponse::JsonSuccess($subscriptions_orders_items[0], OutputMessage::SUCCESS);
-
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, $exception->getMessage());
         }
@@ -457,17 +451,19 @@ class ProfileController extends Controller
             $subscriptionsOrdersItems = SubscriptionsOrdersItem::whereHas('order_parent', function ($q) use ($customer) {
                 $q->where('status', 'PAID')->where('customer_id', $customer->id);
             })
-                ->select('order_parent_id','name',
+                ->select(
+                    'order_parent_id',
+                    'name',
                     DB::raw('TIMESTAMPDIFF(DAY, NOW(), DATE_ADD(max(pay_date),INTERVAL max(days)+4 DAY)) AS days'),
-                DB::raw('DATE_FORMAT(DATE_ADD(max(pay_date),INTERVAL max(days) DAY),"%d de %M %Y")  as max_date'))
-                ->groupBy('name','order_parent_id')
+                    DB::raw('DATE_FORMAT(DATE_ADD(max(pay_date),INTERVAL max(days) DAY),"%d de %M %Y")  as max_date')
+                )
+                ->groupBy('name', 'order_parent_id')
                 ->get();
 
 
             return ApiResponse::JsonSuccess([
                 'active_subscriptions' => $subscriptionsOrdersItems,
             ], OutputMessage::SUCCESS);
-
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, $exception->getMessage());
         }
@@ -480,35 +476,35 @@ class ProfileController extends Controller
             if (!$customer) {
                 return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_NOT_FOUND);
             }
-            $subscriptionsOrdersItem = SubscriptionsOrdersItem::whereHas('order_parent',function($q) use ($customer){
-                    $q->where('customer_id',$customer->id)->where('is_paid', 1);
-                })
+            $subscriptionsOrdersItem = SubscriptionsOrdersItem::whereHas('order_parent', function ($q) use ($customer) {
+                $q->where('customer_id', $customer->id)->where('is_paid', 1);
+            })
                 ->whereNotNull('subscription_id')
-                ->with(['order','order_item.product','customer_address.commune','subscription','order_parent.order_items','order_item.subscription_plan'])
-                ->orderBy('order_parent_id', 'asc')->orderBy('id','asc')->orderBy('pay_date', 'asc')
+                ->with(['order', 'order_item.product', 'customer_address.commune', 'subscription', 'order_parent.order_items', 'order_item.subscription_plan'])
+                ->orderBy('order_parent_id', 'asc')->orderBy('id', 'asc')->orderBy('pay_date', 'asc')
                 ->get();
             // Log::info('test 1',[$subscriptionsOrdersItem]);
-            $deliveryCosts = DeliveryCost::where('active',1)->get();
+            $deliveryCosts = DeliveryCost::where('active', 1)->get();
             $subscriptionsOrdersItem = $subscriptionsOrdersItem->map(function ($item) use ($deliveryCosts) {
                 $productId = $item->order_item->product_id;
                 $subItemActive = SubscriptionsOrdersItem::where('order_parent_id', $item->order_parent_id)
-                ->whereHas('order_item',function($q) use ($productId){
-                    $q->where('product_id', $productId);
-                })->whereDate('dispatch_date','>=',Carbon::now())->orderBy('dispatch_date','asc')->get();
+                    ->whereHas('order_item', function ($q) use ($productId) {
+                        $q->where('product_id', $productId);
+                    })->whereDate('dispatch_date', '>=', Carbon::now())->orderBy('dispatch_date', 'asc')->get();
 
-                if(!$subItemActive || count($subItemActive) == 0){
+                if (!$subItemActive || count($subItemActive) == 0) {
                     $subItemActive = SubscriptionsOrdersItem::where('order_parent_id', $item->order_parent_id)
-                    ->whereHas('order_item',function($q) use ($productId){
-                        $q->where('product_id',$productId);
-                    })->orderBy('dispatch_date','desc')->get();
+                        ->whereHas('order_item', function ($q) use ($productId) {
+                            $q->where('product_id', $productId);
+                        })->orderBy('dispatch_date', 'desc')->get();
                 }
 
-                preg_match_all('!\d+!', $item->period, $current_advance); ;
-                preg_match_all('!\d+!', $subItemActive->sortByDesc('pay_date')->first()->period, $advance_end); ;
+                preg_match_all('!\d+!', $item->period, $current_advance);;
+                preg_match_all('!\d+!', $subItemActive->sortByDesc('pay_date')->first()->period, $advance_end);;
                 $current_advance = collect($current_advance[0])->last();
                 $advance_end = collect($advance_end[0])->last();
                 $subActive = false;
-                if($subItemActive->first()->id == $item->id){
+                if ($subItemActive->first()->id == $item->id) {
                     $subActive = true;
                 }
 
@@ -516,11 +512,11 @@ class ProfileController extends Controller
                     $costs = json_decode($deliveryCost->costs);
                     foreach ($costs as $itemCost) {
                         $communes = $itemCost->communes;
-                        if($item->customer_address){
+                        if ($item->customer_address) {
                             $found_key = array_search($item->customer_address->commune->name, $communes);
-                            if($found_key !== false){
+                            if ($found_key !== false) {
                                 $itemDeliveryCost = $deliveryCost;
-                                $itemDeliveryCostArrayCost =$itemCost;
+                                $itemDeliveryCostArrayCost = $itemCost;
                             }
                         }
                     }
@@ -529,22 +525,24 @@ class ProfileController extends Controller
                 $dispatch = isset($itemDeliveryCostArrayCost) ? $itemDeliveryCostArrayCost->price[0] : 0;
                 $total = $item->price * $item->quantity;
 
-                if(isset($itemDeliveryCost)){
+                if (isset($itemDeliveryCost)) {
                     $min_date_dispatch = Carbon::parse($item->pay_date)->addHours($itemDeliveryCost->deadline_delivery)->format('Y-m-d');
                 } else {
                     $min_date_dispatch = Carbon::now()->startOfDay()->addHours(48)->format('Y-m-d');
                 }
 
-                $productSubscriptionPlan = ProductSubscriptionPlan::with('subscription_plan')->where('subscription_plan_id',$item->order_item->subscription_plan->id)
-                    ->where('product_id',$item->order_item->product->id)->get()->first();
+                $productSubscriptionPlan = ProductSubscriptionPlan::with('subscription_plan')->where('subscription_plan_id', $item->order_item->subscription_plan->id)
+                    ->where('product_id', $item->order_item->product->id)->get()->first();
                 $productId = $item->order_item->product_id;
 
-                $cycle = SubscriptionsOrdersItem::where('order_parent_id',$item->order_parent_id)->where('name',$item->name)
-                    ->select('order_parent_id',
+                $cycle = SubscriptionsOrdersItem::where('order_parent_id', $item->order_parent_id)->where('name', $item->name)
+                    ->select(
+                        'order_parent_id',
                         DB::raw('TIMESTAMPDIFF(DAY, NOW(), DATE_ADD(max(pay_date),INTERVAL max(days)+4 DAY)) AS days'),
-                        DB::raw('DATE_FORMAT(DATE_ADD(max(pay_date),INTERVAL max(days) DAY),"%d de %M %Y")  as max_date'))
-                    ->whereHas('order_item',function($q) use ($productId){
-                        $q->where('product_id',$productId);
+                        DB::raw('DATE_FORMAT(DATE_ADD(max(pay_date),INTERVAL max(days) DAY),"%d de %M %Y")  as max_date')
+                    )
+                    ->whereHas('order_item', function ($q) use ($productId) {
+                        $q->where('product_id', $productId);
                     })
                     ->groupBy('order_parent_id')
                     ->get()->first();
@@ -564,8 +562,6 @@ class ProfileController extends Controller
             return ApiResponse::JsonSuccess([
                 'subscriptions' => $subscriptionsOrdersItem,
             ], OutputMessage::SUCCESS);
-
-
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, $exception->getMessage());
         }
@@ -604,7 +600,7 @@ class ProfileController extends Controller
                 if (!$address) {
                     $address = CustomerAddress::create($request->except(['address_id']));
 
-                    if (CustomerAddress::where('customer_id',$request->customer_id)->count() === 1) {
+                    if (CustomerAddress::where('customer_id', $request->customer_id)->count() === 1) {
                         $address->default_address = 1;
                         $address->save();
                     }
@@ -618,10 +614,10 @@ class ProfileController extends Controller
                 if ($address->update($request->except(['address_id']))) {
 
 
-                    $subscriptions_orders_items = SubscriptionsOrdersItem::where('customer_address_id', $address->id)->where('status','!=','PAID')->get();
+                    $subscriptions_orders_items = SubscriptionsOrdersItem::where('customer_address_id', $address->id)->where('status', '!=', 'PAID')->get();
 
                     foreach ($subscriptions_orders_items as $key => $subscriptionsOrdersItemElement) {
-                        $subscriptionsOrdersItemElement->delivery_address = $address->address . ' ' .$address->extra_info;;
+                        $subscriptionsOrdersItemElement->delivery_address = $address->address . ' ' . $address->extra_info;;
                         $subscriptionsOrdersItemElement->save();
                     }
 
@@ -630,10 +626,10 @@ class ProfileController extends Controller
                     return ApiResponse::JsonSuccess([
                         'addresses' => $addresses
                     ], OutputMessage::CUSTOMER_ADDRESSES_UPDATE);
-                }else{
+                } else {
                     return ApiResponse::JsonError(null, OutputMessage::CUSTOMER_ADDRESSES_UPDATE_ERROR);
                 }
-            }else{
+            } else {
                 return ApiResponse::JsonFieldValidation($validator->errors());
             }
         } catch (\Exception $exception) {
@@ -657,7 +653,7 @@ class ProfileController extends Controller
                 return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_ADDRESS_NOT_FOUND);
             }
 
-            $oldAddress = CustomerAddress::where('customer_id',$customer->id)->where('default_address',true)->first();
+            $oldAddress = CustomerAddress::where('customer_id', $customer->id)->where('default_address', true)->first();
 
             if ($oldAddress) {
                 $oldAddress->update(['default_address' => false]);
@@ -668,7 +664,6 @@ class ProfileController extends Controller
             }
 
             return ApiResponse::JsonError(null, OutputMessage::CUSTOMER_ADDRESS_UPDATE_DEFAULT_ERROR);
-
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, $exception->getMessage());
         }
@@ -686,7 +681,7 @@ class ProfileController extends Controller
 
             $subscription = Subscription::create($request->all());
 
-            if (Subscription::where('customer_id',$request->customer_id)->count() === 1) {
+            if (Subscription::where('customer_id', $request->customer_id)->count() === 1) {
                 $subscription->default_address = 1;
                 $subscription->save();
             }
@@ -696,8 +691,6 @@ class ProfileController extends Controller
             return ApiResponse::JsonSuccess([
                 'subscriptions' => $subscriptions
             ], OutputMessage::CUSTOMER_SUBSCRIPTIONS_CREATE);
-
-
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, $exception->getMessage());
         }
@@ -708,28 +701,27 @@ class ProfileController extends Controller
         try {
             $is_default = false;
 
-            $subscription = Subscription::with(['subscription_orders_items' => function($q){
+            $subscription = Subscription::with(['subscription_orders_items' => function ($q) {
                 $q->where('is_pay', false);
             }])->find($request->subscription_id);
 
             if ($subscription->subscription_orders_items->count()) {
 
-                foreach ($subscription->subscription_orders_items as $subscription_orders_item){
+                foreach ($subscription->subscription_orders_items as $subscription_orders_item) {
                     $orderItems = SubscriptionsOrdersItem::where('order_parent_id', $subscription_orders_item->order_parent_id)
                         ->whereHas('order_parent', function ($q) {
                             $q->whereNotIn('status', ['REJECTED', 'CREATED']);
                         })
-                        ->where('is_pay',false)
+                        ->where('is_pay', false)
                         ->get();
 
                     if ($orderItems->count()) {
                         return ApiResponse::JsonError(null, 'No puede dejar suscripciones activas sin una tarjeta asociada.');
                     }
                 }
-
             }
 
-            if($subscription->default_subscription == true){
+            if ($subscription->default_subscription == true) {
                 $is_default = true;
             }
 
@@ -737,20 +729,17 @@ class ProfileController extends Controller
 
             $subscription->delete();
 
-            if($is_default){
-                $subscription = Subscription::where('customer_id', $customer_id)->where('status','CREATED')->get()->first();
-                if($subscription){
+            if ($is_default) {
+                $subscription = Subscription::where('customer_id', $customer_id)->where('status', 'CREATED')->get()->first();
+                if ($subscription) {
                     $subscription->default_subscription = true;
                     $subscription->save();
                 }
-
             }
 
             return ApiResponse::JsonSuccess([
                 'subscription' => $subscription
             ], OutputMessage::CUSTOMER_SUBSCRIPTION_CARD_DELETE);
-
-
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, $exception->getMessage());
         }
@@ -772,7 +761,7 @@ class ProfileController extends Controller
                 return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_SUBSCRIPTION_NOT_FOUND);
             }
 
-            $oldSubscriptions = Subscription::where('customer_id',$customer->id)->where('default_subscription',true)->get();
+            $oldSubscriptions = Subscription::where('customer_id', $customer->id)->where('default_subscription', true)->get();
             foreach ($oldSubscriptions as $key => $oldSubscription) {
                 if ($oldSubscription) {
                     $oldSubscription->update(['default_subscription' => false]);
@@ -783,25 +772,23 @@ class ProfileController extends Controller
             }
 
             return ApiResponse::JsonError(null, OutputMessage::CUSTOMER_SUBSCRIPTION_UPDATE_DEFAULT_ERROR);
-
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, $exception->getMessage());
         }
     }
 
-
     public function repeatOrder(Request $request)
     {
         try {
 
-            $order = Order::with(['order_items.product','order_items.product.plans','order_items.subscription_plan','order_items.product.subcategory.category','order_items.product.images'])->find($request->order_id);
+            $order = Order::with(['order_items.product', 'order_items.product.plans', 'order_items.subscription_plan', 'order_items.product.subcategory.category', 'order_items.product.images'])->find($request->order_id);
 
             if (!$order) {
                 return ApiResponse::NotFound(null, "Orden no encontrada");
             }
             $order_items = $order->order_items->map(function ($item) {
 
-                $product_subscription_plan = ProductSubscriptionPlan::with('subscription_plan')->where('product_id', $item->product->id)->where('subscription_plan_id',$item->subscription_plan ? $item->subscription_plan->id : -1)->get()->first();
+                $product_subscription_plan = ProductSubscriptionPlan::with('subscription_plan')->where('product_id', $item->product->id)->where('subscription_plan_id', $item->subscription_plan ? $item->subscription_plan->id : -1)->get()->first();
                 return [
                     'quantity' => $product_subscription_plan ? 1 : $item->quantity,
                     'product_id' => $item->product->id,
@@ -812,7 +799,6 @@ class ProfileController extends Controller
             return ApiResponse::JsonSuccess([
                 'order_items' => $order_items,
             ], OutputMessage::SUCCESS);
-
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, $exception->getMessage());
         }
@@ -828,13 +814,12 @@ class ProfileController extends Controller
                 return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_NOT_FOUND);
             }
 
-            $orders = Order::where('customer_id',$customer->id)->with(['customer','order_items'])->where('is_paid', 1)
-            ->orderBy('payment_date','desc')->get();
+            $orders = Order::where('customer_id', $customer->id)->with(['customer', 'order_items'])->where('is_paid', 1)
+                ->orderBy('payment_date', 'desc')->get();
 
             return ApiResponse::JsonSuccess([
                 'orders' => $orders
             ], OutputMessage::SUCCESS);
-
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, $exception->getMessage());
         }
@@ -850,18 +835,18 @@ class ProfileController extends Controller
                 return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_NOT_FOUND);
             }
 
-            $prescriptions = Prescription::with('product')->where('customer_id',$customer->id)->get();
+            $prescriptions = Prescription::with('product')->where('customer_id', $customer->id)->get();
 
             return ApiResponse::JsonSuccess([
                 'prescriptions' => $prescriptions
             ], OutputMessage::SUCCESS);
-
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, $exception->getMessage());
         }
     }
 
-    public function getAddress(Request $request){
+    public function getAddress(Request $request)
+    {
         try {
 
             $customer = Customer::find($request->customer_id);
@@ -870,12 +855,11 @@ class ProfileController extends Controller
                 return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_NOT_FOUND);
             }
 
-            $address = CustomerAddress::where('default_address',true)->first();
+            $address = CustomerAddress::where('default_address', true)->first();
 
             return ApiResponse::JsonSuccess([
                 'address' => $address
             ], OutputMessage::SUCCESS);
-
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, $exception->getMessage());
         }
@@ -891,21 +875,25 @@ class ProfileController extends Controller
                 return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_NOT_FOUND);
             }
 
-            $address = CustomerAddress::where('customer_id',$customer->id)->where('id',$request->address_id)->first();
+            $address = CustomerAddress::where('customer_id', $customer->id)->where('id', $request->address_id)->first();
 
             if (!$address) {
                 return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_ADDRESS_NOT_FOUND);
             }
 
-            $addressValidate = SubscriptionsOrdersItem::where('customer_address_id', $request->address_id)->first();
 
-            if ($addressValidate) {
+            Log::info('Validando si la dirección está activa en una suscripción: ' . $request->address_id);
+
+            $is_address_active = SubscriptionsOrdersItem::where('customer_address_id', $request->address_id)->first();
+
+            if ($is_address_active) {
+                Log::info('No puede eliminar la dirección de una suscripción activa, cambie la dirección antes de eliminar.');
                 return ApiResponse::JsonError(null, 'No puede eliminar la dirección de una suscripción activa, cambie la dirección antes de eliminar.');
             }
 
             if ($address->delete()) {
 
-                $addresses = CustomerAddress::where('customer_id',$customer->id)->get();
+                $addresses = CustomerAddress::where('customer_id', $customer->id)->get();
 
                 return ApiResponse::JsonSuccess([
                     'addresses' => $addresses
@@ -915,7 +903,6 @@ class ProfileController extends Controller
             }
 
             return ApiResponse::JsonError(null, OutputMessage::CUSTOMER_PRESCRIPTION_DELETED_ERROR);
-
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, $exception->getMessage());
         }
@@ -931,7 +918,7 @@ class ProfileController extends Controller
                 return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_NOT_FOUND);
             }
 
-            $prescription = Prescription::where('customer_id',$customer->id)->where('id',$request->prescription_id)->first();
+            $prescription = Prescription::where('customer_id', $customer->id)->where('id', $request->prescription_id)->first();
 
             if (!$prescription) {
                 return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_PRESCRIPTION_NOT_FOUND);
@@ -939,7 +926,7 @@ class ProfileController extends Controller
 
             if ($prescription->delete()) {
 
-                $prescriptions = Prescription::where('customer_id',$customer->id)->get();
+                $prescriptions = Prescription::where('customer_id', $customer->id)->get();
 
                 return ApiResponse::JsonSuccess([
                     'prescriptions' => $prescriptions
@@ -949,14 +936,14 @@ class ProfileController extends Controller
             }
 
             return ApiResponse::JsonError(null, OutputMessage::CUSTOMER_PRESCRIPTION_DELETED_ERROR);
-
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, $exception->getMessage());
         }
     }
 
-    public function getAction(Request $request){
-        $privacyPolicy = Page::where('active',true)->where('name','Política de Privacidad')->first();
+    public function getAction(Request $request)
+    {
+        $privacyPolicy = Page::where('active', true)->where('name', 'Política de Privacidad')->first();
 
         switch ($request->action) {
             case 'CUSTOMER_SERVICE_DATA':
@@ -968,37 +955,38 @@ class ProfileController extends Controller
                     'questions' => $data['questions'],
                     'privacy_policy' => $privacyPolicy,
 
-                ],OutputMessage::SUCCESS);
+                ], OutputMessage::SUCCESS);
 
             case 'CUSTOMER_SERVICE_DATA_FOR_CONTACT':
                 $nested_field = NestedField::with(['nested_field_questions', 'children'])
-                                        ->where('active',1)
-                                        ->whereNull('parent_id')->where('section','campania')
-                                        ->where('contact_issue_id', $request->contact_issue_id)
-                                        ->get();
+                    ->where('active', 1)
+                    ->whereNull('parent_id')->where('section', 'campania')
+                    ->where('contact_issue_id', $request->contact_issue_id)
+                    ->get();
 
                 return  ApiResponse::JsonSuccess([
                     'nested_field' => $nested_field,
                     'privacy_policy' => $privacyPolicy,
 
-                ],OutputMessage::SUCCESS);
+                ], OutputMessage::SUCCESS);
         }
     }
 
-    private static function getCustomerService(){
+    private static function getCustomerService()
+    {
 
-        $data['contact_issues'] = ContactIssue::where('active',true)->where('section',ContactIssueTypes::CUSTOMER_SERVICE)
-            ->with(['fields','campaign'])->get();
-        $data['nested_fields'] = NestedField::where('active',true)->with(['nested_field_questions', 'children'])->
-            whereNull('parent_id')->where('section','campania')->get();
-        $data['list'] = NestedField::where('active',true)->with(['nested_field_questions', 'children'])->get();
+        $data['contact_issues'] = ContactIssue::where('active', true)->where('section', ContactIssueTypes::CUSTOMER_SERVICE)
+            ->with(['fields', 'campaign'])->get();
+        $data['nested_fields'] = NestedField::where('active', true)->with(['nested_field_questions', 'children'])->whereNull('parent_id')->where('section', 'campania')->get();
+        $data['list'] = NestedField::where('active', true)->with(['nested_field_questions', 'children'])->get();
 
         $data['questions'] = DynamicField::get();
 
         return $data;
     }
 
-    public function getContactResources(Request $request){
+    public function getContactResources(Request $request)
+    {
         try {
             $contact_issues = ContactIssue::whereNull('campaign_id')->with('fields_subject.children')->get();
             return ApiResponse::JsonSuccess([
@@ -1011,12 +999,12 @@ class ProfileController extends Controller
 
     public function send(Request $request)
     {
-       try {
+        try {
             // validar campos dinamicos?
 
             $rules = [
                 'message' => 'required|string|min:10|max:255',
-                'contact_accept_terms' => 'required|boolean|ends_with:'.true,
+                'contact_accept_terms' => 'required|boolean|ends_with:' . true,
             ];
 
             $messages = [
@@ -1032,10 +1020,10 @@ class ProfileController extends Controller
                 $contactIssue = ContactIssue::find($request->contact_issue_id);
 
                 if (!$contactIssue) {
-                    return ApiResponse::JsonError(null,'Ha ocurrido un error.');
+                    return ApiResponse::JsonError(null, 'Ha ocurrido un error.');
                 }
 
-                $contact = New Contact();
+                $contact = new Contact();
 
                 $contact->dynamic_fields = $request->dynamic_fields;
                 $contact->nested_fields = $request->nested_fields;
@@ -1098,7 +1086,7 @@ class ProfileController extends Controller
                     $admin_email->send(env('SENDGRID_EMAIL_TO'), $subject, $admin_body);
 
                     return ApiResponse::JsonSuccess(null, 'Hemos enviado el mensaje correctamente.');
-                }else {
+                } else {
                     Log::info('SENDGRID CONTACT FORM NO SE HA PODIDO GUARDAR EN BD');
                     return ApiResponse::JsonError(null, 'Ha ocurrido un error al enviar el mensaje por favor inténtelo de nuevo más tarde.');
                 }
@@ -1109,6 +1097,5 @@ class ProfileController extends Controller
             Log::error('SENDGRID CONTACT FORM EXCEPTION ' . $exception->getMessage());
             return ApiResponse::JsonError(null, 'Error inesperado, por favor comuníquese con un administrador.');
         }
-
     }
 }
