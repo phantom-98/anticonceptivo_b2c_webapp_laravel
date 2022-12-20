@@ -180,6 +180,15 @@
                                 @if($config['blade']['showActions'])
                                     <td>
                                         <div >
+                                            @if($object->is_pay == 0)
+                                                @push('prepend_actions_buttons' .  $object->id)
+                                                    <a onclick="editPayDate('{{$object->pay_date}}')"
+                                                    class="btn btn-sm btn-default btn-hover-info" data-toggle="tooltip"
+                                                    title="Editar Día de Pago">
+                                                        <i class="fa fa-edit"></i>
+                                                    </a>
+                                                @endpush
+                                            @endif
                                             @include('intranet.template.components._crud_html_actions_buttons')
                                         </div>
                                     </td>
@@ -382,6 +391,47 @@
         </div>
     </div>
 
+    <div class="modal fade" id="modal-edit" style="display: none;">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title-edit"></h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <br/>
+                            <form id="form" action="{{ route($config['route'] . 'index') }}"
+                            enctype="multipart/form-data"
+                            method="GET">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="date">Rango de Fecha</label>
+                                            <input type="text"
+                                                    id="date-edit"
+                                                    name="date"
+                                                    class="form-control"
+                                                    data-language="es"
+                                                    data-date-format="dd/mm/yyyy"
+                                                    data-range="false"
+                                                    autocomplete="off"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                <center>
+                                    <button type="submit" id="button" class="btn btn-success">Editar fecha</button>
+                                </center>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 @endsection
 
@@ -478,6 +528,25 @@
         $(document).ready(function(){
             $('[data-toggle="tooltip"]').tooltip();
         });
+    </script>
+
+    <script>
+        function editPayDate(date, id){
+            $('#date-edit').datepicker({
+                position: "bottom left",
+                autoClose: true,
+                clearButton: true,
+                toggleSelected: false
+            });
+            $("#date-edit").keydown(false);
+
+            var fecha_start = new Date(date);
+            $('#date-edit').datepicker().data('datepicker').selectDate([new Date(fecha_start)]);
+
+            $("#modal-edit").modal({
+                backdrop: 'static'
+            });
+        }
     </script>
 
     <script>
