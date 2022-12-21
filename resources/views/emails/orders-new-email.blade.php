@@ -33,6 +33,12 @@
             <span class="bold">Enviar a:</span>
             <span style="margin-top:8px">
                 {{ $order->delivery_address.', Región '.trim($order->region)}}@if($order->comment){!!', <b>Comentario:</b> '.$order->comments !!}@endif
+                @if($order->label_dispatch != "Entrega inmediata")
+                <br/><br/>
+                <b>Hora de Despacho:</b>
+                <br/>
+                {{ $hour_dispatch->formated_start_time }} a {{ $hour_dispatch->formated_end_time }}
+                @endif
             </span>
         </p>
 

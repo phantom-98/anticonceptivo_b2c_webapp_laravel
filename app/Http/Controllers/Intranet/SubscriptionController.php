@@ -238,8 +238,25 @@ class SubscriptionController extends GlobalController
 
     public function edit_pay_date(Request $request){
         $subscription = SubscriptionsOrdersItem::find($request->subscription_id_object);
+
+        $last_pay_date = $subscription->pay_date;
+
         $subscription->pay_date = Carbon::createFromFormat('d/m/Y', $request->date_edit)->format('Y-m-d 00:30:00');
         $subscription->save();
+        $subscription->refresh();
+
+        $diff = Carbon::parse($subscription->pay_date)->diffInDays($last_pay_date);
+
+        $other_subscriptions = SubscriptionsOrdersItem::where('id', '>', $subscription->id)->where('subscription_id', $subscription->subscription_id)->get();
+
+        foreach($other_subscriptions as $sub){
+            if(Carbon::parse($subscription->pay_date)->gt($last_pay_date)){
+                $sub->pay_date = Carbon::parse($sub->pay_date)->addDays($diff)->format('Y-m-d 00:30:00');
+            } else {
+                $sub->pay_date = Carbon::parse($sub->pay_date)->subDays($diff)->format('Y-m-d 00:30:00');
+            }
+            $sub->save();
+        }
 
         session()->flash('success', 'Suscripción editada correctamente.');
         return redirect()->back(); 
