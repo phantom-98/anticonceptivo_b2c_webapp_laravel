@@ -104,7 +104,7 @@ class ExpirationSubscriptionEmail extends Command
     
             foreach($objects as $object){
                 if(isset($object->product->plans)){
-                    $calc = ($object->product->days_protection * $object->quantity) - 5;
+                    $calc = ($object->product->days_protection * $object->quantity) - 2;
                     $date = Carbon::parse($object->created_at)->addDays($calc);
                     if($date->between(Carbon::today()->startOfDay(), Carbon::today()->endOfDay())){
                         $product = $object->product->name;
