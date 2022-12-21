@@ -52,7 +52,7 @@
             margin-top: 10px;
             font-weight: 500;
             margin-bottom: 5px;
-            padding: 5px 10px;
+            padding: 5px 10px 12px;
             width: -moz-fit-content;
             width: fit-content;
             border-radius: 6px;
@@ -66,7 +66,7 @@
             margin-top: 10px;
             font-weight: 500;
             margin-bottom: 5px;
-            padding: 5px 10px;
+            padding: 5px 10px 12px;
             width: -moz-fit-content;
             width: fit-content;
             border-radius: 6px;
@@ -80,7 +80,7 @@
             margin-top: 10px;
             font-weight: 500;
             margin-bottom: 5px;
-            padding: 5px 10px;
+            padding: 5px 10px 12px;
             width: -moz-fit-content;
             width: fit-content;
             border-radius: 6px;
