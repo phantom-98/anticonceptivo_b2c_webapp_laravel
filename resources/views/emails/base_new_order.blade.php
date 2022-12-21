@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@100;200;300;400;500;600;700;800;900&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
           rel="stylesheet">
     <title>Document</title>
 
@@ -23,7 +23,7 @@
         p,
         a {
             color: #3C3C3E;
-            font-family: 'Poppins,sans-serif;' !important;
+            font-family: 'Poppins', sans-serif !important;
             font-weight: 300;
             font-size: 14px !important;
         }
