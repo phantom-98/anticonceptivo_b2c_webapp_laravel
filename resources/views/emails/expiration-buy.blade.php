@@ -13,7 +13,6 @@
         <p>
             Esperamos volver a verte pronto.
             <br/>
-            Equipo <a style="text-decoration: underline" href="https://anticonceptivo.cl/" target="_BLANK">anticonceptivo.cl</a>
         </p>
     </div>
 

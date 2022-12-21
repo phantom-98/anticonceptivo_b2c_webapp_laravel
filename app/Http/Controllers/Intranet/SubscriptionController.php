@@ -29,7 +29,7 @@ class SubscriptionController extends GlobalController
         'pluralName' => 'Suscripciones',
         'singularName' => 'Suscripción',
         'disableActions' => ['create', 'edit', 'active', 'destroy', 'changeStatus'],
-        'enableActions' => ['search_client', 'show', 'prescription_validate', 'sendEmail', 'index_filter']
+        'enableActions' => ['search_client', 'show', 'prescription_validate', 'sendEmail', 'index_filter', 'edit_pay_date']
     ];
 
     public function __construct()
@@ -234,6 +234,15 @@ class SubscriptionController extends GlobalController
         }
 
         return view('intranet.orders.show', compact('object'));
+    }
+
+    public function edit_pay_date(Request $request){
+        $subscription = SubscriptionsOrdersItem::find($request->subscription_id_object);
+        $subscription->pay_date = Carbon::createFromFormat('d/m/Y', $request->date_edit)->format('Y-m-d 00:30:00');
+        $subscription->save();
+
+        session()->flash('success', 'Suscripción editada correctamente.');
+        return redirect()->back(); 
     }
 
     public function export(Request $request)

@@ -182,7 +182,7 @@
                                         <div >
                                             @if($object->is_pay == 0)
                                                 @push('prepend_actions_buttons' .  $object->id)
-                                                    <a onclick="editPayDate('{{$object->pay_date}}')"
+                                                    <a onclick="editPayDate('{{ date('Y-m-d', strtotime($object->pay_date)) }}', {{$object->id}})"
                                                     class="btn btn-sm btn-default btn-hover-info" data-toggle="tooltip"
                                                     title="Editar Día de Pago">
                                                         <i class="fa fa-edit"></i>
@@ -397,28 +397,30 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span></button>
-                    <h4 class="modal-title-edit"></h4>
+                    <h4 class="modal-title-edit">Actualizar Fecha de Pago Suscripción</h4>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" style="margin-bottom:40px">
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-12" style="margin-bottom:40px">
                             <br/>
-                            <form id="form" action="{{ route($config['route'] . 'index') }}"
+                            <form id="form" action="{{ route($config['route'] . 'edit_pay_date') }}"
                             enctype="multipart/form-data"
-                            method="GET">
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label for="date">Rango de Fecha</label>
+                            method="POST">
+                                @csrf
+                                <div class="row" style="margin-bottom:40px">
+                                    <div class="col-md-12" style="margin:auto;text-align:center">
+                                        <div class="form-group" style="width:300px !important;margin:auto">
+                                            <label for="date">Fecha de Pago</label>
                                             <input type="text"
                                                     id="date-edit"
-                                                    name="date"
+                                                    name="date_edit"
                                                     class="form-control"
                                                     data-language="es"
                                                     data-date-format="dd/mm/yyyy"
                                                     data-range="false"
                                                     autocomplete="off"
                                             />
+                                            <input type="hidden" id="subscription_id_object" name="subscription_id_object"/>
                                         </div>
                                     </div>
                                 </div>
@@ -456,6 +458,14 @@
         .warning-order{
             background-color: #ffb80f !important;
             color:black;
+        }
+
+        .datepicker--cell.-selected-, .datepicker--cell.-selected-.-current-, .datepicker--cell.-selected-focus-, .datepicker--cell.-focus-, .datepicker--cell.-current-focus- {
+            z-index: 150000 !important;
+        }
+
+        .datepickers-container{
+            z-index: 150000 !important;
         }
 
         @media (max-width: 768px) {
@@ -527,6 +537,7 @@
     <script>
         $(document).ready(function(){
             $('[data-toggle="tooltip"]').tooltip();
+            $('#date-edit').css('z-index',1200000);
         });
     </script>
 
@@ -541,7 +552,10 @@
             $("#date-edit").keydown(false);
 
             var fecha_start = new Date(date);
+            fecha_start.setDate(fecha_start.getDate() + 1);
             $('#date-edit').datepicker().data('datepicker').selectDate([new Date(fecha_start)]);
+
+            $("#subscription_id_object").val(id);
 
             $("#modal-edit").modal({
                 backdrop: 'static'

@@ -18,10 +18,14 @@
         h4,
         h5,
         h6,
+        div,
+        span,
+        p,
         a {
             color: #3C3C3E;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Poppins,sans-serif;' !important;
             font-weight: 300;
+            font-size: 14px !important;
         }
 
         .text-primary {
@@ -73,7 +77,7 @@
 
         body {
             display: flex;
-            font-size: 12px;
+            font-size: 14px !important;
         }
 
         .text-center {
@@ -123,14 +127,13 @@
         }
 
         p {
-            font-size: 12px;
+            font-size: 14px !important;
         }
 
         .title {
-            font-size: 19px;
+            font-size: 17px !important;
             color: #0869A6;
             font-weight: bold;
-            font-family: 'Epilogue', sans-serif;
         }
 
         .bold {
@@ -193,7 +196,7 @@
                 @yield('content')
             </div>
             <div style="border-bottom:1px solid #f5f5f5"></div>
-            <div style="padding: 10px; text-align: center; font-size: 11px;">
+            <div style="padding: 10px; text-align: center; font-size: 11px !important;">
                 Este mensaje ha sido enviado automáticamente y no necesita ser respondido.
             </div>
         </div>
@@ -205,6 +208,9 @@
                     </a>
                     <a href="https://www.instagram.com/anticonceptivo_cl/" target="_blank" style="text-decoration: none;">
                         <img style="margin: 0 5px;" src="https://anticonceptivo.cl/themes/web/assets/images/email/instagram.png"/>
+                    </a>
+                    <a href="https://www.tiktok.com/@anticonceptivo.cl" target="_blank" style="text-decoration: none;">
+                        <img style="margin: 0 5px;" src="https://dev.anticonceptivo.tienda.innovaweb.cl/themes/web/assets/images/email/tiktok.png"/>
                     </a>
                 </div>
             </div>

@@ -124,9 +124,6 @@
             <br/>
             @endif
             @endif
-            <span style="margin-top:20px;margin-bottom: 5px;">
-                Equipo <a style="text-decoration: underline; color: #15c !important;" href="https://anticonceptivo.cl/" target="_BLANK">anticonceptivo.cl</a>
-            </span>
 
             <br/>
         </p>

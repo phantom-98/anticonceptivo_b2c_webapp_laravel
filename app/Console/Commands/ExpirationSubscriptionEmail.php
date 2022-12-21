@@ -66,7 +66,7 @@ class ExpirationSubscriptionEmail extends Command
                     $price = $object->subscription_orders_items_mail->order_item->product->plans->min('price');
 
                     $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
-                    $html = view('emails.expiration-subscription', ['full_name' => $object->customer->full_name, 'price' => $price, 'product' => $product, 'producto_slug' => $producto_slug, 'period' => $period])->render();
+                    $html = view('emails.expiration-subscription', ['full_name' => $object->customer->first_name, 'price' => $price, 'product' => $product, 'producto_slug' => $producto_slug, 'period' => $period])->render();
                     $email = new \SendGrid\Mail\Mail();
                     $email->setFrom("info@anticonceptivo.cl", 'anticonceptivo.cl');
                     $email->setSubject('¡Término de Suscripción!');
@@ -86,7 +86,7 @@ class ExpirationSubscriptionEmail extends Command
                     $price = $object->subscription_orders_items_mail->order_item->product->plans->min('price');
 
                     $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
-                    $html = view('emails.expiration-subscription', ['full_name' => $object->customer->full_name, 'price' => $price, 'product' => $product, 'producto_slug' => $producto_slug, 'period' => $period])->render();
+                    $html = view('emails.expiration-subscription', ['full_name' => $object->customer->first_name, 'price' => $price, 'product' => $product, 'producto_slug' => $producto_slug, 'period' => $period])->render();
                     $email = new \SendGrid\Mail\Mail();
                     $email->setFrom("info@anticonceptivo.cl", 'anticonceptivo.cl');
                     $email->setSubject('¡Término de Suscripción!');
@@ -104,7 +104,7 @@ class ExpirationSubscriptionEmail extends Command
     
             foreach($objects as $object){
                 if(isset($object->product->plans)){
-                    $calc = ($object->product->days_protection * $object->quantity) - 2;
+                    $calc = ($object->product->days_protection * $object->quantity) - 5;
                     $date = Carbon::parse($object->created_at)->addDays($calc);
                     if($date->between(Carbon::today()->startOfDay(), Carbon::today()->endOfDay())){
                         $product = $object->product->name;
@@ -113,7 +113,7 @@ class ExpirationSubscriptionEmail extends Command
                         $cicles = $object->product->plans->last()->subscription_plan->cicles;
 
                         $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
-                        $html = view('emails.expiration-buy', ['full_name' => $object->order->customer->full_name, 'price' => $price, 'product' => $product, 'producto_slug' => $producto_slug, 'cicles' => $cicles, 'calc' => $calc])->render();
+                        $html = view('emails.expiration-buy', ['full_name' => $object->order->customer->first_name, 'price' => $price, 'product' => $product, 'producto_slug' => $producto_slug, 'cicles' => $cicles, 'calc' => $calc])->render();
                         $email = new \SendGrid\Mail\Mail();
                         $email->setFrom("info@anticonceptivo.cl", 'anticonceptivo.cl');
                         $email->setSubject('No te olvides!');
@@ -133,7 +133,7 @@ class ExpirationSubscriptionEmail extends Command
                         $cicles = $object->product->plans->last()->subscription_plan->cicles;
 
                         $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
-                        $html = view('emails.expiration-buy', ['full_name' => $object->order->customer->full_name, 'price' => $price, 'product' => $product, 'producto_slug' => $producto_slug, 'cicles' => $cicles, 'calc' => $calc])->render();
+                        $html = view('emails.expiration-buy', ['full_name' => $object->order->customer->first_name, 'price' => $price, 'product' => $product, 'producto_slug' => $producto_slug, 'cicles' => $cicles, 'calc' => $calc])->render();
                         $email = new \SendGrid\Mail\Mail();
                         $email->setFrom("info@anticonceptivo.cl", 'anticonceptivo.cl');
                         $email->setSubject('No te olvides!');
