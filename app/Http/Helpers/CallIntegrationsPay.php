@@ -275,7 +275,11 @@ class CallIntegrationsPay extends CoreHelper
         }
 
         // Envio al cliente
-        $html = view('emails.orders-new-email', ['order' => $order, 'type' => $type, 'nombre' => 'Equipo Anticonceptivo', 'product' => $product, 'price' => $price])->render();
+        $hour_dispatch = \App\Models\ProductSchedule::where('type', 'NORMAL')->first();
+
+        // Envio al cliente
+        $html = view('emails.orders-new-email', ['order' => $order, 'type' => $type, 'nombre' => 'Equipo Anticonceptivo', 'product' => $product, 'image' => $image,
+        'producto_slug' => $producto_slug,'price' => $price, 'hour_dispatch' => $hour_dispatch])->render();
 
         $email = new \SendGrid\Mail\Mail();
 
