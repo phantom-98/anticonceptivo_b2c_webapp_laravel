@@ -109,6 +109,7 @@
 
         .titulo {
             color: #06b2ce;
+            font-size: 18px !important;
         }
 
         .bg-secondary {
@@ -231,6 +232,10 @@
             .labelResponsive{
                 margin-top: 10px !important;
                 margin-right: 10px !important;
+            }
+            .titulo {
+                color: #06b2ce;
+                font-size: 13px !important;
             }
         }
     </style>

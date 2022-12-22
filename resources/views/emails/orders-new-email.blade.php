@@ -2,7 +2,7 @@
 @section('header', 'Confirmación del Pedido')
 
 @section('content')
-    <div class="titulo" style="font-size: 18px !important">Hola {{ ucwords(mb_strtolower($order->customer->first_name, 'UTF-8')) }}
+    <div class="titulo">Hola {{ ucwords(mb_strtolower($order->customer->first_name, 'UTF-8')) }}
     </div>
     <div class="mensaje">
         <p>

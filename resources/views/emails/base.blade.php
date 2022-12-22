@@ -171,10 +171,28 @@
 
         .titulo {
             color: #06b2ce;
+            font-size: 18px !important;
         }
 
         .w-25 {
             width: 20%;
+        }
+
+        @media (max-width: 500px) {
+            .tableCss{
+                width:95% !important;
+            }
+            .imgResponsive{
+                margin-top: 12px !important;
+            }
+            .labelResponsive{
+                margin-top: 10px !important;
+                margin-right: 10px !important;
+            }
+            .titulo {
+                color: #06b2ce;
+                font-size: 13px !important;
+            }
         }
     </style>
 </head>
