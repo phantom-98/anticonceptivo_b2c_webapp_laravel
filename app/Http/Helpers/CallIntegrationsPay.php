@@ -265,10 +265,14 @@ class CallIntegrationsPay extends CoreHelper
 
         $product = null;
         $price = null;
+        $producto_slug = null;
+        $image = null;
 
         foreach($order->order_items as $object){
             if(count($object->product->plans) > 0){
                 $product = $object->product->name;
+                $producto_slug = $object->product->slug;
+                $image = $object->product->product_images[0]->file;
                 $price = $object->product->plans->min('price');
                 break;
             }
