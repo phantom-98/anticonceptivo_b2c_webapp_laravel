@@ -227,6 +227,7 @@ class HomeController extends Controller
             $condomProducts = Product::with(['subcategory.category','product_images','laboratory'])
                 ->where('recipe_type','Venta Directa')
                 ->where('stock','>',0)
+                ->where('is_medicine', 0)
                 ->where('active',true)
                 ->whereHas('subcategory', function($q){
                     $q->where('category_id', 2);
@@ -248,6 +249,7 @@ class HomeController extends Controller
             $beautyProducts = Product::with(['subcategory.category','product_images','laboratory'])
                 ->where('recipe_type','Venta Directa')
                 ->where('stock','>',0)
+                ->where('is_medicine', 0)
                 ->where('active',true)
                 ->whereHas('subcategory', function($q){
                     $q->where('category_id', 7);
