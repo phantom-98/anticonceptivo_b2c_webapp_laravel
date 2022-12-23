@@ -74,6 +74,9 @@
                         <p class="mar-no">
                             <span class="pull-right text-bold">$ {{ number_format($sellMonth, 0, ',','.')}}</span> Este mes
                         </p>
+                        <p class="mar-no">
+                            <span class="pull-right text-bold">$ {{ number_format(($sellMonth / date('j')) * $last_day, 0, ',','.')}}</span> Proyección
+                        </p>
                     </div>
                     <div class="text-center">
 
@@ -100,7 +103,9 @@
                         <p class="mar-no">
                             <span class="pull-right text-bold">{{ $orderThisMonth }}</span> Este mes
                         </p>
-
+                        <p class="mar-no">
+                            <span class="pull-right text-bold">{{ number_format(($orderThisMonth / date('j')) * $last_day, 0, ',','.')}}</span> Proyección
+                        </p>
                     </div>
                     <div class="pad-top text-center">
 

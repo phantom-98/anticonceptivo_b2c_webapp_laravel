@@ -55,8 +55,10 @@ class DashboardController extends Controller
             $q->where('is_paid', 1);
         })->where('dispatch_date', '>', Carbon::now()->format('Y-m-d H:i:s'))->get()->unique('order_parent_id')->count();
 
+        $last_day = Carbon::now()->endOfMonth()->format('d');
+
         return view($this->folder . 'index', compact('orderTotals', 'orderToday', 'orderThisWeek', 'orderThisMonth', 'sellToday', 'sellWeek', 'sellMonth', 
-        'products', 'prescriptions', 'customers', 'contacts', 'contacts_open', 'claims', 'claims_open', 'subscriptions', 'total_products'));
+        'products', 'prescriptions', 'customers', 'contacts', 'contacts_open', 'claims', 'claims_open', 'subscriptions', 'total_products', 'last_day'));
     }
 
     public function categories(Request $request){
