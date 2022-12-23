@@ -100,10 +100,11 @@ class PaySubscriptions extends Command
 
                         if (!$customer_address_id) {
                             foreach ($subscriptions_orders_item as $item) {
+                                Log::info('No tiene dirección de despacho asignada', ['customer_id' => $customer->id, 'subscriptions_orders_item' => $item->id]);
                                 $order = new Order();
                                 $order->customer_id = $customer->id;
                                 $order->save();
-                                $this->handleSubscriptionsCancelV2($item, $customer, $order, 'No cuenta con una dirección de despacho asignada');
+                                $this->handleSubscriptionsCancelV2($item, $customer, $order, 'No cuenta con una dirección de despacho asignada', 'ADDRESS_NOT_FOUND');
                             }
                             continue;
                         }
@@ -141,12 +142,12 @@ class PaySubscriptions extends Command
 
                             if ($response['status'] == "success") {
                                 if ($response['response']->details[0]->status != 'AUTHORIZED') {
-                                    $this->handleSubscriptionsCancelV2($item, $customer, $order, 'Transbank no autorizó el pago');
+                                    $this->handleSubscriptionsCancelV2($item, $customer, $order, 'Transbank no autorizó el pago', 'PAYMENT');
                                 } else {
                                     $this->handleSubscriptionsPayV2($item, $customer, $order);
                                 }
                             } else {
-                                $this->handleSubscriptionsCancelV2($item, $customer, $order, 'Transbank pago rechazado');
+                                $this->handleSubscriptionsCancelV2($item, $customer, $order, 'Transbank pago rechazado', 'PAYMENT');
                             }
 
                             $dispatch = 0;
@@ -164,7 +165,7 @@ class PaySubscriptions extends Command
         Log::info('----------------------------------    NEW HANDLE     ----------------------------------');
     }
 
-    private function sendEmailPayRejectedV2(Collection $array_subscription_order_items, $customer)
+    private function sendEmailPayRejectedV2(Collection $array_subscription_order_items, $customer, $type)
     {
         if (env('APP_ENV') == 'production') {
             $stringProduct = "";
@@ -178,12 +179,17 @@ class PaySubscriptions extends Command
 
             $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
 
-            // Envio al cliente
-            $html = view('emails.pay_rejected', ['full_name' => $customer->first_name, 'id_number' => $customer->id_number, 'stringProduct' => $stringProduct])->render();
+            if ($type == 'PAYMENT') {
+                $html = view('emails.pay_rejected', ['full_name' => $customer->first_name, 'id_number' => $customer->id_number, 'stringProduct' => $stringProduct])->render();
+            }
+
+            if ($type == 'ADDRESS_NOT_FOUND') {
+                $html = view('emails.pay_rejected_address_not_found', ['full_name' => $customer->first_name, 'id_number' => $customer->id_number, 'stringProduct' => $stringProduct])->render();
+            }
 
             $email = new \SendGrid\Mail\Mail();
             $email->setFrom("info@anticonceptivo.cl", 'anticonceptivo.cl');
-            $email->setSubject('Actualizar el método de pago suscripción');
+            $email->setSubject($type == 'PAYMENT' ? 'Actualizar el método de pago suscripción' : 'No tiene dirección de despacho asignada');
             $email->addTo($customer->email, $customer->first_name);
             $email->addContent(
                 "text/html",
@@ -195,7 +201,7 @@ class PaySubscriptions extends Command
             $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
             $email = new \SendGrid\Mail\Mail();
             $email->setFrom("info@anticonceptivo.cl", 'anticonceptivo.cl');
-            $email->setSubject('Actualizar el método de pago suscripción');
+            $email->setSubject($type == 'PAYMENT' ? 'Actualizar el método de pago suscripción' : 'No tiene dirección de despacho asignada');
             $email->addTo('fpenailillo@innovaweb.cl', 'Felipe');
             $email->addContent(
                 "text/html",
@@ -204,14 +210,13 @@ class PaySubscriptions extends Command
 
             $sendgrid->send($email);
 
-
             $users = User::where('id', '!=', 1)->get();
+
             foreach ($users as $user) {
                 $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
-                $html = view('emails.pay_rejected', ['full_name' => $customer->first_name, 'id_number' => $customer->id_number, 'stringProduct' => $stringProduct])->render();
                 $email = new \SendGrid\Mail\Mail();
                 $email->setFrom("info@anticonceptivo.cl", 'anticonceptivo.cl');
-                $email->setSubject('Actualizar el método de pago suscripción');
+                $email->setSubject($type == 'PAYMENT' ? 'Actualizar el método de pago suscripción' : 'No tiene dirección de despacho asignada');
                 $email->addTo($user->email, $user->first_name);
                 $email->addContent(
                     "text/html",
@@ -222,14 +227,14 @@ class PaySubscriptions extends Command
         }
     }
 
-    private function handleSubscriptionsCancelV2($sub_order_item, $customer, $order, $error_message = 'Suscripción Transbank Fallida')
+    private function handleSubscriptionsCancelV2($sub_order_item, $customer, $order, $error_message = 'Suscripción Transbank Fallida', $type)
     {
         try {
             $sub_order_item->status = 'REJECTED';
             $sub_order_item->payment_attempt = $sub_order_item->payment_attempt + 1;
 
             if ($sub_order_item->payment_attempt == 3 || $sub_order_item->payment_attempt == 6 || $sub_order_item->payment_attempt == 9) {
-                $this->sendEmailPayRejectedV2($sub_order_item, $customer);
+                $this->sendEmailPayRejectedV2($sub_order_item, $customer, $type);
             }
 
             if ($sub_order_item->payment_attempt == 10) {
