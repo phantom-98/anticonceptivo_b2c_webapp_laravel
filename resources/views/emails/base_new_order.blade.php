@@ -237,6 +237,21 @@
                 color: #06b2ce;
                 font-size: 13px !important;
             }
+
+            .is-immediate-label {
+                font-size: 12px !important;
+            }
+
+            .is-today-label {
+                font-size: 12px !important;
+            }
+
+            .is-tomorrow-label {
+                font-size: 12px !important;
+            }
+            .is-after-tomorrow-label {
+                font-size: 12px !important;
+            }
         }
     </style>
 </head>
