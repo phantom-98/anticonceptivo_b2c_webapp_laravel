@@ -97,7 +97,7 @@
         <p style="margin-bottom: 5px; width:100%; display:inline-grid">
             @if($product)
             <span style="margin-bottom: 15px;">
-                Notamos compraste <b>{{$product}}</b> y no era el precio más bajo. Accede siempre a precios bajos en suscripción a <b>${{number_format($price, 0, ',','.')}}</b>. 
+                Notamos que compraste <b>{{$product}}</b> y no era el precio más bajo. Accede siempre a precios bajos en suscripción a <b>${{number_format($price, 0, ',','.')}}</b>. 
             </span>
             <span class="imgResponsive" style="margin-bottom: 15px;width:100%; display:inline-block">
                 <img src="{{ $image }}" style="width:35%; display:inline-block">

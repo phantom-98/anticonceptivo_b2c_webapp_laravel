@@ -109,7 +109,7 @@
 
         .titulo {
             color: #06b2ce;
-            font-size: 18px !important;
+            font-size: 18px;
         }
 
         .bg-secondary {
@@ -235,22 +235,22 @@
             }
             .titulo {
                 color: #06b2ce;
-                font-size: 13px !important;
+                font-size: 10px !important;
             }
 
             .is-immediate-label {
-                font-size: 12px !important;
+                font-size: 10px !important;
             }
 
             .is-today-label {
-                font-size: 12px !important;
+                font-size: 10px !important;
             }
 
             .is-tomorrow-label {
-                font-size: 12px !important;
+                font-size: 10px !important;
             }
             .is-after-tomorrow-label {
-                font-size: 12px !important;
+                font-size: 10px !important;
             }
         }
     </style>
