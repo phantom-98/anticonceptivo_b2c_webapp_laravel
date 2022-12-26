@@ -52,6 +52,7 @@ if (env('SHOW_INTRANET', 'TRUE') == 'TRUE') {
 
                 Route::get('/get-categories', 'DashboardController@categories')->name('dashboard.categories');
                 Route::get('/get-laboratories', 'DashboardController@laboratories')->name('dashboard.laboratories');
+                Route::get('/get-laboratories-subscriptions', 'DashboardController@laboratories_subscriptions')->name('dashboard.laboratories_subscriptions');
                 Route::get('/get-subscriptions', 'DashboardController@subscriptions')->name('dashboard.subscriptions');
                 Route::get('/get-format', 'DashboardController@format')->name('dashboard.format');
                 Route::get('/get-prescriptions', 'DashboardController@prescriptions')->name('dashboard.prescriptions');

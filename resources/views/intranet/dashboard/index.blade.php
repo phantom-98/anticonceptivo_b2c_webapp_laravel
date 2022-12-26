@@ -278,6 +278,29 @@
             <div class="col-lg-12">
                 <div id="demo-panel-network" class="panel">
                     <div class="panel-heading">
+                        <h3 class="panel-title">Suscripciones Vendidas por Laboratorio</h3>
+                    </div>
+        
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div id="dateLaboratoriesSubs"
+                                    style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
+                                    <i class="fa fa-calendar"></i>&nbsp;
+                                    <span></span>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-caret-down"></i>
+                                </div>
+                                <br/>
+                            </div>
+                            <div class="col-lg-12">
+                                <canvas id="laboratoriesSubsChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div id="demo-panel-network" class="panel">
+                    <div class="panel-heading">
                         <h3 class="panel-title">Productos Vendidos por formato</h3>
                     </div>
         
@@ -436,6 +459,69 @@
 
 
         $('#dateLaboratories').daterangepicker({
+            startDate: start,
+            endDate: end,
+            ranges: {
+                'Hoy': [moment(), moment().add(1, 'days')],
+                'Ayer': [moment().subtract(1, 'days'), moment()],
+                'Últimos 7 días': [moment().subtract(6, 'days'), moment()],
+                'Último mes': [moment().startOf('month'), moment().endOf('month')]
+            },
+            locale: {
+                format: "DD/MM/YYYY",
+                separator: " - ",
+                applyLabel: "Aceptar",
+                cancelLabel: "Cancelar",
+                fromLabel: "Desde",
+                toLabel: "hasta",
+                customRangeLabel: "Elegir fecha",
+                daysOfWeek: [
+                    "Do",
+                    "Lu",
+                    "Ma",
+                    "Mi",
+                    "Ju",
+                    "Vi",
+                    "Sa"
+                ],
+                monthNames: [
+                    "Enero",
+                    "Febrero",
+                    "Marzo",
+                    "Abril",
+                    "Mayo",
+                    "Junio",
+                    "Julio",
+                    "Agosto",
+                    "Septiembre",
+                    "Octubre",
+                    "Noviembre",
+                    "Diciembre"
+                ],
+                "firstDay": 1
+            }
+        }, cb);
+
+        cb(start, end);
+
+    });
+
+    $(function () {
+        var end = moment();
+        var start = moment().subtract(6, 'days');
+
+        function cb(start, end) {
+            $('#dateLaboratoriesSubs span').html(start.format('DD/MM/YYYY') + '&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;' + end.format('DD/MM/YYYY'));
+            $.get('{!! route('intranet.dashboard.laboratories_subscriptions') !!}', {
+                start: start.format('YYYY-MM-DD'),
+                end: end.format('YYYY-MM-DD')
+            }).done(function (data) {
+                laboratoriesSubs(data);
+            });
+        }
+
+
+        $('#dateLaboratoriesSubs').daterangepicker({
             startDate: start,
             endDate: end,
             ranges: {
@@ -776,6 +862,105 @@
     function laboratories(data){
         $('#laboratoriesChart').replaceWith($('<canvas id="laboratoriesChart" height="80px"></canvas>'));
         var ctx = document.getElementById('laboratoriesChart');
+
+        var names = [];
+        var count = [];
+        var percentage = [];
+        var colors = [];
+
+        data.names.forEach(function (d, index) {
+            names.push(d);
+            colors.push('rgba('+random_rgba()+', 1)');
+        });
+
+        data.percentage.forEach(function (d, index) {
+            percentage.push(d);
+        });
+
+        data.count.forEach(function (d, index) {
+            count.push(d);
+        });
+
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: names,
+                datasets: [
+                    {
+                        label: 'Cantidad',
+                        data: count,
+                        backgroundColor: colors,
+                        scaleFontColor: "#000000",
+                        borderWidth: 1,
+                        yAxisID: 'left-axis'
+                    },
+                    {
+                        label: 'Porcentaje',
+                        data: percentage,
+                        backgroundColor: colors,
+                        scaleFontColor: "#000000",
+                        borderWidth: 1,
+                        yAxisID: 'right-axis'
+                    },
+                ]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    xAxes: [
+                        {
+                            display: true, 
+                            stacked:false,
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }
+                    ],
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        },
+                        type:'linear',
+                        id:'left-axis',
+                        display: true,
+                        position: 'left',
+                        stepSize: 1,
+                        scaleLabel: {display: true, labelString: '#'},
+                        userCallback: function (label, index, labels) {
+                            // when the floored value is the same as the value we have a whole number
+                            if (Math.floor(label) === label) {
+                                return label;
+                            }
+
+                        },
+                    },{
+                        type:'linear',
+                        id:'right-axis',
+                        display: true,
+                        position: 'right',
+                        ticks: {
+                            beginAtZero: true
+                        },
+                        scaleLabel: {display: true, labelString: '%'},
+                        gridLines: {drawOnChartArea:false},
+                        userCallback: function (label, index, labels) {
+                            // when the floored value is the same as the value we have a whole number
+                            if (Math.floor(label) === label) {
+                                return label;
+                            }
+
+                        },
+                    }]
+                }
+            }
+        });
+    }
+</script>
+
+<script>
+    function laboratoriesSubs(data){
+        $('#laboratoriesSubsChart').replaceWith($('<canvas id="laboratoriesSubsChart" height="80px"></canvas>'));
+        var ctx = document.getElementById('laboratoriesSubsChart');
 
         var names = [];
         var count = [];
