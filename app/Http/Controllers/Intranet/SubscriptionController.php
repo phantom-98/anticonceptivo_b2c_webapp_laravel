@@ -385,10 +385,7 @@ class SubscriptionController extends GlobalController
             }
         }
 
-        $objects2 = SubscriptionsOrdersItem::whereHas('order_parent', function ($q) {
-            $q->whereNotIn('status', ['REJECTED', 'CREATED']);
-        })
-        ->with(['order', 'order_item.product', 'order.order_items', 'customer_address.customer', 'subscription', 'order.prescriptions', 'order_parent.order_items.product.subcategory.category']);
+        $objects2 = SubscriptionsOrdersItem::with(['order', 'order_item.product', 'order.order_items', 'customer_address.customer', 'subscription', 'order.prescriptions', 'order_parent.order_items.product.subcategory.category']);
 
         if ($laboratory) {
             $products = Product::where('laboratory_id', $laboratory)->pluck('name')->toArray();
