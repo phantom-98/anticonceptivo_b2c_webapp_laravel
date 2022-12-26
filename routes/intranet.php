@@ -132,6 +132,7 @@ if (env('SHOW_INTRANET', 'TRUE') == 'TRUE') {
 
                 Route::get('suscripciones/search-client', 'SubscriptionController@search_client')->name('subscriptions.search_client');
                 Route::get('suscripciones/export', 'SubscriptionController@export')->name('subscriptions.export');
+                Route::get('suscripciones/cantidad-suscripciones', 'SubscriptionController@detail')->name('subscriptions.detail');
                 Route::get('suscripciones/detalle-suscripción/{id}', 'SubscriptionController@index_filter')->name('subscriptions.index_filter');
                 Route::post('suscripciones/editar-fecha-pago', 'SubscriptionController@edit_pay_date')->name('subscriptions.edit_pay_date');
                 Route::resource('suscripciones', 'SubscriptionController', ['names' => getResourceRoutesForNameHelper('subscriptions')]);

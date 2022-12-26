@@ -9,6 +9,7 @@ use App\Models\OrderItem;
 use App\Models\Product;
 use App\Models\Subscription;
 use App\Models\SubscriptionsOrdersItem;
+use App\Models\Laboratory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -29,7 +30,7 @@ class SubscriptionController extends GlobalController
         'pluralName' => 'Suscripciones',
         'singularName' => 'Suscripción',
         'disableActions' => ['create', 'edit', 'active', 'destroy', 'changeStatus'],
-        'enableActions' => ['search_client', 'show', 'prescription_validate', 'sendEmail', 'index_filter', 'edit_pay_date']
+        'enableActions' => ['show', 'index_filter', 'edit_pay_date', 'search_client', 'export']
     ];
 
     public function __construct()
@@ -327,6 +328,79 @@ class SubscriptionController extends GlobalController
         array_push($clients, ['id' => '999999999999999', 'text' => 'Todos']);
 
         return response()->json($clients, 200);
+    }
+
+    public function detail(Request $request){
+        $objects = SubscriptionsOrdersItem::whereHas('order_parent', function ($q) {
+            $q->whereNotIn('status', ['REJECTED', 'CREATED']);
+        })
+        ->with(['order', 'order_item.product', 'order.order_items', 'customer_address.customer', 'subscription', 'order.prescriptions', 'order_parent.order_items.product.subcategory.category']);
+
+        $laboratories = Laboratory::get();
+
+        $date = $request->date;
+        $laboratory = $request->laboratory;
+
+        $start = Carbon::now()->startOfMonth()->format('Y-m-d');
+        $end = Carbon::now()->endOfMonth()->format('Y-m-d');
+
+        if ($date) {
+            if (strpos($date, "-")) {
+                $start = substr($date, 0, strpos($date, "-"));
+                $start = str_replace(" ", "", $start);
+                $start = str_replace("/", "-", $start);
+                $start = Carbon::parse($start)->format('Y-m-d');
+                $end = substr($date, strpos($date, "-"), strlen($date));
+                $end = str_replace("- ", "", $end);
+                $end = str_replace("/", "-", $end);
+                $end = Carbon::parse($end)->format('Y-m-d');
+            } else {
+                $start = str_replace(" ", "", $date);
+                $start = str_replace("/", "-", $start);
+                $start = Carbon::parse($start)->format('Y-m-d');
+                $end = Carbon::parse($start)->format('Y-m-d');
+            }
+        }
+
+        if ($laboratory) {
+            $products = Product::where('laboratory_id', $laboratory)->pluck('name')->toArray();
+
+            $objects = $objects->whereIn('name', $products);
+        } 
+
+        $objects = $objects->whereNotNull('subscription_id')->whereBetween('pay_date', [$start.' 00:00:00', $end.' 23:59:59'])->where('active',1)->orderBy('pay_date', 'desc')->get();
+
+        $count4 = 0;
+        $count6 = 0;
+        $count12 = 0;
+
+        foreach($objects as $object){
+            $last_subscription = SubscriptionsOrdersItem::where('subscription_id', $object->subscription_id)->latest()->orderBy('pay_date', 'desc')->first();
+            if($last_subscription->period == "3 y 4"){
+                $count4++;
+            } else if ($last_subscription->period == "5 y 6"){
+                $count6++;
+            } else if ($last_subscription->period == "11, 12 y 13"){
+                $count12++;
+            }
+        }
+
+        $objects2 = SubscriptionsOrdersItem::whereHas('order_parent', function ($q) {
+            $q->whereNotIn('status', ['REJECTED', 'CREATED']);
+        })
+        ->with(['order', 'order_item.product', 'order.order_items', 'customer_address.customer', 'subscription', 'order.prescriptions', 'order_parent.order_items.product.subcategory.category']);
+
+        if ($laboratory) {
+            $products = Product::where('laboratory_id', $laboratory)->pluck('name')->toArray();
+
+            $objects2 = $objects2->whereIn('name', $products);
+        } 
+
+        $objects2 = $objects2->where('status', 'REJECTED')->whereNotNull('subscription_id')->whereBetween('pay_date', [$start.' 00:00:00', $end.' 23:59:59'])->orderBy('pay_date', 'desc')->get();
+
+        $countCancel = $objects2->count();
+        
+        return view($this->folder . 'detail', compact('objects', 'date', 'start', 'end', 'laboratory', 'laboratories', 'count4', 'count6', 'count12', 'countCancel'));
     }
 
 
