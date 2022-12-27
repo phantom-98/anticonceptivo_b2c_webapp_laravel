@@ -70,7 +70,7 @@ class ExpirationSubscriptionEmail extends Command
                     $email = new \SendGrid\Mail\Mail();
                     $email->setFrom("info@anticonceptivo.cl", 'anticonceptivo.cl');
                     $email->setSubject('¡Término de Suscripción!');
-                    $email->addTo('fpenailillo@innovaweb.cl', $object->customer->full_name);
+                    $email->addTo($object->customer->email, $object->customer->full_name);
                     $email->addContent(
                         "text/html", $html
                     );
@@ -90,7 +90,7 @@ class ExpirationSubscriptionEmail extends Command
                     $email = new \SendGrid\Mail\Mail();
                     $email->setFrom("info@anticonceptivo.cl", 'anticonceptivo.cl');
                     $email->setSubject('¡Término de Suscripción!');
-                    $email->addTo('fpenailillo@innovaweb.cl', $object->customer->full_name);
+                    $email->addTo($object->customer->email, $object->customer->full_name);
                     $email->addContent(
                         "text/html", $html
                     );
@@ -117,7 +117,7 @@ class ExpirationSubscriptionEmail extends Command
                         $email = new \SendGrid\Mail\Mail();
                         $email->setFrom("info@anticonceptivo.cl", 'anticonceptivo.cl');
                         $email->setSubject('No te olvides!');
-                        $email->addTo('fpenailillo@innovaweb.cl', $object->order->customer->full_name);
+                        $email->addTo($object->order->customer->email, $object->order->customer->full_name);
                         $email->addContent(
                             "text/html", $html
                         );
@@ -137,7 +137,7 @@ class ExpirationSubscriptionEmail extends Command
                         $email = new \SendGrid\Mail\Mail();
                         $email->setFrom("info@anticonceptivo.cl", 'anticonceptivo.cl');
                         $email->setSubject('No te olvides!');
-                        $email->addTo('fpenailillo@innovaweb.cl', $object->order->customer->full_name);
+                        $email->addTo($object->order->customer->email, $object->order->customer->full_name);
                         $email->addContent(
                             "text/html", $html
                         );

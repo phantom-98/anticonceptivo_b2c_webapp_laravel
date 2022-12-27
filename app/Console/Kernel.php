@@ -31,7 +31,7 @@ class Kernel extends ConsoleKernel
         //$schedule->command('command:voucherPaymentDays')->dailyAt('00:01');
         $schedule->command('command:updateStock')->everyThreeMinutes();
         //$schedule->command('command:paySubscriptions')->dailyAt('00:30');
-        $schedule->command('command:updateStateDispatch')->everyFiveMinutes();
+        //$schedule->command('command:updateStateDispatch')->everyFiveMinutes();
         $schedule->command('command:sitemap')->dailyAt('01:00');
         $schedule->command('command:expiration-subscription-email')->dailyAt('10:00');
     }
