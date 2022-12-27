@@ -233,11 +233,6 @@
                 margin-top: 10px !important;
                 margin-right: 10px !important;
             }
-            .titulo {
-                color: #06b2ce;
-                font-size: 10px !important;
-            }
-
             .is-immediate-label {
                 font-size: 10px !important;
             }
@@ -252,6 +247,9 @@
             .is-after-tomorrow-label {
                 font-size: 10px !important;
             }
+            #titulo-correo{
+                font-size: 11px !important;
+            }
         }
     </style>
 </head>
@@ -263,7 +261,7 @@
                 <img style="width:100%" src="https://anticonceptivo.cl/themes/web/assets/images/logo-full.png"/>
             </div>
             @if(trim($__env->yieldContent('header')))
-            <div class="flex-top" style="font-size: 19px !important;margin:auto">
+            <div id="titulo-correo" class="flex-top" style="font-size: 19px;margin:auto">
                 @yield('header')
             </div>
             @endif

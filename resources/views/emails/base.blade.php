@@ -182,16 +182,15 @@
             .tableCss{
                 width:95% !important;
             }
+            #titulo-correo{
+                font-size: 11px !important;
+            }
             .imgResponsive{
                 margin-top: 12px !important;
             }
             .labelResponsive{
                 margin-top: 10px !important;
                 margin-right: 10px !important;
-            }
-            .titulo {
-                color: #06b2ce;
-                font-size: 13px !important;
             }
         }
     </style>
@@ -204,7 +203,7 @@
                 <img style="width:100%" src="https://anticonceptivo.cl/themes/web/assets/images/logo-full.png"/>
             </div>
             @if(trim($__env->yieldContent('header')))
-            <div class="flex-top" style="font-size: 19px !important;margin:auto">
+            <div id="titulo-correo" class="flex-top" style="font-size: 19px;margin:auto">
                 @yield('header')
             </div>
             @endif
