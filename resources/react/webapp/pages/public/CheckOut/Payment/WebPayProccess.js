@@ -1,7 +1,7 @@
-import React, {useState, useContext, Fragment} from 'react';
+import React, { useState, useContext, Fragment } from 'react';
 import * as Services from "../../../../Services";
-import {AuthContext} from "../../../../context/AuthProvider";
-import {CartContext} from "../../../../context/CartProvider";
+import { AuthContext } from "../../../../context/AuthProvider";
+import { CartContext } from "../../../../context/CartProvider";
 import WaitingPayment from "./WaitingPayment";
 import Swal from 'sweetalert2'
 import PUBLIC_ROUTES from "../../../../routes/publicRoutes";
@@ -9,10 +9,8 @@ import PUBLIC_ROUTES from "../../../../routes/publicRoutes";
 const WebPayProccess = ({
     data,
     address,
-    subscription, subscriptionId,
-    setFinishWebpayProccess,
-    setWebpayProccessSuccess,
-    setOrderId,
+    subscription,
+    subscriptionId,
     total,
     subtotal,
     dispatch,
@@ -20,11 +18,14 @@ const WebPayProccess = ({
     discountType,
     discountCode,
     installment,
-    customerId, prescriptionRadio, withoutPrescriptionAnswer,files
+    customerId,
+    prescriptionRadio,
+    withoutPrescriptionAnswer,
+    files
 }) => {
 
-    const {auth} = useContext(AuthContext);
-    const {cartItems, clearCart} = useContext(CartContext);
+    const { auth } = useContext(AuthContext);
+    const { cartItems, clearCart } = useContext(CartContext);
     // const [totalCart, setTotalCart] = useState(0);
     const [showingWaitingPayment, setShowingWaitingPayment] = useState(false);
 
@@ -52,7 +53,7 @@ const WebPayProccess = ({
 
         let selectedSubscription = null;
         subscription.map(element => {
-            if(element.id === subscriptionId){
+            if (element.id === subscriptionId) {
                 selectedSubscription = element;
             }
             if (selectedSubscription === null && element.default_subscription) {
@@ -75,7 +76,7 @@ const WebPayProccess = ({
             discountCode: discountCode,
             installment: installment,
             cartItems: JSON.stringify(cartItems),
-            urlFinish : window.location.href + PUBLIC_ROUTES.CHECKOUT_VERIFY.path
+            urlFinish: window.location.href + PUBLIC_ROUTES.CHECKOUT_VERIFY.path
         }
 
         const formData = new FormData();
@@ -88,7 +89,7 @@ const WebPayProccess = ({
 
         let fileList = [...files]
 
-        for(let i=0; i < fileList.length; i++){
+        for (let i = 0; i < fileList.length; i++) {
             formData.append('attachments[]', fileList[i]);
             formData.append('productIds[]', fileList[i].product_id);
         }
@@ -142,10 +143,6 @@ const WebPayProccess = ({
                                 title: '<span style="color: #0869A6;">' + response.message + '</span>',
                             });
                         }
-
-                        // setWebpayProccessSuccess(false);
-                        // setFinishWebpayProccess(1);
-                        // clearInterval(interval)
                     }
                 });
             })
@@ -174,7 +171,7 @@ const WebPayProccess = ({
 
     return (
         <Fragment>
-            <WaitingPayment showingWaitingPayment={showingWaitingPayment}/>
+            <WaitingPayment showingWaitingPayment={showingWaitingPayment} />
             <div className="col-md-12 pt-2">
                 <button className={`btn btn-bicolor btn-block`} disabled={showingWaitingPayment ? true : false} onClick={!showingWaitingPayment ? () => initPayment() : null}>
                     <span className="font-14 px-5">PAGAR</span>

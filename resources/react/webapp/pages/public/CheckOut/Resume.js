@@ -1,11 +1,11 @@
-import React, {Fragment, useContext, useState, useEffect} from 'react';
+import React, { Fragment, useContext, useState, useEffect } from 'react';
 import TotalCartItems from "../../../components/shopping/TotalCartItems";
-import {CONFIG} from "../../../Config";
+import { CONFIG } from "../../../Config";
 import ProductItem from "../../../components/shopping/MiniCart/ProductItem";
 import TotalCartPrice from "../../../components/shopping/TotalCartPrice";
 import logoWebpay from "../../../assets/images/webpayColor.svg";
-import {CartContext} from "../../../context/CartProvider";
-import {AuthContext} from "../../../context/AuthProvider";
+import { CartContext } from "../../../context/CartProvider";
+import { AuthContext } from "../../../context/AuthProvider";
 import TotalCartPriceFinal from "../../../components/shopping/TotalCartPriceFinal";
 import WebPayProccess from "./Payment/WebPayProccess";
 import * as Services from "../../../Services";
@@ -22,9 +22,6 @@ const Resume = ({
     address,
     subscription,
     subscriptionId,
-    setFinishWebpayProccess,
-    setWebpayProccessSuccess,
-    setOrderId,
     total,
     subtotal,
     setSubtotal,
@@ -37,17 +34,17 @@ const Resume = ({
     customerId,
     updateData,
     validateDataAddressInvite, prescriptionRadio,
-                    withoutPrescriptionAnswer
-    }) => {
+    withoutPrescriptionAnswer
+}) => {
 
-    const [dispatch , setDispatch] = useState(0);
+    const [dispatch, setDispatch] = useState(0);
     const [showResumenCart, setShowResumenCart] = useState(false)
     const [discount, setDiscount] = useState(0);
     const [discountType, setDiscountType] = useState(0);
     const [discountCode, setDiscountCode] = useState("");
 
-    const {cartItems} = useContext(CartContext);
-    const {auth} = useContext(AuthContext);
+    const { cartItems } = useContext(CartContext);
+    const { auth } = useContext(AuthContext);
 
     useEffect(() => {
         // console.log(address)
@@ -59,18 +56,18 @@ const Resume = ({
 
         Services.DoPost(url, data).then(response => {
             Services.Response({
-              response: response,
-              success: () => {
-                setDispatch(response.data.dispatch)
-                setDispatchDateObject(response.data.dateDeliveryOrder)
-              },
+                response: response,
+                success: () => {
+                    setDispatch(response.data.dispatch)
+                    setDispatchDateObject(response.data.dateDeliveryOrder)
+                },
 
             });
         }).catch(error => {
             Services.ErrorCatch(error)
         });
 
-    },[address])
+    }, [address])
 
 
     const handleDiscount = (e) => {
@@ -86,21 +83,22 @@ const Resume = ({
 
         Services.DoPost(url, data).then(response => {
             Services.Response({
-              response: response,
-              success: () => {if (response.data.discount_type === 1) {
-                  setDiscountType(1)
+                response: response,
+                success: () => {
+                    if (response.data.discount_type === 1) {
+                        setDiscountType(1)
 
-                  setDiscount(response.data.discount/100)
-                }else{
-                  setDiscountType(0)
+                        setDiscount(response.data.discount / 100)
+                    } else {
+                        setDiscountType(0)
 
-                  setDiscount(response.data.discount)
-                }
-                toastr.success(response.message);
-              },
-              warning: () => {
-                toastr.warning(response.message);
-              },
+                        setDiscount(response.data.discount)
+                    }
+                    toastr.success(response.message);
+                },
+                warning: () => {
+                    toastr.warning(response.message);
+                },
             });
         }).catch(error => {
             Services.ErrorCatch(error)
@@ -110,12 +108,12 @@ const Resume = ({
     return (
         <Fragment>
             <div className="panel panel-cart mb-3">
-                <div className="panel-body" style={{paddingTop: '20px', paddingBottom: '20px'}}>
+                <div className="panel-body" style={{ paddingTop: '20px', paddingBottom: '20px' }}>
                     <div className="row pointer" onClick={() => setShowResumenCart(!showResumenCart)}>
                         <div className="col">
                             <h3 className="font-poppins font-21 bold color-0869A6 mb-0"
-                                style={{letterSpacing: '2px'}}>TU CARRO <span
-                                className="font-poppins font-16 regular color-6C6B6B">(<TotalCartItems/>)</span></h3>
+                                style={{ letterSpacing: '2px' }}>TU CARRO <span
+                                    className="font-poppins font-16 regular color-6C6B6B">(<TotalCartItems />)</span></h3>
                         </div>
                         <div className="col-auto">
                             {
@@ -143,7 +141,7 @@ const Resume = ({
                             <div className="row mt-3">
                                 {
                                     cartItems.map((item, index) => {
-                                        return <ProductItem item={item} key={index}/>
+                                        return <ProductItem item={item} key={index} />
                                     })
                                 }
                             </div> : null
@@ -152,7 +150,7 @@ const Resume = ({
             </div>
 
             {
-                 showFinal === 3 ?
+                showFinal === 3 ?
                     <div className="row mb-3">
                         <div className="col">
                             <input
@@ -178,26 +176,26 @@ const Resume = ({
                     <div className="row">
                         <div className="col-md-12">
                             <h3 className="font-poppins font-21 bold color-0869A6 mb-0"
-                                style={{letterSpacing: '2px'}}>
+                                style={{ letterSpacing: '2px' }}>
                                 {showFinal === 1 ? 'TOTAL' : 'RESUMEN DE COMPRA'}
                             </h3>
-                            <hr className="mb-0 pb-0"/>
+                            <hr className="mb-0 pb-0" />
                         </div>
 
                         {
-                             showFinal === 1 ?
+                            showFinal === 1 ?
                                 <>
                                     <div className="col-md-12">
-                                    <TotalCartPrice/>
+                                        <TotalCartPrice />
                                     </div>
                                     {
                                         view === 'user-form' ?
                                             <div className="col-md-12 mt-2">
-                                                <button className="btn btn-bicolor btn-block" disabled={cartItems.length ? false : true} onClick={ auth ? () =>  hasAddress() : () => validateData()}>
+                                                <button className="btn btn-bicolor btn-block" disabled={cartItems.length ? false : true} onClick={auth ? () => hasAddress() : () => validateData()}>
                                                     <span className="font-14 px-5">CONTINUAR</span>
                                                 </button>
                                             </div>
-                                        : null
+                                            : null
                                     }
 
                                 </>
@@ -215,7 +213,7 @@ const Resume = ({
                                     {
                                         view === 'add-address' ?
                                             <div className="col-md-12 mt-2">
-                                                <button className="btn btn-bicolor btn-block" disabled={cartItems.length ? false : true} onClick={auth ? () =>  updateData() : () => validateDataAddressInvite()}>
+                                                <button className="btn btn-bicolor btn-block" disabled={cartItems.length ? false : true} onClick={auth ? () => updateData() : () => validateDataAddressInvite()}>
                                                     <span className="font-14 px-5">CONTINUAR</span>
                                                 </button>
                                             </div>
@@ -227,11 +225,11 @@ const Resume = ({
                             showFinal === 1 || showFinal === 2 ?
                                 <Fragment>
                                     <div className="col-12 mt-2">
-                                        <hr/>
+                                        <hr />
                                         <p className="font-poppins font-12 regular color-484848 mb-0">
                                             *El costo de entrega se calculará al añadir la dirección.
                                         </p>
-                                        <hr/>
+                                        <hr />
                                     </div>
                                     <div className="col-md-12">
                                         <div className="row">
@@ -253,7 +251,7 @@ const Resume = ({
                                         </div>
                                     </div>
                                 </Fragment>
-                                :  null
+                                : null
                         }
 
                         {
@@ -264,9 +262,6 @@ const Resume = ({
                                     address={address}
                                     subscription={subscription}
                                     subscriptionId={subscriptionId}
-                                    setFinishWebpayProccess={setFinishWebpayProccess}
-                                    setWebpayProccessSuccess={setWebpayProccessSuccess}
-                                    setOrderId={setOrderId}
                                     dispatch={dispatch}
                                     discount={discount}
                                     discountType={discountType}
@@ -278,7 +273,7 @@ const Resume = ({
                                     prescriptionRadio={prescriptionRadio}
                                     withoutPrescriptionAnswer={withoutPrescriptionAnswer}
                                 />
-                            : null
+                                : null
                         }
 
                     </div>
