@@ -26,7 +26,6 @@ const WebPayProccess = ({
 
     const { auth } = useContext(AuthContext);
     const { cartItems, clearCart } = useContext(CartContext);
-    // const [totalCart, setTotalCart] = useState(0);
     const [showingWaitingPayment, setShowingWaitingPayment] = useState(false);
 
     const showWaitingPayment = () => {
@@ -37,20 +36,12 @@ const WebPayProccess = ({
         setShowingWaitingPayment(false);
     }
 
-
-    const [token, setToken] = useState('');
-
     const initPayment = () => {
-        // runPayment('webpayPlus')
         showWaitingPayment();
         create();
     }
 
     const create = () => {
-        // if (!address) {
-        //     toastr.warning('Debes agregar una dirección para proceder al pago.')
-        // }
-
         let selectedSubscription = null;
         subscription.map(element => {
             if (element.id === subscriptionId) {
@@ -87,7 +78,7 @@ const WebPayProccess = ({
         formData.append('prescription_radio', prescriptionRadio);
         formData.append('without_prescription_answer', withoutPrescriptionAnswer);
 
-        let fileList = [...files]
+        let fileList = files;
 
         for (let i = 0; i < fileList.length; i++) {
             formData.append('attachments[]', fileList[i]);
@@ -112,8 +103,6 @@ const WebPayProccess = ({
                             const urlWebpay = response.data.webpay_data.url + '?token_ws=' + response.data.webpay_data.token
                             window.location.href = urlWebpay;
                         }
-
-
                     },
                     error: () => {
                         hideWaitingPayment();

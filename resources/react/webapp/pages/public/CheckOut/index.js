@@ -533,6 +533,7 @@ const CheckOut = () => {
                                             setSubscription={setSubscription}
                                             subscriptionId={subscriptionId}
                                             setSubscriptionId={setSubscriptionId}
+                                            files={files}
                                         />
                                         : null
 
