@@ -8,7 +8,7 @@ import bannerBio from '../../../assets/images/icons/footer/slider_slider_banner_
 import bannerCITUC from '../../../assets/images/icons/footer/slider_slider_banner_cituc_min.jpg'
 import facebook from '../../../assets/images/icons/footer/facebook.svg'
 import instagram from '../../../assets/images/icons/footer/instagram.svg'
-import tiktok from '../../../assets/images/email/tiktok.png'
+import tiktok from '../../../assets/images/icons/footer/tiktok.png'
 import {CONFIG} from "../../../Config";
 import PUBLIC_ROUTES from "../../../routes/publicRoutes";
 import Icon from "../../../components/general/Icon";
