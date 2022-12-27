@@ -25,7 +25,6 @@
             color: #3C3C3E;
             font-family: 'Poppins', sans-serif !important;
             font-weight: 300;
-            font-size: 14px !important;
         }
 
         .text-primary {
