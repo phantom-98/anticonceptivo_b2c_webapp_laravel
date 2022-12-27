@@ -42,12 +42,18 @@ class FinishPaymentJob implements ShouldQueue
                 $this->customerAddress = CustomerAddress::with('commune')->where('customer_id', $this->order->customer_id)->where('default_address', 1)->get()->first();
 
                 if ($this->customerAddress) {
-                    CallIntegrationsPay::callVoucher($this->order->id, $this->customerAddress);
-                    CallIntegrationsPay::callDispatchLlego($this->order->id, $this->customerAddress);
+                    try{
+                        CallIntegrationsPay::callVoucher($this->order->id, $this->customerAddress);
+                        CallIntegrationsPay::callDispatchLlego($this->order->id, $this->customerAddress);
+                    } catch (\Exception $ex){
+                        
+                    }
                 }
 
                 CallIntegrationsPay::sendEmailsOrder($this->order->id);
             }
+        } else {
+            CallIntegrationsPay::sendEmailsOrderRepeat($this->order->id);
         }
     }
 }

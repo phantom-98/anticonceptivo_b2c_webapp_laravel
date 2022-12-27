@@ -95,25 +95,25 @@ class ContactController extends Controller
 
                     $subject = 'Formulario de Contacto';
 
-                    $emailBody = view('emails.contact-form', ['data' => [
+                    $email_body = view('emails.contact-form', ['data' => [
                         'title' => $subject,
                         'title_2' => 'Hemos recibido tu mensaje',
                         'name' => $request->contact_first_name.' '.$request->contact_last_name,
                         'contact_id' => $contact->id,
-                        // 'message' => $request->message
-                    ]])->render();;
-                    
+                    ]])->render();
+
                     $body = view('emails.contact-us', ['data' => [
                         'contact_id' => $contact->id,
                         'subject' => $subject,
                     ]])->render();
 
-                    $email = new Email();
-                    
+                    $email_customer = new Email();
+                    $email_admin = new Email();
+
                     // ENVIO AL CLIENTE
-                    $email->send($contact->email, $subject, $body);
+                    $email_customer->send($contact->email, $subject, $body);
                     // ENVIO AL ADMINISTRADOR
-                    $email->send(env('SENDGRID_EMAIL_TO'), $subject, $emailBody);
+                    $email_admin->send(env('SENDGRID_EMAIL_TO'), $subject, $email_body);
 
                     return ApiResponse::JsonSuccess(null, 'Mensaje envíado.');
                 }else{

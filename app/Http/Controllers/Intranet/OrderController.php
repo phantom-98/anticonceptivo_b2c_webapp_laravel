@@ -37,7 +37,7 @@ class OrderController extends GlobalController
 
     public function index(Request $request)
     {
-        $objects = Order::with(['customer', 'prescriptions.product','subscriptions_orders_items.commune', 'order_items.product']);
+        $objects = Order::with(['customer', 'prescriptions.product','subscriptions_orders_items.commune', 'order_items.product.laboratory', 'order_items.product.subcategory.category']);
         $clients = Customer::get();
 
         $date = $request->date;
@@ -182,7 +182,8 @@ class OrderController extends GlobalController
                 $query->where('id_number', 'LIKE', '%' . $search . '%')
                     ->orWhere('first_name', 'LIKE', '%' . $search . '%')
                     ->orWhere('last_name', 'LIKE', '%' . $search . '%')
-                    ->orWhere('second_last_name', 'LIKE', '%' . $search . '%');
+                    ->orWhere('second_last_name', 'LIKE', '%' . $search . '%')
+                    ->orWhereRaw('concat(first_name," ",last_name) like ?', "%{$search}%");
             })->get();
 
             $clients = $clients_array->each->append('text')->toArray();

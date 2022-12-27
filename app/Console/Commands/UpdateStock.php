@@ -96,7 +96,7 @@ class UpdateStock extends Command
                 $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
                 $html = view('emails.ailoo-errors', ['user_name' => $user->first_name, 'errors' => $errorsEmail])->render();
                 $email = new \SendGrid\Mail\Mail();
-                $email->setFrom("info@anticonceptivo.cl", 'Anticonceptivo');
+                $email->setFrom("info@anticonceptivo.cl", 'anticonceptivo.cl');
                 $email->setSubject('Error de Stock - Ailoo');
                 $email->addTo($user->email, $user->first_name);
                 $email->addContent(

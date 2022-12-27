@@ -30,6 +30,59 @@ class SubscriptionsOrdersItem extends Model
         'status'
     ];
 
+    protected $appends = ['formated_status', 'formated_background', 'formated_color'];
+
+    public function getFormatedStatusAttribute()
+    {
+        if($this->status == 'CREATED'){
+            return "Creado";
+        } else if($this->status == 'CANCELED'){
+            return "Anulado";
+        } else if($this->status == 'DISPATCHED'){
+            return "Despachado";
+        } else if($this->status == 'REJECTED'){
+            return "Rechazado";
+        } else if($this->status == 'DELIVERED'){
+            return "Entregado";
+        } else if($this->status == 'PAID'){
+            return "Pagado";
+        }
+    }
+
+    public function getFormatedBackgroundAttribute()
+    {
+        if($this->status == 'CREATED'){
+            return "#03a9f4";
+        } else if($this->status == 'CANCELED'){
+            return "#f44336";
+        } else if($this->status == 'DISPATCHED'){
+            return "#26a69a";
+        } else if($this->status == 'REJECTED'){
+            return "#f44336";
+        } else if($this->status == 'DELIVERED'){
+            return "#ab47bc";
+        } else if($this->status == 'PAID'){
+            return "#8bc34a";
+        }
+    }
+
+    public function getFormatedColorAttribute()
+    {
+        if($this->status == 'CREATED'){
+            return "#fff";
+        } else if($this->status == 'CANCELED'){
+            return "#fff";
+        } else if($this->status == 'DISPATCHED'){
+            return "#fff";
+        } else if($this->status == 'REJECTED'){
+            return "#fff";
+        } else if($this->status == 'DELIVERED'){
+            return "#fff";
+        } else if($this->status == 'PAID'){
+            return "#fff";
+        }
+    }
+
     public function order_item(){
         return $this->belongsTo(OrderItem::class,'orders_item_id');
     }
@@ -52,5 +105,9 @@ class SubscriptionsOrdersItem extends Model
 
     public function order_parent(){
         return $this->belongsTo(Order::class,'order_parent_id');
+    }
+
+    public function product(){
+        return $this->belongsTo(Product::class,'name','name');
     }
 }

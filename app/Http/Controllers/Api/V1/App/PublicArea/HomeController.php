@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers\Api\V1\App\PublicArea;
 
-use App\Http\Controllers\Api\V1\App\Helpers\ProductScheduleHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Setting;
 use App\Models\TextHeader;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Http\Request;
 use Willywes\ApiResponse\ApiResponse;
 use App\Http\Utils\Enum\SectionTypes;
 use App\Models\Category;
@@ -20,12 +18,10 @@ use App\Models\CategoryFaq;
 use App\Models\ResponsibleConsumption;
 use App\Models\Banner;
 use App\Models\OrderItem;
-use App\Models\Brand;
 use App\Models\Alliance;
 use App\Models\PostType;
-use App\Models\Post;
 use App\Models\ProductSchedule;
-
+use App\Http\Controllers\Api\V1\App\Helpers\ProductLabelHelper;
 
 class HomeController extends Controller
 {
@@ -52,7 +48,7 @@ class HomeController extends Controller
             $subscriptionPlanIds = ProductSubscriptionPlan::whereIn('product_id',$products->pluck('id'))
             ->pluck('subscription_plan_id')->unique();
 
-            $laboratories = Laboratory::where('active',true)->whereIn('id',$laboratoriesWithPills)->get();
+            $laboratories = Laboratory::where('active',true)->orderBy('name')->whereIn('id',$laboratoriesWithPills)->get();
             $subscriptions = SubscriptionPlan::where('active',true)->orderBy('months')->whereIn('id',$subscriptionPlanIds)->get();
             $formats = $products->where('format','!=','')->pluck('format')->unique()->sortBy('format');
 
@@ -139,52 +135,11 @@ class HomeController extends Controller
         try {
             $topBanners = Banner::where('location','Home (Superior)')->where('active',true)->orderBy('position')->get();
             $middleBanners = Banner::where('location','Home (Centro)')->where('active',true)->orderBy('position')->get();
-            // $bottomBanners = Banner::where('location','Home (Inferior)')->where('active',true)->orderBy('position')->get();
-
-            // $outstandings = Product::where('outstanding', true)->where('active',true)->where('recipe_type','Venta Directa')
-            //     ->with(['subcategory.category','product_images','laboratory'])->get();
-
-            // if (!$outstandings->count()) {
-            //     $outstandings = Product::where('active',true)->where('recipe_type','Venta Directa')->with(['subcategory.category','product_images','laboratory'])->take(10)->get();
-            // }
-
-            // $productsBestSellers = OrderItem::with(['order','product.subcategory.category', 'product.product_images','product.laboratory'])->whereHas('order', function($q){
-            //     $q->whereIn('status',["DELIVERED","DISPATCHED","PAID"]);
-            // })->whereHas('product', function($p){
-            //     $p->where('recipe_type','Venta Directa')->where('active',true)->where('is_medicine', 0);
-            // })->select('product_id', DB::raw('sum(quantity) as total'))->groupBy('product_id')->orderBy('total', 'desc')->limit(12)->get();
-
-            // $bestSellers = [];
-            // foreach ($productsBestSellers as $productBestSeller) {
-            //     $bestSellers[] = $productBestSeller->product;
-            // }
-
-            // $bestSellers = collect($bestSellers);
-
-            // $condomProducts = Product::where('recipe_type','Venta Directa')->where('active',true)->whereHas('subcategory', function($q){
-            //     $q->where('category_id', 2);
-            // })->with(['subcategory.category','product_images','laboratory'])->inRandomOrder()->limit(4)->get();
-
-            // $blogPosts = Post::with(['post_type'])->where('active', true)->orderBy('published_at','DESC')->limit(3)->get();
-
-            // $blogPosts = $blogPosts->map(function ($post) {
-            //     $post->content = substr_replace(strip_tags($post->content), '...', 150);
-            //     return $post;
-            // });
-
-            // $brands = Brand::where('active',true)->orderBy('position')->get();
-
             $bannerCategories = Category::where('active',true)->where('active_banner_home',true)->orderBy('position_banner')->get();
             return ApiResponse::JsonSuccess([
                 'top_banners' => $topBanners,
                 'middle_banners' => $middleBanners,
-                // 'bottom_banners' => $bottomBanners,
-                // 'outstandings' => $this->processScheduleList($outstandings),
-                // 'best_sellers' => $this->processScheduleList($bestSellers),
-                // 'condom_products' => $this->processScheduleList($condomProducts),
-                // 'brands' => $brands,
                 'bannerCategories' => $bannerCategories,
-                // 'blog_posts' => $blogPosts,
             ]);
 
         } catch (\Exception $exception) {
@@ -214,7 +169,7 @@ class HomeController extends Controller
                     ->get();
             }
 
-            return ApiResponse::JsonSuccess($this->processScheduleList($outstandings), 'Productos destacados');
+            return ApiResponse::JsonSuccess(ProductLabelHelper::processScheduleList($outstandings), 'Productos destacados');
 
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, $exception->getMessage());
@@ -235,7 +190,7 @@ class HomeController extends Controller
                 ->limit(4)
                 ->get();
 
-            return ApiResponse::JsonSuccess($this->processScheduleList($condomProducts), 'Productos tipo preservativo');
+            return ApiResponse::JsonSuccess(ProductLabelHelper::processScheduleList($condomProducts), 'Productos tipo preservativo');
 
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, $exception->getMessage());
@@ -264,25 +219,10 @@ class HomeController extends Controller
 
             $bestSellers = collect($bestSellers);
 
-            return ApiResponse::JsonSuccess($this->processScheduleList($bestSellers), 'Productos Más Vendidos');
+            return ApiResponse::JsonSuccess(ProductLabelHelper::processScheduleList($bestSellers), 'Productos Más Vendidos');
 
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, $exception->getMessage());
         }
-    }
-
-    private function processScheduleList($products)
-    {
-        return $products->map(function ($product) {
-            return $this->addScheduleLabel($product);
-        });
-    }
-
-    private function addScheduleLabel($product)
-    {
-        $dataDeliveryOrder = ProductScheduleHelper::labelDateDeliveryProduct($product, $this->product_schedules);
-        $product->delivery_label = ProductScheduleHelper::deadlineDeliveryMaxOrder($dataDeliveryOrder['delivery_date'], $dataDeliveryOrder['label'],$dataDeliveryOrder['sub_label'], $dataDeliveryOrder['is_immediate'], $dataDeliveryOrder['schedule']);
-
-        return $product;
     }
 }

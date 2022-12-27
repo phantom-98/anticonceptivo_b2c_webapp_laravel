@@ -135,11 +135,14 @@
                             @if($config['blade']['showActions'])
                                 <th data-cell-style="cellStyle" data-valign="middle">Acciones</th>
                             @endif
-                            <th data-cell-style="cellStyle" data-sortable="false" data-valign="middle">Nº Ped.</th>
+                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Nº Ped.</th>
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Hora creación</th>
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Estado</th>
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Tipo de Entrega</th>
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Producto(s)</th>
+                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Laboratorio(s)</th>
+                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Categoría(s)</th>
+                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Subcategoría(s)</th>
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Nombre Cliente</th>
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">RUT Cliente</th>
 
@@ -260,6 +263,54 @@
                                 <td>
                                     @forelse ($object->order_items as $item)
                                        {{ $item->quantity }}x{{ $item->product->name }}<br/>
+                                    @empty
+                                        -
+                                    @endforelse
+                                </td>
+
+                                <td>
+                                    @php
+                                        $laboratory_array = [];
+                                    @endphp
+                                    @forelse ($object->order_items as $item)
+                                        @if(!in_array($item->product->laboratory->name, $laboratory_array))
+                                            {{ $item->product->laboratory->name }}<br/>
+                                        @endif
+                                        @php
+                                            array_push($laboratory_array, $item->product->laboratory->name);
+                                        @endphp
+                                    @empty
+                                        -
+                                    @endforelse
+                                </td>
+
+                                <td>
+                                    @php
+                                        $category_array = [];
+                                    @endphp
+                                    @forelse ($object->order_items as $item)
+                                        @if(!in_array($item->product->subcategory->category->name, $category_array))
+                                            {{ $item->product->subcategory->category->name }}<br/>
+                                        @endif
+                                        @php
+                                            array_push($category_array, $item->product->subcategory->category->name);
+                                        @endphp
+                                    @empty
+                                        -
+                                    @endforelse
+                                </td>
+
+                                <td>
+                                    @php
+                                        $subcategory_array = [];
+                                    @endphp
+                                    @forelse ($object->order_items as $item)
+                                        @if(!in_array($item->product->subcategory->name, $subcategory_array))
+                                            {{ $item->product->subcategory->name }}<br/>
+                                        @endif
+                                        @php
+                                            array_push($subcategory_array, $item->product->subcategory->name);
+                                        @endphp
                                     @empty
                                         -
                                     @endforelse

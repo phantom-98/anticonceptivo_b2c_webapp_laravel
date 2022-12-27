@@ -10,7 +10,7 @@
     <title>Document</title>
 
     <style>
-        body,
+         body,
         html,
         h1,
         h2,
@@ -45,18 +45,58 @@
         }
 
         .is-immediate-label {
-            color: #009BE8;
+            background: #edf8fe;
+            color: #009be8;
+            font-size: 16px;
+            padding: 10px;
+            margin-top: 10px;
+            font-weight: 500;
+            margin-bottom: 5px;
+            padding: 5px 10px 12px;
+            width: -moz-fit-content;
+            width: fit-content;
+            border-radius: 6px;
         }
 
         .is-today-label {
-            color: #009BE8;
+            background: #edf8fe;
+            color: #009be8;
+            font-size: 16px;
+            padding: 10px;
+            margin-top: 10px;
+            font-weight: 500;
+            margin-bottom: 5px;
+            padding: 5px 10px 12px;
+            width: -moz-fit-content;
+            width: fit-content;
+            border-radius: 6px;
         }
 
         .is-tomorrow-label {
             color: #00DBAE;
+            background: rgba(0,219,174,.18);
+            font-size: 16px;
+            padding: 10px;
+            margin-top: 10px;
+            font-weight: 500;
+            margin-bottom: 5px;
+            padding: 5px 10px 12px;
+            width: -moz-fit-content;
+            width: fit-content;
+            border-radius: 6px;
         }
         .is-after-tomorrow-label {
             color: #00DBAE;
+            background: rgba(0,219,174,.18);
+            font-size: 16px;
+            padding: 10px;
+            margin-top: 10px;
+            font-weight: 500;
+            margin-bottom: 5px;
+            padding: 5px 10px;
+            width: -moz-fit-content;
+            width: fit-content;
+            border-radius: 6px;
         }
 
         .bg-primary {
@@ -65,6 +105,11 @@
 
         a.bg-primary:focus, a.bg-primary:hover, button.bg-primary:focus, button.bg-primary:hover {
             background-color: #23bcb0 !important
+        }
+
+        .titulo {
+            color: #06b2ce;
+            font-size: 18px;
         }
 
         .bg-secondary {
@@ -148,14 +193,22 @@
         }
 
         table, th, td {
-            border: 1px solid #e8e8e8;
-            padding: 5px 10px;
+            border: none;
+            padding: 10px 20px;
         }
 
         table th {
             background-color: #0869A6;
             color: #ffffff;
             padding: 5px;
+        }
+
+        .w-25 {
+            width: 20%;
+        }
+
+        .tableCss{
+            width:50%;
         }
 
         .row {
@@ -167,15 +220,6 @@
         .flex-top {
             display: flex;
             align-items: center;
-        }
-
-        .titulo {
-            color: #06b2ce;
-            font-size: 18px !important;
-        }
-
-        .w-25 {
-            width: 20%;
         }
 
         @media (max-width: 500px) {
@@ -191,7 +235,22 @@
             }
             .titulo {
                 color: #06b2ce;
-                font-size: 13px !important;
+                font-size: 10px !important;
+            }
+
+            .is-immediate-label {
+                font-size: 10px !important;
+            }
+
+            .is-today-label {
+                font-size: 10px !important;
+            }
+
+            .is-tomorrow-label {
+                font-size: 10px !important;
+            }
+            .is-after-tomorrow-label {
+                font-size: 10px !important;
             }
         }
     </style>

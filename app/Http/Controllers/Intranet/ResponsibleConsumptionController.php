@@ -63,7 +63,7 @@ class ResponsibleConsumptionController extends GlobalController
             if ($request->file) {
                 $file = $request->file('file');
                 $filename = 'responsible-consumption-' . $object->id  .'.'. $file->getClientOriginalExtension();
-                $object->file = $file->storeAs('public/responsible-consumptions', $filename);
+                $object->file = $file->storeAs('storage/responsible-consumptions', $filename);
             }
 
             $object->save();
@@ -140,7 +140,7 @@ class ResponsibleConsumptionController extends GlobalController
                 }
                 $file = $request->file('file');
                 $filename = 'responsible-consumption-' . $object->id  .'.'. $file->getClientOriginalExtension();
-                $object->file = $file->storeAs('public/responsible-consumptions', $filename);
+                $object->file = $file->storeAs('storage/responsible-consumptions', $filename);
                 $object->save();
 
                 $object->refresh();

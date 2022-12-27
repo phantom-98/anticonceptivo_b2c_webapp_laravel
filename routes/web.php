@@ -713,7 +713,7 @@ Route::get('fix-invoices-by-date/{date}', function ($date){
         $html = view('emails.send-voucher', ['url_pdf' => $dayPayment->url_pdf, 'name' => 'Equipo Anticonceptivo'])->render();
 
         $email = new \SendGrid\Mail\Mail();
-        $email->setFrom("info@anticonceptivo.cl", 'Anticonceptivo');
+        $email->setFrom("info@anticonceptivo.cl", 'anticonceptivo.cl');
         $email->setSubject('Factura Eureka ' . Carbon\Carbon::parse($datePayment)->format('d-m-Y'));
         $email->addTo("contacto@anticonceptivo.cl", 'Anticonceptivo');
 
