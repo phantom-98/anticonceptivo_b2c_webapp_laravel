@@ -8,6 +8,7 @@ import bannerBio from '../../../assets/images/icons/footer/slider_slider_banner_
 import bannerCITUC from '../../../assets/images/icons/footer/slider_slider_banner_cituc_min.jpg'
 import facebook from '../../../assets/images/icons/footer/facebook.svg'
 import instagram from '../../../assets/images/icons/footer/instagram.svg'
+import tiktok from '../../../assets/images/email/tiktok.png'
 import {CONFIG} from "../../../Config";
 import PUBLIC_ROUTES from "../../../routes/publicRoutes";
 import Icon from "../../../components/general/Icon";
@@ -179,6 +180,11 @@ const Footer = () => {
                                 <div className="col-auto">
                                     <a href="https://www.instagram.com/anticonceptivo_cl/" target="_blank">
                                         <Icon path={instagram}/>
+                                    </a>
+                                </div>
+                                <div className="col-auto">
+                                    <a href="https://www.tiktok.com/@anticonceptivo.cl" target="_blank">
+                                        <Icon path={tiktok}/>
                                     </a>
                                 </div>
                             </div>
