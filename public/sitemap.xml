@@ -1,1711 +1,3319 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
     <url>
-        <loc>https://dev.anticonceptivo.tienda.innovaweb.cl</loc>
+        <loc></loc>
         <changefreq>daily</changefreq>
     </url>
     <url>
-        <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/sobre-nosotros</loc>
+        <loc>/sobre-nosotros</loc>
         <changefreq>daily</changefreq>
     </url>
     <url>
-        <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/contactanos</loc>
+        <loc>/contactanos</loc>
         <changefreq>daily</changefreq>
     </url>
     <url>
-        <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/preguntas-frecuentes</loc>
+        <loc>/preguntas-frecuentes</loc>
         <changefreq>daily</changefreq>
     </url>
     <url>
-        <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/responsabilidad-empresarial/politicas-de-privacidad</loc>
+        <loc>/responsabilidad-empresarial/politicas-de-privacidad</loc>
         <changefreq>daily</changefreq>
     </url>
     <url>
-        <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/responsabilidad-empresarial/carta-de-desabastecimiento</loc>
+        <loc>/responsabilidad-empresarial/carta-de-desabastecimiento</loc>
         <changefreq>daily</changefreq>
     </url>
     <url>
-        <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/responsabilidad-empresarial/plazos-y-costos-entrega</loc>
+        <loc>/responsabilidad-empresarial/plazos-y-costos-entrega</loc>
         <changefreq>daily</changefreq>
     </url>
     <url>
-        <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/terminos-y-condiciones</loc>
+        <loc>/terminos-y-condiciones</loc>
         <changefreq>daily</changefreq>
     </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/tienda/pastillas</loc>
+            <loc>/tienda/pastillas</loc>
             <changefreq>daily</changefreq>
         </url>
                                             <url>
-                    <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/tienda/pastillas/formato/28</loc>
+                    <loc>/tienda/pastillas/formato/28</loc>
                     <changefreq>daily</changefreq>
                 </url>
                             <url>
-                    <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/tienda/pastillas/formato/21</loc>
+                    <loc>/tienda/pastillas/formato/21</loc>
                     <changefreq>daily</changefreq>
                 </url>
                             <url>
-                    <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/tienda/pastillas/formato/2</loc>
+                    <loc>/tienda/pastillas/formato/30</loc>
                     <changefreq>daily</changefreq>
                 </url>
                             <url>
-                    <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/tienda/pastillas/formato/91</loc>
+                    <loc>/tienda/pastillas/formato/91</loc>
                     <changefreq>daily</changefreq>
                 </url>
                                         <url>
-                    <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/tienda/pastillas/suscripcion/4</loc>
+                    <loc>/tienda/pastillas/suscripcion/4</loc>
                     <changefreq>daily</changefreq>
                 </url>
                             <url>
-                    <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/tienda/pastillas/suscripcion/6</loc>
+                    <loc>/tienda/pastillas/suscripcion/6</loc>
                     <changefreq>daily</changefreq>
                 </url>
                             <url>
-                    <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/tienda/pastillas/suscripcion/13</loc>
+                    <loc>/tienda/pastillas/suscripcion/13</loc>
                     <changefreq>daily</changefreq>
                 </url>
                                         <url>
-                    <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/tienda/pastillas/laboratorio/abbott</loc>
+                    <loc>/tienda/pastillas/laboratorio/abbott</loc>
                     <changefreq>daily</changefreq>
                 </url>
                             <url>
-                    <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/tienda/pastillas/laboratorio/msd</loc>
+                    <loc>/tienda/pastillas/laboratorio/msd</loc>
                     <changefreq>daily</changefreq>
                 </url>
                             <url>
-                    <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/tienda/pastillas/laboratorio/grunenthal</loc>
+                    <loc>/tienda/pastillas/laboratorio/grunenthal</loc>
                     <changefreq>daily</changefreq>
                 </url>
                             <url>
-                    <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/tienda/pastillas/laboratorio/laboratorio-chile</loc>
+                    <loc>/tienda/pastillas/laboratorio/laboratorio-chile</loc>
                     <changefreq>daily</changefreq>
                 </url>
                             <url>
-                    <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/tienda/pastillas/laboratorio/bayer</loc>
+                    <loc>/tienda/pastillas/laboratorio/bayer</loc>
                     <changefreq>daily</changefreq>
                 </url>
                             <url>
-                    <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/tienda/pastillas/laboratorio/gedeon-richter</loc>
+                    <loc>/tienda/pastillas/laboratorio/gedeon-richter</loc>
                     <changefreq>daily</changefreq>
                 </url>
                             <url>
-                    <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/tienda/pastillas/laboratorio/exeltis</loc>
+                    <loc>/tienda/pastillas/laboratorio/pfizer</loc>
                     <changefreq>daily</changefreq>
                 </url>
                             <url>
-                    <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/tienda/pastillas/laboratorio/mintlab</loc>
+                    <loc>/tienda/pastillas/laboratorio/exeltis</loc>
                     <changefreq>daily</changefreq>
                 </url>
                             <url>
-                    <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/tienda/pastillas/laboratorio/tecnofarma</loc>
+                    <loc>/tienda/pastillas/laboratorio/mintlab</loc>
                     <changefreq>daily</changefreq>
                 </url>
                             <url>
-                    <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/tienda/pastillas/laboratorio/eurofarma</loc>
+                    <loc>/tienda/pastillas/laboratorio/tecnofarma</loc>
                     <changefreq>daily</changefreq>
                 </url>
                             <url>
-                    <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/tienda/pastillas/laboratorio/saval</loc>
+                    <loc>/tienda/pastillas/laboratorio/eurofarma</loc>
                     <changefreq>daily</changefreq>
                 </url>
                             <url>
-                    <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/tienda/pastillas/laboratorio/silesia</loc>
+                    <loc>/tienda/pastillas/laboratorio/saval</loc>
                     <changefreq>daily</changefreq>
                 </url>
                             <url>
-                    <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/tienda/pastillas/laboratorio/deutsche-pharma</loc>
+                    <loc>/tienda/pastillas/laboratorio/deutsche-pharma</loc>
+                    <changefreq>daily</changefreq>
+                </url>
+                            <url>
+                    <loc>/tienda/pastillas/laboratorio/itf</loc>
+                    <changefreq>daily</changefreq>
+                </url>
+                            <url>
+                    <loc>/tienda/pastillas/laboratorio/bcnmedical</loc>
                     <changefreq>daily</changefreq>
                 </url>
                                 <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/tienda/preservativos</loc>
+            <loc>/tienda/pastilla-del-dia-despues</loc>
             <changefreq>daily</changefreq>
         </url>
                                     <url>
-                    <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/tienda/preservativos/condones</loc>
+                    <loc>/tienda/pastilla-del-dia-despues/dosis-unitaria</loc>
                     <changefreq>daily</changefreq>
                 </url>
                             <url>
-                    <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/tienda/preservativos/femeninos</loc>
+                    <loc>/tienda/pastilla-del-dia-despues/dosis-multiple</loc>
                     <changefreq>daily</changefreq>
                 </url>
                                         <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/tienda/test-de-embarazo-prueba</loc>
+            <loc>/tienda/preservativos</loc>
             <changefreq>daily</changefreq>
         </url>
                                     <url>
-                    <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/tienda/test-de-embarazo-prueba/lapiz</loc>
-                    <changefreq>daily</changefreq>
-                </url>
-                            <url>
-                    <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/tienda/test-de-embarazo-prueba/cerazette</loc>
+                    <loc>/tienda/preservativos/condones</loc>
                     <changefreq>daily</changefreq>
                 </url>
                                         <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/tienda/anticoncepcion-de-emergencia</loc>
+            <loc>/tienda/test-de-embarazo</loc>
             <changefreq>daily</changefreq>
         </url>
                                     <url>
-                    <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/tienda/anticoncepcion-de-emergencia/dosis-unitaria</loc>
+                    <loc>/tienda/test-de-embarazo/lapiz</loc>
                     <changefreq>daily</changefreq>
                 </url>
                             <url>
-                    <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/tienda/anticoncepcion-de-emergencia/dosis-multiple</loc>
+                    <loc>/tienda/test-de-embarazo/cerazette</loc>
                     <changefreq>daily</changefreq>
                 </url>
                                         <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/tienda/duracion-largo-plazo</loc>
+            <loc>/tienda/duracion-largo-plazo</loc>
             <changefreq>daily</changefreq>
         </url>
                                     <url>
-                    <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/tienda/duracion-largo-plazo/diu</loc>
+                    <loc>/tienda/duracion-largo-plazo/diu</loc>
                     <changefreq>daily</changefreq>
                 </url>
                             <url>
-                    <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/tienda/duracion-largo-plazo/implantes-injertos</loc>
+                    <loc>/tienda/duracion-largo-plazo/implantes-injertos</loc>
                     <changefreq>daily</changefreq>
                 </url>
                             <url>
-                    <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/tienda/duracion-largo-plazo/inyectable-prolongado</loc>
+                    <loc>/tienda/duracion-largo-plazo/inyectable-prolongado</loc>
                     <changefreq>daily</changefreq>
                 </url>
                                         <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/tienda/metodos-alternativos</loc>
+            <loc>/tienda/metodos-alternativos</loc>
             <changefreq>daily</changefreq>
         </url>
                                     <url>
-                    <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/tienda/metodos-alternativos/parches</loc>
+                    <loc>/tienda/metodos-alternativos/parches</loc>
                     <changefreq>daily</changefreq>
                 </url>
                             <url>
-                    <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/tienda/metodos-alternativos/anillos</loc>
+                    <loc>/tienda/metodos-alternativos/anillos</loc>
                     <changefreq>daily</changefreq>
                 </url>
                             <url>
-                    <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/tienda/metodos-alternativos/inyectable-1-ciclo</loc>
+                    <loc>/tienda/metodos-alternativos/inyectable-1-ciclo</loc>
                     <changefreq>daily</changefreq>
                 </url>
                                         <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/tienda/salud-femenina</loc>
+            <loc>/tienda/salud-femenina</loc>
             <changefreq>daily</changefreq>
         </url>
                                     <url>
-                    <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/tienda/salud-femenina/tratamiento-prueba</loc>
+                    <loc>/tienda/salud-femenina/accesorios-y-maquillaje</loc>
                     <changefreq>daily</changefreq>
                 </url>
                             <url>
-                    <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/tienda/salud-femenina/suplemento-alimenticio-embarazo-vitaminas-y-minerales</loc>
+                    <loc>/tienda/salud-femenina/dolor-de-cabeza</loc>
                     <changefreq>daily</changefreq>
                 </url>
                             <url>
-                    <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/tienda/salud-femenina/probioticos-para-embarazo</loc>
+                    <loc>/tienda/salud-femenina/embarazo-y-climaterio</loc>
                     <changefreq>daily</changefreq>
                 </url>
                             <url>
-                    <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/tienda/salud-femenina/gel-lociones-lubricantes</loc>
+                    <loc>/tienda/salud-femenina/tratamiento</loc>
                     <changefreq>daily</changefreq>
                 </url>
                             <url>
-                    <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/tienda/salud-femenina/toallas</loc>
+                    <loc>/tienda/salud-femenina/suplemento-alimenticio-embarazo-vitaminas-y-minerales</loc>
                     <changefreq>daily</changefreq>
                 </url>
                             <url>
-                    <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/tienda/salud-femenina/jabones-liquidos</loc>
+                    <loc>/tienda/salud-femenina/gel-lociones-lubricantes</loc>
                     <changefreq>daily</changefreq>
                 </url>
                             <url>
-                    <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/tienda/salud-femenina/gotas-orales</loc>
+                    <loc>/tienda/salud-femenina/toallas</loc>
                     <changefreq>daily</changefreq>
                 </url>
                             <url>
-                    <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/tienda/salud-femenina/cremas</loc>
+                    <loc>/tienda/salud-femenina/cremas</loc>
                     <changefreq>daily</changefreq>
                 </url>
                                         <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/tienda/medicamentos-y-otros</loc>
+            <loc>/tienda/medicamentos-y-otros</loc>
             <changefreq>daily</changefreq>
         </url>
                                     <url>
-                    <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/tienda/medicamentos-y-otros/covid-prueba</loc>
+                    <loc>/tienda/medicamentos-y-otros/infertilidad</loc>
                     <changefreq>daily</changefreq>
                 </url>
                             <url>
-                    <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/tienda/medicamentos-y-otros/aparato-respiratorio</loc>
+                    <loc>/tienda/medicamentos-y-otros/aparato-respiratorio</loc>
                     <changefreq>daily</changefreq>
                 </url>
                             <url>
-                    <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/tienda/medicamentos-y-otros/hormonoterapicos</loc>
+                    <loc>/tienda/medicamentos-y-otros/rehidratacion</loc>
                     <changefreq>daily</changefreq>
                 </url>
                             <url>
-                    <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/tienda/medicamentos-y-otros/rehidratacion</loc>
+                    <loc>/tienda/medicamentos-y-otros/corticosteroides</loc>
                     <changefreq>daily</changefreq>
                 </url>
                             <url>
-                    <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/tienda/medicamentos-y-otros/corticosteroides</loc>
+                    <loc>/tienda/medicamentos-y-otros/relajante-muscular</loc>
                     <changefreq>daily</changefreq>
                 </url>
                             <url>
-                    <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/tienda/medicamentos-y-otros/relajante-muscular</loc>
+                    <loc>/tienda/medicamentos-y-otros/oftalmologico</loc>
                     <changefreq>daily</changefreq>
                 </url>
                             <url>
-                    <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/tienda/medicamentos-y-otros/oftalmologico</loc>
+                    <loc>/tienda/medicamentos-y-otros/sistema-cardiovascular</loc>
                     <changefreq>daily</changefreq>
                 </url>
                             <url>
-                    <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/tienda/medicamentos-y-otros/sistema-cardiovascular</loc>
+                    <loc>/tienda/medicamentos-y-otros/antiinfecciosos</loc>
                     <changefreq>daily</changefreq>
                 </url>
                             <url>
-                    <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/tienda/medicamentos-y-otros/antiinfecciosos</loc>
+                    <loc>/tienda/medicamentos-y-otros/sistema-nervioso-central</loc>
                     <changefreq>daily</changefreq>
                 </url>
                             <url>
-                    <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/tienda/medicamentos-y-otros/dolor</loc>
+                    <loc>/tienda/medicamentos-y-otros/metabolismo</loc>
                     <changefreq>daily</changefreq>
                 </url>
                             <url>
-                    <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/tienda/medicamentos-y-otros/vitaminas</loc>
+                    <loc>/tienda/medicamentos-y-otros/aparato-digestivo</loc>
                     <changefreq>daily</changefreq>
                 </url>
                             <url>
-                    <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/tienda/medicamentos-y-otros/sistema-nervioso-central</loc>
-                    <changefreq>daily</changefreq>
-                </url>
-                            <url>
-                    <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/tienda/medicamentos-y-otros/metabolismo</loc>
-                    <changefreq>daily</changefreq>
-                </url>
-                            <url>
-                    <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/tienda/medicamentos-y-otros/aparato-digestivo</loc>
+                    <loc>/tienda/medicamentos-y-otros/higiene-bucal</loc>
                     <changefreq>daily</changefreq>
                 </url>
                                             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/acotol</loc>
+            <loc>/producto/acotol</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/femelle-20</loc>
+            <loc>/producto/femelle-20</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/femelle</loc>
+            <loc>/producto/femelle</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/nuvaring</loc>
+            <loc>/producto/nuvaring</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/arlette-28</loc>
+            <loc>/producto/arlette-28</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/ciclomex-20-cd</loc>
+            <loc>/producto/ciclomex-20-cd</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/marilow</loc>
+            <loc>/producto/marilow</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/tinelle</loc>
+            <loc>/producto/tinelle</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/norah</loc>
+            <loc>/producto/norah</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/vexa-cd</loc>
+            <loc>/producto/vexa-cd</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/yasmin</loc>
+            <loc>/producto/yasmin</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/yaz</loc>
+            <loc>/producto/yaz</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/anulette-cd</loc>
+            <loc>/producto/gianda-cd</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/ciclomex-cd</loc>
+            <loc>/producto/anulette-cd</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/escapel-1</loc>
+            <loc>/producto/escapel-1</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/evra</loc>
+            <loc>/producto/evra</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/vexa-20</loc>
+            <loc>/producto/vexa-20</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/novafem-jeringa</loc>
+            <loc>/producto/novafem-jeringa</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/poem-fem</loc>
+            <loc>/producto/poem-fem</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/qlaira</loc>
+            <loc>/producto/qlaira</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/ciclidon-20-cd</loc>
+            <loc>/producto/ciclidon-20-cd</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/belara</loc>
+            <loc>/producto/belara</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/sayana-press</loc>
+            <loc>/producto/sayana-press</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/ciclomex-20</loc>
+            <loc>/producto/ciclomex-20</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/tinelle-3</loc>
+            <loc>/producto/tinelle-3</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/feminol-20</loc>
+            <loc>/producto/feminol-20</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/nogesta</loc>
+            <loc>/producto/nogesta</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/mesigyna</loc>
+            <loc>/producto/mesigyna</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/ciclomex-15</loc>
+            <loc>/producto/ciclomex-15</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/lactafem</loc>
+            <loc>/producto/lactafem</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/dal</loc>
+            <loc>/producto/dal</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/evafem-20</loc>
+            <loc>/producto/evafem-20</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/exelring</loc>
+            <loc>/producto/exelring</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/cerazette</loc>
+            <loc>/producto/cerazette</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/microgynon-cd</loc>
+            <loc>/producto/microgynon-cd</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/daniele</loc>
+            <loc>/producto/daniele</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/ladygex-20</loc>
+            <loc>/producto/ladygex-20</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/sibilla</loc>
+            <loc>/producto/sibilla</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/belara-cd</loc>
+            <loc>/producto/belara-cd</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/cerciorat</loc>
+            <loc>/producto/cerciorat</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/yasmin-cd</loc>
+            <loc>/producto/femelle-fol</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/femelle-fol</loc>
+            <loc>/producto/gianda</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/gianda</loc>
+            <loc>/producto/miafem-20</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/miafem-20</loc>
+            <loc>/producto/dionela</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/dionela</loc>
+            <loc>/producto/clearblue-digital</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/clearblue-digital</loc>
+            <loc>/producto/clearblue-plus</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/clearblue-plus</loc>
+            <loc>/producto/esantest-pencil-plus</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/esantest-pencil-plus</loc>
+            <loc>/producto/acetazolamida-250mg-x20com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/acetazolamida-250mg-x20com</loc>
+            <loc>/producto/aciclovir-5-cr-x15g</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/aciclovir-5-cr-x15g</loc>
+            <loc>/producto/aciclovir-200mg-x25com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/aciclovir-200mg-x25com</loc>
+            <loc>/producto/aciclovir-400mg-x35com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/aciclovir-400mg-x35com</loc>
+            <loc>/producto/acido-acetilsalicilico-100mg-x100com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/aspirina-acido-acetilsalicilico-500mg-x20com</loc>
+            <loc>/producto/vitamina-c-500mg-x60cap</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/acido-acetilsalicilico-100mg-x100com</loc>
+            <loc>/producto/vitamina-c-100mg-x500com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/vitamina-c-500mg-x60cap</loc>
+            <loc>/producto/folisanin-acido-folico-1mg-x30com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/vitamina-c-100mg-x500com</loc>
+            <loc>/producto/folisanin-acido-folico-5mg-x30com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/folisanin-acido-folico-1mg-x30com</loc>
+            <loc>/producto/acido-valproico-200mg-x30com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/folisanin-acido-folico-5mg-x30com</loc>
+            <loc>/producto/alopurinol-100mg-x20com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/acido-valproico-200mg-x30com</loc>
+            <loc>/producto/alopurinol-300mg-x20com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/alopurinol-100mg-x20com</loc>
+            <loc>/producto/hidroxido-de-aluminio-x180ml</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/alopurinol-300mg-x20com</loc>
+            <loc>/producto/amiodarona-clorhidrato-200mg-x20com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/hidroxido-de-aluminio-x180ml</loc>
+            <loc>/producto/amitriptilina-clorhidrato-25mg-x100com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/amiodarona-clorhidrato-200mg-x20com</loc>
+            <loc>/producto/amoxicilina-250mg5ml-so-x60ml</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/amitriptilina-clorhidrato-25mg-x100com</loc>
+            <loc>/producto/amoxicilina-500mg5ml-so-x60ml</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/amoxicilina-250mg5ml-so-x60ml</loc>
+            <loc>/producto/alprazolam-05mg-x30com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/amoxicilina-500mg5ml-so-x60ml</loc>
+            <loc>/producto/amoxicilina-500mg-x21cap</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/alprazolam-05mg-x30com</loc>
+            <loc>/producto/amoxicilina-750mg-x10com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/amoxicilina-500mg-x21cap</loc>
+            <loc>/producto/amoxicilina-acido-clavulanico-500125-x20com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/amoxicilina-750mg-x10com</loc>
+            <loc>/producto/atenolol-100mg-x20com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/amoxicilina-acido-clavulanico-500125-x20com</loc>
+            <loc>/producto/atenolol-50mg-x20com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/atenolol-100mg-x20com</loc>
+            <loc>/producto/atorvastatina-10mg-x30com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/atenolol-50mg-x20com</loc>
+            <loc>/producto/atorvastatina-20mg-x30com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/atorvastatina-10mg-x30com</loc>
+            <loc>/producto/bacitracina-neomicina-ung-x15g</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/atorvastatina-20mg-x30com</loc>
+            <loc>/producto/betametasona-005-cr-x15g</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/bacitracina-neomicina-ung-x15g</loc>
+            <loc>/producto/captopril-25mg-x30com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/betametasona-005-cr-x15g</loc>
+            <loc>/producto/carbamazepina-200mg-x20com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/captopril-25mg-x30com</loc>
+            <loc>/producto/cefadroxilo-250mg5ml-x60ml</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/carbamazepina-200mg-x20com</loc>
+            <loc>/producto/cefadroxilo-500mg-x8cap</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/cefadroxilo-250mg5ml-x60ml</loc>
+            <loc>/producto/ciclobenzaprina-clorhidrato-10mg-x20com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/cefadroxilo-500mg-x8cap</loc>
+            <loc>/producto/ciproval-ciprofloxacino-03-ungof-x35g</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/ciclobenzaprina-clorhidrato-10mg-x20com</loc>
+            <loc>/producto/ciprofloxacino-500mg-x6com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/ciproval-ciprofloxacino-03-ungof-x35g</loc>
+            <loc>/producto/clatic-claritromicina-250mg5ml-so-x80ml</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/ciprofloxacino-500mg-x6com</loc>
+            <loc>/producto/claritromicina-500mg-x14com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/clatic-claritromicina-250mg5ml-so-x80ml</loc>
+            <loc>/producto/pack-clidan-clindamicina-1-gel-dermico-x30g</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/claritromicina-500mg-x14com</loc>
+            <loc>/producto/clobetasol-005-cr-x25g</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/pack-clidan-clindamicina-1-gel-dermico-x30g</loc>
+            <loc>/producto/clonazepam-05mg-x30com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/clobetasol-005-cr-x25g</loc>
+            <loc>/producto/clonazepam-2mg-x30com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/clonazepam-05mg-x30com</loc>
+            <loc>/producto/cloranfenicol-05-sof-x10ml</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/clonazepam-2mg-x30com</loc>
+            <loc>/producto/cloranfenicol-1-ungoft-x35g</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/cloranfenicol-05-sof-x10ml</loc>
+            <loc>/producto/clorfenamina-maleato-4mg-x20com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/cloranfenicol-1-ungoft-x35g</loc>
+            <loc>/producto/clotrimazol-1-crema-x20g</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/clorfenamina-maleato-4mg-x20com</loc>
+            <loc>/producto/clotrimazol-100mg-x6-ovulos</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/clotrimazol-1-crema-x20g</loc>
+            <loc>/producto/colchicina-05mg-x40com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/clotrimazol-100mg-x6-ovulos</loc>
+            <loc>/producto/cotrimoxazol-so-x100ml</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/colchicina-05mg-x40com</loc>
+            <loc>/producto/cotrimoxazol-x20com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/cotrimoxazol-so-x100ml</loc>
+            <loc>/producto/cotrimoxazol-forte-x10com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/cotrimoxazol-x20com</loc>
+            <loc>/producto/diclofenaco-sodico-infantil-125mg-x5-sup</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/cotrimoxazol-forte-x10com</loc>
+            <loc>/producto/diclofenaco-sodico-50mg-x10com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/diclofenaco-sodico-infantil-125mg-x5-sup</loc>
+            <loc>/producto/digoxina-025mg-x30com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/diclofenaco-sodico-50mg-x10com</loc>
+            <loc>/producto/domperidona-10mg-x20cap</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/digoxina-025mg-x30com</loc>
+            <loc>/producto/dosin-domperidona-gts-10mgml-x20ml</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/domperidona-10mg-x20cap</loc>
+            <loc>/producto/enalapril-maleato-10mg-x20com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/dosin-domperidona-gts-10mgml-x20ml</loc>
+            <loc>/producto/enalapril-maleato-20mg-x20com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/enalapril-maleato-10mg-x20com</loc>
+            <loc>/producto/enalapril-maleato-5mg-x20com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/enalapril-maleato-20mg-x20com</loc>
+            <loc>/producto/eritromicina-500mg-x8com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/enalapril-maleato-5mg-x20com</loc>
+            <loc>/producto/viadil-pargeverina-gts-x15ml</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/eritromicina-500mg-x8com</loc>
+            <loc>/producto/espironolactona-25mg-x20com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/viadil-pargeverina-gts-x15ml</loc>
+            <loc>/producto/fenitoina-sodica-100mg-x30com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/espironolactona-25mg-x20com</loc>
+            <loc>/producto/ferrigot-sulfato-ferroso-125mgml-gts-x30ml</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/fenitoina-sodica-100mg-x30com</loc>
+            <loc>/producto/sulfato-ferroso-200mg-x20com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/ferrigot-sulfato-ferroso-125mgml-gts-x30ml</loc>
+            <loc>/producto/fluconazol-150mg-x2cap</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/sulfato-ferroso-200mg-x20com</loc>
+            <loc>/producto/fluoxetina-20mg-x20com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/fluconazol-150mg-x2cap</loc>
+            <loc>/producto/fleet-fosfosoda-oral-x45ml</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/fluoxetina-20mg-x20com</loc>
+            <loc>/producto/furosemida-40mg-x12com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/fleet-fosfosoda-oral-x45ml</loc>
+            <loc>/producto/gemfibrozilo-300mg-x30com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/furosemida-40mg-x12com</loc>
+            <loc>/producto/gentamicina-03-ung-x35g</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/gemfibrozilo-300mg-x30com</loc>
+            <loc>/producto/gentamicina-03-sof-x5ml</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/gentamicina-03-ung-x35g</loc>
+            <loc>/producto/glibenclamida-5mg-x60com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/gentamicina-03-sof-x5ml</loc>
+            <loc>/producto/haloperidol-1mg-x30com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/glibenclamida-5mg-x60com</loc>
+            <loc>/producto/haloperidol-5mg-x20com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/haloperidol-1mg-x30com</loc>
+            <loc>/producto/hidralazina-50mg-x20com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/haloperidol-5mg-x20com</loc>
+            <loc>/producto/hidroclorotiazida-50mg-x20com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/hidralazina-50mg-x20com</loc>
+            <loc>/producto/ibuprofeno-100mg5ml-jbe-x100ml</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/hidroclorotiazida-50mg-x20com</loc>
+            <loc>/producto/ibuprofeno-200mg-x20com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/ibuprofeno-100mg5ml-jbe-x100ml</loc>
+            <loc>/producto/ibuprofeno-400mg-x20com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/ibuprofeno-200mg-x20com</loc>
+            <loc>/producto/ibuprofeno-600mg-x20com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/ibuprofeno-400mg-x20com</loc>
+            <loc>/producto/imipramina-25mg-x40com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/ibuprofeno-600mg-x20com</loc>
+            <loc>/producto/iprasynt-bromuro-de-ipratropio-20mcg-dosis-x200dosis</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/imipramina-25mg-x40com</loc>
+            <loc>/producto/lactulosa-65-soloral-x200ml</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/iprasynt-bromuro-de-ipratropio-20mcg-dosis-x200dosis</loc>
+            <loc>/producto/grifoparkin-levodopa-carbidopa-x30com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/lactulosa-65-soloral-x200ml</loc>
+            <loc>/producto/levofloxacino-500mg-x7com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/grifoparkin-levodopa-carbidopa-x30com</loc>
+            <loc>/producto/eutirox-levotiroxina-sodica-100mcg-x50com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/levofloxacino-500mg-x7com</loc>
+            <loc>/producto/eutirox-levotiroxina-sodica-50mcg-x50com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/eutirox-levotiroxina-sodica-100mcg-x50com</loc>
+            <loc>/producto/loperamida-2mg-x6com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/eutirox-levotiroxina-sodica-50mcg-x50com</loc>
+            <loc>/producto/loratadina-10mg-x30com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/loperamida-2mg-x6com</loc>
+            <loc>/producto/loratadina-5mg5ml-jbe-x60ml</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/loratadina-10mg-x30com</loc>
+            <loc>/producto/lorazepam-2mg-x30com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/loratadina-5mg5ml-jbe-x60ml</loc>
+            <loc>/producto/losartan-50mg</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/lorazepam-2mg-x30com</loc>
+            <loc>/producto/mebendazol-100mg-x6com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/losartan-50mg-x30com</loc>
+            <loc>/producto/metamizol-sodico-250mg-x5-sup</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/mebendazol-100mg-x6com</loc>
+            <loc>/producto/metamizol-sodico-300mg-x20com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/metamizol-sodico-250mg-x5-sup</loc>
+            <loc>/producto/metformina-850mg-x30com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/metamizol-sodico-300mg-x20com</loc>
+            <loc>/producto/metoclopramida-10mg-x24com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/metformina-850mg-x30com</loc>
+            <loc>/producto/metropast-metronidazol-500mg-x10com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/metoclopramida-10mg-x24com</loc>
+            <loc>/producto/metronidazol-500mg-x10-ovulos</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/metropast-metronidazol-500mg-x10com</loc>
+            <loc>/producto/nifedipino-20mg-x30com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/metronidazol-500mg-x10-ovulos</loc>
+            <loc>/producto/nistatina-100000ui-unguento-x15g</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/nifedipino-20mg-x30com</loc>
+            <loc>/producto/nitrofurantoina-macrocristales-100mg-x10cap</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/nistatina-100000ui-unguento-x15g</loc>
+            <loc>/producto/macrosan-nitrofurantoina-macrocristales-50mg-x20cap</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/nitrofurantoina-macrocristales-100mg-x10cap</loc>
+            <loc>/producto/omeprazol-20mg-x60cap</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/macrosan-nitrofurantoina-macrocristales-50mg-x20cap</loc>
+            <loc>/producto/paracetamol-infantil-100mgml-gts-x15ml</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/omeprazol-20mg-x60cap</loc>
+            <loc>/producto/paracetamol-500mg-x16com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/paracetamol-infantil-100mgml-gts-x15ml</loc>
+            <loc>/producto/paracetamol-infantil-80mg-x16-com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/paracetamol-500mg-x16com</loc>
+            <loc>/producto/paracetamol-infantil-ped-125mg-x6-supositorios</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/paracetamol-infantil-80mg-x16-com</loc>
+            <loc>/producto/pilocarpina-2-sof-x10ml</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/paracetamol-infantil-ped-125mg-x6-supositorios</loc>
+            <loc>/producto/pilocarpina-4-sof-x10ml</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/pilocarpina-2-sof-x10ml</loc>
+            <loc>/producto/potasio-gluconato-312-x200ml</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/pilocarpina-4-sof-x10ml</loc>
+            <loc>/producto/prednisolona-acetato-solof-1-x5ml</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/potasio-gluconato-312-x200ml</loc>
+            <loc>/producto/prednisona-5mg-x20com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/prednisolona-acetato-solof-1-x5ml</loc>
+            <loc>/producto/propranolol-clorhidrato-10mg-x20com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/prednisona-5mg-x20com</loc>
+            <loc>/producto/famotidina-20mg-x20com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/propranolol-clorhidrato-10mg-x20com</loc>
+            <loc>/producto/famotidina-40mg-x10com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/famotidina-20mg-x20com</loc>
+            <loc>/producto/quetiapina-100mg-x30com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/famotidina-40mg-x10com</loc>
+            <loc>/producto/quetiapina-200mg-x30com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/quetiapina-100mg-x30com</loc>
+            <loc>/producto/quetiapina-25mg-x30com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/quetiapina-200mg-x30com</loc>
+            <loc>/producto/dagotil-risperidona-1mg-x30com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/quetiapina-25mg-x30com</loc>
+            <loc>/producto/sacrusyt-salbutamol-100mcgdosis-x200dosis</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/dagotil-risperidona-1mg-x30com</loc>
+            <loc>/producto/tro-60-sales-rehidratantes-60meq-x10sob</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/sacrusyt-salbutamol-100mcgdosis-x200dosis</loc>
+            <loc>/producto/tro-90-sales-rehidratantes-90meq-x4sob</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/tro-60-sales-rehidratantes-60meq-x10sob</loc>
+            <loc>/producto/sertralina-50mg-x30com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/tro-90-sales-rehidratantes-90meq-x4sob</loc>
+            <loc>/producto/elixine-teofilina-jarabe-80mg15ml-x250ml</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/sertralina-50mg-x30com</loc>
+            <loc>/producto/terbinafina-250mg-x28com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/elixine-teofilina-jarabe-80mg15ml-x250ml</loc>
+            <loc>/producto/doxithal-doxiciclina-50mg-x20com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/terbinafina-250mg-x28com</loc>
+            <loc>/producto/doxithal-doxiciclina-100mg-x10com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/doxithal-doxiciclina-50mg-x20com</loc>
+            <loc>/producto/tetraciclina-clorhidrato-500mg-x8cap</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/doxithal-doxiciclina-100mg-x10com</loc>
+            <loc>/producto/timolol-05-sof-x10ml</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/tetraciclina-clorhidrato-500mg-x8cap</loc>
+            <loc>/producto/xolof-unguento-oftalmico</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/timolol-05-sof-x10ml</loc>
+            <loc>/producto/xolof-d-suspension-oftalmica</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/xolof-tobramicina-03-ungof-x35g</loc>
+            <loc>/producto/tramadol-clorhidrato-100mgml-gts-x10ml</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/xolof-tobramicina-03-sof-x5ml</loc>
+            <loc>/producto/lifestyles-nuda-ultra-sensible-x3-und</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/tramadol-clorhidrato-100mgml-gts-x10ml</loc>
+            <loc>/producto/actrapid-hm-100uiml-10ml-x1fa</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/lifestyles-nuda-ultra-sensible-x3-und</loc>
+            <loc>/producto/anovulatorios</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/actrapid-hm-100uiml-10ml-x1fa</loc>
+            <loc>/producto/azitromicina-500mg-x6com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/anovulatorios-etinilestradiol-levonorgestrel-x21com</loc>
+            <loc>/producto/azitromicina-200mg5ml-so-x15ml</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/azitromicina-500mg-x6com</loc>
+            <loc>/producto/betametasona-sodio-fosfato-4mgml-x5-amp</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/azitromicina-200mg5ml-so-x15ml</loc>
+            <loc>/producto/cefradina-500mg-x8cap</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/betametasona-sodio-fosfato-4mgml-x5-amp</loc>
+            <loc>/producto/clotrimazol-1-stop-x20ml</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/cefradina-500mg-x8cap</loc>
+            <loc>/producto/dolcopin-metamizol-sodico-escopolamina-butilbromuro-gts-x15ml</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/clotrimazol-1-stop-x20ml</loc>
+            <loc>/producto/feveny-estrogenos-conjugados-0625mg-x28com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/dolcopin-metamizol-sodico-escopolamina-butilbromuro-gts-x15ml</loc>
+            <loc>/producto/gentamicina-80mg2ml-x5amp</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/feveny-estrogenos-conjugados-0625mg-x28com</loc>
+            <loc>/producto/gofyl-quetiapina-200mg-x30com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/gentamicina-80mg2ml-x5amp</loc>
+            <loc>/producto/insulatard-hm-insulina-isofanica-100uiml-10ml-x1fa</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/gofyl-quetiapina-200mg-x30com</loc>
+            <loc>/producto/isosorbida-dinitrato-10mg-x60com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/insulatard-hm-insulina-isofanica-100uiml-10ml-x1fa</loc>
+            <loc>/producto/isquelium-acenocumarol-4mg-x30com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/isosorbida-dinitrato-10mg-x60com</loc>
+            <loc>/producto/kalitium-carbonato-de-litio-300mg-x50com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/isquelium-acenocumarol-4mg-x30com</loc>
+            <loc>/producto/ketoconazol-2-cr-x20g</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/kalitium-carbonato-de-litio-300mg-x50com</loc>
+            <loc>/producto/ketoconazol-200mg-x10com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/ketoconazol-2-cr-x20g</loc>
+            <loc>/producto/ketoprofeno-100mg2ml-x5-amp</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/ketoconazol-200mg-x10com</loc>
+            <loc>/producto/launol-locion-x60ml</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/ketoprofeno-100mg2ml-x5-amp</loc>
+            <loc>/producto/launol-shampoo-x60ml</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/launol-locion-x60ml</loc>
+            <loc>/producto/lertus-diclofenaco-sodico-25mg-x20com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/launol-shampoo-x60ml</loc>
+            <loc>/producto/lovastatina-20mg-x28com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/lertus-diclofenaco-sodico-25mg-x20com</loc>
+            <loc>/producto/metildopa-250mg-x20com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/lovastatina-20mg-x28com</loc>
+            <loc>/producto/neomicina-500mg-x12com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/metildopa-250mg-x20com</loc>
+            <loc>/producto/nistatina-100000ui-x12-ovulos</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/neomicina-500mg-x12com</loc>
+            <loc>/producto/sincris-olanzapina-5mg-x30com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/nistatina-100000ui-x12-ovulos</loc>
+            <loc>/producto/salbutamol-05-sol-neb-x20ml</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/sincris-olanzapina-5mg-x30com</loc>
+            <loc>/producto/vermoil-albendazol-200mg-x2com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/salbutamol-05-sol-neb-x20ml</loc>
+            <loc>/producto/vitaminas-acd-gts-x30ml</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/vermoil-albendazol-200mg-x2com</loc>
+            <loc>/producto/penicilina-benzatina-1200000ui-x1fa</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/vitaminas-acd-gts-x30ml</loc>
+            <loc>/producto/diclofenaco-sodico-75mg3ml-x5amp</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/penicilina-benzatina-1200000ui-x1fa</loc>
+            <loc>/producto/viadil-pargeverina-5mgml-x2amp</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/diclofenaco-sodico-75mg3ml-x5amp</loc>
+            <loc>/producto/conpremin-estrogenos-conjugados-03mg-x28gra</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/viadil-pargeverina-5mgml-x2amp</loc>
+            <loc>/producto/forflow-enema-x133ml</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/conpremin-estrogenos-conjugados-03mg-x28gra</loc>
+            <loc>/producto/hidrocortisona-1-cr-x15g</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/forflow-enema-x133ml</loc>
+            <loc>/producto/prodasone-medroxiprogesterona-5mg-x20com</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/hidrocortisona-1-cr-x15g</loc>
+            <loc>/producto/oftavir-aciclovir-3-ungoft-x35g</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/prodasone-medroxiprogesterona-5mg-x20com</loc>
+            <loc>/producto/atropina-1-solof-x10ml</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/oftavir-aciclovir-3-ungoft-x35g</loc>
+            <loc>/producto/oftasona-p-sof-x10ml</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/atropina-1-solof-x10ml</loc>
+            <loc>/producto/betoptic-solof-05-x5ml</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/oftasona-p-sof-x10ml</loc>
+            <loc>/producto/cardiolen-verapamilo-80mg-x20cap</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/betoptic-solof-05-x5ml</loc>
+            <loc>/producto/ciproval-ciprofloxaciono-03-solof-x5ml</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/cardiolen-verapamilo-80mg-x20cap</loc>
+            <loc>/producto/escapel-2</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/ciproval-ciprofloxaciono-03-solof-x5ml</loc>
+            <loc>/producto/lifestyles-nuda-ultra-sensible-x21</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/escapel-2</loc>
+            <loc>/producto/lifestyles-vibra-ribbed-stimula-x3-und</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/eucerin-higiene-intima</loc>
+            <loc>/producto/skyn-original-x-3unid-sin-latex</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/lifestyles-nuda-ultra-sensible-x21</loc>
+            <loc>/producto/tejania</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/lifestyles-vibra-ribbed-stimula-x3-und</loc>
+            <loc>/producto/sibilla-cd</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/skyn-x-3-original</loc>
+            <loc>/producto/rosina-cd</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/skyn-intense-feel-x-9</loc>
+            <loc>/producto/jolian</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/tejania</loc>
+            <loc>/producto/tobe</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/sibilla-cd</loc>
+            <loc>/producto/kingdom-super-estriado-x3-unid</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/rosina-cd</loc>
+            <loc>/producto/kingdom-super-dotted-x3-und</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/jolian</loc>
+            <loc>/producto/kingdom-super-sensible-x3-und</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/tobe</loc>
+            <loc>/producto/kingdom-super-resistente-x3-und</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/kingdom-super-estriado-x3-und</loc>
+            <loc>/producto/kingdom-maxima-estimulacion-x3-und</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/kingdom-super-dotted-x3-und</loc>
+            <loc>/producto/kingdom-accion-retardante-x3-und</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/kingdom-super-sensible-x3-und</loc>
+            <loc>/producto/durex-clasico-x3-und</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/kingdom-super-resistente-x3-und</loc>
+            <loc>/producto/durex-extra-seguro-x3-und</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/kingdom-maxima-estimulacion-x3-und</loc>
+            <loc>/producto/durex-placer-prolongado-x3-und</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/kingdom-accion-retardante-x3-und</loc>
+            <loc>/producto/durex-gel-lubricante-cherry-x50ml</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/durex-clasico-x3-und</loc>
+            <loc>/producto/kotex-tampon-digital-medio-x8-und</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/durex-extra-seguro-x3-und</loc>
+            <loc>/producto/kotex-toalla-nocturna-x8-und</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/durex-placer-prolongado-x3-und</loc>
+            <loc>/producto/kotex-toalla-dn-x8-und</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/durex-gel-lubricante-cherry-x50ml</loc>
+            <loc>/producto/kotex-toalla-ultrafina-x8-und</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/durex-gel-lubricante-clasico-x50ml</loc>
+            <loc>/producto/mirena</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/kotex-tampon-digital-medio-x8-und</loc>
+            <loc>/producto/gynera</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/kotex-tampon-digital-super-x8-und</loc>
+            <loc>/producto/microgynon</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/kotex-toalla-nocturna-x8-und</loc>
+            <loc>/producto/yaz-metafolin</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/kotex-toalla-dn-x8-und</loc>
+            <loc>/producto/jadelle</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/kotex-toalla-ultrafina-x8-und</loc>
+            <loc>/producto/kyleena</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/mirena</loc>
+            <loc>/producto/diane-35</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/gynera</loc>
+            <loc>/producto/angeliq</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/microgynon</loc>
+            <loc>/producto/progynova-1-mg</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/yaz-metafolin</loc>
+            <loc>/producto/progynova-2-mg</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/jadelle</loc>
+            <loc>/producto/anulette-20-cd</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/kyleena</loc>
+            <loc>/producto/anulette</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/diane-35</loc>
+            <loc>/producto/lirex</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/angeliq</loc>
+            <loc>/producto/naturel</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/progynova-1-mg</loc>
+            <loc>/producto/novafem-ampolla</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/progynova-2-mg</loc>
+            <loc>/producto/serenata-20</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/anulette-20-cd</loc>
+            <loc>/producto/valerix</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/anulette</loc>
+            <loc>/producto/dalgiet</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/lirex</loc>
+            <loc>/producto/cerciorat-2</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/naturel</loc>
+            <loc>/producto/ladee-20</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/novafem-ampolla</loc>
+            <loc>/producto/ladee</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/serenata-20</loc>
+            <loc>/producto/viora-20</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/valerix</loc>
+            <loc>/producto/viora</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/dalgiet</loc>
+            <loc>/producto/viora-cd</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/ladee-20</loc>
+            <loc>/producto/vonille-cd</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/ladee</loc>
+            <loc>/producto/slinda</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/viora-20</loc>
+            <loc>/producto/miranda</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/viora</loc>
+            <loc>/producto/donabel-21</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/viora-cd</loc>
+            <loc>/producto/regenesis-max</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/slinda</loc>
+            <loc>/producto/lacte-5-gastrointestinal</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/regenesis-max</loc>
+            <loc>/producto/lacte-5-gastro-slim</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/probium-multi-blend-12b</loc>
+            <loc>/producto/lacte-5-gastro-senior</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/probium-pro-cran-blend-6b</loc>
+            <loc>/producto/esmartia</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/probium-ten-strain-50b</loc>
+            <loc>/producto/ciclidon</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/probiotix-high-potency</loc>
+            <loc>/producto/ciclomex</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/probiotix-daily</loc>
+            <loc>/producto/femelle-20-fol</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/lacte-5-gastrointestinal</loc>
+            <loc>/producto/ciclidon-20</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/lacte-5-gastro-slim</loc>
+            <loc>/producto/evitta-1</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/lacte-5-gastro-senior</loc>
+            <loc>/producto/panbio-test-antigeno-covid19</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/esmartia</loc>
+            <loc>/producto/onetest-plus</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/ciclidon</loc>
+            <loc>/producto/norvetal-20-cd</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/ciclomex</loc>
+            <loc>/producto/norvetal</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/femelle-20-fol</loc>
+            <loc>/producto/andalan-classic-cu-380</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/ciclidon-20</loc>
+            <loc>/producto/andalan-comfort-cu-375</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/evitta-1</loc>
+            <loc>/producto/andalan-comfort-mini-cu-375</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/panbio-test-antigeno-covid19</loc>
+            <loc>/producto/andalan-silverflex-cu-380-ag-plata</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/onetest-plus</loc>
+            <loc>/producto/toallitas-humedas-prudence-ph-neutro</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/norvetal-20-cd</loc>
+            <loc>/producto/prudence-clasico</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/norvetal</loc>
+            <loc>/producto/prudence-neon</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/andalan-classic-cu-380</loc>
+            <loc>/producto/prudence-corrugado-3unid</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/andalan-comfort-cu-375</loc>
+            <loc>/producto/prudence-ultra-sensible-x3und</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/andalan-silverflex-cu-380-ag-plata</loc>
+            <loc>/producto/mascarilla-reutilizable-anticonceptivocl</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/toallitas-humedas-prudence-ph-neutro</loc>
+            <loc>/producto/llavero-circular-anticonceptivocl</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/prudence-clasico</loc>
+            <loc>/producto/llavero-rectangular-anticonceptivocl</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/prudence-neon</loc>
+            <loc>/producto/polera-hombre-anticonceptivocl</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/prudence-corrugado-3u</loc>
+            <loc>/producto/polera-mujer-anticonceptivocl</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/prudence-ultra-sensible-x3und</loc>
+            <loc>/producto/toallitas-desmaquillantes</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/mascarilla-reutilizable-anticonceptivocl</loc>
+            <loc>/producto/ultra-facial-crema</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/llavero-circular-anticonceptivocl</loc>
+            <loc>/producto/oleo-extraordinario-shampoo-cabello-rizado</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/llavero-rectangular-anticonceptivocl</loc>
+            <loc>/producto/prudence-texturado-extremo-x3und</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/polera-hombre-anticonceptivocl</loc>
+            <loc>/producto/prudence-clasico-x12und</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/polera-mujer-anticonceptivocl</loc>
+            <loc>/producto/prudence-menta-x3und</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/ultra-facial-cream</loc>
+            <loc>/producto/levoplant-implante-subdermico</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/oleo-extraordinario-shampoo-cabello-rizado</loc>
+            <loc>/producto/gel-intimo-prudence-neutro-x100g</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/prudence-texturado-extremo-x3und</loc>
+            <loc>/producto/colector-menstrual-softcup-prudence-x4-copas</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/prudence-clasico-x12und</loc>
+            <loc>/producto/shampoo-liso-coco-350-ml</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/levoplant-implante-subdermico</loc>
+            <loc>/producto/prudence-caipirinha-x3und</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/gel-intimo-prudence-neutro-x100g</loc>
+            <loc>/producto/prudence-chocolate-x3unid</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/colector-menstrual-softcup-prudence-x4cup</loc>
+            <loc>/producto/prudence-frutilla-x3und</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/shampoo-liso-coco-350-ml</loc>
+            <loc>/producto/prudence-retardante-x3und</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/prudence-caipirinha-x3und</loc>
+            <loc>/producto/pack-diversion-prudence</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/prudence-chocolate-x3und</loc>
+            <loc>/producto/sagami-preservativo-sin-latex</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/prudence-frutilla-x3und</loc>
+            <loc>/producto/curiosin-gel-x30g</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/prudence-retardante-x3und</loc>
+            <loc>/producto/lenzetto-x56dosis</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/pack-diversion-prudence</loc>
+            <loc>/producto/tamsol-04mg-x30cap</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/sagami-original-sin-latex</loc>
+            <loc>/producto/escapel-1-prioritario</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/curiosin-gel-x30g</loc>
+            <loc>/producto/juvenex</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/lenzetto-x56dosis</loc>
+            <loc>/producto/ginesse</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/tamsol-04mg-x30cap</loc>
+            <loc>/producto/nicol</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/vitamina-d3-800ui</loc>
+            <loc>/producto/aminta</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/vitamina-a-3300ui-x</loc>
+            <loc>/producto/alizon-20</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/vitamina-b12</loc>
+            <loc>/producto/alizon</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/vitamina-c-500mg</loc>
+            <loc>/producto/vitamina-d3-800ui</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/prudence-ultra-sensible-flow-pack-3</loc>
+            <loc>/producto/vitamina-a-3300ui-x</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/pack-3-toallitas-ecologicas</loc>
+            <loc>/producto/vitamina-b12</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/toallita-ecologica-oso</loc>
+            <loc>/producto/vitamina-c-500mg</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/toallita-ecologica-verde-m</loc>
+            <loc>/producto/prudence-ultra-sensible-flow-pack-3</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/toallita-ecologica-azul-marino-l</loc>
+            <loc>/producto/pack-3-toallitas-ecologicas</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/toallita-ecologica-azul-beich-l</loc>
+            <loc>/producto/toallita-ecologica-oso</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/sop</loc>
+            <loc>/producto/toallita-ecologica-verde-m</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/tamisa-2075</loc>
+            <loc>/producto/toallita-ecologica-azul-marino-l</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/test</loc>
+            <loc>/producto/toallita-ecologica-azul-beich-l</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/test</loc>
+            <loc>/producto/sop</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/imuran-azatioprina</loc>
+            <loc>/producto/tamisa-2075</loc>
             <changefreq>daily</changefreq>
         </url>
             <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/producto/aire</loc>
+            <loc>/producto/gynostat-20</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/lady-ten-35</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/flarina-35</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/sortifem</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/femiplus-cd</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/femiplus-20-cd</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/dahlia-20</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/dahlia</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/ladygex</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/alondra</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/anuar</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/miafem-cd</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/miafem</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/ariana</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/ginodiest</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/dkt-medroxiprogesterona</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/marvelon-20</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/marvelon</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/nordette</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/feminol</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/prueba-de-ovulacion-digital-clearblue</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/peptiam-suplemento-dietario</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/pack-funcional-prudence</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/postpil-prioritario</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/postpil-x2</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/soluna</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/soluna-e</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/soluna-e20</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/crema-hidratante-para-manos-clasica</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/reparacion-intensa-crema</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/crema-de-manos-argan</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/crema-de-manos-cobre-ultra-proteccion</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/crema-de-manos-maqui</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/crema-hidratante-pielarmina-aloe-vera</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/body-intensiva-crema</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/crema-rostro-absorcion-inmediata-aloe-verapro-vitamina-b5</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/crema-rostro-absorcion-inmediata-colagenovitamina-e</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/crema-humectante-para-manos-limon</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/toallitas-desmaquillantes-petrizzio-hidra-shock</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/toallitas-desmaquillantes-micelar</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/castana-crema-para-manos-de</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/toallitas-desmaquillantes-waterproof</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/agua-micelar-aloe-vera</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/crema-neutrogena-bodycare-intensive-revitalizing</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/piel-sensible-locion</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/pack-crema-extra-humectante</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/crema-nivea-creme</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/crema-multiproposito-nivea-creme</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/nivea-multiproposito-crema-soft</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/crema-de-manos-nivea-aloe-vera</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/crema-de-manos-nivea-miel</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/nivea-body-crema-reparadora-intensiva</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/nivea-suave-piel-seca</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/nivea-piel-mixta-grasa</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/yes-hot-gel-lubricante-x-55-ml</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/yes-cherry-lubricante</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/yes-ice-intenso-gel-lubricante-55-ml</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/crema-corporal-clinical-reparacion-intensiva</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/crema-corporal-hidratante-reparadora-coconut</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/jabon-de-afrecho</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/hidratante-crema</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/locion-hidratante-rostro-am</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/hidratante-locion</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/tapsin-periodo-mujer</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/imuran-azatioprina</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/levosert-1</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/levosert-2</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/bemfola-300iu-05ml</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/bemfola-75ui0125ml</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/prudence-clasico-18</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/prudence-neon-18</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/prudence-ultra-sensible-18</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/prudence-chocolate-18</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/prudence-caipirinha-18</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/prudence-frutilla-18</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/prudence-corrugado-18</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/prudence-efecto-retardante-18</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/prudence-texturado-extremo-18</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/lifestyles-studded-21</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/lifestyles-vibraribbed</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/skyn-original-15-sin-latex</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/skyn-intense-feel-15-sin-latex</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/postpil</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/baby-teeth-cepillo-0-2a</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/flex-cepillo-medio-2x1</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/flex-cepillo-suave-2x1</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/little-teeth-63g-2-5a-sf</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/little-teeth-cepillo-3-5a</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/triple-prot-x158g</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/white-shine-100g</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/cepillo-1009-single</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/cepillo-1560-soft</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/cepillo-3960-super-soft</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/cepillo-5460-ultra-soft</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/baby-suave-0-anos</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/cepillo-dental-access-medio</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/cepillo-dental-access-suave</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/cepillo-dental-medio</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/cepillo-dental-orthodontic-access</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/cepillo-vitis-suave</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/cepillo-dental-ultra-suave</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/cera-orthodontic-2x1</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/gel-junior-dentrifico-x75ml</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/gel-kids-dentrifico-x50ml</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/junior-suave-6a</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/kids-suave-3a</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/sensodyne-x90g</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/listerine-cool-mint-180ml</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/caristop-5000-x51g</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/caristop-hilo-dental-x50m</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/interproxi-plus-micro-09</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/interprox-plus-mini-11</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/interprox-plus-mini-conico-10</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/interprox-nano-06</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/interprox-plus-conico-13</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/interprox-plus-micro-09</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/interprox-plus-mini-11</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/interprox-plus-nano-06</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/interprox-plus-super-micro-07</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/interprox-super-micro-07</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/perio-aid-mantenimiento-x150ml</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/perio-aid-mantenimiento-x500ml</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/perio-aid-tratamiento-x150ml</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/perio-aid-tratamiento-x500ml</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/disfruta-limon-x6-sobres</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/disfruta-normal-sob-x6-unidades</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/triple-prot-63g</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/blistex-medicado</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/blistex-classic</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/paracetamol-500mg-2x</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/red-bull-250ml</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/red-bull-sugar-free-250ml</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/pack-bentley-gel</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/colgate-ultra-blanco</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/jabon-barra-humectante-cuidado-suave-90-gr-x3-elite</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/listerine-cool-mint-500-ml-180-ml</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/disfruta-clasico-frasco</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/eno-limon-x100g</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/eno-regular-x100g</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/implanon-nxt</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/bentley-anillo-vibrador-3-velocidades</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/yes-hielo-fuego</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/eno-limon-x6-sobres</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/eno-regular-6-sobres-x5g</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/yes-lub-ohh-yes</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/yes-lubricante-sexual-chocolate-menta-x-30-ml</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/sevedol</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/aloe-vera-puro-500ml</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/elcal-d-500-800-x60cap</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/elcal-d-forte-x60cap</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/elcal-d-plus-x60cap</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/elcal-d-supra-x30sob</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/elcal-forte-x30cap</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/elcal-x30cap</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/vitamina-e-400ui-x30cap</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/pastillero-14-dias</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/pastillero-7-dias</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/bloque-brillo-unas</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/cepillo-de-unas</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/cortaunas</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/cortaunas-grande</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/esponja-limpiadora-celulosa-x2</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/lima-profesional-x2uni</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/lima-x10uni</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/mascarilla-facial-aloe-vera</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/piedra-pome</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/pinza</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/rizador-pestanas</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/sacapunta-doble</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/toallas-desmaquillantes-aloe-vera</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/toallas-desmaquillantes-pepino</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/agua-cachantun-con-gas-500ml</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/pepsi-500ml</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/jugo-watts-durazno-300ml</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/mascarilla-celeste-x50und</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/mascarilla-negra-x50und</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/kitadol-500mg</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/kitadol-forte</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/alcohol-gel-60ml</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/alcohol-70-x500ml</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/acido-folico-500ug-x120dosis</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/dolider-x10com</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/juliette</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/vitakron-3-x30cap</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/vitakron-a-z-x60cap</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/vitakron-duo-x30dias</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/vitakron-hombre-x30com</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/vitakron-mujer-x30com</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/vitakron-silver-x30com</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/vitamina-c-1000mg-naranja</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/nosotras-protector-diario-largo-x30und</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/crema-depilatoria-para-zonas-delicadas</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/crema-depilatoria-80-ml</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/pielarmina-depil-bandas-cera-depilatoria-cuerpo-piel-sensible-6-wipes-x2</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/pielarmina-bandas-depilatorias-faciales-cannabis</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/pielarmina-depil-cera-cuerpo</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/vitamina-c-1000-mg-zinc</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/bepanthol-unguento-x30g</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/bepanthol-unguento-x50g</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/hipoglos-x20g</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/hipoglos-x72g</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/magnesio-zinc-x20tab</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/vitamina-c-zinc-x20tab</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/capsulas-propoleo-vitamina-c</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/aceite-de-masaje-bergamota-50ml</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/aceite-de-masaje-eros-50ml</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/aceite-de-masaje-lavanda-50ml</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/aceite-de-masaje-zen-50ml</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/agua-de-colonia-bergamota</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/agua-de-colonia-bosque</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/agua-de-colonia-padme</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/agua-de-colonia-zen</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/balsamo-jalea-real-maqui</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/balsamo-argan-manzanilla</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/balsamo-ortiga-romero</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/balsamo-propoleo-melisa</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/balsamo-te-matcha</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/capsulas-ginseng-coreano</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/capsulas-guarana</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/champu-bebe-250ml</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/champu-jalea-real-maqui</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/champu-ortiga-romero</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/champu-propoleo-melisa</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/crema-aloe-jalea-real</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/crema-calmante-bebe-50ml</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/crema-caracol-propoleo</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/crema-de-manos-aloe-vera-jalea-real-maqui</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/crema-de-manos-quinoa-matcha</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/crema-luz-del-alba</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/crema-matico-propoleo</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/locion-nutritiva-bebe-250ml</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/nutraderm-capsulas</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/serum-del-alba</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/propoleo-spray-canela</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/propoleo-spray-ninos</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/pack-champu-y-balsamo-jalea-real-maqui</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/pack-champu-y-balsamo-melisa</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/pack-champu-y-balsamo-ortiga-romero</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/pack-champu-y-balsamo-quillay-manzanilla</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/pack-champu-y-balsamo-te-matcha</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/nivea-men-black-white-desodorante</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/nivea-roll-on-men-deep-wood-desodorante</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/nivea-milk-fresh-roll-on-desodorante</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/barra-invisible-dry-desodorante</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/original-barra-desodorante</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/rollon-men-care-invisible-dry-desodorante</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/spray-original-desodorante</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/spray-men-care-invisible-dry-desodorante</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/spray-invisible-dry-desodorante</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/original-roll-on-desodorante</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/myloop</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/phb-super-7-pack-suave</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/phb-super-8-medio</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/clotrimazol-6-ovulos-100mg</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/clotrimazol-1-ovulo-500mg</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/panagesic-periodo</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/metronidazol-500mg-x-10-ovulos</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/progendo-200mg</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/progendo-400mg</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/progendo-100mg</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/minivitaminas-x20-tabletas-ninos</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/multivitaminas-biotina-x20-tabletas</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/multivitaminas-minerales-x20-tabletas</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/bentley-gel-clasico-x50g</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/bentley-gel-chocolate-mint-x50g</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/bentley-gel-frutilla-x50g</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/bentley-gel-tropical-passion-x50g</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/kotex-toalla-dn-x15-und</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/kotex-protector-2-en-1-x-20-und</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/kotex-noche-malla-alas</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/kotex-dia-malla-con-alita</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/kotex-normal-dia-x-10-und</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/kotex-normal-con-alas-32u</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/kotex-protector-diario-x-20-und</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/kotex-dia-malla-con-alita-x-16u</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/kotex-tampon-digital-super-x-12</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/kotex-tampon-digital-m-x-12</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/ultra-delgado-diario-prot-x-20</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/tampax-pearl-regular-x-8-un</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/protector-diario-clasico-tela-suave-x44und</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/toalla-normal-tela-suave-x-16u</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/toalla-ultadelgada-tela-suave-con-alas-x16uni</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/tampon-con-aplicador-super-x8un</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/tampon-con-aplicador-super-plus-x8un</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/momentum</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/toallitas-carbon-x25und</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/exfoliante-jabon-x-100-gr</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/72h-active-emotion-desodorante</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/jabon-de-azufre-x100g</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/72h-power-dry-desodorante</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/48h-bamboo-barra-desodorante</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/jabon-de-bicarbonato-x100g</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/crema-diabet-tx-plus-10-x50g</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/crema-diabet-tx-x400ml</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/crema-ultra-nutritiva-x200ml</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/astaxanthin-x60cap</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/black-garlic-x60cap</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/cardo-mariano-x60cap</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/castano-de-india-x100g</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/centella-asiatica-gel-x100g</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/citrato-de-potasio-x60cap</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/clorofila-wheatgrass-x60cap</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/colon-relax-x60cap</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/fat-loss-x120cap</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/gummies-colagenobiotinavit-c-x30gomitas</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/picolinato-de-cromo-x30cap</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/sly-cafe-verde-x60cap</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/sly-mango-africano-x60cap</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/sly-spirulina-x60cap</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/varitron-colagenocastano-de-india-x60cap</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/vinagre-de-manzana-x60cap</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/vitamina-b12-x60cap</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/vitamina-c-ef-1000mg-x20com</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/zinc-quelato-x60cap</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/xolof-d-unguento-oftalmico</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/xolof-solucion-oftalmica-5-ml</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/amoval-1000mg</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/alexia</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/alexia-forte</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/amoval-250-mg</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/amoval-500-mg</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/amoval-duo-1000-x-50-ml-suspension</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/amoval-duo-1000</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/antalin</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/trim-300-mg</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/rinoval-spray-nasal</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/vertium-10-comprimidos</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/vertium-40-comprimidos</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/clavinex-250-mg</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/clavinex-duo-forte-800-mg-57-mg-x-100-ml-suspension</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/clavinex-duo-forte-800-mg</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/onetest-plus-prioritario</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/primaquin</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/furokal</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/dixi-35</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/clinomat</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/blaxitec</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/momentum-prioritario</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/trio-val-dianoche</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/hidrafemme-gel-intravaginal</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/clarimir-f</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/dvida-800ui</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/dvida-gotas</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/andalan-ballerine-cu-300</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/preventor-test-multidrogas</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/preventor-test-multidrogas-prioritario</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/test-de-embarazo-preventor</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/dvidamax-100000ui</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/gintol-omega-3</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/wellbutrin-300mg-xl</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/lasea</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/phb-flexipicks-recto-40</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/xumadol-1g</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/supradyn-prenatal</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/aspirina-ninos-pediatrico-100mg</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/aspirina-ninos-pediatrico-100mg-98comp</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/aspirina-500mg</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/cardioaspirina-100mg-x20com</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/cardioaspirina-100mg-x50com</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/cardioaspirina-325mg-x30com</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/activa21</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/evilin</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/venofer</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/disilden-100mg-x10com</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/disilden-100mg-x20com</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/disilden-100mg-x5com</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/asertia</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/tranexton</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/cavamed</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/microser-24mg</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/taldus-5mg</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/testovital</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/depo-prodasone</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/prodasone</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/dermaten</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/endometrin-100mg</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/gonapeptyl-inyectable</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/menopur-75ui-1-ampolla</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/menopur-75ui-5-ampolla</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/menopur-1200ui-frasco</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/rekovelle-inyectable-12mcg</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/rekovelle-inyectable-36mcg</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/rekovelle-inyectable-72mcg</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/citracal-max</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/exelringx3</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/merries-velcro-talla-m-42-pcs</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/merries-velcro-talla-l-36pcs</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/destrel</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/aminoxine-plus</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/merries-velcro-xl28u-x6</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/toallitas-desmaquillantes-night-calming</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/merries-pants-xl24u-x6</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/merries-pants-l27u-x6</loc>
+            <changefreq>daily</changefreq>
+        </url>
+            <url>
+            <loc>/producto/merries-pants-m33u-x6</loc>
             <changefreq>daily</changefreq>
         </url>
                 <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/blog/mundo-salud</loc>
+            <loc>/blog/mundo-salud</loc>
             <changefreq>daily</changefreq>
         </url>
                     <url>
-                <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/blog/mundo-salud/post/dispositivos-intra-uterinos-diu</loc>
+                <loc>/blog/mundo-salud/post/dispositivos-intra-uterinos-diu</loc>
                 <changefreq>daily</changefreq>
             </url>
                     <url>
-                <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/blog/mundo-salud/post/anticonceptivos-inyectables</loc>
+                <loc>/blog/mundo-salud/post/anticonceptivos-inyectables</loc>
                 <changefreq>daily</changefreq>
             </url>
                     <url>
-                <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/blog/mundo-salud/post/pastilla-del-dia-despues</loc>
+                <loc>/blog/mundo-salud/post/pastilla-del-dia-despues</loc>
                 <changefreq>daily</changefreq>
             </url>
                     <url>
-                <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/blog/mundo-salud/post/metodos-anticonceptivos-y-planificacion-familiar</loc>
+                <loc>/blog/mundo-salud/post/metodos-anticonceptivos-y-planificacion-familiar</loc>
                 <changefreq>daily</changefreq>
             </url>
                     <url>
-                <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/blog/mundo-salud/post/infecciones-de-transmision-sexual</loc>
+                <loc>/blog/mundo-salud/post/infecciones-de-transmision-sexual</loc>
                 <changefreq>daily</changefreq>
             </url>
                     <url>
-                <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/blog/mundo-salud/post/condones</loc>
+                <loc>/blog/mundo-salud/post/condones</loc>
                 <changefreq>daily</changefreq>
             </url>
                     <url>
-                <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/blog/mundo-salud/post/esterilizacion</loc>
+                <loc>/blog/mundo-salud/post/esterilizacion</loc>
                 <changefreq>daily</changefreq>
             </url>
                     <url>
-                <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/blog/mundo-salud/post/anticonceptivos-orales-combinados</loc>
+                <loc>/blog/mundo-salud/post/anticonceptivos-orales-combinados</loc>
                 <changefreq>daily</changefreq>
             </url>
                     <url>
-                <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/blog/mundo-salud/post/metodos-anticonceptivos-que-pueden-utilizar-las-mujeres-que-padecen-epilepsia</loc>
+                <loc>/blog/mundo-salud/post/metodos-anticonceptivos-que-pueden-utilizar-las-mujeres-que-padecen-epilepsia</loc>
                 <changefreq>daily</changefreq>
             </url>
                     <url>
-                <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/blog/mundo-salud/post/cual-es-el-mejor-metodo-anticonceptivo</loc>
+                <loc>/blog/mundo-salud/post/cual-es-el-mejor-metodo-anticonceptivo</loc>
                 <changefreq>daily</changefreq>
             </url>
                     <url>
-                <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/blog/mundo-salud/post/implantes-anticonceptivos-subdermicos</loc>
+                <loc>/blog/mundo-salud/post/implantes-anticonceptivos-subdermicos</loc>
                 <changefreq>daily</changefreq>
             </url>
                     <url>
-            <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/blog/tendencia</loc>
+                <loc>/blog/mundo-salud/post/t-de-cobre</loc>
+                <changefreq>daily</changefreq>
+            </url>
+                    <url>
+                <loc>/blog/mundo-salud/post/test-de-embarazo</loc>
+                <changefreq>daily</changefreq>
+            </url>
+                    <url>
+                <loc>/blog/mundo-salud/post/metodos-alternativos</loc>
+                <changefreq>daily</changefreq>
+            </url>
+                    <url>
+            <loc>/blog/tendencia</loc>
             <changefreq>daily</changefreq>
         </url>
                     <url>
-                <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/blog/tendencia/post/a-12-anos-de-la-pildora-del-dia-despues-estudio-evidencio-que-su-uso-evito-al-menos-27-mil-hospitalizaciones</loc>
+                <loc>/blog/tendencia/post/a-12-anos-de-la-pildora-del-dia-despues-estudio-evidencio-que-su-uso-evito-al-menos-27-mil-hospitalizaciones</loc>
                 <changefreq>daily</changefreq>
             </url>
                     <url>
-                <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/blog/tendencia/post/como-funciona-una-suscripcion-en-anticonceptivocl</loc>
+                <loc>/blog/tendencia/post/como-funciona-una-suscripcion-en-anticonceptivocl</loc>
                 <changefreq>daily</changefreq>
             </url>
                     <url>
-                <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/blog/tendencia/post/isp-pide-a-farmacias-flexibilidad-frente-a-la-receta-medica-para-la-venta-de-anticonceptivos</loc>
+                <loc>/blog/tendencia/post/isp-pide-a-farmacias-flexibilidad-frente-a-la-receta-medica-para-la-venta-de-anticonceptivos</loc>
                 <changefreq>daily</changefreq>
             </url>
                     <url>
-                <loc>https://dev.anticonceptivo.tienda.innovaweb.cl/blog/tendencia/post/anticonceptivo-oral-para-hombres-por-que-aun-no-existen</loc>
+                <loc>/blog/tendencia/post/anticonceptivo-oral-para-hombres-por-que-aun-no-existen</loc>
+                <changefreq>daily</changefreq>
+            </url>
+                    <url>
+                <loc>/blog/tendencia/post/isp-decreta-cuarentena-para-preservativos-masculinos-de-latex-por-fallas-de-calidad</loc>
+                <changefreq>daily</changefreq>
+            </url>
+                    <url>
+                <loc>/blog/tendencia/post/laboratorios-venden-a-farmacias-90-mas-caro-que-al-sector-publico-buscan-fortalecer-a-cenabast-para-reducir-precios-de-remedios</loc>
+                <changefreq>daily</changefreq>
+            </url>
+                    <url>
+                <loc>/blog/tendencia/post/el-fin-de-la-pildora-anticonceptiva-cientificos-crean-pastilla-que-mujeres-pueden-tomar-justo-antes-de-tener-relaciones-sexuales</loc>
+                <changefreq>daily</changefreq>
+            </url>
+                    <url>
+                <loc>/blog/tendencia/post/beneficio-tarjeta-vecino-nunoa</loc>
+                <changefreq>daily</changefreq>
+            </url>
+                    <url>
+                <loc>/blog/tendencia/post/anticonceptivo-en-bienestar-saval</loc>
+                <changefreq>daily</changefreq>
+            </url>
+                    <url>
+                <loc>/blog/tendencia/post/anticonceptivo-en-mujer-artemisa</loc>
+                <changefreq>daily</changefreq>
+            </url>
+                    <url>
+                <loc>/blog/tendencia/post/estudio-descubre-que-comer-chocolate-reduce-el-dolor-menstrual</loc>
                 <changefreq>daily</changefreq>
             </url>
             </urlset>

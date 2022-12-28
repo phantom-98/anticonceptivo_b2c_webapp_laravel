@@ -7,3 +7,4 @@ export const UPDATE_CART = 'UPDATE_CART';
 export const REPEAT_ORDER = 'REPEAT_ORDER';
 export const CLEAR_CART = 'CLEAR_CART';
 export const IS_CART_READY = 'IS_CART_READY';
+export const SAVE_DATA_FOR_STEP_TWO = 'SAVE_DATA_FOR_STEP_TWO';

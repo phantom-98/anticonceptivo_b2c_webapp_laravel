@@ -186,17 +186,35 @@ class CallIntegrationsPay extends CoreHelper
 
    public static function sendEmailsOrder($order_id, $type = 'compra')
    {
-        $order =Order::with('customer','order_items.subscription_plan')->where('id',$order_id)->get()->first();
+        $order = Order::with('customer','order_items.subscription_plan', 'order_items.product.plans.subscription_plan', 'order_items.product.product_images')->where('id',$order_id)->get()->first();
         $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
 
+        $product = null;
+        $price = null;
+        $producto_slug = null;
+        $image = null;
+
+        foreach($order->order_items as $object){
+            if(count($object->product->plans) > 0){
+                $product = $object->product->name;
+                $producto_slug = $object->product->slug;
+                $image = $object->product->product_images[0]->file;
+                $price = $object->product->plans->min('price');
+                break;
+            }
+        }
+
+        $hour_dispatch = \App\Models\ProductSchedule::where('type', 'NORMAL')->first();
+
         // Envio al cliente
-        $html = view('emails.orders', ['order' => $order, 'type' => $type, 'nombre' => 'Equipo Anticonceptivo'])->render();
+        $html = view('emails.orders-new-email', ['order' => $order, 'type' => $type, 'nombre' => 'Equipo Anticonceptivo', 'product' => $product, 'image' => $image,
+        'producto_slug' => $producto_slug,'price' => $price, 'hour_dispatch' => $hour_dispatch])->render();
 
         $email = new \SendGrid\Mail\Mail();
 
-        $email->setFrom("info@anticonceptivo.cl", 'Anticonceptivo');
-        $email->setSubject('Compra #' . $order->id);
-        $email->addTo($order->customer->email, 'Pedido');
+        $email->setFrom("info@anticonceptivo.cl", 'anticonceptivo.cl');
+        $email->setSubject('Confirmación del Pedido #' . $order->id);
+        $email->addTo($order->customer->email, $order->customer->first_name);
         // $email->addTo("victor.araya.del@gmail.com", 'Pedido');
 
         $email->addContent(
@@ -207,14 +225,14 @@ class CallIntegrationsPay extends CoreHelper
         $sendgrid->send($email);
 
         // Envio al admin
-        $html2 = view('emails.orders_admin', ['order' => $order, 'type' => $type, 'nombre' => 'Equipo Anticonceptivo'])->render();
-
+        $html2 = view('emails.orders-new-email', ['order' => $order, 'type' => $type, 'nombre' => 'Equipo Anticonceptivo', 'product' => $product, 'image' => $image,
+        'producto_slug' => $producto_slug,'price' => $price, 'hour_dispatch' => $hour_dispatch])->render();
         $email2 = new \SendGrid\Mail\Mail();
 
-        $email2->setFrom("info@anticonceptivo.cl", 'Anticonceptivo');
+        $email2->setFrom("info@anticonceptivo.cl", 'anticonceptivo.cl');
         $email2->setSubject('Nuevo pedido recibido #' . $order->id);
 //        $email2->addTo("victor.araya.del@gmail.com", 'Pedido');
-         $email2->addTo("contacto@anticonceptivo.cl", 'Pedido');
+         $email2->addTo("contacto@anticonceptivo.cl", 'Administrado anticonceptivo.cl');
 
         $email2->addContent(
             "text/html", $html2
@@ -224,11 +242,12 @@ class CallIntegrationsPay extends CoreHelper
 
 
         // Envio copia felipe
-        $html3 = view('emails.orders_admin', ['order' => $order, 'type' => $type, 'nombre' => 'Felipe'])->render();
+        $html3 = view('emails.orders-new-email', ['order' => $order, 'type' => $type, 'nombre' => 'Equipo Anticonceptivo', 'product' => $product, 'image' => $image,
+        'producto_slug' => $producto_slug,'price' => $price, 'hour_dispatch' => $hour_dispatch])->render();
 
         $email3 = new \SendGrid\Mail\Mail();
 
-        $email3->setFrom("info@anticonceptivo.cl", 'Anticonceptivo');
+        $email3->setFrom("info@anticonceptivo.cl", 'anticonceptivo.cl');
         $email3->setSubject('Nuevo pedido recibido #' . $order->id);
 //        $email3->addTo("victor.araya.del@gmail.com", 'Pedido');
             $email3->addTo("fpenailillo@innovaweb.cl", 'Pedido');
@@ -242,19 +261,36 @@ class CallIntegrationsPay extends CoreHelper
 
    public static function sendEmailsOrderRepeat($order_id, $type = 'compra')
    {
-        $order =Order::with('customer','order_items.subscription_plan')->where('id',$order_id)->get()->first();
+        $order = Order::with('customer','order_items.subscription_plan', 'order_items.product.plans.subscription_plan')->where('id',$order_id)->get()->first();
         $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
 
+        $product = null;
+        $price = null;
+        $producto_slug = null;
+        $image = null;
+
+        foreach($order->order_items as $object){
+            if(count($object->product->plans) > 0){
+                $product = $object->product->name;
+                $producto_slug = $object->product->slug;
+                $image = $object->product->product_images[0]->file;
+                $price = $object->product->plans->min('price');
+                break;
+            }
+        }
+
         // Envio al cliente
-        $html = view('emails.orders', ['order' => $order, 'type' => $type, 'nombre' => 'Equipo Anticonceptivo'])->render();
+        $hour_dispatch = \App\Models\ProductSchedule::where('type', 'NORMAL')->first();
+
+        // Envio al cliente
+        $html = view('emails.orders-new-email', ['order' => $order, 'type' => $type, 'nombre' => 'Equipo Anticonceptivo', 'product' => $product, 'image' => $image,
+        'producto_slug' => $producto_slug,'price' => $price, 'hour_dispatch' => $hour_dispatch])->render();
 
         $email = new \SendGrid\Mail\Mail();
 
-        $email->setFrom("info@anticonceptivo.cl", 'Anticonceptivo');
-        $email->setSubject('Compra #' . $order->id);
-        $email->addTo($order->customer->email, 'Pedido');
-        // $email->addTo("victor.araya.del@gmail.com", 'Pedido');
-
+        $email->setFrom("info@anticonceptivo.cl", 'anticonceptivo.cl');
+        $email->setSubject('Confirmación del Pedido #' . $order->id);
+        $email->addTo($order->customer->email, $order->customer->first_name);
         $email->addContent(
             "text/html", $html
         );

@@ -34,6 +34,7 @@ use App\Models\CustomerAddress;
 use App\Models\DiscountCode;
 use App\Models\SubscriptionsOrdersItem;
 use App\Models\SubscriptionPlan;
+use App\Models\Attachment;
 use App\Http\Helpers\ApiHelper;
 use App\Http\Helpers\CallIntegrationsPay;
 use App\Http\Utils\Enum\PaymentMethodStatus;
@@ -69,7 +70,7 @@ class WebpayPlusController
                 // distinto precio de oferta
                 return true;
             }
-        }else{
+        } else {
             if ($product->price != $price) {
                 // distinto precio normal
                 return true;
@@ -90,7 +91,9 @@ class WebpayPlusController
     {
         try {
 
-                $response = $this->oneclick->createInscription(
+            Log::info('createSubscription', $request->all());
+
+            $response = $this->oneclick->createInscription(
                 $request->customer_id,
                 $request->email,
                 $request->is_profile ? ($request->is_session_credit ? route('api.v1.app.payment.webpay.responsePaymentMethodAccountCard') : route('api.v1.app.payment.webpay.responsePaymentMethodAccount')) :
@@ -105,15 +108,48 @@ class WebpayPlusController
                 $subscription->from = $request->from;
                 $subscription->save();
 
+                // save attachments
+                if ($request->has('attachments')) {
+
+                    $rules = [
+                        'attachments' => 'required',
+                        'mimes:jpg,jpeg,png,pdf,doc,docx,image/jpeg,image/png,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                    ];
+
+                    $messages = [
+                        'attachments.required' => 'Por favor, ingresar al menos una receta.',
+                        'attachments.*.mimes' => 'Las extensiones .jpg, .jpeg, .png, .pdf, .doc y .docx están permitidos.',
+                        'attachments.*.max' => 'El archivo no puede superar los 5MB.',
+                    ];
+
+                    $validator = Validator::make($request->all(), $rules, $messages);
+
+                    if ($validator->fails()) {
+                        return ApiResponse::JsonFieldValidation($validator->errors());
+                    }
+
+                    foreach ($request->attachments as $key => $_attachment) {
+                        $attachment = new Attachment();
+                        $attachment->name = strtolower($_attachment->getClientOriginalName());
+                        $attachment->path = $_attachment->storeAs('public/subscription/products/product-' . Carbon::now()->format('sm') . $key . Str::random(6) , $attachment->name);
+                        $attachment->extension = strtolower($_attachment->getClientOriginalExtension());
+                        $attachment->subscription_id = $subscription->id;
+                        $attachment->product_id =  $request->productIds[$key];
+                        $attachment->name_id = $request->nameIds[$key];
+                        $attachment->save();
+                    }
+                }
+
                 try {
-                    Log::info('OneClickCancel',
+                    Log::info(
+                        'OneClickCancel',
                         [
                             "response" => $response['response'],
                             "tbk_token_inscription" => $response['response']->token,
                             "username" => $request->customer_id
-                        ]);
+                        ]
+                    );
                 } catch (\Exception $ex) {
-
                 }
 
 
@@ -126,7 +162,6 @@ class WebpayPlusController
             }
 
             return ApiResponse::JsonError([], 'No ha podido conectar con webpay');
-
         } catch (\Exception $exception) {
             return ApiResponse::JsonError([], $exception->getMessage());
         }
@@ -140,7 +175,7 @@ class WebpayPlusController
         $customer = Customer::find($request->customer_id);
 
         if (!$customer) {
-            $customer = Customer::where('id_number',$request->id_number)->first();
+            $customer = Customer::where('id_number', $request->id_number)->first();
             if (!$customer) {
                 $customer = new Customer();
                 $customer->id_number = $request->id_number;
@@ -155,7 +190,7 @@ class WebpayPlusController
                 $customer->save();
             }
 
-            $customerAddress = CustomerAddress::where('address', $request->address)->where('name',$request->name)->first();
+            $customerAddress = CustomerAddress::where('address', $request->address)->where('name', $request->name)->first();
 
             if (!$customerAddress) {
                 $customerAddress = new CustomerAddress();
@@ -172,7 +207,6 @@ class WebpayPlusController
             }
 
             $customer->refresh();
-
         } else {
             if ($customer->is_guest) {
                 $customer->email = $request->email;
@@ -199,11 +233,10 @@ class WebpayPlusController
 
                 $customerAddress->save();
                 $customer->refresh();
-
             } else {
                 $customerAddress = CustomerAddress::find($request->id);
                 if (!$customerAddress) {
-                    $customerAddress = CustomerAddress::where('address', $request->address)->where('name',$request->name)->first();
+                    $customerAddress = CustomerAddress::where('address', $request->address)->where('name', $request->name)->first();
                     if (!$customerAddress) {
                         $customerAddress = new CustomerAddress();
 
@@ -221,7 +254,7 @@ class WebpayPlusController
             }
         }
 
-        if(!$customerAddress){
+        if (!$customerAddress) {
             return ApiResponse::JsonError([], 'Seleccione una dirección');
         }
 
@@ -245,13 +278,13 @@ class WebpayPlusController
         }
 
         if ($itemDeliveryCost == null && $itemDeliveryCostArrayCost == null) {
-            return ApiResponse::JsonError(null,'La comuna seleccionada no cuenta con reparto.');
+            return ApiResponse::JsonError(null, 'La comuna seleccionada no cuenta con reparto.');
         }
 
         //        $delivery_date =Carbon::now()->addHours($itemDeliveryCost->deadline_delivery);
-        $delivery_date =Carbon::now();
-        $dataDeliveryOrder = ProductScheduleHelper::labelDateDeliveryInOrder(array_column(json_decode($request->cartItems),'product'),$delivery_date);
-        $dataDeliveryOrder = ProductScheduleHelper::deadlineDeliveryMaxOrder($dataDeliveryOrder['delivery_date'], $dataDeliveryOrder['label'],$dataDeliveryOrder['sub_label'], $dataDeliveryOrder['is_immediate'], $dataDeliveryOrder['schedule']);
+        $delivery_date = Carbon::now();
+        $dataDeliveryOrder = ProductScheduleHelper::labelDateDeliveryInOrder(array_column(json_decode($request->cartItems), 'product'), $delivery_date);
+        $dataDeliveryOrder = ProductScheduleHelper::deadlineDeliveryMaxOrder($dataDeliveryOrder['delivery_date'], $dataDeliveryOrder['label'], $dataDeliveryOrder['sub_label'], $dataDeliveryOrder['is_immediate'], $dataDeliveryOrder['schedule']);
 
         $order->is_immediate = $dataDeliveryOrder['is_immediate'];
         $order->label_dispatch = $dataDeliveryOrder['label'];
@@ -268,12 +301,12 @@ class WebpayPlusController
 
         $free_shipping = false;
 
-        if($request->discountCode){
-            $discountCode = DiscountCode::where('active',1)->where('name',$request->discountCode)->first();
+        if ($request->discountCode) {
+            $discountCode = DiscountCode::where('active', 1)->where('name', $request->discountCode)->first();
 
             if ($discountCode) {
                 $order->discount_code_id = $discountCode->id;
-                if($discountCode->free_shipping == 1){
+                if ($discountCode->free_shipping == 1) {
                     $free_shipping = true;
                 }
             }
@@ -302,7 +335,7 @@ class WebpayPlusController
             }
 
             if (self::validatePrices($item->product_id, $item->product->is_offer, $orderItem->price, false)) {
-                return ApiResponse::JsonError('PRODUCT_ITEM','Algunos productos cambiaron de precio, por favor rehacer el carro.');
+                return ApiResponse::JsonError('PRODUCT_ITEM', 'Algunos productos cambiaron de precio, por favor rehacer el carro.');
             }
 
             $quantityFinal = 0;
@@ -310,7 +343,7 @@ class WebpayPlusController
             // Suscripción
             if (isset($item->subscription)) {
                 $_subscription = json_decode($request->subscription);
-                if(!$_subscription){
+                if (!$_subscription) {
                     return ApiResponse::JsonError([], 'Seleccione un método de pago');
                 }
                 $subscriptionPlan = SubscriptionPlan::find($item->subscription->subscription_plan_id);
@@ -334,7 +367,7 @@ class WebpayPlusController
                     $productSubscriptionPlan = ProductSubscriptionPlan::where('product_id', $orderItem->product_id)
                         ->where('subscription_plan_id', $subscriptionPlan->id)->get()->first();
 
-                    if(!$productSubscriptionPlan->active){
+                    if (!$productSubscriptionPlan->active) {
                         return ApiResponse::JsonError([], 'El producto ' . $orderItem->name . ' ya no dispone del plan de suscripción seleccionado');
                     }
                     $quantity = 2;
@@ -367,7 +400,7 @@ class WebpayPlusController
                     $subscriptionOrdersItem->orders_item_id = $orderItem->id;
                     $subscriptionOrdersItem->pay_date = $pay_date;
                     $subscriptionOrdersItem->save();
-                    $subscriptionOrdersItem->dispatch = $itemDeliveryCostArrayCost ? ($this->hasFreeDispatch($request->cartItems) ? $itemDeliveryCostArrayCost->price[0] : 0 ) : 0;
+                    $subscriptionOrdersItem->dispatch = $itemDeliveryCostArrayCost ? ($this->hasFreeDispatch($request->cartItems) ? $itemDeliveryCostArrayCost->price[0] : 0) : 0;
                     $subscriptionOrdersItem->dispatch_date = $dispatch_date->addHours($itemDeliveryCost->deadline_delivery);
                     $subscriptionOrdersItem->subscription_id = $_subscription->id;
                     $subscriptionOrdersItem->customer_address_id = $customerAddress->id;
@@ -378,7 +411,6 @@ class WebpayPlusController
                     $subscriptionOrdersItem->free_shipping = $free_shipping;
                     $subscriptionOrdersItem->save();
                     $isSubscriptionOrderItemPrev = $subscriptionOrdersItem->id;
-
                 }
             } else {
                 $quantityFinal = $item->quantity;
@@ -392,7 +424,6 @@ class WebpayPlusController
                 }
 
                 $orderItem->subscription_plan_id = null;
-
             }
 
             $arrayProductsQuantity[$orderItem->product_id] = ($arrayProductsQuantity[$orderItem->product_id] ?? 0) + $quantityFinal;
@@ -404,7 +435,7 @@ class WebpayPlusController
         }
 
 
-        if($this->hasFreeDispatch($request->cartItems)){
+        if ($this->hasFreeDispatch($request->cartItems)) {
             $order->dispatch = 0;
         }
 
@@ -425,7 +456,7 @@ class WebpayPlusController
 
             $rules = [
                 'attachments' => 'required',
-                'attachments.*' => 'mimes:jpg,jpeg,png,pdf,doc,docx|max:5000'
+                'mimes:jpg,jpeg,png,pdf,doc,docx,image/jpeg,image/png,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document',
             ];
 
             $messages = [
@@ -436,7 +467,7 @@ class WebpayPlusController
 
             $validator = Validator::make($request->all(), $rules, $messages);
 
-            if (!$validator->passes()) {
+            if ($validator->fails()) {
                 return ApiResponse::JsonFieldValidation($validator->errors());
             }
 
@@ -446,7 +477,7 @@ class WebpayPlusController
                 $prescription->order_id = $order->id;
                 $prescription->product_id = $request->productIds[$key];
                 $prescription->name = $file->getClientOriginalName();
-                $prescription->file = $file->storeAs('public/customer/prescriptions/prescription-' . $order->customer_id .'-' . $order->id . '-' . Str::random(6), $file->getClientOriginalName());
+                $prescription->file = $file->storeAs('public/customer/prescriptions/prescription-' . $order->customer_id . '-' . $order->id . '-' . Str::random(6), $file->getClientOriginalName());
                 $prescription->save();
             }
         }
@@ -467,7 +498,7 @@ class WebpayPlusController
 
         try {
             $responseStockProduct = $this->isStockProducts($order->order_items);
-        } catch (\Exception $ex){
+        } catch (\Exception $ex) {
             $this->sendEmailErrorAiloo($order);
             return ApiResponse::JsonError([], 'Error inesperado, intente más tarde');
         }
@@ -495,20 +526,21 @@ class WebpayPlusController
 
                 $response = $this->oneclick->authorize($request->customer_id, $_subscription->transbank_token, $order->id, $details);
                 try {
-                    Log::info('OneClick',
+                    Log::info(
+                        'OneClick',
                         [
                             "response" => $response,
                             "tbk_user" => $_subscription->transbank_token,
                             "username" => $request->customer_id
-                        ]);
+                        ]
+                    );
                 } catch (\Exception $ex) {
-
                 }
 
                 if ($response['status'] == "success") {
 
                     if ($response['response']->details[0]->status != 'AUTHORIZED') {
-                        if($order->status != 'PAID' && $order->status != 'DELIVERED' && $order->status != 'DISPATCHED'){
+                        if ($order->status != 'PAID' && $order->status != 'DELIVERED' && $order->status != 'DISPATCHED') {
                             $order->is_paid = 0;
                             $order->status = PaymentStatus::REJECTED;
                             $order->payment_type = 'tarjeta';
@@ -535,7 +567,7 @@ class WebpayPlusController
                     $order->type = 'VN';
                     $order->save();
 
-                    if($order->discount_code_id){
+                    if ($order->discount_code_id) {
                         $this->updateDiscountCode($request->discountCode);
                     }
 
@@ -555,14 +587,14 @@ class WebpayPlusController
                     //                    return ApiResponse::JsonError([], 'Error con la tarjeta');
                 }
             } else {
-                    //                return ApiResponse::JsonError([], 'Seleccione un método de pago');
+                //                return ApiResponse::JsonError([], 'Seleccione un método de pago');
             }
 
             $url = session()->has('urlFinish') ? session('urlFinish') : (env('APP_URL')) . '/checkout-verify/:token';
             $url = str_replace(':token', $order->id, $url);
             return ApiResponse::JsonSuccess([
-                                    'url' => $url
-                    ], 'Compra OneClick');
+                'url' => $url
+            ], 'Compra OneClick');
         } else {
             // name('webpay-response') usar esta si se bloquea por verifyToken
             $response = $this->webpay_plus->createTransaction(
@@ -618,7 +650,6 @@ class WebpayPlusController
                     if (!$isWeb) {
                         $product->stock = 0;
                     }
-
                 } else {
                     $product->stock = 0;
                 }
@@ -630,7 +661,6 @@ class WebpayPlusController
                         'quantity' => $quantity
                     );
                 }
-
             }
         }
 
@@ -655,7 +685,7 @@ class WebpayPlusController
                 Log::info('WEBPAY_PLUS_CONTROLLER_COMMIT_ERROR', [$ex]);
             }
 
-            $order = Order::with('order_items.subscription_plan', 'customer', 'order_items.product','discount_code')->find($response->buyOrder);
+            $order = Order::with('order_items.subscription_plan', 'customer', 'order_items.product', 'discount_code')->find($response->buyOrder);
 
 
             if ($response->responseCode == 0 && !$order->is_paid) {
@@ -666,7 +696,7 @@ class WebpayPlusController
                 $order->type = $response->paymentTypeCode;
                 $order->is_paid = true;
                 $order->save();
-                if($order->discount_code_id){
+                if ($order->discount_code_id) {
                     $this->updateDiscountCode($order->discount_code->name);
                 }
 
@@ -674,13 +704,13 @@ class WebpayPlusController
 
                 try {
                     $responseStockProduct = $this->isStockProducts($order->order_items);
-                } catch (\Exception $ex){
+                } catch (\Exception $ex) {
                     $this->sendEmailErrorAiloo($order);
                     $isErrorAiloo = true;
                 }
 
                 if ($isErrorAiloo == true || !$responseStockProduct['status']) {
-                    if($order->status != 'PAID' && $order->status != 'DELIVERED' && $order->status != 'DISPATCHED'){
+                    if ($order->status != 'PAID' && $order->status != 'DELIVERED' && $order->status != 'DISPATCHED') {
                         Log::info('RESPONSE_STOCK_PRODUCT_NOT_FOUND', [$responseStockProduct['status']]);
 
                         $this->webpay_plus->refundTransaction($order->payment_token, $order->total);
@@ -688,28 +718,24 @@ class WebpayPlusController
                         $order->is_paid = false;
                         $order->save();
                     }
-
                 } else {
                     Log::info('RESPONSE_STOCK_PRODUCT_FOUND', [$responseStockProduct['status']]);
 
 
 
-        //                    if (env('APP_ENV') == 'production') {
-        //
-        //                        CallIntegrationsPay::callUpdateStockProducts($order->id);
-        //
-        //                        CallIntegrationsPay::callVoucher($order->id, $customerAddress);
-        //                        CallIntegrationsPay::callDispatchLlego($order->id, $customerAddress);
-        //                        CallIntegrationsPay::sendEmailsOrder($order->id);
-        //                    }
+                    //                    if (env('APP_ENV') == 'production') {
+                    //
+                    //                        CallIntegrationsPay::callUpdateStockProducts($order->id);
+                    //
+                    //                        CallIntegrationsPay::callVoucher($order->id, $customerAddress);
+                    //                        CallIntegrationsPay::callDispatchLlego($order->id, $customerAddress);
+                    //                        CallIntegrationsPay::sendEmailsOrder($order->id);
+                    //                    }
                     UpdateProductStockJob::dispatch($order);
                     FinishPaymentJob::dispatch($order);
-
-
                 }
-
             } else {
-                if($order->status != 'PAID' && $order->status != 'DELIVERED' && $order->status != 'DISPATCHED'){
+                if ($order->status != 'PAID' && $order->status != 'DELIVERED' && $order->status != 'DISPATCHED') {
                     Log::info('RESPONSE_CODE_ELSE', [$response->responseCode]);
 
                     $order->status = PaymentStatus::REJECTED;
@@ -726,7 +752,6 @@ class WebpayPlusController
                     'ORDER' => $order->id,
                     'RESPONSE' => $response
                 ]);
-
             } catch (\Exception $ex) {
                 Log::info('WEBPAY_REGISTER_EXCEPTION', [$ex]);
             }
@@ -743,34 +768,35 @@ class WebpayPlusController
         //        return view('webapp.payment.webpay-finish');
     }
 
-    private function sendEmailErrorAiloo($order){
+    private function sendEmailErrorAiloo($order)
+    {
         $users = User::whereIn('id', [2, 9])->get();
-        $labelUser= Customer::find($order->customer_id) ? Customer::find($order->customer_id)->id_number : 'invitado';
+        $labelUser = Customer::find($order->customer_id) ? Customer::find($order->customer_id)->id_number : 'invitado';
         Log::info('Error Ailoo en proceso de pago, usuario con rut ' . $labelUser);
-        foreach($users as $user){
+        foreach ($users as $user) {
             $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
             $html = view('emails.ailoo-general-error', ['user_name' => $user->first_name, 'labelUser' => $labelUser])->render();
             $email = new \SendGrid\Mail\Mail();
-            $email->setFrom("info@anticonceptivo.cl", 'Anticonceptivo');
+            $email->setFrom("info@anticonceptivo.cl", 'anticonceptivo.cl');
             $email->setSubject('Error comunicación Ailoo');
             $email->addTo($user->email, $user->first_name);
             $email->addContent(
-                "text/html", $html
+                "text/html",
+                $html
             );
             $sendgrid->send($email);
         }
-
     }
 
-    private function updateDiscountCode($discount_code){
+    private function updateDiscountCode($discount_code)
+    {
         try {
-            $discountCode = DiscountCode::where('active',1)->where('name',$discount_code)->first();
+            $discountCode = DiscountCode::where('active', 1)->where('name', $discount_code)->first();
 
             if ($discountCode) {
-                $discountCode->amount_of_use = $discountCode->amount_of_use-1;
+                $discountCode->amount_of_use = $discountCode->amount_of_use - 1;
                 $discountCode->save();
             }
-
         } catch (\Exception $exception) {
         }
     }
@@ -789,7 +815,8 @@ class WebpayPlusController
         return $this->responsePaymentMethodLogic($request, 'mi-cuenta/tarjetas-de-credito-y-debito');
     }
 
-    private function responsePaymentMethodLogic($request, $redirect){
+    private function responsePaymentMethodLogic($request, $redirect)
+    {
         if ($request['TBK_TOKEN']) {
             $response = $this->oneclick->finishInscription(
                 $request['TBK_TOKEN']
@@ -797,14 +824,15 @@ class WebpayPlusController
             $subscription = Subscription::where('token_inscription', $request['TBK_TOKEN'])->get()->first();
 
             try {
-                Log::info('OneClick',
+                Log::info(
+                    'OneClick',
                     [
                         "response" => $response,
                         "tbk_user" => $request['TBK_TOKEN'],
                         "username" => $subscription->customer_id
-                    ]);
+                    ]
+                );
             } catch (\Exception $ex) {
-
             }
 
             if ($response['status'] != 'success') {
@@ -820,7 +848,7 @@ class WebpayPlusController
             if ($response->getResponseCode() == 0) {
 
 
-                $subscriptions = Subscription::where('customer_id', $subscription->customer_id)->where('default_subscription',true)->get();
+                $subscriptions = Subscription::where('customer_id', $subscription->customer_id)->where('default_subscription', true)->get();
                 foreach ($subscriptions as $key => $item_subscriptions) {
                     if ($item_subscriptions) {
                         $item_subscriptions->update(['default_subscription' => false]);
@@ -833,11 +861,10 @@ class WebpayPlusController
                 $subscription->transbank_token = $response->getTbkUser();
                 $subscription->status = PaymentMethodStatus::CREATED;
                 $subscription->default_subscription = 0;
-                if(count($subscriptions ?? []) == 0){
+                if (count($subscriptions ?? []) == 0) {
                     $subscription->default_subscription = 1;
                 }
                 $subscription->save();
-
             } else {
                 $subscription->status = PaymentMethodStatus::REJECTED;
                 $subscription->save();
@@ -845,7 +872,6 @@ class WebpayPlusController
         }
 
         return redirect($redirect);
-
     }
 
     public function verify(Request $request)
@@ -865,7 +891,6 @@ class WebpayPlusController
             return ApiResponse::JsonSuccess([
                 'order' => $order,
             ]);
-
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, OutputMessage::EXCEPTION . ' ' . $exception->getMessage());
         }
@@ -875,9 +900,9 @@ class WebpayPlusController
     {
         $free_dispatch_products = FreeDispatchProduct::first();
 
-        if($free_dispatch_products){
+        if ($free_dispatch_products) {
             $free_dispatch_list = explode(',', $free_dispatch_products->products);
-        }else{
+        } else {
             $free_dispatch_list = [];
         }
 

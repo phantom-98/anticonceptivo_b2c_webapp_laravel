@@ -120,6 +120,12 @@ const CustomerService = () => {
         }
     },[dynamicFields])
 
+    // data useffect
+
+    useEffect(() => {
+        console.log(data);
+    },[data])
+
     const getData = () => {
         let url = Services.ENDPOINT.CUSTOMER.CUSTOMER_SERVICE.GET;
         let _data = {
@@ -189,8 +195,11 @@ const CustomerService = () => {
             Services.Response({
                 response: response,
                 success: () => {
-                    setData(defaultData);
                     toastr.success(response.message);
+
+                    // clean states
+                    setData(defaultData);
+                    setDynamicData({});
                 },
             });
         }).catch(error => {
@@ -399,6 +408,7 @@ const CustomerService = () => {
                                 name="message"
                                 placeholder="Mensaje"
                                 onChange={handleData}
+                                value={data.message}
                                 onFocus={setCleanInputError}
                             />
                             <div className="invalid-feedback" />
@@ -412,6 +422,7 @@ const CustomerService = () => {
                                     type="checkbox"
                                     id="contact_accept_terms"
                                     value={data.contact_accept_terms}
+                                    checked={data.contact_accept_terms === '1'}
                                     onFocus={setCleanInputError}
                                     onChange={(e) => handleData(e, true)}
                                     label={<span className="font-inter font-11 regular color-707070">Aceptar <span

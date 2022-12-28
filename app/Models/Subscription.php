@@ -26,4 +26,14 @@ class Subscription extends Model
         return $this->hasMany(SubscriptionsOrdersItem::class);
     }
 
+    public function subscription_orders_items_mail(){
+        return $this->hasOne(SubscriptionsOrdersItem::class)->whereHas('order_parent', function ($q) {
+            $q->whereNotIn('status', ['REJECTED', 'CREATED']);
+        })
+        ->whereNotNull('subscription_id')->where('active',1)->orderBy('pay_date', 'desc');
+    }
+
+    public function attachments(){
+        return $this->hasMany(Attachment::class);
+    }
 }
