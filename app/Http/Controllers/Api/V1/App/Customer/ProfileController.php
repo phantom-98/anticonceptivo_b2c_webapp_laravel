@@ -240,11 +240,13 @@ class ProfileController extends Controller
                             return ApiResponse::JsonSuccess([
                                 'subscriptions' => $subscription,
                                 'card' => 'approved',
+                                'attachments' => $card->attachments,
                             ], OutputMessage::SUCCESS);
                         }else{
                             return ApiResponse::JsonSuccess([
                                 'subscriptions' => $subscription,
                                 'card' => 'refused',
+                                'attachments' => $card->attachments,
                             ], OutputMessage::SUCCESS);
                         }
                     }

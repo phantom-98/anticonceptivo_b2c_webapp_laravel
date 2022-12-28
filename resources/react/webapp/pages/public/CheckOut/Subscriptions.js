@@ -49,13 +49,28 @@ const Subscriptions = ({ onView, subscription, setSubscription, subscriptionId, 
 
     const showCreate = () => {
         let url = Services.ENDPOINT.PAYMENTS.WEBPAY.CREATE_SUBSCRIPTION;
-        let dataForm = {
-            customer_id: auth ? auth.id : null,
-            email: auth ? auth.email : null,
-            from: 'checkout'
+
+        let fileList = [...files];
+
+        const formData = new FormData();
+
+        for (let i = 0; i < fileList.length; i++) {
+            formData.append('attachments[]', fileList[i]);
+            formData.append('productIds[]', fileList[i].product_id);
+            formData.append('nameIds[]', fileList[i].name_id);
         }
 
-        Services.DoPost(url, dataForm)
+        formData.append('customer_id', auth ? auth.id : null);
+        formData.append('email', auth ? auth.email : null);
+        formData.append('from', 'checkout');
+
+        const config = {
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
+        }
+
+        Services.DoPost(url, formData, config)
             .then(response => {
                 Services.Response({
                     response: response,

@@ -78,7 +78,7 @@ const WebPayProccess = ({
         formData.append('prescription_radio', prescriptionRadio);
         formData.append('without_prescription_answer', withoutPrescriptionAnswer);
 
-        let fileList = files;
+        let fileList = [...files]
 
         for (let i = 0; i < fileList.length; i++) {
             formData.append('attachments[]', fileList[i]);

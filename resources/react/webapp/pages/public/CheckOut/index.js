@@ -93,8 +93,11 @@ const CheckOut = () => {
                         number: 2,
                         title: 'DATOS DE ENVÍO',
                     })
+
+                    // delete local storage
+                    localStorage.removeItem(LOCAL_STORAGE.CART_STEP_TWO);
                 }
-            }else{
+            } else {
                 setView("user-form");
             }
         }
@@ -229,6 +232,55 @@ const CheckOut = () => {
         });
     }
 
+    // function to get the MIME type based on the extension
+    const getMimeType = (extension) => {
+        let mime_type = '';
+        // extensions .jpg, .jpeg, .png, .pdf, .doc y .docx
+        console.log(extension, 'extension');
+        switch (extension) {
+            case 'JPG':
+                mime_type = 'image/jpeg';
+                break;
+            case 'JPEG':
+                mime_type = 'image/jpeg';
+                break;
+            case 'PNG':
+                mime_type = 'image/png';
+                break;
+            case 'PDF':
+                mime_type = 'application/pdf';
+                break;
+            case 'DOC':
+                mime_type = 'application/msword';
+                break;
+            case 'DOCX':
+                mime_type = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+                break;
+            default:
+                mime_type = 'application/octet-stream';
+                break;
+        }
+
+        return mime_type;
+    }
+
+
+    const constructFiles = (attachments) => {
+        let _files = [];
+
+        attachments.map((attachment, index) => {
+            let mime_type = getMimeType(attachment.extension);
+            let temp_file = new File([attachment.file], attachment.name, { type: mime_type });
+            temp_file.product_id = attachment.product_id;
+            temp_file.name_id = attachment.name_id;
+            _files.push(temp_file);
+
+            console.log('temp_file', temp_file);
+        })
+
+        return _files;
+    }
+
     const getSubscriptions = () => {
         console.log('Checkout index getSubscriptions')
         let url = Services.ENDPOINT.CUSTOMER.SUBSCRIPTIONS.GET_SUBSCRIPTIONS;
@@ -255,6 +307,11 @@ const CheckOut = () => {
 
                         if (response.data.card == 'refused') {
                             toastr.error('No se ha podido suscribir la tarjeta de crédito, intenta nuevamente.', '¡Ups!');
+                        }
+
+                        if (response.data.attachments && response.data.attachments.length > 0) {
+                            setPrescriptionRadio(true);
+                            setFiles(constructFiles(response.data.attachments));
                         }
 
                         localStorage.removeItem('tryingToSubscribeCard');

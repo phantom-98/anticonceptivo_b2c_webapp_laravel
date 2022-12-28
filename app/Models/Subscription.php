@@ -33,4 +33,7 @@ class Subscription extends Model
         ->whereNotNull('subscription_id')->where('active',1)->orderBy('pay_date', 'desc');
     }
 
+    public function attachments(){
+        return $this->hasMany(Attachment::class);
+    }
 }
