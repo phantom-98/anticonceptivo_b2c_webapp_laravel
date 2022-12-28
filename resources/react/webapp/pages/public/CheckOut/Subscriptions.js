@@ -1,13 +1,15 @@
-import React, {Fragment, useEffect, useState, useContext} from 'react';
+import React, { Fragment, useEffect, useState, useContext } from 'react';
 import List from "../../private/Account/sections/Subscriptions/List";
-import {AuthContext} from "../../../context/AuthProvider";
+import { AuthContext } from "../../../context/AuthProvider";
+import { CartContext } from "../../../context/CartProvider";
 import * as Services from "../../../Services";
 import WaitingPaymentMethod from "./Payment/WaitingPaymentMethod";
 import toastr from "toastr";
 
-const Subscriptions = ({setView, subscription, setSubscription, subscriptionId, setSubscriptionId}) => {
+const Subscriptions = ({ onView, subscription, setSubscription, subscriptionId, setSubscriptionId, files }) => {
 
-    const {auth} = useContext(AuthContext);
+    const { auth } = useContext(AuthContext);
+    const { saveDataForStepTwo } = useContext(CartContext);
 
 
     const [view, setViewAd] = useState('list');
@@ -33,9 +35,9 @@ const Subscriptions = ({setView, subscription, setSubscription, subscriptionId, 
             customer_id: auth ? auth.id : null
         }
 
-        Services.DoPost(url,data).then(response => {
+        Services.DoPost(url, data).then(response => {
             Services.Response({
-            response: response,
+                response: response,
                 success: () => {
                     setSubscription(response.data.subscriptions);
                 }
@@ -46,28 +48,45 @@ const Subscriptions = ({setView, subscription, setSubscription, subscriptionId, 
     }
 
     const showCreate = () => {
-            let url = Services.ENDPOINT.PAYMENTS.WEBPAY.CREATE_SUBSCRIPTION;
-            let dataForm = {
-                customer_id: auth ? auth.id : null,
-                email: auth ? auth.email : null,
-                from: 'checkout'
+        let url = Services.ENDPOINT.PAYMENTS.WEBPAY.CREATE_SUBSCRIPTION;
+
+        let fileList = [...files];
+
+        const formData = new FormData();
+
+        for (let i = 0; i < fileList.length; i++) {
+            formData.append('attachments[]', fileList[i]);
+            formData.append('productIds[]', fileList[i].product_id);
+            formData.append('nameIds[]', fileList[i].name_id);
+        }
+
+        formData.append('customer_id', auth ? auth.id : null);
+        formData.append('email', auth ? auth.email : null);
+        formData.append('from', 'checkout');
+
+        const config = {
+            headers: {
+                'content-type': 'multipart/form-data'
             }
+        }
 
-            Services.DoPost(url, dataForm)
-                .then(response => {
-                    Services.Response({
-                        response: response,
-                        success: () => {
-                            localStorage.setItem('tryingToSubscribeCard', true);
-                            const urlOneClick = response.data.oneclick_data.url + '?TBK_TOKEN=' + response.data.oneclick_data.token
-                            window.location.href = urlOneClick;
-                        },
-                    });
-                })
-                .catch(error => {
-                    Services.ErrorCatch(error);
+        Services.DoPost(url, formData, config)
+            .then(response => {
+                Services.Response({
+                    response: response,
+                    success: () => {
+                        saveDataForStepTwo({
+                            view: onView,
+                        })
+                        localStorage.setItem('tryingToSubscribeCard', true);
+                        const urlOneClick = response.data.oneclick_data.url + '?TBK_TOKEN=' + response.data.oneclick_data.token
+                        window.location.href = urlOneClick;
+                    },
                 });
-
+            })
+            .catch(error => {
+                Services.ErrorCatch(error);
+            });
     }
 
     let interval;
@@ -93,18 +112,18 @@ const Subscriptions = ({setView, subscription, setSubscription, subscriptionId, 
                 response: response,
                 success: () => {
 
-                    if(response.data.subscription != null){
+                    if (response.data.subscription != null) {
                         if (response.data.subscription.status == 'CREATED') {
                             hideWaitingPaymentMethod();
                             clearInterval(interval)
                             toastr.success(response.message);
                             getData();
 
-                        } else if(response.data.subscription.status == 'REJECTED') {
+                        } else if (response.data.subscription.status == 'REJECTED') {
                             hideWaitingPaymentMethod();
                             clearInterval(interval)
                             toastr.error('Tarjeta Rechazada');
-                        }else if(response.data.subscription.status == 'CANCELED') {
+                        } else if (response.data.subscription.status == 'CANCELED') {
                             hideWaitingPaymentMethod();
                             clearInterval(interval)
                             toastr.error('Cancelado');
@@ -131,7 +150,7 @@ const Subscriptions = ({setView, subscription, setSubscription, subscriptionId, 
                     <h3 className="font-poppins font-16 bold color-033F5D">
                         Confirma tu método de pago o agrega uno nuevo
                     </h3>
-                <WaitingPaymentMethod  showingWaitingPaymentMethod={showingWaitingPaymentMethod}/>
+                    <WaitingPaymentMethod showingWaitingPaymentMethod={showingWaitingPaymentMethod} />
 
                     {
                         view === 'list' ?
@@ -143,7 +162,7 @@ const Subscriptions = ({setView, subscription, setSubscription, subscriptionId, 
                                 subscriptionId={subscriptionId}
                                 setSubscriptionId={setSubscriptionId}
                             />
-                        : null
+                            : null
                     }
 
 

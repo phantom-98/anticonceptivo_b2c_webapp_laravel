@@ -162,7 +162,7 @@ class ProfileController extends Controller
 
                 $rules = [
                     'attachments' => 'required',
-                    'attachments.*' => 'mimes:jpg,jpeg,png,pdf,doc,docx|max:5000'
+                    'mimes:jpg,jpeg,png,pdf,doc,docx,image/jpeg,image/png,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document',
                 ];
 
                 $messages = [
@@ -173,7 +173,7 @@ class ProfileController extends Controller
 
                 $validator = Validator::make($request->all(), $rules, $messages);
 
-                if (!$validator->passes()) {
+                if ($validator->fails()) {
                     return ApiResponse::JsonFieldValidation($validator->errors());
                 }
             }
@@ -239,11 +239,13 @@ class ProfileController extends Controller
                             return ApiResponse::JsonSuccess([
                                 'subscriptions' => $subscription,
                                 'card' => 'approved',
+                                'attachments' => $card->attachments,
                             ], OutputMessage::SUCCESS);
                         } else {
                             return ApiResponse::JsonSuccess([
                                 'subscriptions' => $subscription,
                                 'card' => 'refused',
+                                'attachments' => $card->attachments,
                             ], OutputMessage::SUCCESS);
                         }
                     }
