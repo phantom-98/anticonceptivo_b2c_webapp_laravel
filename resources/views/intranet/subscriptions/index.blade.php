@@ -148,37 +148,50 @@
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Nº Ped.</th>
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Número Suscripción</th>
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Día de Pago</th>
+                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Día de Despacho</th>
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Estado de Pago</th>
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Intentos de Pago</th>
-                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Tarjeta de Pago</th>
-                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Período</th>
-                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Plazo</th>
-                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Producto Suscripción</th>
-                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Laboratorio Suscripción</th>
-                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Producto(s)</th>
-                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Laboratorio(s)</th>
-                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Categoría(s)</th>
-                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Subcategoría(s)</th>
+
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Nombre Cliente</th>
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">RUT Cliente</th>
 
-                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Dirección</th>
-                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">N° de casa</th>
-                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Región</th>
+ 
+                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Período</th>
+                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Plazo</th>
+
+                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Número Contacto</th>
+
+                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Producto Suscripción</th>
+
+                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Laboratorio Suscripción</th>
+                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Producto(s)</th>
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Información adicional</th>
 
-                            <th data-cell-style="cellStyle" data-sorter="priceSorter" data-sortable="true" data-valign="middle">Subtotal</th>
+                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Categoría(s)</th>
+                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Subcategoría(s)</th>
+
                             <th data-cell-style="cellStyle" data-sorter="priceSorter" data-sortable="true" data-valign="middle">Despacho</th>
-                            <th data-cell-style="cellStyle" data-sorter="priceSorter" data-sortable="true" data-valign="middle">Total</th>
-
-                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Receta</th>
-
                             <th data-cell-style="cellStyle" data-sortable="false" data-valign="middle">Boleta PDF</th>
                             <th data-cell-style="cellStyle" data-sortable="false" data-valign="middle">Boleta Número</th>
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Número Factura</th>
 
+                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Laboratorio(s)</th>
+
+
+                            <th data-cell-style="cellStyle" data-sorter="priceSorter" data-sortable="true" data-valign="middle">Subtotal</th>
+
+                            <th data-cell-style="cellStyle" data-sorter="priceSorter" data-sortable="true" data-valign="middle">Total</th>
+                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Tarjeta de Pago</th>
+
+                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Dirección</th>
+                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">N° de casa</th>
+                            
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Correo</th>
-                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Número Contacto</th>
+                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Región</th>
+
+                            
+                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Receta</th>
+
                         </tr>
                         </thead>
                         <tbody>
@@ -203,21 +216,29 @@
                                 <td>{{ $object->order_id != null ? '#'.$object->order_id : 'Pend. Pago'}}</td>
                                 <td>{{ $object->subscription_id ?? '-'}}</td>
                                 <td>{{ date('d-m-Y', strtotime($object->pay_date)) }}</td>
+                                <td>{{ date('d-m-Y', strtotime($object->dispatch_date)) }}</td>
                                 <td>
                                     <div class="label label-table" style="background: {{$object->formated_background}}; color: {{$object->formated_color}}; cursor:default">
                                         {{ $object->formated_status }}
                                     </div>
                                 </td>
                                 @if($object->is_pay == 1 && $object->payment_attempt == 0)
-                                <td>1</td>
+                                    <td>1</td>
                                 @elseif($object->is_pay == 0 && $object->payment_attempt == 0)
-                                <td>Pend. Pago</td>
-                              @else 
-                                <td>{!! $object->payment_attempt == 1 ? $object->payment_attempt : $object->payment_attempt. ' <i style="color:#f44336;margin-left: 10px;" class="ti-alert icon-2x"></i>' !!}</td>
+                                    <td>Pend. Pago</td>
+                                @else 
+                                    <td>{!! $object->payment_attempt == 1 ? $object->payment_attempt : $object->payment_attempt. ' <i style="color:#f44336;margin-left: 10px;" class="ti-alert icon-2x"></i>' !!}</td>
                                 @endif
-                                <td>{{ $object->is_pay == 0 ? 'Pend. Pago' : $object->subscription->card_number }}</td>
+
+
+                                <td>{{ mb_strtoupper($object->customer_address->customer->full_name ?? '-', 'UTF-8') }}</td>
+                                <td>{{ $object->customer_address->customer->id_number ?? '-'}}</td>
+
+
                                 <td>{{ $object->period }}</td>
                                 <td>{{ $object->month_period }}</td>
+
+                                <td>{{ mb_strtoupper($object->customer_address->customer->phone ?? '-', 'UTF-8') }}</td>
 
                                 @if($object->order_item)
                                 <td>
@@ -255,22 +276,8 @@
                                 <td>-</td>
                                 @endif
 
-                                @if($object->order_parent)
-                                <td>
-                                    @php
-                                        $laboratory_array = [];
-                                    @endphp
-                                    @forelse ($object->order_parent->order_items as $item)
-                                        @if(!in_array($item->product->laboratory->name, $laboratory_array))
-                                            {{ $item->product->laboratory->name }}<br/>
-                                        @endif
-                                        @php
-                                            array_push($laboratory_array, $item->product->laboratory->name);
-                                        @endphp
-                                    @empty
-                                        -
-                                    @endforelse
-                                </td>
+                                @if($object->order_parent && $object->order_parent->comments != "null")
+                                <td>{{ mb_strtoupper($object->order_parent->comments ?? '-', 'UTF-8') }}</td>
                                 @else 
                                 <td>-</td>
                                 @endif
@@ -315,8 +322,66 @@
                                 <td>-</td>
                                 @endif
 
-                                <td>{{ mb_strtoupper($object->customer_address->customer->full_name ?? '-', 'UTF-8') }}</td>
-                                <td>{{ $object->customer_address->customer->id_number ?? '-'}}</td>
+                                @if($object->period == "1 y 2")
+                                    @if($object->free_shipping == 0)
+                                        <td>${{ number_format($object->order_parent->dispatch, 0, ',','.')}}</td>
+                                    @else
+                                        <td>Despacho gratis</td>
+                                    @endif
+                                @else 
+                                    @if($object->free_shipping == 0)
+                                        <td>${{ number_format($object->dispatch, 0, ',','.')}}</td>
+                                    @else
+                                        <td>Despacho gratis</td>
+                                    @endif
+                                @endif
+
+                                @if($object->order)
+                                    @if(isset($object->order->voucher_pdf))
+                                    <td><a href="{{ $object->order->voucher_pdf }}" target="_blank" class='btn btn-sm btn-default btn-hover-success' data-toggle="tooltip"><i class="ti-file"></i></a></td>
+                                    @else
+                                    <td>-</td>
+                                    @endif
+                                @else 
+                                <td>-</td>
+                                @endif
+
+                                <td>{{ $object->order->ballot_number ?? '-'}}</td>
+                                <td>{{ $object->order->billing_number ?? '-'}}</td>
+
+                                @if($object->order_parent)
+                                <td>
+                                    @php
+                                        $laboratory_array = [];
+                                    @endphp
+                                    @forelse ($object->order_parent->order_items as $item)
+                                        @if(!in_array($item->product->laboratory->name, $laboratory_array))
+                                            {{ $item->product->laboratory->name }}<br/>
+                                        @endif
+                                        @php
+                                            array_push($laboratory_array, $item->product->laboratory->name);
+                                        @endphp
+                                    @empty
+                                        -
+                                    @endforelse
+                                </td>
+                                @else 
+                                <td>-</td>
+                                @endif
+
+                                @if($object->period == "1 y 2")
+                                    <td>${{ number_format($object->order_parent->subtotal, 0, ',','.')}}</td>
+                                @else 
+                                    <td>${{ number_format($object->subtotal, 0, ',','.')}}</td>
+                                @endif
+
+                                @if($object->period == "1 y 2")
+                                    <td>${{ number_format($object->order_parent->total, 0, ',','.')}}</td>
+                                @else
+                                    <td>${{ number_format($object->subtotal + $object->dispatch, 0, ',','.')}}</td>
+                                @endif
+            
+                                <td>{{ $object->is_pay == 0 ? 'Pend. Pago' : $object->subscription->card_number }}</td>
 
                                 <td>{{ mb_strtoupper($object->order_parent->delivery_address ?? '-', 'UTF-8') }}</td>
                                 @if($object->order_parent && $object->order_parent->house_number != "null")
@@ -324,37 +389,10 @@
                                 @else 
                                 <td>-</td>
                                 @endif
+                                <td>{{ mb_strtoupper($object->customer_address->customer->email ?? '-', 'UTF-8') }}</td>
                                 <td>{{ mb_strtoupper($object->order_parent->region ?? '-', 'UTF-8') }}</td>
-                                @if($object->order_parent && $object->order_parent->comments != "null")
-                                <td>{{ mb_strtoupper($object->order_parent->comments ?? '-', 'UTF-8') }}</td>
-                                @else 
-                                <td>-</td>
-                                @endif
 
-                                @if($object->period == "1 y 2")
-                                    <td>${{ number_format($object->order_parent->subtotal, 0, ',','.')}}</td>
                     
-                                    @if($object->free_shipping == 0)
-                                    <td>${{ number_format($object->order_parent->dispatch, 0, ',','.')}}</td>
-                                    @else
-                                    <td>Despacho gratis</td>
-                                    @endif
-                                @else 
-                                    <td>${{ number_format($object->subtotal, 0, ',','.')}}</td>
-                    
-                                    @if($object->free_shipping == 0)
-                                    <td>${{ number_format($object->dispatch, 0, ',','.')}}</td>
-                                    @else
-                                    <td>Despacho gratis</td>
-                                    @endif
-                                @endif
-                    
-                                @if($object->period == "1 y 2")
-                                    <td>${{ number_format($object->order_parent->total, 0, ',','.')}}</td>
-                                @else
-                                    <td>${{ number_format($object->subtotal + $object->dispatch, 0, ',','.')}}</td>
-                                @endif
-                
 
                                 @if($object->order)
                                     @if(count($object->order->prescriptions) > 0)
@@ -372,21 +410,6 @@
                                 <td>-</td>
                                 @endif
 
-                                @if($object->order)
-                                    @if(isset($object->order->voucher_pdf))
-                                    <td><a href="{{ $object->order->voucher_pdf }}" target="_blank" class='btn btn-sm btn-default btn-hover-success' data-toggle="tooltip"><i class="ti-file"></i></a></td>
-                                    @else
-                                    <td>-</td>
-                                    @endif
-                                @else 
-                                <td>-</td>
-                                @endif
-
-                                <td>{{ $object->order->ballot_number ?? '-'}}</td>
-                                <td>{{ $object->order->billing_number ?? '-'}}</td>
-
-                                <td>{{ mb_strtoupper($object->customer_address->customer->email ?? '-', 'UTF-8') }}</td>
-                                <td>{{ mb_strtoupper($object->customer_address->customer->phone ?? '-', 'UTF-8') }}</td>
 
                             </tr>
                         @endforeach
