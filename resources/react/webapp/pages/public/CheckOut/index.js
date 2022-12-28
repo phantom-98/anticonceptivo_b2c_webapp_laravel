@@ -302,8 +302,8 @@ const CheckOut = () => {
     const constructFiles = (attachments) => {
         const temp_files = [];
         for (const attachment of attachments) {
-            const { path, name, extension, product_id, name_id } = attachment;
-            fetch(path)
+            const { file_public, name, extension, product_id, name_id } = attachment;
+            fetch(window.location.origin+file_public)
                 .then(res => res.blob())
                 .then(blob => {
                     let file = new File([blob], name, { type: extension });

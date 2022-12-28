@@ -113,7 +113,7 @@ class WebpayPlusController
 
                     $rules = [
                         'attachments' => 'required',
-                        'attachments.*' => 'mimes:jpg,jpeg,png,pdf,doc,docx|max:5000'
+                        'mimes:jpg,jpeg,png,pdf,doc,docx,image/jpeg,image/png,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document',
                     ];
 
                     $messages = [
@@ -124,14 +124,14 @@ class WebpayPlusController
 
                     $validator = Validator::make($request->all(), $rules, $messages);
 
-                    if (!$validator->passes()) {
+                    if ($validator->fails()) {
                         return ApiResponse::JsonFieldValidation($validator->errors());
                     }
 
                     foreach ($request->attachments as $key => $_attachment) {
                         $attachment = new Attachment();
                         $attachment->name = strtolower($_attachment->getClientOriginalName());
-                        $attachment->path = $_attachment->storeAs('public/subscription/products/product-' . Carbon::now()->format('d-m-y') . $key . Str::random(6) , $attachment->name);
+                        $attachment->path = $_attachment->storeAs('public/subscription/products/product-' . Carbon::now()->format('sm') . $key . Str::random(6) , $attachment->name);
                         $attachment->extension = strtolower($_attachment->getClientOriginalExtension());
                         $attachment->subscription_id = $subscription->id;
                         $attachment->product_id =  $request->productIds[$key];
@@ -456,7 +456,7 @@ class WebpayPlusController
 
             $rules = [
                 'attachments' => 'required',
-                'attachments.*' => 'mimes:jpg,jpeg,png,pdf,doc,docx|max:5000'
+                'mimes:jpg,jpeg,png,pdf,doc,docx,image/jpeg,image/png,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document',
             ];
 
             $messages = [
@@ -467,7 +467,7 @@ class WebpayPlusController
 
             $validator = Validator::make($request->all(), $rules, $messages);
 
-            if (!$validator->passes()) {
+            if ($validator->fails()) {
                 return ApiResponse::JsonFieldValidation($validator->errors());
             }
 

@@ -160,21 +160,18 @@ class ProfileController extends Controller
 
             if ($request->product_count > 0 && $request->prescription_radio == 'true') {
 
-                // $file = $request->file('attachments')[0];
-                // $mimeType = $file->getMimeType();
-                // dd($mimeType);
+                $rules = [
+                    'attachments' => 'required',
+                    'mimes:jpg,jpeg,png,pdf,doc,docx,image/jpeg,image/png,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                ];
 
-                $validator = Validator::make($request->all(), [
-                    'attachments.*' => [
-                        'required',
-                        'mimes:jpg,jpeg,png,pdf,doc,docx,image/jpeg,image/png,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-                        'max:5120', // 5 MB
-                    ],
-                ], [
-                    'attachments.*.required' => 'Please select at least one file to upload.',
-                    'attachments.*.mimes' => 'The file must be a jpg, jpeg, png, pdf, doc, or docx file.',
-                    'attachments.*.max' => 'The file size must be less than or equal to 5 MB.',
-                ]);
+                $messages = [
+                    'attachments.required' => 'Por favor, ingresar al menos una receta.',
+                    'attachments.*.mimes' => 'Las extensiones .jpg, .jpeg, .png, .pdf, .doc y .docx están permitidos.',
+                    'attachments.*.max' => 'El archivo no puede superar los 5MB.',
+                ];
+
+                $validator = Validator::make($request->all(), $rules, $messages);
 
                 if ($validator->fails()) {
                     return ApiResponse::JsonFieldValidation($validator->errors());
