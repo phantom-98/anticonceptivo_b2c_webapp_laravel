@@ -238,22 +238,22 @@ const CheckOut = () => {
         // extensions .jpg, .jpeg, .png, .pdf, .doc y .docx
         console.log(extension, 'extension');
         switch (extension) {
-            case 'JPG':
+            case 'jpg':
                 mime_type = 'image/jpeg';
                 break;
-            case 'JPEG':
+            case 'jpeg':
                 mime_type = 'image/jpeg';
                 break;
-            case 'PNG':
+            case 'png':
                 mime_type = 'image/png';
                 break;
-            case 'PDF':
+            case 'pdf':
                 mime_type = 'application/pdf';
                 break;
-            case 'DOC':
+            case 'doc':
                 mime_type = 'application/msword';
                 break;
-            case 'DOCX':
+            case 'docx':
                 mime_type = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
                 break;
             default:
@@ -264,21 +264,39 @@ const CheckOut = () => {
         return mime_type;
     }
 
+    // const constructFiles = (attachments) => {
+    //     let _files = [];
 
-    const constructFiles = (attachments) => {
-        let _files = [];
+    //     attachments.map((attachment, index) => {
+    //         let mime_type = getMimeType(attachment.extension);
+    //         let temp_file = new File([attachment.file], attachment.name, { type: mime_type });
+    //         temp_file.product_id = attachment.product_id;
+    //         temp_file.name_id = attachment.name_id;
+    //         _files.push(temp_file);
 
-        attachments.map((attachment, index) => {
-            let mime_type = getMimeType(attachment.extension);
-            let temp_file = new File([attachment.file], attachment.name, { type: mime_type });
-            temp_file.product_id = attachment.product_id;
-            temp_file.name_id = attachment.name_id;
-            _files.push(temp_file);
+    //         console.log('temp_file', temp_file);
+    //     })
 
-            console.log('temp_file', temp_file);
-        })
+    //     return _files;
+    // }
 
-        return _files;
+    function constructFiles(attachments) {
+        const temp_files = [];
+
+        attachments.forEach(attachment => {
+            fetch(attachment.path)
+                .then(response => response.blob())
+                .then(blob => {
+                    let temp_file = new File([blob], attachment.name, { type: getMimeType(attachment.extension), extension: attachment.extension});
+                    temp_file.product_id = attachment.product_id;
+                    temp_file.name_id = attachment.name_id;
+                    temp_files.push(temp_file);
+                });
+        });
+
+        console.log('temp_files', temp_files);
+
+        return temp_files;
     }
 
     const getSubscriptions = () => {
