@@ -243,6 +243,7 @@ class SubscriptionController extends GlobalController
         $last_pay_date = $subscription->pay_date;
 
         $subscription->pay_date = Carbon::createFromFormat('d/m/Y', $request->date_edit)->format('Y-m-d 00:30:00');
+        $subscription->dispatch_date = Carbon::createFromFormat('d/m/Y', $request->date_edit)->format('Y-m-d 00:30:00');
         $subscription->save();
         $subscription->refresh();
 
@@ -253,8 +254,10 @@ class SubscriptionController extends GlobalController
         foreach($other_subscriptions as $sub){
             if(Carbon::parse($subscription->pay_date)->gt($last_pay_date)){
                 $sub->pay_date = Carbon::parse($sub->pay_date)->addDays($diff)->format('Y-m-d 00:30:00');
+                $sub->dispatch_date = Carbon::parse($sub->pay_date)->addDays($diff)->format('Y-m-d 00:30:00');
             } else {
                 $sub->pay_date = Carbon::parse($sub->pay_date)->subDays($diff)->format('Y-m-d 00:30:00');
+                $sub->dispatch_date = Carbon::parse($sub->pay_date)->subDays($diff)->format('Y-m-d 00:30:00');
             }
             $sub->save();
         }

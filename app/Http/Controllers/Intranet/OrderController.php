@@ -218,6 +218,13 @@ class OrderController extends GlobalController
                     $object->temperature = $request->temperature;
                 } else if ($request->order_status_id == "DELIVERED") {
                     $object->dispatch_date = Carbon::now()->format('Y-m-d H:i:s');
+
+                    $sub = SubscriptionsOrdersItem::where('order_id', $object->id)->first();
+
+                    if($sub){
+                        $sub->dispatch_date = Carbon::now()->format('Y-m-d H:i:s');
+                        $sub->save();
+                    }
                 }
                 $object->save();
             } else {
