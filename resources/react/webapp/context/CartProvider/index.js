@@ -1,4 +1,4 @@
-import React, {createContext, useReducer, useEffect} from 'react';
+import React, { createContext, useReducer, useEffect } from 'react';
 import CartReducer from "./CartReducer";
 import {
     MINI_CART_OPEN,
@@ -10,10 +10,8 @@ import {
     UPDATE_QUANTITY,
     CLEAR_CART,
     IS_CART_READY,
+    SAVE_DATA_FOR_STEP_TWO
 } from "./types";
-import {LOCAL_STORAGE} from "../LocalStorage";
-
-import MiniCart from "../../components/shopping/MiniCart";
 
 export const CartContext = createContext(null);
 
@@ -23,13 +21,14 @@ const CartProvider = (props) => {
         showingMiniCart: false,
         cartItems: [],
         isCartReady: false,
+        dataForStepTwo: null,
     };
 
     const [state, dispatch] = useReducer(CartReducer, initialState);
 
     useEffect(() => {
         updateCart()
-    },[])
+    }, [])
 
     const showMiniCart = () => {
         dispatch({
@@ -53,18 +52,18 @@ const CartProvider = (props) => {
         dispatch({
             type: REPEAT_ORDER,
             payload: {
-                orderItem : orderItem,
+                orderItem: orderItem,
             }
         })
     }
 
-    const addToCart = (quantity, product,subscription) => {
+    const addToCart = (quantity, product, subscription) => {
         dispatch({
             type: ADD_TO_CART,
             payload: {
-                quantity : quantity,
-                product : product,
-                product_id : product.id,
+                quantity: quantity,
+                product: product,
+                product_id: product.id,
                 subscription: subscription
             }
         })
@@ -81,9 +80,9 @@ const CartProvider = (props) => {
         dispatch({
             type: UPDATE_QUANTITY,
             payload: {
-                quantity : quantity,
-                product : product,
-                product_id : product.id,
+                quantity: quantity,
+                product: product,
+                product_id: product.id,
                 subscription: subscription
             }
         })
@@ -102,6 +101,14 @@ const CartProvider = (props) => {
         })
     }
 
+    const saveDataForStepTwo = (data) => {
+        console.log('saving data for step two')
+        dispatch({
+            type: SAVE_DATA_FOR_STEP_TWO,
+            payload: data
+        })
+    }
+
     return (
         <CartContext.Provider value={{
             showingMiniCart: state.showingMiniCart,
@@ -109,6 +116,8 @@ const CartProvider = (props) => {
 
             cartItems: state.cartItems,
             isCartReady: state.isCartReady,
+
+            dataForStepTwo: state.dataForStepTwo,
 
             showMiniCart: showMiniCart,
             hideMiniCart: hideMiniCart,
@@ -120,10 +129,11 @@ const CartProvider = (props) => {
 
             addToCart: addToCart,
             removeFromCart: removeFromCart,
-            updateQuantity : updateQuantity,
+            updateQuantity: updateQuantity,
+
+            saveDataForStepTwo: saveDataForStepTwo,
         }}>
             {props.children}
-            {/* <MiniCart/> */}
         </CartContext.Provider>
     );
 };

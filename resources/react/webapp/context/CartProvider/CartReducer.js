@@ -7,7 +7,8 @@ import {
     REMOVE_FROM_CART,
     UPDATE_QUANTITY,
     CLEAR_CART,
-    IS_CART_READY
+    IS_CART_READY,
+    SAVE_DATA_FOR_STEP_TWO
 } from "./types";
 import { LOCAL_STORAGE } from "../LocalStorage";
 import toastr from 'toastr';
@@ -48,16 +49,16 @@ export default (state, action) => {
             const item = action.payload;
             const found = cartItems.findIndex(
                 c =>
-                    (c.product_id == item.product.id &&
-                        (c.subscription == null ? null : c.subscription.id) ===
-                        (item.subscription == null
-                            ? null
-                            : item.subscription.id))
+                (c.product_id == item.product.id &&
+                    (c.subscription == null ? null : c.subscription.id) ===
+                    (item.subscription == null
+                        ? null
+                        : item.subscription.id))
             );
 
 
             //Se debe refactorizar
-            if (cartItems.length > 0 && cartItems[found] ) {
+            if (cartItems.length > 0 && cartItems[found]) {
 
 
 
@@ -72,7 +73,7 @@ export default (state, action) => {
                     };
                 }
 
-                if((cartItems[found].quantity + item.quantity) > (item.product.subcategory.category.quantity_limit ?? 1)){
+                if ((cartItems[found].quantity + item.quantity) > (item.product.subcategory.category.quantity_limit ?? 1)) {
                     toastr.error(`<div>
                         <div>El limite de la categoría  <b>${item.product.subcategory.category.name}</b> es de ${item.product.subcategory.category.quantity_limit ?? 1} unidad</div>
                     </div>`)
@@ -83,13 +84,13 @@ export default (state, action) => {
                     };
                 }
 
-                if(cartItems[found].subscription == null){
+                if (cartItems[found].subscription == null) {
                     cartItems[found].quantity = cartItems[found].quantity + item.quantity;
                 }
 
             } else {
 
-                if((item.quantity)> (item.product.subcategory.category.quantity_limit ?? 1)){
+                if ((item.quantity) > (item.product.subcategory.category.quantity_limit ?? 1)) {
                     toastr.error(`<div>
                         <div>El limite de la categoría  <b>${item.product.subcategory.category.name}</b> es de ${item.product.subcategory.category.quantity_limit ?? 1} unidad</div>
                     </div>`)
@@ -138,7 +139,7 @@ export default (state, action) => {
             let cartItemsRepeatOrder = []
 
             const orderItems = action.payload.orderItem;
-            orderItems.forEach( function(item, index, array){
+            orderItems.forEach(function (item, index, array) {
                 cartItemsRepeatOrder = [...cartItemsRepeatOrder, item];
             });
 
@@ -174,10 +175,10 @@ export default (state, action) => {
             const filtered = list.filter(
                 c =>
                     c.product_id != action.payload.product.id ||
-                (c.subscription == null ? null : c.subscription.id) !=
-                (action.payload.subscription == null
-                    ? null
-                    : action.payload.subscription.id)
+                    (c.subscription == null ? null : c.subscription.id) !=
+                    (action.payload.subscription == null
+                        ? null
+                        : action.payload.subscription.id)
             );
 
             localStorage.setItem(
@@ -195,11 +196,11 @@ export default (state, action) => {
             const itemUpdate = action.payload;
             const foundUpdate = items.findIndex(
                 c =>
-                    (c.product_id == itemUpdate.product.id &&
-                        (c.subscription == null ? null : c.subscription.id) ===
-                        (itemUpdate.subscription == null
-                            ? null
-                            : itemUpdate.subscription.id))
+                (c.product_id == itemUpdate.product.id &&
+                    (c.subscription == null ? null : c.subscription.id) ===
+                    (itemUpdate.subscription == null
+                        ? null
+                        : itemUpdate.subscription.id))
             );
 
             if (!itemUpdate.quantity) {
@@ -219,20 +220,24 @@ export default (state, action) => {
                 cartItems: [...items]
             };
         case CLEAR_CART:
-
             localStorage.setItem(LOCAL_STORAGE.CART_ITEMS, JSON.stringify([]));
 
             return {
                 ...state,
                 cartItems: []
             }
-
         case IS_CART_READY:
             return {
                 ...state,
                 isCartReady: true
             }
-
+        case SAVE_DATA_FOR_STEP_TWO:
+            // save on local storage
+            console.log('SAVE_DATA_FOR_STEP_TWO', action.payload)
+            localStorage.setItem(LOCAL_STORAGE.CART_STEP_TWO, JSON.stringify(action.payload));
+            return {
+                ...state,
+            }
         default:
             return state;
     }
