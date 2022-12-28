@@ -2,18 +2,17 @@
 @section('header', '¡No te olvides!')
 @section('content')
 
-    <div class="title">Estimado/a {{ $full_name }} </div>
+    <div class="titulo">Hola {{ ucwords(mb_strtolower($full_name, 'UTF-8')) }} </div>
     <div class="message">
         <p>
-            Han pasado {{$calc}} días desde tu última compra, recuerda tomar tu medicamento. Es por eso que queremos contarte que puedes acceder al mejor precio de <b>{{$product}}</b> ${{number_format($price, 0, ',','.')}}, con un plan de {{$cicles}} meses. 
+            Han pasado {{$calc}} días desde tu método, por ello te queremos recordar para que no te olvides. Accede al precio más bajo siempre en <b>{{$product}}</b> a <b>${{number_format($price, 0, ',','.')}}</b>, con un plan de {{$cicles}} meses. Presiona <a style="text-decoration: underline" href="https://anticonceptivo.cl/producto/{{$producto_slug}}" target="_BLANK">aquí</a> para acceder a la suscripción.  
         </p>
         <p>
-            No lo dejes pasar, accede <a style="text-decoration: underline" href="https://anticonceptivo.cl/blog/tendencia/post/como-funciona-una-suscripcion-en-anticonceptivocl" target="_BLANK">aquí</a>.
+            No lo dejes pasar, más información de descuentos <a style="text-decoration: underline" href="https://anticonceptivo.cl/blog/tendencia/post/como-funciona-una-suscripcion-en-anticonceptivocl" target="_BLANK">aquí</a>.
         </p>
         <p>
-            Un gran saludo de
+            Esperamos volver a verte pronto.
             <br/>
-            Equipo <a style="text-decoration: underline" href="https://anticonceptivo.cl/" target="_BLANK">anticonceptivo.cl</a>
         </p>
     </div>
 

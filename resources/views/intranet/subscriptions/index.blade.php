@@ -61,13 +61,13 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-2">
+                                    <div class="col-md-1">
                                         <div class="form-group">
                                             <label for="id"># Pedido</label>
                                             <input type="text" id="id" name="id" class="form-control" value="{{ $id }}"/>
                                         </div>
                                     </div>
-                                    <div class="col-md-2">
+                                    <div class="col-md-1">
                                         <div class="form-group">
                                             <label for="subscription_id"># Suscripción</label>
                                             <input type="text" id="subscription_id" name="subscription_id" class="form-control" value="{{ $subscription_id }}"/>
@@ -89,6 +89,13 @@
                                         </div>
                                     </div>
                                     @endcan
+                                    <div class="col-md-2" style="margin-bottom: 10px">
+                                        <div class="form-group">
+                                            <a href="{{ route($config['route'] . 'detail') }}" class="btn btn-success left "
+                                                    style="margin-top: 23px">Ver Cantidad Suscripciones
+                                            <a>
+                                        </div>
+                                    </div>
                                 </form>
 
                                 <form id="form-export" target="_BLANK"
@@ -145,8 +152,12 @@
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Intentos de Pago</th>
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Tarjeta de Pago</th>
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Período</th>
+                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Plazo</th>
+                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Producto Suscripción</th>
+                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Laboratorio Suscripción</th>
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Producto(s)</th>
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Laboratorio(s)</th>
+                            <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Categoría(s)</th>
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Subcategoría(s)</th>
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Nombre Cliente</th>
                             <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">RUT Cliente</th>
@@ -176,11 +187,20 @@
                                 @if($config['blade']['showActions'])
                                     <td>
                                         <div >
+                                            @if($object->is_pay == 0)
+                                                @push('prepend_actions_buttons' .  $object->id)
+                                                    <a onclick="editPayDate('{{ date('Y-m-d', strtotime($object->pay_date)) }}', {{$object->id}})"
+                                                    class="btn btn-sm btn-default btn-hover-info" data-toggle="tooltip"
+                                                    title="Editar Día de Pago">
+                                                        <i class="fa fa-edit"></i>
+                                                    </a>
+                                                @endpush
+                                            @endif
                                             @include('intranet.template.components._crud_html_actions_buttons')
                                         </div>
                                     </td>
                                 @endif
-                                <td>{{ $object->order_id != null ? '#'.$object->order_id : 'Aún no corresponde pago'}}</td>
+                                <td>{{ $object->order_id != null ? '#'.$object->order_id : 'Pend. Pago'}}</td>
                                 <td>{{ $object->subscription_id ?? '-'}}</td>
                                 <td>{{ date('d-m-Y', strtotime($object->pay_date)) }}</td>
                                 <td>
@@ -191,25 +211,46 @@
                                 @if($object->is_pay == 1 && $object->payment_attempt == 0)
                                 <td>1</td>
                                 @elseif($object->is_pay == 0 && $object->payment_attempt == 0)
-                                <td>Aún no corresponde pago</td>
-                                @else 
+                                <td>Pend. Pago</td>
+                              @else 
                                 <td>{!! $object->payment_attempt == 1 ? $object->payment_attempt : $object->payment_attempt. ' <i style="color:#f44336;margin-left: 10px;" class="ti-alert icon-2x"></i>' !!}</td>
                                 @endif
-                                <td>{{ $object->is_pay == 0 ? 'Aún no corresponde pago' : $object->subscription->card_number }}</td>
+                                <td>{{ $object->is_pay == 0 ? 'Pend. Pago' : $object->subscription->card_number }}</td>
                                 <td>{{ $object->period }}</td>
+                                <td>{{ $object->month_period }}</td>
+
+                                @if($object->order_item)
+                                <td>
+                                    @if($object->order_item->product->stock >= 2 || $object->is_pay == 1)
+                                        <span class="label label-success">{{ $object->quantity }} x {{ $object->order_item->product->name }}</span><br/><br/>
+                                    @else 
+                                        <span class="label label-danger">{{ $object->quantity }} x {{ $object->order_item->product->name }}</span><br/><br/>
+                                    @endif
+                                </td>
+                                @else 
+                                <td>-</td>
+                                @endif
+
+                                @if($object->order_item)
+                                <td>
+                                    {{ $object->order_item->product->laboratory->name }}
+                                </td>
+                                @else 
+                                <td>-</td>
+                                @endif
 
                                 @if($object->order_parent)
-                                <td>
-                                    @forelse ($object->order_parent->order_items as $item)
-                                        @if($item->product->stock >= 2 || $object->is_pay == 1)
-                                            <span class="label label-success">{{ $item->quantity }} x {{ $item->product->name }}</span><br/><br/>
-                                        @else 
-                                            <span class="label label-danger">{{ $item->quantity }} x {{ $item->product->name }}</span><br/><br/>
-                                        @endif
-                                    @empty
-                                        -
-                                    @endforelse
-                                </td>
+                                    <td>
+                                        @forelse ($object->order_parent->order_items as $item)
+                                            @if($object->period != "11, 12 y 13")
+                                                {{ $item->quantity }} x {{ $item->product->name }}</span><br/><br/>
+                                            @else 
+                                                3 x {{ $item->product->name }}</span><br/>
+                                            @endif
+                                        @empty
+                                            -
+                                        @endforelse
+                                    </td>
                                 @else 
                                 <td>-</td>
                                 @endif
@@ -225,6 +266,26 @@
                                         @endif
                                         @php
                                             array_push($laboratory_array, $item->product->laboratory->name);
+                                        @endphp
+                                    @empty
+                                        -
+                                    @endforelse
+                                </td>
+                                @else 
+                                <td>-</td>
+                                @endif
+
+                                @if($object->order_parent)
+                                <td>
+                                    @php
+                                        $category_array = [];
+                                    @endphp
+                                    @forelse ($object->order_parent->order_items as $item)
+                                        @if(!in_array($item->product->subcategory->category->name, $category_array))
+                                            {{ $item->product->subcategory->category->name }}<br/>
+                                        @endif
+                                        @php
+                                            array_push($category_array, $item->product->subcategory->category->name);
                                         @endphp
                                     @empty
                                         -
@@ -270,16 +331,30 @@
                                 <td>-</td>
                                 @endif
 
-
-                                <td>${{ number_format($object->order_parent->subtotal, 0, ',','.')}}</td>
-
-                                @if($object->free_shipping == 0)
-                                <td>${{ number_format($object->order_parent->dispatch, 0, ',','.')}}</td>
-                                @else
-                                <td>Despacho gratis</td>
+                                @if($object->period == "1 y 2")
+                                    <td>${{ number_format($object->order_parent->subtotal, 0, ',','.')}}</td>
+                    
+                                    @if($object->free_shipping == 0)
+                                    <td>${{ number_format($object->order_parent->dispatch, 0, ',','.')}}</td>
+                                    @else
+                                    <td>Despacho gratis</td>
+                                    @endif
+                                @else 
+                                    <td>${{ number_format($object->subtotal, 0, ',','.')}}</td>
+                    
+                                    @if($object->free_shipping == 0)
+                                    <td>${{ number_format($object->dispatch, 0, ',','.')}}</td>
+                                    @else
+                                    <td>Despacho gratis</td>
+                                    @endif
                                 @endif
-
-                                <td>${{ number_format($object->order_parent->total, 0, ',','.')}}</td>
+                    
+                                @if($object->period == "1 y 2")
+                                    <td>${{ number_format($object->order_parent->total, 0, ',','.')}}</td>
+                                @else
+                                    <td>${{ number_format($object->subtotal + $object->dispatch, 0, ',','.')}}</td>
+                                @endif
+                
 
                                 @if($object->order)
                                     @if(count($object->order->prescriptions) > 0)
@@ -323,6 +398,49 @@
         </div>
     </div>
 
+    <div class="modal fade" id="modal-edit" style="display: none;">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title-edit">Actualizar Fecha de Pago Suscripción</h4>
+                </div>
+                <div class="modal-body" style="margin-bottom:40px">
+                    <div class="row">
+                        <div class="col-md-12" style="margin-bottom:40px">
+                            <br/>
+                            <form id="form" action="{{ route($config['route'] . 'edit_pay_date') }}"
+                            enctype="multipart/form-data"
+                            method="POST">
+                                @csrf
+                                <div class="row" style="margin-bottom:40px">
+                                    <div class="col-md-12" style="margin:auto;text-align:center">
+                                        <div class="form-group" style="width:300px !important;margin:auto">
+                                            <label for="date">Fecha de Pago</label>
+                                            <input type="text"
+                                                    id="date-edit"
+                                                    name="date_edit"
+                                                    class="form-control"
+                                                    data-language="es"
+                                                    data-date-format="dd/mm/yyyy"
+                                                    data-range="false"
+                                                    autocomplete="off"
+                                            />
+                                            <input type="hidden" id="subscription_id_object" name="subscription_id_object"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <center>
+                                    <button type="submit" id="button" class="btn btn-success">Editar fecha</button>
+                                </center>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 @endsection
 
@@ -347,6 +465,14 @@
         .warning-order{
             background-color: #ffb80f !important;
             color:black;
+        }
+
+        .datepicker--cell.-selected-, .datepicker--cell.-selected-.-current-, .datepicker--cell.-selected-focus-, .datepicker--cell.-focus-, .datepicker--cell.-current-focus- {
+            z-index: 150000 !important;
+        }
+
+        .datepickers-container{
+            z-index: 150000 !important;
         }
 
         @media (max-width: 768px) {
@@ -418,7 +544,30 @@
     <script>
         $(document).ready(function(){
             $('[data-toggle="tooltip"]').tooltip();
+            $('#date-edit').css('z-index',1200000);
         });
+    </script>
+
+    <script>
+        function editPayDate(date, id){
+            $('#date-edit').datepicker({
+                position: "bottom left",
+                autoClose: true,
+                clearButton: true,
+                toggleSelected: false
+            });
+            $("#date-edit").keydown(false);
+
+            var fecha_start = new Date(date);
+            fecha_start.setDate(fecha_start.getDate() + 1);
+            $('#date-edit').datepicker().data('datepicker').selectDate([new Date(fecha_start)]);
+
+            $("#subscription_id_object").val(id);
+
+            $("#modal-edit").modal({
+                backdrop: 'static'
+            });
+        }
     </script>
 
     <script>

@@ -42,6 +42,7 @@ class ProductImport implements ToCollection, WithHeadingRow
                     $product->is_medicine = $row['medicamento'] == "Si" ? 1 : 0;
                     $product->is_indexable = $row['indexable'] == "Si" ? 1 : 0;
                     $product->position = $row['posicion'] ?? 999;
+                    $product->days_protection = $row['dias_proteccion'] ?? null;
                     $product->save();
                 } else {
                     $product = new Product();
@@ -70,6 +71,7 @@ class ProductImport implements ToCollection, WithHeadingRow
                     $product->is_medicine = $row['medicamento'] == "Si" ? 1 : 0;
                     $product->is_indexable = $row['indexable'] == "Si" ? 1 : 0;
                     $product->position = $row['posicion'] ?? 999;
+                    $product->days_protection = $row['dias_proteccion'] ?? null;
                     $product->save();
                 }
             }

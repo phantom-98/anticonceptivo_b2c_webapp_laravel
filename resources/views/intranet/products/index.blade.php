@@ -330,6 +330,15 @@
                     formatter: function (value, row, index) {
                         return getIsOutstandingButton(row.id, row.outstanding);
                     }
+                },
+                {
+                    title: 'Días de Protección',
+                    field: 'days_protection',
+                    sortable: true,
+                    cellStyle: midAling,
+                    formatter: function (value, row, index) {
+                        return row.days_protection ?? '-';
+                    }
                 }
             );
 

@@ -184,6 +184,7 @@ class ProductController extends GlobalController
             $product->recipe_type = $request->recipe_type;
             $product->position = 999;
             $product->state_of_matter = $request->state_of_matter;
+            $product->days_protection = $request->days_protection;
             $product->position = 999;
             $product->save();
 
@@ -357,6 +358,7 @@ class ProductController extends GlobalController
             $product->unit_format = $request->unit_format;
             $product->recipe_type = $request->recipe_type;
             $product->state_of_matter = $request->state_of_matter;
+            $product->days_protection = $request->days_protection;
             $product->save();
 
             if ($request->hasFile('image')) {

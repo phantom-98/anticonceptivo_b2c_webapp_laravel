@@ -37,7 +37,7 @@ class OrderController extends GlobalController
 
     public function index(Request $request)
     {
-        $objects = Order::with(['customer', 'prescriptions.product','subscriptions_orders_items.commune', 'order_items.product.laboratory', 'order_items.product.subcategory']);
+        $objects = Order::with(['customer', 'prescriptions.product','subscriptions_orders_items.commune', 'order_items.product.laboratory', 'order_items.product.subcategory.category']);
         $clients = Customer::get();
 
         $date = $request->date;

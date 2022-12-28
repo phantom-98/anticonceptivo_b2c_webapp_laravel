@@ -186,22 +186,29 @@ class CallIntegrationsPay extends CoreHelper
 
    public static function sendEmailsOrder($order_id, $type = 'compra')
    {
-        $order = Order::with('customer','order_items.subscription_plan', 'order_items.product.plans.subscription_plan')->where('id',$order_id)->get()->first();
+        $order = Order::with('customer','order_items.subscription_plan', 'order_items.product.plans.subscription_plan', 'order_items.product.product_images')->where('id',$order_id)->get()->first();
         $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
 
         $product = null;
         $price = null;
+        $producto_slug = null;
+        $image = null;
 
         foreach($order->order_items as $object){
             if(count($object->product->plans) > 0){
                 $product = $object->product->name;
+                $producto_slug = $object->product->slug;
+                $image = $object->product->product_images[0]->file;
                 $price = $object->product->plans->min('price');
                 break;
             }
         }
 
+        $hour_dispatch = \App\Models\ProductSchedule::where('type', 'NORMAL')->first();
+
         // Envio al cliente
-        $html = view('emails.orders-new-email', ['order' => $order, 'type' => $type, 'nombre' => 'Equipo Anticonceptivo', 'product' => $product, 'price' => $price])->render();
+        $html = view('emails.orders-new-email', ['order' => $order, 'type' => $type, 'nombre' => 'Equipo Anticonceptivo', 'product' => $product, 'image' => $image,
+        'producto_slug' => $producto_slug,'price' => $price, 'hour_dispatch' => $hour_dispatch])->render();
 
         $email = new \SendGrid\Mail\Mail();
 
@@ -258,17 +265,25 @@ class CallIntegrationsPay extends CoreHelper
 
         $product = null;
         $price = null;
+        $producto_slug = null;
+        $image = null;
 
         foreach($order->order_items as $object){
             if(count($object->product->plans) > 0){
                 $product = $object->product->name;
+                $producto_slug = $object->product->slug;
+                $image = $object->product->product_images[0]->file;
                 $price = $object->product->plans->min('price');
                 break;
             }
         }
 
         // Envio al cliente
-        $html = view('emails.orders-new-email', ['order' => $order, 'type' => $type, 'nombre' => 'Equipo Anticonceptivo', 'product' => $product, 'price' => $price])->render();
+        $hour_dispatch = \App\Models\ProductSchedule::where('type', 'NORMAL')->first();
+
+        // Envio al cliente
+        $html = view('emails.orders-new-email', ['order' => $order, 'type' => $type, 'nombre' => 'Equipo Anticonceptivo', 'product' => $product, 'image' => $image,
+        'producto_slug' => $producto_slug,'price' => $price, 'hour_dispatch' => $hour_dispatch])->render();
 
         $email = new \SendGrid\Mail\Mail();
 

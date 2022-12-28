@@ -8,8 +8,12 @@
             <th>Intentos de Pago</th>
             <th>Tarjeta de Pago</th>
             <th>Período</th>
+            <th>Plazo</th>
+            <th>Producto Suscripción</th>
+            <th>Laboratorio Suscripción</th>
             <th>Producto(s)</th>
             <th>Laboratorio(s)</th>
+            <th>Categoría(s)</th>
             <th>Subcategoría(s)</th>
             <th>Nombre Cliente</th>
             <th>RUT Cliente</th>
@@ -29,7 +33,7 @@
     <tbody>
         @foreach($objects as $object)
         <tr>
-            <td>{{ $object->order_id != null ? '#'.$object->order_id : 'Aún no corresponde pago'}}</td>
+            <td>{{ $object->order_id != null ? '#'.$object->order_id : 'Pend. Pago'}}</td>
             <td>{{ $object->subscription_id ?? '-'}}</td>
             <td>{{ date('d-m-Y', strtotime($object->pay_date)) }}</td>
             <td>
@@ -40,15 +44,36 @@
             @if($object->is_pay == 1 && $object->payment_attempt == 0)
             <td>1</td>
             @else
-            <td>{{ $object->payment_attempt == 0 ? 'Aún no corresponde pago' : $object->payment_attempt }}</td>
+            <td>{{ $object->payment_attempt == 0 ? 'Pend. Pago' : $object->payment_attempt }}</td>
             @endif
-            <td>{{ $object->is_pay == 0 ? 'Aún no corresponde pago' : $object->subscription->card_number }}</td>
+            <td>{{ $object->is_pay == 0 ? 'Pend. Pago' : $object->subscription->card_number }}</td>
             <td>{{ $object->period }}</td>
+            <td>{{ $object->month_period }}</td>
+
+            @if($object->order_item)
+            <td>
+                {{ $object->quantity }} x {{ $object->order_item->product->name }}<br/>
+            </td>
+            @else 
+            <td>-</td>
+            @endif
+
+            @if($object->order_item)
+            <td>
+                {{ $object->order_item->product->laboratory->name }}
+            </td>
+            @else 
+            <td>-</td>
+            @endif
 
             @if($object->order_parent)
             <td>
                 @forelse ($object->order_parent->order_items as $item)
-                   {{ $item->quantity }}x{{ $item->product->name }}<br/>
+                    @if($object->period != "11, 12 y 13")
+                        {{ $item->quantity }} x {{ $item->product->name }}<br/>
+                    @else 
+                        3 x {{ $item->product->name }}<br/>
+                    @endif
                 @empty
                     -
                 @endforelse
@@ -68,6 +93,26 @@
                     @endif
                     @php
                         array_push($laboratory_array, $item->product->laboratory->name);
+                    @endphp
+                @empty
+                    -
+                @endforelse
+            </td>
+            @else 
+            <td>-</td>
+            @endif
+
+            @if($object->order_parent)
+            <td>
+                @php
+                    $category_array = [];
+                @endphp
+                @forelse ($object->order_parent->order_items as $item)
+                    @if(!in_array($item->product->subcategory->category->name, $category_array))
+                        {{ $item->product->subcategory->category->name }}<br/>
+                    @endif
+                    @php
+                        array_push($category_array, $item->product->subcategory->category->name);
                     @endphp
                 @empty
                     -
@@ -116,16 +161,29 @@
             <td>-</td>
             @endif
 
+            @if($object->period == "1 y 2")
+                <td>${{ number_format($object->order_parent->subtotal, 0, ',','.')}}</td>
 
-            <td>${{ number_format($object->order_parent->subtotal, 0, ',','.')}}</td>
+                @if($object->free_shipping == 0)
+                <td>${{ number_format($object->order_parent->dispatch, 0, ',','.')}}</td>
+                @else
+                <td>Despacho gratis</td>
+                @endif
+            @else 
+                <td>${{ number_format($object->subtotal, 0, ',','.')}}</td>
 
-            @if($object->free_shipping == 0)
-            <td>${{ number_format($object->order_parent->dispatch, 0, ',','.')}}</td>
-            @else
-            <td>Despacho gratis</td>
+                @if($object->free_shipping == 0)
+                <td>${{ number_format($object->dispatch, 0, ',','.')}}</td>
+                @else
+                <td>Despacho gratis</td>
+                @endif
             @endif
 
-            <td>${{ number_format($object->order_parent->total, 0, ',','.')}}</td>
+            @if($object->period == "1 y 2")
+                <td>${{ number_format($object->order_parent->total, 0, ',','.')}}</td>
+            @else
+                <td>${{ number_format($object->subtotal + $object->dispatch, 0, ',','.')}}</td>
+            @endif
 
             <td>{{ $object->order->ballot_number ?? '-'}}</td>
             <td>{{ $object->order->billing_number ?? '-'}}</td>

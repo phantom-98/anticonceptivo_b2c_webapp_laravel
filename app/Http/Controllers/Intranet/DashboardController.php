@@ -25,9 +25,8 @@ class DashboardController extends Controller
     public $folder = 'intranet.dashboard.';
 
     function index(Request $request)
-    {   
+    {           
         $orderTotals = Order::whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED'])->count();
-        
         $orderToday = Order::whereBetween('created_at', [Carbon::now()->startOfDay(), Carbon::now()->endOfDay()])->whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED'])->count();
         $orderThisWeek = Order::whereBetween('created_at', [Carbon::now()->startOfWeek()->toDateTimeString(), Carbon::now()])->whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED'])->count();
         $orderThisMonth = Order::whereBetween('created_at', [Carbon::now()->startOfMonth()->toDateTimeString(), Carbon::now()->endOfMonth()->toDateTimeString()])->whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED'])->count();
@@ -55,8 +54,10 @@ class DashboardController extends Controller
             $q->where('is_paid', 1);
         })->where('dispatch_date', '>', Carbon::now()->format('Y-m-d H:i:s'))->get()->unique('order_parent_id')->count();
 
+        $last_day = Carbon::now()->endOfMonth()->format('d');
+
         return view($this->folder . 'index', compact('orderTotals', 'orderToday', 'orderThisWeek', 'orderThisMonth', 'sellToday', 'sellWeek', 'sellMonth', 
-        'products', 'prescriptions', 'customers', 'contacts', 'contacts_open', 'claims', 'claims_open', 'subscriptions', 'total_products'));
+        'products', 'prescriptions', 'customers', 'contacts', 'contacts_open', 'claims', 'claims_open', 'subscriptions', 'total_products', 'last_day'));
     }
 
     public function categories(Request $request){
@@ -116,23 +117,65 @@ class DashboardController extends Controller
 
         $array_percentage = [];
         $array_count = [];
-        $array_laboratories = $laboratories->pluck('name')->toArray();
+        $array_laboratories = [];
 
         foreach($laboratories as $laboratory){
-            $products = OrderItem::whereHas('product', function ($p) use ($laboratory) {
+            $products_count = 0;
+            $products_count = OrderItem::whereHas('product', function ($p) use ($laboratory) {
                 $p->where('laboratory_id', '=', $laboratory->id);
             })->whereHas('order', function ($o) use ($start, $end) {
                 $o->whereBetween('created_at', [$start, $end])
                 ->whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED']);
             })->sum('quantity');
 
-            if($products > 0 && $total > 0){
-                $count = round($products / $total * 100);
-            } else {
-                $count = 0;
+            if($products_count > 0 && $total > 0){
+                $count = round($products_count / $total * 100);
+                array_push($array_percentage, $count);
+                array_push($array_count, $products_count);
+    
+                if($count > 0 && $products_count > 0){
+                    array_push($array_laboratories, $laboratory->name);
+                }
             }
-            array_push($array_percentage, $count);
-            array_push($array_count, $products);
+        }
+
+        return response()->json(['names' => $array_laboratories, 'percentage' => $array_percentage, 'count' => $array_count], 200);
+    }
+
+    public function laboratories_subscriptions(Request $request){
+        $data = [];
+
+        $start = $request->start . ' 00:00:00';
+        $end = $request->end . ' 23:59:59';
+
+        $total = SubscriptionsOrdersItem::whereHas('order_parent', function ($q) {
+            $q->whereNotIn('status', ['REJECTED', 'CREATED']);
+        })->whereNotNull('subscription_id')->whereBetween('pay_date', [$start.' 00:00:00', $end.' 23:59:59'])->where('active',1)->count();
+
+        $products = Product::whereHas('order_items')->where('active',true)->groupBy('laboratory_id')->pluck('laboratory_id')->toArray();
+        $laboratories = Laboratory::where('active', 1)->whereIn('id',$products)->get();
+
+        $array_percentage = [];
+        $array_count = [];
+        $array_laboratories = [];
+
+        foreach($laboratories as $laboratory){
+            $products_count = 0;
+            $products_count = SubscriptionsOrdersItem::whereHas('order_parent', function ($q) use ($laboratory) {
+                $q->whereNotIn('status', ['REJECTED', 'CREATED']);
+            })->whereHas('product', function ($p) use ($laboratory) {
+                $p->where('laboratory_id', '=', $laboratory->id);
+            })->whereNotNull('subscription_id')->whereBetween('pay_date', [$start.' 00:00:00', $end.' 23:59:59'])->where('active',1)->count();
+
+            if($products_count > 0 && $total > 0){
+                $count = round($products_count / $total * 100);
+                array_push($array_percentage, $count);
+                array_push($array_count, $products_count);
+    
+                if($count > 0 && $products_count > 0){
+                    array_push($array_laboratories, $laboratory->name);
+                }
+            }
         }
 
         return response()->json(['names' => $array_laboratories, 'percentage' => $array_percentage, 'count' => $array_count], 200);
@@ -197,7 +240,7 @@ class DashboardController extends Controller
             ->whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED']);
         })->sum('quantity');
 
-        $base_formats = [
+        /*$base_formats = [
             "1",
             "2",
             "3",
@@ -232,6 +275,11 @@ class DashboardController extends Controller
             "180",
             "200",
             "250", 
+            "Sin Formato"    
+        ];*/
+
+        $base_formats = [
+            "28",
             "Sin Formato"    
         ];
 

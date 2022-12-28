@@ -106,4 +106,8 @@ class SubscriptionsOrdersItem extends Model
     public function order_parent(){
         return $this->belongsTo(Order::class,'order_parent_id');
     }
+
+    public function product(){
+        return $this->belongsTo(Product::class,'name','name');
+    }
 }

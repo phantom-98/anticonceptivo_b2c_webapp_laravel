@@ -57,21 +57,11 @@
                                             </div>
                                             <div class="media-body">
                                                 <p class="mar-no text-nowrap text-main text-semibold">Suscripción #{{ $subscriptions->subscription_id }} F. PAGO {{ date('d-m', strtotime($subscriptions->pay_date)) }}</p>
-                                                @forelse ($subscriptions->order_parent->order_items as $item)
-                                                    @if($item->product->stock >= 2)
-                                                    <small style="color:#8bc34a">
-                                                        {{ $item->quantity }}x{{ $item->product->name }}
-                                                    </small>
-                                                    <br/>
-                                                    @else 
-                                                    <small style="color:#f44336">
-                                                        {{ $item->quantity }}x{{ $item->product->name }}
-                                                    </small>
-                                                    <br/>
-                                                    @endif
-                                                @empty
-                                                    -
-                                                @endforelse
+                                                @if($subscriptions->order_item->product->stock >= 2)
+                                                    <small style="color:#8bc34a">{{ $subscriptions->quantity }} x {{ $subscriptions->order_item->product->name }}</small><br/>
+                                                @else 
+                                                    <small style="color:#f44336">{{ $subscriptions->quantity }} x {{ $subscriptions->order_item->product->name }}</small><br/>
+                                                @endif
                                             </div>
                                         </a>
                                     </li>

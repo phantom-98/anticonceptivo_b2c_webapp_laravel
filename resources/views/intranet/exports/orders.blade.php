@@ -6,6 +6,7 @@
             <th>Tipo de Entrega</th>
             <th>Producto(s)</th>
             <th>Laboratorio(s)</th>
+            <th>Categoría(s)</th>
             <th>Subcategoría(s)</th>
             <th>Nombre Cliente</th>
             <th>RUT Cliente</th>
@@ -71,6 +72,22 @@
                         @endif
                         @php
                             array_push($laboratory_array, $item->product->laboratory->name);
+                        @endphp
+                    @empty
+                        -
+                    @endforelse
+                </td>
+
+                <td>
+                    @php
+                        $category_array = [];
+                    @endphp
+                    @forelse ($object->order_items as $item)
+                        @if(!in_array($item->product->subcategory->category->name, $category_array))
+                            {{ $item->product->subcategory->category->name }}<br/>
+                        @endif
+                        @php
+                            array_push($category_array, $item->product->subcategory->category->name);
                         @endphp
                     @empty
                         -
