@@ -25,7 +25,6 @@
             color: #3C3C3E;
             font-family: 'Poppins', sans-serif !important;
             font-weight: 300;
-            font-size: 14px !important;
         }
 
         .text-primary {
@@ -109,7 +108,7 @@
 
         .titulo {
             color: #06b2ce;
-            font-size: 18px !important;
+            font-size: 18px;
         }
 
         .bg-secondary {
@@ -233,9 +232,22 @@
                 margin-top: 10px !important;
                 margin-right: 10px !important;
             }
-            .titulo {
-                color: #06b2ce;
-                font-size: 13px !important;
+            .is-immediate-label {
+                font-size: 10px !important;
+            }
+
+            .is-today-label {
+                font-size: 10px !important;
+            }
+
+            .is-tomorrow-label {
+                font-size: 10px !important;
+            }
+            .is-after-tomorrow-label {
+                font-size: 10px !important;
+            }
+            #titulo-correo{
+                font-size: 11px !important;
             }
         }
     </style>
@@ -248,7 +260,7 @@
                 <img style="width:100%" src="https://anticonceptivo.cl/themes/web/assets/images/logo-full.png"/>
             </div>
             @if(trim($__env->yieldContent('header')))
-            <div class="flex-top" style="font-size: 19px !important;margin:auto">
+            <div id="titulo-correo" class="flex-top" style="font-size: 19px;margin:auto">
                 @yield('header')
             </div>
             @endif

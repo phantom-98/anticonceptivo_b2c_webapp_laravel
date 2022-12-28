@@ -225,8 +225,8 @@ class CallIntegrationsPay extends CoreHelper
         $sendgrid->send($email);
 
         // Envio al admin
-        $html2 = view('emails.orders_admin', ['order' => $order, 'type' => $type, 'nombre' => 'Equipo Anticonceptivo'])->render();
-
+        $html2 = view('emails.orders-new-email', ['order' => $order, 'type' => $type, 'nombre' => 'Equipo Anticonceptivo', 'product' => $product, 'image' => $image,
+        'producto_slug' => $producto_slug,'price' => $price, 'hour_dispatch' => $hour_dispatch])->render();
         $email2 = new \SendGrid\Mail\Mail();
 
         $email2->setFrom("info@anticonceptivo.cl", 'anticonceptivo.cl');
@@ -242,7 +242,8 @@ class CallIntegrationsPay extends CoreHelper
 
 
         // Envio copia felipe
-        $html3 = view('emails.orders_admin', ['order' => $order, 'type' => $type, 'nombre' => 'Felipe'])->render();
+        $html3 = view('emails.orders-new-email', ['order' => $order, 'type' => $type, 'nombre' => 'Equipo Anticonceptivo', 'product' => $product, 'image' => $image,
+        'producto_slug' => $producto_slug,'price' => $price, 'hour_dispatch' => $hour_dispatch])->render();
 
         $email3 = new \SendGrid\Mail\Mail();
 

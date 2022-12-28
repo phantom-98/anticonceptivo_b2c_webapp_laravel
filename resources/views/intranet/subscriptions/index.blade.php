@@ -61,13 +61,13 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-2">
+                                    <div class="col-md-1">
                                         <div class="form-group">
                                             <label for="id"># Pedido</label>
                                             <input type="text" id="id" name="id" class="form-control" value="{{ $id }}"/>
                                         </div>
                                     </div>
-                                    <div class="col-md-2">
+                                    <div class="col-md-1">
                                         <div class="form-group">
                                             <label for="subscription_id"># Suscripción</label>
                                             <input type="text" id="subscription_id" name="subscription_id" class="form-control" value="{{ $subscription_id }}"/>
@@ -89,6 +89,13 @@
                                         </div>
                                     </div>
                                     @endcan
+                                    <div class="col-md-2" style="margin-bottom: 10px">
+                                        <div class="form-group">
+                                            <a href="{{ route($config['route'] . 'detail') }}" class="btn btn-success left "
+                                                    style="margin-top: 23px">Ver Cantidad Suscripciones
+                                            <a>
+                                        </div>
+                                    </div>
                                 </form>
 
                                 <form id="form-export" target="_BLANK"

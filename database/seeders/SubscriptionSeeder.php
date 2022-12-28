@@ -31,6 +31,13 @@ class SubscriptionSeeder extends Seeder
             'public_name' => 'Exportar Suscripciones',
             'public_description' => 'Permite exportar las Suscripciones.'
         ];
+
+        $permissions[] = [
+            'name' => 'intranet.subscriptions.detail',
+            'public_group' => 'Suscripciones',
+            'public_name' => 'Cantidad Suscripciones',
+            'public_description' => 'Permite revisar la cantidad de suscripciones según período y laboratorio.'
+        ];
         
         foreach ($permissions as $p) {
             try {

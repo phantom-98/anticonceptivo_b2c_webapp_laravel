@@ -70,7 +70,7 @@ class ExpirationSubscriptionEmail extends Command
                     $email = new \SendGrid\Mail\Mail();
                     $email->setFrom("info@anticonceptivo.cl", 'anticonceptivo.cl');
                     $email->setSubject('¡Término de Suscripción!');
-                    $email->addTo('fpenailillo@innovaweb.cl', $object->customer->full_name);
+                    $email->addTo($object->customer->email, $object->customer->full_name);
                     $email->addContent(
                         "text/html", $html
                     );
@@ -90,7 +90,7 @@ class ExpirationSubscriptionEmail extends Command
                     $email = new \SendGrid\Mail\Mail();
                     $email->setFrom("info@anticonceptivo.cl", 'anticonceptivo.cl');
                     $email->setSubject('¡Término de Suscripción!');
-                    $email->addTo('fpenailillo@innovaweb.cl', $object->customer->full_name);
+                    $email->addTo($object->customer->email, $object->customer->full_name);
                     $email->addContent(
                         "text/html", $html
                     );
@@ -103,7 +103,7 @@ class ExpirationSubscriptionEmail extends Command
             })->whereNull('subscription_plan_id')->whereBetween('created_at', [Carbon::now()->subMonths(2)->format('Y-m-d H:i:s'), Carbon::now()->format('Y-m-d H:i:s')])->get();
     
             foreach($objects as $object){
-                if(isset($object->product->plans)){
+                if(isset($object->product->plans) && isset($object->product->days_protection)){
                     $calc = ($object->product->days_protection * $object->quantity) - 2;
                     $date = Carbon::parse($object->created_at)->addDays($calc);
                     if($date->between(Carbon::today()->startOfDay(), Carbon::today()->endOfDay())){
@@ -117,7 +117,7 @@ class ExpirationSubscriptionEmail extends Command
                         $email = new \SendGrid\Mail\Mail();
                         $email->setFrom("info@anticonceptivo.cl", 'anticonceptivo.cl');
                         $email->setSubject('No te olvides!');
-                        $email->addTo('fpenailillo@innovaweb.cl', $object->order->customer->full_name);
+                        $email->addTo($object->order->customer->email, $object->order->customer->full_name);
                         $email->addContent(
                             "text/html", $html
                         );
@@ -137,7 +137,7 @@ class ExpirationSubscriptionEmail extends Command
                         $email = new \SendGrid\Mail\Mail();
                         $email->setFrom("info@anticonceptivo.cl", 'anticonceptivo.cl');
                         $email->setSubject('No te olvides!');
-                        $email->addTo('fpenailillo@innovaweb.cl', $object->order->customer->full_name);
+                        $email->addTo($object->order->customer->email, $object->order->customer->full_name);
                         $email->addContent(
                             "text/html", $html
                         );
