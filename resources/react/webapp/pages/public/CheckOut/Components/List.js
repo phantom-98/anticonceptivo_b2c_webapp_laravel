@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import ListItemNoAuth from "./ListItem";
-import ListItem from "../../../private/Account/sections/Addresses/ListItem";
+import ListItem from "./AddressList";
 import Icon from "../../../../components/general/Icon";
 import plusIcon from '../../../../assets/images/icons/plus-green.svg';
 import * as Services from "../../../../Services";

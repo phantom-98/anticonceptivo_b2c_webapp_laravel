@@ -247,7 +247,6 @@ const UserForm = ({
         const _has_optional_items = cartItems.filter((item) => item.product.recipe_type != 'Venta Directa').length;
 
         if (_has_optional_items) {
-            console.log('_has_optional_items');
             return (
                 <>
                     <div className="panel panel-cart mb-3">

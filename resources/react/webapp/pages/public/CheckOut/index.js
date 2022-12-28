@@ -1,4 +1,4 @@
-import React, {Fragment, useContext, useEffect, useState} from 'react';
+import React, { Fragment, useContext, useEffect, useState } from 'react';
 import Step from "../../../components/shopping/Step";
 import GrantUser from "./GrantUser";
 import Resume from "./Resume";
@@ -8,24 +8,22 @@ import Addresses from "./Addresses";
 import Subscriptions from "./Subscriptions";
 // import Installments from "./Installments";
 import Header from "./Header";
-import {AuthContext} from "../../../context/AuthProvider";
+import { AuthContext } from "../../../context/AuthProvider";
 import * as Services from "../../../Services";
 import HandleResponse from "./HandleResponse";
-import {CartContext} from "../../../context/CartProvider";
+import { CartContext } from "../../../context/CartProvider";
 import toastr from "toastr";
-import {setInputError} from "../../../helpers/GlobalUtils";
+import { setInputError } from "../../../helpers/GlobalUtils";
+import { LOCAL_STORAGE } from "../../../context/LocalStorage";
 
 const CheckOut = () => {
 
-    const {auth} = useContext(AuthContext);
-    const {cartItems} = useContext(CartContext);
-    // const {isCartReady, checkCart} = useContext(CartContext);
+    const { auth } = useContext(AuthContext);
+    const { cartItems } = useContext(CartContext);
 
     const [dispatchDateObject, setDispatchDateObject] = useState(null);
     const [installment, setInstallment] = useState(1);
     const [showFinal, setShowFinal] = useState(1);
-    const [finishWebpayProccess, setFinishWebpayProccess] = useState(0);
-    const [webpayProccessSuccess, setWebpayProccessSuccess] = useState();
     const [view, setView] = useState('grant-user');
     const [step, setStep] = useState({
         number: 1,
@@ -46,7 +44,7 @@ const CheckOut = () => {
         commercial_business: '',
         commercial_email: '',
         commercial_address: '',
-        commercial_additional_address:'',
+        commercial_additional_address: '',
         commercial_phone: '',
         commercial_phone_code: '',
         commercial_region_id: '',
@@ -58,7 +56,6 @@ const CheckOut = () => {
     const [editable, setEditable] = useState(false);
     const [regions, setRegions] = useState([]);
     const [communes, setCommunes] = useState([]);
-    const [orderId, setOrderId] = useState(null);
     const [total, setTotal] = useState(0);
     const [subtotal, setSubtotal] = useState(0);
     const [containsSubscriptions, setContainsSubscriptions] = useState(false);
@@ -86,11 +83,25 @@ const CheckOut = () => {
         if (auth) {
             setData(auth);
             setEditable(true);
-            // getAddress();
             getSubscriptions();
-            setView("user-form");
+
+            let localData = JSON.parse(localStorage.getItem(LOCAL_STORAGE.CART_STEP_TWO));
+            if (localData) {
+                if ('view' in localData) {
+                    setView(localData.view)
+                    setStep({
+                        number: 2,
+                        title: 'DATOS DE ENVÍO',
+                    })
+
+                    // delete local storage
+                    localStorage.removeItem(LOCAL_STORAGE.CART_STEP_TWO);
+                }
+            } else {
+                setView("user-form");
+            }
         }
-    },[auth])
+    }, [auth])
 
     useEffect(() => {
         window.scrollTo({
@@ -124,23 +135,30 @@ const CheckOut = () => {
 
     }, [view])
 
-    useEffect(()=>{
+    useEffect(() => {
         cartItems.map((item, index) => {
-            if(item.subscription != null){
+            if (item.subscription != null) {
                 setContainsSubscriptions(true);
             }
 
-            if(!prescriptionsRequiredUploads.length){
-                if (item.product.recipe_type != 'Venta Directa' &&  item.product.recipe_type != 'Receta Simple (R)') {
-                    setPrescriptionsRequiredUploads((prevModel) => [...prevModel, {id: item.product.id, pending: true}]);
+            if (!prescriptionsRequiredUploads.length) {
+                if (item.product.recipe_type != 'Venta Directa' && item.product.recipe_type != 'Receta Simple (R)') {
+                    setPrescriptionsRequiredUploads((prevModel) => [...prevModel, { id: item.product.id, pending: true }]);
                 }
             }
         })
-    },[cartItems])
+    }, [cartItems])
 
     useEffect(() => {
         getRegions();
-    },[])
+    }, [])
+
+    useEffect(() => {
+        console.log({
+            'view': view,
+            'step': step,
+        })
+    }, [view, step])
 
     const validateDataAddressInvite = () => {
         if (validAddress === false) {
@@ -183,7 +201,7 @@ const CheckOut = () => {
             comment: address.comment
         }
 
-        Services.DoPost(url,data).then(response => {
+        Services.DoPost(url, data).then(response => {
             Services.Response({
                 response: response,
                 success: () => {
@@ -203,46 +221,139 @@ const CheckOut = () => {
 
         Services.DoPost(url, dataForm).then(response => {
             Services.Response({
-            response: response,
-            success: () => {
-                setCommunes(response.data.communes);
-                setRegions(response.data.regions);
-            },
+                response: response,
+                success: () => {
+                    setCommunes(response.data.communes);
+                    setRegions(response.data.regions);
+                },
             });
         }).catch(error => {
             Services.ErrorCatch(error)
         });
     }
 
+    // function to get the MIME type based on the extension
+    const getMimeType = (extension) => {
+        let mime_type = '';
+        // extensions .jpg, .jpeg, .png, .pdf, .doc y .docx
+        console.log(extension, 'extension');
+        switch (extension) {
+            case 'jpg':
+                mime_type = 'image/jpeg';
+                break;
+            case 'jpeg':
+                mime_type = 'image/jpeg';
+                break;
+            case 'png':
+                mime_type = 'image/png';
+                break;
+            case 'pdf':
+                mime_type = 'application/pdf';
+                break;
+            case 'doc':
+                mime_type = 'application/msword';
+                break;
+            case 'docx':
+                mime_type = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+                break;
+            default:
+                mime_type = 'application/octet-stream';
+                break;
+        }
+
+        return mime_type;
+    }
+
+    // const constructFiles = (attachments) => {
+    //     let _files = [];
+
+    //     attachments.map((attachment, index) => {
+    //         let mime_type = getMimeType(attachment.extension);
+    //         let temp_file = new File([attachment.file], attachment.name, { type: mime_type });
+    //         temp_file.product_id = attachment.product_id;
+    //         temp_file.name_id = attachment.name_id;
+    //         _files.push(temp_file);
+
+    //         console.log('temp_file', temp_file);
+    //     })
+
+    //     return _files;
+    // }
+
+    // function constructFiles(attachments) {
+    //     const temp_files = [];
+
+    //     attachments.forEach(attachment => {
+    //         fetch(attachment.path)
+    //             .then(response => response.blob())
+    //             .then(blob => {
+    //                 let temp_file = new File([blob], attachment.name, { type: getMimeType(attachment.extension), extension: attachment.extension});
+    //                 temp_file.product_id = attachment.product_id;
+    //                 temp_file.name_id = attachment.name_id;
+    //                 temp_files.push(temp_file);
+    //             });
+    //     });
+
+    //     console.log('temp_files', temp_files);
+
+    //     return temp_files;
+    // }
+
+    const constructFiles = (attachments) => {
+        const temp_files = [];
+        for (const attachment of attachments) {
+            const { file_public, name, extension, product_id, name_id } = attachment;
+            fetch(window.location.origin+file_public)
+                .then(res => res.blob())
+                .then(blob => {
+                    let file = new File([blob], name, { type: extension });
+                    file.product_id = product_id;
+                    file.name_id = name_id;
+                    temp_files.push(file);
+                });
+        }
+
+        console.log('temp_files', temp_files);
+        return temp_files;
+    }
+
     const getSubscriptions = () => {
+        console.log('Checkout index getSubscriptions')
         let url = Services.ENDPOINT.CUSTOMER.SUBSCRIPTIONS.GET_SUBSCRIPTIONS;
+
+        console.log('localStorage.tryingToSubscribeCard', localStorage.getItem('tryingToSubscribeCard'))
 
         let data = {
             customer_id: auth.id,
             trying_to_subscribe_card: localStorage.getItem('tryingToSubscribeCard'),
         }
 
-        Services.DoPost(url,data).then(response => {
+        Services.DoPost(url, data).then(response => {
             Services.Response({
-              response: response,
-              success: () => {
-                  if(response.data.subscriptions != null){
-                    setSubscription(response.data.subscriptions);
-                  }
-
-                  if ('card' in response.data) {
-                    if (response.data.card == 'approved') {
-                        toastr.success('Tarjeta agregada, ya puedes terminar tu suscripción.','¡Ya casi terminas!');
+                response: response,
+                success: () => {
+                    if (response.data.subscriptions != null) {
+                        setSubscription(response.data.subscriptions);
                     }
 
-                    if (response.data.card == 'refused') {
-                        toastr.error('No se ha podido suscribir la tarjeta de crédito, intenta nuevamente.','¡Ups!');
+                    if ('card' in response.data) {
+                        if (response.data.card == 'approved') {
+                            toastr.success('Tarjeta agregada, ya puedes terminar tu suscripción.', '¡Ya casi terminas!');
+                        }
+
+                        if (response.data.card == 'refused') {
+                            toastr.error('No se ha podido suscribir la tarjeta de crédito, intenta nuevamente.', '¡Ups!');
+                        }
+
+                        if (response.data.attachments && response.data.attachments.length > 0) {
+                            setPrescriptionRadio(true);
+                            setFiles(constructFiles(response.data.attachments));
+                        }
+
+                        localStorage.removeItem('tryingToSubscribeCard');
                     }
 
-                    localStorage.removeItem('tryingToSubscribeCard');
-                  }
-
-              },
+                },
             });
         }).catch(error => {
             Services.ErrorCatch(error)
@@ -251,9 +362,9 @@ const CheckOut = () => {
 
     const validateData = () => {
         if (rutFlag) {
-            toastr.warning('El formato del rut es incorrecto.','Perfil no actualizado.');
+            toastr.warning('El formato del rut es incorrecto.', 'Perfil no actualizado.');
             return null;
-        }else{
+        } else {
 
             console.log('VALIDATE DATA');
 
@@ -261,7 +372,7 @@ const CheckOut = () => {
 
             let productCount = cartItems.filter((item) => item.product.recipe_type != 'Venta Directa').length;
 
-            let _has_required_items =  cartItems.filter((item) => item.product.recipe_type != 'Venta Directa' && item.product.recipe_type != 'Receta Simple (R)').length;
+            let _has_required_items = cartItems.filter((item) => item.product.recipe_type != 'Venta Directa' && item.product.recipe_type != 'Receta Simple (R)').length;
 
             if (_has_required_items) {
                 if (prescriptionsRequiredUploads.filter((item) => item.pending == true).length) {
@@ -302,7 +413,7 @@ const CheckOut = () => {
 
             let fileList = [...files]
 
-            for(let i=0; i < fileList.length; i++){
+            for (let i = 0; i < fileList.length; i++) {
                 formData.append('attachments[]', fileList[i]);
             }
 
@@ -314,57 +425,57 @@ const CheckOut = () => {
 
             Services.DoPost(url, formData, config).then(response => {
                 Services.Response({
-                response: response,
-                success: () => {
-                    setView('add-address')
-                    setProductCount(productCount);
-                    if (response.data.customer_id) {
-                        setCustomerId(response.data.customer_id);
-                        if (!auth) {
+                    response: response,
+                    success: () => {
+                        setView('add-address')
+                        setProductCount(productCount);
+                        if (response.data.customer_id) {
+                            setCustomerId(response.data.customer_id);
+                            if (!auth) {
+                                setAddress(prevModel => ({
+                                    ...prevModel,
+                                    name: data.first_name + ' ' + data.last_name,
+                                }));
+                            }
+                        } else {
                             setAddress(prevModel => ({
                                 ...prevModel,
                                 name: data.first_name + ' ' + data.last_name,
                             }));
                         }
-                    }else{
-                        setAddress(prevModel => ({
-                            ...prevModel,
-                            name: data.first_name + ' ' + data.last_name,
-                        }));
-                    }
-                },
-                error: () => {
-                    toastr.error(response.message);
-                },
-                warning: () => {
-                    toastr.warning(response.message);
-                },
-                validate: () => {
-                    let errorKey = Object.keys(response.data)[0];
+                    },
+                    error: () => {
+                        toastr.error(response.message);
+                    },
+                    warning: () => {
+                        toastr.warning(response.message);
+                    },
+                    validate: () => {
+                        let errorKey = Object.keys(response.data)[0];
 
-                    if (errorKey.includes('.')) {
-                        toastr.error('Formato de archivo invalido.');
-                        document.getElementById(`reason_focus`).scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'end',
-                        });
+                        if (errorKey.includes('.')) {
+                            toastr.error('Formato de archivo invalido.');
+                            document.getElementById(`reason_focus`).scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'end',
+                            });
 
-                        return null;
+                            return null;
+                        }
+                        if (response.data.attachments) {
+                            toastr.error(response.data.attachments[0]);
+                            document.getElementById(`reason_focus`).scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'end',
+                            });
+                        } else {
+                            toastr.error('Por favor, complete todos los campos.');
+                            document.getElementById(`reason_focus`).scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'end',
+                            });
+                        }
                     }
-                    if (response.data.attachments) {
-                        toastr.error(response.data.attachments[0]);
-                        document.getElementById(`reason_focus`).scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'end',
-                        });
-                    } else {
-                        toastr.error('Por favor, complete todos los campos.');
-                        document.getElementById(`reason_focus`).scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'end',
-                        });
-                    }
-                }
                 });
             }).catch(error => {
                 Services.ErrorCatch(error)
@@ -376,7 +487,7 @@ const CheckOut = () => {
         let url = Services.ENDPOINT.CUSTOMER.ADDRESSES.GET;
         let productCount = cartItems.filter((item) => item.product.recipe_type != 'Venta Directa').length;
 
-        let _has_required_items =  cartItems.filter((item) => item.product.recipe_type != 'Venta Directa' && item.product.recipe_type != 'Receta Simple (R)').length;
+        let _has_required_items = cartItems.filter((item) => item.product.recipe_type != 'Venta Directa' && item.product.recipe_type != 'Receta Simple (R)').length;
 
         if (_has_required_items) {
             if (prescriptionsRequiredUploads.filter((item) => item.pending == true).length) {
@@ -408,7 +519,7 @@ const CheckOut = () => {
 
         let fileList = [...files]
 
-        for(let i=0; i < fileList.length; i++){
+        for (let i = 0; i < fileList.length; i++) {
             formData.append('attachments[]', fileList[i]);
         }
 
@@ -420,12 +531,12 @@ const CheckOut = () => {
 
         Services.DoPost(url, formData, config).then(response => {
             Services.Response({
-            response: response,
+                response: response,
                 success: () => {
                     setProductCount(productCount);
                     if (response.data.addresses.length) {
                         setView('addresses');
-                    }else{
+                    } else {
                         setView('add-address');
                     }
                 },
@@ -469,121 +580,111 @@ const CheckOut = () => {
 
     return (
         <Fragment>
-            <div className="pb-5" style={{background: '#FAFAFA'}}>
+            <div className="pb-5" style={{ background: '#FAFAFA' }}>
                 <div className="container pt-4">
-                            <Fragment>
-                                <Header showFinal={showFinal} />
-                                    <div className="row pb-5">
-                                        <div className="col-12 col-lg pr-md-2">
+                    <Fragment>
+                        <Header showFinal={showFinal} />
+                        <div className="row pb-5">
+                            <div className="col-12 col-lg pr-md-2">
 
-                                            <div className={`panel panel-cart mb-3 ${view != 'user-form'? 'mt-3' : ''}`}>
-                                                <div className="panel-body" style={{paddingTop: '11px', paddingBottom: '10px'}}>
-                                                    <Step title={step.title} number={step.number} disabled={false}/>
-                                                </div>
-                                            </div>
-
-                                            {
-                                                view == 'grant-user' ? <GrantUser setView={setView}/> : null
-                                            }
-                                            {
-                                                view == 'user-form' ?
-                                                    <UserForm
-                                                        setView={setView}
-                                                        data={data}
-                                                        setData={setData}
-                                                        setFiles={setFiles}
-                                                        files={files}
-                                                        editable={editable}
-                                                        regions={regions}
-                                                        setProductCount={setProductCount}
-                                                        rutFlag={rutFlag}
-                                                        setRutFlag={setRutFlag}
-                                                        prescriptionRadio={prescriptionRadio}
-                                                        setPrescriptionRadio={setPrescriptionRadio}
-                                                        withoutPrescriptionAnswer={withoutPrescriptionAnswer}
-                                                        setWithoutPrescriptionAnswer={setWithoutPrescriptionAnswer}
-                                                        setPrescriptionsRequiredUploads={setPrescriptionsRequiredUploads}
-                                                        prescriptionsRequiredUploads={prescriptionsRequiredUploads}
-                                                    /> : null
-                                            }
-                                            {
-                                                (containsSubscriptions && (view == 'addresses' || view == 'add-address')) ?
-
-                                                [<Subscriptions
-                                                    setView={setView}
-                                                    subscription={subscription}
-                                                    setSubscription={setSubscription}
-                                                    subscriptionId={subscriptionId}
-                                                    setSubscriptionId={setSubscriptionId}
-                                                />
-                                                // ,
-                                                // <Installments
-                                                //     setInstallment={setInstallment}
-
-                                                // />
-                                            ]
-
-                                                : null
-
-
-                                            }
-
-                                            {
-                                                view == 'add-address' ?
-                                                    <AddAddress
-                                                        setView={setView}
-                                                        regions={regions}
-                                                        address={address}
-                                                        setAddress={setAddress}
-                                                        validAddress={validAddress}
-                                                        setValidAddress={setValidAddress}
-                                                        setInputError={setInputError}
-                                                    /> : null
-                                            }
-                                            {
-                                                view == 'addresses' ?
-                                                    <Addresses
-                                                        setView={setView}
-                                                        regions={regions}
-                                                        dispatchDateObject={dispatchDateObject}
-                                                        communes={communes}
-                                                        address={address}
-                                                        setAddress={setAddress}
-                                                    /> : null
-                                            }
-
-
-                                        </div>
-                                        <div className="col-12 col-lg-auto pl-md-2" style={{width: '408px'}}>
-                                            <Resume
-                                                installment={installment}
-                                                showFinal={showFinal}
-                                                data={data}
-                                                files={files}
-                                                address={address}
-                                                setDispatchDateObject={setDispatchDateObject}
-                                                subscription={subscription}
-                                                setFinishWebpayProccess={setFinishWebpayProccess}
-                                                setWebpayProccessSuccess={setWebpayProccessSuccess}
-                                                setOrderId={setOrderId}
-                                                orderId={orderId}
-                                                total={total}
-                                                setTotal={setTotal}
-                                                subtotal={subtotal}
-                                                setSubtotal={setSubtotal}
-                                                validateData={validateData}
-                                                hasAddress={hasAddress}
-                                                view={view}
-                                                customerId={customerId}
-                                                updateData={updateData}
-                                                validateDataAddressInvite={validateDataAddressInvite}
-                                                prescriptionRadio={prescriptionRadio}
-                                                withoutPrescriptionAnswer={withoutPrescriptionAnswer}
-                                                subscriptionId={subscriptionId}
-                                            />
-                                        </div>
+                                <div className={`panel panel-cart mb-3 ${view != 'user-form' ? 'mt-3' : ''}`}>
+                                    <div className="panel-body" style={{ paddingTop: '11px', paddingBottom: '10px' }}>
+                                        <Step title={step.title} number={step.number} disabled={false} />
                                     </div>
-                            </Fragment>
+                                </div>
+
+                                {
+                                    view == 'grant-user' ? <GrantUser setView={setView} /> : null
+                                }
+                                {
+                                    view == 'user-form' ?
+                                        <UserForm
+                                            setView={setView}
+                                            data={data}
+                                            setData={setData}
+                                            setFiles={setFiles}
+                                            files={files}
+                                            editable={editable}
+                                            regions={regions}
+                                            setProductCount={setProductCount}
+                                            rutFlag={rutFlag}
+                                            setRutFlag={setRutFlag}
+                                            prescriptionRadio={prescriptionRadio}
+                                            setPrescriptionRadio={setPrescriptionRadio}
+                                            withoutPrescriptionAnswer={withoutPrescriptionAnswer}
+                                            setWithoutPrescriptionAnswer={setWithoutPrescriptionAnswer}
+                                            setPrescriptionsRequiredUploads={setPrescriptionsRequiredUploads}
+                                            prescriptionsRequiredUploads={prescriptionsRequiredUploads}
+                                        /> : null
+                                }
+                                {
+                                    (containsSubscriptions && (view == 'addresses' || view == 'add-address')) ?
+                                        <Subscriptions
+                                            onView={view}
+                                            setView={setView}
+                                            subscription={subscription}
+                                            setSubscription={setSubscription}
+                                            subscriptionId={subscriptionId}
+                                            setSubscriptionId={setSubscriptionId}
+                                            files={files}
+                                        />
+                                        : null
+
+
+                                }
+
+                                {
+                                    view == 'add-address' ?
+                                        <AddAddress
+                                            setView={setView}
+                                            regions={regions}
+                                            address={address}
+                                            setAddress={setAddress}
+                                            validAddress={validAddress}
+                                            setValidAddress={setValidAddress}
+                                            setInputError={setInputError}
+                                        /> : null
+                                }
+                                {
+                                    view == 'addresses' ?
+                                        <Addresses
+                                            setView={setView}
+                                            regions={regions}
+                                            dispatchDateObject={dispatchDateObject}
+                                            communes={communes}
+                                            address={address}
+                                            setAddress={setAddress}
+                                        /> : null
+                                }
+
+
+                            </div>
+                            <div className="col-12 col-lg-auto pl-md-2" style={{ width: '408px' }}>
+                                <Resume
+                                    installment={installment}
+                                    showFinal={showFinal}
+                                    data={data}
+                                    files={files}
+                                    address={address}
+                                    setDispatchDateObject={setDispatchDateObject}
+                                    subscription={subscription}
+                                    total={total}
+                                    setTotal={setTotal}
+                                    subtotal={subtotal}
+                                    setSubtotal={setSubtotal}
+                                    validateData={validateData}
+                                    hasAddress={hasAddress}
+                                    view={view}
+                                    customerId={customerId}
+                                    updateData={updateData}
+                                    validateDataAddressInvite={validateDataAddressInvite}
+                                    prescriptionRadio={prescriptionRadio}
+                                    withoutPrescriptionAnswer={withoutPrescriptionAnswer}
+                                    subscriptionId={subscriptionId}
+                                />
+                            </div>
+                        </div>
+                    </Fragment>
                 </div>
             </div>
         </Fragment>
