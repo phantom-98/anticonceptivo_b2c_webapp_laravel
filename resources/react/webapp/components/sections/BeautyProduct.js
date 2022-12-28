@@ -7,9 +7,9 @@ import LazyLoading from '../LazyLoading';
 import {AppContext} from "../../context/AppProvider";
 import {BREAKPOINTS} from "../../helpers/vars";
 
-const CondomProduct = ({title, style = ''}) => {
+const BeautyProduct = ({title, style = ''}) => {
 
-    const [condoms, setCondoms] = useState([]);
+    const [beauty, setBeauty] = useState([]);
     const [isLoaded, setIsLoaded] = useState(false);
     const {breakpoint} = useContext(AppContext)
 
@@ -18,13 +18,13 @@ const CondomProduct = ({title, style = ''}) => {
     }, [])
 
     const getData = () => {
-        let url = Services.ENDPOINT.PUBLIC_AREA.CARROUSELS.GET_CONDOMS;
+        let url = Services.ENDPOINT.PUBLIC_AREA.CARROUSELS.GET_BEAUTY;
         let data = {}
         Services.DoGet(url, data).then(response => {
             Services.Response({
                 response: response,
                 success: () => {
-                    setCondoms(response.data);
+                    setBeauty(response.data);
                     setIsLoaded(true);
                 },
             });
@@ -57,7 +57,7 @@ const CondomProduct = ({title, style = ''}) => {
                         <div className="col-12 pb-3">
                             <div className={`row card-products-gutters ${style}`}>
                                 {
-                                    condoms.map((product, index) => {
+                                    beauty.map((product, index) => {
                                         let uuid = uuidv4();
                                         return (<div className="col-6 col-md-6 col-lg-3 mb-3" key={uuid}>
                                             <ProductCard product={product}/>
@@ -70,7 +70,7 @@ const CondomProduct = ({title, style = ''}) => {
 
                     <div className="row">
                         <div className="col-12 text-center">
-                            <a style={{textDecoration:"underline"}} href="https://anticonceptivo.cl/tienda/bienestar-sexual/preservativos">Ver más</a>
+                            <a style={{textDecoration:"underline"}} href="https://anticonceptivo.cl/tienda/belleza-y-cuidado-personal/capilar">Ver más</a>
                         </div>
                     </div>
                 </div>
@@ -92,7 +92,7 @@ const CondomProduct = ({title, style = ''}) => {
                         <div className="col-12 pb-3">
                             <div className={`row card-products-gutters ${style}`}>
                                 {
-                                    condoms.map((product, index) => {
+                                    beauty.map((product, index) => {
                                         let uuid = uuidv4();
                                         
                                         return index < 2 ? (<div className="col-6 col-md-6 col-lg-3 mb-3" key={uuid}>
@@ -106,7 +106,7 @@ const CondomProduct = ({title, style = ''}) => {
 
                     <div className="row pb-3">
                         <div className="col-12 text-center">
-                            <a style={{textDecoration:"underline"}} href="https://anticonceptivo.cl/tienda/bienestar-sexual/preservativos">Ver más</a>
+                            <a style={{textDecoration:"underline"}} href="https://anticonceptivo.cl/tienda/belleza-y-cuidado-personal/capilar">Ver más</a>
                         </div>
                     </div>
                 </div>
@@ -114,4 +114,4 @@ const CondomProduct = ({title, style = ''}) => {
     );
 };
 
-export default CondomProduct
+export default BeautyProduct
