@@ -280,22 +280,40 @@ const CheckOut = () => {
     //     return _files;
     // }
 
-    function constructFiles(attachments) {
-        const temp_files = [];
+    // function constructFiles(attachments) {
+    //     const temp_files = [];
 
-        attachments.forEach(attachment => {
-            fetch(attachment.path)
-                .then(response => response.blob())
+    //     attachments.forEach(attachment => {
+    //         fetch(attachment.path)
+    //             .then(response => response.blob())
+    //             .then(blob => {
+    //                 let temp_file = new File([blob], attachment.name, { type: getMimeType(attachment.extension), extension: attachment.extension});
+    //                 temp_file.product_id = attachment.product_id;
+    //                 temp_file.name_id = attachment.name_id;
+    //                 temp_files.push(temp_file);
+    //             });
+    //     });
+
+    //     console.log('temp_files', temp_files);
+
+    //     return temp_files;
+    // }
+
+    const constructFiles = (attachments) => {
+        const temp_files = [];
+        for (const attachment of attachments) {
+            const { path, name, extension, product_id, name_id } = attachment;
+            fetch(path)
+                .then(res => res.blob())
                 .then(blob => {
-                    let temp_file = new File([blob], attachment.name, { type: getMimeType(attachment.extension), extension: attachment.extension});
-                    temp_file.product_id = attachment.product_id;
-                    temp_file.name_id = attachment.name_id;
-                    temp_files.push(temp_file);
+                    let file = new File([blob], name, { type: extension });
+                    file.product_id = product_id;
+                    file.name_id = name_id;
+                    temp_files.push(file);
                 });
-        });
+        }
 
         console.log('temp_files', temp_files);
-
         return temp_files;
     }
 
