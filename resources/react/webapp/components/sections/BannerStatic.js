@@ -18,7 +18,7 @@ const BannerStatic = ({banners}) => {
                             let bannerStaticKey = uuidv4();
                             return(
 
-                                <div key={bannerStaticKey} className={`pb-4 ${banner.size}`}>
+                                <div key={bannerStaticKey} className={`pb-4 ${breakpoint === BREAKPOINTS.MEDIUM ||breakpoint === BREAKPOINTS.LARGE || breakpoint === BREAKPOINTS.EXTRA_LARGE || breakpoint === BREAKPOINTS.EXTRA_EXTRA_LARGE ? 'col-md-3' : 'col-6'}`}>
                                     <a href={banner.button_link} target={banner.button_target}>
                                         <LazyLoadImage
                                             alt={CONFIG.APP_NAME}

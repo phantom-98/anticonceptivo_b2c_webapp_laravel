@@ -232,8 +232,6 @@ export default (state, action) => {
                 isCartReady: true
             }
         case SAVE_DATA_FOR_STEP_TWO:
-            // save on local storage
-            console.log('SAVE_DATA_FOR_STEP_TWO', action.payload)
             localStorage.setItem(LOCAL_STORAGE.CART_STEP_TWO, JSON.stringify(action.payload));
             return {
                 ...state,

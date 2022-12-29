@@ -86,18 +86,32 @@ const CheckOut = () => {
             getSubscriptions();
 
             let localData = JSON.parse(localStorage.getItem(LOCAL_STORAGE.CART_STEP_TWO));
+
+            console.log('localData', localData)
+
             if (localData) {
-                if ('view' in localData) {
-                    setView(localData.view)
+                if ('view' in localData || 'withoutPrescriptionAnswer' in localData) {
+                    if (localData.withoutPrescriptionAnswer) {
+                        setWithoutPrescriptionAnswer(localData.withoutPrescriptionAnswer)
+                    }
+
+                    if (localData.view) {
+                        setView(localData.view)
+                    }  else {
+                        setView("user-form");
+                    }
+
                     setStep({
                         number: 2,
                         title: 'DATOS DE ENVÍO',
                     })
 
                     // delete local storage
+                    console.log('delete local storage')
                     localStorage.removeItem(LOCAL_STORAGE.CART_STEP_TWO);
                 }
             } else {
+                console.log('no local storage')
                 setView("user-form");
             }
         }
@@ -152,13 +166,6 @@ const CheckOut = () => {
     useEffect(() => {
         getRegions();
     }, [])
-
-    useEffect(() => {
-        console.log({
-            'view': view,
-            'step': step,
-        })
-    }, [view, step])
 
     const validateDataAddressInvite = () => {
         if (validAddress === false) {
@@ -264,41 +271,6 @@ const CheckOut = () => {
         return mime_type;
     }
 
-    // const constructFiles = (attachments) => {
-    //     let _files = [];
-
-    //     attachments.map((attachment, index) => {
-    //         let mime_type = getMimeType(attachment.extension);
-    //         let temp_file = new File([attachment.file], attachment.name, { type: mime_type });
-    //         temp_file.product_id = attachment.product_id;
-    //         temp_file.name_id = attachment.name_id;
-    //         _files.push(temp_file);
-
-    //         console.log('temp_file', temp_file);
-    //     })
-
-    //     return _files;
-    // }
-
-    // function constructFiles(attachments) {
-    //     const temp_files = [];
-
-    //     attachments.forEach(attachment => {
-    //         fetch(attachment.path)
-    //             .then(response => response.blob())
-    //             .then(blob => {
-    //                 let temp_file = new File([blob], attachment.name, { type: getMimeType(attachment.extension), extension: attachment.extension});
-    //                 temp_file.product_id = attachment.product_id;
-    //                 temp_file.name_id = attachment.name_id;
-    //                 temp_files.push(temp_file);
-    //             });
-    //     });
-
-    //     console.log('temp_files', temp_files);
-
-    //     return temp_files;
-    // }
-
     const constructFiles = (attachments) => {
         const temp_files = [];
         for (const attachment of attachments) {
@@ -318,10 +290,7 @@ const CheckOut = () => {
     }
 
     const getSubscriptions = () => {
-        console.log('Checkout index getSubscriptions')
         let url = Services.ENDPOINT.CUSTOMER.SUBSCRIPTIONS.GET_SUBSCRIPTIONS;
-
-        console.log('localStorage.tryingToSubscribeCard', localStorage.getItem('tryingToSubscribeCard'))
 
         let data = {
             customer_id: auth.id,
@@ -339,6 +308,7 @@ const CheckOut = () => {
                     if ('card' in response.data) {
                         if (response.data.card == 'approved') {
                             toastr.success('Tarjeta agregada, ya puedes terminar tu suscripción.', '¡Ya casi terminas!');
+                            setSubscriptionId(response.data.card_id);
                         }
 
                         if (response.data.card == 'refused') {
@@ -627,6 +597,7 @@ const CheckOut = () => {
                                             subscriptionId={subscriptionId}
                                             setSubscriptionId={setSubscriptionId}
                                             files={files}
+                                            withoutPrescriptionAnswer={withoutPrescriptionAnswer}
                                         />
                                         : null
 

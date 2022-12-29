@@ -6,10 +6,18 @@ import * as Services from "../../../Services";
 import WaitingPaymentMethod from "./Payment/WaitingPaymentMethod";
 import toastr from "toastr";
 
-const Subscriptions = ({ onView, subscription, setSubscription, subscriptionId, setSubscriptionId, files }) => {
+const Subscriptions = ({
+    onView,
+    subscription,
+    setSubscription,
+    subscriptionId,
+    setSubscriptionId,
+    files,
+    withoutPrescriptionAnswer
+ }) => {
 
     const { auth } = useContext(AuthContext);
-    const { saveDataForStepTwo } = useContext(CartContext);
+    const { saveDataForStepTwo, dataForStepTwo } = useContext(CartContext);
 
 
     const [view, setViewAd] = useState('list');
@@ -76,7 +84,9 @@ const Subscriptions = ({ onView, subscription, setSubscription, subscriptionId, 
                     response: response,
                     success: () => {
                         saveDataForStepTwo({
+                            ...dataForStepTwo,
                             view: onView,
+                            withoutPrescriptionAnswer: withoutPrescriptionAnswer,
                         })
                         localStorage.setItem('tryingToSubscribeCard', true);
                         const urlOneClick = response.data.oneclick_data.url + '?TBK_TOKEN=' + response.data.oneclick_data.token

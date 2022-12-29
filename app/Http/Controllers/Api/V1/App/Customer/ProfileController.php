@@ -238,6 +238,7 @@ class ProfileController extends Controller
                         if ($card->transbank_token != null) {
                             return ApiResponse::JsonSuccess([
                                 'subscriptions' => $subscription,
+                                'card_id' => $card->id,
                                 'card' => 'approved',
                                 'attachments' => $card->attachments,
                             ], OutputMessage::SUCCESS);
