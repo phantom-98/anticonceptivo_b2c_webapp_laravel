@@ -70,7 +70,7 @@ const Home = ({match}) => {
 
             <CondomProduct title="Bienestar Sexual"/>
 
-            <BestSeller title="LOS 12 MÁS COMPRADOS"/>
+            <BestSeller title="Los 12 Más Comprados"/>
 
             <BannerCategories bannerCategories={bannerCategories}/>
 
