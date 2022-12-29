@@ -90,7 +90,7 @@
                                                     <label for="location">Ubicación (*)</label>
                                                     <select id="location" name="location" class="form-control">
                                                         <option value="Home (Superior)" {{ $slider->location == "Home (Superior)" ? 'selected': ''}}>Home (Superior)</option>
-                                                        <option value="Home (Centro)" {{ $slider->location == "Home (Centro)" ? 'selected': ''}}>Home (Centro)</option>
+                                                        <option value="Belleza" {{ $slider->location == "Belleza" ? 'selected': ''}}>Belleza</option>
                                                         <option value="Home (Inferior)" {{ $slider->location == "Home (Inferior)" ? 'selected': ''}}>Home (Inferior)</option>
                                                         <option value="Quienes Somos" {{ $slider->location == "Quienes Somos" ? 'selected': ''}}>Quienes Somos</option>
                                                     </select>
@@ -196,7 +196,7 @@
                                 <select id="location" name="location" class="form-control">
                                     <option value="">Seleccione una ubicación</option>
                                     <option value="Home (Superior)">Home (Superior)</option>
-                                    <option value="Home (Centro)">Home (Centro)</option>
+                                    <option value="Belleza">Belleza</option>
                                     <option value="Home (Inferior)">Home (Inferior)</option>
                                     <option value="Quienes Somos">Quienes Somos</option>
                                 </select>
