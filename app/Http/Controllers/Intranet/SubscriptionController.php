@@ -249,7 +249,9 @@ class SubscriptionController extends GlobalController
 
         $diff = Carbon::parse($subscription->pay_date)->diffInDays($last_pay_date);
 
-        $other_subscriptions = SubscriptionsOrdersItem::where('id', '>', $subscription->id)->where('subscription_id', $subscription->subscription_id)->get();
+        $other_subscriptions = SubscriptionsOrdersItem::where('id', '>', $subscription->id)
+        ->where('name', $subscription->name)
+        ->where('subscription_id', $subscription->subscription_id)->get();
 
         foreach($other_subscriptions as $sub){
             if(Carbon::parse($subscription->pay_date)->gt($last_pay_date)){
