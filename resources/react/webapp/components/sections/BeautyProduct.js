@@ -6,8 +6,9 @@ import * as Services from "../../Services";
 import LazyLoading from '../LazyLoading';
 import { AppContext } from "../../context/AppProvider";
 import { BREAKPOINTS } from "../../helpers/vars";
+import BannerStatic from "../../components/sections/BannerStatic";
 
-const BeautyProduct = ({ title, style = '' }) => {
+const BeautyProduct = ({ title, style = '',  middleBanners}) => {
 
     const [beauty, setBeauty] = useState([]);
     const [isLoaded, setIsLoaded] = useState(false);
@@ -68,7 +69,9 @@ const BeautyProduct = ({ title, style = '' }) => {
                         </div>
                     </div>
 
-                    <div className="row justify-content-center">
+                    <BannerStatic banners={middleBanners}/>
+
+                    <div className="row justify-content-center mt-3 mb-4">
                         <a className='btn btn-bicolor btn-block d-flex my-2 w-auto' href="https://anticonceptivo.cl/tienda/belleza-y-cuidado-personal/capilar">
                             <span className='m-auto font-poppins font-14 bold px-2'>
                                 Ver todos los productos
@@ -106,7 +109,9 @@ const BeautyProduct = ({ title, style = '' }) => {
                         </div>
                     </div>
 
-                    <div className="row justify-content-center pb-3">
+                    <BannerStatic banners={middleBanners}/>
+
+                    <div className="row justify-content-center mt-2 pb-3">
                         <a className='btn btn-bicolor btn-block d-flex my-2 w-auto' href="https://anticonceptivo.cl/tienda/belleza-y-cuidado-personal/capilar">
                             <span className='m-auto font-poppins font-14 bold px-2'>
                                 Ver todos los productos
