@@ -211,7 +211,7 @@ class HomeController extends Controller
                 ->limit(4)
                 ->get();
 
-            return ApiResponse::JsonSuccess($this->processScheduleList($beautyProducts), 'Productos tipo belleza y cuidado personal');
+            return ApiResponse::JsonSuccess(ProductLabelHelper::processScheduleList($beautyProducts), 'Productos tipo belleza y cuidado personal');
 
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, $exception->getMessage());
