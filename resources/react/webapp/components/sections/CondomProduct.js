@@ -68,10 +68,12 @@ const CondomProduct = ({title, style = ''}) => {
                         </div>
                     </div>
 
-                    <div className="row">
-                        <div className="col-12 text-center">
-                            <a style={{textDecoration:"underline"}} href="https://anticonceptivo.cl/tienda/bienestar-sexual/preservativos">Ver más</a>
-                        </div>
+                    <div className="row justify-content-center">
+                        <a className='btn btn-bicolor btn-block d-flex my-2 w-auto' href="https://anticonceptivo.cl/tienda/bienestar-sexual/preservativos">
+                            <span className='m-auto font-poppins font-14 bold px-2'>
+                                Ver todos los productos
+                            </span>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -94,7 +96,7 @@ const CondomProduct = ({title, style = ''}) => {
                                 {
                                     condoms.map((product, index) => {
                                         let uuid = uuidv4();
-                                        
+
                                         return index < 2 ? (<div className="col-6 col-md-6 col-lg-3 mb-3" key={uuid}>
                                             <ProductCard product={product}/>
                                         </div>) : null
@@ -104,10 +106,12 @@ const CondomProduct = ({title, style = ''}) => {
                         </div>
                     </div>
 
-                    <div className="row pb-3">
-                        <div className="col-12 text-center">
-                            <a style={{textDecoration:"underline"}} href="https://anticonceptivo.cl/tienda/bienestar-sexual/preservativos">Ver más</a>
-                        </div>
+                    <div className="row justify-content-center pb-3">
+                        <a className='btn btn-bicolor btn-block d-flex my-2 w-auto' href="https://anticonceptivo.cl/tienda/bienestar-sexual/preservativos">
+                            <span className='m-auto font-poppins font-14 bold px-2'>
+                                Ver todos los productos
+                            </span>
+                        </a>
                     </div>
                 </div>
             </div>
