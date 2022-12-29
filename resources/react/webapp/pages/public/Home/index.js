@@ -66,11 +66,11 @@ const Home = ({match}) => {
 
             <BeautyProduct title="Belleza y Cuidado Personal"/>
 
+            <BannerStatic banners={middleBanners}/>
+
             <CondomProduct title="Bienestar Sexual"/>
 
             <BestSeller title="LOS 12 MÁS COMPRADOS"/>
-
-            <BannerStatic banners={middleBanners}/>
 
             <BannerCategories bannerCategories={bannerCategories}/>
 
