@@ -10,7 +10,6 @@ import OutstandingCarousel from "../../../components/sections/OutstandingCarouse
 import BannerCategories from "../../../components/sections/BannerCategories";
 // import BannerCarousel from "../../../components/sections/BannerCarousel";
 import SwiperCarousel from "../../../components/sections/SwiperCarousel";
-import BannerStatic from "../../../components/sections/BannerStatic";
 import LazyLoading from '../../../components/LazyLoading';
 
 const Home = ({match}) => {
@@ -64,9 +63,7 @@ const Home = ({match}) => {
 
             <OutstandingCarousel title="Destacados"/>
 
-            <BeautyProduct title="Belleza y Cuidado Personal"/>
-
-            <BannerStatic banners={middleBanners}/>
+            <BeautyProduct title="Belleza y Cuidado Personal" middleBanners={middleBanners}/>
 
             <CondomProduct title="Bienestar Sexual"/>
 
