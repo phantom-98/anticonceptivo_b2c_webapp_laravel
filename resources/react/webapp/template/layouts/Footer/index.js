@@ -174,17 +174,17 @@ const Footer = () => {
                                 </div> */}
                                 <div className="col-auto">
                                     <a href="https://www.facebook.com/Anticonceptivo.cl/" target="_blank">
-                                        <Icon path={facebook} style={{width: '75% !important'}}/>
+                                        <Icon path={facebook} style={{width: '75%'}}/>
                                     </a>
                                 </div>
                                 <div className="col-auto">
                                     <a href="https://www.instagram.com/anticonceptivo_cl/" target="_blank">
-                                        <Icon path={instagram} style={{width: '75% !important'}}/>
+                                        <Icon path={instagram} style={{width: '75%'}}/>
                                     </a>
                                 </div>
                                 <div className="col-auto">
                                     <a href="https://www.tiktok.com/@anticonceptivo.cl" target="_blank">
-                                        <Icon path={tiktok} style={{width: '75% !important'}}/>
+                                        <Icon path={tiktok} style={{width: '75%'}}/>
                                     </a>
                                 </div>
                             </div>
