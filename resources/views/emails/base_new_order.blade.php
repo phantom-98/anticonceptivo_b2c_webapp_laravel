@@ -278,13 +278,13 @@
             <div class="mb-2 text-center" style="">
                 <div>
                     <a href="https://www.facebook.com/anticonceptivo.cl/" target="_blank" style="text-decoration: none;">
-                        <img style="margin: 0 5px;" src="https://anticonceptivo.cl/themes/web/assets/images/email/facebook.png"/>
+                        <img style="margin: 0 5px;width:30px !important" src="https://dev.anticonceptivo.tienda.innovaweb.cl/themes/web/assets/images/email/facebook.png"/>
                     </a>
                     <a href="https://www.instagram.com/anticonceptivo_cl/" target="_blank" style="text-decoration: none;">
-                        <img style="margin: 0 5px;" src="https://anticonceptivo.cl/themes/web/assets/images/email/instagram.png"/>
+                        <img style="margin: 0 5px;width:30px !important" src="https://dev.anticonceptivo.tienda.innovaweb.cl/themes/web/assets/images/email/instagram.png"/>
                     </a>
                     <a href="https://www.tiktok.com/@anticonceptivo.cl" target="_blank" style="text-decoration: none;">
-                        <img style="margin: 0 5px;" src="https://dev.anticonceptivo.tienda.innovaweb.cl/themes/web/assets/images/email/tiktok.png"/>
+                        <img style="margin: 0 5px;width:30px !important" src="https://dev.anticonceptivo.tienda.innovaweb.cl/themes/web/assets/images/email/tiktok.png"/>
                     </a>
                 </div>
             </div>

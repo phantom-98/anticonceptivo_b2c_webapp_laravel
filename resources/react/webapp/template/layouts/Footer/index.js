@@ -6,8 +6,8 @@ import phone from '../../../assets/images/icons/footer/phone.svg'
 import email from '../../../assets/images/icons/footer/email.svg'
 import bannerBio from '../../../assets/images/icons/footer/slider_slider_banner_bio_min.jpg'
 import bannerCITUC from '../../../assets/images/icons/footer/slider_slider_banner_cituc_min.jpg'
-import facebook from '../../../assets/images/icons/footer/facebook.svg'
-import instagram from '../../../assets/images/icons/footer/instagram.svg'
+import facebook from '../../../assets/images/icons/footer/facebook.png'
+import instagram from '../../../assets/images/icons/footer/instagram.png'
 import tiktok from '../../../assets/images/icons/footer/tiktok.png'
 import {CONFIG} from "../../../Config";
 import PUBLIC_ROUTES from "../../../routes/publicRoutes";
@@ -174,17 +174,17 @@ const Footer = () => {
                                 </div> */}
                                 <div className="col-auto">
                                     <a href="https://www.facebook.com/Anticonceptivo.cl/" target="_blank">
-                                        <Icon path={facebook}/>
+                                        <Icon path={facebook} style={{width: '75%'}}/>
                                     </a>
                                 </div>
                                 <div className="col-auto">
                                     <a href="https://www.instagram.com/anticonceptivo_cl/" target="_blank">
-                                        <Icon path={instagram}/>
+                                        <Icon path={instagram} style={{width: '75%'}}/>
                                     </a>
                                 </div>
                                 <div className="col-auto">
                                     <a href="https://www.tiktok.com/@anticonceptivo.cl" target="_blank">
-                                        <Icon path={tiktok}/>
+                                        <Icon path={tiktok} style={{width: '75%'}}/>
                                     </a>
                                 </div>
                             </div>
