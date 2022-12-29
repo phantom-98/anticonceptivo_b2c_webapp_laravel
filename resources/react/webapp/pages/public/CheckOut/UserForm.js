@@ -25,7 +25,7 @@ const UserForm = ({
     prescriptionsRequiredUploads
 }) => {
 
-    const {cartItems} = useContext(CartContext);
+    const {cartItems, saveDataForStepTwo, dataForStepTwo} = useContext(CartContext);
 
     const handleData = (e, onlyText = false, phone = false) => {
         if (phone) {
@@ -162,7 +162,19 @@ const UserForm = ({
         setPrescriptionRadio(status);
         if (status) {
             setWithoutPrescriptionAnswer(null);
+            saveDataForStepTwo({
+                ...dataForStepTwo,
+                withoutPrescriptionAnswer: null,
+            })
         }
+    }
+
+    const handleWithoutPrescriptionAnswer = (status) => {
+        setWithoutPrescriptionAnswer(status);
+        saveDataForStepTwo({
+            ...dataForStepTwo,
+            withoutPrescriptionAnswer: status,
+        })
     }
 
     const renderBlocks = () => {
@@ -307,7 +319,7 @@ const UserForm = ({
 
                                         <div
                                             className={`pointer receipt-motive ${withoutPrescriptionAnswer === 1 ? 'receipt-motive-active' : ''}`}
-                                            onClick={() => setWithoutPrescriptionAnswer(1)}
+                                            onClick={() => handleWithoutPrescriptionAnswer(1)}
                                         >
                                             <div className="row">
                                                 <div className="col-auto d-flex pr-0">
@@ -330,7 +342,7 @@ const UserForm = ({
 
                                         <div
                                             className={`pointer receipt-motive ${withoutPrescriptionAnswer === 2 ? 'receipt-motive-active' : ''}`}
-                                            onClick={() => setWithoutPrescriptionAnswer(2)}
+                                            onClick={() => handleWithoutPrescriptionAnswer(2)}
                                         >
                                             <div className="row">
                                                 <div className="col-auto d-flex pr-0">
