@@ -133,11 +133,15 @@ class ExpirationSubscriptionEmail extends Command
                         $product = $object->product->name;
                         $producto_slug = $object->product->slug;
                         if(isset($object->product->plans)){
-                            $price = $object->product->plans->min('price');
-                            $cicles = $object->product->plans->last()->subscription_plan->cicles;
+                            $price = $object->product->plans->min('price') ?? null;
+                            $cicles = $object->product->plans->last()->subscription_plan->cicles ?? null;
                         } else {
                             $price = $object->product->offer_price ?? $object->product->price;
                             $cicles = null;
+                        }
+
+                        if($price == null){
+                            $price = $object->product->offer_price ?? $object->product->price;
                         }
 
                         $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
@@ -172,11 +176,15 @@ class ExpirationSubscriptionEmail extends Command
                         $product = $object->product->name;
                         $producto_slug = $object->product->slug;
                         if(isset($object->product->plans)){
-                            $price = $object->product->plans->min('price');
-                            $cicles = $object->product->plans->last()->subscription_plan->cicles;
+                            $price = $object->product->plans->min('price') ?? null;
+                            $cicles = $object->product->plans->last()->subscription_plan->cicles ?? null;
                         } else {
                             $price = $object->product->offer_price ?? $object->product->price;
                             $cicles = null;
+                        }
+
+                        if($price == null){
+                            $price = $object->product->offer_price ?? $object->product->price;
                         }
 
                         $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
