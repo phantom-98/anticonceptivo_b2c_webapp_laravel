@@ -120,16 +120,12 @@ class ExpirationSubscriptionEmail extends Command
                 }
             }
 
-            $objects = OrderItem::with('product.plans.subscription_plan', 'order.customer')->whereHas('product', function ($q){
-                $q->whereHas('plans');
-            })->whereNull('subscription_plan_id')->whereBetween('created_at', [Carbon::now()->subMonths(2)->format('Y-m-d H:i:s'), Carbon::now()->format('Y-m-d H:i:s')])->get();
+            $objects = OrderItem::with('product.plans.subscription_plan', 'order.customer')->whereNull('subscription_plan_id')->whereBetween('created_at', [Carbon::now()->subMonths(2)->format('Y-m-d H:i:s'), Carbon::now()->format('Y-m-d H:i:s')])->get();
     
             foreach($objects as $object){
                 if(isset($object->product->days_protection)){
                     $calc = ($object->product->days_protection * $object->quantity) - 2;
                     $date = Carbon::parse($object->created_at)->addDays($calc);
-
-                    Log::info('Pedido '.$object->order_id, [$date]);
 
                     if($date->between(Carbon::today()->startOfDay(), Carbon::today()->endOfDay())){
                         $product = $object->product->name;
@@ -167,8 +163,6 @@ class ExpirationSubscriptionEmail extends Command
 
                     $calc = $object->product->days_protection * $object->quantity;
                     $date2 = Carbon::parse($object->created_at)->addDays($calc);
-
-                    Log::info('Pedido '.$object->order_id, [$date2]);
 
                     if($date2->between(Carbon::today()->startOfDay(), Carbon::today()->endOfDay())){
                         $product = $object->product->name;
