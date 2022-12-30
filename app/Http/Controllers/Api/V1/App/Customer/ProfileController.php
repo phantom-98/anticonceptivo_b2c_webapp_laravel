@@ -436,6 +436,13 @@ class ProfileController extends Controller
                 $subscriptionsOrdersItemElement->save();
             }
 
+            // need to verify if the $request->dispatch_date is valid in the range of the subscription
+                // the range is provided by the subscription itself and its static_date
+                // then we need to create a range with static_date and it will be the range for changing the dispatch_date
+                // the range is static_date less 10 days and static_date plus 10 days
+                // if the $request->dispatch_date is not in the range or its the same date as today, then we need to return an error
+                // if the $request->dispatch_date is in the range, then we need to change the dispatch_date
+
             return ApiResponse::JsonSuccess($subscriptions_orders_items[0], OutputMessage::SUCCESS);
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, $exception->getMessage());
