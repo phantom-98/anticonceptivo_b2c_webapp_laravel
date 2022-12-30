@@ -382,7 +382,7 @@
 
     $(function () {
         var end = moment();
-        var start = moment().subtract(6, 'days');
+        var start = moment().startOf('month');
 
         function cb(start, end) {
             $('#dateCategories span').html(start.format('DD/MM/YYYY') + '&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;' + end.format('DD/MM/YYYY'));
@@ -445,7 +445,7 @@
 
     $(function () {
         var end = moment();
-        var start = moment().subtract(6, 'days');
+        var start = moment().startOf('month');
 
         function cb(start, end) {
             $('#dateLaboratories span').html(start.format('DD/MM/YYYY') + '&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;' + end.format('DD/MM/YYYY'));
@@ -508,7 +508,7 @@
 
     $(function () {
         var end = moment();
-        var start = moment().subtract(6, 'days');
+        var start = moment().startOf('month');
 
         function cb(start, end) {
             $('#dateLaboratoriesSubs span').html(start.format('DD/MM/YYYY') + '&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;' + end.format('DD/MM/YYYY'));
@@ -572,7 +572,7 @@
     $(function () {
 
         var end = moment();
-        var start = moment().subtract(6, 'days');
+        var start = moment().startOf('month').subtract(1, 'months');
 
         function cb(start, end) {
             $('#dateSubscriptions span').html(start.format('DD/MM/YYYY') + '&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;' + end.format('DD/MM/YYYY'));
@@ -635,7 +635,7 @@
     $(function () {
 
         var end = moment();
-        var start = moment().subtract(6, 'days');
+        var start = moment().startOf('month');
 
         function cb(start, end) {
             $('#dateFormat span').html(start.format('DD/MM/YYYY') + '&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;' + end.format('DD/MM/YYYY'));
@@ -698,7 +698,7 @@
         $(function () {
 
         var end = moment();
-        var start = moment().subtract(6, 'days');
+        var start = moment().startOf('month');
 
         function cb(start, end) {
             $('#datePrescriptions span').html(start.format('DD/MM/YYYY') + '&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;' + end.format('DD/MM/YYYY'));
