@@ -127,6 +127,8 @@ class ExpirationSubscriptionEmail extends Command
                     $calc = ($object->product->days_protection * $object->quantity) - 2;
                     $date = Carbon::parse($object->created_at)->addDays($calc);
 
+                    Log::info('Pedido '.$object->order_id, [$date]);
+
                     if($date->between(Carbon::today()->startOfDay(), Carbon::today()->endOfDay())){
                         $product = $object->product->name;
                         $producto_slug = $object->product->slug;
@@ -163,6 +165,8 @@ class ExpirationSubscriptionEmail extends Command
 
                     $calc = $object->product->days_protection * $object->quantity;
                     $date2 = Carbon::parse($object->created_at)->addDays($calc);
+
+                    Log::info('Pedido '.$object->order_id, [$date2]);
 
                     if($date2->between(Carbon::today()->startOfDay(), Carbon::today()->endOfDay())){
                         $product = $object->product->name;
