@@ -399,56 +399,157 @@ class ProfileController extends Controller
     public function setDispatchDateSubscription(Request $request)
     {
         try {
+            Log::info('setDispatchDateSubscription');
+
+            DB::beginTransaction();
+
             $customer = Customer::find($request->customer_id);
 
             if (!$customer) {
                 return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_NOT_FOUND);
             }
 
-            $subscriptionsOrdersItem = SubscriptionsOrdersItem::find($request->subscription_order_item_id);
-            $subscriptions_orders_items = SubscriptionsOrdersItem::with('customer_address.commune')
-                ->where('order_id', $subscriptionsOrdersItem->order_id)
-                ->where('pay_date', $subscriptionsOrdersItem->pay_date)->get();
+            Log::info('customer_id: ' . $customer->id);
 
-            $deliveryCosts = DeliveryCost::where('active', 1)->get();
-            $itemDeliveryCost = null;
+            $new_dispatch_date = Carbon::parse($request->dispatch_date);
+            $new_dispatch_date_start = $new_dispatch_date->copy()->startOfDay();
+            $today_date = Carbon::now()->startOfDay();
 
-            foreach ($subscriptions_orders_items as $key => $subscriptionsOrdersItemElement) {
+            Log::info('begin dates', [
+                'new_dispatch_date' => $new_dispatch_date,
+                'new_dispatch_date_start' => $new_dispatch_date_start,
+                'today_date' => $today_date
+            ]);
 
-                foreach ($deliveryCosts as $key => $deliveryCost) {
-                    $costs = json_decode($deliveryCost->costs);
-                    foreach ($costs as $key => $itemCost) {
-                        $communes = $itemCost->communes;
-
-                        $found_key = array_search($subscriptionsOrdersItemElement->customer_address->commune->name, $communes);
-                        if ($found_key !== false) {
-                            $itemDeliveryCost = $deliveryCost;
-                            $itemDeliveryCostArrayCost = $itemCost;
-                        }
-                    }
-                }
-
-                if (Carbon::parse($subscriptionsOrdersItemElement->pay_date)->addHours($itemDeliveryCost->deadline_delivery) >= Carbon::createFromFormat('Y-m-d', $request->dispatch_date)) {
-                    return ApiResponse::JsonError(null, 'No se puede adelantar la fecha de despacho');
-                }
-
-                $subscriptionsOrdersItemElement->dispatch_date = Carbon::createFromFormat('Y-m-d', $request->dispatch_date);
-                $subscriptionsOrdersItemElement->save();
+            if ($new_dispatch_date_start->eq($today_date)) {
+                return ApiResponse::JsonError(null, 'No se puede cambiar la fecha de despacho a la fecha actual.');
             }
 
-            // need to verify if the $request->dispatch_date is valid in the range of the subscription
-                // the range is provided by the subscription itself and its static_date
-                // then we need to create a range with static_date and it will be the range for changing the dispatch_date
-                // the range is static_date less 10 days and static_date plus 10 days
-                // if the $request->dispatch_date is not in the range or its the same date as today, then we need to return an error
-                // if the $request->dispatch_date is in the range, then we need to change the dispatch_date
+            $subscription_orders_item = SubscriptionsOrdersItem::find($request->subscription_order_item_id);
 
-            return ApiResponse::JsonSuccess($subscriptions_orders_items[0], OutputMessage::SUCCESS);
+            if (!$subscription_orders_item) {
+                return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_SUBSCRIPTION_NOT_FOUND);
+            }
+
+            Log::info('subscription_orders_item_id: ' . $subscription_orders_item->id);
+
+            $static_date = Carbon::parse($subscription_orders_item->origin_pay_date);
+
+            // if $static_date its between the time of day 00:30:00 and 23:59:59 we add 1 day to the static date and set the time in 00:00:00
+            if ($static_date->format('H:i:s') >= '00:30:00' && $static_date->format('H:i:s') <= '23:59:59') {
+                $static_date->addDay();
+                $static_date->setTime(0, 0, 0);
+            }
+
+            Log::info('static_date: ' . $static_date);
+
+            $diff = $new_dispatch_date->copy()->diffInDays($static_date);
+
+            Log::info('diff: ' . $diff);
+
+            if($diff > 10) {
+                return ApiResponse::JsonError(null, 'La fecha de despacho no puede ser mayor a 10 días de la fecha de pago.');
+            }
+
+            if ($diff < -10) {
+                return ApiResponse::JsonError(null, 'La fecha de despacho no puede ser menor a 10 días de la fecha de pago.');
+            }
+
+            $valid_dates = $this->getValidDates($static_date);
+
+            Log::info('dates before valid them: ' ,[
+                'valid_dates' => $valid_dates,
+                'new_dispatch_date' => $new_dispatch_date
+            ]);
+
+            if (!in_array($new_dispatch_date, $valid_dates)) {
+                return ApiResponse::JsonError(null, 'La fecha de despacho no es válida.');
+            }
+
+            $subscription_orders_item->pay_date = $new_dispatch_date;
+            $subscription_orders_item->save();
+
+            // now we need to update all the next subscription orders items with the new pay_date and origin_pay_date
+
+            $subscription_orders_items = SubscriptionsOrdersItem::where('subscription_id', $subscription_orders_item->subscription_id)
+                ->where('order_parent_id', $subscription_orders_item->order_parent_id)
+                ->where('id', '>', $subscription_orders_item->id)
+                ->get();
+
+            Log::info('subscription_orders_items: ', [
+                'count' => $subscription_orders_items->count(),
+                'ids' => $subscription_orders_items->pluck('id')->toArray(),
+            ]);
+
+            // the days difference is in product_subscription_plan property days
+
+
+            // $subscriptions_orders_items = SubscriptionsOrdersItem::with('customer_address.commune')
+            //     ->where('order_id', $subscriptionsOrdersItem->order_id)
+            //     ->where('pay_date', $subscriptionsOrdersItem->pay_date)
+            //     ->get();
+
+            // $delivery_costs = DeliveryCost::where('active', 1)->get();
+            // $item_delivery_cost = null;
+
+            // foreach ($subscriptions_orders_items as $item) {
+            //     foreach ($delivery_costs as $delivery_cost) {
+            //         $costs = json_decode($delivery_cost->costs);
+            //         foreach ($costs as $item_cost) {
+            //             $communes = $item_cost->communes;
+
+            //             if (array_search($item->customer_address->commune->name, $communes) !== false) {
+            //                 $item_delivery_cost = $delivery_cost;
+            //             }
+            //         }
+            //     }
+
+            //     if (Carbon::parse($item->pay_date)->addHours($item_delivery_cost->deadline_delivery) >= $new_dispatch_date) {
+            //         return ApiResponse::JsonError(null, 'No se puede adelantar la fecha de despacho');
+            //         DB::rollBack();
+            //     }
+
+            //     $item->dispatch_date = $new_dispatch_date;
+            //     $item->save();
+            // }
+
+            // need to verify if the $request->dispatch_date is valid in the range of the subscription
+            // the range is provided by the subscription itself and its static_date
+            // then we need to create a range with static_date and it will be the range for changing the dispatch_date
+            // the range is static_date less 10 days and static_date plus 10 days
+            // if the $request->dispatch_date is not in the range or its the same date as today, then we need to return an error
+            // if the $request->dispatch_date is in the range, then we need to change the dispatch_date
+
+            DB::rollBack();
+            return ApiResponse::JsonError(null, 'Fin ciclo.');
+            // return ApiResponse::JsonSuccess($subscriptions_orders_items[0], OutputMessage::SUCCESS);
         } catch (\Exception $exception) {
+            DB::rollBack();
             return ApiResponse::JsonError(null, $exception->getMessage());
         }
     }
 
+    public function getValidDates($static_date)
+    {
+        $valid_dates = [];
+
+        $today = Carbon::now()->startOfDay();
+
+        $start_date = $static_date->copy()->subDays(10);
+        $end_date = $static_date->copy()->addDays(10);
+
+        if ($start_date->lt($today)) {
+            $start_date = $today->copy()->addDay();
+        }
+
+        $diff = $start_date->diffInDays($end_date);
+
+        for ($i = 0; $i <= $diff; $i++) {
+            $valid_dates[] = $start_date->copy()->addDays($i);
+        }
+
+        return $valid_dates;
+    }
 
     public function getActiveSubscriptionsOrdersItems(Request $request)
     {
