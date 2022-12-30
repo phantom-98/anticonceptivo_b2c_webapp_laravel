@@ -171,7 +171,7 @@ class ExpirationSubscriptionEmail extends Command
                     if($date2->between(Carbon::today()->startOfDay(), Carbon::today()->endOfDay())){
                         $product = $object->product->name;
                         $producto_slug = $object->product->slug;
-                        if($object->product->plans){
+                        if(isset($object->product->plans)){
                             $price = $object->product->plans->min('price');
                             $cicles = $object->product->plans->last()->subscription_plan->cicles;
                         } else {
