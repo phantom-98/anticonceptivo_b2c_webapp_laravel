@@ -768,10 +768,12 @@
         var count = [];
         var percentage = [];
         var colors = [];
+        var colors2 = [];
 
         data.names.forEach(function (d, index) {
             names.push(d);
-            colors.push('rgba('+random_rgba()+', 1)');
+            colors.push('rgba('+random_rgba()+', 0.5)');
+            colors2.push('rgba('+random_rgba()+', 0.5)');
         });
 
         data.percentage.forEach(function (d, index) {
@@ -798,7 +800,7 @@
                     {
                         label: 'Porcentaje',
                         data: percentage,
-                        backgroundColor: colors,
+                        backgroundColor: colors2,
                         scaleFontColor: "#000000",
                         borderWidth: 1,
                         yAxisID: 'right-axis'
@@ -867,10 +869,12 @@
         var count = [];
         var percentage = [];
         var colors = [];
+        var colors2 = [];
 
         data.names.forEach(function (d, index) {
             names.push(d);
-            colors.push('rgba('+random_rgba()+', 1)');
+            colors.push('rgba('+random_rgba()+', 0.5)');
+            colors2.push('rgba('+random_rgba()+', 0.5)');
         });
 
         data.percentage.forEach(function (d, index) {
@@ -886,7 +890,8 @@
                 names_temp: d,
                 percentage_temp: percentage[i] || 0,
                 count_temp: count[i] || 0,
-                color_temp: colors[i] || 0
+                color_temp: colors[i] || 0,
+                color_temp2: colors2[i] || 0
             };
         });
 
@@ -900,12 +905,14 @@
         var new_count = [];
         var new_percentage = [];
         var new_colors = [];
+        var new_colors2 = [];
 
         sortedArrayOfObj.forEach(function(d){
             new_names.push(d.names_temp);
             new_count.push(d.count_temp);
             new_percentage.push(d.percentage_temp);
             new_colors.push(d.color_temp);
+            new_colors2.push(d.color_temp2);
         });
 
         var myChart = new Chart(ctx, {
@@ -924,7 +931,7 @@
                     {
                         label: 'Porcentaje',
                         data: new_percentage,
-                        backgroundColor: new_colors,
+                        backgroundColor: new_colors2,
                         scaleFontColor: "#000000",
                         borderWidth: 1,
                         yAxisID: 'right-axis'
@@ -993,10 +1000,12 @@
         var count = [];
         var percentage = [];
         var colors = [];
+        var colors2 = [];
 
         data.names.forEach(function (d, index) {
             names.push(d);
-            colors.push('rgba('+random_rgba()+', 1)');
+            colors.push('rgba('+random_rgba()+', 0.5)');
+            colors2.push('rgba('+random_rgba()+', 0.5)');
         });
 
         data.percentage.forEach(function (d, index) {
@@ -1012,7 +1021,8 @@
                 names_temp: d,
                 percentage_temp: percentage[i] || 0,
                 count_temp: count[i] || 0,
-                color_temp: colors[i] || 0
+                color_temp: colors[i] || 0,
+                color_temp2: colors2[i] || 0,
             };
         });
 
@@ -1026,12 +1036,14 @@
         var new_count = [];
         var new_percentage = [];
         var new_colors = [];
+        var new_colors2 = [];
 
         sortedArrayOfObj.forEach(function(d){
             new_names.push(d.names_temp);
             new_count.push(d.count_temp);
             new_percentage.push(d.percentage_temp);
             new_colors.push(d.color_temp);
+            new_colors2.push(d.color_temp2);
         });
 
         var myChart = new Chart(ctx, {
@@ -1050,7 +1062,7 @@
                     {
                         label: 'Porcentaje',
                         data: new_percentage,
-                        backgroundColor: new_colors,
+                        backgroundColor: new_colors2,
                         scaleFontColor: "#000000",
                         borderWidth: 1,
                         yAxisID: 'right-axis'
@@ -1119,10 +1131,12 @@
         var count = [];
         var percentage = [];
         var colors = [];
+        var colors2 = [];
 
         data.names.forEach(function (d, index) {
             names.push(d);
-            colors.push('rgba('+random_rgba()+', 1)');
+            colors.push('rgba('+random_rgba()+', 0.5)');
+            colors2.push('rgba('+random_rgba()+', 0.5)');
         });
 
         data.percentage.forEach(function (d, index) {
@@ -1149,7 +1163,7 @@
                     {
                         label: 'Porcentaje',
                         data: percentage,
-                        backgroundColor: colors,
+                        backgroundColor: colors2,
                         scaleFontColor: "#000000",
                         borderWidth: 1,
                         yAxisID: 'right-axis'
@@ -1218,10 +1232,12 @@
         var count = [];
         var percentage = [];
         var colors = [];
+        var colors2 = [];
 
         data.names.forEach(function (d, index) {
             names.push(d);
-            colors.push('rgba('+random_rgba()+', 1)');
+            colors.push('rgba('+random_rgba()+', 0.5)');
+            colors2.push('rgba('+random_rgba()+', 0.5)');
         });
 
         data.percentage.forEach(function (d, index) {
@@ -1248,7 +1264,7 @@
                     {
                         label: 'Porcentaje',
                         data: percentage,
-                        backgroundColor: colors,
+                        backgroundColor: colors2,
                         scaleFontColor: "#000000",
                         borderWidth: 1,
                         yAxisID: 'right-axis'
@@ -1317,10 +1333,12 @@
         var count = [];
         var percentage = [];
         var colors = [];
+        var colors2 = [];
 
         data.names.forEach(function (d, index) {
             names.push(d);
-            colors.push('rgba('+random_rgba()+', 1)');
+            colors.push('rgba('+random_rgba()+', 0.5)');
+            colors2.push('rgba('+random_rgba()+', 0.5)');
         });
 
         data.percentage.forEach(function (d, index) {
@@ -1347,7 +1365,7 @@
                     {
                         label: 'Porcentaje',
                         data: percentage,
-                        backgroundColor: colors,
+                        backgroundColor: colors2,
                         scaleFontColor: "#000000",
                         borderWidth: 1,
                         yAxisID: 'right-axis'
