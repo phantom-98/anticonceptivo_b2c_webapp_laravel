@@ -187,7 +187,7 @@ class DashboardController extends Controller
         $start = $request->start . ' 00:00:00';
         $end = $request->end . ' 23:59:59';
 
-        $total = OrderItem::whereHas('order', function ($o) use ($start, $end) {
+        $total = OrderItem::whereHas('subscription_plan')->whereHas('order', function ($o) use ($start, $end) {
             $o->whereBetween('created_at', [$start, $end])
             ->whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED']);
         })->sum('quantity');
@@ -204,7 +204,7 @@ class DashboardController extends Controller
 
         foreach($subscriptions as $subscription){
             $products = OrderItem::whereHas('subscription_plan', function ($p) use ($subscription) {
-                $p->where('months', $subscription);
+                $p->where('cicles', $subscription);
             })->whereHas('order', function ($o) use ($start, $end) {
                 $o->whereBetween('created_at', [$start, $end])
                 ->whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED']);
