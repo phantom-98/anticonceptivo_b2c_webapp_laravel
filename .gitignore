@@ -14,7 +14,7 @@ Homestead.yaml
 npm-debug.log
 yarn-error.log
 *.sql
-
+/public/sitemap.xml
 /.idea/*
 .idea
 /packages/*
