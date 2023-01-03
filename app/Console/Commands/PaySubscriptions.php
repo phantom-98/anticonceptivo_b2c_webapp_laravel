@@ -283,9 +283,17 @@ class PaySubscriptions extends Command
         $order_item->subtotal = $item->subtotal;
         $order_item->save();
 
+        $now = Carbon::now();
+        $item->pay_date =  $now;
         $item->orders_item_id = $order_item->id;
-        $item->pay_date = Carbon::now();
-        $item->dispatch_date = Carbon::now()->addDay();
+
+        // if now is sunday add 1 day to dispatch date since we dont dispatch on sundays
+        if ($now->isSunday()) {
+            $item->dispatch_date =  $now->copy()->addDays(1);
+        }else {
+            $item->dispatch_date =  $now;
+        }
+
         $item->save();
 
         $subtotal = $order_item->subtotal;

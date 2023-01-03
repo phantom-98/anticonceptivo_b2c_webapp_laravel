@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import moment from "moment";
 import * as Services from "../../../../../Services";
 import {Modal} from "react-bootstrap";
@@ -23,6 +23,14 @@ const ModalDispatchDate = ({
     getDataAddress,
     changeVisibleModalDispatchDate
 }) => {
+
+    const [validDates, setValidDates] = useState([]);
+
+    useEffect(() => {
+        if (subscriptionOrderItemSelected && subscriptionOrderItemSelected.id) {
+            getValidDatesForDispatchDate();
+        }
+    }, [subscriptionOrderItemSelected]);
 
     const updateDispatchDate = () => {
         let url = Services.ENDPOINT.CUSTOMER.SUBSCRIPTIONS.SET_DISPATCH_DATE_SUBSCRIPTION;
@@ -71,9 +79,38 @@ const ModalDispatchDate = ({
                         });
                 }
             });
-
-
     };
+
+    const getValidDatesForDispatchDate = () => {
+        let url = Services.ENDPOINT.CUSTOMER.SUBSCRIPTIONS.GET_VALID_DATES_FOR_DISPATCH_DATE;
+
+        let data = {
+            customer_id: auth.id,
+            subscription_order_item_id: subscriptionOrderItemSelected ? subscriptionOrderItemSelected.id : 0,
+        };
+
+        Services.DoPost(url, data)
+            .then(response => {
+                Services.Response({
+                    response: response,
+                    success: () => {
+                        setValidDates(remapValidDatesToDatePicker(response.data.valid_dates));
+                    },
+                    error: () => {
+                        toastr.error(response.message);
+                    }
+                });
+            })
+    };
+
+    const remapValidDatesToDatePicker = (valid_dates) => {
+        let valid_dates_datepicker = [];
+        valid_dates.forEach((valid_date) => {
+            valid_dates_datepicker.push(new Date(valid_date));
+        });
+        return valid_dates_datepicker;
+    };
+
 
     return (
         <Modal
@@ -100,7 +137,8 @@ const ModalDispatchDate = ({
                                 <DatePicker
                                     className={"form-control"}
                                     dateFormat="dd/MM/yyyy"
-                                    minDate={minDate}
+                                    // minDate={minDate}
+                                    includeDates={validDates}
                                     locale="es"
                                     name='dispatchDate'
                                     selected={new Date(dispatchDate)}
