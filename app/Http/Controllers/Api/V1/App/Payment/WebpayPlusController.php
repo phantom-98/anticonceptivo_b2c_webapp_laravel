@@ -91,8 +91,6 @@ class WebpayPlusController
     {
         try {
 
-            Log::info('createSubscription', $request->all());
-
             $response = $this->oneclick->createInscription(
                 $request->customer_id,
                 $request->email,
@@ -359,6 +357,7 @@ class WebpayPlusController
                 $period = 0;
                 $pay_date = Carbon::now();
                 $dispatch_date = Carbon::now();
+                $origin_pay_date = Carbon::now();
                 $isSubscriptionOrderItemPrev = null;
                 for ($i = 0; $i < round($subscriptionPlan->months / 2); $i++) {
                     $period++;
@@ -387,6 +386,7 @@ class WebpayPlusController
                         $days_tmp = SubscriptionsOrdersItem::find($isSubscriptionOrderItemPrev)->days;
                         $pay_date->addDays(($days_tmp - ($i == 1 ? 4 : 0)));
                         $dispatch_date->addDays(($days_tmp - ($i == 1 ? 4 : 0)));
+                        $origin_pay_date->addDays(($days_tmp - ($i == 1 ? 4 : 0)));
                     }
 
                     $subscriptionOrdersItem = new SubscriptionsOrdersItem;
@@ -399,6 +399,7 @@ class WebpayPlusController
                     $subscriptionOrdersItem->order_parent_id = $order->id;
                     $subscriptionOrdersItem->orders_item_id = $orderItem->id;
                     $subscriptionOrdersItem->pay_date = $pay_date;
+                    $subscriptionOrdersItem->origin_pay_date = $origin_pay_date;
                     $subscriptionOrdersItem->save();
                     $subscriptionOrdersItem->dispatch = $itemDeliveryCostArrayCost ? ($this->hasFreeDispatch($request->cartItems) ? $itemDeliveryCostArrayCost->price[0] : 0) : 0;
                     $subscriptionOrdersItem->dispatch_date = $dispatch_date->addHours($itemDeliveryCost->deadline_delivery);

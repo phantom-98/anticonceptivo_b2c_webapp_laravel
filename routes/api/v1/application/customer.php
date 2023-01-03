@@ -32,6 +32,8 @@ Route::prefix('customer')
 
         Route::post('set-dispatch-date-subscription', [ProfileController::class, 'setDispatchDateSubscription'])->name('setDispatchDateSubscription');
 
+        Route::post('get-valid-dates-for-dispatch-date', [ProfileController::class, 'getValidDatesForDispatchDate'])->name('getValidDatesForDispatchDate');
+
         Route::post('get-orders', [ProfileController::class, 'getOrders'])->name('getOrders');
         Route::post('repeat-order', [ProfileController::class, 'repeatOrder'])->name('repeatOrder');
 
