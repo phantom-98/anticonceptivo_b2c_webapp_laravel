@@ -1,16 +1,16 @@
-import React, {useEffect, useState, useContext} from "react";
-import {CONFIG} from "../../../../../Config";
+import React, { useEffect, useState, useContext } from "react";
+import { CONFIG } from "../../../../../Config";
 import { AppContext } from "../../../../../context/AppProvider";
-import {AuthContext} from "../../../../../context/AuthProvider";
+import { AuthContext } from "../../../../../context/AuthProvider";
 import * as Services from "../../../../../Services";
 import Swal from "sweetalert2";
-import {v4 as uuidv4} from "uuid";
+import { v4 as uuidv4 } from "uuid";
 import "react-datepicker/dist/react-datepicker.css";
-import {registerLocale} from "react-datepicker";
+import { registerLocale } from "react-datepicker";
 import ModalDispatchDate from "./ModalDispatchDate";
 import ModalAddress from "./ModalAddress";
 import ModalSubscription from "./ModalSubscription";
-import { formatMoney, changeMonthToSpanish} from "../../../../../helpers/GlobalUtils";
+import { formatMoney, changeMonthToSpanish } from "../../../../../helpers/GlobalUtils";
 import moment from "moment";
 import es from 'date-fns/locale/es';
 import LazyLoading from "../../../../../components/LazyLoading";
@@ -24,7 +24,7 @@ const SubscriptionCard = ({
     setSubscriptionOrderItemSelected,
     subscriptionOrderItemSelected
 }) => {
-    const {auth} = useContext(AuthContext);
+    const { auth } = useContext(AuthContext);
     const { breakpoint } = useContext(AppContext)
 
     const [tableLoaded, setTableLoaded] = useState(false);
@@ -204,19 +204,18 @@ const SubscriptionCard = ({
             });
     };
 
-    const getFormattedStatusAttribute = (status) =>
-    {
-        if(status === 'CREATED'){
+    const getFormattedStatusAttribute = (status) => {
+        if (status === 'CREATED') {
             return "Creado";
-        } else if(status === 'CANCELED'){
+        } else if (status === 'CANCELED') {
             return "Anulado";
-        } else if(status === 'DISPATCHED'){
+        } else if (status === 'DISPATCHED') {
             return "Despachado";
-        } else if(status === 'REJECTED'){
+        } else if (status === 'REJECTED') {
             return "Rechazado";
-        } else if(status === 'DELIVERED'){
+        } else if (status === 'DELIVERED') {
             return "Entregado";
-        } else if(status === 'PAID'){
+        } else if (status === 'PAID') {
             return "Pagado";
         }
 
@@ -265,7 +264,7 @@ const SubscriptionCard = ({
     };
 
     if (!tableLoaded) {
-        return <LazyLoading/>
+        return <LazyLoading />
     }
 
     return (
@@ -359,7 +358,7 @@ const SubscriptionCard = ({
                                                     </div>
                                                     :
 
-                                                    (item.current_advance === item.advance_end && item.subscription_item.order && (item.subscription_item.order.status === "DELIVERED" || item.subscription_item.order.status ===  "CANCELED") ?
+                                                    (item.current_advance === item.advance_end && item.subscription_item.order && (item.subscription_item.order.status === "DELIVERED" || item.subscription_item.order.status === "CANCELED") ?
                                                         <div className="col-auto d-flex flex-row">
                                                             <div
                                                                 className="subscription-card-label-finish mt-2">Terminado
@@ -384,16 +383,19 @@ const SubscriptionCard = ({
                                                 <div className="col-auto p-0" style={{ marginTop: -6 }}>
                                                     {
                                                         Array.from({ length: item.advance_end }, (_, i) => i + 1).map((itemNumber) => {
-                                                            // console.log(itemNumber, ' a a  aa ' , item)
+                                                            console.log(itemNumber, item)
                                                             if (item.current_advance < itemNumber) {
+                                                                console.log('dot-incoming');
                                                                 return (
                                                                     <span className="dot-incoming" />
                                                                 )
                                                             } else if ((item.current_advance === itemNumber || item.current_advance - 1 === itemNumber) && (item.subscription_item.order === null || (item.subscription_item.order.status !== "DELIVERED" || item.subscription_item.order.status === "CANCELED"))) {
+                                                                console.log('dot-process');
                                                                 return (
                                                                     <span className="dot-process" />
                                                                 )
                                                             } else {
+                                                                console.log('dot-finish');
                                                                 return (
                                                                     <span className="dot-finish" />
                                                                 )
@@ -401,7 +403,7 @@ const SubscriptionCard = ({
                                                         })
                                                     }
                                                     <span
-                                                        className="ml-2 p-0 subscription-card-label">{item.current_advance === item.advance_end && item.subscription_item.order && (item.subscription_item.order.status === "DELIVERED" || item.subscription_item.order.status === "CANCELED") ? item.current_advance : item.subscription_item.order && (item.subscription_item.order.status === "DELIVERED" || item.subscription_item.order.status === "CANCELED") ? item.current_advance : item.current_advance-2}/{item.advance_end}</span>
+                                                        className="ml-2 p-0 subscription-card-label">{item.current_advance === item.advance_end && item.subscription_item.order && (item.subscription_item.order.status === "DELIVERED" || item.subscription_item.order.status === "CANCELED") ? item.current_advance : item.subscription_item.order && (item.subscription_item.order.status === "DELIVERED" || item.subscription_item.order.status === "CANCELED") ? item.current_advance : item.current_advance - 2}/{item.advance_end}</span>
                                                 </div>
                                             </div>
 
@@ -469,13 +471,13 @@ const SubscriptionCard = ({
                                                     item.subscription_item.order && item.subscription_item.order.status ?
                                                         <h1 className="ml-2 text-truncate p-0 subscription-card-value">
                                                             {getFormattedStatusAttribute(item.subscription_item.order.status)}</h1>
-                                                   :
-(item.subscription_item.dispatch_status != null ?
-    <h1 className="ml-2 text-truncate p-0 subscription-card-value">{item.subscription_item.dispatch_status}</h1> :
-    item.subscription_item.order_parent.dispatch_status != null ?
-        <h1 className="ml-2 text-truncate p-0 subscription-card-value">{item.subscription_item.dispatch_status}</h1> :
-        <h1 className="ml-2 text-truncate p-0 subscription-card-value">Sin
-            Despachar</h1>)
+                                                        :
+                                                        (item.subscription_item.dispatch_status != null ?
+                                                            <h1 className="ml-2 text-truncate p-0 subscription-card-value">{item.subscription_item.dispatch_status}</h1> :
+                                                            item.subscription_item.order_parent.dispatch_status != null ?
+                                                                <h1 className="ml-2 text-truncate p-0 subscription-card-value">{item.subscription_item.dispatch_status}</h1> :
+                                                                <h1 className="ml-2 text-truncate p-0 subscription-card-value">Sin
+                                                                    Despachar</h1>)
                                                 }
                                             </div>
 
@@ -500,7 +502,7 @@ const SubscriptionCard = ({
                                         {
                                             item.subscription_item.active == 1 && item.cycle.days > 0 ?
                                                 <div className="col-12 d-flex flex-row mt-2 mr-1 ml-1">
-                                                    <h1 style={{lineHeight: 1.5}}
+                                                    <h1 style={{ lineHeight: 1.5 }}
                                                         className="mr-1 mb-0 p-0 subscription-card-value">Le quedan
                                                         <span
                                                             className=" p-0 subscription-card-label"> {item.cycle.days} días </span>
@@ -510,11 +512,11 @@ const SubscriptionCard = ({
                                                         de protección.
                                                     </h1>
                                                 </div>
-                                            :
-                                            null
+                                                :
+                                                null
                                         }
                                         {
-                                            item.subscription_item.active == 1 && !(item.current_advance === item.advance_end && item.subscription_item.order && (item.subscription_item.order.status === "DELIVERED" || item.subscription_item.order.status ===  "CANCELED"))?
+                                            item.subscription_item.active == 1 && !(item.current_advance === item.advance_end && item.subscription_item.order && (item.subscription_item.order.status === "DELIVERED" || item.subscription_item.order.status === "CANCELED")) ?
                                                 <div className="row mt-2">
                                                     <div className="col-12 col-sm-6 col-xl-3 my-2 text-center">
                                                         <span onClick={() => changeVisibleModalDispatchDate(item.subscription_item)}
@@ -551,7 +553,7 @@ const SubscriptionCard = ({
                             </div>
                         )
                     })
-                :
+                    :
                     <div className="col-md-12 mt-5">
                         <div className="product-no-stock-alert font-12 font-poppins">
                             Actualmente no tienes suscripciones.

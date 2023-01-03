@@ -351,42 +351,42 @@ class ProfileController extends Controller
             }
 
             try {
-                $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
+                // $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
 
-                $subscription = Subscription::with('customer')->find($subscriptionsOrdersItem->subscription_id);
+                // $subscription = Subscription::with('customer')->find($subscriptionsOrdersItem->subscription_id);
 
-                $html2 = view('emails.cancel_subscription', ['suscripcion' => $subscriptionsOrdersItem->subscription_id, 'nombre' => 'Equipo Anticonceptivo', 'customer' => $subscription->customer])->render();
+                // $html2 = view('emails.cancel_subscription', ['suscripcion' => $subscriptionsOrdersItem->subscription_id, 'nombre' => 'Equipo Anticonceptivo', 'customer' => $subscription->customer])->render();
 
-                $email2 = new \SendGrid\Mail\Mail();
+                // $email2 = new \SendGrid\Mail\Mail();
 
-                $email2->setFrom("info@anticonceptivo.cl", 'anticonceptivo.cl');
-                $email2->setSubject('Cancelación Suscripción #' . $subscriptionsOrdersItem->subscription_id);
-                $email2->addTo("contacto@anticonceptivo.cl", 'Anticonceptivo');
+                // $email2->setFrom("info@anticonceptivo.cl", 'anticonceptivo.cl');
+                // $email2->setSubject('Cancelación Suscripción #' . $subscriptionsOrdersItem->subscription_id);
+                // $email2->addTo("contacto@anticonceptivo.cl", 'Anticonceptivo');
 
-                $email2->addContent(
-                    "text/html",
-                    $html2
-                );
+                // $email2->addContent(
+                //     "text/html",
+                //     $html2
+                // );
 
-                $sendgrid->send($email2);
+                // $sendgrid->send($email2);
 
 
-                $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
+                // $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
 
-                $html2 = view('emails.cancel_subscription', ['suscripcion' => $subscriptionsOrdersItem->subscription_id, 'nombre' => 'Equipo Anticonceptivo', 'customer' => $subscription->customer])->render();
+                // $html2 = view('emails.cancel_subscription', ['suscripcion' => $subscriptionsOrdersItem->subscription_id, 'nombre' => 'Equipo Anticonceptivo', 'customer' => $subscription->customer])->render();
 
-                $email2 = new \SendGrid\Mail\Mail();
+                // $email2 = new \SendGrid\Mail\Mail();
 
-                $email2->setFrom("info@anticonceptivo.cl", 'anticonceptivo.cl');
-                $email2->setSubject('Cancelación Suscripción #' . $subscriptionsOrdersItem->subscription_id);
-                $email2->addTo("fpenailillo@innovaweb.cl", 'Felipe Peñailillo');
+                // $email2->setFrom("info@anticonceptivo.cl", 'anticonceptivo.cl');
+                // $email2->setSubject('Cancelación Suscripción #' . $subscriptionsOrdersItem->subscription_id);
+                // $email2->addTo("fpenailillo@innovaweb.cl", 'Felipe Peñailillo');
 
-                $email2->addContent(
-                    "text/html",
-                    $html2
-                );
+                // $email2->addContent(
+                //     "text/html",
+                //     $html2
+                // );
 
-                $sendgrid->send($email2);
+                // $sendgrid->send($email2);
             } catch (\Exception $exception) {
             }
 
@@ -399,8 +399,6 @@ class ProfileController extends Controller
     public function setDispatchDateSubscription(Request $request)
     {
         try {
-            Log::info('setDispatchDateSubscription');
-
             DB::beginTransaction();
 
             $customer = Customer::find($request->customer_id);
@@ -409,17 +407,9 @@ class ProfileController extends Controller
                 return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_NOT_FOUND);
             }
 
-            Log::info('customer_id: ' . $customer->id);
-
             $new_dispatch_date = Carbon::parse($request->dispatch_date);
             $new_dispatch_date_start = $new_dispatch_date->copy()->startOfDay();
             $today_date = Carbon::now()->startOfDay();
-
-            Log::info('begin dates', [
-                'new_dispatch_date' => $new_dispatch_date,
-                'new_dispatch_date_start' => $new_dispatch_date_start,
-                'today_date' => $today_date
-            ]);
 
             if ($new_dispatch_date_start->eq($today_date)) {
                 return ApiResponse::JsonError(null, 'No se puede cambiar la fecha de despacho a la fecha actual.');
@@ -431,23 +421,20 @@ class ProfileController extends Controller
                 return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_SUBSCRIPTION_NOT_FOUND);
             }
 
-            Log::info('subscription_orders_item_id: ' . $subscription_orders_item->id);
+            if ($subscription_orders_item->is_pay == 1 && $subscription_orders_item->status == 'PAID') {
+                return ApiResponse::JsonError(null, 'No se puede cambiar la fecha de despacho de una suscripción que ya fue pagada.');
+            }
 
             $static_date = Carbon::parse($subscription_orders_item->origin_pay_date);
 
-            // if $static_date its between the time of day 00:30:00 and 23:59:59 we add 1 day to the static date and set the time in 00:00:00
-            if ($static_date->format('H:i:s') >= '00:30:00' && $static_date->format('H:i:s') <= '23:59:59') {
-                $static_date->addDay();
-                $static_date->setTime(0, 0, 0);
-            }
-
-            Log::info('static_date: ' . $static_date);
+            // if ($static_date->format('H:i:s') >= '00:30:00' && $static_date->format('H:i:s') <= '23:59:59') {
+            //     $static_date->addDay();
+            //     $static_date->setTime(0, 0, 0);
+            // }
 
             $diff = $new_dispatch_date->copy()->diffInDays($static_date);
 
-            Log::info('diff: ' . $diff);
-
-            if($diff > 10) {
+            if ($diff > 10) {
                 return ApiResponse::JsonError(null, 'La fecha de despacho no puede ser mayor a 10 días de la fecha de pago.');
             }
 
@@ -457,11 +444,6 @@ class ProfileController extends Controller
 
             $valid_dates = $this->getValidDates($static_date);
 
-            Log::info('dates before valid them: ' ,[
-                'valid_dates' => $valid_dates,
-                'new_dispatch_date' => $new_dispatch_date
-            ]);
-
             if (!in_array($new_dispatch_date, $valid_dates)) {
                 return ApiResponse::JsonError(null, 'La fecha de despacho no es válida.');
             }
@@ -469,62 +451,58 @@ class ProfileController extends Controller
             $subscription_orders_item->pay_date = $new_dispatch_date;
             $subscription_orders_item->save();
 
-            // now we need to update all the next subscription orders items with the new pay_date and origin_pay_date
-
             $subscription_orders_items = SubscriptionsOrdersItem::where('subscription_id', $subscription_orders_item->subscription_id)
                 ->where('order_parent_id', $subscription_orders_item->order_parent_id)
                 ->where('id', '>', $subscription_orders_item->id)
                 ->get();
 
-            Log::info('subscription_orders_items: ', [
-                'count' => $subscription_orders_items->count(),
-                'ids' => $subscription_orders_items->pluck('id')->toArray(),
-            ]);
+            foreach ($subscription_orders_items as $item) {
+                $item->pay_date = $new_dispatch_date->addDays($item->days);
+                $item->origin_pay_date = $item->origin_pay_date;
+                $item->save();
+            }
 
-            // the days difference is in product_subscription_plan property days
+            DB::commit();
 
-
-            // $subscriptions_orders_items = SubscriptionsOrdersItem::with('customer_address.commune')
-            //     ->where('order_id', $subscriptionsOrdersItem->order_id)
-            //     ->where('pay_date', $subscriptionsOrdersItem->pay_date)
-            //     ->get();
-
-            // $delivery_costs = DeliveryCost::where('active', 1)->get();
-            // $item_delivery_cost = null;
-
-            // foreach ($subscriptions_orders_items as $item) {
-            //     foreach ($delivery_costs as $delivery_cost) {
-            //         $costs = json_decode($delivery_cost->costs);
-            //         foreach ($costs as $item_cost) {
-            //             $communes = $item_cost->communes;
-
-            //             if (array_search($item->customer_address->commune->name, $communes) !== false) {
-            //                 $item_delivery_cost = $delivery_cost;
-            //             }
-            //         }
-            //     }
-
-            //     if (Carbon::parse($item->pay_date)->addHours($item_delivery_cost->deadline_delivery) >= $new_dispatch_date) {
-            //         return ApiResponse::JsonError(null, 'No se puede adelantar la fecha de despacho');
-            //         DB::rollBack();
-            //     }
-
-            //     $item->dispatch_date = $new_dispatch_date;
-            //     $item->save();
-            // }
-
-            // need to verify if the $request->dispatch_date is valid in the range of the subscription
-            // the range is provided by the subscription itself and its static_date
-            // then we need to create a range with static_date and it will be the range for changing the dispatch_date
-            // the range is static_date less 10 days and static_date plus 10 days
-            // if the $request->dispatch_date is not in the range or its the same date as today, then we need to return an error
-            // if the $request->dispatch_date is in the range, then we need to change the dispatch_date
-
-            DB::rollBack();
-            return ApiResponse::JsonError(null, 'Fin ciclo.');
-            // return ApiResponse::JsonSuccess($subscriptions_orders_items[0], OutputMessage::SUCCESS);
+            return ApiResponse::JsonSuccess([
+                // 'subscription_orders_item' => $subscription_orders_item,
+                'valid_dates' => $valid_dates
+            ], OutputMessage::SUCCESS);
         } catch (\Exception $exception) {
             DB::rollBack();
+            return ApiResponse::JsonError('Ha ocurrido un error al cambiar la fecha de despacho de la suscripción, por favor intente nuevamente. Si el error persiste, por favor contacte a soporte.', $exception->getMessage());
+        }
+    }
+
+    public function getValidDatesForDispatchDate(Request $request)
+    {
+        try{
+            $customer = Customer::find($request->customer_id);
+
+            if (!$customer) {
+                return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_NOT_FOUND);
+            }
+
+            $subscription_orders_item = SubscriptionsOrdersItem::find($request->subscription_order_item_id);
+
+            if (!$subscription_orders_item) {
+                return ApiResponse::NotFound(null, OutputMessage::CUSTOMER_SUBSCRIPTION_NOT_FOUND);
+            }
+
+            $static_date = Carbon::parse($subscription_orders_item->origin_pay_date);
+
+            // if ($static_date->format('H:i:s') >= '00:30:00' && $static_date->format('H:i:s') <= '23:59:59') {
+            //     $static_date->addDay();
+            //     $static_date->setTime(0, 0, 0);
+            // }
+
+            $valid_dates = $this->getValidDates($static_date);
+
+            return ApiResponse::JsonSuccess([
+                'valid_dates' => $valid_dates
+            ], OutputMessage::SUCCESS);
+
+        }catch (\Exception $exception){
             return ApiResponse::JsonError(null, $exception->getMessage());
         }
     }
@@ -545,6 +523,9 @@ class ProfileController extends Controller
         $diff = $start_date->diffInDays($end_date);
 
         for ($i = 0; $i <= $diff; $i++) {
+            // if ($start_date->copy()->addDays($i)->eq($static_date)) {
+            //     continue;
+            // }
             $valid_dates[] = $start_date->copy()->addDays($i);
         }
 

@@ -173,8 +173,8 @@ export const ENDPOINT = {
             SET_ADDRESS_SUBSCRIPTION: GetBaseURL() + 'customer/set-address-subscription',
             SET_CARD_SUBSCRIPTION: GetBaseURL() + 'customer/set-card-subscription',
             SET_DISPATCH_DATE_SUBSCRIPTION: GetBaseURL() + 'customer/set-dispatch-date-subscription',
-            SET_CANCEL_SUBSCRIPTION: GetBaseURL() + 'customer/cancel-subscription-item'
-
+            SET_CANCEL_SUBSCRIPTION: GetBaseURL() + 'customer/cancel-subscription-item',
+            GET_VALID_DATES_FOR_DISPATCH_DATE: GetBaseURL() + 'customer/get-valid-dates-for-dispatch-date',
         },
         ORDERS: {
             GET: GetBaseURL() + 'customer/get-orders',
