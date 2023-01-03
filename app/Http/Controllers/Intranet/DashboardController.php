@@ -187,7 +187,7 @@ class DashboardController extends Controller
         $start = $request->start . ' 00:00:00';
         $end = $request->end . ' 23:59:59';
 
-        $total = OrderItem::whereHas('order', function ($o) use ($start, $end) {
+        $total = OrderItem::whereHas('subscription_plan')->whereHas('order', function ($o) use ($start, $end) {
             $o->whereBetween('created_at', [$start, $end])
             ->whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED']);
         })->sum('quantity');
@@ -195,8 +195,7 @@ class DashboardController extends Controller
         $subscriptions = [
            '4',
             '6',
-            '12',
-            'Sin suscripción'
+            '12'
         ];
 
         $array_percentage = [];
@@ -204,26 +203,20 @@ class DashboardController extends Controller
         $array_subscriptions = $subscriptions;
 
         foreach($subscriptions as $subscription){
-            if($subscription != 'Sin suscripción'){
-                $products = OrderItem::whereHas('subscription_plan', function ($p) use ($subscription) {
-                    $p->where('months', $subscription);
-                })->whereHas('order', function ($o) use ($start, $end) {
-                    $o->whereBetween('created_at', [$start, $end])
-                    ->whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED']);
-                })->sum('quantity');
+            $products = OrderItem::whereHas('subscription_plan', function ($p) use ($subscription) {
+                $p->where('cicles', $subscription);
+            })->whereHas('order', function ($o) use ($start, $end) {
+                $o->whereBetween('created_at', [$start, $end])
+                ->whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED']);
+            })->sum('quantity');
 
-                if($products > 0 && $total > 0){
-                    $count = round($products / $total * 100);
-                } else {
-                    $count = 0;
-                }
-                array_push($array_percentage, $count);
-                array_push($array_count, $products);
-
+            if($products > 0 && $total > 0){
+                $count = round($products / $total * 100);
             } else {
-                array_push($array_percentage, 100 - round(array_sum($array_percentage)));
-                array_push($array_count, $total - array_sum($array_count));
+                $count = 0;
             }
+            array_push($array_percentage, $count);
+            array_push($array_count, $products);
         }
 
         return response()->json(['names' => $array_subscriptions, 'percentage' => $array_percentage, 'count' => $array_count], 200);

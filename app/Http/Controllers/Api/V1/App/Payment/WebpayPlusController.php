@@ -771,22 +771,20 @@ class WebpayPlusController
 
     private function sendEmailErrorAiloo($order)
     {
-        $users = User::whereIn('id', [2, 9])->get();
         $labelUser = Customer::find($order->customer_id) ? Customer::find($order->customer_id)->id_number : 'invitado';
         Log::info('Error Ailoo en proceso de pago, usuario con rut ' . $labelUser);
-        foreach ($users as $user) {
-            $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
-            $html = view('emails.ailoo-general-error', ['user_name' => $user->first_name, 'labelUser' => $labelUser])->render();
-            $email = new \SendGrid\Mail\Mail();
-            $email->setFrom("info@anticonceptivo.cl", 'anticonceptivo.cl');
-            $email->setSubject('Error comunicación Ailoo');
-            $email->addTo($user->email, $user->first_name);
-            $email->addContent(
-                "text/html",
-                $html
-            );
-            $sendgrid->send($email);
-        }
+
+        $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
+        $html = view('emails.ailoo-general-error', ['user_name' => $user->first_name, 'labelUser' => $labelUser])->render();
+        $email = new \SendGrid\Mail\Mail();
+        $email->setFrom("info@anticonceptivo.cl", 'anticonceptivo.cl');
+        $email->setSubject('Error comunicación Ailoo');
+        $email->addTo('contacto@anticonceptivo.cl', 'anticonceptivo.cl');
+        $email->addContent(
+            "text/html",
+            $html
+        );
+        $sendgrid->send($email);
     }
 
     private function updateDiscountCode($discount_code)

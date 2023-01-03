@@ -210,20 +210,16 @@ class PaySubscriptions extends Command
 
             $sendgrid->send($email);
 
-            $users = User::where('id', '!=', 1)->get();
-
-            foreach ($users as $user) {
-                $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
-                $email = new \SendGrid\Mail\Mail();
-                $email->setFrom("info@anticonceptivo.cl", 'anticonceptivo.cl');
-                $email->setSubject($type == 'PAYMENT' ? 'Actualizar el método de pago suscripción' : 'No tiene dirección de despacho asignada');
-                $email->addTo($user->email, $user->first_name);
-                $email->addContent(
-                    "text/html",
-                    $html
-                );
-                $sendgrid->send($email);
-            }
+            $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
+            $email = new \SendGrid\Mail\Mail();
+            $email->setFrom("info@anticonceptivo.cl", 'anticonceptivo.cl');
+            $email->setSubject($type == 'PAYMENT' ? 'Actualizar el método de pago suscripción' : 'No tiene dirección de despacho asignada');
+            $email->addTo('contacto@anticonceptivo.cl', 'anticonceptivo.cl');
+            $email->addContent(
+                "text/html",
+                $html
+            );
+            $sendgrid->send($email);
         }
     }
 
@@ -988,21 +984,17 @@ class PaySubscriptions extends Command
 
             $sendgrid->send($email);
 
-
-            $users = User::where('id', '!=', 1)->get();
-            foreach ($users as $user) {
-                $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
-                $html = view('emails.pay_rejected', ['full_name' => $customer->first_name, 'id_number' => $customer->id_number, 'stringProduct' => $stringProduct])->render();
-                $email = new \SendGrid\Mail\Mail();
-                $email->setFrom("info@anticonceptivo.cl", 'anticonceptivo.cl');
-                $email->setSubject('Actualizar el método de pago suscripción');
-                $email->addTo($user->email, $user->first_name);
-                $email->addContent(
-                    "text/html",
-                    $html
-                );
-                $sendgrid->send($email);
-            }
+            $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
+            $html = view('emails.pay_rejected', ['full_name' => $customer->first_name, 'id_number' => $customer->id_number, 'stringProduct' => $stringProduct])->render();
+            $email = new \SendGrid\Mail\Mail();
+            $email->setFrom("info@anticonceptivo.cl", 'anticonceptivo.cl');
+            $email->setSubject('Actualizar el método de pago suscripción');
+            $email->addTo('contacto@anticonceptivo.cl', 'anticonceptivo.cl');
+            $email->addContent(
+                "text/html",
+                $html
+            );
+            $sendgrid->send($email);
         }
     }
 
