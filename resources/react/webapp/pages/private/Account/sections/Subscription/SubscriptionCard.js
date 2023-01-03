@@ -406,8 +406,8 @@ const SubscriptionCard = ({
                                             </div>
 
                                             <div className="col-12 d-flex flex-row">
-                                                <h1 className="text-truncate p-0 subscription-card-label">Nº Pedido</h1>
-                                                <h1 className="ml-2 text-truncate p-0 subscription-card-value">{item.subscription_item.order_parent_id}</h1>
+                                                <h1 className="text-truncate p-0 subscription-card-label">Nº Suscripción</h1>
+                                                <h1 className="ml-2 text-truncate p-0 subscription-card-value">{item.subscription_item.subscription_id}</h1>
                                             </div>
 
                                             <div className="col-12 col-sm-6 col-xl-4 d-flex flex-row">
