@@ -381,6 +381,11 @@
 <script type="text/javascript">
 
     $(function () {
+
+        Chart.defaults.global.defaultFontColor = 'back';
+        Chart.defaults.global.defaultFontStyle = '700';
+        Chart.defaults.global.defaultFontSize = 15;
+
         var end = moment();
         var start = moment().startOf('month');
 
@@ -1030,8 +1035,6 @@
             return b.percentage_temp-a.percentage_temp;
         });
 
-        console.log(sortedArrayOfObj)
-
         var new_names = [];
         var new_count = [];
         var new_percentage = [];
@@ -1072,18 +1075,21 @@
             options: {
                 responsive: true,
                 scales: {
+                    pointLabels :{
+                        fontStyle: "bold",
+                    },
                     xAxes: [
                         {
                             display: true, 
                             stacked:false,
                             ticks: {
-                                beginAtZero: true
-                            }
+                                beginAtZero: true,
+                            },
                         }
                     ],
                     yAxes: [{
                         ticks: {
-                            beginAtZero: true
+                            beginAtZero: true,
                         },
                         type:'linear',
                         id:'left-axis',
@@ -1104,7 +1110,7 @@
                         display: true,
                         position: 'right',
                         ticks: {
-                            beginAtZero: true
+                            beginAtZero: true,
                         },
                         scaleLabel: {display: true, labelString: '%'},
                         gridLines: {drawOnChartArea:false},
