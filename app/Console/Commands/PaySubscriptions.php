@@ -452,269 +452,269 @@ class PaySubscriptions extends Command
 
     public function handle()
     {
-        try {
-            Log::info('-------------------------- OLD HANDLE ----------------------');
-            DB::beginTransaction();
-            $datePayment = Carbon::now();
-            $customers = Customer::all();
+        // try {
+            // Log::info('-------------------------- OLD HANDLE ----------------------');
+            // DB::beginTransaction();
+            // $datePayment = Carbon::now();
+            // $customers = Customer::all();
 
-            foreach ($customers as $customer) {
-                $subscriptionsOrdersItems = SubscriptionsOrdersItem::whereHas('order_parent', function ($q) use ($customer) {
-                    $q->whereNotIn('status', ['REJECTED', 'CREATED'])->where('customer_id', $customer->id);
-                })
-                    ->where('active', 1)
-                    ->whereIn('status', ['CREATED', 'REJECTED'])
-                    ->where('payment_attempt', '<', 10)
-                    ->whereDate('pay_date', '<=', $datePayment)
-                    ->whereNotNull('subscription_id')
-                    ->with(['order_item.product', 'subscription', 'order.order_items', 'order_item.subscription_plan', 'order.customer', 'customer_address.commune'])
-                    ->select('id', 'payment_attempt', 'order_parent_id as order_id', 'subtotal', 'name', 'orders_item_id', 'price', 'quantity', 'subscription_id', 'delivery_address', 'customer_address_id', 'pay_date', 'dispatch_date', 'status', 'is_pay', 'free_shipping', 'period')
-                    ->orderBy('order_parent_id')->orderBy('pay_date')
-                    ->get();
+            // foreach ($customers as $customer) {
+            //     $subscriptionsOrdersItems = SubscriptionsOrdersItem::whereHas('order_parent', function ($q) use ($customer) {
+            //         $q->whereNotIn('status', ['REJECTED', 'CREATED'])->where('customer_id', $customer->id);
+            //     })
+            //         ->where('active', 1)
+            //         ->whereIn('status', ['CREATED', 'REJECTED'])
+            //         ->where('payment_attempt', '<', 10)
+            //         ->whereDate('pay_date', '<=', $datePayment)
+            //         ->whereNotNull('subscription_id')
+            //         ->with(['order_item.product', 'subscription', 'order.order_items', 'order_item.subscription_plan', 'order.customer', 'customer_address.commune'])
+            //         ->select('id', 'payment_attempt', 'order_parent_id as order_id', 'subtotal', 'name', 'orders_item_id', 'price', 'quantity', 'subscription_id', 'delivery_address', 'customer_address_id', 'pay_date', 'dispatch_date', 'status', 'is_pay', 'free_shipping', 'period')
+            //         ->orderBy('order_parent_id')->orderBy('pay_date')
+            //         ->get();
 
-                $prev_order_id = null;
-                $prev_pay_date = null;
-                $prev_item = null;
-                $total = 0;
-                $array_item = [];
-                foreach ($subscriptionsOrdersItems as $item) {
-                    session()->forget('free_dispatch');
-                    if (($prev_order_id != $item->order->id || $prev_pay_date != $item->pay_date) && $prev_item != null) {
-                        if ($item->free_shipping == 0) {
-                            $dispatch = $prev_item->customer_address ? $this->getDeliveryCost($prev_item->customer_address->commune->name)['price_dispatch'] : 0;
-                            session()->put('free_dispatch', false);
-                        } else {
-                            $dispatch = 0;
-                            session()->put('free_dispatch', true);
-                        }
-                        $total = $total + $dispatch;
-                        $order = new Order();
-                        $order->dispatch = $dispatch;
-                        $order->total = $total;
-                        $order->save();
-                        $details = [
-                            [
-                                "commerce_code" => $this->commerce_code,
-                                "buy_order" => $order->id,
-                                "amount" =>  $total,
-                                "installments_number" => 1
-                            ]
-                        ];
+            //     $prev_order_id = null;
+            //     $prev_pay_date = null;
+            //     $prev_item = null;
+            //     $total = 0;
+            //     $array_item = [];
+            //     foreach ($subscriptionsOrdersItems as $item) {
+            //         session()->forget('free_dispatch');
+            //         if (($prev_order_id != $item->order->id || $prev_pay_date != $item->pay_date) && $prev_item != null) {
+            //             if ($item->free_shipping == 0) {
+            //                 $dispatch = $prev_item->customer_address ? $this->getDeliveryCost($prev_item->customer_address->commune->name)['price_dispatch'] : 0;
+            //                 session()->put('free_dispatch', false);
+            //             } else {
+            //                 $dispatch = 0;
+            //                 session()->put('free_dispatch', true);
+            //             }
+            //             $total = $total + $dispatch;
+            //             $order = new Order();
+            //             $order->dispatch = $dispatch;
+            //             $order->total = $total;
+            //             $order->save();
+            //             $details = [
+            //                 [
+            //                     "commerce_code" => $this->commerce_code,
+            //                     "buy_order" => $order->id,
+            //                     "amount" =>  $total,
+            //                     "installments_number" => 1
+            //                 ]
+            //             ];
 
-                        $response = $this->oneclick->authorize($customer->id, $prev_item->subscription->transbank_token, $order->id, $details);
-                        $total = 0;
+            //             $response = $this->oneclick->authorize($customer->id, $prev_item->subscription->transbank_token, $order->id, $details);
+            //             $total = 0;
 
-                        if ($response['status'] == "success") {
-                            if ($response['response']->details[0]->status != 'AUTHORIZED') {
+            //             if ($response['status'] == "success") {
+            //                 if ($response['response']->details[0]->status != 'AUTHORIZED') {
 
-                                Log::info(
-                                    'OneClick',
-                                    [
-                                        "response" => $response,
-                                        "message" => "No se pudo cobrar la suscripción"
-                                    ]
-                                );
+            //                     Log::info(
+            //                         'OneClick',
+            //                         [
+            //                             "response" => $response,
+            //                             "message" => "No se pudo cobrar la suscripción"
+            //                         ]
+            //                     );
 
-                                foreach ($array_item as $sub_order_item) {
-                                    $sub_order_item->status = 'REJECTED';
-                                    $sub_order_item->payment_attempt = $sub_order_item->payment_attempt + 1;
-                                    if ($sub_order_item->payment_attempt == 3 || $sub_order_item->payment_attempt == 6 || $sub_order_item->payment_attempt == 9) {
-                                        $this->sendEmailPayRejected(collect($array_item), $customer);
-                                    }
-                                    if ($sub_order_item->payment_attempt == 10) {
-                                        $productId = $sub_order_item->order_item->product_id;
-                                        $subscriptionsOrdersItemsTMP = SubscriptionsOrdersItem::where('order_parent_id', $sub_order_item->order_id)
-                                            ->whereHas('order_item', function ($q) use ($productId) {
-                                                $q->where('product_id', $productId);
-                                            })
-                                            ->get();
-                                        foreach ($subscriptionsOrdersItemsTMP as $item) {
-                                            $item->active = 0;
-                                            $item->save();
-                                        }
-                                    }
-                                    $sub_order_item->pay_date = Carbon::now()->addDay();
-                                    $sub_order_item->dispatch_date = Carbon::now()->addDays(2);
-                                    $sub_order_item->is_pay = 0;
-                                    $sub_order_item->order_id = $order->id;
-                                    $sub_order_item->save();
+            //                     foreach ($array_item as $sub_order_item) {
+            //                         $sub_order_item->status = 'REJECTED';
+            //                         $sub_order_item->payment_attempt = $sub_order_item->payment_attempt + 1;
+            //                         if ($sub_order_item->payment_attempt == 3 || $sub_order_item->payment_attempt == 6 || $sub_order_item->payment_attempt == 9) {
+            //                             $this->sendEmailPayRejected(collect($array_item), $customer);
+            //                         }
+            //                         if ($sub_order_item->payment_attempt == 10) {
+            //                             $productId = $sub_order_item->order_item->product_id;
+            //                             $subscriptionsOrdersItemsTMP = SubscriptionsOrdersItem::where('order_parent_id', $sub_order_item->order_id)
+            //                                 ->whereHas('order_item', function ($q) use ($productId) {
+            //                                     $q->where('product_id', $productId);
+            //                                 })
+            //                                 ->get();
+            //                             foreach ($subscriptionsOrdersItemsTMP as $item) {
+            //                                 $item->active = 0;
+            //                                 $item->save();
+            //                             }
+            //                         }
+            //                         $sub_order_item->pay_date = Carbon::now()->addDay();
+            //                         $sub_order_item->dispatch_date = Carbon::now()->addDays(2);
+            //                         $sub_order_item->is_pay = 0;
+            //                         $sub_order_item->order_id = $order->id;
+            //                         $sub_order_item->save();
 
-                                    $order->status = 'REJECTED';
-                                    $order->comments = 'Suscripción Transbank Fallida';
-                                    $order->save();
-                                }
-                            } else {
-                                Log::info(
-                                    'OneClick',
-                                    [
-                                        "response" => $response,
-                                        "message" => "Se cobro la orden "
-                                    ]
-                                );
+            //                         $order->status = 'REJECTED';
+            //                         $order->comments = 'Suscripción Transbank Fallida';
+            //                         $order->save();
+            //                     }
+            //                 } else {
+            //                     Log::info(
+            //                         'OneClick',
+            //                         [
+            //                             "response" => $response,
+            //                             "message" => "Se cobro la orden "
+            //                         ]
+            //                     );
 
-                                $this->sendCallIntegration(collect($array_item), $order);
-                            }
-                        } else {
-                            foreach ($array_item as $sub_order_item) {
-                                $sub_order_item->status = 'REJECTED';
-                                $sub_order_item->payment_attempt = $sub_order_item->payment_attempt + 1;
-                                if ($sub_order_item->payment_attempt == 3 || $sub_order_item->payment_attempt == 6 || $sub_order_item->payment_attempt == 9) {
-                                    $this->sendEmailPayRejected(collect($array_item), $customer);
-                                }
-                                if ($sub_order_item->payment_attempt == 10) {
-                                    $productId = $sub_order_item->order_item->product_id;
-                                    $subscriptionsOrdersItemsTMP = SubscriptionsOrdersItem::where('order_parent_id', $sub_order_item->order_id)
-                                        ->whereHas('order_item', function ($q) use ($productId) {
-                                            $q->where('product_id', $productId);
-                                        })
-                                        ->get();
-                                    foreach ($subscriptionsOrdersItemsTMP as $item) {
-                                        $item->active = 0;
-                                        $item->save();
-                                    }
-                                }
-                                $sub_order_item->pay_date = Carbon::now()->addDay();
-                                $sub_order_item->dispatch_date = Carbon::now()->addDays(2);
-                                $sub_order_item->is_pay = 0;
-                                $sub_order_item->order_id = $order->id;
-                                $sub_order_item->save();
+            //                     $this->sendCallIntegration(collect($array_item), $order);
+            //                 }
+            //             } else {
+            //                 foreach ($array_item as $sub_order_item) {
+            //                     $sub_order_item->status = 'REJECTED';
+            //                     $sub_order_item->payment_attempt = $sub_order_item->payment_attempt + 1;
+            //                     if ($sub_order_item->payment_attempt == 3 || $sub_order_item->payment_attempt == 6 || $sub_order_item->payment_attempt == 9) {
+            //                         $this->sendEmailPayRejected(collect($array_item), $customer);
+            //                     }
+            //                     if ($sub_order_item->payment_attempt == 10) {
+            //                         $productId = $sub_order_item->order_item->product_id;
+            //                         $subscriptionsOrdersItemsTMP = SubscriptionsOrdersItem::where('order_parent_id', $sub_order_item->order_id)
+            //                             ->whereHas('order_item', function ($q) use ($productId) {
+            //                                 $q->where('product_id', $productId);
+            //                             })
+            //                             ->get();
+            //                         foreach ($subscriptionsOrdersItemsTMP as $item) {
+            //                             $item->active = 0;
+            //                             $item->save();
+            //                         }
+            //                     }
+            //                     $sub_order_item->pay_date = Carbon::now()->addDay();
+            //                     $sub_order_item->dispatch_date = Carbon::now()->addDays(2);
+            //                     $sub_order_item->is_pay = 0;
+            //                     $sub_order_item->order_id = $order->id;
+            //                     $sub_order_item->save();
 
-                                $order->status = 'REJECTED';
-                                $order->comments = 'Suscripción Transbank Fallida';
-                                $order->save();
-                            }
-                        }
-                        $array_item = [];
-                    }
-                    $total += $item->price * $item->quantity;
-                    $prev_order_id = $item->order->id;
-                    $prev_pay_date = $item->pay_date;
-                    $prev_item = $item;
-                    array_push($array_item, $item);
-                }
+            //                     $order->status = 'REJECTED';
+            //                     $order->comments = 'Suscripción Transbank Fallida';
+            //                     $order->save();
+            //                 }
+            //             }
+            //             $array_item = [];
+            //         }
+            //         $total += $item->price * $item->quantity;
+            //         $prev_order_id = $item->order->id;
+            //         $prev_pay_date = $item->pay_date;
+            //         $prev_item = $item;
+            //         array_push($array_item, $item);
+            //     }
 
-                if (count($subscriptionsOrdersItems) > 0) {
-                    session()->forget('free_dispatch');
-                    if ($prev_item->free_shipping == 0) {
-                        if ($prev_item->customer_address) {
-                            $dispatch = $this->getDeliveryCost($prev_item->customer_address->commune->name)['price_dispatch'];
-                            session()->put('free_dispatch', false);
-                        } else {
-                            $dispatch = 0;
-                        }
-                    } else {
-                        $dispatch = 0;
-                        session()->put('free_dispatch', true);
-                    }
-                    $total = $total + $dispatch;
-                    $order = new Order();
-                    $order->dispatch = $dispatch;
-                    $order->total = $total;
-                    $order->save();
-                    $details = [
-                        [
-                            "commerce_code" => $this->commerce_code,
-                            "buy_order" => $order->id,
-                            "amount" =>  $total,
-                            "installments_number" => 1
-                        ]
-                    ];
+            //     if (count($subscriptionsOrdersItems) > 0) {
+            //         session()->forget('free_dispatch');
+            //         if ($prev_item->free_shipping == 0) {
+            //             if ($prev_item->customer_address) {
+            //                 $dispatch = $this->getDeliveryCost($prev_item->customer_address->commune->name)['price_dispatch'];
+            //                 session()->put('free_dispatch', false);
+            //             } else {
+            //                 $dispatch = 0;
+            //             }
+            //         } else {
+            //             $dispatch = 0;
+            //             session()->put('free_dispatch', true);
+            //         }
+            //         $total = $total + $dispatch;
+            //         $order = new Order();
+            //         $order->dispatch = $dispatch;
+            //         $order->total = $total;
+            //         $order->save();
+            //         $details = [
+            //             [
+            //                 "commerce_code" => $this->commerce_code,
+            //                 "buy_order" => $order->id,
+            //                 "amount" =>  $total,
+            //                 "installments_number" => 1
+            //             ]
+            //         ];
 
-                    $response = $this->oneclick->authorize($customer->id, $prev_item->subscription->transbank_token, $order->id, $details);
+            //         $response = $this->oneclick->authorize($customer->id, $prev_item->subscription->transbank_token, $order->id, $details);
 
-                    if ($response['status'] == "success") {
-                        if ($response['response']->details[0]->status != 'AUTHORIZED') {
-                            Log::info(
-                                'OneClick',
-                                [
-                                    "response" => $response,
-                                    "message" => "No se pudo cobrar la subscripcion"
-                                ]
-                            );
+            //         if ($response['status'] == "success") {
+            //             if ($response['response']->details[0]->status != 'AUTHORIZED') {
+            //                 Log::info(
+            //                     'OneClick',
+            //                     [
+            //                         "response" => $response,
+            //                         "message" => "No se pudo cobrar la subscripcion"
+            //                     ]
+            //                 );
 
-                            foreach ($array_item as $sub_order_item) {
-                                $sub_order_item->status = 'REJECTED';
-                                $sub_order_item->payment_attempt = $sub_order_item->payment_attempt + 1;
-                                if ($sub_order_item->payment_attempt == 3 || $sub_order_item->payment_attempt == 6 || $sub_order_item->payment_attempt == 9) {
-                                    $this->sendEmailPayRejected(collect($array_item), $customer);
-                                }
-                                if ($sub_order_item->payment_attempt == 10) {
-                                    $productId = $sub_order_item->order_item->product_id;
-                                    $subscriptionsOrdersItemsTMP = SubscriptionsOrdersItem::where('order_parent_id', $sub_order_item->order_id)
-                                        ->whereHas('order_item', function ($q) use ($productId) {
-                                            $q->where('product_id', $productId);
-                                        })
-                                        ->get();
-                                    foreach ($subscriptionsOrdersItemsTMP as $item) {
-                                        $item->active = 0;
-                                        $item->save();
-                                    }
-                                }
-                                $sub_order_item->pay_date = Carbon::now()->addDay();
-                                $sub_order_item->dispatch_date = Carbon::now()->addDays(2);
-                                $sub_order_item->is_pay = 0;
-                                $sub_order_item->order_id = $order->id;
-                                $sub_order_item->save();
+            //                 foreach ($array_item as $sub_order_item) {
+            //                     $sub_order_item->status = 'REJECTED';
+            //                     $sub_order_item->payment_attempt = $sub_order_item->payment_attempt + 1;
+            //                     if ($sub_order_item->payment_attempt == 3 || $sub_order_item->payment_attempt == 6 || $sub_order_item->payment_attempt == 9) {
+            //                         $this->sendEmailPayRejected(collect($array_item), $customer);
+            //                     }
+            //                     if ($sub_order_item->payment_attempt == 10) {
+            //                         $productId = $sub_order_item->order_item->product_id;
+            //                         $subscriptionsOrdersItemsTMP = SubscriptionsOrdersItem::where('order_parent_id', $sub_order_item->order_id)
+            //                             ->whereHas('order_item', function ($q) use ($productId) {
+            //                                 $q->where('product_id', $productId);
+            //                             })
+            //                             ->get();
+            //                         foreach ($subscriptionsOrdersItemsTMP as $item) {
+            //                             $item->active = 0;
+            //                             $item->save();
+            //                         }
+            //                     }
+            //                     $sub_order_item->pay_date = Carbon::now()->addDay();
+            //                     $sub_order_item->dispatch_date = Carbon::now()->addDays(2);
+            //                     $sub_order_item->is_pay = 0;
+            //                     $sub_order_item->order_id = $order->id;
+            //                     $sub_order_item->save();
 
-                                $order->status = 'REJECTED';
-                                $order->comments = 'Suscripción Transbank Fallida';
-                                $order->save();
-                            }
-                        } else {
-                            Log::info(
-                                'OneClick',
-                                [
-                                    "response" => $response,
-                                    "message" => "Se cobro la orden "
-                                ]
-                            );
+            //                     $order->status = 'REJECTED';
+            //                     $order->comments = 'Suscripción Transbank Fallida';
+            //                     $order->save();
+            //                 }
+            //             } else {
+            //                 Log::info(
+            //                     'OneClick',
+            //                     [
+            //                         "response" => $response,
+            //                         "message" => "Se cobro la orden "
+            //                     ]
+            //                 );
 
-                            $this->sendCallIntegration(collect($array_item), $order);
-                        }
-                    } else {
-                        foreach ($array_item as $sub_order_item) {
-                            $sub_order_item->status = 'REJECTED';
-                            $sub_order_item->payment_attempt = $sub_order_item->payment_attempt + 1;
-                            if ($sub_order_item->payment_attempt == 3 || $sub_order_item->payment_attempt == 6 || $sub_order_item->payment_attempt == 9) {
-                                $this->sendEmailPayRejected(collect($array_item), $customer);
-                            }
-                            if ($sub_order_item->payment_attempt == 10) {
-                                $productId = $sub_order_item->order_item->product_id;
-                                $subscriptionsOrdersItemsTMP = SubscriptionsOrdersItem::where('order_parent_id', $sub_order_item->order_id)
-                                    ->whereHas('order_item', function ($q) use ($productId) {
-                                        $q->where('product_id', $productId);
-                                    })
-                                    ->get();
-                                foreach ($subscriptionsOrdersItemsTMP as $item) {
-                                    $item->active = 0;
-                                    $item->save();
-                                }
-                            }
-                            $sub_order_item->pay_date = Carbon::now()->addDay();
-                            $sub_order_item->dispatch_date = Carbon::now()->addDays(2);
-                            $sub_order_item->is_pay = 0;
-                            $sub_order_item->order_id = $order->id;
-                            $sub_order_item->save();
+            //                 $this->sendCallIntegration(collect($array_item), $order);
+            //             }
+            //         } else {
+            //             foreach ($array_item as $sub_order_item) {
+            //                 $sub_order_item->status = 'REJECTED';
+            //                 $sub_order_item->payment_attempt = $sub_order_item->payment_attempt + 1;
+            //                 if ($sub_order_item->payment_attempt == 3 || $sub_order_item->payment_attempt == 6 || $sub_order_item->payment_attempt == 9) {
+            //                     $this->sendEmailPayRejected(collect($array_item), $customer);
+            //                 }
+            //                 if ($sub_order_item->payment_attempt == 10) {
+            //                     $productId = $sub_order_item->order_item->product_id;
+            //                     $subscriptionsOrdersItemsTMP = SubscriptionsOrdersItem::where('order_parent_id', $sub_order_item->order_id)
+            //                         ->whereHas('order_item', function ($q) use ($productId) {
+            //                             $q->where('product_id', $productId);
+            //                         })
+            //                         ->get();
+            //                     foreach ($subscriptionsOrdersItemsTMP as $item) {
+            //                         $item->active = 0;
+            //                         $item->save();
+            //                     }
+            //                 }
+            //                 $sub_order_item->pay_date = Carbon::now()->addDay();
+            //                 $sub_order_item->dispatch_date = Carbon::now()->addDays(2);
+            //                 $sub_order_item->is_pay = 0;
+            //                 $sub_order_item->order_id = $order->id;
+            //                 $sub_order_item->save();
 
-                            $order->status = 'REJECTED';
-                            $order->comments = 'Suscripción Transbank Fallida';
-                            $order->save();
-                        }
-                    }
+            //                 $order->status = 'REJECTED';
+            //                 $order->comments = 'Suscripción Transbank Fallida';
+            //                 $order->save();
+            //             }
+            //         }
 
-                    $array_item = [];
-                }
-            }
+            //         $array_item = [];
+            //     }
+            // }
 
-            DB::rollBack();
-            Log::info('-------------------------- OLD HANDLE ----------------------');
+            // DB::rollBack();
+            // Log::info('-------------------------- OLD HANDLE ----------------------');
             // execute the public functiuon handleV2
             $this->handleV2();
-        } catch (\Exception $ex) {
-            DB::rollBack();
-            Log::info('Exception: ' . $ex->getMessage());
-            Log::info('-------------------------- OLD HANDLE ----------------------');
-        }
+        // } catch (\Exception $ex) {
+        //     DB::rollBack();
+        //     Log::info('Exception: ' . $ex->getMessage());
+        //     Log::info('-------------------------- OLD HANDLE ----------------------');
+        // }
     }
 
     private function sendCallIntegration($array_subscription_order_items, $order)
