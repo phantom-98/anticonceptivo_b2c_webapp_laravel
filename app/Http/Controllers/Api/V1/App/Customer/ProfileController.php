@@ -351,42 +351,44 @@ class ProfileController extends Controller
             }
 
             try {
-                // $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
+                if (env('APP_ENV') == 'production') {
+                    $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
 
-                // $subscription = Subscription::with('customer')->find($subscriptionsOrdersItem->subscription_id);
+                    $subscription = Subscription::with('customer')->find($subscriptionsOrdersItem->subscription_id);
 
-                // $html2 = view('emails.cancel_subscription', ['suscripcion' => $subscriptionsOrdersItem->subscription_id, 'nombre' => 'Equipo Anticonceptivo', 'customer' => $subscription->customer])->render();
+                    $html2 = view('emails.cancel_subscription', ['suscripcion' => $subscriptionsOrdersItem->subscription_id, 'nombre' => 'Equipo Anticonceptivo', 'customer' => $subscription->customer])->render();
 
-                // $email2 = new \SendGrid\Mail\Mail();
+                    $email2 = new \SendGrid\Mail\Mail();
 
-                // $email2->setFrom("info@anticonceptivo.cl", 'anticonceptivo.cl');
-                // $email2->setSubject('Cancelación Suscripción #' . $subscriptionsOrdersItem->subscription_id);
-                // $email2->addTo("contacto@anticonceptivo.cl", 'Anticonceptivo');
+                    $email2->setFrom("info@anticonceptivo.cl", 'anticonceptivo.cl');
+                    $email2->setSubject('Cancelación Suscripción #' . $subscriptionsOrdersItem->subscription_id);
+                    $email2->addTo("contacto@anticonceptivo.cl", 'Anticonceptivo');
 
-                // $email2->addContent(
-                //     "text/html",
-                //     $html2
-                // );
+                    $email2->addContent(
+                        "text/html",
+                        $html2
+                    );
 
-                // $sendgrid->send($email2);
+                    $sendgrid->send($email2);
 
 
-                // $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
+                    $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
 
-                // $html2 = view('emails.cancel_subscription', ['suscripcion' => $subscriptionsOrdersItem->subscription_id, 'nombre' => 'Equipo Anticonceptivo', 'customer' => $subscription->customer])->render();
+                    $html2 = view('emails.cancel_subscription', ['suscripcion' => $subscriptionsOrdersItem->subscription_id, 'nombre' => 'Equipo Anticonceptivo', 'customer' => $subscription->customer])->render();
 
-                // $email2 = new \SendGrid\Mail\Mail();
+                    $email2 = new \SendGrid\Mail\Mail();
 
-                // $email2->setFrom("info@anticonceptivo.cl", 'anticonceptivo.cl');
-                // $email2->setSubject('Cancelación Suscripción #' . $subscriptionsOrdersItem->subscription_id);
-                // $email2->addTo("fpenailillo@innovaweb.cl", 'Felipe Peñailillo');
+                    $email2->setFrom("info@anticonceptivo.cl", 'anticonceptivo.cl');
+                    $email2->setSubject('Cancelación Suscripción #' . $subscriptionsOrdersItem->subscription_id);
+                    $email2->addTo("fpenailillo@innovaweb.cl", 'Felipe Peñailillo');
 
-                // $email2->addContent(
-                //     "text/html",
-                //     $html2
-                // );
+                    $email2->addContent(
+                        "text/html",
+                        $html2
+                    );
 
-                // $sendgrid->send($email2);
+                    $sendgrid->send($email2);
+                }
             } catch (\Exception $exception) {
             }
 
@@ -442,13 +444,14 @@ class ProfileController extends Controller
                 return ApiResponse::JsonError(null, 'La fecha de despacho no puede ser menor a 10 días de la fecha de pago.');
             }
 
-            $valid_dates = $this->getValidDates($static_date);
+            $valid_dates = $this->getValidDates($static_date->setTime(0, 0, 0));
 
             if (!in_array($new_dispatch_date, $valid_dates)) {
                 return ApiResponse::JsonError(null, 'La fecha de despacho no es válida.');
             }
 
             $subscription_orders_item->pay_date = $new_dispatch_date;
+            $subscription_orders_item->dispatch_date = $new_dispatch_date;
             $subscription_orders_item->save();
 
             $subscription_orders_items = SubscriptionsOrdersItem::where('subscription_id', $subscription_orders_item->subscription_id)
@@ -458,11 +461,13 @@ class ProfileController extends Controller
 
             foreach ($subscription_orders_items as $item) {
                 $item->pay_date = $new_dispatch_date->addDays($item->days);
+                $item->dispatch_date = $item->pay_date;
                 $item->origin_pay_date = $item->origin_pay_date;
                 $item->save();
             }
 
             DB::commit();
+            // DB::rollBack();
 
             return ApiResponse::JsonSuccess([
                 // 'subscription_orders_item' => $subscription_orders_item,
@@ -496,7 +501,7 @@ class ProfileController extends Controller
             //     $static_date->setTime(0, 0, 0);
             // }
 
-            $valid_dates = $this->getValidDates($static_date);
+            $valid_dates = $this->getValidDates($static_date->setTime(0, 0, 0));
 
             return ApiResponse::JsonSuccess([
                 'valid_dates' => $valid_dates
