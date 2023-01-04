@@ -26,6 +26,8 @@ class DashboardController extends Controller
 
     function index(Request $request)
     {           
+
+
         $orderTotals = Order::whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED'])->count();
         $orderToday = Order::whereBetween('created_at', [Carbon::now()->startOfDay(), Carbon::now()->endOfDay()])->whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED'])->count();
         $orderThisWeek = Order::whereBetween('created_at', [Carbon::now()->startOfWeek()->toDateTimeString(), Carbon::now()])->whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED'])->count();
@@ -131,12 +133,10 @@ class DashboardController extends Controller
                 array_push($array_percentage, $count);
                 array_push($array_count, $products_count);
     
-                if($count > 0 && $products_count > 0){
-                    array_push($array_laboratories, $laboratory->name);
-                }
+                array_push($array_laboratories, $laboratory->name);
             }
         }
-
+        
         return response()->json(['names' => $array_laboratories, 'percentage' => $array_percentage, 'count' => $array_count], 200);
     }
 
@@ -170,9 +170,7 @@ class DashboardController extends Controller
                 array_push($array_percentage, $count);
                 array_push($array_count, $products_count);
     
-                if($count > 0 && $products_count > 0){
-                    array_push($array_laboratories, $laboratory->name);
-                }
+                array_push($array_laboratories, $laboratory->name);
             }
         }
 
