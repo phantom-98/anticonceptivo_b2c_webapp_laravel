@@ -513,7 +513,7 @@
 
     $(function () {
         var end = moment();
-        var start = moment().startOf('month');
+        var start = moment().startOf('month').subtract(1, 'months');
 
         function cb(start, end) {
             $('#dateLaboratoriesSubs span').html(start.format('DD/MM/YYYY') + '&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;' + end.format('DD/MM/YYYY'));
