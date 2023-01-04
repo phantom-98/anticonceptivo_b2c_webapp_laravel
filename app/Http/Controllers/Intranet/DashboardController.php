@@ -108,9 +108,8 @@ class DashboardController extends Controller
         $end = $request->end . ' 23:59:59';
 
         $total = OrderItem::whereHas('order', function ($o) use ($start, $end) {
-            $o->whereBetween('created_at', [$start, $end])
-            ->whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED']);
-        })->sum('quantity');
+            $o->whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED']);
+        })->whereBetween('created_at', [$start, $end])->sum('quantity');
 
         $products = Product::whereHas('order_items')->where('active',true)->groupBy('laboratory_id')->pluck('laboratory_id')->toArray();
         $laboratories = Laboratory::where('active', 1)->whereIn('id',$products)->get();
@@ -124,9 +123,8 @@ class DashboardController extends Controller
             $products_count = OrderItem::whereHas('product', function ($p) use ($laboratory) {
                 $p->where('laboratory_id', '=', $laboratory->id);
             })->whereHas('order', function ($o) use ($start, $end) {
-                $o->whereBetween('created_at', [$start, $end])
-                ->whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED']);
-            })->sum('quantity');
+                $o->whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED']);
+            })->whereBetween('created_at', [$start, $end])->sum('quantity');
 
             if($products_count > 0 && $total > 0){
                 $count = round($products_count / $total * 100);
