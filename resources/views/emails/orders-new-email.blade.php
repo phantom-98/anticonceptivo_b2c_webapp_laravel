@@ -14,8 +14,8 @@
         </p>
         <p style="margin-bottom: 20px; width:48%; display:inline-grid">
             <span class="bold">Recibirás tu pedido</span>
-            @if($order->label_dispatch == "Entrega inmediata")
-            <span class="is-immediate-label"><img style="margin-top:12px" src="https://dev.anticonceptivo.tienda.innovaweb.cl/images/arrives-today-blue.png">&nbsp;&nbsp;Entrega inmediata</span>
+            @if($order->label_dispatch == "Entrega Prioritaria")
+            <span class="is-immediate-label" style="font-size: 12px"><img style="margin-top:12px" src="https://dev.anticonceptivo.tienda.innovaweb.cl/images/arrives-today-blue.png">&nbsp;&nbsp;Entrega Prioritaria</span>
             @elseif($order->label_dispatch == "Te llega hoy")
             <span class="is-immediate-label"><img style="margin-top:12px" src="https://dev.anticonceptivo.tienda.innovaweb.cl/images/arrives-today-blue.png">&nbsp;&nbsp;Te llega Hoy</span>
             @elseif($order->label_dispatch == "Te llega mañana")
@@ -33,7 +33,7 @@
             <span class="bold">Enviar a:</span>
             <span style="margin-top:8px">
                 {{ $order->delivery_address.', Región '.trim($order->region)}}@if($order->comment){!!', <b>Comentario:</b> '.$order->comments !!}@endif
-                @if($order->label_dispatch != "Entrega inmediata")
+                @if($order->label_dispatch != "Entrega Prioritaria")
                 <br/><br/>
                 <b>Hora de Despacho:</b>
                 <br/>
