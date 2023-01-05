@@ -274,6 +274,7 @@ class PaySubscriptions extends Command
     private function handleSubscriptionsPayV2($item, $customer, $order)
     {
         $order->discount = 0;
+        $order->delivery_address =$item->delivery_address . ', ' . $item->customer_address->commune->name;
         $order->save();
         $subtotal = 0;
 
