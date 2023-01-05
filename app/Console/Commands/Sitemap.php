@@ -48,20 +48,20 @@ class Sitemap extends Command
     {
         try {
             $post_types = PostType::with('active_posts')->where('active', 1)->get();
-          
+
             $categories = Category::where('active',true)->with(['subcategories'])
                 ->whereHas('subcategories', function($q){$q->where('active',true)->orderBy('position');})
                 ->orderBy('position')->get();
-    
+
             $products = Product::with(['subcategory','plans'])->whereHas('subcategory', function($q){
                 $q->where('category_id',1);
             })->get();
-    
+
             $laboratoriesWithPills = $products->pluck('laboratory_id')->unique();
-    
+
             $subscriptionPlanIds = ProductSubscriptionPlan::whereIn('product_id',$products->pluck('id'))
             ->pluck('subscription_plan_id')->unique();
-    
+
             $laboratories = Laboratory::where('active',true)->whereIn('id',$laboratoriesWithPills)->get();
             $subscriptions = SubscriptionPlan::where('active',true)->orderBy('months')->whereIn('id',$subscriptionPlanIds)->get();
             $formats = $products->where('format','!=','')->pluck('format')->unique()->sortBy('format');
