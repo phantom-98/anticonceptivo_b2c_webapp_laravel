@@ -30,7 +30,7 @@ class SubscriptionController extends GlobalController
         'pluralName' => 'Suscripciones',
         'singularName' => 'Suscripción',
         'disableActions' => ['create', 'edit', 'active', 'destroy', 'changeStatus'],
-        'enableActions' => ['show', 'index_filter', 'edit_pay_date', 'search_client', 'export']
+        'enableActions' => ['show', 'index_filter', 'edit_pay_date', 'search_client', 'export', 'active']
     ];
 
     public function __construct()
@@ -403,6 +403,14 @@ class SubscriptionController extends GlobalController
         $countCancel = $objects2->count();
         
         return view($this->folder . 'detail', compact('objects', 'date', 'start', 'end', 'laboratory', 'laboratories', 'count4', 'count6', 'count12', 'countCancel'));
+    }
+
+    public function active(){
+        $objects = SubscriptionsOrdersItem::with('order_item.product', 'customer_address.customer')->where('active', 1)->whereHas('order_parent', function($q){
+            $q->where('is_paid', 1);
+        })->where('dispatch_date', '>', Carbon::now()->format('Y-m-d H:i:s'))->get()->unique('order_parent_id')->get();
+
+        return view($this->folder . 'active', compact('objects'))
     }
 
 
