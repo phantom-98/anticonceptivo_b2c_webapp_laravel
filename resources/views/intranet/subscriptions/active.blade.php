@@ -81,7 +81,7 @@
                                         <a href="{{ route('intranet.subscriptions.index_filter',[$object->subscription_id] ) }}"
                                         class="btn btn-sm btn-default btn-hover-info" data-toggle="tooltip"
                                         title="Ver detalle">
-                                            <i class="fa fa-edit"></i>
+                                            <i class="fa fa-eye"></i>
                                         </a>
                                     </div>
                                 </td>
