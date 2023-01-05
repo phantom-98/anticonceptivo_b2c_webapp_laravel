@@ -194,28 +194,5 @@
 
     </script>
 
-    <script>
-        var start = {!! json_encode($start) !!};
-        var end = {!! json_encode($end) !!};
-
-        $('#date').datepicker({
-            position: "bottom left",
-            autoClose: true,
-            range: true,
-            clearButton: true,
-            toggleSelected: false,
-            multipleDates: true
-        });
-        $("#date").keydown(false);
-        if(start){
-            var fecha_start = new Date(start);
-            fecha_start.setDate(fecha_start.getDate() + 1);
-            var fecha_end = new Date(end);
-            fecha_end.setDate(fecha_end.getDate() + 1);
-            $('#date').datepicker().data('datepicker').selectDate([new Date(fecha_start), new Date(fecha_end)]);
-        }
-    </script>
-
-
 @endsection
 
