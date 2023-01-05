@@ -22,7 +22,7 @@ final class S3Helper
     private $aws_dir;
     private $path;
 
-    const VALID_EXTENSIONS = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'JPG', 'PNG'];
+    const VALID_EXTENSIONS = ['jpg', 'jpeg', 'png', 'gif','svg', 'webp', 'JPG', 'PNG', 'SVG'];
 
     /**
      * Remove the specified resource from storage.
@@ -79,7 +79,7 @@ final class S3Helper
         try{
             $entry_path = $this->saveOnLocal($file, $this->path);
 
-            if (!$convert_to_webp) {
+            if ($convert_to_webp == false) {
                 $s3_path = $this->saveOnS3($this->aws_dir . $this->path . '/' . $this->getFileNameWithExt($entry_path), $entry_path);
                 $this->deleteLocals($entry_path);
                 return $s3_path;
