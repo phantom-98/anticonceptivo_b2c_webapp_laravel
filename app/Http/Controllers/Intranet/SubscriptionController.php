@@ -408,7 +408,9 @@ class SubscriptionController extends GlobalController
     public function active(){
         $objects = SubscriptionsOrdersItem::with('order_item.product', 'customer_address.customer')->where('active', 1)->whereHas('order_parent', function($q){
             $q->where('is_paid', 1);
-        })->where('dispatch_date', '>', Carbon::now()->format('Y-m-d H:i:s'))->get()->unique('order_parent_id')->get();
+        })->where('dispatch_date', '>', Carbon::now()->format('Y-m-d H:i:s'))->get()->unique('order_parent_id');
+
+        $objects = $objects->values()->all();
 
         return view($this->folder . 'active', compact('objects'));
     }
