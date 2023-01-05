@@ -410,7 +410,7 @@ class SubscriptionController extends GlobalController
             $q->where('is_paid', 1);
         })->where('dispatch_date', '>', Carbon::now()->format('Y-m-d H:i:s'))->get()->unique('order_parent_id')->get();
 
-        return view($this->folder . 'active', compact('objects'))
+        return view($this->folder . 'active', compact('objects'));
     }
 
 
