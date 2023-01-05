@@ -36,7 +36,6 @@ class Sitemap extends Command
      */
     public function __construct()
     {
-        Log::info('Se ejecutó sitemap');
         parent::__construct();
     }
 
