@@ -1,13 +1,13 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import moment from "moment";
 import * as Services from "../../../../../Services";
-import {Modal} from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 import CloseModal from "../../../../../components/general/CloseModal";
 import Swal from "sweetalert2";
 import toastr from "toastr";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import {registerLocale} from "react-datepicker";
+import { registerLocale } from "react-datepicker";
 import es from 'date-fns/locale/es';
 
 registerLocale('es', es)
@@ -15,8 +15,8 @@ registerLocale('es', es)
 const ModalDispatchDate = ({
     modals,
     subscriptionOrderItemSelected,
-    dispatchDate,
-    setDispatchDate,
+    // dispatchDate,
+    // setDispatchDate,
     minDate,
     auth,
     getSubscriptions,
@@ -25,9 +25,11 @@ const ModalDispatchDate = ({
 }) => {
 
     const [validDates, setValidDates] = useState([]);
+    const [dispatchDate, setDispatchDate] = useState(new Date());
 
     useEffect(() => {
         if (subscriptionOrderItemSelected && subscriptionOrderItemSelected.id) {
+            setDispatchDate(new Date(subscriptionOrderItemSelected.dispatch_date));
             getValidDatesForDispatchDate();
         }
     }, [subscriptionOrderItemSelected]);
@@ -121,7 +123,7 @@ const ModalDispatchDate = ({
             onHide={modals.dispatch_date}
         >
             <Modal.Header>
-                <CloseModal hideModal={changeVisibleModalDispatchDate}/>
+                <CloseModal hideModal={changeVisibleModalDispatchDate} />
             </Modal.Header>
             <Modal.Body className="px-5">
                 <div className="row">
@@ -147,7 +149,7 @@ const ModalDispatchDate = ({
                         }
                         <div className="col-md-12 mt-4 text-center">
                             <button type="button" className="btn btn-bicolor px-5"
-                                    onClick={() => updateDispatchDate()}
+                                onClick={() => updateDispatchDate()}
                             >
                                 <span>GUARDAR</span>
                             </button>

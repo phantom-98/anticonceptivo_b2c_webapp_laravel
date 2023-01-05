@@ -64,7 +64,7 @@ class CategoryController extends GlobalController
             $S3Helper = new S3Helper('laravel/anticonceptivo/', 'public/categories');
 
             if ($request->image) {
-                $object->image = $S3Helper->store($request->file("image"));
+                $object->image = $S3Helper->store($request->file("image"), false);
             }
 
             if ($request->banner_image) {
@@ -142,7 +142,7 @@ class CategoryController extends GlobalController
 
             if ($request->image) {
                 $S3Helper->delete($object->image);
-                $object->image = $S3Helper->store($request->file("image"));
+                $object->image = $S3Helper->store($request->file("image"), false);
 
                 Log::info('Cambio de foto', [
                     'date' => date('Y-m-d H:i:s'),
