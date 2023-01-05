@@ -46,11 +46,9 @@ class PaySubscriptions extends Command
     public function __construct()
     {
         if (env('APP_ENV') == 'production') {
-            Log::info('PaySubscriptions constructor called production');
             $this->oneclick = new OneClickMall(env('TBK_CC_ONECLICK'), env('TBK_API_KEY_ONECLICK'), WebpayPlus::PRODUCTION);
             $this->commerce_code = env('TBK_ONECLICK_MALL');
         } else {
-            Log::info('PaySubscriptions constructor called development');
             $this->oneclick = new OneClickMall();
             $this->commerce_code = '597055555543';
         }
