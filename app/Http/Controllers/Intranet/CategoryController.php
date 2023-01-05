@@ -64,7 +64,7 @@ class CategoryController extends GlobalController
             $S3Helper = new S3Helper('laravel/anticonceptivo/', 'public/categories');
 
             if ($request->image) {
-                $object->image = $S3Helper->store($request->file("image"));
+                $object->image = $S3Helper->store($request->file("image"), false);
             }
 
             if ($request->banner_image) {

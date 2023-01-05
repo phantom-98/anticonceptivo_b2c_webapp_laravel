@@ -74,15 +74,20 @@ final class S3Helper
         }
     }
 
-    public function store($file): string
+    public function store($file, $convert_to_webp = true): string
     {
         try{
             $entry_path = $this->saveOnLocal($file, $this->path);
+
+            if (!$convert_to_webp) {
+                $s3_path = $this->saveOnS3($this->aws_dir . $this->path . '/' . $this->getFileNameWithExt($entry_path), $entry_path);
+                $this->deleteLocals($entry_path);
+                return $s3_path;
+            }
+
             $webp_path = $this->convertToWebp($entry_path);
             $s3_path = $this->saveOnS3($this->aws_dir . $this->path . '/' . $this->getFileNameWithExt($webp_path), $webp_path);
-
             $this->deleteLocals($entry_path, $webp_path);
-
             return $s3_path;
         }catch(Exception $e){
             Log::error('Error storing file on S3: ' . $this->path, [
