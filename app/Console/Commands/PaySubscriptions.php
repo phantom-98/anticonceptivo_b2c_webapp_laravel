@@ -95,9 +95,10 @@ class PaySubscriptions extends Command
 
                 $subscriptions_orders_items_grouped = $subscriptions_orders_items->groupBy(['dispatch_date', 'customer_address_id']);
 
+                Log::info('trying to pay subscriptions', ['customer_id' => $customer->id, 'subscriptions_orders_items_grouped' => $subscriptions_orders_items_grouped]);
+
                 foreach ($subscriptions_orders_items_grouped as $dispatch_date => $customer_address_group) {
                     foreach ($customer_address_group as $customer_address_id => $subscriptions_orders_item) {
-
                         if (!$customer_address_id) {
                             foreach ($subscriptions_orders_item as $item) {
                                 Log::info('No tiene dirección de despacho asignada', ['customer_id' => $customer->id, 'subscriptions_orders_item' => $item->id]);
@@ -125,6 +126,12 @@ class PaySubscriptions extends Command
                         }
 
                         foreach ($subscriptions_orders_item as $item) {
+
+                            Log::info('trying to pay subscription item', [
+                                'subscriptions_orders_item' => $item->id,
+                                'order_parent_id' => $item->order_parent_id,
+                            ]);
+
                             $order = new Order();
                             $order->customer_id = $customer->id;
                             $order->dispatch = $dispatch;
@@ -155,9 +162,7 @@ class PaySubscriptions extends Command
                     }
                 }
             }
-            Log::info('PaySubscriptions handle end');
-            // DB::commit();
-            DB::rollBack();
+            DB::commit();
         } catch (\Exception $ex) {
             DB::rollBack();
             Log::error('PaySubscriptions handle error: ' . $ex->getMessage());
@@ -165,15 +170,15 @@ class PaySubscriptions extends Command
         Log::info('----------------------------------    NEW HANDLE     ----------------------------------');
     }
 
-    private function sendEmailPayRejectedV2(Collection $array_subscription_order_items, $customer, $type)
+    private function sendEmailPayRejectedV2($item, $customer, $type)
     {
         if (env('APP_ENV') == 'production') {
             $stringProduct = "";
 
-            foreach ($array_subscription_order_items as $ot) {
-                $period = str_replace(' y ', '/', $ot->period);
-                $stringProduct .= $ot->name . ' (' . $period . '), ';
-            }
+            // foreach ($array_subscription_order_items as $ot) {
+                $period = str_replace(' y ', '/', $item->period);
+                $stringProduct .= $item->name . ' (' . $period . '), ';
+            // }
 
             $stringProduct = rtrim($stringProduct, ", ");
 
@@ -246,8 +251,15 @@ class PaySubscriptions extends Command
                 }
             }
 
-            $sub_order_item->pay_date = Carbon::now()->addDay();
-            $sub_order_item->dispatch_date = Carbon::now()->addDays(2);
+            $tomorrow = Carbon::now()->addDay();
+
+            $sub_order_item->pay_date =  $tomorrow;
+            // if now is sunday add 1 day to dispatch date since we dont dispatch on sundays
+            if ($tomorrow ->isSunday()) {
+                $sub_order_item->dispatch_date =  $tomorrow ->copy()->addDay();
+            }else {
+                $sub_order_item->dispatch_date =  $tomorrow ;
+            }
             $sub_order_item->is_pay = 0;
             $sub_order_item->order_id = $order->id;
             $sub_order_item->save();
@@ -256,10 +268,7 @@ class PaySubscriptions extends Command
             $order->comments = $error_message;
             $order->save();
 
-            Log::info('handleSubscriptionsCancelV2', [
-                'order_id' => $order->id,
-                'sub_order_item' => $sub_order_item->id,
-            ]);
+            Log::info('Payment Rejected Handler Success for order: ' . $order->id . ' and item: ' . $sub_order_item->id);
         } catch (\Throwable $th) {
             Log::error('Error handleSubscriptionsCancel', [
                 'error' => $th->getMessage(),
@@ -440,9 +449,7 @@ class PaySubscriptions extends Command
         $item->status = 'PAID';
         $item->save();
 
-        Log::info('item',[
-            'item' => $item
-        ]);
+        Log::info('Payment Handler Success for order: ' . $order->id . ' and item: ' . $item->id);
 
         $tmp_subscription_order = SubscriptionsOrdersItem::find($item->id);
         $tmp_subscription_order->order_id = $order->id;

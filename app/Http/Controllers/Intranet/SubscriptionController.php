@@ -123,7 +123,7 @@ class SubscriptionController extends GlobalController
                 $object['month_period'] = "-";
             }
         }
-        
+
         return view($this->folder . 'index', compact('objects', 'date', 'start', 'end', 'clients', 'client_id', 'nameClient', 'id', 'status', 'subscription_id'));
     }
 
@@ -214,7 +214,7 @@ class SubscriptionController extends GlobalController
         }
 
         //return $objects;
-        
+
         return view($this->folder . 'index', compact('objects', 'date', 'start', 'end', 'clients', 'client_id', 'nameClient', 'id', 'status', 'subscription_id'));
     }
 
@@ -265,7 +265,7 @@ class SubscriptionController extends GlobalController
         }
 
         session()->flash('success', 'Suscripción editada correctamente.');
-        return redirect()->back(); 
+        return redirect()->back();
     }
 
     public function export(Request $request)
@@ -371,7 +371,7 @@ class SubscriptionController extends GlobalController
             $products = Product::where('laboratory_id', $laboratory)->pluck('name')->toArray();
 
             $objects = $objects->whereIn('name', $products);
-        } 
+        }
 
         $objects = $objects->whereNotNull('subscription_id')->whereBetween('pay_date', [$start.' 00:00:00', $end.' 23:59:59'])->where('active',1)->orderBy('pay_date', 'desc')->get();
 
@@ -396,12 +396,12 @@ class SubscriptionController extends GlobalController
             $products = Product::where('laboratory_id', $laboratory)->pluck('name')->toArray();
 
             $objects2 = $objects2->whereIn('name', $products);
-        } 
+        }
 
         $objects2 = $objects2->where('status', 'REJECTED')->whereNotNull('subscription_id')->whereBetween('pay_date', [$start.' 00:00:00', $end.' 23:59:59'])->orderBy('pay_date', 'desc')->get();
 
         $countCancel = $objects2->count();
-        
+
         return view($this->folder . 'detail', compact('objects', 'date', 'start', 'end', 'laboratory', 'laboratories', 'count4', 'count6', 'count12', 'countCancel'));
     }
 
