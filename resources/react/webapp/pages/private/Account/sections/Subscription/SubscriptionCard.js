@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { CONFIG } from "../../../../../Config";
-import { AppContext } from "../../../../../context/AppProvider";
+// import { AppContext } from "../../../../../context/AppProvider";
 import { AuthContext } from "../../../../../context/AuthProvider";
 import * as Services from "../../../../../Services";
 import Swal from "sweetalert2";
@@ -25,12 +25,12 @@ const SubscriptionCard = ({
     subscriptionOrderItemSelected
 }) => {
     const { auth } = useContext(AuthContext);
-    const { breakpoint } = useContext(AppContext)
+    // const { breakpoint } = useContext(AppContext)
 
     const [tableLoaded, setTableLoaded] = useState(false);
     const [objects, setObjects] = useState([]);
     const [subscriptions, setSubscriptions] = useState([]);
-    const [dispatchDate, setDispatchDate] = useState(new Date());
+    // const [dispatchDate, setDispatchDate] = useState(new Date());
     const [minDate, setMinDate] = useState(new Date());
     const [maxDate, setMaxDate] = useState(new Date());
 
@@ -126,7 +126,7 @@ const SubscriptionCard = ({
         setMaxDate(minDateDispatch.getDate() + 7)
 
         setSubscriptionOrderItemSelected(subscriptionOrderItem);
-        setDispatchDate(subscriptionOrderItem.dispatch_date)
+        // setDispatchDate(subscriptionOrderItem.dispatch_date)
         setModals({
             ...modals,
             dispatch_date: true
@@ -273,8 +273,8 @@ const SubscriptionCard = ({
                 changeVisibleModalDispatchDate={changeVisibleModalDispatchDate}
                 modals={modals}
                 subscriptionOrderItemSelected={subscriptionOrderItemSelected}
-                dispatchDate={dispatchDate}
-                setDispatchDate={setDispatchDate}
+                // dispatchDate={dispatchDate}
+                // setDispatchDate={setDispatchDate}
                 minDate={minDate}
                 auth={auth}
                 getSubscriptions={getSubscriptions}
@@ -383,19 +383,19 @@ const SubscriptionCard = ({
                                                 <div className="col-auto p-0" style={{ marginTop: -6 }}>
                                                     {
                                                         Array.from({ length: item.advance_end }, (_, i) => i + 1).map((itemNumber) => {
-                                                            console.log(itemNumber, item)
+                                                            // console.log(itemNumber, item)
                                                             if (item.current_advance < itemNumber) {
-                                                                console.log('dot-incoming');
+                                                                // console.log('dot-incoming');
                                                                 return (
                                                                     <span className="dot-incoming" />
                                                                 )
                                                             } else if ((item.current_advance === itemNumber || item.current_advance - 1 === itemNumber) && (item.subscription_item.order === null || (item.subscription_item.order.status !== "DELIVERED" || item.subscription_item.order.status === "CANCELED"))) {
-                                                                console.log('dot-process');
+                                                                // console.log('dot-process');
                                                                 return (
                                                                     <span className="dot-process" />
                                                                 )
                                                             } else {
-                                                                console.log('dot-finish');
+                                                                // console.log('dot-finish');
                                                                 return (
                                                                     <span className="dot-finish" />
                                                                 )
