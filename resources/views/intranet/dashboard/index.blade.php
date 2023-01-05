@@ -387,7 +387,7 @@
         Chart.defaults.global.defaultFontSize = 15;
 
         var end = moment();
-        var start = moment().startOf('month');
+        var start = moment().startOf('month').subtract(1, 'months');
 
         function cb(start, end) {
             $('#dateCategories span').html(start.format('DD/MM/YYYY') + '&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;' + end.format('DD/MM/YYYY'));
@@ -450,7 +450,7 @@
 
     $(function () {
         var end = moment();
-        var start = moment().startOf('month');
+        var start = moment().startOf('month').subtract(1, 'months');
 
         function cb(start, end) {
             $('#dateLaboratories span').html(start.format('DD/MM/YYYY') + '&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;' + end.format('DD/MM/YYYY'));
@@ -640,7 +640,7 @@
     $(function () {
 
         var end = moment();
-        var start = moment().startOf('month');
+        var start = moment().startOf('month').subtract(1, 'months');
 
         function cb(start, end) {
             $('#dateFormat span').html(start.format('DD/MM/YYYY') + '&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;' + end.format('DD/MM/YYYY'));
@@ -703,7 +703,7 @@
         $(function () {
 
         var end = moment();
-        var start = moment().startOf('month');
+        var start = moment().startOf('month').subtract(1, 'months');
 
         function cb(start, end) {
             $('#datePrescriptions span').html(start.format('DD/MM/YYYY') + '&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;' + end.format('DD/MM/YYYY'));

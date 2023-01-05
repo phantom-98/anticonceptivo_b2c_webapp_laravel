@@ -417,6 +417,18 @@
                     </table>
 
                 </div>
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <a href="{{url()->previous()}}"
+                               class="btn btn-default"><i
+                                    class="fa fa-chevron-left"></i> {{$config['blade']['btnBack']}}</a>
+                        </div>
+                        <div class="col-xs-6 text-right">
+
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
