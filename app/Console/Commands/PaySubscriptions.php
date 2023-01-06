@@ -12,6 +12,7 @@ use App\Models\Customer;
 use App\Models\Prescription;
 use App\Models\SubscriptionsOrdersItem;
 use App\Models\DeliveryCost;
+use App\Models\WebpayLog;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Console\Command;
 use \Illuminate\Support\Collection;
@@ -141,6 +142,16 @@ class PaySubscriptions extends Command
                             ]];
 
                             $response = $this->oneclick->authorize($customer->id, $item->subscription->transbank_token, $order->id, $details);
+
+                            try {
+                                WebpayLog::register($order->id, $response, 'ONECLICK');
+                            } catch (\Exception $ex) {
+                                Log::error('Error al registrar log', [
+                                    'error' => $ex->getMessage(),
+                                    'order_id' => $order->id,
+                                    'response' => $response,
+                                ]);
+                            }
 
                             if ($response['status'] == "success") {
                                 if ($response['response']->details[0]->status != 'AUTHORIZED') {
