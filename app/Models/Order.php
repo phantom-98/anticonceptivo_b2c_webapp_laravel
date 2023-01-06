@@ -135,6 +135,11 @@ class Order extends Model
     public function subscriptions_orders_items(){
         return $this->hasMany(SubscriptionsOrdersItem::class);
     }
+
+    public function webpay_log(){
+        return $this->hasOne(WebpayLog::class);
+    }
+
     public function getPaymentType(){
         if($this->payment_type == 'webpay'){
             return 'Webpay';

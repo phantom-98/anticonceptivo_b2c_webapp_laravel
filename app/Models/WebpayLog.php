@@ -39,7 +39,21 @@ class WebpayLog extends Model
 
     public function getPaymentTypeCodeDescriptionAttribute()
     {
-        return HelperTransbankResponseCode::PaymentTypeCode($this->payment_type_code);
+        $code = strtoupper(strval($this->payment_type_code));
+        try {
+            $codes = [
+                'VD' => 'Tarjeta de Débito',
+                'VN' => 'Tarjeta de Crédito',
+                'VC' => 'Tarjeta de Crédito',
+                'SI' => 'Tarjeta de Crédito',
+                'S2' => 'Tarjeta de Crédito',
+                'NC' => 'Tarjeta de Crédito',
+                'VP' => 'Tarjeta de Prepago',
+            ];
+            return $codes[$code];
+        } catch (\Exception $exception) {
+            return 'Exception : Código no encontrado.';
+        }
     }
 
     public function order()
