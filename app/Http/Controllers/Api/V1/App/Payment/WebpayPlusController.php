@@ -8,8 +8,8 @@ use App\Jobs\FinishPaymentJob;
 use App\Jobs\UpdateProductStockJob;
 use App\Models\Prescription;
 use App\Models\ProductSubscriptionPlan;
-use App\Models\Setting;
-use App\Models\User;
+// use App\Models\Setting;
+// use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
@@ -36,10 +36,10 @@ use App\Models\SubscriptionsOrdersItem;
 use App\Models\SubscriptionPlan;
 use App\Models\Attachment;
 use App\Http\Helpers\ApiHelper;
-use App\Http\Helpers\CallIntegrationsPay;
+// use App\Http\Helpers\CallIntegrationsPay;
 use App\Http\Utils\Enum\PaymentMethodStatus;
-use Illuminate\Support\Facades\DB;
-use Transbank\Webpay\Oneclick as OneClick;
+// use Illuminate\Support\Facades\DB;
+// use Transbank\Webpay\Oneclick as OneClick;
 
 class WebpayPlusController
 {
@@ -526,6 +526,13 @@ class WebpayPlusController
                 ];
 
                 $response = $this->oneclick->authorize($request->customer_id, $_subscription->transbank_token, $order->id, $details);
+
+                try {
+                    WebpayLog::register($order->id, $response, 'ONECLICK');
+                } catch (\Exception $ex) {
+                    Log::error('Error al registrar log de transbank', ['error' => $ex->getMessage()]);
+                }
+
                 try {
                     Log::info(
                         'OneClick',
@@ -747,7 +754,7 @@ class WebpayPlusController
             }
 
             try {
-                WebpayLog::Register($order->id, $response);
+                WebpayLog::register($order->id, $response, 'WEBPAY');
 
                 Log::info('WEBPAY_REGISTER', [
                     'ORDER' => $order->id,
@@ -771,11 +778,11 @@ class WebpayPlusController
 
     private function sendEmailErrorAiloo($order)
     {
-        $labelUser = Customer::find($order->customer_id) ? Customer::find($order->customer_id)->id_number : 'invitado';
-        Log::info('Error Ailoo en proceso de pago, usuario con rut ' . $labelUser);
+        $user_name_label = Customer::find($order->customer_id) ? Customer::find($order->customer_id)->id_number : 'invitado';
+        Log::info('Error Ailoo en proceso de pago, usuario con rut ' . $user_name_label);
 
         $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
-        $html = view('emails.ailoo-general-error', ['user_name' => $user->first_name, 'labelUser' => $labelUser])->render();
+        $html = view('emails.ailoo-general-error', ['user_name' => $user_name_label])->render();
         $email = new \SendGrid\Mail\Mail();
         $email->setFrom("info@anticonceptivo.cl", 'anticonceptivo.cl');
         $email->setSubject('Error comunicación Ailoo');
