@@ -159,7 +159,7 @@ const ProductInfo = ({product, setImageSubscription}) => {
                                                                 const isActive = subscription == item;
                                                                 const month = item.subscription_plan.months;
                                                                 const cicle = item.subscription_plan.cicles;
-                                                                if(item.active === 0){
+                                                                if(item.active === 0 || item.price == 0){
                                                                     return null
                                                                 }
                                                                 return <button
