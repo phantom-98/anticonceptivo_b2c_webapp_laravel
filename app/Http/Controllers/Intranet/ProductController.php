@@ -213,7 +213,7 @@ class ProductController extends GlobalController
                     $new_plan = new ProductSubscriptionPlan();
                     $new_plan->subscription_plan_id = $plan[0];
                     $new_plan->warnings = $request->warnings[$key][0];
-                    $new_plan->price = $request->price_plan[$key][0] ? $request->price_plan[$key][0] : 1000;
+                    $new_plan->price = $request->price_plan[$key][0] ? $request->price_plan[$key][0] : 0;
                     $new_plan->position = $request->position[$key][0];
                     $new_plan->days = $request->days[$key][0] < 7 ? 7 : $request->days[$key][0];
                     $new_plan->active = $request->is_active_plan[$key][0] ?? 0;
