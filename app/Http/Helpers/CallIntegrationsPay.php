@@ -259,9 +259,9 @@ class CallIntegrationsPay extends CoreHelper
         $sendgrid->send($email3);
    }
 
-   public static function sendEmailsOrderRepeat($order_id, $type = 'compra')
-   {
-        $order = Order::with('customer','order_items.subscription_plan', 'order_items.product.plans.subscription_plan')->where('id',$order_id)->get()->first();
+    public static function sendEmailsOrderRepeat($order_id, $type = 'compra')
+    {
+        $order = Order::with('customer','order_items.subscription_plan', 'order_items.product.plans.subscription_plan', 'order_items.product.product_images')->where('id',$order_id)->get()->first();
         $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
 
         $product = null;
@@ -279,7 +279,6 @@ class CallIntegrationsPay extends CoreHelper
             }
         }
 
-        // Envio al cliente
         $hour_dispatch = \App\Models\ProductSchedule::where('type', 'NORMAL')->first();
 
         // Envio al cliente
@@ -291,10 +290,47 @@ class CallIntegrationsPay extends CoreHelper
         $email->setFrom("info@anticonceptivo.cl", 'anticonceptivo.cl');
         $email->setSubject('Confirmación del Pedido #' . $order->id);
         $email->addTo($order->customer->email, $order->customer->first_name);
+        // $email->addTo("victor.araya.del@gmail.com", 'Pedido');
+
         $email->addContent(
             "text/html", $html
         );
 
+
         $sendgrid->send($email);
+
+        // Envio al admin
+        $html2 = view('emails.orders-new-email', ['order' => $order, 'type' => $type, 'nombre' => 'Equipo Anticonceptivo', 'product' => $product, 'image' => $image,
+        'producto_slug' => $producto_slug,'price' => $price, 'hour_dispatch' => $hour_dispatch])->render();
+        $email2 = new \SendGrid\Mail\Mail();
+
+        $email2->setFrom("info@anticonceptivo.cl", 'anticonceptivo.cl');
+        $email2->setSubject('Nuevo pedido recibido #' . $order->id);
+    //        $email2->addTo("victor.araya.del@gmail.com", 'Pedido');
+        $email2->addTo("contacto@anticonceptivo.cl", 'Administrado anticonceptivo.cl');
+
+        $email2->addContent(
+            "text/html", $html2
+        );
+
+        $sendgrid->send($email2);
+
+
+        // Envio copia felipe
+        $html3 = view('emails.orders-new-email', ['order' => $order, 'type' => $type, 'nombre' => 'Equipo Anticonceptivo', 'product' => $product, 'image' => $image,
+        'producto_slug' => $producto_slug,'price' => $price, 'hour_dispatch' => $hour_dispatch])->render();
+
+        $email3 = new \SendGrid\Mail\Mail();
+
+        $email3->setFrom("info@anticonceptivo.cl", 'anticonceptivo.cl');
+        $email3->setSubject('Nuevo pedido recibido #' . $order->id);
+    //        $email3->addTo("victor.araya.del@gmail.com", 'Pedido');
+            $email3->addTo("fpenailillo@innovaweb.cl", 'Pedido');
+
+        $email3->addContent(
+            "text/html", $html3
+        );
+
+        $sendgrid->send($email3);
     }
 }
