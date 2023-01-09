@@ -90,6 +90,7 @@ export const ENDPOINT = {
             GET_OUTSTANDING: GetBaseURL() + 'public-area/get-outstandings',
             GET_CONDOMS: GetBaseURL() + 'public-area/get-condoms',
             GET_BEAUTY: GetBaseURL() + 'public-area/get-beauty',
+            GET_PREGNANCY: GetBaseURL() + 'public-area/get-pregnancy',
             GET_BEST_SELLERS: GetBaseURL() + 'public-area/get-best-sellers',
         },
         CORPORATE_RESPONSIBILITY: GetBaseURL() + 'public-area/get-corporate-responsabilities',
