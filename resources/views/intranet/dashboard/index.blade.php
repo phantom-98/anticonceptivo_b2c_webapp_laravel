@@ -512,8 +512,8 @@
     });
 
     $(function () {
-        var end = moment();
-        var start = moment().startOf('month').subtract(1, 'months');
+        var start = moment().startOf('month');
+        var end = moment().add(1, 'months').endOf('month');
 
         function cb(start, end) {
             $('#dateLaboratoriesSubs span').html(start.format('DD/MM/YYYY') + '&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;' + end.format('DD/MM/YYYY'));
