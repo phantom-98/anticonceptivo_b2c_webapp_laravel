@@ -220,6 +220,28 @@ class HomeController extends Controller
         }
     }
 
+    public function getPregnancy()
+    {
+        try {
+            $pregnancyProducts = Product::with(['subcategory.category','product_images','laboratory'])
+                ->where('recipe_type','Venta Directa')
+                ->where('stock','>',0)
+                ->where('is_medicine', 0)
+                ->where('active',true)
+                ->whereHas('subcategory', function($q){
+                    $q->where('category_id', 3);
+                })
+                ->inRandomOrder()
+                ->limit(4)
+                ->get();
+
+            return ApiResponse::JsonSuccess(ProductLabelHelper::processScheduleList($pregnancyProducts), 'Productos tipo embarazo');
+
+        } catch (\Exception $exception) {
+            return ApiResponse::JsonError(null, $exception->getMessage());
+        }
+    }
+
     public function getBestSellers()
     {
         try {
