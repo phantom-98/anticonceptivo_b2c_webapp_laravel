@@ -23,6 +23,7 @@ Route::prefix('public-area')
         Route::get('get-outstandings', [HomeController::class, 'getOutstandings'])->name('getOutstandings');
         Route::get('get-condoms', [HomeController::class, 'getCondoms'])->name('getCondoms');
         Route::get('get-beauty', [HomeController::class, 'getBeauty'])->name('getBeauty');
+        Route::get('get-pregnancy', [HomeController::class, 'getPregnancy'])->name('getPregnancy');
         Route::get('get-best-sellers', [HomeController::class, 'getBestSellers'])->name('getBestSellers');
 
         Route::post('get-resources', [ProductController::class, 'getResources'])->name('getResources');

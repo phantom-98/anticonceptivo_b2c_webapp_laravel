@@ -6,6 +6,7 @@ import Subscribe from "../../../components/sections/Subscribe";
 import BestSeller from "../../../components/sections/BestSellers";
 import CondomProduct from "../../../components/sections/CondomProduct";
 import BeautyProduct from "../../../components/sections/BeautyProduct";
+import PregnancyProduct from "../../../components/sections/PregnancyProduct";
 import OutstandingCarousel from "../../../components/sections/OutstandingCarousel";
 import BannerCategories from "../../../components/sections/BannerCategories";
 // import BannerCarousel from "../../../components/sections/BannerCarousel";
@@ -66,6 +67,8 @@ const Home = ({match}) => {
             <BeautyProduct title="Belleza y Cuidado Personal" middleBanners={middleBanners}/>
 
             <CondomProduct title="Bienestar Sexual"/>
+
+            <PregnancyProduct title="Embarazo"/>
 
             <BestSeller title="Los 12 Más Comprados"/>
 
