@@ -37,7 +37,7 @@ class OrderController extends GlobalController
 
     public function index(Request $request)
     {
-        $objects = Order::with(['customer', 'prescriptions.product','subscriptions_orders_items.commune', 'order_items.product.laboratory', 'order_items.product.subcategory.category']);
+        $objects = Order::with(['customer', 'prescriptions.product','subscriptions_orders_items.commune', 'order_items.product.laboratory', 'order_items.product.subcategory.category','webpay_log']);
         $clients = Customer::get();
 
         $date = $request->date;
@@ -103,7 +103,7 @@ class OrderController extends GlobalController
         $appends['date'] = $date;
 
         $objects = $objects->orderBy('id', 'desc')->get();
-        
+
         return view($this->folder . 'index', compact('objects', 'date', 'start', 'end', 'clients', 'client_id', 'nameClient', 'id', 'status'));
     }
 
