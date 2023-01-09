@@ -130,8 +130,9 @@ class DashboardController extends Controller
                 ->whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED']);
             })->sum('quantity');
 
-            if($products_count > 0 && $total > 0){
-                $count = round($products_count / $total * 100);
+            $count = round($products_count / $total * 100);
+
+            if($products_count > 0 && $total > 0 && $count > 0){
                 array_push($array_percentage, $count);
                 array_push($array_count, $products_count);
     
@@ -167,8 +168,9 @@ class DashboardController extends Controller
                 $p->where('laboratory_id', '=', $laboratory->id);
             })->whereNotNull('subscription_id')->whereBetween('pay_date', [$start.' 00:00:00', $end.' 23:59:59'])->where('active',1)->count();
 
-            if($products_count > 0 && $total > 0){
-                $count = round($products_count / $total * 100);
+            $count = round($products_count / $total * 100);
+
+            if($products_count > 0 && $total > 0 && $count > 0){
                 array_push($array_percentage, $count);
                 array_push($array_count, $products_count);
     
