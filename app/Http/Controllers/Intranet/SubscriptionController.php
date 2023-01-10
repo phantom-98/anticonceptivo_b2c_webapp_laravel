@@ -43,7 +43,7 @@ class SubscriptionController extends GlobalController
         $objects = SubscriptionsOrdersItem::whereHas('order_parent', function ($q) {
             $q->whereNotIn('status', ['REJECTED', 'CREATED']);
         })
-        ->with(['order', 'order_item.product', 'order.order_items', 'customer_address.customer', 'subscription', 'order.prescriptions', 'order_parent.order_items.product.subcategory.category']);
+        ->with(['order', 'order_item.product', 'order.webpay_log', 'order.order_items', 'customer_address.customer', 'subscription', 'order.prescriptions', 'order_parent.order_items.product.subcategory.category']);
 
         $clients = Customer::get();
 
