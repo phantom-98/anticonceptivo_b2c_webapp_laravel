@@ -34,6 +34,7 @@
             <th>Subtotal</th>
             <th>Total</th>
             <th>Tarjeta de Pago</th>
+            <th>Código de Autorización</th>
 
             <th>Dirección</th>
             <th>N° de casa</th>
@@ -196,6 +197,11 @@
             @endif
             <td>{{ $object->is_pay == 0 ? 'Pend. Pago' : $object->subscription->card_number }}</td>
 
+            @if($object->order)
+            <td>{{ $object->order->webpay_log ? $object->order->webpay_log->authorization_code : 'N/A' }}</td>
+            @else
+            <td>Pend. Pago</td>
+            @endif
 
             <td>{{ mb_strtoupper($object->order_parent->delivery_address ?? '-', 'UTF-8') }}</td>
 

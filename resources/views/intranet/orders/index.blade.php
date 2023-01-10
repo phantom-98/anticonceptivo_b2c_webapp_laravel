@@ -132,8 +132,6 @@
                                 <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Nº Ped.</th>
                                 <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Hora creación
                                 </th>
-                                <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Cod.
-                                    Autorización</th>
                                 <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Estado</th>
                                 <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Tipo de Entrega
                                 </th>
@@ -160,6 +158,10 @@
                                 </th>
                                 <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Tipo de Pago
                                 </th>
+
+                                <th data-cell-style="cellStyle" data-sortable="true" data-valign="middle">Cod.
+                                    Autorización</th>
+
                                 <th data-cell-style="cellStyle" data-sorter="priceSorter" data-sortable="true"
                                     data-valign="middle">Subtotal</th>
                                 <th data-cell-style="cellStyle" data-sorter="priceSorter" data-sortable="true"
@@ -285,7 +287,6 @@
                                 @endif
                                 <td>#{{ $object->id }}</td>
                                 <td>{{ date('H:i:s', strtotime($object->created_at)) }}</td>
-                                <td>{{ $object->webpay_log ? $object->webpay_log->authorization_code : 'N/A' }}</td>
                                 <td>
                                     <div class="label label-table"
                                         style="background: {{ $object->formated_background }}; color: {{ $object->formated_color }}; cursor:default">
@@ -396,6 +397,8 @@
                                         {{ $object->formated_type_webpay ?? '-' }}
                                     @endif
                                 </td>
+
+                                <td>{{ $object->webpay_log ? $object->webpay_log->authorization_code : 'N/A' }}</td>
 
                                 <td>${{ number_format($object->subtotal, 0, ',', '.') }}</td>
                                 <td>${{ number_format($object->dispatch, 0, ',', '.') }}</td>
