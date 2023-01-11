@@ -808,7 +808,8 @@
                         backgroundColor: colors2,
                         scaleFontColor: "#000000",
                         borderWidth: 1,
-                        yAxisID: 'right-axis'
+                        yAxisID: 'right-axis',
+                        hidden: true,
                     },
                 ]
             },
@@ -939,7 +940,8 @@
                         backgroundColor: new_colors2,
                         scaleFontColor: "#000000",
                         borderWidth: 1,
-                        yAxisID: 'right-axis'
+                        yAxisID: 'right-axis',
+                        hidden: true,
                     },
                 ]
             },
@@ -1068,7 +1070,8 @@
                         backgroundColor: new_colors2,
                         scaleFontColor: "#000000",
                         borderWidth: 1,
-                        yAxisID: 'right-axis'
+                        yAxisID: 'right-axis',
+                        hidden: true,
                     },
                 ]
             },
@@ -1172,7 +1175,8 @@
                         backgroundColor: colors2,
                         scaleFontColor: "#000000",
                         borderWidth: 1,
-                        yAxisID: 'right-axis'
+                        yAxisID: 'right-axis',
+                        hidden: true,
                     },
                 ]
             },
@@ -1273,7 +1277,8 @@
                         backgroundColor: colors2,
                         scaleFontColor: "#000000",
                         borderWidth: 1,
-                        yAxisID: 'right-axis'
+                        yAxisID: 'right-axis',
+                        hidden: true,
                     },
                 ]
             },
@@ -1374,7 +1379,8 @@
                         backgroundColor: colors2,
                         scaleFontColor: "#000000",
                         borderWidth: 1,
-                        yAxisID: 'right-axis'
+                        yAxisID: 'right-axis',
+                        hidden: true,
                     },
                 ]
             },
