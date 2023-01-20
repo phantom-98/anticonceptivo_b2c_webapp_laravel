@@ -67,7 +67,7 @@
                 <td>{{ $object->position ?? '' }}</td>
                 <td>{{ $object->is_medicine == 0 ? 'No' : 'Si' }}</td>
                 <td>{{ $object->is_indexable == 0 ? 'No' : 'Si' }}</td>
-                <td>{{ $object->days_protection ?? '-' }}</td>
+                <td>{{ $object->days_protection ?? '' }}</td>
             </tr>
         @endforeach
     </tbody>
