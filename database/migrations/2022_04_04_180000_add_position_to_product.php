@@ -15,6 +15,7 @@ class AddPositionToProduct extends Migration
     {
         Schema::table('products', function (Blueprint $table) {
             $table->integer('position')->default(0);
+            $table->string('format')->nullable();
         });
     }
 
@@ -27,6 +28,7 @@ class AddPositionToProduct extends Migration
     {
         Schema::table('products', function (Blueprint $table) {
             $table->dropColumn('position');
+            $table->dropColumn('format');
         });
     }
 }
