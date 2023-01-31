@@ -410,6 +410,79 @@ class PaySubscriptions extends Command
                 //No se encontro stock suficiente
             }
             $product->save();
+
+            try{
+                $message_order = Order::with('customer','order_items.subscription_plan', 'order_items.product.plans.subscription_plan', 'order_items.product.product_images')->where('id',$order->id)->get()->first();
+                $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
+        
+                $product = null;
+                $price = null;
+                $producto_slug = null;
+                $image = null;
+        
+                foreach($message_order->order_items as $object){
+                    if(count($object->product->plans) > 0){
+                        $product = $object->product->name;
+                        $producto_slug = $object->product->slug;
+                        $image = $object->product->product_images[0]->file;
+                        $price = $object->product->plans->min('price');
+                        break;
+                    }
+                }
+        
+                $hour_dispatch = \App\Models\ProductSchedule::where('type', 'NORMAL')->first();
+        
+                // Envio al cliente
+                $html = view('emails.orders-new-email', ['order' => $message_order, 'type' => 'compra', 'nombre' => 'Equipo Anticonceptivo', 'product' => $product, 'image' => $image,
+                'producto_slug' => $producto_slug,'price' => $price, 'hour_dispatch' => $hour_dispatch])->render();
+        
+                $email = new \SendGrid\Mail\Mail();
+        
+                $email->setFrom("info@anticonceptivo.cl", 'anticonceptivo.cl');
+                $email->setSubject('Confirmación del Pedido #' . $order->id);
+                $email->addTo($order->customer->email, $order->customer->first_name);
+        
+                $email->addContent(
+                    "text/html", $html
+                );
+        
+        
+                $sendgrid->send($email);
+        
+                // Envio al admin
+                $html2 = view('emails.orders-new-email', ['order' => $message_order, 'type' => 'compra', 'nombre' => 'Equipo Anticonceptivo', 'product' => $product, 'image' => $image,
+                'producto_slug' => $producto_slug,'price' => $price, 'hour_dispatch' => $hour_dispatch])->render();
+                $email2 = new \SendGrid\Mail\Mail();
+        
+                $email2->setFrom("info@anticonceptivo.cl", 'anticonceptivo.cl');
+                $email2->setSubject('Nuevo pedido recibido #' . $order->id);
+                $email2->addTo("contacto@anticonceptivo.cl", 'Administrado anticonceptivo.cl');
+        
+                $email2->addContent(
+                    "text/html", $html2
+                );
+        
+                $sendgrid->send($email2);
+        
+        
+                // Envio copia felipe
+                $html3 = view('emails.orders-new-email', ['order' => $message_order, 'type' => 'compra', 'nombre' => 'Equipo Anticonceptivo', 'product' => $product, 'image' => $image,
+                'producto_slug' => $producto_slug,'price' => $price, 'hour_dispatch' => $hour_dispatch])->render();
+        
+                $email3 = new \SendGrid\Mail\Mail();
+        
+                $email3->setFrom("info@anticonceptivo.cl", 'anticonceptivo.cl');
+                $email3->setSubject('Nuevo pedido recibido #' . $order->id);
+                $email3->addTo("fpenailillo@innovaweb.cl", 'Pedido');
+        
+                $email3->addContent(
+                    "text/html", $html3
+                );
+        
+                $sendgrid->send($email3);
+            } catch (\Exception $ex){
+
+            }
         }
 
         $data_llego_products = [
