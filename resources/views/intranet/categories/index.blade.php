@@ -56,7 +56,9 @@
                             @if($config['action']['active'])
                                 <th data-cell-style="cellStyle" data-valign="middle">Activo Banner Home</th>
                             @endif
-
+                            
+                            <th data-cell-style="cellStyle" data-valign="middle">Activo Footer</th>
+                            
                             @if($config['blade']['showActions'])
                                 <th data-cell-style="cellStyle" data-valign="middle">Acciones</th>
                             @endif
@@ -81,7 +83,7 @@
                                         @if($config['action']['active'])
                                             @include('intranet.template.components._crud_html_active_banner_home')
                                         @endif
-
+                                        @include('intranet.template.components._crud_html_active_footer')
                                         @if($config['blade']['showActions'])
                                             <td>
                                                 <div >
@@ -119,6 +121,20 @@
 
     <script>
     $(function(){
+
+        $('*[id^="chk_footer_"]').change(function () {
+                let id = $(this).prop('id').replace('chk_footer_', '');
+                let status = $(this).prop('checked');
+
+                fetch("/intranet/categorias/footer/"+id)
+                    .then((response) => response.json())
+                    .then((data) => {
+                        if(data.status == 0 ){
+                            toastr.error('No se ha podido activar la categoria para banner');
+                        }
+                    });
+        })
+
         $('#psP').sortable({
             placeholder: "ui-state-highlight",
             helper:'clone',

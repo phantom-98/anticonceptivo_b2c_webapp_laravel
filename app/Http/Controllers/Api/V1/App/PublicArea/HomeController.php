@@ -92,6 +92,7 @@ class HomeController extends Controller
     public function getFooterResources()
     {
         try {
+            $categories = Category::where('active_footer',true)->get();
 
             $responsible_consumption = ResponsibleConsumption::first();
             $alliances = Alliance::where('active',true)->get();
@@ -106,7 +107,8 @@ class HomeController extends Controller
                 'alliances' => $alliances,
                 'sections' => $sections,
                 'sectionsFooter' => $sectionsFooter,
-                'phone_contact'=>$phoneContact
+                'phone_contact'=>$phoneContact,
+                'categories' => $categories
             ]);
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, $exception->getMessage());

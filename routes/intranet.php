@@ -83,6 +83,7 @@ if (env('SHOW_INTRANET', 'TRUE') == 'TRUE') {
                 Route::resource('configuraciones', 'SettingController', ['names' => getResourceRoutesForNameHelper('settings')]);
 
                 Route::post('categorias/position', 'CategoryController@position')->name('categories.position');
+                Route::get('categorias/footer/{id}', 'CategoryController@activeFooter')->name('categories.activeFooter');
                 Route::post('categorias/active', 'CategoryController@active')->name('categories.active');
                 Route::resource('categorias', 'CategoryController', ['names' => getResourceRoutesForNameHelper('categories')]);
 

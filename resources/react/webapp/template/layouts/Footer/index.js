@@ -25,6 +25,7 @@ const Footer = () => {
     });
 
     const [alliances, setAlliances] = useState([]);
+    const [footerCat, setFooterCat] = useState([]);
     const [phoneContact, setPhoneContact] = useState(null);
 
     const [sections, setSections] = useState([]);
@@ -44,6 +45,7 @@ const Footer = () => {
                     setAlliances(response.data.alliances);
                     setSections(response.data.sectionsFooter);
                     setPhoneContact(response.data.phone_contact);
+                    setFooterCat(response.data.categories)
                 },
             });
         }).catch(error => {
@@ -53,7 +55,7 @@ const Footer = () => {
 
     return (
         <Fragment>
-            <div className="footer d-flex py-5">
+            <div className="footer d-flex py-3">
                 <div className="container my-auto">
                     <div className="row" style={{marginLeft: '-25px !important'}}>
                         <div className="col-lg-auto text-center flex-footer-column">
@@ -222,8 +224,26 @@ const Footer = () => {
                                 />
                             </div>
                         </div>
+                        
 
                     </div>
+                    <div className="row justify-content-center mt-4">
+                            <div className="col-lg-auto text-center ">
+                                {
+                                    footerCat.map( (f, i) =>
+
+                                        <a 
+                                            key={f.id} 
+                                            href={f.slug} 
+                                            title={f.name}
+                                            className="text-white"
+                                        >
+                                                {f.name}{ footerCat.length - 1 !== i ? ' | ' : '' } 
+                                        </a> 
+                                    )
+                                }
+                            </div>  
+                        </div>
                 </div>
             </div>
             <FooterBottom/>

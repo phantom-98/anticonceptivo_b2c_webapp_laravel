@@ -206,6 +206,23 @@ class CategoryController extends GlobalController
             return redirect()->back()->withErrors($validator)->withInput();
         }
     }
+
+    public function activeFooter($id){
+        try {
+            
+            $object = Category::find($id);
+            $object->active_footer = $object->active_footer == 0 ? 1 :0;
+            $object->save();
+            return response()->json([
+                'status' => 1
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 0
+            ]);
+        }
+    }
+
     public function position(Request $request)
     {
 
