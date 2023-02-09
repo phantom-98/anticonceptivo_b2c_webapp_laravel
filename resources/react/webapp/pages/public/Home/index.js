@@ -12,7 +12,7 @@ import BannerCategories from "../../../components/sections/BannerCategories";
 // import BannerCarousel from "../../../components/sections/BannerCarousel";
 import SwiperCarousel from "../../../components/sections/SwiperCarousel";
 import LazyLoading from '../../../components/LazyLoading';
-
+import AccordionComponent from '../../../components/general/AccordionComponent'
 const Home = ({match}) => {
     const {token} = match.params;
 
@@ -72,7 +72,10 @@ const Home = ({match}) => {
 
             <BestSeller title="Los 12 Más Comprados"/>
 
+            <AccordionComponent path="home" />
+
             <BannerCategories bannerCategories={bannerCategories}/>
+
 
             <Subscribe/>
         </div>

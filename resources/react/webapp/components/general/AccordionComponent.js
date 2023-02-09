@@ -1,0 +1,40 @@
+import React, {useState, useEffect} from 'react';
+import ReactDOM from 'react-dom';
+
+
+export default function AccordionComponent({path}){
+
+    const [isActive, setIsActive] = useState(false);
+    const [seoData, setSeoData] = useState({});
+    useEffect(() => {
+        fetch('/api/v1/app/public-area/getSetData/'+path)
+            .then((response) => response.json())
+            .then((data) => {
+                setSeoData(seoData => ({
+                    ...seoData,
+                    ...data
+                  }));
+            });
+    });
+
+    return (
+        <div className="accordion">
+        <div className="accordion-item">
+          <div className="accordion-title" onClick={() => setIsActive(!isActive)}>
+            <div>{seoData.title}</div>
+            <div>{isActive ? '-' : '+'}</div>
+          </div>
+            {
+                isActive && 
+                <div 
+                    className="accordion-content" 
+                    dangerouslySetInnerHTML={{__html: seoData.description}}
+                />
+            }
+        </div>
+      </div>
+    );
+};
+
+
+

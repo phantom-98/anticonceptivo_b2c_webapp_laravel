@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\V1\App\PublicArea\AboutUsController;
 use App\Http\Controllers\Api\V1\App\PublicArea\SubscribeController;
 use App\Http\Controllers\Api\V1\App\PublicArea\BlogController;
 use App\Http\Controllers\Api\V1\App\PublicArea\TimelineController;
+use App\Http\Controllers\Intranet\SeoPanelController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('public-area')
@@ -25,6 +26,8 @@ Route::prefix('public-area')
         Route::get('get-beauty', [HomeController::class, 'getBeauty'])->name('getBeauty');
         Route::get('get-pregnancy', [HomeController::class, 'getPregnancy'])->name('getPregnancy');
         Route::get('get-best-sellers', [HomeController::class, 'getBestSellers'])->name('getBestSellers');
+
+        Route::get('/getSetData/{path}', [SeoPanelController::class, 'show']);
 
         Route::post('get-resources', [ProductController::class, 'getResources'])->name('getResources');
         Route::post('get-product-by-categories', [ProductController::class, 'getProductByCategories'])->name('getProductByCategories');

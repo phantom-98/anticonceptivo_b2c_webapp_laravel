@@ -50,6 +50,9 @@ if (env('SHOW_INTRANET', 'TRUE') == 'TRUE') {
 
                 Route::get('/inicio', 'DashboardController@index')->name('dashboard');
 
+                Route::get('/home', 'SeoPanelController@index')->name('seopanel.index');
+                Route::put('/home/{id}', 'SeoPanelController@update');
+
                 Route::get('/get-categories', 'DashboardController@categories')->name('dashboard.categories');
                 Route::get('/get-laboratories', 'DashboardController@laboratories')->name('dashboard.laboratories');
                 Route::get('/get-laboratories-subscriptions', 'DashboardController@laboratories_subscriptions')->name('dashboard.laboratories_subscriptions');
