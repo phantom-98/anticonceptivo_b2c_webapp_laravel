@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Intranet;
 
-use App\Models\Category;
+use App\Models\{Category, SeoPanel};
 use App\Models\Subcategory;
 
 use Illuminate\Http\Request;
@@ -12,6 +12,8 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Artisan;
+use App\Http\Helpers\S3Helper;
+use Illuminate\Support\Facades\Log;
 
 class SubcategoryController extends GlobalController
 {
@@ -58,6 +60,24 @@ class SubcategoryController extends GlobalController
 
             $object = Subcategory::create(array_merge($request->all(), ['slug' => \Str::slug($request->name)]));
 
+            $S3Helper = new S3Helper('laravel/anticonceptivo/', 'public/categories');
+
+            if($request->seo_description){
+                SeoPanel::create([
+                    'path' => \Str::slug($request->name),
+                    'title' => $request->name,
+                    'description' => $request->seo_description
+                ]);
+            }
+
+            if ($request->banner_image) {
+                $object->banner_image = $S3Helper->store($request->file("banner_image"));
+            }
+
+            if ($request->banner_image_responsive) {
+                $object->banner_image_responsive = $S3Helper->store($request->file("banner_image_responsive"));
+            }
+
             if ($object) {
                 Artisan::call('command:sitemap');
                 session()->flash('success', 'Subcategoría creada correctamente.');
@@ -92,6 +112,34 @@ class SubcategoryController extends GlobalController
     public function update(Request $request, $id)
     {
         $object = Subcategory::find($id);
+        $S3Helper = new S3Helper('laravel/anticonceptivo/', 'public/categories');
+        
+        if($request->seo_description){
+            SeoPanel::create([
+                'path' => \Str::slug($request->name),
+                'title' => $request->name,
+                'description' => $request->seo_description
+            ]);
+        }
+
+        if ($request->banner_image) {
+            $S3Helper->delete($object->banner_image);
+            $object->banner_image = $S3Helper->store($request->file("banner_image"));
+
+            Log::info('Cambio de foto banner responsive', [
+                'date' => date('Y-m-d H:i:s'),
+                'user' => auth('intranet')->user()->full_name
+            ]);
+        }
+        if ($request->banner_image_responsive) {
+            $S3Helper->delete($object->banner_image_responsive);
+            $object->banner_image_responsive = $S3Helper->store($request->file("banner_image_responsive"));
+
+            Log::info('Cambio de foto banner', [
+                'date' => date('Y-m-d H:i:s'),
+                'user' => auth('intranet')->user()->full_name
+            ]);
+        }
 
         if (!$object) {
             session()->flash('warning', 'Subcategoría no encontrada.');

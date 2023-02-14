@@ -109,6 +109,13 @@
                                     >{{ old('description') }}</textarea>
                                 </div>
                             </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="description">Seo Descripción</label>
+                                    <textarea id="description" name="seo_description" class="form-control summernote"
+                                    >{{ old('seo_description') }}</textarea>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="panel-footer">

@@ -73,6 +73,7 @@
                             </a>
                             <!--Submenu-->
                             <ul class="collapse">
+                                
                                 @can('intranet.categories.index')
                                 <li class="{{ is_menu_active('intranet/categorias') }}">
                                     <a href="{{ route('intranet.categories.index') }}">
@@ -87,6 +88,11 @@
                                     </a>
                                 </li>
                                 @endcan
+                                <li class="">
+                                    <a href="/intranet/home">
+                                        <span class="menu-title">Tag Home</span>
+                                    </a>
+                                </li>
                                 @can('intranet.brands.index')
                                 <li class="{{ is_menu_active('intranet/marcas') }}">
                                     <a href="{{ route('intranet.brands.index') }}">

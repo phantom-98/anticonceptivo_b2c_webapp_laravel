@@ -19,20 +19,23 @@ export default function AccordionComponent({path}){
 
     return (
         <div className="accordion">
-        <div className="accordion-item">
-          <div className="accordion-title" onClick={() => setIsActive(!isActive)}>
-            <div>{seoData.title}</div>
-            <div>{isActive ? '-' : '+'}</div>
-          </div>
-            {
-                isActive && 
-                <div 
-                    className="accordion-content" 
-                    dangerouslySetInnerHTML={{__html: seoData.description}}
-                />
-            }
+          {
+            seoData.title &&
+            <div className="accordion-item">
+              <div className="accordion-title" onClick={() => setIsActive(!isActive)}>
+                <h1>{seoData.title}</h1>
+                <div>{isActive ? '-' : '+'}</div>
+              </div>
+                {
+                    isActive && 
+                    <div 
+                        className="accordion-content" 
+                        dangerouslySetInnerHTML={{__html: seoData.description}}
+                    />
+                }
+            </div>
+          }
         </div>
-      </div>
     );
 };
 

@@ -590,7 +590,7 @@ a:-webkit-any-link:focus-visible {
 
 
 .accordion {
-    max-width: 600px;
+    max-width: 65%;
     margin: 2rem auto;
   }
   
@@ -599,16 +599,19 @@ a:-webkit-any-link:focus-visible {
     flex-direction: row;
     justify-content: space-between;
     cursor: pointer;
-    background-color: #eeeef0;
+    background-color: #fff;
   }
   
   .accordion-title:hover {
-    background-color: #eeeef1;
+    background-color: #fff;
   }
   
   .accordion-title,
   .accordion-content {
     padding: 1rem;
+  }
+  .accordion-title h1, .accordion-content {
+    font-size: 0.8rem;
   }
   
   .accordion-content {

@@ -132,6 +132,13 @@
                                     >{{ old('description') ?? $object->description }}</textarea>
                                 </div>
                             </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="description">Seo Descripción</label>
+                                    <textarea id="description" name="description" class="form-control summernote"
+                                    >{{ old('description') ?? $object->seodescription }}</textarea>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="panel-footer">

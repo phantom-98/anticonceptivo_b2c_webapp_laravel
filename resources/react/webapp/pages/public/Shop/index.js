@@ -13,9 +13,10 @@ import {capitalizeFirstLetterOfEachWord} from "../../../helpers/GlobalUtils";
 import {CONFIG} from "../../../Config";
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
+import AccordionComponent from '../../../components/general/AccordionComponent'
 
 const Shop = ({match}) => {
-
+    const [slug, setSlug] = useState("");
     const [products, setProducts] = useState([]);
     const [textImmediate, setTextImmediate] = useState([]);
     const [subTextImmediate, setSubTextImmediate] = useState([]);
@@ -45,18 +46,20 @@ const Shop = ({match}) => {
     };
 
     const [filters, setFilters] = useState(defaultFilters);
-
     useEffect(() => {
         setFilters(defaultFilters);
         switch (propsLength(match.params)) {
             case 1:
                 getProducts(match.params.category);
+                setSlug(match.params.category)
                 break;
             case 2:
                 getProducts(match.params.category, match.params.subcategory);
+                setSlug(match.params.subcategory)
                 break;
             case 3:
                 getProducts(match.params.category, null, match.params.type, match.params.filter);
+                setSlug(match.params.filter)
                 break;
             default:
                 break;
@@ -384,7 +387,8 @@ const Shop = ({match}) => {
                 }
 
             </BasePanelTwo>
-
+            
+            <AccordionComponent path={slug} />
             <Subscribe/>
         </Fragment>
     );

@@ -46,6 +46,30 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                {!! Form::label('banner_image', 'Imagen Banner (850 x 200 px)(*)') !!}
+                                <input type='file' name='banner_image' class='form-control' accept=".jpg, .png, .jpeg">
+                            </div>
+                            <div class="form-group col-sm-6">
+                                {!! Form::label('banner_image_responsive', 'Imagen Banner Responsivo') !!}
+                                <input type='file' name='banner_image_responsive' class='form-control' accept=".jpg, .png, .jpeg">
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="description">Descripción</label>
+                                    <textarea id="description" name="description" class="form-control summernote"
+                                    >{{ old('description') }}</textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="description">Seo Descripción</label>
+                                    <textarea id="description" name="seo_description" class="form-control summernote"
+                                    >{{ old('seo_description') }}</textarea>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="panel-footer">
                         <div class="row">

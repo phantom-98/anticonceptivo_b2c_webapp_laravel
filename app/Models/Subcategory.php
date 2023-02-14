@@ -13,7 +13,10 @@ class Subcategory extends Model
         'slug',
         'position',
         'category_id',
-        'active'
+        'active',
+        'banner_image',
+        'description',
+        'banner_image_responsive',
     ];
 
     public function category(){

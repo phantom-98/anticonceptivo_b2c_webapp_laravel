@@ -20,7 +20,7 @@ class SeoPanelController extends Controller
      */
     public function index()
     {
-        $object = SeoPanel::where('path', '/')->first();
+        $object = SeoPanel::where('path', 'home')->first();
         return view('intranet.seopanel.index', compact('object'));
 
     }

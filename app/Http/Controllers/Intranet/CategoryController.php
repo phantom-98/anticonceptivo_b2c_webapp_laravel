@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Intranet;
 
-use App\Models\Category;
+use App\Models\{Category, SeoPanel};
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -62,6 +62,14 @@ class CategoryController extends GlobalController
 
             $object = Category::create(array_merge($request->except('image', 'banner_image', 'banner_image_responsive', 'subbanner_image', 'banner_subimage_responsive'), ['slug' => \Str::slug($request->name)]));
             $S3Helper = new S3Helper('laravel/anticonceptivo/', 'public/categories');
+
+            if($request->seo_description){
+                SeoPanel::create([
+                    'path' => \Str::slug($request->name),
+                    'title' => $request->name,
+                    'description' => $request->seo_description
+                ]);
+            }
 
             if ($request->image) {
                 $object->image = $S3Helper->store($request->file("image"), false);

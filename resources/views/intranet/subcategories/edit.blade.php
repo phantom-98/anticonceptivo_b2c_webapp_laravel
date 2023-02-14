@@ -48,6 +48,38 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                {!! Form::label('banner_image', 'Imagen Banner (850 x 200 px)(*)') !!}
+                                <input id="file-image-2" type='file' name='banner_image' class='form-control' accept=".jpg, .png, .jpeg">
+                                <br/>
+                                @if ($object->banner_image)
+                                <img id="image-edit-2" src="{{ $object->banner_image }}" style="max-width: 200px;"/>
+                                @endif
+                            </div>
+                            <div class="col-md-6">
+                                {!! Form::label('banner_image_responsive', 'Imagen Banner Responsivo') !!}
+                                <input id="file-image-4" type='file' name='banner_image_responsive' class='form-control' accept=".jpg, .png, .jpeg">
+                                <br/>
+                                @if ($object->banner_image_responsive)
+                                    <img id="image-edit-4" src="{{ $object->banner_image_responsive }}" style="max-width: 200px;"/>
+                                @endif
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="description">Descripción</label>
+                                    <textarea id="description" name="description" class="form-control summernote"
+                                    >{{ old('description') ?? $object->description }}</textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="description">Seo Descripción</label>
+                                    <textarea id="description" name="seo_description" class="form-control summernote"
+                                    >{{ old('description') ?? $object->seo_description }}</textarea>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="panel-footer">
                         <div class="row">
