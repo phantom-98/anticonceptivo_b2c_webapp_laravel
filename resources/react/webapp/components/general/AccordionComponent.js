@@ -7,6 +7,7 @@ export default function AccordionComponent({path}){
     const [isActive, setIsActive] = useState(false);
     const [seoData, setSeoData] = useState({});
     useEffect(() => {
+      if(!seoData.id && path){
         fetch('/api/v1/app/public-area/getSetData/'+path)
             .then((response) => response.json())
             .then((data) => {
@@ -15,6 +16,7 @@ export default function AccordionComponent({path}){
                     ...data
                   }));
             });
+      }
     });
 
     return (
@@ -23,7 +25,11 @@ export default function AccordionComponent({path}){
             seoData.title &&
             <div className="accordion-item">
               <div className="accordion-title" onClick={() => setIsActive(!isActive)}>
-                <h1>{seoData.title}</h1>
+                {path == 'home' ?
+                  <h1>{seoData.title}</h1>
+                  :
+                  <h2>{seoData.title}</h2>
+                }
                 <div>{isActive ? '-' : '+'}</div>
               </div>
                 {

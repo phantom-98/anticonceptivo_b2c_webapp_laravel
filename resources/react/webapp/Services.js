@@ -106,6 +106,9 @@ export const ENDPOINT = {
         ABOUT_US: GetBaseURL() + 'public-area/get-about-us-resources',
         SUBSCRIBE: GetBaseURL() + 'public-area/subscribe',
         SHOP: {
+            INFO: {
+                SUBCATEGORY: GetBaseURL() + 'public-area/get-subcategory_info',
+            },
             PRODUCTS: {
                 CATEGORY: GetBaseURL() + 'public-area/get-product-by-categories',
                 SEARCH: GetBaseURL() + 'public-area/get-product-by-search',

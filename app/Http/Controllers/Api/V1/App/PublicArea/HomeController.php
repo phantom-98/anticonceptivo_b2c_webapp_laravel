@@ -22,6 +22,7 @@ use App\Models\Alliance;
 use App\Models\PostType;
 use App\Models\ProductSchedule;
 use App\Http\Controllers\Api\V1\App\Helpers\ProductLabelHelper;
+use App\Models\Subcategory;
 
 class HomeController extends Controller
 {
@@ -30,6 +31,13 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->product_schedules = ProductSchedule::get();
+    }
+
+    public function getSubcategoryInfo($slug){
+        $subcategory = Subcategory::where('slug', $slug)->first();
+        return ApiResponse::JsonSuccess([
+            'subcategory' => $subcategory
+        ]);
     }
 
     public function getHeaderNavbarResources()

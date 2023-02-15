@@ -12,6 +12,7 @@ import 'react-lazy-load-image-component/src/effects/blur.css';
 import OutstandingCarouselProducts from '../../../components/sections/OutstandingCarouselProducts';
 
 const ProductList = ({
+    subcategory,
     category,
     products,
     subcatNames,
@@ -30,15 +31,33 @@ const ProductList = ({
     const [activePage, setActivePage] = useState(1);
     const [pageCount, setPageCount] = useState(Math.ceil(products.length / viewCount));
     const [showOrderByMobile, setShowOrderByMobile] = useState(false);
-
+    
     useEffect(() => {
         setActivePage(1);
     }, [viewCount, products])
 
     return (
         <div className="row">
+            {
+                subcategory.banner_image && search ==  null ?
+                <div
+                    className={`d-none d-md-block ${subcategory.banner_image ? subcategory.banner_image : 'col-12'}`}>
+                    <LazyLoadImage
+                        alt={CONFIG.APP_NAME}
+                        title="Anticonceptivo"
+                        rel="nofollow"
+                        width={'100%'}
+                        effect="blur"
+                        src={subcategory.banner_image}
+                    />
+                </div>
+                :
+                null
+            }
+            
             {search == null ?
                 // <div className="col-12 pb-3">
+                
                 <div
                     className={`d-none d-md-block ${category.banner_image_size ? category.banner_image_size : 'col-12'}`}>
                     <LazyLoadImage
@@ -54,7 +73,7 @@ const ProductList = ({
             }
             <div className="col-12 pb-3 pb-md-0 font-14 color-033F5D">
                 {search == null ?
-                    <div dangerouslySetInnerHTML={{__html: category.description}}/>
+                    <div dangerouslySetInnerHTML={{__html: subcategory.description ? subcategory.description :category.description}}/>
                     : null
                 }
             </div>

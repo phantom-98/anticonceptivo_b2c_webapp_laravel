@@ -21,6 +21,7 @@ const Shop = ({match}) => {
     const [textImmediate, setTextImmediate] = useState([]);
     const [subTextImmediate, setSubTextImmediate] = useState([]);
     const [category, setCategory] = useState({});
+    const [subcategory, setSubCategory] = useState({});
     const [subcategories, setSubcategories] = useState([]);
     const [laboratories, setLaboratories] = useState([]);
     const [subscriptions, setSubscriptions] = useState([]);
@@ -56,21 +57,46 @@ const Shop = ({match}) => {
             case 2:
                 getProducts(match.params.category, match.params.subcategory);
                 setSlug(match.params.subcategory)
+                getSubCategoryInfo(match.params.subcategory)
                 break;
             case 3:
                 getProducts(match.params.category, null, match.params.type, match.params.filter);
                 setSlug(match.params.filter)
+                getSubCategoryInfo(match.params.filter)
                 break;
-            default:
-                break;
-        }
-    }, [match.params]);
+                default:
+                    break;
+                }
+            }, [match.params]);
+            
+            useEffect(() => {
+                if (filtersUpdate > 1) {
+                    getProductsFiltered();
+                }
+            }, [filtersUpdate])
+            
+            const getSubCategoryInfo = (slug) => {
 
-    useEffect(() => {
-        if (filtersUpdate > 1) {
-            getProductsFiltered();
-        }
-    }, [filtersUpdate])
+                let url = Services.ENDPOINT.PUBLIC_AREA.SHOP.INFO.SUBCATEGORY;
+                
+                Services.DoGet(`${url}/${slug}`).then(response => {
+                    Services.Response({
+                        response: response,
+                        success: () => {
+                            setSubCategory(response.data.subcategory)
+                        },
+                        error: () => {
+                            toastr.error(response.message);
+                        },
+                        warning: () => {
+                            toastr.warning(response.message);
+                        }
+                    });
+                }).catch(error => {
+                    Services.ErrorCatch(error)
+                });
+       
+    }
 
     const getProducts = (_category, _subcategory = null, _type = null, _filter = null) => {
         let url = Services.ENDPOINT.PUBLIC_AREA.SHOP.PRODUCTS.CATEGORY;
@@ -350,6 +376,7 @@ const Shop = ({match}) => {
                             </div>
                             <div className="col-md">
                                 <ProductList
+                                    subcategory={subcategory}
                                     category={category}
                                     products={products}
                                     subcatNames={subcatNames}

@@ -17,7 +17,7 @@ Route::prefix('public-area')
     ->name('public-area.')
     // ->middleware(['web'])
     ->group(function () {
-
+        Route::get('get-subcategory_info/{slug}', [HomeController::class, 'getSubcategoryInfo'])->name('getSubcategoryInfo');
         Route::get('get-header-navbar-resources', [HomeController::class, 'getHeaderNavbarResources'])->name('getHeaderNavbarResources');
         Route::get('get-home-top-banners', [HomeController::class, 'getHomeTopBanners'])->name('getHomeTopBanners');
 
