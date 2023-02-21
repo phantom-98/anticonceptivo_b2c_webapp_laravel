@@ -10,17 +10,17 @@ export default function AccordionComponent({path}){
       if(!seoData.id && path){
         fetch('/api/v1/app/public-area/getSetData/'+path)
             .then((response) => response.json())
-            .then((data) => {
-                setSeoData(seoData => ({
-                    ...seoData,
-                    ...data
-                  }));
+            .then((res) => {
+                if(res.data){
+                  setSeoData(res.data);
+                }
             });
       }
     });
 
     return (
-        <div className="accordion">
+      
+        <div className="accordion-footer">
           {
             seoData.title &&
             <div className="accordion-item">

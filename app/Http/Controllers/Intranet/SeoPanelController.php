@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Intranet;
 use App\Http\Controllers\Controller;
 use App\Models\SeoPanel;
 use Illuminate\Http\Request;
+use Willywes\ApiResponse\ApiResponse;
 
 
 class SeoPanelController extends Controller
@@ -54,7 +55,8 @@ class SeoPanelController extends Controller
      */
     public function show($path)
     {
-        return SeoPanel::where('path', $path)->first();
+        $data = SeoPanel::where('path', $path)->first();
+        return ApiResponse::JsonSuccess($data);
     }
 
     /**

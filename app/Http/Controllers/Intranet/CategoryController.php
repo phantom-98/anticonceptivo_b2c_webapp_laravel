@@ -117,6 +117,8 @@ class CategoryController extends GlobalController
     public function edit($id)
     {
         $object = Category::find($id);
+        $seopanel = SeoPanel::where('path', \Str::slug($object->name))->first();
+        $object->seo_description = $seopanel->description;
 
         if (!$object) {
             session()->flash('warning', 'Categoría no encontrada.');
@@ -147,6 +149,17 @@ class CategoryController extends GlobalController
 
             $object->update(array_merge($request->except('image', 'banner_image', 'banner_image_responsive', 'subbanner_image', 'banner_subimage_responsive'), ['slug' => \Str::slug($request->name)]));
             $S3Helper = new S3Helper('laravel/anticonceptivo/', 'public/categories');
+
+            if($request->seo_description){
+                SeoPanel::updateOrCreate(
+                    ['path' => \Str::slug($request->name)],
+                    [
+                        'title' => $request->name,
+                        'description' => $request->seo_description
+                    ]
+                );
+            }
+            
 
             if ($request->image) {
                 $S3Helper->delete($object->image);

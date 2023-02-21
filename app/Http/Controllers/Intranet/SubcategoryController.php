@@ -98,6 +98,8 @@ class SubcategoryController extends GlobalController
     public function edit($id)
     {
         $object = Subcategory::find($id);
+        $seopanel = SeoPanel::where('path', \Str::slug($object->name))->first();
+        $object->seo_description = $seopanel->description;
 
         if (!$object) {
             session()->flash('warning', 'Subcategoría no encontrada.');
@@ -115,11 +117,13 @@ class SubcategoryController extends GlobalController
         $S3Helper = new S3Helper('laravel/anticonceptivo/', 'public/categories');
         
         if($request->seo_description){
-            SeoPanel::create([
-                'path' => \Str::slug($request->name),
-                'title' => $request->name,
-                'description' => $request->seo_description
-            ]);
+            SeoPanel::updateOrCreate(
+                ['path' => \Str::slug($request->name)],
+                [
+                    'title' => $request->name,
+                    'description' => $request->seo_description
+                ]
+            );
         }
 
         if ($request->banner_image) {

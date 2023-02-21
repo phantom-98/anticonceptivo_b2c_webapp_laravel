@@ -39,7 +39,7 @@ const ProductList = ({
     return (
         <div className="row">
             {
-                subcategory.banner_image && search ==  null ?
+                subcategory && ( subcategory.banner_image && search ==  null ) ?
                 <div
                     className={`d-none d-md-block ${subcategory.banner_image ? subcategory.banner_image : 'col-12'}`}>
                     <LazyLoadImage
@@ -73,7 +73,7 @@ const ProductList = ({
             }
             <div className="col-12 pb-3 pb-md-0 font-14 color-033F5D">
                 {search == null ?
-                    <div dangerouslySetInnerHTML={{__html: subcategory.description ? subcategory.description :category.description}}/>
+                    <div dangerouslySetInnerHTML={{__html: subcategory && subcategory.description ? subcategory.description :category.description}}/>
                     : null
                 }
             </div>

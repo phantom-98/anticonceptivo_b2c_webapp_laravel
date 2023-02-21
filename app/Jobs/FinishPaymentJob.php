@@ -40,7 +40,6 @@ class FinishPaymentJob implements ShouldQueue
         if (env('APP_ENV') == 'production') {
             if ($this->order->ballot_number == null) {
                 $this->customerAddress = CustomerAddress::with('commune')->where('customer_id', $this->order->customer_id)->where('default_address', 1)->get()->first();
-
                 if ($this->customerAddress) {
                     try{
                         CallIntegrationsPay::callVoucher($this->order->id, $this->customerAddress);
@@ -49,7 +48,6 @@ class FinishPaymentJob implements ShouldQueue
                         
                     }
                 }
-
                 CallIntegrationsPay::sendEmailsOrder($this->order->id);
             }
         } else {
