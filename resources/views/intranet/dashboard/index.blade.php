@@ -407,7 +407,7 @@
                 'Hoy': [moment(), moment().add(1, 'days')],
                 'Ayer': [moment().subtract(1, 'days'), moment()],
                 'Últimos 7 días': [moment().subtract(6, 'days'), moment()],
-                'Último mes': [moment().startOf('month'), moment().endOf('month')]
+                'Último mes': [moment().subtract(1, 'months').startOf('month'), moment().subtract(1, 'months').endOf('month')]
             },
             locale: {
                 format: "DD/MM/YYYY",
@@ -470,7 +470,7 @@
                 'Hoy': [moment(), moment().add(1, 'days')],
                 'Ayer': [moment().subtract(1, 'days'), moment()],
                 'Últimos 7 días': [moment().subtract(6, 'days'), moment()],
-                'Último mes': [moment().startOf('month'), moment().endOf('month')]
+                'Último mes': [moment().subtract(1, 'months').startOf('month'), moment().subtract(1, 'months').endOf('month')]
             },
             locale: {
                 format: "DD/MM/YYYY",
@@ -533,7 +533,7 @@
                 'Hoy': [moment(), moment().add(1, 'days')],
                 'Ayer': [moment().subtract(1, 'days'), moment()],
                 'Últimos 7 días': [moment().subtract(6, 'days'), moment()],
-                'Último mes': [moment().startOf('month'), moment().endOf('month')]
+                'Último mes': [moment().subtract(1, 'months').startOf('month'), moment().subtract(1, 'months').endOf('month')]
             },
             locale: {
                 format: "DD/MM/YYYY",
@@ -596,7 +596,7 @@
                 'Hoy': [moment(), moment().add(1, 'days')],
                 'Ayer': [moment().subtract(1, 'days'), moment()],
                 'Últimos 7 días': [moment().subtract(6, 'days'), moment()],
-                'Último mes': [moment().startOf('month'), moment().endOf('month')]
+                'Último mes': [moment().subtract(1, 'months').startOf('month'), moment().subtract(1, 'months').endOf('month')]
             },
             locale: {
                 format: "DD/MM/YYYY",
@@ -659,7 +659,7 @@
                 'Hoy': [moment(), moment().add(1, 'days')],
                 'Ayer': [moment().subtract(1, 'days'), moment()],
                 'Últimos 7 días': [moment().subtract(6, 'days'), moment()],
-                'Último mes': [moment().startOf('month'), moment().endOf('month')]
+                'Último mes': [moment().subtract(1, 'months').startOf('month'), moment().subtract(1, 'months').endOf('month')]
             },
             locale: {
                 format: "DD/MM/YYYY",
@@ -722,7 +722,7 @@
                 'Hoy': [moment(), moment().add(1, 'days')],
                 'Ayer': [moment().subtract(1, 'days'), moment()],
                 'Últimos 7 días': [moment().subtract(6, 'days'), moment()],
-                'Último mes': [moment().startOf('month'), moment().endOf('month')]
+                'Último mes': [moment().subtract(1, 'months').startOf('month'), moment().subtract(1, 'months').endOf('month')]
             },
             locale: {
                 format: "DD/MM/YYYY",
