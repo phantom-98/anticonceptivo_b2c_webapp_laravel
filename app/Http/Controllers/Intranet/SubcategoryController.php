@@ -77,7 +77,7 @@ class SubcategoryController extends GlobalController
             if ($request->banner_image_responsive) {
                 $object->banner_image_responsive = $S3Helper->store($request->file("banner_image_responsive"));
             }
-
+            $object->save();
             if ($object) {
                 Artisan::call('command:sitemap');
                 session()->flash('success', 'Subcategoría creada correctamente.');
@@ -128,25 +128,6 @@ class SubcategoryController extends GlobalController
             );
         }
 
-        if ($request->banner_image) {
-            $S3Helper->delete($object->banner_image);
-            $object->banner_image = $S3Helper->store($request->file("banner_image"));
-
-            Log::info('Cambio de foto banner responsive', [
-                'date' => date('Y-m-d H:i:s'),
-                'user' => auth('intranet')->user()->full_name
-            ]);
-        }
-        if ($request->banner_image_responsive) {
-            $S3Helper->delete($object->banner_image_responsive);
-            $object->banner_image_responsive = $S3Helper->store($request->file("banner_image_responsive"));
-
-            Log::info('Cambio de foto banner', [
-                'date' => date('Y-m-d H:i:s'),
-                'user' => auth('intranet')->user()->full_name
-            ]);
-        }
-
         if (!$object) {
             session()->flash('warning', 'Subcategoría no encontrada.');
             return redirect()->route($this->route . 'index');
@@ -165,7 +146,26 @@ class SubcategoryController extends GlobalController
 
         if ($validator->passes()) {
 
-            $object->update(array_merge($request->all(), ['slug' => \Str::slug($request->name)]));
+            $object->update(array_merge($request->except('banner_image', 'banner_image_responsive'), ['slug' => \Str::slug($request->name)]));
+
+            if ($request->banner_image) {
+                $S3Helper->delete($object->banner_image);
+                $object->banner_image = $S3Helper->store($request->file("banner_image"));
+    
+                Log::info('Cambio de foto banner responsive', [
+                    'date' => date('Y-m-d H:i:s'),
+                    'user' => auth('intranet')->user()->full_name
+                ]);
+            }
+            if ($request->banner_image_responsive) {
+                $S3Helper->delete($object->banner_image_responsive);
+                $object->banner_image_responsive = $S3Helper->store($request->file("banner_image_responsive"));
+    
+                Log::info('Cambio de foto banner', [
+                    'date' => date('Y-m-d H:i:s'),
+                    'user' => auth('intranet')->user()->full_name
+                ]);
+            }
 
             $object->save();
 

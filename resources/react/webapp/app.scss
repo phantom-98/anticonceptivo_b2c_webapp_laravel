@@ -623,8 +623,21 @@ a:-webkit-any-link:focus-visible {
     body {
       font-size: 18px;
     }
+
+    .accordion-footer {
+        max-width: 95%;
+        margin: 0rem auto;
+    }
   
     .accordion {
       width: 90%;
+    }
+  }
+
+  
+  @media screen and (max-width: 400px) {
+      .accordion-footer {
+        margin-top: -100px;
+        
     }
   }

@@ -36,24 +36,14 @@ const ProductList = ({
         setActivePage(1);
     }, [viewCount, products])
 
+    if(subcategory && subcategory.banner_image){
+        category.banner_image_size = subcategory.banner_image;
+        category.public_banner_image = subcategory.banner_image;
+    }
+
     return (
         <div className="row">
-            {
-                subcategory && ( subcategory.banner_image && search ==  null ) ?
-                <div
-                    className={`d-none d-md-block ${subcategory.banner_image ? subcategory.banner_image : 'col-12'}`}>
-                    <LazyLoadImage
-                        alt={CONFIG.APP_NAME}
-                        title="Anticonceptivo"
-                        rel="nofollow"
-                        width={'100%'}
-                        effect="blur"
-                        src={subcategory.banner_image}
-                    />
-                </div>
-                :
-                null
-            }
+            
             
             {search == null ?
                 // <div className="col-12 pb-3">
