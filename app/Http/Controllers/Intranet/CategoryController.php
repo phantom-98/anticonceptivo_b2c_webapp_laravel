@@ -118,7 +118,9 @@ class CategoryController extends GlobalController
     {
         $object = Category::find($id);
         $seopanel = SeoPanel::where('path', \Str::slug($object->name))->first();
-        $object->seo_description = $seopanel->description;
+        if($seopanel){
+            $object->seo_description = $seopanel->description;
+        }
 
         if (!$object) {
             session()->flash('warning', 'Categoría no encontrada.');
