@@ -324,6 +324,10 @@ const Shop = ({match}) => {
         }
     }
 
+    if(subcategory && subcategory.banner_image_responsive){
+        category.public_banner_image_responsive = subcategory.banner_image_responsive
+    }
+
     return (
         <Fragment>
             <BasePanelTwo
