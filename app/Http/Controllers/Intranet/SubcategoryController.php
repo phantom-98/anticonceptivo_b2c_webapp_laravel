@@ -65,7 +65,7 @@ class SubcategoryController extends GlobalController
             if($request->seo_description){
                 SeoPanel::create([
                     'path' => \Str::slug($request->name),
-                    'title' => $request->name,
+                    'title' => $request->seo_title ?? '',
                     'description' => $request->seo_description
                 ]);
             }
@@ -101,6 +101,7 @@ class SubcategoryController extends GlobalController
         $seopanel = SeoPanel::where('path', \Str::slug($object->name))->first();
         if($seopanel){
             $object->seo_description = $seopanel->description;
+            $object->seo_title = $seopanel->title;
         }
 
         if (!$object) {
@@ -122,7 +123,7 @@ class SubcategoryController extends GlobalController
             SeoPanel::updateOrCreate(
                 ['path' => \Str::slug($request->name)],
                 [
-                    'title' => $request->name,
+                    'title' => $request->seo_title ?? '',
                     'description' => $request->seo_description
                 ]
             );
