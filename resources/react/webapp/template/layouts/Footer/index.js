@@ -234,7 +234,7 @@ const Footer = () => {
 
                                         <a 
                                             key={f.id} 
-                                            href={f.slug} 
+                                            href={'/tienda/'+f.slug} 
                                             title={f.name}
                                             className="text-white"
                                         >
