@@ -134,7 +134,7 @@
                             </div>
                              <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="name">Nombre (*)</label>
+                                    <label for="name">Seo Titulo</label>
                                     <input type="text" id="seo_title" name="seo_title" class="form-control"
                                             value="{{ old('seo_title') ?? $object->seo_title }}">
                                 </div>
