@@ -132,11 +132,18 @@
                                     >{{ old('description') ?? $object->description }}</textarea>
                                 </div>
                             </div>
+                             <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="name">Seo Titulo</label>
+                                    <input type="text" id="seo_title" name="seo_title" class="form-control"
+                                            value="{{ old('seo_title') ?? $object->seo_title }}">
+                                </div>
+                            </div>
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="description">Seo Descripción</label>
-                                    <textarea id="description" name="description" class="form-control summernote"
-                                    >{{ old('description') ?? $object->seodescription }}</textarea>
+                                    <textarea id="description" name="seo_description" class="form-control summernote"
+                                    >{{ old('description') ?? $object->seo_description }}</textarea>
                                 </div>
                             </div>
                         </div>
