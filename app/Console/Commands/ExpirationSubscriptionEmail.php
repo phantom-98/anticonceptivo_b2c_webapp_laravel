@@ -120,7 +120,9 @@ class ExpirationSubscriptionEmail extends Command
                 }
             }
 
-            $objects = OrderItem::with('product.plans.subscription_plan', 'order.customer')->whereNull('subscription_plan_id')->whereBetween('created_at', [Carbon::now()->subMonths(2)->format('Y-m-d H:i:s'), Carbon::now()->format('Y-m-d H:i:s')])->get();
+            $objects = OrderItem::whereHas('order', function ($o) {
+                $o->whereNotIn('status', ['REJECTED', 'CANCELED', 'CREATED']);
+            })->with('product.plans.subscription_plan', 'order.customer')->whereNull('subscription_plan_id')->whereBetween('created_at', [Carbon::now()->subMonths(2)->format('Y-m-d H:i:s'), Carbon::now()->format('Y-m-d H:i:s')])->get();
     
             foreach($objects as $object){
                 if(isset($object->product->days_protection)){
