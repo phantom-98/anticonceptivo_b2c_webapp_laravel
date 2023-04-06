@@ -9,7 +9,7 @@
 
     <!-- Metas -->
 
-{!! $metas ?? '' !!}
+{!! dd($metas) ?? '' !!}
 
 <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">

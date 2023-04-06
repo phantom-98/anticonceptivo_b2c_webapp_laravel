@@ -13,6 +13,8 @@ class SeoPanel extends Model
         'title',
         'description',
         'path',
+        'meta_title',
+        'meta_description'
     ];
 
     

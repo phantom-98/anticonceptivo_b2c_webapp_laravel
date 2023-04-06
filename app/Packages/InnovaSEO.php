@@ -256,6 +256,6 @@ class InnovaSEO
         if ($this->name == $this->title) {
             return $this->title;
         }
-        return $this->title . ' | ' . $this->name;
+        return $this->title;
     }
 }
