@@ -3,7 +3,7 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Models\SeoPanel;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Subcategory;
@@ -46,6 +46,13 @@ class SEOController extends Controller
             $this->buildContact($url);
         }
 
+        if( $request->path() == '/'){
+            $homeData = SeoPanel::find(1);
+            $this->seo->setTitle($homeData->meta_title ?? '');
+            $this->seo->setDescription($homeData->meta_description ?? '');
+            $this->seo->setUrl($url);
+        }
+
         return view('webapp.base_react_seo')->with([
             'metas' => $this->seo->getFullMeta(),
             'preload' => $this->seo->getPreload()
@@ -67,11 +74,11 @@ class SEOController extends Controller
         }
 
         $category = Category::where('slug', $slug)->first();
-
+        $seopanel = SeoPanel::where('path', $slug)->first();
         if ($category) {
             $image = env('APP_URL') . Storage::url($category->banner_image);
-            $this->seo->setTitle($category->name);
-            $this->seo->setDescription(strip_tags($category->description));
+            $this->seo->setTitle($seopanel->meta_title ?? '');
+            $this->seo->setDescription($seopanel->meta_description ?? '');
             $this->seo->setUrl($url);
             $this->seo->setImage($image);
         }else{
@@ -79,8 +86,8 @@ class SEOController extends Controller
             if($subCategory){
                 $category = $subCategory->category;
                 $image = env('APP_URL') . Storage::url($category->banner_image);
-                $this->seo->setTitle($subCategory->name);
-                $this->seo->setDescription(strip_tags($category->description));
+                $this->seo->setTitle($seopanel->meta_title ?? '');
+                $this->seo->setDescription($seopanel->meta_description ?? '');
                 $this->seo->setUrl($url);
                 $this->seo->setImage($image);
             }

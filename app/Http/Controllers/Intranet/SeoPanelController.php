@@ -80,6 +80,7 @@ class SeoPanelController extends Controller
     public function update(Request $request, $id)
     {
         $object = SeoPanel::find($id);
+        
         if (!$object) {
             SeoPanel::create($request->all());
             return back();

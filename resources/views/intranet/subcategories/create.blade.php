@@ -76,6 +76,20 @@
                                     >{{ old('seo_description') }}</textarea>
                                 </div>
                             </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="name">Meta tag Titulo</label>
+                                    <input type="text" id="seo_title" name="meta_title" class="form-control"
+                                            value="{{ old('meta_title') }}">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="description">Meta tag Descripción</label>
+                                    <textarea name="meta_description" class="form-control"
+                                    >{{ old('meta_description') }}</textarea>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="panel-footer">

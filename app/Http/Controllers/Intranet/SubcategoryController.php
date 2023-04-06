@@ -66,9 +66,13 @@ class SubcategoryController extends GlobalController
                 SeoPanel::create([
                     'path' => \Str::slug($request->name),
                     'title' => $request->seo_title ?? '',
-                    'description' => $request->seo_description
+                    'description' => $request->seo_description,
+                    'meta_title' => $request->meta_title ?? '',
+                    'meta_description' => $request->meta_description ?? '',
                 ]);
             }
+
+            
 
             if ($request->banner_image) {
                 $object->banner_image = $S3Helper->store($request->file("banner_image"));
@@ -102,6 +106,8 @@ class SubcategoryController extends GlobalController
         if($seopanel){
             $object->seo_description = $seopanel->description;
             $object->seo_title = $seopanel->title;
+            $object->meta_title = $seopanel->meta_title;
+            $object->meta_description = $seopanel->meta_description;
         }
 
         if (!$object) {
@@ -124,7 +130,9 @@ class SubcategoryController extends GlobalController
                 ['path' => \Str::slug($request->name)],
                 [
                     'title' => $request->seo_title ?? '',
-                    'description' => $request->seo_description
+                    'description' => $request->seo_description,
+                    'meta_title' => $request->meta_title ?? '',
+                    'meta_description' => $request->meta_description ?? '',
                 ]
             );
         }

@@ -6,8 +6,9 @@ export default function AccordionComponent({path}){
 
     const [isActive, setIsActive] = useState(false);
     const [seoData, setSeoData] = useState({});
+    console.log(path)
     useEffect(() => {
-      if(!seoData.id && path){
+      
         fetch('/api/v1/app/public-area/getSetData/'+path)
             .then((response) => response.json())
             .then((res) => {
@@ -15,8 +16,8 @@ export default function AccordionComponent({path}){
                   setSeoData(res.data);
                 }
             });
-      }
-    });
+      
+    },[path]);
 
     return (
       
