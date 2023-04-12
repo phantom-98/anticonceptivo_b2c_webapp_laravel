@@ -126,14 +126,12 @@ const Shop = ({match}) => {
 
                     if (response.data.subcat) {
                         setSubcatNames(response.data.subcat.name);
-                        document.title = capitalizeFirstLetterOfEachWord(response.data.subcat.name) + ' - Anticonceptivo';
+                        
                         setFilters({
                             ...filters,
                             ['subcategories']: [response.data.subcat.id]
                         });
-                    } else {
-                        document.title = capitalizeFirstLetterOfEachWord(response.data.category.name) + ' - Anticonceptivo';
-                    }
+                    } 
 
                     // if (response.data.subcat){
                     //     setSubcatNames(response.data.subcat.name);
