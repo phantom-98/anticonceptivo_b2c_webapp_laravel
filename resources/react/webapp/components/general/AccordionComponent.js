@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import {capitalizeFirstLetterOfEachWord} from "../../helpers/GlobalUtils";
 import ReactDOM from 'react-dom';
 
 
@@ -12,14 +13,18 @@ export default function AccordionComponent({path}){
         fetch('/api/v1/app/public-area/getSetData/'+path)
             .then((response) => response.json())
             .then((res) => {
-                if(res.data.meta_title){
-                  document.title = res.data.meta_title
-                  document.querySelector('meta[name="title"]').setAttribute("content", res.data.meta_title);
-                  document.querySelector('meta[name="description"]').setAttribute("content", res.data.meta_description);
-                }
-                if(res.data){
-                  setSeoData(res.data);
-                }
+              if(res.data && res.data.meta_title){
+                console.log('asdad')
+                document.title = res.data.meta_title
+                document.querySelector('meta[name="title"]').setAttribute("content", res.data.meta_title);
+                document.querySelector('meta[name="description"]').setAttribute("content", res.data.meta_description);
+              }else{
+                document.title = capitalizeFirstLetterOfEachWord(path) + ' - Anticonceptivo';
+              }
+              if(res.data){
+                
+                setSeoData(res.data);
+              }
             });
       
     },[path]);
