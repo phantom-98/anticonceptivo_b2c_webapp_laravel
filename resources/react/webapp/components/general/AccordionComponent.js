@@ -6,12 +6,17 @@ export default function AccordionComponent({path}){
 
     const [isActive, setIsActive] = useState(false);
     const [seoData, setSeoData] = useState({});
-    console.log(path)
+    
     useEffect(() => {
       
         fetch('/api/v1/app/public-area/getSetData/'+path)
             .then((response) => response.json())
             .then((res) => {
+                if(res.data.meta_title){
+                  document.title = res.data.meta_title
+                  document.querySelector('meta[name="title"]').setAttribute("content", res.data.meta_title);
+                  document.querySelector('meta[name="description"]').setAttribute("content", res.data.meta_description);
+                }
                 if(res.data){
                   setSeoData(res.data);
                 }
