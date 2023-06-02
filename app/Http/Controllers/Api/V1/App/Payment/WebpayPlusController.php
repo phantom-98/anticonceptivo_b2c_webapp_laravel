@@ -644,6 +644,7 @@ class WebpayPlusController
 
             foreach ($arrayProductsQuantity as $id => $quantity) {
                 $product = Product::find($id);
+                //TODO check Stock, cuando entre a transbank deberia mantenerlo en estado pendiente
                 $get_data = ApiHelper::callAPI('GET', 'https://api.ailoo.cl/v1/inventory/barCode/' . $product->barcode, null, 'ailoo');
                 $response = json_decode($get_data, true);
                 if ($response != null && array_key_exists('inventoryItems', $response)) {
