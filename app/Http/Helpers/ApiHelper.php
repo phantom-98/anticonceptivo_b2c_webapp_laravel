@@ -96,6 +96,7 @@ class ApiHelper extends CoreHelper
                     'Content-Type: application/json',
                 ));
             }else if ($integration == 'inventario_api') {
+                //TODO api token .env
                 curl_setopt($curl, CURLOPT_HTTPHEADER, array(
                     'Accept: application/json',
                     'Content-Type: application/json',
