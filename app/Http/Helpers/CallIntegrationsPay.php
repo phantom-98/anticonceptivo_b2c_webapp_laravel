@@ -26,7 +26,8 @@ class CallIntegrationsPay extends CoreHelper
        foreach ($ordersItems as $elementOrderItem) {
 
             $item = array(
-                'productItemId' => $elementOrderItem->product->product_item_id_ailoo,
+                'productItemName' => $elementOrderItem->product->name,
+                'productItemId' => $elementOrderItem->product->sku,
                 'price' => $elementOrderItem->price,
                 'quantity' => $elementOrderItem->quantity,
                 "taxable"=> true,
@@ -34,10 +35,11 @@ class CallIntegrationsPay extends CoreHelper
             );
             array_push($items,$item);
         }
-
+        //dd($order->dispatch);
        $item = array(
+           'productItemName' => "Envio",
            'productItemId' => 2376186,
-           'price' => $order->dispatch,
+           'price' => $order->dispatch == 0.0 ? 1 : $order->dispatch,
            'quantity' => 1,
            "taxable"=> true,
            "type"=> "PRODUCT"

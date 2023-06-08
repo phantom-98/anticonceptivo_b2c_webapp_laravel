@@ -649,6 +649,7 @@ class WebpayPlusController
                 $get_data = ApiHelper::callAPI('GET', 'http://localhost:4000/v1/product/stockByCode/' . $product->barcode, null, 'inventario_api');
 
                 $response = json_decode($get_data, true);
+                
                 if ($response != null && array_key_exists('inventoryItems', $response)) {
                     $isWeb = false;
                     foreach ($response['inventoryItems'] as $key => $inventory) {
