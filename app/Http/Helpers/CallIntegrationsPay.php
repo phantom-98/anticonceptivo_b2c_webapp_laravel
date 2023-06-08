@@ -36,16 +36,19 @@ class CallIntegrationsPay extends CoreHelper
             array_push($items,$item);
         }
         //dd($order->dispatch);
-       $item = array(
-           'productItemName' => "Envio",
-           'productItemId' => 2376186,
-           'price' => $order->dispatch == 0.0 ? 1 : $order->dispatch,
-           'quantity' => 1,
-           "taxable"=> true,
-           "type"=> "PRODUCT"
-       );
-
-       array_push($items,$item);
+        if($order->dispatch != 0.0){
+            $item = array(
+                'productItemName' => "Despacho",
+                'productItemId' => 2376186,
+                'price' => $order->dispatch ,
+                'quantity' => 1,
+                "taxable"=> true,
+                "type"=> "PRODUCT"
+            );
+     
+            array_push($items,$item);
+        }
+       
 
         $data = array(
             "client"=> [

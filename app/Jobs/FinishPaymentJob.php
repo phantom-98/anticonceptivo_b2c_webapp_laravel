@@ -37,7 +37,7 @@ class FinishPaymentJob implements ShouldQueue
      */
     public function handle()
     {
-        if (env('APP_ENV') == 'production') {
+        //if (env('APP_ENV') == 'production') {
             if ($this->order->ballot_number == null) {
                 $this->customerAddress = CustomerAddress::with('commune')->where('customer_id', $this->order->customer_id)->where('default_address', 1)->get()->first();
                 if ($this->customerAddress) {
@@ -50,8 +50,8 @@ class FinishPaymentJob implements ShouldQueue
                 }
                 CallIntegrationsPay::sendEmailsOrder($this->order->id);
             }
-        } else {
-            CallIntegrationsPay::sendEmailsOrderRepeat($this->order->id);
-        }
+        // } else {
+        //     CallIntegrationsPay::sendEmailsOrderRepeat($this->order->id);
+        // }
     }
 }
