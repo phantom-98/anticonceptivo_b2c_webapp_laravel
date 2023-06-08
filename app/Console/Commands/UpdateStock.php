@@ -58,7 +58,7 @@ class UpdateStock extends Command
 
                 /*$get_data = ApiHelper::callAPI('GET', 'https://api.ailoo.cl/v1/inventory/barCode/' . $product->barcode, null, 'ailoo');*/
 
-                $get_data = ApiHelper::callAPI('GET', 'http://localhost:4000/v1/product/stockByCode/' . $product->barcode, null, 'inventario_api');
+                $get_data = ApiHelper::callAPI('GET', env('INVENTARIO_API_URL').'product/stockByCode/' . $product->barcode, null, 'inventario_api');
 
                 $response = json_decode($get_data, true);
                 $isWeb = false;

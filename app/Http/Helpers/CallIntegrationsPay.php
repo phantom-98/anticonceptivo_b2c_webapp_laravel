@@ -70,7 +70,7 @@ class CallIntegrationsPay extends CoreHelper
         );
         //TODO create boleta
         if($order->ballot_number == null){
-            $get_data = ApiHelper::callAPI('POST', 'http://localhost:4000/v1/factura/createforWeb', json_encode($data), 'inventario_api');
+            $get_data = ApiHelper::callAPI('POST', env('INVENTARIO_API_URL').'factura/createforWeb', json_encode($data), 'inventario_api');
         }
         $response = json_decode($get_data, true);
         Log::info('Voucher',
@@ -94,7 +94,7 @@ class CallIntegrationsPay extends CoreHelper
 
         foreach ($orderItems as $key => $orderItem) {
             $product = $orderItem->product;
-            $get_data = ApiHelper::callAPI('GET', 'http://localhost:4000/v1/product/stockByCode/'.$product->barcode, null, 'inventario_api');
+            $get_data = ApiHelper::callAPI('GET', env('INVENTARIO_API_URL').'product/stockByCode/'.$product->barcode, null, 'inventario_api');
             $response = json_decode($get_data, true);
 
             try {
