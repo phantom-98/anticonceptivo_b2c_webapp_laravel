@@ -100,6 +100,7 @@ class ApiHelper extends CoreHelper
                 curl_setopt($curl, CURLOPT_HTTPHEADER, array(
                     'Accept: application/json',
                     'Content-Type: application/json',
+                    'x-token:'. env('INVENTARIO_API_TOKEN')
                 ));
             }
 
@@ -141,6 +142,7 @@ class ApiHelper extends CoreHelper
                 curl_setopt($curl, CURLOPT_HTTPHEADER, array(
                     'Accept: application/json',
                     'Content-Type: application/json',
+                    'x-token:'. env('INVENTARIO_API_TOKEN')
                 ));
             }
 

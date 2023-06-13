@@ -6,6 +6,8 @@ use App\Http\Controllers\SitemapController;
 use App\Http\Helpers\S3Helper;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Api\V1\App\Helpers\InventarioApiHelperController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -750,3 +752,5 @@ Route::get('ailoo', function () {
 
 Route::get('/{path?}/{pathTwo?}/{pathThree?}/{pathFour?}/{pathFive?}/{pathSix?}/{pathSeven?}', [SEOController::class, 'index']);
 //Route::view('/{path?}/{pathTwo?}/{pathThree?}/{pathFour?}/{pathFive?}/{pathSix?}/{pathSeven?}', 'webapp.base_react');
+
+
