@@ -15,8 +15,13 @@ class InventarioApiHelperController extends Controller
         $response = json_decode($data, true);
         foreach ($response as $key => $value) {
             $product = Product::where("sku", $value["sku"] )->first();
-            $product->stock = $value["stock"];
-            $product->update();
+            if($product){
+                $product->stock = $value["stock"];
+                $product->update();
+            }else{
+                $value["sku"];
+            }
+            
         }
         return "stock actualizado";
     }

@@ -16,6 +16,7 @@ class VerifyCsrfToken extends Middleware
         '/*',
         '/webpay-response',
         '/api/v1/app/payment/webpay/*',
+        'api/updateStock',
         'auth/social-media/*'
     ];
 }
