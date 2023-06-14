@@ -88,6 +88,29 @@ class CallIntegrationsPay extends CoreHelper
         }
    }
 
+    public static function callapiUpdateStock($orderId, $method){
+        $orderItems =OrderItem::where('order_id',$orderId)->get();
+       
+        $data = array(
+            "method"=> $method,
+            "items" => []
+        );
+
+        foreach ($orderItems as $key => $orderItem) {
+            $product = $orderItem->product;
+            $temp = array(
+                "sku" => $product->sku,
+                "quantity" => $orderItem->quantity
+            );
+
+            array_push($data["items"], $temp);
+        }
+
+        $get_data = ApiHelper::callAPI('PUT', env('INVENTARIO_API_URL').'product/updateStock/', json_encode($data), 'inventario_api');
+        $response = json_decode($get_data, true);
+        return $response;
+    }
+
    public static function  callUpdateStockProducts($order_id)
    {
         $orderItems =OrderItem::where('order_id',$order_id)->get();

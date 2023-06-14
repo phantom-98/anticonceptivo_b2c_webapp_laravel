@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Api\V1\App\Payment;
 use App\Http\Controllers\Api\V1\App\Helpers\ProductScheduleHelper;
 use App\Jobs\FinishPaymentJob;
 use App\Jobs\UpdateProductStockJob;
+use App\Jobs\StockApiUpdate;
 use App\Models\Prescription;
 use App\Models\ProductSubscriptionPlan;
 // use App\Models\Setting;
@@ -512,6 +513,7 @@ class WebpayPlusController
                 return ApiResponse::JsonError([], 'Error inesperado');
             }
         }
+        StockApiUpdate::dispatch($order->id, "discount");
 
         if ($isSubscription) {
             if ($_subscription) {
@@ -554,6 +556,7 @@ class WebpayPlusController
                             $order->payment_type = 'tarjeta';
                             $order->save();
                         }
+                        StockApiUpdate::dispatch($order->id, "add");
                         return ApiResponse::JsonError([], 'Pago Rechazado');
                     }
 
@@ -631,8 +634,9 @@ class WebpayPlusController
     private function isStockProducts($orderItems)
     {
 
-        if (env('APP_ENV') == 'production') {
+        if (true/*env('APP_ENV') == 'production'*/) {
             $arrayProductsQuantity = [];
+            $orderId = $orderItems[0]->order_id; 
             foreach ($orderItems as $orderItem) {
                 $quantityFinal = $orderItem->quantity;
                 if (isset($orderItem->subscription_plan)) {
@@ -642,12 +646,15 @@ class WebpayPlusController
                 $arrayProductsQuantity[$orderItem->product_id] = ($arrayProductsQuantity[$orderItem->product_id] ?? 0) + $quantityFinal;
             }
 
+     
+            
             foreach ($arrayProductsQuantity as $id => $quantity) {
                 $product = Product::find($id);
-                //TODO check Stock, cuando entre a transbank deberia mantenerlo en estado pendiente
+                //TODO check Stock, cuando entre a transbank deberia mantenerlo en estado pendiente mejorar llamada
                 /*$get_data = ApiHelper::callAPI('GET', 'https://api.ailoo.cl/v1/inventory/barCode/' . $product->barcode, null, 'ailoo');*/
-                $get_data = ApiHelper::callAPI('GET', env('INVENTARIO_API_URL').'v1/product/stockByCode/' . $product->barcode, null, 'inventario_api');
-
+                
+                $get_data = ApiHelper::callAPI('GET', env('INVENTARIO_API_URL').'product/stockByCode/' . $product->barcode, null, 'inventario_api');
+                
                 $response = json_decode($get_data, true);
                 
                 if ($response != null && array_key_exists('inventoryItems', $response)) {
@@ -674,7 +681,11 @@ class WebpayPlusController
                     );
                 }
             }
+
+           
+
         }
+        
 
         return array(
             'status' => true,
@@ -712,7 +723,7 @@ class WebpayPlusController
                     $this->updateDiscountCode($order->discount_code->name);
                 }
 
-                $isErrorAiloo = false;
+                /*$isErrorAiloo = false;
 
                 try {
                     $responseStockProduct = $this->isStockProducts($order->order_items);
@@ -724,7 +735,7 @@ class WebpayPlusController
                 if ($isErrorAiloo == true || !$responseStockProduct['status']) {
                     if ($order->status != 'PAID' && $order->status != 'DELIVERED' && $order->status != 'DISPATCHED') {
                         Log::info('RESPONSE_STOCK_PRODUCT_NOT_FOUND', [$responseStockProduct['status']]);
-
+            
                         $this->webpay_plus->refundTransaction($order->payment_token, $order->total);
                         $order->status = PaymentStatus::CANCELED;
                         $order->is_paid = false;
@@ -742,14 +753,14 @@ class WebpayPlusController
                     //                        CallIntegrationsPay::callVoucher($order->id, $customerAddress);
                     //                        CallIntegrationsPay::callDispatchLlego($order->id, $customerAddress);
                     //                        CallIntegrationsPay::sendEmailsOrder($order->id);
-                    //                    }
+                    //                    }*/
                     UpdateProductStockJob::dispatch($order);
                     FinishPaymentJob::dispatch($order);
-                }
+                //}
             } else {
                 if ($order->status != 'PAID' && $order->status != 'DELIVERED' && $order->status != 'DISPATCHED') {
                     Log::info('RESPONSE_CODE_ELSE', [$response->responseCode]);
-
+                    StockApiUpdate::dispatch($order->id, "add");
                     $order->status = PaymentStatus::REJECTED;
                     $order->type = $response->paymentTypeCode;
                     $order->is_paid = false;
