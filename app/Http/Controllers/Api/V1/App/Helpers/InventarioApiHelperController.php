@@ -30,6 +30,9 @@ class InventarioApiHelperController extends Controller
         $data = $request->all();
         $product = Product::where("sku", $data["sku"] )->first();
         $product->stock = $data["stock"];
+        $product->barcode = $data["codigoBarra"];
+        $product->price = $data["precio"];
+        $product->offer_price = $data["precioOferta"];
         $product->update();
         return $product;
     }
