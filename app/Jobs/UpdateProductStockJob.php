@@ -33,8 +33,8 @@ class UpdateProductStockJob implements ShouldQueue
      */
     public function handle()
     {
-        if (env('APP_ENV') == 'production') {
+        //if (env('APP_ENV') == 'production') {
             CallIntegrationsPay::callUpdateStockProducts($this->order->id);
-        }
+        //}
     }
 }

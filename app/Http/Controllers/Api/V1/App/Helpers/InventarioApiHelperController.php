@@ -16,7 +16,10 @@ class InventarioApiHelperController extends Controller
         foreach ($response as $key => $value) {
             $product = Product::where("sku", $value["sku"] )->first();
             if($product){
-                $product->stock = $value["stock"];
+                $product->stock = $value["stock"]?? $product->stock;
+                $product->barcode = $value["codigoBarra"] ?? $product->barcode;
+                $product->price = $value["precio"] ?? $product->price;
+                $product->offer_price = $value["precioOferta"] ?? $product->offer_price;
                 $product->update();
             }else{
                 $value["sku"];
@@ -29,10 +32,10 @@ class InventarioApiHelperController extends Controller
     public function updateStock(Request $request){
         $data = $request->all();
         $product = Product::where("sku", $data["sku"] )->first();
-        $product->stock = $data["stock"];
-        $product->barcode = $data["codigoBarra"];
-        $product->price = $data["precio"];
-        $product->offer_price = $data["precioOferta"];
+        $product->stock = $data["stock"] ?? $product->stock;
+        $product->barcode = $data["codigoBarra"] ?? $product->barcode;
+        $product->price = $data["precio"] ?? $product->price;
+        $product->offer_price = $data["precioOferta"] ?? $product->offer_price;
         $product->update();
         return $product;
     }

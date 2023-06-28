@@ -66,7 +66,7 @@ class UpdateStock extends Command
                 foreach ($response['inventoryItems'] as $key => $inventory) {
                     if ($inventory['facilityName'] == 'Web') {
                         $product->stock = $inventory['quantity'];
-                        $product->product_item_id_ailoo = $inventory['productItemId'];
+                        //$product->product_item_id_ailoo = $inventory['productItemId'];
                         $isWeb = true;
                     }
                 }
