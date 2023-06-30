@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Helpers\ApiHelper;
 use App\Models\Product;
+use Illuminate\Support\Facades\Log;
 
 class InventarioApiHelperController extends Controller
 {
