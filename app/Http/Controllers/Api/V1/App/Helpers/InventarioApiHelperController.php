@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api\V1\App\Helpers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Helpers\ApiHelper;
-use App\Models\{Product, ProductImage};
+use App\Models\{Product, ProductImage, Category};
 use Illuminate\Support\Facades\Log;
 
 class InventarioApiHelperController extends Controller
@@ -54,16 +54,60 @@ class InventarioApiHelperController extends Controller
     }
 
     public function newS3(){
-        $images = ProductImage::all();
+        $images = Category::all();
         foreach ($images as $key => $s) {
-            $s->file;
+            $s->banner_image;
             
-            $position = strrpos($s->file, "s3://oxfar.cl/anticonceptivo/public/");
+            $position = strrpos($s->banner_image, "https://inw-assets.s3.amazonaws.com/laravel/anticonceptivo/public");
 
             if ($position !== false) {
-                $lastPart = substr($s->file, $position + strlen("s3://oxfar.cl/anticonceptivo/public/"));
+                $lastPart = substr($s->banner_image, $position + strlen("https://inw-assets.s3.amazonaws.com/laravel/anticonceptivo/public"));
                 
-                $s->file = "https://s3.amazonaws.com/oxfar.cl/anticonceptivo/public" .$lastPart;
+                $s->banner_image = "https://s3.amazonaws.com/oxfar.cl/anticonceptivo/public" .$lastPart;
+                $s->save();
+            }
+
+            $s->image;
+            
+            $position = strrpos($s->image, "https://inw-assets.s3.amazonaws.com/laravel/anticonceptivo/public");
+
+            if ($position !== false) {
+                $lastPart = substr($s->image, $position + strlen("https://inw-assets.s3.amazonaws.com/laravel/anticonceptivo/public"));
+                
+                $s->image = "https://s3.amazonaws.com/oxfar.cl/anticonceptivo/public" .$lastPart;
+                $s->save();
+            }
+
+            $s->subbanner_image;
+            
+            $position = strrpos($s->subbanner_image, "https://inw-assets.s3.amazonaws.com/laravel/anticonceptivo/public");
+
+            if ($position !== false) {
+                $lastPart = substr($s->subbanner_image, $position + strlen("https://inw-assets.s3.amazonaws.com/laravel/anticonceptivo/public"));
+                
+                $s->subbanner_image = "https://s3.amazonaws.com/oxfar.cl/anticonceptivo/public" .$lastPart;
+                $s->save();
+            }
+
+            $s->banner_image_responsive;
+            
+            $position = strrpos($s->banner_image_responsive, "https://inw-assets.s3.amazonaws.com/laravel/anticonceptivo/public");
+
+            if ($position !== false) {
+                $lastPart = substr($s->banner_image_responsive, $position + strlen("https://inw-assets.s3.amazonaws.com/laravel/anticonceptivo/public"));
+                
+                $s->banner_image_responsive = "https://s3.amazonaws.com/oxfar.cl/anticonceptivo/public" .$lastPart;
+                $s->save();
+            }
+
+            $s->banner_subimage_responsive;
+            
+            $position = strrpos($s->banner_subimage_responsive, "https://inw-assets.s3.amazonaws.com/laravel/anticonceptivo/public");
+
+            if ($position !== false) {
+                $lastPart = substr($s->banner_subimage_responsive, $position + strlen("https://inw-assets.s3.amazonaws.com/laravel/anticonceptivo/public"));
+                
+                $s->banner_subimage_responsive = "https://s3.amazonaws.com/oxfar.cl/anticonceptivo/public" .$lastPart;
                 $s->save();
             }
         }
