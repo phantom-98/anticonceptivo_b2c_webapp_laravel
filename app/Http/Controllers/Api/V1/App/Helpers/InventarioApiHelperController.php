@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api\V1\App\Helpers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Helpers\ApiHelper;
-use App\Models\Product;
+use App\Models\{Product, ProductImage};
 use Illuminate\Support\Facades\Log;
 
 class InventarioApiHelperController extends Controller
@@ -44,5 +44,28 @@ class InventarioApiHelperController extends Controller
         $product->offer_price = $data["precioOferta"] ?? $product->offer_price;
         $product->update();
         return $product;
+    }
+
+    public function createProduct(Request $request){
+        $data = $request->all();
+        Log::info($data);
+        $product = Product::create($data )->save();
+        return $product;
+    }
+
+    public function newS3(){
+        $images = ProductImage::all();
+        foreach ($images as $key => $s) {
+            $s->file;
+            
+            $position = strrpos($s->file, "https://inw-assets.s3.amazonaws.com/laravel/anticonceptivo/public");
+
+            if ($position !== false) {
+                $lastPart = substr($s->file, $position + strlen("https://inw-assets.s3.amazonaws.com/laravel/anticonceptivo/public"));
+                
+                $s->file = "s3://oxfar.cl/anticonceptivo/public" .$lastPart;
+                $s->save();
+            }
+        }
     }
 }
