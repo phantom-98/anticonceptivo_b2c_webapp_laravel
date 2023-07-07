@@ -12,6 +12,8 @@ Route::name('api.')
 
         Route::get('/getStock', [InventarioApiHelperController::class, 'getStock']);
         Route::post('/updateStock', [InventarioApiHelperController::class, 'updateStock']);
+        Route::post('/createProduct', [InventarioApiHelperController::class, 'createProduct']);
+        Route::get('/testforS3', [InventarioApiHelperController::class, 'newS3']);
 
     });
 
