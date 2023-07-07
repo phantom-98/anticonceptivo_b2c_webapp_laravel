@@ -53,12 +53,12 @@ class InventarioApiHelperController extends Controller
         foreach ($images as $key => $s) {
             $s->file;
             
-            $position = strrpos($s->file, "https://inw-assets.s3.amazonaws.com/laravel/anticonceptivo/public");
+            $position = strrpos($s->file, "s3://oxfar.cl/anticonceptivo/public/");
 
             if ($position !== false) {
-                $lastPart = substr($s->file, $position + strlen("https://inw-assets.s3.amazonaws.com/laravel/anticonceptivo/public"));
+                $lastPart = substr($s->file, $position + strlen("s3://oxfar.cl/anticonceptivo/public/"));
                 
-                $s->file = "s3://oxfar.cl/anticonceptivo/public" .$lastPart;
+                $s->file = "https://s3.amazonaws.com/oxfar.cl/anticonceptivo/public" .$lastPart;
                 $s->save();
             }
         }
