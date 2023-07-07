@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api\V1\App\Helpers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Helpers\ApiHelper;
-use App\Models\{Product, ProductImage, Banner};
+use App\Models\{Product, ProductImage, Value};
 use Illuminate\Support\Facades\Log;
 
 class InventarioApiHelperController extends Controller
@@ -49,17 +49,17 @@ class InventarioApiHelperController extends Controller
     }
 
     public function newS3(){
-        $images = Banner::all();
+        $images = Value::all();
         //dd($images);
         foreach ($images as $key => $s) {
-            $s->file;
+            $s->image;
             
-            $position = strrpos($s->file, "https://inw-assets.s3.amazonaws.com/laravel/anticonceptivo/public");
+            $position = strrpos($s->image, "https://inw-assets.s3.amazonaws.com/laravel/anticonceptivo/public");
 
             if ($position !== false) {
-                $lastPart = substr($s->file, $position + strlen("https://inw-assets.s3.amazonaws.com/laravel/anticonceptivo/public"));
+                $lastPart = substr($s->image, $position + strlen("https://inw-assets.s3.amazonaws.com/laravel/anticonceptivo/public"));
                 
-                $s->file = "https://s3.amazonaws.com/oxfar.cl/anticonceptivo/public" .$lastPart;
+                $s->image = "https://s3.amazonaws.com/oxfar.cl/anticonceptivo/public" .$lastPart;
                 $s->save();
             }
 
