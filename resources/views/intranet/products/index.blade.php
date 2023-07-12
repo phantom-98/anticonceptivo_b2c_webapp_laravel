@@ -37,6 +37,22 @@
                                style="margin-left: 20px"><i
                                     class="ti-export"></i>&nbsp;&nbsp;&nbsp;Carga masiva de productos</a>
                         @endcan
+                        
+                  
+                        @if($search && $search->value == 0 )
+
+                            <button type="submit" class="btn btn-danger " onclick="changeSearchStock()"
+                                style="margin-left: 20px"><i class="fa fa-search"></i> Busqueda por Stock
+                            </button>
+                        @else
+                        <button type="submit" class="btn btn-success " onclick="changeSearchStock()"
+                            style="margin-left: 20px"><i class="fa fa-search"></i> Busqueda por Stock
+                        </button>
+                       
+                        @endif
+
+                      
+                        
 
                         <form id="form-export" target="_BLANK"
                               action="{{ route($config['route'] . 'export') }}"
@@ -388,6 +404,22 @@
     <script>
         function export_excel() {
             $('#form-export').submit();
+        }
+
+        function changeSearchStock() {
+            $.ajax({
+                url: '/intranet/changeSearchStock',
+                method: 'get',
+                
+                success: function (result) {
+                    console.log(result)
+                    if (result.status == 'success') {
+                        location.reload()
+                    } else {
+                        showToastError(result.message);
+                    }
+                }
+            });
         }
     </script>
 

@@ -41,7 +41,8 @@ class Product extends Model
         'state_of_matter',
         'position',
         'is_indexable',
-        'days_protection'
+        'days_protection',
+        'is_generic'
     ];
 
     protected $appends = ['images', 'format_compound', 'subscriptions_count', 'subscriptions_items'];

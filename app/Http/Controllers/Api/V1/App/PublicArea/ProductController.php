@@ -10,7 +10,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Willywes\ApiResponse\ApiResponse;
 use App\Http\Utils\OutputMessage\OutputMessage;
-use App\Models\Product;
+use App\Models\{Product, Setting};
 use App\Models\Category;
 use App\Models\Subcategory;
 use App\Models\LegalWarning;
@@ -80,6 +80,8 @@ class ProductController extends Controller
     public function getProductBySearch(Request $request): JsonResponse
     {
         try {
+            $search2 = Setting::where("key", "SEARCHSTOCK")->first();
+           // dd($search);
 
             if (!$request->search) {
                 return ApiResponse::NotFound(null, 'No existe la búsqueda.');
@@ -143,9 +145,10 @@ class ProductController extends Controller
                 ->get()->unique('subscription_plan_id')->pluck('subscription_plan_id'))
                 ->where('active', true)->select(['id', 'months','cicles'])->get();
 
+       
 
             return ApiResponse::JsonSuccess([
-                'products' => $this->processScheduleList($products),
+                'products' => $search2 && $search2->value == 0 ? $products : $this->processScheduleList($products), // ,
                 'subcategories' => $subcategories,
                 // 'subcat' => $subcat,
                 'laboratories' => $laboratories,

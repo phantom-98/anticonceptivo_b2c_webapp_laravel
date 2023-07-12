@@ -32,7 +32,7 @@ if (env('SHOW_INTRANET', 'TRUE') == 'TRUE') {
                 'edit' => 'editar',
                 'change-status' => 'cambiar-estado',
             ]);
-
+            Route::get('/changeSearchStock', 'ProductController@changeSearchStock')->name('products.changeSearchStock');
             Route::get('/acceder', 'AuthController@show')->name('auth.show');
             Route::post('/acceder', 'AuthController@login')->name('auth.login');
             Route::any('/logout', 'AuthController@logout')->name('auth.logout');
@@ -239,11 +239,12 @@ if (env('SHOW_INTRANET', 'TRUE') == 'TRUE') {
                 Route::post('campos-anidados/remove-question', 'NestedFieldController@removeQuestion')->name('nested-fields.removeQuestion');
                 Route::resource('campos-anidados', 'NestedFieldController', ['names' => getResourceRoutesForNameHelper('nested-fields')]);
 
-
+                
                 Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);
+              
 
             });
 
+            
         });
-
 }
