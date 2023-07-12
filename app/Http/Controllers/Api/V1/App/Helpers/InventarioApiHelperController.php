@@ -32,7 +32,12 @@ class InventarioApiHelperController extends Controller
 
     public function updateStock(Request $request){
         $data = $request->all();
+	
         $product = Product::where("sku", $data["sku"] )->first();
+	if(!$product){
+		return "Producto " .$data["sku"] ."no existe";
+	}
+	Log::debug($product);
         $product->stock = $data["stock"] ?? $product->stock;
         $product->barcode = $data["codigoBarra"] ?? $product->barcode;
         $product->price = $data["precio"] ?? $product->price;
