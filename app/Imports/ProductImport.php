@@ -17,6 +17,7 @@ class ProductImport implements ToCollection, WithHeadingRow
     {
         foreach ($rows as $row) 
         {            
+           // dd($row);
             if($row['sku']){
                 $product = Product::where('sku', $row['sku'])->first();
                 
@@ -33,6 +34,7 @@ class ProductImport implements ToCollection, WithHeadingRow
                     $product->subcategory_id = $subcategory->id;
                     $product->consumption_typology = $row['tipologia_consumo'] ?? 'ABA - ORAL S.ORD.GRAGEAS';
                     $product->is_bioequivalent = $row['bioequivalente'] == "Si" ? 1 : 0;
+                    $product->is_generic = $row['generico'] == "SI" ? 1 : 0;
                     $product->laboratory_id = $laboratory->id;
                     $product->format = $row['formato'];
                     $product->barcode = $row['codigo_de_barras'];
@@ -62,7 +64,8 @@ class ProductImport implements ToCollection, WithHeadingRow
                     $product->benefits = $row['beneficios'] ?? '';
                     $product->data_sheet = $row['ficha_tecnica'] ?? '';
                     $product->description = $row['descripcion'] ?? '';
-                    $product->is_bioequivalent = $row['bioequivalente'] == "Si" ? 1 : 0;
+                    $product->is_bioequivalent = $row['bioequivalente'] == "SI" ? 1 : 0;
+                    $product->is_generic = $row['generico'] == "Si" ? 1 : 0;
                     $product->format = $row['formato'];
                     $product->barcode = $row['codigo_de_barras'];
                     $product->unit_format = $row['formato_unidad'];
