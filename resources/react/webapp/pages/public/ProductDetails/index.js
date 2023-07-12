@@ -132,7 +132,7 @@ const ProductDetail = ({match}) => {
                     prods.length ?
                         <ProductsCarousel
                             prods={prods}
-                            title="Te podría interesar"
+                            title="Bioquivalentes"
                         />
                         :
                         null
