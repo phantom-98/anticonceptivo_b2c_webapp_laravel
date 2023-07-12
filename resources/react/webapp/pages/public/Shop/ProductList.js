@@ -269,9 +269,7 @@ const ProductList = ({
                                     <div className="product-no-stock-alert font-12 font-poppins">
                                         ¿No encontraste lo que buscabas?, Nosotros te asesoramos <a href="https://wa.me/56987380541" target="_BLANK" style={{textDecoration:'underline', color:'white'}}>aquí.</a>
                                     </div>
-                                    <OutstandingCarouselProducts
-                                        style={'mt-4 pb-2'}
-                                    />
+                                    <OutstandingCarouselProducts style={'mt-4 pb-2'} />
                                 </div>
 
                             : <LazyLoading/>

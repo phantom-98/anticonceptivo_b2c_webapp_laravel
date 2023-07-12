@@ -95,7 +95,7 @@ class ProductController extends Controller
                             $query->where('name', 'LIKE', '%' . $search . '%');
                         });
                 })->where('active', true)
-                ->orderBy('stock', 'desc')
+                //->orderBy('stock', 'desc')
                 ->orderBy('position')
                 ->get();
 
