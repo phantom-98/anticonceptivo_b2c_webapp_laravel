@@ -7,16 +7,24 @@ import * as Services from "../../../Services";
 import {AuthContext} from "../../../context/AuthProvider";
 import AutoComplete from "react-google-autocomplete";
 
-const AddAddress = ({setView, regions, address, setAddress,validAddress,setValidAddress,setInputError}) => {
+const AddAddress = ({setView, regions, address, validateDataAddressInvite, setAddress,validAddress,setValidAddress,setInputError}) => {
 
     // const [showBilling, setShowBilling] = useState(false);
 
     const {auth} = useContext(AuthContext);
 
     const [selectedRegion, setSelectedRegion] = useState(0);
+    const [mode, setMode] = useState(0);
     const [communes, setCommunes] = useState([]);
 
     const [googleAddress, setGoogleAddress] = useState('');
+
+    useEffect(()=>{
+        if(mode == 1){
+            setAddress({name: "Retiro_tienda", region_id : 7, commune_id: 118,extra_info:"147", address: "Antonio Bellet", step: 2})
+            setView("addresses")
+        }
+    },[mode])
 
     useEffect(() => {
         if (regions.length > 0) {
@@ -133,125 +141,157 @@ const AddAddress = ({setView, regions, address, setAddress,validAddress,setValid
         })
     }
 
+    const retire = ()=>{
+        setAddress({name: "Retiro_tienda", region_id : 7, commune_id: 118,extra_info:"147", address: "Antonio Bellet", step: 2})
+        setTimeout(() => {
+            setAddress({name: "Retiro_tienda", region_id : 7, commune_id: 118,extra_info:"147", address: "Antonio Bellet", step: 2})
+        }, 50);
+        validateDataAddressInvite()
+       
+    }
+
     return (
         <Fragment>
             <div className="panel panel-cart mb-3">
                 <div className="panel-body">
-                    <div className="row">
-                        <div className="col-md-12">
-                            <div className="form-group">
-                                <label htmlFor="name">Nombre</label>
-                                <input type="text"
-                                       className="form-control form-control-custom"
-                                       id="name"
-                                       name="name"
-                                       placeholder="Nombre Contacto"
-                                       value={address.name}
-                                       onChange={(e) => handleAddress(e, false, false, true)}
-                                       onFocus={setCleanInputError}
-                                />
-                                <div className="invalid-feedback" />
+                    <div className='row'>
+                        <div className="col-12 col-md-12 col-lg-6">
+                            <div className="py-3">
+                                <button type='button' className="btn btn-bicolor btn-block" onClick={() => setMode(1)}>
+                                    <span>Retiro En tienda</span>
+                                </button>
                             </div>
                         </div>
-                        <div className="col-md-8">
-                            <div className="form-group">
-                                <label htmlFor="address">Calle y Número</label>
-                                <input type="text"
-                                    className="form-control form-control-custom"
-                                    id="address"
-                                    name="address"
-                                    placeholder="Calle y Número"
-                                    value={address.address}
-                                    onChange={(e) => handleAddress(e)}
-                                    onFocus={setCleanInputError}
-                                />
-                                <div className="invalid-feedback" />
+                        <div className="col-12 col-md-12 col-lg-6">
+                            <div className="py-3">
+                                <button type='button' className="btn btn-bicolor btn-block" onClick={() => setMode(2)}>
+                                    <span>Entrega a Domicilio</span>
+                                </button>
                             </div>
                         </div>
-                        <div className="col-md-4">
-                            <div className="form-group">
-                                <label htmlFor="extra_info">Número casa o departamento</label>
-                                <input type="text"
-                                       className="form-control form-control-custom"
-                                       id="extra_info"
-                                       name="extra_info"
-                                       placeholder="Número casa o departamento"
-                                       value={address.extra_info}
-                                       onChange={(e) => handleAddress(e)}
-                                       onFocus={setCleanInputError}
-                                />
-                                <div className="invalid-feedback" />
-                            </div>
-                        </div>
-                        <div className="col-md-6">
-                            <div className="form-group">
-                                <label htmlFor="region_id">Región</label>
-                                <select
-                                    className="form-control form-control-custom pl-md-2"
-                                    id="region_id"
-                                    name="region_id"
-                                    value={address.region_id}
-                                    onChange={(e) => selectRegion(e)}
-                                    onFocus={setCleanInputError}
-                                >
-                                    <option value='' disabled selected>Seleccionar</option>
-                                    {
-                                        regions.map((region) => {
-                                            return(
-                                                <option value={region.id} key={region.id}>{region.name}</option>
-                                            )
-                                        })
-                                    }
-                                </select>
-                                <div className="invalid-feedback" />
-                            </div>
-                        </div>
-
-                        <div className="col-md-6">
-                            <div className="form-group">
-                                <label htmlFor="commune_id">Comuna</label>
-                                <select
-                                    className="form-control form-control-custom pl-md-2"
-                                    id="commune_id"
-                                    name="commune_id"
-                                    onChange={(e) => handleAddress(e)}
-                                    onFocus={setCleanInputError}
-                                    value={address.commune_id}
-                                >
-                                    <option value='' disabled selected>Seleccionar</option>
-                                    {
-                                        communes.map((commune) => {
-                                            return(
-                                                <option value={commune.id} key={commune.id}>{commune.name}</option>
-                                            )
-                                        })
-                                    }
-                                </select>
-                                <div className="invalid-feedback" />
-                            </div>
-                        </div>
-
-
-
-                        <div className="col-md-12">
-                            <div className="form-group">
-                                <label htmlFor="name">Comentario</label>
-                                <textarea
-                                       className="form-control form-control-custom"
-                                       id="comment"
-                                       rows={3}
-                                       name="comment"
-                                       placeholder="Agrega un rango de horario para la entrega, es en oficina o una casa, u cualquier otra información relevante como el detalle de como llegar"
-                                       value={address.comment}
-                                       onChange={(e) => handleAddressComment(e)}
-                                       onFocus={setCleanInputError}
-                                />
-                                <div className="invalid-feedback" />
-                            </div>
-                        </div>
-
-
                     </div>
+                    {
+                        mode == 2
+                            ?
+                            <div className="row">
+                                <div className="col-md-12">
+                                    <h3 className="font-poppins font-14 bold color-2A317F">Entrega a Domicilio</h3>
+                                    <div className="form-group">
+                                        <label htmlFor="name">Nombre</label>
+                                        <input type="text"
+                                            className="form-control form-control-custom"
+                                            id="name"
+                                            name="name"
+                                            placeholder="Nombre Contacto"
+                                            value={address.name}
+                                            onChange={(e) => handleAddress(e, false, false, true)}
+                                            onFocus={setCleanInputError}
+                                        />
+                                        <div className="invalid-feedback" />
+                                    </div>
+                                </div>
+                                <div className="col-md-8">
+                                    <div className="form-group">
+                                        <label htmlFor="address">Calle y Número</label>
+                                        <input type="text"
+                                            className="form-control form-control-custom"
+                                            id="address"
+                                            name="address"
+                                            placeholder="Calle y Número"
+                                            value={address.address}
+                                            onChange={(e) => handleAddress(e)}
+                                            onFocus={setCleanInputError}
+                                        />
+                                        <div className="invalid-feedback" />
+                                    </div>
+                                </div>
+                                <div className="col-md-4">
+                                    <div className="form-group">
+                                        <label htmlFor="extra_info">Número casa o departamento</label>
+                                        <input type="text"
+                                            className="form-control form-control-custom"
+                                            id="extra_info"
+                                            name="extra_info"
+                                            placeholder="Número casa o departamento"
+                                            value={address.extra_info}
+                                            onChange={(e) => handleAddress(e)}
+                                            onFocus={setCleanInputError}
+                                        />
+                                        <div className="invalid-feedback" />
+                                    </div>
+                                </div>
+                                <div className="col-md-6">
+                                    <div className="form-group">
+                                        <label htmlFor="region_id">Región</label>
+                                        <select
+                                            className="form-control form-control-custom pl-md-2"
+                                            id="region_id"
+                                            name="region_id"
+                                            value={address.region_id}
+                                            onChange={(e) => selectRegion(e)}
+                                            onFocus={setCleanInputError}
+                                        >
+                                            <option value='' disabled selected>Seleccionar</option>
+                                            {
+                                                regions.map((region) => {
+                                                    return(
+                                                        <option value={region.id} key={region.id}>{region.name}</option>
+                                                    )
+                                                })
+                                            }
+                                        </select>
+                                        <div className="invalid-feedback" />
+                                    </div>
+                                </div>
+
+                                <div className="col-md-6">
+                                    <div className="form-group">
+                                        <label htmlFor="commune_id">Comuna</label>
+                                        <select
+                                            className="form-control form-control-custom pl-md-2"
+                                            id="commune_id"
+                                            name="commune_id"
+                                            onChange={(e) => handleAddress(e)}
+                                            onFocus={setCleanInputError}
+                                            value={address.commune_id}
+                                        >
+                                            <option value='' disabled selected>Seleccionar</option>
+                                            {
+                                                communes.map((commune) => {
+                                                    return(
+                                                        <option value={commune.id} key={commune.id}>{commune.name}</option>
+                                                    )
+                                                })
+                                            }
+                                        </select>
+                                        <div className="invalid-feedback" />
+                                    </div>
+                                </div>
+
+
+
+                                <div className="col-md-12">
+                                    <div className="form-group">
+                                        <label htmlFor="name">Comentario</label>
+                                        <textarea
+                                            className="form-control form-control-custom"
+                                            id="comment"
+                                            rows={3}
+                                            name="comment"
+                                            placeholder="Agrega un rango de horario para la entrega, es en oficina o una casa, u cualquier otra información relevante como el detalle de como llegar"
+                                            value={address.comment}
+                                            onChange={(e) => handleAddressComment(e)}
+                                            onFocus={setCleanInputError}
+                                        />
+                                        <div className="invalid-feedback" />
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            : <></>
+                    }
+                    
                 </div>
             </div>
 

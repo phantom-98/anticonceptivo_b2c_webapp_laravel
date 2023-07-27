@@ -36,8 +36,9 @@ const Addresses = ({setView, regions, communes, address, setAddress, dispatchDat
                     setAddresses(response.data.addresses);
                     if (response.data.addresses != null) {
                         response.data.addresses.forEach(elementAddress => {
-                            console.log(elementAddress)
+                        
                             if (elementAddress.default_address) {
+                                console.log(elementAddress)
                                 setAddress(elementAddress);
                             }
                         });

@@ -109,6 +109,9 @@ class CheckoutController extends Controller
             }
 
             if ($request->step == 2) {
+                if($request->name =="Retiro_tienda"){
+                    return ApiResponse::JsonFieldValidation(true);
+                }
                 if (is_object(self::ValidateStepTwo($request))){
                     return ApiResponse::JsonFieldValidation(self::ValidateStepTwo($request));
                 }else{

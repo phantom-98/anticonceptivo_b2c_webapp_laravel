@@ -7,8 +7,12 @@ import Icon from "../../../../components/general/Icon";
 const StoreRetire = ({
     saveDefaultAddress,
     name = 'default_address',
+    addresses,
+    setChecked,
+    checked
 }) => {
-    const [checked, setChecked] = useState(false)
+    console.log(addresses)
+   
     const setAddress=()=>{
         saveDefaultAddress("4004", null)
         setChecked(true)
