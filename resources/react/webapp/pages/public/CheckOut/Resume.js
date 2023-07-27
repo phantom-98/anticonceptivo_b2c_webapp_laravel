@@ -57,9 +57,9 @@ const Resume = ({
             Services.Response({
                 response: response,
                 success: () => {
-                    
+                    console.log(response.data.dateDeliveryOrder)
                     setDispatch(response.data.dispatch)
-                    setDispatchDateObject(response.data.dateDeliveryOrder)
+                    setDispatchDateObject(response.data.dateDeliveryOrder == "RetiroTienda" ? {} : response.data.dateDeliveryOrder)
                 },
 
             });

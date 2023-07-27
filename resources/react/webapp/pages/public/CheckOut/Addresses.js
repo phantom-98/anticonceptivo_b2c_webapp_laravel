@@ -16,7 +16,7 @@ const Addresses = ({setView, regions, communes, address, setAddress, dispatchDat
     const [view, setViewAd] = useState('list');
     const [formMode, setFormMode] = useState('create');
     const [addressSelected, setAddressSelected] = useState(null);
-
+    console.log(dispatchDateObject)
     useEffect(() => {
         if (auth) {
             getData();
@@ -36,6 +36,7 @@ const Addresses = ({setView, regions, communes, address, setAddress, dispatchDat
                     setAddresses(response.data.addresses);
                     if (response.data.addresses != null) {
                         response.data.addresses.forEach(elementAddress => {
+                            console.log(elementAddress)
                             if (elementAddress.default_address) {
                                 setAddress(elementAddress);
                             }
@@ -102,48 +103,53 @@ const Addresses = ({setView, regions, communes, address, setAddress, dispatchDat
                     }
                 </div>
             </div>
-
-            <div className="panel panel-cart mb-3">
-                <div className="panel-body">
-
-                    <h3 className="font-poppins font-16 bold color-033F5D mb-3">
-                        Fecha estimada de entrega
-                    </h3>
-
-                    <div className="row">
-                        <div className="col-12 col-md pb-2">
-                            <div className="row no-gutters">
-                                <div className="col-auto" style={{width: '27px'}}>
-                                    <Icon path={calendarBlue}/>
-                                </div>
-                                <div className="col-auto mx-2 d-flex">
-                                    <span className="my-auto font-poppins font-12 regular color-8E8E8E">
-                                        {dispatchDateObject?.label_calendar}
-                                    </span>
+            {
+                dispatchDateObject?.label_calendar 
+                    ?   <div className="panel panel-cart mb-3">
+                            <div className="panel-body">
+            
+                                <h3 className="font-poppins font-16 bold color-033F5D mb-3">
+                                    Fecha estimada de entrega
+                                </h3>
+            
+                                <div className="row">
+                                    <div className="col-12 col-md pb-2">
+                                        <div className="row no-gutters">
+                                            <div className="col-auto" style={{width: '27px'}}>
+                                                <Icon path={calendarBlue}/>
+                                            </div>
+                                            <div className="col-auto mx-2 d-flex">
+                                                <span className="my-auto font-poppins font-12 regular color-8E8E8E">
+                                                    {dispatchDateObject?.label_calendar}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="col-12 col-md">
+                                        <div className="row no-gutters">
+                                            <div className="col-auto" style={{width: '27px'}}>
+                                                <Icon path={clockBlue}/>
+                                            </div>
+                                            
+                                            <div className="col-auto mx-2 d-flex">
+                                                <span className="my-auto font-poppins font-12 regular color-8E8E8E">
+                                                Hora de entrega
+                                                </span>
+                                            </div>
+                                            <div className="col-auto mx-4 d-flex">
+                                                <span className="my-auto font-poppins font-14 regular color-484848" style={{marginLeft: '10px'}}>
+                                                    {dispatchDateObject ? (dispatchDateObject?.is_immediate ? dispatchDateObject?.sub_label : dispatchDateObject?.schedule.formated_start_time + ' a ' + dispatchDateObject?.schedule.formated_end_time) : ''}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div className="col-12 col-md">
-                            <div className="row no-gutters">
-                                <div className="col-auto" style={{width: '27px'}}>
-                                    <Icon path={clockBlue}/>
-                                </div>
-                                
-                                <div className="col-auto mx-2 d-flex">
-                                    <span className="my-auto font-poppins font-12 regular color-8E8E8E">
-                                       Hora de entrega
-                                    </span>
-                                </div>
-                                <div className="col-auto mx-4 d-flex">
-                                    <span className="my-auto font-poppins font-14 regular color-484848" style={{marginLeft: '10px'}}>
-                                        {dispatchDateObject ? (dispatchDateObject?.is_immediate ? dispatchDateObject?.sub_label : dispatchDateObject?.schedule.formated_start_time + ' a ' + dispatchDateObject?.schedule.formated_end_time) : ''}
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
+                    :   <></>
+            }
+           
 
 
             <div className="row button-nav-checkout">

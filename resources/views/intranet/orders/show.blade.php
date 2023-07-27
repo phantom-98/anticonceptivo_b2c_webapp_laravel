@@ -96,10 +96,14 @@
                                 </tr>
                                 <tr>
                                     <td class="bold w-25">DIRECCIÓN ENTREGA</td>
-                                    @if(isset($object->subscriptions_orders_items)&& count($object->subscriptions_orders_items) > 0 && isset($object->subscriptions_orders_items[0]->commune))
-                                        <td>{{ mb_strtoupper( ($object->delivery_address ?? '-') . ', '. ($object->subscriptions_orders_items[0]->commune->name ?? '-'), 'UTF-8') }}</td>
+                                    @if ($object->delivery_address == "Retiro en Tienda")
+                                        <td>Antonio bellet 147</td>
                                     @else
-                                        <td>{{ mb_strtoupper($object->delivery_address ?? '-', 'UTF-8') }}</td>
+                                        @if(isset($object->subscriptions_orders_items)&& count($object->subscriptions_orders_items) > 0 && isset($object->subscriptions_orders_items[0]->commune))
+                                            <td>{{ mb_strtoupper( ($object->delivery_address ?? '-') . ', '. ($object->subscriptions_orders_items[0]->commune->name ?? '-'), 'UTF-8') }}</td>
+                                        @else
+                                            <td>{{ mb_strtoupper($object->delivery_address ?? '-', 'UTF-8') }}</td>
+                                        @endif
                                     @endif
                                 </tr>
                                 </tr>
