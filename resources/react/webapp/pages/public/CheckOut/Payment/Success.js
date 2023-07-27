@@ -148,7 +148,11 @@ const Success = ({orderId, files, productCount, prescriptionRadio, withoutPrescr
                                             </tr>
                                             <tr>
                                                 <td className="bold w-25">DIRECCIÓN</td>
-                                                <td colSpan="4">{order.delivery_address ?? 'Dirección no registrada'}</td>
+                                                {
+                                                    order.delivery_address == "Retiro en Tienda"
+                                                        ?   <td colSpan="4">Retiro en Tienda</td>
+                                                        :   <td colSpan="4">{order.delivery_address ?? 'Dirección no registrada'}</td>
+                                                }
                                             </tr>
                                             <tr>
                                                 <td className="bold w-25">COMENTARIO DE DIRECCIÓN</td>
