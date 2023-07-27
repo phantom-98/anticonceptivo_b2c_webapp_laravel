@@ -111,7 +111,7 @@ const Success = ({order}) => {
                                         <td className="bold w-25">DIRECCIÓN</td>
                                         {
                                             order.delivery_address == "Retiro en Tienda"
-                                                ?   <td colSpan="4">Retiro en Tienda</td>
+                                                ?   <td colSpan="4">Antonio Bellet 147, Providencia</td>
                                                 :   <td colSpan="4">{order.delivery_address ?? 'Dirección no registrada'}</td>
                                         }
                                         
