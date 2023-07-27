@@ -23,6 +23,8 @@ const AddAddress = ({setView, regions, address, validateDataAddressInvite, setAd
         if(mode == 1){
             setAddress({name: "Retiro_tienda", region_id : 7, commune_id: 118,extra_info:"147", address: "Antonio Bellet", step: 2})
             setView("addresses")
+        }else{
+            setAddress({})
         }
     },[mode])
 
@@ -157,18 +159,19 @@ const AddAddress = ({setView, regions, address, validateDataAddressInvite, setAd
                     <div className='row'>
                         <div className="col-12 col-md-12 col-lg-6">
                             <div className="py-3">
-                                <button type='button' className="btn btn-bicolor btn-block" onClick={() => setMode(1)}>
-                                    <span>Retiro En tienda</span>
-                                </button>
-                            </div>
-                        </div>
-                        <div className="col-12 col-md-12 col-lg-6">
-                            <div className="py-3">
                                 <button type='button' className="btn btn-bicolor btn-block" onClick={() => setMode(2)}>
                                     <span>Entrega a Domicilio</span>
                                 </button>
                             </div>
                         </div>
+                        <div className="col-12 col-md-12 col-lg-6">
+                            <div className="py-3">
+                                <button type='button' className="btn btn-bicolor btn-block" onClick={() => setMode(1)}>
+                                    <span>Retiro En tienda</span>
+                                </button>
+                            </div>
+                        </div>
+                        
                     </div>
                     {
                         mode == 2

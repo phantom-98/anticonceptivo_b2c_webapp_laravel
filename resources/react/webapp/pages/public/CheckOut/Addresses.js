@@ -155,9 +155,18 @@ const Addresses = ({setView, regions, communes, address, setAddress, dispatchDat
 
             <div className="row button-nav-checkout">
                 <div className="col-md-6 pb-5">
-                    <button onClick={() => setView('user-form')} className="link" style={{textDecoration: 'none'}}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="8.405" height="14.545" viewBox="0 0 8.405 14.545"><path id="Trazado_3290" data-name="Trazado 3290" d="M0,0,7.344,6.768.288,13.824" transform="translate(8.066 14.177) rotate(-180)" fill="none" stroke="#009be8" stroke-width="1"></path></svg> <span className="font-12 add-underline-responsive">{" Volver a paso anterior"}</span>
-                    </button>
+                    {
+                        auth ? 
+                        <button onClick={() => setView('user-form')} className="link" style={{textDecoration: 'none'}}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="8.405" height="14.545" viewBox="0 0 8.405 14.545"><path id="Trazado_3290" data-name="Trazado 3290" d="M0,0,7.344,6.768.288,13.824" transform="translate(8.066 14.177) rotate(-180)" fill="none" stroke="#009be8" stroke-width="1"></path></svg> <span className="font-12 add-underline-responsive">{" Volver a paso anterior"}</span>
+                        </button>
+                        :
+                        <button onClick={() => setView('add-address')} className="link" style={{textDecoration: 'none'}}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="8.405" height="14.545" viewBox="0 0 8.405 14.545"><path id="Trazado_3290" data-name="Trazado 3290" d="M0,0,7.344,6.768.288,13.824" transform="translate(8.066 14.177) rotate(-180)" fill="none" stroke="#009be8" stroke-width="1"></path></svg> <span className="font-12 add-underline-responsive">{" Volver a paso anterior"}</span>
+                        </button>
+                    }
+
+                    
                 </div>
                 {/*<div className="col-md-6 pb-5">*/}
                 {/*    <button className="btn btn-bicolor btn-block" onClick={() => setViewAd('user-form')}>*/}

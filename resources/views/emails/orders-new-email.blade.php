@@ -13,19 +13,24 @@
             <b>DETALLE DEL PEDIDO #{{$order->id}}</b>
         </p>
         <p style="margin-bottom: 20px; width:48%; display:inline-grid">
-            <span class="bold">Recibirás tu pedido</span>
-            @if($order->label_dispatch == "Entrega Prioritaria")
-            <span class="is-immediate-label" style="font-size: 12px"><img style="margin-top:12px" src="https://anticonceptivo.cl/images/arrives-today-blue.png">&nbsp;&nbsp;Entrega Prioritaria</span>
-            @elseif($order->label_dispatch == "Te llega hoy")
-            <span class="is-immediate-label"><img style="margin-top:12px" src="https://anticonceptivo.cl/images/arrives-today-blue.png">&nbsp;&nbsp;Te llega Hoy</span>
-            @elseif($order->label_dispatch == "Te llega mañana")
-            <span class="is-tomorrow-label"><img style="margin-top:12px" src="https://anticonceptivo.cl/images/arrives-tomorrow-green.png">&nbsp;&nbsp;Te llega Mañana</span>
-            @elseif($order->label_dispatch == "Llega en 48H")
-            <span class="is-tomorrow-label"><img style="margin-top:12px" src="https://anticonceptivo.cl/images/arrives-tomorrow-green.png">&nbsp;&nbsp;En 48 horas</span>
-            @elseif($order->label_dispatch == "Llega el Lunes")
-            <span class="is-tomorrow-label"><img style="margin-top:12px" src="https://anticonceptivo.cl/images/arrives-tomorrow-green.png">&nbsp;&nbsp;El Lunes</span>
+            @if ($order->delivery_address == "Retiro en Tienda")
+                <span class="is-immediate-label" style="font-size: 12px"><img style="margin-top:12px">Retira en<img style="margin-top:12px" src="https://inw-assets.s3.amazonaws.com/laravel/anticonceptivo/public/alliances/648c7c5ae2df41686928474.webp"></span>
+            @else
+                <span class="bold">Recibirás tu pedido</span>
+                @if($order->label_dispatch == "Entrega Prioritaria")
+                <span class="is-immediate-label" style="font-size: 12px"><img style="margin-top:12px" src="https://anticonceptivo.cl/images/arrives-today-blue.png">&nbsp;&nbsp;Entrega Prioritaria</span>
+                @elseif($order->label_dispatch == "Te llega hoy")
+                <span class="is-immediate-label"><img style="margin-top:12px" src="https://anticonceptivo.cl/images/arrives-today-blue.png">&nbsp;&nbsp;Te llega Hoy</span>
+                @elseif($order->label_dispatch == "Te llega mañana")
+                <span class="is-tomorrow-label"><img style="margin-top:12px" src="https://anticonceptivo.cl/images/arrives-tomorrow-green.png">&nbsp;&nbsp;Te llega Mañana</span>
+                @elseif($order->label_dispatch == "Llega en 48H")
+                <span class="is-tomorrow-label"><img style="margin-top:12px" src="https://anticonceptivo.cl/images/arrives-tomorrow-green.png">&nbsp;&nbsp;En 48 horas</span>
+                @elseif($order->label_dispatch == "Llega el Lunes")
+                <span class="is-tomorrow-label"><img style="margin-top:12px" src="https://anticonceptivo.cl/images/arrives-tomorrow-green.png">&nbsp;&nbsp;El Lunes</span>
+                @endif 
+                <br/>
             @endif
-            <br/>
+            
 
         </p>
         @if ($order->delivery_address == "Retiro en Tienda")
