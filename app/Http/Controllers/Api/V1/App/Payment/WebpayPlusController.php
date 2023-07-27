@@ -260,25 +260,33 @@ class WebpayPlusController
         $deliveryCosts = DeliveryCost::where('active', 1)->get();
         $itemDeliveryCost = null;
         $itemDeliveryCostArrayCost = null;
-        $commune_name = Commune::find($customerAddress->commune_id)->name;
+        //dd($customerAddress);
+        if($customerAddress->name !== "Retiro_tienda"){
+            $commune_name = Commune::find($customerAddress->commune_id)->name;
 
-        foreach ($deliveryCosts as $key => $deliveryCost) {
-            $costs = json_decode($deliveryCost->costs);
+            foreach ($deliveryCosts as $key => $deliveryCost) {
+                $costs = json_decode($deliveryCost->costs);
 
-            foreach ($costs as $key => $itemCost) {
-                $communes = $itemCost->communes;
+                foreach ($costs as $key => $itemCost) {
+                    $communes = $itemCost->communes;
 
-                $found_key = array_search($commune_name, $communes);
-                if ($found_key !== false) {
-                    $itemDeliveryCost = $deliveryCost;
-                    $itemDeliveryCostArrayCost = $itemCost;
+                    $found_key = array_search($commune_name, $communes);
+                    if ($found_key !== false) {
+                        $itemDeliveryCost = $deliveryCost;
+                        $itemDeliveryCostArrayCost = $itemCost;
+                    }
                 }
             }
-        }
 
-        if ($itemDeliveryCost == null && $itemDeliveryCostArrayCost == null) {
-            return ApiResponse::JsonError(null, 'La comuna seleccionada no cuenta con reparto.');
+            $region = Region::find($customerAddress->region_id);
+            $commune = Commune::find($customerAddress->commune_id);
+            if ($itemDeliveryCost == null && $itemDeliveryCostArrayCost == null) {
+                return ApiResponse::JsonError(null, 'La comuna seleccionada no cuenta con reparto.');
+            }
         }
+        
+
+        
 
         //        $delivery_date =Carbon::now()->addHours($itemDeliveryCost->deadline_delivery);
         $delivery_date = Carbon::now();
@@ -290,13 +298,15 @@ class WebpayPlusController
         $order->delivery_date = $dataDeliveryOrder['delivery_date'];
         $order->customer_id =  $customer->id ?? $request->customer_id;
 
-        $region = Region::find($customerAddress->region_id);
-        $commune = Commune::find($customerAddress->commune_id);
-
-        $order->delivery_address = $customerAddress->address . ', ' . $commune->name;
-        $order->house_number = $customerAddress->extra_info ?? '-';
-        $order->region = $region->name ?? '-';
-        $order->comments = $customerAddress->comment;
+        if($customerAddress->name !== "Retiro_tienda"){
+            $order->delivery_address = $customerAddress->address . ', ' . $commune->name;
+            $order->house_number = $customerAddress->extra_info ?? '-';
+            $order->region = $region->name ?? '-';
+            $order->comments = $customerAddress->comment;
+        }else{
+            $order->delivery_address = "Retiro en Tienda";
+        }
+        
 
         $free_shipping = false;
 
@@ -634,7 +644,7 @@ class WebpayPlusController
     private function isStockProducts($orderItems)
     {
 
-        if (true/*env('APP_ENV') == 'production'*/) {
+        if (env('APP_ENV') == 'production') {
             $arrayProductsQuantity = [];
             $orderId = $orderItems[0]->order_id; 
             foreach ($orderItems as $orderItem) {

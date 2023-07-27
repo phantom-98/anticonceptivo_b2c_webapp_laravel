@@ -1,0 +1,65 @@
+import React, { useState } from 'react';
+import { Form } from "react-bootstrap";
+import logoShort from "../../../../assets/images/logo.jpeg";
+import Icon from "../../../../components/general/Icon";
+
+
+const StoreRetire = ({
+    saveDefaultAddress,
+    name = 'default_address',
+}) => {
+    const [checked, setChecked] = useState(false)
+    const setAddress=()=>{
+        saveDefaultAddress("4003", null)
+        setChecked(true)
+    }
+
+    return (
+        <>
+        <div className="row">
+            <div className="col-auto d-flex pr-0">
+                <div className="my-auto">
+                    <Form.Check
+                        custom
+                        inline
+                        label=""
+                        type="radio"
+                        name={name}
+                        checked={checked}
+                        className="mr-1"
+                        onClick={() => setAddress()}
+                        id={`custom-inline-radio-address-retirotienda`}
+                    />
+                </div>
+            </div>
+
+            <div className="col pl-0">
+                <div className="row">
+                    <div className="col-12">
+                        <span className="font-poppins font-10 regular color-8E8E8E">
+                            Retiro en Tienda: 
+                        </span>
+                    </div>
+                    <div className="col-12">
+                        <div className="font-poppins font-14 lh-18 regular color-484848">
+                            Farmacias Ofar, Antonio Bellet 147, Providencia
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+               
+            </div>
+           
+        </div>
+         <div style={{textAlign:"center"}}>
+         <br/>
+             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3329.896243891384!2d-70.6175332!3d-33.42594929999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662cf63bef52a5f%3A0x1b3d0c24107d99c5!2sAntonio%20Bellet%20147%2C%207500025%20Providencia%2C%20Regi%C3%B3n%20Metropolitana%2C%20Chile!5e0!3m2!1ses-419!2smx!4v1690257068337!5m2!1ses-419!2smx" width="400" height="400" style={{border:"0",margin: "10px auto"}} allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+             <br/>
+             <Icon path={logoShort} style={{height: 47}}/>
+         </div>
+         </>
+    );
+};
+
+export default StoreRetire

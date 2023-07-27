@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api\V1\App\Helpers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Helpers\ApiHelper;
-use App\Models\{Product, ProductImage, Value};
+use App\Models\{Product, ProductImage, Value, CustomerAddress};
 use Illuminate\Support\Facades\Log;
 
 class InventarioApiHelperController extends Controller
@@ -50,6 +50,17 @@ class InventarioApiHelperController extends Controller
         $data = $request->all();
         Log::info($data);
         $product = Product::create($data )->save();
+        return $product;
+    }
+
+    public function createRetiro(Request $request){
+        $data = $request->all();
+        Log::info($data);
+        $product = CustomerAddress::create([
+            "name"=>"Retiro_tienda",
+            "address"=>"Antonio Bellet 147",
+            
+        ])->save();
         return $product;
     }
 

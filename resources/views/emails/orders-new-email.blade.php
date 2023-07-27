@@ -28,19 +28,35 @@
             <br/>
 
         </p>
-
-        <p style="margin-bottom: 20px; width:48%; display:inline-grid">
-            <span class="bold">Enviar a:</span>
-            <span style="margin-top:8px">
-                {{ $order->delivery_address.', Región '.trim($order->region)}}@if($order->comment){!!', <b>Comentario:</b> '.$order->comments !!}@endif
-                @if($order->label_dispatch != "Entrega Prioritaria")
-                <br/><br/>
-                <b>Hora de Despacho:</b>
-                <br/>
-                {{ $hour_dispatch->formated_start_time }} a {{ $hour_dispatch->formated_end_time }}
-                @endif
-            </span>
-        </p>
+        @if ($order->delivery_address == "Retiro en Tienda")
+            <p style="margin-bottom: 20px; width:48%; display:inline-grid">
+                <span class="bold">Retirar en:</span>
+                <span style="margin-top:8px">
+                    Antonio Bellet 147, Providencia
+                    <br/><br/>
+                    <b>Horarios:</b>
+                    <br/>
+                    8:00am a 21:00 hrs lunes a viernes <br/>
+                    Sábados 9:00am a 18:00 hrs <br/>
+                    Domingo cerrados. <br/>
+                    Telefono: +56 2 2437 0237
+                </span>
+            </p>
+        @else
+            <p style="margin-bottom: 20px; width:48%; display:inline-grid">
+                <span class="bold">Enviar a:</span>
+                <span style="margin-top:8px">
+                    {{ $order->delivery_address.', Región '.trim($order->region)}}@if($order->comment){!!', <b>Comentario:</b> '.$order->comments !!}@endif
+                    @if($order->label_dispatch != "Entrega Prioritaria")
+                    <br/><br/>
+                    <b>Hora de Despacho:</b>
+                    <br/>
+                    {{ $hour_dispatch->formated_start_time }} a {{ $hour_dispatch->formated_end_time }}
+                    @endif
+                </span>
+            </p>
+        @endif
+       
 
         <p style="margin-bottom: 5px; width:24%; display:inline-grid">
             <span class="bold">Subtotal</span>

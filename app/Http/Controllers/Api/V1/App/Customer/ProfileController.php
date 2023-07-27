@@ -755,6 +755,9 @@ class ProfileController extends Controller
             if ($oldAddress) {
                 $oldAddress->update(['default_address' => false]);
             }
+            if($address->name == "Retiro_tienda"){
+                $address->update(['customer_id' => $request->customer_id]);
+            }
 
             if ($address->update(['default_address' => true])) {
                 return ApiResponse::JsonSuccess($address, OutputMessage::SUCCESS);
