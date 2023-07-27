@@ -8,7 +8,7 @@ import {AuthContext} from "../../../context/AuthProvider";
 import * as Services from "../../../Services";
 
 const Addresses = ({setView, regions, communes, address, setAddress, dispatchDateObject}) => {
-
+    console.log("------------------------------------",address)
     const {auth} = useContext(AuthContext);
 
     const [addresses, setAddresses] = useState([]);
@@ -105,7 +105,7 @@ const Addresses = ({setView, regions, communes, address, setAddress, dispatchDat
                 </div>
             </div>
             {
-                dispatchDateObject?.label_calendar 
+                dispatchDateObject?.label_calendar
                     ?   <div className="panel panel-cart mb-3">
                             <div className="panel-body">
             

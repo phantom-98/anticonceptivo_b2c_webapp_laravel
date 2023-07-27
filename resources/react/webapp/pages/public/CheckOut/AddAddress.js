@@ -21,10 +21,10 @@ const AddAddress = ({setView, regions, address, validateDataAddressInvite, setAd
 
     useEffect(()=>{
         if(mode == 1){
-            setAddress({name: "Retiro_tienda", region_id : 7, commune_id: 118,extra_info:"147", address: "Antonio Bellet", step: 2})
+            setAddress({name: "Retiro_tienda", region_id : 7, commune_id: "RetiroTienda",extra_info:"147", address: "Antonio Bellet", step: 2})
             setView("addresses")
         }else{
-            setAddress({})
+            //setAddress({})
         }
     },[mode])
 
