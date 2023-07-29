@@ -120,8 +120,16 @@ class TestController extends Controller
             "items" => $items,
             "user" => "anticonceptivo"
         );
-        $get_data = ApiHelper::callAPI('POST', 'https://api.ailoo.cl/v2/sale/boleta/print_type/1', json_encode($data), 'ailoo');
+       
+        /*$get_data = ApiHelper::callAPI('POST', 'http://localhost:4000/v1/factura/createforWeb', json_encode($data), 'inventario_api');
+        $response = json_decode($get_data, true);*/
+        
+       /* $get_data = ApiHelper::callAPI('GET', 'https://api.ailoo.cl/v1/inventory/barCode/7800007714046', null, 'ailoo');
+        $response = json_decode($get_data, true);*/
+        
+        $get_data = ApiHelper::callAPI('GET', env('INVENTARIO_API_URL').'product/stockByCode/7800007714046', null, 'inventario_api');
         $response = json_decode($get_data, true);
+        
         dd($response);
     }
 

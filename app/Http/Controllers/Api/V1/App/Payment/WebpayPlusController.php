@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Api\V1\App\Payment;
 use App\Http\Controllers\Api\V1\App\Helpers\ProductScheduleHelper;
 use App\Jobs\FinishPaymentJob;
 use App\Jobs\UpdateProductStockJob;
+use App\Jobs\StockApiUpdate;
 use App\Models\Prescription;
 use App\Models\ProductSubscriptionPlan;
 // use App\Models\Setting;
@@ -191,17 +192,23 @@ class WebpayPlusController
             $customerAddress = CustomerAddress::where('address', $request->address)->where('name', $request->name)->first();
 
             if (!$customerAddress) {
-                $customerAddress = new CustomerAddress();
+                if($request->commune_id == "RetiroTienda"){
+                    $customerAddress = CustomerAddress::where(["name"=>"Retiro_tienda"])->first();
+                    $customerAddress->customer_id = $customer->id;
+                }else{
+                    $customerAddress = new CustomerAddress();
 
-                $customerAddress->address = $request->address;
-                $customerAddress->name = $request->name;
-                $customerAddress->region_id = $request->region_id;
-                $customerAddress->commune_id = intVal($request->commune_id);
-                $customerAddress->extra_info = $request->extra_info;
-                $customerAddress->comment = $request->comment;
-                $customerAddress->customer_id = $customer->id;
-                $customerAddress->default_address = 1;
-                $customerAddress->save();
+                    $customerAddress->address = $request->address;
+                    $customerAddress->name = $request->name;
+                    $customerAddress->region_id = $request->region_id;
+                    $customerAddress->commune_id = $request->commune_id == "RetiroTienda" ? :intVal($request->commune_id);
+                    $customerAddress->extra_info = $request->extra_info;
+                    $customerAddress->comment = $request->comment;
+                    $customerAddress->customer_id = $customer->id;
+                    $customerAddress->default_address = 1;
+                    $customerAddress->save();
+                }
+                
             }
 
             $customer->refresh();
@@ -236,17 +243,22 @@ class WebpayPlusController
                 if (!$customerAddress) {
                     $customerAddress = CustomerAddress::where('address', $request->address)->where('name', $request->name)->first();
                     if (!$customerAddress) {
-                        $customerAddress = new CustomerAddress();
+                        if($request->commune_id == "RetiroTienda"){
+                            $customerAddress = CustomerAddress::where("name","Retiro_tienda")->first();
+                            $customerAddress->customer_id = $customer->id;
+                        }else{
+                            $customerAddress = new CustomerAddress();
 
-                        $customerAddress->address = $request->address;
-                        $customerAddress->name = $request->name;
-                        $customerAddress->region_id = $request->region_id;
-                        $customerAddress->commune_id = intVal($request->commune_id);
-                        $customerAddress->extra_info = $request->extra_info;
-                        $customerAddress->comment = $request->comment;
-                        $customerAddress->customer_id = $customer->id;
-                        $customerAddress->default_address = 1;
-                        $customerAddress->save();
+                            $customerAddress->address = $request->address;
+                            $customerAddress->name = $request->name;
+                            $customerAddress->region_id = $request->region_id;
+                            $customerAddress->commune_id = intVal($request->commune_id);
+                            $customerAddress->extra_info = $request->extra_info;
+                            $customerAddress->comment = $request->comment;
+                            $customerAddress->customer_id = $customer->id;
+                            $customerAddress->default_address = 1;
+                            $customerAddress->save();
+                        }
                     }
                 }
             }
@@ -259,25 +271,33 @@ class WebpayPlusController
         $deliveryCosts = DeliveryCost::where('active', 1)->get();
         $itemDeliveryCost = null;
         $itemDeliveryCostArrayCost = null;
-        $commune_name = Commune::find($customerAddress->commune_id)->name;
+        //dd($customerAddress);
+        if($customerAddress->name !== "Retiro_tienda"){
+            $commune_name = Commune::find($customerAddress->commune_id)->name;
 
-        foreach ($deliveryCosts as $key => $deliveryCost) {
-            $costs = json_decode($deliveryCost->costs);
+            foreach ($deliveryCosts as $key => $deliveryCost) {
+                $costs = json_decode($deliveryCost->costs);
 
-            foreach ($costs as $key => $itemCost) {
-                $communes = $itemCost->communes;
+                foreach ($costs as $key => $itemCost) {
+                    $communes = $itemCost->communes;
 
-                $found_key = array_search($commune_name, $communes);
-                if ($found_key !== false) {
-                    $itemDeliveryCost = $deliveryCost;
-                    $itemDeliveryCostArrayCost = $itemCost;
+                    $found_key = array_search($commune_name, $communes);
+                    if ($found_key !== false) {
+                        $itemDeliveryCost = $deliveryCost;
+                        $itemDeliveryCostArrayCost = $itemCost;
+                    }
                 }
             }
-        }
 
-        if ($itemDeliveryCost == null && $itemDeliveryCostArrayCost == null) {
-            return ApiResponse::JsonError(null, 'La comuna seleccionada no cuenta con reparto.');
+            $region = Region::find($customerAddress->region_id);
+            $commune = Commune::find($customerAddress->commune_id);
+            if ($itemDeliveryCost == null && $itemDeliveryCostArrayCost == null) {
+                return ApiResponse::JsonError(null, 'La comuna seleccionada no cuenta con reparto.');
+            }
         }
+        
+
+        
 
         //        $delivery_date =Carbon::now()->addHours($itemDeliveryCost->deadline_delivery);
         $delivery_date = Carbon::now();
@@ -289,13 +309,15 @@ class WebpayPlusController
         $order->delivery_date = $dataDeliveryOrder['delivery_date'];
         $order->customer_id =  $customer->id ?? $request->customer_id;
 
-        $region = Region::find($customerAddress->region_id);
-        $commune = Commune::find($customerAddress->commune_id);
-
-        $order->delivery_address = $customerAddress->address . ', ' . $commune->name;
-        $order->house_number = $customerAddress->extra_info ?? '-';
-        $order->region = $region->name ?? '-';
-        $order->comments = $customerAddress->comment;
+        if($customerAddress->name !== "Retiro_tienda"){
+            $order->delivery_address = $customerAddress->address . ', ' . $commune->name;
+            $order->house_number = $customerAddress->extra_info ?? '-';
+            $order->region = $region->name ?? '-';
+            $order->comments = $customerAddress->comment;
+        }else{
+            $order->delivery_address = "Retiro en Tienda";
+        }
+        
 
         $free_shipping = false;
 
@@ -512,6 +534,7 @@ class WebpayPlusController
                 return ApiResponse::JsonError([], 'Error inesperado');
             }
         }
+        StockApiUpdate::dispatch($order->id, "discount");
 
         if ($isSubscription) {
             if ($_subscription) {
@@ -554,6 +577,7 @@ class WebpayPlusController
                             $order->payment_type = 'tarjeta';
                             $order->save();
                         }
+                        StockApiUpdate::dispatch($order->id, "add");
                         return ApiResponse::JsonError([], 'Pago Rechazado');
                     }
 
@@ -633,6 +657,7 @@ class WebpayPlusController
 
         if (env('APP_ENV') == 'production') {
             $arrayProductsQuantity = [];
+            $orderId = $orderItems[0]->order_id; 
             foreach ($orderItems as $orderItem) {
                 $quantityFinal = $orderItem->quantity;
                 if (isset($orderItem->subscription_plan)) {
@@ -642,10 +667,17 @@ class WebpayPlusController
                 $arrayProductsQuantity[$orderItem->product_id] = ($arrayProductsQuantity[$orderItem->product_id] ?? 0) + $quantityFinal;
             }
 
+     
+            
             foreach ($arrayProductsQuantity as $id => $quantity) {
                 $product = Product::find($id);
-                $get_data = ApiHelper::callAPI('GET', 'https://api.ailoo.cl/v1/inventory/barCode/' . $product->barcode, null, 'ailoo');
+                //TODO check Stock, cuando entre a transbank deberia mantenerlo en estado pendiente mejorar llamada
+                /*$get_data = ApiHelper::callAPI('GET', 'https://api.ailoo.cl/v1/inventory/barCode/' . $product->barcode, null, 'ailoo');*/
+                
+                $get_data = ApiHelper::callAPI('GET', env('INVENTARIO_API_URL').'product/stockByCode/' . $product->barcode, null, 'inventario_api');
+                
                 $response = json_decode($get_data, true);
+                
                 if ($response != null && array_key_exists('inventoryItems', $response)) {
                     $isWeb = false;
                     foreach ($response['inventoryItems'] as $key => $inventory) {
@@ -670,7 +702,11 @@ class WebpayPlusController
                     );
                 }
             }
+
+           
+
         }
+        
 
         return array(
             'status' => true,
@@ -708,7 +744,7 @@ class WebpayPlusController
                     $this->updateDiscountCode($order->discount_code->name);
                 }
 
-                $isErrorAiloo = false;
+                /*$isErrorAiloo = false;
 
                 try {
                     $responseStockProduct = $this->isStockProducts($order->order_items);
@@ -720,7 +756,7 @@ class WebpayPlusController
                 if ($isErrorAiloo == true || !$responseStockProduct['status']) {
                     if ($order->status != 'PAID' && $order->status != 'DELIVERED' && $order->status != 'DISPATCHED') {
                         Log::info('RESPONSE_STOCK_PRODUCT_NOT_FOUND', [$responseStockProduct['status']]);
-
+            
                         $this->webpay_plus->refundTransaction($order->payment_token, $order->total);
                         $order->status = PaymentStatus::CANCELED;
                         $order->is_paid = false;
@@ -738,14 +774,14 @@ class WebpayPlusController
                     //                        CallIntegrationsPay::callVoucher($order->id, $customerAddress);
                     //                        CallIntegrationsPay::callDispatchLlego($order->id, $customerAddress);
                     //                        CallIntegrationsPay::sendEmailsOrder($order->id);
-                    //                    }
+                    //                    }*/
                     UpdateProductStockJob::dispatch($order);
                     FinishPaymentJob::dispatch($order);
-                }
+                //}
             } else {
                 if ($order->status != 'PAID' && $order->status != 'DELIVERED' && $order->status != 'DISPATCHED') {
                     Log::info('RESPONSE_CODE_ELSE', [$response->responseCode]);
-
+                    StockApiUpdate::dispatch($order->id, "add");
                     $order->status = PaymentStatus::REJECTED;
                     $order->type = $response->paymentTypeCode;
                     $order->is_paid = false;

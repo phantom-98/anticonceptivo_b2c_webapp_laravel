@@ -2,11 +2,13 @@ import React from 'react';
 import {Form} from "react-bootstrap";
 
 const ListItem = ({address, showEdit, saveDefaultAddress, regions, communes}) => {
-
+    console.log(address)
     let region = regions.find(x => x.id === address.region_id)
     let commune = communes.find(x => x.id == address.commune_id)
 
     return (
+        address.name !== "Retiro_tienda"
+        ?
         <div className="row">
             <div className="col-auto d-flex pr-0">
                 <div className="my-auto">
@@ -46,6 +48,7 @@ const ListItem = ({address, showEdit, saveDefaultAddress, regions, communes}) =>
                 <hr/>
             </div> */}
         </div>
+        :<></>
     );
 };
 

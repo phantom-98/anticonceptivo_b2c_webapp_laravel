@@ -95,6 +95,13 @@ class ApiHelper extends CoreHelper
                     'Accept: application/json',
                     'Content-Type: application/json',
                 ));
+            }else if ($integration == 'inventario_api') {
+                //TODO api token .env
+                curl_setopt($curl, CURLOPT_HTTPHEADER, array(
+                    'Accept: application/json',
+                    'Content-Type: application/json',
+                    'x-token:'. env('INVENTARIO_API_TOKEN')
+                ));
             }
 
 
@@ -131,6 +138,12 @@ class ApiHelper extends CoreHelper
                     'Content-Type: application/json',
 
                 ));
+            }else if ($integration == 'inventario_api') {
+                curl_setopt($curl, CURLOPT_HTTPHEADER, array(
+                    'Accept: application/json',
+                    'Content-Type: application/json',
+                    'x-token:'. env('INVENTARIO_API_TOKEN')
+                ));
             }
 
 
@@ -139,7 +152,8 @@ class ApiHelper extends CoreHelper
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
 
-
+        
+        
         // EXECUTE:
         $result = curl_exec($curl);
         curl_close($curl);

@@ -47,26 +47,26 @@ const Resume = ({
     const { auth } = useContext(AuthContext);
 
     useEffect(() => {
-        // console.log(address)
         let url = Services.ENDPOINT.PAYMENTS.GET_DISPATCH;
+      
         let data = {
-            commune_id: address.commune_id,
+            commune_id: address?.commune_id ?? "RetiroTienda",
             cartItems: cartItems
         }
-
         Services.DoPost(url, data).then(response => {
             Services.Response({
                 response: response,
                 success: () => {
+                    console.log(response.data.dateDeliveryOrder)
                     setDispatch(response.data.dispatch)
-                    setDispatchDateObject(response.data.dateDeliveryOrder)
+                    setDispatchDateObject(response.data.dateDeliveryOrder == "RetiroTienda" ? {} : response.data.dateDeliveryOrder)
                 },
 
             });
         }).catch(error => {
             Services.ErrorCatch(error)
         });
-
+      
     }, [address])
 
 

@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import ListItemNoAuth from "./ListItem";
 import ListItem from "./AddressList";
 import Icon from "../../../../components/general/Icon";
@@ -8,24 +8,35 @@ import {AuthContext} from "../../../../context/AuthProvider";
 import {v4 as uuidv4} from 'uuid';
 import {AppContext} from "../../../../context/AppProvider";
 import {BREAKPOINTS} from "../../../../helpers/vars";
+import StoreRetire from './StoreRetire';
 
 const List = ({addresses, showEdit, showCreate, getData, regions, communes, setAddress, setAddresses}) => {
     const {breakpoint} = useContext(AppContext)
-
+    const [checked, setChecked] = useState(false)
     const {auth} = useContext(AuthContext);
+   
 
     const saveDefaultAddress = (addressId, customerId) => {
+        
+        if(!customerId){
+            setChecked(false)
+        }
         let url = Services.ENDPOINT.CUSTOMER.ADDRESSES.SET_DEFAULT_ADDRESS;
         let data = {
             address_id: addressId,
-            customer_id: customerId
+            customer_id: customerId ? customerId : auth?.id 
         }
+
+        
 
         Services.DoPost(url, data).then(response => {
             Services.Response({
                 response: response,
                 success: () => {
-                    setAddress(addresses.find(x => x.id === addressId))
+                    if(addressId !== "4004"){
+                        setChecked(false)
+                    }
+                    setAddress(addresses.find(x => x.id == addressId))
                     getData();
                 },
             });
@@ -42,15 +53,19 @@ const List = ({addresses, showEdit, showCreate, getData, regions, communes, setA
                 {
                     auth ?
                         addresses.map((address, index) => (
-                            <ListItem
-                                key={index}
-                                address={address}
-                                showEdit={showEdit}
-                                saveDefaultAddress={saveDefaultAddress}
-                                regions={regions}
-                                communes={communes}
-                                setAddresses={setAddresses}
-                            />
+                            
+                            address.name !== 'Retiro_tienda' 
+                                ?   <ListItem
+                                        key={index}
+                                        address={address}
+                                        showEdit={showEdit}
+                                        saveDefaultAddress={saveDefaultAddress}
+                                        regions={regions}
+                                        communes={communes}
+                                        setAddresses={setAddresses}
+                                    />
+                                : <></>
+                            
                         ))
                         :
 
@@ -63,6 +78,13 @@ const List = ({addresses, showEdit, showCreate, getData, regions, communes, setA
                             communes={communes}
                         />
                 }
+                {
+                    auth ? <StoreRetire setChecked={setChecked} checked={checked} saveDefaultAddress={saveDefaultAddress}/>
+                    : addresses?.name !== 'Retiro_tienda' ? <></> :<StoreRetire setChecked={setChecked} checked={checked} saveDefaultAddress={saveDefaultAddress}/>
+                   
+                }
+                
+                
             </div>
             {
                 breakpoint === BREAKPOINTS.MEDIUM || breakpoint === BREAKPOINTS.LARGE || breakpoint === BREAKPOINTS.EXTRA_LARGE || breakpoint === BREAKPOINTS.EXTRA_EXTRA_LARGE ?

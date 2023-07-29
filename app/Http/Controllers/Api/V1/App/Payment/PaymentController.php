@@ -126,6 +126,18 @@ class PaymentController
 
     public function getDispatch(Request $request)
     {
+        $meses = array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
+
+        if($request->commune_id=="RetiroTienda"){
+            $fecha2 = Carbon::now();
+            $mes = $meses[($fecha2->format('n')) - 1];
+            return ApiResponse::JsonSuccess([
+                'dispatch' => 0,
+                'date_dispatch' => "",
+                'dateDeliveryOrder' => "RetiroTienda"
+            ]);
+
+        }
 
         $commune = Commune::find($request->commune_id);
         $commune_name = '';
@@ -156,7 +168,7 @@ class PaymentController
         $dataDeliveryOrder = ProductScheduleHelper::labelDateDeliveryInOrder(array_column($request->cartItems,'product' ),$delivery_date);
         $dataDeliveryOrder = ProductScheduleHelper::deadlineDeliveryMaxOrder($dataDeliveryOrder['delivery_date'], $dataDeliveryOrder['label'],$dataDeliveryOrder['sub_label'], $dataDeliveryOrder['is_immediate'], $dataDeliveryOrder['schedule']);
 
-        $meses = array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
+        
         $fecha = Carbon::parse($dataDeliveryOrder['delivery_date']);
         $mes = $meses[($fecha->format('n')) - 1];
 

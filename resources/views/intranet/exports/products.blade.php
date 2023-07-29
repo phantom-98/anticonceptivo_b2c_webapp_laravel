@@ -15,6 +15,7 @@
             <th>Alto</th>
             <th>Peso</th>
             <th>¿Bioequivalente?</th>
+            <th>¿Generico?</th>
             <th>Código de Barras</th>
             <th>Formato Unidad</th>
             <th>Tipo de Receta</th>
@@ -51,6 +52,7 @@
                 <td>{{ $object->long ?? '' }}</td>
                 <td>{{ $object->weigth ?? '' }}</td>
                 <td>{{ $object->is_bioequivalent == 0 ? 'NO' : 'SI' }}</td>
+                <td>{{ $object->is_generic == 0 ? 'NO' : 'SI' }}</td>
                 <td>{{ $object->barcode ?? '' }}</td>
                 <td>{{ $object->unit_format ?? '' }}</td>
                 <td>{{ $object->recipe_type ?? 'Venta Directa' }}</td>

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Intranet;
 
-use App\Models\Product;
+use App\Models\{Product, Setting};
 use App\Models\Subcategory;
 use App\Models\SubscriptionPlan;
 use App\Models\Laboratory;
@@ -44,7 +44,26 @@ class ProductController extends GlobalController
     public function index()
     {
         $objects = Product::with('product_images', 'subcategory.category', 'laboratory')->withCount('active_subscriptions_items')->orderBy('position')->get();
-        return view($this->folder . 'index', compact('objects'));
+        $search = Setting::where("key", "SEARCHSTOCK")->first();
+        return view($this->folder . 'index', compact('objects', 'search'));
+    }
+
+    public function changeSearchStock(){
+
+        $search = Setting::where("key", "SEARCHSTOCK")->first();
+        if($search){
+            $search->value = $search->value == 1 ? 0 : 1;
+            $search->update();
+        }else{
+            $search = Setting::create([
+                "key"=>"SEARCHSTOCK",
+                "value"=>1
+            ]);
+        }
+
+        return response()->json([
+            'status' => "success",
+        ]);
     }
 
     public function position_product(Request $request){
@@ -177,6 +196,7 @@ class ProductController extends GlobalController
             $product->description = $request->description;
             $product->laboratory_id = $request->laboratory_id;
             $product->is_bioequivalent = $request->is_bioequivalent ?? 0;
+            $product->is_generic = $request->is_generic ?? 0;
             $product->format = $request->input('format');
             $product->barcode = $request->barcode;
             $product->unit_price = $request->unit_price;
@@ -189,7 +209,7 @@ class ProductController extends GlobalController
             $product->save();
 
             if ($request->hasFile('image')) {
-                $S3Helper = new S3Helper('laravel/anticonceptivo/', 'public/products/'.$product->id);
+                $S3Helper = new S3Helper("", 'public/products/'.$product->id);
                 foreach ($request->file('image') as $key => $item_file) {
                     $image = new ProductImage();
 
@@ -202,7 +222,7 @@ class ProductController extends GlobalController
                 }
             }
 
-            $S3Helper = new S3Helper('laravel/anticonceptivo/', 'public/products/'.$product->id.'/plans');
+            $S3Helper = new S3Helper("", 'public/products/'.$product->id.'/plans');
 
             foreach ($request->plan_id as $key => $plan) {
                 $plan = array_filter($plan, function ($value) {
@@ -351,6 +371,7 @@ class ProductController extends GlobalController
             $product->is_indexable = $request->is_indexable;
             $product->description = $request->description;
             $product->is_bioequivalent = $request->is_bioequivalent ?? 0;
+            $product->is_generic = $request->is_generic ?? 0;
             $product->laboratory_id = $request->laboratory_id;
             $product->format = $request->input('format');
             $product->barcode = $request->barcode;
@@ -362,7 +383,7 @@ class ProductController extends GlobalController
             $product->save();
 
             if ($request->hasFile('image')) {
-                $S3Helper = new S3Helper('laravel/anticonceptivo/', 'public/products/'.$product->id);
+                $S3Helper = new S3Helper("", 'public/products/'.$product->id);
                 $prod_image = ProductImage::where('product_id', $product->id)->pluck('file')->toArray();
 
                 if (count($prod_image)) {
@@ -387,7 +408,7 @@ class ProductController extends GlobalController
                 }
             }
 
-            $S3Helper = new S3Helper('laravel/anticonceptivo/', 'public/products/'.$product->id.'/plans');
+            $S3Helper = new S3Helper("", 'public/products/'.$product->id.'/plans');
 
             foreach ($request->plan_id as $key => $plan) {
                 $plan = array_filter($plan, function ($value) {

@@ -26,7 +26,8 @@ class CallIntegrationsPay extends CoreHelper
        foreach ($ordersItems as $elementOrderItem) {
 
             $item = array(
-                'productItemId' => $elementOrderItem->product->product_item_id_ailoo,
+                'productItemName' => $elementOrderItem->product->name,
+                'productItemId' => $elementOrderItem->product->sku,
                 'price' => $elementOrderItem->price,
                 'quantity' => $elementOrderItem->quantity,
                 "taxable"=> true,
@@ -34,16 +35,20 @@ class CallIntegrationsPay extends CoreHelper
             );
             array_push($items,$item);
         }
-
-       $item = array(
-           'productItemId' => 2376186,
-           'price' => $order->dispatch,
-           'quantity' => 1,
-           "taxable"=> true,
-           "type"=> "PRODUCT"
-       );
-
-       array_push($items,$item);
+        //dd($order->dispatch);
+        if($order->dispatch != 0.0){
+            $item = array(
+                'productItemName' => "Despacho",
+                'productItemId' => 2376186,
+                'price' => $order->dispatch ,
+                'quantity' => 1,
+                "taxable"=> true,
+                "type"=> "PRODUCT"
+            );
+     
+            array_push($items,$item);
+        }
+       
 
         $data = array(
             "client"=> [
@@ -63,8 +68,9 @@ class CallIntegrationsPay extends CoreHelper
                 "items"=> $items,
                 "user"=> "anticonceptivo"
         );
+        //TODO create boleta
         if($order->ballot_number == null){
-            $get_data = ApiHelper::callAPI('POST', 'https://api.ailoo.cl/v2/sale/boleta/print_type/1', json_encode($data), 'ailoo');
+            $get_data = ApiHelper::callAPI('POST', env('INVENTARIO_API_URL').'factura/createforWeb', json_encode($data), 'inventario_api');
         }
         $response = json_decode($get_data, true);
         Log::info('Voucher',
@@ -82,13 +88,36 @@ class CallIntegrationsPay extends CoreHelper
         }
    }
 
+    public static function callapiUpdateStock($orderId, $method){
+        $orderItems =OrderItem::where('order_id',$orderId)->get();
+       
+        $data = array(
+            "method"=> $method,
+            "items" => []
+        );
+
+        foreach ($orderItems as $key => $orderItem) {
+            $product = $orderItem->product;
+            $temp = array(
+                "sku" => $product->sku,
+                "quantity" => $orderItem->quantity
+            );
+
+            array_push($data["items"], $temp);
+        }
+
+        $get_data = ApiHelper::callAPI('PUT', env('INVENTARIO_API_URL').'product/updateStock/', json_encode($data), 'inventario_api');
+        $response = json_decode($get_data, true);
+        return $response;
+    }
+
    public static function  callUpdateStockProducts($order_id)
    {
         $orderItems =OrderItem::where('order_id',$order_id)->get();
 
         foreach ($orderItems as $key => $orderItem) {
             $product = $orderItem->product;
-            $get_data = ApiHelper::callAPI('GET', 'https://api.ailoo.cl/v1/inventory/barCode/'.$product->barcode, null, 'ailoo');
+            $get_data = ApiHelper::callAPI('GET', env('INVENTARIO_API_URL').'product/stockByCode/'.$product->barcode, null, 'inventario_api');
             $response = json_decode($get_data, true);
 
             try {

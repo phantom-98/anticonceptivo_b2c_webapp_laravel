@@ -2,27 +2,29 @@
 
 namespace App\Jobs;
 
-use App\Http\Helpers\CallIntegrationsPay;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use App\Http\Helpers\CallIntegrationsPay;
 
-class UpdateProductStockJob implements ShouldQueue
+class StockApiUpdate implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    private $orderId;
+    private $method;
 
-    private $order;
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($order)
+    public function __construct($orderId, $method)
     {
-        $this->order = $order;
+        $this->orderId = $orderId;
+        $this->method = $method;
         $this->onQueue('high');
     }
 
@@ -33,8 +35,9 @@ class UpdateProductStockJob implements ShouldQueue
      */
     public function handle()
     {
+        //TODO quitar production
         //if (env('APP_ENV') == 'production') {
-            CallIntegrationsPay::callUpdateStockProducts($this->order->id);
+            CallIntegrationsPay::callapiUpdateStock($this->orderId, $this->method);
         //}
     }
 }

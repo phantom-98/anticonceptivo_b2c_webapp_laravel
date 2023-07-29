@@ -342,7 +342,8 @@ class PaySubscriptions extends Command
 
         $items = [
             [
-                'productItemId' => $item->order_item->product->product_item_id_ailoo,
+                'productItemId' => $item->order_item->product->sku,
+                'productItemName'=> $item->order_item->product->name,
                 'price' => $item->price,
                 'quantity' => $item->quantity,
                 "taxable" => true,
@@ -350,6 +351,7 @@ class PaySubscriptions extends Command
             ],
             [
                 'productItemId' => 2376186,
+                'productItemName'=> "Despacho",
                 'price' => $order->dispatch,
                 'quantity' => 1,
                 "taxable" => true,
@@ -377,7 +379,10 @@ class PaySubscriptions extends Command
         ];
 
         if (env('APP_ENV') == 'production') {
-            $get_data = ApiHelper::callAPI('POST', 'https://api.ailoo.cl/v2/sale/boleta/print_type/1', json_encode($data), 'ailoo');
+            /*$get_data = ApiHelper::callAPI('POST', 'https://api.ailoo.cl/v2/sale/boleta/print_type/1', json_encode($data), 'ailoo');*/
+
+            $get_data = ApiHelper::callAPI('POST',  env('INVENTARIO_API_URL').'/factura/createforWeb', json_encode($data), 'inventario_api');
+
             $response = json_decode($get_data, true);
 
             if ($response['error']['code'] != 0) {
@@ -390,7 +395,8 @@ class PaySubscriptions extends Command
             }
 
             $product = $item->order_item->product;
-            $get_data = ApiHelper::callAPI('GET', 'https://api.ailoo.cl/v1/inventory/barCode/' . $product->barcode, null, 'ailoo');
+           /* $get_data = ApiHelper::callAPI('GET', 'https://api.ailoo.cl/v1/inventory/barCode/' . $product->barcode, null, 'ailoo');*/
+           $get_data = ApiHelper::callAPI('GET',  env('INVENTARIO_API_URL').'/product/stockByCode/' . $product->barcode, null, 'inventario_api');
             $response = json_decode($get_data, true);
             try {
 

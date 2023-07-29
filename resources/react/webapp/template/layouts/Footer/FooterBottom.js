@@ -14,7 +14,7 @@ const FooterBottom = () => {
                     </div>
                     <div className="col-md-4">
                         <div className="text-center text-md-right font-12">
-                            Autorizado por ISP: Res. Ex. 4003 del 31.08.2021
+                            Autorizado por ISP: Res. Ex. 3848 del 24.07.2023
                         </div>
                     </div>
                 </div>

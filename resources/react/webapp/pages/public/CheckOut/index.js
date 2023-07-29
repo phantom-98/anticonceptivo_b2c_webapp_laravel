@@ -168,6 +168,10 @@ const CheckOut = () => {
     }, [])
 
     const validateDataAddressInvite = () => {
+        console.log(address)
+        if(address.name =="Retiro_tienda"){
+            setView('addresses')
+        }
         if (validAddress === false) {
 
         }
@@ -614,6 +618,7 @@ const CheckOut = () => {
                                             validAddress={validAddress}
                                             setValidAddress={setValidAddress}
                                             setInputError={setInputError}
+                                            validateDataAddressInvite={validateDataAddressInvite}
                                         /> : null
                                 }
                                 {

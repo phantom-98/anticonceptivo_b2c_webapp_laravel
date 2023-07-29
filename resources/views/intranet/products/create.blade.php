@@ -194,6 +194,13 @@
                                         <input class="js-switch" name="is_bioequivalent" id="is_bioequivalent" type="checkbox" value="1">
                                     </div>
                                 </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="is_generic">¿Es Generico?</label>
+                                        <br/>
+                                        <input class="js-switch" name="is_generic" id="is_generic" type="checkbox" value="1">
+                                    </div>
+                                </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="format">Formato (*)</label>

@@ -56,14 +56,17 @@ class UpdateStock extends Command
 
             try {
 
-                $get_data = ApiHelper::callAPI('GET', 'https://api.ailoo.cl/v1/inventory/barCode/' . $product->barcode, null, 'ailoo');
+                /*$get_data = ApiHelper::callAPI('GET', 'https://api.ailoo.cl/v1/inventory/barCode/' . $product->barcode, null, 'ailoo');*/
+
+                $get_data = ApiHelper::callAPI('GET', env('INVENTARIO_API_URL').'product/stockByCode/' . $product->barcode, null, 'inventario_api');
+
                 $response = json_decode($get_data, true);
                 $isWeb = false;
 
                 foreach ($response['inventoryItems'] as $key => $inventory) {
                     if ($inventory['facilityName'] == 'Web') {
                         $product->stock = $inventory['quantity'];
-                        $product->product_item_id_ailoo = $inventory['productItemId'];
+                        //$product->product_item_id_ailoo = $inventory['productItemId'];
                         $isWeb = true;
                     }
                 }

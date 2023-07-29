@@ -288,14 +288,22 @@
                                 <td>#{{ $object->id }}</td>
                                 <td>{{ date('H:i:s', strtotime($object->created_at)) }}</td>
                                 <td>
+                                   
                                     <div class="label label-table"
                                         style="background: {{ $object->formated_background }}; color: {{ $object->formated_color }}; cursor:default">
-                                        {{ $object->formated_status }}
+
+                                        {{  $object->formated_status  }}
                                     </div>
                                 </td>
 
                                 @if (isset($object->label_dispatch))
-                                    <td>{{ $object->label_dispatch == 'Entrega inmediata' ? 'Entrega Prioritaria' : $object->label_dispatch }}
+                                    <td>
+                                        @if ($object->delivery_address == "Retiro en Tienda")
+                                            RETIRO EN TIENDA
+                                        @else
+                                            {{ $object->label_dispatch == 'Entrega inmediata' ? 'Entrega Prioritaria' : $object->label_dispatch }}
+                                        @endif
+                                        
                                     </td>
                                 @else
                                     <td>-</td>
@@ -359,16 +367,18 @@
 
                                 <td>{{ mb_strtoupper($object->customer->full_name ?? '-', 'UTF-8') }}</td>
                                 <td>{{ $object->customer->id_number ?? '-' }}</td>
-
-                                @if (isset($object->subscriptions_orders_items) &&
-                                    count($object->subscriptions_orders_items) > 0 &&
-                                    isset($object->subscriptions_orders_items[0]->commune))
-                                    <td>{{ mb_strtoupper(($object->delivery_address ?? '-') . ', ' . ($object->subscriptions_orders_items[0]->commune->name ?? '-'), 'UTF-8') }}
-                                    </td>
+                                @if ($object->delivery_address == "Retiro en Tienda")
+                                    <td>Antonio bellet 147</td>
                                 @else
-                                    <td>{{ mb_strtoupper($object->delivery_address ?? '-', 'UTF-8') }}</td>
+                                    @if (isset($object->subscriptions_orders_items) &&
+                                        count($object->subscriptions_orders_items) > 0 &&
+                                        isset($object->subscriptions_orders_items[0]->commune))
+                                        <td>{{ mb_strtoupper(($object->delivery_address ?? '-') . ', ' . ($object->subscriptions_orders_items[0]->commune->name ?? '-'), 'UTF-8') }}
+                                        </td>
+                                    @else
+                                        <td>{{ mb_strtoupper($object->delivery_address ?? '-', 'UTF-8') }}</td>
+                                    @endif
                                 @endif
-
                                 <td>{{ mb_strtoupper($object->house_number ?? '-', 'UTF-8') }}</td>
                                 <td>{{ mb_strtoupper($object->region ?? '-', 'UTF-8') }}</td>
                                 <td>{{ mb_strtoupper($object->comments ?? '-', 'UTF-8') }}</td>
