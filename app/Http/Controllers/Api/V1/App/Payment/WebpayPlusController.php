@@ -192,17 +192,23 @@ class WebpayPlusController
             $customerAddress = CustomerAddress::where('address', $request->address)->where('name', $request->name)->first();
 
             if (!$customerAddress) {
-                $customerAddress = new CustomerAddress();
+                if($request->commune_id == "RetiroTienda"){
+                    $customerAddress = CustomerAddress::where(["name"=>"Retiro_tienda"])->first();
+                    $customerAddress->customer_id = $customer->id;
+                }else{
+                    $customerAddress = new CustomerAddress();
 
-                $customerAddress->address = $request->address;
-                $customerAddress->name = $request->name;
-                $customerAddress->region_id = $request->region_id;
-                $customerAddress->commune_id = intVal($request->commune_id);
-                $customerAddress->extra_info = $request->extra_info;
-                $customerAddress->comment = $request->comment;
-                $customerAddress->customer_id = $customer->id;
-                $customerAddress->default_address = 1;
-                $customerAddress->save();
+                    $customerAddress->address = $request->address;
+                    $customerAddress->name = $request->name;
+                    $customerAddress->region_id = $request->region_id;
+                    $customerAddress->commune_id = $request->commune_id == "RetiroTienda" ? :intVal($request->commune_id);
+                    $customerAddress->extra_info = $request->extra_info;
+                    $customerAddress->comment = $request->comment;
+                    $customerAddress->customer_id = $customer->id;
+                    $customerAddress->default_address = 1;
+                    $customerAddress->save();
+                }
+                
             }
 
             $customer->refresh();
@@ -237,17 +243,22 @@ class WebpayPlusController
                 if (!$customerAddress) {
                     $customerAddress = CustomerAddress::where('address', $request->address)->where('name', $request->name)->first();
                     if (!$customerAddress) {
-                        $customerAddress = new CustomerAddress();
+                        if($request->commune_id == "RetiroTienda"){
+                            $customerAddress = CustomerAddress::where("name","Retiro_tienda")->first();
+                            $customerAddress->customer_id = $customer->id;
+                        }else{
+                            $customerAddress = new CustomerAddress();
 
-                        $customerAddress->address = $request->address;
-                        $customerAddress->name = $request->name;
-                        $customerAddress->region_id = $request->region_id;
-                        $customerAddress->commune_id = intVal($request->commune_id);
-                        $customerAddress->extra_info = $request->extra_info;
-                        $customerAddress->comment = $request->comment;
-                        $customerAddress->customer_id = $customer->id;
-                        $customerAddress->default_address = 1;
-                        $customerAddress->save();
+                            $customerAddress->address = $request->address;
+                            $customerAddress->name = $request->name;
+                            $customerAddress->region_id = $request->region_id;
+                            $customerAddress->commune_id = intVal($request->commune_id);
+                            $customerAddress->extra_info = $request->extra_info;
+                            $customerAddress->comment = $request->comment;
+                            $customerAddress->customer_id = $customer->id;
+                            $customerAddress->default_address = 1;
+                            $customerAddress->save();
+                        }
                     }
                 }
             }
