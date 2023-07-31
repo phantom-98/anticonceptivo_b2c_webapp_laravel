@@ -24,7 +24,7 @@ const AddAddress = ({setView, regions, address, validateDataAddressInvite, setAd
             setAddress({name: "Retiro_tienda", region_id : 7, commune_id: "RetiroTienda",extra_info:"147", address: "Antonio Bellet", step: 2})
             setView("addresses")
         }else{
-            setAddress({})
+           setAddress({name:address.name, region_id:7})
         }
     },[mode])
 
