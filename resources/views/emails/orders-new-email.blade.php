@@ -14,7 +14,7 @@
         </p>
         <p style="margin-bottom: 20px; width:48%; display:inline-grid">
             @if ($order->delivery_address == "Retiro en Tienda")
-                <span class="is-immediate-label" style="font-size: 12px"><img style="margin-top:12px">Retira en<img style="margin-top:12px" src="https://inw-assets.s3.amazonaws.com/laravel/anticonceptivo/public/alliances/648c7c5ae2df41686928474.webp"></span>
+                <span style="font-size: 12px"><img style="margin-top:12px">Retira en<img style="margin-top:12px;width:100px" src="https://inw-assets.s3.amazonaws.com/laravel/anticonceptivo/public/alliances/648c7c5ae2df41686928474.webp"></span>
             @else
                 <span class="bold">Recibirás tu pedido</span>
                 @if($order->label_dispatch == "Entrega Prioritaria")
