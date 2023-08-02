@@ -47,11 +47,13 @@ const Resume = ({
     const { auth } = useContext(AuthContext);
 
     useEffect(() => {
+        
         let url = Services.ENDPOINT.PAYMENTS.GET_DISPATCH;
       
         let data = {
             commune_id: address?.commune_id ?? "RetiroTienda",
-            cartItems: cartItems
+            cartItems: cartItems,
+            type: address.name
         }
         Services.DoPost(url, data).then(response => {
             Services.Response({
