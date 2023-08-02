@@ -129,7 +129,7 @@ class PaymentController
         $meses = array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
         $commune = Commune::find($request->commune_id);
 
-        if($request->commune_id=="RetiroTienda" || $commune->name == "Retiro_tienda"){
+        if($request->commune_id=="RetiroTienda" || $request->type == "Retiro_tienda"){
             $fecha2 = Carbon::now();
             $mes = $meses[($fecha2->format('n')) - 1];
             return ApiResponse::JsonSuccess([
