@@ -127,8 +127,9 @@ class PaymentController
     public function getDispatch(Request $request)
     {
         $meses = array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
+        $commune = Commune::find($request->commune_id);
 
-        if($request->commune_id=="RetiroTienda"){
+        if($request->commune_id=="RetiroTienda" || $request->type == "Retiro_tienda"){
             $fecha2 = Carbon::now();
             $mes = $meses[($fecha2->format('n')) - 1];
             return ApiResponse::JsonSuccess([
@@ -139,7 +140,6 @@ class PaymentController
 
         }
 
-        $commune = Commune::find($request->commune_id);
         $commune_name = '';
         if ($commune) {
             $commune_name = $commune->name;
