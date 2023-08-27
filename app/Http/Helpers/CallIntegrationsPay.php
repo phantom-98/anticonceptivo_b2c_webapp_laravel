@@ -59,7 +59,7 @@ class CallIntegrationsPay extends CoreHelper
                 "tradeName"=> null,
 //                "email"=> $customer->email,
                 "phone"=> $customer->phone,
-                "address"=> str_replace('ñ','n',$customerAddress->address)
+                "address"=> $customerAddress->address ? str_replace('ñ','n',$customerAddress->address) : ""
             ],
                 "facilityId"=> env('FACILITY_ID'),
                 "cashRegisterId"=> env('CASH_REGISTER'),
