@@ -142,7 +142,7 @@ class PaySubscriptions extends Command
                             ]];
 
                             $response = $this->oneclick->authorize($customer->id, $item->subscription->transbank_token, $order->id, $details);
-
+//Log::debug($response);
                             try {
                                 WebpayLog::register($order->id, $response, 'ONECLICK');
                             } catch (\Exception $ex) {
@@ -381,10 +381,11 @@ class PaySubscriptions extends Command
         if (env('APP_ENV') == 'production') {
             /*$get_data = ApiHelper::callAPI('POST', 'https://api.ailoo.cl/v2/sale/boleta/print_type/1', json_encode($data), 'ailoo');*/
 
-            $get_data = ApiHelper::callAPI('POST',  env('INVENTARIO_API_URL').'/factura/createforWeb', json_encode($data), 'inventario_api');
+            $get_data = ApiHelper::callAPI('POST',  env('INVENTARIO_API_URL').'factura/createforWeb2', json_encode($data), 'inventario_api');
 
             $response = json_decode($get_data, true);
-
+Log::debug("----------------------- response from api");
+Log::debug($get_data);
             if ($response['error']['code'] != 0) {
                 //Envió de email de reposición de stock
             } else {
@@ -396,8 +397,10 @@ class PaySubscriptions extends Command
 
             $product = $item->order_item->product;
            /* $get_data = ApiHelper::callAPI('GET', 'https://api.ailoo.cl/v1/inventory/barCode/' . $product->barcode, null, 'ailoo');*/
-           $get_data = ApiHelper::callAPI('GET',  env('INVENTARIO_API_URL').'/product/stockByCode/' . $product->barcode, null, 'inventario_api');
+           $get_data = ApiHelper::callAPI('GET',  env('INVENTARIO_API_URL').'product/stockByCode/' . $product->barcode, null, 'inventario_api');
             $response = json_decode($get_data, true);
+Log::debug("----------------------- response from api stock");
+Log::debug($response);
             try {
 
                 $isWeb = false;
@@ -416,7 +419,7 @@ class PaySubscriptions extends Command
                 //No se encontro stock suficiente
             }
             $product->save();
-
+Log::debug("product save");
             try{
                 $message_order = Order::with('customer','order_items.subscription_plan', 'order_items.product.plans.subscription_plan', 'order_items.product.product_images')->where('id',$order->id)->get()->first();
                 $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
