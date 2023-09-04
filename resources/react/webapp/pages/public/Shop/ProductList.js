@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect,  useContext} from 'react';
 import {CONFIG} from "../../../Config";
 import ProductCard from "../../../components/shopping/ProductCard";
 import Pagination from "react-js-pagination";
@@ -12,6 +12,8 @@ import 'react-lazy-load-image-component/src/effects/blur.css';
 import OutstandingCarouselProducts from '../../../components/sections/OutstandingCarouselProducts';
 
 const ProductList = ({
+    totalItem,
+    page,
     subcategory,
     category,
     products,
@@ -26,21 +28,28 @@ const ProductList = ({
     search = null,
     handleProductOrderBy
 }) => {
-
-    const [viewCount, setViewCount] = useState(12);
-    const [activePage, setActivePage] = useState(1);
-    const [pageCount, setPageCount] = useState(Math.ceil(products.length / viewCount));
+    const [viewCount, setViewCount] = useState(10);
+    const [activePage, setActivePage] = useState(page);
+    const [pageCount, setPageCount] = useState(Math.ceil(totalItem / viewCount));
     const [showOrderByMobile, setShowOrderByMobile] = useState(false);
     
     useEffect(() => {
-        setActivePage(1);
-    }, [viewCount, products])
-
+        setActivePage(page);
+    }, [ products])
+    
     if(subcategory && subcategory.banner_image){
         category.banner_image_size = subcategory.banner_image;
         category.public_banner_image = subcategory.banner_image;
     }
-
+      
+    
+    
+    const handlePaginateClick = (page)=>{
+        const url = new URL(window.location.href);
+        const currentUrl = url.origin + url.pathname;
+        location.href=`${currentUrl}?page=${page}`
+    }
+    
     return (
         <div className="row">
             
@@ -206,24 +215,7 @@ const ProductList = ({
                     </div>
                     <div className="col">
                         <div className="row justify-content-end">
-                            <div className="col-auto px-2 font-poppins font-12 semi-bold color-033F5D d-flex">
-                                <div className="my-auto">
-                                    Mostrar
-                                </div>
-                            </div>
-                            <div className="col-auto px-2">
-                                <select className="form-control form-control-custom w-auto select-product-list"
-                                        name=""
-                                        id=""
-                                        onChange={(e) => setViewCount(e.target.value)}
-                                        value={viewCount}
-                                >
-                                    <option value="9">9</option>
-                                    <option value="12">12</option>
-                                    <option value="21">21</option>
-                                    <option value="42">42</option>
-                                </select>
-                            </div>
+                           
                             <div
                                 className="col-auto px-2 font-poppins font-12 semi-bold color-033F5D d-flex responsive-d-none">
                                 <div className="my-auto">
@@ -254,8 +246,8 @@ const ProductList = ({
                             products.length ?
                                 products.map((product, index) => {
                                     const position = index + 1;
-                                    const init = activePage === 1 ? 0 : (activePage - 1) * parseInt(viewCount);
-                                    const finish = init + parseInt(viewCount);
+                                    const init =0// activePage === 1 ? 0 : (activePage - 1) * parseInt(10);
+                                    const finish = init + parseInt(10);
                                     return position > init && position <= finish ?
                                         <div key={uuid()} className="col-6 col-md-6 col-lg-4 mb-3">
                                             <ProductCard
@@ -279,13 +271,14 @@ const ProductList = ({
 
             <div className="col-12 pb-3">
                 <Pagination
-                    activePage={activePage}
+                    activePage={+page}
                     itemsCountPerPage={viewCount}
-                    totalItemsCount={products.length}
-                    pageRangeDisplayed={4}
+                    totalItemsCount={totalItem}
+                    pageRangeDisplayed={10}
                     pageCount={pageCount}
                     // breakLabel="..."
-                    onChange={e => setActivePage(e)}
+                    onChange={e => handlePaginateClick(e)}
+                     
                     itemClass={'paginator-buttons'}
                     innerClass={'paginator-ul'}
                     // hideNavigation={true}

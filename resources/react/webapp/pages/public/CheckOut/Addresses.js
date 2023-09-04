@@ -8,7 +8,7 @@ import {AuthContext} from "../../../context/AuthProvider";
 import * as Services from "../../../Services";
 
 const Addresses = ({setView, regions, communes, address, setAddress, dispatchDateObject}) => {
-    console.log("------------------------------------",address)
+    
     const {auth} = useContext(AuthContext);
 
     const [addresses, setAddresses] = useState([]);
@@ -16,7 +16,7 @@ const Addresses = ({setView, regions, communes, address, setAddress, dispatchDat
     const [view, setViewAd] = useState('list');
     const [formMode, setFormMode] = useState('create');
     const [addressSelected, setAddressSelected] = useState(null);
-    console.log(dispatchDateObject)
+    
     useEffect(() => {
         if (auth) {
             getData();
@@ -38,7 +38,6 @@ const Addresses = ({setView, regions, communes, address, setAddress, dispatchDat
                         response.data.addresses.forEach(elementAddress => {
                         
                             if (elementAddress.default_address) {
-                                console.log(elementAddress)
                                 setAddress(elementAddress);
                             }
                         });

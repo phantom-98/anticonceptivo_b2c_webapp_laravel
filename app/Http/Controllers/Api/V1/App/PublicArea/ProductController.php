@@ -242,8 +242,9 @@ class ProductController extends Controller
 
     public function getProductByCategories(Request $request): JsonResponse
     {
+      
         try {
-
+            
             if (!$request->category_slug) {
                 return ApiResponse::NotFound(null, 'No se ha encontrado la macro categoría.');
             }
@@ -252,9 +253,9 @@ class ProductController extends Controller
                 'subcategories' => function ($q) {
                     $q->where('active', true);
                 },
-                'subcategories.products' => function ($r) {
+                /*'subcategories.products' => function ($r) {
                     $r->where('active', true)->select(['id', 'active', 'subcategory_id', 'laboratory_id']);
-                }
+                }*/
             ]);
 
 
@@ -358,11 +359,19 @@ class ProductController extends Controller
                 }
             }
 
-            $products = $products->orderBy('name')->get();
+              //dd($request->page);
+            
+            $perPage = 10;
+            $page = $request->page ?? 1;
+            $offset = ($page - 1) * $perPage;
+            
+            $productCount = $products->count();
+            $products = $products->skip($offset)->take($perPage)->orderBy('name')->get();
 
             $text_delivery_label = DeliveryLabels::where('key','IMMEDIATE')->get()->first();
 
             return ApiResponse::JsonSuccess([
+                'productCount'=> $productCount,
                 'products' => $this->processScheduleList($products),
                 'category' => $categoryFields,
                 'subcategories' => $subcategories,
