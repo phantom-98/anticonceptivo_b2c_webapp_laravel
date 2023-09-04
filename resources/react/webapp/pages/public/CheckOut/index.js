@@ -87,7 +87,6 @@ const CheckOut = () => {
 
             let localData = JSON.parse(localStorage.getItem(LOCAL_STORAGE.CART_STEP_TWO));
 
-
             if (localData) {
                 if ('view' in localData || 'withoutPrescriptionAnswer' in localData) {
                     if (localData.withoutPrescriptionAnswer) {

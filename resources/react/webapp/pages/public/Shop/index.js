@@ -30,7 +30,6 @@ const Shop = ({match}) => {
     const [unitFormat, setUnitFormat] = useState('');
     const [showFilterResponsive, setShowFilterResponsive] = useState(false);
     const [productOrderBy, setProductOrderBy] = useState(1);
-    const [page , setPage]= useState(1);
     const [totalProd, setTotalProducts] = useState(0)
 
     const [loading, setLoading] = useState(false);
@@ -42,8 +41,7 @@ const Shop = ({match}) => {
     const params = new Proxy(new URLSearchParams(window.location.search), {
         get: (searchParams, prop) => searchParams.get(prop),
     });
-    console.log()
-
+    
     const defaultFilters = {
         subcategories: [],
         laboratories: [],
@@ -200,11 +198,13 @@ const Shop = ({match}) => {
             format: filters.formats,
             price: filters.price,
             is_immediate: filters.immediate,
+            page: params.page
         }
         Services.DoPost(url, data).then(response => {
             Services.Response({
                 response: response,
                 success: () => {
+                    setTotalProducts(response.data.products.length);
                     setProducts(response.data.products);
                     setLaboratories(response.data.laboratories);
                     setSubcatNames(response.data.subcat_names);
@@ -335,12 +335,7 @@ const Shop = ({match}) => {
     if(subcategory && subcategory.banner_image_responsive){
         category.public_banner_image_responsive = subcategory.banner_image_responsive
     }
-    const handlePaginateClick =(pagina)=>{
-        const paginadata = pagina
-        setPage(paginadata)
-        getProducts()
-    }
-    
+
 
     return (
         <Fragment>

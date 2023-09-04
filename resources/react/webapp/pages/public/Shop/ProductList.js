@@ -274,7 +274,7 @@ const ProductList = ({
                     activePage={+page}
                     itemsCountPerPage={viewCount}
                     totalItemsCount={totalItem}
-                    pageRangeDisplayed={10}
+                    pageRangeDisplayed={4}
                     pageCount={pageCount}
                     // breakLabel="..."
                     onChange={e => handlePaginateClick(e)}
