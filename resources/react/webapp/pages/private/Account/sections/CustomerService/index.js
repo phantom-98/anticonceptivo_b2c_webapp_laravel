@@ -123,7 +123,7 @@ const CustomerService = () => {
     // data useffect
 
     useEffect(() => {
-        console.log(data);
+//        console.log(data);
     },[data])
 
     const getData = () => {

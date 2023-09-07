@@ -15,6 +15,7 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import AccordionComponent from '../../../components/general/AccordionComponent'
 
+
 const Shop = ({match}) => {
     const [slug, setSlug] = useState("");
     const [products, setProducts] = useState([]);
@@ -29,6 +30,7 @@ const Shop = ({match}) => {
     const [unitFormat, setUnitFormat] = useState('');
     const [showFilterResponsive, setShowFilterResponsive] = useState(false);
     const [productOrderBy, setProductOrderBy] = useState(1);
+    const [totalProd, setTotalProducts] = useState(0)
 
     const [loading, setLoading] = useState(false);
     const [isPills, setIsPills] = useState(false);
@@ -36,6 +38,10 @@ const Shop = ({match}) => {
     const [filtersUpdate, setFiltersUpdate] = useState(1);
     const [filterLoading, setFilterLoading] = useState(false);
 
+    const params = new Proxy(new URLSearchParams(window.location.search), {
+        get: (searchParams, prop) => searchParams.get(prop),
+    });
+    
     const defaultFilters = {
         subcategories: [],
         laboratories: [],
@@ -48,6 +54,7 @@ const Shop = ({match}) => {
 
     const [filters, setFilters] = useState(defaultFilters);
     useEffect(() => {
+        console.log(match.params)
         setFilters(defaultFilters);
         switch (propsLength(match.params)) {
             case 1:
@@ -67,7 +74,7 @@ const Shop = ({match}) => {
                 default:
                     break;
                 }
-            }, [match.params]);
+    }, [match.params]);
             
             useEffect(() => {
                 if (filtersUpdate > 1) {
@@ -106,13 +113,14 @@ const Shop = ({match}) => {
             subcategory_slug: _subcategory,
             type: _type,
             filter: _filter,
-            filters: filters
+            filters: filters,
+            page: params.page
         };
-
         Services.DoPost(url, data).then(response => {
             Services.Response({
                 response: response,
                 success: () => {
+                    setTotalProducts(response.data.productCount);
                     setProducts(response.data.products);
                     setTextImmediate(response.data.immediate);
                     setSubTextImmediate(response.data.sub_inmediate);
@@ -122,7 +130,7 @@ const Shop = ({match}) => {
                     setSubscriptions(response.data.subscriptions);
                     setFormats(Object.values(response.data.formats));
                     setIsPills(response.data.is_pills);
-                    setUnitFormat(response.data.unit_format)
+                    setUnitFormat(response.data.unit_format) 
 
                     if (response.data.subcat) {
                         setSubcatNames(response.data.subcat.name);
@@ -190,11 +198,13 @@ const Shop = ({match}) => {
             format: filters.formats,
             price: filters.price,
             is_immediate: filters.immediate,
+            page: params.page
         }
         Services.DoPost(url, data).then(response => {
             Services.Response({
                 response: response,
                 success: () => {
+                    setTotalProducts(response.data.products.length);
                     setProducts(response.data.products);
                     setLaboratories(response.data.laboratories);
                     setSubcatNames(response.data.subcat_names);
@@ -326,6 +336,7 @@ const Shop = ({match}) => {
         category.public_banner_image_responsive = subcategory.banner_image_responsive
     }
 
+
     return (
         <Fragment>
             <BasePanelTwo
@@ -378,6 +389,8 @@ const Shop = ({match}) => {
                             </div>
                             <div className="col-md">
                                 <ProductList
+                                    totalItem={totalProd}
+                                    page={params.page}
                                     subcategory={subcategory}
                                     category={category}
                                     products={products}

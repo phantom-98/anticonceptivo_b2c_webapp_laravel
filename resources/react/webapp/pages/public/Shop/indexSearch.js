@@ -11,7 +11,7 @@ import {propsLength} from "../../../helpers/ShopHelper";
 import toastr from "toastr";
 
 const ShopSearch = ({match}) => {
-
+    const [totalProd, setTotalProducts] = useState(0)
     const [products, setProducts] = useState([]);
     const [category, setCategory] = useState({});
     const [subcategories, setSubcategories] = useState([]);
@@ -25,6 +25,10 @@ const ShopSearch = ({match}) => {
     const [subcatNames, setSubcatNames] = useState(null);
     const [filtersUpdate, setFiltersUpdate] = useState(1);
     const [filterLoading, setFilterLoading] = useState(false);
+
+    const params = new Proxy(new URLSearchParams(window.location.search), {
+        get: (searchParams, prop) => searchParams.get(prop),
+    });
 
     const defaultFilters = {
         subcategories: [],
@@ -64,6 +68,7 @@ const ShopSearch = ({match}) => {
 
         let data = {
             search: _search,
+            page: params.page
         };
 
         Services.DoPost(url, data).then(response => {
@@ -71,7 +76,7 @@ const ShopSearch = ({match}) => {
                 response: response,
                 success: () => {
                     setProducts(response.data.products);
-                    // setCategory(response.data.category);
+                    setTotalProducts(response.data.productCount);
                     setSubcategories(response.data.subcategories);
                     setLaboratories(response.data.laboratories);
                     setSubscriptions(response.data.subscriptions);
@@ -128,6 +133,7 @@ const ShopSearch = ({match}) => {
             response: response,
                 success: () => {
                     // console.log(response.data.products)
+                    setTotalProducts(response.data.products.length);
                     setProducts(response.data.products);
                     setLaboratories(response.data.laboratories);
                     setSubcatNames(response.data.subcat_names);
@@ -181,6 +187,8 @@ const ShopSearch = ({match}) => {
                             </div>
                             <div className="col-md-9">
                                 <ProductList
+                                    totalItem={totalProd}
+                                    page={params.page}
                                     category={category}
                                     products={products}
                                     subcatNames={subcatNames}
