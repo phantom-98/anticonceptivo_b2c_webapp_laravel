@@ -41,7 +41,7 @@ const Shop = ({match}) => {
     const params = new Proxy(new URLSearchParams(window.location.search), {
         get: (searchParams, prop) => searchParams.get(prop),
     });
-    
+
     const defaultFilters = {
         subcategories: [],
         laboratories: [],
@@ -114,7 +114,8 @@ const Shop = ({match}) => {
             type: _type,
             filter: _filter,
             filters: filters,
-            page: params.page
+            page: params.page,
+            count: params.count
         };
         Services.DoPost(url, data).then(response => {
             Services.Response({
@@ -198,7 +199,8 @@ const Shop = ({match}) => {
             format: filters.formats,
             price: filters.price,
             is_immediate: filters.immediate,
-            page: params.page
+            page: params.page,
+            count:params.count
         }
         Services.DoPost(url, data).then(response => {
             Services.Response({
@@ -391,6 +393,7 @@ const Shop = ({match}) => {
                                 <ProductList
                                     totalItem={totalProd}
                                     page={params.page}
+                                    count={params.count}
                                     subcategory={subcategory}
                                     category={category}
                                     products={products}

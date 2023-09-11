@@ -75,7 +75,7 @@
                            data-show-columns="true"
                            data-sort-name="id"
                            data-page-list="[10, 50, 200]"
-                           data-page-size="50"
+                           data-page-size="10"
                            data-pagination="true"
                            data-show-pagination-switch="true">
                     </table>

@@ -18,6 +18,7 @@ class CallIntegrationsPay extends CoreHelper
 {
    public static function callVoucher($order_id,$customerAddress)
    {
+    
         $order = Order::with('order_items.subscription_plan','order_items.product')->find($order_id);
         $customer = Customer::find($order->customer_id);
         $ordersItems = $order->order_items;
