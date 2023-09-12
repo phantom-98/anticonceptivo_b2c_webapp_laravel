@@ -86,7 +86,25 @@ class ProductController extends Controller
             if (!$request->search) {
                 return ApiResponse::NotFound(null, 'No existe la búsqueda.');
             }
+              
+            $perPage = 10;
+            $page = $request->page ?? 1;
+            $offset = ($page - 1) * $perPage;
+            
+
             $search = $request->search;
+            $productCount = Product::where(function ($query) use ($search) {
+                $query->where('name', 'LIKE', '%' . $search . '%')
+                    ->orWhere('sku', 'LIKE', '%' . $search . '%')
+                    ->orWhere('compound', 'LIKE', '%' . $search . '%')
+                    ->orWhere('description', 'LIKE', '%' . $search . '%')
+                    ->orWhereHas('laboratory', function ($query) use ($search) {
+                        $query->where('name', 'LIKE', '%' . $search . '%');
+                    });
+            })->where('active', true)
+            //->orderBy('stock', 'desc')
+            ->count();
+
             $products = Product::with(['subcategory.category', 'laboratory', 'product_images', 'plans.subscription_plan'])
                 ->where(function ($query) use ($search) {
                     $query->where('name', 'LIKE', '%' . $search . '%')
@@ -97,7 +115,7 @@ class ProductController extends Controller
                             $query->where('name', 'LIKE', '%' . $search . '%');
                         });
                 })->where('active', true)
-                //->orderBy('stock', 'desc')
+                ->skip($offset)->take($perPage)
                 ->orderBy('position')
                 ->get();
 
@@ -148,6 +166,7 @@ class ProductController extends Controller
        
 
             return ApiResponse::JsonSuccess([
+                'productCount'=> $productCount,
                 'products' => $search2 && $search2->value == 0 ? $products : $this->processScheduleList($products), // ,
                 'subcategories' => $subcategories,
                 // 'subcat' => $subcat,
@@ -359,14 +378,14 @@ class ProductController extends Controller
                 }
             }
 
-              //dd($request->page);
+              //dd($request->page);     ->orderBy('position');
             
-            $perPage = 10;
+            $perPage = $request->count ?? 10;
             $page = $request->page ?? 1;
             $offset = ($page - 1) * $perPage;
             
             $productCount = $products->count();
-            $products = $products->skip($offset)->take($perPage)->orderBy('name')->get();
+            $products = $products->skip($offset)->take($perPage)->orderBy('position')->get();
 
             $text_delivery_label = DeliveryLabels::where('key','IMMEDIATE')->get()->first();
 

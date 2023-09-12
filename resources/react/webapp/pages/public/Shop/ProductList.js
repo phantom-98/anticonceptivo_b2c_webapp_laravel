@@ -14,6 +14,7 @@ import OutstandingCarouselProducts from '../../../components/sections/Outstandin
 const ProductList = ({
     totalItem,
     page,
+    count,
     subcategory,
     category,
     products,
@@ -28,10 +29,13 @@ const ProductList = ({
     search = null,
     handleProductOrderBy
 }) => {
-    const [viewCount, setViewCount] = useState(10);
+    const [viewCount, setViewCount] = useState(count);
     const [activePage, setActivePage] = useState(page);
     const [pageCount, setPageCount] = useState(Math.ceil(totalItem / viewCount));
     const [showOrderByMobile, setShowOrderByMobile] = useState(false);
+    const url = new URL(window.location.href);
+    console.log(url)
+    const currentUrl = url.origin + url.pathname;
     
     useEffect(() => {
         setActivePage(page);
@@ -45,9 +49,16 @@ const ProductList = ({
     
     
     const handlePaginateClick = (page)=>{
-        const url = new URL(window.location.href);
-        const currentUrl = url.origin + url.pathname;
-        location.href=`${currentUrl}?page=${page}`
+ 
+        location.href=`${currentUrl}?page=${page}${count ? `&count=${count}` : ''}`
+    }
+
+    const handlePaginateCount = (count) =>{
+        console.log(page)
+        let activePageR = activePage ? activePage : 1
+        console.log(activePageR)
+        console.log(viewCount)
+        location.href=`${currentUrl}?page=${activePageR}&count=${count}`
     }
     
     return (
@@ -215,7 +226,23 @@ const ProductList = ({
                     </div>
                     <div className="col">
                         <div className="row justify-content-end">
-                           
+                            <div className="col-auto px-2 font-poppins font-12 semi-bold color-033F5D d-flex">
+                                <div className="my-auto">
+                                    Mostrar
+                                </div>
+                            </div>
+                            <div className="col-auto px-2">
+                                <select className="form-control form-control-custom w-auto select-product-list"
+                                        name=""
+                                        id=""
+                                        onChange={(e) => handlePaginateCount(e.target.value)}
+                                        value={viewCount}
+                                >
+                                    <option value="10">10</option>
+                                    <option value="21">21</option>
+                                    <option value="42">42</option>
+                                </select>
+                            </div>
                             <div
                                 className="col-auto px-2 font-poppins font-12 semi-bold color-033F5D d-flex responsive-d-none">
                                 <div className="my-auto">
@@ -247,7 +274,7 @@ const ProductList = ({
                                 products.map((product, index) => {
                                     const position = index + 1;
                                     const init =0// activePage === 1 ? 0 : (activePage - 1) * parseInt(10);
-                                    const finish = init + parseInt(10);
+                                    const finish = init + parseInt(viewCount ? viewCount : 10);
                                     return position > init && position <= finish ?
                                         <div key={uuid()} className="col-6 col-md-6 col-lg-4 mb-3">
                                             <ProductCard
@@ -272,7 +299,7 @@ const ProductList = ({
             <div className="col-12 pb-3">
                 <Pagination
                     activePage={+page}
-                    itemsCountPerPage={viewCount}
+                    itemsCountPerPage={+viewCount}
                     totalItemsCount={totalItem}
                     pageRangeDisplayed={4}
                     pageCount={pageCount}

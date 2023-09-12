@@ -249,8 +249,13 @@ class OrderController extends GlobalController
 
     public function sendEmail(Request $request){
         $order = Order::find($request->id);
+       // dd($order);
+        if($order->delivery_address == "Retiro en Tienda"){
+            $customerAddress = CustomerAddress::where('id',5606)->first();
+        }else{
+            $customerAddress =  CustomerAddress::where('customer_id', $order->customer_id)->latest()->first();
+        }
 
-        $customerAddress =  CustomerAddress::where('customer_id', $order->customer_id)->latest()->first();
 
         if($order->is_paid == 0){
             $order->status = PaymentStatus::PAID;
@@ -258,8 +263,9 @@ class OrderController extends GlobalController
             $order->payment_type = 'webpay';
             $order->is_paid = true;
             $order->save();
-
-            CallIntegrationsPay::callDispatchLlego($order->id,$customerAddress);
+            if($order->delivery_address !== "Retiro en Tienda"){
+                CallIntegrationsPay::callDispatchLlego($order->id,$customerAddress);
+            }
             CallIntegrationsPay::callUpdateStockProducts($order->id);
         }
 

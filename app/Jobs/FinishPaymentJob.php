@@ -39,11 +39,18 @@ class FinishPaymentJob implements ShouldQueue
     {
         //if (env('APP_ENV') == 'production') {
             if ($this->order->ballot_number == null) {
-                $this->customerAddress = CustomerAddress::with('commune')->where('customer_id', $this->order->customer_id)->where('default_address', 1)->get()->first();
+                if($this->order->delivery_address == "Retiro en Tienda"){
+                    $this->customerAddress = CustomerAddress::with('commune')->where('id',5606)->first();
+                }else{
+
+                    $this->customerAddress = CustomerAddress::with('commune')->where('customer_id', $this->order->customer_id)->where('default_address', 1)->get()->first();
+                }
                 if ($this->customerAddress) {
                     try{
                         CallIntegrationsPay::callVoucher($this->order->id, $this->customerAddress);
-                        CallIntegrationsPay::callDispatchLlego($this->order->id, $this->customerAddress);
+                        if($this->order->delivery_address !== "Retiro en Tienda"){
+                            CallIntegrationsPay::callDispatchLlego($this->order->id, $this->customerAddress);
+                        }
                     } catch (\Exception $ex){
                         
                     }

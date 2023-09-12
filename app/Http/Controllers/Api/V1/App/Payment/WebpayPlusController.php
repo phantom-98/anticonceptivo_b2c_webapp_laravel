@@ -192,7 +192,7 @@ class WebpayPlusController
             $customerAddress = CustomerAddress::where('address', $request->address)->where('name', $request->name)->first();
 
             if (!$customerAddress) {
-                if($request->commune_id == "RetiroTienda"){
+                if($request->commune_id == "Retiro_tienda"){
                     $customerAddress = CustomerAddress::where(["name"=>"Retiro_tienda"])->first();
                     $customerAddress->customer_id = $customer->id;
                 }else{
@@ -200,7 +200,7 @@ class WebpayPlusController
 
                     $customerAddress->address = $request->address;
                     $customerAddress->name = $request->name;
-                    $customerAddress->region_id = $request->region_id;
+                    $customerAddress->region_id = $request->region_id ?? 7;
                     $customerAddress->commune_id = $request->commune_id == "RetiroTienda" ? :intVal($request->commune_id);
                     $customerAddress->extra_info = $request->extra_info;
                     $customerAddress->comment = $request->comment;
@@ -223,7 +223,7 @@ class WebpayPlusController
 
                 $customer->save();
 
-                if($request->commune_id == "RetiroTienda"){
+                if($request->commune_id == "Retiro_tienda"){
                     $customerAddress = CustomerAddress::where("name","Retiro_tienda")->first();
                     $customerAddress->customer_id = $customer->id;
                 }else{
@@ -235,7 +235,7 @@ class WebpayPlusController
                     }
                     $customerAddress->address = $request->address;
                     $customerAddress->name = $request->name;
-                    $customerAddress->region_id = $request->region_id;
+                    $customerAddress->region_id = $request->region_id ?? 7;
                  
                     $customerAddress->extra_info = $request->extra_info;
                     $customerAddress->comment = $request->comment;
@@ -249,7 +249,7 @@ class WebpayPlusController
                 if (!$customerAddress) {
                     $customerAddress = CustomerAddress::where('address', $request->address)->where('name', $request->name)->first();
                     if (!$customerAddress) {
-                        if($request->commune_id == "RetiroTienda"){
+                        if($request->commune_id == "Retiro_tienda"){
                             $customerAddress = CustomerAddress::where("name","Retiro_tienda")->first();
                             $customerAddress->customer_id = $customer->id;
                         }else{
@@ -257,7 +257,7 @@ class WebpayPlusController
 
                             $customerAddress->address = $request->address;
                             $customerAddress->name = $request->name;
-                            $customerAddress->region_id = $request->region_id;
+                            $customerAddress->region_id = $request->region_id ?? 7;
                             $customerAddress->commune_id = intVal($request->commune_id);
                             $customerAddress->extra_info = $request->extra_info;
                             $customerAddress->comment = $request->comment;
