@@ -44,18 +44,13 @@
     <meta name="theme-color" content="#ffffff">
     <meta name="facebook-domain-verification" content="p5y4cx1icpybbv81clkkw87cdw4qit"/>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-    <a href="https://api.whatsapp.com/send?phone=+56987380541&text=Hola%21%20" class="float" target="_blank">
-    <i class="fa fa-whatsapp my-float"></i>
-    </a>
-
     <style>
 .float{
         position:fixed;
         width:60px;
         height:60px;
         bottom:20px;
-        right:100px; /*40*/
+        right:40px;
         background-color: rgb(0, 210, 81);
         /*background-color:#25d366;*/
         color:#FFF;
@@ -71,6 +66,11 @@ box-shadow:rgba(0, 0, 0, 0.2) 0px 3px 5px -1px, rgba(0, 0, 0, 0.14) 0px 6px 10px
         color: white;
 } //float
 </style>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<a href="https://api.whatsapp.com/send?phone=+56987380541&text=Hola%21%20" class="float" target="_blank">
+<i class="fa fa-whatsapp my-float"></i>
+</a>
     
     <!-- Google Tag Manager -->
     <script>(function (w, d, s, l, i) {
