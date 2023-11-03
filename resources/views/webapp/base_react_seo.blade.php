@@ -45,7 +45,7 @@
     <meta name="facebook-domain-verification" content="p5y4cx1icpybbv81clkkw87cdw4qit"/>
 
     <style>
-.float{
+    .float{
         position:fixed;
         width:60px;
         height:60px;
@@ -56,21 +56,19 @@
         color:#FFF;
         border-radius:50px;
         text-align:center;
-  font-size:33px;
-/*      box-shadow: 2px 2px 3px #999; */
-box-shadow:rgba(0, 0, 0, 0.2) 0px 3px 5px -1px, rgba(0, 0, 0, 0.14) 0px 6px 10px 0px, rgba(0, 0, 0, 0.12) 0px 1px 18px 0px;
-  z-index:100;
-}
-.my-float{
+        font-size:33px;
+        /*      box-shadow: 2px 2px 3px #999; */
+        box-shadow:rgba(0, 0, 0, 0.2) 0px 3px 5px -1px, rgba(0, 0, 0, 0.14) 0px 6px 10px 0px, rgba(0, 0, 0, 0.12) 0px 1px 18px 0px;
+        z-index:100;
+    }
+    .my-float{
         margin-top:15px;
         color: white;
-} //float
-</style>
+    } /*float*/
+    </style>
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-<a href="https://api.whatsapp.com/send?phone=+56987380541&text=Hola%21%20" class="float" target="_blank">
-<i class="fa fa-whatsapp my-float"></i>
-</a>
+
     
     <!-- Google Tag Manager -->
     <script>(function (w, d, s, l, i) {
@@ -149,6 +147,12 @@ box-shadow:rgba(0, 0, 0, 0.2) 0px 3px 5px -1px, rgba(0, 0, 0, 0.14) 0px 6px 10px
 </head>
 <body>
 
+
+<a href="https://api.whatsapp.com/send?phone=+56987380541&text=Hola%21%20" class="float" target="_blank">
+<i class="fa fa-whatsapp my-float"></i>
+</a>
+
+    
 <!-- Google Tag Manager (noscript) -->
 <noscript>
     <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5DM9CPF"
