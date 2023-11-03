@@ -193,7 +193,7 @@ box-shadow:rgba(0, 0, 0, 0.2) 0px 3px 5px -1px, rgba(0, 0, 0, 0.14) 0px 6px 10px
 <script>
     var MessageBirdChatWidgetSettings = {
         widgetId: '98cafb52-fed5-4d0c-b382-d8bc49b3ddda',
-        initializeOnLoad: true,
+        initializeOnLoad: false,
     };
 
     !function () {
