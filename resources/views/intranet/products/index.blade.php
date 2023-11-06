@@ -160,7 +160,7 @@
             @endif
 
             columns.push(
-                {
+                /*{
                     title: 'Imagen',
                     field: 'image',
                     sortable: true,
@@ -179,7 +179,7 @@
 
                         return image;
                     }
-                },
+                },*/
                 {
                     title: 'SKU',
                     field: 'sku',

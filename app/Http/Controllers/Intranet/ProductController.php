@@ -43,7 +43,7 @@ class ProductController extends GlobalController
 
     public function index()
     {
-        $objects = Product::with('product_images', 'subcategory.category', 'laboratory')->withCount('active_subscriptions_items')->orderBy('position')->get();
+        $objects = Product::with( 'subcategory.category', 'laboratory')->withCount('active_subscriptions_items')->orderBy('position')->get();
         $search = Setting::where("key", "SEARCHSTOCK")->first();
         return view($this->folder . 'index', compact('objects', 'search'));
     }

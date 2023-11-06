@@ -192,7 +192,7 @@ class WebpayPlusController
             $customerAddress = CustomerAddress::where('address', $request->address)->where('name', $request->name)->first();
 
             if (!$customerAddress) {
-                if($request->commune_id == "Retiro_tienda"){
+                if($request->commune_id == "RetiroTienda"){
                     $customerAddress = CustomerAddress::where(["name"=>"Retiro_tienda"])->first();
                     $customerAddress->customer_id = $customer->id;
                 }else{
@@ -223,7 +223,7 @@ class WebpayPlusController
 
                 $customer->save();
 
-                if($request->commune_id == "Retiro_tienda"){
+                if($request->commune_id == "RetiroTienda"){
                     $customerAddress = CustomerAddress::where("name","Retiro_tienda")->first();
                     $customerAddress->customer_id = $customer->id;
                 }else{
@@ -249,7 +249,7 @@ class WebpayPlusController
                 if (!$customerAddress) {
                     $customerAddress = CustomerAddress::where('address', $request->address)->where('name', $request->name)->first();
                     if (!$customerAddress) {
-                        if($request->commune_id == "Retiro_tienda"){
+                        if($request->commune_id == "RetiroTienda"){
                             $customerAddress = CustomerAddress::where("name","Retiro_tienda")->first();
                             $customerAddress->customer_id = $customer->id;
                         }else{
@@ -279,7 +279,7 @@ class WebpayPlusController
         $itemDeliveryCost = null;
         $itemDeliveryCostArrayCost = null;
         //dd($customerAddress);
-        if($customerAddress->name !== "Retiro_tienda"){
+        if($customerAddress->name !== "Retiro_Tienda"){
             $commune_name = Commune::find($customerAddress->commune_id)->name;
 
             foreach ($deliveryCosts as $key => $deliveryCost) {

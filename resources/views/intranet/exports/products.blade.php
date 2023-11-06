@@ -41,7 +41,7 @@
                 <td>{{ $object->sku }}</td>
                 <td>{{ $object->name }}</td>
                 <td>{{ $object->consumption_typology }}</td>
-                <td>{{ $object->laboratory->name }}</td>
+                <td>{{ $object->laboratory->name ?? '' }}</td>
                 <td>{{ $object->price }}</td>
                 <td>{{ $object->offer_price ?? '' }}</td>
                 <td>{{ $object->stock ?? 0 }}</td>

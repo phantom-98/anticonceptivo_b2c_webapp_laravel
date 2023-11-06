@@ -1,4 +1,5 @@
 <?php
+header('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0, max-age=0');
 
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Http\Request;
