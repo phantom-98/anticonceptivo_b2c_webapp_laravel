@@ -53,7 +53,7 @@ const Resume = ({
         let data = {
             commune_id: address?.commune_id ?? "RetiroTienda",
             cartItems: cartItems,
-            type: address.name
+            type: address ?  address.name :  ''
         }
         Services.DoPost(url, data).then(response => {
             Services.Response({

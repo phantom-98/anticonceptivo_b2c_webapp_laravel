@@ -172,7 +172,10 @@ class WebpayPlusController
         $order = new Order();
         $customerAddress = null;
         $customer = Customer::find($request->customer_id);
-
+	if(!$request->address){
+	$request->address = "Retiro_Tienda";//		dd("ssss");
+	$request->commune_id = "RetiroTienda";
+}
         if (!$customer) {
             $customer = Customer::where('id_number', $request->id_number)->first();
             if (!$customer) {
@@ -190,10 +193,11 @@ class WebpayPlusController
             }
 
             $customerAddress = CustomerAddress::where('address', $request->address)->where('name', $request->name)->first();
-
+//dd($customerAddress);
             if (!$customerAddress) {
                 if($request->commune_id == "RetiroTienda"){
                     $customerAddress = CustomerAddress::where(["name"=>"Retiro_tienda"])->first();
+
                     $customerAddress->customer_id = $customer->id;
                 }else{
                     $customerAddress = new CustomerAddress();
@@ -225,6 +229,7 @@ class WebpayPlusController
 
                 if($request->commune_id == "RetiroTienda"){
                     $customerAddress = CustomerAddress::where("name","Retiro_tienda")->first();
+
                     $customerAddress->customer_id = $customer->id;
                 }else{
                     
@@ -246,11 +251,15 @@ class WebpayPlusController
 
             } else {
                 $customerAddress = CustomerAddress::find($request->id);
+//dd($customerAddress);
                 if (!$customerAddress) {
                     $customerAddress = CustomerAddress::where('address', $request->address)->where('name', $request->name)->first();
-                    if (!$customerAddress) {
+//dd($customerAddress);  
+                  if (!$customerAddress) {
                         if($request->commune_id == "RetiroTienda"){
-                            $customerAddress = CustomerAddress::where("name","Retiro_tienda")->first();
+  
+                          $customerAddress = CustomerAddress::where("name","Retiro_tienda")->first();
+//dd($customerAddress);
                             $customerAddress->customer_id = $customer->id;
                         }else{
                             $customerAddress = new CustomerAddress();
@@ -278,8 +287,8 @@ class WebpayPlusController
         $deliveryCosts = DeliveryCost::where('active', 1)->get();
         $itemDeliveryCost = null;
         $itemDeliveryCostArrayCost = null;
-        //dd($customerAddress);
-        if($customerAddress->name !== "Retiro_Tienda"){
+//        dd($customerAddress->name);
+        if($customerAddress->name != "Retiro_tienda"){
             $commune_name = Commune::find($customerAddress->commune_id)->name;
 
             foreach ($deliveryCosts as $key => $deliveryCost) {
@@ -302,7 +311,7 @@ class WebpayPlusController
                 return ApiResponse::JsonError(null, 'La comuna seleccionada no cuenta con reparto.');
             }
         }
-        
+  //      dd("asda");
         $delivery_date = Carbon::now();
         $dataDeliveryOrder = ProductScheduleHelper::labelDateDeliveryInOrder(array_column(json_decode($request->cartItems), 'product'), $delivery_date);
         $dataDeliveryOrder = ProductScheduleHelper::deadlineDeliveryMaxOrder($dataDeliveryOrder['delivery_date'], $dataDeliveryOrder['label'], $dataDeliveryOrder['sub_label'], $dataDeliveryOrder['is_immediate'], $dataDeliveryOrder['schedule']);

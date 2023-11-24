@@ -22,7 +22,11 @@ class CheckoutController extends Controller
     {
         try {
 
-            $regions = Region::where('id',7)->with('provinces.communes')->get();
+            $regions = Region::where('id',7)
+		->orWhere('id', 6)
+                ->orWhere('id', 6)
+               ->orWhere('id', 5)
+		->with('provinces.communes')->get();
 
             $delivery_cost = DeliveryCost::where('active',true)->pluck('costs');
 
