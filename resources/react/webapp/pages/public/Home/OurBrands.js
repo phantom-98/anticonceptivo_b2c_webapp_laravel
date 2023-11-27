@@ -149,8 +149,8 @@ const OurBrands = () => {
                                             style={{
                                                 // flex: "0 0 9.33333%",
                                                 // maxWidth: "9.33333%",
-                                                flex: "0 0 15%",
-                                                maxWidth: "15%",
+                                                flex: "0 0 20%",
+                                                maxWidth: "20%",
 
                                                 margin: "0px 4rem",
                                             }}
@@ -166,7 +166,7 @@ const OurBrands = () => {
                                                         className=""
                                                         style={{
                                                             width: "100%",
-                                                            maxHeight: "80px",
+                                                            maxHeight: "100px",
                                                             objectFit:
                                                                 "contain",
                                                         }}
@@ -189,7 +189,7 @@ const OurBrands = () => {
                                         alt={CONFIG.APP_NAME}
                                         className="mx-auto"
                                         style={{
-                                            maxHeight: "25px",
+                                            maxHeight: "50px",
                                             objectFit: "contain",
                                         }}
                                     />
