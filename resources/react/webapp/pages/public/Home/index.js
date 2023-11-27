@@ -1,6 +1,6 @@
-import React, {useEffect, useState, useContext} from 'react';
-import {ModalAuthMode} from "../../../Globals";
-import {AppContext} from "../../../context/AppProvider";
+import React, { useEffect, useState, useContext } from "react";
+import { ModalAuthMode } from "../../../Globals";
+import { AppContext } from "../../../context/AppProvider";
 import * as Services from "../../../Services";
 import Subscribe from "../../../components/sections/Subscribe";
 import BestSeller from "../../../components/sections/BestSellers";
@@ -11,12 +11,13 @@ import OutstandingCarousel from "../../../components/sections/OutstandingCarouse
 import BannerCategories from "../../../components/sections/BannerCategories";
 // import BannerCarousel from "../../../components/sections/BannerCarousel";
 import SwiperCarousel from "../../../components/sections/SwiperCarousel";
-import LazyLoading from '../../../components/LazyLoading';
-import AccordionComponent from '../../../components/general/AccordionComponent'
-const Home = ({match}) => {
-    const {token} = match.params;
+import LazyLoading from "../../../components/LazyLoading";
+import AccordionComponent from "../../../components/general/AccordionComponent";
+import OurBrands from "./OurBrands";
+const Home = ({ match }) => {
+    const { token } = match.params;
 
-    const {showModalAuth, setTokenModalAuth} = useContext(AppContext);
+    const { showModalAuth, setTokenModalAuth } = useContext(AppContext);
 
     const [topBanners, setTopBanners] = useState([]);
     const [bannerCategories, setBannerCategories] = useState([]);
@@ -28,56 +29,60 @@ const Home = ({match}) => {
             setTokenModalAuth(token);
             showModalAuth(ModalAuthMode.SET_NEW_PASSWORD);
         }
-    }, [])
+    }, []);
 
     useEffect(() => {
         getData();
-    }, [])
+    }, []);
 
     const getData = () => {
         let url = Services.ENDPOINT.PUBLIC_AREA.BANNERS.HOME.TOP;
-        let data = {}
-        Services.DoGet(url, data).then(response => {
-            Services.Response({
-                response: response,
-                success: () => {
-                    setTopBanners(response.data.top_banners);
-                    setMiddleBanners(response.data.middle_banners);
-                    setBannerCategories(response.data.bannerCategories);
-                    setIsLoaded(true);
-                },
+        let data = {};
+        Services.DoGet(url, data)
+            .then((response) => {
+                Services.Response({
+                    response: response,
+                    success: () => {
+                        setTopBanners(response.data.top_banners);
+                        setMiddleBanners(response.data.middle_banners);
+                        setBannerCategories(response.data.bannerCategories);
+                        setIsLoaded(true);
+                    },
+                });
+            })
+            .catch((error) => {
+                Services.ErrorCatch(error);
             });
-        }).catch(error => {
-            Services.ErrorCatch(error)
-        });
-    }
+    };
 
     if (!isLoaded) {
-        return (
-            <LazyLoading />
-        )
+        return <LazyLoading />;
     }
 
     return (
         <div className="bg-FAFAFA">
-            <SwiperCarousel banners={topBanners}/>
+            <SwiperCarousel banners={topBanners} />
 
-            <OutstandingCarousel title="Destacados"/>
+            <OurBrands />
 
-            <BeautyProduct title="Belleza y Cuidado Personal" middleBanners={middleBanners}/>
+            <OutstandingCarousel title="Destacados" />
 
-            <CondomProduct title="Bienestar Sexual"/>
+            <BeautyProduct
+                title="Belleza y Cuidado Personal"
+                middleBanners={middleBanners}
+            />
 
-            <PregnancyProduct title="Embarazo"/>
+            <CondomProduct title="Bienestar Sexual" />
 
-            <BestSeller title="Los 12 Más Comprados"/>
+            <PregnancyProduct title="Embarazo" />
+
+            <BestSeller title="Los 12 Más Comprados" />
 
             <AccordionComponent path="home" />
 
-            <BannerCategories bannerCategories={bannerCategories}/>
+            <BannerCategories bannerCategories={bannerCategories} />
 
-
-            <Subscribe/>
+            <Subscribe />
         </div>
     );
 };

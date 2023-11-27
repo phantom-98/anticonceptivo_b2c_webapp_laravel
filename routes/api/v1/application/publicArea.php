@@ -20,6 +20,7 @@ Route::prefix('public-area')
         Route::get('get-subcategory_info/{slug}', [HomeController::class, 'getSubcategoryInfo'])->name('getSubcategoryInfo');
         Route::get('get-header-navbar-resources', [HomeController::class, 'getHeaderNavbarResources'])->name('getHeaderNavbarResources');
         Route::get('get-home-top-banners', [HomeController::class, 'getHomeTopBanners'])->name('getHomeTopBanners');
+        Route::get('get-brands', [HomeController::class, 'getBrands'])->name('getBrands');
 
         Route::get('get-outstandings', [HomeController::class, 'getOutstandings'])->name('getOutstandings');
         Route::get('get-condoms', [HomeController::class, 'getCondoms'])->name('getCondoms');
