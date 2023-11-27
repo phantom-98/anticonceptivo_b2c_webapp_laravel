@@ -166,7 +166,7 @@ const OurBrands = () => {
                                                         className=""
                                                         style={{
                                                             width: "100%",
-                                                            maxHeight: "50px",
+                                                            maxHeight: "80px",
                                                             objectFit:
                                                                 "contain",
                                                         }}
