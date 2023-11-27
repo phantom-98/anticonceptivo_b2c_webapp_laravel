@@ -22,6 +22,7 @@ use App\Models\Alliance;
 use App\Models\PostType;
 use App\Models\ProductSchedule;
 use App\Http\Controllers\Api\V1\App\Helpers\ProductLabelHelper;
+use App\Models\Brand;
 use App\Models\Subcategory;
 
 class HomeController extends Controller
@@ -92,6 +93,17 @@ class HomeController extends Controller
             ->get();
 
             return ApiResponse::JsonSuccess(['category_faqs' => $category_faqs]);
+        } catch (\Exception $exception) {
+            return ApiResponse::JsonError(null, $exception->getMessage());
+        }
+    }
+    public function getBrands()
+    {
+        try {
+
+            $brands = Brand::where('active', true)->get();
+
+            return ApiResponse::JsonSuccess(['brands' => $brands]);
         } catch (\Exception $exception) {
             return ApiResponse::JsonError(null, $exception->getMessage());
         }
