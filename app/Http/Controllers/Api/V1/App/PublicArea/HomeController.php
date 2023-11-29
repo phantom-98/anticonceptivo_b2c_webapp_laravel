@@ -101,7 +101,7 @@ class HomeController extends Controller
     {
         try {
 
-            $brands = Brand::where('active', true)->get();
+            $brands = Brand::where('active', true)->orderBy('position')->get();
 
             return ApiResponse::JsonSuccess(['brands' => $brands]);
         } catch (\Exception $exception) {
