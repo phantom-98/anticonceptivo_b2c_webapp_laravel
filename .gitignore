@@ -19,8 +19,8 @@ yarn-error.log
 .idea
 /packages/*
 /public/themes/intranet/app/js/app.js
-/public/themes/intranet/app/css/app.css
-/public/themes/web/app/
+
+/public/themes/web/app/js
 public/.DS_Store
 public/themes/web/app/js/*
 public/themes/web/app/js/app.js

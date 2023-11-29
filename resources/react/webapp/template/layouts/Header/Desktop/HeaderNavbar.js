@@ -8,6 +8,18 @@ import { Link } from "react-router-dom";
 import PillsDropDown from "../../../components/PillsDropDown";
 import UseWindowDimensions from "../../../../components/customHooks/UseWindowDimensions";
 
+const customStyles = {
+    background: "white",
+    border: "1px solid #F4F4F4",
+    boxShadow: "0 0 14px rgba(0, 0, 0, 0.05)",
+    minWidth: "290px",
+    padding: "10px 0",
+    zIndex: "99",
+    borderRadius: "10px",
+    transform: "unset !important",
+    marginTop: "40px",
+};
+
 const HeaderNavbar = () => {
     const { width } = UseWindowDimensions();
     const [categories, setCategories] = useState([]);
@@ -136,7 +148,7 @@ const HeaderNavbar = () => {
                         </Dropdown.Menu>
                     ) : (
                         <Dropdown.Menu
-                            align="end"
+                            align="start"
                             bsPrefix="dropdown-menu-custom"
                         >
                             {category.subcategories.map((subCategory) => {
@@ -154,7 +166,7 @@ const HeaderNavbar = () => {
                                     <Link
                                         key={uuidv4()}
                                         to={childUrl}
-                                        className="dropdown-item font-12"
+                                        className="dropdown-item font-16"
                                         style={{ textDecoration: "none" }}
                                     >
                                         <span className="header-navbar-subitem">
