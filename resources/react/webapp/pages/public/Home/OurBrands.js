@@ -102,6 +102,7 @@ const OurBrands = () => {
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
+        padding: "0px 0px",
     };
 
     const brandBySeven = () => {
@@ -116,9 +117,12 @@ const OurBrands = () => {
     //return <div>{console.log(brands)}</div>;
 
     return (
-        <div className="mt-2" style={{ backgroundColor: "white" }}>
+        <div
+            className="mt-2"
+            style={{ backgroundColor: "white", height: "200px" }}
+        >
             <div className="container" style={containerStyle}>
-                <div className="row mb-4">
+                <div className="row">
                     <div className="col-12">
                         <H2Title
                             text="Nuestras Marcas"
