@@ -22,11 +22,7 @@ class CheckoutController extends Controller
     {
         try {
 
-            $regions = Region::where('id',7)
-		->orWhere('id', 6)
-                ->orWhere('id', 6)
-               ->orWhere('id', 5)
-		->with('provinces.communes')->get();
+            $regions = Region::with('provinces.communes')->get();
 
             $delivery_cost = DeliveryCost::where('active',true)->pluck('costs');
 
@@ -41,6 +37,8 @@ class CheckoutController extends Controller
                 }
             }
 
+            //dd($communes_valid);
+            //dd($regions);
             foreach ($regions as $key => $region) {
                 foreach ($region->provinces as $key_2 => $province) {
                     foreach ($province->communes as $key_3 => $commune) {
