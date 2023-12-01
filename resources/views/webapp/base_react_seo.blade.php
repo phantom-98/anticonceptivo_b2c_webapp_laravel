@@ -47,11 +47,11 @@
     <style>
     .float{
         position:fixed;
-        width:80px;
-        height:80px;
+        width:50px;
+        height:50px;
         bottom:20px;
         right:40px;
-        background-color: #FFF;
+        background-color: rgb(0, 210, 81);
         
         /*background-color:#25d366;*/
         color:#FFF;
@@ -63,11 +63,7 @@
         z-index:100;
     }
     .my-img{
-        width: 80px;
-        position: absolute;
-        
-        right: 1px;
-
+        width: 30px;
     }
     
     .my-float{
@@ -159,7 +155,7 @@
 
 <a href="https://api.whatsapp.com/send?phone=+56987380541&text=Hola%21%20" class="float" target="_blank">
 
-<img src="{{ asset('images/wsp.png') }}" class="my-img">
+<i class="fa fa-whatsapp my-float"></i>
 </a>
 
     
