@@ -1,61 +1,78 @@
-import React, {Fragment, useState, useEffect, useContext} from 'react';
+import React, { Fragment, useState, useEffect, useContext } from "react";
 // import FormPersonalData from "../../private/Account/sections/PersonalInfo/FormPersonalData";
 // import FormComercialInfo from "../../private/Account/sections/PersonalInfo/FormComercialInfo";
 // import {CONFIG} from "../../../Config";
-import {setCleanInputError, setInputError} from "../../../helpers/GlobalUtils";
+import {
+    setCleanInputError,
+    setInputError,
+} from "../../../helpers/GlobalUtils";
 import * as Services from "../../../Services";
-import {AuthContext} from "../../../context/AuthProvider";
+import { AuthContext } from "../../../context/AuthProvider";
 import AutoComplete from "react-google-autocomplete";
 
-const AddAddress = ({setView, regions, address, validateDataAddressInvite, setAddress,validAddress,setValidAddress,setInputError}) => {
-
+const AddAddress = ({
+    setView,
+    regions,
+    address,
+    validateDataAddressInvite,
+    setAddress,
+    validAddress,
+    setValidAddress,
+    setInputError,
+}) => {
     // const [showBilling, setShowBilling] = useState(false);
 
-    const {auth} = useContext(AuthContext);
+    const { auth } = useContext(AuthContext);
 
     const [selectedRegion, setSelectedRegion] = useState(0);
     const [mode, setMode] = useState(0);
     const [communes, setCommunes] = useState([]);
 
-    const [googleAddress, setGoogleAddress] = useState('');
+    const [googleAddress, setGoogleAddress] = useState("");
 
-    useEffect(()=>{
-        if(mode == 1){
-            setAddress({name: "Retiro_tienda", region_id : 7, commune_id: "RetiroTienda",extra_info:"147", address: "Antonio Bellet", step: 2})
-            setView("addresses")
-        }else{
-           setAddress({name:address.name, region_id:7})
+    useEffect(() => {
+        if (mode == 1) {
+            setAddress({
+                name: "Retiro_tienda",
+                region_id: 7,
+                commune_id: "RetiroTienda",
+                extra_info: "147",
+                address: "Antonio Bellet",
+                step: 2,
+            });
+            setView("addresses");
+        } else {
+            setAddress({ name: address.name, region_id: 7 });
         }
-    },[mode])
+    }, [mode]);
 
     useEffect(() => {
         if (regions.length > 0) {
-            if(address && address.region_id != ''){
-                setSelectedRegion(address.region_id)
-
-            }else{
+            if (address && address.region_id != "") {
+                setSelectedRegion(address.region_id);
+            } else {
                 setAddress({
                     ...address,
-                    region_id : 7,
-                    commune_id: null
-                })
-                setSelectedRegion(7)
+                    region_id: 7,
+                    commune_id: null,
+                });
+                setSelectedRegion(7);
             }
         }
-    },[regions, address.region_id]);
+    }, [regions, address.region_id]);
 
     useEffect(() => {
         if (selectedRegion) {
-            const region = regions.find(r => r.id == selectedRegion)
+            const region = regions.find((r) => r.id == selectedRegion);
             let tempCommunes = [];
-            region.provinces.map((province) =>{
-                province.communes.map((commune) =>{
+            region.provinces.map((province) => {
+                province.communes.map((commune) => {
                     if (commune.is_valid) {
                         tempCommunes.push(commune);
                     }
-                })
-            })
-            let orderCommunes =  tempCommunes.sort((a, b)  => {
+                });
+            });
+            let orderCommunes = tempCommunes.sort((a, b) => {
                 const commA = a.name.toLowerCase();
                 const commB = b.name.toLowerCase();
 
@@ -66,7 +83,7 @@ const AddAddress = ({setView, regions, address, validateDataAddressInvite, setAd
                     comparison = -1;
                 }
                 return comparison;
-            })
+            });
 
             setCommunes(orderCommunes);
         }
@@ -76,232 +93,300 @@ const AddAddress = ({setView, regions, address, validateDataAddressInvite, setAd
         if (googleAddress.length > 0) {
             setAddress({
                 ...address,
-                ['address']: googleAddress,
-            })
+                ["address"]: googleAddress,
+            });
         }
-    },[googleAddress]);
+    }, [googleAddress]);
 
     const selectRegion = (e) => {
-        const region = regions.find(r => r.id == e.target.value)
+        const region = regions.find((r) => r.id == e.target.value);
         setAddress({
             ...address,
-            region_id : region.id,
-            commune_id: null
-        })
-        setSelectedRegion(e.target.value)
-    }
+            region_id: region.id,
+            commune_id: null,
+        });
+        setSelectedRegion(e.target.value);
+    };
     const handleAddressComment = (e) => {
-        if(e.target.value.match('^$|^[a-zA-Z\ñ ]+$')){
+        if (e.target.value.match("^$|^[a-zA-Zñ ]+$")) {
             setAddress({
                 ...address,
-                [e.target.name]: e.target.value
-            })
+                [e.target.name]: e.target.value,
+            });
         }
-    }
-    const handleAddress = (e, direction = false, number = false, text = false) => {
+    };
+    const handleAddress = (
+        e,
+        direction = false,
+        number = false,
+        text = false
+    ) => {
         if (direction) {
-            if(e.target.value.match('^$|^[a-zA-Z0-9\ñ ]+$')){
+            if (e.target.value.match("^$|^[a-zA-Z0-9ñ ]+$")) {
                 setAddress({
                     ...address,
-                    [e.target.name]: e.target.value
-                })
+                    [e.target.name]: e.target.value,
+                });
             }
         }
 
         if (number) {
-            if(e.target.value.match("^$|^[0-9]+$")){
+            if (e.target.value.match("^$|^[0-9]+$")) {
                 setAddress({
                     ...address,
-                    [e.target.name]: e.target.value
-                })
+                    [e.target.name]: e.target.value,
+                });
             }
         }
 
         if (text) {
-            if(e.target.value.match('^$|^[a-zA-Z\ñ ]+$')){
+            if (e.target.value.match("^$|^[a-zA-Zñ ]+$")) {
                 setAddress({
                     ...address,
-                    [e.target.name]: e.target.value
-                })
+                    [e.target.name]: e.target.value,
+                });
             }
         }
 
         if (!direction && !number && !text) {
             setAddress({
                 ...address,
-                [e.target.name]: e.target.value
-            })
+                [e.target.name]: e.target.value,
+            });
         }
-    }
+    };
 
     const autoCompleteHandle = (place) => {
-        setGoogleAddress('');
+        setGoogleAddress("");
         setValidAddress(false);
         setAddress({
             ...address,
-            ['address']: place,
-        })
-    }
+            ["address"]: place,
+        });
+    };
 
-    const retire = ()=>{
-        setAddress({name: "Retiro_tienda", region_id : 7, commune_id: 118,extra_info:"147", address: "Antonio Bellet", step: 2})
+    const retire = () => {
+        setAddress({
+            name: "Retiro_tienda",
+            region_id: 7,
+            commune_id: 118,
+            extra_info: "147",
+            address: "Antonio Bellet",
+            step: 2,
+        });
         setTimeout(() => {
-            setAddress({name: "Retiro_tienda", region_id : 7, commune_id: 118,extra_info:"147", address: "Antonio Bellet", step: 2})
+            setAddress({
+                name: "Retiro_tienda",
+                region_id: 7,
+                commune_id: 118,
+                extra_info: "147",
+                address: "Antonio Bellet",
+                step: 2,
+            });
         }, 50);
-        validateDataAddressInvite()
-       
-    }
+        validateDataAddressInvite();
+    };
 
     return (
         <Fragment>
             <div className="panel panel-cart mb-3">
                 <div className="panel-body">
-                    <div className='row'>
+                    <div className="row">
                         <div className="col-12 col-md-12 col-lg-6">
                             <div className="py-3">
-                                <button type='button' className="btn btn-bicolor btn-block" onClick={() => setMode(2)}>
+                                <button
+                                    type="button"
+                                    className="btn btn-bicolor btn-block"
+                                    onClick={() => setMode(2)}
+                                >
                                     <span>Entrega a Domicilio</span>
                                 </button>
                             </div>
                         </div>
                         <div className="col-12 col-md-12 col-lg-6">
                             <div className="py-3">
-                                <button type='button' className="btn btn-bicolor btn-block" onClick={() => setMode(1)}>
+                                <button
+                                    type="button"
+                                    className="btn btn-bicolor btn-block"
+                                    onClick={() => setMode(1)}
+                                >
                                     <span>Retiro En tienda</span>
                                 </button>
                             </div>
                         </div>
-                        
                     </div>
-                    {
-                        mode == 2
-                            ?
-                            <div className="row">
-                                <div className="col-md-12">
-                                    <h3 className="font-poppins font-14 bold color-2A317F">Entrega a Domicilio</h3>
-                                    <div className="form-group">
-                                        <label htmlFor="name">Nombre</label>
-                                        <input type="text"
-                                            className="form-control form-control-custom"
-                                            id="name"
-                                            name="name"
-                                            placeholder="Nombre Contacto"
-                                            value={address.name}
-                                            onChange={(e) => handleAddress(e, false, false, true)}
-                                            onFocus={setCleanInputError}
-                                        />
-                                        <div className="invalid-feedback" />
-                                    </div>
+                    {mode == 2 ? (
+                        <div className="row">
+                            <div className="col-md-12">
+                                <h3 className="font-poppins font-14 bold color-2A317F">
+                                    Entrega a Domicilio
+                                </h3>
+                                <div className="form-group">
+                                    <label htmlFor="name">Nombre</label>
+                                    <input
+                                        type="text"
+                                        className="form-control form-control-custom"
+                                        id="name"
+                                        name="name"
+                                        placeholder="Nombre Contacto"
+                                        value={address.name}
+                                        onChange={(e) =>
+                                            handleAddress(e, false, false, true)
+                                        }
+                                        onFocus={setCleanInputError}
+                                    />
+                                    <div className="invalid-feedback" />
                                 </div>
-                                <div className="col-md-8">
-                                    <div className="form-group">
-                                        <label htmlFor="address">Calle y Número</label>
-                                        <input type="text"
-                                            className="form-control form-control-custom"
-                                            id="address"
-                                            name="address"
-                                            placeholder="Calle y Número"
-                                            value={address.address}
-                                            onChange={(e) => handleAddress(e)}
-                                            onFocus={setCleanInputError}
-                                        />
-                                        <div className="invalid-feedback" />
-                                    </div>
-                                </div>
-                                <div className="col-md-4">
-                                    <div className="form-group">
-                                        <label htmlFor="extra_info">Número casa o departamento</label>
-                                        <input type="text"
-                                            className="form-control form-control-custom"
-                                            id="extra_info"
-                                            name="extra_info"
-                                            placeholder="Número casa o departamento"
-                                            value={address.extra_info}
-                                            onChange={(e) => handleAddress(e)}
-                                            onFocus={setCleanInputError}
-                                        />
-                                        <div className="invalid-feedback" />
-                                    </div>
-                                </div>
-                                <div className="col-md-6">
-                                    <div className="form-group">
-                                        <label htmlFor="region_id">Región</label>
-                                        <select
-                                            className="form-control form-control-custom pl-md-2"
-                                            id="region_id"
-                                            name="region_id"
-                                            value={address.region_id}
-                                            onChange={(e) => selectRegion(e)}
-                                            onFocus={setCleanInputError}
-                                        >
-                                            <option value='' disabled selected>Seleccionar</option>
-                                            {
-                                                regions.map((region) => {
-                                                    return(
-                                                        <option value={region.id} key={region.id}>{region.name}</option>
-                                                    )
-                                                })
-                                            }
-                                        </select>
-                                        <div className="invalid-feedback" />
-                                    </div>
-                                </div>
-
-                                <div className="col-md-6">
-                                    <div className="form-group">
-                                        <label htmlFor="commune_id">Comuna</label>
-                                        <select
-                                            className="form-control form-control-custom pl-md-2"
-                                            id="commune_id"
-                                            name="commune_id"
-                                            onChange={(e) => handleAddress(e)}
-                                            onFocus={setCleanInputError}
-                                            value={address.commune_id}
-                                        >
-                                            <option value='' disabled selected>Seleccionar</option>
-                                            {
-                                                communes.map((commune) => {
-                                                    return(
-                                                        <option value={commune.id} key={commune.id}>{commune.name}</option>
-                                                    )
-                                                })
-                                            }
-                                        </select>
-                                        <div className="invalid-feedback" />
-                                    </div>
-                                </div>
-
-
-
-                                <div className="col-md-12">
-                                    <div className="form-group">
-                                        <label htmlFor="name">Comentario</label>
-                                        <textarea
-                                            className="form-control form-control-custom"
-                                            id="comment"
-                                            rows={3}
-                                            name="comment"
-                                            placeholder="Agrega un rango de horario para la entrega, es en oficina o una casa, u cualquier otra información relevante como el detalle de como llegar"
-                                            value={address.comment}
-                                            onChange={(e) => handleAddressComment(e)}
-                                            onFocus={setCleanInputError}
-                                        />
-                                        <div className="invalid-feedback" />
-                                    </div>
-                                </div>
-
-
                             </div>
-                            : <></>
-                    }
-                    
+                            <div className="col-md-8">
+                                <div className="form-group">
+                                    <label htmlFor="address">
+                                        Calle y Número
+                                    </label>
+                                    <input
+                                        type="text"
+                                        className="form-control form-control-custom"
+                                        id="address"
+                                        name="address"
+                                        placeholder="Calle y Número"
+                                        value={address.address}
+                                        onChange={(e) => handleAddress(e)}
+                                        onFocus={setCleanInputError}
+                                    />
+                                    <div className="invalid-feedback" />
+                                </div>
+                            </div>
+                            <div className="col-md-4">
+                                <div className="form-group">
+                                    <label htmlFor="extra_info">
+                                        Número casa o departamento
+                                    </label>
+                                    <input
+                                        type="text"
+                                        className="form-control form-control-custom"
+                                        id="extra_info"
+                                        name="extra_info"
+                                        placeholder="Número casa o departamento"
+                                        value={address.extra_info}
+                                        onChange={(e) => handleAddress(e)}
+                                        onFocus={setCleanInputError}
+                                    />
+                                    <div className="invalid-feedback" />
+                                </div>
+                            </div>
+                            <div className="col-md-6">
+                                <div className="form-group">
+                                    <label htmlFor="region_id">Región</label>
+                                    <select
+                                        className="form-control form-control-custom pl-md-2"
+                                        id="region_id"
+                                        name="region_id"
+                                        value={address.region_id}
+                                        onChange={(e) => selectRegion(e)}
+                                        onFocus={setCleanInputError}
+                                    >
+                                        <option value="" disabled selected>
+                                            Seleccionar
+                                        </option>
+                                        {regions.map((region) => {
+                                            return (
+                                                <option
+                                                    value={region.id}
+                                                    key={region.id}
+                                                >
+                                                    {region.name}
+                                                </option>
+                                            );
+                                        })}
+                                    </select>
+                                    <div className="invalid-feedback" />
+                                </div>
+                            </div>
+
+                            <div className="col-md-6">
+                                <div className="form-group">
+                                    <label htmlFor="commune_id">Comuna</label>
+                                    <select
+                                        className="form-control form-control-custom pl-md-2"
+                                        id="commune_id"
+                                        name="commune_id"
+                                        onChange={(e) => handleAddress(e)}
+                                        onFocus={setCleanInputError}
+                                        value={
+                                            address.commune_id
+                                                ? address.commune_id
+                                                : ""
+                                        }
+                                    >
+                                        <option value="" disabled selected>
+                                            Seleccionar
+                                        </option>
+                                        {communes.map((commune) => {
+                                            return (
+                                                <option
+                                                    value={commune.id}
+                                                    key={commune.id}
+                                                >
+                                                    {commune.name}
+                                                </option>
+                                            );
+                                        })}
+                                    </select>
+                                    <div className="invalid-feedback" />
+                                </div>
+                            </div>
+
+                            <div className="col-md-12">
+                                <div className="form-group">
+                                    <label htmlFor="name">Comentario</label>
+                                    <textarea
+                                        className="form-control form-control-custom"
+                                        id="comment"
+                                        rows={3}
+                                        name="comment"
+                                        placeholder="Agrega un rango de horario para la entrega, es en oficina o una casa, u cualquier otra información relevante como el detalle de como llegar"
+                                        value={address.comment}
+                                        onChange={(e) =>
+                                            handleAddressComment(e)
+                                        }
+                                        onFocus={setCleanInputError}
+                                    />
+                                    <div className="invalid-feedback" />
+                                </div>
+                            </div>
+                        </div>
+                    ) : (
+                        <></>
+                    )}
                 </div>
             </div>
 
             <div className="row button-nav-checkout">
                 <div className="col-md-6 pb-5">
-                    <button onClick={() => setView('user-form')} className="link" style={{textDecoration: 'none'}}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="8.405" height="14.545" viewBox="0 0 8.405 14.545"><path id="Trazado_3290" data-name="Trazado 3290" d="M0,0,7.344,6.768.288,13.824" transform="translate(8.066 14.177) rotate(-180)" fill="none" stroke="#009be8" stroke-width="1"></path></svg> <span className="font-12 add-underline-responsive">{" Volver a paso anterior"}</span>
+                    <button
+                        onClick={() => setView("user-form")}
+                        className="link"
+                        style={{ textDecoration: "none" }}
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="8.405"
+                            height="14.545"
+                            viewBox="0 0 8.405 14.545"
+                        >
+                            <path
+                                id="Trazado_3290"
+                                data-name="Trazado 3290"
+                                d="M0,0,7.344,6.768.288,13.824"
+                                transform="translate(8.066 14.177) rotate(-180)"
+                                fill="none"
+                                stroke="#009be8"
+                                stroke-width="1"
+                            ></path>
+                        </svg>{" "}
+                        <span className="font-12 add-underline-responsive">
+                            {" Volver a paso anterior"}
+                        </span>
                     </button>
                 </div>
                 {/*<div className="col-md-6 pb-5">*/}
@@ -314,4 +399,4 @@ const AddAddress = ({setView, regions, address, validateDataAddressInvite, setAd
     );
 };
 
-export default AddAddress
+export default AddAddress;
