@@ -42,6 +42,7 @@ class InventarioApiHelperController extends Controller
         $product->barcode = $data["codigoBarra"] ?? $product->barcode;
         $product->price = $data["precio"] ?? $product->price;
         $product->offer_price = $data["precioOferta"] ? $data["precioOferta"] : null;
+        $product->is_offer = $data["oferta"] ?? $product->is_offer;
         $product->active = $data["activo"] ?? $product->active;
         $product->update();
         return $product;
