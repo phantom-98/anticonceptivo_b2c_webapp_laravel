@@ -15,6 +15,8 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Helpers\CallIntegrationsPay;
 use App\Http\Utils\Enum\PaymentStatus;
+use App\Jobs\DispatchJob;
+use App\Jobs\SurveyJob;
 use \App\Models\CustomerAddress;
 use \App\Models\SubscriptionsOrdersItem;
 use Illuminate\Support\Facades\Log;
@@ -216,7 +218,10 @@ class OrderController extends GlobalController
                 if($request->order_status_id == "DISPATCHED"){
                     $object->humidity = $request->humidity;
                     $object->temperature = $request->temperature;
+                    if($object->delivery_address != "Retiro en Tienda") DispatchJob::dispatch($object);
+                    
                 } else if ($request->order_status_id == "DELIVERED") {
+                    SurveyJob::dispatch($object);
                     $object->dispatch_date = Carbon::now()->format('Y-m-d H:i:s');
 
                     $sub = SubscriptionsOrdersItem::where('order_id', $object->id)->first();
@@ -236,12 +241,12 @@ class OrderController extends GlobalController
         if ($object) {
             if(isset($request->prescription)){
                 if($request->prescription == 1){
-                    session()->flash('success', 'Pedido validado correctamente.');
+                    session()->flash('success', 'Pedido validado correctamente.'); 
                 } else {
                     session()->flash('success', 'Pedido rechazado correctamente.');
                 }
             } else {
-                session()->flash('success', 'Estado del pedido actualizado correctamente.');
+                session()->flash('success', 'Estado del pedido actualizado correctamente.');     
             }
             return redirect()->back();
         }
