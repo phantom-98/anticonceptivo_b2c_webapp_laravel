@@ -32,6 +32,10 @@
                 </td>
             </tr>
         </table>
+        <p style="margin-bottom:10px; margin-top:10px">
+            Esperamos volver a verte pronto,
+            <p>Equipo <a href="https://anticonceptivo.cl/">anticonceptivo.cl</a></p>
+        </p>
     </div>
 
 @endsection
