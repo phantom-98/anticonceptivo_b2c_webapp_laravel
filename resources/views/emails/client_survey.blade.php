@@ -3,15 +3,20 @@
 @section('content')
 
     
-    <div class="titulo">Hola {{ ucwords(mb_strtolower($customer->first_name, 'UTF-8')) }}
+    <div class="titulo">Hola {{ ucwords(mb_strtolower($order->customer->first_name, 'UTF-8')) }},
     </div>
     <br>
     <div class="mensaje">
-        <div class="title">Queremos saber tu opinion</div>
+        <div class="title">Tu pedido #{{$order->id}} ha sido recepcionado <img style="margin: 0 5px;width:50px !important" src="https://anticonceptivo.cl/themes/web/assets/images/email/checkMark.png" alt="check"></div>
         <div>
-            <p>Tu compra ya ha sido recepcionada. Esperamos que la disfrutes. Estamos trabajando en mejorar nuestro servicio y tu opinion es muy valiosa.</p>
+            <p>Esperamos que lo disfrutes. Estamos trabajando en mejorar nuestro servicio y tu opinion es muy valiosa.</p>
             
-            <p>Comentanos que te parecio el servicio <a href="https://forms.gle/XJmjwCYVCkzTVdZT8">aqui!</a></p>
+            <p>Comentanos que te parecio el servicio <a href="https://forms.gle/ceqSAbs4VG2UKjNR8">aqui!</a></p>
+            <p style="margin-bottom:10px; margin-top:10px">
+                Esperamos volver a verte pronto.
+                <br>
+                <a href="https://anticonceptivo.cl/">antiConceptivo.cl</a>
+            </p>
             
         </div>
     </div>
