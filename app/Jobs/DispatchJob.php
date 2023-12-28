@@ -40,9 +40,9 @@ class DispatchJob implements ShouldQueue
         $email = new \SendGrid\Mail\Mail(); 
         $html = view('emails.client_dispatch',['order' => $customerOrder])->render();
         $email->setFrom("info@anticonceptivo.cl", "anticonceptivo.cl");
-        $email->setSubject("Dispatch");
-        #$email->addTo($customerOrder->customer->email, $customerOrder->customer->first_name);
-        $email->addTo("adminit@anticonceptivo.cl");
+        $email->setSubject("Pedido en ruta");
+        $email->addTo($customerOrder->customer->email, $customerOrder->customer->first_name);
+        #$email->addTo("adminit@anticonceptivo.cl");
         
         $email->addContent(
         "text/html", $html
@@ -56,7 +56,7 @@ class DispatchJob implements ShouldQueue
         $email2 = new \SendGrid\Mail\Mail(); 
         $html2 = view('emails.client_dispatch',['order' => $customerOrder])->render();
         $email2->setFrom("info@anticonceptivo.cl", "anticonceptivo.cl");
-        $email2->setSubject("Dispatch test");
+        $email2->setSubject("Pedido en rutat");
         #$email->addTo($customerOrder->customer->email, $customerOrder->customer->first_name);
         $email2->addTo("contacto@anticonceptivo.cl");
         

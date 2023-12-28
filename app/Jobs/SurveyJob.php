@@ -41,9 +41,9 @@ class SurveyJob implements ShouldQueue
         $email = new \SendGrid\Mail\Mail(); 
         $html = view('emails.client_survey',['order' => $customerOrder])->render();
         $email->setFrom("info@anticonceptivo.cl", "anticonceptivo.cl");
-        $email->setSubject("Survey");
-        #$email->addTo($customerOrder->customer->email, $customerOrder->customer->first_name);
-        $email->addTo("adminit@anticonceptivo.cl");
+        $email->setSubject("Encuesta de satisfacción");
+        $email->addTo($customerOrder->customer->email, $customerOrder->customer->first_name);
+        #$email->addTo("adminit@anticonceptivo.cl");
         
         $email->addContent(
         "text/html", $html
@@ -57,7 +57,7 @@ class SurveyJob implements ShouldQueue
         $email2 = new \SendGrid\Mail\Mail(); 
         $html2 = view('emails.client_survey',['order' => $customerOrder])->render();
         $email2->setFrom("info@anticonceptivo.cl", "anticonceptivo.cl");
-        $email2->setSubject("Survey test");
+        $email2->setSubject("Encuesta de satisfacción");
         #$email->addTo($customerOrder->customer->email, $customerOrder->customer->first_name);
         $email2->addTo("contacto@anticonceptivo.cl");
         
