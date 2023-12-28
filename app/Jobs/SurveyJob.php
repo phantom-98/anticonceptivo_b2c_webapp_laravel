@@ -35,7 +35,7 @@ class SurveyJob implements ShouldQueue
     public function handle()
     {
         $customerOrder = Order::with('customer')->where('id',$this->order->id)->get()->first();
-        $sendgrid = new \SendGrid(env('SENDGRID_API_KEY'));
+        $sendgrid = new \SendGrid(env('SENDGRID_APP_KEY'));
 
         // envio cliente
         $email = new \SendGrid\Mail\Mail(); 
