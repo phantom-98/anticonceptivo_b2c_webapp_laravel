@@ -5,9 +5,16 @@
     <div class="titulo">Hola {{ ucwords(mb_strtolower($order->customer->first_name, 'UTF-8')) }}
     </div>
     <div class="mensaje">
+        @if ($order->delivery_address == "Retiro en Tienda")
+        <p>
+            Gracias por comprar con nosotros. Tus articulos estan listos para retiro.
+        </p> 
+        @else
         <p>
             Gracias por comprar con nosotros. Te enviaremos un mensaje cuando tus artículos se envíen.
         </p>
+        @endif
+        
         <br/>
         <p>
             <b>DETALLE DEL PEDIDO #{{$order->id}}</b>
@@ -43,7 +50,7 @@
                     <br/>
                     8:00am a 21:00 hrs lunes a viernes <br/>
                     Sábados 9:00am a 18:00 hrs <br/>
-                    Domingo cerrados. <br/>
+                    Domingo 9:00am a 18:00 hrs <br/>
                     Telefono: +56 2 2437 0237
                 </span>
             </p>
