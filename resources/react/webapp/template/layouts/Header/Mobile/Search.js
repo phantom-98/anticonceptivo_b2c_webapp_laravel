@@ -35,12 +35,12 @@ const Search = () => {
     }, [refInputSearch]);
 
     useEffect(() => {
-        const timer = setTimeout(() => setSearch(debouncedSearch), 1000);
+        const timer = setTimeout(() => setSearch(debouncedSearch), 300);
         return () => clearTimeout(timer);
     }, [debouncedSearch])
 
     useEffect(() => {
-        if(search !== ''){
+        if(search !== '' && search.length >= 3){
             setIsLoading(true);
             getProducts();
         }
@@ -58,9 +58,9 @@ const Search = () => {
     }
 
     const getSearch = (e) => {
-        if(search.trim() != ''){
+        if(debouncedSearch.trim() != ''){
             let url = PUBLIC_ROUTES.SHOP_SEARCH.path;
-            url = url.replace(":search", search);
+            url = url.replace(":search", debouncedSearch);
             setIsVisibilityDropdownSearch(false);
             if(products.length == 1){
                 window.location.href = (PUBLIC_ROUTES.PRODUCT_DETAIL.path).replace(':slug', products[0].slug);
