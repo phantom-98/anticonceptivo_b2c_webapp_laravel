@@ -40,7 +40,7 @@ class ProductController extends Controller
                 'laboratory' => function ($l) {
                     $l->where('active', true);
                 }
-            ])->orderBy('position')->get();
+            ])->orderBy('position')->limit(10)->get();
 
 
             // a) name -> like 1º
