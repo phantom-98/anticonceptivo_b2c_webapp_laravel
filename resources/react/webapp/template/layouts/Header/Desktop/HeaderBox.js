@@ -30,13 +30,13 @@ const HeaderBox = () => {
 
     const [search, setSearch] = useState('');
     const [isLoading, setIsLoading] = useState(false);
-    const [debouncedSearch, setDebouncedSearch] = useState(search);
+    //const [debouncedSearch, setDebouncedSearch] = useState(search);
     const [products, setProducts] = useState([]);
-    const refInputSearch = useRef(null);
+    //const refInputSearch = useRef(null);
     const refDropdownList = useRef(null);
     const [isVisibilityDropdownSearch, setIsVisibilityDropdownSearch] = useState(false);
 
-    useEffect(() => {
+    /* useEffect(() => {
         function handleClickOutside(event) {
             if ((refInputSearch.current && !refInputSearch.current.contains(event.target)) && (refDropdownList.current && !refDropdownList.current.contains(event.target)) ) {
                 setIsVisibilityDropdownSearch(false);
@@ -49,22 +49,25 @@ const HeaderBox = () => {
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
-    }, [refInputSearch]);
+    }, [refInputSearch]); */
 
-    useEffect(() => {
+    /* useEffect(() => {
         const timer = setTimeout(() => setSearch(debouncedSearch), 1000);
         return () => clearTimeout(timer);
-    }, [debouncedSearch])
+    }, [debouncedSearch]) */
 
-    useEffect(() => {
+    
+
+    /* useEffect(() => {
         if(search !== ''){
             setIsLoading(true);
             getProducts();
+            
         }
         else{
             clearResults();
         }
-    }, [search]);
+    }, [search]); */
 
     const handleKeyPress = (event) => {
         if (event.key === 'Enter') {
@@ -134,12 +137,12 @@ const HeaderBox = () => {
                     <div className="col top-do-flex" >
                         <div className="input-group search-filter-button ml-auto search-top-desktop" style={{maxWidth : '540px'}}>
                             <input type="text"
-                                   ref={refInputSearch}
+                                   //ref={refInputSearch}
                                    className="form-control form-control-custom"
                                    placeholder={"Buscar medicamentos, laboratorios o principio activo"}
-                                   value={debouncedSearch}
+                                   value={search}
                                    style={{height: '45px'}}
-                                   onChange={e => setDebouncedSearch(e.target.value)}
+                                   onChange={e => setSearch(e.target.value)}
                                    onKeyPress={handleKeyPress}
                             />
                             <div className="input-group-append">
@@ -151,7 +154,7 @@ const HeaderBox = () => {
                                 </button>
                             </div>
                         </div>
-                        <div className={`dropdown-content ${products.length && search.length > 0 && isVisibilityDropdownSearch ? 'dropdown-search' : 'd-none'} `}
+                        {/* <div className={`dropdown-content ${products.length && search.length > 0 && isVisibilityDropdownSearch ? 'dropdown-search' : 'd-none'} `}
                              ref={refDropdownList}
                              >
                             <div className="box-search-result" style={products.length && search.length > 0 && isVisibilityDropdownSearch ? dropdownStyle : null}>
@@ -234,7 +237,7 @@ const HeaderBox = () => {
                                     : <span className="d-flex justify-content-center font-poppins italic font-11 color-707070" style={{marginTop:25}}>¿No encontraste lo que buscabas?, Nosotros te asesoramos <a href="https://wa.me/56987380541" target="_BLANK" style={{textDecoration:'underline', marginLeft:'5px'}}>  aquí.</a></span>
                                 }
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                     <div className="col-md-auto top-do-flex">
                         <div className="my-auto">
