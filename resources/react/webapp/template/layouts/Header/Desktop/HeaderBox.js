@@ -52,14 +52,17 @@ const HeaderBox = () => {
     }, [refInputSearch]);
 
     useEffect(() => {
-        const timer = setTimeout(() => setSearch(debouncedSearch), 1000);
+        const timer = setTimeout(() => setSearch(debouncedSearch), 400);
         return () => clearTimeout(timer);
     }, [debouncedSearch])
 
+    
+
     useEffect(() => {
-        if(search !== ''){
+        if(search !== '' && search.length >= 3){
             setIsLoading(true);
             getProducts();
+            
         }
         else{
             clearResults();

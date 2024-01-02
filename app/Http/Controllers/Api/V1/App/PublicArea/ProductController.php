@@ -10,7 +10,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Willywes\ApiResponse\ApiResponse;
 use App\Http\Utils\OutputMessage\OutputMessage;
-use App\Models\{Product, Setting};
+use App\Models\{Product, SearchTerm, Setting};
 use App\Models\Category;
 use App\Models\Subcategory;
 use App\Models\LegalWarning;
@@ -40,7 +40,7 @@ class ProductController extends Controller
                 'laboratory' => function ($l) {
                     $l->where('active', true);
                 }
-            ])->orderBy('position')->get();
+            ])->orderBy('position')->limit(10)->get();
 
 
             // a) name -> like 1º
@@ -162,6 +162,8 @@ class ProductController extends Controller
             $subscriptions = SubscriptionPlan::whereIn('id', ProductSubscriptionPlan::whereIn('product_id', $productIds)
                 ->get()->unique('subscription_plan_id')->pluck('subscription_plan_id'))
                 ->where('active', true)->select(['id', 'months','cicles'])->get();
+
+            SearchTerm::create(['term' => $search, 'results' => $productCount]);
 
        
 
