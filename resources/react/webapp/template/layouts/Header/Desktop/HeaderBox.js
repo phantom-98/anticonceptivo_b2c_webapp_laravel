@@ -29,12 +29,12 @@ const HeaderBox = () => {
     const {auth, logout} = useContext(AuthContext);
 
     const [search, setSearch] = useState('');
-    const [isLoading, setIsLoading] = useState(false);
+    //const [isLoading, setIsLoading] = useState(false);
     //const [debouncedSearch, setDebouncedSearch] = useState(search);
     const [products, setProducts] = useState([]);
     //const refInputSearch = useRef(null);
-    const refDropdownList = useRef(null);
-    const [isVisibilityDropdownSearch, setIsVisibilityDropdownSearch] = useState(false);
+    //const refDropdownList = useRef(null);
+    //const [isVisibilityDropdownSearch, setIsVisibilityDropdownSearch] = useState(false);
 
     /* useEffect(() => {
         function handleClickOutside(event) {
@@ -79,7 +79,7 @@ const HeaderBox = () => {
         if (search.trim() != '') {
             let url = PUBLIC_ROUTES.SHOP_SEARCH.path;
             url = url.replace(":search", search);
-            setIsVisibilityDropdownSearch(false);
+            //setIsVisibilityDropdownSearch(false);
             if (products.length == 1) {
                 window.location.href = (PUBLIC_ROUTES.PRODUCT_DETAIL.path).replace(':slug', products[0].slug);
             } else {
@@ -88,7 +88,7 @@ const HeaderBox = () => {
         }
     }
 
-    const clearResults = () => setProducts([]);
+    /* const clearResults = () => setProducts([]);
 
     const getProducts = () => {
         let url = Services.ENDPOINT.PUBLIC_AREA.HEADER_BOX;
@@ -107,14 +107,14 @@ const HeaderBox = () => {
         }).catch(error => {
             Services.ErrorCatch(error)
         });
-    }
+    } */
 
     var url = PRIVATE_ROUTES.ACCOUNT.path;
     url = url.replace(':section', 'informacion-personal')
 
-    const dropdownStyle = {
+    /* const dropdownStyle = {
         overflowY: 'scroll'
-    }
+    } */
 
     return (
         <div>
