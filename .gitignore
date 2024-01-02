@@ -1,7 +1,6 @@
 /node_modules
 /public/hot
-/public/js/reactjs_code_split/*
-/public/js/reactjs_code_split/*.js
+
 /public/storage
 /storage/*.key
 /vendor
