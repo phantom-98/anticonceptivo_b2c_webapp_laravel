@@ -39,6 +39,7 @@ class InventarioApiHelperController extends Controller
 	}
 	Log::debug($product);
         $product->stock = $data["stock"] ?? $product->stock;
+        $product->name = $data["nombre"] ?? $product->name;
         $product->barcode = $data["codigoBarra"] ?? $product->barcode;
         $product->price = $data["precio"] ?? $product->price;
         $product->offer_price = $data["precioOferta"] ? $data["precioOferta"] : null;
