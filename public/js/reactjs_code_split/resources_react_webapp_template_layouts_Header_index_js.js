@@ -3653,13 +3653,13 @@ var HeaderBox = function HeaderBox() {
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     var timer = setTimeout(function () {
       return setSearch(debouncedSearch);
-    }, 1000);
+    }, 300);
     return function () {
       return clearTimeout(timer);
     };
   }, [debouncedSearch]);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    if (search !== '') {
+    if (search !== '' && search.length >= 3) {
       setIsLoading(true);
       getProducts();
     } else {
@@ -3672,9 +3672,9 @@ var HeaderBox = function HeaderBox() {
     }
   };
   var getSearch = function getSearch(e) {
-    if (search.trim() != '') {
+    if (debouncedSearch.trim() != '') {
       var _url = _routes_publicRoutes__WEBPACK_IMPORTED_MODULE_8__["default"].SHOP_SEARCH.path;
-      _url = _url.replace(":search", search);
+      _url = _url.replace(":search", debouncedSearch);
       setIsVisibilityDropdownSearch(false);
       if (products.length == 1) {
         window.location.href = _routes_publicRoutes__WEBPACK_IMPORTED_MODULE_8__["default"].PRODUCT_DETAIL.path.replace(':slug', products[0].slug);
@@ -3764,9 +3764,7 @@ var HeaderBox = function HeaderBox() {
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("div", {
               className: "input-group-append",
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("button", {
-                onClick: function onClick() {
-                  return getSearch();
-                },
+                onClick: getSearch,
                 type: "button",
                 className: "btn btn-bicolor",
                 style: {
@@ -4772,13 +4770,13 @@ var Search = function Search() {
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     var timer = setTimeout(function () {
       return setSearch(debouncedSearch);
-    }, 1000);
+    }, 300);
     return function () {
       return clearTimeout(timer);
     };
   }, [debouncedSearch]);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    if (search !== '') {
+    if (search !== '' && search.length >= 3) {
       setIsLoading(true);
       getProducts();
     } else {
@@ -4794,9 +4792,9 @@ var Search = function Search() {
     }
   };
   var getSearch = function getSearch(e) {
-    if (search.trim() != '') {
+    if (debouncedSearch.trim() != '') {
       var url = _routes_publicRoutes__WEBPACK_IMPORTED_MODULE_1__["default"].SHOP_SEARCH.path;
-      url = url.replace(":search", search);
+      url = url.replace(":search", debouncedSearch);
       setIsVisibilityDropdownSearch(false);
       if (products.length == 1) {
         window.location.href = _routes_publicRoutes__WEBPACK_IMPORTED_MODULE_1__["default"].PRODUCT_DETAIL.path.replace(':slug', products[0].slug);
