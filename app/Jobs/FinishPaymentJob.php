@@ -48,9 +48,9 @@ class FinishPaymentJob implements ShouldQueue
                 if ($this->customerAddress) {
                     try{
                         CallIntegrationsPay::callVoucher($this->order->id, $this->customerAddress);
-                        if($this->order->delivery_address !== "Retiro en Tienda"){
+                        /* if($this->order->delivery_address !== "Retiro en Tienda"){
                             CallIntegrationsPay::callDispatchLlego($this->order->id, $this->customerAddress);
-                        }
+                        } */
                     } catch (\Exception $ex){
                         
                     }
