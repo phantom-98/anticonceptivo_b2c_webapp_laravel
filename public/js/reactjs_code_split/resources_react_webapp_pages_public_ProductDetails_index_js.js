@@ -1371,7 +1371,7 @@ var ProductInfo = function ProductInfo(_ref) {
         className: "font-poppins font-36 bold color-009BE8",
         children: subscription == null ? [(0,_helpers_GlobalUtils__WEBPACK_IMPORTED_MODULE_1__.formatMoney)(product.is_offer ? product.offer_price : product.price), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("span", {
           className: "font-poppins font-16 bold color-009BE8 ml-2",
-          children: ["C/U ", '  ', product.is_offer ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("s", {
+          children: ["C/U ", "  ", product.is_offer ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("s", {
             children: (0,_helpers_GlobalUtils__WEBPACK_IMPORTED_MODULE_1__.formatMoney)(product.price)
           }) : null]
         })] : [(0,_helpers_GlobalUtils__WEBPACK_IMPORTED_MODULE_1__.formatMoney)(subscription.price), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
@@ -1379,7 +1379,7 @@ var ProductInfo = function ProductInfo(_ref) {
           children: "Al mes c/u"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("span", {
           className: "font-poppins font-16 bold color-78d2ff ml-2",
-          children: ["(Ahorra un", " ", Math.round((product.price - subscription.price) / product.price * 100), " %)"]
+          children: ["(Ahorra un", " ", Math.round((product.price - subscription.price) / product.price * 100), " ", "%)"]
         })]
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
@@ -1399,7 +1399,7 @@ var ProductInfo = function ProductInfo(_ref) {
           className: "col-12 col-md-12",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
             className: "product-format-style font-poppins regular color-6C6B6B",
-            children: ["Precio por unidad: $", product.state_of_matter === "Líquido" ? Math.round(product.price / parseInt(product.format) * 100) + " " + product.unit_format : Math.round(product.price / parseInt(product.format)) + " " + product.unit_format]
+            children: ["Precio por unidad: $", product.state_of_matter === "Liquido" ? Math.round(product.price / parseInt(product.format) * 100) + " " + product.unit_format : Math.round(product.price / parseInt(product.format)) + " " + product.unit_format]
           })
         }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
           className: "col-12 col-md-12 mt-3 mt-md-3 divRecipe",
@@ -1435,7 +1435,7 @@ var ProductInfo = function ProductInfo(_ref) {
                           return null;
                         }
                         return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("button", {
-                          className: "btn btn-outline-primary btn-months mr-1 subscription-button-margin ".concat(isActive ? 'focus' : ''),
+                          className: "btn btn-outline-primary btn-months mr-1 subscription-button-margin ".concat(isActive ? "focus" : ""),
                           onClick: function onClick() {
                             return handleSubscription({
                               subscription_plan: item,
@@ -1444,7 +1444,7 @@ var ProductInfo = function ProductInfo(_ref) {
                           },
                           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("span", {
                             className: "textPlansProduct",
-                            children: [cicle, " Meses / ", month, " Ciclos"]
+                            children: [cicle, " ", "Meses /", " ", month, " ", "Ciclos"]
                           })
                         });
                       })
