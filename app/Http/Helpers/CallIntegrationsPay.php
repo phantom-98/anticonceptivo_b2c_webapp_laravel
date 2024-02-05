@@ -40,7 +40,7 @@ class CallIntegrationsPay extends CoreHelper
         if($order->dispatch != 0.0){
             $item = array(
                 'productItemName' => "Despacho",
-                'productItemId' => 2376186,
+                'productItemId' => '2376186',
                 'price' => $order->dispatch ,
                 'quantity' => 1,
                 "taxable"=> true,
