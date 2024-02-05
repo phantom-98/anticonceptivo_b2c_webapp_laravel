@@ -546,7 +546,7 @@ class WebpayPlusController
                 return ApiResponse::JsonError([], 'Error inesperado');
             }
         }
-        StockApiUpdate::dispatch($order->id, "discount");
+        //StockApiUpdate::dispatch($order->id, "discount");
 
         if ($isSubscription) {
             if ($_subscription) {
@@ -729,6 +729,7 @@ class WebpayPlusController
 
     public function response(Request $request)
     {
+	Log::info('samdebug', [$request->all()]);
 
         if ($request->token_ws) {
 
@@ -752,6 +753,7 @@ class WebpayPlusController
                 $order->type = $response->paymentTypeCode;
                 $order->is_paid = true;
                 $order->save();
+		StockApiUpdate::dispatch($order->id, "discount");
                 if ($order->discount_code_id) {
                     $this->updateDiscountCode($order->discount_code->name);
                 }
@@ -793,7 +795,7 @@ class WebpayPlusController
             } else {
                 if ($order->status != 'PAID' && $order->status != 'DELIVERED' && $order->status != 'DISPATCHED') {
                     Log::info('RESPONSE_CODE_ELSE', [$response->responseCode]);
-                    StockApiUpdate::dispatch($order->id, "add");
+                    //StockApiUpdate::dispatch($order->id, "add");
                     $order->status = PaymentStatus::REJECTED;
                     $order->type = $response->paymentTypeCode;
                     $order->is_paid = false;
@@ -812,6 +814,10 @@ class WebpayPlusController
                 Log::info('WEBPAY_REGISTER_EXCEPTION', [$ex]);
             }
         } else {
+	    //$response = $request->TBK_ORDEN_COMPRA;
+            //$order = Order::with('order_items.subscription_plan', 'customer', 'order_items.product', 'discount_code')->find($response);
+            //StockApiUpdate::dispatch($order->id, "add");
+	    Log::info('samdebugfinal', ['stock reversed']);
             $url = (env('APP_URL')) . '/checkout';
             return redirect($url);
         }
