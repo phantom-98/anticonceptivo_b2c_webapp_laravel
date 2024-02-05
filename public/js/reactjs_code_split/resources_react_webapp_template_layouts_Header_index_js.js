@@ -3615,7 +3615,7 @@ var HeaderBox = function HeaderBox() {
   var _useContext2 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_context_AuthProvider__WEBPACK_IMPORTED_MODULE_11__.AuthContext),
     auth = _useContext2.auth,
     logout = _useContext2.logout;
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
     _useState2 = _slicedToArray(_useState, 2),
     search = _useState2[0],
     setSearch = _useState2[1];
@@ -3659,7 +3659,7 @@ var HeaderBox = function HeaderBox() {
     };
   }, [debouncedSearch]);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    if (search !== '' && search.length >= 3) {
+    if (search !== "" && search.length >= 3) {
       setIsLoading(true);
       getProducts();
     } else {
@@ -3667,17 +3667,17 @@ var HeaderBox = function HeaderBox() {
     }
   }, [search]);
   var handleKeyPress = function handleKeyPress(event) {
-    if (event.key === 'Enter') {
+    if (event.key === "Enter") {
       getSearch();
     }
   };
   var getSearch = function getSearch(e) {
-    if (debouncedSearch.trim() != '') {
+    if (debouncedSearch.trim() != "") {
       var _url = _routes_publicRoutes__WEBPACK_IMPORTED_MODULE_8__["default"].SHOP_SEARCH.path;
       _url = _url.replace(":search", debouncedSearch);
       setIsVisibilityDropdownSearch(false);
       if (products.length == 1) {
-        window.location.href = _routes_publicRoutes__WEBPACK_IMPORTED_MODULE_8__["default"].PRODUCT_DETAIL.path.replace(':slug', products[0].slug);
+        window.location.href = _routes_publicRoutes__WEBPACK_IMPORTED_MODULE_8__["default"].PRODUCT_DETAIL.path.replace(":slug", products[0].slug);
       } else {
         window.location.href = _url;
       }
@@ -3692,6 +3692,7 @@ var HeaderBox = function HeaderBox() {
       search: search
     };
     _Services__WEBPACK_IMPORTED_MODULE_17__.DoPost(url, data).then(function (response) {
+      console.log(response.data);
       _Services__WEBPACK_IMPORTED_MODULE_17__.Response({
         response: response,
         success: function success() {
@@ -3704,9 +3705,9 @@ var HeaderBox = function HeaderBox() {
     });
   };
   var url = _routes_privateRoutes__WEBPACK_IMPORTED_MODULE_9__["default"].ACCOUNT.path;
-  url = url.replace(':section', 'informacion-personal');
+  url = url.replace(":section", "informacion-personal");
   var dropdownStyle = {
-    overflowY: 'scroll'
+    overflowY: "scroll"
   };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("div", {
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("div", {
@@ -3746,7 +3747,7 @@ var HeaderBox = function HeaderBox() {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)("div", {
             className: "input-group search-filter-button ml-auto search-top-desktop",
             style: {
-              maxWidth: '540px'
+              maxWidth: "540px"
             },
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("input", {
               type: "text",
@@ -3755,7 +3756,7 @@ var HeaderBox = function HeaderBox() {
               placeholder: "Buscar medicamentos, laboratorios o principio activo",
               value: debouncedSearch,
               style: {
-                height: '45px'
+                height: "45px"
               },
               onChange: function onChange(e) {
                 return setDebouncedSearch(e.target.value);
@@ -3768,7 +3769,7 @@ var HeaderBox = function HeaderBox() {
                 type: "button",
                 className: "btn btn-bicolor",
                 style: {
-                  height: '45px'
+                  height: "45px"
                 },
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("span", {
                   className: "px-3",
@@ -3779,7 +3780,7 @@ var HeaderBox = function HeaderBox() {
               })
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("div", {
-            className: "dropdown-content ".concat(products.length && search.length > 0 && isVisibilityDropdownSearch ? 'dropdown-search' : 'd-none', " "),
+            className: "dropdown-content ".concat(products.length && search.length > 0 && isVisibilityDropdownSearch ? "dropdown-search" : "d-none", " "),
             ref: refDropdownList,
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("div", {
               className: "box-search-result",
@@ -3791,22 +3792,22 @@ var HeaderBox = function HeaderBox() {
                 return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
                   children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_20__.Link, {
                     onClick: function onClick() {
-                      return setSearch('');
+                      return setSearch("");
                     },
-                    to: _routes_publicRoutes__WEBPACK_IMPORTED_MODULE_8__["default"].PRODUCT_DETAIL.path.replace(':slug?', product.slug),
+                    to: _routes_publicRoutes__WEBPACK_IMPORTED_MODULE_8__["default"].PRODUCT_DETAIL.path.replace(":slug?", product.slug),
                     style: {
-                      textDecoration: 'none',
-                      color: '#000000'
+                      textDecoration: "none",
+                      color: "#000000"
                     },
                     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)("div", {
                       className: "row mt-2 px-0 mx-0",
                       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("div", {
                         className: "col-2",
                         style: {
-                          display: 'flex',
-                          flexDirection: 'column',
-                          justifyContent: 'center',
-                          alignItems: 'center'
+                          display: "flex",
+                          flexDirection: "column",
+                          justifyContent: "center",
+                          alignItems: "center"
                         },
                         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)(react_lazy_load_image_component__WEBPACK_IMPORTED_MODULE_15__.LazyLoadImage, {
                           src: product.images.length ? product.images[0].public_file : _assets_images_producto_default_png__WEBPACK_IMPORTED_MODULE_4__["default"],
@@ -3820,11 +3821,11 @@ var HeaderBox = function HeaderBox() {
                       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)("div", {
                         className: "col-6 mr-auto",
                         style: {
-                          alignSelf: 'center'
+                          alignSelf: "center"
                         },
                         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("span", {
                           className: "d-block font-poppins italic font-11 color-707070",
-                          children: product.laboratory.name
+                          children: product.laboratory ? product.laboratory.name : ""
                         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("span", {
                           className: "font-poppins bold font-14",
                           children: product.name
@@ -3832,38 +3833,38 @@ var HeaderBox = function HeaderBox() {
                       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("div", {
                         className: "col-4",
                         style: {
-                          display: 'flex',
-                          flexDirection: 'column',
-                          justifyContent: 'center',
-                          alignItems: 'flex-end'
+                          display: "flex",
+                          flexDirection: "column",
+                          justifyContent: "center",
+                          alignItems: "flex-end"
                         },
                         children: product.is_offer ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.Fragment, {
                           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)("span", {
                             className: "font-14 font-poppins bold",
                             style: {
-                              color: '#009BE8'
+                              color: "#009BE8"
                             },
                             children: [(0,_helpers_GlobalUtils__WEBPACK_IMPORTED_MODULE_14__.formatMoney)(product.offer_price), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("span", {
                               className: "badge badge-pill ml-1 font-10",
                               style: {
-                                backgroundColor: '#00dbae29',
-                                color: '#00a785'
+                                backgroundColor: "#00dbae29",
+                                color: "#00a785"
                               },
                               children: "Oferta"
                             })]
                           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("span", {
                             className: "font-12 font-poppins color-707070",
                             style: {
-                              color: '#009BE8'
+                              color: "#009BE8"
                             },
                             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)("del", {
-                              children: [(0,_helpers_GlobalUtils__WEBPACK_IMPORTED_MODULE_14__.formatMoney)(product.price), " (Normal)"]
+                              children: [(0,_helpers_GlobalUtils__WEBPACK_IMPORTED_MODULE_14__.formatMoney)(product.price), " ", "(Normal)"]
                             })
                           })]
                         }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("span", {
                           className: "font-14 font-poppins bold",
                           style: {
-                            color: '#009BE8'
+                            color: "#009BE8"
                           },
                           children: (0,_helpers_GlobalUtils__WEBPACK_IMPORTED_MODULE_14__.formatMoney)(product.price)
                         })
@@ -3876,14 +3877,14 @@ var HeaderBox = function HeaderBox() {
                 style: {
                   marginTop: 25
                 },
-                children: ["\xBFNo encontraste lo que buscabas?, Nosotros te asesoramos ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("a", {
+                children: ["\xBFNo encontraste lo que buscabas?, Nosotros te asesoramos", " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)("a", {
                   href: "https://wa.me/56987380541",
                   target: "_BLANK",
                   style: {
-                    textDecoration: 'underline',
-                    marginLeft: '5px'
+                    textDecoration: "underline",
+                    marginLeft: "5px"
                   },
-                  children: "  aqu\xED."
+                  children: [" ", "aqu\xED."]
                 })]
               })
             })
@@ -3893,7 +3894,7 @@ var HeaderBox = function HeaderBox() {
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("div", {
             className: "my-auto",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)("div", {
-              className: "row top-do-flex ".concat(auth ? null : 'pointer'),
+              className: "row top-do-flex ".concat(auth ? null : "pointer"),
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("div", {
                 className: "col-auto my-auto pr-1",
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)(_components_general_Icon__WEBPACK_IMPORTED_MODULE_1__["default"], {

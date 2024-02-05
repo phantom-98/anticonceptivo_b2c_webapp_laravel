@@ -753,7 +753,7 @@ __webpack_require__.r(__webpack_exports__);
 var ContactUs = function ContactUs() {
   var breadcrumbs = [{
     url: _routes_publicRoutes__WEBPACK_IMPORTED_MODULE_2__["default"].HOME.path,
-    name: 'Inicio'
+    name: "Inicio"
   }, {
     url: _routes_publicRoutes__WEBPACK_IMPORTED_MODULE_2__["default"].CONTACT_US.path,
     name: _routes_publicRoutes__WEBPACK_IMPORTED_MODULE_2__["default"].CONTACT_US.title
