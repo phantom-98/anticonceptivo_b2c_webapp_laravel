@@ -589,7 +589,7 @@ class WebpayPlusController
                             $order->payment_type = 'tarjeta';
                             $order->save();
                         }
-                        StockApiUpdate::dispatch($order->id, "add");
+                        //StockApiUpdate::dispatch($order->id, "add");
                         return ApiResponse::JsonError([], 'Pago Rechazado');
                     }
 
@@ -622,7 +622,7 @@ class WebpayPlusController
                     //                        CallIntegrationsPay::sendEmailsOrder($order->id);
                     //                    }
                     FinishPaymentJob::dispatch($order);
-                    UpdateProductStockJob::dispatch($order);
+                    //UpdateProductStockJob::dispatch($order);
                     //                    return ApiResponse::JsonSuccess([
                     //                        'order' => $order
                     //                    ], 'Compra OneClick');
@@ -686,7 +686,18 @@ class WebpayPlusController
                 //TODO check Stock, cuando entre a transbank deberia mantenerlo en estado pendiente mejorar llamada
                 /*$get_data = ApiHelper::callAPI('GET', 'https://api.ailoo.cl/v1/inventory/barCode/' . $product->barcode, null, 'ailoo');*/
                 
-                $get_data = ApiHelper::callAPI('GET', env('INVENTARIO_API_URL').'product/stockByCode/' . $product->barcode, null, 'inventario_api');
+
+                if($product != null) {
+                    if($product->stock < $quantity){
+                        return array(
+                            'status' => false,
+                            'product' => $product,
+                            'quantity' => $quantity
+                        );
+                    }
+                }
+
+                /* $get_data = ApiHelper::callAPI('GET', env('INVENTARIO_API_URL').'product/stockByCode/' . $product->barcode, null, 'inventario_api');
                 
                 $response = json_decode($get_data, true);
                 
@@ -712,7 +723,7 @@ class WebpayPlusController
                         'product' => $product,
                         'quantity' => $quantity
                     );
-                }
+                } */
             }
 
            
@@ -789,7 +800,7 @@ class WebpayPlusController
                     //                        CallIntegrationsPay::callDispatchLlego($order->id, $customerAddress);
                     //                        CallIntegrationsPay::sendEmailsOrder($order->id);
                     //                    }*/
-                    UpdateProductStockJob::dispatch($order);
+                    //UpdateProductStockJob::dispatch($order);
                     FinishPaymentJob::dispatch($order);
                 //}
             } else {
