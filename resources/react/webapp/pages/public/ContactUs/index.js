@@ -1,15 +1,14 @@
-import React from 'react';
+import React from "react";
 import BasePanelOne from "../../../template/BasePanelOne";
 import PUBLIC_ROUTES from "../../../routes/publicRoutes";
 
 import ContactForm from "./ContactForm";
 
-const ContactUs = () =>{
-
+const ContactUs = () => {
     let breadcrumbs = [
         {
             url: PUBLIC_ROUTES.HOME.path,
-            name: 'Inicio'
+            name: "Inicio",
         },
         {
             url: PUBLIC_ROUTES.CONTACT_US.path,
@@ -31,4 +30,4 @@ const ContactUs = () =>{
     );
 };
 
-export default ContactUs
+export default ContactUs;
