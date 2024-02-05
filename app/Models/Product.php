@@ -42,7 +42,8 @@ class Product extends Model
         'position',
         'is_indexable',
         'days_protection',
-        'is_generic'
+        'is_generic',
+        'cpp'
     ];
 
     protected $appends = ['images', 'format_compound', 'subscriptions_count', 'subscriptions_items'];
