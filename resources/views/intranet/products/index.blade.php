@@ -135,7 +135,7 @@
 
             let columns = [];
 
-           /*  @if($config['blade']['showActions'] and $config['any_action'])
+            @if($config['blade']['showActions'] and $config['any_action'])
 
                 columns.push({
                     title: 'Acciones',
@@ -157,7 +157,7 @@
                 });
 
 
-            @endif */
+            @endif
 
             columns.push(
                 /*{
