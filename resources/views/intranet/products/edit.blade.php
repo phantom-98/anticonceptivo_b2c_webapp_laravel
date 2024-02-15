@@ -30,28 +30,28 @@
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel">
                     <div class="panel-body">
-                        <div class="col-md-4">
+                        <div class="col-md-4" >
                             <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group" id="group-error-imagen">
-                                        <label for="avatar">Imagen</label>
-                                        <div class="image-product">
+                                <div class="col-md-12" >
+                                    <div class="form-group" id="group-error-imagen" >
+                                        <label for="avatar"><h3>{{$object->name}}</h3></label>
+                                        <div class="image-product" >
                                             @if(isset($object->images[0]))
                                             <img id="image-product" src="{{$object->images[0]->public_file }}">
                                             @else
                                             <img id="image-product" src="/images/producto-default.png">
                                             @endif
                                         </div>
-                                        <input type="file" name="image[]" id="file-image-product"
+                                        {{-- <input type="file" name="image[]" id="file-image-product"
                                             class="inputfile" accept="image/x-png,image/gif,image/jpeg" multiple />
                                         <label for="file-image-product">Seleccione una imagen o más imagenes</label>
                                         <span class="help-block" id="label-error-image"></span>
-                                        <div class="link-del" id="link-del" onclick="deleteImg();"></div>
+                                        <div class="link-del" id="link-del" onclick="deleteImg();"></div> --}}
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-md-8" style="display: none;">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group {{ $errors->has('name') ? 'has-error':'' }}">
@@ -335,7 +335,7 @@
 
                             </div>
                         </div>
-                        <div class="col-md-12 mt-2">
+                        <div class="col-md-12 mt-2" style="display: none;">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -371,6 +371,8 @@
                             </div>
                         </div>
                         <br/>
+                        
+                        <div class="clearfix"></div>
                         <div class="col-md-4">
                             Detalle de planes
                         </div>
