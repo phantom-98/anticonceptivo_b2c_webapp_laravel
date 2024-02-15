@@ -20,11 +20,11 @@
                 <div class="panel-body">
 
                     <div id="toolbar">
-                        @if($config['action']['create'])
+                       {{--  @if($config['action']['create'])
 
                             <a href="{{ route($config['route'] . 'create') }}" class="btn btn-success"><i
                                     class="ti-plus"></i> Nuevo producto</a>
-                        @endif
+                        @endif --}}
 
                         @can('intranet.products.export')
                             <button type="submit" class="btn btn-success " onclick="export_excel()"
@@ -32,11 +32,11 @@
                             </button>
                         @endcan
 
-                        @can('intranet.products.import')
+                        {{-- @can('intranet.products.import')
                             <a class="btn btn-success" data-toggle="modal" data-target="#modal-create"
                                style="margin-left: 20px"><i
                                     class="ti-export"></i>&nbsp;&nbsp;&nbsp;Carga masiva de productos</a>
-                        @endcan
+                        @endcan --}}
                         
                   
                         @if($search && $search->value == 0 )
@@ -135,7 +135,7 @@
 
             let columns = [];
 
-            @if($config['blade']['showActions'] and $config['any_action'])
+           /*  @if($config['blade']['showActions'] and $config['any_action'])
 
                 columns.push({
                     title: 'Acciones',
@@ -157,7 +157,7 @@
                 });
 
 
-            @endif
+            @endif */
 
             columns.push(
                 /*{
