@@ -95,7 +95,7 @@ class ProductController extends Controller
             $search = $request->search;
             $productCount = Product::where(function ($query) use ($search) {
                 $query->where('name', 'LIKE', '%' . $search . '%')
-                    ->orWhere('sku', 'LIKE', '%' . $search . '%')
+                    /* ->orWhere('sku', 'LIKE', '%' . $search . '%') */
                     ->orWhere('compound', 'LIKE', '%' . $search . '%')
                     ->orWhere('description', 'LIKE', '%' . $search . '%')
                     ->orWhereHas('laboratory', function ($query) use ($search) {
@@ -108,7 +108,7 @@ class ProductController extends Controller
             $products = Product::with(['subcategory.category', 'laboratory', 'product_images', 'plans.subscription_plan'])
                 ->where(function ($query) use ($search) {
                     $query->where('name', 'LIKE', '%' . $search . '%')
-                        ->orWhere('sku', 'LIKE', '%' . $search . '%')
+                        /* ->orWhere('sku', 'LIKE', '%' . $search . '%') */
                         ->orWhere('compound', 'LIKE', '%' . $search . '%')
                         ->orWhere('description', 'LIKE', '%' . $search . '%')
                         ->orWhereHas('laboratory', function ($query) use ($search) {
@@ -116,7 +116,7 @@ class ProductController extends Controller
                         });
                 })->where('active', true)
                 ->skip($offset)->take($perPage)
-                ->orderBy('position')
+                /* ->orderBy('position') */
                 ->get();
 
             $subcategories = [];
@@ -191,15 +191,15 @@ class ProductController extends Controller
             $products = Product::with(['subcategory.category', 'product_images', 'laboratory', 'plans.subscription_plan'])
                 ->where(function ($query) use ($search) {
                     $query->where('name', 'LIKE', '%' . $search . '%')
-                        ->orWhere('sku', 'LIKE', '%' . $search . '%')
+                        /* ->orWhere('sku', 'LIKE', '%' . $search . '%') */
                         ->orWhere('description', 'LIKE', '%' . $search . '%')
                         ->orWhere('compound', 'LIKE', '%' . $search . '%')
                         ->orWhereHas('laboratory', function ($query) use ($search) {
                             $query->where('name', 'LIKE', '%' . $search . '%');
                         });
                 })->where('active', true)
-                ->orderBy('stock','desc')
-                ->orderBy('position');
+                ->orderBy('stock','desc');
+                /* ->orderBy('position'); */
 
             $laboratories = Laboratory::where('active', true)->whereIn('id', $products->pluck('laboratory_id')->unique());
             $subcatNames = null;
