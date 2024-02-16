@@ -282,7 +282,6 @@ var AccordionBody = function AccordionBody(_ref) {
       })
     }), data.formated_costs.map(function (cost, index) {
       var comunnes = cost.communes.join(", ");
-      console.log(cost);
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
         className: "col-md-12 mb-3",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("h3", {

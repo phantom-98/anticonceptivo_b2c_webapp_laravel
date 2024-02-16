@@ -35,7 +35,6 @@ const AccordionBody = ({ data }) => {
             </div>
             {data.formated_costs.map((cost, index) => {
                 let comunnes = cost.communes.join(", ");
-                console.log(cost);
                 return (
                     <div className="col-md-12 mb-3" key={uuidv4}>
                         <h3>
