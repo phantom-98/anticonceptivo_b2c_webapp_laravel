@@ -4734,7 +4734,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 var Search = function Search() {
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
     _useState2 = _slicedToArray(_useState, 2),
     search = _useState2[0],
     setSearch = _useState2[1];
@@ -4777,7 +4777,7 @@ var Search = function Search() {
     };
   }, [debouncedSearch]);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    if (search !== '' && search.length >= 3) {
+    if (search !== "" && search.length >= 3) {
       setIsLoading(true);
       getProducts();
     } else {
@@ -4788,17 +4788,17 @@ var Search = function Search() {
     return setProducts([]);
   };
   var handleKeyPress = function handleKeyPress(event) {
-    if (event.key === 'Enter') {
+    if (event.key === "Enter") {
       getSearch();
     }
   };
   var getSearch = function getSearch(e) {
-    if (debouncedSearch.trim() != '') {
+    if (debouncedSearch.trim() != "") {
       var url = _routes_publicRoutes__WEBPACK_IMPORTED_MODULE_1__["default"].SHOP_SEARCH.path;
       url = url.replace(":search", debouncedSearch);
       setIsVisibilityDropdownSearch(false);
       if (products.length == 1) {
-        window.location.href = _routes_publicRoutes__WEBPACK_IMPORTED_MODULE_1__["default"].PRODUCT_DETAIL.path.replace(':slug', products[0].slug);
+        window.location.href = _routes_publicRoutes__WEBPACK_IMPORTED_MODULE_1__["default"].PRODUCT_DETAIL.path.replace(":slug", products[0].slug);
       } else {
         window.location.href = url;
       }
@@ -4822,18 +4822,18 @@ var Search = function Search() {
     });
   };
   var bordersStyle = {
-    borderTop: '1px solid #D6D6D6',
-    borderBottom: '1px solid #D6D6D6'
+    borderTop: "1px solid #D6D6D6",
+    borderBottom: "1px solid #D6D6D6"
   };
   var clearText = function clearText() {
-    setSearch('');
-    setDebouncedSearch('');
+    setSearch("");
+    setDebouncedSearch("");
     clearResults();
   };
   var divClearTextStyle = {
-    display: 'flex',
-    alignItems: 'center',
-    marginRight: '15px'
+    display: "flex",
+    alignItems: "center",
+    marginRight: "15px"
   };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
     className: "col px-0 top-do-flex",
@@ -4849,14 +4849,14 @@ var Search = function Search() {
           return setDebouncedSearch(e.target.value);
         },
         onKeyPress: handleKeyPress
-      }), search.length > 0 && search.trim() != '' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("div", {
+      }), search.length > 0 && search.trim() != "" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("div", {
         onClick: clearText,
         style: divClearTextStyle,
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_components_general_Icon__WEBPACK_IMPORTED_MODULE_7__["default"], {
           path: _assets_images_icons_header_close_modal_svg__WEBPACK_IMPORTED_MODULE_6__["default"],
           style: {
-            width: '15px',
-            height: '15px'
+            width: "15px",
+            height: "15px"
           }
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("div", {
@@ -4889,17 +4889,17 @@ var Search = function Search() {
           return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_12__.Link, {
               onClick: clearText,
-              to: _routes_publicRoutes__WEBPACK_IMPORTED_MODULE_1__["default"].PRODUCT_DETAIL.path.replace(':slug?', product.slug),
+              to: _routes_publicRoutes__WEBPACK_IMPORTED_MODULE_1__["default"].PRODUCT_DETAIL.path.replace(":slug?", product.slug),
               style: {
-                textDecoration: 'none',
-                color: '#000000'
+                textDecoration: "none",
+                color: "#000000"
               },
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
                 className: "row mt-2 px-0",
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("div", {
                   className: "col-3 text-center",
                   style: {
-                    alignSelf: 'center'
+                    alignSelf: "center"
                   },
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(react_lazy_load_image_component__WEBPACK_IMPORTED_MODULE_9__.LazyLoadImage, {
                     alt: "".concat(_Config__WEBPACK_IMPORTED_MODULE_3__.CONFIG.APP_NAME, " - ").concat(product.name),
@@ -4915,11 +4915,11 @@ var Search = function Search() {
                     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
                       className: "col-12",
                       style: {
-                        alignSelf: 'center'
+                        alignSelf: "center"
                       },
                       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("span", {
                         className: "d-block font-poppins italic font-11 color-707070",
-                        children: product.laboratory.name
+                        children: product.laboratory ? product.laboratory.name : ""
                       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("span", {
                         className: "font-poppins bold font-14",
                         children: product.name
@@ -4930,29 +4930,29 @@ var Search = function Search() {
                         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("span", {
                           className: "font-14 font-poppins bold",
                           style: {
-                            color: '#009BE8'
+                            color: "#009BE8"
                           },
                           children: [(0,_helpers_GlobalUtils__WEBPACK_IMPORTED_MODULE_4__.formatMoney)(product.offer_price), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("span", {
                             className: "badge badge-pill ml-1 font-10",
                             style: {
-                              backgroundColor: '#00dbae29',
-                              color: '#00a785'
+                              backgroundColor: "#00dbae29",
+                              color: "#00a785"
                             },
                             children: "Oferta"
                           })]
                         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("span", {
                           className: "ml-2 font-12 font-poppins color-707070",
                           style: {
-                            color: '#009BE8'
+                            color: "#009BE8"
                           },
                           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("del", {
-                            children: [(0,_helpers_GlobalUtils__WEBPACK_IMPORTED_MODULE_4__.formatMoney)(product.price), " (Normal)"]
+                            children: [(0,_helpers_GlobalUtils__WEBPACK_IMPORTED_MODULE_4__.formatMoney)(product.price), " ", "(Normal)"]
                           })
                         })]
                       }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("span", {
                         className: "font-14 font-poppins bold",
                         style: {
-                          color: '#009BE8'
+                          color: "#009BE8"
                         },
                         children: (0,_helpers_GlobalUtils__WEBPACK_IMPORTED_MODULE_4__.formatMoney)(product.price)
                       })
@@ -4967,12 +4967,12 @@ var Search = function Search() {
           style: {
             marginTop: 25
           },
-          children: ["\xBFNo encontraste lo que buscabas?, Nosotros te asesoramos ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("a", {
+          children: ["\xBFNo encontraste lo que buscabas?, Nosotros te asesoramos", " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("a", {
             href: "https://wa.me/56987380541",
             target: "_BLANK",
             style: {
-              textDecoration: 'underline',
-              display: 'contents'
+              textDecoration: "underline",
+              display: "contents"
             },
             children: "aqu\xED."
           })]

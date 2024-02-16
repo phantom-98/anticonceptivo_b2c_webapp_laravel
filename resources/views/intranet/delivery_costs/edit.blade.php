@@ -93,10 +93,13 @@
                                     <input type="color" name="color[{{$loop->iteration}}][]" class="form-control color"  value="{{ $cost->color[0] }}">
                                 </div>
                             </div>
-                            <div class="col-md-2">
-                                <button class="btn btn-success" type="button" style="margin-top:22px" onclick="addNewRow()"><i
-                                    class="fa fa-plus"></i> Añadir otro rango</button>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="text">Descripcion(*)</label>
+                                    <input type="text" name="description[{{$loop->iteration}}][]" class="form-control color"  value="{{ $cost->description[0] ?? '' }}">
+                                </div>
                             </div>
+                            
                         </div>
                         @empty
                         <div class="row clone">
@@ -136,7 +139,12 @@
                                 <a href="{{route($config['route'] . 'index')}}" class="btn btn-default"><i
                                             class="fa fa-chevron-left"></i> {{$config['blade']['btnBack']}}</a>
                             </div>
+                            
                             <div class="col-xs-6 text-right">
+                                
+                                    <button class="btn btn-success" type="button"  onclick="addNewRow()"><i
+                                        class="fa fa-plus"></i> Añadir otro rango</button>
+                                
                                 <button class="btn btn-primary" type="submit"><i
                                             class="fa fa-save"></i> {{$config['blade']['btnSave']}}</button>
                             </div>
