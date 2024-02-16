@@ -274,14 +274,15 @@ var AccordionBody = function AccordionBody(_ref) {
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
           className: "col card-delivery-cost-title",
-          children: ["El costo de nuestros despachos ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("span", {
+          children: ["El costo de nuestros despachos", " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("span", {
             className: "regular",
             children: ["(m\xE1ximo ", data.deadline_delivery, " horas h\xE1biles)"]
           })]
         })]
       })
-    }), data.formated_costs.map(function (cost) {
-      var comunnes = cost.communes.join(', ');
+    }), data.formated_costs.map(function (cost, index) {
+      var comunnes = cost.communes.join(", ");
+      console.log(cost);
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
         className: "col-md-12 mb-3",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("h3", {
@@ -290,14 +291,16 @@ var AccordionBody = function AccordionBody(_ref) {
               backgroundColor: cost.color,
               height: 10,
               width: 10,
-              border: '1px solid #009BE8',
-              borderRadius: '50%',
-              display: 'inline-block',
+              border: "1px solid #009BE8",
+              borderRadius: "50%",
+              display: "inline-block",
               marginBottom: 2
             }
-          }), " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+          }), " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("span", {
             className: "font-poppins font-22 bold color-033F5D",
-            children: (0,_helpers_GlobalUtils__WEBPACK_IMPORTED_MODULE_3__.formatMoney)(cost.price)
+            children: [(0,_helpers_GlobalUtils__WEBPACK_IMPORTED_MODULE_3__.formatMoney)(cost.price), " ", !cost.description.some(function (element) {
+              return element === null;
+            }) ? "- ".concat(cost.description) : ""]
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("p", {
           className: "font-inter font-11 medium color-484848 ml-4 pl-2",

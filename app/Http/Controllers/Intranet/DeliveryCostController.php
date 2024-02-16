@@ -138,7 +138,8 @@ class DeliveryCostController extends GlobalController
             foreach($request->price as $key => $price){
                 $price = array_filter($price, function($value) { return !is_null($value) && $value !== ''; });
                 if($price){
-                    array_push($json_save, ['price' => $price, 'communes' => $request->communes[$key], 'color' => $request->color[$key]]);
+                    $desc = $request->description[$key] ?? '';
+                    array_push($json_save, ['price' => $price, 'communes' => $request->communes[$key], 'color' => $request->color[$key], "description" => $desc]);
                 }
             }
             $json_save = json_encode($json_save);
