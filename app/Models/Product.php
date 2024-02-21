@@ -90,6 +90,10 @@ class Product extends Model
     public function plans(){
         return $this->hasMany(ProductSubscriptionPlan::class);
     }
+    public function locations()
+{
+    return $this->belongsToMany(Location::class);
+}
 
     public function order_items(){
         return $this->hasMany(OrderItem::class);
