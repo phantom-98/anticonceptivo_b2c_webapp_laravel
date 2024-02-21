@@ -20,4 +20,4 @@ jobs:
             cd /var/www/anticonceptivo_b2c_webapp_laravel
             git pull origin main
             systemctl restart nginx
-            echo "deploy succesfull"
+            echo "deploy succesfull to prod"
