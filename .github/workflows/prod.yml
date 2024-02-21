@@ -1,0 +1,23 @@
+name: Deploy Aws
+"on":
+  pull_request:
+    types: [closed]
+    branches:
+      - main
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.pull_request.merged == true }}
+    steps:
+      - name: Deploy to Aws
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{secrets.HOST}}
+          username: ${{secrets.USERNAME}}
+          key: ${{secrets.KEY}}
+          passphrase: ${{ secrets.PASSPHRASE }}
+          script: |
+            cd /var/www/anticonceptivo_b2c_webapp_laravel
+            git pull origin main
+            systemctl restart nginx
+            echo "deploy succesfull"
