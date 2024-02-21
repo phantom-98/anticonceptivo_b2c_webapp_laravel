@@ -17,6 +17,7 @@ jobs:
           key: ${{secrets.KEY}}
           passphrase: ${{ secrets.PASSPHRASE }}
           script: |
+            sudo su
             cd /var/www/anticonceptivo_b2c_webapp_laravel
             git pull origin main
             systemctl restart nginx
