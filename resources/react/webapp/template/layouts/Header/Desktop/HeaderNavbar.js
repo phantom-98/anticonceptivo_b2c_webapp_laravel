@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import HeaderNavbarItemV2 from "../../../components/HeaderNavbarItemV2";
 import { Dropdown } from "react-bootstrap";
 import PUBLIC_ROUTES from "../../../../routes/publicRoutes";
@@ -7,6 +7,7 @@ import { v4 as uuidv4 } from "uuid";
 import { Link } from "react-router-dom";
 import PillsDropDown from "../../../components/PillsDropDown";
 import UseWindowDimensions from "../../../../components/customHooks/UseWindowDimensions";
+import { AppContext } from "../../../../context/AppProvider";
 
 const customStyles = {
     background: "white",
@@ -22,6 +23,7 @@ const customStyles = {
 
 const HeaderNavbar = () => {
     const { width } = UseWindowDimensions();
+    const { currentStore, showModalStoreChange } = useContext(AppContext);
     const [categories, setCategories] = useState([]);
     const [spliceCategories, setSpliceCategories] = useState([]);
     const [showDropdown, setShowDropdown] = useState(null);
@@ -40,7 +42,7 @@ const HeaderNavbar = () => {
 
     useEffect(() => {
         getResources();
-    }, []);
+    }, [currentStore]);
 
     const setView = (width) => {
         if (width < 1385) {
@@ -86,13 +88,19 @@ const HeaderNavbar = () => {
                                 { ...category, categoryId: categoryId },
                             ];
                         });
-
+                        if (currentStore == "oxfar")
+                            list = list.filter(
+                                (item) =>
+                                    item.name === "Medicamentos y Otros" ||
+                                    item.name === "Belleza y Cuidado Personal"
+                            );
                         setLaboratories(response.data.laboratories);
                         setFormats(Object.values(response.data.formats));
                         setSubscriptions(response.data.subscriptions);
                         setCategories(list);
                     },
                 });
+                showModalStoreChange(false);
             })
             .catch((error) => {
                 Services.ErrorCatch(error);
@@ -183,7 +191,7 @@ const HeaderNavbar = () => {
     };
 
     return (
-        <div className="header-navbar bg-0869A6">
+        <div className="header-navbar">
             <div className="container px-0 max-header-navbar">
                 {spliceCategories.map((cat, i) => {
                     if (cat.length) {
