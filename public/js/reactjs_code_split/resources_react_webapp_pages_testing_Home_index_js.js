@@ -229,7 +229,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 var OutstandingCarousel = function OutstandingCarousel(_ref) {
   var title = _ref.title,
     _ref$style = _ref.style,
-    style = _ref$style === void 0 ? 'pt-5 pb-5' : _ref$style;
+    style = _ref$style === void 0 ? "pt-5 pb-5" : _ref$style,
+    brand = _ref.brand;
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
     _useState2 = _slicedToArray(_useState, 2),
     outstandings = _useState2[0],
@@ -242,7 +243,14 @@ var OutstandingCarousel = function OutstandingCarousel(_ref) {
     getData();
   }, []);
   var getData = function getData() {
-    var url = _Services__WEBPACK_IMPORTED_MODULE_2__.ENDPOINT.PUBLIC_AREA.CARROUSELS.GET_OUTSTANDING;
+    var url;
+    if (brand !== "anticonceptivo") {
+      url = _Services__WEBPACK_IMPORTED_MODULE_2__.ENDPOINT.PUBLIC_AREA.CARROUSELS.GET_LANDING + brand;
+    } else {
+      url = _Services__WEBPACK_IMPORTED_MODULE_2__.ENDPOINT.PUBLIC_AREA.CARROUSELS.GET_OUTSTANDING;
+    }
+
+    //let url = Services.ENDPOINT.PUBLIC_AREA.CARROUSELS.GET_OUTSTANDING;
     var data = {};
     _Services__WEBPACK_IMPORTED_MODULE_2__.DoGet(url, data).then(function (response) {
       _Services__WEBPACK_IMPORTED_MODULE_2__.Response({
@@ -514,7 +522,7 @@ var AddCartCard = function AddCartCard(_ref) {
     product = _ref.product,
     subscription = _ref.subscription,
     _ref$classModule = _ref.classModule,
-    classModule = _ref$classModule === void 0 ? '' : _ref$classModule;
+    classModule = _ref$classModule === void 0 ? "" : _ref$classModule;
   var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_context_CartProvider__WEBPACK_IMPORTED_MODULE_2__.CartContext),
     addToCart = _useContext.addToCart;
   var _useContext2 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_context_AuthProvider__WEBPACK_IMPORTED_MODULE_3__.AuthContext),
@@ -525,19 +533,19 @@ var AddCartCard = function AddCartCard(_ref) {
     if (subscription && !auth) {
       var swalWithBootstrapButtons = sweetalert2__WEBPACK_IMPORTED_MODULE_6___default().mixin({
         customClass: {
-          confirmButton: 'col-4 ml-4 btn btn-bicolor btn-block',
+          confirmButton: "col-4 ml-4 btn btn-bicolor btn-block",
           cancelButton: "col-4 mr-4 btn btn-outline-bicolor btn-block",
-          title: 'mt-4'
+          title: "mt-4"
         },
         buttonsStyling: false
       });
       swalWithBootstrapButtons.fire({
         title: '<span style="color: #0869A6;">Para agregar este producto debes acceder a tu cuenta</span>',
-        confirmButtonText: 'Acceder',
-        cancelButtonText: 'Cancelar',
+        confirmButtonText: "Acceder",
+        cancelButtonText: "Cancelar",
         showCancelButton: true,
         reverseButtons: true,
-        width: '36rem'
+        width: "36rem"
       }).then(function (result) {
         if (result.isConfirmed) {
           showModalAuth(_Globals__WEBPACK_IMPORTED_MODULE_5__.ModalAuthMode.LOGIN);

@@ -531,7 +531,7 @@ var AddCartCard = function AddCartCard(_ref) {
     product = _ref.product,
     subscription = _ref.subscription,
     _ref$classModule = _ref.classModule,
-    classModule = _ref$classModule === void 0 ? '' : _ref$classModule;
+    classModule = _ref$classModule === void 0 ? "" : _ref$classModule;
   var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_context_CartProvider__WEBPACK_IMPORTED_MODULE_2__.CartContext),
     addToCart = _useContext.addToCart;
   var _useContext2 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_context_AuthProvider__WEBPACK_IMPORTED_MODULE_3__.AuthContext),
@@ -542,19 +542,19 @@ var AddCartCard = function AddCartCard(_ref) {
     if (subscription && !auth) {
       var swalWithBootstrapButtons = sweetalert2__WEBPACK_IMPORTED_MODULE_6___default().mixin({
         customClass: {
-          confirmButton: 'col-4 ml-4 btn btn-bicolor btn-block',
+          confirmButton: "col-4 ml-4 btn btn-bicolor btn-block",
           cancelButton: "col-4 mr-4 btn btn-outline-bicolor btn-block",
-          title: 'mt-4'
+          title: "mt-4"
         },
         buttonsStyling: false
       });
       swalWithBootstrapButtons.fire({
         title: '<span style="color: #0869A6;">Para agregar este producto debes acceder a tu cuenta</span>',
-        confirmButtonText: 'Acceder',
-        cancelButtonText: 'Cancelar',
+        confirmButtonText: "Acceder",
+        cancelButtonText: "Cancelar",
         showCancelButton: true,
         reverseButtons: true,
-        width: '36rem'
+        width: "36rem"
       }).then(function (result) {
         if (result.isConfirmed) {
           showModalAuth(_Globals__WEBPACK_IMPORTED_MODULE_5__.ModalAuthMode.LOGIN);

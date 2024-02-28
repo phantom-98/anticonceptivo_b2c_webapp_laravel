@@ -197,6 +197,91 @@ class HomeController extends Controller
             return ApiResponse::JsonError(null, $exception->getMessage());
         }
     }
+    public function getLandingOxfar()
+    {
+        try {
+            $outstandings = Product::with(['subcategory.category','product_images','laboratory'])     
+                ->where('stock','>',0)
+                ->where('active',true)
+                ->whereHas('laboratory')
+                ->inRandomOrder()
+                ->take(7)
+                ->get();
+
+            if ($outstandings->count() < 4) {
+                $outstandings = Product::with(['subcategory.category','product_images','laboratory'])
+                    ->where('active',true)
+                    ->where('is_medicine', 0)
+                    ->where('stock','>',0)
+                    ->where('recipe_type','Venta Directa')
+                    ->inRandomOrder()
+                    ->take(12)
+                    ->get();
+            }
+
+            return ApiResponse::JsonSuccess(ProductLabelHelper::processScheduleList($outstandings), 'Productos destacados');
+
+        } catch (\Exception $exception) {
+            return ApiResponse::JsonError(null, $exception->getMessage());
+        }
+    }
+    public function getLandingBioequivalente()
+    {
+        try {
+            $outstandings = Product::with(['subcategory.category','product_images','laboratory'])     
+                ->where('stock','>',0)
+                ->where('active',true)
+                ->where('is_bioequivalent',true)
+                ->whereHas('laboratory')
+                ->inRandomOrder()
+                ->take(7)
+                ->get();
+
+            if ($outstandings->count() < 4) {
+                $outstandings = Product::with(['subcategory.category','product_images','laboratory'])
+                    ->where('active',true)
+                    ->where('is_medicine', 0)
+                    ->where('stock','>',0)
+                    ->where('recipe_type','Venta Directa')
+                    ->inRandomOrder()
+                    ->take(12)
+                    ->get();
+            }
+
+            return ApiResponse::JsonSuccess(ProductLabelHelper::processScheduleList($outstandings), 'Productos destacados');
+
+        } catch (\Exception $exception) {
+            return ApiResponse::JsonError(null, $exception->getMessage());
+        }
+    }
+    public function getLandingCardio()
+    {
+        try {
+            $outstandings = Product::with(['subcategory.category','product_images','laboratory'])     
+                ->where('stock','>',0)
+                ->where('active',true)
+                ->whereHas('laboratory')
+                ->inRandomOrder()
+                ->take(7)
+                ->get();
+
+            if ($outstandings->count() < 4) {
+                $outstandings = Product::with(['subcategory.category','product_images','laboratory'])
+                    ->where('active',true)
+                    ->where('is_medicine', 0)
+                    ->where('stock','>',0)
+                    ->where('recipe_type','Venta Directa')
+                    ->inRandomOrder()
+                    ->take(12)
+                    ->get();
+            }
+
+            return ApiResponse::JsonSuccess(ProductLabelHelper::processScheduleList($outstandings), 'Productos destacados');
+
+        } catch (\Exception $exception) {
+            return ApiResponse::JsonError(null, $exception->getMessage());
+        }
+    }
 
     public function getCondoms()
     {

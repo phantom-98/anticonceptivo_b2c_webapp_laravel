@@ -8,7 +8,8 @@ import OutstandingCarousel from "../../../components/sections/OutstandingCarouse
 const CardioLanding = ({ match }) => {
     const { token } = match.params;
 
-    const { showModalAuth, setTokenModalAuth } = useContext(AppContext);
+    const { showModalAuth, setTokenModalAuth, currentStore } =
+        useContext(AppContext);
 
     const [topBanners, setTopBanners] = useState([]);
 
@@ -51,7 +52,7 @@ const CardioLanding = ({ match }) => {
     return (
         <div className="bg-FAFAFA">
             <SwiperCarousel banners={topBanners} />
-            <OutstandingCarousel title={"Cardio"} />
+            <OutstandingCarousel brand={currentStore} title={"Cardio"} />
         </div>
     );
 };

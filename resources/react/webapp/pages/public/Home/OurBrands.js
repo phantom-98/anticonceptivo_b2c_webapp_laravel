@@ -145,7 +145,7 @@ const OurBrands = () => {
                         //className="row py-3 justify-content-center"
                         style={{
                             display: "flex",
-                            justifyContent: "center",
+                            justifyContent: "flex-start",
                             alignItems: "center",
                         }}
                     >
@@ -156,31 +156,26 @@ const OurBrands = () => {
                                     key={uuidv4()}
                                     style={{
                                         // flex: "0 0 9.33333%",
-                                        // maxWidth: "9.33333%",
-                                        flex: "0 0 20%",
-                                        maxWidth: "20%",
+                                        maxWidth: "8%",
+                                        margin: "0px 5px",
+                                        padding: "0px 5px",
                                         boxShadow:
                                             brand.name == currentStore
                                                 ? "0 0 15px var(--btn-color-grad-1)"
                                                 : "none",
-                                        margin: "0px 4rem",
                                     }}
                                 >
-                                    <span className="m-auto">
-                                        <img
-                                            src={brand.public_image}
-                                            alt={CONFIG.APP_NAME}
-                                            className=""
-                                            style={{
-                                                width: "50%",
-                                                maxHeight: "30px",
-                                                objectFit: "contain",
-                                            }}
-                                            onClick={() =>
-                                                handleTheme(brand.name)
-                                            }
-                                        />
-                                    </span>
+                                    <img
+                                        src={brand.image}
+                                        alt={CONFIG.APP_NAME}
+                                        className=""
+                                        style={{
+                                            width: "100%",
+
+                                            objectFit: "contain",
+                                        }}
+                                        onClick={() => handleTheme(brand.name)}
+                                    />
                                 </div>
                             );
                         })}

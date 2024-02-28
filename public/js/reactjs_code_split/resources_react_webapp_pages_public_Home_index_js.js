@@ -844,7 +844,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 var OutstandingCarousel = function OutstandingCarousel(_ref) {
   var title = _ref.title,
     _ref$style = _ref.style,
-    style = _ref$style === void 0 ? 'pt-5 pb-5' : _ref$style;
+    style = _ref$style === void 0 ? "pt-5 pb-5" : _ref$style,
+    brand = _ref.brand;
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
     _useState2 = _slicedToArray(_useState, 2),
     outstandings = _useState2[0],
@@ -857,7 +858,14 @@ var OutstandingCarousel = function OutstandingCarousel(_ref) {
     getData();
   }, []);
   var getData = function getData() {
-    var url = _Services__WEBPACK_IMPORTED_MODULE_2__.ENDPOINT.PUBLIC_AREA.CARROUSELS.GET_OUTSTANDING;
+    var url;
+    if (brand !== "anticonceptivo") {
+      url = _Services__WEBPACK_IMPORTED_MODULE_2__.ENDPOINT.PUBLIC_AREA.CARROUSELS.GET_LANDING + brand;
+    } else {
+      url = _Services__WEBPACK_IMPORTED_MODULE_2__.ENDPOINT.PUBLIC_AREA.CARROUSELS.GET_OUTSTANDING;
+    }
+
+    //let url = Services.ENDPOINT.PUBLIC_AREA.CARROUSELS.GET_OUTSTANDING;
     var data = {};
     _Services__WEBPACK_IMPORTED_MODULE_2__.DoGet(url, data).then(function (response) {
       _Services__WEBPACK_IMPORTED_MODULE_2__.Response({
@@ -1434,7 +1442,7 @@ var AddCartCard = function AddCartCard(_ref) {
     product = _ref.product,
     subscription = _ref.subscription,
     _ref$classModule = _ref.classModule,
-    classModule = _ref$classModule === void 0 ? '' : _ref$classModule;
+    classModule = _ref$classModule === void 0 ? "" : _ref$classModule;
   var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_context_CartProvider__WEBPACK_IMPORTED_MODULE_2__.CartContext),
     addToCart = _useContext.addToCart;
   var _useContext2 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_context_AuthProvider__WEBPACK_IMPORTED_MODULE_3__.AuthContext),
@@ -1445,19 +1453,19 @@ var AddCartCard = function AddCartCard(_ref) {
     if (subscription && !auth) {
       var swalWithBootstrapButtons = sweetalert2__WEBPACK_IMPORTED_MODULE_6___default().mixin({
         customClass: {
-          confirmButton: 'col-4 ml-4 btn btn-bicolor btn-block',
+          confirmButton: "col-4 ml-4 btn btn-bicolor btn-block",
           cancelButton: "col-4 mr-4 btn btn-outline-bicolor btn-block",
-          title: 'mt-4'
+          title: "mt-4"
         },
         buttonsStyling: false
       });
       swalWithBootstrapButtons.fire({
         title: '<span style="color: #0869A6;">Para agregar este producto debes acceder a tu cuenta</span>',
-        confirmButtonText: 'Acceder',
-        cancelButtonText: 'Cancelar',
+        confirmButtonText: "Acceder",
+        cancelButtonText: "Cancelar",
         showCancelButton: true,
         reverseButtons: true,
-        width: '36rem'
+        width: "36rem"
       }).then(function (result) {
         if (result.isConfirmed) {
           showModalAuth(_Globals__WEBPACK_IMPORTED_MODULE_5__.ModalAuthMode.LOGIN);
@@ -2134,7 +2142,7 @@ var OurBrands = function OurBrands() {
         //className="row py-3 justify-content-center"
         style: {
           display: "flex",
-          justifyContent: "center",
+          justifyContent: "flex-start",
           alignItems: "center"
         },
         children: _brands.map(function (brand, indx) {
@@ -2142,27 +2150,22 @@ var OurBrands = function OurBrands() {
             className: "",
             style: {
               // flex: "0 0 9.33333%",
-              // maxWidth: "9.33333%",
-              flex: "0 0 20%",
-              maxWidth: "20%",
-              boxShadow: brand.name == currentStore ? "0 0 15px var(--btn-color-grad-1)" : "none",
-              margin: "0px 4rem"
+              maxWidth: "8%",
+              margin: "0px 5px",
+              padding: "0px 5px",
+              boxShadow: brand.name == currentStore ? "0 0 15px var(--btn-color-grad-1)" : "none"
             },
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("span", {
-              className: "m-auto",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("img", {
-                src: brand.public_image,
-                alt: _Config__WEBPACK_IMPORTED_MODULE_5__.CONFIG.APP_NAME,
-                className: "",
-                style: {
-                  width: "50%",
-                  maxHeight: "30px",
-                  objectFit: "contain"
-                },
-                onClick: function onClick() {
-                  return handleTheme(brand.name);
-                }
-              })
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("img", {
+              src: brand.image,
+              alt: _Config__WEBPACK_IMPORTED_MODULE_5__.CONFIG.APP_NAME,
+              className: "",
+              style: {
+                width: "100%",
+                objectFit: "contain"
+              },
+              onClick: function onClick() {
+                return handleTheme(brand.name);
+              }
             })
           }, (0,uuid__WEBPACK_IMPORTED_MODULE_13__["default"])());
         })
@@ -2200,6 +2203,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_LazyLoading__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../../components/LazyLoading */ "./resources/react/webapp/components/LazyLoading.js");
 /* harmony import */ var _components_general_AccordionComponent__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../../../components/general/AccordionComponent */ "./resources/react/webapp/components/general/AccordionComponent.js");
 /* harmony import */ var _OurBrands__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./OurBrands */ "./resources/react/webapp/pages/public/Home/OurBrands.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -2234,28 +2238,17 @@ var Home = function Home(_ref) {
     showModalAuth = _useContext.showModalAuth,
     setTokenModalAuth = _useContext.setTokenModalAuth,
     currentStore = _useContext.currentStore;
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.Fragment, {
-      children: "we are in acos"
-    })),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
     _useState2 = _slicedToArray(_useState, 2),
-    content = _useState2[0],
-    setContent = _useState2[1];
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+    topBanners = _useState2[0],
+    setTopBanners = _useState2[1];
+  /* const [bannerCategories, setBannerCategories] = useState([]);
+  const [middleBanners, setMiddleBanners] = useState([]); */
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState4 = _slicedToArray(_useState3, 2),
-    topBanners = _useState4[0],
-    setTopBanners = _useState4[1];
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
-    _useState6 = _slicedToArray(_useState5, 2),
-    bannerCategories = _useState6[0],
-    setBannerCategories = _useState6[1];
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
-    _useState8 = _slicedToArray(_useState7, 2),
-    middleBanners = _useState8[0],
-    setMiddleBanners = _useState8[1];
-  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
-    _useState10 = _slicedToArray(_useState9, 2),
-    isLoaded = _useState10[0],
-    setIsLoaded = _useState10[1];
+    isLoaded = _useState4[0],
+    setIsLoaded = _useState4[1];
+  var navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_16__.useHistory)();
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     if (token && token.length > 15) {
       setTokenModalAuth(token);
@@ -2263,13 +2256,12 @@ var Home = function Home(_ref) {
     }
   }, []);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    getData();
+    if (currentStore !== "anticonceptivo") {
+      navigate.push(currentStore);
+    } else {
+      getData();
+    }
   }, []);
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    setContent( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_components_sections_OutstandingCarousel__WEBPACK_IMPORTED_MODULE_9__["default"], {
-      title: currentStore
-    }));
-  }, [currentStore]);
   var getData = function getData() {
     var url = _Services__WEBPACK_IMPORTED_MODULE_3__.ENDPOINT.PUBLIC_AREA.BANNERS.HOME.TOP;
     var data = {};
@@ -2295,6 +2287,7 @@ var Home = function Home(_ref) {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_components_sections_SwiperCarousel__WEBPACK_IMPORTED_MODULE_11__["default"], {
       banners: topBanners
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_components_sections_OutstandingCarousel__WEBPACK_IMPORTED_MODULE_9__["default"], {
+      brand: currentStore,
       title: "AntiConceptivo"
     })]
   });

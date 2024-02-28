@@ -15,16 +15,18 @@ import LazyLoading from "../../../components/LazyLoading";
 import AccordionComponent from "../../../components/general/AccordionComponent";
 import OurBrands from "./OurBrands";
 import { Route, Switch } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 const Home = ({ match }) => {
     const { token } = match.params;
 
     const { showModalAuth, setTokenModalAuth, currentStore } =
         useContext(AppContext);
-    const [content, setContent] = useState(<>we are in acos</>);
+
     const [topBanners, setTopBanners] = useState([]);
-    const [bannerCategories, setBannerCategories] = useState([]);
-    const [middleBanners, setMiddleBanners] = useState([]);
+    /* const [bannerCategories, setBannerCategories] = useState([]);
+    const [middleBanners, setMiddleBanners] = useState([]); */
     const [isLoaded, setIsLoaded] = useState(false);
+    let navigate = useHistory();
 
     useEffect(() => {
         if (token && token.length > 15) {
@@ -34,11 +36,13 @@ const Home = ({ match }) => {
     }, []);
 
     useEffect(() => {
-        getData();
+        if (currentStore !== "anticonceptivo") {
+            navigate.push(currentStore);
+        } else {
+            getData();
+        }
     }, []);
-    useEffect(() => {
-        setContent(<OutstandingCarousel title={currentStore} />);
-    }, [currentStore]);
+
     const getData = () => {
         let url = Services.ENDPOINT.PUBLIC_AREA.BANNERS.HOME.TOP;
         let data = {};
@@ -66,7 +70,10 @@ const Home = ({ match }) => {
     return (
         <div className="bg-FAFAFA">
             <SwiperCarousel banners={topBanners} />
-            <OutstandingCarousel title={"AntiConceptivo"} />
+            <OutstandingCarousel
+                brand={currentStore}
+                title={"AntiConceptivo"}
+            />
             {/*  <OutstandingCarousel title="Destacados" />
 
             <BeautyProduct

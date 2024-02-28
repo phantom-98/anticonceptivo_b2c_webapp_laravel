@@ -8,7 +8,8 @@ import OutstandingCarousel from "../../../components/sections/OutstandingCarouse
 const OxfarLanding = ({ match }) => {
     const { token } = match.params;
 
-    const { showModalAuth, setTokenModalAuth } = useContext(AppContext);
+    const { showModalAuth, setTokenModalAuth, currentStore } =
+        useContext(AppContext);
 
     const [topBanners, setTopBanners] = useState([]);
 
@@ -51,7 +52,7 @@ const OxfarLanding = ({ match }) => {
     return (
         <div className="bg-FAFAFA">
             <SwiperCarousel banners={topBanners} />
-            <OutstandingCarousel title={"Oxfar"} />
+            <OutstandingCarousel brand={currentStore} title={"Oxfar"} />
         </div>
     );
 };

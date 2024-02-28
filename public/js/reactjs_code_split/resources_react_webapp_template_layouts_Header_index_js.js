@@ -3572,7 +3572,7 @@ var OurBrands = function OurBrands() {
         //className="row py-3 justify-content-center"
         style: {
           display: "flex",
-          justifyContent: "center",
+          justifyContent: "flex-start",
           alignItems: "center"
         },
         children: _brands.map(function (brand, indx) {
@@ -3580,27 +3580,22 @@ var OurBrands = function OurBrands() {
             className: "",
             style: {
               // flex: "0 0 9.33333%",
-              // maxWidth: "9.33333%",
-              flex: "0 0 20%",
-              maxWidth: "20%",
-              boxShadow: brand.name == currentStore ? "0 0 15px var(--btn-color-grad-1)" : "none",
-              margin: "0px 4rem"
+              maxWidth: "8%",
+              margin: "0px 5px",
+              padding: "0px 5px",
+              boxShadow: brand.name == currentStore ? "0 0 15px var(--btn-color-grad-1)" : "none"
             },
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("span", {
-              className: "m-auto",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("img", {
-                src: brand.public_image,
-                alt: _Config__WEBPACK_IMPORTED_MODULE_5__.CONFIG.APP_NAME,
-                className: "",
-                style: {
-                  width: "50%",
-                  maxHeight: "30px",
-                  objectFit: "contain"
-                },
-                onClick: function onClick() {
-                  return handleTheme(brand.name);
-                }
-              })
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("img", {
+              src: brand.image,
+              alt: _Config__WEBPACK_IMPORTED_MODULE_5__.CONFIG.APP_NAME,
+              className: "",
+              style: {
+                width: "100%",
+                objectFit: "contain"
+              },
+              onClick: function onClick() {
+                return handleTheme(brand.name);
+              }
             })
           }, (0,uuid__WEBPACK_IMPORTED_MODULE_13__["default"])());
         })
@@ -4060,10 +4055,10 @@ var HeaderBox = function HeaderBox() {
   var dropdownStyle = {
     overflowY: "scroll"
   };
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_23__.jsx)("div", {
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_23__.jsxs)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_23__.jsxs)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_23__.jsx)(_pages_public_Home_OurBrands__WEBPACK_IMPORTED_MODULE_22__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_23__.jsx)("div", {
       className: "container py-4",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_23__.jsx)(_pages_public_Home_OurBrands__WEBPACK_IMPORTED_MODULE_22__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_23__.jsxs)("div", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_23__.jsxs)("div", {
         className: "row",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_23__.jsx)("div", {
           className: "col-md-auto top-do-flex pointer",
@@ -4307,8 +4302,8 @@ var HeaderBox = function HeaderBox() {
             })
           })
         })]
-      })]
-    })
+      })
+    })]
   });
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (HeaderBox);
