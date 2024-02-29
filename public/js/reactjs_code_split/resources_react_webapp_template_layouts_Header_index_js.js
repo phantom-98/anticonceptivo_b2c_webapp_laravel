@@ -4883,6 +4883,211 @@ var CategoryMenuMobile = function CategoryMenuMobile(_ref) {
 
 /***/ }),
 
+/***/ "./resources/react/webapp/template/layouts/Header/Mobile/OurBrandsMobile.js":
+/*!**********************************************************************************!*\
+  !*** ./resources/react/webapp/template/layouts/Header/Mobile/OurBrandsMobile.js ***!
+  \**********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var slick_carousel_slick_slick_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! slick-carousel/slick/slick.css */ "./node_modules/slick-carousel/slick/slick.css");
+/* harmony import */ var slick_carousel_slick_slick_theme_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! slick-carousel/slick/slick-theme.css */ "./node_modules/slick-carousel/slick/slick-theme.css");
+/* harmony import */ var _Config__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../Config */ "./resources/react/webapp/Config.js");
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! uuid */ "./node_modules/uuid/dist/esm-browser/v4.js");
+/* harmony import */ var _context_AppProvider__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../context/AppProvider */ "./resources/react/webapp/context/AppProvider/index.js");
+/* harmony import */ var _Services__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../Services */ "./resources/react/webapp/Services.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var react_lazy_load_image_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-lazy-load-image-component */ "./node_modules/react-lazy-load-image-component/build/index.js");
+/* harmony import */ var react_lazy_load_image_component__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react_lazy_load_image_component__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0); } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i["return"] && (_r = _i["return"](), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+
+
+
+
+var OurBrandsMobile = function OurBrandsMobile() {
+  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_context_AppProvider__WEBPACK_IMPORTED_MODULE_4__.AppContext),
+    breakpoint = _useContext.breakpoint,
+    currentStore = _useContext.currentStore,
+    setStore = _useContext.setStore,
+    showModalStoreChange = _useContext.showModalStoreChange;
+  var navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_8__.useHistory)();
+  var navigateToAboutUs = function navigateToAboutUs(brand) {
+    if (!brand) return navigate.push("/");
+    navigate.push("/".concat(brand));
+  };
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+    _useState2 = _slicedToArray(_useState, 2),
+    newBrands = _useState2[0],
+    setNewBrands = _useState2[1];
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+    _useState4 = _slicedToArray(_useState3, 2),
+    brands = _useState4[0],
+    setBrands = _useState4[1];
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (brands !== null && brands !== void 0 && brands.length) {
+      brandBySeven();
+    }
+  }, [brands]);
+  var getData = function getData() {
+    var url = _Services__WEBPACK_IMPORTED_MODULE_5__.ENDPOINT.PUBLIC_AREA.CARROUSELS.GET_BRANDS;
+    var data = {};
+    _Services__WEBPACK_IMPORTED_MODULE_5__.DoGet(url, data).then(function (response) {
+      console.log(response);
+      _Services__WEBPACK_IMPORTED_MODULE_5__.Response({
+        response: response,
+        success: function success() {
+          setBrands(response.data.brands);
+          //console.log(brands);
+        }
+      });
+    })["catch"](function (error) {
+      _Services__WEBPACK_IMPORTED_MODULE_5__.ErrorCatch(error);
+    });
+  };
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    getData();
+  }, []);
+  /* 
+  function Arrow(props) {
+      let className = props.type === "next" ? "nextArrow" : "prevArrow";
+        className += " arrow";
+        let right = {
+          position: "absolute",
+          height: "25px",
+          top: "15%",
+          right: "0px",
+          zIndex: 1,
+      };
+        let left = {
+          position: "absolute",
+          height: "25px",
+          top: "15%",
+          left: "0px",
+          zIndex: 1,
+      };
+        return props.type == "next" ? (
+          <img
+              src={SliderArrowRight}
+              onClick={props.onClick}
+              className={`pointer ${className}`}
+              style={right}
+              alt="anticonceptivo"
+          />
+      ) : (
+          <img
+              src={SliderArrowLeft}
+              onClick={props.onClick}
+              className={`pointer ${className}`}
+              style={left}
+              alt="anticonceptivo"
+          />
+      );
+  }
+  */
+  /*  const settings = {
+      className: "center",
+      infinite: true,
+      centerMode: true,
+      speed: 1500,
+      slidesToShow: 3,
+      slidesToScroll: 1,
+      autoplay: true,
+      autoplaySpeed: 4500,
+      prevArrow: <Arrow type="prev" />,
+      nextArrow: <Arrow type="next" />,
+  };
+    const containerStyle = {
+      height: "220px",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      padding: "0px 0px",
+  }; */
+  var handleTheme = function handleTheme(brand) {
+    setStore(brand);
+    if (brand === "anticonceptivo") return navigateToAboutUs();
+    navigateToAboutUs(brand);
+
+    //toggleTheme(brand);
+  };
+
+  var brandBySeven = function brandBySeven() {
+    var _brands = _toConsumableArray(brands);
+    var _final_brands = [];
+    while (_brands.length) {
+      _final_brands.push(_brands.splice(0, 7));
+    }
+    setNewBrands(_final_brands);
+  };
+
+  //return <div>{console.log(brands)}</div>;
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+    style: {
+      marginBottom: "10px",
+      minHeight: "76px"
+    },
+    children: newBrands.map(function (_brands, index) {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+        //className="row py-3 justify-content-center"
+        style: {
+          display: "flex",
+          justifyContent: "flex-start",
+          alignItems: "center"
+        },
+        children: _brands.map(function (brand, indx) {
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+            className: "",
+            style: {
+              // flex: "0 0 9.33333%",
+
+              margin: "5px 5px",
+              padding: "5px 5px",
+              borderBottom: brand.name == currentStore ? "3px solid var(--btn-color-grad-1)" : "none"
+            },
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_lazy_load_image_component__WEBPACK_IMPORTED_MODULE_6__.LazyLoadImage, {
+              src: "/images/logo_responsive_".concat(brand.name, ".png"),
+              alt: _Config__WEBPACK_IMPORTED_MODULE_3__.CONFIG.APP_NAME,
+              style: {
+                height: "80%",
+                margin: "0 20px",
+                objectFit: "contain"
+              },
+              onClick: function onClick() {
+                return handleTheme(brand.name);
+              }
+            })
+          }, (0,uuid__WEBPACK_IMPORTED_MODULE_9__["default"])());
+        })
+      }, (0,uuid__WEBPACK_IMPORTED_MODULE_9__["default"])());
+    })
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (OurBrandsMobile);
+
+/***/ }),
+
 /***/ "./resources/react/webapp/template/layouts/Header/Mobile/PillsMenuMobile.js":
 /*!**********************************************************************************!*\
   !*** ./resources/react/webapp/template/layouts/Header/Mobile/PillsMenuMobile.js ***!
@@ -5424,7 +5629,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_lazy_load_image_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-lazy-load-image-component */ "./node_modules/react-lazy-load-image-component/build/index.js");
 /* harmony import */ var react_lazy_load_image_component__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_lazy_load_image_component__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _Globals__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../Globals */ "./resources/react/webapp/Globals.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _context_AuthProvider__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../context/AuthProvider */ "./resources/react/webapp/context/AuthProvider/index.js");
 /* harmony import */ var _context_AppProvider__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../context/AppProvider */ "./resources/react/webapp/context/AppProvider/index.js");
 /* harmony import */ var _routes_publicRoutes__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../routes/publicRoutes */ "./resources/react/webapp/routes/publicRoutes.js");
@@ -5440,13 +5645,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _assets_images_logo_responsive_png__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../../../../assets/images/logo_responsive.png */ "./resources/react/webapp/assets/images/logo_responsive.png");
 /* harmony import */ var _assets_images_icons_header_cart_blue_svg__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../../../../assets/images/icons/header/cart-blue.svg */ "./resources/react/webapp/assets/images/icons/header/cart-blue.svg");
 /* harmony import */ var _assets_images_icons_header_user_blue_svg__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../../../../assets/images/icons/header/user-blue.svg */ "./resources/react/webapp/assets/images/icons/header/user-blue.svg");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _pages_public_Home_OurBrands__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../../../../pages/public/Home/OurBrands */ "./resources/react/webapp/pages/public/Home/OurBrands.js");
+/* harmony import */ var _OurBrandsMobile__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./OurBrandsMobile */ "./resources/react/webapp/template/layouts/Header/Mobile/OurBrandsMobile.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
 function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0); } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i["return"] && (_r = _i["return"](), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
 
 
 
@@ -5505,152 +5714,119 @@ var Mobile = function Mobile() {
     });
   };
   var url = _routes_privateRoutes__WEBPACK_IMPORTED_MODULE_6__["default"].ACCOUNT.path;
-  url = url.replace(':section', 'informacion-personal');
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.Fragment, {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
+  url = url.replace(":section", "informacion-personal");
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.Fragment, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("div", {
       className: "d-block",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("div", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsxs)("div", {
         className: "menu-mobile",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("div", {
           className: "row first-row",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("div", {
             className: "col-auto font-poppins font-12 text-center",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
-              className: "row no-gutters",
-              style: {
-                marginTop: '10px',
-                height: '28px'
-              },
-              children: textHeader && textHeader.link ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("a", {
-                href: textHeader.link,
-                target: "_blank",
-                className: "text-white",
-                children: textHeader ? textHeader.text : ''
-              }) : textHeader ? textHeader.text : ''
-            })
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(_OurBrandsMobile__WEBPACK_IMPORTED_MODULE_19__["default"], {})
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsxs)("div", {
           className: "row mx-2",
           style: {
-            height: '70px'
+            height: "70px"
           },
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("div", {
             className: "col d-flex",
             style: {
-              justifyContent: 'center',
-              padding: '0 30px'
+              justifyContent: "center"
             },
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
-              className: "m-auto",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_19__.Link, {
-                to: "/",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(react_lazy_load_image_component__WEBPACK_IMPORTED_MODULE_1__.LazyLoadImage, {
-                  alt: "anticonceptivo.cl",
-                  title: "Anticonceptivo",
-                  rel: "nofollow",
-                  effect: "blur",
-                  src: _assets_images_logo_responsive_png__WEBPACK_IMPORTED_MODULE_15__["default"],
-                  height: '100%',
-                  width: 'auto'
-                })
-              })
-            })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
-            className: "col d-flex",
-            style: {
-              justifyContent: 'center'
-            },
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("div", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsxs)("div", {
               className: "my-auto text-center",
               onClick: showMenu,
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(react_lazy_load_image_component__WEBPACK_IMPORTED_MODULE_1__.LazyLoadImage, {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(react_lazy_load_image_component__WEBPACK_IMPORTED_MODULE_1__.LazyLoadImage, {
                 alt: "anticonceptivo.cl",
                 title: "Anticonceptivo",
                 rel: "nofollow",
                 effect: "blur",
                 src: _assets_images_icons_header_menu_svg__WEBPACK_IMPORTED_MODULE_14__["default"],
-                height: '25px',
-                width: '25px'
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
+                height: "25px",
+                width: "25px"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("div", {
                 className: "text-icon-navbar-mobile",
                 children: "PRODUCTOS"
               })]
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("div", {
             className: "col d-flex",
             style: {
-              justifyContent: 'center'
+              justifyContent: "center"
             },
-            children: auth ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_19__.Link, {
+            children: auth ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_21__.Link, {
               className: "my-auto text-center",
               to: url,
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(react_lazy_load_image_component__WEBPACK_IMPORTED_MODULE_1__.LazyLoadImage, {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(react_lazy_load_image_component__WEBPACK_IMPORTED_MODULE_1__.LazyLoadImage, {
                 alt: "anticonceptivo.cl",
                 title: "Anticonceptivo",
                 rel: "nofollow",
                 effect: "blur",
                 src: _assets_images_icons_header_user_blue_svg__WEBPACK_IMPORTED_MODULE_17__["default"],
-                height: '25px',
-                width: '25px'
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
+                height: "25px",
+                width: "25px"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("div", {
                 className: "text-icon-navbar-mobile",
                 children: "CUENTA"
               })]
-            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("div", {
+            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsxs)("div", {
               className: "my-auto text-center",
               onClick: function onClick() {
                 return showModalAuth(_Globals__WEBPACK_IMPORTED_MODULE_2__.ModalAuthMode.LOGIN);
               },
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(react_lazy_load_image_component__WEBPACK_IMPORTED_MODULE_1__.LazyLoadImage, {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(react_lazy_load_image_component__WEBPACK_IMPORTED_MODULE_1__.LazyLoadImage, {
                 alt: "anticonceptivo.cl",
                 title: "Anticonceptivo",
                 rel: "nofollow",
                 effect: "blur",
                 src: _assets_images_icons_header_user_blue_svg__WEBPACK_IMPORTED_MODULE_17__["default"],
-                height: '25px',
-                width: '25px'
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
+                height: "25px",
+                width: "25px"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("div", {
                 className: "text-icon-navbar-mobile",
                 children: "CUENTA"
               })]
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("div", {
             className: "col d-flex",
             style: {
-              justifyContent: 'center'
+              justifyContent: "center"
             },
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("div", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsxs)("div", {
               className: "my-auto text-center",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_19__.Link, {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_21__.Link, {
                 to: _routes_publicRoutes__WEBPACK_IMPORTED_MODULE_5__["default"].CART.path,
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("div", {
                   className: "cart-badge-quantity",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_components_shopping_TotalCartItems__WEBPACK_IMPORTED_MODULE_13__["default"], {})
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(react_lazy_load_image_component__WEBPACK_IMPORTED_MODULE_1__.LazyLoadImage, {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(_components_shopping_TotalCartItems__WEBPACK_IMPORTED_MODULE_13__["default"], {})
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(react_lazy_load_image_component__WEBPACK_IMPORTED_MODULE_1__.LazyLoadImage, {
                   alt: "anticonceptivo.cl",
                   title: "Anticonceptivo",
                   rel: "nofollow",
                   effect: "blur",
-                  height: '25px',
-                  width: '25px',
+                  height: "25px",
+                  width: "25px",
                   src: _assets_images_icons_header_cart_blue_svg__WEBPACK_IMPORTED_MODULE_16__["default"]
                 })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("div", {
                 className: "text-icon-navbar-mobile",
                 children: "CARRO"
               })]
             })
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_Search__WEBPACK_IMPORTED_MODULE_9__["default"], {})]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(_Search__WEBPACK_IMPORTED_MODULE_9__["default"], {})]
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("div", {
       className: "d-block",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_components_OffCanvas__WEBPACK_IMPORTED_MODULE_12__["default"], {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(_components_OffCanvas__WEBPACK_IMPORTED_MODULE_12__["default"], {
         showCanvas: showingMenu,
         closeCanvas: hideMenu,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("div", {
           className: "row menu-mobile-issue",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_CategoryMenuMobile__WEBPACK_IMPORTED_MODULE_7__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(_CategoryMenuMobile__WEBPACK_IMPORTED_MODULE_7__["default"], {
             hideMenu: hideMenu
           })
         })

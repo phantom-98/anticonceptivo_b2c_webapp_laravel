@@ -1,5 +1,5 @@
-import React, {useState, useEffect, useContext} from 'react';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
+import React, { useState, useEffect, useContext } from "react";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 import { ModalAuthMode } from "../../../../Globals";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../../context/AuthProvider";
@@ -13,7 +13,7 @@ import SearchModal from "./SearchModal";
 import Search from "./Search";
 
 import * as Services from "../../../../Services";
-import 'react-lazy-load-image-component/src/effects/blur.css';
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 import OffCanvas from "../../../../components/OffCanvas";
 import TotalCartItems from "../../../../components/shopping/TotalCartItems";
@@ -22,9 +22,11 @@ import menu from "../../../../assets/images/icons/header/menu.svg";
 import anticonceptivo from "../../../../assets/images/logo_responsive.png";
 import cartBlue from "../../../../assets/images/icons/header/cart-blue.svg";
 import userBlue from "../../../../assets/images/icons/header/user-blue.svg";
+import OurBrands from "../../../../pages/public/Home/OurBrands";
+import OurBrandsMobile from "./OurBrandsMobile";
 
 const Mobile = () => {
-    const { auth } = useContext(AuthContext)
+    const { auth } = useContext(AuthContext);
     const { showModalAuth } = useContext(AppContext);
     const [showingMenu, setShowingMenu] = useState(null);
 
@@ -44,46 +46,33 @@ const Mobile = () => {
 
     const getData = () => {
         let url = Services.ENDPOINT.PUBLIC_AREA.HEADER;
-        Services.DoGet(url,{}).then(response => {
-            Services.Response({
-                response: response,
-                success: () => {
-                    setTextHeader(response.data.tex_header);
-                },
+        Services.DoGet(url, {})
+            .then((response) => {
+                Services.Response({
+                    response: response,
+                    success: () => {
+                        setTextHeader(response.data.tex_header);
+                    },
+                });
+            })
+            .catch((error) => {
+                Services.ErrorCatch(error);
             });
-        }).catch(error => {
-            Services.ErrorCatch(error)
-        });
-    }
+    };
 
     let url = PRIVATE_ROUTES.ACCOUNT.path;
-    url = url.replace(':section', 'informacion-personal')
+    url = url.replace(":section", "informacion-personal");
 
-
-    return(
+    return (
         <>
             <div className="d-block">
                 <div className="menu-mobile">
                     <div className="row first-row">
                         <div className="col-auto font-poppins font-12 text-center">
-                            <div className="row no-gutters" style={{marginTop: '10px', height: '28px'}}>
-                                {
-                                    textHeader && textHeader.link ?
-
-                                        <a href={textHeader.link } target="_blank" className="text-white">
-                                            {textHeader ? textHeader.text : ''}
-                                        </a>
-                                        :
-                                        textHeader ? textHeader.text : ''
-
-                                }
-                            </div>
+                            <OurBrandsMobile />
                         </div>
                     </div>
-
-                    <div className="row mx-2" style={{height: '70px'}}>
-
-
+                    <div className="row mx-2" style={{ height: "70px" }}>
                         {/* <div className="col d-flex" style={{justifyContent: 'center'}}>
                             <div className="my-auto text-center" onClick={showSearch}>
                                 <LazyLoadImage
@@ -101,7 +90,13 @@ const Mobile = () => {
                             </div>
                         </div> */}
 
-                        <div className="col d-flex" style={{justifyContent: 'center', padding: '0 30px'}}>
+                        {/* <div
+                            className="col d-flex"
+                            style={{
+                                justifyContent: "center",
+                                padding: "0 30px",
+                            }}
+                        >
                             <div className="m-auto">
                                 <Link to="/">
                                     <LazyLoadImage
@@ -110,23 +105,29 @@ const Mobile = () => {
                                         rel="nofollow"
                                         effect="blur"
                                         src={anticonceptivo}
-                                        height={'100%'}
-                                        width={'auto'}
+                                        height={"100%"}
+                                        width={"auto"}
                                     />
                                 </Link>
                             </div>
-                        </div>
+                        </div> */}
 
-                        <div className="col d-flex" style={{justifyContent: 'center'}}>
-                            <div className="my-auto text-center" onClick={showMenu}>
+                        <div
+                            className="col d-flex"
+                            style={{ justifyContent: "center" }}
+                        >
+                            <div
+                                className="my-auto text-center"
+                                onClick={showMenu}
+                            >
                                 <LazyLoadImage
                                     alt="anticonceptivo.cl"
                                     title="Anticonceptivo"
                                     rel="nofollow"
                                     effect="blur"
                                     src={menu}
-                                    height={'25px'}
-                                    width={'25px'}
+                                    height={"25px"}
+                                    width={"25px"}
                                 />
                                 <div className="text-icon-navbar-mobile">
                                     PRODUCTOS
@@ -134,57 +135,64 @@ const Mobile = () => {
                             </div>
                         </div>
 
-                        <div className="col d-flex" style={{justifyContent: 'center'}}>
-
-                            {
-                                auth ?
-                                    <Link className="my-auto text-center" to={url}>
-                                        <LazyLoadImage
-                                            alt="anticonceptivo.cl"
-                                            title="Anticonceptivo"
-                                            rel="nofollow"
-                                            effect="blur"
-                                            src={userBlue}
-                                            height={'25px'}
-                                            width={'25px'}
-                                        />
-                                        <div className="text-icon-navbar-mobile">
-                                            CUENTA
-                                        </div>
-                                    </Link>
-                                    :
-
-                                    <div className="my-auto text-center"
-                                            onClick={() => showModalAuth(ModalAuthMode.LOGIN)}>
-                                        <LazyLoadImage
-                                            alt="anticonceptivo.cl"
-                                            title="Anticonceptivo"
-                                            rel="nofollow"
-                                            effect="blur"
-                                            src={userBlue}
-                                            height={'25px'}
-                                            width={'25px'}
-                                        />
-                                        <div className="text-icon-navbar-mobile">
-                                            CUENTA
-                                        </div>
-                                    </div>
-                            }
-
-
-                        </div>
-
-                        <div className="col d-flex" style={{justifyContent: 'center'}}>
-                            <div className="my-auto text-center">
-                                <Link to={PUBLIC_ROUTES.CART.path}>
-                                    <div className="cart-badge-quantity"><TotalCartItems/></div>
+                        <div
+                            className="col d-flex"
+                            style={{ justifyContent: "center" }}
+                        >
+                            {auth ? (
+                                <Link className="my-auto text-center" to={url}>
                                     <LazyLoadImage
                                         alt="anticonceptivo.cl"
                                         title="Anticonceptivo"
                                         rel="nofollow"
                                         effect="blur"
-                                        height={'25px'}
-                                        width={'25px'}
+                                        src={userBlue}
+                                        height={"25px"}
+                                        width={"25px"}
+                                    />
+                                    <div className="text-icon-navbar-mobile">
+                                        CUENTA
+                                    </div>
+                                </Link>
+                            ) : (
+                                <div
+                                    className="my-auto text-center"
+                                    onClick={() =>
+                                        showModalAuth(ModalAuthMode.LOGIN)
+                                    }
+                                >
+                                    <LazyLoadImage
+                                        alt="anticonceptivo.cl"
+                                        title="Anticonceptivo"
+                                        rel="nofollow"
+                                        effect="blur"
+                                        src={userBlue}
+                                        height={"25px"}
+                                        width={"25px"}
+                                    />
+                                    <div className="text-icon-navbar-mobile">
+                                        CUENTA
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+
+                        <div
+                            className="col d-flex"
+                            style={{ justifyContent: "center" }}
+                        >
+                            <div className="my-auto text-center">
+                                <Link to={PUBLIC_ROUTES.CART.path}>
+                                    <div className="cart-badge-quantity">
+                                        <TotalCartItems />
+                                    </div>
+                                    <LazyLoadImage
+                                        alt="anticonceptivo.cl"
+                                        title="Anticonceptivo"
+                                        rel="nofollow"
+                                        effect="blur"
+                                        height={"25px"}
+                                        width={"25px"}
                                         src={cartBlue}
                                     />
                                 </Link>
@@ -192,7 +200,6 @@ const Mobile = () => {
                                     CARRO
                                 </div>
                             </div>
-
                         </div>
                     </div>
 
@@ -201,14 +208,9 @@ const Mobile = () => {
             </div>
 
             <div className="d-block">
-                <OffCanvas
-                    showCanvas={showingMenu}
-                    closeCanvas={hideMenu}
-                >
+                <OffCanvas showCanvas={showingMenu} closeCanvas={hideMenu}>
                     <div className="row menu-mobile-issue">
-                        <CategoryMenuMobile
-                            hideMenu={hideMenu}
-                        />
+                        <CategoryMenuMobile hideMenu={hideMenu} />
                     </div>
                 </OffCanvas>
             </div>
@@ -220,7 +222,7 @@ const Mobile = () => {
                 />
             </div> */}
         </>
-    )
-}
+    );
+};
 
 export default Mobile;
