@@ -54,7 +54,7 @@ const BioequivalenteLanding = ({ match }) => {
             <SwiperCarousel banners={topBanners} />
             <OutstandingCarousel
                 brand={currentStore}
-                title={"Bioequivalente"}
+                title={"Más Destacados"}
             />
         </div>
     );

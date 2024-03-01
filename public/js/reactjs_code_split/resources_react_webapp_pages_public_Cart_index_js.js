@@ -890,12 +890,12 @@ var ProductCard = function ProductCard(_ref) {
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
           className: "product-card-price",
-          children: [(0,_helpers_GlobalUtils__WEBPACK_IMPORTED_MODULE_2__.formatMoney)(subscriptionFilter.length ? handlePrice(product) : product.is_offer ? product.offer_price : product.price), subscriptionFilter.length ? handleText(product) : product.is_offer ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
-            className: "font-poppins font-16 bold offer-price-color",
+          children: [subscriptionFilter.length ? handleText(product) : product.is_offer ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
+            className: "font-poppins font-16 bold offer-price-color mx-2",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("s", {
               children: [" ", (0,_helpers_GlobalUtils__WEBPACK_IMPORTED_MODULE_2__.formatMoney)(product.price)]
             })
-          }) : null]
+          }) : null, (0,_helpers_GlobalUtils__WEBPACK_IMPORTED_MODULE_2__.formatMoney)(subscriptionFilter.length ? handlePrice(product) : product.is_offer ? product.offer_price : product.price)]
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
         className: "product-card-cart",
@@ -1055,15 +1055,15 @@ var ProductItemList = function ProductItemList(_ref) {
             children: item.product.sku
           }), item.product.offer_price ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
             style: {
-              color: 'black'
+              color: "black"
             },
             className: "d-block d-md-none col-auto font-poppins font-12 regular",
-            children: ["Precio normal ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("s", {
+            children: ["Precio normal", " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("s", {
               children: (0,_helpers_GlobalUtils__WEBPACK_IMPORTED_MODULE_2__.formatMoney)(item.product.price)
             })]
           }) : null, item.subscription ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
             className: "d-block d-md-none col-auto font-poppins font-12 regular",
-            children: ' (' + (0,_helpers_GlobalUtils__WEBPACK_IMPORTED_MODULE_2__.formatMoney)(item.subscription.price) + ' c/u)'
+            children: " (" + (0,_helpers_GlobalUtils__WEBPACK_IMPORTED_MODULE_2__.formatMoney)(item.subscription.price) + " c/u)"
           }) : null]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
           className: "row",
@@ -1073,7 +1073,7 @@ var ProductItemList = function ProductItemList(_ref) {
               className: "my-auto",
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
                 className: "font-poppins font-14 bold text-black",
-                children: item.subscription == null ? item.product.name : item.product.name + ' (' + 'suscripción' + ')'
+                children: item.subscription == null ? item.product.name : item.product.name + " (" + "suscripción" + ")"
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
                 className: "row d-md-none d-flex",
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
@@ -1104,13 +1104,13 @@ var ProductItemList = function ProductItemList(_ref) {
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
                     className: "col-12 col-md-auto d-flex",
                     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
-                      className: "my-auto font-poppins font-23 bold color-009BE8 text-right",
-                      children: [item.subscription == null ? (0,_helpers_GlobalUtils__WEBPACK_IMPORTED_MODULE_2__.formatMoney)(item.quantity * (item.product.is_offer ? item.product.offer_price : item.product.price)) : (0,_helpers_GlobalUtils__WEBPACK_IMPORTED_MODULE_2__.formatMoney)(item.subscription.price * item.subscription.quantity * item.quantity) + ' (' + (0,_helpers_GlobalUtils__WEBPACK_IMPORTED_MODULE_2__.formatMoney)(item.subscription.price) + ' c/u)', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("br", {}), item.product.offer_price ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+                      className: "my-auto font-poppins font-23 bold product-cart-price text-right",
+                      children: [item.subscription == null ? (0,_helpers_GlobalUtils__WEBPACK_IMPORTED_MODULE_2__.formatMoney)(item.quantity * (item.product.is_offer ? item.product.offer_price : item.product.price)) : (0,_helpers_GlobalUtils__WEBPACK_IMPORTED_MODULE_2__.formatMoney)(item.subscription.price * item.subscription.quantity * item.quantity) + " (" + (0,_helpers_GlobalUtils__WEBPACK_IMPORTED_MODULE_2__.formatMoney)(item.subscription.price) + " c/u)", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("br", {}), item.product.offer_price ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
                         style: {
-                          color: 'black'
+                          color: "black"
                         },
                         className: "font-poppins font-12 lh-12 regular",
-                        children: ["Precio Normal ", (0,_helpers_GlobalUtils__WEBPACK_IMPORTED_MODULE_2__.formatMoney)(item.product.price), " "]
+                        children: ["Precio Normal", " ", (0,_helpers_GlobalUtils__WEBPACK_IMPORTED_MODULE_2__.formatMoney)(item.product.price), " "]
                       }) : null]
                     })
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
@@ -1134,8 +1134,8 @@ var ProductItemList = function ProductItemList(_ref) {
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
                 className: "col-12 d-flex",
                 style: {
-                  flexDirection: 'column',
-                  justifyContent: 'space-between'
+                  flexDirection: "column",
+                  justifyContent: "space-between"
                 },
                 children: [item.subscription == null ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
                   className: "text-right font-poppins font-16 bold color-009BE8 mb-auto",
@@ -1150,10 +1150,10 @@ var ProductItemList = function ProductItemList(_ref) {
                   },
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
                     className: "font-poppins font-12 light color-A3A3A3",
-                    children: ["BORRAR ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_general_Icon__WEBPACK_IMPORTED_MODULE_3__["default"], {
+                    children: ["BORRAR", " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_general_Icon__WEBPACK_IMPORTED_MODULE_3__["default"], {
                       style: {
-                        width: '18px',
-                        marginTop: '-3px'
+                        width: "18px",
+                        marginTop: "-3px"
                       },
                       path: _assets_images_icons_remove_mini_cart_svg__WEBPACK_IMPORTED_MODULE_4__["default"]
                     })]
@@ -1459,23 +1459,24 @@ var Cart = function Cart() {
         dataLayer.push(arguments);
       }
     }
-    gtag2('js', new Date());
-    gtag2('config', 'AW-10785537269');
+    gtag2("js", new Date());
+    gtag2("config", "AW-10785537269");
   }, []);
   var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_context_AppProvider__WEBPACK_IMPORTED_MODULE_13__.AppContext),
-    breakpoint = _useContext.breakpoint;
+    breakpoint = _useContext.breakpoint,
+    currentStore = _useContext.currentStore;
   var _useContext2 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_context_CartProvider__WEBPACK_IMPORTED_MODULE_2__.CartContext),
     cartItems = _useContext2.cartItems;
   var moveToPayment = function moveToPayment(el) {
     document.getElementById(el).scrollIntoView({
-      behavior: 'smooth',
-      block: 'end'
+      behavior: "smooth",
+      block: "end"
     });
   };
   return breakpoint === _helpers_vars__WEBPACK_IMPORTED_MODULE_14__.BREAKPOINTS.MEDIUM || breakpoint === _helpers_vars__WEBPACK_IMPORTED_MODULE_14__.BREAKPOINTS.LARGE || breakpoint === _helpers_vars__WEBPACK_IMPORTED_MODULE_14__.BREAKPOINTS.EXTRA_LARGE || breakpoint === _helpers_vars__WEBPACK_IMPORTED_MODULE_14__.BREAKPOINTS.EXTRA_EXTRA_LARGE ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)("div", {
     className: "pb-5",
     style: {
-      background: '#FAFAFA'
+      background: "#FAFAFA"
     },
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)("div", {
       className: "container pt-4",
@@ -1486,9 +1487,9 @@ var Cart = function Cart() {
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)("h3", {
             className: "font-poppins font-21 bold color-0869A6 checkout-mobile-h3",
             style: {
-              letterSpacing: '2px'
+              letterSpacing: "2px"
             },
-            children: ["CARRO DE COMPRAS ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)("span", {
+            children: ["CARRO DE COMPRAS", " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)("span", {
               className: "font-poppins font-16 regular color-6C6B6B",
               children: ["(", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_components_shopping_TotalCartItems__WEBPACK_IMPORTED_MODULE_3__["default"], {}), ")"]
             })]
@@ -1528,7 +1529,7 @@ var Cart = function Cart() {
                   children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)("h3", {
                     className: "font-poppins font-21 bold color-0869A6 mb-0",
                     style: {
-                      letterSpacing: '2px'
+                      letterSpacing: "2px"
                     },
                     children: "TOTAL"
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)("hr", {
@@ -1540,7 +1541,7 @@ var Cart = function Cart() {
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)("div", {
                   className: "col-12 mt-2",
                   children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_16__.Link, {
-                    to: cartItems.length ? _routes_publicRoutes__WEBPACK_IMPORTED_MODULE_5__["default"].CHECKOUT.path : '#',
+                    to: cartItems.length ? _routes_publicRoutes__WEBPACK_IMPORTED_MODULE_5__["default"].CHECKOUT.path : "#",
                     className: "btn btn-bicolor btn-block d-flex my-2",
                     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)("span", {
                       className: "m-auto font-poppins font-14 bold",
@@ -1565,7 +1566,7 @@ var Cart = function Cart() {
                       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(react_lazy_load_image_component__WEBPACK_IMPORTED_MODULE_8__.LazyLoadImage, {
                         alt: _Config__WEBPACK_IMPORTED_MODULE_6__.CONFIG.APP_NAME,
                         title: "Anticonceptivo",
-                        width: '100%',
+                        width: "100%",
                         rel: "nofollow",
                         effect: "blur",
                         src: _assets_images_webpayColor_svg__WEBPACK_IMPORTED_MODULE_7__["default"]
@@ -1588,12 +1589,13 @@ var Cart = function Cart() {
         })]
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_components_sections_OutstandingCarousel__WEBPACK_IMPORTED_MODULE_10__["default"], {
-      title: '¿Te faltó algo?'
+      brand: currentStore,
+      title: "¿Te faltó algo?"
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_components_sections_CondomProduct__WEBPACK_IMPORTED_MODULE_11__["default"], {})]
   }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)("div", {
     className: "pb-5",
     style: {
-      background: '#FAFAFA'
+      background: "#FAFAFA"
     },
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)("div", {
       className: "container pt-4",
@@ -1604,9 +1606,9 @@ var Cart = function Cart() {
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)("h3", {
             className: "font-poppins font-21 bold color-0869A6 checkout-mobile-h3",
             style: {
-              letterSpacing: '2px'
+              letterSpacing: "2px"
             },
-            children: ["CARRO DE COMPRAS ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)("span", {
+            children: ["CARRO DE COMPRAS", " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)("span", {
               className: "font-poppins font-16 regular color-6C6B6B",
               children: ["(", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_components_shopping_TotalCartItems__WEBPACK_IMPORTED_MODULE_3__["default"], {}), ")"]
             })]
@@ -1649,7 +1651,7 @@ var Cart = function Cart() {
                   children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)("h3", {
                     className: "font-poppins font-21 bold color-0869A6 mb-0",
                     style: {
-                      letterSpacing: '2px'
+                      letterSpacing: "2px"
                     },
                     children: "TOTAL"
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)("hr", {
@@ -1662,7 +1664,7 @@ var Cart = function Cart() {
                   className: "col-12 mt-2",
                   id: "continue_to_payment",
                   children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_16__.Link, {
-                    to: cartItems.length ? _routes_publicRoutes__WEBPACK_IMPORTED_MODULE_5__["default"].CHECKOUT.path : '#',
+                    to: cartItems.length ? _routes_publicRoutes__WEBPACK_IMPORTED_MODULE_5__["default"].CHECKOUT.path : "#",
                     className: "btn btn-bicolor btn-block d-flex my-2",
                     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)("span", {
                       className: "m-auto font-poppins font-14 bold",
@@ -1687,7 +1689,7 @@ var Cart = function Cart() {
                       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(react_lazy_load_image_component__WEBPACK_IMPORTED_MODULE_8__.LazyLoadImage, {
                         alt: _Config__WEBPACK_IMPORTED_MODULE_6__.CONFIG.APP_NAME,
                         title: "Anticonceptivo",
-                        width: '100%',
+                        width: "100%",
                         rel: "nofollow",
                         effect: "blur",
                         src: _assets_images_webpayColor_svg__WEBPACK_IMPORTED_MODULE_7__["default"]

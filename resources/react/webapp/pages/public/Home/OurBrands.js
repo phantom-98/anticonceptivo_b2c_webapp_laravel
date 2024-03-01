@@ -156,13 +156,14 @@ const OurBrands = () => {
                                     key={uuidv4()}
                                     style={{
                                         // flex: "0 0 9.33333%",
-                                        maxWidth: "8%",
-                                        margin: "0px 5px",
-                                        padding: "0px 5px",
-                                        boxShadow:
+                                        maxWidth: "10%",
+
+                                        padding: "0 10px",
+                                        cursor: "pointer",
+                                        borderBottom:
                                             brand.name == currentStore
-                                                ? "0 0 15px var(--btn-color-grad-1)"
-                                                : "none",
+                                                ? "3px solid var(--btn-color-grad-1)"
+                                                : "3px solid gray",
                                     }}
                                 >
                                     <img

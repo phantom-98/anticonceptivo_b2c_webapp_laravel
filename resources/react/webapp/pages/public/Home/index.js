@@ -72,7 +72,7 @@ const Home = ({ match }) => {
             <SwiperCarousel banners={topBanners} />
             <OutstandingCarousel
                 brand={currentStore}
-                title={"AntiConceptivo"}
+                title={"Más Destacados"}
             />
             {/*  <OutstandingCarousel title="Destacados" />
 

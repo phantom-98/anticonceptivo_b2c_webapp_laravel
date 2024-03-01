@@ -55,7 +55,7 @@
 }
 
 .header-navbar-col:hover {
-    background: #009be8;
+    background: var(--btn-color-grad-1);
     //background: -moz-linear-gradient(90deg, rgba(0,155,232,1) 0%, rgba(0,219,174,1) 100%);
     //background: -webkit-linear-gradient(90deg, rgba(0,155,232,1) 0%, rgba(0,219,174,1) 100%);
     //background: linear-gradient(90deg, rgba(0,155,232,1) 0%, rgba(0,219,174,1) 100%);
@@ -228,7 +228,7 @@ button#dropdown-testing {
     left: 0;
     z-index: 1030;
     background-color: white;
-    top: 190px;
+    top: 200px;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0);
 }
 
@@ -238,7 +238,7 @@ button#dropdown-testing {
 }
 
 .style-props-menu-fixed-top {
-    top: 155px;
+    top: 162px;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
 }
 

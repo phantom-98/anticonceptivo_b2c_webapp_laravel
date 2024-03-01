@@ -52,7 +52,10 @@ const OxfarLanding = ({ match }) => {
     return (
         <div className="bg-FAFAFA">
             <SwiperCarousel banners={topBanners} />
-            <OutstandingCarousel brand={currentStore} title={"Oxfar"} />
+            <OutstandingCarousel
+                brand={currentStore}
+                title={"Más Destacados"}
+            />
         </div>
     );
 };

@@ -491,7 +491,7 @@
 }
 
 .header-navbar-col:hover {
-  background: #009be8;
+  background: var(--btn-color-grad-1);
 }
 
 .header-navbar-col-custom {
@@ -655,7 +655,7 @@ button#dropdown-testing {
   left: 0;
   z-index: 1030;
   background-color: white;
-  top: 190px;
+  top: 200px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0);
 }
 
@@ -665,7 +665,7 @@ button#dropdown-testing {
 }
 
 .style-props-menu-fixed-top {
-  top: 155px;
+  top: 162px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
 }
 
@@ -1786,12 +1786,12 @@ tbody tr td {
   font-family: "Poppins", sans-serif;
   font-size: 25px;
   font-weight: 700;
-  color: var(--product-card-price);
+  color: #000;
   margin-bottom: 0.5rem;
 }
 
 .offer-price-color {
-  color: var(--product-card-price);
+  color: #ff0000;
 }
 
 .quantity-input {
