@@ -108,7 +108,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 var Footer = function Footer() {
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
-      file: ''
+      file: ""
     }),
     _useState2 = _slicedToArray(_useState, 2),
     responsibleConsumption = _useState2[0],
@@ -158,21 +158,11 @@ var Footer = function Footer() {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
           className: "row",
           style: {
-            marginLeft: '-25px !important'
+            marginLeft: "-25px !important"
           },
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
             className: "col-lg-auto text-center flex-footer-column",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("div", {
-              className: "mb-3",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(react_lazy_load_image_component__WEBPACK_IMPORTED_MODULE_15__.LazyLoadImage, {
-                alt: _Config__WEBPACK_IMPORTED_MODULE_11__.CONFIG.APP_NAME,
-                className: "logo-footer",
-                title: "Anticonceptivo",
-                rel: "nofollow",
-                effect: "blur",
-                src: _assets_images_icons_footer_logo_footer_svg__WEBPACK_IMPORTED_MODULE_2__["default"]
-              })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("div", {
               className: "font-10 regular text-white",
               children: "Una alianza con"
             }), alliances.map(function (alliance, index) {
@@ -227,7 +217,7 @@ var Footer = function Footer() {
                 className: "nav-item text-center text-lg-left footer-nav-item",
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("a", {
                   className: "nav-link",
-                  href: responsibleConsumption && 'public_file' in responsibleConsumption ? responsibleConsumption.public_file : '',
+                  href: responsibleConsumption && "public_file" in responsibleConsumption ? responsibleConsumption.public_file : "",
                   target: "_blank",
                   children: "Consumo responsable"
                 })
@@ -241,21 +231,21 @@ var Footer = function Footer() {
                 className: "nav-item text-center text-lg-left footer-nav-item",
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_18__.Link, {
                   className: "nav-link",
-                  to: _routes_publicRoutes__WEBPACK_IMPORTED_MODULE_12__["default"].CORPORATE_RESPONSIBILITY.path.replace(':section', 'politicas-de-privacidad'),
+                  to: _routes_publicRoutes__WEBPACK_IMPORTED_MODULE_12__["default"].CORPORATE_RESPONSIBILITY.path.replace(":section", "politicas-de-privacidad"),
                   children: "Pol\xEDticas de Privacidad"
                 })
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("li", {
                 className: "nav-item text-center text-lg-left footer-nav-item",
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_18__.Link, {
                   className: "nav-link",
-                  to: _routes_publicRoutes__WEBPACK_IMPORTED_MODULE_12__["default"].CORPORATE_RESPONSIBILITY.path.replace(':section', 'carta-de-desabastecimiento'),
+                  to: _routes_publicRoutes__WEBPACK_IMPORTED_MODULE_12__["default"].CORPORATE_RESPONSIBILITY.path.replace(":section", "carta-de-desabastecimiento"),
                   children: "Carta de Desabastecimiento"
                 })
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("li", {
                 className: "nav-item text-center text-lg-left",
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_18__.Link, {
                   className: "nav-link",
-                  to: _routes_publicRoutes__WEBPACK_IMPORTED_MODULE_12__["default"].CORPORATE_RESPONSIBILITY.path.replace(':section', 'plazos-y-costos-entrega'),
+                  to: _routes_publicRoutes__WEBPACK_IMPORTED_MODULE_12__["default"].CORPORATE_RESPONSIBILITY.path.replace(":section", "plazos-y-costos-entrega"),
                   children: "Plazos y costos de entrega"
                 })
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("li", {
@@ -281,7 +271,7 @@ var Footer = function Footer() {
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("li", {
                 className: "nav-item d-flex",
                 style: {
-                  height: '34px'
+                  height: "34px"
                 },
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("div", {
                   className: "px-3 my-auto mx-auto mx-lg-0 font-15 bold font-poppins text-white",
@@ -305,8 +295,8 @@ var Footer = function Footer() {
                   href: "mailto:contacto@anticonceptivo.cl",
                   children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_components_general_Icon__WEBPACK_IMPORTED_MODULE_13__["default"], {
                     path: _assets_images_icons_footer_email_svg__WEBPACK_IMPORTED_MODULE_5__["default"]
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("span", {
-                    children: [' ', "contacto@anticonceptivo.cl"]
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("span", {
+                    children: " contacto@anticonceptivo.cl"
                   })]
                 })
               })]
@@ -320,7 +310,7 @@ var Footer = function Footer() {
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_components_general_Icon__WEBPACK_IMPORTED_MODULE_13__["default"], {
                     path: _assets_images_icons_footer_facebook_png__WEBPACK_IMPORTED_MODULE_8__["default"],
                     style: {
-                      width: '75%'
+                      width: "75%"
                     }
                   })
                 })
@@ -332,7 +322,7 @@ var Footer = function Footer() {
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_components_general_Icon__WEBPACK_IMPORTED_MODULE_13__["default"], {
                     path: _assets_images_icons_footer_instagram_png__WEBPACK_IMPORTED_MODULE_9__["default"],
                     style: {
-                      width: '75%'
+                      width: "75%"
                     }
                   })
                 })
@@ -344,7 +334,7 @@ var Footer = function Footer() {
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_components_general_Icon__WEBPACK_IMPORTED_MODULE_13__["default"], {
                     path: _assets_images_icons_footer_tiktok_png__WEBPACK_IMPORTED_MODULE_10__["default"],
                     style: {
-                      width: '75%'
+                      width: "75%"
                     }
                   })
                 })
@@ -389,10 +379,10 @@ var Footer = function Footer() {
             className: "col-lg-auto text-center ",
             children: footerCat.map(function (f, i) {
               return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("a", {
-                href: '/tienda/' + f.slug,
+                href: "/tienda/" + f.slug,
                 title: f.name,
                 className: "text-white",
-                children: [f.name, footerCat.length - 1 !== i ? ' | ' : '']
+                children: [f.name, footerCat.length - 1 !== i ? " | " : ""]
               }, f.id);
             })
           })

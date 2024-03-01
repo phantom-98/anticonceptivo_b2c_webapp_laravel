@@ -52,7 +52,10 @@ const CardioLanding = ({ match }) => {
     return (
         <div className="bg-FAFAFA">
             <SwiperCarousel banners={topBanners} />
-            <OutstandingCarousel brand={currentStore} title={"Cardio"} />
+            <OutstandingCarousel
+                brand={currentStore}
+                title={"Más Destacados"}
+            />
         </div>
     );
 };

@@ -6396,7 +6396,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/bioequivalente.png?0647aa16e1b997a0271a3408f2dc3975");
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/bioequivalente.png?e3bc63a32d6737d14df68ef2832c320f");
 
 /***/ }),
 

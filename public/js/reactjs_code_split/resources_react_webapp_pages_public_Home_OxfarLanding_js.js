@@ -734,13 +734,13 @@ var ProductCard = function ProductCard(_ref) {
             })
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
-          className: "product-card-price",
-          children: [subscriptionFilter.length ? handleText(product) : product.is_offer ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
-            className: "font-poppins font-16 bold offer-price-color mx-2",
+          className: "product-card-price ",
+          children: [(0,_helpers_GlobalUtils__WEBPACK_IMPORTED_MODULE_2__.formatMoney)(subscriptionFilter.length ? handlePrice(product) : product.is_offer ? product.offer_price : product.price), subscriptionFilter.length ? handleText(product) : product.is_offer ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
+            className: "font-poppins font-16 bold offer-price-color mx-1",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("s", {
               children: [" ", (0,_helpers_GlobalUtils__WEBPACK_IMPORTED_MODULE_2__.formatMoney)(product.price)]
             })
-          }) : null, (0,_helpers_GlobalUtils__WEBPACK_IMPORTED_MODULE_2__.formatMoney)(subscriptionFilter.length ? handlePrice(product) : product.is_offer ? product.offer_price : product.price)]
+          }) : null]
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
         className: "product-card-cart",

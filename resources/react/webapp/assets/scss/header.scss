@@ -85,7 +85,7 @@ button#dropdown-testing {
 
 .header-navbar-item {
     cursor: pointer;
-    color: white;
+    color: var(--text-color);
     font-family: "Poppins", sans-serif;
     font-size: 12px;
     font-weight: 700;
@@ -228,7 +228,7 @@ button#dropdown-testing {
     left: 0;
     z-index: 1030;
     background-color: white;
-    top: 200px;
+    top: 190px;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0);
 }
 
@@ -238,7 +238,7 @@ button#dropdown-testing {
 }
 
 .style-props-menu-fixed-top {
-    top: 162px;
+    top: 132px;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
 }
 

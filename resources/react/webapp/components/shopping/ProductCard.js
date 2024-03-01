@@ -141,14 +141,7 @@ const ProductCard = ({ product, className = "", subscriptionFilter = [] }) => {
                             </div>
                         </Link>
                     </div>
-                    <div className="product-card-price">
-                        {subscriptionFilter.length ? (
-                            handleText(product)
-                        ) : product.is_offer ? (
-                            <span className="font-poppins font-16 bold offer-price-color mx-2">
-                                <s> {formatMoney(product.price)}</s>
-                            </span>
-                        ) : null}
+                    <div className="product-card-price ">
                         {formatMoney(
                             subscriptionFilter.length
                                 ? handlePrice(product)
@@ -156,6 +149,13 @@ const ProductCard = ({ product, className = "", subscriptionFilter = [] }) => {
                                 ? product.offer_price
                                 : product.price
                         )}
+                        {subscriptionFilter.length ? (
+                            handleText(product)
+                        ) : product.is_offer ? (
+                            <span className="font-poppins font-16 bold offer-price-color mx-1">
+                                <s> {formatMoney(product.price)}</s>
+                            </span>
+                        ) : null}
                     </div>
                 </div>
                 <div className="product-card-cart">
