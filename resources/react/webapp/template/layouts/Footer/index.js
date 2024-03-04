@@ -1,7 +1,10 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useContext, useEffect, useState } from "react";
 import FooterBottom from "./FooterBottom";
-import logoFooter from "../../../assets/images/icons/footer/logo-footer.svg";
-import webpay from "../../../assets/images/icons/footer/webpay.svg";
+import logoFooter from "../../../assets/images/logo_blanco_alianza.png";
+import logoFooterVerde from "../../../assets/images/logo_verde_alianza.png";
+import { FaPhoneAlt } from "react-icons/fa";
+import { IoMailSharp } from "react-icons/io5";
+import webpay from "../../../assets/images/webPay_amarillo.png";
 import phone from "../../../assets/images/icons/footer/phone.svg";
 import email from "../../../assets/images/icons/footer/email.svg";
 import bannerBio from "../../../assets/images/icons/footer/slider_slider_banner_bio_min.jpg";
@@ -17,12 +20,14 @@ import * as Services from "../../../Services";
 import { v4 as uuidv4 } from "uuid";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
+import { AppContext } from "../../../context/AppProvider";
 
 const Footer = () => {
     const [responsibleConsumption, setResponsibleConsumption] = useState({
         file: "",
     });
-
+    const { currentStore } = useContext(AppContext);
+    const [logo, setLogo] = useState(logoFooter);
     const [alliances, setAlliances] = useState([]);
     const [footerCat, setFooterCat] = useState([]);
     const [phoneContact, setPhoneContact] = useState(null);
@@ -30,6 +35,9 @@ const Footer = () => {
     const [sections, setSections] = useState([]);
 
     useEffect(() => {
+        if (currentStore === "bioequivalente") {
+            setLogo(logoFooterVerde);
+        }
         getData();
     }, []);
 
@@ -75,9 +83,7 @@ const Footer = () => {
                                     src={logoFooter}
                                 />
                             </div> */}
-                            <div className="font-10 regular text-white">
-                                Una alianza con
-                            </div>
+
                             {alliances.map((alliance, index) => {
                                 return (
                                     <div className="mb-3" key={index * 7777}>
@@ -86,7 +92,7 @@ const Footer = () => {
                                             title="Anticonceptivo"
                                             rel="nofollow"
                                             effect="blur"
-                                            src={alliance.public_footer_image}
+                                            src={logo}
                                         />
                                     </div>
                                 );
@@ -217,7 +223,7 @@ const Footer = () => {
                                     className="nav-item d-flex"
                                     style={{ height: "34px" }}
                                 >
-                                    <div className="px-3 my-auto mx-auto mx-lg-0 font-15 bold font-poppins text-white">
+                                    <div className="px-3 my-auto mx-auto mx-lg-0 font-15 bold font-poppins text-with-bg">
                                         CONTACTO
                                     </div>
                                 </li>
@@ -232,7 +238,7 @@ const Footer = () => {
                                             )
                                         }
                                     >
-                                        <Icon path={phone} />
+                                        <FaPhoneAlt className="react-icons" />
                                         <span>{phoneContact}</span>
                                     </a>
                                 </li>
@@ -241,7 +247,7 @@ const Footer = () => {
                                         className="nav-link"
                                         href="mailto:contacto@anticonceptivo.cl"
                                     >
-                                        <Icon path={email} />
+                                        <IoMailSharp className="react-icons" />
                                         <span> contacto@anticonceptivo.cl</span>
                                     </a>
                                 </li>
@@ -329,7 +335,7 @@ const Footer = () => {
                                     key={f.id}
                                     href={"/tienda/" + f.slug}
                                     title={f.name}
-                                    className="text-white"
+                                    className="text-with-bg"
                                 >
                                     {f.name}
                                     {footerCat.length - 1 !== i ? " | " : ""}

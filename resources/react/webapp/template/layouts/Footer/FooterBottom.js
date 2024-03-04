@@ -1,15 +1,15 @@
-import React from 'react';
+import React from "react";
 import moment from "moment";
 
 const FooterBottom = () => {
-
     return (
         <div className="footer-bottom d-flex">
             <div className="container my-auto">
-                <div className="row ">
+                <div className="row text-with-bg">
                     <div className="col-md-8">
                         <div className="text-center text-md-left">
-                            © {moment().format('YYYY')} Todos los derechos reservados
+                            © {moment().format("YYYY")} Todos los derechos
+                            reservados
                         </div>
                     </div>
                     <div className="col-md-4">
@@ -20,8 +20,7 @@ const FooterBottom = () => {
                 </div>
             </div>
         </div>
-
     );
 };
 
-export default FooterBottom
+export default FooterBottom;

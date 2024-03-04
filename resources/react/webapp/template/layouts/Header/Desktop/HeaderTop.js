@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import phoneWhite from "../../../../assets/images/icons/header/phone-white.svg";
+import { HiOutlinePhone } from "react-icons/hi";
+import { AiOutlineMail } from "react-icons/ai";
 import emailWhite from "../../../../assets/images/icons/header/email-white.svg";
 import HeaderTopLink from "../../../components/HeaderTopLink";
 import PUBLIC_ROUTES from "../../../../routes/publicRoutes";
@@ -33,7 +35,7 @@ const HeaderTop = () => {
     };
 
     return (
-        <div className="top-header top-header-color">
+        <div className="top-header top-header-color ">
             <div className="row mx-2">
                 <div className="col-md-auto py-2">
                     <div className="my-auto">
@@ -41,7 +43,7 @@ const HeaderTop = () => {
                             <a
                                 href={textHeader.link}
                                 target="_blank"
-                                className="text-white"
+                                className="text-with-bg"
                             >
                                 {textHeader ? textHeader.text : ""}
                             </a>
@@ -53,9 +55,9 @@ const HeaderTop = () => {
                     </div>
                 </div>
                 <div className="col-md">
-                    <div className="row justify-content-end">
+                    <div className="row justify-content-end ">
                         <HeaderTopLink
-                            icon={phoneWhite}
+                            Icon={HiOutlinePhone}
                             flag={true}
                             email={false}
                             linkTo={
@@ -64,7 +66,7 @@ const HeaderTop = () => {
                             text={phoneContact}
                         />
                         <HeaderTopLink
-                            icon={emailWhite}
+                            Icon={AiOutlineMail}
                             flag={true}
                             email={true}
                             linkTo={"mailto:contacto@anticonceptivo.cl"}

@@ -1,9 +1,9 @@
-import React from 'react';
-import {CONFIG} from "../../Config";
-import { LazyLoadImage } from 'react-lazy-load-image-component';
-import 'react-lazy-load-image-component/src/effects/blur.css';
+import React from "react";
+import { CONFIG } from "../../Config";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 
-const Icon = ({path, style = {}, className = '', title = ''}) => {
+const Icon = ({ path, style = {}, className = "", title = "" }) => {
     return (
         <LazyLoadImage
             alt={CONFIG.APP_NAME}
@@ -17,4 +17,4 @@ const Icon = ({path, style = {}, className = '', title = ''}) => {
     );
 };
 
-export default Icon
+export default Icon;

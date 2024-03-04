@@ -7,6 +7,7 @@
 
 .top-do-flex {
     display: flex !important;
+    align-items: center;
     min-height: 33px;
 }
 .top-header-color {
@@ -19,7 +20,7 @@
     font-size: 12px;
 }
 
-.top-link:after {
+/* .top-link:after {
     background: none repeat scroll 0 0 transparent;
     bottom: -3px;
     content: "";
@@ -30,7 +31,7 @@
     background: #fff;
     transition: width 0.3s ease 0s, left 0.3s ease 0s;
     width: 0;
-}
+} */
 
 .top-link:hover:after {
     width: 100%;
