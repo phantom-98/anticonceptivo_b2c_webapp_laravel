@@ -19,8 +19,7 @@ yarn-error.log
 /packages/*
 /public/themes/intranet/app/js/app.js
 
-/public/themes/web/app/js
+
 public/.DS_Store
-public/themes/web/app/js/*
-public/themes/web/app/js/app.js
+
 .DS_Store
