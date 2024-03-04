@@ -233,6 +233,7 @@ class HomeController extends Controller
                 ->where('active',true)
                 ->where('is_bioequivalent',true)
                 ->whereHas('laboratory')
+                ->whereHas('subcategory')
                 ->inRandomOrder()
                 ->take(7)
                 ->get();
