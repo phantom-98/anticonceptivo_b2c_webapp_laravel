@@ -1,7 +1,7 @@
 .search-filter-button input:focus {
     color: #495057;
     background-color: #fff;
-    border-color: #F4F4F4;
+    border-color: #f4f4f4;
     outline: 0;
 }
 
@@ -17,11 +17,11 @@
     box-shadow: none;
 }
 
-.btn-auth{
+.btn-auth {
     height: 50px;
     text-transform: uppercase;
     font-size: 15px;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     font-weight: 700;
 }
 
@@ -29,62 +29,71 @@
     font-weight: 700;
     height: 48px;
     border-radius: 31px;
-    color : white !important;
-    background: linear-gradient(90deg, rgba(0, 219, 174, 1), rgba(0, 155, 232, 1), rgba(0, 155, 232, 1), rgba(0, 219, 174, 1));
+    color: white !important;
+    background: linear-gradient(
+        90deg,
+        var(--btn-color-grad-1),
+        var(--btn-color-grad-2),
+        var(--btn-color-grad-2),
+        var(--btn-color-grad-1)
+    );
     background-size: 400% 400%;
 }
 
-.white-space{
+.white-space {
     white-space: nowrap;
 }
 
-.btn-bicolor:hover {
-    animation: gradient-out .3s linear;
+.btn-bicolor:hover,
+.btn-bicolor2:hover {
+    animation: gradient-out 0.3s linear;
 }
-
 
 .btn-outline-bicolor {
     font-weight: 700;
     height: 48px;
     border-radius: 31px;
-    border : 1px solid #707070;
-    color : #033F5D !important;
+    border: 1px solid #707070;
+    color: #033f5d !important;
     background: white;
     background-size: 400% 400%;
 }
 
-.btn-outline-bicolor:hover{
+.btn-outline-bicolor:hover {
     height: 48px;
     border-radius: 31px;
-    border : 1px solid #00c3c3;
-    color : white !important;
-    background: linear-gradient(90deg, rgba(0, 219, 174, 1), rgba(0, 155, 232, 1), rgba(0, 155, 232, 1), rgba(0, 219, 174, 1));
+    border: 1px solid #00c3c3;
+    color: white !important;
+    background: linear-gradient(
+        90deg,
+        rgba(0, 219, 174, 1),
+        rgba(0, 155, 232, 1),
+        rgba(0, 155, 232, 1),
+        rgba(0, 219, 174, 1)
+    );
     background-size: 400% 400%;
 }
 
 .btn-add-cart,
-.btn-add-cart:hover{
+.btn-add-cart:hover {
     height: 31px !important;
     font-size: 10px;
 }
 
 .btn-add-cart2,
-.btn-add-cart2:hover{
+.btn-add-cart2:hover {
     height: 31px !important;
     font-size: 8px;
 }
 
 @keyframes gradient-in {
-
     0% {
         background-position: 0 100%;
     }
     100% {
         background-position: 100% 200%;
     }
-
 }
-
 
 @keyframes gradient-out {
     0% {
@@ -98,29 +107,41 @@
 .btn-bicolor-1-hover:hover {
     border: 1px solid transparent;
     background: rgb(0, 155, 174);
-    background: -moz-linear-gradient(90deg, rgba(0, 219, 174, 1) 0%, rgba(0, 155, 232, 1) 100%);
-    background: -webkit-linear-gradient(90deg, rgba(0, 219, 174, 1) 0%, rgba(0, 155, 232, 1) 100%);
-    background: linear-gradient(90deg, rgba(0, 219, 174, 1) 0%, rgba(0, 155, 232, 1) 100%);
+    background: -moz-linear-gradient(
+        90deg,
+        rgba(0, 219, 174, 1) 0%,
+        rgba(0, 155, 232, 1) 100%
+    );
+    background: -webkit-linear-gradient(
+        90deg,
+        rgba(0, 219, 174, 1) 0%,
+        rgba(0, 155, 232, 1) 100%
+    );
+    background: linear-gradient(
+        90deg,
+        rgba(0, 219, 174, 1) 0%,
+        rgba(0, 155, 232, 1) 100%
+    );
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#00dbae", endColorstr="#009be8", GradientType=1);
-    -moz-transition: all .4s ease-in-out;
-    -o-transition: all .4s ease-in-out;
-    -webkit-transition: all .4s ease-in-out;
-    transition: all .4s ease-in-out;
+    -moz-transition: all 0.4s ease-in-out;
+    -o-transition: all 0.4s ease-in-out;
+    -webkit-transition: all 0.4s ease-in-out;
+    transition: all 0.4s ease-in-out;
 }
 
 .btn-bicolor-2-hover:hover {
     border: 1px solid transparent;
     background-position: 100% 0;
-    -moz-transition: all .4s ease-in-out;
-    -o-transition: all .4s ease-in-out;
-    -webkit-transition: all .4s ease-in-out;
-    transition: all .4s ease-in-out;
+    -moz-transition: all 0.4s ease-in-out;
+    -o-transition: all 0.4s ease-in-out;
+    -webkit-transition: all 0.4s ease-in-out;
+    transition: all 0.4s ease-in-out;
 }
 
-.paginator-buttons{
+.paginator-buttons {
     color: black;
     padding: 8px 13px;
-    border: solid thin #E6E6E6;
+    border: solid thin #e6e6e6;
     border-radius: 7px;
     font-weight: 450;
     font-size: 12px;
@@ -128,22 +149,21 @@
     margin: 0 2px;
 }
 
-.paginator-buttons.active{
+.paginator-buttons.active {
     color: white;
-    border: solid thin #009BE8;
-    background-color: #009BE8;
+    border: solid thin #009be8;
+    background-color: #009be8;
 }
 
 .paginator-buttons > a {
     color: black;
-
 }
 
 .paginator-buttons.active > a {
     color: white;
 }
 
-.paginator-buttons > a:hover{
+.paginator-buttons > a:hover {
     text-decoration: none;
 }
 
@@ -152,24 +172,23 @@
     display: flex;
     padding-left: 0;
     list-style: none;
-    border-radius: .25rem;
+    border-radius: 0.25rem;
 }
 
-.paginator-label{
-    float:right;
+.paginator-label {
+    float: right;
     display: flex;
     padding-right: 25px;
     line-height: 34px;
 }
-
 
 .btn-months {
     height: 26px !important;
     font-size: 8px;
     background: transparent;
     border-radius: 12px;
-    border: 1px solid #CECECE !important;
-    color: #6C6B6B !important;
+    border: 1px solid #cecece !important;
+    color: #6c6b6b !important;
     font-weight: bold;
     text-transform: uppercase;
     box-shadow: unset;
@@ -181,7 +200,6 @@
     color: white !important;
     outline: 0;
     box-shadow: none;
-
 }
 
 .btn-months.focus {
@@ -194,7 +212,7 @@
 .search-filter-button-mobile input:focus {
     color: #495057;
     background-color: #fff;
-    border-color: #F4F4F4;
+    border-color: #f4f4f4;
     outline: 0;
     box-shadow: none;
 }
@@ -212,7 +230,7 @@
     box-shadow: none;
 }
 
-.sticky-container-go-to-pay{
+.sticky-container-go-to-pay {
     position: fixed;
     bottom: 0px;
     right: 10px;

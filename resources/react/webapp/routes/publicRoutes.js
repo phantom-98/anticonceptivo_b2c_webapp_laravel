@@ -1,7 +1,8 @@
-import React from 'react';
+import React from "react";
 import PublicMiddleware from "./middleware/PublicMiddleware";
 import BaseTemplate from "../template";
 import BaseNoLayout from "../template/BaseNoLayout";
+
 // import Home from '../pages/public/Home';
 // import AboutUs from "../pages/public/AboutUs";
 // import ContactUs from "../pages/public/ContactUs";
@@ -18,42 +19,57 @@ import BaseNoLayout from "../template/BaseNoLayout";
 // const BaseTemplate = React.lazy(() => import("../template"));
 
 // change the above line import route for any testing page
-const Test = React.lazy(() => import('../pages/testing/Home'));
+const Test = React.lazy(() => import("../pages/testing/Home"));
+const Oxfar = React.lazy(() => import("../pages/public/Home/OxfarLanding"));
+const Cardio = React.lazy(() => import("../pages/public/Home/CardioLanding"));
+const Bio = React.lazy(() =>
+    import("../pages/public/Home/BioequivalenteLanding")
+);
 
-const Home = React.lazy(() => import('../pages/public/Home'));
+const Home = React.lazy(() => import("../pages/public/Home"));
 const AboutUs = React.lazy(() => import("../pages/public/AboutUs"));
 const ContactUs = React.lazy(() => import("../pages/public/ContactUs"));
 const Faq = React.lazy(() => import("../pages/public/Faq"));
 const History = React.lazy(() => import("../pages/public/History"));
-const TermsAndConditions = React.lazy(() => import("../pages/public/TermsAndConditions"));
-const CorporateResponsibility = React.lazy(() => import("../pages/public/CorporateResponsibility"));
+const TermsAndConditions = React.lazy(() =>
+    import("../pages/public/TermsAndConditions")
+);
+const CorporateResponsibility = React.lazy(() =>
+    import("../pages/public/CorporateResponsibility")
+);
 const Cart = React.lazy(() => import("../pages/public/Cart"));
 const Blog = React.lazy(() => import("../pages/public/Blog/Blog"));
-const BlogListByCategory = React.lazy(() => import("../pages/public/Blog/BlogListByCategory"));
+const BlogListByCategory = React.lazy(() =>
+    import("../pages/public/Blog/BlogListByCategory")
+);
 const Post = React.lazy(() => import("../pages/public/Post"));
-const FinishPaymentTransaction = React.lazy(() => import("../pages/public/CheckOut/FinishPaymentTransaction"));
+const FinishPaymentTransaction = React.lazy(() =>
+    import("../pages/public/CheckOut/FinishPaymentTransaction")
+);
 const Shop = React.lazy(() => import("../pages/public/Shop"));
-const ProductDetail = React.lazy(() => import("../pages/public/ProductDetails"));
+const ProductDetail = React.lazy(() =>
+    import("../pages/public/ProductDetails")
+);
 const CheckOut = React.lazy(() => import("../pages/public/CheckOut"));
 const Claim = React.lazy(() => import("../pages/public/Claim"));
-const ShopSearch = React.lazy(() => import('../pages/public/Shop/indexSearch'));
+const ShopSearch = React.lazy(() => import("../pages/public/Shop/indexSearch"));
 
 const PUBLIC_ROUTES = {
-    TEST: {
+    TEST: {
         path: "/testing",
         title: "Testing",
         component: Test,
         exact: true,
-        layout: props => <BaseNoLayout {...props} />,
-        middleware: props => <PublicMiddleware {...props} />
+        layout: (props) => <BaseNoLayout {...props} />,
+        middleware: (props) => <PublicMiddleware {...props} />,
     },
     ABOUT_US: {
         path: "/sobre-nosotros",
         title: "Sobre Nosotros",
         component: AboutUs,
         exact: true,
-        layout: props => <BaseTemplate {...props} />,
-        middleware: props => <PublicMiddleware {...props} />
+        layout: (props) => <BaseTemplate {...props} />,
+        middleware: (props) => <PublicMiddleware {...props} />,
     },
 
     CONTACT_US: {
@@ -61,8 +77,8 @@ const PUBLIC_ROUTES = {
         title: "Contáctanos",
         component: ContactUs,
         exact: true,
-        layout: props => <BaseTemplate {...props} />,
-        middleware: props => <PublicMiddleware {...props} />
+        layout: (props) => <BaseTemplate {...props} />,
+        middleware: (props) => <PublicMiddleware {...props} />,
     },
 
     FAQ: {
@@ -70,8 +86,8 @@ const PUBLIC_ROUTES = {
         title: "Preguntas Frecuentes",
         component: Faq,
         exact: true,
-        layout: props => <BaseTemplate {...props} />,
-        middleware: props => <PublicMiddleware {...props} />
+        layout: (props) => <BaseTemplate {...props} />,
+        middleware: (props) => <PublicMiddleware {...props} />,
     },
 
     TERMS_AND_CONDITIONS: {
@@ -79,8 +95,8 @@ const PUBLIC_ROUTES = {
         title: "Términos y Condiciones",
         component: TermsAndConditions,
         exact: true,
-        layout: props => <BaseTemplate {...props} />,
-        middleware: props => <PublicMiddleware {...props} />
+        layout: (props) => <BaseTemplate {...props} />,
+        middleware: (props) => <PublicMiddleware {...props} />,
     },
 
     CORPORATE_RESPONSIBILITY: {
@@ -88,8 +104,8 @@ const PUBLIC_ROUTES = {
         title: "Responsabilidad empresarial",
         component: CorporateResponsibility,
         exact: true,
-        layout: props => <BaseTemplate {...props} />,
-        middleware: props => <PublicMiddleware {...props} />
+        layout: (props) => <BaseTemplate {...props} />,
+        middleware: (props) => <PublicMiddleware {...props} />,
     },
 
     SHOP: {
@@ -97,8 +113,8 @@ const PUBLIC_ROUTES = {
         title: "Tienda",
         component: Shop,
         exact: true,
-        layout: props => <BaseTemplate {...props} />,
-        middleware: props => <PublicMiddleware {...props} />
+        layout: (props) => <BaseTemplate {...props} />,
+        middleware: (props) => <PublicMiddleware {...props} />,
     },
 
     SHOP_SEARCH: {
@@ -106,8 +122,8 @@ const PUBLIC_ROUTES = {
         title: "Tienda",
         component: ShopSearch,
         exact: true,
-        layout: props => <BaseTemplate {...props} />,
-        middleware: props => <PublicMiddleware {...props} />
+        layout: (props) => <BaseTemplate {...props} />,
+        middleware: (props) => <PublicMiddleware {...props} />,
     },
 
     SHOP_SUBCATEGORY: {
@@ -115,8 +131,8 @@ const PUBLIC_ROUTES = {
         title: "Tienda",
         component: Shop,
         exact: true,
-        layout: props => <BaseTemplate {...props} />,
-        middleware: props => <PublicMiddleware {...props} />
+        layout: (props) => <BaseTemplate {...props} />,
+        middleware: (props) => <PublicMiddleware {...props} />,
     },
 
     SHOP_FILTER: {
@@ -124,8 +140,8 @@ const PUBLIC_ROUTES = {
         title: "Tienda",
         component: Shop,
         exact: true,
-        layout: props => <BaseTemplate {...props} />,
-        middleware: props => <PublicMiddleware {...props} />
+        layout: (props) => <BaseTemplate {...props} />,
+        middleware: (props) => <PublicMiddleware {...props} />,
     },
 
     PRODUCT_DETAIL: {
@@ -133,8 +149,8 @@ const PUBLIC_ROUTES = {
         title: "Producto",
         component: ProductDetail,
         exact: true,
-        layout: props => <BaseTemplate {...props} />,
-        middleware: props => <PublicMiddleware {...props} />
+        layout: (props) => <BaseTemplate {...props} />,
+        middleware: (props) => <PublicMiddleware {...props} />,
     },
 
     CART: {
@@ -142,8 +158,8 @@ const PUBLIC_ROUTES = {
         title: "Carrito",
         component: Cart,
         exact: true,
-        layout: props => <BaseTemplate {...props} />,
-        middleware: props => <PublicMiddleware {...props} />
+        layout: (props) => <BaseTemplate {...props} />,
+        middleware: (props) => <PublicMiddleware {...props} />,
     },
 
     CHECKOUT_VERIFY: {
@@ -151,8 +167,8 @@ const PUBLIC_ROUTES = {
         title: "Checkout",
         component: FinishPaymentTransaction,
         exact: true,
-        layout: props => <BaseTemplate {...props} />,
-        middleware: props => <PublicMiddleware {...props} />
+        layout: (props) => <BaseTemplate {...props} />,
+        middleware: (props) => <PublicMiddleware {...props} />,
     },
 
     CHECKOUT: {
@@ -160,8 +176,8 @@ const PUBLIC_ROUTES = {
         title: "Checkout",
         component: CheckOut,
         exact: true,
-        layout: props => <BaseTemplate {...props} />,
-        middleware: props => <PublicMiddleware {...props} />
+        layout: (props) => <BaseTemplate {...props} />,
+        middleware: (props) => <PublicMiddleware {...props} />,
     },
 
     CLAIM: {
@@ -169,8 +185,8 @@ const PUBLIC_ROUTES = {
         title: "Libro de Reclamos",
         component: Claim,
         exact: true,
-        layout: props => <BaseTemplate {...props} />,
-        middleware: props => <PublicMiddleware {...props} />
+        layout: (props) => <BaseTemplate {...props} />,
+        middleware: (props) => <PublicMiddleware {...props} />,
     },
 
     HISTORY: {
@@ -178,8 +194,8 @@ const PUBLIC_ROUTES = {
         title: "Historia de los Anticonceptivos",
         component: History,
         exact: true,
-        layout: props => <BaseTemplate {...props} />,
-        middleware: props => <PublicMiddleware {...props} />
+        layout: (props) => <BaseTemplate {...props} />,
+        middleware: (props) => <PublicMiddleware {...props} />,
     },
 
     POST: {
@@ -187,8 +203,8 @@ const PUBLIC_ROUTES = {
         title: "Post",
         component: Post,
         exact: true,
-        layout: props => <BaseTemplate {...props} />,
-        middleware: props => <PublicMiddleware {...props} />
+        layout: (props) => <BaseTemplate {...props} />,
+        middleware: (props) => <PublicMiddleware {...props} />,
     },
 
     BLOG_LIST_BY_CATEGORY: {
@@ -196,8 +212,8 @@ const PUBLIC_ROUTES = {
         title: "Blog",
         component: BlogListByCategory,
         exact: true,
-        layout: props => <BaseTemplate {...props} />,
-        middleware: props => <PublicMiddleware {...props} />
+        layout: (props) => <BaseTemplate {...props} />,
+        middleware: (props) => <PublicMiddleware {...props} />,
     },
 
     BLOG: {
@@ -205,11 +221,9 @@ const PUBLIC_ROUTES = {
         title: "Blog",
         component: Blog,
         exact: true,
-        layout: props => <BaseTemplate {...props} />,
-        middleware: props => <PublicMiddleware {...props} />
+        layout: (props) => <BaseTemplate {...props} />,
+        middleware: (props) => <PublicMiddleware {...props} />,
     },
-
-
 
     // BLOG_LIST: {
     //     path: "/blog/lista",
@@ -225,8 +239,8 @@ const PUBLIC_ROUTES = {
         title: "Recuperar contraseña",
         component: Home,
         exact: true,
-        layout: props => <BaseTemplate {...props} />,
-        middleware: props => <PublicMiddleware {...props} />
+        layout: (props) => <BaseTemplate {...props} />,
+        middleware: (props) => <PublicMiddleware {...props} />,
     },
 
     HOME: {
@@ -234,10 +248,33 @@ const PUBLIC_ROUTES = {
         title: "Inicio",
         component: Home,
         exact: true,
-        layout: props => <BaseTemplate {...props} />,
-        middleware: props => <PublicMiddleware {...props} />
+        layout: (props) => <BaseTemplate {...props} />,
+        middleware: (props) => <PublicMiddleware {...props} />,
+    },
+    OXFAR: {
+        path: "/oxfar",
+        title: "Oxfar",
+        component: Oxfar,
+        exact: true,
+        layout: (props) => <BaseTemplate {...props} />,
+        middleware: (props) => <PublicMiddleware {...props} />,
+    },
+    CARDIO: {
+        path: "/cardio",
+        title: "Cardio",
+        component: Cardio,
+        exact: true,
+        layout: (props) => <BaseTemplate {...props} />,
+        middleware: (props) => <PublicMiddleware {...props} />,
+    },
+    BIO: {
+        path: "/bioequivalente",
+        title: "Bioequivalente",
+        component: Bio,
+        exact: true,
+        layout: (props) => <BaseTemplate {...props} />,
+        middleware: (props) => <PublicMiddleware {...props} />,
     },
 };
-
 
 export default PUBLIC_ROUTES;

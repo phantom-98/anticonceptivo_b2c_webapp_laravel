@@ -10,9 +10,22 @@ import { AppContext } from "../../../context/AppProvider";
 import SliderArrowRight from "../../../assets/images/icons/slider-arrow-right.png";
 import SliderArrowLeft from "../../../assets/images/icons/slider-arrow-left.png";
 import * as Services from "../../../Services";
+import { useHistory } from "react-router-dom";
 
 const OurBrands = () => {
-    const { breakpoint } = useContext(AppContext);
+    const {
+        breakpoint,
+        currentStore,
+        setStore,
+
+        showModalStoreChange,
+    } = useContext(AppContext);
+    let navigate = useHistory();
+
+    const navigateToAboutUs = (brand) => {
+        if (!brand) return navigate.push("/");
+        navigate.push(`/${brand}`);
+    };
     const [newBrands, setNewBrands] = useState([]);
     const [brands, setBrands] = useState([]);
 
@@ -43,7 +56,7 @@ const OurBrands = () => {
     useEffect(() => {
         getData();
     }, []);
-
+    /* 
     function Arrow(props) {
         let className = props.type === "next" ? "nextArrow" : "prevArrow";
 
@@ -83,8 +96,8 @@ const OurBrands = () => {
             />
         );
     }
-
-    const settings = {
+ */
+    /*  const settings = {
         className: "center",
         infinite: true,
         centerMode: true,
@@ -103,8 +116,15 @@ const OurBrands = () => {
         flexDirection: "column",
         justifyContent: "center",
         padding: "0px 0px",
-    };
+    }; */
+    const handleTheme = (brand) => {
+        setStore(brand);
+        showModalStoreChange(true);
+        if (brand === "anticonceptivo") return navigateToAboutUs();
+        navigateToAboutUs(brand);
 
+        //toggleTheme(brand);
+    };
     const brandBySeven = () => {
         let _brands = [...brands];
         let _final_brands = [];
@@ -117,11 +137,54 @@ const OurBrands = () => {
     //return <div>{console.log(brands)}</div>;
 
     return (
-        <div
-            className="mt-2"
-            style={{ backgroundColor: "white", height: "200px" }}
-        >
-            <div className="container" style={containerStyle}>
+        <div style={{ marginBottom: "10px" }}>
+            {newBrands.map((_brands, index) => {
+                return (
+                    <div
+                        key={uuidv4()}
+                        //className="row py-3 justify-content-center"
+                        style={{
+                            display: "flex",
+                            justifyContent: "flex-start",
+                            alignItems: "center",
+                        }}
+                    >
+                        {_brands.map((brand, indx) => {
+                            return (
+                                <div
+                                    className=""
+                                    key={uuidv4()}
+                                    style={{
+                                        // flex: "0 0 9.33333%",
+                                        maxWidth: "10%",
+
+                                        padding: "0 10px",
+                                        cursor: "pointer",
+                                        borderBottom:
+                                            brand.name == currentStore
+                                                ? "3px solid var(--btn-color-grad-1)"
+                                                : "3px solid gray",
+                                    }}
+                                >
+                                    <img
+                                        src={brand.image}
+                                        alt={CONFIG.APP_NAME}
+                                        className=""
+                                        style={{
+                                            width: "100%",
+
+                                            objectFit: "contain",
+                                        }}
+                                        onClick={() => handleTheme(brand.name)}
+                                    />
+                                </div>
+                            );
+                        })}
+                    </div>
+                );
+            })}
+
+            {/* <div className="container" style={containerStyle}>
                 <div className="row">
                     <div className="col-12">
                         <H2Title
@@ -155,27 +218,27 @@ const OurBrands = () => {
                                                 // maxWidth: "9.33333%",
                                                 flex: "0 0 20%",
                                                 maxWidth: "20%",
-
+                                                boxShadow:
+                                                    brand.name == currentStore
+                                                        ? "0 0 15px var(--btn-color-grad-1)"
+                                                        : "none",
                                                 margin: "0px 4rem",
                                             }}
                                         >
                                             <span className="m-auto">
-                                                <a
-                                                    href={brand.url}
-                                                    target="_blank"
-                                                >
-                                                    <img
-                                                        src={brand.public_image}
-                                                        alt={CONFIG.APP_NAME}
-                                                        className=""
-                                                        style={{
-                                                            width: "100%",
-                                                            maxHeight: "100px",
-                                                            objectFit:
-                                                                "contain",
-                                                        }}
-                                                    />
-                                                </a>
+                                                <img
+                                                    src={brand.public_image}
+                                                    alt={CONFIG.APP_NAME}
+                                                    className=""
+                                                    style={{
+                                                        width: "100%",
+                                                        maxHeight: "100px",
+                                                        objectFit: "contain",
+                                                    }}
+                                                    onClick={() =>
+                                                        handleTheme(brand.name)
+                                                    }
+                                                />
                                             </span>
                                         </div>
                                     );
@@ -202,7 +265,7 @@ const OurBrands = () => {
                         </Slider>
                     </>
                 )}
-            </div>
+            </div> */}
         </div>
     );
 };

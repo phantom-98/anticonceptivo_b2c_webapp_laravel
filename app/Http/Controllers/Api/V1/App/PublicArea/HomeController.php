@@ -156,12 +156,12 @@ class HomeController extends Controller
     public function getHomeTopBanners(){
         try {
             $topBanners = Banner::where('location','Home (Superior)')->where('active',true)->orderBy('position')->get();
-            $middleBanners = Banner::where('location','Belleza')->where('active',true)->orderBy('position')->get();
-            $bannerCategories = Category::where('active',true)->where('active_banner_home',true)->orderBy('position_banner')->get();
+            /* $middleBanners = Banner::where('location','Belleza')->where('active',true)->orderBy('position')->get();
+            $bannerCategories = Category::where('active',true)->where('active_banner_home',true)->orderBy('position_banner')->get(); */
             return ApiResponse::JsonSuccess([
                 'top_banners' => $topBanners,
-                'middle_banners' => $middleBanners,
-                'bannerCategories' => $bannerCategories,
+               /*  'middle_banners' => $middleBanners,
+                'bannerCategories' => $bannerCategories, */
             ]);
 
         } catch (\Exception $exception) {
@@ -178,6 +178,91 @@ class HomeController extends Controller
                 ->where('is_medicine', 0)
                 ->where('active',true)
                 ->where('recipe_type','Venta Directa')
+                ->get();
+
+            if ($outstandings->count() < 4) {
+                $outstandings = Product::with(['subcategory.category','product_images','laboratory'])
+                    ->where('active',true)
+                    ->where('is_medicine', 0)
+                    ->where('stock','>',0)
+                    ->where('recipe_type','Venta Directa')
+                    ->inRandomOrder()
+                    ->take(12)
+                    ->get();
+            }
+
+            return ApiResponse::JsonSuccess(ProductLabelHelper::processScheduleList($outstandings), 'Productos destacados');
+
+        } catch (\Exception $exception) {
+            return ApiResponse::JsonError(null, $exception->getMessage());
+        }
+    }
+    public function getLandingOxfar()
+    {
+        try {
+            $outstandings = Product::with(['subcategory.category','product_images','laboratory'])     
+                ->where('stock','>',0)
+                ->where('active',true)
+                ->whereHas('laboratory')
+                ->inRandomOrder()
+                ->take(7)
+                ->get();
+
+            if ($outstandings->count() < 4) {
+                $outstandings = Product::with(['subcategory.category','product_images','laboratory'])
+                    ->where('active',true)
+                    ->where('is_medicine', 0)
+                    ->where('stock','>',0)
+                    ->where('recipe_type','Venta Directa')
+                    ->inRandomOrder()
+                    ->take(12)
+                    ->get();
+            }
+
+            return ApiResponse::JsonSuccess(ProductLabelHelper::processScheduleList($outstandings), 'Productos destacados');
+
+        } catch (\Exception $exception) {
+            return ApiResponse::JsonError(null, $exception->getMessage());
+        }
+    }
+    public function getLandingBioequivalente()
+    {
+        try {
+            $outstandings = Product::with(['subcategory.category','product_images','laboratory'])     
+                ->where('stock','>',0)
+                ->where('active',true)
+                ->where('is_bioequivalent',true)
+                ->whereHas('laboratory')
+                ->inRandomOrder()
+                ->take(7)
+                ->get();
+
+            if ($outstandings->count() < 4) {
+                $outstandings = Product::with(['subcategory.category','product_images','laboratory'])
+                    ->where('active',true)
+                    ->where('is_medicine', 0)
+                    ->where('stock','>',0)
+                    ->where('recipe_type','Venta Directa')
+                    ->inRandomOrder()
+                    ->take(12)
+                    ->get();
+            }
+
+            return ApiResponse::JsonSuccess(ProductLabelHelper::processScheduleList($outstandings), 'Productos destacados');
+
+        } catch (\Exception $exception) {
+            return ApiResponse::JsonError(null, $exception->getMessage());
+        }
+    }
+    public function getLandingCardio()
+    {
+        try {
+            $outstandings = Product::with(['subcategory.category','product_images','laboratory'])     
+                ->where('stock','>',0)
+                ->where('active',true)
+                ->whereHas('laboratory')
+                ->inRandomOrder()
+                ->take(7)
                 ->get();
 
             if ($outstandings->count() < 4) {

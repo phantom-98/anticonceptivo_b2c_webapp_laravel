@@ -1,13 +1,16 @@
 .top-header {
     height: 33px;
     color: white;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     font-size: 12px;
 }
 
 .top-do-flex {
     display: flex !important;
     min-height: 33px;
+}
+.top-header-color {
+    background-color: var(--header-bg);
 }
 
 .top-link {
@@ -37,22 +40,22 @@
 .header-navbar {
     min-height: 44px;
     color: white;
-    background-color: #0869A6;
+    background-color: var(--header-nav-color);
 }
 
 .header-navbar-col {
     display: flex !important;
     min-height: 44px;
     cursor: pointer;
-    -moz-transition: all .25s ease-in-out;
-    -o-transition: all .25s ease-in-out;
-    -webkit-transition: all .25s ease-in-out;
-    transition: all .25s ease-in-out;
+    -moz-transition: all 0.25s ease-in-out;
+    -o-transition: all 0.25s ease-in-out;
+    -webkit-transition: all 0.25s ease-in-out;
+    transition: all 0.25s ease-in-out;
     background: transparent;
 }
 
 .header-navbar-col:hover {
-    background: #009BE8;
+    background: var(--btn-color-grad-1);
     //background: -moz-linear-gradient(90deg, rgba(0,155,232,1) 0%, rgba(0,219,174,1) 100%);
     //background: -webkit-linear-gradient(90deg, rgba(0,155,232,1) 0%, rgba(0,219,174,1) 100%);
     //background: linear-gradient(90deg, rgba(0,155,232,1) 0%, rgba(0,219,174,1) 100%);
@@ -62,10 +65,10 @@
     display: flex !important;
     // min-height: 44px;
     cursor: pointer;
-    -moz-transition: all .25s ease-in-out;
-    -o-transition: all .25s ease-in-out;
-    -webkit-transition: all .25s ease-in-out;
-    transition: all .25s ease-in-out;
+    -moz-transition: all 0.25s ease-in-out;
+    -o-transition: all 0.25s ease-in-out;
+    -webkit-transition: all 0.25s ease-in-out;
+    transition: all 0.25s ease-in-out;
     background: transparent !important;
     border-color: transparent !important;
     background-color: transparent !important;
@@ -82,8 +85,8 @@ button#dropdown-testing {
 
 .header-navbar-item {
     cursor: pointer;
-    color: white;
-    font-family: 'Poppins', sans-serif;
+    color: var(--text-color);
+    font-family: "Poppins", sans-serif;
     font-size: 12px;
     font-weight: 700;
     text-transform: capitalize;
@@ -92,7 +95,7 @@ button#dropdown-testing {
 .header-navbar-subitem {
     cursor: pointer;
     color: black;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     font-size: 12px;
     font-weight: 400;
     text-transform: capitalize;
@@ -100,13 +103,13 @@ button#dropdown-testing {
 }
 
 .header-navbar-subitem:hover {
-    color: #029BE8;
+    color: #029be8;
     font-weight: 700;
 }
 
 .dropdown-menu-custom {
     background: white;
-    border: 1px solid #F4F4F4;
+    border: 1px solid #f4f4f4;
     box-shadow: 0 0 14px rgba(0, 0, 0, 0.05);
     min-width: 290px;
     // overflow: hidden;
@@ -171,7 +174,7 @@ button#dropdown-testing {
 .custom-dropdown-item {
     display: block;
     width: 100%;
-    padding: .25rem 1.5rem;
+    padding: 0.25rem 1.5rem;
     clear: both;
     font-weight: 400;
     color: #212529;
@@ -183,10 +186,10 @@ button#dropdown-testing {
 
 .menu-mobile {
     width: 100%;
-    height: 108px;
+    height: 190px;
     position: fixed;
     background: white !important;
-    box-shadow: 0 1px 12px rgb(0 0 0 / 15%);
+    /* box-shadow: 0 1px 12px rgb(0 0 0 / 15%); */
     top: 0;
     z-index: 2;
 }
@@ -197,17 +200,16 @@ button#dropdown-testing {
     align-content: center;
     justify-content: center;
     font-size: 12px;
-    background-color: #033F5D;
+    background-color: #ffffff;
     color: white;
 }
-
 
 .pills-subscription-color {
     color: black;
 }
 
 .pills-subscription-color:hover {
-    color: #029BE8;
+    color: #029be8;
 }
 
 .style-props {
@@ -217,7 +219,7 @@ button#dropdown-testing {
     z-index: 1031;
     background-color: white;
     top: 32px;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.0);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0);
 }
 
 .style-props-menu {
@@ -226,8 +228,8 @@ button#dropdown-testing {
     left: 0;
     z-index: 1030;
     background-color: white;
-    top: 127px;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.0);
+    top: 25%;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0);
 }
 
 .style-props-fixed-top {
@@ -236,14 +238,13 @@ button#dropdown-testing {
 }
 
 .style-props-menu-fixed-top {
-    top: 95px;
+    top: 165px;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
 }
 
-
-.text-icon-navbar-mobile{
+.text-icon-navbar-mobile {
     font-size: 9px;
-    color : #009BE8;
+    color: #009be8;
     text-align: center;
     margin-top: 5px;
 }

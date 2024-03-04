@@ -84,6 +84,7 @@ export const ENDPOINT = {
         },
         CARROUSELS: {
             GET_OUTSTANDING: GetBaseURL() + "public-area/get-outstandings",
+            GET_LANDING: GetBaseURL() + "public-area/get-landing-",
             GET_CONDOMS: GetBaseURL() + "public-area/get-condoms",
             GET_BEAUTY: GetBaseURL() + "public-area/get-beauty",
             GET_PREGNANCY: GetBaseURL() + "public-area/get-pregnancy",

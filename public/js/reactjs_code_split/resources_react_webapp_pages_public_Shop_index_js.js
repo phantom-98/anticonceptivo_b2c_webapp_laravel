@@ -580,7 +580,7 @@ var AddCartCard = function AddCartCard(_ref) {
     product = _ref.product,
     subscription = _ref.subscription,
     _ref$classModule = _ref.classModule,
-    classModule = _ref$classModule === void 0 ? '' : _ref$classModule;
+    classModule = _ref$classModule === void 0 ? "" : _ref$classModule;
   var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_context_CartProvider__WEBPACK_IMPORTED_MODULE_2__.CartContext),
     addToCart = _useContext.addToCart;
   var _useContext2 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_context_AuthProvider__WEBPACK_IMPORTED_MODULE_3__.AuthContext),
@@ -591,19 +591,19 @@ var AddCartCard = function AddCartCard(_ref) {
     if (subscription && !auth) {
       var swalWithBootstrapButtons = sweetalert2__WEBPACK_IMPORTED_MODULE_6___default().mixin({
         customClass: {
-          confirmButton: 'col-4 ml-4 btn btn-bicolor btn-block',
+          confirmButton: "col-4 ml-4 btn btn-bicolor btn-block",
           cancelButton: "col-4 mr-4 btn btn-outline-bicolor btn-block",
-          title: 'mt-4'
+          title: "mt-4"
         },
         buttonsStyling: false
       });
       swalWithBootstrapButtons.fire({
         title: '<span style="color: #0869A6;">Para agregar este producto debes acceder a tu cuenta</span>',
-        confirmButtonText: 'Acceder',
-        cancelButtonText: 'Cancelar',
+        confirmButtonText: "Acceder",
+        cancelButtonText: "Cancelar",
         showCancelButton: true,
         reverseButtons: true,
-        width: '36rem'
+        width: "36rem"
       }).then(function (result) {
         if (result.isConfirmed) {
           showModalAuth(_Globals__WEBPACK_IMPORTED_MODULE_5__.ModalAuthMode.LOGIN);
@@ -954,7 +954,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 var ProductCard = function ProductCard(_ref) {
   var product = _ref.product,
     _ref$className = _ref.className,
-    className = _ref$className === void 0 ? '' : _ref$className,
+    className = _ref$className === void 0 ? "" : _ref$className,
     _ref$subscriptionFilt = _ref.subscriptionFilter,
     subscriptionFilter = _ref$subscriptionFilt === void 0 ? [] : _ref$subscriptionFilt;
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(1),
@@ -987,11 +987,11 @@ var ProductCard = function ProductCard(_ref) {
     if (product_plan) {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.Fragment, {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
-          className: "font-poppins ".concat(!mobile ? 'font-16' : 'font-12', " ").concat(mobile ? 'd-block' : '', " bold color-009BE8 ").concat(!mobile ? 'ml-2' : ''),
+          className: "font-poppins ".concat(!mobile ? "font-16" : "font-12", " ").concat(mobile ? "d-block" : "", " bold color-009BE8 ").concat(!mobile ? "ml-2" : ""),
           children: "Al mes c/u"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("span", {
-          className: "font-poppins ".concat(!mobile ? 'font-16' : 'font-12', " ").concat(mobile ? 'd-block' : '', " bold color-78d2ff ").concat(!mobile ? 'ml-2' : ''),
-          children: ["(Ahorra un", " ", Math.round((prod.price - product_plan.price) / prod.price * 100), " %)"]
+          className: "font-poppins ".concat(!mobile ? "font-16" : "font-12", " ").concat(mobile ? "d-block" : "", " bold color-78d2ff ").concat(!mobile ? "ml-2" : ""),
+          children: ["(Ahorra un", " ", Math.round((prod.price - product_plan.price) / prod.price * 100), " ", "%)"]
         })]
       });
     }
@@ -1018,17 +1018,17 @@ var ProductCard = function ProductCard(_ref) {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
       className: "d-none d-md-block product-card ".concat(className),
       style: {
-        position: 'relative'
+        position: "relative"
       },
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_IsImmediateLabel__WEBPACK_IMPORTED_MODULE_6__["default"], {
         product: product
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
         className: "product-card-image",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_10__.Link, {
-          to: _routes_publicRoutes__WEBPACK_IMPORTED_MODULE_3__["default"].PRODUCT_DETAIL.path.replace(':slug?', product.slug),
+          to: _routes_publicRoutes__WEBPACK_IMPORTED_MODULE_3__["default"].PRODUCT_DETAIL.path.replace(":slug?", product.slug),
           style: {
-            textDecoration: 'none',
-            color: '#000000'
+            textDecoration: "none",
+            color: "#000000"
           },
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_lazy_load_image_component__WEBPACK_IMPORTED_MODULE_7__.LazyLoadImage, {
             alt: "".concat(_Config__WEBPACK_IMPORTED_MODULE_1__.CONFIG.APP_NAME, " - ").concat(product.name),
@@ -1045,10 +1045,10 @@ var ProductCard = function ProductCard(_ref) {
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
           className: "product-card-name",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_10__.Link, {
-            to: _routes_publicRoutes__WEBPACK_IMPORTED_MODULE_3__["default"].PRODUCT_DETAIL.path.replace(':slug?', product.slug),
+            to: _routes_publicRoutes__WEBPACK_IMPORTED_MODULE_3__["default"].PRODUCT_DETAIL.path.replace(":slug?", product.slug),
             style: {
-              textDecoration: 'none',
-              color: '#000000'
+              textDecoration: "none",
+              color: "#000000"
             },
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
               className: "col-md-12 text-truncate p-0",
@@ -1056,11 +1056,11 @@ var ProductCard = function ProductCard(_ref) {
             })
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
-          className: "product-card-price",
+          className: "product-card-price ",
           children: [(0,_helpers_GlobalUtils__WEBPACK_IMPORTED_MODULE_2__.formatMoney)(subscriptionFilter.length ? handlePrice(product) : product.is_offer ? product.offer_price : product.price), subscriptionFilter.length ? handleText(product) : product.is_offer ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
-            className: "font-poppins font-16 bold color-009BE8",
+            className: "font-poppins font-16 bold offer-price-color mx-1",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("s", {
-              children: [' ', (0,_helpers_GlobalUtils__WEBPACK_IMPORTED_MODULE_2__.formatMoney)(product.price)]
+              children: [" ", (0,_helpers_GlobalUtils__WEBPACK_IMPORTED_MODULE_2__.formatMoney)(product.price)]
             })
           }) : null]
         })]
@@ -1076,7 +1076,7 @@ var ProductCard = function ProductCard(_ref) {
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
       className: "d-md-none d-block product-card ".concat(className),
       style: {
-        position: 'relative'
+        position: "relative"
       },
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
         className: "row",
@@ -1088,10 +1088,10 @@ var ProductCard = function ProductCard(_ref) {
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
           className: "col-12 text-center",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_10__.Link, {
-            to: _routes_publicRoutes__WEBPACK_IMPORTED_MODULE_3__["default"].PRODUCT_DETAIL.path.replace(':slug?', product.slug),
+            to: _routes_publicRoutes__WEBPACK_IMPORTED_MODULE_3__["default"].PRODUCT_DETAIL.path.replace(":slug?", product.slug),
             style: {
-              textDecoration: 'none',
-              color: '#000000'
+              textDecoration: "none",
+              color: "#000000"
             },
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_lazy_load_image_component__WEBPACK_IMPORTED_MODULE_7__.LazyLoadImage, {
               alt: "".concat(_Config__WEBPACK_IMPORTED_MODULE_1__.CONFIG.APP_NAME, " - ").concat(product.name),
@@ -1109,10 +1109,10 @@ var ProductCard = function ProductCard(_ref) {
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
             className: "product-card-name",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_10__.Link, {
-              to: _routes_publicRoutes__WEBPACK_IMPORTED_MODULE_3__["default"].PRODUCT_DETAIL.path.replace(':slug?', product.slug),
+              to: _routes_publicRoutes__WEBPACK_IMPORTED_MODULE_3__["default"].PRODUCT_DETAIL.path.replace(":slug?", product.slug),
               style: {
-                textDecoration: 'none',
-                color: '#000000'
+                textDecoration: "none",
+                color: "#000000"
               },
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
                 className: "col-md-12 text-truncate p-0",

@@ -23,6 +23,9 @@ Route::prefix('public-area')
         Route::get('get-brands', [HomeController::class, 'getBrands'])->name('getBrands');
 
         Route::get('get-outstandings', [HomeController::class, 'getOutstandings'])->name('getOutstandings');
+        Route::get('get-landing-oxfar', [HomeController::class, 'getLandingOxfar'])->name('getLandingOxfar');
+        Route::get('get-landing-bioequivalente', [HomeController::class, 'getLandingBioequivalente'])->name('getLandingBioequivalente');
+        Route::get('get-landing-cardio', [HomeController::class, 'getLandingCardio'])->name('getLandingCardio');
         Route::get('get-condoms', [HomeController::class, 'getCondoms'])->name('getCondoms');
         Route::get('get-beauty', [HomeController::class, 'getBeauty'])->name('getBeauty');
         Route::get('get-pregnancy', [HomeController::class, 'getPregnancy'])->name('getPregnancy');

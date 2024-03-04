@@ -8,6 +8,9 @@ import React, {
 
 import Icon from "../../../../components/general/Icon";
 import logoFull from "../../../../assets/images/logo-full.svg";
+import cardioLogoFull from "../../../../assets/images/cardioLogo.svg";
+import oxfarLogoFull from "../../../../assets/images/oxfar.svg";
+import bioLogoFull from "../../../../assets/images/bioequivalente.png";
 import logoShort from "../../../../assets/images/logo_responsive.png";
 import noImage from "../../../../assets/images/producto-default.png";
 import userBlue from "../../../../assets/images/icons/header/user-blue.svg";
@@ -28,11 +31,13 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import TotalCartItems from "../../../../components/shopping/TotalCartItems";
 import * as Services from "../../../../Services";
 import "react-lazy-load-image-component/src/effects/blur.css";
+import OurBrands from "../../../../pages/public/Home/OurBrands";
 
 const HeaderBox = () => {
-    const { showModalAuth } = useContext(AppContext);
+    const { showModalAuth, currentStore, theme, showModalStoreChange } =
+        useContext(AppContext);
     const { auth, logout } = useContext(AuthContext);
-
+    const [logo, setLogo] = useState(logoFull);
     const [search, setSearch] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [debouncedSearch, setDebouncedSearch] = useState(search);
@@ -42,6 +47,25 @@ const HeaderBox = () => {
     const [isVisibilityDropdownSearch, setIsVisibilityDropdownSearch] =
         useState(false);
 
+    useEffect(() => {
+        switch (currentStore) {
+            case "cardio":
+                setLogo(cardioLogoFull);
+
+                break;
+            case "anticonceptivo":
+                setLogo(logoFull);
+                break;
+            case "bioequivalente":
+                setLogo(bioLogoFull);
+                break;
+
+            default:
+                setLogo(oxfarLogoFull);
+                break;
+        }
+    }, [currentStore]);
+    console.log(theme);
     useEffect(() => {
         function handleClickOutside(event) {
             if (
@@ -132,16 +156,14 @@ const HeaderBox = () => {
 
     return (
         <div>
+            <OurBrands />
             <div className="container py-4">
                 <div className="row">
                     <div className="col-md-auto top-do-flex pointer">
                         <div className="my-auto">
                             <div className="d-none d-xl-block">
                                 <Link to={PUBLIC_ROUTES.HOME.path}>
-                                    <Icon
-                                        path={logoFull}
-                                        style={{ height: 47 }}
-                                    />
+                                    <Icon path={logo} style={{ height: 47 }} />
                                 </Link>
                             </div>
                             <div className="d-block d-xl-none">

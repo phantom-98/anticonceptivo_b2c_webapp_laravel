@@ -14,15 +14,19 @@ import SwiperCarousel from "../../../components/sections/SwiperCarousel";
 import LazyLoading from "../../../components/LazyLoading";
 import AccordionComponent from "../../../components/general/AccordionComponent";
 import OurBrands from "./OurBrands";
+import { Route, Switch } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 const Home = ({ match }) => {
     const { token } = match.params;
 
-    const { showModalAuth, setTokenModalAuth } = useContext(AppContext);
+    const { showModalAuth, setTokenModalAuth, currentStore } =
+        useContext(AppContext);
 
     const [topBanners, setTopBanners] = useState([]);
-    const [bannerCategories, setBannerCategories] = useState([]);
-    const [middleBanners, setMiddleBanners] = useState([]);
+    /* const [bannerCategories, setBannerCategories] = useState([]);
+    const [middleBanners, setMiddleBanners] = useState([]); */
     const [isLoaded, setIsLoaded] = useState(false);
+    let navigate = useHistory();
 
     useEffect(() => {
         if (token && token.length > 15) {
@@ -32,7 +36,11 @@ const Home = ({ match }) => {
     }, []);
 
     useEffect(() => {
-        getData();
+        if (currentStore !== "anticonceptivo") {
+            navigate.push(currentStore);
+        } else {
+            getData();
+        }
     }, []);
 
     const getData = () => {
@@ -44,8 +52,8 @@ const Home = ({ match }) => {
                     response: response,
                     success: () => {
                         setTopBanners(response.data.top_banners);
-                        setMiddleBanners(response.data.middle_banners);
-                        setBannerCategories(response.data.bannerCategories);
+                        /* setMiddleBanners(response.data.middle_banners);
+                        setBannerCategories(response.data.bannerCategories); */
                         setIsLoaded(true);
                     },
                 });
@@ -62,10 +70,11 @@ const Home = ({ match }) => {
     return (
         <div className="bg-FAFAFA">
             <SwiperCarousel banners={topBanners} />
-
-            <OurBrands />
-
-            <OutstandingCarousel title="Destacados" />
+            <OutstandingCarousel
+                brand={currentStore}
+                title={"Más Destacados"}
+            />
+            {/*  <OutstandingCarousel title="Destacados" />
 
             <BeautyProduct
                 title="Belleza y Cuidado Personal"
@@ -82,7 +91,7 @@ const Home = ({ match }) => {
 
             <BannerCategories bannerCategories={bannerCategories} />
 
-            <Subscribe />
+            <Subscribe /> */}
         </div>
     );
 };
