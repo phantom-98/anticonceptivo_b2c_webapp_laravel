@@ -8,7 +8,7 @@ import OutstandingCarousel from "../../../components/sections/OutstandingCarouse
 const BioequivalenteLanding = ({ match }) => {
     const { token } = match.params;
 
-    const { showModalAuth, setTokenModalAuth, currentStore } =
+    const { showModalAuth, setTokenModalAuth, currentStore, setStore } =
         useContext(AppContext);
 
     const [topBanners, setTopBanners] = useState([]);
@@ -23,6 +23,9 @@ const BioequivalenteLanding = ({ match }) => {
     }, []);
 
     useEffect(() => {
+        if (currentStore !== "bioequivalente") {
+            setStore("bioequivalente");
+        }
         getData();
     }, []);
 

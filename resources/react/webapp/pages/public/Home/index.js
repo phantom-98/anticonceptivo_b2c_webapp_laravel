@@ -19,7 +19,7 @@ import { useHistory } from "react-router-dom";
 const Home = ({ match }) => {
     const { token } = match.params;
 
-    const { showModalAuth, setTokenModalAuth, currentStore } =
+    const { showModalAuth, setTokenModalAuth, currentStore, setStore } =
         useContext(AppContext);
 
     const [topBanners, setTopBanners] = useState([]);
@@ -37,6 +37,7 @@ const Home = ({ match }) => {
 
     useEffect(() => {
         if (currentStore !== "anticonceptivo") {
+            setStore(currentStore);
             navigate.push(currentStore);
         } else {
             getData();

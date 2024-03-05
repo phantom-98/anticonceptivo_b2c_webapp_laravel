@@ -926,7 +926,8 @@ var BioequivalenteLanding = function BioequivalenteLanding(_ref) {
   var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_context_AppProvider__WEBPACK_IMPORTED_MODULE_1__.AppContext),
     showModalAuth = _useContext.showModalAuth,
     setTokenModalAuth = _useContext.setTokenModalAuth,
-    currentStore = _useContext.currentStore;
+    currentStore = _useContext.currentStore,
+    setStore = _useContext.setStore;
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
     _useState2 = _slicedToArray(_useState, 2),
     topBanners = _useState2[0],
@@ -942,6 +943,9 @@ var BioequivalenteLanding = function BioequivalenteLanding(_ref) {
     }
   }, []);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (currentStore !== "bioequivalente") {
+      setStore("bioequivalente");
+    }
     getData();
   }, []);
   var getData = function getData() {
