@@ -904,6 +904,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_LazyLoading__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../components/LazyLoading */ "./resources/react/webapp/components/LazyLoading.js");
 /* harmony import */ var _components_sections_SwiperCarousel__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../components/sections/SwiperCarousel */ "./resources/react/webapp/components/sections/SwiperCarousel.js");
 /* harmony import */ var _components_sections_OutstandingCarousel__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../components/sections/OutstandingCarousel */ "./resources/react/webapp/components/sections/OutstandingCarousel.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -920,13 +921,16 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 var CardioLanding = function CardioLanding(_ref) {
   var match = _ref.match;
   var token = match.params.token;
+  var navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_8__.useHistory)();
   var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_context_AppProvider__WEBPACK_IMPORTED_MODULE_1__.AppContext),
     showModalAuth = _useContext.showModalAuth,
     setTokenModalAuth = _useContext.setTokenModalAuth,
-    currentStore = _useContext.currentStore;
+    currentStore = _useContext.currentStore,
+    setStore = _useContext.setStore;
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
     _useState2 = _slicedToArray(_useState, 2),
     topBanners = _useState2[0],
@@ -942,6 +946,9 @@ var CardioLanding = function CardioLanding(_ref) {
     }
   }, []);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (currentStore !== "cardio") {
+      setStore("cardio");
+    }
     getData();
   }, []);
   var getData = function getData() {

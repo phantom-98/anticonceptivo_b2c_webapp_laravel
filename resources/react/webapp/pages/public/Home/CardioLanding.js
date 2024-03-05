@@ -5,10 +5,11 @@ import * as Services from "../../../Services";
 import LazyLoading from "../../../components/LazyLoading";
 import SwiperCarousel from "../../../components/sections/SwiperCarousel";
 import OutstandingCarousel from "../../../components/sections/OutstandingCarousel";
+import { useHistory } from "react-router-dom";
 const CardioLanding = ({ match }) => {
     const { token } = match.params;
-
-    const { showModalAuth, setTokenModalAuth, currentStore } =
+    let navigate = useHistory();
+    const { showModalAuth, setTokenModalAuth, currentStore, setStore } =
         useContext(AppContext);
 
     const [topBanners, setTopBanners] = useState([]);
@@ -23,6 +24,9 @@ const CardioLanding = ({ match }) => {
     }, []);
 
     useEffect(() => {
+        if (currentStore !== "cardio") {
+            setStore("cardio");
+        }
         getData();
     }, []);
 
