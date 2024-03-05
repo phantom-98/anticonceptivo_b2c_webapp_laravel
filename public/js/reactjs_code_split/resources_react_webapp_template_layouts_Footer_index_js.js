@@ -68,7 +68,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _assets_images_icons_footer_phone_svg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../assets/images/icons/footer/phone.svg */ "./resources/react/webapp/assets/images/icons/footer/phone.svg");
 /* harmony import */ var _assets_images_icons_footer_email_svg__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../assets/images/icons/footer/email.svg */ "./resources/react/webapp/assets/images/icons/footer/email.svg");
 /* harmony import */ var _assets_images_icons_footer_slider_slider_banner_bio_min_jpg__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../assets/images/icons/footer/slider_slider_banner_bio_min.jpg */ "./resources/react/webapp/assets/images/icons/footer/slider_slider_banner_bio_min.jpg");
-/* harmony import */ var _assets_images_icons_footer_slider_slider_banner_cituc_min_jpg__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../assets/images/icons/footer/slider_slider_banner_cituc_min.jpg */ "./resources/react/webapp/assets/images/icons/footer/slider_slider_banner_cituc_min.jpg");
+/* harmony import */ var _assets_images_icons_footer_slider_slider_banner_cituc_min_png__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../assets/images/icons/footer/slider_slider_banner_cituc_min.png */ "./resources/react/webapp/assets/images/icons/footer/slider_slider_banner_cituc_min.png");
 /* harmony import */ var _assets_images_icons_footer_facebook_png__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../assets/images/icons/footer/facebook.png */ "./resources/react/webapp/assets/images/icons/footer/facebook.png");
 /* harmony import */ var _assets_images_icons_footer_instagram_png__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../../assets/images/icons/footer/instagram.png */ "./resources/react/webapp/assets/images/icons/footer/instagram.png");
 /* harmony import */ var _assets_images_icons_footer_tiktok_png__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../../assets/images/icons/footer/tiktok.png */ "./resources/react/webapp/assets/images/icons/footer/tiktok.png");
@@ -382,7 +382,7 @@ var Footer = function Footer() {
                 title: "Anticonceptivo",
                 rel: "nofollow",
                 effect: "blur",
-                src: _assets_images_icons_footer_slider_slider_banner_cituc_min_jpg__WEBPACK_IMPORTED_MODULE_8__["default"],
+                src: _assets_images_icons_footer_slider_slider_banner_cituc_min_png__WEBPACK_IMPORTED_MODULE_8__["default"],
                 width: 180
               })
             })]
@@ -484,9 +484,9 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/react/webapp/assets/images/icons/footer/slider_slider_banner_cituc_min.jpg":
+/***/ "./resources/react/webapp/assets/images/icons/footer/slider_slider_banner_cituc_min.png":
 /*!**********************************************************************************************!*\
-  !*** ./resources/react/webapp/assets/images/icons/footer/slider_slider_banner_cituc_min.jpg ***!
+  !*** ./resources/react/webapp/assets/images/icons/footer/slider_slider_banner_cituc_min.png ***!
   \**********************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -495,7 +495,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/slider_slider_banner_cituc_min.jpg?554b0975c287265e18b360ef05bb4d2f");
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/slider_slider_banner_cituc_min.png?9836f9e38f27c4319ccf67953bbb8b47");
 
 /***/ }),
 

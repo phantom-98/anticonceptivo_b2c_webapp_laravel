@@ -87,7 +87,7 @@ class ProductController extends Controller
                 return ApiResponse::NotFound(null, 'No existe la búsqueda.');
             }
               
-            $perPage = 10;
+            $perPage = $request->perPage ?? 10;
             $page = $request->page ?? 1;
             $offset = ($page - 1) * $perPage;
             
