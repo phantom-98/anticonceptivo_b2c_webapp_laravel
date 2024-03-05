@@ -86,14 +86,14 @@
     --btn-color-grad-2: rgba(174, 162, 0, 0.8);
     --primary: #a6a308;
     --text-in-bg: #000000;
-    --footer-botton: #fcdf24;
-    --footer-bg: rgba(255, 251, 0, 0.8);
+    --footer-botton: rgba(254, 219, 0, 1);
+    --footer-bg: #fcdf24;
     --product-card-price: #e8e400;
-    --header-bg: #fcdf24;
+    --header-bg: rgba(254, 219, 0, 1);
     --icons: #000000;
     --primary: #fcdf24;
     --secondary: #fdff9a;
-    --header-nav-color: rgba(255, 251, 0, 0.8);
+    --header-nav-color: #fcdf24;
     --text-color: #000000;
     --accent-color: #17a2b8;
     /* Define other variables as needed */

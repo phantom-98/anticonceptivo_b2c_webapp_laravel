@@ -2235,7 +2235,7 @@ var ProductList = function ProductList(_ref) {
     _ref$search = _ref.search,
     search = _ref$search === void 0 ? null : _ref$search,
     handleProductOrderBy = _ref.handleProductOrderBy;
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(count),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(count !== null && count !== void 0 ? count : 10),
     _useState2 = _slicedToArray(_useState, 2),
     viewCount = _useState2[0],
     setViewCount = _useState2[1];
@@ -2253,6 +2253,7 @@ var ProductList = function ProductList(_ref) {
     setShowOrderByMobile = _useState8[1];
   var url = new URL(window.location.href);
   console.log(url);
+  console.log(pageCount);
   var currentUrl = url.origin + url.pathname;
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     setActivePage(page);
@@ -2262,7 +2263,7 @@ var ProductList = function ProductList(_ref) {
     category.public_banner_image = subcategory.banner_image;
   }
   var handlePaginateClick = function handlePaginateClick(page) {
-    location.href = "".concat(currentUrl, "?page=").concat(page).concat(count ? "&count=".concat(count) : '');
+    location.href = "".concat(currentUrl, "?page=").concat(page).concat(count ? "&count=".concat(count) : "");
   };
   var handlePaginateCount = function handlePaginateCount(count) {
     console.log(page);
@@ -2277,12 +2278,12 @@ var ProductList = function ProductList(_ref) {
     /*#__PURE__*/
     // <div className="col-12 pb-3">
     (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
-      className: "d-none d-md-block ".concat(category.banner_image_size ? category.banner_image_size : 'col-12'),
+      className: "d-none d-md-block ".concat(category.banner_image_size ? category.banner_image_size : "col-12"),
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(react_lazy_load_image_component__WEBPACK_IMPORTED_MODULE_7__.LazyLoadImage, {
         alt: _Config__WEBPACK_IMPORTED_MODULE_1__.CONFIG.APP_NAME,
         title: "Anticonceptivo",
         rel: "nofollow",
-        width: '100%',
+        width: "100%",
         effect: "blur",
         src: category.public_banner_image
       })
@@ -2304,12 +2305,12 @@ var ProductList = function ProductList(_ref) {
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
               className: "row",
               style: {
-                minHeight: '40px'
+                minHeight: "40px"
               },
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
                 className: "col d-flex",
                 style: {
-                  borderRight: '0.1px solid rgba(0,155,232,0.11)'
+                  borderRight: "0.1px solid rgba(0,155,232,0.11)"
                 },
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
                   className: "pointer font-poppins font-12 semi-bold color-033F5D m-auto",
@@ -2330,7 +2331,7 @@ var ProductList = function ProductList(_ref) {
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
                 className: "col d-flex",
                 style: {
-                  borderLeft: '0.1px solid rgba(0,155,232,0.11)'
+                  borderLeft: "0.1px solid rgba(0,155,232,0.11)"
                 },
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
                   className: "pointer font-poppins font-12 semi-bold color-033F5D m-auto",
@@ -2425,16 +2426,16 @@ var ProductList = function ProductList(_ref) {
           className: "col-12 subscription-buttons subscription-content",
           children: subscriptions && subscriptions.map(function (subscription) {
             return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
-              className: "btn btn-outline-primary btn-months mr-2 subscription-button-margin ".concat(filters.subscriptions.includes(subscription.id) ? 'focus' : '', " "),
+              className: "btn btn-outline-primary btn-months mr-2 subscription-button-margin ".concat(filters.subscriptions.includes(subscription.id) ? "focus" : "", " "),
               onClick: function onClick() {
                 updateFilter();
                 if (filters.subscriptions.includes(subscription.id)) {
-                  setFilters(_objectSpread(_objectSpread({}, filters), {}, _defineProperty({}, 'subscriptions', [])));
+                  setFilters(_objectSpread(_objectSpread({}, filters), {}, _defineProperty({}, "subscriptions", [])));
                 } else {
-                  setFilters(_objectSpread(_objectSpread({}, filters), {}, _defineProperty({}, 'subscriptions', [subscription.id])));
+                  setFilters(_objectSpread(_objectSpread({}, filters), {}, _defineProperty({}, "subscriptions", [subscription.id])));
                 }
               },
-              children: [subscription.cicles, " Meses / ", subscription.months, " Ciclos"]
+              children: [subscription.cicles, " Meses /", " ", subscription.months, " Ciclos"]
             }, (0,uuid__WEBPACK_IMPORTED_MODULE_13__["default"])());
           })
         })
@@ -2443,7 +2444,7 @@ var ProductList = function ProductList(_ref) {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
           className: "col-6 d-flex",
           style: {
-            minHeight: '29px'
+            minHeight: "29px"
           },
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
             className: "font-poppins font-15 font-md-13 light text-black my-auto",
@@ -2533,17 +2534,17 @@ var ProductList = function ProductList(_ref) {
           className: "col-md-12 mt-5",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
             className: "product-no-stock-alert font-12 font-poppins",
-            children: ["\xBFNo encontraste lo que buscabas?, Nosotros te asesoramos ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("a", {
+            children: ["\xBFNo encontraste lo que buscabas?, Nosotros te asesoramos", " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("a", {
               href: "https://wa.me/56987380541",
               target: "_BLANK",
               style: {
-                textDecoration: 'underline',
-                color: 'white'
+                textDecoration: "underline",
+                color: "white"
               },
               children: "aqu\xED."
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_components_sections_OutstandingCarouselProducts__WEBPACK_IMPORTED_MODULE_9__["default"], {
-            style: 'mt-4 pb-2'
+            style: "mt-4 pb-2"
           })]
         }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_components_LazyLoading__WEBPACK_IMPORTED_MODULE_4__["default"], {})
       })
@@ -2560,8 +2561,8 @@ var ProductList = function ProductList(_ref) {
         onChange: function onChange(e) {
           return handlePaginateClick(e);
         },
-        itemClass: 'paginator-buttons',
-        innerClass: 'paginator-ul'
+        itemClass: "paginator-buttons",
+        innerClass: "paginator-ul"
         // hideNavigation={true}
         ,
         hideDisabled: true,
@@ -2713,7 +2714,8 @@ var ShopSearch = function ShopSearch(_ref) {
     var url = _Services__WEBPACK_IMPORTED_MODULE_7__.ENDPOINT.PUBLIC_AREA.SHOP.PRODUCTS.SEARCH;
     var data = {
       search: _search,
-      page: params.page
+      page: params.page,
+      perPage: params.count
     };
     _Services__WEBPACK_IMPORTED_MODULE_7__.DoPost(url, data).then(function (response) {
       _Services__WEBPACK_IMPORTED_MODULE_7__.Response({
@@ -2743,7 +2745,7 @@ var ShopSearch = function ShopSearch(_ref) {
           //     });
           // }
           if (response.data.products.length == 1) {
-            window.location.href = _routes_publicRoutes__WEBPACK_IMPORTED_MODULE_1__["default"].PRODUCT_DETAIL.path.replace(':slug', response.data.products[0].slug);
+            window.location.href = _routes_publicRoutes__WEBPACK_IMPORTED_MODULE_1__["default"].PRODUCT_DETAIL.path.replace(":slug", response.data.products[0].slug);
           }
           setLoading(true);
         },
@@ -2788,7 +2790,7 @@ var ShopSearch = function ShopSearch(_ref) {
   };
   var breadcrumbs = [{
     url: _routes_publicRoutes__WEBPACK_IMPORTED_MODULE_1__["default"].HOME.path,
-    name: 'Inicio'
+    name: "Inicio"
   }, {
     url: _routes_publicRoutes__WEBPACK_IMPORTED_MODULE_1__["default"].SHOP.path,
     name: _routes_publicRoutes__WEBPACK_IMPORTED_MODULE_1__["default"].SHOP.title
@@ -2823,6 +2825,7 @@ var ShopSearch = function ShopSearch(_ref) {
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_ProductList__WEBPACK_IMPORTED_MODULE_6__["default"], {
             totalItem: totalProd,
             page: params.page,
+            count: params.count,
             category: category,
             products: products,
             subcatNames: subcatNames,
@@ -2834,7 +2837,7 @@ var ShopSearch = function ShopSearch(_ref) {
             filter: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
               className: "d-block d-sm-none",
               style: {
-                marginTop: '10px'
+                marginTop: "10px"
               },
               children: showFilterResponsive ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Filter__WEBPACK_IMPORTED_MODULE_5__["default"], {
                 isPills: isPills,
