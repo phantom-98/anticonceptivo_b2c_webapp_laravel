@@ -163,7 +163,11 @@ const OurBrands = () => {
                                         borderBottom:
                                             brand.name == currentStore
                                                 ? "3px solid var(--btn-color-grad-1)"
-                                                : "3px solid gray",
+                                                : "3px solid #C4C4C4",
+                                        backgroundColor:
+                                            brand.name == currentStore
+                                                ? "#DCDCDC"
+                                                : "none",
                                     }}
                                 >
                                     <img

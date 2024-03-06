@@ -154,12 +154,17 @@ const OurBrandsMobile = () => {
                                     style={{
                                         // flex: "0 0 9.33333%",
 
-                                        margin: "5px 5px",
+                                        margin: "0px 5px",
                                         padding: "5px 5px",
                                         borderBottom:
                                             brand.name == currentStore
                                                 ? "3px solid var(--btn-color-grad-1)"
+                                                : "3px solid #C4C4C4",
+                                        backgroundColor:
+                                            brand.name == currentStore
+                                                ? "#F5F5F5"
                                                 : "none",
+                                        borderRadius: "0px 0px 15px 15px",
                                     }}
                                 >
                                     <LazyLoadImage

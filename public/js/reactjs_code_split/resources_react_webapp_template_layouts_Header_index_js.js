@@ -3583,7 +3583,8 @@ var OurBrands = function OurBrands() {
               maxWidth: "10%",
               padding: "0 10px",
               cursor: "pointer",
-              borderBottom: brand.name == currentStore ? "3px solid var(--btn-color-grad-1)" : "3px solid gray"
+              borderBottom: brand.name == currentStore ? "3px solid var(--btn-color-grad-1)" : "3px solid #C4C4C4",
+              backgroundColor: brand.name == currentStore ? "#DCDCDC" : "none"
             },
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("img", {
               src: brand.image,
@@ -5063,9 +5064,11 @@ var OurBrandsMobile = function OurBrandsMobile() {
             style: {
               // flex: "0 0 9.33333%",
 
-              margin: "5px 5px",
+              margin: "0px 5px",
               padding: "5px 5px",
-              borderBottom: brand.name == currentStore ? "3px solid var(--btn-color-grad-1)" : "none"
+              borderBottom: brand.name == currentStore ? "3px solid var(--btn-color-grad-1)" : "3px solid #C4C4C4",
+              backgroundColor: brand.name == currentStore ? "#F5F5F5" : "none",
+              borderRadius: "0px 0px 15px 15px"
             },
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_lazy_load_image_component__WEBPACK_IMPORTED_MODULE_6__.LazyLoadImage, {
               src: "/images/logo_responsive_".concat(brand.name, ".png"),

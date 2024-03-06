@@ -2153,7 +2153,8 @@ var OurBrands = function OurBrands() {
               maxWidth: "10%",
               padding: "0 10px",
               cursor: "pointer",
-              borderBottom: brand.name == currentStore ? "3px solid var(--btn-color-grad-1)" : "3px solid gray"
+              borderBottom: brand.name == currentStore ? "3px solid var(--btn-color-grad-1)" : "3px solid #C4C4C4",
+              backgroundColor: brand.name == currentStore ? "#DCDCDC" : "none"
             },
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("img", {
               src: brand.image,
