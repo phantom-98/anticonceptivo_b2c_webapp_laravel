@@ -2245,11 +2245,11 @@ var Addresses = function Addresses(_ref) {
     _useState2 = _slicedToArray(_useState, 2),
     addresses = _useState2[0],
     setAddresses = _useState2[1];
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('list'),
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("list"),
     _useState4 = _slicedToArray(_useState3, 2),
     view = _useState4[0],
     setViewAd = _useState4[1];
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('create'),
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("create"),
     _useState6 = _slicedToArray(_useState5, 2),
     formMode = _useState6[0],
     setFormMode = _useState6[1];
@@ -2257,6 +2257,7 @@ var Addresses = function Addresses(_ref) {
     _useState8 = _slicedToArray(_useState7, 2),
     addressSelected = _useState8[0],
     setAddressSelected = _useState8[1];
+  console.log(dispatchDateObject);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     if (auth) {
       getData();
@@ -2286,17 +2287,17 @@ var Addresses = function Addresses(_ref) {
     });
   };
   var goBack = function goBack() {
-    setViewAd('list');
+    setViewAd("list");
     setAddressSelected(null);
   };
   var showEdit = function showEdit(address) {
-    setViewAd('form');
-    setFormMode('edit');
+    setViewAd("form");
+    setFormMode("edit");
     setAddressSelected(address);
   };
   var showCreate = function showCreate() {
-    setViewAd('form');
-    setFormMode('create');
+    setViewAd("form");
+    setFormMode("create");
     setAddressSelected(null);
   };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
@@ -2307,7 +2308,7 @@ var Addresses = function Addresses(_ref) {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("h3", {
           className: "font-poppins font-16 bold color-033F5D",
           children: "Confirma tu direcci\xF3n de despacho o agrega una nueva"
-        }), view === 'list' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_Components_List__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        }), view === "list" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_Components_List__WEBPACK_IMPORTED_MODULE_1__["default"], {
           addresses: auth ? addresses : address,
           showEdit: showEdit,
           showCreate: showCreate,
@@ -2316,7 +2317,7 @@ var Addresses = function Addresses(_ref) {
           getData: getData,
           setAddress: setAddress,
           setAddresses: setAddresses
-        }) : null, view === 'form' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_private_Account_sections_Addresses_Form__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        }) : null, view === "form" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_private_Account_sections_Addresses_Form__WEBPACK_IMPORTED_MODULE_2__["default"], {
           formMode: formMode,
           addressSelected: addressSelected,
           regions: regions,
@@ -2341,7 +2342,7 @@ var Addresses = function Addresses(_ref) {
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
                 className: "col-auto",
                 style: {
-                  width: '27px'
+                  width: "27px"
                 },
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_general_Icon__WEBPACK_IMPORTED_MODULE_3__["default"], {
                   path: _assets_images_icons_calendar_blue_svg__WEBPACK_IMPORTED_MODULE_4__["default"]
@@ -2349,7 +2350,7 @@ var Addresses = function Addresses(_ref) {
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
                 className: "col-auto mx-2 d-flex",
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
-                  className: "my-auto font-poppins font-12 regular color-8E8E8E",
+                  className: "my-auto font-poppins font-12 bold",
                   children: dispatchDateObject === null || dispatchDateObject === void 0 ? void 0 : dispatchDateObject.label_calendar
                 })
               })]
@@ -2361,7 +2362,7 @@ var Addresses = function Addresses(_ref) {
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
                 className: "col-auto",
                 style: {
-                  width: '27px'
+                  width: "27px"
                 },
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_general_Icon__WEBPACK_IMPORTED_MODULE_3__["default"], {
                   path: _assets_images_icons_clock_blue_svg__WEBPACK_IMPORTED_MODULE_5__["default"]
@@ -2377,9 +2378,12 @@ var Addresses = function Addresses(_ref) {
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
                   className: "my-auto font-poppins font-14 regular color-484848",
                   style: {
-                    marginLeft: '10px'
+                    marginLeft: "10px"
                   },
-                  children: dispatchDateObject ? dispatchDateObject !== null && dispatchDateObject !== void 0 && dispatchDateObject.is_immediate ? dispatchDateObject === null || dispatchDateObject === void 0 ? void 0 : dispatchDateObject.sub_label : (dispatchDateObject === null || dispatchDateObject === void 0 ? void 0 : dispatchDateObject.schedule.formated_start_time) + ' a ' + (dispatchDateObject === null || dispatchDateObject === void 0 ? void 0 : dispatchDateObject.schedule.formated_end_time) : ''
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
+                    className: "bold",
+                    children: "9:00 a 21:00 hrs"
+                  })
                 })
               })]
             })
@@ -2392,11 +2396,11 @@ var Addresses = function Addresses(_ref) {
         className: "col-md-6 pb-5",
         children: auth ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("button", {
           onClick: function onClick() {
-            return setView('user-form');
+            return setView("user-form");
           },
           className: "link",
           style: {
-            textDecoration: 'none'
+            textDecoration: "none"
           },
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("svg", {
             xmlns: "http://www.w3.org/2000/svg",
@@ -2418,11 +2422,11 @@ var Addresses = function Addresses(_ref) {
           })]
         }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("button", {
           onClick: function onClick() {
-            return setView('add-address');
+            return setView("add-address");
           },
           className: "link",
           style: {
-            textDecoration: 'none'
+            textDecoration: "none"
           },
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("svg", {
             xmlns: "http://www.w3.org/2000/svg",
@@ -2891,7 +2895,7 @@ __webpack_require__.r(__webpack_exports__);
 var StoreRetire = function StoreRetire(_ref) {
   var saveDefaultAddress = _ref.saveDefaultAddress,
     _ref$name = _ref.name,
-    name = _ref$name === void 0 ? 'default_address' : _ref$name,
+    name = _ref$name === void 0 ? "default_address" : _ref$name,
     addresses = _ref.addresses,
     setChecked = _ref.setChecked,
     checked = _ref.checked;
@@ -2977,7 +2981,7 @@ var StoreRetire = function StoreRetire(_ref) {
         }
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("b", {
         children: "Horarios:"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("br", {}), "8:00am a 21:00 hrs lunes a viernes ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("br", {}), "S\xE1bados 9:00am a 18:00 hrs ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("br", {}), "Domingo cerrados. ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("br", {}), "Telefono: +56 2 2437 0237"]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("br", {}), "8:00am a 21:00 hrs lunes a viernes ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("br", {}), "9:00am a 18:00 hrs S\xE1bados, domingos y festivos ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("br", {}), "Telefono: +56 2 2437 0237"]
     })]
   });
 };
