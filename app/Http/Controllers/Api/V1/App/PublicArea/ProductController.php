@@ -97,45 +97,41 @@ class ProductController extends Controller
 $connectors = ['que', 'como', 'si', 'o', 'u', 'pero', 'y', 'e', 'ni', 'el', 'la', 'los', 'las', 'de', 'del', 'para', 'por', 'un', 'una', 'unos', 'unas'];
 
 // Remove connectors from the search string
-$search = preg_replace('/\b(' . implode('|', $connectors) . ')\b/i', '', $search);
+
+
+$productCount = Product::where(function ($query) use ($search) {
+    $query->where('name', 'LIKE', '%' . $search . '%')
+        /* ->orWhere('sku', 'LIKE', '%' . $search . '%') */
+        ->orWhere('compound', 'LIKE', '%' . $search . '%')
+        ->orWhere('description', 'LIKE', '%' . $search . '%')
+        ->orWhereHas('laboratory', function ($query) use ($search) {
+            $query->where('name', 'LIKE', '%' . $search . '%');
+        });
+})->where('active', true)
+//->orderBy('stock', 'desc')
+->count();
+// Begin the query
+if($productCount == 0){
+    $search = preg_replace('/\b(' . implode('|', $connectors) . ')\b/i', '', $search);
 
 // Split the cleaned search string into individual words
 $searchWords = explode(' ', $search);
-
-// Begin the query
-$productCount = Product::where(function ($query) use ($searchWords) {
-    foreach ($searchWords as $word) {
-        if (trim($word) != '') { // Check if the word is not just a space or empty after trimming
-            $query->orWhere('name', 'LIKE', '%' . $word . '%')
-                //->orWhere('sku', 'LIKE', '%' . $word . '%') // Uncomment if needed
-                ->orWhere('compound', 'LIKE', '%' . $word . '%')
-                ->orWhere('description', 'LIKE', '%' . $word . '%')
-                ->orWhereHas('laboratory', function ($query) use ($word) {
-                    $query->where('name', 'LIKE', '%' . $word . '%');
-                });
+    $productCount = Product::where(function ($query) use ($searchWords) {
+        foreach ($searchWords as $word) {
+            if (trim($word) != '') { // Check if the word is not just a space or empty after trimming
+                $query->orWhere('name', 'LIKE', '%' . $word . '%')
+                    //->orWhere('sku', 'LIKE', '%' . $word . '%') // Uncomment if needed
+                    ->orWhere('compound', 'LIKE', '%' . $word . '%')
+                    ->orWhere('description', 'LIKE', '%' . $word . '%')
+                    ->orWhereHas('laboratory', function ($query) use ($word) {
+                        $query->where('name', 'LIKE', '%' . $word . '%');
+                    });
+            }
         }
-    }
-})->where('active', true)
-//->orderBy('stock', 'desc') // Uncomment if needed
-->count();
+    })->where('active', true)
+    //->orderBy('stock', 'desc') // Uncomment if needed
+    ->count(); 
 
-            /* $products = Product::with(['subcategory.category', 'laboratory', 'product_images', 'plans.subscription_plan'])
-                ->where(function ($query) use ($searchWords) {
-                    foreach ($searchWords as $word) {
-                        if (trim($word) != '') { // Check if the word is not just a space or empty after trimming
-                            $query->orWhere('name', 'LIKE', '%' . $word . '%')
-                                //->orWhere('sku', 'LIKE', '%' . $word . '%') // Uncomment if needed
-                                ->orWhere('compound', 'LIKE', '%' . $word . '%')
-                                ->orWhere('description', 'LIKE', '%' . $word . '%')
-                                ->orWhereHas('laboratory', function ($query) use ($word) {
-                                    $query->where('name', 'LIKE', '%' . $word . '%');
-                                });
-                        }
-                    }
-                })->where('active', true)
-                ->skip($offset)->take($perPage)
-                ->orderBy('position')
-                ->get(); */
     $productsAux = Product::where('active', true)
     ->with(['subcategory.category', 'laboratory', 'product_images', 'plans.subscription_plan'])
     ->where(function ($query) use ($searchWords) {
@@ -151,6 +147,7 @@ $productCount = Product::where(function ($query) use ($searchWords) {
             }
         }
     })
+    ->skip($offset)->take($perPage)
     ->get();
 
 // Buscamos coincidencias de terminos en cada uno de los campos del producto
@@ -167,6 +164,25 @@ foreach ($productsAux as $product) {
 
 // Ordenamos productos en base a cantidad de coincidencias
 $products = $productsAux->sortByDesc('matchCount');
+}else {
+    $products = Product::with(['subcategory.category', 'laboratory', 'product_images', 'plans.subscription_plan'])
+    ->where(function ($query) use ($search) {
+        $query->where('name', 'LIKE', '%' . $search . '%')
+            /* ->orWhere('sku', 'LIKE', '%' . $search . '%') */
+            ->orWhere('compound', 'LIKE', '%' . $search . '%')
+            ->orWhere('description', 'LIKE', '%' . $search . '%')
+            ->orWhereHas('laboratory', function ($query) use ($search) {
+                $query->where('name', 'LIKE', '%' . $search . '%');
+            });
+    })->where('active', true)
+    ->skip($offset)->take($perPage)
+    //->orderBy('stock', 'desc')
+    ->get();
+}
+
+
+            
+    
 
             $subcategories = [];
             foreach ($products as $key => $product) {
