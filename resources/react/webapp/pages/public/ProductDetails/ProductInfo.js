@@ -151,9 +151,6 @@ const ProductInfo = ({ product, setImageSubscription }) => {
                                 ? product.recipe_type
                                 : "Venta Directa"}
                         </h1>
-                        <h1 className="font-italic my-auto font-16 color-585858 h1Recipe">
-                            {product.is_cenabast ? "Cenabast*" : ""}
-                        </h1>
                     </div>
                 </div>
                 <div className="row">

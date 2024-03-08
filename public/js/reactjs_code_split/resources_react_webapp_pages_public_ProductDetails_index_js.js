@@ -1401,18 +1401,15 @@ var ProductInfo = function ProductInfo(_ref) {
             className: "product-format-style font-poppins regular color-6C6B6B",
             children: ["Precio por unidad: $", product.state_of_matter === "Liquido" ? Math.round(product.price / parseInt(product.format) * 100) + " " + product.unit_format : Math.round(product.price / parseInt(product.format)) + " " + product.unit_format]
           })
-        }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+        }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
           className: "col-12 col-md-12 mt-3 mt-md-3 divRecipe",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("h1", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("h1", {
             className: "font-poppins my-auto font-16 color-009BE8 h1Recipe",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_general_Icon__WEBPACK_IMPORTED_MODULE_3__["default"], {
               className: "icon-document iconRecipe",
               path: _assets_images_icons_file_alt_regular_svg__WEBPACK_IMPORTED_MODULE_4__["default"]
             }), " ", product.recipe_type ? product.recipe_type : "Venta Directa"]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h1", {
-            className: "font-italic my-auto font-16 color-585858 h1Recipe",
-            children: product.is_cenabast ? "Cenabast*" : ""
-          })]
+          })
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
         className: "row",
@@ -1517,13 +1514,13 @@ var ProductTabs = function ProductTabs(_ref) {
     valid = _ref.valid;
   var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_context_AppProvider__WEBPACK_IMPORTED_MODULE_1__.AppContext),
     breakpoint = _useContext.breakpoint;
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(valid ? 'benefits' : 'technical'),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(valid ? "benefits" : "technical"),
     _useState2 = _slicedToArray(_useState, 2),
     key = _useState2[0],
     setKey = _useState2[1];
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
     className: "row pb-0 pb-md-5 mt-3 mt-md-5",
-    children: breakpoint === _helpers_vars__WEBPACK_IMPORTED_MODULE_2__.BREAKPOINTS.MEDIUM || breakpoint === _helpers_vars__WEBPACK_IMPORTED_MODULE_2__.BREAKPOINTS.LARGE || breakpoint === _helpers_vars__WEBPACK_IMPORTED_MODULE_2__.BREAKPOINTS.EXTRA_LARGE || breakpoint === _helpers_vars__WEBPACK_IMPORTED_MODULE_2__.BREAKPOINTS.EXTRA_EXTRA_LARGE ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+    children: [breakpoint === _helpers_vars__WEBPACK_IMPORTED_MODULE_2__.BREAKPOINTS.MEDIUM || breakpoint === _helpers_vars__WEBPACK_IMPORTED_MODULE_2__.BREAKPOINTS.LARGE || breakpoint === _helpers_vars__WEBPACK_IMPORTED_MODULE_2__.BREAKPOINTS.EXTRA_LARGE || breakpoint === _helpers_vars__WEBPACK_IMPORTED_MODULE_2__.BREAKPOINTS.EXTRA_EXTRA_LARGE ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
       className: "col-12",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], {
         id: "tabs",
@@ -1583,7 +1580,7 @@ var ProductTabs = function ProductTabs(_ref) {
         children: [valid ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"], {
           className: "card-faq",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["default"].Collapse, {
-            eventKey: '0',
+            eventKey: "0",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"].Body, {
               className: "mt-1",
               style: {
@@ -1598,7 +1595,7 @@ var ProductTabs = function ProductTabs(_ref) {
             })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["default"].Toggle, {
             as: react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"].Header,
-            eventKey: '0',
+            eventKey: "0",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
               className: "font-21 font-poppins bold",
               children: "Beneficios y usos"
@@ -1607,7 +1604,7 @@ var ProductTabs = function ProductTabs(_ref) {
         }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"], {
           className: "card-faq",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["default"].Collapse, {
-            eventKey: '1',
+            eventKey: "1",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"].Body, {
               className: "mt-1",
               style: {
@@ -1622,7 +1619,7 @@ var ProductTabs = function ProductTabs(_ref) {
             })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["default"].Toggle, {
             as: react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"].Header,
-            eventKey: '1',
+            eventKey: "1",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
               className: "font-21 font-poppins bold",
               children: "Descriptor"
@@ -1631,7 +1628,7 @@ var ProductTabs = function ProductTabs(_ref) {
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"], {
           className: "card-faq",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["default"].Collapse, {
-            eventKey: '2',
+            eventKey: "2",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"].Body, {
               className: "mt-1",
               style: {
@@ -1646,7 +1643,7 @@ var ProductTabs = function ProductTabs(_ref) {
             })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["default"].Toggle, {
             as: react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"].Header,
-            eventKey: '2',
+            eventKey: "2",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
               className: "font-21 font-poppins bold",
               children: "Aviso Legal"
@@ -1654,7 +1651,13 @@ var ProductTabs = function ProductTabs(_ref) {
           })]
         })]
       })
-    })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h1", {
+      style: {
+        fontSize: "2px"
+      },
+      className: "my-auto text-white ",
+      children: product.is_cenabast ? "Cenabast" : ""
+    })]
   });
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ProductTabs);
