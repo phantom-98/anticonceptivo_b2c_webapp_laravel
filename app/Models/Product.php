@@ -43,7 +43,8 @@ class Product extends Model
         'is_indexable',
         'days_protection',
         'is_generic',
-        'cpp'
+        'cpp',
+        'is_cenabast',
     ];
 
     protected $appends = ['images', 'format_compound', 'subscriptions_count', 'subscriptions_items'];
