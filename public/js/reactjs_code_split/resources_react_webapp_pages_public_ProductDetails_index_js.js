@@ -1401,15 +1401,18 @@ var ProductInfo = function ProductInfo(_ref) {
             className: "product-format-style font-poppins regular color-6C6B6B",
             children: ["Precio por unidad: $", product.state_of_matter === "Liquido" ? Math.round(product.price / parseInt(product.format) * 100) + " " + product.unit_format : Math.round(product.price / parseInt(product.format)) + " " + product.unit_format]
           })
-        }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+        }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
           className: "col-12 col-md-12 mt-3 mt-md-3 divRecipe",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("h1", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("h1", {
             className: "font-poppins my-auto font-16 color-009BE8 h1Recipe",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_general_Icon__WEBPACK_IMPORTED_MODULE_3__["default"], {
               className: "icon-document iconRecipe",
               path: _assets_images_icons_file_alt_regular_svg__WEBPACK_IMPORTED_MODULE_4__["default"]
             }), " ", product.recipe_type ? product.recipe_type : "Venta Directa"]
-          })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h1", {
+            className: "font-italic my-auto font-16 color-585858 h1Recipe",
+            children: product.is_cenabast ? "Cenabast*" : ""
+          })]
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
         className: "row",
