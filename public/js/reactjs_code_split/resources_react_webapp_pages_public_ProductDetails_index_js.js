@@ -1359,12 +1359,24 @@ var ProductInfo = function ProductInfo(_ref) {
           __html: product.format_compound
         }
       })
-    }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-      className: "col-12",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_shopping_IsImmediateLabel__WEBPACK_IMPORTED_MODULE_5__["default"], {
+    }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+      style: {
+        display: "flex",
+        flexDirection: "row",
+        justifyItems: "center",
+        alignItems: "center"
+      },
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_shopping_IsImmediateLabel__WEBPACK_IMPORTED_MODULE_5__["default"], {
         product: product,
         list: false
-      })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+        className: "color-6C6B6B font-italic",
+        style: {
+          fontSize: "12px",
+          marginBottom: "5px"
+        },
+        children: product.is_cenabast ? "Cenabast*" : ""
+      })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
       className: "col-md-12",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
@@ -1518,9 +1530,9 @@ var ProductTabs = function ProductTabs(_ref) {
     _useState2 = _slicedToArray(_useState, 2),
     key = _useState2[0],
     setKey = _useState2[1];
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
     className: "row pb-0 pb-md-5 mt-3 mt-md-5",
-    children: [breakpoint === _helpers_vars__WEBPACK_IMPORTED_MODULE_2__.BREAKPOINTS.MEDIUM || breakpoint === _helpers_vars__WEBPACK_IMPORTED_MODULE_2__.BREAKPOINTS.LARGE || breakpoint === _helpers_vars__WEBPACK_IMPORTED_MODULE_2__.BREAKPOINTS.EXTRA_LARGE || breakpoint === _helpers_vars__WEBPACK_IMPORTED_MODULE_2__.BREAKPOINTS.EXTRA_EXTRA_LARGE ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+    children: breakpoint === _helpers_vars__WEBPACK_IMPORTED_MODULE_2__.BREAKPOINTS.MEDIUM || breakpoint === _helpers_vars__WEBPACK_IMPORTED_MODULE_2__.BREAKPOINTS.LARGE || breakpoint === _helpers_vars__WEBPACK_IMPORTED_MODULE_2__.BREAKPOINTS.EXTRA_LARGE || breakpoint === _helpers_vars__WEBPACK_IMPORTED_MODULE_2__.BREAKPOINTS.EXTRA_EXTRA_LARGE ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
       className: "col-12",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], {
         id: "tabs",
@@ -1651,13 +1663,7 @@ var ProductTabs = function ProductTabs(_ref) {
           })]
         })]
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h1", {
-      style: {
-        fontSize: "2px"
-      },
-      className: "my-auto text-white ",
-      children: product.is_cenabast ? "Cenabast" : ""
-    })]
+    })
   });
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ProductTabs);

@@ -70,8 +70,21 @@ const ProductInfo = ({ product, setImageSubscription }) => {
                 </div>
             ) : null}
 
-            <div className="col-12">
+            <div
+                style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyItems: "center",
+                    alignItems: "center",
+                }}
+            >
                 <IsImmediateLabel product={product} list={false} />
+                <div
+                    className="color-6C6B6B font-italic"
+                    style={{ fontSize: "12px", marginBottom: "5px" }}
+                >
+                    {product.is_cenabast ? "Cenabast*" : ""}
+                </div>
             </div>
 
             <div className="col-md-12">
