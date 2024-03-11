@@ -133,9 +133,6 @@ const ProductTabs = ({ product, legalWarning, valid }) => {
                     </Accordion>
                 </div>
             )}
-            <h1 style={{ fontSize: "2px" }} className="my-auto text-white ">
-                {product.is_cenabast ? "Cenabast" : ""}
-            </h1>
         </div>
     );
 };
