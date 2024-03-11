@@ -49,8 +49,7 @@
                     <b>Horarios:</b>
                     <br/>
                     8:00am a 21:00 hrs lunes a viernes <br/>
-                    Sábados 9:00am a 18:00 hrs <br/>
-                    Domingo 9:00am a 18:00 hrs <br/>
+                    9:00am a 18:00 hrs sábados, domingos y feriados<br/>
                     Telefono: +56 2 2437 0237
                 </span>
             </p>
@@ -63,7 +62,7 @@
                     <br/><br/>
                     <b>Hora de Despacho:</b>
                     <br/>
-                    {{ $hour_dispatch->formated_start_time }} a {{ $hour_dispatch->formated_end_time }}
+                    09:00 a 21:00 hrs
                     @endif
                 </span>
             </p>
