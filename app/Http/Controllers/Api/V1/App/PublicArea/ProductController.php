@@ -452,7 +452,12 @@ $products = $productsAux->sortByDesc('matchCount');
             $offset = ($page - 1) * $perPage;
             
             $productCount = $products->count();
-            $products = $products->skip($offset)->take($perPage)->orderBy('position')->get();
+            if($request->bioequivalent) {
+                $products = $products->where('is_bioequivalent', true)->skip($offset)->take($perPage)->orderBy('position')->get();
+            }else {
+                $products = $products->skip($offset)->take($perPage)->orderBy('position')->get();
+            }
+            
 
             $text_delivery_label = DeliveryLabels::where('key','IMMEDIATE')->get()->first();
 
@@ -554,7 +559,7 @@ $products = $productsAux->sortByDesc('matchCount');
                 }
             }
 
-            $products = Product::whereIn('id', $productIds)->where('active', true)->with(['subcategory.category', 'product_images', 'laboratory', 'plans.subscription_plan']);
+            $products = Product::whereIn('id', $productIds)->where('active', true)->where('is_bioequivalent', true)->with(['subcategory.category', 'product_images', 'laboratory', 'plans.subscription_plan']);
             $laboratories = Laboratory::where('active', true)->whereIn('id', $products->pluck('laboratory_id')->unique());
 
             $subcatNames = null;
