@@ -73,17 +73,6 @@ const Footer = () => {
                         style={{ marginLeft: "-25px !important" }}
                     >
                         <div className="col-lg-auto text-center flex-footer-column">
-                            {/* <div className="mb-3">
-                                <LazyLoadImage
-                                    alt={CONFIG.APP_NAME}
-                                    className="logo-footer"
-                                    title="Anticonceptivo"
-                                    rel="nofollow"
-                                    effect="blur"
-                                    src={logoFooter}
-                                />
-                            </div> */}
-
                             {alliances.map((alliance, index) => {
                                 return (
                                     <div className="mb-3" key={index * 7777}>
