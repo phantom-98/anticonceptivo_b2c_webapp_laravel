@@ -73,45 +73,6 @@ const Mobile = () => {
                         </div>
                     </div>
                     <div className="row mx-2" style={{ height: "70px" }}>
-                        {/* <div className="col d-flex" style={{justifyContent: 'center'}}>
-                            <div className="my-auto text-center" onClick={showSearch}>
-                                <LazyLoadImage
-                                    alt="anticonceptivo.cl"
-                                    title="Anticonceptivo"
-                                    rel="nofollow"
-                                    effect="blur"
-                                    src={search}
-                                    height={'25px'}
-                                    width={'25px'}
-                                />
-                                <div className="text-icon-navbar-mobile">
-                                    BUSCAR
-                                </div>
-                            </div>
-                        </div> */}
-
-                        {/* <div
-                            className="col d-flex"
-                            style={{
-                                justifyContent: "center",
-                                padding: "0 30px",
-                            }}
-                        >
-                            <div className="m-auto">
-                                <Link to="/">
-                                    <LazyLoadImage
-                                        alt="anticonceptivo.cl"
-                                        title="Anticonceptivo"
-                                        rel="nofollow"
-                                        effect="blur"
-                                        src={anticonceptivo}
-                                        height={"100%"}
-                                        width={"auto"}
-                                    />
-                                </Link>
-                            </div>
-                        </div> */}
-
                         <div
                             className="col d-flex"
                             style={{ justifyContent: "center" }}
@@ -214,13 +175,6 @@ const Mobile = () => {
                     </div>
                 </OffCanvas>
             </div>
-
-            {/* <div className="d-block">
-                <SearchModal
-                    showingSearch={showingSearch}
-                    hideSearch={hideSearch}
-                />
-            </div> */}
         </>
     );
 };

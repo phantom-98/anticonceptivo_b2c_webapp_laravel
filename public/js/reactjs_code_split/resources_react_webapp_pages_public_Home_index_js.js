@@ -2057,62 +2057,6 @@ var OurBrands = function OurBrands() {
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     getData();
   }, []);
-  /* 
-  function Arrow(props) {
-      let className = props.type === "next" ? "nextArrow" : "prevArrow";
-        className += " arrow";
-        let right = {
-          position: "absolute",
-          height: "25px",
-          top: "15%",
-          right: "0px",
-          zIndex: 1,
-      };
-        let left = {
-          position: "absolute",
-          height: "25px",
-          top: "15%",
-          left: "0px",
-          zIndex: 1,
-      };
-        return props.type == "next" ? (
-          <img
-              src={SliderArrowRight}
-              onClick={props.onClick}
-              className={`pointer ${className}`}
-              style={right}
-              alt="anticonceptivo"
-          />
-      ) : (
-          <img
-              src={SliderArrowLeft}
-              onClick={props.onClick}
-              className={`pointer ${className}`}
-              style={left}
-              alt="anticonceptivo"
-          />
-      );
-  }
-  */
-  /*  const settings = {
-      className: "center",
-      infinite: true,
-      centerMode: true,
-      speed: 1500,
-      slidesToShow: 3,
-      slidesToScroll: 1,
-      autoplay: true,
-      autoplaySpeed: 4500,
-      prevArrow: <Arrow type="prev" />,
-      nextArrow: <Arrow type="next" />,
-  };
-    const containerStyle = {
-      height: "220px",
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "center",
-      padding: "0px 0px",
-  }; */
   var handleTheme = function handleTheme(brand) {
     setStore(brand);
     showModalStoreChange(true);
