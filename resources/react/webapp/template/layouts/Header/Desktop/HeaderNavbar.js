@@ -21,6 +21,11 @@ const customStyles = {
     marginTop: "40px",
 };
 
+const anticonceptivoNavBar = [1, 2, 3, 4, 5, 6, 7];
+const cardioNavBar = [9, 10, 11, 12, 13];
+const bioequivalenteNavBar = [14, 15, 16, 17, 18, 19, 20, 21, 22];
+const oxfarNavBar = [14, 15, 16, 17, 18, 19, 20, 21, 22];
+
 const HeaderNavbar = () => {
     const { width } = UseWindowDimensions();
     const { currentStore, showModalStoreChange } = useContext(AppContext);
@@ -88,12 +93,30 @@ const HeaderNavbar = () => {
                                 { ...category, categoryId: categoryId },
                             ];
                         });
-                        if (currentStore == "oxfar")
-                            list = list.filter(
-                                (item) =>
-                                    item.name === "Medicamentos y Otros" ||
-                                    item.name === "Belleza y Cuidado Personal"
-                            );
+                        switch (currentStore) {
+                            case "anticonceptivo":
+                                list = list.filter((item) =>
+                                    anticonceptivoNavBar.includes(item.id)
+                                );
+                                break;
+                            case "cardio":
+                                list = list.filter((item) =>
+                                    cardioNavBar.includes(item.id)
+                                );
+                                break;
+                            case "bioequivalente":
+                                list = list.filter((item) =>
+                                    bioequivalenteNavBar.includes(item.id)
+                                );
+                                break;
+
+                            default:
+                                list = list.filter((item) =>
+                                    oxfarNavBar.includes(item.id)
+                                );
+                                break;
+                        }
+
                         setLaboratories(response.data.laboratories);
                         setFormats(Object.values(response.data.formats));
                         setSubscriptions(response.data.subscriptions);
