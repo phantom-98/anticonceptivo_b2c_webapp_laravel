@@ -4372,6 +4372,10 @@ var customStyles = {
   transform: "unset !important",
   marginTop: "40px"
 };
+var anticonceptivoNavBar = [1, 2, 3, 4, 5, 6, 7];
+var cardioNavBar = [9, 10, 11, 12, 13];
+var bioequivalenteNavBar = [14, 15, 16, 17, 18, 19, 20, 21, 22];
+var oxfarNavBar = [14, 15, 16, 17, 18, 19, 20, 21, 22];
 var HeaderNavbar = function HeaderNavbar() {
   var _UseWindowDimensions = (0,_components_customHooks_UseWindowDimensions__WEBPACK_IMPORTED_MODULE_5__["default"])(),
     width = _UseWindowDimensions.width;
@@ -4452,9 +4456,28 @@ var HeaderNavbar = function HeaderNavbar() {
               categoryId: categoryId
             })]);
           });
-          if (currentStore == "oxfar") list = list.filter(function (item) {
-            return item.name === "Medicamentos y Otros" || item.name === "Belleza y Cuidado Personal";
-          });
+          switch (currentStore) {
+            case "anticonceptivo":
+              list = list.filter(function (item) {
+                return anticonceptivoNavBar.includes(item.id);
+              });
+              break;
+            case "cardio":
+              list = list.filter(function (item) {
+                return cardioNavBar.includes(item.id);
+              });
+              break;
+            case "bioequivalente":
+              list = list.filter(function (item) {
+                return bioequivalenteNavBar.includes(item.id);
+              });
+              break;
+            default:
+              list = list.filter(function (item) {
+                return oxfarNavBar.includes(item.id);
+              });
+              break;
+          }
           setLaboratories(response.data.laboratories);
           setFormats(Object.values(response.data.formats));
           setSubscriptions(response.data.subscriptions);
