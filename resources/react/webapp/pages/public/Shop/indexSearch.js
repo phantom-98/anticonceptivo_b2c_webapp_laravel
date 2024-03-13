@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useContext, useEffect, useState } from "react";
 import { Switch, Route, withRouter } from "react-router-dom";
 import PUBLIC_ROUTES from "../../../routes/publicRoutes";
 import BasePanelTwo from "../../../template/BasePanelTwo";
@@ -9,8 +9,10 @@ import ProductList from "./ProductList";
 import * as Services from "../../../Services";
 import { propsLength } from "../../../helpers/ShopHelper";
 import toastr from "toastr";
+import { AppContext } from "../../../context/AppProvider";
 
 const ShopSearch = ({ match }) => {
+    const { currentStore } = useContext(AppContext);
     const [totalProd, setTotalProducts] = useState(0);
     const [products, setProducts] = useState([]);
     const [category, setCategory] = useState({});
@@ -69,6 +71,7 @@ const ShopSearch = ({ match }) => {
             search: _search,
             page: params.page,
             perPage: params.count,
+            bioequivalent: currentStore === "bioequivalente" ? true : false,
         };
 
         Services.DoPost(url, data)

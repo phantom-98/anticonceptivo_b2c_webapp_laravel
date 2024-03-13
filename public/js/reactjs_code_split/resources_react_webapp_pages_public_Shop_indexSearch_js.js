@@ -2601,7 +2601,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _helpers_ShopHelper__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../helpers/ShopHelper */ "./resources/react/webapp/helpers/ShopHelper.js");
 /* harmony import */ var toastr__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! toastr */ "./node_modules/toastr/toastr.js");
 /* harmony import */ var toastr__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(toastr__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _context_AppProvider__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../../context/AppProvider */ "./resources/react/webapp/context/AppProvider/index.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
@@ -2621,8 +2622,11 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 var ShopSearch = function ShopSearch(_ref) {
   var match = _ref.match;
+  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_context_AppProvider__WEBPACK_IMPORTED_MODULE_10__.AppContext),
+    currentStore = _useContext.currentStore;
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
     _useState2 = _slicedToArray(_useState, 2),
     totalProd = _useState2[0],
@@ -2715,7 +2719,8 @@ var ShopSearch = function ShopSearch(_ref) {
     var data = {
       search: _search,
       page: params.page,
-      perPage: params.count
+      perPage: params.count,
+      bioequivalent: currentStore === "bioequivalente" ? true : false
     };
     _Services__WEBPACK_IMPORTED_MODULE_7__.DoPost(url, data).then(function (response) {
       _Services__WEBPACK_IMPORTED_MODULE_7__.Response({
@@ -2799,16 +2804,16 @@ var ShopSearch = function ShopSearch(_ref) {
     var count = filtersUpdate + 1;
     setFiltersUpdate(count);
   };
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_template_BasePanelTwo__WEBPACK_IMPORTED_MODULE_2__["default"], {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_template_BasePanelTwo__WEBPACK_IMPORTED_MODULE_2__["default"], {
       breadcrumbs: breadcrumbs,
-      children: loading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+      children: loading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
         className: "row pb-5 mb-5",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("div", {
           className: "col-md-3",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("div", {
             className: "d-none d-md-block d-md-block",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Filter__WEBPACK_IMPORTED_MODULE_5__["default"], {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_Filter__WEBPACK_IMPORTED_MODULE_5__["default"], {
               isPills: isPills,
               laboratories: laboratories,
               subcategories: subcategories,
@@ -2820,9 +2825,9 @@ var ShopSearch = function ShopSearch(_ref) {
               setFiltersUpdate: setFiltersUpdate
             })
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("div", {
           className: "col-md-9",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_ProductList__WEBPACK_IMPORTED_MODULE_6__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_ProductList__WEBPACK_IMPORTED_MODULE_6__["default"], {
             totalItem: totalProd,
             page: params.page,
             count: params.count,
@@ -2834,12 +2839,12 @@ var ShopSearch = function ShopSearch(_ref) {
             setFilters: setFilters,
             updateFilter: updateFilter,
             filterLoading: filterLoading,
-            filter: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+            filter: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("div", {
               className: "d-block d-sm-none",
               style: {
                 marginTop: "10px"
               },
-              children: showFilterResponsive ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Filter__WEBPACK_IMPORTED_MODULE_5__["default"], {
+              children: showFilterResponsive ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_Filter__WEBPACK_IMPORTED_MODULE_5__["default"], {
                 isPills: isPills,
                 laboratories: laboratories,
                 subcategories: subcategories,
@@ -2855,8 +2860,8 @@ var ShopSearch = function ShopSearch(_ref) {
             search: match.params.search
           })
         })]
-      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_components_LazyLoading__WEBPACK_IMPORTED_MODULE_4__["default"], {})
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_components_sections_Subscribe__WEBPACK_IMPORTED_MODULE_3__["default"], {})]
+      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_components_LazyLoading__WEBPACK_IMPORTED_MODULE_4__["default"], {})
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_components_sections_Subscribe__WEBPACK_IMPORTED_MODULE_3__["default"], {})]
   });
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ShopSearch);
