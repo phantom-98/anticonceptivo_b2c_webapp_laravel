@@ -99,15 +99,19 @@ $connectors = ['que', 'como', 'si', 'o', 'u', 'pero', 'y', 'e', 'ni', 'el', 'la'
 // Remove connectors from the search string
 
 
+
 $productCount = Product::where(function ($query) use ($search) {
     $query->where('name', 'LIKE', '%' . $search . '%')
-        /* ->orWhere('sku', 'LIKE', '%' . $search . '%') */
+        //->orWhere('sku', 'LIKE', '%' . $search . '%')
         ->orWhere('compound', 'LIKE', '%' . $search . '%')
         ->orWhere('description', 'LIKE', '%' . $search . '%')
         ->orWhereHas('laboratory', function ($query) use ($search) {
             $query->where('name', 'LIKE', '%' . $search . '%');
         });
 })->where('active', true)
+->when($request->bioequivalent, function ($query) {
+    return $query->where('is_bioequivalent', 1);
+})
 //->orderBy('stock', 'desc')
 ->count();
 // Begin the query
@@ -129,6 +133,9 @@ $searchWords = explode(' ', $search);
             }
         }
     })->where('active', true)
+    ->when($request->bioequivalent, function ($query) {
+        return $query->where('is_bioequivalent', 1);
+    })
     //->orderBy('stock', 'desc') // Uncomment if needed
     ->count(); 
 
@@ -146,6 +153,9 @@ $searchWords = explode(' ', $search);
                 });
             }
         }
+    })
+    ->when($request->bioequivalent, function ($query) {
+        return $query->where('is_bioequivalent', 1);
     })
     ->skip($offset)->take($perPage)
     ->get();
@@ -168,18 +178,20 @@ $products = $productsAux->sortByDesc('matchCount');
     $products = Product::with(['subcategory.category', 'laboratory', 'product_images', 'plans.subscription_plan'])
     ->where(function ($query) use ($search) {
         $query->where('name', 'LIKE', '%' . $search . '%')
-            /* ->orWhere('sku', 'LIKE', '%' . $search . '%') */
+            //->orWhere('sku', 'LIKE', '%' . $search . '%')
             ->orWhere('compound', 'LIKE', '%' . $search . '%')
             ->orWhere('description', 'LIKE', '%' . $search . '%')
             ->orWhereHas('laboratory', function ($query) use ($search) {
                 $query->where('name', 'LIKE', '%' . $search . '%');
             });
     })->where('active', true)
+    ->when($request->bioequivalent, function ($query) {
+        return $query->where('is_bioequivalent', 1);
+    })
     ->skip($offset)->take($perPage)
     //->orderBy('stock', 'desc')
     ->get();
 }
-
 
             
     
@@ -452,11 +464,11 @@ $products = $productsAux->sortByDesc('matchCount');
             $offset = ($page - 1) * $perPage;
             
             $productCount = $products->count();
-            if($request->bioequivalent) {
-                $products = $products->where('is_bioequivalent', true)->skip($offset)->take($perPage)->orderBy('position')->get();
-            }else {
-                $products = $products->skip($offset)->take($perPage)->orderBy('position')->get();
-            }
+            
+                $products = $products->when($request->bioequivalent, function ($query) {
+                    return $query->where('is_bioequivalent', 1);
+                })->skip($offset)->take($perPage)->orderBy('position')->get();
+            
             
 
             $text_delivery_label = DeliveryLabels::where('key','IMMEDIATE')->get()->first();
