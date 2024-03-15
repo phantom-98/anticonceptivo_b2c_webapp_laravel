@@ -224,6 +224,7 @@ var Footer = function Footer() {
                     className: "nav-link",
                     href: section.link,
                     target: "_blank",
+                    rel: "nofollow",
                     children: section.name
                   })
                 }, sectionKey);
@@ -321,6 +322,7 @@ var Footer = function Footer() {
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("a", {
                   href: "https://www.facebook.com/Anticonceptivo.cl/",
                   target: "_blank",
+                  rel: "nofollow",
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)(_components_general_Icon__WEBPACK_IMPORTED_MODULE_14__["default"], {
                     path: _assets_images_icons_footer_facebook_png__WEBPACK_IMPORTED_MODULE_9__["default"],
                     style: {
@@ -333,6 +335,7 @@ var Footer = function Footer() {
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("a", {
                   href: "https://www.instagram.com/anticonceptivo_cl/",
                   target: "_blank",
+                  rel: "nofollow",
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)(_components_general_Icon__WEBPACK_IMPORTED_MODULE_14__["default"], {
                     path: _assets_images_icons_footer_instagram_png__WEBPACK_IMPORTED_MODULE_10__["default"],
                     style: {
@@ -345,6 +348,7 @@ var Footer = function Footer() {
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("a", {
                   href: "https://www.tiktok.com/@anticonceptivo.cl",
                   target: "_blank",
+                  rel: "nofollow",
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)(_components_general_Icon__WEBPACK_IMPORTED_MODULE_14__["default"], {
                     path: _assets_images_icons_footer_tiktok_png__WEBPACK_IMPORTED_MODULE_11__["default"],
                     style: {

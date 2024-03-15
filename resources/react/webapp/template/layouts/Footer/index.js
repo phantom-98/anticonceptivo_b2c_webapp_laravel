@@ -128,6 +128,7 @@ const Footer = () => {
                                                 className="nav-link"
                                                 href={section.link}
                                                 target="_blank"
+                                                rel="nofollow"
                                             >
                                                 {section.name}
                                             </a>
@@ -252,6 +253,7 @@ const Footer = () => {
                                     <a
                                         href="https://www.facebook.com/Anticonceptivo.cl/"
                                         target="_blank"
+                                        rel="nofollow"
                                     >
                                         <Icon
                                             path={facebook}
@@ -263,6 +265,7 @@ const Footer = () => {
                                     <a
                                         href="https://www.instagram.com/anticonceptivo_cl/"
                                         target="_blank"
+                                        rel="nofollow"
                                     >
                                         <Icon
                                             path={instagram}
@@ -274,6 +277,7 @@ const Footer = () => {
                                     <a
                                         href="https://www.tiktok.com/@anticonceptivo.cl"
                                         target="_blank"
+                                        rel="nofollow"
                                     >
                                         <Icon
                                             path={tiktok}
