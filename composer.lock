@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "43971897c3ed642d4a890418d0a0af8d",
+    "content-hash": "4a6918bdb182ca990f989dabed3a7589",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -553,6 +553,55 @@
                 "source": "https://github.com/dflydev/dflydev-dot-access-data/tree/v3.0.2"
             },
             "time": "2022-10-27T11:44:00+00:00"
+        },
+        {
+            "name": "dnetix/redirection",
+            "version": "2.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dnetix/redirection.git",
+                "reference": "923df207f0c9f5f8f9e0f5dad5b1470ffa187859"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dnetix/redirection/zipball/923df207f0c9f5f8f9e0f5dad5b1470ffa187859",
+                "reference": "923df207f0c9f5f8f9e0f5dad5b1470ffa187859",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "guzzlehttp/guzzle": "^6.5|^7.0",
+                "php": ">=7.4",
+                "psr/log": "^1.0|^2.0|^3.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.0",
+                "phpunit/phpunit": "^9.5",
+                "squizlabs/php_codesniffer": "3.*",
+                "symfony/var-dumper": "^4.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Dnetix\\Redirection\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Diego Calle",
+                    "email": "dnetix@gmail.com"
+                }
+            ],
+            "description": "Library to connect with PlacetoPay Checkout service",
+            "support": {
+                "issues": "https://github.com/dnetix/redirection/issues",
+                "source": "https://github.com/dnetix/redirection/tree/2.1.1"
+            },
+            "time": "2023-05-24T17:45:34+00:00"
         },
         {
             "name": "doctrine/cache",
@@ -11225,5 +11274,5 @@
         "ext-json": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.6.0"
 }

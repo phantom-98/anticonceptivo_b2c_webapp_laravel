@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import PUBLIC_ROUTES from "../../../routes/publicRoutes";
 import { CONFIG } from "../../../Config";
 import logoWebpay from "../../../assets/images/webpayColor.svg";
+import logoWebCheckout from "../../../assets/images/webCheckoutLogo.svg";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import OutstandingCarousel from "../../../components/sections/OutstandingCarousel";
@@ -136,7 +137,7 @@ const Cart = () => {
                                                     width={"100%"}
                                                     rel="nofollow"
                                                     effect="blur"
-                                                    src={logoWebpay}
+                                                    src={logoWebCheckout}
                                                 />
                                             </div>
                                         </div>
@@ -261,7 +262,7 @@ const Cart = () => {
                                                     width={"100%"}
                                                     rel="nofollow"
                                                     effect="blur"
-                                                    src={logoWebpay}
+                                                    src={logoWebCheckout}
                                                 />
                                             </div>
                                         </div>

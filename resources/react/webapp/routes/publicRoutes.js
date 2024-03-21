@@ -2,6 +2,7 @@ import React from "react";
 import PublicMiddleware from "./middleware/PublicMiddleware";
 import BaseTemplate from "../template";
 import BaseNoLayout from "../template/BaseNoLayout";
+import GetnetTransaction from "../pages/public/CheckOut/FinishPaymentTransaction/Getnet";
 
 // import Home from '../pages/public/Home';
 // import AboutUs from "../pages/public/AboutUs";
@@ -166,6 +167,14 @@ const PUBLIC_ROUTES = {
         path: "/checkout-verify/:token",
         title: "Checkout",
         component: FinishPaymentTransaction,
+        exact: true,
+        layout: (props) => <BaseTemplate {...props} />,
+        middleware: (props) => <PublicMiddleware {...props} />,
+    },
+    CHECKOUT_VERIFY_NEW: {
+        path: "/checkout-verify-test/:orderId",
+        title: "Checkout",
+        component: GetnetTransaction,
         exact: true,
         layout: (props) => <BaseTemplate {...props} />,
         middleware: (props) => <PublicMiddleware {...props} />,
