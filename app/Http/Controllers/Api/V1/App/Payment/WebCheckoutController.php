@@ -678,6 +678,7 @@ $url = (env('APP_URL')) . '/checkout-verify-test/:orderId';
                 $order->is_paid = true;
                 $order->status = PaymentStatus::PAID;
                 $order->save();
+                StockApiUpdate::dispatch($order->id, "discount");
             }else {
                 
                 $order->payment_type = 'webpay';

@@ -294,7 +294,7 @@ const WebPayProccess = ({
         <Fragment>
             <WaitingPayment showingWaitingPayment={showingWaitingPayment} />
             <div className="col-md-12 pt-2">
-                <button
+                {/* <button
                     className={`btn btn-bicolor btn-block`}
                     disabled={showingWaitingPayment ? true : false}
                     onClick={
@@ -302,7 +302,7 @@ const WebPayProccess = ({
                     }
                 >
                     <span className="font-14 px-5">PAGAR</span>
-                </button>
+                </button> */}
                 <button
                     className={`btn btn-bicolor btn-block`}
                     disabled={showingWaitingPayment ? true : false}
@@ -310,7 +310,7 @@ const WebPayProccess = ({
                         !showingWaitingPayment ? () => initPayment2() : null
                     }
                 >
-                    <span className="font-14 px-5">Getnet</span>
+                    <span className="font-14 px-5">PAGAR</span>
                 </button>
             </div>
         </Fragment>

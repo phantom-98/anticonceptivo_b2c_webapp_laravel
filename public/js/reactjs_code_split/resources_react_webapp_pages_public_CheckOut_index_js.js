@@ -3948,19 +3948,9 @@ var WebPayProccess = function WebPayProccess(_ref) {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_WaitingPayment__WEBPACK_IMPORTED_MODULE_4__["default"], {
       showingWaitingPayment: showingWaitingPayment
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
       className: "col-md-12 pt-2",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("button", {
-        className: "btn btn-bicolor btn-block",
-        disabled: showingWaitingPayment ? true : false,
-        onClick: !showingWaitingPayment ? function () {
-          return initPayment();
-        } : null,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
-          className: "font-14 px-5",
-          children: "PAGAR"
-        })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("button", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("button", {
         className: "btn btn-bicolor btn-block",
         disabled: showingWaitingPayment ? true : false,
         onClick: !showingWaitingPayment ? function () {
@@ -3968,9 +3958,9 @@ var WebPayProccess = function WebPayProccess(_ref) {
         } : null,
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
           className: "font-14 px-5",
-          children: "Getnet"
+          children: "PAGAR"
         })
-      })]
+      })
     })]
   });
 };
