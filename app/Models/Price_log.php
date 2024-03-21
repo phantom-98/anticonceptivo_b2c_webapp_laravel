@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Cpp_log extends Model
+class Price_log extends Model
 {
     
     protected $fillable = [

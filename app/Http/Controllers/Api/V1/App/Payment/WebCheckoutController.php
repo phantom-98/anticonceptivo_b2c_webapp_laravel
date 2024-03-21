@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\v1\App\Payment;
+namespace App\Http\Controllers\Api\V1\App\Payment;
 
 use App\Http\Controllers\Api\V1\App\Helpers\ProductScheduleHelper;
 use App\Http\Controllers\Controller;
