@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\V1\App\Payment\PaymentController;
-use App\Http\Controllers\Api\v1\App\Payment\WebCheckoutController;
+use App\Http\Controllers\Api\V1\App\Payment\WebCheckoutController;
 use App\Http\Controllers\Api\V1\App\Payment\WebpayPlusController;
 use Illuminate\Support\Facades\Route;
 
