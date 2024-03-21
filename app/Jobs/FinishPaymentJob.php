@@ -55,7 +55,7 @@ class FinishPaymentJob implements ShouldQueue
                         
                     }
                 }
-                CallIntegrationsPay::sendEmailsOrder($this->order->id);
+                //CallIntegrationsPay::sendEmailsOrder($this->order->id);
             }
         // } else {
         //     CallIntegrationsPay::sendEmailsOrderRepeat($this->order->id);
