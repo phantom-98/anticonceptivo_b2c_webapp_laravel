@@ -525,7 +525,7 @@ class WebCheckoutController extends Controller
             $trans = [
                 'payment' => [
                     'reference' => $order->id,
-                    'description' => 'Testing payment',
+                    'description' => 'Acos payment',
                     'amount' => [
                         'currency' => 'CLP',
                         'total' => $order->total,
@@ -533,7 +533,7 @@ class WebCheckoutController extends Controller
                 ],
                 'expiration' => date('c', strtotime('+15 minutes')),
                 'returnUrl' => route('api.v1.app.payment.getnet.response', ['orderId' => $order->id]),
-                'ipAddress' => '127.0.0.1',
+                'ipAddress' => $request->ip(),
                 'userAgent' => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36',
             ];
             $response = $this->web_checkout->request($trans);
