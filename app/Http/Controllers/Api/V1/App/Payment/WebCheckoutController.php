@@ -680,6 +680,7 @@ $url = (env('APP_URL')) . '/checkout-verify-test/:orderId';
                     $order->status = PaymentStatus::PAID;
                     $order->save();
                     StockApiUpdate::dispatch($order->id, "discount");
+                    FinishPaymentJob::dispatch($order);
                 }
                 
             }else {
