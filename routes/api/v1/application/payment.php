@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\V1\App\Payment\PaymentController;
+use App\Http\Controllers\Api\V1\App\Payment\WebCheckoutController;
 use App\Http\Controllers\Api\V1\App\Payment\WebpayPlusController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,6 +18,10 @@ Route::prefix('payment')
 
         Route::post('webpay/create-transaction', [WebpayPlusController::class, 'createTransaction'])->name('webpay.createTransaction');
         Route::post('webpay/create-subscription', [WebpayPlusController::class, 'createSubscription'])->name('webpay.createSubscription');
+        Route::post('getnet/create-pay', [WebCheckoutController::class, 'createTransaction'])->name('getnet.createTransaction');
+        Route::get('getnet/response', [WebCheckoutController::class, 'response'])->name('getnet.response');
+        Route::post('getnet/verify', [WebCheckoutController::class, 'verify'])->name('getnet.verify');
+        Route::post('getnet/notification', [WebCheckoutController::class, 'asyncNotification'])->name('getnet.notification');
 
         Route::match(['get', 'post'], 'webpay/response', [WebpayPlusController::class, 'response'])->name('webpay.response');
         Route::match(['get', 'post'], 'webpay/response-payment-method', [WebpayPlusController::class, 'responsePaymentMethod'])->name('webpay.responsePaymentMethod');

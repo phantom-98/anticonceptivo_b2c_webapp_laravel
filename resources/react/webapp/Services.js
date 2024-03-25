@@ -214,6 +214,7 @@ export const ENDPOINT = {
         DISCOUNT_CODE: GetBaseURL() + "payment/discount-code",
         GET_DISPATCH: GetBaseURL() + "payment/get-dispatch",
         VERIFY: GetBaseURL() + "payment/verify",
+        VERIFY2: GetBaseURL() + "payment/getnet/verify",
         VERIFY_SUBSCRIPTION: GetBaseURL() + "payment/verify-subscription",
 
         WEBPAY: {
@@ -221,6 +222,7 @@ export const ENDPOINT = {
                 GetBaseURL() + "payment/webpay/create-subscription",
             CREATE_TRANSACTION:
                 GetBaseURL() + "payment/webpay/create-transaction",
+            CREATE_TRANSACTION2: GetBaseURL() + "payment/getnet/create-pay",
         },
     },
 };
