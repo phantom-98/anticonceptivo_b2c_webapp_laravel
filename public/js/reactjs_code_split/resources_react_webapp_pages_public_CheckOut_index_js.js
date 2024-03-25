@@ -3601,13 +3601,13 @@ var WaitingPayment = function WaitingPayment(_ref) {
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
           className: "col-md-12 text-center font-poppins font-14 regular color-6C6B6B pt-2",
-          children: "Por favor espere a que se inicie proceso en Webpay."
+          children: "Por favor espere a que se inicie proceso de pago."
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
           className: "col-md-12 my-5",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_loadingg__WEBPACK_IMPORTED_MODULE_1__.WaveTopBottomLoading, {
-            color: '#0869A6',
+            color: "#0869A6",
             speed: 2,
-            size: 'small'
+            size: "small"
           })
         })]
       })
