@@ -672,13 +672,16 @@ $url = (env('APP_URL')) . '/checkout-verify-test/:orderId';
             if(!$order){
                 return ApiResponse::JsonError(null, OutputMessage::EXCEPTION . ' ' . 'No order found');
             }
-            if($request->input('status.status') == 'APPROVED' && $order->status != PaymentStatus::PAID){
-                $order->payment_date = Carbon::now();
-                $order->payment_type = 'webpay';
-                $order->is_paid = true;
-                $order->status = PaymentStatus::PAID;
-                $order->save();
-                StockApiUpdate::dispatch($order->id, "discount");
+            if($request->input('status.status') == 'APPROVED' ){
+                if($order->status != PaymentStatus::PAID){
+                    $order->payment_date = Carbon::now();
+                    $order->payment_type = 'webpay';
+                    $order->is_paid = true;
+                    $order->status = PaymentStatus::PAID;
+                    $order->save();
+                    StockApiUpdate::dispatch($order->id, "discount");
+                }
+                
             }else {
                 
                 $order->payment_type = 'webpay';
