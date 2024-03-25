@@ -63,7 +63,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _assets_images_logo_verde_alianza_png__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../assets/images/logo_verde_alianza.png */ "./resources/react/webapp/assets/images/logo_verde_alianza.png");
 /* harmony import */ var react_icons_fa__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! react-icons/fa */ "./node_modules/react-icons/fa/index.mjs");
 /* harmony import */ var react_icons_io5__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! react-icons/io5 */ "./node_modules/react-icons/io5/index.mjs");
-/* harmony import */ var _assets_images_webPay_amarillo_png__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../assets/images/webPay_amarillo.png */ "./resources/react/webapp/assets/images/webPay_amarillo.png");
+/* harmony import */ var _assets_images_webCheckout_amarillo_png__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../assets/images/webCheckout_amarillo.png */ "./resources/react/webapp/assets/images/webCheckout_amarillo.png");
 /* harmony import */ var _assets_images_icons_footer_phone_svg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../assets/images/icons/footer/phone.svg */ "./resources/react/webapp/assets/images/icons/footer/phone.svg");
 /* harmony import */ var _assets_images_icons_footer_email_svg__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../assets/images/icons/footer/email.svg */ "./resources/react/webapp/assets/images/icons/footer/email.svg");
 /* harmony import */ var _assets_images_icons_footer_slider_slider_banner_bio_min_jpg__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../assets/images/icons/footer/slider_slider_banner_bio_min.jpg */ "./resources/react/webapp/assets/images/icons/footer/slider_slider_banner_bio_min.jpg");
@@ -366,7 +366,7 @@ var Footer = function Footer() {
                 title: "Anticonceptivo",
                 rel: "nofollow",
                 effect: "blur",
-                src: _assets_images_webPay_amarillo_png__WEBPACK_IMPORTED_MODULE_4__["default"]
+                src: _assets_images_webCheckout_amarillo_png__WEBPACK_IMPORTED_MODULE_4__["default"]
               })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("div", {
               className: "mb-3",
@@ -538,17 +538,17 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/react/webapp/assets/images/webPay_amarillo.png":
-/*!******************************************************************!*\
-  !*** ./resources/react/webapp/assets/images/webPay_amarillo.png ***!
-  \******************************************************************/
+/***/ "./resources/react/webapp/assets/images/webCheckout_amarillo.png":
+/*!***********************************************************************!*\
+  !*** ./resources/react/webapp/assets/images/webCheckout_amarillo.png ***!
+  \***********************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/webPay_amarillo.png?995dae08c03009df07b2d195a44b7683");
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/webCheckout_amarillo.png?e646557fba10921ca465fce999dd2820");
 
 /***/ }),
 

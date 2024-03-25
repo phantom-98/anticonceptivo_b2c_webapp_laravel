@@ -4,7 +4,7 @@ import logoFooter from "../../../assets/images/logo_blanco_alianza.png";
 import logoFooterVerde from "../../../assets/images/logo_verde_alianza.png";
 import { FaPhoneAlt } from "react-icons/fa";
 import { IoMailSharp } from "react-icons/io5";
-import webpay from "../../../assets/images/webPay_amarillo.png";
+import webCheckout from "../../../assets/images/webCheckout_amarillo.png";
 import phone from "../../../assets/images/icons/footer/phone.svg";
 import email from "../../../assets/images/icons/footer/email.svg";
 import bannerBio from "../../../assets/images/icons/footer/slider_slider_banner_bio_min.jpg";
@@ -294,7 +294,7 @@ const Footer = () => {
                                     title="Anticonceptivo"
                                     rel="nofollow"
                                     effect="blur"
-                                    src={webpay}
+                                    src={webCheckout}
                                 />
                             </div>
 
