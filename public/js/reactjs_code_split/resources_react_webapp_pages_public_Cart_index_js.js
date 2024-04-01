@@ -1917,7 +1917,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/webCheckoutLogo.svg?455a15fcef56a1cf300df6be427b6e9d");
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/webCheckoutLogo.svg?311754408d4730c1afe10dd9a610527f");
 
 /***/ }),
 
