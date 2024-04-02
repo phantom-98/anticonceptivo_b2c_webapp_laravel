@@ -571,7 +571,9 @@ $products = $productsAux->sortByDesc('matchCount');
                 }
             }
 
-            $products = Product::whereIn('id', $productIds)->where('active', true)->where('is_bioequivalent', true)->with(['subcategory.category', 'product_images', 'laboratory', 'plans.subscription_plan']);
+            $products = Product::whereIn('id', $productIds)->where('active', true)->when($request->bioequivalent, function ($query) {
+                return $query->where('is_bioequivalent', 1);
+            })->with(['subcategory.category', 'product_images', 'laboratory', 'plans.subscription_plan']);
             $laboratories = Laboratory::where('active', true)->whereIn('id', $products->pluck('laboratory_id')->unique());
 
             $subcatNames = null;

@@ -381,7 +381,7 @@ class PaySubscriptions extends Command
         if (env('APP_ENV') == 'production') {
             /*$get_data = ApiHelper::callAPI('POST', 'https://api.ailoo.cl/v2/sale/boleta/print_type/1', json_encode($data), 'ailoo');*/
 
-            $get_data = ApiHelper::callAPI('POST',  env('INVENTARIO_API_URL').'factura/createforWeb2', json_encode($data), 'inventario_api');
+            $get_data = ApiHelper::callAPI('POST',  env('INVENTARIO_API_URL').'factura/createforWeb', json_encode($data), 'inventario_api');
 
             $response = json_decode($get_data, true);
 Log::debug("----------------------- response from api");
