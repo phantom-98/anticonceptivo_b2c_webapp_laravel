@@ -1275,8 +1275,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var _helpers_GlobalUtils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../helpers/GlobalUtils */ "./resources/react/webapp/helpers/GlobalUtils.js");
 /* harmony import */ var _components_shopping_AddCartCard__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../components/shopping/AddCartCard */ "./resources/react/webapp/components/shopping/AddCartCard.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Accordion.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Card.js");
 /* harmony import */ var _components_general_Icon__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../components/general/Icon */ "./resources/react/webapp/components/general/Icon.js");
 /* harmony import */ var _assets_images_icons_file_alt_regular_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../assets/images/icons/file-alt-regular.svg */ "./resources/react/webapp/assets/images/icons/file-alt-regular.svg");
 /* harmony import */ var _components_shopping_IsImmediateLabel__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../components/shopping/IsImmediateLabel */ "./resources/react/webapp/components/shopping/IsImmediateLabel.js");
@@ -1403,9 +1401,9 @@ var ProductInfo = function ProductInfo(_ref) {
         subscription: subscription,
         classModule: "single-product"
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
       className: "col-12",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
         className: "row mb-0 mb-md-3",
         children: [product.unit_format && product.format != null ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
           className: "col-12 col-md-12",
@@ -1423,65 +1421,7 @@ var ProductInfo = function ProductInfo(_ref) {
             }), " ", product.recipe_type ? product.recipe_type : "Venta Directa"]
           })
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-        className: "row",
-        children: product.plans.length > 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-          className: "col-md-12 mt-2 custom-accordion-responsive",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_8__["default"], {
-            defaultActiveKey: product.id,
-            className: "accordion-faq",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_9__["default"], {
-              className: "card-faq card-plans",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_8__["default"].Collapse, {
-                eventKey: product.id,
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_9__["default"].Body, {
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-                    className: "row",
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-                      className: "col-12 px-0 subscription-buttons",
-                      children: product.plans.map(function (item, index) {
-                        var isActive = subscription == item;
-                        var month = item.subscription_plan.months;
-                        var cicle = item.subscription_plan.cicles;
-                        if (item.active === 0 || item.price == 0) {
-                          return null;
-                        }
-                        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("button", {
-                          className: "btn btn-outline-primary btn-months mr-1 subscription-button-margin ".concat(isActive ? "focus" : ""),
-                          onClick: function onClick() {
-                            return handleSubscription({
-                              subscription_plan: item,
-                              position: index
-                            });
-                          },
-                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("span", {
-                            className: "textPlansProduct",
-                            children: [cicle, " ", "Meses /", " ", month, " ", "Ciclos"]
-                          })
-                        });
-                      })
-                    }), subscription ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-                      className: "col-md-12",
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-                        className: "mt-3",
-                        dangerouslySetInnerHTML: {
-                          __html: subscription ? subscription.warnings : null
-                        }
-                      })
-                    }) : null]
-                  })
-                })
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_8__["default"].Toggle, {
-                as: react_bootstrap__WEBPACK_IMPORTED_MODULE_9__["default"].Header,
-                eventKey: product.id,
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h3", {
-                  children: "Suscr\xEDbete a nuestros planes"
-                })
-              })]
-            }, product.id)
-          })
-        }) : null
-      })]
+      })
     })]
   });
 };

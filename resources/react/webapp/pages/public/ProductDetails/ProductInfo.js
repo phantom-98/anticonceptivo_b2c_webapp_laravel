@@ -166,7 +166,7 @@ const ProductInfo = ({ product, setImageSubscription }) => {
                         </h1>
                     </div>
                 </div>
-                <div className="row">
+                {/* <div className="row">
                     {product.plans.length > 0 ? (
                         <div className="col-md-12 mt-2 custom-accordion-responsive">
                             <Accordion
@@ -255,7 +255,7 @@ const ProductInfo = ({ product, setImageSubscription }) => {
                             </Accordion>
                         </div>
                     ) : null}
-                </div>
+                </div> */}
             </div>
         </div>
     );
