@@ -255,7 +255,10 @@ class CallIntegrationsPay extends CoreHelper
         $sendgrid->send($email);
 
         // Envio al admin y sucursal
-        $recipients = ["contacto@anticonceptivo.cl","sucursalantoniobellet@anticonceptivo.cl"];
+        $recipients = [ 
+            "contacto@anticonceptivo.cl" => "Admin",
+            "sucursalantoniobellet@anticonceptivo.cl" => "Sucursal"
+        ];
         $html2 = view('emails.orders-new-email', ['order' => $order, 'type' => $type, 'nombre' => 'Equipo Anticonceptivo', 'product' => $product, 'image' => $image,
         'producto_slug' => $producto_slug,'price' => $price, 'hour_dispatch' => $hour_dispatch])->render();
         $email2 = new \SendGrid\Mail\Mail();
