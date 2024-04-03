@@ -52,15 +52,15 @@ class DispatchJob implements ShouldQueue
         $sendgrid->send($email);
 
         // envio admin y sucursal
-        $recipients = ["contacto@anticonceptivo.cl","sucursalantoniobellet@anticonceptivo.cl"];
+        //$recipients = ["contacto@anticonceptivo.cl","sucursalantoniobellet@anticonceptivo.cl"];
 
         $email2 = new \SendGrid\Mail\Mail(); 
         $html2 = view('emails.client_dispatch',['order' => $customerOrder])->render();
         $email2->setFrom("info@anticonceptivo.cl", "anticonceptivo.cl");
         $email2->setSubject("Pedido en ruta");
-        //$email2->addTo("contacto@anticonceptivo.cl");
-        //$email2->addTo("sucursalantoniobellet@anticonceptivo.cl");
-        $email2->addTos($recipients);
+        $email2->addTo("contacto@anticonceptivo.cl");
+        $email2->addTo("sucursalantoniobellet@anticonceptivo.cl");
+        //$email2->addTos($recipients);
         
         $email2->addContent(
         "text/html", $html2
