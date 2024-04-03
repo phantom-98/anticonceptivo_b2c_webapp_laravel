@@ -318,38 +318,24 @@ class CallIntegrationsPay extends CoreHelper
 
         $sendgrid->send($email);
 
-        // Envio al admin
-        $html2 = view('emails.orders-new-email', ['order' => $order, 'type' => $type, 'nombre' => 'Equipo Anticonceptivo', 'product' => $product, 'image' => $image,
-        'producto_slug' => $producto_slug,'price' => $price, 'hour_dispatch' => $hour_dispatch])->render();
-        $email2 = new \SendGrid\Mail\Mail();
+       // Envio al admin y sucursal
+       $recipients = [ 
+        "contacto@anticonceptivo.cl" => "Admin",
+        "sucursalantoniobellet@anticonceptivo.cl" => "Sucursal"
+    ];
+    $html2 = view('emails.orders-new-email', ['order' => $order, 'type' => $type, 'nombre' => 'Equipo Anticonceptivo', 'product' => $product, 'image' => $image,
+    'producto_slug' => $producto_slug,'price' => $price, 'hour_dispatch' => $hour_dispatch])->render();
+    $email2 = new \SendGrid\Mail\Mail();
 
-        $email2->setFrom("info@anticonceptivo.cl", 'anticonceptivo.cl');
-        $email2->setSubject('Nuevo pedido recibido #' . $order->id);
-    //        $email2->addTo("victor.araya.del@gmail.com", 'Pedido');
-        $email2->addTo("contacto@anticonceptivo.cl", 'Administrado anticonceptivo.cl');
+    $email2->setFrom("info@anticonceptivo.cl", 'anticonceptivo.cl');
+    $email2->setSubject('Nuevo pedido recibido #' . $order->id);
+//        $email2->addTo("victor.araya.del@gmail.com", 'Pedido');
+     //$email2->addTo("contacto@anticonceptivo.cl", 'Administrado anticonceptivo.cl');
+    $email2->addTos($recipients);
+    $email2->addContent(
+        "text/html", $html2
+    );
 
-        $email2->addContent(
-            "text/html", $html2
-        );
-
-        $sendgrid->send($email2);
-
-
-        // Envio copia felipe
-        $html3 = view('emails.orders-new-email', ['order' => $order, 'type' => $type, 'nombre' => 'Equipo Anticonceptivo', 'product' => $product, 'image' => $image,
-        'producto_slug' => $producto_slug,'price' => $price, 'hour_dispatch' => $hour_dispatch])->render();
-
-        $email3 = new \SendGrid\Mail\Mail();
-
-        $email3->setFrom("info@anticonceptivo.cl", 'anticonceptivo.cl');
-        $email3->setSubject('Nuevo pedido recibido #' . $order->id);
-    //        $email3->addTo("victor.araya.del@gmail.com", 'Pedido');
-            $email3->addTo("fpenailillo@innovaweb.cl", 'Pedido');
-
-        $email3->addContent(
-            "text/html", $html3
-        );
-
-        $sendgrid->send($email3);
+    $sendgrid->send($email2);
     }
 }
