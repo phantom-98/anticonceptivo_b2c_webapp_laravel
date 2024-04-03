@@ -211,7 +211,7 @@ const ProductList = ({
                 </div>
             </div>
             <div className="col-12 pb-3">
-                {subscriptions && subscriptions.length ? (
+                {/* subscriptions && subscriptions.length ? (
                     <div className="row">
                         <div className="col-12">
                             <h3 className="font-14 bold color-033F5D subscription-title">
@@ -219,10 +219,10 @@ const ProductList = ({
                             </h3>
                         </div>
                     </div>
-                ) : null}
-                <div className="row mb-3">
-                    <div className="col-12 subscription-buttons subscription-content">
-                        {subscriptions &&
+                ) : null */}
+                {/*<div className="row mb-3">
+                    <div className="col-12 subscription-buttons subscription-content">*/}
+                {/* subscriptions &&
                             subscriptions.map((subscription) => {
                                 return (
                                     <div
@@ -259,9 +259,9 @@ const ProductList = ({
                                         {subscription.months} Ciclos
                                     </div>
                                 );
-                            })}
-                    </div>
-                </div>
+                            }) */}
+                {/*</div>
+                </div>*/}
                 <div className="row">
                     <div className="col-6 d-flex" style={{ minHeight: "29px" }}>
                         <div className="font-poppins font-15 font-md-13 light text-black my-auto">
