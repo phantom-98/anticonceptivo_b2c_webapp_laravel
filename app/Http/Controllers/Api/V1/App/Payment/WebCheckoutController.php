@@ -26,6 +26,8 @@ use App\Models\WebpayLog;
 use Carbon\Carbon;
 use Dnetix\Redirection\PlacetoPay;
 use Illuminate\Http\Request;
+use Innovaweb\Transbank\OneClickMall;
+use Innovaweb\Transbank\WebpayPlus;
 use Log;
 use Str;
 use Validator;
@@ -34,6 +36,9 @@ use Willywes\ApiResponse\ApiResponse;
 class WebCheckoutController extends Controller
 {
     private $web_checkout;
+    private $webpay_plus;
+    private $oneclick;
+    private $commerce_code;
     public function __construct()
     {
         
@@ -43,6 +48,15 @@ class WebCheckoutController extends Controller
                 'baseUrl' => env('WEB_CHECKOUT_BASE_URL'),
                 'timeout' => 10, // (optional) 15 by default
             ]);
+            if (env('APP_ENV') == 'production') {
+                $this->webpay_plus = new WebpayPlus(env('TBK_CC'), env('TBK_API_KEY'), WebpayPlus::PRODUCTION);
+                $this->oneclick = new OneClickMall(env('TBK_CC_ONECLICK'), env('TBK_API_KEY_ONECLICK'), WebpayPlus::PRODUCTION);
+                $this->commerce_code = env('TBK_ONECLICK_MALL');
+            } else {
+                $this->webpay_plus = new WebpayPlus();
+                $this->oneclick = new OneClickMall();
+                $this->commerce_code = '597055555543';
+            }
             
         
         }
@@ -519,37 +533,135 @@ class WebCheckoutController extends Controller
         }
         //StockApiUpdate::dispatch($order->id, "discount");
 
-        $url = (env('APP_URL')) . '/checkout-verify-test/:token';
-        $url = str_replace(':token', $order->id, $url);
-            // name('webpay-response') usar esta si se bloquea por verifyToken
-            $trans = [
-                'payment' => [
-                    'reference' => $order->id,
-                    'description' => 'Acos payment',
-                    'amount' => [
-                        'currency' => 'CLP',
-                        'total' => $order->total,
-                    ],
-                ],
-                'expiration' => date('c', strtotime('+15 minutes')),
-                'returnUrl' => route('api.v1.app.payment.getnet.response', ['orderId' => $order->id]),
-                'ipAddress' => $request->ip(),
-                'userAgent' => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36',
-            ];
-            $response = $this->web_checkout->request($trans);
+        if ($isSubscription) {
+            if ($_subscription) {
 
-            if ($response->isSuccessful()) {
-                $order->payment_token = $response->requestId();
-                $order->status = PaymentStatus::CREATED;
-                $order->save();
-                
-                
-                return ApiResponse::JsonSuccess([
-                    'getnet' => $response->processUrl(),
-                    'token' => $response->requestId(),
-                    'order' => Order::with(['customer'])->find($order->id)
-                ], 'Iniciado getnet');
+                $details = [
+                    [
+                        "commerce_code" => $this->commerce_code,
+                        "buy_order" => $order->id,
+                        "amount" => $order->total,
+                        "installments_number" => $request->installment ?? 1
+                    ]
+                ];
+
+                $response = $this->oneclick->authorize($request->customer_id, $_subscription->transbank_token, $order->id, $details);
+
+                try {
+                    WebpayLog::register($order->id, $response, 'ONECLICK');
+                } catch (\Exception $ex) {
+                    Log::error('Error al registrar log de transbank', ['error' => $ex->getMessage()]);
+                }
+
+                try {
+                    Log::info(
+                        'OneClick',
+                        [
+                            "response" => $response,
+                            "tbk_user" => $_subscription->transbank_token,
+                            "username" => $request->customer_id
+                        ]
+                    );
+                } catch (\Exception $ex) {
+                }
+
+                if ($response['status'] == "success") {
+
+                    if ($response['response']->details[0]->status != 'AUTHORIZED') {
+                        if ($order->status != 'PAID' && $order->status != 'DELIVERED' && $order->status != 'DISPATCHED') {
+                            $order->is_paid = 0;
+                            $order->status = PaymentStatus::REJECTED;
+                            $order->payment_type = 'tarjeta';
+                            $order->save();
+                        }
+                        //StockApiUpdate::dispatch($order->id, "add");
+                        return ApiResponse::JsonError([], 'Pago Rechazado');
+                    }
+
+                    $ordersItems = OrderItem::where('order_id', $order->id)->get();
+
+                    foreach ($ordersItems as $elementOrderItem) {
+                        $subscriptionOrdersItem = SubscriptionsOrdersItem::where('orders_item_id', $elementOrderItem->id)->orderBy('pay_date')->first();
+                        if ($subscriptionOrdersItem) {
+                            $subscriptionOrdersItem->is_pay = 1;
+                            $subscriptionOrdersItem->order_id = $order->id;
+                            $subscriptionOrdersItem->status = 'PAID';
+                            $subscriptionOrdersItem->save();
+                        }
+                    }
+
+                    $order->is_paid = 1;
+                    $order->status = PaymentStatus::PAID;
+                    $order->payment_type = 'tarjeta';
+                    $order->type = 'VN';
+                    $order->save();
+
+                    if ($order->discount_code_id) {
+                        $this->updateDiscountCode($request->discountCode);
+                    }
+
+                    //                    if (env('APP_ENV') == 'production') {
+                    //                        CallIntegrationsPay::callVoucher($order->id, $customerAddress);
+                    //                        CallIntegrationsPay::callDispatchLlego($order->id, $customerAddress);
+                    //                        CallIntegrationsPay::callUpdateStockProducts($order->id);
+                    //                        CallIntegrationsPay::sendEmailsOrder($order->id);
+                    //                    }
+                    FinishPaymentJob::dispatch($order);
+                    //UpdateProductStockJob::dispatch($order);
+                    //                    return ApiResponse::JsonSuccess([
+                    //                        'order' => $order
+                    //                    ], 'Compra OneClick');
+
+                } else {
+                    //                    return ApiResponse::JsonError([], 'Error con la tarjeta');
+                }
+            } else {
+                //                return ApiResponse::JsonError([], 'Seleccione un método de pago');
             }
+
+            $url = session()->has('urlFinish') ? session('urlFinish') : (env('APP_URL')) . '/checkout-verify/:token';
+            $url = str_replace(':token', $order->id, $url);
+            return ApiResponse::JsonSuccess([
+                'url' => $url
+            ], 'Compra OneClick');
+        }else{
+
+            $url = (env('APP_URL')) . '/checkout-verify-test/:token';
+            $url = str_replace(':token', $order->id, $url);
+                // name('webpay-response') usar esta si se bloquea por verifyToken
+                $trans = [
+                    'payment' => [
+                        'reference' => $order->id,
+                        'description' => 'Acos payment',
+                        'amount' => [
+                            'currency' => 'CLP',
+                            'total' => $order->total,
+                        ],
+                    ],
+                    'expiration' => date('c', strtotime('+15 minutes')),
+                    'returnUrl' => route('api.v1.app.payment.getnet.response', ['orderId' => $order->id]),
+                    'ipAddress' => $request->ip(),
+                    'userAgent' => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36',
+                ];
+                $response = $this->web_checkout->request($trans);
+    
+                if ($response->isSuccessful()) {
+                    $order->payment_token = $response->requestId();
+                    $order->status = PaymentStatus::CREATED;
+                    $order->save();
+                    
+                    
+                    return ApiResponse::JsonSuccess([
+                        'getnet' => $response->processUrl(),
+                        'token' => $response->requestId(),
+                        'order' => Order::with(['customer'])->find($order->id)
+                    ], 'Iniciado getnet');
+                }
+
+        }
+
+
+       
         
         Log::info('finish Trans');
         return ApiResponse::JsonError([], 'No ha podido conectar con webpay');
