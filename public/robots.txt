@@ -1,4 +1,10 @@
+User-agent: Googlebot
+User-agent: Googlebot-Mobile
+User-agent: Bingbot
+User-agent: GPTBot
+Disallow:
+
 User-agent: *
-Allow: /
+Disallow: /checkout-verify-test/
 
 Sitemap: https://anticonceptivo.cl/sitemap.xml
