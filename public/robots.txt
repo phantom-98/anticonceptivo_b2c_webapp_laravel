@@ -8,3 +8,4 @@ User-agent: *
 Disallow: /checkout-verify-test/
 
 Sitemap: https://anticonceptivo.cl/sitemap.xml
+# E.M
