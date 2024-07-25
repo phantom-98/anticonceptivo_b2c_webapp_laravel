@@ -30,7 +30,7 @@ var FooterBottom = function FooterBottom() {
           className: "col-md-8",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
             className: "text-center text-md-left",
-            children: ["\xA9 ", moment__WEBPACK_IMPORTED_MODULE_1___default()().format("YYYY"), " Todos los derechos reservados"]
+            children: ["\xA9 ", moment__WEBPACK_IMPORTED_MODULE_1___default()().format("YYYY"), " Todos los Derechos Reservados"]
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
           className: "col-md-4",
