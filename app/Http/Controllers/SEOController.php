@@ -36,6 +36,7 @@ class SEOController extends Controller
 
     public function index(Request $request)
     {
+        
         $url = $request->url();
 
         if (strpos($url, 'producto') !== false) {
