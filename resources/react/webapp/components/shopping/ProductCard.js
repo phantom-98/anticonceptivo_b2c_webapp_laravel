@@ -109,6 +109,14 @@ const ProductCard = ({ product, className = "", subscriptionFilter = [] }) => {
                             product.slug
                         )}
                         style={{ textDecoration: "none", color: "#000000" }}
+                        onClick={(e) => {
+                            e.preventDefault(); 
+                            window.location.href = PUBLIC_ROUTES.PRODUCT_DETAIL.path.replace(
+                                ":slug?",
+                                product.slug
+                            );
+                            
+                        }}
                     >
                         <LazyLoadImage
                             alt={`${CONFIG.APP_NAME} - ${product.name}`}
@@ -134,6 +142,14 @@ const ProductCard = ({ product, className = "", subscriptionFilter = [] }) => {
                                 ":slug?",
                                 product.slug
                             )}
+                            onClick={(e) => {
+                                e.preventDefault(); 
+                                window.location.href = PUBLIC_ROUTES.PRODUCT_DETAIL.path.replace(
+                                    ":slug?",
+                                    product.slug
+                                );
+                                
+                            }}
                             style={{ textDecoration: "none", color: "#000000" }}
                         >
                             <div className="col-md-12 text-truncate p-0">
@@ -186,6 +202,14 @@ const ProductCard = ({ product, className = "", subscriptionFilter = [] }) => {
                                 ":slug?",
                                 product.slug
                             )}
+                            onClick={(e) => {
+                                e.preventDefault(); 
+                                window.location.href = PUBLIC_ROUTES.PRODUCT_DETAIL.path.replace(
+                                    ":slug?",
+                                    product.slug
+                                );
+                                
+                            }}
                             style={{ textDecoration: "none", color: "#000000" }}
                         >
                             <LazyLoadImage
@@ -213,6 +237,14 @@ const ProductCard = ({ product, className = "", subscriptionFilter = [] }) => {
                                     ":slug?",
                                     product.slug
                                 )}
+                                onClick={(e) => {
+                                    e.preventDefault(); 
+                                    window.location.href = PUBLIC_ROUTES.PRODUCT_DETAIL.path.replace(
+                                        ":slug?",
+                                        product.slug
+                                    );
+                                    
+                                }}
                                 style={{
                                     textDecoration: "none",
                                     color: "#000000",

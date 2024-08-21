@@ -657,6 +657,10 @@ var ProductCard = function ProductCard(_ref) {
             textDecoration: "none",
             color: "#000000"
           },
+          onClick: function onClick(e) {
+            e.preventDefault();
+            window.location.href = _routes_publicRoutes__WEBPACK_IMPORTED_MODULE_3__["default"].PRODUCT_DETAIL.path.replace(":slug?", product.slug);
+          },
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_lazy_load_image_component__WEBPACK_IMPORTED_MODULE_7__.LazyLoadImage, {
             alt: "".concat(_Config__WEBPACK_IMPORTED_MODULE_1__.CONFIG.APP_NAME, " - ").concat(product.name),
             placeholderSrc: _assets_images_producto_default_png__WEBPACK_IMPORTED_MODULE_5__["default"],
@@ -673,6 +677,10 @@ var ProductCard = function ProductCard(_ref) {
           className: "product-card-name",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_10__.Link, {
             to: _routes_publicRoutes__WEBPACK_IMPORTED_MODULE_3__["default"].PRODUCT_DETAIL.path.replace(":slug?", product.slug),
+            onClick: function onClick(e) {
+              e.preventDefault();
+              window.location.href = _routes_publicRoutes__WEBPACK_IMPORTED_MODULE_3__["default"].PRODUCT_DETAIL.path.replace(":slug?", product.slug);
+            },
             style: {
               textDecoration: "none",
               color: "#000000"
@@ -716,6 +724,10 @@ var ProductCard = function ProductCard(_ref) {
           className: "col-12 text-center",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_10__.Link, {
             to: _routes_publicRoutes__WEBPACK_IMPORTED_MODULE_3__["default"].PRODUCT_DETAIL.path.replace(":slug?", product.slug),
+            onClick: function onClick(e) {
+              e.preventDefault();
+              window.location.href = _routes_publicRoutes__WEBPACK_IMPORTED_MODULE_3__["default"].PRODUCT_DETAIL.path.replace(":slug?", product.slug);
+            },
             style: {
               textDecoration: "none",
               color: "#000000"
@@ -737,6 +749,10 @@ var ProductCard = function ProductCard(_ref) {
             className: "product-card-name",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_10__.Link, {
               to: _routes_publicRoutes__WEBPACK_IMPORTED_MODULE_3__["default"].PRODUCT_DETAIL.path.replace(":slug?", product.slug),
+              onClick: function onClick(e) {
+                e.preventDefault();
+                window.location.href = _routes_publicRoutes__WEBPACK_IMPORTED_MODULE_3__["default"].PRODUCT_DETAIL.path.replace(":slug?", product.slug);
+              },
               style: {
                 textDecoration: "none",
                 color: "#000000"
