@@ -42,8 +42,11 @@ const ProductDetail = ({match}) => {
                     name: product.name,
                 }
             ]);
-
-            document.title = capitalizeFirstLetterOfEachWord(product.name, true) + ' - Anticonceptivo';
+            if(product.meta_title){
+                document.title = product.meta_title;
+            }else{
+                document.title = capitalizeFirstLetterOfEachWord(product.name, true) + ' - Anticonceptivo';
+            }
         }
     }, [product])
 

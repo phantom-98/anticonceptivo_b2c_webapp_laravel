@@ -1784,7 +1784,11 @@ var ProductDetail = function ProductDetail(_ref) {
         url: _routes_publicRoutes__WEBPACK_IMPORTED_MODULE_1__["default"].PRODUCT_DETAIL.path.replace(':slug', match.params.slug),
         name: product.name
       }]);
-      document.title = (0,_helpers_GlobalUtils__WEBPACK_IMPORTED_MODULE_12__.capitalizeFirstLetterOfEachWord)(product.name, true) + ' - Anticonceptivo';
+      if (product.meta_title) {
+        document.title = product.meta_title;
+      } else {
+        document.title = (0,_helpers_GlobalUtils__WEBPACK_IMPORTED_MODULE_12__.capitalizeFirstLetterOfEachWord)(product.name, true) + ' - Anticonceptivo';
+      }
     }
   }, [product]);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
