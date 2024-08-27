@@ -32,6 +32,7 @@
                     <div class="panel-body">
                         <div class="col-md-4" >
                             <div class="row">
+                                
                                 <div class="col-md-12" >
                                     <div class="form-group" id="group-error-imagen" >
                                         <label for="avatar"><h3>{{$object->name}}</h3></label>
@@ -371,6 +372,29 @@
                             </div>
                         </div>
                         <br/>
+                        <div class="clearfix"></div>
+                        <div class="col-md-4">
+                            Seo
+                        </div>
+                        <div class="clearfix"></div>
+                        <br/>
+                        <div class="row">
+                        <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="meta_title">Titulo</label>
+                                        <textarea  name="meta_title" class="form-control"
+                                        >{{ old('meta_title') ?? $object->meta_title }}</textarea>
+                                    </div>
+                                </div>
+                        <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="meta_description">Meta tag Descripción</label>
+                                        <textarea  name="meta_description" class="form-control"
+                                        >{{ old('meta_description') ?? $object->meta_description }}</textarea>
+                                    </div>
+                                </div>
+                        </div>
+                        
                         
                         <div class="clearfix"></div>
                         <div class="col-md-4">
@@ -380,6 +404,7 @@
                         <br/>
                         @forelse($object->plans as $plan)
                             <div class="clone">
+                                
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="price">Plan</label>
@@ -419,6 +444,7 @@
                                         </select>
                                     </div>
                                 </div>
+                                
 
                                 {{-- <div class="col-md-6">
                                     <div class="form-group">
@@ -452,7 +478,7 @@
                                         <div class="link-del" id="link-del-{{$loop->iteration}}" onclick="deleteImgLoopStatic(this);"></div>
                                     </div>
                                 </div>
-
+                               
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="warnings">Disclaimer</label>

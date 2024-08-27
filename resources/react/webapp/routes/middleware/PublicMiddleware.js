@@ -5,8 +5,8 @@ import LazyLoading from "../../components/LazyLoading";
 const PublicMiddleware = ({path: path, component: Component, layout: Layout, title, exact}) => {
 
     //document.title = (title) + ' - Anticonceptivo';
-    document.querySelector('meta[name="title"]').setAttribute("content", (title) + ' - Anticonceptivo');
-    document.querySelector('meta[name="description"]').setAttribute("content", "");
+    /*document.querySelector('meta[name="title"]').setAttribute("content", (title) + ' - Anticonceptivo');
+    document.querySelector('meta[name="description"]').setAttribute("content", "");*/
 
     useEffect(() => {
 

@@ -414,6 +414,13 @@
                                     <div class="link-del" id="link-del-1" onclick="deleteImgLoop(this);"></div>
                                 </div>
                             </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="description">Meta tag Descripción</label>
+                                    <textarea name="meta_description" class="form-control"
+                                    >{{ old('meta_description') }}</textarea>
+                                </div>
+                            </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="warnings">Disclaimer</label>

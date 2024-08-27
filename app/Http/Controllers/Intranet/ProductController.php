@@ -206,6 +206,8 @@ class ProductController extends GlobalController
             $product->state_of_matter = $request->state_of_matter;
             $product->days_protection = $request->days_protection;
             $product->position = 999;
+            $product->meta_title = $request->meta_title;
+            $product->meta_description = $request->meta_description;
             $product->save();
 
             if ($request->hasFile('image')) {
@@ -380,6 +382,8 @@ class ProductController extends GlobalController
             $product->recipe_type = $request->recipe_type;
             $product->state_of_matter = $request->state_of_matter;
             $product->days_protection = $request->days_protection;
+            $product->meta_title = $request->meta_title;
+            $product->meta_description = $request->meta_description;
             $product->save();
 
             if ($request->hasFile('image')) {

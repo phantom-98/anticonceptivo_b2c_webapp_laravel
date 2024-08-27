@@ -109,9 +109,13 @@ class SEOController extends Controller
         if ($product) {
 
             $image = ($product->images->count() ? env('APP_URL') . Storage::url($product->images[0]->file) : asset('images/producto-default.png'));
-
-            $this->seo->setTitle($product->name);
-            $this->seo->setDescription(strip_tags($product->description) . ' ' . strip_tags($product->benefits) . ' ' . strip_tags($product->data_sheet) . ' ' . strip_tags($product->unit_format) . ' ' . strip_tags($product->state_of_matter));
+            if($product->meta_title && $product->meta_description){
+                $this->seo->setTitle($product->meta_title);
+                $this->seo->setDescription($product->meta_description);
+            }else{
+                $this->seo->setTitle($product->name);
+                $this->seo->setDescription(strip_tags($product->description) . ' ' . strip_tags($product->benefits) . ' ' . strip_tags($product->data_sheet) . ' ' . strip_tags($product->unit_format) . ' ' . strip_tags($product->state_of_matter));
+            }
             $this->seo->setUrl($url);
             $this->seo->setImage($image);
         }

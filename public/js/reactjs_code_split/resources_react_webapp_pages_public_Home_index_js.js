@@ -98,8 +98,8 @@ function AccordionComponent(_ref) {
         return response.json();
       }).then(function (res) {
         if (res.data && res.data.meta_title) {
-          console.log('asdad');
           document.title = res.data.meta_title;
+          console.log("-------------------------------------", res.data);
           document.querySelector('meta[name="title"]').setAttribute("content", res.data.meta_title);
           document.querySelector('meta[name="description"]').setAttribute("content", res.data.meta_description);
         } else {

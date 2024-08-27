@@ -45,6 +45,8 @@ class Product extends Model
         'is_generic',
         'cpp',
         'is_cenabast',
+        'meta_title',
+        'meta_description'
     ];
 
     protected $appends = ['images', 'format_compound', 'subscriptions_count', 'subscriptions_items'];

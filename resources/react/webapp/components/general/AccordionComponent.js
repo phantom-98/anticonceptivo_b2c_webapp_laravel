@@ -16,8 +16,8 @@ export default function AccordionComponent({path}){
               .then((response) => response.json())
               .then((res) => {
                 if(res.data && res.data.meta_title){
-                  console.log('asdad')
                   document.title = res.data.meta_title
+                  console.log("-------------------------------------",res.data)
                   document.querySelector('meta[name="title"]').setAttribute("content", res.data.meta_title);
                   document.querySelector('meta[name="description"]').setAttribute("content", res.data.meta_description);
                 }else{

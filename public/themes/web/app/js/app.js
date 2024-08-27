@@ -6361,8 +6361,9 @@ var PublicMiddleware = function PublicMiddleware(_ref) {
     title = _ref.title,
     exact = _ref.exact;
   //document.title = (title) + ' - Anticonceptivo';
-  document.querySelector('meta[name="title"]').setAttribute("content", title + ' - Anticonceptivo');
-  document.querySelector('meta[name="description"]').setAttribute("content", "");
+  /*document.querySelector('meta[name="title"]').setAttribute("content", (title) + ' - Anticonceptivo');
+  document.querySelector('meta[name="description"]').setAttribute("content", "");*/
+
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     var chatIframeModified = false;
     document.addEventListener('DOMNodeInserted', function () {
