@@ -114,7 +114,9 @@ class SEOController extends Controller
                 $this->seo->setDescription($product->meta_description);
             }else{
                 $this->seo->setTitle($product->name);
-                $this->seo->setDescription(strip_tags($product->description) . ' ' . strip_tags($product->benefits) . ' ' . strip_tags($product->data_sheet) . ' ' . strip_tags($product->unit_format) . ' ' . strip_tags($product->state_of_matter));
+                $seoDesc = strip_tags($product->description) . ' ' . strip_tags($product->benefits) . ' ' . strip_tags($product->data_sheet) . ' ' . strip_tags($product->unit_format) . ' ' . strip_tags($product->state_of_matter);
+
+                $this->seo->setDescription(substr($seoDesc, 0, 180));
             }
             $this->seo->setUrl($url);
             $this->seo->setImage($image);
