@@ -293,25 +293,54 @@ const WebPayProccess = ({
     return (
         <Fragment>
             <WaitingPayment showingWaitingPayment={showingWaitingPayment} />
-            <div className="col-md-12 pt-2">
-                {/* <button
-                    className={`btn btn-bicolor btn-block`}
-                    disabled={showingWaitingPayment ? true : false}
-                    onClick={
-                        !showingWaitingPayment ? () => initPayment() : null
-                    }
-                >
-                    <span className="font-14 px-5">PAGAR</span>
-                </button> */}
-                <button
-                    className={`btn btn-bicolor btn-block`}
-                    disabled={showingWaitingPayment ? true : false}
-                    onClick={
-                        !showingWaitingPayment ? () => initPayment2() : null
-                    }
-                >
-                    <span className="font-14 px-5">PAGAR</span>
-                </button>
+            <div className="col-md-12">
+                <div className="row">
+                    <div className="col-md-6 ">
+                        <h4 className="font-poppins font-14 bold color-033F5D">
+                            PAGAR                        
+                        </h4>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-md-6">
+                        <button
+                            className={`btn btn-bicolor btn-block`}
+                            disabled={showingWaitingPayment ? true : false}
+                            onClick={
+                                !showingWaitingPayment ? () => initPayment() : null
+                            }
+                        >
+                            <LazyLoadImage
+                                alt={CONFIG.APP_NAME}
+                                title="Anticonceptivo"
+                                rel="nofollow"
+                                effect="blur"
+                                width={"100%"}
+                                src={logoWebpay}
+                            />
+                        </button>
+                        
+                    </div>
+                    <div className="col-md-6">
+                    <button
+                        className={`btn btn-bicolor btn-block`}
+                        disabled={showingWaitingPayment ? true : false}
+                        onClick={
+                            !showingWaitingPayment ? () => initPayment2() : null
+                        }
+                    >
+                        <LazyLoadImage
+                            alt={CONFIG.APP_NAME}
+                            title="Anticonceptivo"
+                            rel="nofollow"
+                            effect="blur"
+                            width={"100%"}
+                            src={logoWebCheckout}
+                        />
+                    </button>
+                        
+                    </div>
+                </div>
             </div>
         </Fragment>
     );

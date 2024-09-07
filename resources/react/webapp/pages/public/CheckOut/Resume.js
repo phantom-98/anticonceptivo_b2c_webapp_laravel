@@ -276,6 +276,18 @@ const Resume = ({
                                                 Métodos de pago
                                             </h4>
                                         </div>
+                                    </div>
+                                    <div className="row">
+                                        <div className="col-md-6">
+                                            <LazyLoadImage
+                                                alt={CONFIG.APP_NAME}
+                                                title="Anticonceptivo"
+                                                rel="nofollow"
+                                                effect="blur"
+                                                width={"100%"}
+                                                src={logoWebpay}
+                                            />
+                                        </div>
                                         <div className="col-md-6">
                                             <LazyLoadImage
                                                 alt={CONFIG.APP_NAME}
