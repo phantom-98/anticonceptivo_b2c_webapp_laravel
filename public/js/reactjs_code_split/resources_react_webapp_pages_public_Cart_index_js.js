@@ -1571,22 +1571,35 @@ var Cart = function Cart() {
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)("hr", {})]
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)("div", {
                   className: "col-md-12",
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)("div", {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)("div", {
                     className: "row",
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)("div", {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)("div", {
                       className: "col-md-6 ",
                       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)("h4", {
                         className: "font-poppins font-14 bold color-033F5D",
                         children: "M\xE9todos de pago"
+                      })
+                    })
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)("div", {
+                    className: "row",
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)("div", {
+                      className: "col-md-6",
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(react_lazy_load_image_component__WEBPACK_IMPORTED_MODULE_9__.LazyLoadImage, {
+                        alt: _Config__WEBPACK_IMPORTED_MODULE_6__.CONFIG.APP_NAME,
+                        title: "Anticonceptivo",
+                        rel: "nofollow",
+                        effect: "blur",
+                        width: "100%",
+                        src: _assets_images_webpayColor_svg__WEBPACK_IMPORTED_MODULE_7__["default"]
                       })
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)("div", {
                       className: "col-md-6",
                       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(react_lazy_load_image_component__WEBPACK_IMPORTED_MODULE_9__.LazyLoadImage, {
                         alt: _Config__WEBPACK_IMPORTED_MODULE_6__.CONFIG.APP_NAME,
                         title: "Anticonceptivo",
-                        width: "100%",
                         rel: "nofollow",
                         effect: "blur",
+                        width: "100%",
                         src: _assets_images_webCheckoutLogo_svg__WEBPACK_IMPORTED_MODULE_8__["default"]
                       })
                     })]

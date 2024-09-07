@@ -5,6 +5,12 @@ import { CartContext } from "../../../../context/CartProvider";
 import WaitingPayment from "./WaitingPayment";
 import Swal from "sweetalert2";
 import PUBLIC_ROUTES from "../../../../routes/publicRoutes";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import logoWebpay from "../../../../assets/images/webpayColor.svg";
+import logoWebCheckout from "../../../../assets/images/webCheckoutLogo.svg";
+
+
+
 
 const WebPayProccess = ({
     data,
@@ -304,6 +310,8 @@ const WebPayProccess = ({
                 <div className="row">
                     <div className="col-md-6">
                         <button
+                            style={{padding:'0 20px'}}
+
                             className={`btn btn-bicolor btn-block`}
                             disabled={showingWaitingPayment ? true : false}
                             onClick={
@@ -311,18 +319,19 @@ const WebPayProccess = ({
                             }
                         >
                             <LazyLoadImage
-                                alt={CONFIG.APP_NAME}
+                                alt={'WEBPAY'}
                                 title="Anticonceptivo"
                                 rel="nofollow"
                                 effect="blur"
-                                width={"100%"}
+                                width={"80%"}
                                 src={logoWebpay}
                             />
                         </button>
                         
                     </div>
                     <div className="col-md-6">
-                    <button
+                    <button 
+                        style={{padding:'0 20px'}}
                         className={`btn btn-bicolor btn-block`}
                         disabled={showingWaitingPayment ? true : false}
                         onClick={
@@ -330,11 +339,11 @@ const WebPayProccess = ({
                         }
                     >
                         <LazyLoadImage
-                            alt={CONFIG.APP_NAME}
+                            alt={'GETNET'}
                             title="Anticonceptivo"
                             rel="nofollow"
                             effect="blur"
-                            width={"100%"}
+                            width={"80%"}
                             src={logoWebCheckout}
                         />
                     </button>

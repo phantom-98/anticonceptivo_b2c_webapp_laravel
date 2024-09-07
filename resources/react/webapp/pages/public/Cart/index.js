@@ -130,17 +130,30 @@ const Cart = () => {
                                                     Métodos de pago
                                                 </h4>
                                             </div>
-                                            <div className="col-md-6">
-                                                <LazyLoadImage
-                                                    alt={CONFIG.APP_NAME}
-                                                    title="Anticonceptivo"
-                                                    width={"100%"}
-                                                    rel="nofollow"
-                                                    effect="blur"
-                                                    src={logoWebCheckout}
-                                                />
-                                            </div>
                                         </div>
+
+                                            <div className="row">
+                                                <div className="col-md-6">
+                                                    <LazyLoadImage
+                                                        alt={CONFIG.APP_NAME}
+                                                        title="Anticonceptivo"
+                                                        rel="nofollow"
+                                                        effect="blur"
+                                                        width={"100%"}
+                                                        src={logoWebpay}
+                                                    />
+                                                </div>
+                                                <div className="col-md-6">
+                                                    <LazyLoadImage
+                                                        alt={CONFIG.APP_NAME}
+                                                        title="Anticonceptivo"
+                                                        rel="nofollow"
+                                                        effect="blur"
+                                                        width={"100%"}
+                                                        src={logoWebCheckout}
+                                                    />
+                                                </div>
+                                            </div>
                                         <hr />
                                     </div>
                                     <div className="col-md-12">

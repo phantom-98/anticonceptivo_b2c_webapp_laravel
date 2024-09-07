@@ -3696,7 +3696,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var _routes_publicRoutes__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../routes/publicRoutes */ "./resources/react/webapp/routes/publicRoutes.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react_lazy_load_image_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-lazy-load-image-component */ "./node_modules/react-lazy-load-image-component/build/index.js");
+/* harmony import */ var react_lazy_load_image_component__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(react_lazy_load_image_component__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _assets_images_webpayColor_svg__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../../assets/images/webpayColor.svg */ "./resources/react/webapp/assets/images/webpayColor.svg");
+/* harmony import */ var _assets_images_webCheckoutLogo_svg__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../../assets/images/webCheckoutLogo.svg */ "./resources/react/webapp/assets/images/webCheckoutLogo.svg");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -3713,6 +3717,9 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
 function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0); } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i["return"] && (_r = _i["return"](), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
 
 
 
@@ -3945,22 +3952,64 @@ var WebPayProccess = function WebPayProccess(_ref) {
       _Services__WEBPACK_IMPORTED_MODULE_1__.ErrorCatch(error);
     });
   };
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_WaitingPayment__WEBPACK_IMPORTED_MODULE_4__["default"], {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_WaitingPayment__WEBPACK_IMPORTED_MODULE_4__["default"], {
       showingWaitingPayment: showingWaitingPayment
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-      className: "col-md-12 pt-2",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("button", {
-        className: "btn btn-bicolor btn-block",
-        disabled: showingWaitingPayment ? true : false,
-        onClick: !showingWaitingPayment ? function () {
-          return initPayment2();
-        } : null,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
-          className: "font-14 px-5",
-          children: "PAGAR"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+      className: "col-md-12",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+        className: "row",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+          className: "col-md-6 ",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("h4", {
+            className: "font-poppins font-14 bold color-033F5D",
+            children: "PAGAR"
+          })
         })
-      })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+        className: "row",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+          className: "col-md-6",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("button", {
+            style: {
+              padding: '0 20px'
+            },
+            className: "btn btn-bicolor btn-block",
+            disabled: showingWaitingPayment ? true : false,
+            onClick: !showingWaitingPayment ? function () {
+              return initPayment();
+            } : null,
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(react_lazy_load_image_component__WEBPACK_IMPORTED_MODULE_7__.LazyLoadImage, {
+              alt: 'WEBPAY',
+              title: "Anticonceptivo",
+              rel: "nofollow",
+              effect: "blur",
+              width: "80%",
+              src: _assets_images_webpayColor_svg__WEBPACK_IMPORTED_MODULE_8__["default"]
+            })
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+          className: "col-md-6",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("button", {
+            style: {
+              padding: '0 20px'
+            },
+            className: "btn btn-bicolor btn-block",
+            disabled: showingWaitingPayment ? true : false,
+            onClick: !showingWaitingPayment ? function () {
+              return initPayment2();
+            } : null,
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(react_lazy_load_image_component__WEBPACK_IMPORTED_MODULE_7__.LazyLoadImage, {
+              alt: 'GETNET',
+              title: "Anticonceptivo",
+              rel: "nofollow",
+              effect: "blur",
+              width: "80%",
+              src: _assets_images_webCheckoutLogo_svg__WEBPACK_IMPORTED_MODULE_9__["default"]
+            })
+          })
+        })]
+      })]
     })]
   });
 };
@@ -4262,15 +4311,28 @@ var Resume = function Resume(_ref) {
                 className: "font-poppins font-12 regular color-484848 mb-0",
                 children: "*El costo de entrega se calcular\xE1 al a\xF1adir la direcci\xF3n."
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("hr", {})]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("div", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
               className: "col-md-12",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("div", {
                 className: "row",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("div", {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("div", {
                   className: "col-md-6 ",
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("h4", {
                     className: "font-poppins font-14 bold color-033F5D",
                     children: "M\xE9todos de pago"
+                  })
+                })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
+                className: "row",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("div", {
+                  className: "col-md-6",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(react_lazy_load_image_component__WEBPACK_IMPORTED_MODULE_13__.LazyLoadImage, {
+                    alt: _Config__WEBPACK_IMPORTED_MODULE_2__.CONFIG.APP_NAME,
+                    title: "Anticonceptivo",
+                    rel: "nofollow",
+                    effect: "blur",
+                    width: "100%",
+                    src: _assets_images_webpayColor_svg__WEBPACK_IMPORTED_MODULE_5__["default"]
                   })
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("div", {
                   className: "col-md-6",
@@ -4283,7 +4345,7 @@ var Resume = function Resume(_ref) {
                     src: _assets_images_webCheckoutLogo_svg__WEBPACK_IMPORTED_MODULE_6__["default"]
                   })
                 })]
-              })
+              })]
             })]
           }) : null, showFinal === 3 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_Payment_WebPayProccess__WEBPACK_IMPORTED_MODULE_10__["default"], {
             data: data,
