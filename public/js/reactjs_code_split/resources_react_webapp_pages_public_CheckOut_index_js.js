@@ -3968,31 +3968,19 @@ var WebPayProccess = function WebPayProccess(_ref) {
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
         className: "row",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
-          className: "col-md-6",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("button", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+          className: "col-md-12",
+          style: {
+            border: "1px solid grey",
+            borderRadius: "10px",
+            padding: "10px",
+            marginBottom: "32px"
+          },
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("p", {
+            children: "Recomendamos:"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("button", {
             style: {
-              padding: '0 20px'
-            },
-            className: "btn btn-bicolor btn-block",
-            disabled: showingWaitingPayment ? true : false,
-            onClick: !showingWaitingPayment ? function () {
-              return initPayment();
-            } : null,
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(react_lazy_load_image_component__WEBPACK_IMPORTED_MODULE_7__.LazyLoadImage, {
-              alt: 'WEBPAY',
-              title: "Anticonceptivo",
-              rel: "nofollow",
-              effect: "blur",
-              width: "80%",
-              src: _assets_images_webpayColor_svg__WEBPACK_IMPORTED_MODULE_8__["default"]
-            })
-          })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
-          className: "col-md-6",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("button", {
-            style: {
-              padding: '0 20px'
+              padding: '0 70px'
             },
             className: "btn btn-bicolor btn-block",
             disabled: showingWaitingPayment ? true : false,
@@ -4005,7 +3993,36 @@ var WebPayProccess = function WebPayProccess(_ref) {
               rel: "nofollow",
               effect: "blur",
               width: "80%",
+              style: {
+                maxWidth: "100px"
+              },
               src: _assets_images_webCheckoutLogo_svg__WEBPACK_IMPORTED_MODULE_9__["default"]
+            })
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+          className: "col-md-12",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("button", {
+            style: {
+              padding: '0 100px',
+              marginTop: "50px",
+              background: "white",
+              border: "1px solid gray"
+            },
+            className: "btn btn-bicolor btn-block",
+            disabled: showingWaitingPayment ? true : false,
+            onClick: !showingWaitingPayment ? function () {
+              return initPayment();
+            } : null,
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(react_lazy_load_image_component__WEBPACK_IMPORTED_MODULE_7__.LazyLoadImage, {
+              alt: 'WEBPAY',
+              title: "Anticonceptivo",
+              rel: "nofollow",
+              effect: "blur",
+              width: "80%",
+              style: {
+                maxWidth: "100px"
+              },
+              src: _assets_images_webpayColor_svg__WEBPACK_IMPORTED_MODULE_8__["default"]
             })
           })
         })]
@@ -5847,7 +5864,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/down.svg?af446b85ac882ec9fa6192cb5be10702");
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/down.svg?b653fb4201b8ced9307327d1fa2d7606");
 
 /***/ }),
 
@@ -5862,7 +5879,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/up.svg?40c7b2d901982b454cedd0c2a1046836");
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/up.svg?7b7920669dd3e26d6f2fb72cdaafd25c");
 
 /***/ }),
 
@@ -5892,7 +5909,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/cardioLogo.svg?5f6424902d08a4e8c77e91746aaf3b22");
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/cardioLogo.svg?37d886225c325478726f78c921ba3562");
 
 /***/ }),
 
@@ -5907,7 +5924,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/calendar-blue.svg?e6d59b56625641daa60657eab385217d");
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/calendar-blue.svg?417f9db52a2d023f0929e540143e1c55");
 
 /***/ }),
 
@@ -5922,7 +5939,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/clock-blue.svg?1b07ab0d47654b8e87d040485ec828f8");
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/clock-blue.svg?82e939f7765166a0f7c0a670f25b568b");
 
 /***/ }),
 
@@ -5937,7 +5954,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/plus-green.svg?0452fc21a01b42957358eec7fd407920");
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/plus-green.svg?adfa3b165353f9bfc2883fda54c7b6b0");
 
 /***/ }),
 
@@ -5952,7 +5969,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/recipe-blue.svg?675e0ee1e595034447b8f3064faa4ee8");
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/recipe-blue.svg?d5066a4bee775c2e77db00211b339d52");
 
 /***/ }),
 
@@ -5967,7 +5984,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/remove-mini-cart.svg?819f8b7ade70c64d812859fd69babecd");
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/remove-mini-cart.svg?17ef20587547d11df5505c3de14dedda");
 
 /***/ }),
 
@@ -5982,7 +5999,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/step-check.svg?83dce37b87159b16a05ac95ca6feb18c");
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/step-check.svg?4650d81e8f8aa9a0ecd8bea44bf3d578");
 
 /***/ }),
 
@@ -6012,7 +6029,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/oxfar.svg?7ce03521b0e73752d3c12ae5f5896915");
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/oxfar.svg?3c0fcd0262c6840560fec12a8dddb35b");
 
 /***/ }),
 
@@ -6042,7 +6059,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/webCheckoutLogo.svg?311754408d4730c1afe10dd9a610527f");
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/webCheckoutLogo.svg?455a15fcef56a1cf300df6be427b6e9d");
 
 /***/ }),
 
@@ -6057,7 +6074,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/webpayColor.svg?c147955eca09d49e5ce89e5cd503eead");
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/webpayColor.svg?0b75d7e0ac3a44f5e67ff6397f854090");
 
 /***/ }),
 

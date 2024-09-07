@@ -308,9 +308,31 @@ const WebPayProccess = ({
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-md-6">
+                    <div className="col-md-12" style={{border: "1px solid grey", borderRadius: "10px", padding: "10px", marginBottom: "32px"}}>
+                        <p>Recomendamos:</p>
+                        <button 
+                            style={{padding:'0 70px'}}
+                            className={`btn btn-bicolor btn-block`}
+                            disabled={showingWaitingPayment ? true : false}
+                            onClick={
+                                !showingWaitingPayment ? () => initPayment2() : null
+                            }
+                        >
+                            <LazyLoadImage
+                                alt={'GETNET'}
+                                title="Anticonceptivo"
+                                rel="nofollow"
+                                effect="blur"
+                                width={"80%"}
+                                style={{maxWidth:"100px"}}
+                                src={logoWebCheckout}
+                            />
+                        </button>
+                        
+                    </div>
+                    <div className="col-md-12">
                         <button
-                            style={{padding:'0 20px'}}
+                            style={{padding:'0 100px', marginTop: "50px", background: "white",border: "1px solid gray"}}
 
                             className={`btn btn-bicolor btn-block`}
                             disabled={showingWaitingPayment ? true : false}
@@ -324,31 +346,13 @@ const WebPayProccess = ({
                                 rel="nofollow"
                                 effect="blur"
                                 width={"80%"}
+                                style={{maxWidth:"100px"}}
                                 src={logoWebpay}
                             />
                         </button>
                         
                     </div>
-                    <div className="col-md-6">
-                    <button 
-                        style={{padding:'0 20px'}}
-                        className={`btn btn-bicolor btn-block`}
-                        disabled={showingWaitingPayment ? true : false}
-                        onClick={
-                            !showingWaitingPayment ? () => initPayment2() : null
-                        }
-                    >
-                        <LazyLoadImage
-                            alt={'GETNET'}
-                            title="Anticonceptivo"
-                            rel="nofollow"
-                            effect="blur"
-                            width={"80%"}
-                            src={logoWebCheckout}
-                        />
-                    </button>
-                        
-                    </div>
+                   
                 </div>
             </div>
         </Fragment>
