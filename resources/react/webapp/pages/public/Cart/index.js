@@ -75,9 +75,9 @@ const Cart = () => {
                                         })
                                     ) : (
                                         <div className="col-10 offset-1 alert alert-danger text-center">
-                                            <span className="font-12 font-poppins">
+                                            <h4 className="font-12 font-poppins">
                                                 Carro sin productos
-                                            </span>
+                                            </h4>
                                         </div>
                                     )}
                                 </div>
@@ -132,28 +132,28 @@ const Cart = () => {
                                             </div>
                                         </div>
 
-                                            <div className="row">
-                                                <div className="col-md-6">
-                                                    <LazyLoadImage
-                                                        alt={CONFIG.APP_NAME}
-                                                        title="Anticonceptivo"
-                                                        rel="nofollow"
-                                                        effect="blur"
-                                                        width={"100%"}
-                                                        src={logoWebpay}
-                                                    />
-                                                </div>
-                                                <div className="col-md-6">
-                                                    <LazyLoadImage
-                                                        alt={CONFIG.APP_NAME}
-                                                        title="Anticonceptivo"
-                                                        rel="nofollow"
-                                                        effect="blur"
-                                                        width={"100%"}
-                                                        src={logoWebCheckout}
-                                                    />
-                                                </div>
+                                        <div className="row">
+                                            <div className="col-md-6">
+                                                <LazyLoadImage
+                                                    alt={CONFIG.APP_NAME}
+                                                    title="Anticonceptivo"
+                                                    rel="nofollow"
+                                                    effect="blur"
+                                                    width={"100%"}
+                                                    src={logoWebpay}
+                                                />
                                             </div>
+                                            <div className="col-md-6">
+                                                <LazyLoadImage
+                                                    alt={CONFIG.APP_NAME}
+                                                    title="Anticonceptivo"
+                                                    rel="nofollow"
+                                                    effect="blur"
+                                                    width={"100%"}
+                                                    src={logoWebCheckout}
+                                                />
+                                            </div>
+                                        </div>
                                         <hr />
                                     </div>
                                     <div className="col-md-12">

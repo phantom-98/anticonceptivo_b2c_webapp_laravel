@@ -17,7 +17,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 var Breadcrumbs = function Breadcrumbs(_ref) {
   var items = _ref.items;
   //category?
@@ -79,7 +78,7 @@ var H3Panel = function H3Panel(_ref) {
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (H3Panel);
 if (document.getElementById('H3Panel')) {
-  react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(H3Panel, {}), document.getElementById('H3Panel'));
+  react_dom__WEBPACK_IMPORTED_MODULE_1__.render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(H3Panel, {}), document.getElementById('H3Panel'));
 }
 
 /***/ }),
@@ -99,19 +98,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Services__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../Services */ "./resources/react/webapp/Services.js");
 /* harmony import */ var _components_general_H3Panel__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../components/general/H3Panel */ "./resources/react/webapp/components/general/H3Panel.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
-function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0); } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i["return"] && (_r = _i["return"](), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 
 
 // import Terms from "./Terms";
 // import Decree3 from "./Decree3";
 // import Decree466 from "./Decree466";
 // import PUBLIC_ROUTES from "../../../routes/publicRoutes";
-
 
 
 
@@ -273,8 +271,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _context_AppProvider__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../context/AppProvider */ "./resources/react/webapp/context/AppProvider/index.js");
 /* harmony import */ var _helpers_vars__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../helpers/vars */ "./resources/react/webapp/helpers/vars.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-
-
 
 
 
