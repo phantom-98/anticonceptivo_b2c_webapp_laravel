@@ -9,12 +9,11 @@ import "swiper/scss/effect-fade";
 import "swiper/scss/autoplay";
 
 // import required modules
-import SwiperCore, {Navigation, Pagination, Autoplay } from 'swiper';
+import SwiperCore, { Navigation, Pagination, Autoplay } from "swiper";
 
 SwiperCore.use([Navigation, Pagination, Autoplay]);
 
-const SwiperCarousel = ({products}) => {
-
+const SwiperCarousel = ({ products }) => {
     return (
         <>
             <Swiper
@@ -37,7 +36,7 @@ const SwiperCarousel = ({products}) => {
                 spaceBetween={16}
                 pagination={{
                     clickable: true,
-                    type: 'bullets',
+                    type: "bullets",
                 }}
                 style={{
                     "--swiper-pagination-bullet-horizontal-gap": "6px",
@@ -52,23 +51,23 @@ const SwiperCarousel = ({products}) => {
                 modules={[Pagination, Autoplay]}
                 className="my-swiper-container"
             >
-                {
-                    products.map((product, index) => {
-                        return (
-                            <SwiperSlide key={product.id}>
-                                <div style={{width:'100%', display: 'inline-block'}}>
-                                    <ProductCard
-                                        key={index}
-                                        product={product}
-                                    />
-                                </div>
-                            </SwiperSlide>
-                        )
-                    }
-                )}
+                {products.map((product, index) => {
+                    return (
+                        <SwiperSlide key={product.id}>
+                            <div
+                                style={{
+                                    width: "100%",
+                                    display: "inline-block",
+                                }}
+                            >
+                                <ProductCard key={index} product={product} />
+                            </div>
+                        </SwiperSlide>
+                    );
+                })}
             </Swiper>
         </>
     );
-}
+};
 
 export default SwiperCarousel;

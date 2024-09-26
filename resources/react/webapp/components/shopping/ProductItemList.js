@@ -38,9 +38,9 @@ const ProductItemList = ({ item }) => {
 
                 <div className="col">
                     <div className="row">
-                        <div className="col font-poppins font-12 color-009BE8 mb-1">
+                        <h3 className="col font-poppins font-12 color-009BE8 mb-1">
                             {item.product.sku}
-                        </div>
+                        </h3>
 
                         {item.product.offer_price ? (
                             <div
@@ -170,9 +170,9 @@ const ProductItemList = ({ item }) => {
                                             <div>
                                                 <Icon path={iconRemove} />
                                             </div>
-                                            <div className="font-poppins font-12 color-A3A3A3">
+                                            <h3 className="font-poppins font-12 color-A3A3A3">
                                                 BORRAR
-                                            </div>
+                                            </h3>
                                         </div>
                                     </div>
                                 </div>
@@ -212,7 +212,7 @@ const ProductItemList = ({ item }) => {
                                         onClick={() => removeFromCart(item)}
                                     >
                                         <div className="font-poppins font-12 light color-A3A3A3">
-                                            BORRAR{" "}
+                                            BORRAR
                                             <Icon
                                                 style={{
                                                     width: "18px",

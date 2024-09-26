@@ -44,17 +44,17 @@ const ProductCard = ({ product, className = "", subscriptionFilter = [] }) => {
         if (product_plan) {
             return (
                 <>
-                    <span
-                        className={`font-poppins ${
+                    <h3
+                        className={`font-poppins inline ${
                             !mobile ? "font-16" : "font-12"
                         } ${mobile ? "d-block" : ""} bold color-009BE8 ${
                             !mobile ? "ml-2" : ""
                         }`}
                     >
                         Al mes c/u
-                    </span>
-                    <span
-                        className={`font-poppins ${
+                    </h3>
+                    <h3
+                        className={`font-poppins inline ${
                             !mobile ? "font-16" : "font-12"
                         } ${mobile ? "d-block" : ""} bold color-78d2ff ${
                             !mobile ? "ml-2" : ""
@@ -66,7 +66,7 @@ const ProductCard = ({ product, className = "", subscriptionFilter = [] }) => {
                                 100
                         )}{" "}
                         %)
-                    </span>
+                    </h3>
                 </>
             );
         }
@@ -110,12 +110,12 @@ const ProductCard = ({ product, className = "", subscriptionFilter = [] }) => {
                         )}
                         style={{ textDecoration: "none", color: "#000000" }}
                         onClick={(e) => {
-                            e.preventDefault(); 
-                            window.location.href = PUBLIC_ROUTES.PRODUCT_DETAIL.path.replace(
-                                ":slug?",
-                                product.slug
-                            );
-                            
+                            e.preventDefault();
+                            window.location.href =
+                                PUBLIC_ROUTES.PRODUCT_DETAIL.path.replace(
+                                    ":slug?",
+                                    product.slug
+                                );
                         }}
                     >
                         <LazyLoadImage
@@ -143,12 +143,12 @@ const ProductCard = ({ product, className = "", subscriptionFilter = [] }) => {
                                 product.slug
                             )}
                             onClick={(e) => {
-                                e.preventDefault(); 
-                                window.location.href = PUBLIC_ROUTES.PRODUCT_DETAIL.path.replace(
-                                    ":slug?",
-                                    product.slug
-                                );
-                                
+                                e.preventDefault();
+                                window.location.href =
+                                    PUBLIC_ROUTES.PRODUCT_DETAIL.path.replace(
+                                        ":slug?",
+                                        product.slug
+                                    );
                             }}
                             style={{ textDecoration: "none", color: "#000000" }}
                         >
@@ -203,12 +203,12 @@ const ProductCard = ({ product, className = "", subscriptionFilter = [] }) => {
                                 product.slug
                             )}
                             onClick={(e) => {
-                                e.preventDefault(); 
-                                window.location.href = PUBLIC_ROUTES.PRODUCT_DETAIL.path.replace(
-                                    ":slug?",
-                                    product.slug
-                                );
-                                
+                                e.preventDefault();
+                                window.location.href =
+                                    PUBLIC_ROUTES.PRODUCT_DETAIL.path.replace(
+                                        ":slug?",
+                                        product.slug
+                                    );
                             }}
                             style={{ textDecoration: "none", color: "#000000" }}
                         >
@@ -228,9 +228,9 @@ const ProductCard = ({ product, className = "", subscriptionFilter = [] }) => {
                         </Link>
                     </div>
                     <div className="col-12 text-left">
-                        <div className="product-card-brand">
+                        <h3 className="product-card-brand">
                             {product.laboratory.name}
-                        </div>
+                        </h3>
                         <div className="product-card-name">
                             <Link
                                 to={PUBLIC_ROUTES.PRODUCT_DETAIL.path.replace(
@@ -238,12 +238,12 @@ const ProductCard = ({ product, className = "", subscriptionFilter = [] }) => {
                                     product.slug
                                 )}
                                 onClick={(e) => {
-                                    e.preventDefault(); 
-                                    window.location.href = PUBLIC_ROUTES.PRODUCT_DETAIL.path.replace(
-                                        ":slug?",
-                                        product.slug
-                                    );
-                                    
+                                    e.preventDefault();
+                                    window.location.href =
+                                        PUBLIC_ROUTES.PRODUCT_DETAIL.path.replace(
+                                            ":slug?",
+                                            product.slug
+                                        );
                                 }}
                                 style={{
                                     textDecoration: "none",

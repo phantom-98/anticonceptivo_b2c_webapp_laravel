@@ -24,14 +24,14 @@ const ModalStore = () => {
                                 <div className="row">
                                     <div className="col-md-12 py-2 text-center">
                                         <div className="form-group">
-                                            <div className="font-poppins font-14 regular color-6C6B6B mb-3 text-center">
+                                            <h3 className="font-poppins font-14 regular color-6C6B6B mb-3 text-center">
                                                 Cambiando Especialidad <br />
                                                 espere mientras ajustamos todo
                                                 para usted.
                                                 <SpinnerBorderPrimary
                                                     big={true}
                                                 />
-                                            </div>
+                                            </h3>
                                         </div>
                                     </div>
                                 </div>

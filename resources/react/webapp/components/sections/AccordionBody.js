@@ -25,12 +25,12 @@ const AccordionBody = ({ data }) => {
                     <div className="col-auto pr-0">
                         <Icon path={boxBlue} />
                     </div>
-                    <div className="col card-delivery-cost-title">
-                        El costo de nuestros despachos{" "}
-                        <span className="regular">
+                    <h3 className="col card-delivery-cost-title inline">
+                        El costo de nuestros despachos
+                        <h4 className="regular inline">
                             (máximo {data.deadline_delivery} horas hábiles)
-                        </span>
-                    </div>
+                        </h4>
+                    </h3>
                 </div>
             </div>
             {data.formated_costs.map((cost, index) => {
@@ -48,7 +48,7 @@ const AccordionBody = ({ data }) => {
                                     display: "inline-block",
                                     marginBottom: 2,
                                 }}
-                            />{" "}
+                            />
                             <span className="font-poppins font-22 bold color-033F5D">
                                 {formatMoney(cost.price)}{" "}
                                 {!cost.description.some(
@@ -58,9 +58,9 @@ const AccordionBody = ({ data }) => {
                                     : ""}
                             </span>
                         </h3>
-                        <p className="font-inter font-11 medium color-484848 ml-4 pl-2">
+                        <h3 className="font-inter font-11 medium color-484848 ml-4 pl-2">
                             {comunnes}.
-                        </p>
+                        </h3>
                     </div>
                 );
             })}
