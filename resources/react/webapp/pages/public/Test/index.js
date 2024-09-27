@@ -1,10 +1,9 @@
-import React, {useEffect} from 'react'
+import React, { useEffect } from "react";
 // import { GOOGLE_MAPS } from '../../../Globals';
 // import AutoComplete from "react-google-autocomplete";
-import useGoogleAnalyticsEcommerce from '../../../components/customHooks/useGoogleAnalyticsEcommerce';
+import useGoogleAnalyticsEcommerce from "../../../components/customHooks/useGoogleAnalyticsEcommerce";
 
 const Test = () => {
-
     // const { addTransaction, addItems, transaction, items, send } = useGoogleAnalyticsEcommerce();
 
     // const testingButton = () => {
@@ -34,7 +33,10 @@ const Test = () => {
     // },[items])
 
     return (
-        <div className="container" style={{marginTop: '50px', marginBottom: '50px'}}>
+        <div
+            className="container"
+            style={{ marginTop: "50px", marginBottom: "50px" }}
+        >
             <div className="row my-4 py-4">
                 {/* <div className="col-4 offset-4">
                     <div className="btn btn-bicolor btn-block" style={{
@@ -47,7 +49,7 @@ const Test = () => {
                 </div> */}
             </div>
         </div>
-  )
-}
+    );
+};
 
 export default Test;
