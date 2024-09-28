@@ -1,26 +1,26 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<meta charset="utf-8">
 	<link rel="shortcut icon" type="image/ico" href="http://www.datatables.net/favicon.ico">
 	<meta name="viewport" content="initial-scale=1.0, maximum-scale=2.0">
+	<meta name=”robots” content=”noindex”>
 	<title>KeyTable example - Events</title>
 	<link rel="stylesheet" type="text/css" href="../../../../media/css/jquery.dataTables.css">
 	<link rel="stylesheet" type="text/css" href="../../css/keyTable.dataTables.css">
 	<link rel="stylesheet" type="text/css" href="../../../../examples/resources/syntax/shCore.css">
 	<link rel="stylesheet" type="text/css" href="../../../../examples/resources/demo.css">
 	<style type="text/css" class="init">
-	
-	#events {
-		margin-bottom: 1em;
-		padding: 1em;
-		background-color: #f6f6f6;
-		border: 1px solid #999;
-		border-radius: 3px;
-		height: 100px;
-		overflow: auto;
-	}
-
+		#events {
+			margin-bottom: 1em;
+			padding: 1em;
+			background-color: #f6f6f6;
+			border: 1px solid #999;
+			border-radius: 3px;
+			height: 100px;
+			overflow: auto;
+		}
 	</style>
 	<script type="text/javascript" language="javascript" src="//code.jquery.com/jquery-1.12.4.js">
 	</script>
@@ -33,50 +33,56 @@
 	<script type="text/javascript" language="javascript" src="../../../../examples/resources/demo.js">
 	</script>
 	<script type="text/javascript" language="javascript" class="init">
-	
 
-$(document).ready(function() {
-	var events = $('#events');
-	var table = $('#example').DataTable( {
-		keys: true
-	} );
 
-	table
-		.on( 'key', function ( e, datatable, key, cell, originalEvent ) {
-			events.prepend( '<div>Key press: '+key+' for cell <i>'+cell.data()+'</i></div>' );
-		} )
-		.on( 'key-focus', function ( e, datatable, cell ) {
-			events.prepend( '<div>Cell focus: <i>'+cell.data()+'</i></div>' );
-		} )
-		.on( 'key-blur', function ( e, datatable, cell ) {
-			events.prepend( '<div>Cell blur: <i>'+cell.data()+'</i></div>' );
-		} )
-} );
+		$(document).ready(function () {
+			var events = $('#events');
+			var table = $('#example').DataTable({
+				keys: true
+			});
+
+			table
+				.on('key', function (e, datatable, key, cell, originalEvent) {
+					events.prepend('<div>Key press: ' + key + ' for cell <i>' + cell.data() + '</i></div>');
+				})
+				.on('key-focus', function (e, datatable, cell) {
+					events.prepend('<div>Cell focus: <i>' + cell.data() + '</i></div>');
+				})
+				.on('key-blur', function (e, datatable, cell) {
+					events.prepend('<div>Cell blur: <i>' + cell.data() + '</i></div>');
+				})
+		});
 
 
 	</script>
 </head>
+
 <body class="dt-example">
 	<div class="container">
 		<section>
 			<h1>KeyTable example <span>Events</span></h1>
 			<div class="info">
-				<p>Enabling KeyTable on a DataTable is trivial with the <a href="//datatables.net/reference/option/keys"><code class="option" title=
-				"KeyTable initialisation option">keys</code></a> option, however, to have it perform a useful function you'll want to know when the end user performs interaction
-				options with the table's focus. For this KeyTable has a number of events it can trigger:</p>
+				<p>Enabling KeyTable on a DataTable is trivial with the <a href="//datatables.net/reference/option/keys"><code
+							class="option" title="KeyTable initialisation option">keys</code></a> option, however, to have it perform
+					a useful function you'll want to know when the end user performs interaction
+					options with the table's focus. For this KeyTable has a number of events it can trigger:</p>
 				<ul class="markdown">
 					<li>
-						<a href="//datatables.net/reference/event/key"><code class="event" title="KeyTable event">key</code></a> - A key has been pressed while a cell has focus
+						<a href="//datatables.net/reference/event/key"><code class="event" title="KeyTable event">key</code></a> - A
+						key has been pressed while a cell has focus
 					</li>
 					<li>
-						<a href="//datatables.net/reference/event/key-focus"><code class="event" title="KeyTable event">key-focus</code></a> - A cell has gained focus
+						<a href="//datatables.net/reference/event/key-focus"><code class="event"
+								title="KeyTable event">key-focus</code></a> - A cell has gained focus
 					</li>
 					<li>
-						<a href="//datatables.net/reference/event/key-blur"><code class="event" title="KeyTable event">key-blur</code></a> - A cell has lost focus
+						<a href="//datatables.net/reference/event/key-blur"><code class="event"
+								title="KeyTable event">key-blur</code></a> - A cell has lost focus
 					</li>
 				</ul>
-				<p>This trivial example shows information about each event as it occurs in an output element. More complex interactions can be created to <a href=
-				"//editor.datatables.net/examples/extensions/keyTable">achieve Excel like editing</a> or other behaviours as required.</p>
+				<p>This trivial example shows information about each event as it occurs in an output element. More complex
+					interactions can be created to <a href="//editor.datatables.net/examples/extensions/keyTable">achieve Excel
+						like editing</a> or other behaviours as required.</p>
 			</div>
 			<div class="demo-html">
 				<div id="events">
@@ -572,7 +578,8 @@ $(document).ready(function() {
 			</ul>
 			<div class="tabs">
 				<div class="js">
-					<p>The Javascript shown below is used to initialise the table shown in this example:</p><code class="multiline language-js">$(document).ready(function() {
+					<p>The Javascript shown below is used to initialise the table shown in this example:</p><code
+						class="multiline language-js">$(document).ready(function() {
 	var events = $('#events');
 	var table = $('#example').DataTable( {
 		keys: true
@@ -589,7 +596,8 @@ $(document).ready(function() {
 			events.prepend( '&lt;div&gt;Cell blur: &lt;i&gt;'+cell.data()+'&lt;/i&gt;&lt;/div&gt;' );
 		} )
 } );</code>
-					<p>In addition to the above code, the following Javascript library files are loaded for use in this example:</p>
+					<p>In addition to the above code, the following Javascript library files are loaded for use in this example:
+					</p>
 					<ul>
 						<li>
 							<a href="//code.jquery.com/jquery-1.12.4.js">//code.jquery.com/jquery-1.12.4.js</a>
@@ -607,8 +615,9 @@ $(document).ready(function() {
 				</div>
 				<div class="css">
 					<div>
-						<p>This example uses a little bit of additional CSS beyond what is loaded from the library files (below), in order to correctly display the table. The
-						additional CSS used is shown below:</p><code class="multiline language-css">#events {
+						<p>This example uses a little bit of additional CSS beyond what is loaded from the library files (below), in
+							order to correctly display the table. The
+							additional CSS used is shown below:</p><code class="multiline language-css">#events {
 		margin-bottom: 1em;
 		padding: 1em;
 		background-color: #f6f6f6;
@@ -629,13 +638,16 @@ $(document).ready(function() {
 					</ul>
 				</div>
 				<div class="ajax">
-					<p>This table loads data by Ajax. The latest data that has been loaded is shown below. This data will update automatically as any additional data is
-					loaded.</p>
+					<p>This table loads data by Ajax. The latest data that has been loaded is shown below. This data will update
+						automatically as any additional data is
+						loaded.</p>
 				</div>
 				<div class="php">
-					<p>The script used to perform the server-side processing for this table is shown below. Please note that this is just an example script using PHP. Server-side
-					processing scripts can be written in any language, using <a href="//datatables.net/manual/server-side">the protocol described in the DataTables
-					documentation</a>.</p>
+					<p>The script used to perform the server-side processing for this table is shown below. Please note that this
+						is just an example script using PHP. Server-side
+						processing scripts can be written in any language, using <a href="//datatables.net/manual/server-side">the
+							protocol described in the DataTables
+							documentation</a>.</p>
 				</div>
 			</div>
 		</section>
@@ -697,14 +709,17 @@ $(document).ready(function() {
 					</div>
 				</div>
 				<div class="epilogue">
-					<p>Please refer to the <a href="http://www.datatables.net">DataTables documentation</a> for full information about its API properties and methods.<br>
-					Additionally, there are a wide range of <a href="http://www.datatables.net/extensions">extensions</a> and <a href=
-					"http://www.datatables.net/plug-ins">plug-ins</a> which extend the capabilities of DataTables.</p>
-					<p class="copyright">DataTables designed and created by <a href="http://www.sprymedia.co.uk">SpryMedia Ltd</a> © 2007-2017<br>
-					DataTables is licensed under the <a href="http://www.datatables.net/mit">MIT license</a>.</p>
+					<p>Please refer to the <a href="http://www.datatables.net">DataTables documentation</a> for full information
+						about its API properties and methods.<br>
+						Additionally, there are a wide range of <a href="http://www.datatables.net/extensions">extensions</a> and <a
+							href="http://www.datatables.net/plug-ins">plug-ins</a> which extend the capabilities of DataTables.</p>
+					<p class="copyright">DataTables designed and created by <a href="http://www.sprymedia.co.uk">SpryMedia Ltd</a>
+						© 2007-2017<br>
+						DataTables is licensed under the <a href="http://www.datatables.net/mit">MIT license</a>.</p>
 				</div>
 			</div>
 		</div>
 	</section>
 </body>
+
 </html>

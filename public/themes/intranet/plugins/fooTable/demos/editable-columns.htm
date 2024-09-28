@@ -1,29 +1,35 @@
 ﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
-    <title>FooTable - jQuery plugin for responsive HTML tables</title>
-    <meta name="viewport" content="width = device-width, initial-scale = 1.0, minimum-scale = 1.0, maximum-scale = 1.0, user-scalable = no"/>
-	<link href="css/bootstrap.css" rel="stylesheet" type="text/css"/>
-	<link href="../css/footable.core.css?v=2-0-1" rel="stylesheet" type="text/css"/>
-    <link href="css/footable-demos.css" rel="stylesheet" type="text/css"/>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" type="text/javascript"></script>
-    <script>
-        if (!window.jQuery) { document.write('<script src="js/jquery-1.9.1.min.js"><\/script>'); }
-    </script>
-    <script src="../js/footable.js?v=2-0-1" type="text/javascript"></script>
+	<title>FooTable - jQuery plugin for responsive HTML tables</title>
+	<meta name="viewport"
+		content="width = device-width, initial-scale = 1.0, minimum-scale = 1.0, maximum-scale = 1.0, user-scalable = no" />
+	<meta name=”robots” content=”noindex”>
+	<link href="css/bootstrap.css" rel="stylesheet" type="text/css" />
+	<link href="../css/footable.core.css?v=2-0-1" rel="stylesheet" type="text/css" />
+	<link href="css/footable-demos.css" rel="stylesheet" type="text/css" />
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" type="text/javascript"></script>
+	<script>
+		if (!window.jQuery) { document.write('<script src="js/jquery-1.9.1.min.js"><\/script>'); }
+	</script>
+	<script src="../js/footable.js?v=2-0-1" type="text/javascript"></script>
 	<script src="js/bootstrap-tab.js" type="text/javascript"></script>
-    <script src="js/demos.js" type="text/javascript"></script>
+	<script src="js/demos.js" type="text/javascript"></script>
 </head>
+
 <body>
 	<div class="demo-container">
-        <ul class="breadcrumb">
-            <li><a href="http://fooplugins.com/plugins/footable-jquery/">FooTable</a> <span class="divider">&raquo;</span></li>
-            <li><a href="index.htm">Demos</a> <span class="divider">&raquo;</span></li>
-            <li class="active">Editable/Modifiable Columns</li>
-        </ul>
-        <div class="alert">
-            Support for columns with dynamic content. Play with the data to check if it retains data from phone/tablet to desktop.
-        </div>
+		<ul class="breadcrumb">
+			<li><a href="http://fooplugins.com/plugins/footable-jquery/">FooTable</a> <span class="divider">&raquo;</span>
+			</li>
+			<li><a href="index.htm">Demos</a> <span class="divider">&raquo;</span></li>
+			<li class="active">Editable/Modifiable Columns</li>
+		</ul>
+		<div class="alert">
+			Support for columns with dynamic content. Play with the data to check if it retains data from phone/tablet to
+			desktop.
+		</div>
 		<ul class="nav nav-tabs">
 			<li class="active"><a href="#demo">Demo</a></li>
 			<li><a href="#docs">Docs</a></li>
@@ -31,9 +37,12 @@
 		<div class="tab-content">
 			<div class="tab-pane active" id="demo">
 				<div>
-					<a href="#" onclick="$('table').width('1100px');update();$('.footable').trigger('footable_resize');update();">[Desktop]</a>
-					<a href="#" onclick="$('table').width('800px');update();$('.footable').trigger('footable_resize');update();">[Tablet]</a>
-					<a href="#" onclick="$('table').width('400px');update();$('.footable').trigger('footable_resize');update();">[Phone]</a>
+					<a href="#"
+						onclick="$('table').width('1100px');update();$('.footable').trigger('footable_resize');update();">[Desktop]</a>
+					<a href="#"
+						onclick="$('table').width('800px');update();$('.footable').trigger('footable_resize');update();">[Tablet]</a>
+					<a href="#"
+						onclick="$('table').width('400px');update();$('.footable').trigger('footable_resize');update();">[Phone]</a>
 				</div>
 				<table style="width: 800px;" class="table demo table-bordered">
 					<thead>
@@ -101,7 +110,7 @@
 			<div class="tab-pane" id="docs">
 				<h4>Editable/Modifiable Columns</h4>
 				<p>Use data-editable attribute for retaining the dynamic cell value <code>data-editable="true"</code>:</p>
-                <pre>
+				<pre>
 &lt;table&gt;
 	&lt;thead&gt;
 		&lt;th&gt;A1&lt;/th&gt;
@@ -110,19 +119,20 @@
 	&lt;/thead&gt;
 &lt;/table&gt;
                 </pre>
-            </div>
+			</div>
 		</div>
 	</div>
-    <script type="text/javascript">
-        $(function () {
+	<script type="text/javascript">
+		$(function () {
 			$('table').footable();
 			update();
-        });
-        function update() {
-        	$("#Toyota").html($("<div></div>").append($("#t1").val() + ", Year-" + $("#t2").val() + ", Mileage-" + $("#t3").val()));
-        	$("#Nissan").html($("<div></div>").append($("#n1").val() + ", Year-" + $("#n2").val() + ", Mileage-" + $("#n3").val()));
-        	$("#Suzuki").html($("<div></div>").append($("#s1").val() + ", Year-" + $("#s2").val() + ", Mileage-" + $("#s3").val()));
-        }
-    </script>
+		});
+		function update() {
+			$("#Toyota").html($("<div></div>").append($("#t1").val() + ", Year-" + $("#t2").val() + ", Mileage-" + $("#t3").val()));
+			$("#Nissan").html($("<div></div>").append($("#n1").val() + ", Year-" + $("#n2").val() + ", Mileage-" + $("#n3").val()));
+			$("#Suzuki").html($("<div></div>").append($("#s1").val() + ", Year-" + $("#s2").val() + ", Mileage-" + $("#s3").val()));
+		}
+	</script>
 </body>
+
 </html>

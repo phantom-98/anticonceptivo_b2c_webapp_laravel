@@ -1,23 +1,26 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Basic Tabs Left Example</title>
-    <!-- Bootstrap -->
-    <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+<head>
+	<title>Basic Tabs Left Example</title>
+	<meta name=”robots” content=”noindex”>
+	<!-- Bootstrap -->
+	<link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link href="../prettify.css" rel="stylesheet">
-  </head>
-  <body>
-    <div class='container'>
-		
+</head>
+
+<body>
+	<div class='container'>
+
 		<div class="span12">
 			<section id="wizard">
-			  <div class="page-header">
-	            <h1>Basic Tabs Left Wizard</h1>
-	          </div>
-	
+				<div class="page-header">
+					<h1>Basic Tabs Left Wizard</h1>
+				</div>
+
 				<div id="rootwizard" class="tabbable tabs-left">
 					<ul>
-					  	<li><a href="#tab1" data-toggle="tab">First</a></li>
+						<li><a href="#tab1" data-toggle="tab">First</a></li>
 						<li><a href="#tab2" data-toggle="tab">Second</a></li>
 						<li><a href="#tab3" data-toggle="tab">Third</a></li>
 						<li><a href="#tab4" data-toggle="tab">Forth</a></li>
@@ -26,38 +29,38 @@
 						<li><a href="#tab7" data-toggle="tab">Seventh</a></li>
 					</ul>
 					<div class="tab-content">
-					    <div class="tab-pane" id="tab1">
-					      1
-					    </div>
-					    <div class="tab-pane" id="tab2">
-					      2
-					    </div>
+						<div class="tab-pane" id="tab1">
+							1
+						</div>
+						<div class="tab-pane" id="tab2">
+							2
+						</div>
 						<div class="tab-pane" id="tab3">
 							3
-					    </div>
+						</div>
 						<div class="tab-pane" id="tab4">
 							4
-					    </div>
+						</div>
 						<div class="tab-pane" id="tab5">
 							5
-					    </div>
+						</div>
 						<div class="tab-pane" id="tab6">
 							6
-					    </div>
+						</div>
 						<div class="tab-pane" id="tab7">
 							7
-					    </div>
+						</div>
 						<ul class="pager wizard">
 							<li class="previous first" style="display:none;"><a href="#">First</a></li>
 							<li class="previous"><a href="#">Previous</a></li>
 							<li class="next last" style="display:none;"><a href="#">Last</a></li>
-						  	<li class="next"><a href="#">Next</a></li>
+							<li class="next"><a href="#">Next</a></li>
 						</ul>
-					</div>	
+					</div>
 				</div>
-				
-<h3>HTML</h3>
-<pre class="prettyprint linenums">
+
+				<h3>HTML</h3>
+				<pre class="prettyprint linenums">
 &lt;div id="rootwizard" class="tabbable tabs-left">
 	&lt;ul>
 	  	&lt;li>&lt;a href="#tab1" data-toggle="tab">First&lt;/a>&lt;/li>
@@ -100,25 +103,26 @@
 &lt;/div>
 </pre>
 
-<h3>JS</h3>
-<pre class="prettyprint linenums">
+				<h3>JS</h3>
+				<pre class="prettyprint linenums">
 $(document).ready(function() {
   	$('#rootwizard').bootstrapWizard({'tabClass': 'nav nav-tabs'});
 });
-</pre>	
-				
+</pre>
+
 			</section>
- 		</div>
+		</div>
 	</div>
-    <script src="http://code.jquery.com/jquery-latest.js"></script>
-    <script src="../bootstrap/js/bootstrap.min.js"></script>
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+	<script src="../bootstrap/js/bootstrap.min.js"></script>
 	<script src="../jquery.bootstrap.wizard.js"></script>
 	<script src="../prettify.js"></script>
 	<script>
-	$(document).ready(function() {
-	  	$('#rootwizard').bootstrapWizard({'tabClass': 'nav nav-tabs'});	
-		window.prettyPrint && prettyPrint()
-	});	
+		$(document).ready(function () {
+			$('#rootwizard').bootstrapWizard({ 'tabClass': 'nav nav-tabs' });
+			window.prettyPrint && prettyPrint()
+		});	
 	</script>
-  </body>
+</body>
+
 </html>

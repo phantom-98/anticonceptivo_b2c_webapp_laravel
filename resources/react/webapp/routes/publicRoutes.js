@@ -153,7 +153,7 @@ const PUBLIC_ROUTES = {
         layout: (props) => <BaseTemplate {...props} />,
         middleware: (props) => <PublicMiddleware {...props} />,
     },
-
+tienda/pastilla-del-dia-despues
     CART: {
         path: "/carrito/",
         title: "Carrito",

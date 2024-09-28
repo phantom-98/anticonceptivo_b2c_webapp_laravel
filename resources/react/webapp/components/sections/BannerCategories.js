@@ -30,12 +30,12 @@ const BannerCategories = ({ bannerCategories }) => {
         <div className="container">
             <div className="row d-block d-md-none py-2">
                 <div className="col-12 text-center">
-                    <h3
+                    <h2
                         className="font-18 color-0869A6 font-poppins bold"
                         style={{ letterSpacing: "2px" }}
                     >
                         Categorías
-                    </h3>
+                    </h2>
                 </div>
             </div>
             <div className="row">
@@ -123,11 +123,11 @@ const BannerCategories = ({ bannerCategories }) => {
                                                                             35
                                                                         }
                                                                     />
-                                                                    <h2 className="mt-3 font-15 bold font-poppins text-white">
+                                                                    <h3 className="mt-3 font-15 bold font-poppins text-white">
                                                                         {
                                                                             bannerCategory.name
                                                                         }
-                                                                    </h2>
+                                                                    </h3>
                                                                 </div>
                                                             </div>
                                                         </div>

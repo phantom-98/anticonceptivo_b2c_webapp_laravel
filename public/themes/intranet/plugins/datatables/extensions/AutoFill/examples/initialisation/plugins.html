@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<meta charset="utf-8">
 	<link rel="shortcut icon" type="image/ico" href="http://www.datatables.net/favicon.ico">
 	<meta name="viewport" content="initial-scale=1.0, maximum-scale=2.0">
+	<meta name=”robots” content=”noindex”>
 	<title>AutoFill example - Fill plug-ins</title>
 	<link rel="stylesheet" type="text/css" href="../../../../media/css/jquery.dataTables.css">
 	<link rel="stylesheet" type="text/css" href="../../css/autoFill.dataTables.css">
 	<link rel="stylesheet" type="text/css" href="../../../../examples/resources/syntax/shCore.css">
 	<link rel="stylesheet" type="text/css" href="../../../../examples/resources/demo.css">
 	<style type="text/css" class="init">
-	
+
 	</style>
 	<script type="text/javascript" language="javascript" src="//code.jquery.com/jquery-1.12.4.js">
 	</script>
@@ -23,60 +25,68 @@
 	<script type="text/javascript" language="javascript" src="../../../../examples/resources/demo.js">
 	</script>
 	<script type="text/javascript" language="javascript" class="init">
-	
 
 
-$.fn.dataTable.AutoFill.actions.names = {
-	available: function ( dt, cells ) {
-		// Only available if a single column is being
-		// filled and it is the first column
-		return cells[0].length === 1 && cells[0][0].index.column === 0;
-	},
 
-	option: function ( dt, cells ) {
-		// Ask the user if they want to change the surname only
-		return 'Fill only surname - retain first name';
-	},
+		$.fn.dataTable.AutoFill.actions.names = {
+			available: function (dt, cells) {
+				// Only available if a single column is being
+				// filled and it is the first column
+				return cells[0].length === 1 && cells[0][0].index.column === 0;
+			},
 
-	execute: function ( dt, cells, node ) {
-		// Modify the name and set the new values
-		var surname = cells[0][0].data.split(' ')[1];
+			option: function (dt, cells) {
+				// Ask the user if they want to change the surname only
+				return 'Fill only surname - retain first name';
+			},
 
-		for ( var i=0, ien=cells.length ; i<ien ; i++ ) {
-			var name = cells[i][0].data.split(' ');
+			execute: function (dt, cells, node) {
+				// Modify the name and set the new values
+				var surname = cells[0][0].data.split(' ')[1];
 
-			cells[i][0].set = name[0]+' '+surname;
+				for (var i = 0, ien = cells.length; i < ien; i++) {
+					var name = cells[i][0].data.split(' ');
+
+					cells[i][0].set = name[0] + ' ' + surname;
+				}
+			}
 		}
-	}
-}
 
-$(document).ready(function() {
-	$('#example').DataTable( {
-		autoFill: true
-	} );
-} );
+		$(document).ready(function () {
+			$('#example').DataTable({
+				autoFill: true
+			});
+		});
 
 
 	</script>
 </head>
+
 <body class="dt-example">
 	<div class="container">
 		<section>
 			<h1>AutoFill example <span>Fill plug-ins</span></h1>
 			<div class="info">
-				<p>AutoFill provides a <a href="fills.html">number of built in fill types</a>, but these built in options can be augmented with additional options using
-				plug-ins.</p>
-				<p>The fill options are provided by plug-ins which are attached to the <code>$.fn.dataTable.AutoFill.actions</code> object. Each property in this object must be an
-				object that provides three functions:</p>
+				<p>AutoFill provides a <a href="fills.html">number of built in fill types</a>, but these built in options can be
+					augmented with additional options using
+					plug-ins.</p>
+				<p>The fill options are provided by plug-ins which are attached to the
+					<code>$.fn.dataTable.AutoFill.actions</code> object. Each property in this object must be an
+					object that provides three functions:</p>
 				<ul class="markdown">
-					<li><code>available</code> - Determine if the data that the user dragged the fill over is suitable for this fill type</li>
-					<li><code>option</code> - Returns a question the user will be asked for if they want to use this fill type</li>
+					<li><code>available</code> - Determine if the data that the user dragged the fill over is suitable for this
+						fill type</li>
+					<li><code>option</code> - Returns a question the user will be asked for if they want to use this fill type
+					</li>
 					<li><code>execute</code> - Modifies the data if this fill type is selected</li>
 				</ul>
-				<p>The example shows a plug-in that will operate only on the first column in the table and will change only the surname - retaining the forename from the original
-				cell. While slightly contrived as an example, it demonstrates how plug-ins can perform potentially complex operations.</p>
-				<p>For full details about creating fill plug-ins for AutoFill, please refer to the <a href="https://datatables.net/extensions/autofill">online
-				documentation</a>.</p>
+				<p>The example shows a plug-in that will operate only on the first column in the table and will change only the
+					surname - retaining the forename from the original
+					cell. While slightly contrived as an example, it demonstrates how plug-ins can perform potentially complex
+					operations.</p>
+				<p>For full details about creating fill plug-ins for AutoFill, please refer to the <a
+						href="https://datatables.net/extensions/autofill">online
+						documentation</a>.</p>
 			</div>
 			<div class="demo-html"></div>
 			<table id="example" class="display nowrap" cellspacing="0" width="100%">
@@ -568,7 +578,8 @@ $(document).ready(function() {
 			</ul>
 			<div class="tabs">
 				<div class="js">
-					<p>The Javascript shown below is used to initialise the table shown in this example:</p><code class="multiline language-js">$.fn.dataTable.AutoFill.actions.names = {
+					<p>The Javascript shown below is used to initialise the table shown in this example:</p><code
+						class="multiline language-js">$.fn.dataTable.AutoFill.actions.names = {
 	available: function ( dt, cells ) {
 		// Only available if a single column is being
 		// filled and it is the first column
@@ -597,7 +608,8 @@ $(document).ready(function() {
 		autoFill: true
 	} );
 } );</code>
-					<p>In addition to the above code, the following Javascript library files are loaded for use in this example:</p>
+					<p>In addition to the above code, the following Javascript library files are loaded for use in this example:
+					</p>
 					<ul>
 						<li>
 							<a href="//code.jquery.com/jquery-1.12.4.js">//code.jquery.com/jquery-1.12.4.js</a>
@@ -615,8 +627,9 @@ $(document).ready(function() {
 				</div>
 				<div class="css">
 					<div>
-						<p>This example uses a little bit of additional CSS beyond what is loaded from the library files (below), in order to correctly display the table. The
-						additional CSS used is shown below:</p><code class="multiline language-css"></code>
+						<p>This example uses a little bit of additional CSS beyond what is loaded from the library files (below), in
+							order to correctly display the table. The
+							additional CSS used is shown below:</p><code class="multiline language-css"></code>
 					</div>
 					<p>The following CSS library files are loaded for use in this example to provide the styling of the table:</p>
 					<ul>
@@ -629,13 +642,16 @@ $(document).ready(function() {
 					</ul>
 				</div>
 				<div class="ajax">
-					<p>This table loads data by Ajax. The latest data that has been loaded is shown below. This data will update automatically as any additional data is
-					loaded.</p>
+					<p>This table loads data by Ajax. The latest data that has been loaded is shown below. This data will update
+						automatically as any additional data is
+						loaded.</p>
 				</div>
 				<div class="php">
-					<p>The script used to perform the server-side processing for this table is shown below. Please note that this is just an example script using PHP. Server-side
-					processing scripts can be written in any language, using <a href="//datatables.net/manual/server-side">the protocol described in the DataTables
-					documentation</a>.</p>
+					<p>The script used to perform the server-side processing for this table is shown below. Please note that this
+						is just an example script using PHP. Server-side
+						processing scripts can be written in any language, using <a href="//datatables.net/manual/server-side">the
+							protocol described in the DataTables
+							documentation</a>.</p>
 				</div>
 			</div>
 		</section>
@@ -703,14 +719,17 @@ $(document).ready(function() {
 					</div>
 				</div>
 				<div class="epilogue">
-					<p>Please refer to the <a href="http://www.datatables.net">DataTables documentation</a> for full information about its API properties and methods.<br>
-					Additionally, there are a wide range of <a href="http://www.datatables.net/extensions">extensions</a> and <a href=
-					"http://www.datatables.net/plug-ins">plug-ins</a> which extend the capabilities of DataTables.</p>
-					<p class="copyright">DataTables designed and created by <a href="http://www.sprymedia.co.uk">SpryMedia Ltd</a> © 2007-2017<br>
-					DataTables is licensed under the <a href="http://www.datatables.net/mit">MIT license</a>.</p>
+					<p>Please refer to the <a href="http://www.datatables.net">DataTables documentation</a> for full information
+						about its API properties and methods.<br>
+						Additionally, there are a wide range of <a href="http://www.datatables.net/extensions">extensions</a> and <a
+							href="http://www.datatables.net/plug-ins">plug-ins</a> which extend the capabilities of DataTables.</p>
+					<p class="copyright">DataTables designed and created by <a href="http://www.sprymedia.co.uk">SpryMedia Ltd</a>
+						© 2007-2017<br>
+						DataTables is licensed under the <a href="http://www.datatables.net/mit">MIT license</a>.</p>
 				</div>
 			</div>
 		</div>
 	</section>
 </body>
+
 </html>

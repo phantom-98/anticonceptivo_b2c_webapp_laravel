@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<meta charset="utf-8">
 	<link rel="shortcut icon" type="image/ico" href="http://www.datatables.net/favicon.ico">
 	<meta name="viewport" content="initial-scale=1.0, maximum-scale=2.0">
+	<meta name=”robots” content=”noindex”>
 	<title>Buttons example - Foundation styling</title>
-	<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/css/foundation.min.css">
+	<link rel="stylesheet" type="text/css"
+		href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/css/foundation.min.css">
 	<link rel="stylesheet" type="text/css" href="../../../../media/css/dataTables.foundation.css">
 	<link rel="stylesheet" type="text/css" href="../../css/buttons.foundation.css">
 	<link rel="stylesheet" type="text/css" href="../../../../examples/resources/syntax/shCore.css">
 	<link rel="stylesheet" type="text/css" href="../../../../examples/resources/demo.css">
 	<style type="text/css" class="init">
-	
+
 	</style>
 	<script type="text/javascript" language="javascript" src="//code.jquery.com/jquery-1.12.4.js">
 	</script>
@@ -25,10 +28,12 @@
 	</script>
 	<script type="text/javascript" language="javascript" src="//cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js">
 	</script>
-	<script type="text/javascript" language="javascript" src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/pdfmake.min.js">
-	</script>
-	<script type="text/javascript" language="javascript" src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/vfs_fonts.js">
-	</script>
+	<script type="text/javascript" language="javascript"
+		src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/pdfmake.min.js">
+		</script>
+	<script type="text/javascript" language="javascript"
+		src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/vfs_fonts.js">
+		</script>
 	<script type="text/javascript" language="javascript" src="../../js/buttons.html5.js">
 	</script>
 	<script type="text/javascript" language="javascript" src="../../js/buttons.print.js">
@@ -40,38 +45,45 @@
 	<script type="text/javascript" language="javascript" src="../../../../examples/resources/demo.js">
 	</script>
 	<script type="text/javascript" language="javascript" class="init">
-	
 
 
-$(document).ready(function() {
-	var table = $('#example').DataTable( {
-		lengthChange: false,
-		buttons: [ 'copy', 'excel', 'pdf', 'colvis' ]
-	} );
 
-	table.buttons().container()
-		.appendTo( '#example_wrapper .small-6.columns:eq(0)' );
-} );
+		$(document).ready(function () {
+			var table = $('#example').DataTable({
+				lengthChange: false,
+				buttons: ['copy', 'excel', 'pdf', 'colvis']
+			});
+
+			table.buttons().container()
+				.appendTo('#example_wrapper .small-6.columns:eq(0)');
+		});
 
 
 
 	</script>
 </head>
+
 <body class="dt-example dt-example-foundation">
 	<div class="container">
 		<section>
 			<h1>Buttons example <span>Foundation styling</span></h1>
 			<div class="info">
-				<p>This example shows DataTables and the Buttons extension being used with the <a href="http://foundation.zurb.com">Foundation</a> framework providing the styling.
-				The <a href="//datatables.net/manual/styling/foundation">DataTables / Foundation integration</a> prove seamless integration for DataTables to be used in a
-				Foundation page.</p>
-				<p>Note that for ease of implementation, the <a href="//datatables.net/reference/option/buttons"><code class="option" title=
-				"Buttons initialisation option">buttons</code></a> option is specified as <code>true</code> to use the default options, and the <a href=
-				"//datatables.net/reference/api/buttons().container()"><code class="api" title="Buttons API method">buttons().container()</code></a> method then used to insert the
-				buttons into the document. It is possible to use the <a href="//datatables.net/reference/option/dom"><code class="option" title=
-				"DataTables initialisation option">dom</code></a> option to insert the buttons like in the DataTables styled examples, but the default <a href=
-				"//datatables.net/reference/option/dom"><code class="option" title="DataTables initialisation option">dom</code></a> option used for Foundation styling is quite
-				complex and would need to be fully restated.</p>
+				<p>This example shows DataTables and the Buttons extension being used with the <a
+						href="http://foundation.zurb.com">Foundation</a> framework providing the styling.
+					The <a href="//datatables.net/manual/styling/foundation">DataTables / Foundation integration</a> prove
+					seamless integration for DataTables to be used in a
+					Foundation page.</p>
+				<p>Note that for ease of implementation, the <a href="//datatables.net/reference/option/buttons"><code
+							class="option" title="Buttons initialisation option">buttons</code></a> option is specified as
+					<code>true</code> to use the default options, and the <a
+						href="//datatables.net/reference/api/buttons().container()"><code class="api"
+							title="Buttons API method">buttons().container()</code></a> method then used to insert the
+					buttons into the document. It is possible to use the <a href="//datatables.net/reference/option/dom"><code
+							class="option" title="DataTables initialisation option">dom</code></a> option to insert the buttons like
+					in the DataTables styled examples, but the default <a href="//datatables.net/reference/option/dom"><code
+							class="option" title="DataTables initialisation option">dom</code></a> option used for Foundation styling
+					is quite
+					complex and would need to be fully restated.</p>
 			</div>
 			<div class="demo-html"></div>
 			<table id="example" class="display" cellspacing="0" width="100%">
@@ -563,7 +575,8 @@ $(document).ready(function() {
 			</ul>
 			<div class="tabs">
 				<div class="js">
-					<p>The Javascript shown below is used to initialise the table shown in this example:</p><code class="multiline language-js">$(document).ready(function() {
+					<p>The Javascript shown below is used to initialise the table shown in this example:</p><code
+						class="multiline language-js">$(document).ready(function() {
 	var table = $('#example').DataTable( {
 		lengthChange: false,
 		buttons: [ 'copy', 'excel', 'pdf', 'colvis' ]
@@ -572,7 +585,8 @@ $(document).ready(function() {
 	table.buttons().container()
 		.appendTo( '#example_wrapper .small-6.columns:eq(0)' );
 } );</code>
-					<p>In addition to the above code, the following Javascript library files are loaded for use in this example:</p>
+					<p>In addition to the above code, the following Javascript library files are loaded for use in this example:
+					</p>
 					<ul>
 						<li>
 							<a href="//code.jquery.com/jquery-1.12.4.js">//code.jquery.com/jquery-1.12.4.js</a>
@@ -590,13 +604,16 @@ $(document).ready(function() {
 							<a href="../../js/buttons.foundation.js">../../js/buttons.foundation.js</a>
 						</li>
 						<li>
-							<a href="//cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js">//cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js</a>
+							<a
+								href="//cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js">//cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js</a>
 						</li>
 						<li>
-							<a href="//cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/pdfmake.min.js">//cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/pdfmake.min.js</a>
+							<a
+								href="//cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/pdfmake.min.js">//cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/pdfmake.min.js</a>
 						</li>
 						<li>
-							<a href="//cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/vfs_fonts.js">//cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/vfs_fonts.js</a>
+							<a
+								href="//cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/vfs_fonts.js">//cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/vfs_fonts.js</a>
 						</li>
 						<li>
 							<a href="../../js/buttons.html5.js">../../js/buttons.html5.js</a>
@@ -614,17 +631,19 @@ $(document).ready(function() {
 				</div>
 				<div class="css">
 					<div>
-						<p>This example uses a little bit of additional CSS beyond what is loaded from the library files (below), in order to correctly display the table. The
-						additional CSS used is shown below:</p><code class="multiline language-css"></code>
+						<p>This example uses a little bit of additional CSS beyond what is loaded from the library files (below), in
+							order to correctly display the table. The
+							additional CSS used is shown below:</p><code class="multiline language-css"></code>
 					</div>
 					<p>The following CSS library files are loaded for use in this example to provide the styling of the table:</p>
 					<ul>
 						<li>
-							<a href=
-							"//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/css/foundation.min.css">//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/css/foundation.min.css</a>
+							<a
+								href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/css/foundation.min.css">//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/css/foundation.min.css</a>
 						</li>
 						<li>
-							<a href="../../../../media/css/dataTables.foundation.css">../../../../media/css/dataTables.foundation.css</a>
+							<a
+								href="../../../../media/css/dataTables.foundation.css">../../../../media/css/dataTables.foundation.css</a>
 						</li>
 						<li>
 							<a href="../../css/buttons.foundation.css">../../css/buttons.foundation.css</a>
@@ -632,13 +651,16 @@ $(document).ready(function() {
 					</ul>
 				</div>
 				<div class="ajax">
-					<p>This table loads data by Ajax. The latest data that has been loaded is shown below. This data will update automatically as any additional data is
-					loaded.</p>
+					<p>This table loads data by Ajax. The latest data that has been loaded is shown below. This data will update
+						automatically as any additional data is
+						loaded.</p>
 				</div>
 				<div class="php">
-					<p>The script used to perform the server-side processing for this table is shown below. Please note that this is just an example script using PHP. Server-side
-					processing scripts can be written in any language, using <a href="//datatables.net/manual/server-side">the protocol described in the DataTables
-					documentation</a>.</p>
+					<p>The script used to perform the server-side processing for this table is shown below. Please note that this
+						is just an example script using PHP. Server-side
+						processing scripts can be written in any language, using <a href="//datatables.net/manual/server-side">the
+							protocol described in the DataTables
+							documentation</a>.</p>
 				</div>
 			</div>
 		</section>
@@ -866,14 +888,17 @@ $(document).ready(function() {
 					</div>
 				</div>
 				<div class="epilogue">
-					<p>Please refer to the <a href="http://www.datatables.net">DataTables documentation</a> for full information about its API properties and methods.<br>
-					Additionally, there are a wide range of <a href="http://www.datatables.net/extensions">extensions</a> and <a href=
-					"http://www.datatables.net/plug-ins">plug-ins</a> which extend the capabilities of DataTables.</p>
-					<p class="copyright">DataTables designed and created by <a href="http://www.sprymedia.co.uk">SpryMedia Ltd</a> © 2007-2017<br>
-					DataTables is licensed under the <a href="http://www.datatables.net/mit">MIT license</a>.</p>
+					<p>Please refer to the <a href="http://www.datatables.net">DataTables documentation</a> for full information
+						about its API properties and methods.<br>
+						Additionally, there are a wide range of <a href="http://www.datatables.net/extensions">extensions</a> and <a
+							href="http://www.datatables.net/plug-ins">plug-ins</a> which extend the capabilities of DataTables.</p>
+					<p class="copyright">DataTables designed and created by <a href="http://www.sprymedia.co.uk">SpryMedia Ltd</a>
+						© 2007-2017<br>
+						DataTables is licensed under the <a href="http://www.datatables.net/mit">MIT license</a>.</p>
 				</div>
 			</div>
 		</div>
 	</section>
 </body>
+
 </html>

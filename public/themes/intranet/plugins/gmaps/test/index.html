@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
+
 <head>
+  <meta name=”robots” content=”noindex”>
   <title>gmaps.js test</title>
   <link rel="stylesheet" type="text/css" href="lib/jasmine.css" />
   <link rel="stylesheet" href="style.css" />
@@ -22,7 +24,7 @@
   <script type="text/javascript" src="spec/ControlSpec.js"></script>
 
   <script type="text/javascript">
-    (function() {
+    (function () {
       var jasmineEnv = jasmine.getEnv();
       jasmineEnv.updateInterval = 1000;
 
@@ -30,13 +32,13 @@
 
       jasmineEnv.addReporter(htmlReporter);
 
-      jasmineEnv.specFilter = function(spec) {
+      jasmineEnv.specFilter = function (spec) {
         return htmlReporter.specFilter(spec);
       };
 
       var currentWindowOnload = window.onload;
 
-      window.onload = function() {
+      window.onload = function () {
         if (currentWindowOnload) {
           currentWindowOnload();
         }
@@ -51,6 +53,7 @@
     })();
   </script>
 </head>
+
 <body>
   <h3>Basic map</h3>
   <div class="map" id="basic-map"></div>
@@ -84,4 +87,5 @@
   <h3>Events</h3>
   <div class="map" id="events"></div>
 </body>
+
 </html>

@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<meta charset="utf-8">
 	<link rel="shortcut icon" type="image/ico" href="http://www.datatables.net/favicon.ico">
 	<meta name="viewport" content="initial-scale=1.0, maximum-scale=2.0">
+	<meta name=”robots” content=”noindex”>
 	<title>FixedHeader example - Show / hide FixedHeader</title>
 	<link rel="stylesheet" type="text/css" href="../../../../media/css/jquery.dataTables.css">
 	<link rel="stylesheet" type="text/css" href="../../css/fixedHeader.dataTables.css">
 	<link rel="stylesheet" type="text/css" href="../../../../examples/resources/syntax/shCore.css">
 	<link rel="stylesheet" type="text/css" href="../../../../examples/resources/demo.css">
 	<style type="text/css" class="init">
-	
+
 	</style>
 	<script type="text/javascript" language="javascript" src="//code.jquery.com/jquery-1.12.3.min.js">
 	</script>
@@ -23,38 +25,43 @@
 	<script type="text/javascript" language="javascript" src="../../../../examples/resources/demo.js">
 	</script>
 	<script type="text/javascript" language="javascript" class="init">
-	
 
-$(document).ready(function() {
-	var table = $('#example').DataTable( {
-		fixedHeader: true
-	} );
 
-	var visible = true;
-	var tableContainer = $(table.table().container());
+		$(document).ready(function () {
+			var table = $('#example').DataTable({
+				fixedHeader: true
+			});
 
-	$('#toggle').on( 'click', function () {
-		tableContainer.css( 'display', visible ? 'none' : 'block' );
-		table.fixedHeader.adjust();
+			var visible = true;
+			var tableContainer = $(table.table().container());
 
-		visible = ! visible;
-	} );
-} );
+			$('#toggle').on('click', function () {
+				tableContainer.css('display', visible ? 'none' : 'block');
+				table.fixedHeader.adjust();
+
+				visible = !visible;
+			});
+		});
 
 
 	</script>
 </head>
+
 <body class="dt-example">
 	<div class="container">
 		<section>
 			<h1>FixedHeader example <span>Show / hide FixedHeader</span></h1>
 			<div class="info">
-				<p>This example shows how FixedHeader can be enabled and disabled using the <a href="//datatables.net/reference/api/fixedHeader.adjust()"><code class="api" title=
-				"FixedHeader API method">fixedHeader.adjust()</code></a> API method. This is can be particularly useful if FixedHeader is used for DataTables that are enclosed in
-				tabs, so the header is disabled when the tab containing it is not visible, and also to then realign the FixedHeader when the table is then made visible again.</p>
-				<p>This example shows a simple toggle button that will change the visibility of the DataTable. The <a href=
-				"//datatables.net/reference/api/fixedHeader.adjust()"><code class="api" title="FixedHeader API method">fixedHeader.adjust()</code></a> method is called whenever
-				the table's visibility is changed, as it would be in a tab show event handler.</p>
+				<p>This example shows how FixedHeader can be enabled and disabled using the <a
+						href="//datatables.net/reference/api/fixedHeader.adjust()"><code class="api"
+							title="FixedHeader API method">fixedHeader.adjust()</code></a> API method. This is can be particularly
+					useful if FixedHeader is used for DataTables that are enclosed in
+					tabs, so the header is disabled when the tab containing it is not visible, and also to then realign the
+					FixedHeader when the table is then made visible again.</p>
+				<p>This example shows a simple toggle button that will change the visibility of the DataTable. The <a
+						href="//datatables.net/reference/api/fixedHeader.adjust()"><code class="api"
+							title="FixedHeader API method">fixedHeader.adjust()</code></a> method is called whenever
+					the table's visibility is changed, as it would be in a tab show event handler.</p>
 			</div><button id="toggle">Toggle table visibility</button>
 			<table id="example" class="display" cellspacing="0" width="100%">
 				<thead>
@@ -545,7 +552,8 @@ $(document).ready(function() {
 			</ul>
 			<div class="tabs">
 				<div class="js">
-					<p>The Javascript shown below is used to initialise the table shown in this example:</p><code class="multiline language-js">$(document).ready(function() {
+					<p>The Javascript shown below is used to initialise the table shown in this example:</p><code
+						class="multiline language-js">$(document).ready(function() {
 	var table = $('#example').DataTable( {
 		fixedHeader: true
 	} );
@@ -560,7 +568,8 @@ $(document).ready(function() {
 		visible = ! visible;
 	} );
 } );</code>
-					<p>In addition to the above code, the following Javascript library files are loaded for use in this example:</p>
+					<p>In addition to the above code, the following Javascript library files are loaded for use in this example:
+					</p>
 					<ul>
 						<li>
 							<a href="//code.jquery.com/jquery-1.12.3.min.js">//code.jquery.com/jquery-1.12.3.min.js</a>
@@ -578,8 +587,9 @@ $(document).ready(function() {
 				</div>
 				<div class="css">
 					<div>
-						<p>This example uses a little bit of additional CSS beyond what is loaded from the library files (below), in order to correctly display the table. The
-						additional CSS used is shown below:</p><code class="multiline language-css"></code>
+						<p>This example uses a little bit of additional CSS beyond what is loaded from the library files (below), in
+							order to correctly display the table. The
+							additional CSS used is shown below:</p><code class="multiline language-css"></code>
 					</div>
 					<p>The following CSS library files are loaded for use in this example to provide the styling of the table:</p>
 					<ul>
@@ -592,13 +602,16 @@ $(document).ready(function() {
 					</ul>
 				</div>
 				<div class="ajax">
-					<p>This table loads data by Ajax. The latest data that has been loaded is shown below. This data will update automatically as any additional data is
-					loaded.</p>
+					<p>This table loads data by Ajax. The latest data that has been loaded is shown below. This data will update
+						automatically as any additional data is
+						loaded.</p>
 				</div>
 				<div class="php">
-					<p>The script used to perform the server-side processing for this table is shown below. Please note that this is just an example script using PHP. Server-side
-					processing scripts can be written in any language, using <a href="//datatables.net/manual/server-side">the protocol described in the DataTables
-					documentation</a>.</p>
+					<p>The script used to perform the server-side processing for this table is shown below. Please note that this
+						is just an example script using PHP. Server-side
+						processing scripts can be written in any language, using <a href="//datatables.net/manual/server-side">the
+							protocol described in the DataTables
+							documentation</a>.</p>
 				</div>
 			</div>
 		</section>
@@ -680,14 +693,17 @@ $(document).ready(function() {
 					</div>
 				</div>
 				<div class="epilogue">
-					<p>Please refer to the <a href="http://www.datatables.net">DataTables documentation</a> for full information about its API properties and methods.<br>
-					Additionally, there are a wide range of <a href="http://www.datatables.net/extensions">extensions</a> and <a href=
-					"http://www.datatables.net/plug-ins">plug-ins</a> which extend the capabilities of DataTables.</p>
-					<p class="copyright">DataTables designed and created by <a href="http://www.sprymedia.co.uk">SpryMedia Ltd</a> © 2007-2016<br>
-					DataTables is licensed under the <a href="http://www.datatables.net/mit">MIT license</a>.</p>
+					<p>Please refer to the <a href="http://www.datatables.net">DataTables documentation</a> for full information
+						about its API properties and methods.<br>
+						Additionally, there are a wide range of <a href="http://www.datatables.net/extensions">extensions</a> and <a
+							href="http://www.datatables.net/plug-ins">plug-ins</a> which extend the capabilities of DataTables.</p>
+					<p class="copyright">DataTables designed and created by <a href="http://www.sprymedia.co.uk">SpryMedia Ltd</a>
+						© 2007-2016<br>
+						DataTables is licensed under the <a href="http://www.datatables.net/mit">MIT license</a>.</p>
 				</div>
 			</div>
 		</div>
 	</section>
 </body>
+
 </html>

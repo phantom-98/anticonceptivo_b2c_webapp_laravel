@@ -13,7 +13,7 @@ const LateralMenuItem = ({ section, name, sectionSelected, handleSection }) => {
                         section === sectionSelected ? "active" : ""
                     }`}
                 >
-                    <h3 className="menu-section-item">{name}</h3>
+                    <h2 className="menu-section-item">{name}</h2>
                 </div>
             </Link>
         </div>

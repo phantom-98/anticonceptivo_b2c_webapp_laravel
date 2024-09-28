@@ -114,14 +114,14 @@ const Filter = ({
                             <Card.Body bsPrefix="card-body pt-0">
                                 <div className="row">
                                     <div className="col-6">
-                                        <span className="font-12 regular color-3B3B3B">
+                                        <h3 className="font-12 regular color-3B3B3B">
                                             $100
-                                        </span>
+                                        </h3>
                                     </div>
                                     <div className="col-6 text-right">
-                                        <span className="font-12 regular color-3B3B3B">
+                                        <h3 className="font-12 regular color-3B3B3B">
                                             {formatMoney(localPrice)}
-                                        </span>
+                                        </h3>
                                     </div>
                                     <PriceFilter
                                         filters={filters}

@@ -126,8 +126,8 @@ function AccordionComponent(_ref) {
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
           children: isActive ? '-' : '+'
         })]
-      }), isActive && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-        className: "accordion-content",
+      }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+        className: `${isActive ? "visible" : "collapse"} accordion-content`,
         dangerouslySetInnerHTML: {
           __html: seoData.description
         }

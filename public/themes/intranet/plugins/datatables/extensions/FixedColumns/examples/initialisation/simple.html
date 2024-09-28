@@ -1,23 +1,27 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<meta charset="utf-8">
 	<link rel="shortcut icon" type="image/ico" href="http://www.datatables.net/favicon.ico">
 	<meta name="viewport" content="initial-scale=1.0, maximum-scale=2.0">
+	<meta name=”robots” content=”noindex”>
 	<title>FixedColumns example - Basic initialisation</title>
 	<link rel="stylesheet" type="text/css" href="../../../../media/css/jquery.dataTables.css">
 	<link rel="stylesheet" type="text/css" href="../../css/fixedColumns.dataTables.css">
 	<link rel="stylesheet" type="text/css" href="../../../../examples/resources/syntax/shCore.css">
 	<link rel="stylesheet" type="text/css" href="../../../../examples/resources/demo.css">
 	<style type="text/css" class="init">
-	
-	/* Ensure that the demo table scrolls */
-	th, td { white-space: nowrap; }
-	div.dataTables_wrapper {
-		width: 800px;
-		margin: 0 auto;
-	}
+		/* Ensure that the demo table scrolls */
+		th,
+		td {
+			white-space: nowrap;
+		}
 
+		div.dataTables_wrapper {
+			width: 800px;
+			margin: 0 auto;
+		}
 	</style>
 	<script type="text/javascript" language="javascript" src="//code.jquery.com/jquery-1.12.3.min.js">
 	</script>
@@ -30,35 +34,43 @@
 	<script type="text/javascript" language="javascript" src="../../../../examples/resources/demo.js">
 	</script>
 	<script type="text/javascript" language="javascript" class="init">
-	
 
-$(document).ready(function() {
-	$('#example').DataTable( {
-		scrollY:        300,
-		scrollX:        true,
-		scrollCollapse: true,
-		paging:         false,
-		fixedColumns:   true
-	} );
-} );
+
+		$(document).ready(function () {
+			$('#example').DataTable({
+				scrollY: 300,
+				scrollX: true,
+				scrollCollapse: true,
+				paging: false,
+				fixedColumns: true
+			});
+		});
 
 
 	</script>
 </head>
+
 <body class="dt-example">
 	<div class="container">
 		<section>
 			<h1>FixedColumns example <span>Basic initialisation</span></h1>
 			<div class="info">
-				<p>When displaying a table which scrolls along the x-axis, it can sometimes be useful to the end user for the left most column to be fixed in place, if it shows
-				grouping, index or similar information. This is basically the same idea as 'freeze columns' in Excel. This can be achieved with the FixedColumns plug-in for
-				DataTables, as shown below.</p>
-				<p>Note that FixedColumns is suitable only for use with the scrolling features in <a href="http://datatables.net">DataTables</a>. If you want to achieve a similar
-				effect without scrolling enabled, please checkout <a href="http://datatables.net/extensions/fixedheader">FixedHeader</a>, also for DataTables.</p>
-				<p>FixedColumns is initialised using the <a href="//datatables.net/reference/option/fixedColumns"><code class="option" title=
-				"FixedColumns initialisation option">fixedColumns</code></a> option as part of the DataTables construction as shown below. This example also has vertical scrolling
-				enabled (<a href="//datatables.net/reference/option/scrollY"><code class="option" title="DataTables initialisation option">scrollY</code></a>) and paging disabled
-				(<a href="//datatables.net/reference/option/paging"><code class="option" title="DataTables initialisation option">paging</code></a>).</p>
+				<p>When displaying a table which scrolls along the x-axis, it can sometimes be useful to the end user for the
+					left most column to be fixed in place, if it shows
+					grouping, index or similar information. This is basically the same idea as 'freeze columns' in Excel. This can
+					be achieved with the FixedColumns plug-in for
+					DataTables, as shown below.</p>
+				<p>Note that FixedColumns is suitable only for use with the scrolling features in <a
+						href="http://datatables.net">DataTables</a>. If you want to achieve a similar
+					effect without scrolling enabled, please checkout <a
+						href="http://datatables.net/extensions/fixedheader">FixedHeader</a>, also for DataTables.</p>
+				<p>FixedColumns is initialised using the <a href="//datatables.net/reference/option/fixedColumns"><code
+							class="option" title="FixedColumns initialisation option">fixedColumns</code></a> option as part of the
+					DataTables construction as shown below. This example also has vertical scrolling
+					enabled (<a href="//datatables.net/reference/option/scrollY"><code class="option"
+							title="DataTables initialisation option">scrollY</code></a>) and paging disabled
+					(<a href="//datatables.net/reference/option/paging"><code class="option"
+							title="DataTables initialisation option">paging</code></a>).</p>
 			</div>
 			<table id="example" class="stripe row-border order-column" cellspacing="0" width="100%">
 				<thead>
@@ -713,7 +725,8 @@ $(document).ready(function() {
 			</ul>
 			<div class="tabs">
 				<div class="js">
-					<p>The Javascript shown below is used to initialise the table shown in this example:</p><code class="multiline language-js">$(document).ready(function() {
+					<p>The Javascript shown below is used to initialise the table shown in this example:</p><code
+						class="multiline language-js">$(document).ready(function() {
 	$('#example').DataTable( {
 		scrollY:        300,
 		scrollX:        true,
@@ -722,7 +735,8 @@ $(document).ready(function() {
 		fixedColumns:   true
 	} );
 } );</code>
-					<p>In addition to the above code, the following Javascript library files are loaded for use in this example:</p>
+					<p>In addition to the above code, the following Javascript library files are loaded for use in this example:
+					</p>
 					<ul>
 						<li>
 							<a href="//code.jquery.com/jquery-1.12.3.min.js">//code.jquery.com/jquery-1.12.3.min.js</a>
@@ -740,8 +754,9 @@ $(document).ready(function() {
 				</div>
 				<div class="css">
 					<div>
-						<p>This example uses a little bit of additional CSS beyond what is loaded from the library files (below), in order to correctly display the table. The
-						additional CSS used is shown below:</p><code class="multiline language-css">/* Ensure that the demo table scrolls */
+						<p>This example uses a little bit of additional CSS beyond what is loaded from the library files (below), in
+							order to correctly display the table. The
+							additional CSS used is shown below:</p><code class="multiline language-css">/* Ensure that the demo table scrolls */
 	th, td { white-space: nowrap; }
 	div.dataTables_wrapper {
 		width: 800px;
@@ -759,13 +774,16 @@ $(document).ready(function() {
 					</ul>
 				</div>
 				<div class="ajax">
-					<p>This table loads data by Ajax. The latest data that has been loaded is shown below. This data will update automatically as any additional data is
-					loaded.</p>
+					<p>This table loads data by Ajax. The latest data that has been loaded is shown below. This data will update
+						automatically as any additional data is
+						loaded.</p>
 				</div>
 				<div class="php">
-					<p>The script used to perform the server-side processing for this table is shown below. Please note that this is just an example script using PHP. Server-side
-					processing scripts can be written in any language, using <a href="//datatables.net/manual/server-side">the protocol described in the DataTables
-					documentation</a>.</p>
+					<p>The script used to perform the server-side processing for this table is shown below. Please note that this
+						is just an example script using PHP. Server-side
+						processing scripts can be written in any language, using <a href="//datatables.net/manual/server-side">the
+							protocol described in the DataTables
+							documentation</a>.</p>
 				</div>
 			</div>
 		</section>
@@ -862,14 +880,17 @@ $(document).ready(function() {
 					</div>
 				</div>
 				<div class="epilogue">
-					<p>Please refer to the <a href="http://www.datatables.net">DataTables documentation</a> for full information about its API properties and methods.<br>
-					Additionally, there are a wide range of <a href="http://www.datatables.net/extensions">extensions</a> and <a href=
-					"http://www.datatables.net/plug-ins">plug-ins</a> which extend the capabilities of DataTables.</p>
-					<p class="copyright">DataTables designed and created by <a href="http://www.sprymedia.co.uk">SpryMedia Ltd</a> © 2007-2016<br>
-					DataTables is licensed under the <a href="http://www.datatables.net/mit">MIT license</a>.</p>
+					<p>Please refer to the <a href="http://www.datatables.net">DataTables documentation</a> for full information
+						about its API properties and methods.<br>
+						Additionally, there are a wide range of <a href="http://www.datatables.net/extensions">extensions</a> and <a
+							href="http://www.datatables.net/plug-ins">plug-ins</a> which extend the capabilities of DataTables.</p>
+					<p class="copyright">DataTables designed and created by <a href="http://www.sprymedia.co.uk">SpryMedia Ltd</a>
+						© 2007-2016<br>
+						DataTables is licensed under the <a href="http://www.datatables.net/mit">MIT license</a>.</p>
 				</div>
 			</div>
 		</div>
 	</section>
 </body>
+
 </html>

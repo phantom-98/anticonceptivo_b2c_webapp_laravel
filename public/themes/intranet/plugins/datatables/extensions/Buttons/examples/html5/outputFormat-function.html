@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<meta charset="utf-8">
 	<link rel="shortcut icon" type="image/ico" href="http://www.datatables.net/favicon.ico">
 	<meta name="viewport" content="initial-scale=1.0, maximum-scale=2.0">
+	<meta name=”robots” content=”noindex”>
 	<title>Buttons example - Format output data - export options</title>
 	<link rel="stylesheet" type="text/css" href="../../../../media/css/jquery.dataTables.css">
 	<link rel="stylesheet" type="text/css" href="../../css/buttons.dataTables.css">
 	<link rel="stylesheet" type="text/css" href="../../../../examples/resources/syntax/shCore.css">
 	<link rel="stylesheet" type="text/css" href="../../../../examples/resources/demo.css">
 	<style type="text/css" class="init">
-	
+
 	</style>
 	<script type="text/javascript" language="javascript" src="//code.jquery.com/jquery-1.12.4.js">
 	</script>
@@ -20,10 +22,12 @@
 	</script>
 	<script type="text/javascript" language="javascript" src="//cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js">
 	</script>
-	<script type="text/javascript" language="javascript" src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/pdfmake.min.js">
-	</script>
-	<script type="text/javascript" language="javascript" src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/vfs_fonts.js">
-	</script>
+	<script type="text/javascript" language="javascript"
+		src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/pdfmake.min.js">
+		</script>
+	<script type="text/javascript" language="javascript"
+		src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/vfs_fonts.js">
+		</script>
 	<script type="text/javascript" language="javascript" src="../../js/buttons.html5.js">
 	</script>
 	<script type="text/javascript" language="javascript" src="../../../../examples/resources/syntax/shCore.js">
@@ -31,67 +35,75 @@
 	<script type="text/javascript" language="javascript" src="../../../../examples/resources/demo.js">
 	</script>
 	<script type="text/javascript" language="javascript" class="init">
-	
 
 
-$(document).ready(function() {
-	var buttonCommon = {
-		exportOptions: {
-			format: {
-				body: function ( data, row, column, node ) {
-					// Strip $ from salary column to make it numeric
-					return column === 5 ?
-						data.replace( /[$,]/g, '' ) :
-						data;
+
+		$(document).ready(function () {
+			var buttonCommon = {
+				exportOptions: {
+					format: {
+						body: function (data, row, column, node) {
+							// Strip $ from salary column to make it numeric
+							return column === 5 ?
+								data.replace(/[$,]/g, '') :
+								data;
+						}
+					}
 				}
-			}
-		}
-	};
+			};
 
-	$('#example').DataTable( {
-        ajax: '../../../../examples/ajax/data/objects.txt',
-        columns: [
-            { data: 'name' },
-            { data: 'position' },
-            { data: 'office' },
-            { data: 'extn' },
-            { data: 'start_date' },
-            { data: 'salary' }
-        ],
-		dom: 'Bfrtip',
-		buttons: [
-			$.extend( true, {}, buttonCommon, {
-				extend: 'copyHtml5'
-			} ),
-			$.extend( true, {}, buttonCommon, {
-				extend: 'excelHtml5'
-			} ),
-			$.extend( true, {}, buttonCommon, {
-				extend: 'pdfHtml5'
-			} )
-		]
-	} );
-} );
+			$('#example').DataTable({
+				ajax: '../../../../examples/ajax/data/objects.txt',
+				columns: [
+					{ data: 'name' },
+					{ data: 'position' },
+					{ data: 'office' },
+					{ data: 'extn' },
+					{ data: 'start_date' },
+					{ data: 'salary' }
+				],
+				dom: 'Bfrtip',
+				buttons: [
+					$.extend(true, {}, buttonCommon, {
+						extend: 'copyHtml5'
+					}),
+					$.extend(true, {}, buttonCommon, {
+						extend: 'excelHtml5'
+					}),
+					$.extend(true, {}, buttonCommon, {
+						extend: 'pdfHtml5'
+					})
+				]
+			});
+		});
 
 
 
 	</script>
 </head>
+
 <body class="dt-example">
 	<div class="container">
 		<section>
 			<h1>Buttons example <span>Format output data - export options</span></h1>
 			<div class="info">
-				<p>Buttons has two different methods that can be used to format the data exported differently from the data that is shown in the table: <a href=
-				"outputFormat-orthogonal.html">orthogonal options</a> and formatting functions as shown in this example. They both achieve basically the same thing in different
-				ways: namely modification of the output data.</p>
-				<p>Formatting functions for export buttons are specified by assigning a function to one (or more) of the <code>format</code> object of the
-				<code>exportOptions</code> object. Three formatting functions can be used: <code>header</code>, <code>footer</code> and <code>body</code>. This is the primarily
-				advantage of using formatting functions over orthogonal data - the header and footer can also be formatted using this method (of course orthogonal and this
-				formatting function method can both be used together if you prefer!).</p>
-				<p>This example uses a <code>body</code> formatting function to remove the <code>$</code> and <code>,</code> characters from the final column to make it a numeric
-				value in the output data. Since this is common to all three export buttons used, the function is placed into an object that is reused by each button - simply to
-				save repeating the same code! This is not required, but it can be a useful technique.</p>
+				<p>Buttons has two different methods that can be used to format the data exported differently from the data that
+					is shown in the table: <a href="outputFormat-orthogonal.html">orthogonal options</a> and formatting functions
+					as shown in this example. They both achieve basically the same thing in different
+					ways: namely modification of the output data.</p>
+				<p>Formatting functions for export buttons are specified by assigning a function to one (or more) of the
+					<code>format</code> object of the
+					<code>exportOptions</code> object. Three formatting functions can be used: <code>header</code>,
+					<code>footer</code> and <code>body</code>. This is the primarily
+					advantage of using formatting functions over orthogonal data - the header and footer can also be formatted
+					using this method (of course orthogonal and this
+					formatting function method can both be used together if you prefer!).
+				</p>
+				<p>This example uses a <code>body</code> formatting function to remove the <code>$</code> and <code>,</code>
+					characters from the final column to make it a numeric
+					value in the output data. Since this is common to all three export buttons used, the function is placed into
+					an object that is reused by each button - simply to
+					save repeating the same code! This is not required, but it can be a useful technique.</p>
 			</div>
 			<div class="demo-html"></div>
 			<table id="example" class="display" cellspacing="0" width="100%">
@@ -125,7 +137,8 @@ $(document).ready(function() {
 			</ul>
 			<div class="tabs">
 				<div class="js">
-					<p>The Javascript shown below is used to initialise the table shown in this example:</p><code class="multiline language-js">$(document).ready(function() {
+					<p>The Javascript shown below is used to initialise the table shown in this example:</p><code
+						class="multiline language-js">$(document).ready(function() {
 	var buttonCommon = {
 		exportOptions: {
 			format: {
@@ -163,7 +176,8 @@ $(document).ready(function() {
 		]
 	} );
 } );</code>
-					<p>In addition to the above code, the following Javascript library files are loaded for use in this example:</p>
+					<p>In addition to the above code, the following Javascript library files are loaded for use in this example:
+					</p>
 					<ul>
 						<li>
 							<a href="//code.jquery.com/jquery-1.12.4.js">//code.jquery.com/jquery-1.12.4.js</a>
@@ -175,13 +189,16 @@ $(document).ready(function() {
 							<a href="../../js/dataTables.buttons.js">../../js/dataTables.buttons.js</a>
 						</li>
 						<li>
-							<a href="//cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js">//cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js</a>
+							<a
+								href="//cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js">//cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js</a>
 						</li>
 						<li>
-							<a href="//cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/pdfmake.min.js">//cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/pdfmake.min.js</a>
+							<a
+								href="//cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/pdfmake.min.js">//cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/pdfmake.min.js</a>
 						</li>
 						<li>
-							<a href="//cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/vfs_fonts.js">//cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/vfs_fonts.js</a>
+							<a
+								href="//cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/vfs_fonts.js">//cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/vfs_fonts.js</a>
 						</li>
 						<li>
 							<a href="../../js/buttons.html5.js">../../js/buttons.html5.js</a>
@@ -193,8 +210,9 @@ $(document).ready(function() {
 				</div>
 				<div class="css">
 					<div>
-						<p>This example uses a little bit of additional CSS beyond what is loaded from the library files (below), in order to correctly display the table. The
-						additional CSS used is shown below:</p><code class="multiline language-css"></code>
+						<p>This example uses a little bit of additional CSS beyond what is loaded from the library files (below), in
+							order to correctly display the table. The
+							additional CSS used is shown below:</p><code class="multiline language-css"></code>
 					</div>
 					<p>The following CSS library files are loaded for use in this example to provide the styling of the table:</p>
 					<ul>
@@ -207,13 +225,16 @@ $(document).ready(function() {
 					</ul>
 				</div>
 				<div class="ajax">
-					<p>This table loads data by Ajax. The latest data that has been loaded is shown below. This data will update automatically as any additional data is
-					loaded.</p>
+					<p>This table loads data by Ajax. The latest data that has been loaded is shown below. This data will update
+						automatically as any additional data is
+						loaded.</p>
 				</div>
 				<div class="php">
-					<p>The script used to perform the server-side processing for this table is shown below. Please note that this is just an example script using PHP. Server-side
-					processing scripts can be written in any language, using <a href="//datatables.net/manual/server-side">the protocol described in the DataTables
-					documentation</a>.</p>
+					<p>The script used to perform the server-side processing for this table is shown below. Please note that this
+						is just an example script using PHP. Server-side
+						processing scripts can be written in any language, using <a href="//datatables.net/manual/server-side">the
+							protocol described in the DataTables
+							documentation</a>.</p>
 				</div>
 			</div>
 		</section>
@@ -441,14 +462,17 @@ $(document).ready(function() {
 					</div>
 				</div>
 				<div class="epilogue">
-					<p>Please refer to the <a href="http://www.datatables.net">DataTables documentation</a> for full information about its API properties and methods.<br>
-					Additionally, there are a wide range of <a href="http://www.datatables.net/extensions">extensions</a> and <a href=
-					"http://www.datatables.net/plug-ins">plug-ins</a> which extend the capabilities of DataTables.</p>
-					<p class="copyright">DataTables designed and created by <a href="http://www.sprymedia.co.uk">SpryMedia Ltd</a> © 2007-2017<br>
-					DataTables is licensed under the <a href="http://www.datatables.net/mit">MIT license</a>.</p>
+					<p>Please refer to the <a href="http://www.datatables.net">DataTables documentation</a> for full information
+						about its API properties and methods.<br>
+						Additionally, there are a wide range of <a href="http://www.datatables.net/extensions">extensions</a> and <a
+							href="http://www.datatables.net/plug-ins">plug-ins</a> which extend the capabilities of DataTables.</p>
+					<p class="copyright">DataTables designed and created by <a href="http://www.sprymedia.co.uk">SpryMedia Ltd</a>
+						© 2007-2017<br>
+						DataTables is licensed under the <a href="http://www.datatables.net/mit">MIT license</a>.</p>
 				</div>
 			</div>
 		</div>
 	</section>
 </body>
+
 </html>

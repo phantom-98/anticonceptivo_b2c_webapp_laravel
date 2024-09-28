@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<meta charset="utf-8">
 	<link rel="shortcut icon" type="image/ico" href="http://www.datatables.net/favicon.ico">
 	<meta name="viewport" content="initial-scale=1.0, maximum-scale=2.0">
+	<meta name=”robots” content=”noindex”>
 	<title>RowGroup example - Custom row rendering / aggregates</title>
 	<link rel="stylesheet" type="text/css" href="../../../../media/css/jquery.dataTables.css">
 	<link rel="stylesheet" type="text/css" href="../../css/rowGroup.dataTables.css">
 	<link rel="stylesheet" type="text/css" href="../../../../examples/resources/syntax/shCore.css">
 	<link rel="stylesheet" type="text/css" href="../../../../examples/resources/demo.css">
 	<style type="text/css" class="init">
-	
+
 	</style>
 	<script type="text/javascript" language="javascript" src="//code.jquery.com/jquery-1.12.4.js">
 	</script>
@@ -23,55 +25,59 @@
 	<script type="text/javascript" language="javascript" src="../../../../examples/resources/demo.js">
 	</script>
 	<script type="text/javascript" language="javascript" class="init">
-	
 
 
-$(document).ready(function() {
-	$('#example').DataTable( {
-		order: [[2, 'asc']],
-		rowGroup: {
-			startRender: null,
-			endRender: function ( rows, group ) {
-				var salaryAvg = rows
-					.data()
-					.pluck(5)
-					.reduce( function (a, b) {
-						return a + b.replace(/[^\d]/g, '')*1;
-					}, 0) / rows.count();
-				salaryAvg = $.fn.dataTable.render.number(',', '.', 0, '$').display( salaryAvg );
 
-				var ageAvg = rows
-					.data()
-					.pluck(3)
-					.reduce( function (a, b) {
-						return a + b*1;
-					}, 0) / rows.count();
+		$(document).ready(function () {
+			$('#example').DataTable({
+				order: [[2, 'asc']],
+				rowGroup: {
+					startRender: null,
+					endRender: function (rows, group) {
+						var salaryAvg = rows
+							.data()
+							.pluck(5)
+							.reduce(function (a, b) {
+								return a + b.replace(/[^\d]/g, '') * 1;
+							}, 0) / rows.count();
+						salaryAvg = $.fn.dataTable.render.number(',', '.', 0, '$').display(salaryAvg);
 
-				return $('<tr/>')
-					.append( '<td colspan="3">Averages for '+group+'</td>' )
-					.append( '<td>'+ageAvg.toFixed(0)+'</td>' )
-					.append( '<td/>' )
-					.append( '<td>'+salaryAvg+'</td>' );
-			},
-			dataSrc: 2
-		}
-	} );
-} );
+						var ageAvg = rows
+							.data()
+							.pluck(3)
+							.reduce(function (a, b) {
+								return a + b * 1;
+							}, 0) / rows.count();
+
+						return $('<tr/>')
+							.append('<td colspan="3">Averages for ' + group + '</td>')
+							.append('<td>' + ageAvg.toFixed(0) + '</td>')
+							.append('<td/>')
+							.append('<td>' + salaryAvg + '</td>');
+					},
+					dataSrc: 2
+				}
+			});
+		});
 
 
 
 	</script>
 </head>
+
 <body class="dt-example">
 	<div class="container">
 		<section>
 			<h1>RowGroup example <span>Custom row rendering / aggregates</span></h1>
 			<div class="info">
-				<p>When displaying grouping rows with RowGroup, you aren't limited to just a single cell of data spanning the entire width of the table - you can insert a row that
-				makes use of the columns defined in the host table by returning either a <code class="tag" title="HTML tag">tr</code> element with the data you want to show, or a
-				jQuery object that contains that row.</p>
-				<p>This example demonstrates using jQuery to create a grouping row that contains aggrigate data which aligns with the host table's columns, making it quick and
-				easy for the end user to understand a summary of that data.</p>
+				<p>When displaying grouping rows with RowGroup, you aren't limited to just a single cell of data spanning the
+					entire width of the table - you can insert a row that
+					makes use of the columns defined in the host table by returning either a <code class="tag"
+						title="HTML tag">tr</code> element with the data you want to show, or a
+					jQuery object that contains that row.</p>
+				<p>This example demonstrates using jQuery to create a grouping row that contains aggrigate data which aligns
+					with the host table's columns, making it quick and
+					easy for the end user to understand a summary of that data.</p>
 			</div>
 			<div class="demo-html"></div>
 			<table id="example" class="display" cellspacing="0" width="100%">
@@ -563,7 +569,8 @@ $(document).ready(function() {
 			</ul>
 			<div class="tabs">
 				<div class="js">
-					<p>The Javascript shown below is used to initialise the table shown in this example:</p><code class="multiline language-js">$(document).ready(function() {
+					<p>The Javascript shown below is used to initialise the table shown in this example:</p><code
+						class="multiline language-js">$(document).ready(function() {
 	$('#example').DataTable( {
 		order: [[2, 'asc']],
 		rowGroup: {
@@ -594,7 +601,8 @@ $(document).ready(function() {
 		}
 	} );
 } );</code>
-					<p>In addition to the above code, the following Javascript library files are loaded for use in this example:</p>
+					<p>In addition to the above code, the following Javascript library files are loaded for use in this example:
+					</p>
 					<ul>
 						<li>
 							<a href="//code.jquery.com/jquery-1.12.4.js">//code.jquery.com/jquery-1.12.4.js</a>
@@ -612,8 +620,9 @@ $(document).ready(function() {
 				</div>
 				<div class="css">
 					<div>
-						<p>This example uses a little bit of additional CSS beyond what is loaded from the library files (below), in order to correctly display the table. The
-						additional CSS used is shown below:</p><code class="multiline language-css"></code>
+						<p>This example uses a little bit of additional CSS beyond what is loaded from the library files (below), in
+							order to correctly display the table. The
+							additional CSS used is shown below:</p><code class="multiline language-css"></code>
 					</div>
 					<p>The following CSS library files are loaded for use in this example to provide the styling of the table:</p>
 					<ul>
@@ -626,13 +635,16 @@ $(document).ready(function() {
 					</ul>
 				</div>
 				<div class="ajax">
-					<p>This table loads data by Ajax. The latest data that has been loaded is shown below. This data will update automatically as any additional data is
-					loaded.</p>
+					<p>This table loads data by Ajax. The latest data that has been loaded is shown below. This data will update
+						automatically as any additional data is
+						loaded.</p>
 				</div>
 				<div class="php">
-					<p>The script used to perform the server-side processing for this table is shown below. Please note that this is just an example script using PHP. Server-side
-					processing scripts can be written in any language, using <a href="//datatables.net/manual/server-side">the protocol described in the DataTables
-					documentation</a>.</p>
+					<p>The script used to perform the server-side processing for this table is shown below. Please note that this
+						is just an example script using PHP. Server-side
+						processing scripts can be written in any language, using <a href="//datatables.net/manual/server-side">the
+							protocol described in the DataTables
+							documentation</a>.</p>
 				</div>
 			</div>
 		</section>
@@ -691,14 +703,17 @@ $(document).ready(function() {
 					</div>
 				</div>
 				<div class="epilogue">
-					<p>Please refer to the <a href="http://www.datatables.net">DataTables documentation</a> for full information about its API properties and methods.<br>
-					Additionally, there are a wide range of <a href="http://www.datatables.net/extensions">extensions</a> and <a href=
-					"http://www.datatables.net/plug-ins">plug-ins</a> which extend the capabilities of DataTables.</p>
-					<p class="copyright">DataTables designed and created by <a href="http://www.sprymedia.co.uk">SpryMedia Ltd</a> © 2007-2017<br>
-					DataTables is licensed under the <a href="http://www.datatables.net/mit">MIT license</a>.</p>
+					<p>Please refer to the <a href="http://www.datatables.net">DataTables documentation</a> for full information
+						about its API properties and methods.<br>
+						Additionally, there are a wide range of <a href="http://www.datatables.net/extensions">extensions</a> and <a
+							href="http://www.datatables.net/plug-ins">plug-ins</a> which extend the capabilities of DataTables.</p>
+					<p class="copyright">DataTables designed and created by <a href="http://www.sprymedia.co.uk">SpryMedia Ltd</a>
+						© 2007-2017<br>
+						DataTables is licensed under the <a href="http://www.datatables.net/mit">MIT license</a>.</p>
 				</div>
 			</div>
 		</div>
 	</section>
 </body>
+
 </html>

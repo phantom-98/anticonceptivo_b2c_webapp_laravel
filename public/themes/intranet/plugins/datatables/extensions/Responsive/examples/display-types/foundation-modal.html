@@ -1,22 +1,26 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<meta charset="utf-8">
 	<link rel="shortcut icon" type="image/ico" href="http://www.datatables.net/favicon.ico">
 	<meta name="viewport" content="initial-scale=1.0, maximum-scale=2.0">
+	<meta name=”robots” content=”noindex”>
 	<title>Responsive example - Foundation modal</title>
-	<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/css/foundation.min.css">
+	<link rel="stylesheet" type="text/css"
+		href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/css/foundation.min.css">
 	<link rel="stylesheet" type="text/css" href="../../../../media/css/dataTables.foundation.css">
 	<link rel="stylesheet" type="text/css" href="../../css/responsive.foundation.css">
 	<link rel="stylesheet" type="text/css" href="../../../../examples/resources/syntax/shCore.css">
 	<link rel="stylesheet" type="text/css" href="../../../../examples/resources/demo.css">
 	<style type="text/css" class="init">
-	
+
 	</style>
 	<script type="text/javascript" language="javascript" src="//code.jquery.com/jquery-1.12.3.js">
 	</script>
-	<script type="text/javascript" language="javascript" src="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/js/foundation.min.js">
-	</script>
+	<script type="text/javascript" language="javascript"
+		src="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/js/foundation.min.js">
+		</script>
 	<script type="text/javascript" language="javascript" src="../../../../media/js/jquery.dataTables.js">
 	</script>
 	<script type="text/javascript" language="javascript" src="../../../../media/js/dataTables.foundation.js">
@@ -30,43 +34,48 @@
 	<script type="text/javascript" language="javascript" src="../../../../examples/resources/demo.js">
 	</script>
 	<script type="text/javascript" language="javascript" class="init">
-	
 
 
-$(document).ready(function() {
-	$('#example').DataTable( {
-		responsive: {
-			details: {
-				display: $.fn.dataTable.Responsive.display.modal( {
-					header: function ( row ) {
-						var data = row.data();
-						return 'Details for '+data[0]+' '+data[1];
+
+		$(document).ready(function () {
+			$('#example').DataTable({
+				responsive: {
+					details: {
+						display: $.fn.dataTable.Responsive.display.modal({
+							header: function (row) {
+								var data = row.data();
+								return 'Details for ' + data[0] + ' ' + data[1];
+							}
+						}),
+						renderer: $.fn.dataTable.Responsive.renderer.tableAll()
 					}
-				} ),
-				renderer: $.fn.dataTable.Responsive.renderer.tableAll()
-			}
-		}
-	} );
-} );
+				}
+			});
+		});
 
 
 
 	</script>
 </head>
+
 <body class="dt-example dt-example-foundation">
 	<div class="container">
 		<section>
 			<h1>Responsive example <span>Foundation modal</span></h1>
 			<div class="info">
-				<p>This example shows the <a href="//datatables.net/reference/option/responsive.details.display"><code class="option" title=
-				"Responsive initialisation option">responsive.details.display</code></a> option being used with the <code>modal</code> option, which, when used with the Foundation
-				integration for Responsive, will use Foundation's native modal display.</p>
-				<p>The built-in <code>modal</code> display option should be executed as a function with optional parameters passed in to control the behaviour of the modal
-				display. In the case of Foundation it has only a <code>header</code> option which is a function that should return the title for the modal. If you do not wish to
-				display a title, simply don't use this option.</p>
-				<p>Additionally, the <a href="//datatables.net/reference/option/responsive.details.renderer"><code class="option" title=
-				"Responsive initialisation option">responsive.details.renderer</code></a> option is used here to display the full data for the row, rather than just the hidden
-				columns (which is the default behaviour) as this looks a bit better in a modal!</p>
+				<p>This example shows the <a href="//datatables.net/reference/option/responsive.details.display"><code
+							class="option" title="Responsive initialisation option">responsive.details.display</code></a> option being
+					used with the <code>modal</code> option, which, when used with the Foundation
+					integration for Responsive, will use Foundation's native modal display.</p>
+				<p>The built-in <code>modal</code> display option should be executed as a function with optional parameters
+					passed in to control the behaviour of the modal
+					display. In the case of Foundation it has only a <code>header</code> option which is a function that should
+					return the title for the modal. If you do not wish to
+					display a title, simply don't use this option.</p>
+				<p>Additionally, the <a href="//datatables.net/reference/option/responsive.details.renderer"><code
+							class="option" title="Responsive initialisation option">responsive.details.renderer</code></a> option is
+					used here to display the full data for the row, rather than just the hidden
+					columns (which is the default behaviour) as this looks a bit better in a modal!</p>
 			</div>
 			<div class="demo-html"></div>
 			<table id="example" class="display nowrap" cellspacing="0" width="100%">
@@ -722,7 +731,8 @@ $(document).ready(function() {
 			</ul>
 			<div class="tabs">
 				<div class="js">
-					<p>The Javascript shown below is used to initialise the table shown in this example:</p><code class="multiline language-js">$(document).ready(function() {
+					<p>The Javascript shown below is used to initialise the table shown in this example:</p><code
+						class="multiline language-js">$(document).ready(function() {
 	$('#example').DataTable( {
 		responsive: {
 			details: {
@@ -737,14 +747,15 @@ $(document).ready(function() {
 		}
 	} );
 } );</code>
-					<p>In addition to the above code, the following Javascript library files are loaded for use in this example:</p>
+					<p>In addition to the above code, the following Javascript library files are loaded for use in this example:
+					</p>
 					<ul>
 						<li>
 							<a href="//code.jquery.com/jquery-1.12.3.js">//code.jquery.com/jquery-1.12.3.js</a>
 						</li>
 						<li>
-							<a href=
-							"//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/js/foundation.min.js">//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/js/foundation.min.js</a>
+							<a
+								href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/js/foundation.min.js">//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/js/foundation.min.js</a>
 						</li>
 						<li>
 							<a href="../../../../media/js/jquery.dataTables.js">../../../../media/js/jquery.dataTables.js</a>
@@ -765,17 +776,19 @@ $(document).ready(function() {
 				</div>
 				<div class="css">
 					<div>
-						<p>This example uses a little bit of additional CSS beyond what is loaded from the library files (below), in order to correctly display the table. The
-						additional CSS used is shown below:</p><code class="multiline language-css"></code>
+						<p>This example uses a little bit of additional CSS beyond what is loaded from the library files (below), in
+							order to correctly display the table. The
+							additional CSS used is shown below:</p><code class="multiline language-css"></code>
 					</div>
 					<p>The following CSS library files are loaded for use in this example to provide the styling of the table:</p>
 					<ul>
 						<li>
-							<a href=
-							"//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/css/foundation.min.css">//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/css/foundation.min.css</a>
+							<a
+								href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/css/foundation.min.css">//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/css/foundation.min.css</a>
 						</li>
 						<li>
-							<a href="../../../../media/css/dataTables.foundation.css">../../../../media/css/dataTables.foundation.css</a>
+							<a
+								href="../../../../media/css/dataTables.foundation.css">../../../../media/css/dataTables.foundation.css</a>
 						</li>
 						<li>
 							<a href="../../css/responsive.foundation.css">../../css/responsive.foundation.css</a>
@@ -783,13 +796,16 @@ $(document).ready(function() {
 					</ul>
 				</div>
 				<div class="ajax">
-					<p>This table loads data by Ajax. The latest data that has been loaded is shown below. This data will update automatically as any additional data is
-					loaded.</p>
+					<p>This table loads data by Ajax. The latest data that has been loaded is shown below. This data will update
+						automatically as any additional data is
+						loaded.</p>
 				</div>
 				<div class="php">
-					<p>The script used to perform the server-side processing for this table is shown below. Please note that this is just an example script using PHP. Server-side
-					processing scripts can be written in any language, using <a href="//datatables.net/manual/server-side">the protocol described in the DataTables
-					documentation</a>.</p>
+					<p>The script used to perform the server-side processing for this table is shown below. Please note that this
+						is just an example script using PHP. Server-side
+						processing scripts can be written in any language, using <a href="//datatables.net/manual/server-side">the
+							protocol described in the DataTables
+							documentation</a>.</p>
 				</div>
 			</div>
 		</section>
@@ -920,14 +936,17 @@ $(document).ready(function() {
 					</div>
 				</div>
 				<div class="epilogue">
-					<p>Please refer to the <a href="http://www.datatables.net">DataTables documentation</a> for full information about its API properties and methods.<br>
-					Additionally, there are a wide range of <a href="http://www.datatables.net/extensions">extensions</a> and <a href=
-					"http://www.datatables.net/plug-ins">plug-ins</a> which extend the capabilities of DataTables.</p>
-					<p class="copyright">DataTables designed and created by <a href="http://www.sprymedia.co.uk">SpryMedia Ltd</a> © 2007-2016<br>
-					DataTables is licensed under the <a href="http://www.datatables.net/mit">MIT license</a>.</p>
+					<p>Please refer to the <a href="http://www.datatables.net">DataTables documentation</a> for full information
+						about its API properties and methods.<br>
+						Additionally, there are a wide range of <a href="http://www.datatables.net/extensions">extensions</a> and <a
+							href="http://www.datatables.net/plug-ins">plug-ins</a> which extend the capabilities of DataTables.</p>
+					<p class="copyright">DataTables designed and created by <a href="http://www.sprymedia.co.uk">SpryMedia Ltd</a>
+						© 2007-2016<br>
+						DataTables is licensed under the <a href="http://www.datatables.net/mit">MIT license</a>.</p>
 				</div>
 			</div>
 		</div>
 	</section>
 </body>
+
 </html>

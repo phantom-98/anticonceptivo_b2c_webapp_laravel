@@ -1,23 +1,24 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<meta charset="utf-8">
 	<link rel="shortcut icon" type="image/ico" href="http://www.datatables.net/favicon.ico">
 	<meta name="viewport" content="initial-scale=1.0, maximum-scale=2.0">
+	<meta name=”robots” content=”noindex”>
 	<title>DataTables example - Child rows (show extra / detailed information)</title>
 	<link rel="stylesheet" type="text/css" href="../../media/css/jquery.dataTables.css">
 	<link rel="stylesheet" type="text/css" href="../resources/syntax/shCore.css">
 	<link rel="stylesheet" type="text/css" href="../resources/demo.css">
 	<style type="text/css" class="init">
-	
-td.details-control {
-	background: url('../resources/details_open.png') no-repeat center center;
-	cursor: pointer;
-}
-tr.shown td.details-control {
-	background: url('../resources/details_close.png') no-repeat center center;
-}
+		td.details-control {
+			background: url('../resources/details_open.png') no-repeat center center;
+			cursor: pointer;
+		}
 
+		tr.shown td.details-control {
+			background: url('../resources/details_close.png') no-repeat center center;
+		}
 	</style>
 	<script type="text/javascript" language="javascript" src="//code.jquery.com/jquery-1.12.4.js">
 	</script>
@@ -28,79 +29,87 @@ tr.shown td.details-control {
 	<script type="text/javascript" language="javascript" src="../resources/demo.js">
 	</script>
 	<script type="text/javascript" language="javascript" class="init">
-	
 
-/* Formatting function for row details - modify as you need */
-function format ( d ) {
-	// `d` is the original data object for the row
-	return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
-		'<tr>'+
-			'<td>Full name:</td>'+
-			'<td>'+d.name+'</td>'+
-		'</tr>'+
-		'<tr>'+
-			'<td>Extension number:</td>'+
-			'<td>'+d.extn+'</td>'+
-		'</tr>'+
-		'<tr>'+
-			'<td>Extra info:</td>'+
-			'<td>And any further details here (images etc)...</td>'+
-		'</tr>'+
-	'</table>';
-}
 
-$(document).ready(function() {
-	var table = $('#example').DataTable( {
-		"ajax": "../ajax/data/objects.txt",
-		"columns": [
-			{
-				"className":      'details-control',
-				"orderable":      false,
-				"data":           null,
-				"defaultContent": ''
-			},
-			{ "data": "name" },
-			{ "data": "position" },
-			{ "data": "office" },
-			{ "data": "salary" }
-		],
-		"order": [[1, 'asc']]
-	} );
-	
-	// Add event listener for opening and closing details
-	$('#example tbody').on('click', 'td.details-control', function () {
-		var tr = $(this).closest('tr');
-		var row = table.row( tr );
-
-		if ( row.child.isShown() ) {
-			// This row is already open - close it
-			row.child.hide();
-			tr.removeClass('shown');
+		/* Formatting function for row details - modify as you need */
+		function format(d) {
+			// `d` is the original data object for the row
+			return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
+				'<tr>' +
+				'<td>Full name:</td>' +
+				'<td>' + d.name + '</td>' +
+				'</tr>' +
+				'<tr>' +
+				'<td>Extension number:</td>' +
+				'<td>' + d.extn + '</td>' +
+				'</tr>' +
+				'<tr>' +
+				'<td>Extra info:</td>' +
+				'<td>And any further details here (images etc)...</td>' +
+				'</tr>' +
+				'</table>';
 		}
-		else {
-			// Open this row
-			row.child( format(row.data()) ).show();
-			tr.addClass('shown');
-		}
-	} );
-} );
+
+		$(document).ready(function () {
+			var table = $('#example').DataTable({
+				"ajax": "../ajax/data/objects.txt",
+				"columns": [
+					{
+						"className": 'details-control',
+						"orderable": false,
+						"data": null,
+						"defaultContent": ''
+					},
+					{ "data": "name" },
+					{ "data": "position" },
+					{ "data": "office" },
+					{ "data": "salary" }
+				],
+				"order": [[1, 'asc']]
+			});
+
+			// Add event listener for opening and closing details
+			$('#example tbody').on('click', 'td.details-control', function () {
+				var tr = $(this).closest('tr');
+				var row = table.row(tr);
+
+				if (row.child.isShown()) {
+					// This row is already open - close it
+					row.child.hide();
+					tr.removeClass('shown');
+				}
+				else {
+					// Open this row
+					row.child(format(row.data())).show();
+					tr.addClass('shown');
+				}
+			});
+		});
 
 
 	</script>
 </head>
+
 <body class="dt-example">
 	<div class="container">
 		<section>
 			<h1>DataTables example <span>Child rows (show extra / detailed information)</span></h1>
 			<div class="info">
-				<p>The DataTables API has a number of methods available for attaching child rows to a <em>parent</em> row in the DataTable. This can be used to show additional
-				information about a row, useful for cases where you wish to convey more information about a row than there is space for in the host table.</p>
-				<p>The example below makes use of the <a href="//datatables.net/reference/api/row().child"><code class="api" title="DataTables API method">row().child</code></a>
-				methods to firstly check if a row is already displayed, and if so hide it (<a href="//datatables.net/reference/api/row().child.hide()"><code class="api" title=
-				"DataTables API method">row().child.hide()</code></a>), otherwise show it (<a href="//datatables.net/reference/api/row().child.show()"><code class="api" title=
-				"DataTables API method">row().child.show()</code></a>). The content of the child row is, in this example, defined by the <code>formatDetails()</code> function, but
-				you would replace that with whatever you wanted to show the content required, possibly including, for example, an Ajax call to the server to obtain the extra
-				information to show.</p>
+				<p>The DataTables API has a number of methods available for attaching child rows to a <em>parent</em> row in the
+					DataTable. This can be used to show additional
+					information about a row, useful for cases where you wish to convey more information about a row than there is
+					space for in the host table.</p>
+				<p>The example below makes use of the <a href="//datatables.net/reference/api/row().child"><code class="api"
+							title="DataTables API method">row().child</code></a>
+					methods to firstly check if a row is already displayed, and if so hide it (<a
+						href="//datatables.net/reference/api/row().child.hide()"><code class="api"
+							title="DataTables API method">row().child.hide()</code></a>), otherwise show it (<a
+						href="//datatables.net/reference/api/row().child.show()"><code class="api"
+							title="DataTables API method">row().child.show()</code></a>). The content of the child row is, in this
+					example, defined by the <code>formatDetails()</code> function, but
+					you would replace that with whatever you wanted to show the content required, possibly including, for example,
+					an Ajax call to the server to obtain the extra
+					information to show.</p>
 			</div>
 			<div class="demo-html"></div>
 			<table id="example" class="display" cellspacing="0" width="100%">
@@ -132,7 +141,8 @@ $(document).ready(function() {
 			</ul>
 			<div class="tabs">
 				<div class="js">
-					<p>The Javascript shown below is used to initialise the table shown in this example:</p><code class="multiline language-js">/* Formatting function for row details - modify as you need */
+					<p>The Javascript shown below is used to initialise the table shown in this example:</p><code
+						class="multiline language-js">/* Formatting function for row details - modify as you need */
 function format ( d ) {
 	// `d` is the original data object for the row
 	return '&lt;table cellpadding=&quot;5&quot; cellspacing=&quot;0&quot; border=&quot;0&quot; style=&quot;padding-left:50px;&quot;&gt;'+
@@ -186,7 +196,8 @@ $(document).ready(function() {
 		}
 	} );
 } );</code>
-					<p>In addition to the above code, the following Javascript library files are loaded for use in this example:</p>
+					<p>In addition to the above code, the following Javascript library files are loaded for use in this example:
+					</p>
 					<ul>
 						<li>
 							<a href="//code.jquery.com/jquery-1.12.4.js">//code.jquery.com/jquery-1.12.4.js</a>
@@ -201,8 +212,9 @@ $(document).ready(function() {
 				</div>
 				<div class="css">
 					<div>
-						<p>This example uses a little bit of additional CSS beyond what is loaded from the library files (below), in order to correctly display the table. The
-						additional CSS used is shown below:</p><code class="multiline language-css">td.details-control {
+						<p>This example uses a little bit of additional CSS beyond what is loaded from the library files (below), in
+							order to correctly display the table. The
+							additional CSS used is shown below:</p><code class="multiline language-css">td.details-control {
 	background: url('../resources/details_open.png') no-repeat center center;
 	cursor: pointer;
 }
@@ -218,13 +230,16 @@ tr.shown td.details-control {
 					</ul>
 				</div>
 				<div class="ajax">
-					<p>This table loads data by Ajax. The latest data that has been loaded is shown below. This data will update automatically as any additional data is
-					loaded.</p>
+					<p>This table loads data by Ajax. The latest data that has been loaded is shown below. This data will update
+						automatically as any additional data is
+						loaded.</p>
 				</div>
 				<div class="php">
-					<p>The script used to perform the server-side processing for this table is shown below. Please note that this is just an example script using PHP. Server-side
-					processing scripts can be written in any language, using <a href="//datatables.net/manual/server-side">the protocol described in the DataTables
-					documentation</a>.</p>
+					<p>The script used to perform the server-side processing for this table is shown below. Please note that this
+						is just an example script using PHP. Server-side
+						processing scripts can be written in any language, using <a href="//datatables.net/manual/server-side">the
+							protocol described in the DataTables
+							documentation</a>.</p>
 				</div>
 			</div>
 		</section>
@@ -544,14 +559,17 @@ tr.shown td.details-control {
 					</div>
 				</div>
 				<div class="epilogue">
-					<p>Please refer to the <a href="http://www.datatables.net">DataTables documentation</a> for full information about its API properties and methods.<br>
-					Additionally, there are a wide range of <a href="http://www.datatables.net/extensions">extensions</a> and <a href=
-					"http://www.datatables.net/plug-ins">plug-ins</a> which extend the capabilities of DataTables.</p>
-					<p class="copyright">DataTables designed and created by <a href="http://www.sprymedia.co.uk">SpryMedia Ltd</a> © 2007-2017<br>
-					DataTables is licensed under the <a href="http://www.datatables.net/mit">MIT license</a>.</p>
+					<p>Please refer to the <a href="http://www.datatables.net">DataTables documentation</a> for full information
+						about its API properties and methods.<br>
+						Additionally, there are a wide range of <a href="http://www.datatables.net/extensions">extensions</a> and <a
+							href="http://www.datatables.net/plug-ins">plug-ins</a> which extend the capabilities of DataTables.</p>
+					<p class="copyright">DataTables designed and created by <a href="http://www.sprymedia.co.uk">SpryMedia Ltd</a>
+						© 2007-2017<br>
+						DataTables is licensed under the <a href="http://www.datatables.net/mit">MIT license</a>.</p>
 				</div>
 			</div>
 		</div>
 	</section>
 </body>
+
 </html>

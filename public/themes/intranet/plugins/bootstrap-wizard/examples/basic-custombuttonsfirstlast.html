@@ -1,58 +1,61 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Wizard With Custom Next/Previous Buttons & First and Last buttons</title>
-    <!-- Bootstrap -->
-    <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+<head>
+	<title>Wizard With Custom Next/Previous Buttons & First and Last buttons</title>
+	<meta name=”robots” content=”noindex”>
+	<!-- Bootstrap -->
+	<link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link href="../prettify.css" rel="stylesheet">
-  </head>
-  <body>
-    <div class='container'>
-		
+</head>
+
+<body>
+	<div class='container'>
+
 		<div class="span12">
 			<section id="wizard">
-			  <div class="page-header">
-	            <h1>Wizard With Custom Next/Previous Buttons & First and Last buttons</h1>
-	          </div>
-	
+				<div class="page-header">
+					<h1>Wizard With Custom Next/Previous Buttons & First and Last buttons</h1>
+				</div>
+
 				<div id="rootwizard">
 					<div class="navbar">
-					  <div class="navbar-inner">
-					    <div class="container">
-					<ul>
-					  	<li><a href="#tab1" data-toggle="tab">First</a></li>
-						<li><a href="#tab2" data-toggle="tab">Second</a></li>
-						<li><a href="#tab3" data-toggle="tab">Third</a></li>
-						<li><a href="#tab4" data-toggle="tab">Forth</a></li>
-						<li><a href="#tab5" data-toggle="tab">Fifth</a></li>
-						<li><a href="#tab6" data-toggle="tab">Sixth</a></li>
-						<li><a href="#tab7" data-toggle="tab">Seventh</a></li>
-					</ul>
-					 </div>
-					  </div>
+						<div class="navbar-inner">
+							<div class="container">
+								<ul>
+									<li><a href="#tab1" data-toggle="tab">First</a></li>
+									<li><a href="#tab2" data-toggle="tab">Second</a></li>
+									<li><a href="#tab3" data-toggle="tab">Third</a></li>
+									<li><a href="#tab4" data-toggle="tab">Forth</a></li>
+									<li><a href="#tab5" data-toggle="tab">Fifth</a></li>
+									<li><a href="#tab6" data-toggle="tab">Sixth</a></li>
+									<li><a href="#tab7" data-toggle="tab">Seventh</a></li>
+								</ul>
+							</div>
+						</div>
 					</div>
 					<div class="tab-content">
-					    <div class="tab-pane" id="tab1">
-					      1
-					    </div>
-					    <div class="tab-pane" id="tab2">
-					      2
-					    </div>
+						<div class="tab-pane" id="tab1">
+							1
+						</div>
+						<div class="tab-pane" id="tab2">
+							2
+						</div>
 						<div class="tab-pane" id="tab3">
 							3
-					    </div>
+						</div>
 						<div class="tab-pane" id="tab4">
 							4
-					    </div>
+						</div>
 						<div class="tab-pane" id="tab5">
 							5
-					    </div>
+						</div>
 						<div class="tab-pane" id="tab6">
 							6
-					    </div>
+						</div>
 						<div class="tab-pane" id="tab7">
 							7
-					    </div>
+						</div>
 						<div style="float:right">
 							<input type='button' class='btn button-next' name='next' value='Next' />
 							<input type='button' class='btn button-last' name='last' value='Last' />
@@ -61,11 +64,11 @@
 							<input type='button' class='btn button-first' name='first' value='First' />
 							<input type='button' class='btn button-previous' name='previous' value='Previous' />
 						</div>
-					</div>	
+					</div>
 				</div>
-				
-<h3>HTML</h3>
-<pre class="prettyprint linenums">
+
+				<h3>HTML</h3>
+				<pre class="prettyprint linenums">
 &lt;div id="rootwizard">
 	&lt;div class="navbar">
 	  &lt;div class="navbar-inner">
@@ -116,25 +119,26 @@
 &lt;/div>
 </pre>
 
-<h3>JS</h3>
-<pre class="prettyprint linenums">
+				<h3>JS</h3>
+				<pre class="prettyprint linenums">
 $(document).ready(function() {
   	$('#rootwizard').bootstrapWizard({'nextSelector': '.button-next', 'previousSelector': '.button-previous', 'firstSelector': '.button-first', 'lastSelector': '.button-last'});
 });
-</pre>	
-				
+</pre>
+
 			</section>
- 		</div>
+		</div>
 	</div>
-    <script src="http://code.jquery.com/jquery-latest.js"></script>
-    <script src="../bootstrap/js/bootstrap.min.js"></script>
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+	<script src="../bootstrap/js/bootstrap.min.js"></script>
 	<script src="../jquery.bootstrap.wizard.js"></script>
 	<script src="../prettify.js"></script>
 	<script>
-	$(document).ready(function() {
-	  	$('#rootwizard').bootstrapWizard({'nextSelector': '.button-next', 'previousSelector': '.button-previous', 'firstSelector': '.button-first', 'lastSelector': '.button-last'});	
-		window.prettyPrint && prettyPrint()
-	});	
+		$(document).ready(function () {
+			$('#rootwizard').bootstrapWizard({ 'nextSelector': '.button-next', 'previousSelector': '.button-previous', 'firstSelector': '.button-first', 'lastSelector': '.button-last' });
+			window.prettyPrint && prettyPrint()
+		});	
 	</script>
-  </body>
+</body>
+
 </html>

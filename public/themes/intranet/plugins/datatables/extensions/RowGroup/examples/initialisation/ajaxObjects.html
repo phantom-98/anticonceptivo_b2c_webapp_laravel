@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<meta charset="utf-8">
 	<link rel="shortcut icon" type="image/ico" href="http://www.datatables.net/favicon.ico">
 	<meta name="viewport" content="initial-scale=1.0, maximum-scale=2.0">
+	<meta name=”robots” content=”noindex”>
 	<title>RowGroup example - Ajax with objects</title>
 	<link rel="stylesheet" type="text/css" href="../../../../media/css/jquery.dataTables.css">
 	<link rel="stylesheet" type="text/css" href="../../css/rowGroup.dataTables.css">
 	<link rel="stylesheet" type="text/css" href="../../../../examples/resources/syntax/shCore.css">
 	<link rel="stylesheet" type="text/css" href="../../../../examples/resources/demo.css">
 	<style type="text/css" class="init">
-	
+
 	</style>
 	<script type="text/javascript" language="javascript" src="//code.jquery.com/jquery-1.12.4.js">
 	</script>
@@ -23,40 +25,45 @@
 	<script type="text/javascript" language="javascript" src="../../../../examples/resources/demo.js">
 	</script>
 	<script type="text/javascript" language="javascript" class="init">
-	
 
 
-$(document).ready(function() {
-	$('#example').DataTable( {
-		ajax: '../../../../examples/ajax/data/objects.txt',
-		columns: [
-			{ data: 'name' },
-			{ data: 'position' },
-			{ data: 'office' },
-			{ data: 'extn' },
-			{ data: 'start_date' },
-			{ data: 'salary' }
-		],
-		order: [[2, 'asc']],
-		rowGroup: {
-			dataSrc: 'office'
-		}
-	} );
-} );
+
+		$(document).ready(function () {
+			$('#example').DataTable({
+				ajax: '../../../../examples/ajax/data/objects.txt',
+				columns: [
+					{ data: 'name' },
+					{ data: 'position' },
+					{ data: 'office' },
+					{ data: 'extn' },
+					{ data: 'start_date' },
+					{ data: 'salary' }
+				],
+				order: [[2, 'asc']],
+				rowGroup: {
+					dataSrc: 'office'
+				}
+			});
+		});
 
 
 
 	</script>
 </head>
+
 <body class="dt-example">
 	<div class="container">
 		<section>
 			<h1>RowGroup example <span>Ajax with objects</span></h1>
 			<div class="info">
-				<p>The majority of the RowGroup examples make use of an array data source since they are reading data from an HTML table. However, it is quite possible to make use
-				of objects as well, and in fact this often makes the most sense when using row grouping, since it is easy to identify the data point to use for grouping.</p>
-				<p>This example demonstrates Ajax loading of object based data for the table, with the <a href="//datatables.net/reference/option/rowGroup.dataSrc"><code class=
-				"option" title="DataTables initialisation option">rowGroup.dataSrc</code></a> option used to group by the <em>Office</em> column.</p>
+				<p>The majority of the RowGroup examples make use of an array data source since they are reading data from an
+					HTML table. However, it is quite possible to make use
+					of objects as well, and in fact this often makes the most sense when using row grouping, since it is easy to
+					identify the data point to use for grouping.</p>
+				<p>This example demonstrates Ajax loading of object based data for the table, with the <a
+						href="//datatables.net/reference/option/rowGroup.dataSrc"><code class="option"
+							title="DataTables initialisation option">rowGroup.dataSrc</code></a> option used to group by the
+					<em>Office</em> column.</p>
 			</div>
 			<div class="demo-html"></div>
 			<table id="example" class="display" cellspacing="0" width="100%">
@@ -90,7 +97,8 @@ $(document).ready(function() {
 			</ul>
 			<div class="tabs">
 				<div class="js">
-					<p>The Javascript shown below is used to initialise the table shown in this example:</p><code class="multiline language-js">$(document).ready(function() {
+					<p>The Javascript shown below is used to initialise the table shown in this example:</p><code
+						class="multiline language-js">$(document).ready(function() {
 	$('#example').DataTable( {
 		ajax: '../../../../examples/ajax/data/objects.txt',
 		columns: [
@@ -107,7 +115,8 @@ $(document).ready(function() {
 		}
 	} );
 } );</code>
-					<p>In addition to the above code, the following Javascript library files are loaded for use in this example:</p>
+					<p>In addition to the above code, the following Javascript library files are loaded for use in this example:
+					</p>
 					<ul>
 						<li>
 							<a href="//code.jquery.com/jquery-1.12.4.js">//code.jquery.com/jquery-1.12.4.js</a>
@@ -125,8 +134,9 @@ $(document).ready(function() {
 				</div>
 				<div class="css">
 					<div>
-						<p>This example uses a little bit of additional CSS beyond what is loaded from the library files (below), in order to correctly display the table. The
-						additional CSS used is shown below:</p><code class="multiline language-css"></code>
+						<p>This example uses a little bit of additional CSS beyond what is loaded from the library files (below), in
+							order to correctly display the table. The
+							additional CSS used is shown below:</p><code class="multiline language-css"></code>
 					</div>
 					<p>The following CSS library files are loaded for use in this example to provide the styling of the table:</p>
 					<ul>
@@ -139,13 +149,16 @@ $(document).ready(function() {
 					</ul>
 				</div>
 				<div class="ajax">
-					<p>This table loads data by Ajax. The latest data that has been loaded is shown below. This data will update automatically as any additional data is
-					loaded.</p>
+					<p>This table loads data by Ajax. The latest data that has been loaded is shown below. This data will update
+						automatically as any additional data is
+						loaded.</p>
 				</div>
 				<div class="php">
-					<p>The script used to perform the server-side processing for this table is shown below. Please note that this is just an example script using PHP. Server-side
-					processing scripts can be written in any language, using <a href="//datatables.net/manual/server-side">the protocol described in the DataTables
-					documentation</a>.</p>
+					<p>The script used to perform the server-side processing for this table is shown below. Please note that this
+						is just an example script using PHP. Server-side
+						processing scripts can be written in any language, using <a href="//datatables.net/manual/server-side">the
+							protocol described in the DataTables
+							documentation</a>.</p>
 				</div>
 			</div>
 		</section>
@@ -204,14 +217,17 @@ $(document).ready(function() {
 					</div>
 				</div>
 				<div class="epilogue">
-					<p>Please refer to the <a href="http://www.datatables.net">DataTables documentation</a> for full information about its API properties and methods.<br>
-					Additionally, there are a wide range of <a href="http://www.datatables.net/extensions">extensions</a> and <a href=
-					"http://www.datatables.net/plug-ins">plug-ins</a> which extend the capabilities of DataTables.</p>
-					<p class="copyright">DataTables designed and created by <a href="http://www.sprymedia.co.uk">SpryMedia Ltd</a> © 2007-2017<br>
-					DataTables is licensed under the <a href="http://www.datatables.net/mit">MIT license</a>.</p>
+					<p>Please refer to the <a href="http://www.datatables.net">DataTables documentation</a> for full information
+						about its API properties and methods.<br>
+						Additionally, there are a wide range of <a href="http://www.datatables.net/extensions">extensions</a> and <a
+							href="http://www.datatables.net/plug-ins">plug-ins</a> which extend the capabilities of DataTables.</p>
+					<p class="copyright">DataTables designed and created by <a href="http://www.sprymedia.co.uk">SpryMedia Ltd</a>
+						© 2007-2017<br>
+						DataTables is licensed under the <a href="http://www.datatables.net/mit">MIT license</a>.</p>
 				</div>
 			</div>
 		</div>
 	</section>
 </body>
+
 </html>

@@ -1,21 +1,24 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<meta charset="utf-8">
 	<link rel="shortcut icon" type="image/ico" href="http://www.datatables.net/favicon.ico">
 	<meta name="viewport" content="initial-scale=1.0, maximum-scale=2.0">
+	<meta name=”robots” content=”noindex”>
 	<title>DataTables example - Scrolling and Bootstrap tabs</title>
 	<link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="../../media/css/dataTables.bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="../resources/syntax/shCore.css">
 	<link rel="stylesheet" type="text/css" href="../resources/demo.css">
 	<style type="text/css" class="init">
-	
+
 	</style>
 	<script type="text/javascript" language="javascript" src="//code.jquery.com/jquery-1.12.4.js">
 	</script>
-	<script type="text/javascript" language="javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
-	</script>
+	<script type="text/javascript" language="javascript"
+		src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
+		</script>
 	<script type="text/javascript" language="javascript" src="../../media/js/jquery.dataTables.js">
 	</script>
 	<script type="text/javascript" language="javascript" src="../../media/js/dataTables.bootstrap.js">
@@ -25,42 +28,50 @@
 	<script type="text/javascript" language="javascript" src="../resources/demo.js">
 	</script>
 	<script type="text/javascript" language="javascript" class="init">
-	
 
-$(document).ready(function() {
-	$('a[data-toggle="tab"]').on( 'shown.bs.tab', function (e) {
-		$.fn.dataTable.tables( {visible: true, api: true} ).columns.adjust();
-	} );
-	
-	$('table.table').DataTable( {
-		ajax:           '../ajax/data/arrays.txt',
-		scrollY:        200,
-		scrollCollapse: true,
-		paging:         false
-	} );
 
-	// Apply a search to the second table for the demo
-	$('#myTable2').DataTable().search( 'New York' ).draw();
-} );
+		$(document).ready(function () {
+			$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+				$.fn.dataTable.tables({ visible: true, api: true }).columns.adjust();
+			});
+
+			$('table.table').DataTable({
+				ajax: '../ajax/data/arrays.txt',
+				scrollY: 200,
+				scrollCollapse: true,
+				paging: false
+			});
+
+			// Apply a search to the second table for the demo
+			$('#myTable2').DataTable().search('New York').draw();
+		});
 
 
 	</script>
 </head>
+
 <body class="dt-example dt-example-bootstrap">
 	<div class="container">
 		<section>
 			<h1>DataTables example <span>Scrolling and Bootstrap tabs</span></h1>
 			<div class="info">
-				<p>This example shows how DataTables with scrolling can be used together with <a href="http://getbootstrap.com/javascript/#tabs">Bootstrap tabs</a> (or indeed any
-				other method whereby the table is in a hidden, <code>display:none</code>, element when it is initialised).</p>
-				<p>The reason this requires special consideration is that when the DataTable is initialised in a hidden element the browser doesn't have any measurements with
-				which to give the DataTable, and this will result in the misalignment of columns when scrolling is enabled.</p>
-				<p>This misalignment can be corrected by the <a href="//datatables.net/reference/api/columns.adjust()"><code class="api" title=
-				"DataTables API method">columns.adjust()</code></a> method when the table is made visible (i.e. it has dimensions).</p>
-				<p>This example shows how the Bootstrap <code>shown.bs.tab</code> event can be used to trigger this method call. The visible tables on the page are selected using
-				the static <a href="//datatables.net/reference/api/%24.fn.dataTable.tables()"><code class="api" title="DataTables API method">$.fn.dataTable.tables()</code></a>
-				method and running the <a href="//datatables.net/reference/api/columns.adjust()"><code class="api" title="DataTables API method">columns.adjust()</code></a> method
-				on them.</p>
+				<p>This example shows how DataTables with scrolling can be used together with <a
+						href="http://getbootstrap.com/javascript/#tabs">Bootstrap tabs</a> (or indeed any
+					other method whereby the table is in a hidden, <code>display:none</code>, element when it is initialised).</p>
+				<p>The reason this requires special consideration is that when the DataTable is initialised in a hidden element
+					the browser doesn't have any measurements with
+					which to give the DataTable, and this will result in the misalignment of columns when scrolling is enabled.
+				</p>
+				<p>This misalignment can be corrected by the <a href="//datatables.net/reference/api/columns.adjust()"><code
+							class="api" title="DataTables API method">columns.adjust()</code></a> method when the table is made
+					visible (i.e. it has dimensions).</p>
+				<p>This example shows how the Bootstrap <code>shown.bs.tab</code> event can be used to trigger this method call.
+					The visible tables on the page are selected using
+					the static <a href="//datatables.net/reference/api/%24.fn.dataTable.tables()"><code class="api"
+							title="DataTables API method">$.fn.dataTable.tables()</code></a>
+					method and running the <a href="//datatables.net/reference/api/columns.adjust()"><code class="api"
+							title="DataTables API method">columns.adjust()</code></a> method
+					on them.</p>
 			</div>
 			<div class="demo-html"></div>
 			<div>
@@ -112,7 +123,8 @@ $(document).ready(function() {
 			</ul>
 			<div class="tabs">
 				<div class="js">
-					<p>The Javascript shown below is used to initialise the table shown in this example:</p><code class="multiline language-js">$(document).ready(function() {
+					<p>The Javascript shown below is used to initialise the table shown in this example:</p><code
+						class="multiline language-js">$(document).ready(function() {
 	$('a[data-toggle=&quot;tab&quot;]').on( 'shown.bs.tab', function (e) {
 		$.fn.dataTable.tables( {visible: true, api: true} ).columns.adjust();
 	} );
@@ -127,13 +139,15 @@ $(document).ready(function() {
 	// Apply a search to the second table for the demo
 	$('#myTable2').DataTable().search( 'New York' ).draw();
 } );</code>
-					<p>In addition to the above code, the following Javascript library files are loaded for use in this example:</p>
+					<p>In addition to the above code, the following Javascript library files are loaded for use in this example:
+					</p>
 					<ul>
 						<li>
 							<a href="//code.jquery.com/jquery-1.12.4.js">//code.jquery.com/jquery-1.12.4.js</a>
 						</li>
 						<li>
-							<a href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js</a>
+							<a
+								href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js</a>
 						</li>
 						<li>
 							<a href="../../media/js/jquery.dataTables.js">../../media/js/jquery.dataTables.js</a>
@@ -148,13 +162,15 @@ $(document).ready(function() {
 				</div>
 				<div class="css">
 					<div>
-						<p>This example uses a little bit of additional CSS beyond what is loaded from the library files (below), in order to correctly display the table. The
-						additional CSS used is shown below:</p><code class="multiline language-css"></code>
+						<p>This example uses a little bit of additional CSS beyond what is loaded from the library files (below), in
+							order to correctly display the table. The
+							additional CSS used is shown below:</p><code class="multiline language-css"></code>
 					</div>
 					<p>The following CSS library files are loaded for use in this example to provide the styling of the table:</p>
 					<ul>
 						<li>
-							<a href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css</a>
+							<a
+								href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css</a>
 						</li>
 						<li>
 							<a href="../../media/css/dataTables.bootstrap.css">../../media/css/dataTables.bootstrap.css</a>
@@ -162,13 +178,16 @@ $(document).ready(function() {
 					</ul>
 				</div>
 				<div class="ajax">
-					<p>This table loads data by Ajax. The latest data that has been loaded is shown below. This data will update automatically as any additional data is
-					loaded.</p>
+					<p>This table loads data by Ajax. The latest data that has been loaded is shown below. This data will update
+						automatically as any additional data is
+						loaded.</p>
 				</div>
 				<div class="php">
-					<p>The script used to perform the server-side processing for this table is shown below. Please note that this is just an example script using PHP. Server-side
-					processing scripts can be written in any language, using <a href="//datatables.net/manual/server-side">the protocol described in the DataTables
-					documentation</a>.</p>
+					<p>The script used to perform the server-side processing for this table is shown below. Please note that this
+						is just an example script using PHP. Server-side
+						processing scripts can be written in any language, using <a href="//datatables.net/manual/server-side">the
+							protocol described in the DataTables
+							documentation</a>.</p>
 				</div>
 			</div>
 		</section>
@@ -488,14 +507,17 @@ $(document).ready(function() {
 					</div>
 				</div>
 				<div class="epilogue">
-					<p>Please refer to the <a href="http://www.datatables.net">DataTables documentation</a> for full information about its API properties and methods.<br>
-					Additionally, there are a wide range of <a href="http://www.datatables.net/extensions">extensions</a> and <a href=
-					"http://www.datatables.net/plug-ins">plug-ins</a> which extend the capabilities of DataTables.</p>
-					<p class="copyright">DataTables designed and created by <a href="http://www.sprymedia.co.uk">SpryMedia Ltd</a> © 2007-2017<br>
-					DataTables is licensed under the <a href="http://www.datatables.net/mit">MIT license</a>.</p>
+					<p>Please refer to the <a href="http://www.datatables.net">DataTables documentation</a> for full information
+						about its API properties and methods.<br>
+						Additionally, there are a wide range of <a href="http://www.datatables.net/extensions">extensions</a> and <a
+							href="http://www.datatables.net/plug-ins">plug-ins</a> which extend the capabilities of DataTables.</p>
+					<p class="copyright">DataTables designed and created by <a href="http://www.sprymedia.co.uk">SpryMedia Ltd</a>
+						© 2007-2017<br>
+						DataTables is licensed under the <a href="http://www.datatables.net/mit">MIT license</a>.</p>
 				</div>
 			</div>
 		</div>
 	</section>
 </body>
+
 </html>

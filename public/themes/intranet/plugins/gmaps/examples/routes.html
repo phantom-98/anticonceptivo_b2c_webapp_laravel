@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
+  <meta name=”robots” content=”noindex”>
   <title>GMaps.js &mdash; Routes</title>
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
   <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
@@ -10,7 +12,7 @@
   <link rel="stylesheet" type="text/css" href="examples.css" />
   <script type="text/javascript">
     var map;
-    $(document).ready(function(){
+    $(document).ready(function () {
       map = new GMaps({
         el: '#map',
         lat: -12.043333,
@@ -27,6 +29,7 @@
     });
   </script>
 </head>
+
 <body>
   <h1>GMaps.js &mdash; Routes</h1>
   <div class="row">
@@ -43,9 +46,12 @@
   strokeOpacity: 0.6,
   strokeWeight: 6
 });</pre>
-      <p>You must define two points (<strong>origin</strong> and <strong>destination</strong>) and color, opacity and weight of the route in the map.</p>
-      <p>Also, you can define a <code>travelMode</code>: <code>driving</code>, <code>bicycling</code> or <code>walking</code>. Default is <code>walking</code></p>
+      <p>You must define two points (<strong>origin</strong> and <strong>destination</strong>) and color, opacity and
+        weight of the route in the map.</p>
+      <p>Also, you can define a <code>travelMode</code>: <code>driving</code>, <code>bicycling</code> or
+        <code>walking</code>. Default is <code>walking</code></p>
     </div>
   </div>
 </body>
+
 </html>

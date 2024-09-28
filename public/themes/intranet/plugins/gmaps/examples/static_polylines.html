@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
+  <meta name=”robots” content=”noindex”>
   <title>GMaps.js &mdash; Static map with polyline</title>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
   <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
@@ -9,13 +11,13 @@
   <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.3.0/bootstrap.min.css" />
   <link rel="stylesheet" type="text/css" href="examples.css" />
   <script>
-    $(document).ready(function(){
+    $(document).ready(function () {
       var path = [
-        [-12.040397656836609,-77.03373871559225],
-        [-12.040248585302038,-77.03993927003302],
-        [-12.050047116528843,-77.02448169303511],
-        [-12.044804866577001,-77.02154422636042],
-        [-12.040397656836609,-77.03373871559225]
+        [-12.040397656836609, -77.03373871559225],
+        [-12.040248585302038, -77.03993927003302],
+        [-12.050047116528843, -77.02448169303511],
+        [-12.044804866577001, -77.02154422636042],
+        [-12.040397656836609, -77.03373871559225]
       ];
 
       var url = GMaps.staticMapURL({
@@ -33,8 +35,9 @@
     });
   </script>
 </head>
+
 <body>
-<h1>GMaps.js &mdash; Static map with polyline</h1>
+  <h1>GMaps.js &mdash; Static map with polyline</h1>
   <div class="row">
     <div class="span11">
       <div id="map"></div>
@@ -59,4 +62,5 @@ $('&lt;img/&gt;').attr('src', url)
     </div>
   </div>
 </body>
+
 </html>

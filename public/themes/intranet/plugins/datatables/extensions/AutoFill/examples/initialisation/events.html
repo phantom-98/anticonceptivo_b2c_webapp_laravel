@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<meta charset="utf-8">
 	<link rel="shortcut icon" type="image/ico" href="http://www.datatables.net/favicon.ico">
 	<meta name="viewport" content="initial-scale=1.0, maximum-scale=2.0">
+	<meta name=”robots” content=”noindex”>
 	<title>AutoFill example - Events</title>
 	<link rel="stylesheet" type="text/css" href="../../../../media/css/jquery.dataTables.css">
 	<link rel="stylesheet" type="text/css" href="../../css/autoFill.dataTables.css">
 	<link rel="stylesheet" type="text/css" href="../../../../examples/resources/syntax/shCore.css">
 	<link rel="stylesheet" type="text/css" href="../../../../examples/resources/demo.css">
 	<style type="text/css" class="init">
-	
+
 	</style>
 	<script type="text/javascript" language="javascript" src="//code.jquery.com/jquery-1.12.4.js">
 	</script>
@@ -23,40 +25,46 @@
 	<script type="text/javascript" language="javascript" src="../../../../examples/resources/demo.js">
 	</script>
 	<script type="text/javascript" language="javascript" class="init">
-	
 
-$(document).ready(function() {
-	var table = $('#example').DataTable( {
-		autoFill: true
-	} );
 
-	table.on( 'autoFill', function () {
-		table.columns.adjust();
-	} );
-} );
+		$(document).ready(function () {
+			var table = $('#example').DataTable({
+				autoFill: true
+			});
+
+			table.on('autoFill', function () {
+				table.columns.adjust();
+			});
+		});
 
 
 	</script>
 </head>
+
 <body class="dt-example">
 	<div class="container">
 		<section>
 			<h1>AutoFill example <span>Events</span></h1>
 			<div class="info">
-				<p>AutoFill will emit events that can be listened for to take action when the user has completed an fill action. The events emitted by AutoFill are:</p>
+				<p>AutoFill will emit events that can be listened for to take action when the user has completed an fill action.
+					The events emitted by AutoFill are:</p>
 				<ul class="markdown">
 					<li>
-						<a href="//datatables.net/reference/event/preAutoFill"><code class="event" title="AutoFill event">preAutoFill</code></a> - Emitted prior to the data
+						<a href="//datatables.net/reference/event/preAutoFill"><code class="event"
+								title="AutoFill event">preAutoFill</code></a> - Emitted prior to the data
 						update, but after the drag has been completed
 					</li>
 					<li>
-						<a href="//datatables.net/reference/event/autoFill"><code class="event" title="AutoFill event">autoFill</code></a> - Emitted immediately after the table
+						<a href="//datatables.net/reference/event/autoFill"><code class="event"
+								title="AutoFill event">autoFill</code></a> - Emitted immediately after the table
 						has been updated with the new data.
 					</li>
 				</ul>
-				<p>This example shows the <a href="//datatables.net/reference/event/autoFill"><code class="event" title="AutoFill event">autoFill</code></a> event being listened
-				for to adjust the table's column sizes to suit the new data. Although this is a trivial example, this listener can be used to perform other updates such as writing
-				the filled data to a database.</p>
+				<p>This example shows the <a href="//datatables.net/reference/event/autoFill"><code class="event"
+							title="AutoFill event">autoFill</code></a> event being listened
+					for to adjust the table's column sizes to suit the new data. Although this is a trivial example, this listener
+					can be used to perform other updates such as writing
+					the filled data to a database.</p>
 			</div>
 			<div class="demo-html"></div>
 			<table id="example" class="display nowrap" cellspacing="0" width="100%">
@@ -548,7 +556,8 @@ $(document).ready(function() {
 			</ul>
 			<div class="tabs">
 				<div class="js">
-					<p>The Javascript shown below is used to initialise the table shown in this example:</p><code class="multiline language-js">$(document).ready(function() {
+					<p>The Javascript shown below is used to initialise the table shown in this example:</p><code
+						class="multiline language-js">$(document).ready(function() {
 	var table = $('#example').DataTable( {
 		autoFill: true
 	} );
@@ -557,7 +566,8 @@ $(document).ready(function() {
 		table.columns.adjust();
 	} );
 } );</code>
-					<p>In addition to the above code, the following Javascript library files are loaded for use in this example:</p>
+					<p>In addition to the above code, the following Javascript library files are loaded for use in this example:
+					</p>
 					<ul>
 						<li>
 							<a href="//code.jquery.com/jquery-1.12.4.js">//code.jquery.com/jquery-1.12.4.js</a>
@@ -575,8 +585,9 @@ $(document).ready(function() {
 				</div>
 				<div class="css">
 					<div>
-						<p>This example uses a little bit of additional CSS beyond what is loaded from the library files (below), in order to correctly display the table. The
-						additional CSS used is shown below:</p><code class="multiline language-css"></code>
+						<p>This example uses a little bit of additional CSS beyond what is loaded from the library files (below), in
+							order to correctly display the table. The
+							additional CSS used is shown below:</p><code class="multiline language-css"></code>
 					</div>
 					<p>The following CSS library files are loaded for use in this example to provide the styling of the table:</p>
 					<ul>
@@ -589,13 +600,16 @@ $(document).ready(function() {
 					</ul>
 				</div>
 				<div class="ajax">
-					<p>This table loads data by Ajax. The latest data that has been loaded is shown below. This data will update automatically as any additional data is
-					loaded.</p>
+					<p>This table loads data by Ajax. The latest data that has been loaded is shown below. This data will update
+						automatically as any additional data is
+						loaded.</p>
 				</div>
 				<div class="php">
-					<p>The script used to perform the server-side processing for this table is shown below. Please note that this is just an example script using PHP. Server-side
-					processing scripts can be written in any language, using <a href="//datatables.net/manual/server-side">the protocol described in the DataTables
-					documentation</a>.</p>
+					<p>The script used to perform the server-side processing for this table is shown below. Please note that this
+						is just an example script using PHP. Server-side
+						processing scripts can be written in any language, using <a href="//datatables.net/manual/server-side">the
+							protocol described in the DataTables
+							documentation</a>.</p>
 				</div>
 			</div>
 		</section>
@@ -663,14 +677,17 @@ $(document).ready(function() {
 					</div>
 				</div>
 				<div class="epilogue">
-					<p>Please refer to the <a href="http://www.datatables.net">DataTables documentation</a> for full information about its API properties and methods.<br>
-					Additionally, there are a wide range of <a href="http://www.datatables.net/extensions">extensions</a> and <a href=
-					"http://www.datatables.net/plug-ins">plug-ins</a> which extend the capabilities of DataTables.</p>
-					<p class="copyright">DataTables designed and created by <a href="http://www.sprymedia.co.uk">SpryMedia Ltd</a> © 2007-2017<br>
-					DataTables is licensed under the <a href="http://www.datatables.net/mit">MIT license</a>.</p>
+					<p>Please refer to the <a href="http://www.datatables.net">DataTables documentation</a> for full information
+						about its API properties and methods.<br>
+						Additionally, there are a wide range of <a href="http://www.datatables.net/extensions">extensions</a> and <a
+							href="http://www.datatables.net/plug-ins">plug-ins</a> which extend the capabilities of DataTables.</p>
+					<p class="copyright">DataTables designed and created by <a href="http://www.sprymedia.co.uk">SpryMedia Ltd</a>
+						© 2007-2017<br>
+						DataTables is licensed under the <a href="http://www.datatables.net/mit">MIT license</a>.</p>
 				</div>
 			</div>
 		</div>
 	</section>
 </body>
+
 </html>

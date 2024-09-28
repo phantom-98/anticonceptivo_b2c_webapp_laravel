@@ -1,21 +1,19 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<meta charset="utf-8">
 	<link rel="shortcut icon" type="image/ico" href="http://www.datatables.net/favicon.ico">
 	<meta name="viewport" content="initial-scale=1.0, maximum-scale=2.0">
+	<meta name=”robots” content=”noindex”>
 	<title>DataTables example - Custom toolbar elements</title>
 	<link rel="stylesheet" type="text/css" href="../../media/css/jquery.dataTables.css">
 	<link rel="stylesheet" type="text/css" href="../resources/syntax/shCore.css">
 	<link rel="stylesheet" type="text/css" href="../resources/demo.css">
 	<style type="text/css" class="init">
-	
-
-.toolbar {
-	float: left;
-}
-
-
+		.toolbar {
+			float: left;
+		}
 	</style>
 	<script type="text/javascript" language="javascript" src="//code.jquery.com/jquery-1.12.4.js">
 	</script>
@@ -26,35 +24,43 @@
 	<script type="text/javascript" language="javascript" src="../resources/demo.js">
 	</script>
 	<script type="text/javascript" language="javascript" class="init">
-	
 
-$(document).ready(function() {
-	$('#example').DataTable( {
-		"dom": '<"toolbar">frtip'
-	} );
 
-	$("div.toolbar").html('<b>Custom tool bar! Text/images etc.</b>');
-} );
+		$(document).ready(function () {
+			$('#example').DataTable({
+				"dom": '<"toolbar">frtip'
+			});
+
+			$("div.toolbar").html('<b>Custom tool bar! Text/images etc.</b>');
+		});
 
 
 	</script>
 </head>
+
 <body class="dt-example">
 	<div class="container">
 		<section>
 			<h1>DataTables example <span>Custom toolbar elements</span></h1>
 			<div class="info">
-				<p>DataTables inserts DOM elements around the table to control DataTables features, and you can make use of this mechanism as well to insert your own custom
-				elements. In this example a <code class="tag" title="HTML tag">div</code> with a class of '-string toolbar' is created using <a href=
-				"//datatables.net/reference/option/dom"><code class="option" title="DataTables initialisation option">dom</code></a>, and jQuery then used to insert HTML into that
-				element to create the toolbar. You could put whatever HTML you want into the toolbar!</p>
-				<p>For more complex features, or for creating reusable plug-ins, DataTables also has a feature plug-in API available, which can be used to create plug-ins which
-				are used in a table by a single character reference in the <a href="//datatables.net/reference/option/dom"><code class="option" title=
-				"DataTables initialisation option">dom</code></a> option (like the built in option of <code class="string" title="String">f</code> refers to 'filtering input', you
-				could have an <code class="string" title="String">F</code> option which creates your own filtering input control, custom to your app).</p>
-				<p>There are a number of <a href="//datatables.net/extensions">extensions for DataTables</a> that make use of this ability. For example, <a href=
-				"//datatables.net/extensions/buttons">Buttons</a> is a feature plug-in for DataTables that adds buttons into a toolbar for a table (copy to clipboard, save to
-				Excel / PDF, and more).</p>
+				<p>DataTables inserts DOM elements around the table to control DataTables features, and you can make use of this
+					mechanism as well to insert your own custom
+					elements. In this example a <code class="tag" title="HTML tag">div</code> with a class of '-string toolbar' is
+					created using <a href="//datatables.net/reference/option/dom"><code class="option"
+							title="DataTables initialisation option">dom</code></a>, and jQuery then used to insert HTML into that
+					element to create the toolbar. You could put whatever HTML you want into the toolbar!</p>
+				<p>For more complex features, or for creating reusable plug-ins, DataTables also has a feature plug-in API
+					available, which can be used to create plug-ins which
+					are used in a table by a single character reference in the <a
+						href="//datatables.net/reference/option/dom"><code class="option"
+							title="DataTables initialisation option">dom</code></a> option (like the built in option of <code
+						class="string" title="String">f</code> refers to 'filtering input', you
+					could have an <code class="string" title="String">F</code> option which creates your own filtering input
+					control, custom to your app).</p>
+				<p>There are a number of <a href="//datatables.net/extensions">extensions for DataTables</a> that make use of
+					this ability. For example, <a href="//datatables.net/extensions/buttons">Buttons</a> is a feature plug-in for
+					DataTables that adds buttons into a toolbar for a table (copy to clipboard, save to
+					Excel / PDF, and more).</p>
 			</div>
 			<div class="demo-html"></div>
 			<table id="example" class="display" cellspacing="0" width="100%">
@@ -546,14 +552,16 @@ $(document).ready(function() {
 			</ul>
 			<div class="tabs">
 				<div class="js">
-					<p>The Javascript shown below is used to initialise the table shown in this example:</p><code class="multiline language-js">$(document).ready(function() {
+					<p>The Javascript shown below is used to initialise the table shown in this example:</p><code
+						class="multiline language-js">$(document).ready(function() {
 	$('#example').DataTable( {
 		&quot;dom&quot;: '&lt;&quot;toolbar&quot;&gt;frtip'
 	} );
 
 	$(&quot;div.toolbar&quot;).html('&lt;b&gt;Custom tool bar! Text/images etc.&lt;/b&gt;');
 } );</code>
-					<p>In addition to the above code, the following Javascript library files are loaded for use in this example:</p>
+					<p>In addition to the above code, the following Javascript library files are loaded for use in this example:
+					</p>
 					<ul>
 						<li>
 							<a href="//code.jquery.com/jquery-1.12.4.js">//code.jquery.com/jquery-1.12.4.js</a>
@@ -568,8 +576,9 @@ $(document).ready(function() {
 				</div>
 				<div class="css">
 					<div>
-						<p>This example uses a little bit of additional CSS beyond what is loaded from the library files (below), in order to correctly display the table. The
-						additional CSS used is shown below:</p><code class="multiline language-css">.toolbar {
+						<p>This example uses a little bit of additional CSS beyond what is loaded from the library files (below), in
+							order to correctly display the table. The
+							additional CSS used is shown below:</p><code class="multiline language-css">.toolbar {
 	float: left;
 }</code>
 					</div>
@@ -581,13 +590,16 @@ $(document).ready(function() {
 					</ul>
 				</div>
 				<div class="ajax">
-					<p>This table loads data by Ajax. The latest data that has been loaded is shown below. This data will update automatically as any additional data is
-					loaded.</p>
+					<p>This table loads data by Ajax. The latest data that has been loaded is shown below. This data will update
+						automatically as any additional data is
+						loaded.</p>
 				</div>
 				<div class="php">
-					<p>The script used to perform the server-side processing for this table is shown below. Please note that this is just an example script using PHP. Server-side
-					processing scripts can be written in any language, using <a href="//datatables.net/manual/server-side">the protocol described in the DataTables
-					documentation</a>.</p>
+					<p>The script used to perform the server-side processing for this table is shown below. Please note that this
+						is just an example script using PHP. Server-side
+						processing scripts can be written in any language, using <a href="//datatables.net/manual/server-side">the
+							protocol described in the DataTables
+							documentation</a>.</p>
 				</div>
 			</div>
 		</section>
@@ -907,14 +919,17 @@ $(document).ready(function() {
 					</div>
 				</div>
 				<div class="epilogue">
-					<p>Please refer to the <a href="http://www.datatables.net">DataTables documentation</a> for full information about its API properties and methods.<br>
-					Additionally, there are a wide range of <a href="http://www.datatables.net/extensions">extensions</a> and <a href=
-					"http://www.datatables.net/plug-ins">plug-ins</a> which extend the capabilities of DataTables.</p>
-					<p class="copyright">DataTables designed and created by <a href="http://www.sprymedia.co.uk">SpryMedia Ltd</a> © 2007-2017<br>
-					DataTables is licensed under the <a href="http://www.datatables.net/mit">MIT license</a>.</p>
+					<p>Please refer to the <a href="http://www.datatables.net">DataTables documentation</a> for full information
+						about its API properties and methods.<br>
+						Additionally, there are a wide range of <a href="http://www.datatables.net/extensions">extensions</a> and <a
+							href="http://www.datatables.net/plug-ins">plug-ins</a> which extend the capabilities of DataTables.</p>
+					<p class="copyright">DataTables designed and created by <a href="http://www.sprymedia.co.uk">SpryMedia Ltd</a>
+						© 2007-2017<br>
+						DataTables is licensed under the <a href="http://www.datatables.net/mit">MIT license</a>.</p>
 				</div>
 			</div>
 		</div>
 	</section>
 </body>
+
 </html>

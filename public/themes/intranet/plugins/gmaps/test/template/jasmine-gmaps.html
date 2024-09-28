@@ -1,17 +1,20 @@
 <!doctype html>
 <html>
+
 <head>
   <meta charset="utf-8">
+  <meta name=”robots” content=”noindex”>
   <title>Jasmine Spec Runner</title>
-<% css.forEach(function(style){ %>
-  <link rel="stylesheet" type="text/css" href="<%= style %>">
-<% }) %>
-<% with (scripts) { %>
-  <% [].concat(polyfills, jasmine, vendor, helpers, src, specs, reporters, start).forEach(function(script){ %>
-  <script src="<%= script %>"></script>
-  <% }) %>
-<% }; %>
+  <% css.forEach(function(style){ %>
+    <link rel="stylesheet" type="text/css" href="<%= style %>">
+    <% }) %>
+      <% with (scripts) { %>
+        <% [].concat(polyfills, jasmine, vendor, helpers, src, specs, reporters, start).forEach(function(script){ %>
+          <script src="<%= script %>"></script>
+          <% }) %>
+            <% }; %>
 </head>
+
 <body>
 
   <h3>Basic map</h3>
@@ -46,4 +49,5 @@
   <h3>Events</h3>
   <div class="map" id="events"></div>
 </body>
+
 </html>

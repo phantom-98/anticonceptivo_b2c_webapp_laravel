@@ -1,26 +1,26 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<meta charset="utf-8">
 	<link rel="shortcut icon" type="image/ico" href="http://www.datatables.net/favicon.ico">
 	<meta name="viewport" content="initial-scale=1.0, maximum-scale=2.0">
+	<meta name=”robots” content=”noindex”>
 	<title>DataTables example - Events</title>
 	<link rel="stylesheet" type="text/css" href="../../../../media/css/jquery.dataTables.css">
 	<link rel="stylesheet" type="text/css" href="../../css/select.dataTables.css">
 	<link rel="stylesheet" type="text/css" href="../../../../examples/resources/syntax/shCore.css">
 	<link rel="stylesheet" type="text/css" href="../../../../examples/resources/demo.css">
 	<style type="text/css" class="init">
-	
-	#events {
-		margin-bottom: 1em;
-		padding: 1em;
-		background-color: #f6f6f6;
-		border: 1px solid #999;
-		border-radius: 3px;
-		height: 100px;
-		overflow: auto;
-	}
-
+		#events {
+			margin-bottom: 1em;
+			padding: 1em;
+			background-color: #f6f6f6;
+			border: 1px solid #999;
+			border-radius: 3px;
+			height: 100px;
+			overflow: auto;
+		}
 	</style>
 	<script type="text/javascript" language="javascript" src="//code.jquery.com/jquery-1.12.4.js">
 	</script>
@@ -33,42 +33,52 @@
 	<script type="text/javascript" language="javascript" src="../../../../examples/resources/demo.js">
 	</script>
 	<script type="text/javascript" language="javascript" class="init">
-	
-$(document).ready(function() {
-	var events = $('#events');
-	var table = $('#example').DataTable( {
-		select: true
-	} );
 
-	table
-		.on( 'select', function ( e, dt, type, indexes ) {
-			var rowData = table.rows( indexes ).data().toArray();
-			events.prepend( '<div><b>'+type+' selection</b> - '+JSON.stringify( rowData )+'</div>' );
-		} )
-		.on( 'deselect', function ( e, dt, type, indexes ) {
-			var rowData = table.rows( indexes ).data().toArray();
-			events.prepend( '<div><b>'+type+' <i>de</i>selection</b> - '+JSON.stringify( rowData )+'</div>' );
-		} );
-} );
+		$(document).ready(function () {
+			var events = $('#events');
+			var table = $('#example').DataTable({
+				select: true
+			});
+
+			table
+				.on('select', function (e, dt, type, indexes) {
+					var rowData = table.rows(indexes).data().toArray();
+					events.prepend('<div><b>' + type + ' selection</b> - ' + JSON.stringify(rowData) + '</div>');
+				})
+				.on('deselect', function (e, dt, type, indexes) {
+					var rowData = table.rows(indexes).data().toArray();
+					events.prepend('<div><b>' + type + ' <i>de</i>selection</b> - ' + JSON.stringify(rowData) + '</div>');
+				});
+		});
 
 	</script>
 </head>
+
 <body class="dt-example">
 	<div class="container">
 		<section>
 			<h1>DataTables example <span>Events</span></h1>
 			<div class="info">
-				<p>It can be very useful to know when an end user has selected or deselected an item in a DataTable. Select provides this information through the <a href=
-				"//datatables.net/reference/event/select"><code class="event" title="Select event">select</code></a> and <a href=
-				"//datatables.net/reference/event/deselect"><code class="event" title="Select event">deselect</code></a> events. There two events are given information about the
-				item selected in the form of what item type it is (<code class="string" title="String">row</code>, <code class="string" title="String">column</code> or
-				<code class="string" title="String">cell</code>) and its data index (see <a href="//datatables.net/reference/api/row().index()"><code class="api" title=
-				"DataTables API method">row().index()</code></a>, <a href="//datatables.net/reference/api/column().index()"><code class="api" title=
-				"DataTables API method">column().index()</code></a> and <a href="//datatables.net/reference/api/cell().index()"><code class="api" title=
-				"DataTables API method">cell().index()</code></a>).</p>
-				<p>In this trivial example the <a href="//datatables.net/reference/event/select"><code class="event" title="Select event">select</code></a> and <a href=
-				"//datatables.net/reference/event/deselect"><code class="event" title="Select event">deselect</code></a> events are used simply to show the data for the row(s)
-				that have been selected or deselected.</p>
+				<p>It can be very useful to know when an end user has selected or deselected an item in a DataTable. Select
+					provides this information through the <a href="//datatables.net/reference/event/select"><code class="event"
+							title="Select event">select</code></a> and <a href="//datatables.net/reference/event/deselect"><code
+							class="event" title="Select event">deselect</code></a> events. There two events are given information
+					about the
+					item selected in the form of what item type it is (<code class="string" title="String">row</code>, <code
+						class="string" title="String">column</code> or
+					<code class="string" title="String">cell</code>) and its data index (see <a
+						href="//datatables.net/reference/api/row().index()"><code class="api"
+							title="DataTables API method">row().index()</code></a>, <a
+						href="//datatables.net/reference/api/column().index()"><code class="api"
+							title="DataTables API method">column().index()</code></a> and <a
+						href="//datatables.net/reference/api/cell().index()"><code class="api"
+							title="DataTables API method">cell().index()</code></a>).
+				</p>
+				<p>In this trivial example the <a href="//datatables.net/reference/event/select"><code class="event"
+							title="Select event">select</code></a> and <a href="//datatables.net/reference/event/deselect"><code
+							class="event" title="Select event">deselect</code></a> events are used simply to show the data for the
+					row(s)
+					that have been selected or deselected.</p>
 			</div>
 			<div class="demo-html">
 				<div id="events">
@@ -564,7 +574,8 @@ $(document).ready(function() {
 			</ul>
 			<div class="tabs">
 				<div class="js">
-					<p>The Javascript shown below is used to initialise the table shown in this example:</p><code class="multiline language-js">$(document).ready(function() {
+					<p>The Javascript shown below is used to initialise the table shown in this example:</p><code
+						class="multiline language-js">$(document).ready(function() {
 	var events = $('#events');
 	var table = $('#example').DataTable( {
 		select: true
@@ -580,7 +591,8 @@ $(document).ready(function() {
 			events.prepend( '&lt;div&gt;&lt;b&gt;'+type+' &lt;i&gt;de&lt;/i&gt;selection&lt;/b&gt; - '+JSON.stringify( rowData )+'&lt;/div&gt;' );
 		} );
 } );</code>
-					<p>In addition to the above code, the following Javascript library files are loaded for use in this example:</p>
+					<p>In addition to the above code, the following Javascript library files are loaded for use in this example:
+					</p>
 					<ul>
 						<li>
 							<a href="//code.jquery.com/jquery-1.12.4.js">//code.jquery.com/jquery-1.12.4.js</a>
@@ -598,8 +610,9 @@ $(document).ready(function() {
 				</div>
 				<div class="css">
 					<div>
-						<p>This example uses a little bit of additional CSS beyond what is loaded from the library files (below), in order to correctly display the table. The
-						additional CSS used is shown below:</p><code class="multiline language-css">#events {
+						<p>This example uses a little bit of additional CSS beyond what is loaded from the library files (below), in
+							order to correctly display the table. The
+							additional CSS used is shown below:</p><code class="multiline language-css">#events {
 		margin-bottom: 1em;
 		padding: 1em;
 		background-color: #f6f6f6;
@@ -620,13 +633,16 @@ $(document).ready(function() {
 					</ul>
 				</div>
 				<div class="ajax">
-					<p>This table loads data by Ajax. The latest data that has been loaded is shown below. This data will update automatically as any additional data is
-					loaded.</p>
+					<p>This table loads data by Ajax. The latest data that has been loaded is shown below. This data will update
+						automatically as any additional data is
+						loaded.</p>
 				</div>
 				<div class="php">
-					<p>The script used to perform the server-side processing for this table is shown below. Please note that this is just an example script using PHP. Server-side
-					processing scripts can be written in any language, using <a href="//datatables.net/manual/server-side">the protocol described in the DataTables
-					documentation</a>.</p>
+					<p>The script used to perform the server-side processing for this table is shown below. Please note that this
+						is just an example script using PHP. Server-side
+						processing scripts can be written in any language, using <a href="//datatables.net/manual/server-side">the
+							protocol described in the DataTables
+							documentation</a>.</p>
 				</div>
 			</div>
 		</section>
@@ -711,14 +727,17 @@ $(document).ready(function() {
 					</div>
 				</div>
 				<div class="epilogue">
-					<p>Please refer to the <a href="http://www.datatables.net">DataTables documentation</a> for full information about its API properties and methods.<br>
-					Additionally, there are a wide range of <a href="http://www.datatables.net/extensions">extensions</a> and <a href=
-					"http://www.datatables.net/plug-ins">plug-ins</a> which extend the capabilities of DataTables.</p>
-					<p class="copyright">DataTables designed and created by <a href="http://www.sprymedia.co.uk">SpryMedia Ltd</a> © 2007-2017<br>
-					DataTables is licensed under the <a href="http://www.datatables.net/mit">MIT license</a>.</p>
+					<p>Please refer to the <a href="http://www.datatables.net">DataTables documentation</a> for full information
+						about its API properties and methods.<br>
+						Additionally, there are a wide range of <a href="http://www.datatables.net/extensions">extensions</a> and <a
+							href="http://www.datatables.net/plug-ins">plug-ins</a> which extend the capabilities of DataTables.</p>
+					<p class="copyright">DataTables designed and created by <a href="http://www.sprymedia.co.uk">SpryMedia Ltd</a>
+						© 2007-2017<br>
+						DataTables is licensed under the <a href="http://www.datatables.net/mit">MIT license</a>.</p>
 				</div>
 			</div>
 		</div>
 	</section>
 </body>
+
 </html>

@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
+  <meta name=”robots” content=”noindex”>
   <title>GMaps.js &mdash; Static map</title>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
   <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
@@ -9,7 +11,7 @@
   <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.3.0/bootstrap.min.css" />
   <link rel="stylesheet" type="text/css" href="examples.css" />
   <script>
-    $(document).ready(function(){
+    $(document).ready(function () {
       var url = GMaps.staticMapURL({
         size: [610, 350],
         lat: -12.043333,
@@ -25,7 +27,7 @@
           featureType: "landscape",
           elementType: "all",
           stylers: [
-            { hue: '#0A2D3F'},
+            { hue: '#0A2D3F' },
             { saturation: 50 },
             { lightness: -10 }
           ]
@@ -35,6 +37,7 @@
     });
   </script>
 </head>
+
 <body>
   <h1>GMaps.js &mdash; Static map</h1>
   <div class="row">
@@ -70,4 +73,5 @@ $('&lt;img/&gt;').attr('src', url)
     </div>
   </div>
 </body>
+
 </html>

@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<meta charset="utf-8">
 	<link rel="shortcut icon" type="image/ico" href="http://www.datatables.net/favicon.ico">
 	<meta name="viewport" content="initial-scale=1.0, maximum-scale=2.0">
+	<meta name=”robots” content=”noindex”>
 	<title>Buttons example - Hidden initialisation</title>
 	<link rel="stylesheet" type="text/css" href="../../../../media/css/jquery.dataTables.css">
 	<link rel="stylesheet" type="text/css" href="../../css/buttons.dataTables.css">
 	<link rel="stylesheet" type="text/css" href="../../../../examples/resources/syntax/shCore.css">
 	<link rel="stylesheet" type="text/css" href="../../../../examples/resources/demo.css">
 	<style type="text/css" class="init">
-	
-	button {
-		margin: 1em;
-		padding: 1em;
-	}
-
+		button {
+			margin: 1em;
+			padding: 1em;
+		}
 	</style>
 	<script type="text/javascript" language="javascript" src="//code.jquery.com/jquery-1.12.4.js">
 	</script>
@@ -30,48 +30,54 @@
 	<script type="text/javascript" language="javascript" src="../../../../examples/resources/demo.js">
 	</script>
 	<script type="text/javascript" language="javascript" class="init">
-	
 
 
-$(document).ready(function() {
-	$('#example').wrap('<div id="hide" style="display:none"/>');
 
-	$('#example').DataTable( {
-		dom: 'Bfrtip',
-		buttons: [
-			'copyFlash',
-			'csvFlash',
-			'excelFlash',
-			'pdfFlash'
-		]
-	} );
+		$(document).ready(function () {
+			$('#example').wrap('<div id="hide" style="display:none"/>');
 
-	$('#vis').one( 'click', function () {
-		$('#hide').css( 'display', 'block' );
-	} );
+			$('#example').DataTable({
+				dom: 'Bfrtip',
+				buttons: [
+					'copyFlash',
+					'csvFlash',
+					'excelFlash',
+					'pdfFlash'
+				]
+			});
 
-	$('#resize').on( 'click', function () {
-		$.fn.dataTable.tables( { visible: true, api: true } ).buttons.resize();
-	} );
-} );
+			$('#vis').one('click', function () {
+				$('#hide').css('display', 'block');
+			});
+
+			$('#resize').on('click', function () {
+				$.fn.dataTable.tables({ visible: true, api: true }).buttons.resize();
+			});
+		});
 
 
 
 	</script>
 </head>
+
 <body class="dt-example">
 	<div class="container">
 		<section>
 			<h1>Buttons example <span>Hidden initialisation</span></h1>
 			<div class="info">
-				<p>When Flash buttons are created the Flash movie clip inside of them (which provides the export action) is automatically sized to fit the button. However, if the
-				table is initialised while hidden the buttons will have zero height and width. As a result, when the table is made visible the Flash movies must be resized to fit
-				the buttons. This is done using the <a href="//datatables.net/reference/api/buttons.resize()"><code class="api" title=
-				"Buttons API method">buttons.resize()</code></a> method (note that this method is only available when the Flash export buttons plug-in for Buttons is
-				installed).</p>
-				<p>This example shows a table that is initially hidden. If you make it visible and click the export buttons nothing will happen. Click the <em>Resize buttons</em>
-				option and the export buttons will start to operate.</p>
-				<p>A resize is often required when the table is hidden in a tab when initialised - for example if using Bootstrap tabs you might use:</p>
+				<p>When Flash buttons are created the Flash movie clip inside of them (which provides the export action) is
+					automatically sized to fit the button. However, if the
+					table is initialised while hidden the buttons will have zero height and width. As a result, when the table is
+					made visible the Flash movies must be resized to fit
+					the buttons. This is done using the <a href="//datatables.net/reference/api/buttons.resize()"><code
+							class="api" title="Buttons API method">buttons.resize()</code></a> method (note that this method is only
+					available when the Flash export buttons plug-in for Buttons is
+					installed).</p>
+				<p>This example shows a table that is initially hidden. If you make it visible and click the export buttons
+					nothing will happen. Click the <em>Resize buttons</em>
+					option and the export buttons will start to operate.</p>
+				<p>A resize is often required when the table is hidden in a tab when initialised - for example if using
+					Bootstrap tabs you might use:</p>
 				<pre><code class="multiline language-js">$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 	$.fn.dataTable.tables( { visible: true, api: true } ).buttons.resize();
 })
@@ -569,7 +575,8 @@ $(document).ready(function() {
 			</ul>
 			<div class="tabs">
 				<div class="js">
-					<p>The Javascript shown below is used to initialise the table shown in this example:</p><code class="multiline language-js">$(document).ready(function() {
+					<p>The Javascript shown below is used to initialise the table shown in this example:</p><code
+						class="multiline language-js">$(document).ready(function() {
 	$('#example').wrap('&lt;div id=&quot;hide&quot; style=&quot;display:none&quot;/&gt;');
 
 	$('#example').DataTable( {
@@ -590,7 +597,8 @@ $(document).ready(function() {
 		$.fn.dataTable.tables( { visible: true, api: true } ).buttons.resize();
 	} );
 } );</code>
-					<p>In addition to the above code, the following Javascript library files are loaded for use in this example:</p>
+					<p>In addition to the above code, the following Javascript library files are loaded for use in this example:
+					</p>
 					<ul>
 						<li>
 							<a href="//code.jquery.com/jquery-1.12.4.js">//code.jquery.com/jquery-1.12.4.js</a>
@@ -611,8 +619,9 @@ $(document).ready(function() {
 				</div>
 				<div class="css">
 					<div>
-						<p>This example uses a little bit of additional CSS beyond what is loaded from the library files (below), in order to correctly display the table. The
-						additional CSS used is shown below:</p><code class="multiline language-css">button {
+						<p>This example uses a little bit of additional CSS beyond what is loaded from the library files (below), in
+							order to correctly display the table. The
+							additional CSS used is shown below:</p><code class="multiline language-css">button {
 		margin: 1em;
 		padding: 1em;
 	}</code>
@@ -628,13 +637,16 @@ $(document).ready(function() {
 					</ul>
 				</div>
 				<div class="ajax">
-					<p>This table loads data by Ajax. The latest data that has been loaded is shown below. This data will update automatically as any additional data is
-					loaded.</p>
+					<p>This table loads data by Ajax. The latest data that has been loaded is shown below. This data will update
+						automatically as any additional data is
+						loaded.</p>
 				</div>
 				<div class="php">
-					<p>The script used to perform the server-side processing for this table is shown below. Please note that this is just an example script using PHP. Server-side
-					processing scripts can be written in any language, using <a href="//datatables.net/manual/server-side">the protocol described in the DataTables
-					documentation</a>.</p>
+					<p>The script used to perform the server-side processing for this table is shown below. Please note that this
+						is just an example script using PHP. Server-side
+						processing scripts can be written in any language, using <a href="//datatables.net/manual/server-side">the
+							protocol described in the DataTables
+							documentation</a>.</p>
 				</div>
 			</div>
 		</section>
@@ -862,14 +874,17 @@ $(document).ready(function() {
 					</div>
 				</div>
 				<div class="epilogue">
-					<p>Please refer to the <a href="http://www.datatables.net">DataTables documentation</a> for full information about its API properties and methods.<br>
-					Additionally, there are a wide range of <a href="http://www.datatables.net/extensions">extensions</a> and <a href=
-					"http://www.datatables.net/plug-ins">plug-ins</a> which extend the capabilities of DataTables.</p>
-					<p class="copyright">DataTables designed and created by <a href="http://www.sprymedia.co.uk">SpryMedia Ltd</a> © 2007-2017<br>
-					DataTables is licensed under the <a href="http://www.datatables.net/mit">MIT license</a>.</p>
+					<p>Please refer to the <a href="http://www.datatables.net">DataTables documentation</a> for full information
+						about its API properties and methods.<br>
+						Additionally, there are a wide range of <a href="http://www.datatables.net/extensions">extensions</a> and <a
+							href="http://www.datatables.net/plug-ins">plug-ins</a> which extend the capabilities of DataTables.</p>
+					<p class="copyright">DataTables designed and created by <a href="http://www.sprymedia.co.uk">SpryMedia Ltd</a>
+						© 2007-2017<br>
+						DataTables is licensed under the <a href="http://www.datatables.net/mit">MIT license</a>.</p>
 				</div>
 			</div>
 		</div>
 	</section>
 </body>
+
 </html>

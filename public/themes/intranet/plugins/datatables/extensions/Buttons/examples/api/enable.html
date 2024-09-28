@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<meta charset="utf-8">
 	<link rel="shortcut icon" type="image/ico" href="http://www.datatables.net/favicon.ico">
 	<meta name="viewport" content="initial-scale=1.0, maximum-scale=2.0">
+	<meta name=”robots” content=”noindex”>
 	<title>Buttons example - Enable / disable</title>
 	<link rel="stylesheet" type="text/css" href="../../../../media/css/jquery.dataTables.css">
 	<link rel="stylesheet" type="text/css" href="../../css/buttons.dataTables.css">
@@ -11,7 +13,7 @@
 	<link rel="stylesheet" type="text/css" href="../../../../examples/resources/syntax/shCore.css">
 	<link rel="stylesheet" type="text/css" href="../../../../examples/resources/demo.css">
 	<style type="text/css" class="init">
-	
+
 	</style>
 	<script type="text/javascript" language="javascript" src="//code.jquery.com/jquery-1.12.4.js">
 	</script>
@@ -26,68 +28,81 @@
 	<script type="text/javascript" language="javascript" src="../../../../examples/resources/demo.js">
 	</script>
 	<script type="text/javascript" language="javascript" class="init">
-	
 
 
-$(document).ready(function() {
-	var table = $('#example').DataTable( {
-		dom: 'Bfrtip',
-		select: true,
-		buttons: [
-			{
-				text: 'Row selected data',
-				action: function ( e, dt, node, config ) {
-					alert(
-						'Row data: '+
-						JSON.stringify( dt.row( { selected: true } ).data() )
-					);
-				},
-				enabled: false
-			},
-			{
-				text: 'Count rows selected',
-				action: function ( e, dt, node, config ) {
-					alert( 'Rows: '+ dt.rows( { selected: true } ).count() );
-				},
-				enabled: false
-			}
-		]
-	} );
 
-	table.on( 'select', function () {
-		var selectedRows = table.rows( { selected: true } ).count();
+		$(document).ready(function () {
+			var table = $('#example').DataTable({
+				dom: 'Bfrtip',
+				select: true,
+				buttons: [
+					{
+						text: 'Row selected data',
+						action: function (e, dt, node, config) {
+							alert(
+								'Row data: ' +
+								JSON.stringify(dt.row({ selected: true }).data())
+							);
+						},
+						enabled: false
+					},
+					{
+						text: 'Count rows selected',
+						action: function (e, dt, node, config) {
+							alert('Rows: ' + dt.rows({ selected: true }).count());
+						},
+						enabled: false
+					}
+				]
+			});
 
-		table.button( 0 ).enable( selectedRows === 1 );
-		table.button( 1 ).enable( selectedRows > 0 );
-	} );
-} );
+			table.on('select', function () {
+				var selectedRows = table.rows({ selected: true }).count();
+
+				table.button(0).enable(selectedRows === 1);
+				table.button(1).enable(selectedRows > 0);
+			});
+		});
 
 
 
 	</script>
 </head>
+
 <body class="dt-example">
 	<div class="container">
 		<section>
 			<h1>Buttons example <span>Enable / disable</span></h1>
 			<div class="info">
-				<p>It can often be useful to be able to dynamically enable and disable buttons based on the document state and other components in the table. A typical example of
-				this is to enable a button that will take action on a selected row in the table, only when there is a row selected! If there is no row selected, the button should
-				not take any action when clicked upon (i.e. it is disabled).</p>
-				<p>This example makes use of the <a href="https://datatables.net/extensions/select">Select extension</a> for DataTables to provide row selection. The <a href=
-				"//datatables.net/reference/event/select"><code class="event" title="Select event">select</code></a> event it listened for to know when the row selection has
-				changed and then update the button's enabled / disabled state through the <a href="//datatables.net/reference/api/button().enable()"><code class="api" title=
-				"Buttons API method">button().enable()</code></a> method.</p>
-				<p>The <a href="//datatables.net/reference/api/button()"><code class="api" title="Buttons API method">button()</code></a> method is a selector method that will use
-				the information given to it to select the buttons that the subsequent methods will take action on. There is also a <a href=
-				"//datatables.net/reference/api/buttons()"><code class="api" title="Buttons API method">buttons()</code></a> method that can be used to select multiple buttons
-				(the DataTables API makes <a href="https://datatables.net/manual/api#Plural-/-Singular">significant use of this plural / singular distinction</a>).</p>
-				<p>The <a href="//datatables.net/reference/type/button-selector"><code class="type" title="Javascript parameter type">button-selector</code></a> used in this
-				example is a simple index selector - button 1 and button 2. Based on the number of rows selected the enablement state is adjusted. The first button is enabled when
-				there is only one row selected, the second when one or more rows are selected.</p>
-				<p>Note that the Select library provides a number of button types such as <a href="//datatables.net/reference/button/selected"><code class="button" title=
-				"Select button type">selected</code></a> and <a href="//datatables.net/reference/button/selectedSingle"><code class="button" title=
-				"Select button type">selectedSingle</code></a> that provide this enable / disabled option without the additional code shown in this example.</p>
+				<p>It can often be useful to be able to dynamically enable and disable buttons based on the document state and
+					other components in the table. A typical example of
+					this is to enable a button that will take action on a selected row in the table, only when there is a row
+					selected! If there is no row selected, the button should
+					not take any action when clicked upon (i.e. it is disabled).</p>
+				<p>This example makes use of the <a href="https://datatables.net/extensions/select">Select extension</a> for
+					DataTables to provide row selection. The <a href="//datatables.net/reference/event/select"><code class="event"
+							title="Select event">select</code></a> event it listened for to know when the row selection has
+					changed and then update the button's enabled / disabled state through the <a
+						href="//datatables.net/reference/api/button().enable()"><code class="api"
+							title="Buttons API method">button().enable()</code></a> method.</p>
+				<p>The <a href="//datatables.net/reference/api/button()"><code class="api"
+							title="Buttons API method">button()</code></a> method is a selector method that will use
+					the information given to it to select the buttons that the subsequent methods will take action on. There is
+					also a <a href="//datatables.net/reference/api/buttons()"><code class="api"
+							title="Buttons API method">buttons()</code></a> method that can be used to select multiple buttons
+					(the DataTables API makes <a href="https://datatables.net/manual/api#Plural-/-Singular">significant use of
+						this plural / singular distinction</a>).</p>
+				<p>The <a href="//datatables.net/reference/type/button-selector"><code class="type"
+							title="Javascript parameter type">button-selector</code></a> used in this
+					example is a simple index selector - button 1 and button 2. Based on the number of rows selected the
+					enablement state is adjusted. The first button is enabled when
+					there is only one row selected, the second when one or more rows are selected.</p>
+				<p>Note that the Select library provides a number of button types such as <a
+						href="//datatables.net/reference/button/selected"><code class="button"
+							title="Select button type">selected</code></a> and <a
+						href="//datatables.net/reference/button/selectedSingle"><code class="button"
+							title="Select button type">selectedSingle</code></a> that provide this enable / disabled option without
+					the additional code shown in this example.</p>
 			</div>
 			<div class="demo-html"></div>
 			<table id="example" class="display" cellspacing="0" width="100%">
@@ -579,7 +594,8 @@ $(document).ready(function() {
 			</ul>
 			<div class="tabs">
 				<div class="js">
-					<p>The Javascript shown below is used to initialise the table shown in this example:</p><code class="multiline language-js">$(document).ready(function() {
+					<p>The Javascript shown below is used to initialise the table shown in this example:</p><code
+						class="multiline language-js">$(document).ready(function() {
 	var table = $('#example').DataTable( {
 		dom: 'Bfrtip',
 		select: true,
@@ -611,7 +627,8 @@ $(document).ready(function() {
 		table.button( 1 ).enable( selectedRows &gt; 0 );
 	} );
 } );</code>
-					<p>In addition to the above code, the following Javascript library files are loaded for use in this example:</p>
+					<p>In addition to the above code, the following Javascript library files are loaded for use in this example:
+					</p>
 					<ul>
 						<li>
 							<a href="//code.jquery.com/jquery-1.12.4.js">//code.jquery.com/jquery-1.12.4.js</a>
@@ -632,8 +649,9 @@ $(document).ready(function() {
 				</div>
 				<div class="css">
 					<div>
-						<p>This example uses a little bit of additional CSS beyond what is loaded from the library files (below), in order to correctly display the table. The
-						additional CSS used is shown below:</p><code class="multiline language-css"></code>
+						<p>This example uses a little bit of additional CSS beyond what is loaded from the library files (below), in
+							order to correctly display the table. The
+							additional CSS used is shown below:</p><code class="multiline language-css"></code>
 					</div>
 					<p>The following CSS library files are loaded for use in this example to provide the styling of the table:</p>
 					<ul>
@@ -649,13 +667,16 @@ $(document).ready(function() {
 					</ul>
 				</div>
 				<div class="ajax">
-					<p>This table loads data by Ajax. The latest data that has been loaded is shown below. This data will update automatically as any additional data is
-					loaded.</p>
+					<p>This table loads data by Ajax. The latest data that has been loaded is shown below. This data will update
+						automatically as any additional data is
+						loaded.</p>
 				</div>
 				<div class="php">
-					<p>The script used to perform the server-side processing for this table is shown below. Please note that this is just an example script using PHP. Server-side
-					processing scripts can be written in any language, using <a href="//datatables.net/manual/server-side">the protocol described in the DataTables
-					documentation</a>.</p>
+					<p>The script used to perform the server-side processing for this table is shown below. Please note that this
+						is just an example script using PHP. Server-side
+						processing scripts can be written in any language, using <a href="//datatables.net/manual/server-side">the
+							protocol described in the DataTables
+							documentation</a>.</p>
 				</div>
 			</div>
 		</section>
@@ -883,14 +904,17 @@ $(document).ready(function() {
 					</div>
 				</div>
 				<div class="epilogue">
-					<p>Please refer to the <a href="http://www.datatables.net">DataTables documentation</a> for full information about its API properties and methods.<br>
-					Additionally, there are a wide range of <a href="http://www.datatables.net/extensions">extensions</a> and <a href=
-					"http://www.datatables.net/plug-ins">plug-ins</a> which extend the capabilities of DataTables.</p>
-					<p class="copyright">DataTables designed and created by <a href="http://www.sprymedia.co.uk">SpryMedia Ltd</a> © 2007-2017<br>
-					DataTables is licensed under the <a href="http://www.datatables.net/mit">MIT license</a>.</p>
+					<p>Please refer to the <a href="http://www.datatables.net">DataTables documentation</a> for full information
+						about its API properties and methods.<br>
+						Additionally, there are a wide range of <a href="http://www.datatables.net/extensions">extensions</a> and <a
+							href="http://www.datatables.net/plug-ins">plug-ins</a> which extend the capabilities of DataTables.</p>
+					<p class="copyright">DataTables designed and created by <a href="http://www.sprymedia.co.uk">SpryMedia Ltd</a>
+						© 2007-2017<br>
+						DataTables is licensed under the <a href="http://www.datatables.net/mit">MIT license</a>.</p>
 				</div>
 			</div>
 		</div>
 	</section>
 </body>
+
 </html>

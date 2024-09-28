@@ -1,26 +1,26 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<meta charset="utf-8">
 	<link rel="shortcut icon" type="image/ico" href="http://www.datatables.net/favicon.ico">
 	<meta name="viewport" content="initial-scale=1.0, maximum-scale=2.0">
+	<meta name=”robots” content=”noindex”>
 	<title>DataTables example - Events (cancellable)</title>
 	<link rel="stylesheet" type="text/css" href="../../../../media/css/jquery.dataTables.css">
 	<link rel="stylesheet" type="text/css" href="../../css/select.dataTables.css">
 	<link rel="stylesheet" type="text/css" href="../../../../examples/resources/syntax/shCore.css">
 	<link rel="stylesheet" type="text/css" href="../../../../examples/resources/demo.css">
 	<style type="text/css" class="init">
-	
-	#events {
-		margin-bottom: 1em;
-		padding: 1em;
-		background-color: #f6f6f6;
-		border: 1px solid #999;
-		border-radius: 3px;
-		height: 100px;
-		overflow: auto;
-	}
-
+		#events {
+			margin-bottom: 1em;
+			padding: 1em;
+			background-color: #f6f6f6;
+			border: 1px solid #999;
+			border-radius: 3px;
+			height: 100px;
+			overflow: auto;
+		}
 	</style>
 	<script type="text/javascript" language="javascript" src="//code.jquery.com/jquery-1.12.4.js">
 	</script>
@@ -33,36 +33,44 @@
 	<script type="text/javascript" language="javascript" src="../../../../examples/resources/demo.js">
 	</script>
 	<script type="text/javascript" language="javascript" class="init">
-	
-$(document).ready(function() {
-	var table = $('#example').DataTable( {
-		select: true
-	} );
 
-	table
-		.on( 'user-select', function ( e, dt, type, cell, originalEvent ) {
-			if ( $(originalEvent.target).index() === 0 ) {
-				e.preventDefault();
-			}
-		} );
-} );
+		$(document).ready(function () {
+			var table = $('#example').DataTable({
+				select: true
+			});
+
+			table
+				.on('user-select', function (e, dt, type, cell, originalEvent) {
+					if ($(originalEvent.target).index() === 0) {
+						e.preventDefault();
+					}
+				});
+		});
 
 	</script>
 </head>
+
 <body class="dt-example">
 	<div class="container">
 		<section>
 			<h1>DataTables example <span>Events (cancellable)</span></h1>
 			<div class="info">
-				<p>There are occasions where you might find it useful to be able to stop the selection of an item in a DataTable from happening when the user takes some action.
-				This can be, for example, when they click on an icon in the row to edit or delete the row - instead of selecting the row it should perform whatever other task is
-				required.</p>
-				<p>This can be done with the <a href="//datatables.net/reference/event/user-select"><code class="event" title="Select event">user-select</code></a> event which is
-				cancellable. The <a href="//datatables.net/reference/event/user-select"><code class="event" title="Select event">user-select</code></a> event will occur when the
-				event defined by <a href="//datatables.net/reference/option/select.selector"><code class="option" title="Select initialisation option">select.selector</code></a>
-				is triggered -typically a mouse click on a cell in the table. The event is cancelled by using <code>e.preventDefault()</code> or <code>return false;</code> from
-				the event handler.</p>
-				<p>This example demonstrates that ability by disallowing selection events from occurring on the first column in the table.</p>
+				<p>There are occasions where you might find it useful to be able to stop the selection of an item in a DataTable
+					from happening when the user takes some action.
+					This can be, for example, when they click on an icon in the row to edit or delete the row - instead of
+					selecting the row it should perform whatever other task is
+					required.</p>
+				<p>This can be done with the <a href="//datatables.net/reference/event/user-select"><code class="event"
+							title="Select event">user-select</code></a> event which is
+					cancellable. The <a href="//datatables.net/reference/event/user-select"><code class="event"
+							title="Select event">user-select</code></a> event will occur when the
+					event defined by <a href="//datatables.net/reference/option/select.selector"><code class="option"
+							title="Select initialisation option">select.selector</code></a>
+					is triggered -typically a mouse click on a cell in the table. The event is cancelled by using
+					<code>e.preventDefault()</code> or <code>return false;</code> from
+					the event handler.</p>
+				<p>This example demonstrates that ability by disallowing selection events from occurring on the first column in
+					the table.</p>
 			</div>
 			<div class="demo-html"></div>
 			<table id="example" class="display" cellspacing="0" width="100%">
@@ -554,7 +562,8 @@ $(document).ready(function() {
 			</ul>
 			<div class="tabs">
 				<div class="js">
-					<p>The Javascript shown below is used to initialise the table shown in this example:</p><code class="multiline language-js">$(document).ready(function() {
+					<p>The Javascript shown below is used to initialise the table shown in this example:</p><code
+						class="multiline language-js">$(document).ready(function() {
 	var table = $('#example').DataTable( {
 		select: true
 	} );
@@ -566,7 +575,8 @@ $(document).ready(function() {
 			}
 		} );
 } );</code>
-					<p>In addition to the above code, the following Javascript library files are loaded for use in this example:</p>
+					<p>In addition to the above code, the following Javascript library files are loaded for use in this example:
+					</p>
 					<ul>
 						<li>
 							<a href="//code.jquery.com/jquery-1.12.4.js">//code.jquery.com/jquery-1.12.4.js</a>
@@ -584,8 +594,9 @@ $(document).ready(function() {
 				</div>
 				<div class="css">
 					<div>
-						<p>This example uses a little bit of additional CSS beyond what is loaded from the library files (below), in order to correctly display the table. The
-						additional CSS used is shown below:</p><code class="multiline language-css">#events {
+						<p>This example uses a little bit of additional CSS beyond what is loaded from the library files (below), in
+							order to correctly display the table. The
+							additional CSS used is shown below:</p><code class="multiline language-css">#events {
 		margin-bottom: 1em;
 		padding: 1em;
 		background-color: #f6f6f6;
@@ -606,13 +617,16 @@ $(document).ready(function() {
 					</ul>
 				</div>
 				<div class="ajax">
-					<p>This table loads data by Ajax. The latest data that has been loaded is shown below. This data will update automatically as any additional data is
-					loaded.</p>
+					<p>This table loads data by Ajax. The latest data that has been loaded is shown below. This data will update
+						automatically as any additional data is
+						loaded.</p>
 				</div>
 				<div class="php">
-					<p>The script used to perform the server-side processing for this table is shown below. Please note that this is just an example script using PHP. Server-side
-					processing scripts can be written in any language, using <a href="//datatables.net/manual/server-side">the protocol described in the DataTables
-					documentation</a>.</p>
+					<p>The script used to perform the server-side processing for this table is shown below. Please note that this
+						is just an example script using PHP. Server-side
+						processing scripts can be written in any language, using <a href="//datatables.net/manual/server-side">the
+							protocol described in the DataTables
+							documentation</a>.</p>
 				</div>
 			</div>
 		</section>
@@ -697,14 +711,17 @@ $(document).ready(function() {
 					</div>
 				</div>
 				<div class="epilogue">
-					<p>Please refer to the <a href="http://www.datatables.net">DataTables documentation</a> for full information about its API properties and methods.<br>
-					Additionally, there are a wide range of <a href="http://www.datatables.net/extensions">extensions</a> and <a href=
-					"http://www.datatables.net/plug-ins">plug-ins</a> which extend the capabilities of DataTables.</p>
-					<p class="copyright">DataTables designed and created by <a href="http://www.sprymedia.co.uk">SpryMedia Ltd</a> © 2007-2017<br>
-					DataTables is licensed under the <a href="http://www.datatables.net/mit">MIT license</a>.</p>
+					<p>Please refer to the <a href="http://www.datatables.net">DataTables documentation</a> for full information
+						about its API properties and methods.<br>
+						Additionally, there are a wide range of <a href="http://www.datatables.net/extensions">extensions</a> and <a
+							href="http://www.datatables.net/plug-ins">plug-ins</a> which extend the capabilities of DataTables.</p>
+					<p class="copyright">DataTables designed and created by <a href="http://www.sprymedia.co.uk">SpryMedia Ltd</a>
+						© 2007-2017<br>
+						DataTables is licensed under the <a href="http://www.datatables.net/mit">MIT license</a>.</p>
 				</div>
 			</div>
 		</div>
 	</section>
 </body>
+
 </html>

@@ -185,9 +185,9 @@ const BlogCarousel = ({
                                                                     "DD MMM YYYY"
                                                                 )}
                                                         </div>
-                                                        <h3 className="font-poppins font-24 lh-24 bold text-white  mb-2">
+                                                        <h1 className="font-poppins font-24 lh-24 bold text-white  mb-2">
                                                             {post.title}
-                                                        </h3>
+                                                        </h1>
                                                         <div>
                                                             <Link to={postLink}>
                                                                 <h3
