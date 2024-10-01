@@ -369,7 +369,7 @@ var BannerCarousel = function BannerCarousel(_ref) {
             height: "100%"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("div", {
             className: "banner-buttons font-poppins font-35 bold color-033F5D",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("h3", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("span", {
               style: {
                 backgroundColor: "white"
               },

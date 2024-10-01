@@ -126,8 +126,8 @@ function AccordionComponent(_ref) {
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
           children: isActive ? '-' : '+'
         })]
-      }), isActive && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-        className: "accordion-content",
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+        className: "".concat(isActive ? 'visible' : 'collapse', " accordion-content"),
         dangerouslySetInnerHTML: {
           __html: seoData.description
         }
@@ -678,7 +678,7 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 var CondomProduct = function CondomProduct(_ref) {
   var title = _ref.title,
     _ref$style = _ref.style,
-    style = _ref$style === void 0 ? '' : _ref$style;
+    style = _ref$style === void 0 ? "" : _ref$style;
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
     _useState2 = _slicedToArray(_useState, 2),
     condoms = _useState2[0],
@@ -713,7 +713,7 @@ var CondomProduct = function CondomProduct(_ref) {
   return breakpoint === _helpers_vars__WEBPACK_IMPORTED_MODULE_6__.BREAKPOINTS.MEDIUM || breakpoint === _helpers_vars__WEBPACK_IMPORTED_MODULE_6__.BREAKPOINTS.LARGE || breakpoint === _helpers_vars__WEBPACK_IMPORTED_MODULE_6__.BREAKPOINTS.EXTRA_LARGE || breakpoint === _helpers_vars__WEBPACK_IMPORTED_MODULE_6__.BREAKPOINTS.EXTRA_EXTRA_LARGE ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
     className: "py-3",
     style: {
-      background: '#FFFFFF'
+      background: "#FFFFFF"
     },
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
       className: "container",
@@ -757,7 +757,7 @@ var CondomProduct = function CondomProduct(_ref) {
   }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
     className: "py-3",
     style: {
-      background: '#FFFFFF'
+      background: "#FFFFFF"
     },
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
       className: "container",
@@ -791,7 +791,7 @@ var CondomProduct = function CondomProduct(_ref) {
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("a", {
           className: "btn btn-bicolor btn-block d-flex my-2 w-auto",
           href: "https://anticonceptivo.cl/tienda/bienestar-sexual/preservativos",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h3", {
             className: "m-auto font-poppins font-14 bold px-2",
             children: "Ver todos los productos"
           })
@@ -941,7 +941,7 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 var PregnancyProduct = function PregnancyProduct(_ref) {
   var title = _ref.title,
     _ref$style = _ref.style,
-    style = _ref$style === void 0 ? '' : _ref$style,
+    style = _ref$style === void 0 ? "" : _ref$style,
     middleBanners = _ref.middleBanners;
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
     _useState2 = _slicedToArray(_useState, 2),
@@ -977,7 +977,7 @@ var PregnancyProduct = function PregnancyProduct(_ref) {
   return breakpoint === _helpers_vars__WEBPACK_IMPORTED_MODULE_6__.BREAKPOINTS.MEDIUM || breakpoint === _helpers_vars__WEBPACK_IMPORTED_MODULE_6__.BREAKPOINTS.LARGE || breakpoint === _helpers_vars__WEBPACK_IMPORTED_MODULE_6__.BREAKPOINTS.EXTRA_LARGE || breakpoint === _helpers_vars__WEBPACK_IMPORTED_MODULE_6__.BREAKPOINTS.EXTRA_EXTRA_LARGE ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
     className: "py-3",
     style: {
-      background: '#FFFFFF'
+      background: "#FFFFFF"
     },
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
       className: "container",
@@ -1011,7 +1011,7 @@ var PregnancyProduct = function PregnancyProduct(_ref) {
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("a", {
           className: "btn btn-bicolor btn-block d-flex my-2 w-auto",
           href: "https://anticonceptivo.cl/tienda/embarazo",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("h3", {
             className: "m-auto font-poppins font-14 bold px-2",
             children: "Ver todos los productos"
           })
@@ -1021,7 +1021,7 @@ var PregnancyProduct = function PregnancyProduct(_ref) {
   }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
     className: "py-3",
     style: {
-      background: '#FFFFFF'
+      background: "#FFFFFF"
     },
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
       className: "container",
@@ -1726,11 +1726,11 @@ var ProductCard = function ProductCard(_ref) {
     });
     if (product_plan) {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.Fragment, {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
-          className: "font-poppins ".concat(!mobile ? "font-16" : "font-12", " ").concat(mobile ? "d-block" : "", " bold color-009BE8 ").concat(!mobile ? "ml-2" : ""),
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("h3", {
+          className: "font-poppins inline ".concat(!mobile ? "font-16" : "font-12", " ").concat(mobile ? "d-block" : "", " bold color-009BE8 ").concat(!mobile ? "ml-2" : ""),
           children: "Al mes c/u"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("span", {
-          className: "font-poppins ".concat(!mobile ? "font-16" : "font-12", " ").concat(mobile ? "d-block" : "", " bold color-78d2ff ").concat(!mobile ? "ml-2" : ""),
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("h3", {
+          className: "font-poppins inline ".concat(!mobile ? "font-16" : "font-12", " ").concat(mobile ? "d-block" : "", " bold color-78d2ff ").concat(!mobile ? "ml-2" : ""),
           children: ["(Ahorra un", " ", Math.round((prod.price - product_plan.price) / prod.price * 100), " ", "%)"]
         })]
       });
@@ -1855,7 +1855,7 @@ var ProductCard = function ProductCard(_ref) {
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
           className: "col-12 text-left",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("h3", {
             className: "product-card-brand",
             children: product.laboratory.name
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {

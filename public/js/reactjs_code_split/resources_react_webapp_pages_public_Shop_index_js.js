@@ -174,8 +174,8 @@ function AccordionComponent(_ref) {
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
           children: isActive ? '-' : '+'
         })]
-      }), isActive && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-        className: "accordion-content",
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+        className: "".concat(isActive ? 'visible' : 'collapse', " accordion-content"),
         dangerouslySetInnerHTML: {
           __html: seoData.description
         }
@@ -975,11 +975,11 @@ var ProductCard = function ProductCard(_ref) {
     });
     if (product_plan) {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.Fragment, {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
-          className: "font-poppins ".concat(!mobile ? "font-16" : "font-12", " ").concat(mobile ? "d-block" : "", " bold color-009BE8 ").concat(!mobile ? "ml-2" : ""),
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("h3", {
+          className: "font-poppins inline ".concat(!mobile ? "font-16" : "font-12", " ").concat(mobile ? "d-block" : "", " bold color-009BE8 ").concat(!mobile ? "ml-2" : ""),
           children: "Al mes c/u"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("span", {
-          className: "font-poppins ".concat(!mobile ? "font-16" : "font-12", " ").concat(mobile ? "d-block" : "", " bold color-78d2ff ").concat(!mobile ? "ml-2" : ""),
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("h3", {
+          className: "font-poppins inline ".concat(!mobile ? "font-16" : "font-12", " ").concat(mobile ? "d-block" : "", " bold color-78d2ff ").concat(!mobile ? "ml-2" : ""),
           children: ["(Ahorra un", " ", Math.round((prod.price - product_plan.price) / prod.price * 100), " ", "%)"]
         })]
       });
@@ -1104,7 +1104,7 @@ var ProductCard = function ProductCard(_ref) {
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
           className: "col-12 text-left",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("h3", {
             className: "product-card-brand",
             children: product.laboratory.name
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
@@ -1354,7 +1354,7 @@ var ProductCardList = function ProductCardList(_ref) {
                 textDecoration: "none",
                 color: "#000000"
               },
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("h3", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
                 className: "col-md-12 text-truncate p-0",
                 children: product.name
               })

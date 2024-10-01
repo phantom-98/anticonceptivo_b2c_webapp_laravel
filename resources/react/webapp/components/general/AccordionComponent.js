@@ -46,13 +46,12 @@ export default function AccordionComponent({path}){
                 }
                 <div>{isActive ? '-' : '+'}</div>
               </div>
-                {
-                    isActive && 
-                    <div 
-                        className="accordion-content" 
-                        dangerouslySetInnerHTML={{__html: seoData.description}}
+              <div
+                        className={`${isActive ? 'visible':'collapse'} accordion-content`}
+                        dangerouslySetInnerHTML={{
+                            __html: seoData.description,
+                        }}
                     />
-                }
             </div>
           }
         </div>

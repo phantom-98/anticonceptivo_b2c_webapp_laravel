@@ -607,11 +607,11 @@ var ProductCard = function ProductCard(_ref) {
     });
     if (product_plan) {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.Fragment, {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
-          className: "font-poppins ".concat(!mobile ? "font-16" : "font-12", " ").concat(mobile ? "d-block" : "", " bold color-009BE8 ").concat(!mobile ? "ml-2" : ""),
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("h3", {
+          className: "font-poppins inline ".concat(!mobile ? "font-16" : "font-12", " ").concat(mobile ? "d-block" : "", " bold color-009BE8 ").concat(!mobile ? "ml-2" : ""),
           children: "Al mes c/u"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("span", {
-          className: "font-poppins ".concat(!mobile ? "font-16" : "font-12", " ").concat(mobile ? "d-block" : "", " bold color-78d2ff ").concat(!mobile ? "ml-2" : ""),
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("h3", {
+          className: "font-poppins inline ".concat(!mobile ? "font-16" : "font-12", " ").concat(mobile ? "d-block" : "", " bold color-78d2ff ").concat(!mobile ? "ml-2" : ""),
           children: ["(Ahorra un", " ", Math.round((prod.price - product_plan.price) / prod.price * 100), " ", "%)"]
         })]
       });
@@ -736,7 +736,7 @@ var ProductCard = function ProductCard(_ref) {
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
           className: "col-12 text-left",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("h3", {
             className: "product-card-brand",
             children: product.laboratory.name
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
@@ -898,8 +898,8 @@ var BlogListByCategory = function BlogListByCategory() {
     loaded = _useState2[0],
     setLoaded = _useState2[1];
   var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
-      name: '',
-      slug: ''
+      name: "",
+      slug: ""
     }),
     _useState4 = _slicedToArray(_useState3, 2),
     postCategory = _useState4[0],
@@ -910,7 +910,7 @@ var BlogListByCategory = function BlogListByCategory() {
     setPosts = _useState6[1];
   var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([{
       url: _routes_publicRoutes__WEBPACK_IMPORTED_MODULE_3__["default"].HOME.path,
-      name: 'Inicio'
+      name: "Inicio"
     }, {
       url: _routes_publicRoutes__WEBPACK_IMPORTED_MODULE_3__["default"].BLOG.path,
       name: _routes_publicRoutes__WEBPACK_IMPORTED_MODULE_3__["default"].BLOG.title
@@ -943,7 +943,7 @@ var BlogListByCategory = function BlogListByCategory() {
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     if (postCategory.slug) {
       setBreadcrumbs([].concat(_toConsumableArray(breadcrumbs), [{
-        url: _routes_publicRoutes__WEBPACK_IMPORTED_MODULE_3__["default"].BLOG_LIST_BY_CATEGORY.path.replace(':post_type_slug', postCategory.slug),
+        url: _routes_publicRoutes__WEBPACK_IMPORTED_MODULE_3__["default"].BLOG_LIST_BY_CATEGORY.path.replace(":post_type_slug", postCategory.slug),
         name: postCategory.name
       }]));
     }
@@ -961,7 +961,7 @@ var BlogListByCategory = function BlogListByCategory() {
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("h3", {
             className: "font-poppins font-46 font-md-36 bold color-009BE8",
             style: {
-              letterSpacing: '2px'
+              letterSpacing: "2px"
             },
             children: postCategory.name
           })
@@ -982,15 +982,15 @@ var BlogListByCategory = function BlogListByCategory() {
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
             className: "card w-100 post-mini-card ",
             style: {
-              minHeight: 'unset'
+              minHeight: "unset"
             },
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
               className: "card-body py-3 py-md-4",
               style: {
-                paddingLeft: '2.5rem',
-                paddingRight: '2.5rem'
+                paddingLeft: "2.5rem",
+                paddingRight: "2.5rem"
               },
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("p", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("h4", {
                 className: "card-text",
                 children: "No existe contenido para la categor\xEDa seleccionada, por favor vuelva en otro momento."
               })
@@ -998,7 +998,7 @@ var BlogListByCategory = function BlogListByCategory() {
           })
         }) : null]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_PostsRecommended__WEBPACK_IMPORTED_MODULE_5__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_ProductsForBlog__WEBPACK_IMPORTED_MODULE_8__["default"], {
-        title: 'TE PODRÍA INTERESAR'
+        title: "TE PODRÍA INTERESAR"
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_components_sections_Subscribe__WEBPACK_IMPORTED_MODULE_2__["default"], {})]
   });
