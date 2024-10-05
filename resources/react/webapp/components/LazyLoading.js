@@ -33,10 +33,10 @@ const LazyLoading = ({ height = "100vh", style = {} }) => {
                 </div>
 
                 <img
-                    className="py-2 responsive-d-display"
+                    className="py-2 responsive-d-display w-50 p-50"
                     src={logoGif}
                     alt="anticonceptivo.cl"
-                    style={{ width: 50 }}
+                    style={{ width: 50, height: 'auto'}}
                 />
             </div>
         </div>
